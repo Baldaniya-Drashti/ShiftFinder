@@ -1,0 +1,33 @@
+class SvgImageConstant {
+  static const backButton = "assets/svg/back_button.svg";
+  static const loginFrame = "assets/svg/login_frame.svg";
+  static const email = "assets/svg/ic_email.svg";
+  static const lock = "assets/svg/ic_lock.svg";
+  static const openEye = "assets/svg/ic_eye.svg";
+  static const closeEye = "assets/svg/ic_close_eye.svg";
+  static const twoPerson = "assets/svg/two_person.svg";
+  static const female = "assets/svg/ic_female.svg";
+  static const location = "assets/svg/location.svg";
+  static const threePerson = "assets/svg/three_person.svg";
+  static const delete = "assets/svg/delete.svg";
+  static const edit = "assets/svg/edit.svg";
+  static const person = "assets/svg/person.svg";
+  static const back = "assets/svg/ic_back.svg";
+  static const personSetting = "assets/svg/person_setting.svg";
+  static const nurse = "assets/svg/nurse.svg";
+  static const forward = "assets/svg/ic_forward.svg";
+  static const nurseGreen = "assets/svg/nurse_green.svg";
+  static const eye = "assets/svg/eye.svg";
+  static const teeth = "assets/svg/teeth.svg";
+  static const heart = "assets/svg/heart.svg";
+  static const medicine = "assets/svg/medicine.svg";
+  static const downArrow = "assets/svg/down_arrow.svg";
+  static const contact = "assets/svg/contact.svg";
+  static const camera = "assets/svg/camera.svg";
+  static const building = "assets/svg/building.svg";
+  static const association = "assets/svg/association.svg";
+  static const referral = "assets/svg/referral.svg";
+  static const locationIcon = "assets/svg/location_icon.svg";
+  static const note = "assets/svg/note.svg";
+  static const circleC = "assets/svg/circle_c.svg";
+}

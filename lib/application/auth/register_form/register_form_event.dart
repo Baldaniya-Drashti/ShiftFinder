@@ -1,0 +1,59 @@
+part of 'register_form_bloc.dart';
+
+@freezed
+class RegisterFormEvent with _$RegisterFormEvent {
+  const factory RegisterFormEvent.firstNameChanged(String firstName) =
+      FirstNameChanged;
+
+  const factory RegisterFormEvent.lastNameChanged(String lastName) =
+      LastNameChanged;
+
+  const factory RegisterFormEvent.checkTermsCondition(bool isCheck) =
+      CheckTermsCondition;
+
+  const factory RegisterFormEvent.registerPressed() = RegisterPressed;
+
+  /// >>>>>>>>>>>>>>>>>>> FOR REGISTER PROFILE PAGE <<<<<<<<<<<<<<<<<<<<
+
+  const factory RegisterFormEvent.changeProfilePicture(String imagePath) =
+      ChangeProfilePicture;
+
+  const factory RegisterFormEvent.companyNameChanged(String companyName) =
+      CompanyNameChanged;
+
+  const factory RegisterFormEvent.phoneNumberChanged(String phoneNumber) =
+      phoneNumberChanged;
+
+  const factory RegisterFormEvent.emailChanged(String email) = EmailChanged;
+
+  const factory RegisterFormEvent.passwordChanged(String password) =
+      PasswordChanged;
+
+  const factory RegisterFormEvent.confirmPasswordChanged(
+      String confirmPassword, String password) = ConfirmPasswordChanged;
+
+  const factory RegisterFormEvent.associationTextChanged(
+      String associationText) = AssociationTextChanged;
+
+  const factory RegisterFormEvent.referralCodeChanged(String referralCode) =
+      ReferralCodeChanged;
+
+  const factory RegisterFormEvent.companyDescChanged(String companyDesc) =
+      CompanyDescChanged;
+
+  const factory RegisterFormEvent.selectCountryCode(
+      String phoneCode, String flag) = SelectCountryCode;
+
+  const factory RegisterFormEvent.registerProfileBtnPressed() =
+      RegisterProfileBtnPressed;
+
+  const factory RegisterFormEvent.obscureText(int field) = ObscureText;
+
+  /// >>>>>>>>>>>>>>>>>>> FOR OTP VERIFICATION BOTTOM SHEET <<<<<<<<<<<<<<<<<<<<
+
+  const factory RegisterFormEvent.changeOTP(String otp) = ChangeOTP;
+  const factory RegisterFormEvent.startCountdown() = StartCountdown;
+  const factory RegisterFormEvent.decrementTimer() = DecrementTimer;
+  const factory RegisterFormEvent.resendOtp() = ResendOtp;
+  const factory RegisterFormEvent.verifyOtp() = VerifyOtp;
+}
