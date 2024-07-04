@@ -29,6 +29,14 @@ class HealthcarePostBloc
             ),
           );
         },
+        locationUnitSelectionChanged: (e) {
+          emit(
+            state.copyWith(
+              selectedLocationUnit: e.selectedUnit,
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
         rateHourChanged: (e) {
           emit(
             state.copyWith(

@@ -1,7 +1,8 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, prefer_const_constructors
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shift/application/location_details/location_details_bloc.dart';
@@ -11,15 +12,18 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/dialogs.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'locationDetailForm')
 class LocationDetailForm extends StatelessWidget {
-  const LocationDetailForm({super.key});
+  LocationDetailForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +55,10 @@ class LocationDetailForm extends StatelessWidget {
                         ),
                       ).show(context);
                     },
-                    (r) {},
+                    (r) {
+                      context.router
+                          .replace(const PageRouteInfo(MainTabView.name));
+                    },
                   ),
                 );
               },
@@ -63,12 +70,14 @@ class LocationDetailForm extends StatelessWidget {
                         ? AutovalidateMode.always
                         : AutovalidateMode.disabled,
                     child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
                       child: Column(
                         children: [
-                          addressTextField(context, state),
+                          locationAddressTextField(context, state),
                           paddingBetweenFields(),
                           CustomDropdwonWithTextField(
                             labelText: StringConstant.facilityType,
+                            fieldHintText: StringConstant.typeFacilityType,
                             isLabelPadding: true,
                             showPrefixIcon: true,
                             showTextfield: state.faciltyTypeDDValue
@@ -185,15 +194,23 @@ class LocationDetailForm extends StatelessWidget {
     );
   }
 
-  Widget addressTextField(
+  Widget locationAddressTextField(
     BuildContext context,
     LocationDetailsState state,
   ) {
     return CustomTextField(
-      labelText: StringConstant.address,
+      labelText: StringConstant.locationAddress,
       isLabelPadding: true,
-      hintText: StringConstant.address,
-      textCapitalization: TextCapitalization.words,
+      hintText: StringConstant.locationAddress,
+      isOptional: true,
+      optionalWidget: GestureDetector(
+        onTap: () {
+          AppDialog.showInfo(context, StringConstant.mutltiplelocationInfoDesc);
+        },
+        child: SvgPicture.asset(
+          SvgImageConstant.infoCircle,
+        ),
+      ),
       errorMaxLines: 2,
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
@@ -320,17 +337,29 @@ class LocationDetailForm extends StatelessWidget {
         children: [
           unitNumberField(context, state),
           paddingBetweenFields(),
+          CustomChipSet(
+            chipList: state.unitNoNameChipList,
+            backgroundColor: AppColors.grey.withOpacity(0.4),
+            spacing: 10,
+            onDelete: (value) {
+              context
+                  .read<LocationDetailsBloc>()
+                  .add(LocationDetailsEvent.removeUnitNumberChip(value));
+            },
+          ),
           notesField(context, state),
         ],
       ),
     );
   }
 
+  TextEditingController unitNoNamecontroller = TextEditingController();
   Widget unitNumberField(
     BuildContext context,
     LocationDetailsState state,
   ) {
     return CustomTextField(
+      controller: unitNoNamecontroller,
       labelText: StringConstant.unitNumberName,
       hintText: StringConstant.unitNumberName,
       errorMaxLines: 2,
@@ -339,6 +368,19 @@ class LocationDetailForm extends StatelessWidget {
             .read<LocationDetailsBloc>()
             .add(LocationDetailsEvent.unitNumberChanged(value));
       },
+      suffixIcon: CommonButton(
+        height: getSize(27),
+        width: getSize(59),
+        borderRadius: getSize(10),
+        buttonText: StringConstant.add,
+        buttonFontSize: 10,
+        onPressed: () {
+          context.read<LocationDetailsBloc>().add(
+                LocationDetailsEvent.addUnitNumberChipList(state.unitNumber),
+              );
+          unitNoNamecontroller.clear();
+        },
+      ),
       validator: null,
     );
   }

@@ -70,6 +70,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   TextStyle? textStyle;
   Color? iconColor;
   bool isShowBackBtn;
+  SystemUiOverlayStyle? systemOverlayStyle;
   CommonAppBar({
     super.key,
     required this.onBackPressed,
@@ -77,6 +78,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.textStyle,
     this.iconColor,
     this.isShowBackBtn = true,
+    this.systemOverlayStyle,
   });
 
   @override
@@ -99,7 +101,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       centerTitle: true,
       backgroundColor: AppColors.transparent,
-      systemOverlayStyle: SystemUiOverlayStyle.dark,
+      systemOverlayStyle: systemOverlayStyle ?? SystemUiOverlayStyle.dark,
       title: BaseText(
         text: title,
         fontSize: textStyle?.fontSize ?? 16,

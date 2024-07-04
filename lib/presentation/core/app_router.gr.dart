@@ -13,8 +13,8 @@ import 'package:flutter/material.dart' as _i16;
 import 'package:shift/presentation/auth/login/login_screen.dart' as _i5;
 import 'package:shift/presentation/auth/register/location_detail_form.dart'
     as _i4;
-import 'package:shift/presentation/auth/register/register_profile.dart' as _i12;
 import 'package:shift/presentation/auth/register/register_screen.dart' as _i13;
+import 'package:shift/presentation/auth/register/register_profile.dart' as _i12;
 import 'package:shift/presentation/healthcare_post/healthcare_post.dart' as _i1;
 import 'package:shift/presentation/main/main_tab.dart' as _i6;
 import 'package:shift/presentation/main/tabs/history_view.dart' as _i2;
@@ -52,9 +52,11 @@ abstract class $AppRouter extends _i15.RootStackRouter {
       );
     },
     LocationDetailForm.name: (routeData) {
+      final args = routeData.argsAs<LocationDetailFormArgs>(
+          orElse: () => const LocationDetailFormArgs());
       return _i15.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i4.LocationDetailForm(),
+        child: _i4.LocationDetailForm(key: args.key),
       );
     },
     LoginPage.name: (routeData) {
@@ -187,16 +189,31 @@ class HomeView extends _i15.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.LocationDetailForm]
-class LocationDetailForm extends _i15.PageRouteInfo<void> {
-  const LocationDetailForm({List<_i15.PageRouteInfo>? children})
-      : super(
+class LocationDetailForm extends _i15.PageRouteInfo<LocationDetailFormArgs> {
+  LocationDetailForm({
+    _i16.Key? key,
+    List<_i15.PageRouteInfo>? children,
+  }) : super(
           LocationDetailForm.name,
+          args: LocationDetailFormArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'LocationDetailForm';
 
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+  static const _i15.PageInfo<LocationDetailFormArgs> page =
+      _i15.PageInfo<LocationDetailFormArgs>(name);
+}
+
+class LocationDetailFormArgs {
+  const LocationDetailFormArgs({this.key});
+
+  final _i16.Key? key;
+
+  @override
+  String toString() {
+    return 'LocationDetailFormArgs{key: $key}';
+  }
 }
 
 /// generated route for

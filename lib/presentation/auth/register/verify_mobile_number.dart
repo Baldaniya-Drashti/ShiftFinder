@@ -8,6 +8,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/inputs/custom_pin_field.dart';
@@ -62,7 +63,13 @@ class VerifyPhoneNumber extends StatelessWidget {
                   },
                   (r) {
                     context.router.maybePop();
-                    context.router.push(PageRouteInfo(LocationDetailForm.name));
+                    if (getCurrentUser() == 0) {
+                      context.router
+                          .push(PageRouteInfo(HealthCarePostForm.name));
+                    } else {
+                      context.router
+                          .push(PageRouteInfo(LocationDetailForm.name));
+                    }
                   },
                 ),
               );
@@ -92,7 +99,7 @@ class VerifyPhoneNumber extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
-            height: getSize(20),
+            height: getSize(30),
           ),
           Stack(
             alignment: Alignment.center,
@@ -101,7 +108,7 @@ class VerifyPhoneNumber extends StatelessWidget {
                 alignment: Alignment.center,
                 child: BaseText(
                   textAlign: TextAlign.center,
-                  text: StringConstant.verification,
+                  text: StringConstant.verifyYourPhoneNumber,
                   fontSize: getSize(20),
                   fontWeight: FontWeight.w600,
                 ),
@@ -121,7 +128,7 @@ class VerifyPhoneNumber extends StatelessWidget {
             height: getSize(10),
           ),
           Container(
-            width: getSize(280),
+            width: getSize(255),
             alignment: Alignment.center,
             child: BaseText(
               textAlign: TextAlign.center,
@@ -184,7 +191,7 @@ class VerifyPhoneNumber extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: getSize(30),
+            height: getSize(2),
           ),
           Opacity(
             opacity: state.secondsRemaining == 0 ? 1 : 0.5,
@@ -220,7 +227,7 @@ class VerifyPhoneNumber extends StatelessWidget {
             height: 50,
           ),
           SizedBox(
-            height: getSize(isFullScreenDevice(context) ? 0 : 45),
+            height: getSize(isFullScreenDevice(context) ? 0 : 55),
           ),
         ],
       ),

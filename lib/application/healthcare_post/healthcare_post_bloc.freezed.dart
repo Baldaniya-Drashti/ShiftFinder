@@ -21,6 +21,7 @@ mixin _$HealthcarePostEvent {
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String language) selectedLanguageChanged,
     required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addRequiredSpecialitichips,
@@ -38,6 +39,7 @@ mixin _$HealthcarePostEvent {
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String language)? selectedLanguageChanged,
     TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addRequiredSpecialitichips,
@@ -53,6 +55,7 @@ mixin _$HealthcarePostEvent {
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String language)? selectedLanguageChanged,
     TResult Function(String location)? locationChanged,
+    TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addRequiredSpecialitichips,
@@ -70,6 +73,8 @@ mixin _$HealthcarePostEvent {
     required TResult Function(SelectedLanguageChanged value)
         selectedLanguageChanged,
     required TResult Function(LocationChanged value) locationChanged,
+    required TResult Function(LocationUnitSelectionChanged value)
+        locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(AddRequiredSpecialitichips value)
         addRequiredSpecialitichips,
@@ -87,6 +92,8 @@ mixin _$HealthcarePostEvent {
     TResult? Function(RoleTypeChanged value)? roleTypeChanged,
     TResult? Function(SelectedLanguageChanged value)? selectedLanguageChanged,
     TResult? Function(LocationChanged value)? locationChanged,
+    TResult? Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(AddRequiredSpecialitichips value)?
         addRequiredSpecialitichips,
@@ -104,6 +111,8 @@ mixin _$HealthcarePostEvent {
     TResult Function(RoleTypeChanged value)? roleTypeChanged,
     TResult Function(SelectedLanguageChanged value)? selectedLanguageChanged,
     TResult Function(LocationChanged value)? locationChanged,
+    TResult Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(AddRequiredSpecialitichips value)?
         addRequiredSpecialitichips,
@@ -206,6 +215,7 @@ class _$RoleTypeChangedImpl implements RoleTypeChanged {
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String language) selectedLanguageChanged,
     required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addRequiredSpecialitichips,
@@ -226,6 +236,7 @@ class _$RoleTypeChangedImpl implements RoleTypeChanged {
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String language)? selectedLanguageChanged,
     TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addRequiredSpecialitichips,
@@ -244,6 +255,7 @@ class _$RoleTypeChangedImpl implements RoleTypeChanged {
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String language)? selectedLanguageChanged,
     TResult Function(String location)? locationChanged,
+    TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addRequiredSpecialitichips,
@@ -267,6 +279,8 @@ class _$RoleTypeChangedImpl implements RoleTypeChanged {
     required TResult Function(SelectedLanguageChanged value)
         selectedLanguageChanged,
     required TResult Function(LocationChanged value) locationChanged,
+    required TResult Function(LocationUnitSelectionChanged value)
+        locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(AddRequiredSpecialitichips value)
         addRequiredSpecialitichips,
@@ -287,6 +301,8 @@ class _$RoleTypeChangedImpl implements RoleTypeChanged {
     TResult? Function(RoleTypeChanged value)? roleTypeChanged,
     TResult? Function(SelectedLanguageChanged value)? selectedLanguageChanged,
     TResult? Function(LocationChanged value)? locationChanged,
+    TResult? Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(AddRequiredSpecialitichips value)?
         addRequiredSpecialitichips,
@@ -307,6 +323,8 @@ class _$RoleTypeChangedImpl implements RoleTypeChanged {
     TResult Function(RoleTypeChanged value)? roleTypeChanged,
     TResult Function(SelectedLanguageChanged value)? selectedLanguageChanged,
     TResult Function(LocationChanged value)? locationChanged,
+    TResult Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(AddRequiredSpecialitichips value)?
         addRequiredSpecialitichips,
@@ -407,6 +425,7 @@ class _$SelectedLanguageChangedImpl implements SelectedLanguageChanged {
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String language) selectedLanguageChanged,
     required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addRequiredSpecialitichips,
@@ -427,6 +446,7 @@ class _$SelectedLanguageChangedImpl implements SelectedLanguageChanged {
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String language)? selectedLanguageChanged,
     TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addRequiredSpecialitichips,
@@ -445,6 +465,7 @@ class _$SelectedLanguageChangedImpl implements SelectedLanguageChanged {
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String language)? selectedLanguageChanged,
     TResult Function(String location)? locationChanged,
+    TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addRequiredSpecialitichips,
@@ -468,6 +489,8 @@ class _$SelectedLanguageChangedImpl implements SelectedLanguageChanged {
     required TResult Function(SelectedLanguageChanged value)
         selectedLanguageChanged,
     required TResult Function(LocationChanged value) locationChanged,
+    required TResult Function(LocationUnitSelectionChanged value)
+        locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(AddRequiredSpecialitichips value)
         addRequiredSpecialitichips,
@@ -488,6 +511,8 @@ class _$SelectedLanguageChangedImpl implements SelectedLanguageChanged {
     TResult? Function(RoleTypeChanged value)? roleTypeChanged,
     TResult? Function(SelectedLanguageChanged value)? selectedLanguageChanged,
     TResult? Function(LocationChanged value)? locationChanged,
+    TResult? Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(AddRequiredSpecialitichips value)?
         addRequiredSpecialitichips,
@@ -508,6 +533,8 @@ class _$SelectedLanguageChangedImpl implements SelectedLanguageChanged {
     TResult Function(RoleTypeChanged value)? roleTypeChanged,
     TResult Function(SelectedLanguageChanged value)? selectedLanguageChanged,
     TResult Function(LocationChanged value)? locationChanged,
+    TResult Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(AddRequiredSpecialitichips value)?
         addRequiredSpecialitichips,
@@ -606,6 +633,7 @@ class _$LocationChangedImpl implements LocationChanged {
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String language) selectedLanguageChanged,
     required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addRequiredSpecialitichips,
@@ -626,6 +654,7 @@ class _$LocationChangedImpl implements LocationChanged {
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String language)? selectedLanguageChanged,
     TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addRequiredSpecialitichips,
@@ -644,6 +673,7 @@ class _$LocationChangedImpl implements LocationChanged {
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String language)? selectedLanguageChanged,
     TResult Function(String location)? locationChanged,
+    TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addRequiredSpecialitichips,
@@ -667,6 +697,8 @@ class _$LocationChangedImpl implements LocationChanged {
     required TResult Function(SelectedLanguageChanged value)
         selectedLanguageChanged,
     required TResult Function(LocationChanged value) locationChanged,
+    required TResult Function(LocationUnitSelectionChanged value)
+        locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(AddRequiredSpecialitichips value)
         addRequiredSpecialitichips,
@@ -687,6 +719,8 @@ class _$LocationChangedImpl implements LocationChanged {
     TResult? Function(RoleTypeChanged value)? roleTypeChanged,
     TResult? Function(SelectedLanguageChanged value)? selectedLanguageChanged,
     TResult? Function(LocationChanged value)? locationChanged,
+    TResult? Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(AddRequiredSpecialitichips value)?
         addRequiredSpecialitichips,
@@ -707,6 +741,8 @@ class _$LocationChangedImpl implements LocationChanged {
     TResult Function(RoleTypeChanged value)? roleTypeChanged,
     TResult Function(SelectedLanguageChanged value)? selectedLanguageChanged,
     TResult Function(LocationChanged value)? locationChanged,
+    TResult Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(AddRequiredSpecialitichips value)?
         addRequiredSpecialitichips,
@@ -733,6 +769,220 @@ abstract class LocationChanged implements HealthcarePostEvent {
   @JsonKey(ignore: true)
   _$$LocationChangedImplCopyWith<_$LocationChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LocationUnitSelectionChangedImplCopyWith<$Res> {
+  factory _$$LocationUnitSelectionChangedImplCopyWith(
+          _$LocationUnitSelectionChangedImpl value,
+          $Res Function(_$LocationUnitSelectionChangedImpl) then) =
+      __$$LocationUnitSelectionChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String selectedUnit});
+}
+
+/// @nodoc
+class __$$LocationUnitSelectionChangedImplCopyWithImpl<$Res>
+    extends _$HealthcarePostEventCopyWithImpl<$Res,
+        _$LocationUnitSelectionChangedImpl>
+    implements _$$LocationUnitSelectionChangedImplCopyWith<$Res> {
+  __$$LocationUnitSelectionChangedImplCopyWithImpl(
+      _$LocationUnitSelectionChangedImpl _value,
+      $Res Function(_$LocationUnitSelectionChangedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? selectedUnit = null,
+  }) {
+    return _then(_$LocationUnitSelectionChangedImpl(
+      null == selectedUnit
+          ? _value.selectedUnit
+          : selectedUnit // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LocationUnitSelectionChangedImpl
+    implements LocationUnitSelectionChanged {
+  const _$LocationUnitSelectionChangedImpl(this.selectedUnit);
+
+  @override
+  final String selectedUnit;
+
+  @override
+  String toString() {
+    return 'HealthcarePostEvent.locationUnitSelectionChanged(selectedUnit: $selectedUnit)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LocationUnitSelectionChangedImpl &&
+            (identical(other.selectedUnit, selectedUnit) ||
+                other.selectedUnit == selectedUnit));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, selectedUnit);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LocationUnitSelectionChangedImplCopyWith<
+          _$LocationUnitSelectionChangedImpl>
+      get copyWith => __$$LocationUnitSelectionChangedImplCopyWithImpl<
+          _$LocationUnitSelectionChangedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String roleType) roleTypeChanged,
+    required TResult Function(String language) selectedLanguageChanged,
+    required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedUnit) locationUnitSelectionChanged,
+    required TResult Function(String rateHour) rateHourChanged,
+    required TResult Function(String selectedValue, bool? isOtherValue)
+        addRequiredSpecialitichips,
+    required TResult Function(String selectedValue)
+        removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue, bool? isOtherValue)
+        addPreferedSoftwareSkillchips,
+    required TResult Function(String selectedValue)
+        removePreferedSoftwareSkillchips,
+    required TResult Function() continueBtnPressed,
+  }) {
+    return locationUnitSelectionChanged(selectedUnit);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String roleType)? roleTypeChanged,
+    TResult? Function(String language)? selectedLanguageChanged,
+    TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
+    TResult? Function(String rateHour)? rateHourChanged,
+    TResult? Function(String selectedValue, bool? isOtherValue)?
+        addRequiredSpecialitichips,
+    TResult? Function(String selectedValue)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue, bool? isOtherValue)?
+        addPreferedSoftwareSkillchips,
+    TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
+    TResult? Function()? continueBtnPressed,
+  }) {
+    return locationUnitSelectionChanged?.call(selectedUnit);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String roleType)? roleTypeChanged,
+    TResult Function(String language)? selectedLanguageChanged,
+    TResult Function(String location)? locationChanged,
+    TResult Function(String selectedUnit)? locationUnitSelectionChanged,
+    TResult Function(String rateHour)? rateHourChanged,
+    TResult Function(String selectedValue, bool? isOtherValue)?
+        addRequiredSpecialitichips,
+    TResult Function(String selectedValue)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue, bool? isOtherValue)?
+        addPreferedSoftwareSkillchips,
+    TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
+    TResult Function()? continueBtnPressed,
+    required TResult orElse(),
+  }) {
+    if (locationUnitSelectionChanged != null) {
+      return locationUnitSelectionChanged(selectedUnit);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(RoleTypeChanged value) roleTypeChanged,
+    required TResult Function(SelectedLanguageChanged value)
+        selectedLanguageChanged,
+    required TResult Function(LocationChanged value) locationChanged,
+    required TResult Function(LocationUnitSelectionChanged value)
+        locationUnitSelectionChanged,
+    required TResult Function(RateHourChanged value) rateHourChanged,
+    required TResult Function(AddRequiredSpecialitichips value)
+        addRequiredSpecialitichips,
+    required TResult Function(RemoveRequiredSpecialitichips value)
+        removeRequiredSpecialitichips,
+    required TResult Function(AddPreferedSoftwareSkillchips value)
+        addPreferedSoftwareSkillchips,
+    required TResult Function(RemovePreferedSoftwareSkillchips value)
+        removePreferedSoftwareSkillchips,
+    required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+  }) {
+    return locationUnitSelectionChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(RoleTypeChanged value)? roleTypeChanged,
+    TResult? Function(SelectedLanguageChanged value)? selectedLanguageChanged,
+    TResult? Function(LocationChanged value)? locationChanged,
+    TResult? Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
+    TResult? Function(RateHourChanged value)? rateHourChanged,
+    TResult? Function(AddRequiredSpecialitichips value)?
+        addRequiredSpecialitichips,
+    TResult? Function(RemoveRequiredSpecialitichips value)?
+        removeRequiredSpecialitichips,
+    TResult? Function(AddPreferedSoftwareSkillchips value)?
+        addPreferedSoftwareSkillchips,
+    TResult? Function(RemovePreferedSoftwareSkillchips value)?
+        removePreferedSoftwareSkillchips,
+    TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+  }) {
+    return locationUnitSelectionChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RoleTypeChanged value)? roleTypeChanged,
+    TResult Function(SelectedLanguageChanged value)? selectedLanguageChanged,
+    TResult Function(LocationChanged value)? locationChanged,
+    TResult Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
+    TResult Function(RateHourChanged value)? rateHourChanged,
+    TResult Function(AddRequiredSpecialitichips value)?
+        addRequiredSpecialitichips,
+    TResult Function(RemoveRequiredSpecialitichips value)?
+        removeRequiredSpecialitichips,
+    TResult Function(AddPreferedSoftwareSkillchips value)?
+        addPreferedSoftwareSkillchips,
+    TResult Function(RemovePreferedSoftwareSkillchips value)?
+        removePreferedSoftwareSkillchips,
+    TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    required TResult orElse(),
+  }) {
+    if (locationUnitSelectionChanged != null) {
+      return locationUnitSelectionChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LocationUnitSelectionChanged implements HealthcarePostEvent {
+  const factory LocationUnitSelectionChanged(final String selectedUnit) =
+      _$LocationUnitSelectionChangedImpl;
+
+  String get selectedUnit;
+  @JsonKey(ignore: true)
+  _$$LocationUnitSelectionChangedImplCopyWith<
+          _$LocationUnitSelectionChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -804,6 +1054,7 @@ class _$RateHourChangedImpl implements RateHourChanged {
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String language) selectedLanguageChanged,
     required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addRequiredSpecialitichips,
@@ -824,6 +1075,7 @@ class _$RateHourChangedImpl implements RateHourChanged {
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String language)? selectedLanguageChanged,
     TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addRequiredSpecialitichips,
@@ -842,6 +1094,7 @@ class _$RateHourChangedImpl implements RateHourChanged {
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String language)? selectedLanguageChanged,
     TResult Function(String location)? locationChanged,
+    TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addRequiredSpecialitichips,
@@ -865,6 +1118,8 @@ class _$RateHourChangedImpl implements RateHourChanged {
     required TResult Function(SelectedLanguageChanged value)
         selectedLanguageChanged,
     required TResult Function(LocationChanged value) locationChanged,
+    required TResult Function(LocationUnitSelectionChanged value)
+        locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(AddRequiredSpecialitichips value)
         addRequiredSpecialitichips,
@@ -885,6 +1140,8 @@ class _$RateHourChangedImpl implements RateHourChanged {
     TResult? Function(RoleTypeChanged value)? roleTypeChanged,
     TResult? Function(SelectedLanguageChanged value)? selectedLanguageChanged,
     TResult? Function(LocationChanged value)? locationChanged,
+    TResult? Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(AddRequiredSpecialitichips value)?
         addRequiredSpecialitichips,
@@ -905,6 +1162,8 @@ class _$RateHourChangedImpl implements RateHourChanged {
     TResult Function(RoleTypeChanged value)? roleTypeChanged,
     TResult Function(SelectedLanguageChanged value)? selectedLanguageChanged,
     TResult Function(LocationChanged value)? locationChanged,
+    TResult Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(AddRequiredSpecialitichips value)?
         addRequiredSpecialitichips,
@@ -1015,6 +1274,7 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String language) selectedLanguageChanged,
     required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addRequiredSpecialitichips,
@@ -1035,6 +1295,7 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String language)? selectedLanguageChanged,
     TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addRequiredSpecialitichips,
@@ -1053,6 +1314,7 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String language)? selectedLanguageChanged,
     TResult Function(String location)? locationChanged,
+    TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addRequiredSpecialitichips,
@@ -1076,6 +1338,8 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
     required TResult Function(SelectedLanguageChanged value)
         selectedLanguageChanged,
     required TResult Function(LocationChanged value) locationChanged,
+    required TResult Function(LocationUnitSelectionChanged value)
+        locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(AddRequiredSpecialitichips value)
         addRequiredSpecialitichips,
@@ -1096,6 +1360,8 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
     TResult? Function(RoleTypeChanged value)? roleTypeChanged,
     TResult? Function(SelectedLanguageChanged value)? selectedLanguageChanged,
     TResult? Function(LocationChanged value)? locationChanged,
+    TResult? Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(AddRequiredSpecialitichips value)?
         addRequiredSpecialitichips,
@@ -1116,6 +1382,8 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
     TResult Function(RoleTypeChanged value)? roleTypeChanged,
     TResult Function(SelectedLanguageChanged value)? selectedLanguageChanged,
     TResult Function(LocationChanged value)? locationChanged,
+    TResult Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(AddRequiredSpecialitichips value)?
         addRequiredSpecialitichips,
@@ -1220,6 +1488,7 @@ class _$RemoveRequiredSpecialitichipsImpl
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String language) selectedLanguageChanged,
     required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addRequiredSpecialitichips,
@@ -1240,6 +1509,7 @@ class _$RemoveRequiredSpecialitichipsImpl
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String language)? selectedLanguageChanged,
     TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addRequiredSpecialitichips,
@@ -1258,6 +1528,7 @@ class _$RemoveRequiredSpecialitichipsImpl
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String language)? selectedLanguageChanged,
     TResult Function(String location)? locationChanged,
+    TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addRequiredSpecialitichips,
@@ -1281,6 +1552,8 @@ class _$RemoveRequiredSpecialitichipsImpl
     required TResult Function(SelectedLanguageChanged value)
         selectedLanguageChanged,
     required TResult Function(LocationChanged value) locationChanged,
+    required TResult Function(LocationUnitSelectionChanged value)
+        locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(AddRequiredSpecialitichips value)
         addRequiredSpecialitichips,
@@ -1301,6 +1574,8 @@ class _$RemoveRequiredSpecialitichipsImpl
     TResult? Function(RoleTypeChanged value)? roleTypeChanged,
     TResult? Function(SelectedLanguageChanged value)? selectedLanguageChanged,
     TResult? Function(LocationChanged value)? locationChanged,
+    TResult? Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(AddRequiredSpecialitichips value)?
         addRequiredSpecialitichips,
@@ -1321,6 +1596,8 @@ class _$RemoveRequiredSpecialitichipsImpl
     TResult Function(RoleTypeChanged value)? roleTypeChanged,
     TResult Function(SelectedLanguageChanged value)? selectedLanguageChanged,
     TResult Function(LocationChanged value)? locationChanged,
+    TResult Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(AddRequiredSpecialitichips value)?
         addRequiredSpecialitichips,
@@ -1435,6 +1712,7 @@ class _$AddPreferedSoftwareSkillchipsImpl
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String language) selectedLanguageChanged,
     required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addRequiredSpecialitichips,
@@ -1455,6 +1733,7 @@ class _$AddPreferedSoftwareSkillchipsImpl
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String language)? selectedLanguageChanged,
     TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addRequiredSpecialitichips,
@@ -1473,6 +1752,7 @@ class _$AddPreferedSoftwareSkillchipsImpl
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String language)? selectedLanguageChanged,
     TResult Function(String location)? locationChanged,
+    TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addRequiredSpecialitichips,
@@ -1496,6 +1776,8 @@ class _$AddPreferedSoftwareSkillchipsImpl
     required TResult Function(SelectedLanguageChanged value)
         selectedLanguageChanged,
     required TResult Function(LocationChanged value) locationChanged,
+    required TResult Function(LocationUnitSelectionChanged value)
+        locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(AddRequiredSpecialitichips value)
         addRequiredSpecialitichips,
@@ -1516,6 +1798,8 @@ class _$AddPreferedSoftwareSkillchipsImpl
     TResult? Function(RoleTypeChanged value)? roleTypeChanged,
     TResult? Function(SelectedLanguageChanged value)? selectedLanguageChanged,
     TResult? Function(LocationChanged value)? locationChanged,
+    TResult? Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(AddRequiredSpecialitichips value)?
         addRequiredSpecialitichips,
@@ -1536,6 +1820,8 @@ class _$AddPreferedSoftwareSkillchipsImpl
     TResult Function(RoleTypeChanged value)? roleTypeChanged,
     TResult Function(SelectedLanguageChanged value)? selectedLanguageChanged,
     TResult Function(LocationChanged value)? locationChanged,
+    TResult Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(AddRequiredSpecialitichips value)?
         addRequiredSpecialitichips,
@@ -1641,6 +1927,7 @@ class _$RemovePreferedSoftwareSkillchipsImpl
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String language) selectedLanguageChanged,
     required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addRequiredSpecialitichips,
@@ -1661,6 +1948,7 @@ class _$RemovePreferedSoftwareSkillchipsImpl
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String language)? selectedLanguageChanged,
     TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addRequiredSpecialitichips,
@@ -1679,6 +1967,7 @@ class _$RemovePreferedSoftwareSkillchipsImpl
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String language)? selectedLanguageChanged,
     TResult Function(String location)? locationChanged,
+    TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addRequiredSpecialitichips,
@@ -1702,6 +1991,8 @@ class _$RemovePreferedSoftwareSkillchipsImpl
     required TResult Function(SelectedLanguageChanged value)
         selectedLanguageChanged,
     required TResult Function(LocationChanged value) locationChanged,
+    required TResult Function(LocationUnitSelectionChanged value)
+        locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(AddRequiredSpecialitichips value)
         addRequiredSpecialitichips,
@@ -1722,6 +2013,8 @@ class _$RemovePreferedSoftwareSkillchipsImpl
     TResult? Function(RoleTypeChanged value)? roleTypeChanged,
     TResult? Function(SelectedLanguageChanged value)? selectedLanguageChanged,
     TResult? Function(LocationChanged value)? locationChanged,
+    TResult? Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(AddRequiredSpecialitichips value)?
         addRequiredSpecialitichips,
@@ -1742,6 +2035,8 @@ class _$RemovePreferedSoftwareSkillchipsImpl
     TResult Function(RoleTypeChanged value)? roleTypeChanged,
     TResult Function(SelectedLanguageChanged value)? selectedLanguageChanged,
     TResult Function(LocationChanged value)? locationChanged,
+    TResult Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(AddRequiredSpecialitichips value)?
         addRequiredSpecialitichips,
@@ -1813,6 +2108,7 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String language) selectedLanguageChanged,
     required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addRequiredSpecialitichips,
@@ -1833,6 +2129,7 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String language)? selectedLanguageChanged,
     TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addRequiredSpecialitichips,
@@ -1851,6 +2148,7 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String language)? selectedLanguageChanged,
     TResult Function(String location)? locationChanged,
+    TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addRequiredSpecialitichips,
@@ -1874,6 +2172,8 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     required TResult Function(SelectedLanguageChanged value)
         selectedLanguageChanged,
     required TResult Function(LocationChanged value) locationChanged,
+    required TResult Function(LocationUnitSelectionChanged value)
+        locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(AddRequiredSpecialitichips value)
         addRequiredSpecialitichips,
@@ -1894,6 +2194,8 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     TResult? Function(RoleTypeChanged value)? roleTypeChanged,
     TResult? Function(SelectedLanguageChanged value)? selectedLanguageChanged,
     TResult? Function(LocationChanged value)? locationChanged,
+    TResult? Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(AddRequiredSpecialitichips value)?
         addRequiredSpecialitichips,
@@ -1914,6 +2216,8 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     TResult Function(RoleTypeChanged value)? roleTypeChanged,
     TResult Function(SelectedLanguageChanged value)? selectedLanguageChanged,
     TResult Function(LocationChanged value)? locationChanged,
+    TResult Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(AddRequiredSpecialitichips value)?
         addRequiredSpecialitichips,
@@ -1944,6 +2248,7 @@ mixin _$HealthcarePostState {
   InputEmptyOrNot get roleType => throw _privateConstructorUsedError;
   InputEmptyOrNot get selectedLanguage => throw _privateConstructorUsedError;
   String get requiredSpecialityChip => throw _privateConstructorUsedError;
+  String get selectedLocationUnit => throw _privateConstructorUsedError;
   List<String> get requiredSpecialityChipList =>
       throw _privateConstructorUsedError;
 
@@ -1975,6 +2280,7 @@ abstract class $HealthcarePostStateCopyWith<$Res> {
       InputEmptyOrNot roleType,
       InputEmptyOrNot selectedLanguage,
       String requiredSpecialityChip,
+      String selectedLocationUnit,
       List<String> requiredSpecialityChipList,
       String requiredSoftwareSkillChip,
       List<String> requiredSoftwareSkillChipList,
@@ -2001,6 +2307,7 @@ class _$HealthcarePostStateCopyWithImpl<$Res, $Val extends HealthcarePostState>
     Object? roleType = null,
     Object? selectedLanguage = null,
     Object? requiredSpecialityChip = null,
+    Object? selectedLocationUnit = null,
     Object? requiredSpecialityChipList = null,
     Object? requiredSoftwareSkillChip = null,
     Object? requiredSoftwareSkillChipList = null,
@@ -2028,6 +2335,10 @@ class _$HealthcarePostStateCopyWithImpl<$Res, $Val extends HealthcarePostState>
       requiredSpecialityChip: null == requiredSpecialityChip
           ? _value.requiredSpecialityChip
           : requiredSpecialityChip // ignore: cast_nullable_to_non_nullable
+              as String,
+      selectedLocationUnit: null == selectedLocationUnit
+          ? _value.selectedLocationUnit
+          : selectedLocationUnit // ignore: cast_nullable_to_non_nullable
               as String,
       requiredSpecialityChipList: null == requiredSpecialityChipList
           ? _value.requiredSpecialityChipList
@@ -2071,6 +2382,7 @@ abstract class _$$HealthcarePostStateImplCopyWith<$Res>
       InputEmptyOrNot roleType,
       InputEmptyOrNot selectedLanguage,
       String requiredSpecialityChip,
+      String selectedLocationUnit,
       List<String> requiredSpecialityChipList,
       String requiredSoftwareSkillChip,
       List<String> requiredSoftwareSkillChipList,
@@ -2095,6 +2407,7 @@ class __$$HealthcarePostStateImplCopyWithImpl<$Res>
     Object? roleType = null,
     Object? selectedLanguage = null,
     Object? requiredSpecialityChip = null,
+    Object? selectedLocationUnit = null,
     Object? requiredSpecialityChipList = null,
     Object? requiredSoftwareSkillChip = null,
     Object? requiredSoftwareSkillChipList = null,
@@ -2122,6 +2435,10 @@ class __$$HealthcarePostStateImplCopyWithImpl<$Res>
       requiredSpecialityChip: null == requiredSpecialityChip
           ? _value.requiredSpecialityChip
           : requiredSpecialityChip // ignore: cast_nullable_to_non_nullable
+              as String,
+      selectedLocationUnit: null == selectedLocationUnit
+          ? _value.selectedLocationUnit
+          : selectedLocationUnit // ignore: cast_nullable_to_non_nullable
               as String,
       requiredSpecialityChipList: null == requiredSpecialityChipList
           ? _value._requiredSpecialityChipList
@@ -2160,6 +2477,7 @@ class _$HealthcarePostStateImpl implements _HealthcarePostState {
       required this.roleType,
       required this.selectedLanguage,
       required this.requiredSpecialityChip,
+      required this.selectedLocationUnit,
       required final List<String> requiredSpecialityChipList,
       required this.requiredSoftwareSkillChip,
       required final List<String> requiredSoftwareSkillChipList,
@@ -2179,6 +2497,8 @@ class _$HealthcarePostStateImpl implements _HealthcarePostState {
   final InputEmptyOrNot selectedLanguage;
   @override
   final String requiredSpecialityChip;
+  @override
+  final String selectedLocationUnit;
   final List<String> _requiredSpecialityChipList;
   @override
   List<String> get requiredSpecialityChipList {
@@ -2210,7 +2530,7 @@ class _$HealthcarePostStateImpl implements _HealthcarePostState {
 
   @override
   String toString() {
-    return 'HealthcarePostState(location: $location, rateHour: $rateHour, roleType: $roleType, selectedLanguage: $selectedLanguage, requiredSpecialityChip: $requiredSpecialityChip, requiredSpecialityChipList: $requiredSpecialityChipList, requiredSoftwareSkillChip: $requiredSoftwareSkillChip, requiredSoftwareSkillChipList: $requiredSoftwareSkillChipList, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'HealthcarePostState(location: $location, rateHour: $rateHour, roleType: $roleType, selectedLanguage: $selectedLanguage, requiredSpecialityChip: $requiredSpecialityChip, selectedLocationUnit: $selectedLocationUnit, requiredSpecialityChipList: $requiredSpecialityChipList, requiredSoftwareSkillChip: $requiredSoftwareSkillChip, requiredSoftwareSkillChipList: $requiredSoftwareSkillChipList, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
@@ -2228,6 +2548,8 @@ class _$HealthcarePostStateImpl implements _HealthcarePostState {
                 other.selectedLanguage == selectedLanguage) &&
             (identical(other.requiredSpecialityChip, requiredSpecialityChip) ||
                 other.requiredSpecialityChip == requiredSpecialityChip) &&
+            (identical(other.selectedLocationUnit, selectedLocationUnit) ||
+                other.selectedLocationUnit == selectedLocationUnit) &&
             const DeepCollectionEquality().equals(
                 other._requiredSpecialityChipList,
                 _requiredSpecialityChipList) &&
@@ -2255,6 +2577,7 @@ class _$HealthcarePostStateImpl implements _HealthcarePostState {
       roleType,
       selectedLanguage,
       requiredSpecialityChip,
+      selectedLocationUnit,
       const DeepCollectionEquality().hash(_requiredSpecialityChipList),
       requiredSoftwareSkillChip,
       const DeepCollectionEquality().hash(_requiredSoftwareSkillChipList),
@@ -2277,6 +2600,7 @@ abstract class _HealthcarePostState implements HealthcarePostState {
       required final InputEmptyOrNot roleType,
       required final InputEmptyOrNot selectedLanguage,
       required final String requiredSpecialityChip,
+      required final String selectedLocationUnit,
       required final List<String> requiredSpecialityChipList,
       required final String requiredSoftwareSkillChip,
       required final List<String> requiredSoftwareSkillChipList,
@@ -2295,6 +2619,8 @@ abstract class _HealthcarePostState implements HealthcarePostState {
   InputEmptyOrNot get selectedLanguage;
   @override
   String get requiredSpecialityChip;
+  @override
+  String get selectedLocationUnit;
   @override
   List<String> get requiredSpecialityChipList;
   @override

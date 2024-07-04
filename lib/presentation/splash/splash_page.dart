@@ -35,16 +35,10 @@ class SplashPage extends StatelessWidget {
       },
       child: Scaffold(
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
-              PngImageConstants.splash_bg1,
-            ),
             logoWithText(),
-            Image.asset(
-              PngImageConstants.splash_bg2,
-            ),
           ],
         ),
       ),
@@ -58,18 +52,34 @@ class SplashPage extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(
-            PngImageConstants.splash_logo,
+          SizedBox(
+            height: getSize(85),
+            width: getSize(105),
+            child: Image.asset(
+              PngImageConstants.splash_logo,
+            ),
           ),
           SizedBox(
             height: getSize(20),
           ),
+          const BaseText(
+            text: StringConstant.shiftFinder,
+            fontSize: 30,
+            fontWeight: FontWeight.w400,
+            textColor: AppColors.black,
+            fontFamily: "Aclonica",
+          ),
           SizedBox(
-            width: getSize(200),
+            height: getSize(10),
+          ),
+          SizedBox(
+            width: getSize(250),
             child: const BaseText(
-              text: StringConstant.bridgingEmployersAndHealthcareSpecialists,
+              text: StringConstant
+                  .bridgingHealthServiceFacilitiesAndProfessionals,
               fontSize: 14,
-              fontWeight: FontWeight.w600,
+              textAlign: TextAlign.center,
+              fontWeight: FontWeight.w500,
               textColor: AppColors.black,
               maxLines: 2,
             ),

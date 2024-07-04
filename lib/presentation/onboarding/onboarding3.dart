@@ -6,6 +6,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -22,18 +23,21 @@ class OnBoarding3 extends StatelessWidget {
         alignment: Alignment.bottomRight,
         children: [
           SizedBox(
-            height: getSize(519),
-            // color: Colors.amber,
-            child: Image.asset(
-              PngImageConstants.onboarding3_background,
-              fit: BoxFit.fitHeight,
-            ),
-          ),
-          SizedBox(
-            height: getSize(562),
+            height: getSize(478),
+            width: getSize(453),
             child: Image.asset(
               PngImageConstants.onboarding3,
-              fit: BoxFit.fitHeight,
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+          Positioned(
+            top: getSize(150),
+            left: getSize((getCurrentUser() == 0) ? 200 : 250),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: SvgPicture.asset(
+                SvgImageConstant.twoLines,
+              ),
             ),
           ),
           descriptionView(
@@ -59,33 +63,39 @@ class OnBoarding3 extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           BaseText(
-            text: StringConstant.findYourPerfectHealthcareShift,
-            fontSize: 22,
+            text: (getCurrentUser() == 0)
+                ? StringConstant.findYourPerfectHealthcareShift
+                : StringConstant.letsFindTheRightHealthServiceProfessional,
+            fontSize: 20,
             fontWeight: FontWeight.w400,
             fontFamily: "Aclonica",
+            maxLines: 2,
           ),
           SizedBox(
-            height: getSize(22),
+            height: getSize(15),
           ),
           BaseText(
-            text: StringConstant.onBoarding3Desc,
+            text: (getCurrentUser() == 0)
+                ? StringConstant.onBoarding3Desc_contractor
+                : StringConstant.onBoarding3Desc_employer,
             fontSize: 14,
             fontWeight: FontWeight.w500,
+            textColor: AppColors.black.withOpacity(0.7),
           ),
           SizedBox(
-            height: getSize(50),
+            height: getSize(35),
           ),
           MaterialButton(
             onPressed: btnOnPressed,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(28),
               side: BorderSide(
                 color: AppColors.black.withOpacity(0.5),
               ),
             ),
             elevation: 0,
             minWidth: getSize(143),
-            height: getSize(55),
+            height: getSize(46),
             padding: EdgeInsets.only(left: getSize(20), right: getSize(5)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,

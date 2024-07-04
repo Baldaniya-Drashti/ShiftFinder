@@ -17,6 +17,11 @@ class LocationDetailsEvent with _$LocationDetailsEvent {
   const factory LocationDetailsEvent.unitNumberChanged(String unitNumber) =
       UnitNumberChanged;
 
+  const factory LocationDetailsEvent.addUnitNumberChipList(String unitNumber) =
+      AddUnitNumberChipList;
+  const factory LocationDetailsEvent.removeUnitNumberChip(String unitNumber) =
+      RemoveUnitNumberChip;
+
   const factory LocationDetailsEvent.notesChanged(String notes) = NotesChanged;
   const factory LocationDetailsEvent.facilityTypeChanged(String faciltyType) =
       FacilityTypeChanged;

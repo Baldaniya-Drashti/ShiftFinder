@@ -3,14 +3,19 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shift/application/healthcare_post/healthcare_post_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
+import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
@@ -41,7 +46,7 @@ class HealthCarePostForm extends StatelessWidget {
   TextEditingController otherSpecialitiesController = TextEditingController();
   TextEditingController otherPreferredSkillsController =
       TextEditingController();
-
+  bool isMultiLocation = true;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -70,7 +75,7 @@ class HealthCarePostForm extends StatelessWidget {
                       child: Column(
                         children: [
                           Image.asset(
-                            PngImageConstants.healthcare_post,
+                            PngImageConstants.healthcare_post_employer,
                           ),
                           paddingBetweenFields(),
                           roleDropDown(context, state),
@@ -82,14 +87,11 @@ class HealthCarePostForm extends StatelessWidget {
                           paddingBetweenFields(),
                           languageRequirementsDropDown(context, state),
                           paddingBetweenFields(),
-                          locationTextField(context, state),
+                          (isMultiLocation)
+                              ? locationDropDown(context, state)
+                              : locationTextField(context, state),
                           paddingBetweenFields(),
                           rateHourDropDown(context, state),
-
-                          /// chip example From here
-                          paddingBetweenFields(),
-
-                          /// To here
                           Padding(
                             padding:
                                 EdgeInsets.symmetric(vertical: getSize(50)),
@@ -115,14 +117,14 @@ class HealthCarePostForm extends StatelessWidget {
 
   Widget roleDropDown(BuildContext context, HealthcarePostState state) {
     return CustomDropdwonWithTextField(
-      labelText: StringConstant.theRole,
+      labelText: StringConstant.role,
       isLabelPadding: true,
       showTextfield: "".toLowerCase().contains("other"),
       items: const ["Project Manager", "Team Leader", "Employee"],
       validator: (p0) =>
           context.read<HealthcarePostBloc>().state.roleType.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => "Please select role Type",
+                  empty: (value) => "Please select role type",
                   orElse: () => null,
                 ),
                 (_) => null,
@@ -134,7 +136,7 @@ class HealthCarePostForm extends StatelessWidget {
               );
         }
       },
-      hintText: StringConstant.theRole,
+      hintText: StringConstant.selectRoles,
     );
   }
 
@@ -177,7 +179,8 @@ class HealthCarePostForm extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.rateHour,
       isLabelPadding: true,
-      hintText: StringConstant.rateHour,
+      isPrefixValueShow: true,
+      hintText: "\$ ${StringConstant.rateHour}",
       errorMaxLines: 2,
       onChanged: (value) {
         context
@@ -187,11 +190,73 @@ class HealthCarePostForm extends StatelessWidget {
       validator: (p0, p1) =>
           context.read<HealthcarePostBloc>().state.rateHour.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => "Please enter Rate/Hour",
+                  empty: (value) => "Please enter rate/hour",
                   orElse: () => null,
                 ),
                 (_) => null,
               ),
+    );
+  }
+
+  Widget locationDropDown(BuildContext context, HealthcarePostState state) {
+    return CustomDropdwonWithTextField(
+      labelText: StringConstant.location,
+      isLabelPadding: true,
+      showTextfield: false,
+      isOptional: true,
+      optionalWidget: GestureDetector(
+        onTap: () {
+          AppDialog.showInfo(
+            context,
+            StringConstant.missingLocationInfoDesc,
+            insetPadding: EdgeInsets.symmetric(
+              horizontal: getSize(30),
+            ),
+          );
+        },
+        child: SvgPicture.asset(
+          SvgImageConstant.infoCircle,
+        ),
+      ),
+      items: const [
+        "1 Royal Ln. Mesa, New Jersey 45463",
+        "264 Royal Ln. Mesa,45463",
+        "2864 New Jersey 45463",
+        "64 Royal Ln. Mesa, New Jersey 45463",
+        "9 New Jersey 45463",
+        "62 Royal La. CASA, Jersey 45463",
+        "74 Royal Mesa, New Jersey 45463",
+      ],
+      validator: (
+        p0,
+      ) =>
+          context.read<HealthcarePostBloc>().state.location.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => "Please enter location",
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
+      onChanged: (value) {
+        if (value != null) {
+          context.read<HealthcarePostBloc>().add(
+                HealthcarePostEvent.locationChanged(value),
+              );
+        }
+      },
+      hintText: StringConstant.location,
+      childDroDwonHintText: StringConstant.selectUnitIfAny,
+      showDropDown: state.location.isValid(),
+      childDropDownItems: const [
+        "X-ray",
+      ],
+      childDropDownOnChanged: (value) {
+        if (value != null) {
+          context.read<HealthcarePostBloc>().add(
+                HealthcarePostEvent.locationUnitSelectionChanged(value),
+              );
+        }
+      },
     );
   }
 
@@ -202,6 +267,22 @@ class HealthCarePostForm extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.location,
       isLabelPadding: true,
+      isOptional: true,
+      readOnly: true,
+      optionalWidget: GestureDetector(
+        onTap: () {
+          AppDialog.showInfo(
+            context,
+            StringConstant.missingLocationInfoDesc,
+            insetPadding: EdgeInsets.symmetric(
+              horizontal: getSize(30),
+            ),
+          );
+        },
+        child: SvgPicture.asset(
+          SvgImageConstant.infoCircle,
+        ),
+      ),
       hintText: StringConstant.location,
       textCapitalization: TextCapitalization.words,
       errorMaxLines: 2,
@@ -238,10 +319,11 @@ class HealthCarePostForm extends StatelessWidget {
           isLabelPadding: true,
           isOptional: true,
           fieldController: otherSpecialitiesController,
-          labelText: StringConstant.requiredSpecialties,
+          labelText: StringConstant.specialties,
           hintText: StringConstant.requiredSpecialties,
           showTextfield:
               state.requiredSpecialityChip.toLowerCase().contains("other"),
+          fieldHintText: StringConstant.addYourSpecializations,
           items: requiredSpecialtiesList,
           value: (state.requiredSpecialityChip.isEmpty)
               ? null
@@ -314,10 +396,11 @@ class HealthCarePostForm extends StatelessWidget {
           isLabelPadding: true,
           isOptional: true,
           fieldController: otherPreferredSkillsController,
-          labelText: StringConstant.preferredSoftwareSkills,
+          labelText: StringConstant.softwareSkills,
           hintText: StringConstant.preferredSoftwareSkills,
           showTextfield:
               state.requiredSoftwareSkillChip.toLowerCase().contains("other"),
+          fieldHintText: StringConstant.addYourSoftwareSkills,
           items: preferredSoftwareSkillList,
           value: (state.requiredSoftwareSkillChip.isEmpty)
               ? null

@@ -36,6 +36,8 @@ class CustomTextField extends StatelessWidget {
     this.focusNode,
     this.isBoxShadow = true,
     this.errorInputBorder,
+    this.optionalWidget,
+    this.isPrefixValueShow = false,
   }) : super(key: key);
 
   final List<TextInputFormatter>? inputFormatters;
@@ -45,6 +47,7 @@ class CustomTextField extends StatelessWidget {
   final String? labelText;
   final bool? isLabelPadding;
   final bool? isOptional;
+  final Widget? optionalWidget;
   final String? initialValue;
   final Function(String)? onChanged;
   final InputDecoration? decoration;
@@ -64,6 +67,7 @@ class CustomTextField extends StatelessWidget {
   final FocusNode? focusNode;
   final bool? isBoxShadow;
   final InputBorder? errorInputBorder;
+  final bool isPrefixValueShow;
   @override
   Widget build(BuildContext context) {
     final border = OutlineInputBorder(
@@ -102,33 +106,59 @@ class CustomTextField extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(
                 left: getSize((isLabelPadding == true) ? 20 : 0)),
-            child: (isOptional == true)
-                ? RichText(
-                    text: TextSpan(
-                        text: labelText ?? "",
-                        style: TextStyle(
-                            fontSize: getFontSize(14),
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.black,
-                            fontFamily: "Roboto Flex"),
-                        children: [
-                          TextSpan(
-                            text: "  (Optional)",
-                            style: TextStyle(
-                              fontSize: getFontSize(10),
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.black.withOpacity(0.8),
-                              fontFamily: "Roboto Flex",
-                            ),
-                          )
-                        ]),
-                  )
-                : BaseText(
-                    text: labelText ?? "",
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    textColor: AppColors.black,
+            child: Row(
+              children: [
+                BaseText(
+                  text: labelText ?? "",
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  textColor: AppColors.black,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: getSize(5),
                   ),
+                  child: (isOptional == true && optionalWidget == null)
+                      ? BaseText(
+                          text: "(Optional)",
+                          style: TextStyle(
+                            fontSize: getFontSize(10),
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.black.withOpacity(0.8),
+                            fontFamily: "Roboto Flex",
+                          ),
+                        )
+                      : optionalWidget ?? Container(),
+                ),
+              ],
+            ),
+            // (isOptional == true && optionalWidget == null)
+            //     ? RichText(
+            //         text: TextSpan(
+            //             text: labelText ?? "",
+            //             style: TextStyle(
+            //                 fontSize: getFontSize(14),
+            //                 fontWeight: FontWeight.w500,
+            //                 color: AppColors.black,
+            //                 fontFamily: "Roboto Flex"),
+            //             children: [
+            //               TextSpan(
+            //                 text: "  (Optional)",
+            //                 style: TextStyle(
+            //                   fontSize: getFontSize(10),
+            //                   fontWeight: FontWeight.w500,
+            //                   color: AppColors.black.withOpacity(0.8),
+            //                   fontFamily: "Roboto Flex",
+            //                 ),
+            //               )
+            //             ]),
+            //       )
+            //     : BaseText(
+            //         text: labelText ?? "",
+            //         fontSize: 14,
+            //         fontWeight: FontWeight.w500,
+            //         textColor: AppColors.black,
+            //       ),
           ),
           SizedBox(height: getSize(8)),
         ],

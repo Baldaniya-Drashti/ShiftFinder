@@ -8,6 +8,7 @@ import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/back_ground_image.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -201,7 +202,9 @@ class RegisterForm extends StatelessWidget {
             ),
           ),
           BaseText(
-            text: StringConstant.createAnAccount,
+            text: (getCurrentUser() == 0)
+                ? StringConstant.createYourAccount
+                : StringConstant.shiftCoordinatorDetails,
             style: TextStyle(
               fontSize: getFontSize(14),
               fontWeight: FontWeight.w500,

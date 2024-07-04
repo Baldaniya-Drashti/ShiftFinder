@@ -7,20 +7,30 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 class CustomChipSet extends StatelessWidget {
   List<String> chipList;
   void Function(String value) onDelete;
-  CustomChipSet({super.key, required this.onDelete, required this.chipList});
+  Color? backgroundColor;
+  double? spacing;
+  double? runSpacing;
+
+  CustomChipSet(
+      {super.key,
+      required this.onDelete,
+      required this.chipList,
+      this.backgroundColor,
+      this.runSpacing,
+      this.spacing});
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: getSize(10),
-      runSpacing: getSize(0),
+      spacing: getSize(spacing ?? 10),
+      runSpacing: getSize(runSpacing ?? 0),
       children: chipList.map((String option) {
         return Chip(
           deleteIcon: Icon(
             Icons.close,
             size: getSize(18),
           ),
-          backgroundColor: AppColors.scaffoldColor,
+          backgroundColor: backgroundColor ?? AppColors.scaffoldColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),

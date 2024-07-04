@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'dart:async';
-
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +8,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 part 'register_form_event.dart';
 part 'register_form_state.dart';
 part 'register_form_bloc.freezed.dart';
@@ -88,6 +88,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           emit(
             state.copyWith(
               phoneNumber: MobileNumber(e.phoneNumber),
+              enteredPhoneNo: e.phoneNumber,
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -113,6 +114,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           emit(
             state.copyWith(
               password: Password(e.password),
+              enteredPassword: e.password,
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -133,6 +135,15 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
             ),
           );
         },
+        locationAddressChanged: (e) {
+          emit(
+            state.copyWith(
+              locationAddress: InputEmptyOrNot(e.location),
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+
         referralCodeChanged: (e) {
           emit(
             state.copyWith(
@@ -157,23 +168,44 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           final isEmailValid = state.email.isValid();
           final isNewPassValid = state.password.isValid();
           final isConfirmPassValid = state.confirmPassword.isValid();
+          final isLocationAddressValid = state.locationAddress.isValid();
 
-          if (isCompanyNameValid &&
-              isPhoneNumberValid &&
-              isEmailValid &&
-              isNewPassValid &&
-              isConfirmPassValid) {
-            emit(
-              state.copyWith(
-                isSubmitting: true,
-                authFailureOrSuccessOption: none(),
-              ),
-            );
-            // failureOrSuccess = await _authFacade.login(
-            //   mobileNumber: EmailAddress(""),
-            //   countryCode: '+${state.selectedCountrycode}',
-            // );
-            failureOrSuccess = right("sucess");
+          if (getCurrentUser() == 0) {
+            if (isPhoneNumberValid &&
+                isEmailValid &&
+                isNewPassValid &&
+                isConfirmPassValid &&
+                isLocationAddressValid) {
+              emit(
+                state.copyWith(
+                  isSubmitting: true,
+                  authFailureOrSuccessOption: none(),
+                ),
+              );
+              // failureOrSuccess = await _authFacade.login(
+              //   mobileNumber: EmailAddress(""),
+              //   countryCode: '+${state.selectedCountrycode}',
+              // );
+              failureOrSuccess = right("sucess");
+            }
+          } else {
+            if (isCompanyNameValid &&
+                isPhoneNumberValid &&
+                isEmailValid &&
+                isNewPassValid &&
+                isConfirmPassValid) {
+              emit(
+                state.copyWith(
+                  isSubmitting: true,
+                  authFailureOrSuccessOption: none(),
+                ),
+              );
+              // failureOrSuccess = await _authFacade.login(
+              //   mobileNumber: EmailAddress(""),
+              //   countryCode: '+${state.selectedCountrycode}',
+              // );
+              failureOrSuccess = right("sucess");
+            }
           }
 
           emit(

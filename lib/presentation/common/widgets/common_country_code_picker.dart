@@ -41,6 +41,8 @@ class CommonCountryCodePicker extends StatelessWidget {
             ),
             SvgPicture.asset(
               SvgImageConstant.downArrow,
+              height: getSize(7),
+              width: getSize(10),
             ),
             SizedBox(
               width: getSize(15),

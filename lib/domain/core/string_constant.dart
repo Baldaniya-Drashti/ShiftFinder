@@ -1,14 +1,22 @@
+// ignore_for_file: constant_identifier_names
+
 class StringConstant {
-  static const String bridgingEmployersAndHealthcareSpecialists =
-      'Bridging Employers and Healthcare Specialists';
+  static const String shiftFinder = "ShiftFinder";
+
+  static const String bridgingHealthServiceFacilitiesAndProfessionals =
+      'Bridging Health Service Facilities and Professionals';
   static const String onBoarding1Desc =
-      "Please select your role: Are you ready to showcase your professional skills, or are you looking to hire professionals?";
+      "Are you looking to showcase your Professional skills or fill shifts with skilled professionals?";
   static const String selectYourRole = "Select Your Role";
   static const String chooseIndustry = 'Choose Industry';
   static const String findYourPerfectHealthcareShift =
-      'Find Your Perfect Healthcare Shift.';
-  static const String onBoarding3Desc =
-      'Discover healthcare shifts that allow you to showcase your expertise, support diverse teams, and make a meaningful impact where you\'re needed most.';
+      'Find Your Perfect Healthcare Shift';
+  static const String letsFindTheRightHealthServiceProfessional =
+      'Let\'s Find The Right Health Service Professional';
+  static const String onBoarding3Desc_contractor =
+      'Discover health service shifts that allow you to showcase your expertise, support diverse teams, and make a meaningful impact where you\'re needed most.';
+  static const String onBoarding3Desc_employer =
+      'Connect with a qualified health service professional to bridge gaps in unfilled shifts.Enhance your team’s expertise with our professional support.';
   static const String letsStart = 'Lets Start';
   static const String login = 'Login';
   static const String welcomeBack = 'Welcome Back!';
@@ -17,7 +25,8 @@ class StringConstant {
   static const String forgotPassword = 'Forgot password';
   static const String dontHaveAnAccount = 'Don’t have an account?';
   static const String register = 'Register';
-  static const String createAnAccount = 'Create Your Account';
+  static const String createYourAccount = 'Create Your Account';
+  static const String shiftCoordinatorDetails = 'Shift Coordinator Details';
   static const String firstName = 'First Name';
   static const String lastName = 'Last Name';
   static const String pleaseCheckTheBoxToConfirmThatYouHaveReviewed =
@@ -32,6 +41,7 @@ class StringConstant {
   static const String verify = "Verify";
   static const String phoneNumber = "Phone Number";
   static const String verification = "Verification";
+  static const String verifyYourPhoneNumber = "Verify Your Phone Number";
   static const String verificationDesc =
       "Please enter the verification code that sent to your phone number";
   static const String resendCode = "Resend Code";
@@ -63,11 +73,26 @@ class StringConstant {
   static const String notes = "Notes";
   static const String typeFacilityType = "Type Your Facility Type";
   static const String healthcare = "Healthcare";
-  static const String theRole = "The Role";
+  static const String role = "Role";
+  static const String selectRoles = "Select Roles";
   static const String requiredSpecialties = "Required Specialties";
+  static const String specialties = "Specialties";
   static const String preferredSoftwareSkills = "Preferred Software Skills";
+  static const String softwareSkills = "Software Skills";
   static const String languageRequirements = "Language Requirements";
   static const String rateHour = "Rate/Hour";
   static const String location = "Location";
   static const String add = "Add";
+  static const String letsGetStarted = "Let's Get Started!";
+  static const String locationAddress = "Location Address";
+  static const String profilePhoto = "Profile Photo";
+  static const String mutltiplelocationInfoDesc =
+      "If you have multiple locations, you can add them later through your edit profile.";
+  static const String ok = "Ok";
+  static const String completeProfile = "Complete Profile";
+  static const String missingLocationInfoDesc =
+      "If a location is missing, please ensure it has been added to your profile.";
+  static const String addYourSpecializations = "Add Your Specializations";
+  static const String addYourSoftwareSkills = "Add Your Software Skills";
+  static const String selectUnitIfAny = "Select Unit If Any";
 }

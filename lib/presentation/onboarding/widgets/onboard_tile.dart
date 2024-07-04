@@ -86,7 +86,7 @@ class OnBoardTile extends StatelessWidget {
                       TextSpan(
                         text: title,
                         style: TextStyle(
-                          fontSize: getFontSize(16),
+                          fontSize: getFontSize(14),
                           color: AppColors.black,
                           fontWeight: FontWeight.w400,
                           fontFamily: "Aclonica",

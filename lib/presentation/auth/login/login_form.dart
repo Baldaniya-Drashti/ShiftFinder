@@ -121,7 +121,7 @@ class LoginForm extends StatelessWidget {
             style: TextStyle(
               fontSize: getFontSize(14),
               color: AppColors.primaryColor,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w400,
             ),
             recognizer: TapGestureRecognizer()..onTap = onRegisterTap,
           ),
@@ -262,7 +262,7 @@ class LoginForm extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: getSize(110),
+            height: getSize(105),
           ),
           CommonButton(
             isSubmitting: state.isSubmitting,

@@ -5,6 +5,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -60,10 +61,9 @@ class OnBoarding2 extends StatelessWidget {
         padding: EdgeInsets.only(left: getSize(15), right: getSize(15)),
         child: Column(
           children: [
-            SizedBox(
-              height: getSize(10),
-            ),
-            Image.asset(PngImageConstants.login_frame),
+            Image.asset((getCurrentUser() == 0)
+                ? PngImageConstants.onboarding2_contractor
+                : PngImageConstants.onboarding2_employer),
             SizedBox(
               height: getSize(20),
             ),

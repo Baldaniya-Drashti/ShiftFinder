@@ -54,6 +54,37 @@ class LocationDetailsBloc
             ),
           );
         },
+        removeUnitNumberChip: (e) {
+          emit(
+            state.copyWith(
+              unitNoNameChipList: List.from(state.unitNoNameChipList)
+                ..remove(e.unitNumber),
+              unitNumber: "",
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        addUnitNumberChipList: (e) {
+          if (state.unitNoNameChipList.isEmpty ||
+              !state.unitNoNameChipList.contains(e.unitNumber)) {
+            emit(
+              state.copyWith(
+                unitNoNameChipList: List.from(state.unitNoNameChipList)
+                  ..add(e.unitNumber),
+                unitNumber: e.unitNumber,
+                authFailureOrSuccessOption: none(),
+              ),
+            );
+          } else {
+            emit(
+              state.copyWith(
+                unitNoNameChipList: List.from(state.unitNoNameChipList),
+                unitNumber: e.unitNumber,
+                authFailureOrSuccessOption: none(),
+              ),
+            );
+          }
+        },
         notesChanged: (e) {
           emit(
             state.copyWith(

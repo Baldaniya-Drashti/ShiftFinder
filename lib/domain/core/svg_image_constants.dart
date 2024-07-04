@@ -30,4 +30,6 @@ class SvgImageConstant {
   static const locationIcon = "assets/svg/location_icon.svg";
   static const note = "assets/svg/note.svg";
   static const circleC = "assets/svg/circle_c.svg";
+  static const twoLines = "assets/svg/onboarding3_two_line.svg";
+  static const infoCircle = "assets/svg/info_circle.svg";
 }

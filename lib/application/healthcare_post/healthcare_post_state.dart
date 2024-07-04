@@ -8,6 +8,7 @@ class HealthcarePostState with _$HealthcarePostState {
     required InputEmptyOrNot roleType,
     required InputEmptyOrNot selectedLanguage,
     required String requiredSpecialityChip,
+    required String selectedLocationUnit,
     required List<String> requiredSpecialityChipList,
 
     ///
@@ -28,6 +29,7 @@ class HealthcarePostState with _$HealthcarePostState {
         requiredSpecialityChip: "",
         requiredSoftwareSkillChipList: [],
         requiredSoftwareSkillChip: "",
+        selectedLocationUnit: "",
         isSubmitting: false,
         showErrorMessages: false,
         authFailureOrSuccessOption: none(),

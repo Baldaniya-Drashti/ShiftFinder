@@ -39,7 +39,7 @@ class ForgotPasswordState with _$ForgotPasswordState {
 
         /// MOBILE NO VIEW
         mobileNumber: MobileNumber(""),
-        selectedCountrycode: "🇺🇸",
+        selectedCountrycode: "🇨🇦",
         showErrorMessages: false,
         authFailureOrSuccessOption: none(),
 

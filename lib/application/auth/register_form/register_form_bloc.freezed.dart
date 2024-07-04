@@ -26,6 +26,7 @@ mixin _$RegisterFormEvent {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -52,6 +53,7 @@ mixin _$RegisterFormEvent {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -78,6 +80,7 @@ mixin _$RegisterFormEvent {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -105,6 +108,8 @@ mixin _$RegisterFormEvent {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -133,6 +138,7 @@ mixin _$RegisterFormEvent {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -159,6 +165,7 @@ mixin _$RegisterFormEvent {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -270,6 +277,7 @@ class _$FirstNameChangedImpl implements FirstNameChanged {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -299,6 +307,7 @@ class _$FirstNameChangedImpl implements FirstNameChanged {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -328,6 +337,7 @@ class _$FirstNameChangedImpl implements FirstNameChanged {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -361,6 +371,8 @@ class _$FirstNameChangedImpl implements FirstNameChanged {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -392,6 +404,7 @@ class _$FirstNameChangedImpl implements FirstNameChanged {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -421,6 +434,7 @@ class _$FirstNameChangedImpl implements FirstNameChanged {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -528,6 +542,7 @@ class _$LastNameChangedImpl implements LastNameChanged {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -557,6 +572,7 @@ class _$LastNameChangedImpl implements LastNameChanged {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -586,6 +602,7 @@ class _$LastNameChangedImpl implements LastNameChanged {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -619,6 +636,8 @@ class _$LastNameChangedImpl implements LastNameChanged {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -650,6 +669,7 @@ class _$LastNameChangedImpl implements LastNameChanged {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -679,6 +699,7 @@ class _$LastNameChangedImpl implements LastNameChanged {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -784,6 +805,7 @@ class _$CheckTermsConditionImpl implements CheckTermsCondition {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -813,6 +835,7 @@ class _$CheckTermsConditionImpl implements CheckTermsCondition {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -842,6 +865,7 @@ class _$CheckTermsConditionImpl implements CheckTermsCondition {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -875,6 +899,8 @@ class _$CheckTermsConditionImpl implements CheckTermsCondition {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -906,6 +932,7 @@ class _$CheckTermsConditionImpl implements CheckTermsCondition {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -935,6 +962,7 @@ class _$CheckTermsConditionImpl implements CheckTermsCondition {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -1014,6 +1042,7 @@ class _$RegisterPressedImpl implements RegisterPressed {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -1043,6 +1072,7 @@ class _$RegisterPressedImpl implements RegisterPressed {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -1072,6 +1102,7 @@ class _$RegisterPressedImpl implements RegisterPressed {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -1105,6 +1136,8 @@ class _$RegisterPressedImpl implements RegisterPressed {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -1136,6 +1169,7 @@ class _$RegisterPressedImpl implements RegisterPressed {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -1165,6 +1199,7 @@ class _$RegisterPressedImpl implements RegisterPressed {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -1267,6 +1302,7 @@ class _$ChangeProfilePictureImpl implements ChangeProfilePicture {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -1296,6 +1332,7 @@ class _$ChangeProfilePictureImpl implements ChangeProfilePicture {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -1325,6 +1362,7 @@ class _$ChangeProfilePictureImpl implements ChangeProfilePicture {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -1358,6 +1396,8 @@ class _$ChangeProfilePictureImpl implements ChangeProfilePicture {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -1389,6 +1429,7 @@ class _$ChangeProfilePictureImpl implements ChangeProfilePicture {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -1418,6 +1459,7 @@ class _$ChangeProfilePictureImpl implements ChangeProfilePicture {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -1525,6 +1567,7 @@ class _$CompanyNameChangedImpl implements CompanyNameChanged {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -1554,6 +1597,7 @@ class _$CompanyNameChangedImpl implements CompanyNameChanged {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -1583,6 +1627,7 @@ class _$CompanyNameChangedImpl implements CompanyNameChanged {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -1616,6 +1661,8 @@ class _$CompanyNameChangedImpl implements CompanyNameChanged {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -1647,6 +1694,7 @@ class _$CompanyNameChangedImpl implements CompanyNameChanged {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -1676,6 +1724,7 @@ class _$CompanyNameChangedImpl implements CompanyNameChanged {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -1783,6 +1832,7 @@ class _$phoneNumberChangedImpl implements phoneNumberChanged {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -1812,6 +1862,7 @@ class _$phoneNumberChangedImpl implements phoneNumberChanged {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -1841,6 +1892,7 @@ class _$phoneNumberChangedImpl implements phoneNumberChanged {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -1874,6 +1926,8 @@ class _$phoneNumberChangedImpl implements phoneNumberChanged {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -1905,6 +1959,7 @@ class _$phoneNumberChangedImpl implements phoneNumberChanged {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -1934,6 +1989,7 @@ class _$phoneNumberChangedImpl implements phoneNumberChanged {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -2039,6 +2095,7 @@ class _$EmailChangedImpl implements EmailChanged {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -2068,6 +2125,7 @@ class _$EmailChangedImpl implements EmailChanged {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -2097,6 +2155,7 @@ class _$EmailChangedImpl implements EmailChanged {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -2130,6 +2189,8 @@ class _$EmailChangedImpl implements EmailChanged {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -2161,6 +2222,7 @@ class _$EmailChangedImpl implements EmailChanged {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -2190,6 +2252,7 @@ class _$EmailChangedImpl implements EmailChanged {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -2220,6 +2283,273 @@ abstract class EmailChanged implements RegisterFormEvent {
   @JsonKey(ignore: true)
   _$$EmailChangedImplCopyWith<_$EmailChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LocationAddressChangedImplCopyWith<$Res> {
+  factory _$$LocationAddressChangedImplCopyWith(
+          _$LocationAddressChangedImpl value,
+          $Res Function(_$LocationAddressChangedImpl) then) =
+      __$$LocationAddressChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String location});
+}
+
+/// @nodoc
+class __$$LocationAddressChangedImplCopyWithImpl<$Res>
+    extends _$RegisterFormEventCopyWithImpl<$Res, _$LocationAddressChangedImpl>
+    implements _$$LocationAddressChangedImplCopyWith<$Res> {
+  __$$LocationAddressChangedImplCopyWithImpl(
+      _$LocationAddressChangedImpl _value,
+      $Res Function(_$LocationAddressChangedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? location = null,
+  }) {
+    return _then(_$LocationAddressChangedImpl(
+      null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LocationAddressChangedImpl implements LocationAddressChanged {
+  const _$LocationAddressChangedImpl(this.location);
+
+  @override
+  final String location;
+
+  @override
+  String toString() {
+    return 'RegisterFormEvent.locationAddressChanged(location: $location)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LocationAddressChangedImpl &&
+            (identical(other.location, location) ||
+                other.location == location));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, location);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LocationAddressChangedImplCopyWith<_$LocationAddressChangedImpl>
+      get copyWith => __$$LocationAddressChangedImplCopyWithImpl<
+          _$LocationAddressChangedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String firstName) firstNameChanged,
+    required TResult Function(String lastName) lastNameChanged,
+    required TResult Function(bool isCheck) checkTermsCondition,
+    required TResult Function() registerPressed,
+    required TResult Function(String imagePath) changeProfilePicture,
+    required TResult Function(String companyName) companyNameChanged,
+    required TResult Function(String phoneNumber) phoneNumberChanged,
+    required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
+    required TResult Function(String password) passwordChanged,
+    required TResult Function(String confirmPassword, String password)
+        confirmPasswordChanged,
+    required TResult Function(String associationText) associationTextChanged,
+    required TResult Function(String referralCode) referralCodeChanged,
+    required TResult Function(String companyDesc) companyDescChanged,
+    required TResult Function(String phoneCode, String flag) selectCountryCode,
+    required TResult Function() registerProfileBtnPressed,
+    required TResult Function(int field) obscureText,
+    required TResult Function(String otp) changeOTP,
+    required TResult Function() startCountdown,
+    required TResult Function() decrementTimer,
+    required TResult Function() resendOtp,
+    required TResult Function() verifyOtp,
+  }) {
+    return locationAddressChanged(location);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String firstName)? firstNameChanged,
+    TResult? Function(String lastName)? lastNameChanged,
+    TResult? Function(bool isCheck)? checkTermsCondition,
+    TResult? Function()? registerPressed,
+    TResult? Function(String imagePath)? changeProfilePicture,
+    TResult? Function(String companyName)? companyNameChanged,
+    TResult? Function(String phoneNumber)? phoneNumberChanged,
+    TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String confirmPassword, String password)?
+        confirmPasswordChanged,
+    TResult? Function(String associationText)? associationTextChanged,
+    TResult? Function(String referralCode)? referralCodeChanged,
+    TResult? Function(String companyDesc)? companyDescChanged,
+    TResult? Function(String phoneCode, String flag)? selectCountryCode,
+    TResult? Function()? registerProfileBtnPressed,
+    TResult? Function(int field)? obscureText,
+    TResult? Function(String otp)? changeOTP,
+    TResult? Function()? startCountdown,
+    TResult? Function()? decrementTimer,
+    TResult? Function()? resendOtp,
+    TResult? Function()? verifyOtp,
+  }) {
+    return locationAddressChanged?.call(location);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String firstName)? firstNameChanged,
+    TResult Function(String lastName)? lastNameChanged,
+    TResult Function(bool isCheck)? checkTermsCondition,
+    TResult Function()? registerPressed,
+    TResult Function(String imagePath)? changeProfilePicture,
+    TResult Function(String companyName)? companyNameChanged,
+    TResult Function(String phoneNumber)? phoneNumberChanged,
+    TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
+    TResult Function(String password)? passwordChanged,
+    TResult Function(String confirmPassword, String password)?
+        confirmPasswordChanged,
+    TResult Function(String associationText)? associationTextChanged,
+    TResult Function(String referralCode)? referralCodeChanged,
+    TResult Function(String companyDesc)? companyDescChanged,
+    TResult Function(String phoneCode, String flag)? selectCountryCode,
+    TResult Function()? registerProfileBtnPressed,
+    TResult Function(int field)? obscureText,
+    TResult Function(String otp)? changeOTP,
+    TResult Function()? startCountdown,
+    TResult Function()? decrementTimer,
+    TResult Function()? resendOtp,
+    TResult Function()? verifyOtp,
+    required TResult orElse(),
+  }) {
+    if (locationAddressChanged != null) {
+      return locationAddressChanged(location);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(FirstNameChanged value) firstNameChanged,
+    required TResult Function(LastNameChanged value) lastNameChanged,
+    required TResult Function(CheckTermsCondition value) checkTermsCondition,
+    required TResult Function(RegisterPressed value) registerPressed,
+    required TResult Function(ChangeProfilePicture value) changeProfilePicture,
+    required TResult Function(CompanyNameChanged value) companyNameChanged,
+    required TResult Function(phoneNumberChanged value) phoneNumberChanged,
+    required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
+    required TResult Function(PasswordChanged value) passwordChanged,
+    required TResult Function(ConfirmPasswordChanged value)
+        confirmPasswordChanged,
+    required TResult Function(AssociationTextChanged value)
+        associationTextChanged,
+    required TResult Function(ReferralCodeChanged value) referralCodeChanged,
+    required TResult Function(CompanyDescChanged value) companyDescChanged,
+    required TResult Function(SelectCountryCode value) selectCountryCode,
+    required TResult Function(RegisterProfileBtnPressed value)
+        registerProfileBtnPressed,
+    required TResult Function(ObscureText value) obscureText,
+    required TResult Function(ChangeOTP value) changeOTP,
+    required TResult Function(StartCountdown value) startCountdown,
+    required TResult Function(DecrementTimer value) decrementTimer,
+    required TResult Function(ResendOtp value) resendOtp,
+    required TResult Function(VerifyOtp value) verifyOtp,
+  }) {
+    return locationAddressChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(FirstNameChanged value)? firstNameChanged,
+    TResult? Function(LastNameChanged value)? lastNameChanged,
+    TResult? Function(CheckTermsCondition value)? checkTermsCondition,
+    TResult? Function(RegisterPressed value)? registerPressed,
+    TResult? Function(ChangeProfilePicture value)? changeProfilePicture,
+    TResult? Function(CompanyNameChanged value)? companyNameChanged,
+    TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
+    TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
+    TResult? Function(PasswordChanged value)? passwordChanged,
+    TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
+    TResult? Function(AssociationTextChanged value)? associationTextChanged,
+    TResult? Function(ReferralCodeChanged value)? referralCodeChanged,
+    TResult? Function(CompanyDescChanged value)? companyDescChanged,
+    TResult? Function(SelectCountryCode value)? selectCountryCode,
+    TResult? Function(RegisterProfileBtnPressed value)?
+        registerProfileBtnPressed,
+    TResult? Function(ObscureText value)? obscureText,
+    TResult? Function(ChangeOTP value)? changeOTP,
+    TResult? Function(StartCountdown value)? startCountdown,
+    TResult? Function(DecrementTimer value)? decrementTimer,
+    TResult? Function(ResendOtp value)? resendOtp,
+    TResult? Function(VerifyOtp value)? verifyOtp,
+  }) {
+    return locationAddressChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FirstNameChanged value)? firstNameChanged,
+    TResult Function(LastNameChanged value)? lastNameChanged,
+    TResult Function(CheckTermsCondition value)? checkTermsCondition,
+    TResult Function(RegisterPressed value)? registerPressed,
+    TResult Function(ChangeProfilePicture value)? changeProfilePicture,
+    TResult Function(CompanyNameChanged value)? companyNameChanged,
+    TResult Function(phoneNumberChanged value)? phoneNumberChanged,
+    TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
+    TResult Function(PasswordChanged value)? passwordChanged,
+    TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
+    TResult Function(AssociationTextChanged value)? associationTextChanged,
+    TResult Function(ReferralCodeChanged value)? referralCodeChanged,
+    TResult Function(CompanyDescChanged value)? companyDescChanged,
+    TResult Function(SelectCountryCode value)? selectCountryCode,
+    TResult Function(RegisterProfileBtnPressed value)?
+        registerProfileBtnPressed,
+    TResult Function(ObscureText value)? obscureText,
+    TResult Function(ChangeOTP value)? changeOTP,
+    TResult Function(StartCountdown value)? startCountdown,
+    TResult Function(DecrementTimer value)? decrementTimer,
+    TResult Function(ResendOtp value)? resendOtp,
+    TResult Function(VerifyOtp value)? verifyOtp,
+    required TResult orElse(),
+  }) {
+    if (locationAddressChanged != null) {
+      return locationAddressChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LocationAddressChanged implements RegisterFormEvent {
+  const factory LocationAddressChanged(final String location) =
+      _$LocationAddressChangedImpl;
+
+  String get location;
+  @JsonKey(ignore: true)
+  _$$LocationAddressChangedImplCopyWith<_$LocationAddressChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2296,6 +2626,7 @@ class _$PasswordChangedImpl implements PasswordChanged {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -2325,6 +2656,7 @@ class _$PasswordChangedImpl implements PasswordChanged {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -2354,6 +2686,7 @@ class _$PasswordChangedImpl implements PasswordChanged {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -2387,6 +2720,8 @@ class _$PasswordChangedImpl implements PasswordChanged {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -2418,6 +2753,7 @@ class _$PasswordChangedImpl implements PasswordChanged {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -2447,6 +2783,7 @@ class _$PasswordChangedImpl implements PasswordChanged {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -2564,6 +2901,7 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -2593,6 +2931,7 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -2622,6 +2961,7 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -2655,6 +2995,8 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -2686,6 +3028,7 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -2715,6 +3058,7 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -2826,6 +3170,7 @@ class _$AssociationTextChangedImpl implements AssociationTextChanged {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -2855,6 +3200,7 @@ class _$AssociationTextChangedImpl implements AssociationTextChanged {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -2884,6 +3230,7 @@ class _$AssociationTextChangedImpl implements AssociationTextChanged {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -2917,6 +3264,8 @@ class _$AssociationTextChangedImpl implements AssociationTextChanged {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -2948,6 +3297,7 @@ class _$AssociationTextChangedImpl implements AssociationTextChanged {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -2977,6 +3327,7 @@ class _$AssociationTextChangedImpl implements AssociationTextChanged {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -3084,6 +3435,7 @@ class _$ReferralCodeChangedImpl implements ReferralCodeChanged {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -3113,6 +3465,7 @@ class _$ReferralCodeChangedImpl implements ReferralCodeChanged {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -3142,6 +3495,7 @@ class _$ReferralCodeChangedImpl implements ReferralCodeChanged {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -3175,6 +3529,8 @@ class _$ReferralCodeChangedImpl implements ReferralCodeChanged {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -3206,6 +3562,7 @@ class _$ReferralCodeChangedImpl implements ReferralCodeChanged {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -3235,6 +3592,7 @@ class _$ReferralCodeChangedImpl implements ReferralCodeChanged {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -3342,6 +3700,7 @@ class _$CompanyDescChangedImpl implements CompanyDescChanged {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -3371,6 +3730,7 @@ class _$CompanyDescChangedImpl implements CompanyDescChanged {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -3400,6 +3760,7 @@ class _$CompanyDescChangedImpl implements CompanyDescChanged {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -3433,6 +3794,8 @@ class _$CompanyDescChangedImpl implements CompanyDescChanged {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -3464,6 +3827,7 @@ class _$CompanyDescChangedImpl implements CompanyDescChanged {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -3493,6 +3857,7 @@ class _$CompanyDescChangedImpl implements CompanyDescChanged {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -3608,6 +3973,7 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -3637,6 +4003,7 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -3666,6 +4033,7 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -3699,6 +4067,8 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -3730,6 +4100,7 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -3759,6 +4130,7 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -3843,6 +4215,7 @@ class _$RegisterProfileBtnPressedImpl implements RegisterProfileBtnPressed {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -3872,6 +4245,7 @@ class _$RegisterProfileBtnPressedImpl implements RegisterProfileBtnPressed {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -3901,6 +4275,7 @@ class _$RegisterProfileBtnPressedImpl implements RegisterProfileBtnPressed {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -3934,6 +4309,8 @@ class _$RegisterProfileBtnPressedImpl implements RegisterProfileBtnPressed {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -3965,6 +4342,7 @@ class _$RegisterProfileBtnPressedImpl implements RegisterProfileBtnPressed {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -3994,6 +4372,7 @@ class _$RegisterProfileBtnPressedImpl implements RegisterProfileBtnPressed {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -4093,6 +4472,7 @@ class _$ObscureTextImpl implements ObscureText {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -4122,6 +4502,7 @@ class _$ObscureTextImpl implements ObscureText {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -4151,6 +4532,7 @@ class _$ObscureTextImpl implements ObscureText {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -4184,6 +4566,8 @@ class _$ObscureTextImpl implements ObscureText {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -4215,6 +4599,7 @@ class _$ObscureTextImpl implements ObscureText {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -4244,6 +4629,7 @@ class _$ObscureTextImpl implements ObscureText {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -4348,6 +4734,7 @@ class _$ChangeOTPImpl implements ChangeOTP {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -4377,6 +4764,7 @@ class _$ChangeOTPImpl implements ChangeOTP {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -4406,6 +4794,7 @@ class _$ChangeOTPImpl implements ChangeOTP {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -4439,6 +4828,8 @@ class _$ChangeOTPImpl implements ChangeOTP {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -4470,6 +4861,7 @@ class _$ChangeOTPImpl implements ChangeOTP {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -4499,6 +4891,7 @@ class _$ChangeOTPImpl implements ChangeOTP {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -4577,6 +4970,7 @@ class _$StartCountdownImpl implements StartCountdown {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -4606,6 +5000,7 @@ class _$StartCountdownImpl implements StartCountdown {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -4635,6 +5030,7 @@ class _$StartCountdownImpl implements StartCountdown {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -4668,6 +5064,8 @@ class _$StartCountdownImpl implements StartCountdown {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -4699,6 +5097,7 @@ class _$StartCountdownImpl implements StartCountdown {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -4728,6 +5127,7 @@ class _$StartCountdownImpl implements StartCountdown {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -4801,6 +5201,7 @@ class _$DecrementTimerImpl implements DecrementTimer {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -4830,6 +5231,7 @@ class _$DecrementTimerImpl implements DecrementTimer {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -4859,6 +5261,7 @@ class _$DecrementTimerImpl implements DecrementTimer {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -4892,6 +5295,8 @@ class _$DecrementTimerImpl implements DecrementTimer {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -4923,6 +5328,7 @@ class _$DecrementTimerImpl implements DecrementTimer {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -4952,6 +5358,7 @@ class _$DecrementTimerImpl implements DecrementTimer {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -5025,6 +5432,7 @@ class _$ResendOtpImpl implements ResendOtp {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -5054,6 +5462,7 @@ class _$ResendOtpImpl implements ResendOtp {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -5083,6 +5492,7 @@ class _$ResendOtpImpl implements ResendOtp {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -5116,6 +5526,8 @@ class _$ResendOtpImpl implements ResendOtp {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -5147,6 +5559,7 @@ class _$ResendOtpImpl implements ResendOtp {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -5176,6 +5589,7 @@ class _$ResendOtpImpl implements ResendOtp {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -5249,6 +5663,7 @@ class _$VerifyOtpImpl implements VerifyOtp {
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String phoneNumber) phoneNumberChanged,
     required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword, String password)
         confirmPasswordChanged,
@@ -5278,6 +5693,7 @@ class _$VerifyOtpImpl implements VerifyOtp {
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String phoneNumber)? phoneNumberChanged,
     TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -5307,6 +5723,7 @@ class _$VerifyOtpImpl implements VerifyOtp {
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String phoneNumber)? phoneNumberChanged,
     TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword, String password)?
         confirmPasswordChanged,
@@ -5340,6 +5757,8 @@ class _$VerifyOtpImpl implements VerifyOtp {
     required TResult Function(CompanyNameChanged value) companyNameChanged,
     required TResult Function(phoneNumberChanged value) phoneNumberChanged,
     required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
     required TResult Function(PasswordChanged value) passwordChanged,
     required TResult Function(ConfirmPasswordChanged value)
         confirmPasswordChanged,
@@ -5371,6 +5790,7 @@ class _$VerifyOtpImpl implements VerifyOtp {
     TResult? Function(CompanyNameChanged value)? companyNameChanged,
     TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
     TResult? Function(PasswordChanged value)? passwordChanged,
     TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult? Function(AssociationTextChanged value)? associationTextChanged,
@@ -5400,6 +5820,7 @@ class _$VerifyOtpImpl implements VerifyOtp {
     TResult Function(CompanyNameChanged value)? companyNameChanged,
     TResult Function(phoneNumberChanged value)? phoneNumberChanged,
     TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
     TResult Function(PasswordChanged value)? passwordChanged,
     TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
     TResult Function(AssociationTextChanged value)? associationTextChanged,
@@ -5442,7 +5863,10 @@ mixin _$RegisterFormState {
   String get selectImage => throw _privateConstructorUsedError;
   InputEmptyOrNot get companyName => throw _privateConstructorUsedError;
   MobileNumber get phoneNumber => throw _privateConstructorUsedError;
+  String get enteredPhoneNo => throw _privateConstructorUsedError;
+  String get enteredPassword => throw _privateConstructorUsedError;
   EmailAddress get email => throw _privateConstructorUsedError;
+  InputEmptyOrNot get locationAddress => throw _privateConstructorUsedError;
   Password get password => throw _privateConstructorUsedError;
   ConfirmPassword get confirmPassword => throw _privateConstructorUsedError;
   String get association => throw _privateConstructorUsedError;
@@ -5484,7 +5908,10 @@ abstract class $RegisterFormStateCopyWith<$Res> {
       String selectImage,
       InputEmptyOrNot companyName,
       MobileNumber phoneNumber,
+      String enteredPhoneNo,
+      String enteredPassword,
       EmailAddress email,
+      InputEmptyOrNot locationAddress,
       Password password,
       ConfirmPassword confirmPassword,
       String association,
@@ -5524,7 +5951,10 @@ class _$RegisterFormStateCopyWithImpl<$Res, $Val extends RegisterFormState>
     Object? selectImage = null,
     Object? companyName = null,
     Object? phoneNumber = null,
+    Object? enteredPhoneNo = null,
+    Object? enteredPassword = null,
     Object? email = null,
+    Object? locationAddress = null,
     Object? password = null,
     Object? confirmPassword = null,
     Object? association = null,
@@ -5581,10 +6011,22 @@ class _$RegisterFormStateCopyWithImpl<$Res, $Val extends RegisterFormState>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as MobileNumber,
+      enteredPhoneNo: null == enteredPhoneNo
+          ? _value.enteredPhoneNo
+          : enteredPhoneNo // ignore: cast_nullable_to_non_nullable
+              as String,
+      enteredPassword: null == enteredPassword
+          ? _value.enteredPassword
+          : enteredPassword // ignore: cast_nullable_to_non_nullable
+              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as EmailAddress,
+      locationAddress: null == locationAddress
+          ? _value.locationAddress
+          : locationAddress // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
       password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
@@ -5664,7 +6106,10 @@ abstract class _$$RegisterFormStateImplCopyWith<$Res>
       String selectImage,
       InputEmptyOrNot companyName,
       MobileNumber phoneNumber,
+      String enteredPhoneNo,
+      String enteredPassword,
       EmailAddress email,
+      InputEmptyOrNot locationAddress,
       Password password,
       ConfirmPassword confirmPassword,
       String association,
@@ -5702,7 +6147,10 @@ class __$$RegisterFormStateImplCopyWithImpl<$Res>
     Object? selectImage = null,
     Object? companyName = null,
     Object? phoneNumber = null,
+    Object? enteredPhoneNo = null,
+    Object? enteredPassword = null,
     Object? email = null,
+    Object? locationAddress = null,
     Object? password = null,
     Object? confirmPassword = null,
     Object? association = null,
@@ -5759,10 +6207,22 @@ class __$$RegisterFormStateImplCopyWithImpl<$Res>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as MobileNumber,
+      enteredPhoneNo: null == enteredPhoneNo
+          ? _value.enteredPhoneNo
+          : enteredPhoneNo // ignore: cast_nullable_to_non_nullable
+              as String,
+      enteredPassword: null == enteredPassword
+          ? _value.enteredPassword
+          : enteredPassword // ignore: cast_nullable_to_non_nullable
+              as String,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as EmailAddress,
+      locationAddress: null == locationAddress
+          ? _value.locationAddress
+          : locationAddress // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
       password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
@@ -5837,7 +6297,10 @@ class _$RegisterFormStateImpl implements _RegisterFormState {
       required this.selectImage,
       required this.companyName,
       required this.phoneNumber,
+      required this.enteredPhoneNo,
+      required this.enteredPassword,
       required this.email,
+      required this.locationAddress,
       required this.password,
       required this.confirmPassword,
       required this.association,
@@ -5876,7 +6339,13 @@ class _$RegisterFormStateImpl implements _RegisterFormState {
   @override
   final MobileNumber phoneNumber;
   @override
+  final String enteredPhoneNo;
+  @override
+  final String enteredPassword;
+  @override
   final EmailAddress email;
+  @override
+  final InputEmptyOrNot locationAddress;
   @override
   final Password password;
   @override
@@ -5910,7 +6379,7 @@ class _$RegisterFormStateImpl implements _RegisterFormState {
 
   @override
   String toString() {
-    return 'RegisterFormState(firstName: $firstName, lastName: $lastName, firstNameFocusNode: $firstNameFocusNode, isSubmitting: $isSubmitting, isCheck: $isCheck, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption, selectImage: $selectImage, companyName: $companyName, phoneNumber: $phoneNumber, email: $email, password: $password, confirmPassword: $confirmPassword, association: $association, referralCode: $referralCode, companyDescription: $companyDescription, selectedCountrycode: $selectedCountrycode, selectedCountryFlag: $selectedCountryFlag, isNewPassObscure: $isNewPassObscure, isConfirmPassObscure: $isConfirmPassObscure, enteredOTP: $enteredOTP, secondsRemaining: $secondsRemaining, showOtpErrorMessages: $showOtpErrorMessages, resendFailureOrSuccessOption: $resendFailureOrSuccessOption, verifyOtpFailureOrSuccessOption: $verifyOtpFailureOrSuccessOption)';
+    return 'RegisterFormState(firstName: $firstName, lastName: $lastName, firstNameFocusNode: $firstNameFocusNode, isSubmitting: $isSubmitting, isCheck: $isCheck, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption, selectImage: $selectImage, companyName: $companyName, phoneNumber: $phoneNumber, enteredPhoneNo: $enteredPhoneNo, enteredPassword: $enteredPassword, email: $email, locationAddress: $locationAddress, password: $password, confirmPassword: $confirmPassword, association: $association, referralCode: $referralCode, companyDescription: $companyDescription, selectedCountrycode: $selectedCountrycode, selectedCountryFlag: $selectedCountryFlag, isNewPassObscure: $isNewPassObscure, isConfirmPassObscure: $isConfirmPassObscure, enteredOTP: $enteredOTP, secondsRemaining: $secondsRemaining, showOtpErrorMessages: $showOtpErrorMessages, resendFailureOrSuccessOption: $resendFailureOrSuccessOption, verifyOtpFailureOrSuccessOption: $verifyOtpFailureOrSuccessOption)';
   }
 
   @override
@@ -5929,8 +6398,7 @@ class _$RegisterFormStateImpl implements _RegisterFormState {
             (identical(other.isCheck, isCheck) || other.isCheck == isCheck) &&
             (identical(other.showErrorMessages, showErrorMessages) ||
                 other.showErrorMessages == showErrorMessages) &&
-            (identical(other.authFailureOrSuccessOption,
-                    authFailureOrSuccessOption) ||
+            (identical(other.authFailureOrSuccessOption, authFailureOrSuccessOption) ||
                 other.authFailureOrSuccessOption ==
                     authFailureOrSuccessOption) &&
             (identical(other.selectImage, selectImage) ||
@@ -5939,7 +6407,13 @@ class _$RegisterFormStateImpl implements _RegisterFormState {
                 other.companyName == companyName) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
+            (identical(other.enteredPhoneNo, enteredPhoneNo) ||
+                other.enteredPhoneNo == enteredPhoneNo) &&
+            (identical(other.enteredPassword, enteredPassword) ||
+                other.enteredPassword == enteredPassword) &&
             (identical(other.email, email) || other.email == email) &&
+            (identical(other.locationAddress, locationAddress) ||
+                other.locationAddress == locationAddress) &&
             (identical(other.password, password) ||
                 other.password == password) &&
             (identical(other.confirmPassword, confirmPassword) ||
@@ -5987,7 +6461,10 @@ class _$RegisterFormStateImpl implements _RegisterFormState {
         selectImage,
         companyName,
         phoneNumber,
+        enteredPhoneNo,
+        enteredPassword,
         email,
+        locationAddress,
         password,
         confirmPassword,
         association,
@@ -6025,7 +6502,10 @@ abstract class _RegisterFormState implements RegisterFormState {
       required final String selectImage,
       required final InputEmptyOrNot companyName,
       required final MobileNumber phoneNumber,
+      required final String enteredPhoneNo,
+      required final String enteredPassword,
       required final EmailAddress email,
+      required final InputEmptyOrNot locationAddress,
       required final Password password,
       required final ConfirmPassword confirmPassword,
       required final String association,
@@ -6066,7 +6546,13 @@ abstract class _RegisterFormState implements RegisterFormState {
   @override
   MobileNumber get phoneNumber;
   @override
+  String get enteredPhoneNo;
+  @override
+  String get enteredPassword;
+  @override
   EmailAddress get email;
+  @override
+  InputEmptyOrNot get locationAddress;
   @override
   Password get password;
   @override

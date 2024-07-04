@@ -10,6 +10,8 @@ class HealthcarePostEvent with _$HealthcarePostEvent {
 
   const factory HealthcarePostEvent.locationChanged(String location) =
       LocationChanged;
+  const factory HealthcarePostEvent.locationUnitSelectionChanged(
+      String selectedUnit) = LocationUnitSelectionChanged;
   const factory HealthcarePostEvent.rateHourChanged(String rateHour) =
       RateHourChanged;
 
