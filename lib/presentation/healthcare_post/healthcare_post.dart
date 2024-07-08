@@ -14,6 +14,7 @@ import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
@@ -119,8 +120,23 @@ class HealthCarePostForm extends StatelessWidget {
     return CustomDropdwonWithTextField(
       labelText: StringConstant.role,
       isLabelPadding: true,
-      showTextfield: "".toLowerCase().contains("other"),
-      items: const ["Project Manager", "Team Leader", "Employee"],
+      showTextfield: false,
+      items: const [
+        "Registered Nurse",
+        "Registered Practical Nurse",
+        "PSW (Personal Support Worker)",
+        "Nurse Practitioner",
+        "Anaesthesiology Assistant",
+      ].map((val) {
+        return DropdownMenuItem(
+          value: val,
+          child: BaseText(
+            text: val,
+            fontSize: 14,
+            textColor: AppColors.black,
+          ),
+        );
+      }).toList(),
       validator: (p0) =>
           context.read<HealthcarePostBloc>().state.roleType.value.fold(
                 (f) => f.maybeMap(
@@ -145,7 +161,7 @@ class HealthCarePostForm extends StatelessWidget {
     return CustomDropdwonWithTextField(
       labelText: StringConstant.languageRequirements,
       isLabelPadding: true,
-      showTextfield: "".toLowerCase().contains("other"),
+      showTextfield: false,
       items: const [
         "English",
         "Hindi",
@@ -155,7 +171,17 @@ class HealthCarePostForm extends StatelessWidget {
         "Punjabi",
         "Tamil",
         "Kannad",
-      ],
+        "Other",
+      ].map((val) {
+        return DropdownMenuItem(
+          value: val,
+          child: BaseText(
+            text: val,
+            fontSize: 14,
+            textColor: AppColors.black,
+          ),
+        );
+      }).toList(),
       validator: (p0) =>
           context.read<HealthcarePostBloc>().state.selectedLanguage.value.fold(
                 (f) => f.maybeMap(
@@ -226,7 +252,16 @@ class HealthCarePostForm extends StatelessWidget {
         "9 New Jersey 45463",
         "62 Royal La. CASA, Jersey 45463",
         "74 Royal Mesa, New Jersey 45463",
-      ],
+      ].map((val) {
+        return DropdownMenuItem(
+          value: val,
+          child: BaseText(
+            text: val,
+            fontSize: 14,
+            textColor: AppColors.black,
+          ),
+        );
+      }).toList(),
       validator: (
         p0,
       ) =>
@@ -321,10 +356,18 @@ class HealthCarePostForm extends StatelessWidget {
           fieldController: otherSpecialitiesController,
           labelText: StringConstant.specialties,
           hintText: StringConstant.requiredSpecialties,
-          showTextfield:
-              state.requiredSpecialityChip.toLowerCase().contains("other"),
+          showTextfield: state.requiredSpecialityChip.toLowerCase() == "other",
           fieldHintText: StringConstant.addYourSpecializations,
-          items: requiredSpecialtiesList,
+          items: requiredSpecialtiesList.map((val) {
+            return DropdownMenuItem(
+              value: val,
+              child: BaseText(
+                text: val,
+                fontSize: 14,
+                textColor: AppColors.black,
+              ),
+            );
+          }).toList(),
           value: (state.requiredSpecialityChip.isEmpty)
               ? null
               : state.requiredSpecialityChip,
@@ -399,9 +442,18 @@ class HealthCarePostForm extends StatelessWidget {
           labelText: StringConstant.softwareSkills,
           hintText: StringConstant.preferredSoftwareSkills,
           showTextfield:
-              state.requiredSoftwareSkillChip.toLowerCase().contains("other"),
+              state.requiredSoftwareSkillChip.toLowerCase() == "other",
           fieldHintText: StringConstant.addYourSoftwareSkills,
-          items: preferredSoftwareSkillList,
+          items: preferredSoftwareSkillList.map((val) {
+            return DropdownMenuItem(
+              value: val,
+              child: BaseText(
+                text: val,
+                fontSize: 14,
+                textColor: AppColors.black,
+              ),
+            );
+          }).toList(),
           value: (state.requiredSoftwareSkillChip.isEmpty)
               ? null
               : state.requiredSoftwareSkillChip,

@@ -132,11 +132,19 @@ Either<ValueFailure<String>, String> validateStringNotEmpty(String input) {
   }
 }
 
+Either<ValueFailure<List<T>>, List<T>> validateListNotEmpty<T>(List<T> input) {
+  if (input.isNotEmpty) {
+    return right(input);
+  } else {
+    return left(ValueFailure.empty(failedValue: input));
+  }
+}
+
 Either<ValueFailure<List<T>>, List<T>> validateMaxGuildLength<T>(
   List<T> input,
   int maxLength,
 ) {
-  if (input.length <= maxLength) {
+  if (input.isEmpty) {
     return right(input);
   } else {
     return left(

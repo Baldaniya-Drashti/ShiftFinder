@@ -32,4 +32,5 @@ class SvgImageConstant {
   static const circleC = "assets/svg/circle_c.svg";
   static const twoLines = "assets/svg/onboarding3_two_line.svg";
   static const infoCircle = "assets/svg/info_circle.svg";
+  static const remove = "assets/svg/remove.svg";
 }

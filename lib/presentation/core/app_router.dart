@@ -14,6 +14,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: RegisterProfilePage.page),
         AutoRoute(page: LocationDetailForm.page),
         AutoRoute(page: HealthCarePostForm.page),
+        AutoRoute(page: AddContractorSkillsForm.page),
         AutoRoute(
           page: MainTabView.page,
           children: [

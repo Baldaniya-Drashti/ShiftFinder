@@ -77,8 +77,40 @@ class InputEmptyOrNot extends ValueObject<String?> {
       validateStringNotEmpty(input),
     );
   }
-
   const InputEmptyOrNot._(this.value);
+}
+
+// class ListInputEmptyOrNot extends ValueObject<List> {
+//   @override
+//   final Either<ValueFailure<List>, List> value;
+
+//   factory ListInputEmptyOrNot(List list) {
+//     return ListInputEmptyOrNot._(
+//       validateMaxGuildLength(list, 0),
+//     );
+//   }
+//   const ListInputEmptyOrNot._(this.value);
+// }
+
+class ListInputEmptyOrNot<T> extends ValueObject<List<T>> {
+  @override
+  final Either<ValueFailure<List<T>>, List<T>> value;
+
+  factory ListInputEmptyOrNot(List<T> input) {
+    return ListInputEmptyOrNot._(
+      validateListNotEmpty(input),
+    );
+  }
+
+  const ListInputEmptyOrNot._(this.value);
+  Map<String, dynamic> toJson() {
+    return {
+      'value': value.fold(
+        (l) => null,
+        (r) => r.map((e) => (e as dynamic).toJson()).toList(),
+      ),
+    };
+  }
 }
 
 class CardNumber extends ValueObject<String?> {

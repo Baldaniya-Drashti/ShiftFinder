@@ -53,7 +53,7 @@ class HealthcarePostBloc
           );
         },
         addRequiredSpecialitichips: (e) {
-          if (!e.selectedValue.toLowerCase().contains("other") &&
+          if (!(e.selectedValue.toLowerCase() == "other") &&
               (state.requiredSpecialityChipList.isEmpty ||
                   !state.requiredSpecialityChipList
                       .contains(e.selectedValue))) {
@@ -92,7 +92,7 @@ class HealthcarePostBloc
         },
         addPreferedSoftwareSkillchips: (e) {
           if (e.selectedValue.isNotEmpty &&
-              !e.selectedValue.toLowerCase().contains("other") &&
+              !(e.selectedValue.toLowerCase() == "other") &&
               (state.requiredSoftwareSkillChipList.isEmpty ||
                   !state.requiredSoftwareSkillChipList
                       .contains(e.selectedValue))) {

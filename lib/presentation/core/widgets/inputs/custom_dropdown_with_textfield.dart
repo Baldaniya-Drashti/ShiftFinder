@@ -39,7 +39,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
   final String? fieldHintText;
   final String? childDroDwonHintText;
   final String? value;
-  final List<String> items;
+  final List<DropdownMenuItem<String>>? items;
   final bool? isLabelPadding;
   final bool showTextfield;
   final bool showDropDown;
@@ -161,22 +161,11 @@ class CustomDropdwonWithTextField extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
                 value: value,
-                icon: Icon(
-                  Icons.keyboard_arrow_down,
-                  size: getSize(25),
-                  color: AppColors.black,
+                icon: SvgPicture.asset(
+                  SvgImageConstant.downArrow,
                 ),
                 isExpanded: true,
-                items: items.map((val) {
-                  return DropdownMenuItem(
-                    value: val,
-                    child: BaseText(
-                      text: val,
-                      fontSize: 14,
-                      textColor: AppColors.black,
-                    ),
-                  );
-                }).toList(),
+                items: items,
                 onChanged: onChanged,
               ),
               if (showTextfield) ...[

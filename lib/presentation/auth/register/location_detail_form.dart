@@ -12,6 +12,7 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -80,16 +81,25 @@ class LocationDetailForm extends StatelessWidget {
                             fieldHintText: StringConstant.typeFacilityType,
                             isLabelPadding: true,
                             showPrefixIcon: true,
-                            showTextfield: state.faciltyTypeDDValue
-                                .toLowerCase()
-                                .contains("other"),
+                            showTextfield:
+                                state.faciltyTypeDDValue.toLowerCase() ==
+                                    "other",
                             items: const [
                               "TESTING 1",
                               "Testing 2",
                               "TESTING 3",
                               "Testing 4",
                               "OTHER"
-                            ],
+                            ].map((val) {
+                              return DropdownMenuItem(
+                                value: val,
+                                child: BaseText(
+                                  text: val,
+                                  fontSize: 14,
+                                  textColor: AppColors.black,
+                                ),
+                              );
+                            }).toList(),
                             validator: (p0) => context
                                 .read<LocationDetailsBloc>()
                                 .state

@@ -79,6 +79,7 @@ class StringConstant {
   static const String specialties = "Specialties";
   static const String preferredSoftwareSkills = "Preferred Software Skills";
   static const String softwareSkills = "Software Skills";
+  static const String softwareSkillSet = "Software Skillset";
   static const String languageRequirements = "Language Requirements";
   static const String rateHour = "Rate/Hour";
   static const String location = "Location";
@@ -95,4 +96,22 @@ class StringConstant {
   static const String addYourSpecializations = "Add Your Specializations";
   static const String addYourSoftwareSkills = "Add Your Software Skills";
   static const String selectUnitIfAny = "Select Unit If Any";
+  static const String languagesKnown = "Languages Known";
+  static const String addYourLanguage = "Add Your Language";
+
+  /// ERROR ///
+  static const String pleaseSelectAtLeastOneLanguage =
+      "Please select at least one language";
+  static const String pleaseSelectAtLeastOneSkillSet =
+      "Please select at least one software skillset";
+  static const String pleaseSelectAtLeastOneSpeciality =
+      "Please select at least one speciality";
+  static const String experienceMustBeSelected = "Experience must be selected";
+  static const String pleaseAddOtherTypeOfSpeciality =
+      "Please add other type of speciality";
+  static const String pleaseAddOtherTypeOfSoftwareSkill =
+      "Please add other type of software skill";
+  static const String pleaseAddOtherTypeOfLanguage =
+      "Please add other type of language";
+  static const String addYourExperience = "Add Your Experience";
 }
