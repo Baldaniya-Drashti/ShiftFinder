@@ -179,15 +179,19 @@ class LoginForm extends StatelessWidget {
             onChanged: (value) => context
                 .read<LoginFormBloc>()
                 .add(LoginFormEvent.emailChanged(value)),
-            validator: (_, context) =>
-                context.read<LoginFormBloc>().state.emailId.value.fold(
-                      (f) => f.maybeMap(
-                        empty: (value) => 'Please enter email',
-                        invalidEmail: (_) => 'Please enter valid email',
-                        orElse: () => null,
-                      ),
-                      (_) => null,
-                    ),
+            validator: (_, context) => context
+                .read<LoginFormBloc>()
+                .state
+                .emailId
+                .value
+                .fold(
+                  (f) => f.maybeMap(
+                    empty: (value) => StringConstant.pleaseEnterEmail,
+                    invalidEmail: (_) => StringConstant.pleaseEnterValidEmail,
+                    orElse: () => null,
+                  ),
+                  (_) => null,
+                ),
           ),
           SizedBox(
             height: getSize(20),
@@ -225,19 +229,16 @@ class LoginForm extends StatelessWidget {
             onChanged: (value) => context
                 .read<LoginFormBloc>()
                 .add(LoginFormEvent.passwordChanged(value)),
-            validator: (_, context) => context
-                .read<LoginFormBloc>()
-                .state
-                .password
-                .value
-                .fold(
-                  (f) => f.maybeMap(
-                    empty: (value) => 'Please enter password',
-                    shortPassword: (_) => 'Password should be minimum 7 digit',
-                    orElse: () => null,
-                  ),
-                  (_) => null,
-                ),
+            validator: (_, context) =>
+                context.read<LoginFormBloc>().state.password.value.fold(
+                      (f) => f.maybeMap(
+                        empty: (value) => StringConstant.pleaseEnterPassword,
+                        shortPassword: (_) =>
+                            StringConstant.passwordShouldBeMinimum6Digit,
+                        orElse: () => null,
+                      ),
+                      (_) => null,
+                    ),
           ),
           SizedBox(
             height: getSize(10),

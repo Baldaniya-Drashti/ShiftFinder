@@ -1,7 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:quickalert/models/quickalert_type.dart';
-import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -44,6 +42,64 @@ class AppDialog {
                 width: 200,
                 buttonText: StringConstant.ok,
               )
+            ],
+          );
+        });
+  }
+
+  static Future<void> showDelete(
+    BuildContext context, {
+    String? title,
+    required String infoMessage,
+    EdgeInsets? insetPadding,
+    required VoidCallback? onCancelClick,
+    required VoidCallback? onDeleteClick,
+  }) async {
+    showDialog(
+        context: context,
+        // barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+            title: BaseText(
+              text: title ?? "",
+              fontSize: 22,
+              fontWeight: FontWeight.w400,
+              fontFamily: "Aclonica",
+              textAlign: TextAlign.center,
+            ),
+            content: BaseText(
+              text: infoMessage,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              textAlign: TextAlign.center,
+              textColor: AppColors.black.withOpacity(0.7),
+            ),
+            elevation: 80,
+            backgroundColor: AppColors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            insetPadding:
+                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CommonButton(
+                    onPressed: onCancelClick ?? () {},
+                    width: 150,
+                    buttonText: StringConstant.cancle,
+                    backgroundColor: AppColors.white,
+                    buttonTextColor: AppColors.primaryColor,
+                    borderColor: AppColors.primaryColor,
+                  ),
+                  CommonButton(
+                    onPressed: onDeleteClick ?? () {},
+                    width: 150,
+                    buttonText: StringConstant.delete,
+                  )
+                ],
+              ),
             ],
           );
         });

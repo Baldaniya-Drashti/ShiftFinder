@@ -198,9 +198,9 @@ class FilterBottomSheet extends StatelessWidget {
                 .value
                 .fold(
                   (f) => f.maybeMap(
-                    empty: (value) => 'Please enter mobile number',
+                    empty: (value) => StringConstant.pleaseEnterMobileNumber,
                     invalidMobileNumber: (_) =>
-                        'Phone number should be between 10 and 15 digits',
+                        StringConstant.phoneNumberShouldBeBetween10And15Digits,
                     orElse: () => null,
                   ),
                   (_) => null,
@@ -327,8 +327,9 @@ class FilterBottomSheet extends StatelessWidget {
                   .value
                   .fold(
                     (f) => f.maybeMap(
-                      empty: (value) => 'Please enter otp',
-                      exceedingLength: (value) => 'Otp should be 4 digit',
+                      empty: (value) => StringConstant.pleaseEnterOtp,
+                      exceedingLength: (value) =>
+                          StringConstant.otpShouldBe4Digit,
                       orElse: () => null,
                     ),
                     (_) => null,
@@ -448,19 +449,16 @@ class FilterBottomSheet extends StatelessWidget {
             onChanged: (value) => context.read<ForgotPasswordBloc>().add(
                   ForgotPasswordEvent.newPasswordChanged(value),
                 ),
-            validator: (_, context) => context
-                .read<ForgotPasswordBloc>()
-                .state
-                .newPassword
-                .value
-                .fold(
-                  (f) => f.maybeMap(
-                    empty: (value) => 'Please enter new password',
-                    shortPassword: (_) => 'Password should be minimum 6 digit',
-                    orElse: () => null,
-                  ),
-                  (_) => null,
-                ),
+            validator: (_, context) =>
+                context.read<ForgotPasswordBloc>().state.newPassword.value.fold(
+                      (f) => f.maybeMap(
+                        empty: (value) => StringConstant.pleaseEnterNewPassword,
+                        shortPassword: (_) =>
+                            StringConstant.passwordShouldBeMinimum6Digit,
+                        orElse: () => null,
+                      ),
+                      (_) => null,
+                    ),
             prefixIcon: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: getSize(14),
@@ -509,10 +507,11 @@ class FilterBottomSheet extends StatelessWidget {
                 .value
                 .fold(
                   (f) => f.maybeMap(
-                    empty: (value) => 'Please enter confirm password',
-                    shortPassword: (_) => 'Password should be minimum 6 digit',
+                    empty: (value) => StringConstant.pleaseEnterConfirmPassword,
+                    shortPassword: (_) =>
+                        StringConstant.passwordShouldBeMinimum6Digit,
                     passwordsDontMatch: (_) =>
-                        'Both Passwords are does not match.',
+                        StringConstant.bothPasswordsAreDoesNotMatch,
                     orElse: () => null,
                   ),
                   (_) => null,

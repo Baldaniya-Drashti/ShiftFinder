@@ -182,8 +182,9 @@ class VerifyPhoneNumber extends StatelessWidget {
               validator: (_, context) =>
                   context.read<RegisterFormBloc>().state.enteredOTP.value.fold(
                         (f) => f.maybeMap(
-                          empty: (value) => 'Please enter otp',
-                          exceedingLength: (value) => 'Otp should be 4 digit',
+                          empty: (value) => StringConstant.pleaseEnterOtp,
+                          exceedingLength: (value) =>
+                              StringConstant.otpShouldBe4Digit,
                           orElse: () => null,
                         ),
                         (_) => null,

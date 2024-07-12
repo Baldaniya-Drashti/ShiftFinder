@@ -15,7 +15,7 @@ class CustomTextField extends StatelessWidget {
     this.hintText,
     this.keyboardType,
     this.labelText,
-    this.isLabelPadding = false,
+    this.isLabelPadding = true,
     this.isOptional = false,
     this.initialValue,
     this.onChanged,
@@ -38,6 +38,7 @@ class CustomTextField extends StatelessWidget {
     this.errorInputBorder,
     this.optionalWidget,
     this.isPrefixValueShow = false,
+    this.hintAsValue = false,
   }) : super(key: key);
 
   final List<TextInputFormatter>? inputFormatters;
@@ -68,6 +69,7 @@ class CustomTextField extends StatelessWidget {
   final bool? isBoxShadow;
   final InputBorder? errorInputBorder;
   final bool isPrefixValueShow;
+  final bool hintAsValue;
   @override
   Widget build(BuildContext context) {
     final border = OutlineInputBorder(
@@ -191,7 +193,7 @@ class CustomTextField extends StatelessWidget {
             onChanged: onChanged,
             initialValue: initialValue,
             obscureText: obscureText,
-            controller: controller,
+            // controller: controller,
             cursorColor: AppColors.primaryColor,
             keyboardType: keyboardType,
             textInputAction: textInputAction,
@@ -210,7 +212,9 @@ class CustomTextField extends StatelessWidget {
                   focusedErrorBorder: errorBorder,
                   errorBorder: errorBorder,
                   hintStyle: TextStyle(
-                      color: AppColors.black.withOpacity(0.50),
+                      color: hintAsValue
+                          ? AppColors.black
+                          : AppColors.black.withOpacity(0.50),
                       fontSize: getSize(
                         14,
                       ),
@@ -249,8 +253,10 @@ class CustomTextField extends StatelessWidget {
                   // prefixIconConstraints:
                   //     BoxConstraints(maxWidth: getSize(79), minHeight: 0),
                   hintStyle: TextStyle(
-                    color: AppColors.black.withOpacity(0.5),
-                    fontSize: getFontSize(14),
+                    color: hintAsValue
+                        ? AppColors.black
+                        : AppColors.black.withOpacity(0.5),
+                    fontSize: getFontSize(hintAsValue ? 13 : 14),
                     fontWeight: FontWeight.w500,
                   ),
                 ),

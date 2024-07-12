@@ -5,7 +5,7 @@ part 'common_list_dto.g.dart';
 
 @freezed
 class ListDTO with _$ListDTO {
-  factory ListDTO({String? title, int? id}) = _ListDTO;
+  factory ListDTO({String? title, int? id, int? isSelected}) = _ListDTO;
 
   factory ListDTO.fromJson(Map<String, dynamic> json) =>
       _$ListDTOFromJson(json);

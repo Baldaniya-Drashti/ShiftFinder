@@ -285,7 +285,7 @@ class RegisterProfileScreen extends StatelessWidget {
       validator: (p0, p1) =>
           context.read<RegisterFormBloc>().state.companyName.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => "Please enter company name",
+                  empty: (value) => StringConstant.pleaseEnterCompanyName,
                   orElse: () => null,
                 ),
                 (_) => null,
@@ -306,9 +306,9 @@ class RegisterProfileScreen extends StatelessWidget {
       validator: (_, context) =>
           context.read<RegisterFormBloc>().state.phoneNumber.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => 'Please enter mobile number',
+                  empty: (value) => StringConstant.pleaseEnterMobileNumber,
                   invalidMobileNumber: (_) =>
-                      'Phone number should be between 10 and 15 digits',
+                      StringConstant.phoneNumberShouldBeBetween10And15Digits,
                   orElse: () => null,
                 ),
                 (_) => null,
@@ -351,8 +351,8 @@ class RegisterProfileScreen extends StatelessWidget {
       validator: (p0, p1) =>
           context.read<RegisterFormBloc>().state.email.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => 'Please enter email',
-                  invalidEmail: (_) => 'Please enter valid email',
+                  empty: (value) => StringConstant.pleaseEnterEmail,
+                  invalidEmail: (_) => StringConstant.pleaseEnterValidEmail,
                   orElse: () => null,
                 ),
                 (_) => null,
@@ -399,8 +399,9 @@ class RegisterProfileScreen extends StatelessWidget {
       validator: (p0, p1) =>
           context.read<RegisterFormBloc>().state.password.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => 'Please enter confirm password',
-                  shortPassword: (_) => 'Password should be minimum 10 digit',
+                  empty: (value) => StringConstant.pleaseEnterPassword,
+                  shortPassword: (_) =>
+                      StringConstant.passwordShouldBeMinimum6Digit,
                   orElse: () => null,
                 ),
                 (_) => null,
@@ -447,21 +448,18 @@ class RegisterProfileScreen extends StatelessWidget {
             value,
             state.enteredPassword,
           )),
-      validator: (_, context) => context
-          .read<RegisterFormBloc>()
-          .state
-          .confirmPassword
-          .value
-          .fold(
-            (f) => f.maybeMap(
-              empty: (value) => 'Please enter confirm password',
-              shortPassword: (_) =>
-                  'Confirm password should be minimum 10 digit',
-              passwordsDontMatch: (_) => 'Both Passwords are does not match.',
-              orElse: () => null,
-            ),
-            (_) => null,
-          ),
+      validator: (_, context) =>
+          context.read<RegisterFormBloc>().state.confirmPassword.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseEnterConfirmPassword,
+                  shortPassword: (_) =>
+                      StringConstant.passwordShouldBeMinimum6Digit,
+                  passwordsDontMatch: (_) =>
+                      StringConstant.bothPasswordsAreDoesNotMatch,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
     );
   }
 
@@ -549,7 +547,7 @@ class RegisterProfileScreen extends StatelessWidget {
       validator: (p0, p1) =>
           context.read<RegisterFormBloc>().state.locationAddress.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => 'Please enter location address',
+                  empty: (value) => StringConstant.pleaseEnterLocationName,
                   orElse: () => null,
                 ),
                 (_) => null,

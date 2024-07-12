@@ -6,4 +6,5 @@ Future<void> setupHive() async {
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   await Hive.openBox(BoxNames.settingsBox);
+  await Hive.openBox(BoxNames.cotractorDocumentBox);
 }

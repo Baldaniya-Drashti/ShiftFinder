@@ -235,14 +235,18 @@ class RegisterForm extends StatelessWidget {
             onChanged: (value) => context
                 .read<RegisterFormBloc>()
                 .add(RegisterFormEvent.firstNameChanged(value)),
-            validator: (_, context) =>
-                context.read<RegisterFormBloc>().state.firstName.value.fold(
-                      (f) => f.maybeMap(
-                        empty: (value) => 'Please enter your first name',
-                        orElse: () => null,
-                      ),
-                      (_) => null,
-                    ),
+            validator: (_, context) => context
+                .read<RegisterFormBloc>()
+                .state
+                .firstName
+                .value
+                .fold(
+                  (f) => f.maybeMap(
+                    empty: (value) => StringConstant.pleaseEnterYourFirstName,
+                    orElse: () => null,
+                  ),
+                  (_) => null,
+                ),
           ),
           SizedBox(
             height: getSize(20),
@@ -266,14 +270,18 @@ class RegisterForm extends StatelessWidget {
             onChanged: (value) => context
                 .read<RegisterFormBloc>()
                 .add(RegisterFormEvent.lastNameChanged(value)),
-            validator: (_, context) =>
-                context.read<RegisterFormBloc>().state.lastName.value.fold(
-                      (f) => f.maybeMap(
-                        empty: (value) => 'Please enter your last name',
-                        orElse: () => null,
-                      ),
-                      (_) => null,
-                    ),
+            validator: (_, context) => context
+                .read<RegisterFormBloc>()
+                .state
+                .lastName
+                .value
+                .fold(
+                  (f) => f.maybeMap(
+                    empty: (value) => StringConstant.pleaseEnterYourLastName,
+                    orElse: () => null,
+                  ),
+                  (_) => null,
+                ),
           ),
           SizedBox(
             height: getSize(30),
@@ -286,7 +294,7 @@ class RegisterForm extends StatelessWidget {
             Align(
               alignment: Alignment.centerLeft,
               child: BaseText(
-                text: "Please accept terms of service!",
+                text: StringConstant.termsPolicyErrorText,
                 style: TextStyle(
                   color: AppColors.red,
                   fontSize: getFontSize(11),

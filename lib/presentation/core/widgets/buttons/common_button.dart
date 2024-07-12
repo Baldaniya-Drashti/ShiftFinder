@@ -111,14 +111,16 @@ class _CommonButtonState extends State<CommonButton> {
                 color: AppColors.white,
               ),
             )
-          : BaseText(
-              text: widget.buttonText,
-              fontSize: widget.buttonFontSize ?? 16,
-              textAlign: TextAlign.center,
-              //maxLines: 1,
-              fontWeight: widget.buttonFontWeight ?? FontWeight.w600,
-              textColor: widget.buttonTextColor ?? Colors.white,
-            ),
+          : (widget.customWidget != null)
+              ? widget.customWidget
+              : BaseText(
+                  text: widget.buttonText,
+                  fontSize: widget.buttonFontSize ?? 16,
+                  textAlign: TextAlign.center,
+                  //maxLines: 1,
+                  fontWeight: widget.buttonFontWeight ?? FontWeight.w600,
+                  textColor: widget.buttonTextColor ?? Colors.white,
+                ),
     );
   }
 }

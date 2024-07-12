@@ -28,8 +28,10 @@ class SplashPage extends StatelessWidget {
             unAuthenticated: (value) async {
               await Future.delayed(
                 const Duration(seconds: 1),
-                () => context.router
-                    .replace(const PageRouteInfo(Onboarding1.name)),
+                () =>
+                    // context.router.replace(const PageRouteInfo(Onboarding1.name)),
+                    context.router
+                        .push(const PageRouteInfo(DocumentPageScreen.name)),
               );
             });
       },

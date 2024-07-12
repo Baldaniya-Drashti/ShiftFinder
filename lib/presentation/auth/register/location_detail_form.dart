@@ -1,8 +1,7 @@
-// ignore_for_file: deprecated_member_use, prefer_const_constructors
+// ignore_for_file: deprecated_member_use, prefer_const_constructors, must_be_immutable
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shift/application/location_details/location_details_bloc.dart';
@@ -108,7 +107,7 @@ class LocationDetailForm extends StatelessWidget {
                                 .fold(
                                   (f) => f.maybeMap(
                                     empty: (value) =>
-                                        "Please enter Facility Type",
+                                        StringConstant.pleaseEnterFacilityType,
                                     orElse: () => null,
                                   ),
                                   (_) => null,
@@ -133,8 +132,8 @@ class LocationDetailForm extends StatelessWidget {
                                 .value
                                 .fold(
                                   (f) => f.maybeMap(
-                                    empty: (value) =>
-                                        "Please enter other facility type",
+                                    empty: (value) => StringConstant
+                                        .pleaseEnterOtherFacilityType,
                                     orElse: () => null,
                                   ),
                                   (_) => null,
@@ -242,7 +241,7 @@ class LocationDetailForm extends StatelessWidget {
       validator: (p0, p1) =>
           context.read<LocationDetailsBloc>().state.address.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => "Please enter address",
+                  empty: (value) => StringConstant.pleaseEnterAddress,
                   orElse: () => null,
                 ),
                 (_) => null,

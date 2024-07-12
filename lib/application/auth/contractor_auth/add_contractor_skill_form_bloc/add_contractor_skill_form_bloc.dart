@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, unnecessary_brace_in_string_interps
+
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
@@ -6,7 +8,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/infrastructure/core/common_list_dto.dart';
 import 'package:shift/infrastructure/core/speciality/speciality_dto.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 
 part 'add_contractor_skill_form_event.dart';
 part 'add_contractor_skill_form_state.dart';
@@ -199,8 +203,10 @@ class AddContractorSkillFormBloc
                 authFailureOrSuccessOption: none(),
               ),
             );
-          } else if ((state.requiredSoftwareSkillChip.toLowerCase() ==
-                  "other" &&
+          }
+
+          /// when click on add button
+          else if ((state.requiredSoftwareSkillChip.toLowerCase() == "other" &&
               e.isOtherValue == true &&
               e.selectedValue.isEmpty)) {
             emit(
@@ -209,7 +215,10 @@ class AddContractorSkillFormBloc
                 authFailureOrSuccessOption: none(),
               ),
             );
-          } else {
+          }
+
+          /// when select "other" value
+          else {
             emit(
               state.copyWith(
                 requiredSoftwareSkillChipList: ListInputEmptyOrNot(
@@ -310,7 +319,7 @@ class AddContractorSkillFormBloc
           print(
               "SOFTWARE ALL !-------->  ${softwareSkillListValid} ${state.showSoftwareSkillError}");
           print(
-              "LANGUAGE ALL !-------->  ${languageListValid} ${state.showLanguageError}");
+              "LANGUAGE ALL !-------->  ${state.languageChipList.getValue()} ${state.showLanguageError}");
 
           print(
               "EXPERIENCE ALL !-------->  ${specialityListValid} ${state.showSpeExperienceError}");
@@ -324,7 +333,7 @@ class AddContractorSkillFormBloc
               !state.showSoftwareSkillError &&
               !state.showLanguageError &&
               !state.showSpeExperienceError) {
-            print("ALL DETAILS ARE VALID!");
+            print("ALL DETAILS ARE VALID!---->  ${getSelectedLanguageId()}");
             emit(
               state.copyWith(
                 isSubmitting: true,
@@ -349,5 +358,19 @@ class AddContractorSkillFormBloc
         },
       );
     });
+  }
+
+  List<int> getSelectedLanguageId() {
+    List<int> outputIds = [];
+    for (String title in state.languageChipList.getValue()) {
+      for (ListDTO item in CommonList.languageList) {
+        if (item.title == title) {
+          outputIds.add(item.id ?? -1);
+          break;
+        }
+      }
+    }
+    print("IDSSSSS----- ${outputIds}");
+    return outputIds;
   }
 }

@@ -22,6 +22,7 @@ ListDTO _$ListDTOFromJson(Map<String, dynamic> json) {
 mixin _$ListDTO {
   String? get title => throw _privateConstructorUsedError;
   int? get id => throw _privateConstructorUsedError;
+  int? get isSelected => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -33,7 +34,7 @@ abstract class $ListDTOCopyWith<$Res> {
   factory $ListDTOCopyWith(ListDTO value, $Res Function(ListDTO) then) =
       _$ListDTOCopyWithImpl<$Res, ListDTO>;
   @useResult
-  $Res call({String? title, int? id});
+  $Res call({String? title, int? id, int? isSelected});
 }
 
 /// @nodoc
@@ -51,6 +52,7 @@ class _$ListDTOCopyWithImpl<$Res, $Val extends ListDTO>
   $Res call({
     Object? title = freezed,
     Object? id = freezed,
+    Object? isSelected = freezed,
   }) {
     return _then(_value.copyWith(
       title: freezed == title
@@ -60,6 +62,10 @@ class _$ListDTOCopyWithImpl<$Res, $Val extends ListDTO>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      isSelected: freezed == isSelected
+          ? _value.isSelected
+          : isSelected // ignore: cast_nullable_to_non_nullable
               as int?,
     ) as $Val);
   }
@@ -72,7 +78,7 @@ abstract class _$$ListDTOImplCopyWith<$Res> implements $ListDTOCopyWith<$Res> {
       __$$ListDTOImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? title, int? id});
+  $Res call({String? title, int? id, int? isSelected});
 }
 
 /// @nodoc
@@ -88,6 +94,7 @@ class __$$ListDTOImplCopyWithImpl<$Res>
   $Res call({
     Object? title = freezed,
     Object? id = freezed,
+    Object? isSelected = freezed,
   }) {
     return _then(_$ListDTOImpl(
       title: freezed == title
@@ -98,6 +105,10 @@ class __$$ListDTOImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
+      isSelected: freezed == isSelected
+          ? _value.isSelected
+          : isSelected // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -105,7 +116,7 @@ class __$$ListDTOImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ListDTOImpl implements _ListDTO {
-  _$ListDTOImpl({this.title, this.id});
+  _$ListDTOImpl({this.title, this.id, this.isSelected});
 
   factory _$ListDTOImpl.fromJson(Map<String, dynamic> json) =>
       _$$ListDTOImplFromJson(json);
@@ -114,10 +125,12 @@ class _$ListDTOImpl implements _ListDTO {
   final String? title;
   @override
   final int? id;
+  @override
+  final int? isSelected;
 
   @override
   String toString() {
-    return 'ListDTO(title: $title, id: $id)';
+    return 'ListDTO(title: $title, id: $id, isSelected: $isSelected)';
   }
 
   @override
@@ -126,12 +139,14 @@ class _$ListDTOImpl implements _ListDTO {
         (other.runtimeType == runtimeType &&
             other is _$ListDTOImpl &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.id, id) || other.id == id));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.isSelected, isSelected) ||
+                other.isSelected == isSelected));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, title, id);
+  int get hashCode => Object.hash(runtimeType, title, id, isSelected);
 
   @JsonKey(ignore: true)
   @override
@@ -148,7 +163,10 @@ class _$ListDTOImpl implements _ListDTO {
 }
 
 abstract class _ListDTO implements ListDTO {
-  factory _ListDTO({final String? title, final int? id}) = _$ListDTOImpl;
+  factory _ListDTO(
+      {final String? title,
+      final int? id,
+      final int? isSelected}) = _$ListDTOImpl;
 
   factory _ListDTO.fromJson(Map<String, dynamic> json) = _$ListDTOImpl.fromJson;
 
@@ -156,6 +174,8 @@ abstract class _ListDTO implements ListDTO {
   String? get title;
   @override
   int? get id;
+  @override
+  int? get isSelected;
   @override
   @JsonKey(ignore: true)
   _$$ListDTOImplCopyWith<_$ListDTOImpl> get copyWith =>

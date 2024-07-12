@@ -98,6 +98,66 @@ class StringConstant {
   static const String selectUnitIfAny = "Select Unit If Any";
   static const String languagesKnown = "Languages Known";
   static const String addYourLanguage = "Add Your Language";
+  static const String addYourExperience = "Add Your Experience";
+  static const String education = "Education";
+  static const String skip = "Skip";
+  static const String noEducationAdded = "No Education Added";
+  static const String noEducationDesc =
+      "Please add your education, You can add multiple educations";
+  static const String addYourEducation = "Add Your Education";
+  static const String programCompleted = "Program Completed";
+  static const String yearOfCompletion = "Year of Completion";
+  static const String graduatingInstitution = "Graduating Institution";
+  static const String addMore = "Add More";
+  static const String experience = "Experience";
+  static const String deleteEducationDesc =
+      "Are you sure you want to delete this education details?";
+  static const String deleteReferenceDesc =
+      "Are you sure you want to delete this reference?";
+
+  static const String delete = "Delete";
+  static const String year = "Year";
+  static const String month = "Month";
+  static const String reference = "Reference";
+  static const String addYourReference = "Add Your Reference";
+  static const String noReferenceAdded = "No Refrence Added";
+  static const String professional = "Professional";
+  static const String personal = "Personal";
+  static const String e_mail = "E-mail";
+
+  static const String noReferenceDesc =
+      "Please add your reference, You can add multiple references.";
+  static const String jobPosition = "Job Position";
+  static const String organization = "Organization";
+  static const String referrer = "Referrer";
+  static const String referrerEmail = "Referrer E-mail";
+  static const String referrerPhoneNumber = "Referrer Phone Number";
+  static const String jobLocationFacility = "Job Location/Facility";
+  static const String unitDepartment = "Unit/Department";
+  static const String startDate = "Start Date";
+  static const String endDate = "End Date";
+  static const String contactPerson = "Contact Person";
+  static const String professionOfTheReferrer = "Profession of the Referrer";
+  static const String documents = "Documents";
+  static const String governmentIssuedId = "Government Issued Id";
+  static const String pleaseUploadTheDocument = "Please upload the document";
+  static const String uploadedDocument = "uploaded document";
+  static const String upload = "Upload";
+  static const String covid19VaccinationProof = "Covid 19 Vaccination Proof";
+  static const String credentialsRegistrations = "Credentials/Registrations";
+  static const String deleteGovernmentIdDesc =
+      "Are you sure you want to delete the government issued id?";
+  static const String deleteCovidDocDesc =
+      "Are you sure you want to delete the covid vaccination document?";
+  static const String credentialRegistrationDesc =
+      "Please upload all your\ncredentials and registrations.";
+  static const String registrationNumber = "Registration Number";
+  static const String provinceOfRegistration = "Province of Registration";
+  static const String selectYourProvinceOfRegistration =
+      "Select Your Province of Registration";
+  static const String documentTitle = "Document Title";
+
+  ///
 
   /// ERROR ///
   static const String pleaseSelectAtLeastOneLanguage =
@@ -113,5 +173,58 @@ class StringConstant {
       "Please add other type of software skill";
   static const String pleaseAddOtherTypeOfLanguage =
       "Please add other type of language";
-  static const String addYourExperience = "Add Your Experience";
+  static const String pleaseAddCompletedProgram =
+      "Please add completed program";
+  static const String pleaseSelectCompletionYear =
+      "Please select completion year";
+  static const String pleaseAddGradutionInstitute =
+      "Please add gradution institute";
+  static const String pleaseSelectMonth = "Please select month";
+  static const String pleaseSelectYear = "Please select year";
+  static const String pleaseAddJobPosition = "Please add Job position";
+  static const String pleaseAddOrganization = "Please add organization";
+  static const String pleaseAddReferrer = "Please add referrer";
+  static const String pleaseAddReferrersEmail = "Please add referrer's email";
+  static const String pleaseAddJobLocationFacility =
+      "Please add job loction/facility";
+  static const String pleaseAddUnitDepartment = "Please add unit/department";
+  static const String pleaseSelectStartDate = "Please select start date";
+  static const String pleaseSelectEndDate = "Please select end date";
+  static const String pleaseEnterMobileNumber = "Please enter phone number";
+  static const String phoneNumberShouldBeBetween10And15Digits =
+      "Phone number should be between 10 and 15 digits";
+  static const String pleaseEnterEmail = "Please enter email";
+  static const String pleaseEnterValidEmail = "Please enter valid email";
+  static const String pleaseEnterOtp = "Please enter otp";
+  static const String otpShouldBe4Digit = "Otp should be 4 digit";
+  static const String pleaseEnterNewPassword = "Please enter new password";
+  static const String pleaseEnterPassword = "Please enter password";
+  static const String passwordShouldBeMinimum6Digit =
+      "Password should be minimum 6 digit";
+  static const String pleaseEnterConfirmPassword =
+      "Please enter confirm password";
+  static const String bothPasswordsAreDoesNotMatch =
+      "Both Passwords are does not match.";
+  static const String pleaseEnterFacilityType = "Please enter facility type";
+  static const String pleaseEnterOtherFacilityType =
+      "Please enter other facility type";
+  static const String pleaseEnterAddress = "Please enter address";
+  static const String pleaseEnterYourFirstName = "Please enter your first name";
+  static const String pleaseEnterYourLastName = "Please enter your last name";
+  static const String termsPolicyErrorText =
+      "You must accept the terms and privacy policy to register an account!";
+  static const String pleaseEnterCompanyName = "Please enter company name";
+  static const String pleaseEnterLocationName = "Please enter location address";
+  static const String pleaseSelectRoleType = "Please select role type";
+  static const String pleaseSelectLanguageRequirement =
+      "Please select language requirement";
+  static const String pleaseEnterRateHour = "Please enter rate/hour";
+  static const String pleaseEnterLocation = "Please enter location";
+  static const String pleaseAddContactPerson = "Please add contact person";
+  static const String pleaseAddProfessionOfTheReferrer =
+      "Please add profession of the referrer";
+  static const String pleaseSelectGovernmentIssuedId =
+      "Please select government issued id";
+  static const String pleaseSelectCovidVaccinationDoc =
+      "Please select covid vaccination document";
 }

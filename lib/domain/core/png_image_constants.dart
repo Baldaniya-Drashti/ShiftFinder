@@ -24,4 +24,7 @@ class PngImageConstants {
   static const onboarding2_employer = "assets/png/onboarding2_employer.png";
   static const profile_employer = "assets/png/profile_employer.png";
   static const contractor_employer = "assets/png/profile_contractor.png";
+  static const add_experience_desc = "assets/png/add_experience_desc.png";
+  static const document_img = "assets/png/document_img.png";
+  static const upload = "assets/png/upload.png";
 }

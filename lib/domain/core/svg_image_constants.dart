@@ -33,4 +33,24 @@ class SvgImageConstant {
   static const twoLines = "assets/svg/onboarding3_two_line.svg";
   static const infoCircle = "assets/svg/info_circle.svg";
   static const remove = "assets/svg/remove.svg";
+  static const graduationCap = "assets/svg/graduation_cap.svg";
+  static const capOutline = "assets/svg/cap_outline.svg";
+  static const institute = "assets/svg/institute.svg";
+  static const calendar = "assets/svg/calendar.svg";
+  static const bin = "assets/svg/bin.svg";
+  static const clock = "assets/svg/clock.svg";
+  static const capWithVerticalLine = "assets/svg/cap_with_vertical_line.svg";
+  static const personWithVerticalLine =
+      "assets/svg/person_with_vertical_line.svg";
+  static const referencePerson = "assets/svg/reference_person.svg";
+  static const bag = "assets/svg/bag.svg";
+  static const personPlus = "assets/svg/person_plus.svg";
+  static const departmentSetting = "assets/svg/department_setting.svg";
+  static const clockWithVerticalLine =
+      "assets/svg/clock_with_vertical_line.svg";
+  static const documentWithVerticalLine =
+      "assets/svg/document_with_vertical_line.svg";
+  static const checkedArrow = "assets/svg/checked_arrow.svg";
+  static const upload = "assets/svg/upload.svg";
+  static const minusCircle = "assets/svg/minus_circle.svg";
 }

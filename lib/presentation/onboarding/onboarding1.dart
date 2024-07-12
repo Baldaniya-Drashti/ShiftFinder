@@ -57,9 +57,9 @@ class OnBoarding1 extends StatelessWidget {
                   ).show(context);
                 },
                 (r) {
-                  // context.router.push(const PageRouteInfo(Onboarding2.name));
-                  context.router
-                      .push(const PageRouteInfo(AddContractorSkillsForm.name));
+                  context.router.push(const PageRouteInfo(Onboarding2.name));
+                  // context.router
+                  //     .push(const PageRouteInfo(EducationListScreen.name));
                 },
               ),
             );

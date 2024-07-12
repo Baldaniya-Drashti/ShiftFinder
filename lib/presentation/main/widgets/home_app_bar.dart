@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/main_tab/main_tab_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -71,6 +72,9 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   Color? iconColor;
   bool isShowBackBtn;
   SystemUiOverlayStyle? systemOverlayStyle;
+  List<Widget>? actions;
+  bool showSkipBtn;
+  VoidCallback? onSkipped;
   CommonAppBar({
     super.key,
     required this.onBackPressed,
@@ -79,6 +83,9 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.iconColor,
     this.isShowBackBtn = true,
     this.systemOverlayStyle,
+    this.actions,
+    this.showSkipBtn = false,
+    this.onSkipped,
   });
 
   @override
@@ -109,6 +116,22 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
         textColor: textStyle?.color ?? AppColors.black,
         fontFamily: textStyle?.fontFamily ?? "Aclonica",
       ),
+      actions: (showSkipBtn)
+          ? [
+              GestureDetector(
+                onTap: onSkipped,
+                child: Padding(
+                  padding: EdgeInsets.only(right: getSize(10)),
+                  child: BaseText(
+                    text: StringConstant.skip,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    textColor: AppColors.primaryColor,
+                  ),
+                ),
+              ),
+            ]
+          : actions,
     );
 
     // Row(

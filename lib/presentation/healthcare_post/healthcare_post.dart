@@ -11,9 +11,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
-import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -140,7 +138,7 @@ class HealthCarePostForm extends StatelessWidget {
       validator: (p0) =>
           context.read<HealthcarePostBloc>().state.roleType.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => "Please select role type",
+                  empty: (value) => StringConstant.pleaseSelectRoleType,
                   orElse: () => null,
                 ),
                 (_) => null,
@@ -182,14 +180,18 @@ class HealthCarePostForm extends StatelessWidget {
           ),
         );
       }).toList(),
-      validator: (p0) =>
-          context.read<HealthcarePostBloc>().state.selectedLanguage.value.fold(
-                (f) => f.maybeMap(
-                  empty: (value) => "Please select language requirement",
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
+      validator: (p0) => context
+          .read<HealthcarePostBloc>()
+          .state
+          .selectedLanguage
+          .value
+          .fold(
+            (f) => f.maybeMap(
+              empty: (value) => StringConstant.pleaseSelectLanguageRequirement,
+              orElse: () => null,
+            ),
+            (_) => null,
+          ),
       onChanged: (value) {
         if (value != null) {
           context.read<HealthcarePostBloc>().add(
@@ -216,7 +218,7 @@ class HealthCarePostForm extends StatelessWidget {
       validator: (p0, p1) =>
           context.read<HealthcarePostBloc>().state.rateHour.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => "Please enter rate/hour",
+                  empty: (value) => StringConstant.pleaseEnterRateHour,
                   orElse: () => null,
                 ),
                 (_) => null,
@@ -267,7 +269,7 @@ class HealthCarePostForm extends StatelessWidget {
       ) =>
           context.read<HealthcarePostBloc>().state.location.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => "Please enter location",
+                  empty: (value) => StringConstant.pleaseEnterLocation,
                   orElse: () => null,
                 ),
                 (_) => null,
@@ -329,7 +331,7 @@ class HealthCarePostForm extends StatelessWidget {
       validator: (p0, p1) =>
           context.read<HealthcarePostBloc>().state.location.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => "Please enter location",
+                  empty: (value) => StringConstant.pleaseEnterLocation,
                   orElse: () => null,
                 ),
                 (_) => null,

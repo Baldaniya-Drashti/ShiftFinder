@@ -9,6 +9,18 @@ int? getCurrentUser() {
   return Hive.box(BoxNames.settingsBox).get(BoxKeys.currentUser);
 }
 
+String getGovernmentIssueId() {
+  return Hive.box(BoxNames.cotractorDocumentBox)
+          .get(BoxKeys.governmentIssueId) ??
+      "";
+}
+
+String getCovidVaccinationDoc() {
+  return Hive.box(BoxNames.cotractorDocumentBox)
+          .get(BoxKeys.covidVaccinationDoc) ??
+      "";
+}
+
 // String? getRememberToken() {
 //   return Hive.box(BoxNames.settingsBox).get(BoxKeys.rememberToken);
 // }
