@@ -10,6 +10,7 @@ class BoxKeys {
   /// CONTRACTOR DOCUMENTS
   static const governmentIssueId = "governmentIssueId";
   static const covidVaccinationDoc = "covidVaccinationDoc";
+  static const credentialRegistrationDoc = "credentialRegistrationDoc";
 
   /// OLD KEYS ////
   static const currentKey = "account";

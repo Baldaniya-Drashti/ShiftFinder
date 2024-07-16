@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print, file_names
 
 import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,56 +20,56 @@ import 'package:shift/presentation/common/widgets/upload_document_box.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
-import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
-class CredentialRegistration extends StatelessWidget {
-  const CredentialRegistration({super.key});
+class ImmunizationsVaccinations extends StatelessWidget {
+  const ImmunizationsVaccinations({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CredentialBloc(),
-      child: BlocConsumer<CredentialBloc, CredentialState>(
+      create: (context) => ImmunizationBloc()
+        ..add(ImmunizationEvent.getImmunizationDataOnInit()),
+      child: BlocConsumer<ImmunizationBloc, ImmunizationState>(
         listener: (context, state) {},
         builder: (context, state) {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: getSize(20)),
             child: SingleChildScrollView(
               child: Form(
-                autovalidateMode: (state.showCredintialErrorMessages)
+                autovalidateMode: (state.showImmunizationErrorMessages)
                     ? AutovalidateMode.always
                     : AutovalidateMode.disabled,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    (state.credentialRegistrationList.isNotEmpty)
+                    (state.immunizationList.isNotEmpty)
                         ? ListView.builder(
-                            itemCount: state.credentialRegistrationList.length,
+                            itemCount: state.immunizationList.length,
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              CredentialRegistrationDTO credObject =
-                                  state.credentialRegistrationList[index];
+                              ImmunizationDTO immunizationObject =
+                                  state.immunizationList[index];
                               return Padding(
                                 padding: EdgeInsets.only(top: getSize(10)),
                                 child: SelectedDocumentBox(
                                   leadingImage: Image.file(File(
-                                      credObject.credentialDocument ?? "")),
-                                  title: credObject.documentTitle ?? "",
-                                  subTitle1:
-                                      credObject.provinceRegistration ?? "",
-                                  subTitle2: credObject.registrationNo ?? "",
+                                      immunizationObject.immunizationDocument ??
+                                          "")),
+                                  title:
+                                      immunizationObject.nameOfImmunization ??
+                                          "",
                                   showDeleteButton: true,
-                                  deleteDescription: StringConstant
-                                      .deleteCredentialRegistrationDesc,
+                                  deleteDescription:
+                                      StringConstant.deleteImmunizationDesc,
                                   onCancelClick: () {
                                     context.router.maybePop();
                                   },
                                   onDeleteClick: () {
-                                    context.read<CredentialBloc>().add(
-                                        CredentialEvent.deleteCredentialObject(
-                                            index));
+                                    context.read<ImmunizationBloc>().add(
+                                        ImmunizationEvent
+                                            .deleteImmunizationObject(index));
                                     context.router.maybePop();
                                   },
                                 ),
@@ -78,23 +79,18 @@ class CredentialRegistration extends StatelessWidget {
                             leadingImageString:
                                 SvgImageConstant.documentWithVerticalLine,
                             title: "",
-                            subTitle1:
-                                StringConstant.credentialRegistrationDesc,
+                            subTitle1: StringConstant.immunizationDesc,
                             showDeleteButton: false,
                           ),
                     SizedBox(
                       height: getSize(20),
                     ),
-                    registrationNoField(context),
+                    immunizationNameField(context),
                     paddingBetweenFields(),
-                    provinceRegistrationDropdown(context, state),
-                    paddingBetweenFields(),
-                    documentTitleField(context),
-                    paddingBetweenFields(),
-                    (state.credentialRegistrationDoc.isValid())
+                    (state.immunizationDoc.isValid())
                         ? selectedImage(
                             context,
-                            state.credentialRegistrationDoc.getValue() ?? "",
+                            state.immunizationDoc.getValue() ?? "",
                             state: state,
                           )
                         : UploadDocumentBox(
@@ -103,14 +99,13 @@ class CredentialRegistration extends StatelessWidget {
                               clickUploadButton(context);
                             },
                           ),
-                    if (state.showCredintialErrorMessages &&
-                        !state.credentialRegistrationDoc.isValid())
+                    if (state.showImmunizationErrorMessages &&
+                        !state.immunizationDoc.isValid())
                       Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: getSize(10), horizontal: getSize(20)),
                         child: const BaseText(
-                          text: StringConstant
-                              .pleaseSelectCredentialRegistrationDocument,
+                          text: StringConstant.pleaseSelectImmunizationDocument,
                           fontSize: 12,
                           textColor: AppColors.red,
                         ),
@@ -120,9 +115,8 @@ class CredentialRegistration extends StatelessWidget {
                       context,
                       state,
                       onPressed: () {
-                        context
-                            .read<CredentialBloc>()
-                            .add(const CredentialEvent.addMoreCredentialDoc());
+                        context.read<ImmunizationBloc>().add(
+                            const ImmunizationEvent.addMoreImmunizationDoc());
                       },
                     ),
                     Padding(
@@ -130,8 +124,8 @@ class CredentialRegistration extends StatelessWidget {
                           top: getSize(50), bottom: getSize(50)),
                       child: CommonButton(
                         onPressed: () {
-                          context.read<CredentialBloc>().add(
-                              const CredentialEvent.credentialDocSubmit(
+                          context.read<ImmunizationBloc>().add(
+                              const ImmunizationEvent.immunizationDocSubmit(
                                   isAddMoreBtnClick: false));
                         },
                         buttonText: StringConstant.txtContinue,
@@ -148,7 +142,7 @@ class CredentialRegistration extends StatelessWidget {
   }
 
   Widget selectedImage(BuildContext context, String selectedFile,
-      {required CredentialState state}) {
+      {required ImmunizationState state}) {
     return Stack(
       alignment: Alignment.topRight,
       children: [
@@ -190,10 +184,10 @@ class CredentialRegistration extends StatelessWidget {
                   context.router.maybePop();
                 },
                 onDeleteClick: () {
-                  if (state.credentialRegistrationDoc.isValid()) {
-                    context.read<CredentialBloc>().add(
-                          CredentialEvent.deleteCredentialDoc(
-                              state.credentialRegistrationDoc.getValue()!),
+                  if (state.immunizationDoc.isValid()) {
+                    context.read<ImmunizationBloc>().add(
+                          ImmunizationEvent.deleteImmunizationDoc(
+                              state.immunizationDoc.getValue()!),
                         );
                   }
                   context.router.maybePop();
@@ -217,8 +211,8 @@ class CredentialRegistration extends StatelessWidget {
             '';
         if (path.isNotEmpty) {
           print("CAMERA IMAGE PATH: $path");
-          context.read<CredentialBloc>().add(
-                CredentialEvent.selectCredentialDoc(path),
+          context.read<ImmunizationBloc>().add(
+                ImmunizationEvent.selectImmunizationDoc(path),
               );
         }
         context.router.maybePop();
@@ -230,8 +224,8 @@ class CredentialRegistration extends StatelessWidget {
 
         if (path.isNotEmpty) {
           print("GALLERY IMAGE PATH: $path");
-          context.read<CredentialBloc>().add(
-                CredentialEvent.selectCredentialDoc(path),
+          context.read<ImmunizationBloc>().add(
+                ImmunizationEvent.selectImmunizationDoc(path),
               );
         }
         context.router.maybePop();
@@ -246,28 +240,17 @@ class CredentialRegistration extends StatelessWidget {
     );
   }
 
-  Widget registrationNoField(BuildContext context) {
+  Widget immunizationNameField(BuildContext context) {
     return CustomTextField(
-      labelText: StringConstant.registrationNumber,
-      hintText: StringConstant.registrationNumber,
-      isOptional: true,
+      labelText: StringConstant.nameOfImmunizationsVaccinations,
+      hintText: StringConstant.nameOfImmunizationsVaccinations,
       onChanged: (value) => context
-          .read<CredentialBloc>()
-          .add(CredentialEvent.registrationNumberChanegd(value)),
-    );
-  }
-
-  Widget documentTitleField(BuildContext context) {
-    return CustomTextField(
-      labelText: StringConstant.documentTitle,
-      hintText: StringConstant.documentTitle,
-      onChanged: (value) => context
-          .read<CredentialBloc>()
-          .add(CredentialEvent.documentTitleChanged(value)),
+          .read<ImmunizationBloc>()
+          .add(ImmunizationEvent.immunizationsNameChanegd(value)),
       validator: (_, context) =>
-          context.read<CredentialBloc>().state.documentTitle.value.fold(
+          context.read<ImmunizationBloc>().state.immunizationName.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseAddDocumentTitle,
+                  empty: (value) => StringConstant.pleaseAddImmunizationName,
                   orElse: () => null,
                 ),
                 (_) => null,
@@ -275,68 +258,12 @@ class CredentialRegistration extends StatelessWidget {
     );
   }
 
-  Widget provinceRegistrationDropdown(
-      BuildContext context, CredentialState state) {
-    return CustomDropdwonWithTextField(
-      labelText: StringConstant.provinceOfRegistration,
-      hintText: StringConstant.selectYourProvinceOfRegistration,
-      isLabelPadding: true,
-      showTextfield: false,
-      items: [
-        "Alberta",
-        "British Columbia",
-        "Manitoba",
-        "New Brunswick",
-        "Newfoundland",
-        "Labrador",
-        "Nova Scotia",
-        "Ontario",
-        "Prince Edward Island",
-        "Quebec",
-        "Saskatchewan"
-      ].map((val) {
-        return DropdownMenuItem(
-          value: val,
-          child: BaseText(
-            text: val,
-            fontSize: 14,
-            textColor: AppColors.black,
-          ),
-        );
-      }).toList(),
-      validator: (p0) => context
-          .read<CredentialBloc>()
-          .state
-          .selectedProvinceRegistration
-          .value
-          .fold(
-            (f) => f.maybeMap(
-              empty: (value) =>
-                  StringConstant.pleaseSelectProvinceOfRegistrationDocument,
-              orElse: () => null,
-            ),
-            (_) => null,
-          ),
-      value: (state.selectedProvinceRegistration.isValid())
-          ? state.selectedProvinceRegistration.getValue()
-          : null,
-      onChanged: (value) {
-        if (value != null) {
-          context
-              .read<CredentialBloc>()
-              .add(CredentialEvent.selectProvinceRegistration(value));
-        }
-      },
-    );
-  }
-
-  Widget addMoreButton(BuildContext context, CredentialState state,
+  Widget addMoreButton(BuildContext context, ImmunizationState state,
       {required VoidCallback onPressed}) {
-    bool isAllDetailsAdded = (state.selectedProvinceRegistration.isValid() &&
-            state.documentTitle.isValid() &&
-            state.credentialRegistrationDoc.isValid())
-        ? true
-        : false;
+    bool isAllDetailsAdded =
+        (state.immunizationName.isValid() && state.immunizationDoc.isValid())
+            ? true
+            : false;
     return Align(
       alignment: Alignment.center,
       child: CommonButton(

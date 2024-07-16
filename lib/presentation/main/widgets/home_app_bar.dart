@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, must_be_immutable
+// ignore_for_file: prefer_const_constructors, must_be_immutable, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -111,6 +111,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       systemOverlayStyle: systemOverlayStyle ?? SystemUiOverlayStyle.dark,
       title: BaseText(
         text: title,
+        textAlign: TextAlign.center,
         fontSize: textStyle?.fontSize ?? 16,
         fontWeight: textStyle?.fontWeight ?? FontWeight.w400,
         textColor: textStyle?.color ?? AppColors.black,

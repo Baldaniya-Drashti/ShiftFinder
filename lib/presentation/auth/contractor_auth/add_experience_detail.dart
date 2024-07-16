@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +9,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -23,8 +26,8 @@ class AddExperienceDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          ExperienceBloc()..add(const ExperienceEvent.getExperinceDataEvent()),
+      create: (context) => getIt<ExperienceBloc>()
+        ..add(const ExperienceEvent.getExperinceDataEvent()),
       child: Scaffold(
         appBar: CommonAppBar(
           onBackPressed: () {
@@ -144,7 +147,7 @@ class AddExperienceDetail extends StatelessWidget {
                   showYear: false,
                   showMonth: true,
                   onChangedMonth: (value) {
-                    print("SELECTE MONTH ${value}");
+                    print("SELECTE MONTH $value");
                     context
                         .read<ExperienceBloc>()
                         .add(ExperienceEvent.updateRecordEvent(
@@ -174,7 +177,7 @@ class AddExperienceDetail extends StatelessWidget {
       String? selectedYear,
       void Function(String?)? onChangeyear,
       void Function(String?)? onChangedMonth}) {
-    return Container(
+    return SizedBox(
       width: getSize(180),
       child: Column(
         mainAxisSize: MainAxisSize.min,

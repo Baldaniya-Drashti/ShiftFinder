@@ -12,9 +12,12 @@ class AppColors {
   static const Color lightGrey = Color(0xFFAAB8C2);
   static const Color extraLightGrey = Color(0xffE1E8ED);
   static const Color red = Color.fromARGB(255, 174, 12, 12);
+  static const Color redAccent = Color(0xffEB0000);
+  static const Color purple = Color(0xff2512FF);
   static const Color green = Color(0xff08B40F);
   static const Color darkGreen = Color(0xff078B1C);
   static const Color transparent = Color.fromARGB(0, 0, 0, 0);
+  static const Color videoIndicatorBackgroundColor = Color(0xff565656);
 
   //app colors
 

@@ -31,7 +31,7 @@ class SplashPage extends StatelessWidget {
                 () =>
                     // context.router.replace(const PageRouteInfo(Onboarding1.name)),
                     context.router
-                        .push(const PageRouteInfo(DocumentPageScreen.name)),
+                        .push(const PageRouteInfo(IntroVideoScreen.name)),
               );
             });
       },

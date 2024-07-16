@@ -193,7 +193,7 @@ class CustomTextField extends StatelessWidget {
             onChanged: onChanged,
             initialValue: initialValue,
             obscureText: obscureText,
-            // controller: controller,
+            controller: controller,
             cursorColor: AppColors.primaryColor,
             keyboardType: keyboardType,
             textInputAction: textInputAction,

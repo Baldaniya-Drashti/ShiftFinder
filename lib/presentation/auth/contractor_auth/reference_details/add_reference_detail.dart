@@ -1,9 +1,12 @@
+// ignore_for_file: prefer_const_constructors_in_immutables, avoid_print
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/auth/contractor_auth/reference_bloc/reference_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/auth/contractor_auth/reference_details/personal_reference.dart';
 import 'package:shift/presentation/auth/contractor_auth/reference_details/professional_reference.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
@@ -18,7 +21,7 @@ class AddReferenceDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ReferenceBloc(),
+      create: (context) => getIt<ReferenceBloc>(),
       child: GestureDetector(
         onTap: () {
           AppFocus.unfocus(context);

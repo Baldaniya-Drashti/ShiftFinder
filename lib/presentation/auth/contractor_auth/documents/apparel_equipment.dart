@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print
 
 import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,106 +12,120 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/auth/contractor/document/upload_document_dto.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/image_picker_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
 import 'package:shift/presentation/common/widgets/selected_document_box.dart';
 import 'package:shift/presentation/common/widgets/upload_document_box.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
-import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
-class CredentialRegistration extends StatelessWidget {
-  const CredentialRegistration({super.key});
+class ApparelEquipment extends StatelessWidget {
+  const ApparelEquipment({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CredentialBloc(),
-      child: BlocConsumer<CredentialBloc, CredentialState>(
-        listener: (context, state) {},
+      create: (context) => EquipmentBloc(),
+      child: BlocConsumer<EquipmentBloc, EquipmentState>(
+        listener: (context, state) {
+          state.equipmentDocAuthFailureOrSuccessOption.fold(
+            () {},
+            (either) => either.fold(
+              (failure) {
+                showError(
+                  message: failure.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(context);
+              },
+              (r) {
+                context.router.push(
+                    const PageRouteInfo(LegalScreeningQuestionsPage.name));
+                DocumentBloc.pageController.animateToPage(
+                  0,
+                  duration: const Duration(milliseconds: 1),
+                  curve: Curves.easeInOut,
+                );
+              },
+            ),
+          );
+        },
         builder: (context, state) {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: getSize(20)),
             child: SingleChildScrollView(
               child: Form(
-                autovalidateMode: (state.showCredintialErrorMessages)
+                autovalidateMode: (state.showEquipmentErrorMessages)
                     ? AutovalidateMode.always
                     : AutovalidateMode.disabled,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    (state.credentialRegistrationList.isNotEmpty)
+                    (state.equipmentList.isNotEmpty)
                         ? ListView.builder(
-                            itemCount: state.credentialRegistrationList.length,
+                            itemCount: state.equipmentList.length,
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              CredentialRegistrationDTO credObject =
-                                  state.credentialRegistrationList[index];
+                              ImmunizationDTO immunizationObject =
+                                  state.equipmentList[index];
                               return Padding(
                                 padding: EdgeInsets.only(top: getSize(10)),
                                 child: SelectedDocumentBox(
                                   leadingImage: Image.file(File(
-                                      credObject.credentialDocument ?? "")),
-                                  title: credObject.documentTitle ?? "",
-                                  subTitle1:
-                                      credObject.provinceRegistration ?? "",
-                                  subTitle2: credObject.registrationNo ?? "",
+                                      immunizationObject.immunizationDocument ??
+                                          "")),
+                                  title:
+                                      immunizationObject.nameOfImmunization ??
+                                          "",
                                   showDeleteButton: true,
-                                  deleteDescription: StringConstant
-                                      .deleteCredentialRegistrationDesc,
+                                  deleteDescription:
+                                      StringConstant.deleteEquipmentDesc,
                                   onCancelClick: () {
                                     context.router.maybePop();
                                   },
                                   onDeleteClick: () {
-                                    context.read<CredentialBloc>().add(
-                                        CredentialEvent.deleteCredentialObject(
+                                    context.read<EquipmentBloc>().add(
+                                        EquipmentEvent.deleteEquipmentObject(
                                             index));
                                     context.router.maybePop();
                                   },
                                 ),
                               );
                             })
-                        : SelectedDocumentBox(
-                            leadingImageString:
-                                SvgImageConstant.documentWithVerticalLine,
-                            title: "",
-                            subTitle1:
-                                StringConstant.credentialRegistrationDesc,
-                            showDeleteButton: false,
-                          ),
+                        : Container(),
                     SizedBox(
                       height: getSize(20),
                     ),
-                    registrationNoField(context),
+                    equipmentNameField(context, state),
                     paddingBetweenFields(),
-                    provinceRegistrationDropdown(context, state),
-                    paddingBetweenFields(),
-                    documentTitleField(context),
-                    paddingBetweenFields(),
-                    (state.credentialRegistrationDoc.isValid())
+                    (state.equipmentDoc.isValid())
                         ? selectedImage(
                             context,
-                            state.credentialRegistrationDoc.getValue() ?? "",
+                            state.equipmentDoc.getValue() ?? "",
                             state: state,
                           )
                         : UploadDocumentBox(
-                            height: getSize(300),
+                            height: getSize(400),
                             onUploadBtnPressed: () {
                               clickUploadButton(context);
                             },
                           ),
-                    if (state.showCredintialErrorMessages &&
-                        !state.credentialRegistrationDoc.isValid())
+                    if (state.showEquipmentErrorMessages &&
+                        !state.equipmentDoc.isValid())
                       Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: getSize(10), horizontal: getSize(20)),
                         child: const BaseText(
-                          text: StringConstant
-                              .pleaseSelectCredentialRegistrationDocument,
+                          text: StringConstant.pleaseSelectEquipmentDocument,
                           fontSize: 12,
                           textColor: AppColors.red,
                         ),
@@ -121,8 +136,8 @@ class CredentialRegistration extends StatelessWidget {
                       state,
                       onPressed: () {
                         context
-                            .read<CredentialBloc>()
-                            .add(const CredentialEvent.addMoreCredentialDoc());
+                            .read<EquipmentBloc>()
+                            .add(const EquipmentEvent.addMoreEquipmentDoc());
                       },
                     ),
                     Padding(
@@ -130,8 +145,8 @@ class CredentialRegistration extends StatelessWidget {
                           top: getSize(50), bottom: getSize(50)),
                       child: CommonButton(
                         onPressed: () {
-                          context.read<CredentialBloc>().add(
-                              const CredentialEvent.credentialDocSubmit(
+                          context.read<EquipmentBloc>().add(
+                              const EquipmentEvent.equipmentDocSubmit(
                                   isAddMoreBtnClick: false));
                         },
                         buttonText: StringConstant.txtContinue,
@@ -148,12 +163,12 @@ class CredentialRegistration extends StatelessWidget {
   }
 
   Widget selectedImage(BuildContext context, String selectedFile,
-      {required CredentialState state}) {
+      {required EquipmentState state}) {
     return Stack(
       alignment: Alignment.topRight,
       children: [
         Container(
-            height: getSize(300),
+            height: getSize(400),
             decoration: BoxDecoration(
               color: AppColors.grey.withOpacity(0.4),
               borderRadius: BorderRadius.circular(10),
@@ -161,8 +176,8 @@ class CredentialRegistration extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: getSize(10)),
             alignment: Alignment.center,
             child: Container(
-              height: getSize(250),
-              width: getSize(250),
+              height: getSize(350),
+              width: getSize(350),
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
@@ -179,7 +194,7 @@ class CredentialRegistration extends StatelessWidget {
             )),
         Positioned(
           top: getSize(14),
-          left: getSize(300),
+          left: getSize(350),
           child: GestureDetector(
             onTap: () {
               AppDialog.showDelete(
@@ -190,10 +205,10 @@ class CredentialRegistration extends StatelessWidget {
                   context.router.maybePop();
                 },
                 onDeleteClick: () {
-                  if (state.credentialRegistrationDoc.isValid()) {
-                    context.read<CredentialBloc>().add(
-                          CredentialEvent.deleteCredentialDoc(
-                              state.credentialRegistrationDoc.getValue()!),
+                  if (state.equipmentDoc.isValid()) {
+                    context.read<EquipmentBloc>().add(
+                          EquipmentEvent.deleteEquipmentDoc(
+                              state.equipmentDoc.getValue()!),
                         );
                   }
                   context.router.maybePop();
@@ -217,8 +232,8 @@ class CredentialRegistration extends StatelessWidget {
             '';
         if (path.isNotEmpty) {
           print("CAMERA IMAGE PATH: $path");
-          context.read<CredentialBloc>().add(
-                CredentialEvent.selectCredentialDoc(path),
+          context.read<EquipmentBloc>().add(
+                EquipmentEvent.selectEquipmentDoc(path),
               );
         }
         context.router.maybePop();
@@ -230,8 +245,8 @@ class CredentialRegistration extends StatelessWidget {
 
         if (path.isNotEmpty) {
           print("GALLERY IMAGE PATH: $path");
-          context.read<CredentialBloc>().add(
-                CredentialEvent.selectCredentialDoc(path),
+          context.read<EquipmentBloc>().add(
+                EquipmentEvent.selectEquipmentDoc(path),
               );
         }
         context.router.maybePop();
@@ -246,28 +261,17 @@ class CredentialRegistration extends StatelessWidget {
     );
   }
 
-  Widget registrationNoField(BuildContext context) {
+  Widget equipmentNameField(BuildContext context, EquipmentState state) {
     return CustomTextField(
-      labelText: StringConstant.registrationNumber,
-      hintText: StringConstant.registrationNumber,
-      isOptional: true,
+      labelText: StringConstant.title,
+      hintText: StringConstant.title,
       onChanged: (value) => context
-          .read<CredentialBloc>()
-          .add(CredentialEvent.registrationNumberChanegd(value)),
-    );
-  }
-
-  Widget documentTitleField(BuildContext context) {
-    return CustomTextField(
-      labelText: StringConstant.documentTitle,
-      hintText: StringConstant.documentTitle,
-      onChanged: (value) => context
-          .read<CredentialBloc>()
-          .add(CredentialEvent.documentTitleChanged(value)),
+          .read<EquipmentBloc>()
+          .add(EquipmentEvent.equipmentNameChanegd(value)),
       validator: (_, context) =>
-          context.read<CredentialBloc>().state.documentTitle.value.fold(
+          context.read<EquipmentBloc>().state.equipmentName.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseAddDocumentTitle,
+                  empty: (value) => StringConstant.pleaseAddTitle,
                   orElse: () => null,
                 ),
                 (_) => null,
@@ -275,68 +279,12 @@ class CredentialRegistration extends StatelessWidget {
     );
   }
 
-  Widget provinceRegistrationDropdown(
-      BuildContext context, CredentialState state) {
-    return CustomDropdwonWithTextField(
-      labelText: StringConstant.provinceOfRegistration,
-      hintText: StringConstant.selectYourProvinceOfRegistration,
-      isLabelPadding: true,
-      showTextfield: false,
-      items: [
-        "Alberta",
-        "British Columbia",
-        "Manitoba",
-        "New Brunswick",
-        "Newfoundland",
-        "Labrador",
-        "Nova Scotia",
-        "Ontario",
-        "Prince Edward Island",
-        "Quebec",
-        "Saskatchewan"
-      ].map((val) {
-        return DropdownMenuItem(
-          value: val,
-          child: BaseText(
-            text: val,
-            fontSize: 14,
-            textColor: AppColors.black,
-          ),
-        );
-      }).toList(),
-      validator: (p0) => context
-          .read<CredentialBloc>()
-          .state
-          .selectedProvinceRegistration
-          .value
-          .fold(
-            (f) => f.maybeMap(
-              empty: (value) =>
-                  StringConstant.pleaseSelectProvinceOfRegistrationDocument,
-              orElse: () => null,
-            ),
-            (_) => null,
-          ),
-      value: (state.selectedProvinceRegistration.isValid())
-          ? state.selectedProvinceRegistration.getValue()
-          : null,
-      onChanged: (value) {
-        if (value != null) {
-          context
-              .read<CredentialBloc>()
-              .add(CredentialEvent.selectProvinceRegistration(value));
-        }
-      },
-    );
-  }
-
-  Widget addMoreButton(BuildContext context, CredentialState state,
+  Widget addMoreButton(BuildContext context, EquipmentState state,
       {required VoidCallback onPressed}) {
-    bool isAllDetailsAdded = (state.selectedProvinceRegistration.isValid() &&
-            state.documentTitle.isValid() &&
-            state.credentialRegistrationDoc.isValid())
-        ? true
-        : false;
+    bool isAllDetailsAdded =
+        (state.equipmentName.isValid() && state.equipmentDoc.isValid())
+            ? true
+            : false;
     return Align(
       alignment: Alignment.center,
       child: CommonButton(

@@ -34,7 +34,7 @@ class SelectedDocumentBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.topCenter,
+      alignment: Alignment.center,
       child: ListTile(
         tileColor: AppColors.grey.withOpacity(0.4),
         minTileHeight: getSize(103),
@@ -42,7 +42,37 @@ class SelectedDocumentBox extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         leading: (leadingImage != null)
-            ? leadingImage
+            ? Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    height: getSize(60),
+                    width: getSize(60),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: getSize(11), vertical: getSize(6)),
+                    decoration: const BoxDecoration(
+                      color: AppColors.white,
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(boxShadow: [
+                        BoxShadow(
+                            blurRadius: 5,
+                            spreadRadius: 1,
+                            color: Colors.black.withOpacity(0.2)),
+                      ]),
+                      child: leadingImage!,
+                    ),
+                  ),
+                  SizedBox(
+                    width: getSize(20),
+                  ),
+                  SvgPicture.asset(
+                    SvgImageConstant.verticalLine,
+                    width: getSize(59.56),
+                    height: getSize(63),
+                  )
+                ],
+              )
             : SvgPicture.asset(
                 leadingImageString ?? SvgImageConstant.infoCircle,
                 width: getSize(59.56),
@@ -82,19 +112,23 @@ class SelectedDocumentBox extends StatelessWidget {
           text: title ?? "",
           fontWeight: FontWeight.w600,
           fontSize: 14,
+          lineHeight: 0,
         ),
-        BaseText(
-          text: subTitle1 ?? "",
-          fontSize: 12,
-          fontWeight: FontWeight.w500,
-          textColor: AppColors.black.withOpacity(0.8),
-        ),
-        BaseText(
-          text: subTitle2 ?? "",
-          fontSize: 10,
-          fontWeight: FontWeight.w400,
-          textColor: AppColors.black.withOpacity(0.8),
-        ),
+        if (subTitle1 != null)
+          BaseText(
+            text: subTitle1,
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+            textColor: AppColors.black.withOpacity(0.8),
+          ),
+        if (subTitle2 != null)
+          BaseText(
+            text: subTitle2,
+            fontSize: 10,
+            fontWeight: FontWeight.w400,
+            lineHeight: 0,
+            textColor: AppColors.black.withOpacity(0.8),
+          ),
       ],
     );
   }

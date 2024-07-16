@@ -141,21 +141,66 @@ class StringConstant {
   static const String documents = "Documents";
   static const String governmentIssuedId = "Government Issued Id";
   static const String pleaseUploadTheDocument = "Please upload the document";
-  static const String uploadedDocument = "uploaded document";
+  static const String uploadYourResume = "Upload Your Resume";
+  static const String uploadedDocument = "Uploaded Document";
+  static const String uploadedResume = "Uploaded Resume";
   static const String upload = "Upload";
   static const String covid19VaccinationProof = "Covid 19 Vaccination Proof";
   static const String credentialsRegistrations = "Credentials/Registrations";
+  static const String professionalLicenses = "Professional Licenses";
+  static const String immunizationsVaccinations = "Immunizations/Vaccinations";
+  static const String resume = "Resume";
+  static const String apparelEquipment = "Apparel/Equipment";
+  static const String professionalLiabilityProtection =
+      "Professional Liability Protection";
   static const String deleteGovernmentIdDesc =
       "Are you sure you want to delete the government issued id?";
   static const String deleteCovidDocDesc =
       "Are you sure you want to delete the covid vaccination document?";
   static const String credentialRegistrationDesc =
       "Please upload all your\ncredentials and registrations.";
+  static const String immunizationDesc =
+      "Please upload all your\nimmunizations/vaccinations\ndocuments.";
+  static const String equipmentDesc =
+      "Please upload all your\nimmunizations/vaccinations\ndocuments.";
+  static const String liabilityDesc =
+      "Please upload your professional\nliability protection document.";
+  static const String professionalLicensesDesc =
+      "Please upload all your\nprofessional licenses.";
   static const String registrationNumber = "Registration Number";
   static const String provinceOfRegistration = "Province of Registration";
   static const String selectYourProvinceOfRegistration =
       "Select Your Province of Registration";
   static const String documentTitle = "Document Title";
+  static const String nameOfImmunizationsVaccinations =
+      "Name of Immunizations / Vaccinations";
+
+  static const String deleteCredentialRegistrationDesc =
+      "Are you sure you want to delete the credentials/registration document?";
+  static const String deleteCredentialImageDesc =
+      "Are you sure you want to remove selected document?";
+  static const String deleteProfessionalLicenseDesc =
+      "Are you sure you want to delete the professional license?";
+  static const String deleteImmunizationDesc =
+      "Are you sure you want to delete the immunizations/vaccinations document?";
+  static const String deleteLiabilityDesc =
+      "Are you sure you want to delete the professional liability protection document?";
+  static const String deleteEquipmentDesc =
+      "Are you sure you want to delete the apparel/equipment document?";
+  static const String title = "Title";
+  static const String legalScreening = "Legal Screening";
+  static const String yes = "Yes";
+  static const String no = "No";
+  static const String notApplicable = "N/A";
+  static const String legalScreeningConfirmationDesc =
+      "I affirm that the responses provided above are true and release ShiftFinder from any  liabilities arising from any inaccuracies in the answers provided.";
+  static const String termsAndConditions = "Terms & Conditions";
+  static const String introVideoQuiz = "Intro Video & Quiz";
+  static const String introVideo = "Intro Video";
+  static const String introVideoDesc =
+      "Watch the video and then take the brief quiz to learn how to effectively use the";
+  static const String introShiftFinder = " ShiftFinder ";
+  static const String introApp = "app.";
 
   ///
 
@@ -227,4 +272,24 @@ class StringConstant {
       "Please select government issued id";
   static const String pleaseSelectCovidVaccinationDoc =
       "Please select covid vaccination document";
+  static const String pleaseAddDocumentTitle = "Please add document title";
+  static const String pleaseAddImmunizationName =
+      "Please add immunization name";
+  static const String pleaseAddTitle = "Please add title";
+  static const String pleaseSelectCredentialRegistrationDocument =
+      "Please select credentials/registration document";
+  static const String pleaseSelectProvinceOfRegistrationDocument =
+      "Please select province of registration document";
+  static const String pleaseSelectProfessionalLicensesDocument =
+      "Please select professional licenses document";
+  static const String pleaseSelectImmunizationDocument =
+      "Please select immunizations/vaccinations document";
+  static const String pleaseSelectLiabilityDocument =
+      "Please select your professional liability protection document.";
+  static const String pleaseSelectEquipmentDocument =
+      "Please select apparel/equipment document";
+  static const String legalScreeningTermsErrorText =
+      "You must agree to the terms before proceeding.";
+  static const String youMustAnswerAllTheQuestions =
+      "You must answer all the questions.";
 }

@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, prefer_const_constructors, avoid_print
 
 import 'dart:io';
 
@@ -11,18 +11,31 @@ import 'package:shift/application/auth/contractor_auth/document_bloc/document_bl
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/utils/image_picker_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
-import 'package:shift/presentation/common/widgets/selected_document_box.dart';
 import 'package:shift/presentation/common/widgets/upload_document_box.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 
-@RoutePage(name: 'CovidVaccinationDocument')
-class CovidVaccinationDocument extends StatelessWidget {
+class CovidVaccinationDocument extends StatefulWidget {
   const CovidVaccinationDocument({super.key});
+
+  @override
+  State<CovidVaccinationDocument> createState() =>
+      _CovidVaccinationDocumentState();
+}
+
+class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<DocumentBloc>(context)
+        .add(DocumentEvent.selectCovidVaccinationDoc(getCovidVaccinationDoc()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,15 +115,16 @@ class CovidVaccinationDocument extends StatelessWidget {
                 ),
               Padding(
                 padding: EdgeInsets.only(top: getSize(90), bottom: getSize(50)),
-                child: CommonButton(
-                  isSubmitting: state.isCovidDocSubmitting,
-                  onPressed: () {
-                    context
-                        .read<DocumentBloc>()
-                        .add(const DocumentEvent.covidDocSubmit());
-                  },
-                  buttonText: StringConstant.txtContinue,
-                ),
+                child: (state.isCovidDocSubmitting)
+                    ? CenterLoadingIndicator()
+                    : CommonButton(
+                        onPressed: () {
+                          context
+                              .read<DocumentBloc>()
+                              .add(const DocumentEvent.covidDocSubmit());
+                        },
+                        buttonText: StringConstant.txtContinue,
+                      ),
               )
             ],
           ),

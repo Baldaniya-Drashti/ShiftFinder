@@ -1,3 +1,4 @@
+import 'package:shift/infrastructure/auth/contractor/document/upload_document_dto.dart';
 import 'package:shift/infrastructure/core/network/hive_box_names.dart';
 import 'package:hive/hive.dart';
 
@@ -18,6 +19,12 @@ String getGovernmentIssueId() {
 String getCovidVaccinationDoc() {
   return Hive.box(BoxNames.cotractorDocumentBox)
           .get(BoxKeys.covidVaccinationDoc) ??
+      "";
+}
+
+CredentialRegistrationDTO getCredentialRegistrationDoc() {
+  return Hive.box(BoxNames.cotractorDocumentBox)
+          .get(BoxKeys.credentialRegistrationDoc) ??
       "";
 }
 

@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, avoid_print
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -411,7 +411,7 @@ class AddContractorSkillsForm extends StatelessWidget {
             }
           },
           onChanged: (newValue) {
-            print("valllll-> ${newValue}");
+            print("valllll-> $newValue");
             if (newValue != null) {
               context
                   .read<AddContractorSkillFormBloc>()
@@ -483,9 +483,9 @@ class AddContractorSkillsForm extends StatelessWidget {
                 ? true
                 : false,
             errorText: StringConstant.experienceMustBeSelected,
-            value: (state.selectedSpecialityExperience.isEmpty)
-                ? null
-                : state.selectedSpecialityExperience,
+            // value: (state.selectedSpecialityExperience.isEmpty)
+            //     ? null
+            //     : state.selectedSpecialityExperience,
             items: const [
               "03 Months",
               "06 Months",

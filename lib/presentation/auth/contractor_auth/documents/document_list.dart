@@ -33,13 +33,13 @@ class _DocumentListState extends State<DocumentList> {
                     ),
                     child: GestureDetector(
                       onTap: () async {
-                        if (!DocumentBloc.isDocSubmit(index)) {
-                          DocumentBloc.pageController.animateToPage(
-                            (index + 1),
-                            duration: const Duration(milliseconds: 1),
-                            curve: Curves.easeInOut,
-                          );
-                        }
+                        // if (!DocumentBloc.isDocSubmit(index)) {
+                        DocumentBloc.pageController.animateToPage(
+                          (index + 1),
+                          duration: const Duration(milliseconds: 1),
+                          curve: Curves.easeInOut,
+                        );
+                        // }
                       },
                       child: ListTile(
                         tileColor: AppColors.white,

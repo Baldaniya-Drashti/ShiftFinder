@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print
+// ignore_for_file: prefer_const_constructors, avoid_print, use_build_context_synchronously
 
 import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,53 +23,55 @@ import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
-class CredentialRegistration extends StatelessWidget {
-  const CredentialRegistration({super.key});
+class ProfessionalLicenses extends StatelessWidget {
+  const ProfessionalLicenses({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CredentialBloc(),
-      child: BlocConsumer<CredentialBloc, CredentialState>(
+      create: (context) => ProfessionalLicensesBloc(),
+      child: BlocConsumer<ProfessionalLicensesBloc, ProfessionalLicensesState>(
         listener: (context, state) {},
         builder: (context, state) {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: getSize(20)),
             child: SingleChildScrollView(
               child: Form(
-                autovalidateMode: (state.showCredintialErrorMessages)
+                autovalidateMode: (state.showLicensesErrorMessages)
                     ? AutovalidateMode.always
                     : AutovalidateMode.disabled,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    (state.credentialRegistrationList.isNotEmpty)
+                    (state.professionalLicensesList.isNotEmpty)
                         ? ListView.builder(
-                            itemCount: state.credentialRegistrationList.length,
+                            itemCount: state.professionalLicensesList.length,
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              CredentialRegistrationDTO credObject =
-                                  state.credentialRegistrationList[index];
+                              CredentialRegistrationDTO licensesObject =
+                                  state.professionalLicensesList[index];
                               return Padding(
                                 padding: EdgeInsets.only(top: getSize(10)),
                                 child: SelectedDocumentBox(
                                   leadingImage: Image.file(File(
-                                      credObject.credentialDocument ?? "")),
-                                  title: credObject.documentTitle ?? "",
+                                      licensesObject.credentialDocument ?? "")),
+                                  title: licensesObject.documentTitle ?? "",
                                   subTitle1:
-                                      credObject.provinceRegistration ?? "",
-                                  subTitle2: credObject.registrationNo ?? "",
+                                      licensesObject.provinceRegistration ?? "",
+                                  subTitle2:
+                                      licensesObject.registrationNo ?? "",
                                   showDeleteButton: true,
                                   deleteDescription: StringConstant
-                                      .deleteCredentialRegistrationDesc,
+                                      .deleteProfessionalLicenseDesc,
                                   onCancelClick: () {
                                     context.router.maybePop();
                                   },
                                   onDeleteClick: () {
-                                    context.read<CredentialBloc>().add(
-                                        CredentialEvent.deleteCredentialObject(
-                                            index));
+                                    context
+                                        .read<ProfessionalLicensesBloc>()
+                                        .add(ProfessionalLicensesEvent
+                                            .deleteLicensesObject(index));
                                     context.router.maybePop();
                                   },
                                 ),
@@ -78,8 +81,7 @@ class CredentialRegistration extends StatelessWidget {
                             leadingImageString:
                                 SvgImageConstant.documentWithVerticalLine,
                             title: "",
-                            subTitle1:
-                                StringConstant.credentialRegistrationDesc,
+                            subTitle1: StringConstant.professionalLicensesDesc,
                             showDeleteButton: false,
                           ),
                     SizedBox(
@@ -91,10 +93,10 @@ class CredentialRegistration extends StatelessWidget {
                     paddingBetweenFields(),
                     documentTitleField(context),
                     paddingBetweenFields(),
-                    (state.credentialRegistrationDoc.isValid())
+                    (state.professionalLicensesDoc.isValid())
                         ? selectedImage(
                             context,
-                            state.credentialRegistrationDoc.getValue() ?? "",
+                            state.professionalLicensesDoc.getValue() ?? "",
                             state: state,
                           )
                         : UploadDocumentBox(
@@ -103,14 +105,14 @@ class CredentialRegistration extends StatelessWidget {
                               clickUploadButton(context);
                             },
                           ),
-                    if (state.showCredintialErrorMessages &&
-                        !state.credentialRegistrationDoc.isValid())
+                    if (state.showLicensesErrorMessages &&
+                        !state.professionalLicensesDoc.isValid())
                       Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: getSize(10), horizontal: getSize(20)),
-                        child: const BaseText(
+                        child: BaseText(
                           text: StringConstant
-                              .pleaseSelectCredentialRegistrationDocument,
+                              .pleaseSelectProfessionalLicensesDocument,
                           fontSize: 12,
                           textColor: AppColors.red,
                         ),
@@ -120,9 +122,9 @@ class CredentialRegistration extends StatelessWidget {
                       context,
                       state,
                       onPressed: () {
-                        context
-                            .read<CredentialBloc>()
-                            .add(const CredentialEvent.addMoreCredentialDoc());
+                        context.read<ProfessionalLicensesBloc>().add(
+                            const ProfessionalLicensesEvent
+                                .addMoreLicensesDoc());
                       },
                     ),
                     Padding(
@@ -130,8 +132,8 @@ class CredentialRegistration extends StatelessWidget {
                           top: getSize(50), bottom: getSize(50)),
                       child: CommonButton(
                         onPressed: () {
-                          context.read<CredentialBloc>().add(
-                              const CredentialEvent.credentialDocSubmit(
+                          context.read<ProfessionalLicensesBloc>().add(
+                              const ProfessionalLicensesEvent.licensesDocSubmit(
                                   isAddMoreBtnClick: false));
                         },
                         buttonText: StringConstant.txtContinue,
@@ -148,7 +150,7 @@ class CredentialRegistration extends StatelessWidget {
   }
 
   Widget selectedImage(BuildContext context, String selectedFile,
-      {required CredentialState state}) {
+      {required ProfessionalLicensesState state}) {
     return Stack(
       alignment: Alignment.topRight,
       children: [
@@ -190,10 +192,10 @@ class CredentialRegistration extends StatelessWidget {
                   context.router.maybePop();
                 },
                 onDeleteClick: () {
-                  if (state.credentialRegistrationDoc.isValid()) {
-                    context.read<CredentialBloc>().add(
-                          CredentialEvent.deleteCredentialDoc(
-                              state.credentialRegistrationDoc.getValue()!),
+                  if (state.professionalLicensesDoc.isValid()) {
+                    context.read<ProfessionalLicensesBloc>().add(
+                          ProfessionalLicensesEvent.deleteLicensesDoc(
+                              state.professionalLicensesDoc.getValue()!),
                         );
                   }
                   context.router.maybePop();
@@ -217,8 +219,8 @@ class CredentialRegistration extends StatelessWidget {
             '';
         if (path.isNotEmpty) {
           print("CAMERA IMAGE PATH: $path");
-          context.read<CredentialBloc>().add(
-                CredentialEvent.selectCredentialDoc(path),
+          context.read<ProfessionalLicensesBloc>().add(
+                ProfessionalLicensesEvent.selectLicensesDoc(path),
               );
         }
         context.router.maybePop();
@@ -230,8 +232,8 @@ class CredentialRegistration extends StatelessWidget {
 
         if (path.isNotEmpty) {
           print("GALLERY IMAGE PATH: $path");
-          context.read<CredentialBloc>().add(
-                CredentialEvent.selectCredentialDoc(path),
+          context.read<ProfessionalLicensesBloc>().add(
+                ProfessionalLicensesEvent.selectLicensesDoc(path),
               );
         }
         context.router.maybePop();
@@ -251,9 +253,8 @@ class CredentialRegistration extends StatelessWidget {
       labelText: StringConstant.registrationNumber,
       hintText: StringConstant.registrationNumber,
       isOptional: true,
-      onChanged: (value) => context
-          .read<CredentialBloc>()
-          .add(CredentialEvent.registrationNumberChanegd(value)),
+      onChanged: (value) => context.read<ProfessionalLicensesBloc>().add(
+          ProfessionalLicensesEvent.licensesRegistrationNumberChanegd(value)),
     );
   }
 
@@ -262,21 +263,25 @@ class CredentialRegistration extends StatelessWidget {
       labelText: StringConstant.documentTitle,
       hintText: StringConstant.documentTitle,
       onChanged: (value) => context
-          .read<CredentialBloc>()
-          .add(CredentialEvent.documentTitleChanged(value)),
-      validator: (_, context) =>
-          context.read<CredentialBloc>().state.documentTitle.value.fold(
-                (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseAddDocumentTitle,
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
+          .read<ProfessionalLicensesBloc>()
+          .add(ProfessionalLicensesEvent.licensesDocumentTitleChanged(value)),
+      validator: (_, context) => context
+          .read<ProfessionalLicensesBloc>()
+          .state
+          .documentTitle
+          .value
+          .fold(
+            (f) => f.maybeMap(
+              empty: (value) => StringConstant.pleaseAddDocumentTitle,
+              orElse: () => null,
+            ),
+            (_) => null,
+          ),
     );
   }
 
   Widget provinceRegistrationDropdown(
-      BuildContext context, CredentialState state) {
+      BuildContext context, ProfessionalLicensesState state) {
     return CustomDropdwonWithTextField(
       labelText: StringConstant.provinceOfRegistration,
       hintText: StringConstant.selectYourProvinceOfRegistration,
@@ -305,7 +310,7 @@ class CredentialRegistration extends StatelessWidget {
         );
       }).toList(),
       validator: (p0) => context
-          .read<CredentialBloc>()
+          .read<ProfessionalLicensesBloc>()
           .state
           .selectedProvinceRegistration
           .value
@@ -323,18 +328,18 @@ class CredentialRegistration extends StatelessWidget {
       onChanged: (value) {
         if (value != null) {
           context
-              .read<CredentialBloc>()
-              .add(CredentialEvent.selectProvinceRegistration(value));
+              .read<ProfessionalLicensesBloc>()
+              .add(ProfessionalLicensesEvent.selectProvinceLicenses(value));
         }
       },
     );
   }
 
-  Widget addMoreButton(BuildContext context, CredentialState state,
+  Widget addMoreButton(BuildContext context, ProfessionalLicensesState state,
       {required VoidCallback onPressed}) {
     bool isAllDetailsAdded = (state.selectedProvinceRegistration.isValid() &&
             state.documentTitle.isValid() &&
-            state.credentialRegistrationDoc.isValid())
+            state.professionalLicensesDoc.isValid())
         ? true
         : false;
     return Align(

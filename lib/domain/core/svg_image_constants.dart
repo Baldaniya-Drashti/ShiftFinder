@@ -53,4 +53,5 @@ class SvgImageConstant {
   static const checkedArrow = "assets/svg/checked_arrow.svg";
   static const upload = "assets/svg/upload.svg";
   static const minusCircle = "assets/svg/minus_circle.svg";
+  static const verticalLine = "assets/svg/vertical_line.svg";
 }

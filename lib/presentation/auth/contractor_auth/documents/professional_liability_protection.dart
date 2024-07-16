@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print
 
 import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,56 +20,56 @@ import 'package:shift/presentation/common/widgets/upload_document_box.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
-import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
-import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
-class CredentialRegistration extends StatelessWidget {
-  const CredentialRegistration({super.key});
+class ProfessionalLiabilityProtection extends StatelessWidget {
+  const ProfessionalLiabilityProtection({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CredentialBloc(),
-      child: BlocConsumer<CredentialBloc, CredentialState>(
+      create: (context) => ProfessionalLiabilityBloc(),
+      child:
+          BlocConsumer<ProfessionalLiabilityBloc, ProfessionalLiabilityState>(
         listener: (context, state) {},
         builder: (context, state) {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: getSize(20)),
             child: SingleChildScrollView(
               child: Form(
-                autovalidateMode: (state.showCredintialErrorMessages)
+                autovalidateMode: (state.showLiabilityErrorMessages)
                     ? AutovalidateMode.always
                     : AutovalidateMode.disabled,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    (state.credentialRegistrationList.isNotEmpty)
+                    (state.liabilityList.isNotEmpty)
                         ? ListView.builder(
-                            itemCount: state.credentialRegistrationList.length,
+                            itemCount: state.liabilityList.length,
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              CredentialRegistrationDTO credObject =
-                                  state.credentialRegistrationList[index];
+                              ImmunizationDTO liabilityObject =
+                                  state.liabilityList[index];
                               return Padding(
                                 padding: EdgeInsets.only(top: getSize(10)),
                                 child: SelectedDocumentBox(
-                                  leadingImage: Image.file(File(
-                                      credObject.credentialDocument ?? "")),
-                                  title: credObject.documentTitle ?? "",
-                                  subTitle1:
-                                      credObject.provinceRegistration ?? "",
-                                  subTitle2: credObject.registrationNo ?? "",
+                                  leadingImage: Image.file(
+                                    File(liabilityObject.immunizationDocument ??
+                                        ""),
+                                  ),
+                                  title: StringConstant
+                                      .professionalLiabilityProtection,
                                   showDeleteButton: true,
-                                  deleteDescription: StringConstant
-                                      .deleteCredentialRegistrationDesc,
+                                  deleteDescription:
+                                      StringConstant.deleteLiabilityDesc,
                                   onCancelClick: () {
                                     context.router.maybePop();
                                   },
                                   onDeleteClick: () {
-                                    context.read<CredentialBloc>().add(
-                                        CredentialEvent.deleteCredentialObject(
-                                            index));
+                                    context
+                                        .read<ProfessionalLiabilityBloc>()
+                                        .add(ProfessionalLiabilityEvent
+                                            .deleteLiabilityObject(index));
                                     context.router.maybePop();
                                   },
                                 ),
@@ -78,39 +79,44 @@ class CredentialRegistration extends StatelessWidget {
                             leadingImageString:
                                 SvgImageConstant.documentWithVerticalLine,
                             title: "",
-                            subTitle1:
-                                StringConstant.credentialRegistrationDesc,
+                            subTitle1: StringConstant.liabilityDesc,
                             showDeleteButton: false,
                           ),
                     SizedBox(
                       height: getSize(20),
                     ),
-                    registrationNoField(context),
-                    paddingBetweenFields(),
-                    provinceRegistrationDropdown(context, state),
-                    paddingBetweenFields(),
-                    documentTitleField(context),
-                    paddingBetweenFields(),
-                    (state.credentialRegistrationDoc.isValid())
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: BaseText(
+                        text: (state.liabilityDoc.isValid())
+                            ? StringConstant.uploadedDocument
+                            : StringConstant.pleaseUploadTheDocument,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(
+                      height: getSize(10),
+                    ),
+                    (state.liabilityDoc.isValid())
                         ? selectedImage(
                             context,
-                            state.credentialRegistrationDoc.getValue() ?? "",
+                            state.liabilityDoc.getValue() ?? "",
                             state: state,
                           )
                         : UploadDocumentBox(
-                            height: getSize(300),
+                            height: getSize(400),
                             onUploadBtnPressed: () {
                               clickUploadButton(context);
                             },
                           ),
-                    if (state.showCredintialErrorMessages &&
-                        !state.credentialRegistrationDoc.isValid())
+                    if (state.showLiabilityErrorMessages &&
+                        !state.liabilityDoc.isValid())
                       Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: getSize(10), horizontal: getSize(20)),
                         child: const BaseText(
-                          text: StringConstant
-                              .pleaseSelectCredentialRegistrationDocument,
+                          text: StringConstant.pleaseSelectLiabilityDocument,
                           fontSize: 12,
                           textColor: AppColors.red,
                         ),
@@ -120,18 +126,19 @@ class CredentialRegistration extends StatelessWidget {
                       context,
                       state,
                       onPressed: () {
-                        context
-                            .read<CredentialBloc>()
-                            .add(const CredentialEvent.addMoreCredentialDoc());
+                        context.read<ProfessionalLiabilityBloc>().add(
+                            const ProfessionalLiabilityEvent
+                                .addMoreLiabilityDoc());
                       },
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                          top: getSize(50), bottom: getSize(50)),
+                          top: getSize(40), bottom: getSize(50)),
                       child: CommonButton(
                         onPressed: () {
-                          context.read<CredentialBloc>().add(
-                              const CredentialEvent.credentialDocSubmit(
+                          context.read<ProfessionalLiabilityBloc>().add(
+                              const ProfessionalLiabilityEvent
+                                  .liabilityDocSubmit(
                                   isAddMoreBtnClick: false));
                         },
                         buttonText: StringConstant.txtContinue,
@@ -148,12 +155,12 @@ class CredentialRegistration extends StatelessWidget {
   }
 
   Widget selectedImage(BuildContext context, String selectedFile,
-      {required CredentialState state}) {
+      {required ProfessionalLiabilityState state}) {
     return Stack(
       alignment: Alignment.topRight,
       children: [
         Container(
-            height: getSize(300),
+            height: getSize(400),
             decoration: BoxDecoration(
               color: AppColors.grey.withOpacity(0.4),
               borderRadius: BorderRadius.circular(10),
@@ -190,10 +197,10 @@ class CredentialRegistration extends StatelessWidget {
                   context.router.maybePop();
                 },
                 onDeleteClick: () {
-                  if (state.credentialRegistrationDoc.isValid()) {
-                    context.read<CredentialBloc>().add(
-                          CredentialEvent.deleteCredentialDoc(
-                              state.credentialRegistrationDoc.getValue()!),
+                  if (state.liabilityDoc.isValid()) {
+                    context.read<ProfessionalLiabilityBloc>().add(
+                          ProfessionalLiabilityEvent.deleteLiabilityDoc(
+                              state.liabilityDoc.getValue()!),
                         );
                   }
                   context.router.maybePop();
@@ -217,8 +224,8 @@ class CredentialRegistration extends StatelessWidget {
             '';
         if (path.isNotEmpty) {
           print("CAMERA IMAGE PATH: $path");
-          context.read<CredentialBloc>().add(
-                CredentialEvent.selectCredentialDoc(path),
+          context.read<ProfessionalLiabilityBloc>().add(
+                ProfessionalLiabilityEvent.selectLiabilityDoc(path),
               );
         }
         context.router.maybePop();
@@ -230,8 +237,8 @@ class CredentialRegistration extends StatelessWidget {
 
         if (path.isNotEmpty) {
           print("GALLERY IMAGE PATH: $path");
-          context.read<CredentialBloc>().add(
-                CredentialEvent.selectCredentialDoc(path),
+          context.read<ProfessionalLiabilityBloc>().add(
+                ProfessionalLiabilityEvent.selectLiabilityDoc(path),
               );
         }
         context.router.maybePop();
@@ -246,97 +253,9 @@ class CredentialRegistration extends StatelessWidget {
     );
   }
 
-  Widget registrationNoField(BuildContext context) {
-    return CustomTextField(
-      labelText: StringConstant.registrationNumber,
-      hintText: StringConstant.registrationNumber,
-      isOptional: true,
-      onChanged: (value) => context
-          .read<CredentialBloc>()
-          .add(CredentialEvent.registrationNumberChanegd(value)),
-    );
-  }
-
-  Widget documentTitleField(BuildContext context) {
-    return CustomTextField(
-      labelText: StringConstant.documentTitle,
-      hintText: StringConstant.documentTitle,
-      onChanged: (value) => context
-          .read<CredentialBloc>()
-          .add(CredentialEvent.documentTitleChanged(value)),
-      validator: (_, context) =>
-          context.read<CredentialBloc>().state.documentTitle.value.fold(
-                (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseAddDocumentTitle,
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
-    );
-  }
-
-  Widget provinceRegistrationDropdown(
-      BuildContext context, CredentialState state) {
-    return CustomDropdwonWithTextField(
-      labelText: StringConstant.provinceOfRegistration,
-      hintText: StringConstant.selectYourProvinceOfRegistration,
-      isLabelPadding: true,
-      showTextfield: false,
-      items: [
-        "Alberta",
-        "British Columbia",
-        "Manitoba",
-        "New Brunswick",
-        "Newfoundland",
-        "Labrador",
-        "Nova Scotia",
-        "Ontario",
-        "Prince Edward Island",
-        "Quebec",
-        "Saskatchewan"
-      ].map((val) {
-        return DropdownMenuItem(
-          value: val,
-          child: BaseText(
-            text: val,
-            fontSize: 14,
-            textColor: AppColors.black,
-          ),
-        );
-      }).toList(),
-      validator: (p0) => context
-          .read<CredentialBloc>()
-          .state
-          .selectedProvinceRegistration
-          .value
-          .fold(
-            (f) => f.maybeMap(
-              empty: (value) =>
-                  StringConstant.pleaseSelectProvinceOfRegistrationDocument,
-              orElse: () => null,
-            ),
-            (_) => null,
-          ),
-      value: (state.selectedProvinceRegistration.isValid())
-          ? state.selectedProvinceRegistration.getValue()
-          : null,
-      onChanged: (value) {
-        if (value != null) {
-          context
-              .read<CredentialBloc>()
-              .add(CredentialEvent.selectProvinceRegistration(value));
-        }
-      },
-    );
-  }
-
-  Widget addMoreButton(BuildContext context, CredentialState state,
+  Widget addMoreButton(BuildContext context, ProfessionalLiabilityState state,
       {required VoidCallback onPressed}) {
-    bool isAllDetailsAdded = (state.selectedProvinceRegistration.isValid() &&
-            state.documentTitle.isValid() &&
-            state.credentialRegistrationDoc.isValid())
-        ? true
-        : false;
+    bool isAllDetailsAdded = (state.liabilityDoc.isValid()) ? true : false;
     return Align(
       alignment: Alignment.center,
       child: CommonButton(

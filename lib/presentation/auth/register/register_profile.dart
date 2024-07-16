@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, avoid_print, deprecated_member_use
+// ignore_for_file: use_build_context_synchronously, avoid_print, deprecated_member_use, prefer_const_constructors_in_immutables
 
 import 'dart:io';
 import 'package:auto_route/auto_route.dart';

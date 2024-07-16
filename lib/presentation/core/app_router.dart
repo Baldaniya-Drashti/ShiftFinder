@@ -20,9 +20,10 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: AddExperienceDetailScreen.page),
         AutoRoute(page: ReferenceListScreen.page),
         AutoRoute(page: AddReferenceDetailScreen.page),
-        AutoRoute(page: GovernmentIssueDocument.page),
-        AutoRoute(page: CovidVaccinationDocument.page),
         AutoRoute(page: DocumentPageScreen.page),
+        AutoRoute(page: LegalScreeningQuestionsPage.page),
+        AutoRoute(page: TermsAndConditionsScreen.page),
+        AutoRoute(page: IntroVideoScreen.page),
         AutoRoute(
           page: MainTabView.page,
           children: [

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors_in_immutables, deprecated_member_use, avoid_print
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -245,7 +247,7 @@ class AddEducationDetail extends StatelessWidget {
       },
     ).then((value) {
       if (value != null && value is DateTime) {
-        print("onback value---> ${value}");
+        print("onback value---> $value");
 
         context.read<EducationDetailBloc>().add(
               EducationDetailEvent.addCompletionYearChanged(

@@ -1221,6 +1221,6708 @@ abstract class _CovidDocSubmit implements DocumentEvent {
 }
 
 /// @nodoc
+mixin _$CredentialEvent {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String registrationNo) registrationNumberChanegd,
+    required TResult Function(String documentTitle) documentTitleChanged,
+    required TResult Function(String provinceRegistration)
+        selectProvinceRegistration,
+    required TResult Function(String credentialDoc) selectCredentialDoc,
+    required TResult Function(String credentialDoc) deleteCredentialDoc,
+    required TResult Function() addMoreCredentialDoc,
+    required TResult Function(int index) deleteCredentialObject,
+    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String registrationNo)? registrationNumberChanegd,
+    TResult? Function(String documentTitle)? documentTitleChanged,
+    TResult? Function(String provinceRegistration)? selectProvinceRegistration,
+    TResult? Function(String credentialDoc)? selectCredentialDoc,
+    TResult? Function(String credentialDoc)? deleteCredentialDoc,
+    TResult? Function()? addMoreCredentialDoc,
+    TResult? Function(int index)? deleteCredentialObject,
+    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String registrationNo)? registrationNumberChanegd,
+    TResult Function(String documentTitle)? documentTitleChanged,
+    TResult Function(String provinceRegistration)? selectProvinceRegistration,
+    TResult Function(String credentialDoc)? selectCredentialDoc,
+    TResult Function(String credentialDoc)? deleteCredentialDoc,
+    TResult Function()? addMoreCredentialDoc,
+    TResult Function(int index)? deleteCredentialObject,
+    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RegistrationNumberChanegd value)
+        registrationNumberChanegd,
+    required TResult Function(_DocumentTitleChanged value) documentTitleChanged,
+    required TResult Function(_SelectProvinceRegistration value)
+        selectProvinceRegistration,
+    required TResult Function(_SelectCredentialRegistrationDoc value)
+        selectCredentialDoc,
+    required TResult Function(_DeleteCredentialDoc value) deleteCredentialDoc,
+    required TResult Function(_AddMoreCredentialDoc value) addMoreCredentialDoc,
+    required TResult Function(_DeleteCredentialObject value)
+        deleteCredentialObject,
+    required TResult Function(_CredentialDocSubmit value) credentialDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_RegistrationNumberChanegd value)?
+        registrationNumberChanegd,
+    TResult? Function(_DocumentTitleChanged value)? documentTitleChanged,
+    TResult? Function(_SelectProvinceRegistration value)?
+        selectProvinceRegistration,
+    TResult? Function(_SelectCredentialRegistrationDoc value)?
+        selectCredentialDoc,
+    TResult? Function(_DeleteCredentialDoc value)? deleteCredentialDoc,
+    TResult? Function(_AddMoreCredentialDoc value)? addMoreCredentialDoc,
+    TResult? Function(_DeleteCredentialObject value)? deleteCredentialObject,
+    TResult? Function(_CredentialDocSubmit value)? credentialDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RegistrationNumberChanegd value)?
+        registrationNumberChanegd,
+    TResult Function(_DocumentTitleChanged value)? documentTitleChanged,
+    TResult Function(_SelectProvinceRegistration value)?
+        selectProvinceRegistration,
+    TResult Function(_SelectCredentialRegistrationDoc value)?
+        selectCredentialDoc,
+    TResult Function(_DeleteCredentialDoc value)? deleteCredentialDoc,
+    TResult Function(_AddMoreCredentialDoc value)? addMoreCredentialDoc,
+    TResult Function(_DeleteCredentialObject value)? deleteCredentialObject,
+    TResult Function(_CredentialDocSubmit value)? credentialDocSubmit,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CredentialEventCopyWith<$Res> {
+  factory $CredentialEventCopyWith(
+          CredentialEvent value, $Res Function(CredentialEvent) then) =
+      _$CredentialEventCopyWithImpl<$Res, CredentialEvent>;
+}
+
+/// @nodoc
+class _$CredentialEventCopyWithImpl<$Res, $Val extends CredentialEvent>
+    implements $CredentialEventCopyWith<$Res> {
+  _$CredentialEventCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$RegistrationNumberChanegdImplCopyWith<$Res> {
+  factory _$$RegistrationNumberChanegdImplCopyWith(
+          _$RegistrationNumberChanegdImpl value,
+          $Res Function(_$RegistrationNumberChanegdImpl) then) =
+      __$$RegistrationNumberChanegdImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String registrationNo});
+}
+
+/// @nodoc
+class __$$RegistrationNumberChanegdImplCopyWithImpl<$Res>
+    extends _$CredentialEventCopyWithImpl<$Res, _$RegistrationNumberChanegdImpl>
+    implements _$$RegistrationNumberChanegdImplCopyWith<$Res> {
+  __$$RegistrationNumberChanegdImplCopyWithImpl(
+      _$RegistrationNumberChanegdImpl _value,
+      $Res Function(_$RegistrationNumberChanegdImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? registrationNo = null,
+  }) {
+    return _then(_$RegistrationNumberChanegdImpl(
+      null == registrationNo
+          ? _value.registrationNo
+          : registrationNo // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RegistrationNumberChanegdImpl implements _RegistrationNumberChanegd {
+  const _$RegistrationNumberChanegdImpl(this.registrationNo);
+
+  @override
+  final String registrationNo;
+
+  @override
+  String toString() {
+    return 'CredentialEvent.registrationNumberChanegd(registrationNo: $registrationNo)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RegistrationNumberChanegdImpl &&
+            (identical(other.registrationNo, registrationNo) ||
+                other.registrationNo == registrationNo));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, registrationNo);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RegistrationNumberChanegdImplCopyWith<_$RegistrationNumberChanegdImpl>
+      get copyWith => __$$RegistrationNumberChanegdImplCopyWithImpl<
+          _$RegistrationNumberChanegdImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String registrationNo) registrationNumberChanegd,
+    required TResult Function(String documentTitle) documentTitleChanged,
+    required TResult Function(String provinceRegistration)
+        selectProvinceRegistration,
+    required TResult Function(String credentialDoc) selectCredentialDoc,
+    required TResult Function(String credentialDoc) deleteCredentialDoc,
+    required TResult Function() addMoreCredentialDoc,
+    required TResult Function(int index) deleteCredentialObject,
+    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+  }) {
+    return registrationNumberChanegd(registrationNo);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String registrationNo)? registrationNumberChanegd,
+    TResult? Function(String documentTitle)? documentTitleChanged,
+    TResult? Function(String provinceRegistration)? selectProvinceRegistration,
+    TResult? Function(String credentialDoc)? selectCredentialDoc,
+    TResult? Function(String credentialDoc)? deleteCredentialDoc,
+    TResult? Function()? addMoreCredentialDoc,
+    TResult? Function(int index)? deleteCredentialObject,
+    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+  }) {
+    return registrationNumberChanegd?.call(registrationNo);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String registrationNo)? registrationNumberChanegd,
+    TResult Function(String documentTitle)? documentTitleChanged,
+    TResult Function(String provinceRegistration)? selectProvinceRegistration,
+    TResult Function(String credentialDoc)? selectCredentialDoc,
+    TResult Function(String credentialDoc)? deleteCredentialDoc,
+    TResult Function()? addMoreCredentialDoc,
+    TResult Function(int index)? deleteCredentialObject,
+    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (registrationNumberChanegd != null) {
+      return registrationNumberChanegd(registrationNo);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RegistrationNumberChanegd value)
+        registrationNumberChanegd,
+    required TResult Function(_DocumentTitleChanged value) documentTitleChanged,
+    required TResult Function(_SelectProvinceRegistration value)
+        selectProvinceRegistration,
+    required TResult Function(_SelectCredentialRegistrationDoc value)
+        selectCredentialDoc,
+    required TResult Function(_DeleteCredentialDoc value) deleteCredentialDoc,
+    required TResult Function(_AddMoreCredentialDoc value) addMoreCredentialDoc,
+    required TResult Function(_DeleteCredentialObject value)
+        deleteCredentialObject,
+    required TResult Function(_CredentialDocSubmit value) credentialDocSubmit,
+  }) {
+    return registrationNumberChanegd(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_RegistrationNumberChanegd value)?
+        registrationNumberChanegd,
+    TResult? Function(_DocumentTitleChanged value)? documentTitleChanged,
+    TResult? Function(_SelectProvinceRegistration value)?
+        selectProvinceRegistration,
+    TResult? Function(_SelectCredentialRegistrationDoc value)?
+        selectCredentialDoc,
+    TResult? Function(_DeleteCredentialDoc value)? deleteCredentialDoc,
+    TResult? Function(_AddMoreCredentialDoc value)? addMoreCredentialDoc,
+    TResult? Function(_DeleteCredentialObject value)? deleteCredentialObject,
+    TResult? Function(_CredentialDocSubmit value)? credentialDocSubmit,
+  }) {
+    return registrationNumberChanegd?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RegistrationNumberChanegd value)?
+        registrationNumberChanegd,
+    TResult Function(_DocumentTitleChanged value)? documentTitleChanged,
+    TResult Function(_SelectProvinceRegistration value)?
+        selectProvinceRegistration,
+    TResult Function(_SelectCredentialRegistrationDoc value)?
+        selectCredentialDoc,
+    TResult Function(_DeleteCredentialDoc value)? deleteCredentialDoc,
+    TResult Function(_AddMoreCredentialDoc value)? addMoreCredentialDoc,
+    TResult Function(_DeleteCredentialObject value)? deleteCredentialObject,
+    TResult Function(_CredentialDocSubmit value)? credentialDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (registrationNumberChanegd != null) {
+      return registrationNumberChanegd(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RegistrationNumberChanegd implements CredentialEvent {
+  const factory _RegistrationNumberChanegd(final String registrationNo) =
+      _$RegistrationNumberChanegdImpl;
+
+  String get registrationNo;
+  @JsonKey(ignore: true)
+  _$$RegistrationNumberChanegdImplCopyWith<_$RegistrationNumberChanegdImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DocumentTitleChangedImplCopyWith<$Res> {
+  factory _$$DocumentTitleChangedImplCopyWith(_$DocumentTitleChangedImpl value,
+          $Res Function(_$DocumentTitleChangedImpl) then) =
+      __$$DocumentTitleChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String documentTitle});
+}
+
+/// @nodoc
+class __$$DocumentTitleChangedImplCopyWithImpl<$Res>
+    extends _$CredentialEventCopyWithImpl<$Res, _$DocumentTitleChangedImpl>
+    implements _$$DocumentTitleChangedImplCopyWith<$Res> {
+  __$$DocumentTitleChangedImplCopyWithImpl(_$DocumentTitleChangedImpl _value,
+      $Res Function(_$DocumentTitleChangedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? documentTitle = null,
+  }) {
+    return _then(_$DocumentTitleChangedImpl(
+      null == documentTitle
+          ? _value.documentTitle
+          : documentTitle // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DocumentTitleChangedImpl implements _DocumentTitleChanged {
+  const _$DocumentTitleChangedImpl(this.documentTitle);
+
+  @override
+  final String documentTitle;
+
+  @override
+  String toString() {
+    return 'CredentialEvent.documentTitleChanged(documentTitle: $documentTitle)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DocumentTitleChangedImpl &&
+            (identical(other.documentTitle, documentTitle) ||
+                other.documentTitle == documentTitle));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, documentTitle);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DocumentTitleChangedImplCopyWith<_$DocumentTitleChangedImpl>
+      get copyWith =>
+          __$$DocumentTitleChangedImplCopyWithImpl<_$DocumentTitleChangedImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String registrationNo) registrationNumberChanegd,
+    required TResult Function(String documentTitle) documentTitleChanged,
+    required TResult Function(String provinceRegistration)
+        selectProvinceRegistration,
+    required TResult Function(String credentialDoc) selectCredentialDoc,
+    required TResult Function(String credentialDoc) deleteCredentialDoc,
+    required TResult Function() addMoreCredentialDoc,
+    required TResult Function(int index) deleteCredentialObject,
+    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+  }) {
+    return documentTitleChanged(documentTitle);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String registrationNo)? registrationNumberChanegd,
+    TResult? Function(String documentTitle)? documentTitleChanged,
+    TResult? Function(String provinceRegistration)? selectProvinceRegistration,
+    TResult? Function(String credentialDoc)? selectCredentialDoc,
+    TResult? Function(String credentialDoc)? deleteCredentialDoc,
+    TResult? Function()? addMoreCredentialDoc,
+    TResult? Function(int index)? deleteCredentialObject,
+    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+  }) {
+    return documentTitleChanged?.call(documentTitle);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String registrationNo)? registrationNumberChanegd,
+    TResult Function(String documentTitle)? documentTitleChanged,
+    TResult Function(String provinceRegistration)? selectProvinceRegistration,
+    TResult Function(String credentialDoc)? selectCredentialDoc,
+    TResult Function(String credentialDoc)? deleteCredentialDoc,
+    TResult Function()? addMoreCredentialDoc,
+    TResult Function(int index)? deleteCredentialObject,
+    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (documentTitleChanged != null) {
+      return documentTitleChanged(documentTitle);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RegistrationNumberChanegd value)
+        registrationNumberChanegd,
+    required TResult Function(_DocumentTitleChanged value) documentTitleChanged,
+    required TResult Function(_SelectProvinceRegistration value)
+        selectProvinceRegistration,
+    required TResult Function(_SelectCredentialRegistrationDoc value)
+        selectCredentialDoc,
+    required TResult Function(_DeleteCredentialDoc value) deleteCredentialDoc,
+    required TResult Function(_AddMoreCredentialDoc value) addMoreCredentialDoc,
+    required TResult Function(_DeleteCredentialObject value)
+        deleteCredentialObject,
+    required TResult Function(_CredentialDocSubmit value) credentialDocSubmit,
+  }) {
+    return documentTitleChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_RegistrationNumberChanegd value)?
+        registrationNumberChanegd,
+    TResult? Function(_DocumentTitleChanged value)? documentTitleChanged,
+    TResult? Function(_SelectProvinceRegistration value)?
+        selectProvinceRegistration,
+    TResult? Function(_SelectCredentialRegistrationDoc value)?
+        selectCredentialDoc,
+    TResult? Function(_DeleteCredentialDoc value)? deleteCredentialDoc,
+    TResult? Function(_AddMoreCredentialDoc value)? addMoreCredentialDoc,
+    TResult? Function(_DeleteCredentialObject value)? deleteCredentialObject,
+    TResult? Function(_CredentialDocSubmit value)? credentialDocSubmit,
+  }) {
+    return documentTitleChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RegistrationNumberChanegd value)?
+        registrationNumberChanegd,
+    TResult Function(_DocumentTitleChanged value)? documentTitleChanged,
+    TResult Function(_SelectProvinceRegistration value)?
+        selectProvinceRegistration,
+    TResult Function(_SelectCredentialRegistrationDoc value)?
+        selectCredentialDoc,
+    TResult Function(_DeleteCredentialDoc value)? deleteCredentialDoc,
+    TResult Function(_AddMoreCredentialDoc value)? addMoreCredentialDoc,
+    TResult Function(_DeleteCredentialObject value)? deleteCredentialObject,
+    TResult Function(_CredentialDocSubmit value)? credentialDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (documentTitleChanged != null) {
+      return documentTitleChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DocumentTitleChanged implements CredentialEvent {
+  const factory _DocumentTitleChanged(final String documentTitle) =
+      _$DocumentTitleChangedImpl;
+
+  String get documentTitle;
+  @JsonKey(ignore: true)
+  _$$DocumentTitleChangedImplCopyWith<_$DocumentTitleChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SelectProvinceRegistrationImplCopyWith<$Res> {
+  factory _$$SelectProvinceRegistrationImplCopyWith(
+          _$SelectProvinceRegistrationImpl value,
+          $Res Function(_$SelectProvinceRegistrationImpl) then) =
+      __$$SelectProvinceRegistrationImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String provinceRegistration});
+}
+
+/// @nodoc
+class __$$SelectProvinceRegistrationImplCopyWithImpl<$Res>
+    extends _$CredentialEventCopyWithImpl<$Res,
+        _$SelectProvinceRegistrationImpl>
+    implements _$$SelectProvinceRegistrationImplCopyWith<$Res> {
+  __$$SelectProvinceRegistrationImplCopyWithImpl(
+      _$SelectProvinceRegistrationImpl _value,
+      $Res Function(_$SelectProvinceRegistrationImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? provinceRegistration = null,
+  }) {
+    return _then(_$SelectProvinceRegistrationImpl(
+      null == provinceRegistration
+          ? _value.provinceRegistration
+          : provinceRegistration // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SelectProvinceRegistrationImpl implements _SelectProvinceRegistration {
+  const _$SelectProvinceRegistrationImpl(this.provinceRegistration);
+
+  @override
+  final String provinceRegistration;
+
+  @override
+  String toString() {
+    return 'CredentialEvent.selectProvinceRegistration(provinceRegistration: $provinceRegistration)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SelectProvinceRegistrationImpl &&
+            (identical(other.provinceRegistration, provinceRegistration) ||
+                other.provinceRegistration == provinceRegistration));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, provinceRegistration);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SelectProvinceRegistrationImplCopyWith<_$SelectProvinceRegistrationImpl>
+      get copyWith => __$$SelectProvinceRegistrationImplCopyWithImpl<
+          _$SelectProvinceRegistrationImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String registrationNo) registrationNumberChanegd,
+    required TResult Function(String documentTitle) documentTitleChanged,
+    required TResult Function(String provinceRegistration)
+        selectProvinceRegistration,
+    required TResult Function(String credentialDoc) selectCredentialDoc,
+    required TResult Function(String credentialDoc) deleteCredentialDoc,
+    required TResult Function() addMoreCredentialDoc,
+    required TResult Function(int index) deleteCredentialObject,
+    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+  }) {
+    return selectProvinceRegistration(provinceRegistration);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String registrationNo)? registrationNumberChanegd,
+    TResult? Function(String documentTitle)? documentTitleChanged,
+    TResult? Function(String provinceRegistration)? selectProvinceRegistration,
+    TResult? Function(String credentialDoc)? selectCredentialDoc,
+    TResult? Function(String credentialDoc)? deleteCredentialDoc,
+    TResult? Function()? addMoreCredentialDoc,
+    TResult? Function(int index)? deleteCredentialObject,
+    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+  }) {
+    return selectProvinceRegistration?.call(provinceRegistration);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String registrationNo)? registrationNumberChanegd,
+    TResult Function(String documentTitle)? documentTitleChanged,
+    TResult Function(String provinceRegistration)? selectProvinceRegistration,
+    TResult Function(String credentialDoc)? selectCredentialDoc,
+    TResult Function(String credentialDoc)? deleteCredentialDoc,
+    TResult Function()? addMoreCredentialDoc,
+    TResult Function(int index)? deleteCredentialObject,
+    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (selectProvinceRegistration != null) {
+      return selectProvinceRegistration(provinceRegistration);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RegistrationNumberChanegd value)
+        registrationNumberChanegd,
+    required TResult Function(_DocumentTitleChanged value) documentTitleChanged,
+    required TResult Function(_SelectProvinceRegistration value)
+        selectProvinceRegistration,
+    required TResult Function(_SelectCredentialRegistrationDoc value)
+        selectCredentialDoc,
+    required TResult Function(_DeleteCredentialDoc value) deleteCredentialDoc,
+    required TResult Function(_AddMoreCredentialDoc value) addMoreCredentialDoc,
+    required TResult Function(_DeleteCredentialObject value)
+        deleteCredentialObject,
+    required TResult Function(_CredentialDocSubmit value) credentialDocSubmit,
+  }) {
+    return selectProvinceRegistration(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_RegistrationNumberChanegd value)?
+        registrationNumberChanegd,
+    TResult? Function(_DocumentTitleChanged value)? documentTitleChanged,
+    TResult? Function(_SelectProvinceRegistration value)?
+        selectProvinceRegistration,
+    TResult? Function(_SelectCredentialRegistrationDoc value)?
+        selectCredentialDoc,
+    TResult? Function(_DeleteCredentialDoc value)? deleteCredentialDoc,
+    TResult? Function(_AddMoreCredentialDoc value)? addMoreCredentialDoc,
+    TResult? Function(_DeleteCredentialObject value)? deleteCredentialObject,
+    TResult? Function(_CredentialDocSubmit value)? credentialDocSubmit,
+  }) {
+    return selectProvinceRegistration?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RegistrationNumberChanegd value)?
+        registrationNumberChanegd,
+    TResult Function(_DocumentTitleChanged value)? documentTitleChanged,
+    TResult Function(_SelectProvinceRegistration value)?
+        selectProvinceRegistration,
+    TResult Function(_SelectCredentialRegistrationDoc value)?
+        selectCredentialDoc,
+    TResult Function(_DeleteCredentialDoc value)? deleteCredentialDoc,
+    TResult Function(_AddMoreCredentialDoc value)? addMoreCredentialDoc,
+    TResult Function(_DeleteCredentialObject value)? deleteCredentialObject,
+    TResult Function(_CredentialDocSubmit value)? credentialDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (selectProvinceRegistration != null) {
+      return selectProvinceRegistration(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SelectProvinceRegistration implements CredentialEvent {
+  const factory _SelectProvinceRegistration(final String provinceRegistration) =
+      _$SelectProvinceRegistrationImpl;
+
+  String get provinceRegistration;
+  @JsonKey(ignore: true)
+  _$$SelectProvinceRegistrationImplCopyWith<_$SelectProvinceRegistrationImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SelectCredentialRegistrationDocImplCopyWith<$Res> {
+  factory _$$SelectCredentialRegistrationDocImplCopyWith(
+          _$SelectCredentialRegistrationDocImpl value,
+          $Res Function(_$SelectCredentialRegistrationDocImpl) then) =
+      __$$SelectCredentialRegistrationDocImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String credentialDoc});
+}
+
+/// @nodoc
+class __$$SelectCredentialRegistrationDocImplCopyWithImpl<$Res>
+    extends _$CredentialEventCopyWithImpl<$Res,
+        _$SelectCredentialRegistrationDocImpl>
+    implements _$$SelectCredentialRegistrationDocImplCopyWith<$Res> {
+  __$$SelectCredentialRegistrationDocImplCopyWithImpl(
+      _$SelectCredentialRegistrationDocImpl _value,
+      $Res Function(_$SelectCredentialRegistrationDocImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? credentialDoc = null,
+  }) {
+    return _then(_$SelectCredentialRegistrationDocImpl(
+      null == credentialDoc
+          ? _value.credentialDoc
+          : credentialDoc // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SelectCredentialRegistrationDocImpl
+    implements _SelectCredentialRegistrationDoc {
+  const _$SelectCredentialRegistrationDocImpl(this.credentialDoc);
+
+  @override
+  final String credentialDoc;
+
+  @override
+  String toString() {
+    return 'CredentialEvent.selectCredentialDoc(credentialDoc: $credentialDoc)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SelectCredentialRegistrationDocImpl &&
+            (identical(other.credentialDoc, credentialDoc) ||
+                other.credentialDoc == credentialDoc));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, credentialDoc);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SelectCredentialRegistrationDocImplCopyWith<
+          _$SelectCredentialRegistrationDocImpl>
+      get copyWith => __$$SelectCredentialRegistrationDocImplCopyWithImpl<
+          _$SelectCredentialRegistrationDocImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String registrationNo) registrationNumberChanegd,
+    required TResult Function(String documentTitle) documentTitleChanged,
+    required TResult Function(String provinceRegistration)
+        selectProvinceRegistration,
+    required TResult Function(String credentialDoc) selectCredentialDoc,
+    required TResult Function(String credentialDoc) deleteCredentialDoc,
+    required TResult Function() addMoreCredentialDoc,
+    required TResult Function(int index) deleteCredentialObject,
+    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+  }) {
+    return selectCredentialDoc(credentialDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String registrationNo)? registrationNumberChanegd,
+    TResult? Function(String documentTitle)? documentTitleChanged,
+    TResult? Function(String provinceRegistration)? selectProvinceRegistration,
+    TResult? Function(String credentialDoc)? selectCredentialDoc,
+    TResult? Function(String credentialDoc)? deleteCredentialDoc,
+    TResult? Function()? addMoreCredentialDoc,
+    TResult? Function(int index)? deleteCredentialObject,
+    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+  }) {
+    return selectCredentialDoc?.call(credentialDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String registrationNo)? registrationNumberChanegd,
+    TResult Function(String documentTitle)? documentTitleChanged,
+    TResult Function(String provinceRegistration)? selectProvinceRegistration,
+    TResult Function(String credentialDoc)? selectCredentialDoc,
+    TResult Function(String credentialDoc)? deleteCredentialDoc,
+    TResult Function()? addMoreCredentialDoc,
+    TResult Function(int index)? deleteCredentialObject,
+    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (selectCredentialDoc != null) {
+      return selectCredentialDoc(credentialDoc);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RegistrationNumberChanegd value)
+        registrationNumberChanegd,
+    required TResult Function(_DocumentTitleChanged value) documentTitleChanged,
+    required TResult Function(_SelectProvinceRegistration value)
+        selectProvinceRegistration,
+    required TResult Function(_SelectCredentialRegistrationDoc value)
+        selectCredentialDoc,
+    required TResult Function(_DeleteCredentialDoc value) deleteCredentialDoc,
+    required TResult Function(_AddMoreCredentialDoc value) addMoreCredentialDoc,
+    required TResult Function(_DeleteCredentialObject value)
+        deleteCredentialObject,
+    required TResult Function(_CredentialDocSubmit value) credentialDocSubmit,
+  }) {
+    return selectCredentialDoc(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_RegistrationNumberChanegd value)?
+        registrationNumberChanegd,
+    TResult? Function(_DocumentTitleChanged value)? documentTitleChanged,
+    TResult? Function(_SelectProvinceRegistration value)?
+        selectProvinceRegistration,
+    TResult? Function(_SelectCredentialRegistrationDoc value)?
+        selectCredentialDoc,
+    TResult? Function(_DeleteCredentialDoc value)? deleteCredentialDoc,
+    TResult? Function(_AddMoreCredentialDoc value)? addMoreCredentialDoc,
+    TResult? Function(_DeleteCredentialObject value)? deleteCredentialObject,
+    TResult? Function(_CredentialDocSubmit value)? credentialDocSubmit,
+  }) {
+    return selectCredentialDoc?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RegistrationNumberChanegd value)?
+        registrationNumberChanegd,
+    TResult Function(_DocumentTitleChanged value)? documentTitleChanged,
+    TResult Function(_SelectProvinceRegistration value)?
+        selectProvinceRegistration,
+    TResult Function(_SelectCredentialRegistrationDoc value)?
+        selectCredentialDoc,
+    TResult Function(_DeleteCredentialDoc value)? deleteCredentialDoc,
+    TResult Function(_AddMoreCredentialDoc value)? addMoreCredentialDoc,
+    TResult Function(_DeleteCredentialObject value)? deleteCredentialObject,
+    TResult Function(_CredentialDocSubmit value)? credentialDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (selectCredentialDoc != null) {
+      return selectCredentialDoc(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SelectCredentialRegistrationDoc implements CredentialEvent {
+  const factory _SelectCredentialRegistrationDoc(final String credentialDoc) =
+      _$SelectCredentialRegistrationDocImpl;
+
+  String get credentialDoc;
+  @JsonKey(ignore: true)
+  _$$SelectCredentialRegistrationDocImplCopyWith<
+          _$SelectCredentialRegistrationDocImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DeleteCredentialDocImplCopyWith<$Res> {
+  factory _$$DeleteCredentialDocImplCopyWith(_$DeleteCredentialDocImpl value,
+          $Res Function(_$DeleteCredentialDocImpl) then) =
+      __$$DeleteCredentialDocImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String credentialDoc});
+}
+
+/// @nodoc
+class __$$DeleteCredentialDocImplCopyWithImpl<$Res>
+    extends _$CredentialEventCopyWithImpl<$Res, _$DeleteCredentialDocImpl>
+    implements _$$DeleteCredentialDocImplCopyWith<$Res> {
+  __$$DeleteCredentialDocImplCopyWithImpl(_$DeleteCredentialDocImpl _value,
+      $Res Function(_$DeleteCredentialDocImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? credentialDoc = null,
+  }) {
+    return _then(_$DeleteCredentialDocImpl(
+      null == credentialDoc
+          ? _value.credentialDoc
+          : credentialDoc // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeleteCredentialDocImpl implements _DeleteCredentialDoc {
+  const _$DeleteCredentialDocImpl(this.credentialDoc);
+
+  @override
+  final String credentialDoc;
+
+  @override
+  String toString() {
+    return 'CredentialEvent.deleteCredentialDoc(credentialDoc: $credentialDoc)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteCredentialDocImpl &&
+            (identical(other.credentialDoc, credentialDoc) ||
+                other.credentialDoc == credentialDoc));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, credentialDoc);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeleteCredentialDocImplCopyWith<_$DeleteCredentialDocImpl> get copyWith =>
+      __$$DeleteCredentialDocImplCopyWithImpl<_$DeleteCredentialDocImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String registrationNo) registrationNumberChanegd,
+    required TResult Function(String documentTitle) documentTitleChanged,
+    required TResult Function(String provinceRegistration)
+        selectProvinceRegistration,
+    required TResult Function(String credentialDoc) selectCredentialDoc,
+    required TResult Function(String credentialDoc) deleteCredentialDoc,
+    required TResult Function() addMoreCredentialDoc,
+    required TResult Function(int index) deleteCredentialObject,
+    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+  }) {
+    return deleteCredentialDoc(credentialDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String registrationNo)? registrationNumberChanegd,
+    TResult? Function(String documentTitle)? documentTitleChanged,
+    TResult? Function(String provinceRegistration)? selectProvinceRegistration,
+    TResult? Function(String credentialDoc)? selectCredentialDoc,
+    TResult? Function(String credentialDoc)? deleteCredentialDoc,
+    TResult? Function()? addMoreCredentialDoc,
+    TResult? Function(int index)? deleteCredentialObject,
+    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+  }) {
+    return deleteCredentialDoc?.call(credentialDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String registrationNo)? registrationNumberChanegd,
+    TResult Function(String documentTitle)? documentTitleChanged,
+    TResult Function(String provinceRegistration)? selectProvinceRegistration,
+    TResult Function(String credentialDoc)? selectCredentialDoc,
+    TResult Function(String credentialDoc)? deleteCredentialDoc,
+    TResult Function()? addMoreCredentialDoc,
+    TResult Function(int index)? deleteCredentialObject,
+    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteCredentialDoc != null) {
+      return deleteCredentialDoc(credentialDoc);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RegistrationNumberChanegd value)
+        registrationNumberChanegd,
+    required TResult Function(_DocumentTitleChanged value) documentTitleChanged,
+    required TResult Function(_SelectProvinceRegistration value)
+        selectProvinceRegistration,
+    required TResult Function(_SelectCredentialRegistrationDoc value)
+        selectCredentialDoc,
+    required TResult Function(_DeleteCredentialDoc value) deleteCredentialDoc,
+    required TResult Function(_AddMoreCredentialDoc value) addMoreCredentialDoc,
+    required TResult Function(_DeleteCredentialObject value)
+        deleteCredentialObject,
+    required TResult Function(_CredentialDocSubmit value) credentialDocSubmit,
+  }) {
+    return deleteCredentialDoc(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_RegistrationNumberChanegd value)?
+        registrationNumberChanegd,
+    TResult? Function(_DocumentTitleChanged value)? documentTitleChanged,
+    TResult? Function(_SelectProvinceRegistration value)?
+        selectProvinceRegistration,
+    TResult? Function(_SelectCredentialRegistrationDoc value)?
+        selectCredentialDoc,
+    TResult? Function(_DeleteCredentialDoc value)? deleteCredentialDoc,
+    TResult? Function(_AddMoreCredentialDoc value)? addMoreCredentialDoc,
+    TResult? Function(_DeleteCredentialObject value)? deleteCredentialObject,
+    TResult? Function(_CredentialDocSubmit value)? credentialDocSubmit,
+  }) {
+    return deleteCredentialDoc?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RegistrationNumberChanegd value)?
+        registrationNumberChanegd,
+    TResult Function(_DocumentTitleChanged value)? documentTitleChanged,
+    TResult Function(_SelectProvinceRegistration value)?
+        selectProvinceRegistration,
+    TResult Function(_SelectCredentialRegistrationDoc value)?
+        selectCredentialDoc,
+    TResult Function(_DeleteCredentialDoc value)? deleteCredentialDoc,
+    TResult Function(_AddMoreCredentialDoc value)? addMoreCredentialDoc,
+    TResult Function(_DeleteCredentialObject value)? deleteCredentialObject,
+    TResult Function(_CredentialDocSubmit value)? credentialDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteCredentialDoc != null) {
+      return deleteCredentialDoc(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteCredentialDoc implements CredentialEvent {
+  const factory _DeleteCredentialDoc(final String credentialDoc) =
+      _$DeleteCredentialDocImpl;
+
+  String get credentialDoc;
+  @JsonKey(ignore: true)
+  _$$DeleteCredentialDocImplCopyWith<_$DeleteCredentialDocImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AddMoreCredentialDocImplCopyWith<$Res> {
+  factory _$$AddMoreCredentialDocImplCopyWith(_$AddMoreCredentialDocImpl value,
+          $Res Function(_$AddMoreCredentialDocImpl) then) =
+      __$$AddMoreCredentialDocImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$AddMoreCredentialDocImplCopyWithImpl<$Res>
+    extends _$CredentialEventCopyWithImpl<$Res, _$AddMoreCredentialDocImpl>
+    implements _$$AddMoreCredentialDocImplCopyWith<$Res> {
+  __$$AddMoreCredentialDocImplCopyWithImpl(_$AddMoreCredentialDocImpl _value,
+      $Res Function(_$AddMoreCredentialDocImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$AddMoreCredentialDocImpl implements _AddMoreCredentialDoc {
+  const _$AddMoreCredentialDocImpl();
+
+  @override
+  String toString() {
+    return 'CredentialEvent.addMoreCredentialDoc()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddMoreCredentialDocImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String registrationNo) registrationNumberChanegd,
+    required TResult Function(String documentTitle) documentTitleChanged,
+    required TResult Function(String provinceRegistration)
+        selectProvinceRegistration,
+    required TResult Function(String credentialDoc) selectCredentialDoc,
+    required TResult Function(String credentialDoc) deleteCredentialDoc,
+    required TResult Function() addMoreCredentialDoc,
+    required TResult Function(int index) deleteCredentialObject,
+    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+  }) {
+    return addMoreCredentialDoc();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String registrationNo)? registrationNumberChanegd,
+    TResult? Function(String documentTitle)? documentTitleChanged,
+    TResult? Function(String provinceRegistration)? selectProvinceRegistration,
+    TResult? Function(String credentialDoc)? selectCredentialDoc,
+    TResult? Function(String credentialDoc)? deleteCredentialDoc,
+    TResult? Function()? addMoreCredentialDoc,
+    TResult? Function(int index)? deleteCredentialObject,
+    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+  }) {
+    return addMoreCredentialDoc?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String registrationNo)? registrationNumberChanegd,
+    TResult Function(String documentTitle)? documentTitleChanged,
+    TResult Function(String provinceRegistration)? selectProvinceRegistration,
+    TResult Function(String credentialDoc)? selectCredentialDoc,
+    TResult Function(String credentialDoc)? deleteCredentialDoc,
+    TResult Function()? addMoreCredentialDoc,
+    TResult Function(int index)? deleteCredentialObject,
+    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (addMoreCredentialDoc != null) {
+      return addMoreCredentialDoc();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RegistrationNumberChanegd value)
+        registrationNumberChanegd,
+    required TResult Function(_DocumentTitleChanged value) documentTitleChanged,
+    required TResult Function(_SelectProvinceRegistration value)
+        selectProvinceRegistration,
+    required TResult Function(_SelectCredentialRegistrationDoc value)
+        selectCredentialDoc,
+    required TResult Function(_DeleteCredentialDoc value) deleteCredentialDoc,
+    required TResult Function(_AddMoreCredentialDoc value) addMoreCredentialDoc,
+    required TResult Function(_DeleteCredentialObject value)
+        deleteCredentialObject,
+    required TResult Function(_CredentialDocSubmit value) credentialDocSubmit,
+  }) {
+    return addMoreCredentialDoc(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_RegistrationNumberChanegd value)?
+        registrationNumberChanegd,
+    TResult? Function(_DocumentTitleChanged value)? documentTitleChanged,
+    TResult? Function(_SelectProvinceRegistration value)?
+        selectProvinceRegistration,
+    TResult? Function(_SelectCredentialRegistrationDoc value)?
+        selectCredentialDoc,
+    TResult? Function(_DeleteCredentialDoc value)? deleteCredentialDoc,
+    TResult? Function(_AddMoreCredentialDoc value)? addMoreCredentialDoc,
+    TResult? Function(_DeleteCredentialObject value)? deleteCredentialObject,
+    TResult? Function(_CredentialDocSubmit value)? credentialDocSubmit,
+  }) {
+    return addMoreCredentialDoc?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RegistrationNumberChanegd value)?
+        registrationNumberChanegd,
+    TResult Function(_DocumentTitleChanged value)? documentTitleChanged,
+    TResult Function(_SelectProvinceRegistration value)?
+        selectProvinceRegistration,
+    TResult Function(_SelectCredentialRegistrationDoc value)?
+        selectCredentialDoc,
+    TResult Function(_DeleteCredentialDoc value)? deleteCredentialDoc,
+    TResult Function(_AddMoreCredentialDoc value)? addMoreCredentialDoc,
+    TResult Function(_DeleteCredentialObject value)? deleteCredentialObject,
+    TResult Function(_CredentialDocSubmit value)? credentialDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (addMoreCredentialDoc != null) {
+      return addMoreCredentialDoc(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddMoreCredentialDoc implements CredentialEvent {
+  const factory _AddMoreCredentialDoc() = _$AddMoreCredentialDocImpl;
+}
+
+/// @nodoc
+abstract class _$$DeleteCredentialObjectImplCopyWith<$Res> {
+  factory _$$DeleteCredentialObjectImplCopyWith(
+          _$DeleteCredentialObjectImpl value,
+          $Res Function(_$DeleteCredentialObjectImpl) then) =
+      __$$DeleteCredentialObjectImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index});
+}
+
+/// @nodoc
+class __$$DeleteCredentialObjectImplCopyWithImpl<$Res>
+    extends _$CredentialEventCopyWithImpl<$Res, _$DeleteCredentialObjectImpl>
+    implements _$$DeleteCredentialObjectImplCopyWith<$Res> {
+  __$$DeleteCredentialObjectImplCopyWithImpl(
+      _$DeleteCredentialObjectImpl _value,
+      $Res Function(_$DeleteCredentialObjectImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+  }) {
+    return _then(_$DeleteCredentialObjectImpl(
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeleteCredentialObjectImpl implements _DeleteCredentialObject {
+  const _$DeleteCredentialObjectImpl(this.index);
+
+  @override
+  final int index;
+
+  @override
+  String toString() {
+    return 'CredentialEvent.deleteCredentialObject(index: $index)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteCredentialObjectImpl &&
+            (identical(other.index, index) || other.index == index));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeleteCredentialObjectImplCopyWith<_$DeleteCredentialObjectImpl>
+      get copyWith => __$$DeleteCredentialObjectImplCopyWithImpl<
+          _$DeleteCredentialObjectImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String registrationNo) registrationNumberChanegd,
+    required TResult Function(String documentTitle) documentTitleChanged,
+    required TResult Function(String provinceRegistration)
+        selectProvinceRegistration,
+    required TResult Function(String credentialDoc) selectCredentialDoc,
+    required TResult Function(String credentialDoc) deleteCredentialDoc,
+    required TResult Function() addMoreCredentialDoc,
+    required TResult Function(int index) deleteCredentialObject,
+    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+  }) {
+    return deleteCredentialObject(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String registrationNo)? registrationNumberChanegd,
+    TResult? Function(String documentTitle)? documentTitleChanged,
+    TResult? Function(String provinceRegistration)? selectProvinceRegistration,
+    TResult? Function(String credentialDoc)? selectCredentialDoc,
+    TResult? Function(String credentialDoc)? deleteCredentialDoc,
+    TResult? Function()? addMoreCredentialDoc,
+    TResult? Function(int index)? deleteCredentialObject,
+    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+  }) {
+    return deleteCredentialObject?.call(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String registrationNo)? registrationNumberChanegd,
+    TResult Function(String documentTitle)? documentTitleChanged,
+    TResult Function(String provinceRegistration)? selectProvinceRegistration,
+    TResult Function(String credentialDoc)? selectCredentialDoc,
+    TResult Function(String credentialDoc)? deleteCredentialDoc,
+    TResult Function()? addMoreCredentialDoc,
+    TResult Function(int index)? deleteCredentialObject,
+    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteCredentialObject != null) {
+      return deleteCredentialObject(index);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RegistrationNumberChanegd value)
+        registrationNumberChanegd,
+    required TResult Function(_DocumentTitleChanged value) documentTitleChanged,
+    required TResult Function(_SelectProvinceRegistration value)
+        selectProvinceRegistration,
+    required TResult Function(_SelectCredentialRegistrationDoc value)
+        selectCredentialDoc,
+    required TResult Function(_DeleteCredentialDoc value) deleteCredentialDoc,
+    required TResult Function(_AddMoreCredentialDoc value) addMoreCredentialDoc,
+    required TResult Function(_DeleteCredentialObject value)
+        deleteCredentialObject,
+    required TResult Function(_CredentialDocSubmit value) credentialDocSubmit,
+  }) {
+    return deleteCredentialObject(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_RegistrationNumberChanegd value)?
+        registrationNumberChanegd,
+    TResult? Function(_DocumentTitleChanged value)? documentTitleChanged,
+    TResult? Function(_SelectProvinceRegistration value)?
+        selectProvinceRegistration,
+    TResult? Function(_SelectCredentialRegistrationDoc value)?
+        selectCredentialDoc,
+    TResult? Function(_DeleteCredentialDoc value)? deleteCredentialDoc,
+    TResult? Function(_AddMoreCredentialDoc value)? addMoreCredentialDoc,
+    TResult? Function(_DeleteCredentialObject value)? deleteCredentialObject,
+    TResult? Function(_CredentialDocSubmit value)? credentialDocSubmit,
+  }) {
+    return deleteCredentialObject?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RegistrationNumberChanegd value)?
+        registrationNumberChanegd,
+    TResult Function(_DocumentTitleChanged value)? documentTitleChanged,
+    TResult Function(_SelectProvinceRegistration value)?
+        selectProvinceRegistration,
+    TResult Function(_SelectCredentialRegistrationDoc value)?
+        selectCredentialDoc,
+    TResult Function(_DeleteCredentialDoc value)? deleteCredentialDoc,
+    TResult Function(_AddMoreCredentialDoc value)? addMoreCredentialDoc,
+    TResult Function(_DeleteCredentialObject value)? deleteCredentialObject,
+    TResult Function(_CredentialDocSubmit value)? credentialDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteCredentialObject != null) {
+      return deleteCredentialObject(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteCredentialObject implements CredentialEvent {
+  const factory _DeleteCredentialObject(final int index) =
+      _$DeleteCredentialObjectImpl;
+
+  int get index;
+  @JsonKey(ignore: true)
+  _$$DeleteCredentialObjectImplCopyWith<_$DeleteCredentialObjectImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$CredentialDocSubmitImplCopyWith<$Res> {
+  factory _$$CredentialDocSubmitImplCopyWith(_$CredentialDocSubmitImpl value,
+          $Res Function(_$CredentialDocSubmitImpl) then) =
+      __$$CredentialDocSubmitImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isAddMoreBtnClick});
+}
+
+/// @nodoc
+class __$$CredentialDocSubmitImplCopyWithImpl<$Res>
+    extends _$CredentialEventCopyWithImpl<$Res, _$CredentialDocSubmitImpl>
+    implements _$$CredentialDocSubmitImplCopyWith<$Res> {
+  __$$CredentialDocSubmitImplCopyWithImpl(_$CredentialDocSubmitImpl _value,
+      $Res Function(_$CredentialDocSubmitImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isAddMoreBtnClick = null,
+  }) {
+    return _then(_$CredentialDocSubmitImpl(
+      isAddMoreBtnClick: null == isAddMoreBtnClick
+          ? _value.isAddMoreBtnClick
+          : isAddMoreBtnClick // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$CredentialDocSubmitImpl implements _CredentialDocSubmit {
+  const _$CredentialDocSubmitImpl({required this.isAddMoreBtnClick});
+
+  @override
+  final bool isAddMoreBtnClick;
+
+  @override
+  String toString() {
+    return 'CredentialEvent.credentialDocSubmit(isAddMoreBtnClick: $isAddMoreBtnClick)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CredentialDocSubmitImpl &&
+            (identical(other.isAddMoreBtnClick, isAddMoreBtnClick) ||
+                other.isAddMoreBtnClick == isAddMoreBtnClick));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isAddMoreBtnClick);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CredentialDocSubmitImplCopyWith<_$CredentialDocSubmitImpl> get copyWith =>
+      __$$CredentialDocSubmitImplCopyWithImpl<_$CredentialDocSubmitImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String registrationNo) registrationNumberChanegd,
+    required TResult Function(String documentTitle) documentTitleChanged,
+    required TResult Function(String provinceRegistration)
+        selectProvinceRegistration,
+    required TResult Function(String credentialDoc) selectCredentialDoc,
+    required TResult Function(String credentialDoc) deleteCredentialDoc,
+    required TResult Function() addMoreCredentialDoc,
+    required TResult Function(int index) deleteCredentialObject,
+    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+  }) {
+    return credentialDocSubmit(isAddMoreBtnClick);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String registrationNo)? registrationNumberChanegd,
+    TResult? Function(String documentTitle)? documentTitleChanged,
+    TResult? Function(String provinceRegistration)? selectProvinceRegistration,
+    TResult? Function(String credentialDoc)? selectCredentialDoc,
+    TResult? Function(String credentialDoc)? deleteCredentialDoc,
+    TResult? Function()? addMoreCredentialDoc,
+    TResult? Function(int index)? deleteCredentialObject,
+    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+  }) {
+    return credentialDocSubmit?.call(isAddMoreBtnClick);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String registrationNo)? registrationNumberChanegd,
+    TResult Function(String documentTitle)? documentTitleChanged,
+    TResult Function(String provinceRegistration)? selectProvinceRegistration,
+    TResult Function(String credentialDoc)? selectCredentialDoc,
+    TResult Function(String credentialDoc)? deleteCredentialDoc,
+    TResult Function()? addMoreCredentialDoc,
+    TResult Function(int index)? deleteCredentialObject,
+    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (credentialDocSubmit != null) {
+      return credentialDocSubmit(isAddMoreBtnClick);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RegistrationNumberChanegd value)
+        registrationNumberChanegd,
+    required TResult Function(_DocumentTitleChanged value) documentTitleChanged,
+    required TResult Function(_SelectProvinceRegistration value)
+        selectProvinceRegistration,
+    required TResult Function(_SelectCredentialRegistrationDoc value)
+        selectCredentialDoc,
+    required TResult Function(_DeleteCredentialDoc value) deleteCredentialDoc,
+    required TResult Function(_AddMoreCredentialDoc value) addMoreCredentialDoc,
+    required TResult Function(_DeleteCredentialObject value)
+        deleteCredentialObject,
+    required TResult Function(_CredentialDocSubmit value) credentialDocSubmit,
+  }) {
+    return credentialDocSubmit(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_RegistrationNumberChanegd value)?
+        registrationNumberChanegd,
+    TResult? Function(_DocumentTitleChanged value)? documentTitleChanged,
+    TResult? Function(_SelectProvinceRegistration value)?
+        selectProvinceRegistration,
+    TResult? Function(_SelectCredentialRegistrationDoc value)?
+        selectCredentialDoc,
+    TResult? Function(_DeleteCredentialDoc value)? deleteCredentialDoc,
+    TResult? Function(_AddMoreCredentialDoc value)? addMoreCredentialDoc,
+    TResult? Function(_DeleteCredentialObject value)? deleteCredentialObject,
+    TResult? Function(_CredentialDocSubmit value)? credentialDocSubmit,
+  }) {
+    return credentialDocSubmit?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RegistrationNumberChanegd value)?
+        registrationNumberChanegd,
+    TResult Function(_DocumentTitleChanged value)? documentTitleChanged,
+    TResult Function(_SelectProvinceRegistration value)?
+        selectProvinceRegistration,
+    TResult Function(_SelectCredentialRegistrationDoc value)?
+        selectCredentialDoc,
+    TResult Function(_DeleteCredentialDoc value)? deleteCredentialDoc,
+    TResult Function(_AddMoreCredentialDoc value)? addMoreCredentialDoc,
+    TResult Function(_DeleteCredentialObject value)? deleteCredentialObject,
+    TResult Function(_CredentialDocSubmit value)? credentialDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (credentialDocSubmit != null) {
+      return credentialDocSubmit(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CredentialDocSubmit implements CredentialEvent {
+  const factory _CredentialDocSubmit({required final bool isAddMoreBtnClick}) =
+      _$CredentialDocSubmitImpl;
+
+  bool get isAddMoreBtnClick;
+  @JsonKey(ignore: true)
+  _$$CredentialDocSubmitImplCopyWith<_$CredentialDocSubmitImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$ProfessionalLicensesEvent {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String registrationNo)
+        licensesRegistrationNumberChanegd,
+    required TResult Function(String documentTitle)
+        licensesDocumentTitleChanged,
+    required TResult Function(String provinceRegistration)
+        selectProvinceLicenses,
+    required TResult Function(String licensesDoc) selectLicensesDoc,
+    required TResult Function(String licensesDoc) deleteLicensesDoc,
+    required TResult Function() addMoreLicensesDoc,
+    required TResult Function(int index) deleteLicensesObject,
+    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String registrationNo)? licensesRegistrationNumberChanegd,
+    TResult? Function(String documentTitle)? licensesDocumentTitleChanged,
+    TResult? Function(String provinceRegistration)? selectProvinceLicenses,
+    TResult? Function(String licensesDoc)? selectLicensesDoc,
+    TResult? Function(String licensesDoc)? deleteLicensesDoc,
+    TResult? Function()? addMoreLicensesDoc,
+    TResult? Function(int index)? deleteLicensesObject,
+    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String registrationNo)? licensesRegistrationNumberChanegd,
+    TResult Function(String documentTitle)? licensesDocumentTitleChanged,
+    TResult Function(String provinceRegistration)? selectProvinceLicenses,
+    TResult Function(String licensesDoc)? selectLicensesDoc,
+    TResult Function(String licensesDoc)? deleteLicensesDoc,
+    TResult Function()? addMoreLicensesDoc,
+    TResult Function(int index)? deleteLicensesObject,
+    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LicensesRegistrationNumberChanegd value)
+        licensesRegistrationNumberChanegd,
+    required TResult Function(_LicensesDocumentTitleChanged value)
+        licensesDocumentTitleChanged,
+    required TResult Function(_SelectProvinceLicenses value)
+        selectProvinceLicenses,
+    required TResult Function(_SelectLicensesDoc value) selectLicensesDoc,
+    required TResult Function(_DeleteLicensesDoc value) deleteLicensesDoc,
+    required TResult Function(_AddMoreLicensesDoc value) addMoreLicensesDoc,
+    required TResult Function(_DeleteLicensesObject value) deleteLicensesObject,
+    required TResult Function(_LicensesDocSubmit value) licensesDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LicensesRegistrationNumberChanegd value)?
+        licensesRegistrationNumberChanegd,
+    TResult? Function(_LicensesDocumentTitleChanged value)?
+        licensesDocumentTitleChanged,
+    TResult? Function(_SelectProvinceLicenses value)? selectProvinceLicenses,
+    TResult? Function(_SelectLicensesDoc value)? selectLicensesDoc,
+    TResult? Function(_DeleteLicensesDoc value)? deleteLicensesDoc,
+    TResult? Function(_AddMoreLicensesDoc value)? addMoreLicensesDoc,
+    TResult? Function(_DeleteLicensesObject value)? deleteLicensesObject,
+    TResult? Function(_LicensesDocSubmit value)? licensesDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LicensesRegistrationNumberChanegd value)?
+        licensesRegistrationNumberChanegd,
+    TResult Function(_LicensesDocumentTitleChanged value)?
+        licensesDocumentTitleChanged,
+    TResult Function(_SelectProvinceLicenses value)? selectProvinceLicenses,
+    TResult Function(_SelectLicensesDoc value)? selectLicensesDoc,
+    TResult Function(_DeleteLicensesDoc value)? deleteLicensesDoc,
+    TResult Function(_AddMoreLicensesDoc value)? addMoreLicensesDoc,
+    TResult Function(_DeleteLicensesObject value)? deleteLicensesObject,
+    TResult Function(_LicensesDocSubmit value)? licensesDocSubmit,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ProfessionalLicensesEventCopyWith<$Res> {
+  factory $ProfessionalLicensesEventCopyWith(ProfessionalLicensesEvent value,
+          $Res Function(ProfessionalLicensesEvent) then) =
+      _$ProfessionalLicensesEventCopyWithImpl<$Res, ProfessionalLicensesEvent>;
+}
+
+/// @nodoc
+class _$ProfessionalLicensesEventCopyWithImpl<$Res,
+        $Val extends ProfessionalLicensesEvent>
+    implements $ProfessionalLicensesEventCopyWith<$Res> {
+  _$ProfessionalLicensesEventCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$LicensesRegistrationNumberChanegdImplCopyWith<$Res> {
+  factory _$$LicensesRegistrationNumberChanegdImplCopyWith(
+          _$LicensesRegistrationNumberChanegdImpl value,
+          $Res Function(_$LicensesRegistrationNumberChanegdImpl) then) =
+      __$$LicensesRegistrationNumberChanegdImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String registrationNo});
+}
+
+/// @nodoc
+class __$$LicensesRegistrationNumberChanegdImplCopyWithImpl<$Res>
+    extends _$ProfessionalLicensesEventCopyWithImpl<$Res,
+        _$LicensesRegistrationNumberChanegdImpl>
+    implements _$$LicensesRegistrationNumberChanegdImplCopyWith<$Res> {
+  __$$LicensesRegistrationNumberChanegdImplCopyWithImpl(
+      _$LicensesRegistrationNumberChanegdImpl _value,
+      $Res Function(_$LicensesRegistrationNumberChanegdImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? registrationNo = null,
+  }) {
+    return _then(_$LicensesRegistrationNumberChanegdImpl(
+      null == registrationNo
+          ? _value.registrationNo
+          : registrationNo // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LicensesRegistrationNumberChanegdImpl
+    implements _LicensesRegistrationNumberChanegd {
+  const _$LicensesRegistrationNumberChanegdImpl(this.registrationNo);
+
+  @override
+  final String registrationNo;
+
+  @override
+  String toString() {
+    return 'ProfessionalLicensesEvent.licensesRegistrationNumberChanegd(registrationNo: $registrationNo)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LicensesRegistrationNumberChanegdImpl &&
+            (identical(other.registrationNo, registrationNo) ||
+                other.registrationNo == registrationNo));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, registrationNo);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LicensesRegistrationNumberChanegdImplCopyWith<
+          _$LicensesRegistrationNumberChanegdImpl>
+      get copyWith => __$$LicensesRegistrationNumberChanegdImplCopyWithImpl<
+          _$LicensesRegistrationNumberChanegdImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String registrationNo)
+        licensesRegistrationNumberChanegd,
+    required TResult Function(String documentTitle)
+        licensesDocumentTitleChanged,
+    required TResult Function(String provinceRegistration)
+        selectProvinceLicenses,
+    required TResult Function(String licensesDoc) selectLicensesDoc,
+    required TResult Function(String licensesDoc) deleteLicensesDoc,
+    required TResult Function() addMoreLicensesDoc,
+    required TResult Function(int index) deleteLicensesObject,
+    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+  }) {
+    return licensesRegistrationNumberChanegd(registrationNo);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String registrationNo)? licensesRegistrationNumberChanegd,
+    TResult? Function(String documentTitle)? licensesDocumentTitleChanged,
+    TResult? Function(String provinceRegistration)? selectProvinceLicenses,
+    TResult? Function(String licensesDoc)? selectLicensesDoc,
+    TResult? Function(String licensesDoc)? deleteLicensesDoc,
+    TResult? Function()? addMoreLicensesDoc,
+    TResult? Function(int index)? deleteLicensesObject,
+    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+  }) {
+    return licensesRegistrationNumberChanegd?.call(registrationNo);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String registrationNo)? licensesRegistrationNumberChanegd,
+    TResult Function(String documentTitle)? licensesDocumentTitleChanged,
+    TResult Function(String provinceRegistration)? selectProvinceLicenses,
+    TResult Function(String licensesDoc)? selectLicensesDoc,
+    TResult Function(String licensesDoc)? deleteLicensesDoc,
+    TResult Function()? addMoreLicensesDoc,
+    TResult Function(int index)? deleteLicensesObject,
+    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (licensesRegistrationNumberChanegd != null) {
+      return licensesRegistrationNumberChanegd(registrationNo);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LicensesRegistrationNumberChanegd value)
+        licensesRegistrationNumberChanegd,
+    required TResult Function(_LicensesDocumentTitleChanged value)
+        licensesDocumentTitleChanged,
+    required TResult Function(_SelectProvinceLicenses value)
+        selectProvinceLicenses,
+    required TResult Function(_SelectLicensesDoc value) selectLicensesDoc,
+    required TResult Function(_DeleteLicensesDoc value) deleteLicensesDoc,
+    required TResult Function(_AddMoreLicensesDoc value) addMoreLicensesDoc,
+    required TResult Function(_DeleteLicensesObject value) deleteLicensesObject,
+    required TResult Function(_LicensesDocSubmit value) licensesDocSubmit,
+  }) {
+    return licensesRegistrationNumberChanegd(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LicensesRegistrationNumberChanegd value)?
+        licensesRegistrationNumberChanegd,
+    TResult? Function(_LicensesDocumentTitleChanged value)?
+        licensesDocumentTitleChanged,
+    TResult? Function(_SelectProvinceLicenses value)? selectProvinceLicenses,
+    TResult? Function(_SelectLicensesDoc value)? selectLicensesDoc,
+    TResult? Function(_DeleteLicensesDoc value)? deleteLicensesDoc,
+    TResult? Function(_AddMoreLicensesDoc value)? addMoreLicensesDoc,
+    TResult? Function(_DeleteLicensesObject value)? deleteLicensesObject,
+    TResult? Function(_LicensesDocSubmit value)? licensesDocSubmit,
+  }) {
+    return licensesRegistrationNumberChanegd?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LicensesRegistrationNumberChanegd value)?
+        licensesRegistrationNumberChanegd,
+    TResult Function(_LicensesDocumentTitleChanged value)?
+        licensesDocumentTitleChanged,
+    TResult Function(_SelectProvinceLicenses value)? selectProvinceLicenses,
+    TResult Function(_SelectLicensesDoc value)? selectLicensesDoc,
+    TResult Function(_DeleteLicensesDoc value)? deleteLicensesDoc,
+    TResult Function(_AddMoreLicensesDoc value)? addMoreLicensesDoc,
+    TResult Function(_DeleteLicensesObject value)? deleteLicensesObject,
+    TResult Function(_LicensesDocSubmit value)? licensesDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (licensesRegistrationNumberChanegd != null) {
+      return licensesRegistrationNumberChanegd(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LicensesRegistrationNumberChanegd
+    implements ProfessionalLicensesEvent {
+  const factory _LicensesRegistrationNumberChanegd(
+      final String registrationNo) = _$LicensesRegistrationNumberChanegdImpl;
+
+  String get registrationNo;
+  @JsonKey(ignore: true)
+  _$$LicensesRegistrationNumberChanegdImplCopyWith<
+          _$LicensesRegistrationNumberChanegdImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LicensesDocumentTitleChangedImplCopyWith<$Res> {
+  factory _$$LicensesDocumentTitleChangedImplCopyWith(
+          _$LicensesDocumentTitleChangedImpl value,
+          $Res Function(_$LicensesDocumentTitleChangedImpl) then) =
+      __$$LicensesDocumentTitleChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String documentTitle});
+}
+
+/// @nodoc
+class __$$LicensesDocumentTitleChangedImplCopyWithImpl<$Res>
+    extends _$ProfessionalLicensesEventCopyWithImpl<$Res,
+        _$LicensesDocumentTitleChangedImpl>
+    implements _$$LicensesDocumentTitleChangedImplCopyWith<$Res> {
+  __$$LicensesDocumentTitleChangedImplCopyWithImpl(
+      _$LicensesDocumentTitleChangedImpl _value,
+      $Res Function(_$LicensesDocumentTitleChangedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? documentTitle = null,
+  }) {
+    return _then(_$LicensesDocumentTitleChangedImpl(
+      null == documentTitle
+          ? _value.documentTitle
+          : documentTitle // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LicensesDocumentTitleChangedImpl
+    implements _LicensesDocumentTitleChanged {
+  const _$LicensesDocumentTitleChangedImpl(this.documentTitle);
+
+  @override
+  final String documentTitle;
+
+  @override
+  String toString() {
+    return 'ProfessionalLicensesEvent.licensesDocumentTitleChanged(documentTitle: $documentTitle)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LicensesDocumentTitleChangedImpl &&
+            (identical(other.documentTitle, documentTitle) ||
+                other.documentTitle == documentTitle));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, documentTitle);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LicensesDocumentTitleChangedImplCopyWith<
+          _$LicensesDocumentTitleChangedImpl>
+      get copyWith => __$$LicensesDocumentTitleChangedImplCopyWithImpl<
+          _$LicensesDocumentTitleChangedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String registrationNo)
+        licensesRegistrationNumberChanegd,
+    required TResult Function(String documentTitle)
+        licensesDocumentTitleChanged,
+    required TResult Function(String provinceRegistration)
+        selectProvinceLicenses,
+    required TResult Function(String licensesDoc) selectLicensesDoc,
+    required TResult Function(String licensesDoc) deleteLicensesDoc,
+    required TResult Function() addMoreLicensesDoc,
+    required TResult Function(int index) deleteLicensesObject,
+    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+  }) {
+    return licensesDocumentTitleChanged(documentTitle);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String registrationNo)? licensesRegistrationNumberChanegd,
+    TResult? Function(String documentTitle)? licensesDocumentTitleChanged,
+    TResult? Function(String provinceRegistration)? selectProvinceLicenses,
+    TResult? Function(String licensesDoc)? selectLicensesDoc,
+    TResult? Function(String licensesDoc)? deleteLicensesDoc,
+    TResult? Function()? addMoreLicensesDoc,
+    TResult? Function(int index)? deleteLicensesObject,
+    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+  }) {
+    return licensesDocumentTitleChanged?.call(documentTitle);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String registrationNo)? licensesRegistrationNumberChanegd,
+    TResult Function(String documentTitle)? licensesDocumentTitleChanged,
+    TResult Function(String provinceRegistration)? selectProvinceLicenses,
+    TResult Function(String licensesDoc)? selectLicensesDoc,
+    TResult Function(String licensesDoc)? deleteLicensesDoc,
+    TResult Function()? addMoreLicensesDoc,
+    TResult Function(int index)? deleteLicensesObject,
+    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (licensesDocumentTitleChanged != null) {
+      return licensesDocumentTitleChanged(documentTitle);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LicensesRegistrationNumberChanegd value)
+        licensesRegistrationNumberChanegd,
+    required TResult Function(_LicensesDocumentTitleChanged value)
+        licensesDocumentTitleChanged,
+    required TResult Function(_SelectProvinceLicenses value)
+        selectProvinceLicenses,
+    required TResult Function(_SelectLicensesDoc value) selectLicensesDoc,
+    required TResult Function(_DeleteLicensesDoc value) deleteLicensesDoc,
+    required TResult Function(_AddMoreLicensesDoc value) addMoreLicensesDoc,
+    required TResult Function(_DeleteLicensesObject value) deleteLicensesObject,
+    required TResult Function(_LicensesDocSubmit value) licensesDocSubmit,
+  }) {
+    return licensesDocumentTitleChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LicensesRegistrationNumberChanegd value)?
+        licensesRegistrationNumberChanegd,
+    TResult? Function(_LicensesDocumentTitleChanged value)?
+        licensesDocumentTitleChanged,
+    TResult? Function(_SelectProvinceLicenses value)? selectProvinceLicenses,
+    TResult? Function(_SelectLicensesDoc value)? selectLicensesDoc,
+    TResult? Function(_DeleteLicensesDoc value)? deleteLicensesDoc,
+    TResult? Function(_AddMoreLicensesDoc value)? addMoreLicensesDoc,
+    TResult? Function(_DeleteLicensesObject value)? deleteLicensesObject,
+    TResult? Function(_LicensesDocSubmit value)? licensesDocSubmit,
+  }) {
+    return licensesDocumentTitleChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LicensesRegistrationNumberChanegd value)?
+        licensesRegistrationNumberChanegd,
+    TResult Function(_LicensesDocumentTitleChanged value)?
+        licensesDocumentTitleChanged,
+    TResult Function(_SelectProvinceLicenses value)? selectProvinceLicenses,
+    TResult Function(_SelectLicensesDoc value)? selectLicensesDoc,
+    TResult Function(_DeleteLicensesDoc value)? deleteLicensesDoc,
+    TResult Function(_AddMoreLicensesDoc value)? addMoreLicensesDoc,
+    TResult Function(_DeleteLicensesObject value)? deleteLicensesObject,
+    TResult Function(_LicensesDocSubmit value)? licensesDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (licensesDocumentTitleChanged != null) {
+      return licensesDocumentTitleChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LicensesDocumentTitleChanged
+    implements ProfessionalLicensesEvent {
+  const factory _LicensesDocumentTitleChanged(final String documentTitle) =
+      _$LicensesDocumentTitleChangedImpl;
+
+  String get documentTitle;
+  @JsonKey(ignore: true)
+  _$$LicensesDocumentTitleChangedImplCopyWith<
+          _$LicensesDocumentTitleChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SelectProvinceLicensesImplCopyWith<$Res> {
+  factory _$$SelectProvinceLicensesImplCopyWith(
+          _$SelectProvinceLicensesImpl value,
+          $Res Function(_$SelectProvinceLicensesImpl) then) =
+      __$$SelectProvinceLicensesImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String provinceRegistration});
+}
+
+/// @nodoc
+class __$$SelectProvinceLicensesImplCopyWithImpl<$Res>
+    extends _$ProfessionalLicensesEventCopyWithImpl<$Res,
+        _$SelectProvinceLicensesImpl>
+    implements _$$SelectProvinceLicensesImplCopyWith<$Res> {
+  __$$SelectProvinceLicensesImplCopyWithImpl(
+      _$SelectProvinceLicensesImpl _value,
+      $Res Function(_$SelectProvinceLicensesImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? provinceRegistration = null,
+  }) {
+    return _then(_$SelectProvinceLicensesImpl(
+      null == provinceRegistration
+          ? _value.provinceRegistration
+          : provinceRegistration // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SelectProvinceLicensesImpl implements _SelectProvinceLicenses {
+  const _$SelectProvinceLicensesImpl(this.provinceRegistration);
+
+  @override
+  final String provinceRegistration;
+
+  @override
+  String toString() {
+    return 'ProfessionalLicensesEvent.selectProvinceLicenses(provinceRegistration: $provinceRegistration)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SelectProvinceLicensesImpl &&
+            (identical(other.provinceRegistration, provinceRegistration) ||
+                other.provinceRegistration == provinceRegistration));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, provinceRegistration);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SelectProvinceLicensesImplCopyWith<_$SelectProvinceLicensesImpl>
+      get copyWith => __$$SelectProvinceLicensesImplCopyWithImpl<
+          _$SelectProvinceLicensesImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String registrationNo)
+        licensesRegistrationNumberChanegd,
+    required TResult Function(String documentTitle)
+        licensesDocumentTitleChanged,
+    required TResult Function(String provinceRegistration)
+        selectProvinceLicenses,
+    required TResult Function(String licensesDoc) selectLicensesDoc,
+    required TResult Function(String licensesDoc) deleteLicensesDoc,
+    required TResult Function() addMoreLicensesDoc,
+    required TResult Function(int index) deleteLicensesObject,
+    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+  }) {
+    return selectProvinceLicenses(provinceRegistration);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String registrationNo)? licensesRegistrationNumberChanegd,
+    TResult? Function(String documentTitle)? licensesDocumentTitleChanged,
+    TResult? Function(String provinceRegistration)? selectProvinceLicenses,
+    TResult? Function(String licensesDoc)? selectLicensesDoc,
+    TResult? Function(String licensesDoc)? deleteLicensesDoc,
+    TResult? Function()? addMoreLicensesDoc,
+    TResult? Function(int index)? deleteLicensesObject,
+    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+  }) {
+    return selectProvinceLicenses?.call(provinceRegistration);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String registrationNo)? licensesRegistrationNumberChanegd,
+    TResult Function(String documentTitle)? licensesDocumentTitleChanged,
+    TResult Function(String provinceRegistration)? selectProvinceLicenses,
+    TResult Function(String licensesDoc)? selectLicensesDoc,
+    TResult Function(String licensesDoc)? deleteLicensesDoc,
+    TResult Function()? addMoreLicensesDoc,
+    TResult Function(int index)? deleteLicensesObject,
+    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (selectProvinceLicenses != null) {
+      return selectProvinceLicenses(provinceRegistration);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LicensesRegistrationNumberChanegd value)
+        licensesRegistrationNumberChanegd,
+    required TResult Function(_LicensesDocumentTitleChanged value)
+        licensesDocumentTitleChanged,
+    required TResult Function(_SelectProvinceLicenses value)
+        selectProvinceLicenses,
+    required TResult Function(_SelectLicensesDoc value) selectLicensesDoc,
+    required TResult Function(_DeleteLicensesDoc value) deleteLicensesDoc,
+    required TResult Function(_AddMoreLicensesDoc value) addMoreLicensesDoc,
+    required TResult Function(_DeleteLicensesObject value) deleteLicensesObject,
+    required TResult Function(_LicensesDocSubmit value) licensesDocSubmit,
+  }) {
+    return selectProvinceLicenses(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LicensesRegistrationNumberChanegd value)?
+        licensesRegistrationNumberChanegd,
+    TResult? Function(_LicensesDocumentTitleChanged value)?
+        licensesDocumentTitleChanged,
+    TResult? Function(_SelectProvinceLicenses value)? selectProvinceLicenses,
+    TResult? Function(_SelectLicensesDoc value)? selectLicensesDoc,
+    TResult? Function(_DeleteLicensesDoc value)? deleteLicensesDoc,
+    TResult? Function(_AddMoreLicensesDoc value)? addMoreLicensesDoc,
+    TResult? Function(_DeleteLicensesObject value)? deleteLicensesObject,
+    TResult? Function(_LicensesDocSubmit value)? licensesDocSubmit,
+  }) {
+    return selectProvinceLicenses?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LicensesRegistrationNumberChanegd value)?
+        licensesRegistrationNumberChanegd,
+    TResult Function(_LicensesDocumentTitleChanged value)?
+        licensesDocumentTitleChanged,
+    TResult Function(_SelectProvinceLicenses value)? selectProvinceLicenses,
+    TResult Function(_SelectLicensesDoc value)? selectLicensesDoc,
+    TResult Function(_DeleteLicensesDoc value)? deleteLicensesDoc,
+    TResult Function(_AddMoreLicensesDoc value)? addMoreLicensesDoc,
+    TResult Function(_DeleteLicensesObject value)? deleteLicensesObject,
+    TResult Function(_LicensesDocSubmit value)? licensesDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (selectProvinceLicenses != null) {
+      return selectProvinceLicenses(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SelectProvinceLicenses implements ProfessionalLicensesEvent {
+  const factory _SelectProvinceLicenses(final String provinceRegistration) =
+      _$SelectProvinceLicensesImpl;
+
+  String get provinceRegistration;
+  @JsonKey(ignore: true)
+  _$$SelectProvinceLicensesImplCopyWith<_$SelectProvinceLicensesImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SelectLicensesDocImplCopyWith<$Res> {
+  factory _$$SelectLicensesDocImplCopyWith(_$SelectLicensesDocImpl value,
+          $Res Function(_$SelectLicensesDocImpl) then) =
+      __$$SelectLicensesDocImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String licensesDoc});
+}
+
+/// @nodoc
+class __$$SelectLicensesDocImplCopyWithImpl<$Res>
+    extends _$ProfessionalLicensesEventCopyWithImpl<$Res,
+        _$SelectLicensesDocImpl>
+    implements _$$SelectLicensesDocImplCopyWith<$Res> {
+  __$$SelectLicensesDocImplCopyWithImpl(_$SelectLicensesDocImpl _value,
+      $Res Function(_$SelectLicensesDocImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? licensesDoc = null,
+  }) {
+    return _then(_$SelectLicensesDocImpl(
+      null == licensesDoc
+          ? _value.licensesDoc
+          : licensesDoc // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SelectLicensesDocImpl implements _SelectLicensesDoc {
+  const _$SelectLicensesDocImpl(this.licensesDoc);
+
+  @override
+  final String licensesDoc;
+
+  @override
+  String toString() {
+    return 'ProfessionalLicensesEvent.selectLicensesDoc(licensesDoc: $licensesDoc)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SelectLicensesDocImpl &&
+            (identical(other.licensesDoc, licensesDoc) ||
+                other.licensesDoc == licensesDoc));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, licensesDoc);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SelectLicensesDocImplCopyWith<_$SelectLicensesDocImpl> get copyWith =>
+      __$$SelectLicensesDocImplCopyWithImpl<_$SelectLicensesDocImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String registrationNo)
+        licensesRegistrationNumberChanegd,
+    required TResult Function(String documentTitle)
+        licensesDocumentTitleChanged,
+    required TResult Function(String provinceRegistration)
+        selectProvinceLicenses,
+    required TResult Function(String licensesDoc) selectLicensesDoc,
+    required TResult Function(String licensesDoc) deleteLicensesDoc,
+    required TResult Function() addMoreLicensesDoc,
+    required TResult Function(int index) deleteLicensesObject,
+    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+  }) {
+    return selectLicensesDoc(licensesDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String registrationNo)? licensesRegistrationNumberChanegd,
+    TResult? Function(String documentTitle)? licensesDocumentTitleChanged,
+    TResult? Function(String provinceRegistration)? selectProvinceLicenses,
+    TResult? Function(String licensesDoc)? selectLicensesDoc,
+    TResult? Function(String licensesDoc)? deleteLicensesDoc,
+    TResult? Function()? addMoreLicensesDoc,
+    TResult? Function(int index)? deleteLicensesObject,
+    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+  }) {
+    return selectLicensesDoc?.call(licensesDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String registrationNo)? licensesRegistrationNumberChanegd,
+    TResult Function(String documentTitle)? licensesDocumentTitleChanged,
+    TResult Function(String provinceRegistration)? selectProvinceLicenses,
+    TResult Function(String licensesDoc)? selectLicensesDoc,
+    TResult Function(String licensesDoc)? deleteLicensesDoc,
+    TResult Function()? addMoreLicensesDoc,
+    TResult Function(int index)? deleteLicensesObject,
+    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (selectLicensesDoc != null) {
+      return selectLicensesDoc(licensesDoc);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LicensesRegistrationNumberChanegd value)
+        licensesRegistrationNumberChanegd,
+    required TResult Function(_LicensesDocumentTitleChanged value)
+        licensesDocumentTitleChanged,
+    required TResult Function(_SelectProvinceLicenses value)
+        selectProvinceLicenses,
+    required TResult Function(_SelectLicensesDoc value) selectLicensesDoc,
+    required TResult Function(_DeleteLicensesDoc value) deleteLicensesDoc,
+    required TResult Function(_AddMoreLicensesDoc value) addMoreLicensesDoc,
+    required TResult Function(_DeleteLicensesObject value) deleteLicensesObject,
+    required TResult Function(_LicensesDocSubmit value) licensesDocSubmit,
+  }) {
+    return selectLicensesDoc(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LicensesRegistrationNumberChanegd value)?
+        licensesRegistrationNumberChanegd,
+    TResult? Function(_LicensesDocumentTitleChanged value)?
+        licensesDocumentTitleChanged,
+    TResult? Function(_SelectProvinceLicenses value)? selectProvinceLicenses,
+    TResult? Function(_SelectLicensesDoc value)? selectLicensesDoc,
+    TResult? Function(_DeleteLicensesDoc value)? deleteLicensesDoc,
+    TResult? Function(_AddMoreLicensesDoc value)? addMoreLicensesDoc,
+    TResult? Function(_DeleteLicensesObject value)? deleteLicensesObject,
+    TResult? Function(_LicensesDocSubmit value)? licensesDocSubmit,
+  }) {
+    return selectLicensesDoc?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LicensesRegistrationNumberChanegd value)?
+        licensesRegistrationNumberChanegd,
+    TResult Function(_LicensesDocumentTitleChanged value)?
+        licensesDocumentTitleChanged,
+    TResult Function(_SelectProvinceLicenses value)? selectProvinceLicenses,
+    TResult Function(_SelectLicensesDoc value)? selectLicensesDoc,
+    TResult Function(_DeleteLicensesDoc value)? deleteLicensesDoc,
+    TResult Function(_AddMoreLicensesDoc value)? addMoreLicensesDoc,
+    TResult Function(_DeleteLicensesObject value)? deleteLicensesObject,
+    TResult Function(_LicensesDocSubmit value)? licensesDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (selectLicensesDoc != null) {
+      return selectLicensesDoc(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SelectLicensesDoc implements ProfessionalLicensesEvent {
+  const factory _SelectLicensesDoc(final String licensesDoc) =
+      _$SelectLicensesDocImpl;
+
+  String get licensesDoc;
+  @JsonKey(ignore: true)
+  _$$SelectLicensesDocImplCopyWith<_$SelectLicensesDocImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DeleteLicensesDocImplCopyWith<$Res> {
+  factory _$$DeleteLicensesDocImplCopyWith(_$DeleteLicensesDocImpl value,
+          $Res Function(_$DeleteLicensesDocImpl) then) =
+      __$$DeleteLicensesDocImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String licensesDoc});
+}
+
+/// @nodoc
+class __$$DeleteLicensesDocImplCopyWithImpl<$Res>
+    extends _$ProfessionalLicensesEventCopyWithImpl<$Res,
+        _$DeleteLicensesDocImpl>
+    implements _$$DeleteLicensesDocImplCopyWith<$Res> {
+  __$$DeleteLicensesDocImplCopyWithImpl(_$DeleteLicensesDocImpl _value,
+      $Res Function(_$DeleteLicensesDocImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? licensesDoc = null,
+  }) {
+    return _then(_$DeleteLicensesDocImpl(
+      null == licensesDoc
+          ? _value.licensesDoc
+          : licensesDoc // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeleteLicensesDocImpl implements _DeleteLicensesDoc {
+  const _$DeleteLicensesDocImpl(this.licensesDoc);
+
+  @override
+  final String licensesDoc;
+
+  @override
+  String toString() {
+    return 'ProfessionalLicensesEvent.deleteLicensesDoc(licensesDoc: $licensesDoc)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteLicensesDocImpl &&
+            (identical(other.licensesDoc, licensesDoc) ||
+                other.licensesDoc == licensesDoc));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, licensesDoc);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeleteLicensesDocImplCopyWith<_$DeleteLicensesDocImpl> get copyWith =>
+      __$$DeleteLicensesDocImplCopyWithImpl<_$DeleteLicensesDocImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String registrationNo)
+        licensesRegistrationNumberChanegd,
+    required TResult Function(String documentTitle)
+        licensesDocumentTitleChanged,
+    required TResult Function(String provinceRegistration)
+        selectProvinceLicenses,
+    required TResult Function(String licensesDoc) selectLicensesDoc,
+    required TResult Function(String licensesDoc) deleteLicensesDoc,
+    required TResult Function() addMoreLicensesDoc,
+    required TResult Function(int index) deleteLicensesObject,
+    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+  }) {
+    return deleteLicensesDoc(licensesDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String registrationNo)? licensesRegistrationNumberChanegd,
+    TResult? Function(String documentTitle)? licensesDocumentTitleChanged,
+    TResult? Function(String provinceRegistration)? selectProvinceLicenses,
+    TResult? Function(String licensesDoc)? selectLicensesDoc,
+    TResult? Function(String licensesDoc)? deleteLicensesDoc,
+    TResult? Function()? addMoreLicensesDoc,
+    TResult? Function(int index)? deleteLicensesObject,
+    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+  }) {
+    return deleteLicensesDoc?.call(licensesDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String registrationNo)? licensesRegistrationNumberChanegd,
+    TResult Function(String documentTitle)? licensesDocumentTitleChanged,
+    TResult Function(String provinceRegistration)? selectProvinceLicenses,
+    TResult Function(String licensesDoc)? selectLicensesDoc,
+    TResult Function(String licensesDoc)? deleteLicensesDoc,
+    TResult Function()? addMoreLicensesDoc,
+    TResult Function(int index)? deleteLicensesObject,
+    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteLicensesDoc != null) {
+      return deleteLicensesDoc(licensesDoc);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LicensesRegistrationNumberChanegd value)
+        licensesRegistrationNumberChanegd,
+    required TResult Function(_LicensesDocumentTitleChanged value)
+        licensesDocumentTitleChanged,
+    required TResult Function(_SelectProvinceLicenses value)
+        selectProvinceLicenses,
+    required TResult Function(_SelectLicensesDoc value) selectLicensesDoc,
+    required TResult Function(_DeleteLicensesDoc value) deleteLicensesDoc,
+    required TResult Function(_AddMoreLicensesDoc value) addMoreLicensesDoc,
+    required TResult Function(_DeleteLicensesObject value) deleteLicensesObject,
+    required TResult Function(_LicensesDocSubmit value) licensesDocSubmit,
+  }) {
+    return deleteLicensesDoc(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LicensesRegistrationNumberChanegd value)?
+        licensesRegistrationNumberChanegd,
+    TResult? Function(_LicensesDocumentTitleChanged value)?
+        licensesDocumentTitleChanged,
+    TResult? Function(_SelectProvinceLicenses value)? selectProvinceLicenses,
+    TResult? Function(_SelectLicensesDoc value)? selectLicensesDoc,
+    TResult? Function(_DeleteLicensesDoc value)? deleteLicensesDoc,
+    TResult? Function(_AddMoreLicensesDoc value)? addMoreLicensesDoc,
+    TResult? Function(_DeleteLicensesObject value)? deleteLicensesObject,
+    TResult? Function(_LicensesDocSubmit value)? licensesDocSubmit,
+  }) {
+    return deleteLicensesDoc?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LicensesRegistrationNumberChanegd value)?
+        licensesRegistrationNumberChanegd,
+    TResult Function(_LicensesDocumentTitleChanged value)?
+        licensesDocumentTitleChanged,
+    TResult Function(_SelectProvinceLicenses value)? selectProvinceLicenses,
+    TResult Function(_SelectLicensesDoc value)? selectLicensesDoc,
+    TResult Function(_DeleteLicensesDoc value)? deleteLicensesDoc,
+    TResult Function(_AddMoreLicensesDoc value)? addMoreLicensesDoc,
+    TResult Function(_DeleteLicensesObject value)? deleteLicensesObject,
+    TResult Function(_LicensesDocSubmit value)? licensesDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteLicensesDoc != null) {
+      return deleteLicensesDoc(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteLicensesDoc implements ProfessionalLicensesEvent {
+  const factory _DeleteLicensesDoc(final String licensesDoc) =
+      _$DeleteLicensesDocImpl;
+
+  String get licensesDoc;
+  @JsonKey(ignore: true)
+  _$$DeleteLicensesDocImplCopyWith<_$DeleteLicensesDocImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AddMoreLicensesDocImplCopyWith<$Res> {
+  factory _$$AddMoreLicensesDocImplCopyWith(_$AddMoreLicensesDocImpl value,
+          $Res Function(_$AddMoreLicensesDocImpl) then) =
+      __$$AddMoreLicensesDocImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$AddMoreLicensesDocImplCopyWithImpl<$Res>
+    extends _$ProfessionalLicensesEventCopyWithImpl<$Res,
+        _$AddMoreLicensesDocImpl>
+    implements _$$AddMoreLicensesDocImplCopyWith<$Res> {
+  __$$AddMoreLicensesDocImplCopyWithImpl(_$AddMoreLicensesDocImpl _value,
+      $Res Function(_$AddMoreLicensesDocImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$AddMoreLicensesDocImpl implements _AddMoreLicensesDoc {
+  const _$AddMoreLicensesDocImpl();
+
+  @override
+  String toString() {
+    return 'ProfessionalLicensesEvent.addMoreLicensesDoc()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$AddMoreLicensesDocImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String registrationNo)
+        licensesRegistrationNumberChanegd,
+    required TResult Function(String documentTitle)
+        licensesDocumentTitleChanged,
+    required TResult Function(String provinceRegistration)
+        selectProvinceLicenses,
+    required TResult Function(String licensesDoc) selectLicensesDoc,
+    required TResult Function(String licensesDoc) deleteLicensesDoc,
+    required TResult Function() addMoreLicensesDoc,
+    required TResult Function(int index) deleteLicensesObject,
+    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+  }) {
+    return addMoreLicensesDoc();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String registrationNo)? licensesRegistrationNumberChanegd,
+    TResult? Function(String documentTitle)? licensesDocumentTitleChanged,
+    TResult? Function(String provinceRegistration)? selectProvinceLicenses,
+    TResult? Function(String licensesDoc)? selectLicensesDoc,
+    TResult? Function(String licensesDoc)? deleteLicensesDoc,
+    TResult? Function()? addMoreLicensesDoc,
+    TResult? Function(int index)? deleteLicensesObject,
+    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+  }) {
+    return addMoreLicensesDoc?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String registrationNo)? licensesRegistrationNumberChanegd,
+    TResult Function(String documentTitle)? licensesDocumentTitleChanged,
+    TResult Function(String provinceRegistration)? selectProvinceLicenses,
+    TResult Function(String licensesDoc)? selectLicensesDoc,
+    TResult Function(String licensesDoc)? deleteLicensesDoc,
+    TResult Function()? addMoreLicensesDoc,
+    TResult Function(int index)? deleteLicensesObject,
+    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (addMoreLicensesDoc != null) {
+      return addMoreLicensesDoc();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LicensesRegistrationNumberChanegd value)
+        licensesRegistrationNumberChanegd,
+    required TResult Function(_LicensesDocumentTitleChanged value)
+        licensesDocumentTitleChanged,
+    required TResult Function(_SelectProvinceLicenses value)
+        selectProvinceLicenses,
+    required TResult Function(_SelectLicensesDoc value) selectLicensesDoc,
+    required TResult Function(_DeleteLicensesDoc value) deleteLicensesDoc,
+    required TResult Function(_AddMoreLicensesDoc value) addMoreLicensesDoc,
+    required TResult Function(_DeleteLicensesObject value) deleteLicensesObject,
+    required TResult Function(_LicensesDocSubmit value) licensesDocSubmit,
+  }) {
+    return addMoreLicensesDoc(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LicensesRegistrationNumberChanegd value)?
+        licensesRegistrationNumberChanegd,
+    TResult? Function(_LicensesDocumentTitleChanged value)?
+        licensesDocumentTitleChanged,
+    TResult? Function(_SelectProvinceLicenses value)? selectProvinceLicenses,
+    TResult? Function(_SelectLicensesDoc value)? selectLicensesDoc,
+    TResult? Function(_DeleteLicensesDoc value)? deleteLicensesDoc,
+    TResult? Function(_AddMoreLicensesDoc value)? addMoreLicensesDoc,
+    TResult? Function(_DeleteLicensesObject value)? deleteLicensesObject,
+    TResult? Function(_LicensesDocSubmit value)? licensesDocSubmit,
+  }) {
+    return addMoreLicensesDoc?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LicensesRegistrationNumberChanegd value)?
+        licensesRegistrationNumberChanegd,
+    TResult Function(_LicensesDocumentTitleChanged value)?
+        licensesDocumentTitleChanged,
+    TResult Function(_SelectProvinceLicenses value)? selectProvinceLicenses,
+    TResult Function(_SelectLicensesDoc value)? selectLicensesDoc,
+    TResult Function(_DeleteLicensesDoc value)? deleteLicensesDoc,
+    TResult Function(_AddMoreLicensesDoc value)? addMoreLicensesDoc,
+    TResult Function(_DeleteLicensesObject value)? deleteLicensesObject,
+    TResult Function(_LicensesDocSubmit value)? licensesDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (addMoreLicensesDoc != null) {
+      return addMoreLicensesDoc(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddMoreLicensesDoc implements ProfessionalLicensesEvent {
+  const factory _AddMoreLicensesDoc() = _$AddMoreLicensesDocImpl;
+}
+
+/// @nodoc
+abstract class _$$DeleteLicensesObjectImplCopyWith<$Res> {
+  factory _$$DeleteLicensesObjectImplCopyWith(_$DeleteLicensesObjectImpl value,
+          $Res Function(_$DeleteLicensesObjectImpl) then) =
+      __$$DeleteLicensesObjectImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index});
+}
+
+/// @nodoc
+class __$$DeleteLicensesObjectImplCopyWithImpl<$Res>
+    extends _$ProfessionalLicensesEventCopyWithImpl<$Res,
+        _$DeleteLicensesObjectImpl>
+    implements _$$DeleteLicensesObjectImplCopyWith<$Res> {
+  __$$DeleteLicensesObjectImplCopyWithImpl(_$DeleteLicensesObjectImpl _value,
+      $Res Function(_$DeleteLicensesObjectImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+  }) {
+    return _then(_$DeleteLicensesObjectImpl(
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeleteLicensesObjectImpl implements _DeleteLicensesObject {
+  const _$DeleteLicensesObjectImpl(this.index);
+
+  @override
+  final int index;
+
+  @override
+  String toString() {
+    return 'ProfessionalLicensesEvent.deleteLicensesObject(index: $index)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteLicensesObjectImpl &&
+            (identical(other.index, index) || other.index == index));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeleteLicensesObjectImplCopyWith<_$DeleteLicensesObjectImpl>
+      get copyWith =>
+          __$$DeleteLicensesObjectImplCopyWithImpl<_$DeleteLicensesObjectImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String registrationNo)
+        licensesRegistrationNumberChanegd,
+    required TResult Function(String documentTitle)
+        licensesDocumentTitleChanged,
+    required TResult Function(String provinceRegistration)
+        selectProvinceLicenses,
+    required TResult Function(String licensesDoc) selectLicensesDoc,
+    required TResult Function(String licensesDoc) deleteLicensesDoc,
+    required TResult Function() addMoreLicensesDoc,
+    required TResult Function(int index) deleteLicensesObject,
+    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+  }) {
+    return deleteLicensesObject(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String registrationNo)? licensesRegistrationNumberChanegd,
+    TResult? Function(String documentTitle)? licensesDocumentTitleChanged,
+    TResult? Function(String provinceRegistration)? selectProvinceLicenses,
+    TResult? Function(String licensesDoc)? selectLicensesDoc,
+    TResult? Function(String licensesDoc)? deleteLicensesDoc,
+    TResult? Function()? addMoreLicensesDoc,
+    TResult? Function(int index)? deleteLicensesObject,
+    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+  }) {
+    return deleteLicensesObject?.call(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String registrationNo)? licensesRegistrationNumberChanegd,
+    TResult Function(String documentTitle)? licensesDocumentTitleChanged,
+    TResult Function(String provinceRegistration)? selectProvinceLicenses,
+    TResult Function(String licensesDoc)? selectLicensesDoc,
+    TResult Function(String licensesDoc)? deleteLicensesDoc,
+    TResult Function()? addMoreLicensesDoc,
+    TResult Function(int index)? deleteLicensesObject,
+    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteLicensesObject != null) {
+      return deleteLicensesObject(index);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LicensesRegistrationNumberChanegd value)
+        licensesRegistrationNumberChanegd,
+    required TResult Function(_LicensesDocumentTitleChanged value)
+        licensesDocumentTitleChanged,
+    required TResult Function(_SelectProvinceLicenses value)
+        selectProvinceLicenses,
+    required TResult Function(_SelectLicensesDoc value) selectLicensesDoc,
+    required TResult Function(_DeleteLicensesDoc value) deleteLicensesDoc,
+    required TResult Function(_AddMoreLicensesDoc value) addMoreLicensesDoc,
+    required TResult Function(_DeleteLicensesObject value) deleteLicensesObject,
+    required TResult Function(_LicensesDocSubmit value) licensesDocSubmit,
+  }) {
+    return deleteLicensesObject(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LicensesRegistrationNumberChanegd value)?
+        licensesRegistrationNumberChanegd,
+    TResult? Function(_LicensesDocumentTitleChanged value)?
+        licensesDocumentTitleChanged,
+    TResult? Function(_SelectProvinceLicenses value)? selectProvinceLicenses,
+    TResult? Function(_SelectLicensesDoc value)? selectLicensesDoc,
+    TResult? Function(_DeleteLicensesDoc value)? deleteLicensesDoc,
+    TResult? Function(_AddMoreLicensesDoc value)? addMoreLicensesDoc,
+    TResult? Function(_DeleteLicensesObject value)? deleteLicensesObject,
+    TResult? Function(_LicensesDocSubmit value)? licensesDocSubmit,
+  }) {
+    return deleteLicensesObject?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LicensesRegistrationNumberChanegd value)?
+        licensesRegistrationNumberChanegd,
+    TResult Function(_LicensesDocumentTitleChanged value)?
+        licensesDocumentTitleChanged,
+    TResult Function(_SelectProvinceLicenses value)? selectProvinceLicenses,
+    TResult Function(_SelectLicensesDoc value)? selectLicensesDoc,
+    TResult Function(_DeleteLicensesDoc value)? deleteLicensesDoc,
+    TResult Function(_AddMoreLicensesDoc value)? addMoreLicensesDoc,
+    TResult Function(_DeleteLicensesObject value)? deleteLicensesObject,
+    TResult Function(_LicensesDocSubmit value)? licensesDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteLicensesObject != null) {
+      return deleteLicensesObject(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteLicensesObject implements ProfessionalLicensesEvent {
+  const factory _DeleteLicensesObject(final int index) =
+      _$DeleteLicensesObjectImpl;
+
+  int get index;
+  @JsonKey(ignore: true)
+  _$$DeleteLicensesObjectImplCopyWith<_$DeleteLicensesObjectImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LicensesDocSubmitImplCopyWith<$Res> {
+  factory _$$LicensesDocSubmitImplCopyWith(_$LicensesDocSubmitImpl value,
+          $Res Function(_$LicensesDocSubmitImpl) then) =
+      __$$LicensesDocSubmitImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isAddMoreBtnClick});
+}
+
+/// @nodoc
+class __$$LicensesDocSubmitImplCopyWithImpl<$Res>
+    extends _$ProfessionalLicensesEventCopyWithImpl<$Res,
+        _$LicensesDocSubmitImpl>
+    implements _$$LicensesDocSubmitImplCopyWith<$Res> {
+  __$$LicensesDocSubmitImplCopyWithImpl(_$LicensesDocSubmitImpl _value,
+      $Res Function(_$LicensesDocSubmitImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isAddMoreBtnClick = null,
+  }) {
+    return _then(_$LicensesDocSubmitImpl(
+      isAddMoreBtnClick: null == isAddMoreBtnClick
+          ? _value.isAddMoreBtnClick
+          : isAddMoreBtnClick // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LicensesDocSubmitImpl implements _LicensesDocSubmit {
+  const _$LicensesDocSubmitImpl({required this.isAddMoreBtnClick});
+
+  @override
+  final bool isAddMoreBtnClick;
+
+  @override
+  String toString() {
+    return 'ProfessionalLicensesEvent.licensesDocSubmit(isAddMoreBtnClick: $isAddMoreBtnClick)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LicensesDocSubmitImpl &&
+            (identical(other.isAddMoreBtnClick, isAddMoreBtnClick) ||
+                other.isAddMoreBtnClick == isAddMoreBtnClick));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isAddMoreBtnClick);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LicensesDocSubmitImplCopyWith<_$LicensesDocSubmitImpl> get copyWith =>
+      __$$LicensesDocSubmitImplCopyWithImpl<_$LicensesDocSubmitImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String registrationNo)
+        licensesRegistrationNumberChanegd,
+    required TResult Function(String documentTitle)
+        licensesDocumentTitleChanged,
+    required TResult Function(String provinceRegistration)
+        selectProvinceLicenses,
+    required TResult Function(String licensesDoc) selectLicensesDoc,
+    required TResult Function(String licensesDoc) deleteLicensesDoc,
+    required TResult Function() addMoreLicensesDoc,
+    required TResult Function(int index) deleteLicensesObject,
+    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+  }) {
+    return licensesDocSubmit(isAddMoreBtnClick);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String registrationNo)? licensesRegistrationNumberChanegd,
+    TResult? Function(String documentTitle)? licensesDocumentTitleChanged,
+    TResult? Function(String provinceRegistration)? selectProvinceLicenses,
+    TResult? Function(String licensesDoc)? selectLicensesDoc,
+    TResult? Function(String licensesDoc)? deleteLicensesDoc,
+    TResult? Function()? addMoreLicensesDoc,
+    TResult? Function(int index)? deleteLicensesObject,
+    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+  }) {
+    return licensesDocSubmit?.call(isAddMoreBtnClick);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String registrationNo)? licensesRegistrationNumberChanegd,
+    TResult Function(String documentTitle)? licensesDocumentTitleChanged,
+    TResult Function(String provinceRegistration)? selectProvinceLicenses,
+    TResult Function(String licensesDoc)? selectLicensesDoc,
+    TResult Function(String licensesDoc)? deleteLicensesDoc,
+    TResult Function()? addMoreLicensesDoc,
+    TResult Function(int index)? deleteLicensesObject,
+    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (licensesDocSubmit != null) {
+      return licensesDocSubmit(isAddMoreBtnClick);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_LicensesRegistrationNumberChanegd value)
+        licensesRegistrationNumberChanegd,
+    required TResult Function(_LicensesDocumentTitleChanged value)
+        licensesDocumentTitleChanged,
+    required TResult Function(_SelectProvinceLicenses value)
+        selectProvinceLicenses,
+    required TResult Function(_SelectLicensesDoc value) selectLicensesDoc,
+    required TResult Function(_DeleteLicensesDoc value) deleteLicensesDoc,
+    required TResult Function(_AddMoreLicensesDoc value) addMoreLicensesDoc,
+    required TResult Function(_DeleteLicensesObject value) deleteLicensesObject,
+    required TResult Function(_LicensesDocSubmit value) licensesDocSubmit,
+  }) {
+    return licensesDocSubmit(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_LicensesRegistrationNumberChanegd value)?
+        licensesRegistrationNumberChanegd,
+    TResult? Function(_LicensesDocumentTitleChanged value)?
+        licensesDocumentTitleChanged,
+    TResult? Function(_SelectProvinceLicenses value)? selectProvinceLicenses,
+    TResult? Function(_SelectLicensesDoc value)? selectLicensesDoc,
+    TResult? Function(_DeleteLicensesDoc value)? deleteLicensesDoc,
+    TResult? Function(_AddMoreLicensesDoc value)? addMoreLicensesDoc,
+    TResult? Function(_DeleteLicensesObject value)? deleteLicensesObject,
+    TResult? Function(_LicensesDocSubmit value)? licensesDocSubmit,
+  }) {
+    return licensesDocSubmit?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_LicensesRegistrationNumberChanegd value)?
+        licensesRegistrationNumberChanegd,
+    TResult Function(_LicensesDocumentTitleChanged value)?
+        licensesDocumentTitleChanged,
+    TResult Function(_SelectProvinceLicenses value)? selectProvinceLicenses,
+    TResult Function(_SelectLicensesDoc value)? selectLicensesDoc,
+    TResult Function(_DeleteLicensesDoc value)? deleteLicensesDoc,
+    TResult Function(_AddMoreLicensesDoc value)? addMoreLicensesDoc,
+    TResult Function(_DeleteLicensesObject value)? deleteLicensesObject,
+    TResult Function(_LicensesDocSubmit value)? licensesDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (licensesDocSubmit != null) {
+      return licensesDocSubmit(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LicensesDocSubmit implements ProfessionalLicensesEvent {
+  const factory _LicensesDocSubmit({required final bool isAddMoreBtnClick}) =
+      _$LicensesDocSubmitImpl;
+
+  bool get isAddMoreBtnClick;
+  @JsonKey(ignore: true)
+  _$$LicensesDocSubmitImplCopyWith<_$LicensesDocSubmitImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$ImmunizationEvent {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getImmunizationDataOnInit,
+    required TResult Function(String immunizationsName)
+        immunizationsNameChanegd,
+    required TResult Function(String immunizationDoc) selectImmunizationDoc,
+    required TResult Function(String immunizationDoc) deleteImmunizationDoc,
+    required TResult Function() addMoreImmunizationDoc,
+    required TResult Function(int index) deleteImmunizationObject,
+    required TResult Function(bool isAddMoreBtnClick) immunizationDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getImmunizationDataOnInit,
+    TResult? Function(String immunizationsName)? immunizationsNameChanegd,
+    TResult? Function(String immunizationDoc)? selectImmunizationDoc,
+    TResult? Function(String immunizationDoc)? deleteImmunizationDoc,
+    TResult? Function()? addMoreImmunizationDoc,
+    TResult? Function(int index)? deleteImmunizationObject,
+    TResult? Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getImmunizationDataOnInit,
+    TResult Function(String immunizationsName)? immunizationsNameChanegd,
+    TResult Function(String immunizationDoc)? selectImmunizationDoc,
+    TResult Function(String immunizationDoc)? deleteImmunizationDoc,
+    TResult Function()? addMoreImmunizationDoc,
+    TResult Function(int index)? deleteImmunizationObject,
+    TResult Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetImmunizationDataOnInit value)
+        getImmunizationDataOnInit,
+    required TResult Function(_ImmunizationsNameChanegd value)
+        immunizationsNameChanegd,
+    required TResult Function(_SelectImmunizationDoc value)
+        selectImmunizationDoc,
+    required TResult Function(_DeleteImmunizationDoc value)
+        deleteImmunizationDoc,
+    required TResult Function(_AddMoreImmunizationDoc value)
+        addMoreImmunizationDoc,
+    required TResult Function(_DeleteImmunizationObject value)
+        deleteImmunizationObject,
+    required TResult Function(_ImmunizationDocSubmit value)
+        immunizationDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetImmunizationDataOnInit value)?
+        getImmunizationDataOnInit,
+    TResult? Function(_ImmunizationsNameChanegd value)?
+        immunizationsNameChanegd,
+    TResult? Function(_SelectImmunizationDoc value)? selectImmunizationDoc,
+    TResult? Function(_DeleteImmunizationDoc value)? deleteImmunizationDoc,
+    TResult? Function(_AddMoreImmunizationDoc value)? addMoreImmunizationDoc,
+    TResult? Function(_DeleteImmunizationObject value)?
+        deleteImmunizationObject,
+    TResult? Function(_ImmunizationDocSubmit value)? immunizationDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetImmunizationDataOnInit value)?
+        getImmunizationDataOnInit,
+    TResult Function(_ImmunizationsNameChanegd value)? immunizationsNameChanegd,
+    TResult Function(_SelectImmunizationDoc value)? selectImmunizationDoc,
+    TResult Function(_DeleteImmunizationDoc value)? deleteImmunizationDoc,
+    TResult Function(_AddMoreImmunizationDoc value)? addMoreImmunizationDoc,
+    TResult Function(_DeleteImmunizationObject value)? deleteImmunizationObject,
+    TResult Function(_ImmunizationDocSubmit value)? immunizationDocSubmit,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ImmunizationEventCopyWith<$Res> {
+  factory $ImmunizationEventCopyWith(
+          ImmunizationEvent value, $Res Function(ImmunizationEvent) then) =
+      _$ImmunizationEventCopyWithImpl<$Res, ImmunizationEvent>;
+}
+
+/// @nodoc
+class _$ImmunizationEventCopyWithImpl<$Res, $Val extends ImmunizationEvent>
+    implements $ImmunizationEventCopyWith<$Res> {
+  _$ImmunizationEventCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$GetImmunizationDataOnInitImplCopyWith<$Res> {
+  factory _$$GetImmunizationDataOnInitImplCopyWith(
+          _$GetImmunizationDataOnInitImpl value,
+          $Res Function(_$GetImmunizationDataOnInitImpl) then) =
+      __$$GetImmunizationDataOnInitImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetImmunizationDataOnInitImplCopyWithImpl<$Res>
+    extends _$ImmunizationEventCopyWithImpl<$Res,
+        _$GetImmunizationDataOnInitImpl>
+    implements _$$GetImmunizationDataOnInitImplCopyWith<$Res> {
+  __$$GetImmunizationDataOnInitImplCopyWithImpl(
+      _$GetImmunizationDataOnInitImpl _value,
+      $Res Function(_$GetImmunizationDataOnInitImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetImmunizationDataOnInitImpl implements _GetImmunizationDataOnInit {
+  const _$GetImmunizationDataOnInitImpl();
+
+  @override
+  String toString() {
+    return 'ImmunizationEvent.getImmunizationDataOnInit()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetImmunizationDataOnInitImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getImmunizationDataOnInit,
+    required TResult Function(String immunizationsName)
+        immunizationsNameChanegd,
+    required TResult Function(String immunizationDoc) selectImmunizationDoc,
+    required TResult Function(String immunizationDoc) deleteImmunizationDoc,
+    required TResult Function() addMoreImmunizationDoc,
+    required TResult Function(int index) deleteImmunizationObject,
+    required TResult Function(bool isAddMoreBtnClick) immunizationDocSubmit,
+  }) {
+    return getImmunizationDataOnInit();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getImmunizationDataOnInit,
+    TResult? Function(String immunizationsName)? immunizationsNameChanegd,
+    TResult? Function(String immunizationDoc)? selectImmunizationDoc,
+    TResult? Function(String immunizationDoc)? deleteImmunizationDoc,
+    TResult? Function()? addMoreImmunizationDoc,
+    TResult? Function(int index)? deleteImmunizationObject,
+    TResult? Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+  }) {
+    return getImmunizationDataOnInit?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getImmunizationDataOnInit,
+    TResult Function(String immunizationsName)? immunizationsNameChanegd,
+    TResult Function(String immunizationDoc)? selectImmunizationDoc,
+    TResult Function(String immunizationDoc)? deleteImmunizationDoc,
+    TResult Function()? addMoreImmunizationDoc,
+    TResult Function(int index)? deleteImmunizationObject,
+    TResult Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (getImmunizationDataOnInit != null) {
+      return getImmunizationDataOnInit();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetImmunizationDataOnInit value)
+        getImmunizationDataOnInit,
+    required TResult Function(_ImmunizationsNameChanegd value)
+        immunizationsNameChanegd,
+    required TResult Function(_SelectImmunizationDoc value)
+        selectImmunizationDoc,
+    required TResult Function(_DeleteImmunizationDoc value)
+        deleteImmunizationDoc,
+    required TResult Function(_AddMoreImmunizationDoc value)
+        addMoreImmunizationDoc,
+    required TResult Function(_DeleteImmunizationObject value)
+        deleteImmunizationObject,
+    required TResult Function(_ImmunizationDocSubmit value)
+        immunizationDocSubmit,
+  }) {
+    return getImmunizationDataOnInit(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetImmunizationDataOnInit value)?
+        getImmunizationDataOnInit,
+    TResult? Function(_ImmunizationsNameChanegd value)?
+        immunizationsNameChanegd,
+    TResult? Function(_SelectImmunizationDoc value)? selectImmunizationDoc,
+    TResult? Function(_DeleteImmunizationDoc value)? deleteImmunizationDoc,
+    TResult? Function(_AddMoreImmunizationDoc value)? addMoreImmunizationDoc,
+    TResult? Function(_DeleteImmunizationObject value)?
+        deleteImmunizationObject,
+    TResult? Function(_ImmunizationDocSubmit value)? immunizationDocSubmit,
+  }) {
+    return getImmunizationDataOnInit?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetImmunizationDataOnInit value)?
+        getImmunizationDataOnInit,
+    TResult Function(_ImmunizationsNameChanegd value)? immunizationsNameChanegd,
+    TResult Function(_SelectImmunizationDoc value)? selectImmunizationDoc,
+    TResult Function(_DeleteImmunizationDoc value)? deleteImmunizationDoc,
+    TResult Function(_AddMoreImmunizationDoc value)? addMoreImmunizationDoc,
+    TResult Function(_DeleteImmunizationObject value)? deleteImmunizationObject,
+    TResult Function(_ImmunizationDocSubmit value)? immunizationDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (getImmunizationDataOnInit != null) {
+      return getImmunizationDataOnInit(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetImmunizationDataOnInit implements ImmunizationEvent {
+  const factory _GetImmunizationDataOnInit() = _$GetImmunizationDataOnInitImpl;
+}
+
+/// @nodoc
+abstract class _$$ImmunizationsNameChanegdImplCopyWith<$Res> {
+  factory _$$ImmunizationsNameChanegdImplCopyWith(
+          _$ImmunizationsNameChanegdImpl value,
+          $Res Function(_$ImmunizationsNameChanegdImpl) then) =
+      __$$ImmunizationsNameChanegdImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String immunizationsName});
+}
+
+/// @nodoc
+class __$$ImmunizationsNameChanegdImplCopyWithImpl<$Res>
+    extends _$ImmunizationEventCopyWithImpl<$Res,
+        _$ImmunizationsNameChanegdImpl>
+    implements _$$ImmunizationsNameChanegdImplCopyWith<$Res> {
+  __$$ImmunizationsNameChanegdImplCopyWithImpl(
+      _$ImmunizationsNameChanegdImpl _value,
+      $Res Function(_$ImmunizationsNameChanegdImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? immunizationsName = null,
+  }) {
+    return _then(_$ImmunizationsNameChanegdImpl(
+      null == immunizationsName
+          ? _value.immunizationsName
+          : immunizationsName // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ImmunizationsNameChanegdImpl implements _ImmunizationsNameChanegd {
+  const _$ImmunizationsNameChanegdImpl(this.immunizationsName);
+
+  @override
+  final String immunizationsName;
+
+  @override
+  String toString() {
+    return 'ImmunizationEvent.immunizationsNameChanegd(immunizationsName: $immunizationsName)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ImmunizationsNameChanegdImpl &&
+            (identical(other.immunizationsName, immunizationsName) ||
+                other.immunizationsName == immunizationsName));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, immunizationsName);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ImmunizationsNameChanegdImplCopyWith<_$ImmunizationsNameChanegdImpl>
+      get copyWith => __$$ImmunizationsNameChanegdImplCopyWithImpl<
+          _$ImmunizationsNameChanegdImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getImmunizationDataOnInit,
+    required TResult Function(String immunizationsName)
+        immunizationsNameChanegd,
+    required TResult Function(String immunizationDoc) selectImmunizationDoc,
+    required TResult Function(String immunizationDoc) deleteImmunizationDoc,
+    required TResult Function() addMoreImmunizationDoc,
+    required TResult Function(int index) deleteImmunizationObject,
+    required TResult Function(bool isAddMoreBtnClick) immunizationDocSubmit,
+  }) {
+    return immunizationsNameChanegd(immunizationsName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getImmunizationDataOnInit,
+    TResult? Function(String immunizationsName)? immunizationsNameChanegd,
+    TResult? Function(String immunizationDoc)? selectImmunizationDoc,
+    TResult? Function(String immunizationDoc)? deleteImmunizationDoc,
+    TResult? Function()? addMoreImmunizationDoc,
+    TResult? Function(int index)? deleteImmunizationObject,
+    TResult? Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+  }) {
+    return immunizationsNameChanegd?.call(immunizationsName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getImmunizationDataOnInit,
+    TResult Function(String immunizationsName)? immunizationsNameChanegd,
+    TResult Function(String immunizationDoc)? selectImmunizationDoc,
+    TResult Function(String immunizationDoc)? deleteImmunizationDoc,
+    TResult Function()? addMoreImmunizationDoc,
+    TResult Function(int index)? deleteImmunizationObject,
+    TResult Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (immunizationsNameChanegd != null) {
+      return immunizationsNameChanegd(immunizationsName);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetImmunizationDataOnInit value)
+        getImmunizationDataOnInit,
+    required TResult Function(_ImmunizationsNameChanegd value)
+        immunizationsNameChanegd,
+    required TResult Function(_SelectImmunizationDoc value)
+        selectImmunizationDoc,
+    required TResult Function(_DeleteImmunizationDoc value)
+        deleteImmunizationDoc,
+    required TResult Function(_AddMoreImmunizationDoc value)
+        addMoreImmunizationDoc,
+    required TResult Function(_DeleteImmunizationObject value)
+        deleteImmunizationObject,
+    required TResult Function(_ImmunizationDocSubmit value)
+        immunizationDocSubmit,
+  }) {
+    return immunizationsNameChanegd(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetImmunizationDataOnInit value)?
+        getImmunizationDataOnInit,
+    TResult? Function(_ImmunizationsNameChanegd value)?
+        immunizationsNameChanegd,
+    TResult? Function(_SelectImmunizationDoc value)? selectImmunizationDoc,
+    TResult? Function(_DeleteImmunizationDoc value)? deleteImmunizationDoc,
+    TResult? Function(_AddMoreImmunizationDoc value)? addMoreImmunizationDoc,
+    TResult? Function(_DeleteImmunizationObject value)?
+        deleteImmunizationObject,
+    TResult? Function(_ImmunizationDocSubmit value)? immunizationDocSubmit,
+  }) {
+    return immunizationsNameChanegd?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetImmunizationDataOnInit value)?
+        getImmunizationDataOnInit,
+    TResult Function(_ImmunizationsNameChanegd value)? immunizationsNameChanegd,
+    TResult Function(_SelectImmunizationDoc value)? selectImmunizationDoc,
+    TResult Function(_DeleteImmunizationDoc value)? deleteImmunizationDoc,
+    TResult Function(_AddMoreImmunizationDoc value)? addMoreImmunizationDoc,
+    TResult Function(_DeleteImmunizationObject value)? deleteImmunizationObject,
+    TResult Function(_ImmunizationDocSubmit value)? immunizationDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (immunizationsNameChanegd != null) {
+      return immunizationsNameChanegd(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ImmunizationsNameChanegd implements ImmunizationEvent {
+  const factory _ImmunizationsNameChanegd(final String immunizationsName) =
+      _$ImmunizationsNameChanegdImpl;
+
+  String get immunizationsName;
+  @JsonKey(ignore: true)
+  _$$ImmunizationsNameChanegdImplCopyWith<_$ImmunizationsNameChanegdImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SelectImmunizationDocImplCopyWith<$Res> {
+  factory _$$SelectImmunizationDocImplCopyWith(
+          _$SelectImmunizationDocImpl value,
+          $Res Function(_$SelectImmunizationDocImpl) then) =
+      __$$SelectImmunizationDocImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String immunizationDoc});
+}
+
+/// @nodoc
+class __$$SelectImmunizationDocImplCopyWithImpl<$Res>
+    extends _$ImmunizationEventCopyWithImpl<$Res, _$SelectImmunizationDocImpl>
+    implements _$$SelectImmunizationDocImplCopyWith<$Res> {
+  __$$SelectImmunizationDocImplCopyWithImpl(_$SelectImmunizationDocImpl _value,
+      $Res Function(_$SelectImmunizationDocImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? immunizationDoc = null,
+  }) {
+    return _then(_$SelectImmunizationDocImpl(
+      null == immunizationDoc
+          ? _value.immunizationDoc
+          : immunizationDoc // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SelectImmunizationDocImpl implements _SelectImmunizationDoc {
+  const _$SelectImmunizationDocImpl(this.immunizationDoc);
+
+  @override
+  final String immunizationDoc;
+
+  @override
+  String toString() {
+    return 'ImmunizationEvent.selectImmunizationDoc(immunizationDoc: $immunizationDoc)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SelectImmunizationDocImpl &&
+            (identical(other.immunizationDoc, immunizationDoc) ||
+                other.immunizationDoc == immunizationDoc));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, immunizationDoc);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SelectImmunizationDocImplCopyWith<_$SelectImmunizationDocImpl>
+      get copyWith => __$$SelectImmunizationDocImplCopyWithImpl<
+          _$SelectImmunizationDocImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getImmunizationDataOnInit,
+    required TResult Function(String immunizationsName)
+        immunizationsNameChanegd,
+    required TResult Function(String immunizationDoc) selectImmunizationDoc,
+    required TResult Function(String immunizationDoc) deleteImmunizationDoc,
+    required TResult Function() addMoreImmunizationDoc,
+    required TResult Function(int index) deleteImmunizationObject,
+    required TResult Function(bool isAddMoreBtnClick) immunizationDocSubmit,
+  }) {
+    return selectImmunizationDoc(immunizationDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getImmunizationDataOnInit,
+    TResult? Function(String immunizationsName)? immunizationsNameChanegd,
+    TResult? Function(String immunizationDoc)? selectImmunizationDoc,
+    TResult? Function(String immunizationDoc)? deleteImmunizationDoc,
+    TResult? Function()? addMoreImmunizationDoc,
+    TResult? Function(int index)? deleteImmunizationObject,
+    TResult? Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+  }) {
+    return selectImmunizationDoc?.call(immunizationDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getImmunizationDataOnInit,
+    TResult Function(String immunizationsName)? immunizationsNameChanegd,
+    TResult Function(String immunizationDoc)? selectImmunizationDoc,
+    TResult Function(String immunizationDoc)? deleteImmunizationDoc,
+    TResult Function()? addMoreImmunizationDoc,
+    TResult Function(int index)? deleteImmunizationObject,
+    TResult Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (selectImmunizationDoc != null) {
+      return selectImmunizationDoc(immunizationDoc);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetImmunizationDataOnInit value)
+        getImmunizationDataOnInit,
+    required TResult Function(_ImmunizationsNameChanegd value)
+        immunizationsNameChanegd,
+    required TResult Function(_SelectImmunizationDoc value)
+        selectImmunizationDoc,
+    required TResult Function(_DeleteImmunizationDoc value)
+        deleteImmunizationDoc,
+    required TResult Function(_AddMoreImmunizationDoc value)
+        addMoreImmunizationDoc,
+    required TResult Function(_DeleteImmunizationObject value)
+        deleteImmunizationObject,
+    required TResult Function(_ImmunizationDocSubmit value)
+        immunizationDocSubmit,
+  }) {
+    return selectImmunizationDoc(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetImmunizationDataOnInit value)?
+        getImmunizationDataOnInit,
+    TResult? Function(_ImmunizationsNameChanegd value)?
+        immunizationsNameChanegd,
+    TResult? Function(_SelectImmunizationDoc value)? selectImmunizationDoc,
+    TResult? Function(_DeleteImmunizationDoc value)? deleteImmunizationDoc,
+    TResult? Function(_AddMoreImmunizationDoc value)? addMoreImmunizationDoc,
+    TResult? Function(_DeleteImmunizationObject value)?
+        deleteImmunizationObject,
+    TResult? Function(_ImmunizationDocSubmit value)? immunizationDocSubmit,
+  }) {
+    return selectImmunizationDoc?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetImmunizationDataOnInit value)?
+        getImmunizationDataOnInit,
+    TResult Function(_ImmunizationsNameChanegd value)? immunizationsNameChanegd,
+    TResult Function(_SelectImmunizationDoc value)? selectImmunizationDoc,
+    TResult Function(_DeleteImmunizationDoc value)? deleteImmunizationDoc,
+    TResult Function(_AddMoreImmunizationDoc value)? addMoreImmunizationDoc,
+    TResult Function(_DeleteImmunizationObject value)? deleteImmunizationObject,
+    TResult Function(_ImmunizationDocSubmit value)? immunizationDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (selectImmunizationDoc != null) {
+      return selectImmunizationDoc(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SelectImmunizationDoc implements ImmunizationEvent {
+  const factory _SelectImmunizationDoc(final String immunizationDoc) =
+      _$SelectImmunizationDocImpl;
+
+  String get immunizationDoc;
+  @JsonKey(ignore: true)
+  _$$SelectImmunizationDocImplCopyWith<_$SelectImmunizationDocImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DeleteImmunizationDocImplCopyWith<$Res> {
+  factory _$$DeleteImmunizationDocImplCopyWith(
+          _$DeleteImmunizationDocImpl value,
+          $Res Function(_$DeleteImmunizationDocImpl) then) =
+      __$$DeleteImmunizationDocImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String immunizationDoc});
+}
+
+/// @nodoc
+class __$$DeleteImmunizationDocImplCopyWithImpl<$Res>
+    extends _$ImmunizationEventCopyWithImpl<$Res, _$DeleteImmunizationDocImpl>
+    implements _$$DeleteImmunizationDocImplCopyWith<$Res> {
+  __$$DeleteImmunizationDocImplCopyWithImpl(_$DeleteImmunizationDocImpl _value,
+      $Res Function(_$DeleteImmunizationDocImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? immunizationDoc = null,
+  }) {
+    return _then(_$DeleteImmunizationDocImpl(
+      null == immunizationDoc
+          ? _value.immunizationDoc
+          : immunizationDoc // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeleteImmunizationDocImpl implements _DeleteImmunizationDoc {
+  const _$DeleteImmunizationDocImpl(this.immunizationDoc);
+
+  @override
+  final String immunizationDoc;
+
+  @override
+  String toString() {
+    return 'ImmunizationEvent.deleteImmunizationDoc(immunizationDoc: $immunizationDoc)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteImmunizationDocImpl &&
+            (identical(other.immunizationDoc, immunizationDoc) ||
+                other.immunizationDoc == immunizationDoc));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, immunizationDoc);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeleteImmunizationDocImplCopyWith<_$DeleteImmunizationDocImpl>
+      get copyWith => __$$DeleteImmunizationDocImplCopyWithImpl<
+          _$DeleteImmunizationDocImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getImmunizationDataOnInit,
+    required TResult Function(String immunizationsName)
+        immunizationsNameChanegd,
+    required TResult Function(String immunizationDoc) selectImmunizationDoc,
+    required TResult Function(String immunizationDoc) deleteImmunizationDoc,
+    required TResult Function() addMoreImmunizationDoc,
+    required TResult Function(int index) deleteImmunizationObject,
+    required TResult Function(bool isAddMoreBtnClick) immunizationDocSubmit,
+  }) {
+    return deleteImmunizationDoc(immunizationDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getImmunizationDataOnInit,
+    TResult? Function(String immunizationsName)? immunizationsNameChanegd,
+    TResult? Function(String immunizationDoc)? selectImmunizationDoc,
+    TResult? Function(String immunizationDoc)? deleteImmunizationDoc,
+    TResult? Function()? addMoreImmunizationDoc,
+    TResult? Function(int index)? deleteImmunizationObject,
+    TResult? Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+  }) {
+    return deleteImmunizationDoc?.call(immunizationDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getImmunizationDataOnInit,
+    TResult Function(String immunizationsName)? immunizationsNameChanegd,
+    TResult Function(String immunizationDoc)? selectImmunizationDoc,
+    TResult Function(String immunizationDoc)? deleteImmunizationDoc,
+    TResult Function()? addMoreImmunizationDoc,
+    TResult Function(int index)? deleteImmunizationObject,
+    TResult Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteImmunizationDoc != null) {
+      return deleteImmunizationDoc(immunizationDoc);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetImmunizationDataOnInit value)
+        getImmunizationDataOnInit,
+    required TResult Function(_ImmunizationsNameChanegd value)
+        immunizationsNameChanegd,
+    required TResult Function(_SelectImmunizationDoc value)
+        selectImmunizationDoc,
+    required TResult Function(_DeleteImmunizationDoc value)
+        deleteImmunizationDoc,
+    required TResult Function(_AddMoreImmunizationDoc value)
+        addMoreImmunizationDoc,
+    required TResult Function(_DeleteImmunizationObject value)
+        deleteImmunizationObject,
+    required TResult Function(_ImmunizationDocSubmit value)
+        immunizationDocSubmit,
+  }) {
+    return deleteImmunizationDoc(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetImmunizationDataOnInit value)?
+        getImmunizationDataOnInit,
+    TResult? Function(_ImmunizationsNameChanegd value)?
+        immunizationsNameChanegd,
+    TResult? Function(_SelectImmunizationDoc value)? selectImmunizationDoc,
+    TResult? Function(_DeleteImmunizationDoc value)? deleteImmunizationDoc,
+    TResult? Function(_AddMoreImmunizationDoc value)? addMoreImmunizationDoc,
+    TResult? Function(_DeleteImmunizationObject value)?
+        deleteImmunizationObject,
+    TResult? Function(_ImmunizationDocSubmit value)? immunizationDocSubmit,
+  }) {
+    return deleteImmunizationDoc?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetImmunizationDataOnInit value)?
+        getImmunizationDataOnInit,
+    TResult Function(_ImmunizationsNameChanegd value)? immunizationsNameChanegd,
+    TResult Function(_SelectImmunizationDoc value)? selectImmunizationDoc,
+    TResult Function(_DeleteImmunizationDoc value)? deleteImmunizationDoc,
+    TResult Function(_AddMoreImmunizationDoc value)? addMoreImmunizationDoc,
+    TResult Function(_DeleteImmunizationObject value)? deleteImmunizationObject,
+    TResult Function(_ImmunizationDocSubmit value)? immunizationDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteImmunizationDoc != null) {
+      return deleteImmunizationDoc(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteImmunizationDoc implements ImmunizationEvent {
+  const factory _DeleteImmunizationDoc(final String immunizationDoc) =
+      _$DeleteImmunizationDocImpl;
+
+  String get immunizationDoc;
+  @JsonKey(ignore: true)
+  _$$DeleteImmunizationDocImplCopyWith<_$DeleteImmunizationDocImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AddMoreImmunizationDocImplCopyWith<$Res> {
+  factory _$$AddMoreImmunizationDocImplCopyWith(
+          _$AddMoreImmunizationDocImpl value,
+          $Res Function(_$AddMoreImmunizationDocImpl) then) =
+      __$$AddMoreImmunizationDocImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$AddMoreImmunizationDocImplCopyWithImpl<$Res>
+    extends _$ImmunizationEventCopyWithImpl<$Res, _$AddMoreImmunizationDocImpl>
+    implements _$$AddMoreImmunizationDocImplCopyWith<$Res> {
+  __$$AddMoreImmunizationDocImplCopyWithImpl(
+      _$AddMoreImmunizationDocImpl _value,
+      $Res Function(_$AddMoreImmunizationDocImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$AddMoreImmunizationDocImpl implements _AddMoreImmunizationDoc {
+  const _$AddMoreImmunizationDocImpl();
+
+  @override
+  String toString() {
+    return 'ImmunizationEvent.addMoreImmunizationDoc()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddMoreImmunizationDocImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getImmunizationDataOnInit,
+    required TResult Function(String immunizationsName)
+        immunizationsNameChanegd,
+    required TResult Function(String immunizationDoc) selectImmunizationDoc,
+    required TResult Function(String immunizationDoc) deleteImmunizationDoc,
+    required TResult Function() addMoreImmunizationDoc,
+    required TResult Function(int index) deleteImmunizationObject,
+    required TResult Function(bool isAddMoreBtnClick) immunizationDocSubmit,
+  }) {
+    return addMoreImmunizationDoc();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getImmunizationDataOnInit,
+    TResult? Function(String immunizationsName)? immunizationsNameChanegd,
+    TResult? Function(String immunizationDoc)? selectImmunizationDoc,
+    TResult? Function(String immunizationDoc)? deleteImmunizationDoc,
+    TResult? Function()? addMoreImmunizationDoc,
+    TResult? Function(int index)? deleteImmunizationObject,
+    TResult? Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+  }) {
+    return addMoreImmunizationDoc?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getImmunizationDataOnInit,
+    TResult Function(String immunizationsName)? immunizationsNameChanegd,
+    TResult Function(String immunizationDoc)? selectImmunizationDoc,
+    TResult Function(String immunizationDoc)? deleteImmunizationDoc,
+    TResult Function()? addMoreImmunizationDoc,
+    TResult Function(int index)? deleteImmunizationObject,
+    TResult Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (addMoreImmunizationDoc != null) {
+      return addMoreImmunizationDoc();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetImmunizationDataOnInit value)
+        getImmunizationDataOnInit,
+    required TResult Function(_ImmunizationsNameChanegd value)
+        immunizationsNameChanegd,
+    required TResult Function(_SelectImmunizationDoc value)
+        selectImmunizationDoc,
+    required TResult Function(_DeleteImmunizationDoc value)
+        deleteImmunizationDoc,
+    required TResult Function(_AddMoreImmunizationDoc value)
+        addMoreImmunizationDoc,
+    required TResult Function(_DeleteImmunizationObject value)
+        deleteImmunizationObject,
+    required TResult Function(_ImmunizationDocSubmit value)
+        immunizationDocSubmit,
+  }) {
+    return addMoreImmunizationDoc(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetImmunizationDataOnInit value)?
+        getImmunizationDataOnInit,
+    TResult? Function(_ImmunizationsNameChanegd value)?
+        immunizationsNameChanegd,
+    TResult? Function(_SelectImmunizationDoc value)? selectImmunizationDoc,
+    TResult? Function(_DeleteImmunizationDoc value)? deleteImmunizationDoc,
+    TResult? Function(_AddMoreImmunizationDoc value)? addMoreImmunizationDoc,
+    TResult? Function(_DeleteImmunizationObject value)?
+        deleteImmunizationObject,
+    TResult? Function(_ImmunizationDocSubmit value)? immunizationDocSubmit,
+  }) {
+    return addMoreImmunizationDoc?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetImmunizationDataOnInit value)?
+        getImmunizationDataOnInit,
+    TResult Function(_ImmunizationsNameChanegd value)? immunizationsNameChanegd,
+    TResult Function(_SelectImmunizationDoc value)? selectImmunizationDoc,
+    TResult Function(_DeleteImmunizationDoc value)? deleteImmunizationDoc,
+    TResult Function(_AddMoreImmunizationDoc value)? addMoreImmunizationDoc,
+    TResult Function(_DeleteImmunizationObject value)? deleteImmunizationObject,
+    TResult Function(_ImmunizationDocSubmit value)? immunizationDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (addMoreImmunizationDoc != null) {
+      return addMoreImmunizationDoc(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddMoreImmunizationDoc implements ImmunizationEvent {
+  const factory _AddMoreImmunizationDoc() = _$AddMoreImmunizationDocImpl;
+}
+
+/// @nodoc
+abstract class _$$DeleteImmunizationObjectImplCopyWith<$Res> {
+  factory _$$DeleteImmunizationObjectImplCopyWith(
+          _$DeleteImmunizationObjectImpl value,
+          $Res Function(_$DeleteImmunizationObjectImpl) then) =
+      __$$DeleteImmunizationObjectImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index});
+}
+
+/// @nodoc
+class __$$DeleteImmunizationObjectImplCopyWithImpl<$Res>
+    extends _$ImmunizationEventCopyWithImpl<$Res,
+        _$DeleteImmunizationObjectImpl>
+    implements _$$DeleteImmunizationObjectImplCopyWith<$Res> {
+  __$$DeleteImmunizationObjectImplCopyWithImpl(
+      _$DeleteImmunizationObjectImpl _value,
+      $Res Function(_$DeleteImmunizationObjectImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+  }) {
+    return _then(_$DeleteImmunizationObjectImpl(
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeleteImmunizationObjectImpl implements _DeleteImmunizationObject {
+  const _$DeleteImmunizationObjectImpl(this.index);
+
+  @override
+  final int index;
+
+  @override
+  String toString() {
+    return 'ImmunizationEvent.deleteImmunizationObject(index: $index)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteImmunizationObjectImpl &&
+            (identical(other.index, index) || other.index == index));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeleteImmunizationObjectImplCopyWith<_$DeleteImmunizationObjectImpl>
+      get copyWith => __$$DeleteImmunizationObjectImplCopyWithImpl<
+          _$DeleteImmunizationObjectImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getImmunizationDataOnInit,
+    required TResult Function(String immunizationsName)
+        immunizationsNameChanegd,
+    required TResult Function(String immunizationDoc) selectImmunizationDoc,
+    required TResult Function(String immunizationDoc) deleteImmunizationDoc,
+    required TResult Function() addMoreImmunizationDoc,
+    required TResult Function(int index) deleteImmunizationObject,
+    required TResult Function(bool isAddMoreBtnClick) immunizationDocSubmit,
+  }) {
+    return deleteImmunizationObject(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getImmunizationDataOnInit,
+    TResult? Function(String immunizationsName)? immunizationsNameChanegd,
+    TResult? Function(String immunizationDoc)? selectImmunizationDoc,
+    TResult? Function(String immunizationDoc)? deleteImmunizationDoc,
+    TResult? Function()? addMoreImmunizationDoc,
+    TResult? Function(int index)? deleteImmunizationObject,
+    TResult? Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+  }) {
+    return deleteImmunizationObject?.call(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getImmunizationDataOnInit,
+    TResult Function(String immunizationsName)? immunizationsNameChanegd,
+    TResult Function(String immunizationDoc)? selectImmunizationDoc,
+    TResult Function(String immunizationDoc)? deleteImmunizationDoc,
+    TResult Function()? addMoreImmunizationDoc,
+    TResult Function(int index)? deleteImmunizationObject,
+    TResult Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteImmunizationObject != null) {
+      return deleteImmunizationObject(index);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetImmunizationDataOnInit value)
+        getImmunizationDataOnInit,
+    required TResult Function(_ImmunizationsNameChanegd value)
+        immunizationsNameChanegd,
+    required TResult Function(_SelectImmunizationDoc value)
+        selectImmunizationDoc,
+    required TResult Function(_DeleteImmunizationDoc value)
+        deleteImmunizationDoc,
+    required TResult Function(_AddMoreImmunizationDoc value)
+        addMoreImmunizationDoc,
+    required TResult Function(_DeleteImmunizationObject value)
+        deleteImmunizationObject,
+    required TResult Function(_ImmunizationDocSubmit value)
+        immunizationDocSubmit,
+  }) {
+    return deleteImmunizationObject(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetImmunizationDataOnInit value)?
+        getImmunizationDataOnInit,
+    TResult? Function(_ImmunizationsNameChanegd value)?
+        immunizationsNameChanegd,
+    TResult? Function(_SelectImmunizationDoc value)? selectImmunizationDoc,
+    TResult? Function(_DeleteImmunizationDoc value)? deleteImmunizationDoc,
+    TResult? Function(_AddMoreImmunizationDoc value)? addMoreImmunizationDoc,
+    TResult? Function(_DeleteImmunizationObject value)?
+        deleteImmunizationObject,
+    TResult? Function(_ImmunizationDocSubmit value)? immunizationDocSubmit,
+  }) {
+    return deleteImmunizationObject?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetImmunizationDataOnInit value)?
+        getImmunizationDataOnInit,
+    TResult Function(_ImmunizationsNameChanegd value)? immunizationsNameChanegd,
+    TResult Function(_SelectImmunizationDoc value)? selectImmunizationDoc,
+    TResult Function(_DeleteImmunizationDoc value)? deleteImmunizationDoc,
+    TResult Function(_AddMoreImmunizationDoc value)? addMoreImmunizationDoc,
+    TResult Function(_DeleteImmunizationObject value)? deleteImmunizationObject,
+    TResult Function(_ImmunizationDocSubmit value)? immunizationDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteImmunizationObject != null) {
+      return deleteImmunizationObject(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteImmunizationObject implements ImmunizationEvent {
+  const factory _DeleteImmunizationObject(final int index) =
+      _$DeleteImmunizationObjectImpl;
+
+  int get index;
+  @JsonKey(ignore: true)
+  _$$DeleteImmunizationObjectImplCopyWith<_$DeleteImmunizationObjectImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ImmunizationDocSubmitImplCopyWith<$Res> {
+  factory _$$ImmunizationDocSubmitImplCopyWith(
+          _$ImmunizationDocSubmitImpl value,
+          $Res Function(_$ImmunizationDocSubmitImpl) then) =
+      __$$ImmunizationDocSubmitImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isAddMoreBtnClick});
+}
+
+/// @nodoc
+class __$$ImmunizationDocSubmitImplCopyWithImpl<$Res>
+    extends _$ImmunizationEventCopyWithImpl<$Res, _$ImmunizationDocSubmitImpl>
+    implements _$$ImmunizationDocSubmitImplCopyWith<$Res> {
+  __$$ImmunizationDocSubmitImplCopyWithImpl(_$ImmunizationDocSubmitImpl _value,
+      $Res Function(_$ImmunizationDocSubmitImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isAddMoreBtnClick = null,
+  }) {
+    return _then(_$ImmunizationDocSubmitImpl(
+      isAddMoreBtnClick: null == isAddMoreBtnClick
+          ? _value.isAddMoreBtnClick
+          : isAddMoreBtnClick // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ImmunizationDocSubmitImpl implements _ImmunizationDocSubmit {
+  const _$ImmunizationDocSubmitImpl({required this.isAddMoreBtnClick});
+
+  @override
+  final bool isAddMoreBtnClick;
+
+  @override
+  String toString() {
+    return 'ImmunizationEvent.immunizationDocSubmit(isAddMoreBtnClick: $isAddMoreBtnClick)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ImmunizationDocSubmitImpl &&
+            (identical(other.isAddMoreBtnClick, isAddMoreBtnClick) ||
+                other.isAddMoreBtnClick == isAddMoreBtnClick));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isAddMoreBtnClick);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ImmunizationDocSubmitImplCopyWith<_$ImmunizationDocSubmitImpl>
+      get copyWith => __$$ImmunizationDocSubmitImplCopyWithImpl<
+          _$ImmunizationDocSubmitImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getImmunizationDataOnInit,
+    required TResult Function(String immunizationsName)
+        immunizationsNameChanegd,
+    required TResult Function(String immunizationDoc) selectImmunizationDoc,
+    required TResult Function(String immunizationDoc) deleteImmunizationDoc,
+    required TResult Function() addMoreImmunizationDoc,
+    required TResult Function(int index) deleteImmunizationObject,
+    required TResult Function(bool isAddMoreBtnClick) immunizationDocSubmit,
+  }) {
+    return immunizationDocSubmit(isAddMoreBtnClick);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getImmunizationDataOnInit,
+    TResult? Function(String immunizationsName)? immunizationsNameChanegd,
+    TResult? Function(String immunizationDoc)? selectImmunizationDoc,
+    TResult? Function(String immunizationDoc)? deleteImmunizationDoc,
+    TResult? Function()? addMoreImmunizationDoc,
+    TResult? Function(int index)? deleteImmunizationObject,
+    TResult? Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+  }) {
+    return immunizationDocSubmit?.call(isAddMoreBtnClick);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getImmunizationDataOnInit,
+    TResult Function(String immunizationsName)? immunizationsNameChanegd,
+    TResult Function(String immunizationDoc)? selectImmunizationDoc,
+    TResult Function(String immunizationDoc)? deleteImmunizationDoc,
+    TResult Function()? addMoreImmunizationDoc,
+    TResult Function(int index)? deleteImmunizationObject,
+    TResult Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (immunizationDocSubmit != null) {
+      return immunizationDocSubmit(isAddMoreBtnClick);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetImmunizationDataOnInit value)
+        getImmunizationDataOnInit,
+    required TResult Function(_ImmunizationsNameChanegd value)
+        immunizationsNameChanegd,
+    required TResult Function(_SelectImmunizationDoc value)
+        selectImmunizationDoc,
+    required TResult Function(_DeleteImmunizationDoc value)
+        deleteImmunizationDoc,
+    required TResult Function(_AddMoreImmunizationDoc value)
+        addMoreImmunizationDoc,
+    required TResult Function(_DeleteImmunizationObject value)
+        deleteImmunizationObject,
+    required TResult Function(_ImmunizationDocSubmit value)
+        immunizationDocSubmit,
+  }) {
+    return immunizationDocSubmit(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetImmunizationDataOnInit value)?
+        getImmunizationDataOnInit,
+    TResult? Function(_ImmunizationsNameChanegd value)?
+        immunizationsNameChanegd,
+    TResult? Function(_SelectImmunizationDoc value)? selectImmunizationDoc,
+    TResult? Function(_DeleteImmunizationDoc value)? deleteImmunizationDoc,
+    TResult? Function(_AddMoreImmunizationDoc value)? addMoreImmunizationDoc,
+    TResult? Function(_DeleteImmunizationObject value)?
+        deleteImmunizationObject,
+    TResult? Function(_ImmunizationDocSubmit value)? immunizationDocSubmit,
+  }) {
+    return immunizationDocSubmit?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetImmunizationDataOnInit value)?
+        getImmunizationDataOnInit,
+    TResult Function(_ImmunizationsNameChanegd value)? immunizationsNameChanegd,
+    TResult Function(_SelectImmunizationDoc value)? selectImmunizationDoc,
+    TResult Function(_DeleteImmunizationDoc value)? deleteImmunizationDoc,
+    TResult Function(_AddMoreImmunizationDoc value)? addMoreImmunizationDoc,
+    TResult Function(_DeleteImmunizationObject value)? deleteImmunizationObject,
+    TResult Function(_ImmunizationDocSubmit value)? immunizationDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (immunizationDocSubmit != null) {
+      return immunizationDocSubmit(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ImmunizationDocSubmit implements ImmunizationEvent {
+  const factory _ImmunizationDocSubmit(
+      {required final bool isAddMoreBtnClick}) = _$ImmunizationDocSubmitImpl;
+
+  bool get isAddMoreBtnClick;
+  @JsonKey(ignore: true)
+  _$$ImmunizationDocSubmitImplCopyWith<_$ImmunizationDocSubmitImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$ProfessionalLiabilityEvent {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String liabilityDoc) selectLiabilityDoc,
+    required TResult Function(String liabilityDoc) deleteLiabilityDoc,
+    required TResult Function() addMoreLiabilityDoc,
+    required TResult Function(int index) deleteLiabilityObject,
+    required TResult Function(bool isAddMoreBtnClick) liabilityDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String liabilityDoc)? selectLiabilityDoc,
+    TResult? Function(String liabilityDoc)? deleteLiabilityDoc,
+    TResult? Function()? addMoreLiabilityDoc,
+    TResult? Function(int index)? deleteLiabilityObject,
+    TResult? Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String liabilityDoc)? selectLiabilityDoc,
+    TResult Function(String liabilityDoc)? deleteLiabilityDoc,
+    TResult Function()? addMoreLiabilityDoc,
+    TResult Function(int index)? deleteLiabilityObject,
+    TResult Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SelectLiabilityDoc value) selectLiabilityDoc,
+    required TResult Function(_DeleteLiabilityDoc value) deleteLiabilityDoc,
+    required TResult Function(_AddMoreLiabilityDoc value) addMoreLiabilityDoc,
+    required TResult Function(_DeleteLiabilityObject value)
+        deleteLiabilityObject,
+    required TResult Function(_LiabilityDocSubmit value) liabilityDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SelectLiabilityDoc value)? selectLiabilityDoc,
+    TResult? Function(_DeleteLiabilityDoc value)? deleteLiabilityDoc,
+    TResult? Function(_AddMoreLiabilityDoc value)? addMoreLiabilityDoc,
+    TResult? Function(_DeleteLiabilityObject value)? deleteLiabilityObject,
+    TResult? Function(_LiabilityDocSubmit value)? liabilityDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SelectLiabilityDoc value)? selectLiabilityDoc,
+    TResult Function(_DeleteLiabilityDoc value)? deleteLiabilityDoc,
+    TResult Function(_AddMoreLiabilityDoc value)? addMoreLiabilityDoc,
+    TResult Function(_DeleteLiabilityObject value)? deleteLiabilityObject,
+    TResult Function(_LiabilityDocSubmit value)? liabilityDocSubmit,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ProfessionalLiabilityEventCopyWith<$Res> {
+  factory $ProfessionalLiabilityEventCopyWith(ProfessionalLiabilityEvent value,
+          $Res Function(ProfessionalLiabilityEvent) then) =
+      _$ProfessionalLiabilityEventCopyWithImpl<$Res,
+          ProfessionalLiabilityEvent>;
+}
+
+/// @nodoc
+class _$ProfessionalLiabilityEventCopyWithImpl<$Res,
+        $Val extends ProfessionalLiabilityEvent>
+    implements $ProfessionalLiabilityEventCopyWith<$Res> {
+  _$ProfessionalLiabilityEventCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$SelectLiabilityDocImplCopyWith<$Res> {
+  factory _$$SelectLiabilityDocImplCopyWith(_$SelectLiabilityDocImpl value,
+          $Res Function(_$SelectLiabilityDocImpl) then) =
+      __$$SelectLiabilityDocImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String liabilityDoc});
+}
+
+/// @nodoc
+class __$$SelectLiabilityDocImplCopyWithImpl<$Res>
+    extends _$ProfessionalLiabilityEventCopyWithImpl<$Res,
+        _$SelectLiabilityDocImpl>
+    implements _$$SelectLiabilityDocImplCopyWith<$Res> {
+  __$$SelectLiabilityDocImplCopyWithImpl(_$SelectLiabilityDocImpl _value,
+      $Res Function(_$SelectLiabilityDocImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? liabilityDoc = null,
+  }) {
+    return _then(_$SelectLiabilityDocImpl(
+      null == liabilityDoc
+          ? _value.liabilityDoc
+          : liabilityDoc // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SelectLiabilityDocImpl implements _SelectLiabilityDoc {
+  const _$SelectLiabilityDocImpl(this.liabilityDoc);
+
+  @override
+  final String liabilityDoc;
+
+  @override
+  String toString() {
+    return 'ProfessionalLiabilityEvent.selectLiabilityDoc(liabilityDoc: $liabilityDoc)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SelectLiabilityDocImpl &&
+            (identical(other.liabilityDoc, liabilityDoc) ||
+                other.liabilityDoc == liabilityDoc));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, liabilityDoc);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SelectLiabilityDocImplCopyWith<_$SelectLiabilityDocImpl> get copyWith =>
+      __$$SelectLiabilityDocImplCopyWithImpl<_$SelectLiabilityDocImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String liabilityDoc) selectLiabilityDoc,
+    required TResult Function(String liabilityDoc) deleteLiabilityDoc,
+    required TResult Function() addMoreLiabilityDoc,
+    required TResult Function(int index) deleteLiabilityObject,
+    required TResult Function(bool isAddMoreBtnClick) liabilityDocSubmit,
+  }) {
+    return selectLiabilityDoc(liabilityDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String liabilityDoc)? selectLiabilityDoc,
+    TResult? Function(String liabilityDoc)? deleteLiabilityDoc,
+    TResult? Function()? addMoreLiabilityDoc,
+    TResult? Function(int index)? deleteLiabilityObject,
+    TResult? Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+  }) {
+    return selectLiabilityDoc?.call(liabilityDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String liabilityDoc)? selectLiabilityDoc,
+    TResult Function(String liabilityDoc)? deleteLiabilityDoc,
+    TResult Function()? addMoreLiabilityDoc,
+    TResult Function(int index)? deleteLiabilityObject,
+    TResult Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (selectLiabilityDoc != null) {
+      return selectLiabilityDoc(liabilityDoc);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SelectLiabilityDoc value) selectLiabilityDoc,
+    required TResult Function(_DeleteLiabilityDoc value) deleteLiabilityDoc,
+    required TResult Function(_AddMoreLiabilityDoc value) addMoreLiabilityDoc,
+    required TResult Function(_DeleteLiabilityObject value)
+        deleteLiabilityObject,
+    required TResult Function(_LiabilityDocSubmit value) liabilityDocSubmit,
+  }) {
+    return selectLiabilityDoc(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SelectLiabilityDoc value)? selectLiabilityDoc,
+    TResult? Function(_DeleteLiabilityDoc value)? deleteLiabilityDoc,
+    TResult? Function(_AddMoreLiabilityDoc value)? addMoreLiabilityDoc,
+    TResult? Function(_DeleteLiabilityObject value)? deleteLiabilityObject,
+    TResult? Function(_LiabilityDocSubmit value)? liabilityDocSubmit,
+  }) {
+    return selectLiabilityDoc?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SelectLiabilityDoc value)? selectLiabilityDoc,
+    TResult Function(_DeleteLiabilityDoc value)? deleteLiabilityDoc,
+    TResult Function(_AddMoreLiabilityDoc value)? addMoreLiabilityDoc,
+    TResult Function(_DeleteLiabilityObject value)? deleteLiabilityObject,
+    TResult Function(_LiabilityDocSubmit value)? liabilityDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (selectLiabilityDoc != null) {
+      return selectLiabilityDoc(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SelectLiabilityDoc implements ProfessionalLiabilityEvent {
+  const factory _SelectLiabilityDoc(final String liabilityDoc) =
+      _$SelectLiabilityDocImpl;
+
+  String get liabilityDoc;
+  @JsonKey(ignore: true)
+  _$$SelectLiabilityDocImplCopyWith<_$SelectLiabilityDocImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DeleteLiabilityDocImplCopyWith<$Res> {
+  factory _$$DeleteLiabilityDocImplCopyWith(_$DeleteLiabilityDocImpl value,
+          $Res Function(_$DeleteLiabilityDocImpl) then) =
+      __$$DeleteLiabilityDocImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String liabilityDoc});
+}
+
+/// @nodoc
+class __$$DeleteLiabilityDocImplCopyWithImpl<$Res>
+    extends _$ProfessionalLiabilityEventCopyWithImpl<$Res,
+        _$DeleteLiabilityDocImpl>
+    implements _$$DeleteLiabilityDocImplCopyWith<$Res> {
+  __$$DeleteLiabilityDocImplCopyWithImpl(_$DeleteLiabilityDocImpl _value,
+      $Res Function(_$DeleteLiabilityDocImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? liabilityDoc = null,
+  }) {
+    return _then(_$DeleteLiabilityDocImpl(
+      null == liabilityDoc
+          ? _value.liabilityDoc
+          : liabilityDoc // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeleteLiabilityDocImpl implements _DeleteLiabilityDoc {
+  const _$DeleteLiabilityDocImpl(this.liabilityDoc);
+
+  @override
+  final String liabilityDoc;
+
+  @override
+  String toString() {
+    return 'ProfessionalLiabilityEvent.deleteLiabilityDoc(liabilityDoc: $liabilityDoc)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteLiabilityDocImpl &&
+            (identical(other.liabilityDoc, liabilityDoc) ||
+                other.liabilityDoc == liabilityDoc));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, liabilityDoc);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeleteLiabilityDocImplCopyWith<_$DeleteLiabilityDocImpl> get copyWith =>
+      __$$DeleteLiabilityDocImplCopyWithImpl<_$DeleteLiabilityDocImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String liabilityDoc) selectLiabilityDoc,
+    required TResult Function(String liabilityDoc) deleteLiabilityDoc,
+    required TResult Function() addMoreLiabilityDoc,
+    required TResult Function(int index) deleteLiabilityObject,
+    required TResult Function(bool isAddMoreBtnClick) liabilityDocSubmit,
+  }) {
+    return deleteLiabilityDoc(liabilityDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String liabilityDoc)? selectLiabilityDoc,
+    TResult? Function(String liabilityDoc)? deleteLiabilityDoc,
+    TResult? Function()? addMoreLiabilityDoc,
+    TResult? Function(int index)? deleteLiabilityObject,
+    TResult? Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+  }) {
+    return deleteLiabilityDoc?.call(liabilityDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String liabilityDoc)? selectLiabilityDoc,
+    TResult Function(String liabilityDoc)? deleteLiabilityDoc,
+    TResult Function()? addMoreLiabilityDoc,
+    TResult Function(int index)? deleteLiabilityObject,
+    TResult Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteLiabilityDoc != null) {
+      return deleteLiabilityDoc(liabilityDoc);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SelectLiabilityDoc value) selectLiabilityDoc,
+    required TResult Function(_DeleteLiabilityDoc value) deleteLiabilityDoc,
+    required TResult Function(_AddMoreLiabilityDoc value) addMoreLiabilityDoc,
+    required TResult Function(_DeleteLiabilityObject value)
+        deleteLiabilityObject,
+    required TResult Function(_LiabilityDocSubmit value) liabilityDocSubmit,
+  }) {
+    return deleteLiabilityDoc(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SelectLiabilityDoc value)? selectLiabilityDoc,
+    TResult? Function(_DeleteLiabilityDoc value)? deleteLiabilityDoc,
+    TResult? Function(_AddMoreLiabilityDoc value)? addMoreLiabilityDoc,
+    TResult? Function(_DeleteLiabilityObject value)? deleteLiabilityObject,
+    TResult? Function(_LiabilityDocSubmit value)? liabilityDocSubmit,
+  }) {
+    return deleteLiabilityDoc?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SelectLiabilityDoc value)? selectLiabilityDoc,
+    TResult Function(_DeleteLiabilityDoc value)? deleteLiabilityDoc,
+    TResult Function(_AddMoreLiabilityDoc value)? addMoreLiabilityDoc,
+    TResult Function(_DeleteLiabilityObject value)? deleteLiabilityObject,
+    TResult Function(_LiabilityDocSubmit value)? liabilityDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteLiabilityDoc != null) {
+      return deleteLiabilityDoc(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteLiabilityDoc implements ProfessionalLiabilityEvent {
+  const factory _DeleteLiabilityDoc(final String liabilityDoc) =
+      _$DeleteLiabilityDocImpl;
+
+  String get liabilityDoc;
+  @JsonKey(ignore: true)
+  _$$DeleteLiabilityDocImplCopyWith<_$DeleteLiabilityDocImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AddMoreLiabilityDocImplCopyWith<$Res> {
+  factory _$$AddMoreLiabilityDocImplCopyWith(_$AddMoreLiabilityDocImpl value,
+          $Res Function(_$AddMoreLiabilityDocImpl) then) =
+      __$$AddMoreLiabilityDocImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$AddMoreLiabilityDocImplCopyWithImpl<$Res>
+    extends _$ProfessionalLiabilityEventCopyWithImpl<$Res,
+        _$AddMoreLiabilityDocImpl>
+    implements _$$AddMoreLiabilityDocImplCopyWith<$Res> {
+  __$$AddMoreLiabilityDocImplCopyWithImpl(_$AddMoreLiabilityDocImpl _value,
+      $Res Function(_$AddMoreLiabilityDocImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$AddMoreLiabilityDocImpl implements _AddMoreLiabilityDoc {
+  const _$AddMoreLiabilityDocImpl();
+
+  @override
+  String toString() {
+    return 'ProfessionalLiabilityEvent.addMoreLiabilityDoc()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddMoreLiabilityDocImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String liabilityDoc) selectLiabilityDoc,
+    required TResult Function(String liabilityDoc) deleteLiabilityDoc,
+    required TResult Function() addMoreLiabilityDoc,
+    required TResult Function(int index) deleteLiabilityObject,
+    required TResult Function(bool isAddMoreBtnClick) liabilityDocSubmit,
+  }) {
+    return addMoreLiabilityDoc();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String liabilityDoc)? selectLiabilityDoc,
+    TResult? Function(String liabilityDoc)? deleteLiabilityDoc,
+    TResult? Function()? addMoreLiabilityDoc,
+    TResult? Function(int index)? deleteLiabilityObject,
+    TResult? Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+  }) {
+    return addMoreLiabilityDoc?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String liabilityDoc)? selectLiabilityDoc,
+    TResult Function(String liabilityDoc)? deleteLiabilityDoc,
+    TResult Function()? addMoreLiabilityDoc,
+    TResult Function(int index)? deleteLiabilityObject,
+    TResult Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (addMoreLiabilityDoc != null) {
+      return addMoreLiabilityDoc();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SelectLiabilityDoc value) selectLiabilityDoc,
+    required TResult Function(_DeleteLiabilityDoc value) deleteLiabilityDoc,
+    required TResult Function(_AddMoreLiabilityDoc value) addMoreLiabilityDoc,
+    required TResult Function(_DeleteLiabilityObject value)
+        deleteLiabilityObject,
+    required TResult Function(_LiabilityDocSubmit value) liabilityDocSubmit,
+  }) {
+    return addMoreLiabilityDoc(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SelectLiabilityDoc value)? selectLiabilityDoc,
+    TResult? Function(_DeleteLiabilityDoc value)? deleteLiabilityDoc,
+    TResult? Function(_AddMoreLiabilityDoc value)? addMoreLiabilityDoc,
+    TResult? Function(_DeleteLiabilityObject value)? deleteLiabilityObject,
+    TResult? Function(_LiabilityDocSubmit value)? liabilityDocSubmit,
+  }) {
+    return addMoreLiabilityDoc?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SelectLiabilityDoc value)? selectLiabilityDoc,
+    TResult Function(_DeleteLiabilityDoc value)? deleteLiabilityDoc,
+    TResult Function(_AddMoreLiabilityDoc value)? addMoreLiabilityDoc,
+    TResult Function(_DeleteLiabilityObject value)? deleteLiabilityObject,
+    TResult Function(_LiabilityDocSubmit value)? liabilityDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (addMoreLiabilityDoc != null) {
+      return addMoreLiabilityDoc(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddMoreLiabilityDoc implements ProfessionalLiabilityEvent {
+  const factory _AddMoreLiabilityDoc() = _$AddMoreLiabilityDocImpl;
+}
+
+/// @nodoc
+abstract class _$$DeleteLiabilityObjectImplCopyWith<$Res> {
+  factory _$$DeleteLiabilityObjectImplCopyWith(
+          _$DeleteLiabilityObjectImpl value,
+          $Res Function(_$DeleteLiabilityObjectImpl) then) =
+      __$$DeleteLiabilityObjectImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index});
+}
+
+/// @nodoc
+class __$$DeleteLiabilityObjectImplCopyWithImpl<$Res>
+    extends _$ProfessionalLiabilityEventCopyWithImpl<$Res,
+        _$DeleteLiabilityObjectImpl>
+    implements _$$DeleteLiabilityObjectImplCopyWith<$Res> {
+  __$$DeleteLiabilityObjectImplCopyWithImpl(_$DeleteLiabilityObjectImpl _value,
+      $Res Function(_$DeleteLiabilityObjectImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+  }) {
+    return _then(_$DeleteLiabilityObjectImpl(
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeleteLiabilityObjectImpl implements _DeleteLiabilityObject {
+  const _$DeleteLiabilityObjectImpl(this.index);
+
+  @override
+  final int index;
+
+  @override
+  String toString() {
+    return 'ProfessionalLiabilityEvent.deleteLiabilityObject(index: $index)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteLiabilityObjectImpl &&
+            (identical(other.index, index) || other.index == index));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeleteLiabilityObjectImplCopyWith<_$DeleteLiabilityObjectImpl>
+      get copyWith => __$$DeleteLiabilityObjectImplCopyWithImpl<
+          _$DeleteLiabilityObjectImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String liabilityDoc) selectLiabilityDoc,
+    required TResult Function(String liabilityDoc) deleteLiabilityDoc,
+    required TResult Function() addMoreLiabilityDoc,
+    required TResult Function(int index) deleteLiabilityObject,
+    required TResult Function(bool isAddMoreBtnClick) liabilityDocSubmit,
+  }) {
+    return deleteLiabilityObject(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String liabilityDoc)? selectLiabilityDoc,
+    TResult? Function(String liabilityDoc)? deleteLiabilityDoc,
+    TResult? Function()? addMoreLiabilityDoc,
+    TResult? Function(int index)? deleteLiabilityObject,
+    TResult? Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+  }) {
+    return deleteLiabilityObject?.call(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String liabilityDoc)? selectLiabilityDoc,
+    TResult Function(String liabilityDoc)? deleteLiabilityDoc,
+    TResult Function()? addMoreLiabilityDoc,
+    TResult Function(int index)? deleteLiabilityObject,
+    TResult Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteLiabilityObject != null) {
+      return deleteLiabilityObject(index);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SelectLiabilityDoc value) selectLiabilityDoc,
+    required TResult Function(_DeleteLiabilityDoc value) deleteLiabilityDoc,
+    required TResult Function(_AddMoreLiabilityDoc value) addMoreLiabilityDoc,
+    required TResult Function(_DeleteLiabilityObject value)
+        deleteLiabilityObject,
+    required TResult Function(_LiabilityDocSubmit value) liabilityDocSubmit,
+  }) {
+    return deleteLiabilityObject(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SelectLiabilityDoc value)? selectLiabilityDoc,
+    TResult? Function(_DeleteLiabilityDoc value)? deleteLiabilityDoc,
+    TResult? Function(_AddMoreLiabilityDoc value)? addMoreLiabilityDoc,
+    TResult? Function(_DeleteLiabilityObject value)? deleteLiabilityObject,
+    TResult? Function(_LiabilityDocSubmit value)? liabilityDocSubmit,
+  }) {
+    return deleteLiabilityObject?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SelectLiabilityDoc value)? selectLiabilityDoc,
+    TResult Function(_DeleteLiabilityDoc value)? deleteLiabilityDoc,
+    TResult Function(_AddMoreLiabilityDoc value)? addMoreLiabilityDoc,
+    TResult Function(_DeleteLiabilityObject value)? deleteLiabilityObject,
+    TResult Function(_LiabilityDocSubmit value)? liabilityDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteLiabilityObject != null) {
+      return deleteLiabilityObject(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteLiabilityObject implements ProfessionalLiabilityEvent {
+  const factory _DeleteLiabilityObject(final int index) =
+      _$DeleteLiabilityObjectImpl;
+
+  int get index;
+  @JsonKey(ignore: true)
+  _$$DeleteLiabilityObjectImplCopyWith<_$DeleteLiabilityObjectImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LiabilityDocSubmitImplCopyWith<$Res> {
+  factory _$$LiabilityDocSubmitImplCopyWith(_$LiabilityDocSubmitImpl value,
+          $Res Function(_$LiabilityDocSubmitImpl) then) =
+      __$$LiabilityDocSubmitImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isAddMoreBtnClick});
+}
+
+/// @nodoc
+class __$$LiabilityDocSubmitImplCopyWithImpl<$Res>
+    extends _$ProfessionalLiabilityEventCopyWithImpl<$Res,
+        _$LiabilityDocSubmitImpl>
+    implements _$$LiabilityDocSubmitImplCopyWith<$Res> {
+  __$$LiabilityDocSubmitImplCopyWithImpl(_$LiabilityDocSubmitImpl _value,
+      $Res Function(_$LiabilityDocSubmitImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isAddMoreBtnClick = null,
+  }) {
+    return _then(_$LiabilityDocSubmitImpl(
+      isAddMoreBtnClick: null == isAddMoreBtnClick
+          ? _value.isAddMoreBtnClick
+          : isAddMoreBtnClick // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LiabilityDocSubmitImpl implements _LiabilityDocSubmit {
+  const _$LiabilityDocSubmitImpl({required this.isAddMoreBtnClick});
+
+  @override
+  final bool isAddMoreBtnClick;
+
+  @override
+  String toString() {
+    return 'ProfessionalLiabilityEvent.liabilityDocSubmit(isAddMoreBtnClick: $isAddMoreBtnClick)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LiabilityDocSubmitImpl &&
+            (identical(other.isAddMoreBtnClick, isAddMoreBtnClick) ||
+                other.isAddMoreBtnClick == isAddMoreBtnClick));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isAddMoreBtnClick);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LiabilityDocSubmitImplCopyWith<_$LiabilityDocSubmitImpl> get copyWith =>
+      __$$LiabilityDocSubmitImplCopyWithImpl<_$LiabilityDocSubmitImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String liabilityDoc) selectLiabilityDoc,
+    required TResult Function(String liabilityDoc) deleteLiabilityDoc,
+    required TResult Function() addMoreLiabilityDoc,
+    required TResult Function(int index) deleteLiabilityObject,
+    required TResult Function(bool isAddMoreBtnClick) liabilityDocSubmit,
+  }) {
+    return liabilityDocSubmit(isAddMoreBtnClick);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String liabilityDoc)? selectLiabilityDoc,
+    TResult? Function(String liabilityDoc)? deleteLiabilityDoc,
+    TResult? Function()? addMoreLiabilityDoc,
+    TResult? Function(int index)? deleteLiabilityObject,
+    TResult? Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+  }) {
+    return liabilityDocSubmit?.call(isAddMoreBtnClick);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String liabilityDoc)? selectLiabilityDoc,
+    TResult Function(String liabilityDoc)? deleteLiabilityDoc,
+    TResult Function()? addMoreLiabilityDoc,
+    TResult Function(int index)? deleteLiabilityObject,
+    TResult Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (liabilityDocSubmit != null) {
+      return liabilityDocSubmit(isAddMoreBtnClick);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SelectLiabilityDoc value) selectLiabilityDoc,
+    required TResult Function(_DeleteLiabilityDoc value) deleteLiabilityDoc,
+    required TResult Function(_AddMoreLiabilityDoc value) addMoreLiabilityDoc,
+    required TResult Function(_DeleteLiabilityObject value)
+        deleteLiabilityObject,
+    required TResult Function(_LiabilityDocSubmit value) liabilityDocSubmit,
+  }) {
+    return liabilityDocSubmit(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SelectLiabilityDoc value)? selectLiabilityDoc,
+    TResult? Function(_DeleteLiabilityDoc value)? deleteLiabilityDoc,
+    TResult? Function(_AddMoreLiabilityDoc value)? addMoreLiabilityDoc,
+    TResult? Function(_DeleteLiabilityObject value)? deleteLiabilityObject,
+    TResult? Function(_LiabilityDocSubmit value)? liabilityDocSubmit,
+  }) {
+    return liabilityDocSubmit?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SelectLiabilityDoc value)? selectLiabilityDoc,
+    TResult Function(_DeleteLiabilityDoc value)? deleteLiabilityDoc,
+    TResult Function(_AddMoreLiabilityDoc value)? addMoreLiabilityDoc,
+    TResult Function(_DeleteLiabilityObject value)? deleteLiabilityObject,
+    TResult Function(_LiabilityDocSubmit value)? liabilityDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (liabilityDocSubmit != null) {
+      return liabilityDocSubmit(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LiabilityDocSubmit implements ProfessionalLiabilityEvent {
+  const factory _LiabilityDocSubmit({required final bool isAddMoreBtnClick}) =
+      _$LiabilityDocSubmitImpl;
+
+  bool get isAddMoreBtnClick;
+  @JsonKey(ignore: true)
+  _$$LiabilityDocSubmitImplCopyWith<_$LiabilityDocSubmitImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$ResumeEvent {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String resumeDoc) selectResumeDoc,
+    required TResult Function(String resumeDoc) deleteResumeDoc,
+    required TResult Function() resumeDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String resumeDoc)? selectResumeDoc,
+    TResult? Function(String resumeDoc)? deleteResumeDoc,
+    TResult? Function()? resumeDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String resumeDoc)? selectResumeDoc,
+    TResult Function(String resumeDoc)? deleteResumeDoc,
+    TResult Function()? resumeDocSubmit,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SelectResumeDoc value) selectResumeDoc,
+    required TResult Function(_DeleteResumeDoc value) deleteResumeDoc,
+    required TResult Function(_ResumeDocSubmit value) resumeDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SelectResumeDoc value)? selectResumeDoc,
+    TResult? Function(_DeleteResumeDoc value)? deleteResumeDoc,
+    TResult? Function(_ResumeDocSubmit value)? resumeDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SelectResumeDoc value)? selectResumeDoc,
+    TResult Function(_DeleteResumeDoc value)? deleteResumeDoc,
+    TResult Function(_ResumeDocSubmit value)? resumeDocSubmit,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ResumeEventCopyWith<$Res> {
+  factory $ResumeEventCopyWith(
+          ResumeEvent value, $Res Function(ResumeEvent) then) =
+      _$ResumeEventCopyWithImpl<$Res, ResumeEvent>;
+}
+
+/// @nodoc
+class _$ResumeEventCopyWithImpl<$Res, $Val extends ResumeEvent>
+    implements $ResumeEventCopyWith<$Res> {
+  _$ResumeEventCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$SelectResumeDocImplCopyWith<$Res> {
+  factory _$$SelectResumeDocImplCopyWith(_$SelectResumeDocImpl value,
+          $Res Function(_$SelectResumeDocImpl) then) =
+      __$$SelectResumeDocImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String resumeDoc});
+}
+
+/// @nodoc
+class __$$SelectResumeDocImplCopyWithImpl<$Res>
+    extends _$ResumeEventCopyWithImpl<$Res, _$SelectResumeDocImpl>
+    implements _$$SelectResumeDocImplCopyWith<$Res> {
+  __$$SelectResumeDocImplCopyWithImpl(
+      _$SelectResumeDocImpl _value, $Res Function(_$SelectResumeDocImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? resumeDoc = null,
+  }) {
+    return _then(_$SelectResumeDocImpl(
+      null == resumeDoc
+          ? _value.resumeDoc
+          : resumeDoc // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SelectResumeDocImpl implements _SelectResumeDoc {
+  const _$SelectResumeDocImpl(this.resumeDoc);
+
+  @override
+  final String resumeDoc;
+
+  @override
+  String toString() {
+    return 'ResumeEvent.selectResumeDoc(resumeDoc: $resumeDoc)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SelectResumeDocImpl &&
+            (identical(other.resumeDoc, resumeDoc) ||
+                other.resumeDoc == resumeDoc));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, resumeDoc);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SelectResumeDocImplCopyWith<_$SelectResumeDocImpl> get copyWith =>
+      __$$SelectResumeDocImplCopyWithImpl<_$SelectResumeDocImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String resumeDoc) selectResumeDoc,
+    required TResult Function(String resumeDoc) deleteResumeDoc,
+    required TResult Function() resumeDocSubmit,
+  }) {
+    return selectResumeDoc(resumeDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String resumeDoc)? selectResumeDoc,
+    TResult? Function(String resumeDoc)? deleteResumeDoc,
+    TResult? Function()? resumeDocSubmit,
+  }) {
+    return selectResumeDoc?.call(resumeDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String resumeDoc)? selectResumeDoc,
+    TResult Function(String resumeDoc)? deleteResumeDoc,
+    TResult Function()? resumeDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (selectResumeDoc != null) {
+      return selectResumeDoc(resumeDoc);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SelectResumeDoc value) selectResumeDoc,
+    required TResult Function(_DeleteResumeDoc value) deleteResumeDoc,
+    required TResult Function(_ResumeDocSubmit value) resumeDocSubmit,
+  }) {
+    return selectResumeDoc(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SelectResumeDoc value)? selectResumeDoc,
+    TResult? Function(_DeleteResumeDoc value)? deleteResumeDoc,
+    TResult? Function(_ResumeDocSubmit value)? resumeDocSubmit,
+  }) {
+    return selectResumeDoc?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SelectResumeDoc value)? selectResumeDoc,
+    TResult Function(_DeleteResumeDoc value)? deleteResumeDoc,
+    TResult Function(_ResumeDocSubmit value)? resumeDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (selectResumeDoc != null) {
+      return selectResumeDoc(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SelectResumeDoc implements ResumeEvent {
+  const factory _SelectResumeDoc(final String resumeDoc) =
+      _$SelectResumeDocImpl;
+
+  String get resumeDoc;
+  @JsonKey(ignore: true)
+  _$$SelectResumeDocImplCopyWith<_$SelectResumeDocImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DeleteResumeDocImplCopyWith<$Res> {
+  factory _$$DeleteResumeDocImplCopyWith(_$DeleteResumeDocImpl value,
+          $Res Function(_$DeleteResumeDocImpl) then) =
+      __$$DeleteResumeDocImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String resumeDoc});
+}
+
+/// @nodoc
+class __$$DeleteResumeDocImplCopyWithImpl<$Res>
+    extends _$ResumeEventCopyWithImpl<$Res, _$DeleteResumeDocImpl>
+    implements _$$DeleteResumeDocImplCopyWith<$Res> {
+  __$$DeleteResumeDocImplCopyWithImpl(
+      _$DeleteResumeDocImpl _value, $Res Function(_$DeleteResumeDocImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? resumeDoc = null,
+  }) {
+    return _then(_$DeleteResumeDocImpl(
+      null == resumeDoc
+          ? _value.resumeDoc
+          : resumeDoc // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeleteResumeDocImpl implements _DeleteResumeDoc {
+  const _$DeleteResumeDocImpl(this.resumeDoc);
+
+  @override
+  final String resumeDoc;
+
+  @override
+  String toString() {
+    return 'ResumeEvent.deleteResumeDoc(resumeDoc: $resumeDoc)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteResumeDocImpl &&
+            (identical(other.resumeDoc, resumeDoc) ||
+                other.resumeDoc == resumeDoc));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, resumeDoc);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeleteResumeDocImplCopyWith<_$DeleteResumeDocImpl> get copyWith =>
+      __$$DeleteResumeDocImplCopyWithImpl<_$DeleteResumeDocImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String resumeDoc) selectResumeDoc,
+    required TResult Function(String resumeDoc) deleteResumeDoc,
+    required TResult Function() resumeDocSubmit,
+  }) {
+    return deleteResumeDoc(resumeDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String resumeDoc)? selectResumeDoc,
+    TResult? Function(String resumeDoc)? deleteResumeDoc,
+    TResult? Function()? resumeDocSubmit,
+  }) {
+    return deleteResumeDoc?.call(resumeDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String resumeDoc)? selectResumeDoc,
+    TResult Function(String resumeDoc)? deleteResumeDoc,
+    TResult Function()? resumeDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteResumeDoc != null) {
+      return deleteResumeDoc(resumeDoc);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SelectResumeDoc value) selectResumeDoc,
+    required TResult Function(_DeleteResumeDoc value) deleteResumeDoc,
+    required TResult Function(_ResumeDocSubmit value) resumeDocSubmit,
+  }) {
+    return deleteResumeDoc(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SelectResumeDoc value)? selectResumeDoc,
+    TResult? Function(_DeleteResumeDoc value)? deleteResumeDoc,
+    TResult? Function(_ResumeDocSubmit value)? resumeDocSubmit,
+  }) {
+    return deleteResumeDoc?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SelectResumeDoc value)? selectResumeDoc,
+    TResult Function(_DeleteResumeDoc value)? deleteResumeDoc,
+    TResult Function(_ResumeDocSubmit value)? resumeDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteResumeDoc != null) {
+      return deleteResumeDoc(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteResumeDoc implements ResumeEvent {
+  const factory _DeleteResumeDoc(final String resumeDoc) =
+      _$DeleteResumeDocImpl;
+
+  String get resumeDoc;
+  @JsonKey(ignore: true)
+  _$$DeleteResumeDocImplCopyWith<_$DeleteResumeDocImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ResumeDocSubmitImplCopyWith<$Res> {
+  factory _$$ResumeDocSubmitImplCopyWith(_$ResumeDocSubmitImpl value,
+          $Res Function(_$ResumeDocSubmitImpl) then) =
+      __$$ResumeDocSubmitImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ResumeDocSubmitImplCopyWithImpl<$Res>
+    extends _$ResumeEventCopyWithImpl<$Res, _$ResumeDocSubmitImpl>
+    implements _$$ResumeDocSubmitImplCopyWith<$Res> {
+  __$$ResumeDocSubmitImplCopyWithImpl(
+      _$ResumeDocSubmitImpl _value, $Res Function(_$ResumeDocSubmitImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ResumeDocSubmitImpl implements _ResumeDocSubmit {
+  const _$ResumeDocSubmitImpl();
+
+  @override
+  String toString() {
+    return 'ResumeEvent.resumeDocSubmit()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ResumeDocSubmitImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String resumeDoc) selectResumeDoc,
+    required TResult Function(String resumeDoc) deleteResumeDoc,
+    required TResult Function() resumeDocSubmit,
+  }) {
+    return resumeDocSubmit();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String resumeDoc)? selectResumeDoc,
+    TResult? Function(String resumeDoc)? deleteResumeDoc,
+    TResult? Function()? resumeDocSubmit,
+  }) {
+    return resumeDocSubmit?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String resumeDoc)? selectResumeDoc,
+    TResult Function(String resumeDoc)? deleteResumeDoc,
+    TResult Function()? resumeDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (resumeDocSubmit != null) {
+      return resumeDocSubmit();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SelectResumeDoc value) selectResumeDoc,
+    required TResult Function(_DeleteResumeDoc value) deleteResumeDoc,
+    required TResult Function(_ResumeDocSubmit value) resumeDocSubmit,
+  }) {
+    return resumeDocSubmit(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SelectResumeDoc value)? selectResumeDoc,
+    TResult? Function(_DeleteResumeDoc value)? deleteResumeDoc,
+    TResult? Function(_ResumeDocSubmit value)? resumeDocSubmit,
+  }) {
+    return resumeDocSubmit?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SelectResumeDoc value)? selectResumeDoc,
+    TResult Function(_DeleteResumeDoc value)? deleteResumeDoc,
+    TResult Function(_ResumeDocSubmit value)? resumeDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (resumeDocSubmit != null) {
+      return resumeDocSubmit(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ResumeDocSubmit implements ResumeEvent {
+  const factory _ResumeDocSubmit() = _$ResumeDocSubmitImpl;
+}
+
+/// @nodoc
+mixin _$EquipmentEvent {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String equipmentName) equipmentNameChanegd,
+    required TResult Function(String equipmentDoc) selectEquipmentDoc,
+    required TResult Function(String equipmentDoc) deleteEquipmentDoc,
+    required TResult Function() addMoreEquipmentDoc,
+    required TResult Function(int index) deleteEquipmentObject,
+    required TResult Function(bool isAddMoreBtnClick) equipmentDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String equipmentName)? equipmentNameChanegd,
+    TResult? Function(String equipmentDoc)? selectEquipmentDoc,
+    TResult? Function(String equipmentDoc)? deleteEquipmentDoc,
+    TResult? Function()? addMoreEquipmentDoc,
+    TResult? Function(int index)? deleteEquipmentObject,
+    TResult? Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String equipmentName)? equipmentNameChanegd,
+    TResult Function(String equipmentDoc)? selectEquipmentDoc,
+    TResult Function(String equipmentDoc)? deleteEquipmentDoc,
+    TResult Function()? addMoreEquipmentDoc,
+    TResult Function(int index)? deleteEquipmentObject,
+    TResult Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_EquipmentNameChanegd value) equipmentNameChanegd,
+    required TResult Function(_SelectEquipmentDoc value) selectEquipmentDoc,
+    required TResult Function(_DeleteEquipmentDoc value) deleteEquipmentDoc,
+    required TResult Function(_AddMoreEquipmentDoc value) addMoreEquipmentDoc,
+    required TResult Function(_DeleteEquipmentObject value)
+        deleteEquipmentObject,
+    required TResult Function(_EquipmentDocSubmit value) equipmentDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_EquipmentNameChanegd value)? equipmentNameChanegd,
+    TResult? Function(_SelectEquipmentDoc value)? selectEquipmentDoc,
+    TResult? Function(_DeleteEquipmentDoc value)? deleteEquipmentDoc,
+    TResult? Function(_AddMoreEquipmentDoc value)? addMoreEquipmentDoc,
+    TResult? Function(_DeleteEquipmentObject value)? deleteEquipmentObject,
+    TResult? Function(_EquipmentDocSubmit value)? equipmentDocSubmit,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_EquipmentNameChanegd value)? equipmentNameChanegd,
+    TResult Function(_SelectEquipmentDoc value)? selectEquipmentDoc,
+    TResult Function(_DeleteEquipmentDoc value)? deleteEquipmentDoc,
+    TResult Function(_AddMoreEquipmentDoc value)? addMoreEquipmentDoc,
+    TResult Function(_DeleteEquipmentObject value)? deleteEquipmentObject,
+    TResult Function(_EquipmentDocSubmit value)? equipmentDocSubmit,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $EquipmentEventCopyWith<$Res> {
+  factory $EquipmentEventCopyWith(
+          EquipmentEvent value, $Res Function(EquipmentEvent) then) =
+      _$EquipmentEventCopyWithImpl<$Res, EquipmentEvent>;
+}
+
+/// @nodoc
+class _$EquipmentEventCopyWithImpl<$Res, $Val extends EquipmentEvent>
+    implements $EquipmentEventCopyWith<$Res> {
+  _$EquipmentEventCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$EquipmentNameChanegdImplCopyWith<$Res> {
+  factory _$$EquipmentNameChanegdImplCopyWith(_$EquipmentNameChanegdImpl value,
+          $Res Function(_$EquipmentNameChanegdImpl) then) =
+      __$$EquipmentNameChanegdImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String equipmentName});
+}
+
+/// @nodoc
+class __$$EquipmentNameChanegdImplCopyWithImpl<$Res>
+    extends _$EquipmentEventCopyWithImpl<$Res, _$EquipmentNameChanegdImpl>
+    implements _$$EquipmentNameChanegdImplCopyWith<$Res> {
+  __$$EquipmentNameChanegdImplCopyWithImpl(_$EquipmentNameChanegdImpl _value,
+      $Res Function(_$EquipmentNameChanegdImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? equipmentName = null,
+  }) {
+    return _then(_$EquipmentNameChanegdImpl(
+      null == equipmentName
+          ? _value.equipmentName
+          : equipmentName // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$EquipmentNameChanegdImpl implements _EquipmentNameChanegd {
+  const _$EquipmentNameChanegdImpl(this.equipmentName);
+
+  @override
+  final String equipmentName;
+
+  @override
+  String toString() {
+    return 'EquipmentEvent.equipmentNameChanegd(equipmentName: $equipmentName)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$EquipmentNameChanegdImpl &&
+            (identical(other.equipmentName, equipmentName) ||
+                other.equipmentName == equipmentName));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, equipmentName);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$EquipmentNameChanegdImplCopyWith<_$EquipmentNameChanegdImpl>
+      get copyWith =>
+          __$$EquipmentNameChanegdImplCopyWithImpl<_$EquipmentNameChanegdImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String equipmentName) equipmentNameChanegd,
+    required TResult Function(String equipmentDoc) selectEquipmentDoc,
+    required TResult Function(String equipmentDoc) deleteEquipmentDoc,
+    required TResult Function() addMoreEquipmentDoc,
+    required TResult Function(int index) deleteEquipmentObject,
+    required TResult Function(bool isAddMoreBtnClick) equipmentDocSubmit,
+  }) {
+    return equipmentNameChanegd(equipmentName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String equipmentName)? equipmentNameChanegd,
+    TResult? Function(String equipmentDoc)? selectEquipmentDoc,
+    TResult? Function(String equipmentDoc)? deleteEquipmentDoc,
+    TResult? Function()? addMoreEquipmentDoc,
+    TResult? Function(int index)? deleteEquipmentObject,
+    TResult? Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+  }) {
+    return equipmentNameChanegd?.call(equipmentName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String equipmentName)? equipmentNameChanegd,
+    TResult Function(String equipmentDoc)? selectEquipmentDoc,
+    TResult Function(String equipmentDoc)? deleteEquipmentDoc,
+    TResult Function()? addMoreEquipmentDoc,
+    TResult Function(int index)? deleteEquipmentObject,
+    TResult Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (equipmentNameChanegd != null) {
+      return equipmentNameChanegd(equipmentName);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_EquipmentNameChanegd value) equipmentNameChanegd,
+    required TResult Function(_SelectEquipmentDoc value) selectEquipmentDoc,
+    required TResult Function(_DeleteEquipmentDoc value) deleteEquipmentDoc,
+    required TResult Function(_AddMoreEquipmentDoc value) addMoreEquipmentDoc,
+    required TResult Function(_DeleteEquipmentObject value)
+        deleteEquipmentObject,
+    required TResult Function(_EquipmentDocSubmit value) equipmentDocSubmit,
+  }) {
+    return equipmentNameChanegd(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_EquipmentNameChanegd value)? equipmentNameChanegd,
+    TResult? Function(_SelectEquipmentDoc value)? selectEquipmentDoc,
+    TResult? Function(_DeleteEquipmentDoc value)? deleteEquipmentDoc,
+    TResult? Function(_AddMoreEquipmentDoc value)? addMoreEquipmentDoc,
+    TResult? Function(_DeleteEquipmentObject value)? deleteEquipmentObject,
+    TResult? Function(_EquipmentDocSubmit value)? equipmentDocSubmit,
+  }) {
+    return equipmentNameChanegd?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_EquipmentNameChanegd value)? equipmentNameChanegd,
+    TResult Function(_SelectEquipmentDoc value)? selectEquipmentDoc,
+    TResult Function(_DeleteEquipmentDoc value)? deleteEquipmentDoc,
+    TResult Function(_AddMoreEquipmentDoc value)? addMoreEquipmentDoc,
+    TResult Function(_DeleteEquipmentObject value)? deleteEquipmentObject,
+    TResult Function(_EquipmentDocSubmit value)? equipmentDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (equipmentNameChanegd != null) {
+      return equipmentNameChanegd(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _EquipmentNameChanegd implements EquipmentEvent {
+  const factory _EquipmentNameChanegd(final String equipmentName) =
+      _$EquipmentNameChanegdImpl;
+
+  String get equipmentName;
+  @JsonKey(ignore: true)
+  _$$EquipmentNameChanegdImplCopyWith<_$EquipmentNameChanegdImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SelectEquipmentDocImplCopyWith<$Res> {
+  factory _$$SelectEquipmentDocImplCopyWith(_$SelectEquipmentDocImpl value,
+          $Res Function(_$SelectEquipmentDocImpl) then) =
+      __$$SelectEquipmentDocImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String equipmentDoc});
+}
+
+/// @nodoc
+class __$$SelectEquipmentDocImplCopyWithImpl<$Res>
+    extends _$EquipmentEventCopyWithImpl<$Res, _$SelectEquipmentDocImpl>
+    implements _$$SelectEquipmentDocImplCopyWith<$Res> {
+  __$$SelectEquipmentDocImplCopyWithImpl(_$SelectEquipmentDocImpl _value,
+      $Res Function(_$SelectEquipmentDocImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? equipmentDoc = null,
+  }) {
+    return _then(_$SelectEquipmentDocImpl(
+      null == equipmentDoc
+          ? _value.equipmentDoc
+          : equipmentDoc // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SelectEquipmentDocImpl implements _SelectEquipmentDoc {
+  const _$SelectEquipmentDocImpl(this.equipmentDoc);
+
+  @override
+  final String equipmentDoc;
+
+  @override
+  String toString() {
+    return 'EquipmentEvent.selectEquipmentDoc(equipmentDoc: $equipmentDoc)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SelectEquipmentDocImpl &&
+            (identical(other.equipmentDoc, equipmentDoc) ||
+                other.equipmentDoc == equipmentDoc));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, equipmentDoc);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SelectEquipmentDocImplCopyWith<_$SelectEquipmentDocImpl> get copyWith =>
+      __$$SelectEquipmentDocImplCopyWithImpl<_$SelectEquipmentDocImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String equipmentName) equipmentNameChanegd,
+    required TResult Function(String equipmentDoc) selectEquipmentDoc,
+    required TResult Function(String equipmentDoc) deleteEquipmentDoc,
+    required TResult Function() addMoreEquipmentDoc,
+    required TResult Function(int index) deleteEquipmentObject,
+    required TResult Function(bool isAddMoreBtnClick) equipmentDocSubmit,
+  }) {
+    return selectEquipmentDoc(equipmentDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String equipmentName)? equipmentNameChanegd,
+    TResult? Function(String equipmentDoc)? selectEquipmentDoc,
+    TResult? Function(String equipmentDoc)? deleteEquipmentDoc,
+    TResult? Function()? addMoreEquipmentDoc,
+    TResult? Function(int index)? deleteEquipmentObject,
+    TResult? Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+  }) {
+    return selectEquipmentDoc?.call(equipmentDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String equipmentName)? equipmentNameChanegd,
+    TResult Function(String equipmentDoc)? selectEquipmentDoc,
+    TResult Function(String equipmentDoc)? deleteEquipmentDoc,
+    TResult Function()? addMoreEquipmentDoc,
+    TResult Function(int index)? deleteEquipmentObject,
+    TResult Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (selectEquipmentDoc != null) {
+      return selectEquipmentDoc(equipmentDoc);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_EquipmentNameChanegd value) equipmentNameChanegd,
+    required TResult Function(_SelectEquipmentDoc value) selectEquipmentDoc,
+    required TResult Function(_DeleteEquipmentDoc value) deleteEquipmentDoc,
+    required TResult Function(_AddMoreEquipmentDoc value) addMoreEquipmentDoc,
+    required TResult Function(_DeleteEquipmentObject value)
+        deleteEquipmentObject,
+    required TResult Function(_EquipmentDocSubmit value) equipmentDocSubmit,
+  }) {
+    return selectEquipmentDoc(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_EquipmentNameChanegd value)? equipmentNameChanegd,
+    TResult? Function(_SelectEquipmentDoc value)? selectEquipmentDoc,
+    TResult? Function(_DeleteEquipmentDoc value)? deleteEquipmentDoc,
+    TResult? Function(_AddMoreEquipmentDoc value)? addMoreEquipmentDoc,
+    TResult? Function(_DeleteEquipmentObject value)? deleteEquipmentObject,
+    TResult? Function(_EquipmentDocSubmit value)? equipmentDocSubmit,
+  }) {
+    return selectEquipmentDoc?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_EquipmentNameChanegd value)? equipmentNameChanegd,
+    TResult Function(_SelectEquipmentDoc value)? selectEquipmentDoc,
+    TResult Function(_DeleteEquipmentDoc value)? deleteEquipmentDoc,
+    TResult Function(_AddMoreEquipmentDoc value)? addMoreEquipmentDoc,
+    TResult Function(_DeleteEquipmentObject value)? deleteEquipmentObject,
+    TResult Function(_EquipmentDocSubmit value)? equipmentDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (selectEquipmentDoc != null) {
+      return selectEquipmentDoc(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SelectEquipmentDoc implements EquipmentEvent {
+  const factory _SelectEquipmentDoc(final String equipmentDoc) =
+      _$SelectEquipmentDocImpl;
+
+  String get equipmentDoc;
+  @JsonKey(ignore: true)
+  _$$SelectEquipmentDocImplCopyWith<_$SelectEquipmentDocImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DeleteEquipmentDocImplCopyWith<$Res> {
+  factory _$$DeleteEquipmentDocImplCopyWith(_$DeleteEquipmentDocImpl value,
+          $Res Function(_$DeleteEquipmentDocImpl) then) =
+      __$$DeleteEquipmentDocImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String equipmentDoc});
+}
+
+/// @nodoc
+class __$$DeleteEquipmentDocImplCopyWithImpl<$Res>
+    extends _$EquipmentEventCopyWithImpl<$Res, _$DeleteEquipmentDocImpl>
+    implements _$$DeleteEquipmentDocImplCopyWith<$Res> {
+  __$$DeleteEquipmentDocImplCopyWithImpl(_$DeleteEquipmentDocImpl _value,
+      $Res Function(_$DeleteEquipmentDocImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? equipmentDoc = null,
+  }) {
+    return _then(_$DeleteEquipmentDocImpl(
+      null == equipmentDoc
+          ? _value.equipmentDoc
+          : equipmentDoc // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeleteEquipmentDocImpl implements _DeleteEquipmentDoc {
+  const _$DeleteEquipmentDocImpl(this.equipmentDoc);
+
+  @override
+  final String equipmentDoc;
+
+  @override
+  String toString() {
+    return 'EquipmentEvent.deleteEquipmentDoc(equipmentDoc: $equipmentDoc)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteEquipmentDocImpl &&
+            (identical(other.equipmentDoc, equipmentDoc) ||
+                other.equipmentDoc == equipmentDoc));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, equipmentDoc);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeleteEquipmentDocImplCopyWith<_$DeleteEquipmentDocImpl> get copyWith =>
+      __$$DeleteEquipmentDocImplCopyWithImpl<_$DeleteEquipmentDocImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String equipmentName) equipmentNameChanegd,
+    required TResult Function(String equipmentDoc) selectEquipmentDoc,
+    required TResult Function(String equipmentDoc) deleteEquipmentDoc,
+    required TResult Function() addMoreEquipmentDoc,
+    required TResult Function(int index) deleteEquipmentObject,
+    required TResult Function(bool isAddMoreBtnClick) equipmentDocSubmit,
+  }) {
+    return deleteEquipmentDoc(equipmentDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String equipmentName)? equipmentNameChanegd,
+    TResult? Function(String equipmentDoc)? selectEquipmentDoc,
+    TResult? Function(String equipmentDoc)? deleteEquipmentDoc,
+    TResult? Function()? addMoreEquipmentDoc,
+    TResult? Function(int index)? deleteEquipmentObject,
+    TResult? Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+  }) {
+    return deleteEquipmentDoc?.call(equipmentDoc);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String equipmentName)? equipmentNameChanegd,
+    TResult Function(String equipmentDoc)? selectEquipmentDoc,
+    TResult Function(String equipmentDoc)? deleteEquipmentDoc,
+    TResult Function()? addMoreEquipmentDoc,
+    TResult Function(int index)? deleteEquipmentObject,
+    TResult Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteEquipmentDoc != null) {
+      return deleteEquipmentDoc(equipmentDoc);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_EquipmentNameChanegd value) equipmentNameChanegd,
+    required TResult Function(_SelectEquipmentDoc value) selectEquipmentDoc,
+    required TResult Function(_DeleteEquipmentDoc value) deleteEquipmentDoc,
+    required TResult Function(_AddMoreEquipmentDoc value) addMoreEquipmentDoc,
+    required TResult Function(_DeleteEquipmentObject value)
+        deleteEquipmentObject,
+    required TResult Function(_EquipmentDocSubmit value) equipmentDocSubmit,
+  }) {
+    return deleteEquipmentDoc(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_EquipmentNameChanegd value)? equipmentNameChanegd,
+    TResult? Function(_SelectEquipmentDoc value)? selectEquipmentDoc,
+    TResult? Function(_DeleteEquipmentDoc value)? deleteEquipmentDoc,
+    TResult? Function(_AddMoreEquipmentDoc value)? addMoreEquipmentDoc,
+    TResult? Function(_DeleteEquipmentObject value)? deleteEquipmentObject,
+    TResult? Function(_EquipmentDocSubmit value)? equipmentDocSubmit,
+  }) {
+    return deleteEquipmentDoc?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_EquipmentNameChanegd value)? equipmentNameChanegd,
+    TResult Function(_SelectEquipmentDoc value)? selectEquipmentDoc,
+    TResult Function(_DeleteEquipmentDoc value)? deleteEquipmentDoc,
+    TResult Function(_AddMoreEquipmentDoc value)? addMoreEquipmentDoc,
+    TResult Function(_DeleteEquipmentObject value)? deleteEquipmentObject,
+    TResult Function(_EquipmentDocSubmit value)? equipmentDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteEquipmentDoc != null) {
+      return deleteEquipmentDoc(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteEquipmentDoc implements EquipmentEvent {
+  const factory _DeleteEquipmentDoc(final String equipmentDoc) =
+      _$DeleteEquipmentDocImpl;
+
+  String get equipmentDoc;
+  @JsonKey(ignore: true)
+  _$$DeleteEquipmentDocImplCopyWith<_$DeleteEquipmentDocImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AddMoreEquipmentDocImplCopyWith<$Res> {
+  factory _$$AddMoreEquipmentDocImplCopyWith(_$AddMoreEquipmentDocImpl value,
+          $Res Function(_$AddMoreEquipmentDocImpl) then) =
+      __$$AddMoreEquipmentDocImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$AddMoreEquipmentDocImplCopyWithImpl<$Res>
+    extends _$EquipmentEventCopyWithImpl<$Res, _$AddMoreEquipmentDocImpl>
+    implements _$$AddMoreEquipmentDocImplCopyWith<$Res> {
+  __$$AddMoreEquipmentDocImplCopyWithImpl(_$AddMoreEquipmentDocImpl _value,
+      $Res Function(_$AddMoreEquipmentDocImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$AddMoreEquipmentDocImpl implements _AddMoreEquipmentDoc {
+  const _$AddMoreEquipmentDocImpl();
+
+  @override
+  String toString() {
+    return 'EquipmentEvent.addMoreEquipmentDoc()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddMoreEquipmentDocImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String equipmentName) equipmentNameChanegd,
+    required TResult Function(String equipmentDoc) selectEquipmentDoc,
+    required TResult Function(String equipmentDoc) deleteEquipmentDoc,
+    required TResult Function() addMoreEquipmentDoc,
+    required TResult Function(int index) deleteEquipmentObject,
+    required TResult Function(bool isAddMoreBtnClick) equipmentDocSubmit,
+  }) {
+    return addMoreEquipmentDoc();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String equipmentName)? equipmentNameChanegd,
+    TResult? Function(String equipmentDoc)? selectEquipmentDoc,
+    TResult? Function(String equipmentDoc)? deleteEquipmentDoc,
+    TResult? Function()? addMoreEquipmentDoc,
+    TResult? Function(int index)? deleteEquipmentObject,
+    TResult? Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+  }) {
+    return addMoreEquipmentDoc?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String equipmentName)? equipmentNameChanegd,
+    TResult Function(String equipmentDoc)? selectEquipmentDoc,
+    TResult Function(String equipmentDoc)? deleteEquipmentDoc,
+    TResult Function()? addMoreEquipmentDoc,
+    TResult Function(int index)? deleteEquipmentObject,
+    TResult Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (addMoreEquipmentDoc != null) {
+      return addMoreEquipmentDoc();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_EquipmentNameChanegd value) equipmentNameChanegd,
+    required TResult Function(_SelectEquipmentDoc value) selectEquipmentDoc,
+    required TResult Function(_DeleteEquipmentDoc value) deleteEquipmentDoc,
+    required TResult Function(_AddMoreEquipmentDoc value) addMoreEquipmentDoc,
+    required TResult Function(_DeleteEquipmentObject value)
+        deleteEquipmentObject,
+    required TResult Function(_EquipmentDocSubmit value) equipmentDocSubmit,
+  }) {
+    return addMoreEquipmentDoc(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_EquipmentNameChanegd value)? equipmentNameChanegd,
+    TResult? Function(_SelectEquipmentDoc value)? selectEquipmentDoc,
+    TResult? Function(_DeleteEquipmentDoc value)? deleteEquipmentDoc,
+    TResult? Function(_AddMoreEquipmentDoc value)? addMoreEquipmentDoc,
+    TResult? Function(_DeleteEquipmentObject value)? deleteEquipmentObject,
+    TResult? Function(_EquipmentDocSubmit value)? equipmentDocSubmit,
+  }) {
+    return addMoreEquipmentDoc?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_EquipmentNameChanegd value)? equipmentNameChanegd,
+    TResult Function(_SelectEquipmentDoc value)? selectEquipmentDoc,
+    TResult Function(_DeleteEquipmentDoc value)? deleteEquipmentDoc,
+    TResult Function(_AddMoreEquipmentDoc value)? addMoreEquipmentDoc,
+    TResult Function(_DeleteEquipmentObject value)? deleteEquipmentObject,
+    TResult Function(_EquipmentDocSubmit value)? equipmentDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (addMoreEquipmentDoc != null) {
+      return addMoreEquipmentDoc(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddMoreEquipmentDoc implements EquipmentEvent {
+  const factory _AddMoreEquipmentDoc() = _$AddMoreEquipmentDocImpl;
+}
+
+/// @nodoc
+abstract class _$$DeleteEquipmentObjectImplCopyWith<$Res> {
+  factory _$$DeleteEquipmentObjectImplCopyWith(
+          _$DeleteEquipmentObjectImpl value,
+          $Res Function(_$DeleteEquipmentObjectImpl) then) =
+      __$$DeleteEquipmentObjectImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index});
+}
+
+/// @nodoc
+class __$$DeleteEquipmentObjectImplCopyWithImpl<$Res>
+    extends _$EquipmentEventCopyWithImpl<$Res, _$DeleteEquipmentObjectImpl>
+    implements _$$DeleteEquipmentObjectImplCopyWith<$Res> {
+  __$$DeleteEquipmentObjectImplCopyWithImpl(_$DeleteEquipmentObjectImpl _value,
+      $Res Function(_$DeleteEquipmentObjectImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+  }) {
+    return _then(_$DeleteEquipmentObjectImpl(
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeleteEquipmentObjectImpl implements _DeleteEquipmentObject {
+  const _$DeleteEquipmentObjectImpl(this.index);
+
+  @override
+  final int index;
+
+  @override
+  String toString() {
+    return 'EquipmentEvent.deleteEquipmentObject(index: $index)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteEquipmentObjectImpl &&
+            (identical(other.index, index) || other.index == index));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeleteEquipmentObjectImplCopyWith<_$DeleteEquipmentObjectImpl>
+      get copyWith => __$$DeleteEquipmentObjectImplCopyWithImpl<
+          _$DeleteEquipmentObjectImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String equipmentName) equipmentNameChanegd,
+    required TResult Function(String equipmentDoc) selectEquipmentDoc,
+    required TResult Function(String equipmentDoc) deleteEquipmentDoc,
+    required TResult Function() addMoreEquipmentDoc,
+    required TResult Function(int index) deleteEquipmentObject,
+    required TResult Function(bool isAddMoreBtnClick) equipmentDocSubmit,
+  }) {
+    return deleteEquipmentObject(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String equipmentName)? equipmentNameChanegd,
+    TResult? Function(String equipmentDoc)? selectEquipmentDoc,
+    TResult? Function(String equipmentDoc)? deleteEquipmentDoc,
+    TResult? Function()? addMoreEquipmentDoc,
+    TResult? Function(int index)? deleteEquipmentObject,
+    TResult? Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+  }) {
+    return deleteEquipmentObject?.call(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String equipmentName)? equipmentNameChanegd,
+    TResult Function(String equipmentDoc)? selectEquipmentDoc,
+    TResult Function(String equipmentDoc)? deleteEquipmentDoc,
+    TResult Function()? addMoreEquipmentDoc,
+    TResult Function(int index)? deleteEquipmentObject,
+    TResult Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteEquipmentObject != null) {
+      return deleteEquipmentObject(index);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_EquipmentNameChanegd value) equipmentNameChanegd,
+    required TResult Function(_SelectEquipmentDoc value) selectEquipmentDoc,
+    required TResult Function(_DeleteEquipmentDoc value) deleteEquipmentDoc,
+    required TResult Function(_AddMoreEquipmentDoc value) addMoreEquipmentDoc,
+    required TResult Function(_DeleteEquipmentObject value)
+        deleteEquipmentObject,
+    required TResult Function(_EquipmentDocSubmit value) equipmentDocSubmit,
+  }) {
+    return deleteEquipmentObject(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_EquipmentNameChanegd value)? equipmentNameChanegd,
+    TResult? Function(_SelectEquipmentDoc value)? selectEquipmentDoc,
+    TResult? Function(_DeleteEquipmentDoc value)? deleteEquipmentDoc,
+    TResult? Function(_AddMoreEquipmentDoc value)? addMoreEquipmentDoc,
+    TResult? Function(_DeleteEquipmentObject value)? deleteEquipmentObject,
+    TResult? Function(_EquipmentDocSubmit value)? equipmentDocSubmit,
+  }) {
+    return deleteEquipmentObject?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_EquipmentNameChanegd value)? equipmentNameChanegd,
+    TResult Function(_SelectEquipmentDoc value)? selectEquipmentDoc,
+    TResult Function(_DeleteEquipmentDoc value)? deleteEquipmentDoc,
+    TResult Function(_AddMoreEquipmentDoc value)? addMoreEquipmentDoc,
+    TResult Function(_DeleteEquipmentObject value)? deleteEquipmentObject,
+    TResult Function(_EquipmentDocSubmit value)? equipmentDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (deleteEquipmentObject != null) {
+      return deleteEquipmentObject(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteEquipmentObject implements EquipmentEvent {
+  const factory _DeleteEquipmentObject(final int index) =
+      _$DeleteEquipmentObjectImpl;
+
+  int get index;
+  @JsonKey(ignore: true)
+  _$$DeleteEquipmentObjectImplCopyWith<_$DeleteEquipmentObjectImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$EquipmentDocSubmitImplCopyWith<$Res> {
+  factory _$$EquipmentDocSubmitImplCopyWith(_$EquipmentDocSubmitImpl value,
+          $Res Function(_$EquipmentDocSubmitImpl) then) =
+      __$$EquipmentDocSubmitImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isAddMoreBtnClick});
+}
+
+/// @nodoc
+class __$$EquipmentDocSubmitImplCopyWithImpl<$Res>
+    extends _$EquipmentEventCopyWithImpl<$Res, _$EquipmentDocSubmitImpl>
+    implements _$$EquipmentDocSubmitImplCopyWith<$Res> {
+  __$$EquipmentDocSubmitImplCopyWithImpl(_$EquipmentDocSubmitImpl _value,
+      $Res Function(_$EquipmentDocSubmitImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isAddMoreBtnClick = null,
+  }) {
+    return _then(_$EquipmentDocSubmitImpl(
+      isAddMoreBtnClick: null == isAddMoreBtnClick
+          ? _value.isAddMoreBtnClick
+          : isAddMoreBtnClick // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$EquipmentDocSubmitImpl implements _EquipmentDocSubmit {
+  const _$EquipmentDocSubmitImpl({required this.isAddMoreBtnClick});
+
+  @override
+  final bool isAddMoreBtnClick;
+
+  @override
+  String toString() {
+    return 'EquipmentEvent.equipmentDocSubmit(isAddMoreBtnClick: $isAddMoreBtnClick)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$EquipmentDocSubmitImpl &&
+            (identical(other.isAddMoreBtnClick, isAddMoreBtnClick) ||
+                other.isAddMoreBtnClick == isAddMoreBtnClick));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isAddMoreBtnClick);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$EquipmentDocSubmitImplCopyWith<_$EquipmentDocSubmitImpl> get copyWith =>
+      __$$EquipmentDocSubmitImplCopyWithImpl<_$EquipmentDocSubmitImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String equipmentName) equipmentNameChanegd,
+    required TResult Function(String equipmentDoc) selectEquipmentDoc,
+    required TResult Function(String equipmentDoc) deleteEquipmentDoc,
+    required TResult Function() addMoreEquipmentDoc,
+    required TResult Function(int index) deleteEquipmentObject,
+    required TResult Function(bool isAddMoreBtnClick) equipmentDocSubmit,
+  }) {
+    return equipmentDocSubmit(isAddMoreBtnClick);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String equipmentName)? equipmentNameChanegd,
+    TResult? Function(String equipmentDoc)? selectEquipmentDoc,
+    TResult? Function(String equipmentDoc)? deleteEquipmentDoc,
+    TResult? Function()? addMoreEquipmentDoc,
+    TResult? Function(int index)? deleteEquipmentObject,
+    TResult? Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+  }) {
+    return equipmentDocSubmit?.call(isAddMoreBtnClick);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String equipmentName)? equipmentNameChanegd,
+    TResult Function(String equipmentDoc)? selectEquipmentDoc,
+    TResult Function(String equipmentDoc)? deleteEquipmentDoc,
+    TResult Function()? addMoreEquipmentDoc,
+    TResult Function(int index)? deleteEquipmentObject,
+    TResult Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (equipmentDocSubmit != null) {
+      return equipmentDocSubmit(isAddMoreBtnClick);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_EquipmentNameChanegd value) equipmentNameChanegd,
+    required TResult Function(_SelectEquipmentDoc value) selectEquipmentDoc,
+    required TResult Function(_DeleteEquipmentDoc value) deleteEquipmentDoc,
+    required TResult Function(_AddMoreEquipmentDoc value) addMoreEquipmentDoc,
+    required TResult Function(_DeleteEquipmentObject value)
+        deleteEquipmentObject,
+    required TResult Function(_EquipmentDocSubmit value) equipmentDocSubmit,
+  }) {
+    return equipmentDocSubmit(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_EquipmentNameChanegd value)? equipmentNameChanegd,
+    TResult? Function(_SelectEquipmentDoc value)? selectEquipmentDoc,
+    TResult? Function(_DeleteEquipmentDoc value)? deleteEquipmentDoc,
+    TResult? Function(_AddMoreEquipmentDoc value)? addMoreEquipmentDoc,
+    TResult? Function(_DeleteEquipmentObject value)? deleteEquipmentObject,
+    TResult? Function(_EquipmentDocSubmit value)? equipmentDocSubmit,
+  }) {
+    return equipmentDocSubmit?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_EquipmentNameChanegd value)? equipmentNameChanegd,
+    TResult Function(_SelectEquipmentDoc value)? selectEquipmentDoc,
+    TResult Function(_DeleteEquipmentDoc value)? deleteEquipmentDoc,
+    TResult Function(_AddMoreEquipmentDoc value)? addMoreEquipmentDoc,
+    TResult Function(_DeleteEquipmentObject value)? deleteEquipmentObject,
+    TResult Function(_EquipmentDocSubmit value)? equipmentDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (equipmentDocSubmit != null) {
+      return equipmentDocSubmit(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _EquipmentDocSubmit implements EquipmentEvent {
+  const factory _EquipmentDocSubmit({required final bool isAddMoreBtnClick}) =
+      _$EquipmentDocSubmitImpl;
+
+  bool get isAddMoreBtnClick;
+  @JsonKey(ignore: true)
+  _$$EquipmentDocSubmitImplCopyWith<_$EquipmentDocSubmitImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$DocumentState {
   int get currentPage => throw _privateConstructorUsedError;
 
@@ -1601,5 +8303,1614 @@ abstract class _DocumentState implements DocumentState {
   @override
   @JsonKey(ignore: true)
   _$$DocumentStateImplCopyWith<_$DocumentStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$CredentialState {
+  /// FOR CREDENTIALS-REGISTRATION DOCUMENT
+  List<CredentialRegistrationDTO> get credentialRegistrationList =>
+      throw _privateConstructorUsedError;
+  String get registrationNumber =>
+      throw _privateConstructorUsedError; // required InputEmptyOrNot provinceRegistration,
+  InputEmptyOrNot get documentTitle => throw _privateConstructorUsedError;
+  InputEmptyOrNot get credentialRegistrationDoc =>
+      throw _privateConstructorUsedError;
+  InputEmptyOrNot get selectedProvinceRegistration =>
+      throw _privateConstructorUsedError;
+  bool get showCredintialErrorMessages => throw _privateConstructorUsedError;
+  bool get isCredintialDocSubmitting => throw _privateConstructorUsedError;
+  Option<Either<AuthFailure, String>>
+      get credintialDocAuthFailureOrSuccessOption =>
+          throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $CredentialStateCopyWith<CredentialState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CredentialStateCopyWith<$Res> {
+  factory $CredentialStateCopyWith(
+          CredentialState value, $Res Function(CredentialState) then) =
+      _$CredentialStateCopyWithImpl<$Res, CredentialState>;
+  @useResult
+  $Res call(
+      {List<CredentialRegistrationDTO> credentialRegistrationList,
+      String registrationNumber,
+      InputEmptyOrNot documentTitle,
+      InputEmptyOrNot credentialRegistrationDoc,
+      InputEmptyOrNot selectedProvinceRegistration,
+      bool showCredintialErrorMessages,
+      bool isCredintialDocSubmitting,
+      Option<Either<AuthFailure, String>>
+          credintialDocAuthFailureOrSuccessOption});
+}
+
+/// @nodoc
+class _$CredentialStateCopyWithImpl<$Res, $Val extends CredentialState>
+    implements $CredentialStateCopyWith<$Res> {
+  _$CredentialStateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? credentialRegistrationList = null,
+    Object? registrationNumber = null,
+    Object? documentTitle = null,
+    Object? credentialRegistrationDoc = null,
+    Object? selectedProvinceRegistration = null,
+    Object? showCredintialErrorMessages = null,
+    Object? isCredintialDocSubmitting = null,
+    Object? credintialDocAuthFailureOrSuccessOption = null,
+  }) {
+    return _then(_value.copyWith(
+      credentialRegistrationList: null == credentialRegistrationList
+          ? _value.credentialRegistrationList
+          : credentialRegistrationList // ignore: cast_nullable_to_non_nullable
+              as List<CredentialRegistrationDTO>,
+      registrationNumber: null == registrationNumber
+          ? _value.registrationNumber
+          : registrationNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      documentTitle: null == documentTitle
+          ? _value.documentTitle
+          : documentTitle // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      credentialRegistrationDoc: null == credentialRegistrationDoc
+          ? _value.credentialRegistrationDoc
+          : credentialRegistrationDoc // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      selectedProvinceRegistration: null == selectedProvinceRegistration
+          ? _value.selectedProvinceRegistration
+          : selectedProvinceRegistration // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      showCredintialErrorMessages: null == showCredintialErrorMessages
+          ? _value.showCredintialErrorMessages
+          : showCredintialErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCredintialDocSubmitting: null == isCredintialDocSubmitting
+          ? _value.isCredintialDocSubmitting
+          : isCredintialDocSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      credintialDocAuthFailureOrSuccessOption: null ==
+              credintialDocAuthFailureOrSuccessOption
+          ? _value.credintialDocAuthFailureOrSuccessOption
+          : credintialDocAuthFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AuthFailure, String>>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$CredentialStateImplCopyWith<$Res>
+    implements $CredentialStateCopyWith<$Res> {
+  factory _$$CredentialStateImplCopyWith(_$CredentialStateImpl value,
+          $Res Function(_$CredentialStateImpl) then) =
+      __$$CredentialStateImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {List<CredentialRegistrationDTO> credentialRegistrationList,
+      String registrationNumber,
+      InputEmptyOrNot documentTitle,
+      InputEmptyOrNot credentialRegistrationDoc,
+      InputEmptyOrNot selectedProvinceRegistration,
+      bool showCredintialErrorMessages,
+      bool isCredintialDocSubmitting,
+      Option<Either<AuthFailure, String>>
+          credintialDocAuthFailureOrSuccessOption});
+}
+
+/// @nodoc
+class __$$CredentialStateImplCopyWithImpl<$Res>
+    extends _$CredentialStateCopyWithImpl<$Res, _$CredentialStateImpl>
+    implements _$$CredentialStateImplCopyWith<$Res> {
+  __$$CredentialStateImplCopyWithImpl(
+      _$CredentialStateImpl _value, $Res Function(_$CredentialStateImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? credentialRegistrationList = null,
+    Object? registrationNumber = null,
+    Object? documentTitle = null,
+    Object? credentialRegistrationDoc = null,
+    Object? selectedProvinceRegistration = null,
+    Object? showCredintialErrorMessages = null,
+    Object? isCredintialDocSubmitting = null,
+    Object? credintialDocAuthFailureOrSuccessOption = null,
+  }) {
+    return _then(_$CredentialStateImpl(
+      credentialRegistrationList: null == credentialRegistrationList
+          ? _value._credentialRegistrationList
+          : credentialRegistrationList // ignore: cast_nullable_to_non_nullable
+              as List<CredentialRegistrationDTO>,
+      registrationNumber: null == registrationNumber
+          ? _value.registrationNumber
+          : registrationNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      documentTitle: null == documentTitle
+          ? _value.documentTitle
+          : documentTitle // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      credentialRegistrationDoc: null == credentialRegistrationDoc
+          ? _value.credentialRegistrationDoc
+          : credentialRegistrationDoc // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      selectedProvinceRegistration: null == selectedProvinceRegistration
+          ? _value.selectedProvinceRegistration
+          : selectedProvinceRegistration // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      showCredintialErrorMessages: null == showCredintialErrorMessages
+          ? _value.showCredintialErrorMessages
+          : showCredintialErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isCredintialDocSubmitting: null == isCredintialDocSubmitting
+          ? _value.isCredintialDocSubmitting
+          : isCredintialDocSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      credintialDocAuthFailureOrSuccessOption: null ==
+              credintialDocAuthFailureOrSuccessOption
+          ? _value.credintialDocAuthFailureOrSuccessOption
+          : credintialDocAuthFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AuthFailure, String>>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$CredentialStateImpl implements _CredentialState {
+  const _$CredentialStateImpl(
+      {required final List<CredentialRegistrationDTO>
+          credentialRegistrationList,
+      required this.registrationNumber,
+      required this.documentTitle,
+      required this.credentialRegistrationDoc,
+      required this.selectedProvinceRegistration,
+      required this.showCredintialErrorMessages,
+      required this.isCredintialDocSubmitting,
+      required this.credintialDocAuthFailureOrSuccessOption})
+      : _credentialRegistrationList = credentialRegistrationList;
+
+  /// FOR CREDENTIALS-REGISTRATION DOCUMENT
+  final List<CredentialRegistrationDTO> _credentialRegistrationList;
+
+  /// FOR CREDENTIALS-REGISTRATION DOCUMENT
+  @override
+  List<CredentialRegistrationDTO> get credentialRegistrationList {
+    if (_credentialRegistrationList is EqualUnmodifiableListView)
+      return _credentialRegistrationList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_credentialRegistrationList);
+  }
+
+  @override
+  final String registrationNumber;
+// required InputEmptyOrNot provinceRegistration,
+  @override
+  final InputEmptyOrNot documentTitle;
+  @override
+  final InputEmptyOrNot credentialRegistrationDoc;
+  @override
+  final InputEmptyOrNot selectedProvinceRegistration;
+  @override
+  final bool showCredintialErrorMessages;
+  @override
+  final bool isCredintialDocSubmitting;
+  @override
+  final Option<Either<AuthFailure, String>>
+      credintialDocAuthFailureOrSuccessOption;
+
+  @override
+  String toString() {
+    return 'CredentialState(credentialRegistrationList: $credentialRegistrationList, registrationNumber: $registrationNumber, documentTitle: $documentTitle, credentialRegistrationDoc: $credentialRegistrationDoc, selectedProvinceRegistration: $selectedProvinceRegistration, showCredintialErrorMessages: $showCredintialErrorMessages, isCredintialDocSubmitting: $isCredintialDocSubmitting, credintialDocAuthFailureOrSuccessOption: $credintialDocAuthFailureOrSuccessOption)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CredentialStateImpl &&
+            const DeepCollectionEquality().equals(
+                other._credentialRegistrationList,
+                _credentialRegistrationList) &&
+            (identical(other.registrationNumber, registrationNumber) ||
+                other.registrationNumber == registrationNumber) &&
+            (identical(other.documentTitle, documentTitle) ||
+                other.documentTitle == documentTitle) &&
+            (identical(other.credentialRegistrationDoc,
+                    credentialRegistrationDoc) ||
+                other.credentialRegistrationDoc == credentialRegistrationDoc) &&
+            (identical(other.selectedProvinceRegistration,
+                    selectedProvinceRegistration) ||
+                other.selectedProvinceRegistration ==
+                    selectedProvinceRegistration) &&
+            (identical(other.showCredintialErrorMessages,
+                    showCredintialErrorMessages) ||
+                other.showCredintialErrorMessages ==
+                    showCredintialErrorMessages) &&
+            (identical(other.isCredintialDocSubmitting,
+                    isCredintialDocSubmitting) ||
+                other.isCredintialDocSubmitting == isCredintialDocSubmitting) &&
+            (identical(other.credintialDocAuthFailureOrSuccessOption,
+                    credintialDocAuthFailureOrSuccessOption) ||
+                other.credintialDocAuthFailureOrSuccessOption ==
+                    credintialDocAuthFailureOrSuccessOption));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_credentialRegistrationList),
+      registrationNumber,
+      documentTitle,
+      credentialRegistrationDoc,
+      selectedProvinceRegistration,
+      showCredintialErrorMessages,
+      isCredintialDocSubmitting,
+      credintialDocAuthFailureOrSuccessOption);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CredentialStateImplCopyWith<_$CredentialStateImpl> get copyWith =>
+      __$$CredentialStateImplCopyWithImpl<_$CredentialStateImpl>(
+          this, _$identity);
+}
+
+abstract class _CredentialState implements CredentialState {
+  const factory _CredentialState(
+      {required final List<CredentialRegistrationDTO>
+          credentialRegistrationList,
+      required final String registrationNumber,
+      required final InputEmptyOrNot documentTitle,
+      required final InputEmptyOrNot credentialRegistrationDoc,
+      required final InputEmptyOrNot selectedProvinceRegistration,
+      required final bool showCredintialErrorMessages,
+      required final bool isCredintialDocSubmitting,
+      required final Option<Either<AuthFailure, String>>
+          credintialDocAuthFailureOrSuccessOption}) = _$CredentialStateImpl;
+
+  @override
+
+  /// FOR CREDENTIALS-REGISTRATION DOCUMENT
+  List<CredentialRegistrationDTO> get credentialRegistrationList;
+  @override
+  String get registrationNumber;
+  @override // required InputEmptyOrNot provinceRegistration,
+  InputEmptyOrNot get documentTitle;
+  @override
+  InputEmptyOrNot get credentialRegistrationDoc;
+  @override
+  InputEmptyOrNot get selectedProvinceRegistration;
+  @override
+  bool get showCredintialErrorMessages;
+  @override
+  bool get isCredintialDocSubmitting;
+  @override
+  Option<Either<AuthFailure, String>>
+      get credintialDocAuthFailureOrSuccessOption;
+  @override
+  @JsonKey(ignore: true)
+  _$$CredentialStateImplCopyWith<_$CredentialStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$ProfessionalLicensesState {
+  /// FOR PROFESSIONAL LICENSES DOCUMENT
+  List<CredentialRegistrationDTO> get professionalLicensesList =>
+      throw _privateConstructorUsedError;
+  String get registrationNumber => throw _privateConstructorUsedError;
+  InputEmptyOrNot get documentTitle => throw _privateConstructorUsedError;
+  InputEmptyOrNot get professionalLicensesDoc =>
+      throw _privateConstructorUsedError;
+  InputEmptyOrNot get selectedProvinceRegistration =>
+      throw _privateConstructorUsedError;
+  bool get showLicensesErrorMessages => throw _privateConstructorUsedError;
+  bool get isLicensesDocSubmitting => throw _privateConstructorUsedError;
+  Option<Either<AuthFailure, String>>
+      get licensesDocAuthFailureOrSuccessOption =>
+          throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $ProfessionalLicensesStateCopyWith<ProfessionalLicensesState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ProfessionalLicensesStateCopyWith<$Res> {
+  factory $ProfessionalLicensesStateCopyWith(ProfessionalLicensesState value,
+          $Res Function(ProfessionalLicensesState) then) =
+      _$ProfessionalLicensesStateCopyWithImpl<$Res, ProfessionalLicensesState>;
+  @useResult
+  $Res call(
+      {List<CredentialRegistrationDTO> professionalLicensesList,
+      String registrationNumber,
+      InputEmptyOrNot documentTitle,
+      InputEmptyOrNot professionalLicensesDoc,
+      InputEmptyOrNot selectedProvinceRegistration,
+      bool showLicensesErrorMessages,
+      bool isLicensesDocSubmitting,
+      Option<Either<AuthFailure, String>>
+          licensesDocAuthFailureOrSuccessOption});
+}
+
+/// @nodoc
+class _$ProfessionalLicensesStateCopyWithImpl<$Res,
+        $Val extends ProfessionalLicensesState>
+    implements $ProfessionalLicensesStateCopyWith<$Res> {
+  _$ProfessionalLicensesStateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? professionalLicensesList = null,
+    Object? registrationNumber = null,
+    Object? documentTitle = null,
+    Object? professionalLicensesDoc = null,
+    Object? selectedProvinceRegistration = null,
+    Object? showLicensesErrorMessages = null,
+    Object? isLicensesDocSubmitting = null,
+    Object? licensesDocAuthFailureOrSuccessOption = null,
+  }) {
+    return _then(_value.copyWith(
+      professionalLicensesList: null == professionalLicensesList
+          ? _value.professionalLicensesList
+          : professionalLicensesList // ignore: cast_nullable_to_non_nullable
+              as List<CredentialRegistrationDTO>,
+      registrationNumber: null == registrationNumber
+          ? _value.registrationNumber
+          : registrationNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      documentTitle: null == documentTitle
+          ? _value.documentTitle
+          : documentTitle // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      professionalLicensesDoc: null == professionalLicensesDoc
+          ? _value.professionalLicensesDoc
+          : professionalLicensesDoc // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      selectedProvinceRegistration: null == selectedProvinceRegistration
+          ? _value.selectedProvinceRegistration
+          : selectedProvinceRegistration // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      showLicensesErrorMessages: null == showLicensesErrorMessages
+          ? _value.showLicensesErrorMessages
+          : showLicensesErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLicensesDocSubmitting: null == isLicensesDocSubmitting
+          ? _value.isLicensesDocSubmitting
+          : isLicensesDocSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      licensesDocAuthFailureOrSuccessOption: null ==
+              licensesDocAuthFailureOrSuccessOption
+          ? _value.licensesDocAuthFailureOrSuccessOption
+          : licensesDocAuthFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AuthFailure, String>>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ProfessionalLicensesStateImplCopyWith<$Res>
+    implements $ProfessionalLicensesStateCopyWith<$Res> {
+  factory _$$ProfessionalLicensesStateImplCopyWith(
+          _$ProfessionalLicensesStateImpl value,
+          $Res Function(_$ProfessionalLicensesStateImpl) then) =
+      __$$ProfessionalLicensesStateImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {List<CredentialRegistrationDTO> professionalLicensesList,
+      String registrationNumber,
+      InputEmptyOrNot documentTitle,
+      InputEmptyOrNot professionalLicensesDoc,
+      InputEmptyOrNot selectedProvinceRegistration,
+      bool showLicensesErrorMessages,
+      bool isLicensesDocSubmitting,
+      Option<Either<AuthFailure, String>>
+          licensesDocAuthFailureOrSuccessOption});
+}
+
+/// @nodoc
+class __$$ProfessionalLicensesStateImplCopyWithImpl<$Res>
+    extends _$ProfessionalLicensesStateCopyWithImpl<$Res,
+        _$ProfessionalLicensesStateImpl>
+    implements _$$ProfessionalLicensesStateImplCopyWith<$Res> {
+  __$$ProfessionalLicensesStateImplCopyWithImpl(
+      _$ProfessionalLicensesStateImpl _value,
+      $Res Function(_$ProfessionalLicensesStateImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? professionalLicensesList = null,
+    Object? registrationNumber = null,
+    Object? documentTitle = null,
+    Object? professionalLicensesDoc = null,
+    Object? selectedProvinceRegistration = null,
+    Object? showLicensesErrorMessages = null,
+    Object? isLicensesDocSubmitting = null,
+    Object? licensesDocAuthFailureOrSuccessOption = null,
+  }) {
+    return _then(_$ProfessionalLicensesStateImpl(
+      professionalLicensesList: null == professionalLicensesList
+          ? _value._professionalLicensesList
+          : professionalLicensesList // ignore: cast_nullable_to_non_nullable
+              as List<CredentialRegistrationDTO>,
+      registrationNumber: null == registrationNumber
+          ? _value.registrationNumber
+          : registrationNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      documentTitle: null == documentTitle
+          ? _value.documentTitle
+          : documentTitle // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      professionalLicensesDoc: null == professionalLicensesDoc
+          ? _value.professionalLicensesDoc
+          : professionalLicensesDoc // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      selectedProvinceRegistration: null == selectedProvinceRegistration
+          ? _value.selectedProvinceRegistration
+          : selectedProvinceRegistration // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      showLicensesErrorMessages: null == showLicensesErrorMessages
+          ? _value.showLicensesErrorMessages
+          : showLicensesErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLicensesDocSubmitting: null == isLicensesDocSubmitting
+          ? _value.isLicensesDocSubmitting
+          : isLicensesDocSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      licensesDocAuthFailureOrSuccessOption: null ==
+              licensesDocAuthFailureOrSuccessOption
+          ? _value.licensesDocAuthFailureOrSuccessOption
+          : licensesDocAuthFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AuthFailure, String>>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ProfessionalLicensesStateImpl implements _ProfessionalLicensesState {
+  const _$ProfessionalLicensesStateImpl(
+      {required final List<CredentialRegistrationDTO> professionalLicensesList,
+      required this.registrationNumber,
+      required this.documentTitle,
+      required this.professionalLicensesDoc,
+      required this.selectedProvinceRegistration,
+      required this.showLicensesErrorMessages,
+      required this.isLicensesDocSubmitting,
+      required this.licensesDocAuthFailureOrSuccessOption})
+      : _professionalLicensesList = professionalLicensesList;
+
+  /// FOR PROFESSIONAL LICENSES DOCUMENT
+  final List<CredentialRegistrationDTO> _professionalLicensesList;
+
+  /// FOR PROFESSIONAL LICENSES DOCUMENT
+  @override
+  List<CredentialRegistrationDTO> get professionalLicensesList {
+    if (_professionalLicensesList is EqualUnmodifiableListView)
+      return _professionalLicensesList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_professionalLicensesList);
+  }
+
+  @override
+  final String registrationNumber;
+  @override
+  final InputEmptyOrNot documentTitle;
+  @override
+  final InputEmptyOrNot professionalLicensesDoc;
+  @override
+  final InputEmptyOrNot selectedProvinceRegistration;
+  @override
+  final bool showLicensesErrorMessages;
+  @override
+  final bool isLicensesDocSubmitting;
+  @override
+  final Option<Either<AuthFailure, String>>
+      licensesDocAuthFailureOrSuccessOption;
+
+  @override
+  String toString() {
+    return 'ProfessionalLicensesState(professionalLicensesList: $professionalLicensesList, registrationNumber: $registrationNumber, documentTitle: $documentTitle, professionalLicensesDoc: $professionalLicensesDoc, selectedProvinceRegistration: $selectedProvinceRegistration, showLicensesErrorMessages: $showLicensesErrorMessages, isLicensesDocSubmitting: $isLicensesDocSubmitting, licensesDocAuthFailureOrSuccessOption: $licensesDocAuthFailureOrSuccessOption)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ProfessionalLicensesStateImpl &&
+            const DeepCollectionEquality().equals(
+                other._professionalLicensesList, _professionalLicensesList) &&
+            (identical(other.registrationNumber, registrationNumber) ||
+                other.registrationNumber == registrationNumber) &&
+            (identical(other.documentTitle, documentTitle) ||
+                other.documentTitle == documentTitle) &&
+            (identical(
+                    other.professionalLicensesDoc, professionalLicensesDoc) ||
+                other.professionalLicensesDoc == professionalLicensesDoc) &&
+            (identical(other.selectedProvinceRegistration,
+                    selectedProvinceRegistration) ||
+                other.selectedProvinceRegistration ==
+                    selectedProvinceRegistration) &&
+            (identical(other.showLicensesErrorMessages,
+                    showLicensesErrorMessages) ||
+                other.showLicensesErrorMessages == showLicensesErrorMessages) &&
+            (identical(
+                    other.isLicensesDocSubmitting, isLicensesDocSubmitting) ||
+                other.isLicensesDocSubmitting == isLicensesDocSubmitting) &&
+            (identical(other.licensesDocAuthFailureOrSuccessOption,
+                    licensesDocAuthFailureOrSuccessOption) ||
+                other.licensesDocAuthFailureOrSuccessOption ==
+                    licensesDocAuthFailureOrSuccessOption));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_professionalLicensesList),
+      registrationNumber,
+      documentTitle,
+      professionalLicensesDoc,
+      selectedProvinceRegistration,
+      showLicensesErrorMessages,
+      isLicensesDocSubmitting,
+      licensesDocAuthFailureOrSuccessOption);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ProfessionalLicensesStateImplCopyWith<_$ProfessionalLicensesStateImpl>
+      get copyWith => __$$ProfessionalLicensesStateImplCopyWithImpl<
+          _$ProfessionalLicensesStateImpl>(this, _$identity);
+}
+
+abstract class _ProfessionalLicensesState implements ProfessionalLicensesState {
+  const factory _ProfessionalLicensesState(
+          {required final List<CredentialRegistrationDTO> professionalLicensesList,
+          required final String registrationNumber,
+          required final InputEmptyOrNot documentTitle,
+          required final InputEmptyOrNot professionalLicensesDoc,
+          required final InputEmptyOrNot selectedProvinceRegistration,
+          required final bool showLicensesErrorMessages,
+          required final bool isLicensesDocSubmitting,
+          required final Option<Either<AuthFailure, String>>
+              licensesDocAuthFailureOrSuccessOption}) =
+      _$ProfessionalLicensesStateImpl;
+
+  @override
+
+  /// FOR PROFESSIONAL LICENSES DOCUMENT
+  List<CredentialRegistrationDTO> get professionalLicensesList;
+  @override
+  String get registrationNumber;
+  @override
+  InputEmptyOrNot get documentTitle;
+  @override
+  InputEmptyOrNot get professionalLicensesDoc;
+  @override
+  InputEmptyOrNot get selectedProvinceRegistration;
+  @override
+  bool get showLicensesErrorMessages;
+  @override
+  bool get isLicensesDocSubmitting;
+  @override
+  Option<Either<AuthFailure, String>> get licensesDocAuthFailureOrSuccessOption;
+  @override
+  @JsonKey(ignore: true)
+  _$$ProfessionalLicensesStateImplCopyWith<_$ProfessionalLicensesStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$ImmunizationState {
+  /// FOR Immunizations-Vaccinations DOCUMENT
+  List<ImmunizationDTO> get immunizationList =>
+      throw _privateConstructorUsedError;
+  InputEmptyOrNot get immunizationName => throw _privateConstructorUsedError;
+  InputEmptyOrNot get immunizationDoc => throw _privateConstructorUsedError;
+  bool get showImmunizationErrorMessages => throw _privateConstructorUsedError;
+  bool get isImmunizationDocSubmitting => throw _privateConstructorUsedError;
+  Option<Either<AuthFailure, String>>
+      get immunizationDocAuthFailureOrSuccessOption =>
+          throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $ImmunizationStateCopyWith<ImmunizationState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ImmunizationStateCopyWith<$Res> {
+  factory $ImmunizationStateCopyWith(
+          ImmunizationState value, $Res Function(ImmunizationState) then) =
+      _$ImmunizationStateCopyWithImpl<$Res, ImmunizationState>;
+  @useResult
+  $Res call(
+      {List<ImmunizationDTO> immunizationList,
+      InputEmptyOrNot immunizationName,
+      InputEmptyOrNot immunizationDoc,
+      bool showImmunizationErrorMessages,
+      bool isImmunizationDocSubmitting,
+      Option<Either<AuthFailure, String>>
+          immunizationDocAuthFailureOrSuccessOption});
+}
+
+/// @nodoc
+class _$ImmunizationStateCopyWithImpl<$Res, $Val extends ImmunizationState>
+    implements $ImmunizationStateCopyWith<$Res> {
+  _$ImmunizationStateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? immunizationList = null,
+    Object? immunizationName = null,
+    Object? immunizationDoc = null,
+    Object? showImmunizationErrorMessages = null,
+    Object? isImmunizationDocSubmitting = null,
+    Object? immunizationDocAuthFailureOrSuccessOption = null,
+  }) {
+    return _then(_value.copyWith(
+      immunizationList: null == immunizationList
+          ? _value.immunizationList
+          : immunizationList // ignore: cast_nullable_to_non_nullable
+              as List<ImmunizationDTO>,
+      immunizationName: null == immunizationName
+          ? _value.immunizationName
+          : immunizationName // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      immunizationDoc: null == immunizationDoc
+          ? _value.immunizationDoc
+          : immunizationDoc // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      showImmunizationErrorMessages: null == showImmunizationErrorMessages
+          ? _value.showImmunizationErrorMessages
+          : showImmunizationErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isImmunizationDocSubmitting: null == isImmunizationDocSubmitting
+          ? _value.isImmunizationDocSubmitting
+          : isImmunizationDocSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      immunizationDocAuthFailureOrSuccessOption: null ==
+              immunizationDocAuthFailureOrSuccessOption
+          ? _value.immunizationDocAuthFailureOrSuccessOption
+          : immunizationDocAuthFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AuthFailure, String>>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ImmunizationStateImplCopyWith<$Res>
+    implements $ImmunizationStateCopyWith<$Res> {
+  factory _$$ImmunizationStateImplCopyWith(_$ImmunizationStateImpl value,
+          $Res Function(_$ImmunizationStateImpl) then) =
+      __$$ImmunizationStateImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {List<ImmunizationDTO> immunizationList,
+      InputEmptyOrNot immunizationName,
+      InputEmptyOrNot immunizationDoc,
+      bool showImmunizationErrorMessages,
+      bool isImmunizationDocSubmitting,
+      Option<Either<AuthFailure, String>>
+          immunizationDocAuthFailureOrSuccessOption});
+}
+
+/// @nodoc
+class __$$ImmunizationStateImplCopyWithImpl<$Res>
+    extends _$ImmunizationStateCopyWithImpl<$Res, _$ImmunizationStateImpl>
+    implements _$$ImmunizationStateImplCopyWith<$Res> {
+  __$$ImmunizationStateImplCopyWithImpl(_$ImmunizationStateImpl _value,
+      $Res Function(_$ImmunizationStateImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? immunizationList = null,
+    Object? immunizationName = null,
+    Object? immunizationDoc = null,
+    Object? showImmunizationErrorMessages = null,
+    Object? isImmunizationDocSubmitting = null,
+    Object? immunizationDocAuthFailureOrSuccessOption = null,
+  }) {
+    return _then(_$ImmunizationStateImpl(
+      immunizationList: null == immunizationList
+          ? _value._immunizationList
+          : immunizationList // ignore: cast_nullable_to_non_nullable
+              as List<ImmunizationDTO>,
+      immunizationName: null == immunizationName
+          ? _value.immunizationName
+          : immunizationName // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      immunizationDoc: null == immunizationDoc
+          ? _value.immunizationDoc
+          : immunizationDoc // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      showImmunizationErrorMessages: null == showImmunizationErrorMessages
+          ? _value.showImmunizationErrorMessages
+          : showImmunizationErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isImmunizationDocSubmitting: null == isImmunizationDocSubmitting
+          ? _value.isImmunizationDocSubmitting
+          : isImmunizationDocSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      immunizationDocAuthFailureOrSuccessOption: null ==
+              immunizationDocAuthFailureOrSuccessOption
+          ? _value.immunizationDocAuthFailureOrSuccessOption
+          : immunizationDocAuthFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AuthFailure, String>>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ImmunizationStateImpl implements _ImmunizationState {
+  const _$ImmunizationStateImpl(
+      {required final List<ImmunizationDTO> immunizationList,
+      required this.immunizationName,
+      required this.immunizationDoc,
+      required this.showImmunizationErrorMessages,
+      required this.isImmunizationDocSubmitting,
+      required this.immunizationDocAuthFailureOrSuccessOption})
+      : _immunizationList = immunizationList;
+
+  /// FOR Immunizations-Vaccinations DOCUMENT
+  final List<ImmunizationDTO> _immunizationList;
+
+  /// FOR Immunizations-Vaccinations DOCUMENT
+  @override
+  List<ImmunizationDTO> get immunizationList {
+    if (_immunizationList is EqualUnmodifiableListView)
+      return _immunizationList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_immunizationList);
+  }
+
+  @override
+  final InputEmptyOrNot immunizationName;
+  @override
+  final InputEmptyOrNot immunizationDoc;
+  @override
+  final bool showImmunizationErrorMessages;
+  @override
+  final bool isImmunizationDocSubmitting;
+  @override
+  final Option<Either<AuthFailure, String>>
+      immunizationDocAuthFailureOrSuccessOption;
+
+  @override
+  String toString() {
+    return 'ImmunizationState(immunizationList: $immunizationList, immunizationName: $immunizationName, immunizationDoc: $immunizationDoc, showImmunizationErrorMessages: $showImmunizationErrorMessages, isImmunizationDocSubmitting: $isImmunizationDocSubmitting, immunizationDocAuthFailureOrSuccessOption: $immunizationDocAuthFailureOrSuccessOption)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ImmunizationStateImpl &&
+            const DeepCollectionEquality()
+                .equals(other._immunizationList, _immunizationList) &&
+            (identical(other.immunizationName, immunizationName) ||
+                other.immunizationName == immunizationName) &&
+            (identical(other.immunizationDoc, immunizationDoc) ||
+                other.immunizationDoc == immunizationDoc) &&
+            (identical(other.showImmunizationErrorMessages,
+                    showImmunizationErrorMessages) ||
+                other.showImmunizationErrorMessages ==
+                    showImmunizationErrorMessages) &&
+            (identical(other.isImmunizationDocSubmitting,
+                    isImmunizationDocSubmitting) ||
+                other.isImmunizationDocSubmitting ==
+                    isImmunizationDocSubmitting) &&
+            (identical(other.immunizationDocAuthFailureOrSuccessOption,
+                    immunizationDocAuthFailureOrSuccessOption) ||
+                other.immunizationDocAuthFailureOrSuccessOption ==
+                    immunizationDocAuthFailureOrSuccessOption));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_immunizationList),
+      immunizationName,
+      immunizationDoc,
+      showImmunizationErrorMessages,
+      isImmunizationDocSubmitting,
+      immunizationDocAuthFailureOrSuccessOption);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ImmunizationStateImplCopyWith<_$ImmunizationStateImpl> get copyWith =>
+      __$$ImmunizationStateImplCopyWithImpl<_$ImmunizationStateImpl>(
+          this, _$identity);
+}
+
+abstract class _ImmunizationState implements ImmunizationState {
+  const factory _ImmunizationState(
+      {required final List<ImmunizationDTO> immunizationList,
+      required final InputEmptyOrNot immunizationName,
+      required final InputEmptyOrNot immunizationDoc,
+      required final bool showImmunizationErrorMessages,
+      required final bool isImmunizationDocSubmitting,
+      required final Option<Either<AuthFailure, String>>
+          immunizationDocAuthFailureOrSuccessOption}) = _$ImmunizationStateImpl;
+
+  @override
+
+  /// FOR Immunizations-Vaccinations DOCUMENT
+  List<ImmunizationDTO> get immunizationList;
+  @override
+  InputEmptyOrNot get immunizationName;
+  @override
+  InputEmptyOrNot get immunizationDoc;
+  @override
+  bool get showImmunizationErrorMessages;
+  @override
+  bool get isImmunizationDocSubmitting;
+  @override
+  Option<Either<AuthFailure, String>>
+      get immunizationDocAuthFailureOrSuccessOption;
+  @override
+  @JsonKey(ignore: true)
+  _$$ImmunizationStateImplCopyWith<_$ImmunizationStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$ProfessionalLiabilityState {
+  /// FOR Professional Liability Protection DOCUMENT
+  List<ImmunizationDTO> get liabilityList => throw _privateConstructorUsedError;
+  InputEmptyOrNot get liabilityDoc => throw _privateConstructorUsedError;
+  bool get showLiabilityErrorMessages => throw _privateConstructorUsedError;
+  bool get isLiabilityDocSubmitting => throw _privateConstructorUsedError;
+  Option<Either<AuthFailure, String>>
+      get liabilityDocAuthFailureOrSuccessOption =>
+          throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $ProfessionalLiabilityStateCopyWith<ProfessionalLiabilityState>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ProfessionalLiabilityStateCopyWith<$Res> {
+  factory $ProfessionalLiabilityStateCopyWith(ProfessionalLiabilityState value,
+          $Res Function(ProfessionalLiabilityState) then) =
+      _$ProfessionalLiabilityStateCopyWithImpl<$Res,
+          ProfessionalLiabilityState>;
+  @useResult
+  $Res call(
+      {List<ImmunizationDTO> liabilityList,
+      InputEmptyOrNot liabilityDoc,
+      bool showLiabilityErrorMessages,
+      bool isLiabilityDocSubmitting,
+      Option<Either<AuthFailure, String>>
+          liabilityDocAuthFailureOrSuccessOption});
+}
+
+/// @nodoc
+class _$ProfessionalLiabilityStateCopyWithImpl<$Res,
+        $Val extends ProfessionalLiabilityState>
+    implements $ProfessionalLiabilityStateCopyWith<$Res> {
+  _$ProfessionalLiabilityStateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? liabilityList = null,
+    Object? liabilityDoc = null,
+    Object? showLiabilityErrorMessages = null,
+    Object? isLiabilityDocSubmitting = null,
+    Object? liabilityDocAuthFailureOrSuccessOption = null,
+  }) {
+    return _then(_value.copyWith(
+      liabilityList: null == liabilityList
+          ? _value.liabilityList
+          : liabilityList // ignore: cast_nullable_to_non_nullable
+              as List<ImmunizationDTO>,
+      liabilityDoc: null == liabilityDoc
+          ? _value.liabilityDoc
+          : liabilityDoc // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      showLiabilityErrorMessages: null == showLiabilityErrorMessages
+          ? _value.showLiabilityErrorMessages
+          : showLiabilityErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLiabilityDocSubmitting: null == isLiabilityDocSubmitting
+          ? _value.isLiabilityDocSubmitting
+          : isLiabilityDocSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      liabilityDocAuthFailureOrSuccessOption: null ==
+              liabilityDocAuthFailureOrSuccessOption
+          ? _value.liabilityDocAuthFailureOrSuccessOption
+          : liabilityDocAuthFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AuthFailure, String>>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ProfessionalLiabilityStateImplCopyWith<$Res>
+    implements $ProfessionalLiabilityStateCopyWith<$Res> {
+  factory _$$ProfessionalLiabilityStateImplCopyWith(
+          _$ProfessionalLiabilityStateImpl value,
+          $Res Function(_$ProfessionalLiabilityStateImpl) then) =
+      __$$ProfessionalLiabilityStateImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {List<ImmunizationDTO> liabilityList,
+      InputEmptyOrNot liabilityDoc,
+      bool showLiabilityErrorMessages,
+      bool isLiabilityDocSubmitting,
+      Option<Either<AuthFailure, String>>
+          liabilityDocAuthFailureOrSuccessOption});
+}
+
+/// @nodoc
+class __$$ProfessionalLiabilityStateImplCopyWithImpl<$Res>
+    extends _$ProfessionalLiabilityStateCopyWithImpl<$Res,
+        _$ProfessionalLiabilityStateImpl>
+    implements _$$ProfessionalLiabilityStateImplCopyWith<$Res> {
+  __$$ProfessionalLiabilityStateImplCopyWithImpl(
+      _$ProfessionalLiabilityStateImpl _value,
+      $Res Function(_$ProfessionalLiabilityStateImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? liabilityList = null,
+    Object? liabilityDoc = null,
+    Object? showLiabilityErrorMessages = null,
+    Object? isLiabilityDocSubmitting = null,
+    Object? liabilityDocAuthFailureOrSuccessOption = null,
+  }) {
+    return _then(_$ProfessionalLiabilityStateImpl(
+      liabilityList: null == liabilityList
+          ? _value._liabilityList
+          : liabilityList // ignore: cast_nullable_to_non_nullable
+              as List<ImmunizationDTO>,
+      liabilityDoc: null == liabilityDoc
+          ? _value.liabilityDoc
+          : liabilityDoc // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      showLiabilityErrorMessages: null == showLiabilityErrorMessages
+          ? _value.showLiabilityErrorMessages
+          : showLiabilityErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLiabilityDocSubmitting: null == isLiabilityDocSubmitting
+          ? _value.isLiabilityDocSubmitting
+          : isLiabilityDocSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      liabilityDocAuthFailureOrSuccessOption: null ==
+              liabilityDocAuthFailureOrSuccessOption
+          ? _value.liabilityDocAuthFailureOrSuccessOption
+          : liabilityDocAuthFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AuthFailure, String>>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ProfessionalLiabilityStateImpl implements _ProfessionalLiabilityState {
+  const _$ProfessionalLiabilityStateImpl(
+      {required final List<ImmunizationDTO> liabilityList,
+      required this.liabilityDoc,
+      required this.showLiabilityErrorMessages,
+      required this.isLiabilityDocSubmitting,
+      required this.liabilityDocAuthFailureOrSuccessOption})
+      : _liabilityList = liabilityList;
+
+  /// FOR Professional Liability Protection DOCUMENT
+  final List<ImmunizationDTO> _liabilityList;
+
+  /// FOR Professional Liability Protection DOCUMENT
+  @override
+  List<ImmunizationDTO> get liabilityList {
+    if (_liabilityList is EqualUnmodifiableListView) return _liabilityList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_liabilityList);
+  }
+
+  @override
+  final InputEmptyOrNot liabilityDoc;
+  @override
+  final bool showLiabilityErrorMessages;
+  @override
+  final bool isLiabilityDocSubmitting;
+  @override
+  final Option<Either<AuthFailure, String>>
+      liabilityDocAuthFailureOrSuccessOption;
+
+  @override
+  String toString() {
+    return 'ProfessionalLiabilityState(liabilityList: $liabilityList, liabilityDoc: $liabilityDoc, showLiabilityErrorMessages: $showLiabilityErrorMessages, isLiabilityDocSubmitting: $isLiabilityDocSubmitting, liabilityDocAuthFailureOrSuccessOption: $liabilityDocAuthFailureOrSuccessOption)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ProfessionalLiabilityStateImpl &&
+            const DeepCollectionEquality()
+                .equals(other._liabilityList, _liabilityList) &&
+            (identical(other.liabilityDoc, liabilityDoc) ||
+                other.liabilityDoc == liabilityDoc) &&
+            (identical(other.showLiabilityErrorMessages,
+                    showLiabilityErrorMessages) ||
+                other.showLiabilityErrorMessages ==
+                    showLiabilityErrorMessages) &&
+            (identical(
+                    other.isLiabilityDocSubmitting, isLiabilityDocSubmitting) ||
+                other.isLiabilityDocSubmitting == isLiabilityDocSubmitting) &&
+            (identical(other.liabilityDocAuthFailureOrSuccessOption,
+                    liabilityDocAuthFailureOrSuccessOption) ||
+                other.liabilityDocAuthFailureOrSuccessOption ==
+                    liabilityDocAuthFailureOrSuccessOption));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_liabilityList),
+      liabilityDoc,
+      showLiabilityErrorMessages,
+      isLiabilityDocSubmitting,
+      liabilityDocAuthFailureOrSuccessOption);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ProfessionalLiabilityStateImplCopyWith<_$ProfessionalLiabilityStateImpl>
+      get copyWith => __$$ProfessionalLiabilityStateImplCopyWithImpl<
+          _$ProfessionalLiabilityStateImpl>(this, _$identity);
+}
+
+abstract class _ProfessionalLiabilityState
+    implements ProfessionalLiabilityState {
+  const factory _ProfessionalLiabilityState(
+          {required final List<ImmunizationDTO> liabilityList,
+          required final InputEmptyOrNot liabilityDoc,
+          required final bool showLiabilityErrorMessages,
+          required final bool isLiabilityDocSubmitting,
+          required final Option<Either<AuthFailure, String>>
+              liabilityDocAuthFailureOrSuccessOption}) =
+      _$ProfessionalLiabilityStateImpl;
+
+  @override
+
+  /// FOR Professional Liability Protection DOCUMENT
+  List<ImmunizationDTO> get liabilityList;
+  @override
+  InputEmptyOrNot get liabilityDoc;
+  @override
+  bool get showLiabilityErrorMessages;
+  @override
+  bool get isLiabilityDocSubmitting;
+  @override
+  Option<Either<AuthFailure, String>>
+      get liabilityDocAuthFailureOrSuccessOption;
+  @override
+  @JsonKey(ignore: true)
+  _$$ProfessionalLiabilityStateImplCopyWith<_$ProfessionalLiabilityStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$ResumeState {
+  /// FOR RESUME DOCUMENT
+  InputEmptyOrNot get resumeDoc => throw _privateConstructorUsedError;
+  bool get showResumeErrorMessages => throw _privateConstructorUsedError;
+  bool get isResumeDocSubmitting => throw _privateConstructorUsedError;
+  Option<Either<AuthFailure, String>> get resumeDocAuthFailureOrSuccessOption =>
+      throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $ResumeStateCopyWith<ResumeState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ResumeStateCopyWith<$Res> {
+  factory $ResumeStateCopyWith(
+          ResumeState value, $Res Function(ResumeState) then) =
+      _$ResumeStateCopyWithImpl<$Res, ResumeState>;
+  @useResult
+  $Res call(
+      {InputEmptyOrNot resumeDoc,
+      bool showResumeErrorMessages,
+      bool isResumeDocSubmitting,
+      Option<Either<AuthFailure, String>> resumeDocAuthFailureOrSuccessOption});
+}
+
+/// @nodoc
+class _$ResumeStateCopyWithImpl<$Res, $Val extends ResumeState>
+    implements $ResumeStateCopyWith<$Res> {
+  _$ResumeStateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? resumeDoc = null,
+    Object? showResumeErrorMessages = null,
+    Object? isResumeDocSubmitting = null,
+    Object? resumeDocAuthFailureOrSuccessOption = null,
+  }) {
+    return _then(_value.copyWith(
+      resumeDoc: null == resumeDoc
+          ? _value.resumeDoc
+          : resumeDoc // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      showResumeErrorMessages: null == showResumeErrorMessages
+          ? _value.showResumeErrorMessages
+          : showResumeErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isResumeDocSubmitting: null == isResumeDocSubmitting
+          ? _value.isResumeDocSubmitting
+          : isResumeDocSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      resumeDocAuthFailureOrSuccessOption: null ==
+              resumeDocAuthFailureOrSuccessOption
+          ? _value.resumeDocAuthFailureOrSuccessOption
+          : resumeDocAuthFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AuthFailure, String>>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ResumeStateImplCopyWith<$Res>
+    implements $ResumeStateCopyWith<$Res> {
+  factory _$$ResumeStateImplCopyWith(
+          _$ResumeStateImpl value, $Res Function(_$ResumeStateImpl) then) =
+      __$$ResumeStateImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {InputEmptyOrNot resumeDoc,
+      bool showResumeErrorMessages,
+      bool isResumeDocSubmitting,
+      Option<Either<AuthFailure, String>> resumeDocAuthFailureOrSuccessOption});
+}
+
+/// @nodoc
+class __$$ResumeStateImplCopyWithImpl<$Res>
+    extends _$ResumeStateCopyWithImpl<$Res, _$ResumeStateImpl>
+    implements _$$ResumeStateImplCopyWith<$Res> {
+  __$$ResumeStateImplCopyWithImpl(
+      _$ResumeStateImpl _value, $Res Function(_$ResumeStateImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? resumeDoc = null,
+    Object? showResumeErrorMessages = null,
+    Object? isResumeDocSubmitting = null,
+    Object? resumeDocAuthFailureOrSuccessOption = null,
+  }) {
+    return _then(_$ResumeStateImpl(
+      resumeDoc: null == resumeDoc
+          ? _value.resumeDoc
+          : resumeDoc // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      showResumeErrorMessages: null == showResumeErrorMessages
+          ? _value.showResumeErrorMessages
+          : showResumeErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isResumeDocSubmitting: null == isResumeDocSubmitting
+          ? _value.isResumeDocSubmitting
+          : isResumeDocSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      resumeDocAuthFailureOrSuccessOption: null ==
+              resumeDocAuthFailureOrSuccessOption
+          ? _value.resumeDocAuthFailureOrSuccessOption
+          : resumeDocAuthFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AuthFailure, String>>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ResumeStateImpl implements _ResumeState {
+  const _$ResumeStateImpl(
+      {required this.resumeDoc,
+      required this.showResumeErrorMessages,
+      required this.isResumeDocSubmitting,
+      required this.resumeDocAuthFailureOrSuccessOption});
+
+  /// FOR RESUME DOCUMENT
+  @override
+  final InputEmptyOrNot resumeDoc;
+  @override
+  final bool showResumeErrorMessages;
+  @override
+  final bool isResumeDocSubmitting;
+  @override
+  final Option<Either<AuthFailure, String>> resumeDocAuthFailureOrSuccessOption;
+
+  @override
+  String toString() {
+    return 'ResumeState(resumeDoc: $resumeDoc, showResumeErrorMessages: $showResumeErrorMessages, isResumeDocSubmitting: $isResumeDocSubmitting, resumeDocAuthFailureOrSuccessOption: $resumeDocAuthFailureOrSuccessOption)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ResumeStateImpl &&
+            (identical(other.resumeDoc, resumeDoc) ||
+                other.resumeDoc == resumeDoc) &&
+            (identical(
+                    other.showResumeErrorMessages, showResumeErrorMessages) ||
+                other.showResumeErrorMessages == showResumeErrorMessages) &&
+            (identical(other.isResumeDocSubmitting, isResumeDocSubmitting) ||
+                other.isResumeDocSubmitting == isResumeDocSubmitting) &&
+            (identical(other.resumeDocAuthFailureOrSuccessOption,
+                    resumeDocAuthFailureOrSuccessOption) ||
+                other.resumeDocAuthFailureOrSuccessOption ==
+                    resumeDocAuthFailureOrSuccessOption));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      resumeDoc,
+      showResumeErrorMessages,
+      isResumeDocSubmitting,
+      resumeDocAuthFailureOrSuccessOption);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ResumeStateImplCopyWith<_$ResumeStateImpl> get copyWith =>
+      __$$ResumeStateImplCopyWithImpl<_$ResumeStateImpl>(this, _$identity);
+}
+
+abstract class _ResumeState implements ResumeState {
+  const factory _ResumeState(
+      {required final InputEmptyOrNot resumeDoc,
+      required final bool showResumeErrorMessages,
+      required final bool isResumeDocSubmitting,
+      required final Option<Either<AuthFailure, String>>
+          resumeDocAuthFailureOrSuccessOption}) = _$ResumeStateImpl;
+
+  @override
+
+  /// FOR RESUME DOCUMENT
+  InputEmptyOrNot get resumeDoc;
+  @override
+  bool get showResumeErrorMessages;
+  @override
+  bool get isResumeDocSubmitting;
+  @override
+  Option<Either<AuthFailure, String>> get resumeDocAuthFailureOrSuccessOption;
+  @override
+  @JsonKey(ignore: true)
+  _$$ResumeStateImplCopyWith<_$ResumeStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$EquipmentState {
+  /// FOR Apparel/Equipment DOCUMENT
+  List<ImmunizationDTO> get equipmentList => throw _privateConstructorUsedError;
+  InputEmptyOrNot get equipmentName => throw _privateConstructorUsedError;
+  InputEmptyOrNot get equipmentDoc => throw _privateConstructorUsedError;
+  bool get showEquipmentErrorMessages => throw _privateConstructorUsedError;
+  bool get isEquipmentDocSubmitting => throw _privateConstructorUsedError;
+  Option<Either<AuthFailure, String>>
+      get equipmentDocAuthFailureOrSuccessOption =>
+          throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $EquipmentStateCopyWith<EquipmentState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $EquipmentStateCopyWith<$Res> {
+  factory $EquipmentStateCopyWith(
+          EquipmentState value, $Res Function(EquipmentState) then) =
+      _$EquipmentStateCopyWithImpl<$Res, EquipmentState>;
+  @useResult
+  $Res call(
+      {List<ImmunizationDTO> equipmentList,
+      InputEmptyOrNot equipmentName,
+      InputEmptyOrNot equipmentDoc,
+      bool showEquipmentErrorMessages,
+      bool isEquipmentDocSubmitting,
+      Option<Either<AuthFailure, String>>
+          equipmentDocAuthFailureOrSuccessOption});
+}
+
+/// @nodoc
+class _$EquipmentStateCopyWithImpl<$Res, $Val extends EquipmentState>
+    implements $EquipmentStateCopyWith<$Res> {
+  _$EquipmentStateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? equipmentList = null,
+    Object? equipmentName = null,
+    Object? equipmentDoc = null,
+    Object? showEquipmentErrorMessages = null,
+    Object? isEquipmentDocSubmitting = null,
+    Object? equipmentDocAuthFailureOrSuccessOption = null,
+  }) {
+    return _then(_value.copyWith(
+      equipmentList: null == equipmentList
+          ? _value.equipmentList
+          : equipmentList // ignore: cast_nullable_to_non_nullable
+              as List<ImmunizationDTO>,
+      equipmentName: null == equipmentName
+          ? _value.equipmentName
+          : equipmentName // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      equipmentDoc: null == equipmentDoc
+          ? _value.equipmentDoc
+          : equipmentDoc // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      showEquipmentErrorMessages: null == showEquipmentErrorMessages
+          ? _value.showEquipmentErrorMessages
+          : showEquipmentErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isEquipmentDocSubmitting: null == isEquipmentDocSubmitting
+          ? _value.isEquipmentDocSubmitting
+          : isEquipmentDocSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      equipmentDocAuthFailureOrSuccessOption: null ==
+              equipmentDocAuthFailureOrSuccessOption
+          ? _value.equipmentDocAuthFailureOrSuccessOption
+          : equipmentDocAuthFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AuthFailure, String>>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$EquipmentStateImplCopyWith<$Res>
+    implements $EquipmentStateCopyWith<$Res> {
+  factory _$$EquipmentStateImplCopyWith(_$EquipmentStateImpl value,
+          $Res Function(_$EquipmentStateImpl) then) =
+      __$$EquipmentStateImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {List<ImmunizationDTO> equipmentList,
+      InputEmptyOrNot equipmentName,
+      InputEmptyOrNot equipmentDoc,
+      bool showEquipmentErrorMessages,
+      bool isEquipmentDocSubmitting,
+      Option<Either<AuthFailure, String>>
+          equipmentDocAuthFailureOrSuccessOption});
+}
+
+/// @nodoc
+class __$$EquipmentStateImplCopyWithImpl<$Res>
+    extends _$EquipmentStateCopyWithImpl<$Res, _$EquipmentStateImpl>
+    implements _$$EquipmentStateImplCopyWith<$Res> {
+  __$$EquipmentStateImplCopyWithImpl(
+      _$EquipmentStateImpl _value, $Res Function(_$EquipmentStateImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? equipmentList = null,
+    Object? equipmentName = null,
+    Object? equipmentDoc = null,
+    Object? showEquipmentErrorMessages = null,
+    Object? isEquipmentDocSubmitting = null,
+    Object? equipmentDocAuthFailureOrSuccessOption = null,
+  }) {
+    return _then(_$EquipmentStateImpl(
+      equipmentList: null == equipmentList
+          ? _value._equipmentList
+          : equipmentList // ignore: cast_nullable_to_non_nullable
+              as List<ImmunizationDTO>,
+      equipmentName: null == equipmentName
+          ? _value.equipmentName
+          : equipmentName // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      equipmentDoc: null == equipmentDoc
+          ? _value.equipmentDoc
+          : equipmentDoc // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
+      showEquipmentErrorMessages: null == showEquipmentErrorMessages
+          ? _value.showEquipmentErrorMessages
+          : showEquipmentErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isEquipmentDocSubmitting: null == isEquipmentDocSubmitting
+          ? _value.isEquipmentDocSubmitting
+          : isEquipmentDocSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      equipmentDocAuthFailureOrSuccessOption: null ==
+              equipmentDocAuthFailureOrSuccessOption
+          ? _value.equipmentDocAuthFailureOrSuccessOption
+          : equipmentDocAuthFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AuthFailure, String>>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$EquipmentStateImpl implements _EquipmentState {
+  const _$EquipmentStateImpl(
+      {required final List<ImmunizationDTO> equipmentList,
+      required this.equipmentName,
+      required this.equipmentDoc,
+      required this.showEquipmentErrorMessages,
+      required this.isEquipmentDocSubmitting,
+      required this.equipmentDocAuthFailureOrSuccessOption})
+      : _equipmentList = equipmentList;
+
+  /// FOR Apparel/Equipment DOCUMENT
+  final List<ImmunizationDTO> _equipmentList;
+
+  /// FOR Apparel/Equipment DOCUMENT
+  @override
+  List<ImmunizationDTO> get equipmentList {
+    if (_equipmentList is EqualUnmodifiableListView) return _equipmentList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_equipmentList);
+  }
+
+  @override
+  final InputEmptyOrNot equipmentName;
+  @override
+  final InputEmptyOrNot equipmentDoc;
+  @override
+  final bool showEquipmentErrorMessages;
+  @override
+  final bool isEquipmentDocSubmitting;
+  @override
+  final Option<Either<AuthFailure, String>>
+      equipmentDocAuthFailureOrSuccessOption;
+
+  @override
+  String toString() {
+    return 'EquipmentState(equipmentList: $equipmentList, equipmentName: $equipmentName, equipmentDoc: $equipmentDoc, showEquipmentErrorMessages: $showEquipmentErrorMessages, isEquipmentDocSubmitting: $isEquipmentDocSubmitting, equipmentDocAuthFailureOrSuccessOption: $equipmentDocAuthFailureOrSuccessOption)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$EquipmentStateImpl &&
+            const DeepCollectionEquality()
+                .equals(other._equipmentList, _equipmentList) &&
+            (identical(other.equipmentName, equipmentName) ||
+                other.equipmentName == equipmentName) &&
+            (identical(other.equipmentDoc, equipmentDoc) ||
+                other.equipmentDoc == equipmentDoc) &&
+            (identical(other.showEquipmentErrorMessages,
+                    showEquipmentErrorMessages) ||
+                other.showEquipmentErrorMessages ==
+                    showEquipmentErrorMessages) &&
+            (identical(
+                    other.isEquipmentDocSubmitting, isEquipmentDocSubmitting) ||
+                other.isEquipmentDocSubmitting == isEquipmentDocSubmitting) &&
+            (identical(other.equipmentDocAuthFailureOrSuccessOption,
+                    equipmentDocAuthFailureOrSuccessOption) ||
+                other.equipmentDocAuthFailureOrSuccessOption ==
+                    equipmentDocAuthFailureOrSuccessOption));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_equipmentList),
+      equipmentName,
+      equipmentDoc,
+      showEquipmentErrorMessages,
+      isEquipmentDocSubmitting,
+      equipmentDocAuthFailureOrSuccessOption);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$EquipmentStateImplCopyWith<_$EquipmentStateImpl> get copyWith =>
+      __$$EquipmentStateImplCopyWithImpl<_$EquipmentStateImpl>(
+          this, _$identity);
+}
+
+abstract class _EquipmentState implements EquipmentState {
+  const factory _EquipmentState(
+      {required final List<ImmunizationDTO> equipmentList,
+      required final InputEmptyOrNot equipmentName,
+      required final InputEmptyOrNot equipmentDoc,
+      required final bool showEquipmentErrorMessages,
+      required final bool isEquipmentDocSubmitting,
+      required final Option<Either<AuthFailure, String>>
+          equipmentDocAuthFailureOrSuccessOption}) = _$EquipmentStateImpl;
+
+  @override
+
+  /// FOR Apparel/Equipment DOCUMENT
+  List<ImmunizationDTO> get equipmentList;
+  @override
+  InputEmptyOrNot get equipmentName;
+  @override
+  InputEmptyOrNot get equipmentDoc;
+  @override
+  bool get showEquipmentErrorMessages;
+  @override
+  bool get isEquipmentDocSubmitting;
+  @override
+  Option<Either<AuthFailure, String>>
+      get equipmentDocAuthFailureOrSuccessOption;
+  @override
+  @JsonKey(ignore: true)
+  _$$EquipmentStateImplCopyWith<_$EquipmentStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -3,6 +3,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 
@@ -10,6 +11,7 @@ part 'reference_event.dart';
 part 'reference_state.dart';
 part 'reference_bloc.freezed.dart';
 
+@injectable
 class ReferenceBloc extends Bloc<ReferenceEvent, ReferenceState> {
   ReferenceBloc() : super(ReferenceState.initial()) {
     on<ReferenceEvent>((event, emit) {
