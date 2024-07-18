@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/infrastructure/core/experience_model/experience_dto.dart';
 
@@ -12,6 +13,7 @@ part 'experience_event.dart';
 part 'experience_state.dart';
 part 'experience_bloc.freezed.dart';
 
+@Injectable()
 class ExperienceBloc extends Bloc<ExperienceEvent, ExperienceState> {
   ExperienceBloc() : super(ExperienceState.initial()) {
     on<ExperienceEvent>((event, emit) {

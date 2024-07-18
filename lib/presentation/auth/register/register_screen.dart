@@ -13,7 +13,7 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false,
+      // canPop: false,
       child: Scaffold(
         // backgroundColor: AppColors.scaffoldColor,
         body: GestureDetector(

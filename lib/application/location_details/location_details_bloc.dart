@@ -104,7 +104,12 @@ class LocationDetailsBloc
         continueBtnPressed: (e) {
           Either<AuthFailure, String>? failureOrSuccess;
           final isAddressValid = state.address.isValid();
-          final isFaciltyTypeValid = state.faciltyType.isValid();
+          bool isFaciltyTypeValid = state.faciltyType.isValid();
+
+          if (state.faciltyType.getValue()!.toLowerCase() == "other") {
+            isFaciltyTypeValid = state.otherFaciltyType.isValid();
+          }
+
           if (isAddressValid && isFaciltyTypeValid) {
             emit(
               state.copyWith(

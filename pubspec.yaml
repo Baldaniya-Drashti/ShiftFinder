@@ -46,7 +46,7 @@ dependencies:
   another_flushbar: ^1.12.30
   dartz: ^0.10.1
   keyboard_actions: ^4.2.0
-  flutter_svg: ^2.0.10+1
+  flutter_svg: ^2.0.9
   freezed_annotation: ^2.4.1
   path_provider: ^2.1.2
   hive: ^2.2.3
@@ -65,6 +65,9 @@ dependencies:
   file_picker: ^8.0.6
   flutter_html: ^3.0.0-alpha.3
   video_player: ^2.4.5
+  google_maps_webservice: ^0.0.19
+  flutter_google_places: ^0.3.0
+  http: ^0.13.1
   # datepicker_dropdown: ^0.1.4
   
 

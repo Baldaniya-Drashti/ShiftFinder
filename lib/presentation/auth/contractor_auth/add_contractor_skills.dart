@@ -11,6 +11,7 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -79,7 +80,10 @@ class AddContractorSkillsForm extends StatelessWidget {
                         ),
                       ).show(context);
                     },
-                    (r) {},
+                    (r) {
+                      context.router
+                          .push(const PageRouteInfo(EducationListScreen.name));
+                    },
                   ),
                 );
               },

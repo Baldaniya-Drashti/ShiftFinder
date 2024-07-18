@@ -19,6 +19,7 @@ import 'package:shift/presentation/core/widgets/dialogs/dialogs.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
+import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'locationDetailForm')
@@ -57,7 +58,7 @@ class LocationDetailForm extends StatelessWidget {
                     },
                     (r) {
                       context.router
-                          .replace(const PageRouteInfo(MainTabView.name));
+                          .push(const PageRouteInfo(AddCardDetailPage.name));
                     },
                   ),
                 );
@@ -75,71 +76,7 @@ class LocationDetailForm extends StatelessWidget {
                         children: [
                           locationAddressTextField(context, state),
                           paddingBetweenFields(),
-                          CustomDropdwonWithTextField(
-                            labelText: StringConstant.facilityType,
-                            fieldHintText: StringConstant.typeFacilityType,
-                            isLabelPadding: true,
-                            showPrefixIcon: true,
-                            showTextfield:
-                                state.faciltyTypeDDValue.toLowerCase() ==
-                                    "other",
-                            items: const [
-                              "TESTING 1",
-                              "Testing 2",
-                              "TESTING 3",
-                              "Testing 4",
-                              "OTHER"
-                            ].map((val) {
-                              return DropdownMenuItem(
-                                value: val,
-                                child: BaseText(
-                                  text: val,
-                                  fontSize: 14,
-                                  textColor: AppColors.black,
-                                ),
-                              );
-                            }).toList(),
-                            validator: (p0) => context
-                                .read<LocationDetailsBloc>()
-                                .state
-                                .faciltyType
-                                .value
-                                .fold(
-                                  (f) => f.maybeMap(
-                                    empty: (value) =>
-                                        StringConstant.pleaseEnterFacilityType,
-                                    orElse: () => null,
-                                  ),
-                                  (_) => null,
-                                ),
-                            onChanged: (value) {
-                              if (value != null) {
-                                context.read<LocationDetailsBloc>().add(
-                                      LocationDetailsEvent.facilityTypeChanged(
-                                          value),
-                                    );
-                              }
-                            },
-                            fieldOnChanged: (value) =>
-                                context.read<LocationDetailsBloc>().add(
-                                      LocationDetailsEvent.addOtherfaciltyType(
-                                          value),
-                                    ),
-                            fieldValidator: (p1, _) => context
-                                .read<LocationDetailsBloc>()
-                                .state
-                                .otherFaciltyType
-                                .value
-                                .fold(
-                                  (f) => f.maybeMap(
-                                    empty: (value) => StringConstant
-                                        .pleaseEnterOtherFacilityType,
-                                    orElse: () => null,
-                                  ),
-                                  (_) => null,
-                                ),
-                            hintText: StringConstant.selectFacilityType,
-                          ),
+                          facilityTypeField(context, state),
                           paddingBetweenFields(),
                           locationIdField(context, state),
                           paddingBetweenFields(),
@@ -200,6 +137,76 @@ class LocationDetailForm extends StatelessWidget {
   Widget paddingBetweenFields({double? height}) {
     return SizedBox(
       height: getSize(height ?? 15),
+    );
+  }
+
+  Widget facilityTypeField(
+    BuildContext context,
+    LocationDetailsState state,
+  ) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CustomDropdwonWithTextField(
+          labelText: StringConstant.facilityType,
+          fieldHintText: StringConstant.typeFacilityType,
+          isLabelPadding: true,
+          showPrefixIcon: true,
+          showTextfield: state.faciltyTypeDDValue.toLowerCase() == "other",
+          items: const [
+            "TESTING 1",
+            "Testing 2",
+            "TESTING 3",
+            "Testing 4",
+            "OTHER"
+          ].map((val) {
+            return DropdownMenuItem(
+              value: val,
+              child: BaseText(
+                text: val,
+                fontSize: 14,
+                textColor: AppColors.black,
+              ),
+            );
+          }).toList(),
+          validator: (p0) =>
+              context.read<LocationDetailsBloc>().state.faciltyType.value.fold(
+                    (f) => f.maybeMap(
+                      empty: (value) => StringConstant.pleaseEnterFacilityType,
+                      orElse: () => null,
+                    ),
+                    (_) => null,
+                  ),
+          onChanged: (value) {
+            if (value != null) {
+              context.read<LocationDetailsBloc>().add(
+                    LocationDetailsEvent.facilityTypeChanged(value),
+                  );
+            }
+          },
+          fieldOnChanged: (value) => context.read<LocationDetailsBloc>().add(
+                LocationDetailsEvent.addOtherfaciltyType(value),
+              ),
+          // fieldValidator: (p1, _) => context
+          //     .read<LocationDetailsBloc>()
+          //     .state
+          //     .otherFaciltyType
+          //     .value
+          //     .fold(
+          //       (f) => f.maybeMap(
+          //         empty: (value) => StringConstant.pleaseEnterOtherFacilityType,
+          //         orElse: () => null,
+          //       ),
+          //       (_) => null,
+          //     ),
+          hintText: StringConstant.selectFacilityType,
+        ),
+        if (state.faciltyType.getValue()!.toLowerCase() == "other" &&
+            (state.otherFaciltyType.getValue()!.isEmpty) &&
+            state.showErrorMessages)
+          commonErrorText(StringConstant.pleaseEnterOtherFacilityType),
+      ],
     );
   }
 

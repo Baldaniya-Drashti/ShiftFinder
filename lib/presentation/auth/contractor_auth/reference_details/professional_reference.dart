@@ -359,6 +359,7 @@ class ProfessionalReferenceWidget extends StatelessWidget {
       hintText: StringConstant.referrerPhoneNumber,
       keyboardType: TextInputType.phone,
       isLabelPadding: true,
+      maxLength: 10,
       errorMaxLines: 2,
       onChanged: (value) {
         context

@@ -11,11 +11,20 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 
 @RoutePage(name: 'splashPage')
 class SplashPage extends StatelessWidget {
+  Future<void> preloadImages(
+    BuildContext context,
+  ) async {
+    for (String path in PngImageConstants.allImages) {
+      await precacheImage(AssetImage(path), context);
+    }
+  }
+
   const SplashPage({super.key});
   @override
   Widget build(BuildContext context) {
     return BlocListener<SplashBloc, SplashState>(
       listener: (context, state) {
+        preloadImages(context);
         state.map(
             initial: (_) {},
             authenticated: (value) async {
@@ -29,9 +38,11 @@ class SplashPage extends StatelessWidget {
               await Future.delayed(
                 const Duration(seconds: 1),
                 () =>
-                    // context.router.replace(const PageRouteInfo(Onboarding1.name)),
+                    //
+                    // context.router
+                    //     .replace(const PageRouteInfo(Onboarding1.name)),
                     context.router
-                        .push(const PageRouteInfo(IntroVideoScreen.name)),
+                        .replace(const PageRouteInfo(LocationExample.name)),
               );
             });
       },

@@ -42,8 +42,11 @@ class StringConstant {
   static const String phoneNumber = "Phone Number";
   static const String verification = "Verification";
   static const String verifyYourPhoneNumber = "Verify Your Phone Number";
+  static const String verifyYourEmail = "Verify Your Email";
   static const String verificationDesc =
       "Please enter the verification code that sent to your phone number";
+  static const String emailVerificationDesc =
+      "Please enter the verification code that sent to your email.";
   static const String resendCode = "Resend Code";
   static const String code = "Code";
   static const String newPassword = "New Password";
@@ -201,6 +204,16 @@ class StringConstant {
       "Watch the video and then take the brief quiz to learn how to effectively use the";
   static const String introShiftFinder = " ShiftFinder ";
   static const String introApp = "app.";
+  static const String quiz = "Quiz";
+  static const String submitTheQuiz = "Submit The Quiz";
+  static const String addCard = "Add Card";
+  static const String cardDesc =
+      "Please upload your card details, Adding a card is mandatory to complete your profile.";
+  static const String cardHoldersName = "Card Holder’s Name";
+  static const String cardNumber = "Card Number";
+  static const String expDate = "Exp Date";
+  static const String cvv = "Cvv";
+  static const String addYourCard = "Add Your Card";
 
   ///
 
@@ -292,4 +305,13 @@ class StringConstant {
       "You must agree to the terms before proceeding.";
   static const String youMustAnswerAllTheQuestions =
       "You must answer all the questions.";
+  static const String pleaseCompleteAllQuestionOfQuiz =
+      "Please complete all question of quiz.";
+  static const String pleaseAddCardHolderName = "Please add card holder name.";
+  static const String pleaseAddCardNumber = "Please add card number.";
+  static const String cardNumberIsInValid = "Card number is invalid!";
+  static const String pleaseAddCvvNumber =
+      "Please add last 3 digit cvv number.";
+  static const String cvvNumberIsInValid = "Cvv number is invalid!";
+  static const String enterValidExpiryDate = "Enter valid expiry date.";
 }

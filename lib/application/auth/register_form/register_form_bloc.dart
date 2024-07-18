@@ -118,11 +118,14 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
               authFailureOrSuccessOption: none(),
             ),
           );
+          add(RegisterFormEvent.confirmPasswordChanged(
+              state.confirmPassword.getValue(), e.password));
         },
         confirmPasswordChanged: (e) {
           emit(
             state.copyWith(
-              confirmPassword: ConfirmPassword(e.confirmPassword, e.password),
+              confirmPassword:
+                  ConfirmPassword(e.confirmPassword, state.password.getValue()),
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -169,6 +172,10 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           final isNewPassValid = state.password.isValid();
           final isConfirmPassValid = state.confirmPassword.isValid();
           final isLocationAddressValid = state.locationAddress.isValid();
+
+          print("PASS NEW-->  ${isNewPassValid}  && ${state.password}");
+          print(
+              "PASS CONFIRM-->  ${isConfirmPassValid}  && ${state.confirmPassword}");
 
           if (getCurrentUser() == 0) {
             if (isPhoneNumberValid &&

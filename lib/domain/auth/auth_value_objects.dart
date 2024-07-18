@@ -130,9 +130,9 @@ class CardDate extends ValueObject<String?> {
   @override
   final Either<ValueFailure<String?>, String?> value;
 
-  factory CardDate(String value) {
+  factory CardDate(String input) {
     return CardDate._(
-      validateCardDate(value),
+      validateCardDate(input),
     );
   }
 
@@ -169,7 +169,7 @@ class ConfirmPassword extends ValueObject<String> {
 
   factory ConfirmPassword(String confirmPassword, String newPassword) {
     return ConfirmPassword._(
-      validateConfirmPassword(confirmPassword, newPassword),
+      validateConfirmPassword(confirmPassword.trim(), newPassword.trim()),
     );
   }
   const ConfirmPassword._(this.value);

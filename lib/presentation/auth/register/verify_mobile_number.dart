@@ -26,7 +26,7 @@ class VerifyPhoneNumber extends StatelessWidget {
 
   getVerifyPhoneNoBottomSheet(
     BuildContext context,
-    String phoneNo,
+    String emailOrPhone,
   ) {
     return showModalBottomSheet(
       context: context,
@@ -62,14 +62,14 @@ class VerifyPhoneNumber extends StatelessWidget {
                     ).show(context);
                   },
                   (r) {
-                    context.router.maybePop();
                     if (getCurrentUser() == 0) {
                       context.router
-                          .push(PageRouteInfo(HealthCarePostForm.name));
+                          .push(PageRouteInfo(AddContractorSkillsForm.name));
                     } else {
                       context.router
                           .push(PageRouteInfo(LocationDetailForm.name));
                     }
+                    context.router.maybePop();
                   },
                 ),
               );
@@ -79,7 +79,7 @@ class VerifyPhoneNumber extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(getSize(20), 0, getSize(20),
                     MediaQuery.of(context).viewInsets.bottom),
                 child: SafeArea(
-                  child: otpView(context, state, phoneNo),
+                  child: otpView(context, state, emailOrPhone),
                 ),
               );
             },
@@ -90,7 +90,7 @@ class VerifyPhoneNumber extends StatelessWidget {
   }
 
   Widget otpView(
-      BuildContext context, RegisterFormState state, String phoneNo) {
+      BuildContext context, RegisterFormState state, String emailOrPhone) {
     return Form(
       autovalidateMode: state.showOtpErrorMessages
           ? AutovalidateMode.always
@@ -108,7 +108,9 @@ class VerifyPhoneNumber extends StatelessWidget {
                 alignment: Alignment.center,
                 child: BaseText(
                   textAlign: TextAlign.center,
-                  text: StringConstant.verifyYourPhoneNumber,
+                  text: (getCurrentUser() == 0)
+                      ? StringConstant.verifyYourPhoneNumber
+                      : StringConstant.verifyYourEmail,
                   fontSize: getSize(20),
                   fontWeight: FontWeight.w600,
                 ),
@@ -133,7 +135,9 @@ class VerifyPhoneNumber extends StatelessWidget {
             child: BaseText(
               textAlign: TextAlign.center,
               maxLines: 2,
-              text: StringConstant.verificationDesc,
+              text: (getCurrentUser() == 0)
+                  ? StringConstant.verificationDesc
+                  : StringConstant.emailVerificationDesc,
               lineHeight: 1,
               fontSize: getSize(14),
               textColor: AppColors.black.withOpacity(0.6),
@@ -147,7 +151,7 @@ class VerifyPhoneNumber extends StatelessWidget {
             alignment: Alignment.center,
             child: BaseText(
               textAlign: TextAlign.center,
-              text: "+ $phoneNo",
+              text: (getCurrentUser() == 0) ? "+ $emailOrPhone" : emailOrPhone,
               fontSize: getSize(12),
               textColor: AppColors.black.withOpacity(0.7),
               fontWeight: FontWeight.w600,

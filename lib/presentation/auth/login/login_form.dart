@@ -81,10 +81,11 @@ class LoginForm extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.symmetric(vertical: getSize(33)),
                         child: createAccount(
-                          onRegisterTap: () {
+                          onRegisterTap: () async {
                             print("create an account clicked!");
-                            context.router
-                                .push(const PageRouteInfo(RegisterPage.name));
+
+                            context.router.replace(
+                                const PageRouteInfo(RegisterPage.name));
                           },
                           title: StringConstant.dontHaveAnAccount,
                           description: StringConstant.register,
@@ -121,7 +122,7 @@ class LoginForm extends StatelessWidget {
             style: TextStyle(
               fontSize: getFontSize(14),
               color: AppColors.primaryColor,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.w600,
             ),
             recognizer: TapGestureRecognizer()..onTap = onRegisterTap,
           ),

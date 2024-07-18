@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, prefer_const_constructors
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,9 @@ class ReferenceListScreen extends StatelessWidget {
         },
         title: StringConstant.reference,
         showSkipBtn: true,
-        onSkipped: () {},
+        onSkipped: () {
+          context.router.replace(PageRouteInfo(DocumentPageScreen.name));
+        },
       ),
       body: Center(
         child: Padding(
@@ -50,16 +52,18 @@ class ReferenceListScreen extends StatelessWidget {
                 ),
                 child: CommonButton(
                   onPressed: () {
-                    context.router
-                        .push(
-                            const PageRouteInfo(AddReferenceDetailScreen.name))
-                        .then((value) {
-                      if (value != null && value == true) {
-                        print("Please refresh the API");
+                    // context.router
+                    //     .push(
+                    //         const PageRouteInfo(AddReferenceDetailScreen.name))
+                    //     .then((value) {
+                    //   if (value != null && value == true) {
+                    //     print("Please refresh the API");
 
-                        /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
-                      }
-                    });
+                    //     /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
+                    //   }
+                    // });
+
+                    context.router.push(PageRouteInfo(DocumentPageScreen.name));
                   },
                   buttonText: StringConstant.addYourReference,
                 ),

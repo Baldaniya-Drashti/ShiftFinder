@@ -83,6 +83,7 @@ class AddContractorSkillFormBloc
                     (e.isOtherValue == true) ? "" : e.selectedValue,
                 authFailureOrSuccessOption: none(),
                 showSpecialityError: false,
+                showSpeExperienceError: true,
               ),
             );
           } else if ((state.requiredSpecialityChip.toLowerCase() == "other" &&
@@ -91,6 +92,7 @@ class AddContractorSkillFormBloc
             emit(
               state.copyWith(
                 showSpecialityError: true,
+                showSpeExperienceError: true,
                 authFailureOrSuccessOption: none(),
               ),
             );
@@ -102,6 +104,7 @@ class AddContractorSkillFormBloc
                 requiredSpecialityChip:
                     (e.isOtherValue == true) ? "" : e.selectedValue,
                 showSpecialityError: true,
+                showSpeExperienceError: true,
                 authFailureOrSuccessOption: none(),
               ),
             );
@@ -312,6 +315,7 @@ class AddContractorSkillFormBloc
               state.requiredSoftwareSkillChipList.isValid();
           final specialityListValid =
               state.requiredSpecialityChipList.isValid();
+
           print(
               "ROLE ALL !-------->  ${roleTypeListValid} ${state.showRoleTypeError}");
           print(

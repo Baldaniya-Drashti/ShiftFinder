@@ -36,7 +36,7 @@ Either<ValueFailure<String>, String> validateUsername(String input) {
 
 Either<ValueFailure<String>, String> validateMobileNumber(String input) {
   if (validateStringNotEmpty(input).isRight()) {
-    if (input.trim().length >= 10 && input.trim().length <= 15) {
+    if (input.trim().length == 10) {
       return right(input);
     } else {
       return left(ValueFailure.invalidMobileNumber(failedValue: input));
@@ -47,6 +47,8 @@ Either<ValueFailure<String>, String> validateMobileNumber(String input) {
 }
 
 Either<ValueFailure<String>, String> validateCardNumber(String input) {
+  print("INPUT OF CARD NUMBER--->  ${input}");
+
   if (validateStringNotEmpty(input).isRight()) {
     if (input.length > 12) {
       return right(input);
@@ -59,14 +61,19 @@ Either<ValueFailure<String>, String> validateCardNumber(String input) {
 }
 
 Either<ValueFailure<String>, String> validateCvv(String input) {
-  if (input.length < 3 || input.length > 4) {
-    return left(ValueFailure.invalidCvv(failedValue: input));
+  if (validateStringNotEmpty(input).isRight()) {
+    if (input.length < 3 || input.length > 4) {
+      return left(ValueFailure.invalidCvv(failedValue: input));
+    } else {
+      return right(input);
+    }
   } else {
-    return right(input);
+    return left(ValueFailure.empty(failedValue: input));
   }
 }
 
 Either<ValueFailure<String>, String> validateCardDate(String input) {
+  print("INPUT OF CARD DATE--->  ${input}");
   if (validateStringNotEmpty(input).isRight()) {
     int year;
     int month;
@@ -112,6 +119,8 @@ Either<ValueFailure<String>, String> validateConfirmPassword(
     return left(ValueFailure.empty(failedValue: confirmPassword));
   } else {
     if (confirmPassword.length >= 6) {
+      print("new Password:  ${newPassword}");
+      print("confirm Password:  ${confirmPassword}");
       if (confirmPassword != newPassword) {
         return left(
             ValueFailure.passwordsDontMatch(failedValue: confirmPassword));

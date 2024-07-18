@@ -176,6 +176,7 @@ class PersonalReferenceWidget extends StatelessWidget {
       keyboardType: TextInputType.phone,
       isLabelPadding: true,
       errorMaxLines: 2,
+      maxLength: 10,
       onChanged: (value) {
         context
             .read<ReferenceBloc>()

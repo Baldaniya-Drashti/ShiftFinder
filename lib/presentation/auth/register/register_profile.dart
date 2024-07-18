@@ -69,8 +69,11 @@ class RegisterProfileScreen extends StatelessWidget {
                   },
                   (r) {
                     const VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
-                        context,
-                        "${state.selectedCountrycode} ${state.enteredPhoneNo}");
+                      context,
+                      (getCurrentUser() == 0)
+                          ? "${state.selectedCountrycode} ${state.enteredPhoneNo}"
+                          : state.email.getValue(),
+                    );
                   },
                 ),
               );
@@ -115,6 +118,9 @@ class RegisterProfileScreen extends StatelessWidget {
                           padding: EdgeInsets.symmetric(vertical: getSize(50)),
                           child: CommonButton(
                             onPressed: () {
+                              print("new Password:  ${state.password}");
+                              print(
+                                  "confirm Password:  ${state.confirmPassword}");
                               context.read<RegisterFormBloc>().add(
                                   const RegisterFormEvent
                                       .registerProfileBtnPressed());
@@ -299,6 +305,7 @@ class RegisterProfileScreen extends StatelessWidget {
       hintText: StringConstant.phoneNumber,
       keyboardType: TextInputType.phone,
       isLabelPadding: true,
+      maxLength: 10,
       errorMaxLines: 2,
       onChanged: (value) => context.read<RegisterFormBloc>().add(
             RegisterFormEvent.phoneNumberChanged(value),

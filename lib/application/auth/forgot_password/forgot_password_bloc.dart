@@ -178,12 +178,14 @@ class ForgotPasswordBloc
               authFailureOrSuccessOption: none(),
             ),
           );
+          add(ForgotPasswordEvent.confirmPasswordChanged(
+              state.confirmPassword.getValue(), e.newPassword));
         },
         confirmPasswordChanged: (e) {
           emit(
             state.copyWith(
-              confirmPassword:
-                  ConfirmPassword(e.confirmPassword, e.newPassword),
+              confirmPassword: ConfirmPassword(
+                  e.confirmPassword, state.newPassword.getValue()),
               authFailureOrSuccessOption: none(),
             ),
           );

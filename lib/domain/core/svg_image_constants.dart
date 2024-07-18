@@ -54,4 +54,9 @@ class SvgImageConstant {
   static const upload = "assets/svg/upload.svg";
   static const minusCircle = "assets/svg/minus_circle.svg";
   static const verticalLine = "assets/svg/vertical_line.svg";
+  static const pause = "assets/svg/pause.svg";
+  static const play = "assets/svg/play.svg";
+  static const card = "assets/svg/card.svg";
+  static const icCard = "assets/svg/ic_card.svg";
+  static const expDateCalendar = "assets/svg/exp_date_calendar.svg";
 }

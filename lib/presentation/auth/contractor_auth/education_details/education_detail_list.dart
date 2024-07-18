@@ -32,7 +32,12 @@ class EducationListScreen extends StatelessWidget {
           },
           title: StringConstant.education,
           showSkipBtn: !isNext,
-          onSkipped: isNext ? () {} : null,
+          onSkipped: !isNext
+              ? () {
+                  context.router
+                      .replace(PageRouteInfo(AddExperienceDetailScreen.name));
+                }
+              : null,
         ),
         body: BlocConsumer<EducationDetailBloc, EducationDetailState>(
           listener: (context, state) {},

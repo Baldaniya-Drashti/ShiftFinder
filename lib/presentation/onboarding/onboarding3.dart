@@ -111,6 +111,7 @@ class OnBoarding3 extends StatelessWidget {
                 ),
                 CircleAvatar(
                   backgroundColor: AppColors.primaryColor,
+                  maxRadius: getSize(20),
                   child: SvgPicture.asset(
                     SvgImageConstant.forward,
                     color: AppColors.white,

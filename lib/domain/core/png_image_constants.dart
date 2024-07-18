@@ -9,7 +9,6 @@ class PngImageConstants {
   static const back_button = "assets/png/back_button.png";
   static const login_frame = "assets/png/login_frame.png";
   static const onboarding1 = "assets/png/onboarding1.png";
-  static const eye = "assets/png/eye.png";
   static const homeAppBarLogo = "assets/png/home_appbar_logo.png";
   static const register_frame = "assets/png/register_frame.png";
   static const patient = "assets/png/patient.png";
@@ -27,4 +26,31 @@ class PngImageConstants {
   static const add_experience_desc = "assets/png/add_experience_desc.png";
   static const document_img = "assets/png/document_img.png";
   static const upload = "assets/png/upload.png";
+  static const intro__video_image = "assets/png/intro__video_image.png";
+
+  static const List<String> allImages = [
+    iroid_logo,
+    splash_background,
+    splash_logo,
+    welcome_text,
+    back_button,
+    login_frame,
+    onboarding1,
+    homeAppBarLogo,
+    register_frame,
+    patient,
+    doctors,
+    onboarding3,
+    healthcare_post_employer,
+    healthcare_post_contractor,
+    floating_background,
+    onboarding2_contractor,
+    onboarding2_employer,
+    profile_employer,
+    contractor_employer,
+    add_experience_desc,
+    document_img,
+    upload,
+    intro__video_image,
+  ];
 }
