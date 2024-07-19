@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:dartz/dartz.dart';
@@ -6,9 +8,22 @@ abstract class IAuthFacade {
   Future<Either<AuthFailure, String>> register({
     required Username firstName,
     required Username lastName,
-    required String emailAddress,
+    required int check_terms_privacy,
+    required String profileImage,
+    required InputEmptyOrNot companyName,
     required String countryCode,
-    required MobileNumber mobileNumber,
+    required MobileNumber phoneNumber,
+    required EmailAddress email,
+    required Password password,
+    required ConfirmPassword confirmPassword,
+
+    /// if current user is employer
+    required String? association,
+    required String? companyDescription,
+
+    /// if current user is contractor
+    required String? referralCode,
+    required String? locationAddress,
   });
 
   Future<Either<AuthFailure, String>> login({

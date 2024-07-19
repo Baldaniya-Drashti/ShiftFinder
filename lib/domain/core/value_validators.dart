@@ -105,7 +105,7 @@ Either<ValueFailure<String>, String> validatePassword(String input) {
   if (input.isEmpty) {
     return left(ValueFailure.empty(failedValue: input));
   } else {
-    if (input.length >= 6) {
+    if (input.length >= 8) {
       return right(input);
     } else {
       return left(ValueFailure.shortPassword(failedValue: input));
@@ -118,7 +118,7 @@ Either<ValueFailure<String>, String> validateConfirmPassword(
   if (confirmPassword.isEmpty) {
     return left(ValueFailure.empty(failedValue: confirmPassword));
   } else {
-    if (confirmPassword.length >= 6) {
+    if (confirmPassword.length >= 8) {
       print("new Password:  ${newPassword}");
       print("confirm Password:  ${confirmPassword}");
       if (confirmPassword != newPassword) {

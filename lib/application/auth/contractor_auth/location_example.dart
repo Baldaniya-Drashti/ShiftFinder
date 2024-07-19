@@ -83,32 +83,32 @@ class LocationExample extends StatefulWidget {
 class _LocationExampleState extends State<LocationExample> {
   final homeScaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController _controller = TextEditingController();
-  late GoogleMapsPlaces _places;
+  // late GoogleMapsPlaces _places;
 
   @override
   void initState() {
     super.initState();
-    _places =
-        GoogleMapsPlaces(apiKey: "YOUR_API_KEY"); // Replace with your API key
+    // _places =
+    //     GoogleMapsPlaces(apiKey: "YOUR_API_KEY"); // Replace with your API key
   }
 
-  Future<void> _handlePressButton() async {
-    Prediction? p = await PlacesAutocomplete.show(
-      context: context,
-      apiKey: "YOUR_API_KEY",
-      onError: onError,
-      mode: Mode.overlay,
-      language: "en",
-      components: [Component(Component.country, "us")],
-    );
+  // Future<void> _handlePressButton() async {
+  //   Prediction? p = await PlacesAutocomplete.show(
+  //     context: context,
+  //     apiKey: "YOUR_API_KEY",
+  //     onError: onError,
+  //     mode: Mode.overlay,
+  //     language: "en",
+  //     components: [Component(Component.country, "us")],
+  //   );
 
-    if (p != null) {
-      PlacesDetailsResponse detail =
-          await _places.getDetailsByPlaceId(p.placeId!);
-      final place = detail.result.formattedAddress;
-      _controller.text = place!;
-    }
-  }
+  //   if (p != null) {
+  //     PlacesDetailsResponse detail =
+  //         await _places.getDetailsByPlaceId(p.placeId!);
+  //     final place = detail.result.formattedAddress;
+  //     _controller.text = place!;
+  //   }
+  // }
 
   void onError(PlacesAutocompleteResponse response) {
     // homeScaffoldKey.currentState?.showSnackBar(
@@ -154,7 +154,7 @@ class _LocationExampleState extends State<LocationExample> {
     return Scaffold(
       key: homeScaffoldKey,
       appBar: AppBar(
-        title: Text('Google Places Demo'),
+        title: const Text('Google Places Demo'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -181,15 +181,21 @@ class _LocationExampleState extends State<LocationExample> {
               },
             ),
             Container(
+              height: getSize(200),
               color: AppColors.white,
               child: ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: _placeList.length,
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: BaseText(text: _placeList[index]["description"]),
+                  return ListTile(
+                    titleAlignment: ListTileTitleAlignment.top,
+                    dense: true,
+                    leading: SvgPicture.asset(SvgImageConstant.locationIcon),
+                    title: BaseText(
+                      text: _placeList[index]["description"],
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
                   );
                 },
               ),

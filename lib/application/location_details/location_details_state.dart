@@ -4,6 +4,7 @@ part of 'location_details_bloc.dart';
 class LocationDetailsState with _$LocationDetailsState {
   const factory LocationDetailsState({
     required InputEmptyOrNot address,
+    required List<dynamic> searchLocationList,
     required InputEmptyOrNot faciltyType,
     required InputEmptyOrNot otherFaciltyType,
     required String locationId,
@@ -20,6 +21,7 @@ class LocationDetailsState with _$LocationDetailsState {
   }) = _LocationDetailsState;
   factory LocationDetailsState.initial() => LocationDetailsState(
         address: InputEmptyOrNot(""),
+        searchLocationList: [],
         faciltyType: InputEmptyOrNot(""),
         otherFaciltyType: InputEmptyOrNot(""),
         locationId: "",

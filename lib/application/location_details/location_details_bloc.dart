@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:shift/domain/auth/auth_value_objects.dart';
 part 'location_details_event.dart';
 part 'location_details_state.dart';
@@ -11,13 +15,51 @@ part 'location_details_bloc.freezed.dart';
 @injectable
 class LocationDetailsBloc
     extends Bloc<LocationDetailsEvent, LocationDetailsState> {
+  /// TO GET GOOGLE PLACES
+  Future<String?> fetchUrl(String query, {Map<String, String>? headers}) async {
+    Uri uri = Uri.https(
+      "maps.googleapis.com",
+      'maps/api/place/autocomplete/json',
+      {
+        "input": query,
+        "key": "AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE",
+      },
+    );
+    try {
+      final response = await http.get(uri, headers: headers);
+      if (response.statusCode == 200) {
+        return response.body;
+      }
+    } catch (e) {
+      print("LOCATION CATCH ERROR: $e");
+    }
+    return null;
+  }
+
   LocationDetailsBloc() : super(LocationDetailsState.initial()) {
-    on<LocationDetailsEvent>((event, emit) {
-      event.map(
-        addressChanged: (e) {
+    on<LocationDetailsEvent>((event, emit) async {
+      await event.map(
+        addressChanged: (e) async {
+          /// To get google place with serched result
+          List<dynamic> placeList = [];
+          String? response = await fetchUrl(e.address);
+          if (response != null) {
+            print("API RESPONSE----> $response");
+            placeList = json.decode(response)['predictions'];
+          }
           emit(
             state.copyWith(
               address: InputEmptyOrNot(e.address),
+              searchLocationList: placeList,
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        locationSelectedFromSearchList: (e) {
+          emit(
+            state.copyWith(
+              address: InputEmptyOrNot(e.selectedLocation),
+              searchLocationList: [],
               authFailureOrSuccessOption: none(),
             ),
           );

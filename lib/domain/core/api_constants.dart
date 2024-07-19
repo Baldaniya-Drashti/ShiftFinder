@@ -7,7 +7,7 @@ class ApiConstants {
   static String contactSupport = 'contact/support';
 
   //auth
-  static String register = 'auth/register';
+  static String register = 'register';
   static String login = 'auth/login';
   static String sendOtp = 'auth/send-otp';
   static String verifyOtp = 'auth/verify-otp';

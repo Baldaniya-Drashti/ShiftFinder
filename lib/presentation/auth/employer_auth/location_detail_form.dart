@@ -26,6 +26,7 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 class LocationDetailForm extends StatelessWidget {
   LocationDetailForm({super.key});
 
+  TextEditingController addressController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -214,45 +215,80 @@ class LocationDetailForm extends StatelessWidget {
     BuildContext context,
     LocationDetailsState state,
   ) {
-    return CustomTextField(
-      labelText: StringConstant.locationAddress,
-      isLabelPadding: true,
-      hintText: StringConstant.locationAddress,
-      isOptional: true,
-      optionalWidget: GestureDetector(
-        onTap: () {
-          AppDialog.showInfo(context, StringConstant.mutltiplelocationInfoDesc);
-        },
-        child: SvgPicture.asset(
-          SvgImageConstant.infoCircle,
+    return Column(
+      children: [
+        CustomTextField(
+          labelText: StringConstant.locationAddress,
+          isLabelPadding: true,
+          hintText: StringConstant.locationAddress,
+          isOptional: true,
+          optionalWidget: GestureDetector(
+            onTap: () {
+              AppDialog.showInfo(
+                  context, StringConstant.mutltiplelocationInfoDesc);
+            },
+            child: SvgPicture.asset(
+              SvgImageConstant.infoCircle,
+            ),
+          ),
+          errorMaxLines: 2,
+          prefixIcon: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: getSize(14),
+              vertical: getSize(14),
+            ),
+            child: SvgPicture.asset(
+              SvgImageConstant.locationIcon,
+              height: getSize(24),
+              width: getSize(24),
+              color: AppColors.primaryColor,
+            ),
+          ),
+          controller: addressController..text = state.address.getValue() ?? "",
+          onChanged: (value) {
+            context
+                .read<LocationDetailsBloc>()
+                .add(LocationDetailsEvent.addressChanged(value));
+          },
+          validator: (p0, p1) =>
+              context.read<LocationDetailsBloc>().state.address.value.fold(
+                    (f) => f.maybeMap(
+                      empty: (value) => StringConstant.pleaseEnterAddress,
+                      orElse: () => null,
+                    ),
+                    (_) => null,
+                  ),
         ),
-      ),
-      errorMaxLines: 2,
-      prefixIcon: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: getSize(14),
-          vertical: getSize(14),
-        ),
-        child: SvgPicture.asset(
-          SvgImageConstant.locationIcon,
-          height: getSize(24),
-          width: getSize(24),
-          color: AppColors.primaryColor,
-        ),
-      ),
-      onChanged: (value) {
-        context
-            .read<LocationDetailsBloc>()
-            .add(LocationDetailsEvent.addressChanged(value));
-      },
-      validator: (p0, p1) =>
-          context.read<LocationDetailsBloc>().state.address.value.fold(
-                (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseEnterAddress,
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
+        if (state.searchLocationList.isNotEmpty)
+          Container(
+            height: getSize(200),
+            color: AppColors.white,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: state.searchLocationList.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  onTap: () {
+                    final selectedLocation =
+                        state.searchLocationList[index]["description"];
+
+                    context.read<LocationDetailsBloc>().add(
+                        LocationDetailsEvent.locationSelectedFromSearchList(
+                            selectedLocation));
+                  },
+                  dense: true,
+                  titleAlignment: ListTileTitleAlignment.top,
+                  leading: SvgPicture.asset(SvgImageConstant.locationIcon),
+                  title: BaseText(
+                    text: state.searchLocationList[index]["description"],
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                );
+              },
+            ),
+          ),
+      ],
     );
   }
 

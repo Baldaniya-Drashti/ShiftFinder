@@ -30,19 +30,19 @@ import 'package:shift/application/auth/contractor_auth/reference_bloc/reference_
     as _i12;
 import 'package:shift/application/auth/forgot_password/forgot_password_bloc.dart'
     as _i3;
-import 'package:shift/application/auth/login_form/login_form_bloc.dart' as _i14;
+import 'package:shift/application/auth/login_form/login_form_bloc.dart' as _i13;
 import 'package:shift/application/auth/register_form/register_form_bloc.dart'
-    as _i13;
+    as _i21;
 import 'package:shift/application/healthcare_post/healthcare_post_bloc.dart'
-    as _i16;
-import 'package:shift/application/location_details/location_details_bloc.dart'
     as _i15;
-import 'package:shift/application/main_tab/main_tab_bloc.dart' as _i20;
-import 'package:shift/application/splash/splash_bloc.dart' as _i21;
-import 'package:shift/domain/auth/i_auth_facade.dart' as _i18;
-import 'package:shift/infrastructure/auth/auth_facade.dart' as _i19;
+import 'package:shift/application/location_details/location_details_bloc.dart'
+    as _i14;
+import 'package:shift/application/main_tab/main_tab_bloc.dart' as _i19;
+import 'package:shift/application/splash/splash_bloc.dart' as _i20;
+import 'package:shift/domain/auth/i_auth_facade.dart' as _i17;
+import 'package:shift/infrastructure/auth/auth_facade.dart' as _i18;
 import 'package:shift/infrastructure/core/network/injectable_module.dart'
-    as _i17;
+    as _i16;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -66,16 +66,17 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i10.CardBloc>(() => _i10.CardBloc());
     gh.factory<_i11.EducationDetailBloc>(() => _i11.EducationDetailBloc());
     gh.factory<_i12.ReferenceBloc>(() => _i12.ReferenceBloc());
-    gh.factory<_i13.RegisterFormBloc>(() => _i13.RegisterFormBloc());
-    gh.factory<_i14.LoginFormBloc>(() => _i14.LoginFormBloc());
-    gh.factory<_i15.LocationDetailsBloc>(() => _i15.LocationDetailsBloc());
-    gh.factory<_i16.HealthcarePostBloc>(() => _i16.HealthcarePostBloc());
-    gh.lazySingleton<_i17.ApiService>(() => _i17.ApiService());
-    gh.lazySingleton<_i18.IAuthFacade>(
-        () => _i19.AuthFacade(gh<_i17.ApiService>()));
-    gh.factory<_i20.MainTabBloc>(
-        () => _i20.MainTabBloc(gh<_i18.IAuthFacade>()));
-    gh.factory<_i21.SplashBloc>(() => _i21.SplashBloc(gh<_i18.IAuthFacade>()));
+    gh.factory<_i13.LoginFormBloc>(() => _i13.LoginFormBloc());
+    gh.factory<_i14.LocationDetailsBloc>(() => _i14.LocationDetailsBloc());
+    gh.factory<_i15.HealthcarePostBloc>(() => _i15.HealthcarePostBloc());
+    gh.lazySingleton<_i16.ApiService>(() => _i16.ApiService());
+    gh.lazySingleton<_i17.IAuthFacade>(
+        () => _i18.AuthFacade(gh<_i16.ApiService>()));
+    gh.factory<_i19.MainTabBloc>(
+        () => _i19.MainTabBloc(gh<_i17.IAuthFacade>()));
+    gh.factory<_i20.SplashBloc>(() => _i20.SplashBloc(gh<_i17.IAuthFacade>()));
+    gh.factory<_i21.RegisterFormBloc>(
+        () => _i21.RegisterFormBloc(gh<_i17.IAuthFacade>()));
     return this;
   }
 }

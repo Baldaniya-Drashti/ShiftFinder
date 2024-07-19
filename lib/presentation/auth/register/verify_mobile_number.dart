@@ -62,7 +62,7 @@ class VerifyPhoneNumber extends StatelessWidget {
                     ).show(context);
                   },
                   (r) {
-                    if (getCurrentUser() == 0) {
+                    if (getCurrentRole() == 1) {
                       context.router
                           .push(PageRouteInfo(AddContractorSkillsForm.name));
                     } else {
@@ -108,7 +108,7 @@ class VerifyPhoneNumber extends StatelessWidget {
                 alignment: Alignment.center,
                 child: BaseText(
                   textAlign: TextAlign.center,
-                  text: (getCurrentUser() == 0)
+                  text: (getCurrentRole() == 1)
                       ? StringConstant.verifyYourPhoneNumber
                       : StringConstant.verifyYourEmail,
                   fontSize: getSize(20),
@@ -135,7 +135,7 @@ class VerifyPhoneNumber extends StatelessWidget {
             child: BaseText(
               textAlign: TextAlign.center,
               maxLines: 2,
-              text: (getCurrentUser() == 0)
+              text: (getCurrentRole() == 1)
                   ? StringConstant.verificationDesc
                   : StringConstant.emailVerificationDesc,
               lineHeight: 1,
@@ -151,7 +151,7 @@ class VerifyPhoneNumber extends StatelessWidget {
             alignment: Alignment.center,
             child: BaseText(
               textAlign: TextAlign.center,
-              text: (getCurrentUser() == 0) ? "+ $emailOrPhone" : emailOrPhone,
+              text: (getCurrentRole() == 1) ? "+ $emailOrPhone" : emailOrPhone,
               fontSize: getSize(12),
               textColor: AppColors.black.withOpacity(0.7),
               fontWeight: FontWeight.w600,

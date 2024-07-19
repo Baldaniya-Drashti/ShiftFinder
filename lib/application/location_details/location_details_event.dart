@@ -5,6 +5,9 @@ class LocationDetailsEvent with _$LocationDetailsEvent {
   const factory LocationDetailsEvent.addressChanged(String address) =
       AddressChanged;
 
+  const factory LocationDetailsEvent.locationSelectedFromSearchList(
+      String selectedLocation) = _LocationSelectedFromSearchList;
+
   const factory LocationDetailsEvent.locationIdChanged(String locationId) =
       LocationIdChanged;
 

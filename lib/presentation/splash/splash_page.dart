@@ -26,25 +26,32 @@ class SplashPage extends StatelessWidget {
       listener: (context, state) {
         preloadImages(context);
         state.map(
-            initial: (_) {},
-            authenticated: (value) async {
-              // await Future.delayed(
-              //   const Duration(seconds: 1),
-              //   () => context.router
-              //       .replace(const PageRouteInfo(MainTabView.name)),
-              // );
-            },
-            unAuthenticated: (value) async {
-              await Future.delayed(
-                const Duration(seconds: 1),
-                () =>
-                    //
-                    // context.router
-                    //     .replace(const PageRouteInfo(Onboarding1.name)),
-                    context.router
-                        .replace(const PageRouteInfo(LocationExample.name)),
-              );
-            });
+          initial: (_) {},
+          authenticated: (value) async {
+            // await Future.delayed(
+            //   const Duration(seconds: 1),
+            //   () => context.router
+            //       .replace(const PageRouteInfo(MainTabView.name)),
+            // );
+          },
+          unAuthenticated: (value) async {
+            await Future.delayed(
+              const Duration(seconds: 1),
+              () =>
+                  //
+                  context.router.replace(const PageRouteInfo(LoginPage.name)),
+              // context.router
+              //     .replace(const PageRouteInfo(LocationDetailForm.name)),
+            );
+          },
+          introScreenVisibilty: (IntroScreenVisibilty value) async {
+            await Future.delayed(
+              const Duration(seconds: 1),
+              () =>
+                  context.router.replace(const PageRouteInfo(Onboarding1.name)),
+            );
+          },
+        );
       },
       child: Scaffold(
         body: Column(

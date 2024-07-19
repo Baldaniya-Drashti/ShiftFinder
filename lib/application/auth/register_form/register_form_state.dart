@@ -3,8 +3,8 @@ part of 'register_form_bloc.dart';
 @freezed
 class RegisterFormState with _$RegisterFormState {
   const factory RegisterFormState({
-    required InputEmptyOrNot firstName,
-    required InputEmptyOrNot lastName,
+    required Username firstName,
+    required Username lastName,
     required FocusNode firstNameFocusNode,
     required bool isSubmitting,
     required bool isCheck,
@@ -20,6 +20,7 @@ class RegisterFormState with _$RegisterFormState {
     required String enteredPassword,
     required EmailAddress email,
     required InputEmptyOrNot locationAddress,
+    required List<dynamic> searchLocationList,
     required Password password,
     required ConfirmPassword confirmPassword,
     required String association,
@@ -42,8 +43,8 @@ class RegisterFormState with _$RegisterFormState {
 
   factory RegisterFormState.initial() => RegisterFormState(
         firstNameFocusNode: FocusNode(),
-        firstName: InputEmptyOrNot(""),
-        lastName: InputEmptyOrNot(""),
+        firstName: Username(""),
+        lastName: Username(""),
         isSubmitting: false,
         showErrorMessages: false,
         isCheck: false,
@@ -55,6 +56,7 @@ class RegisterFormState with _$RegisterFormState {
         phoneNumber: MobileNumber(""),
         email: EmailAddress(""),
         locationAddress: InputEmptyOrNot(""),
+        searchLocationList: [],
         password: Password(""),
         confirmPassword: ConfirmPassword("", ""),
         association: "",

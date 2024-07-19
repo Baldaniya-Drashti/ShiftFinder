@@ -15,8 +15,8 @@ class RegisterFormEvent with _$RegisterFormEvent {
 
   /// >>>>>>>>>>>>>>>>>>> FOR REGISTER PROFILE PAGE <<<<<<<<<<<<<<<<<<<<
 
-  const factory RegisterFormEvent.changeProfilePicture(String imagePath) =
-      ChangeProfilePicture;
+  const factory RegisterFormEvent.changeProfilePic(String imagePath) =
+      ChangeProfilePic;
 
   const factory RegisterFormEvent.companyNameChanged(String companyName) =
       CompanyNameChanged;
@@ -28,6 +28,9 @@ class RegisterFormEvent with _$RegisterFormEvent {
 
   const factory RegisterFormEvent.locationAddressChanged(String location) =
       LocationAddressChanged;
+
+  const factory RegisterFormEvent.locationSelectedFromSearchList(
+      String selectedLocation) = _LocationSelectedFromSearchList;
 
   const factory RegisterFormEvent.passwordChanged(String password) =
       PasswordChanged;
@@ -47,8 +50,11 @@ class RegisterFormEvent with _$RegisterFormEvent {
   const factory RegisterFormEvent.selectCountryCode(
       String phoneCode, String flag) = SelectCountryCode;
 
-  const factory RegisterFormEvent.registerProfileBtnPressed() =
-      RegisterProfileBtnPressed;
+  const factory RegisterFormEvent.registerProfileBtnPressed({
+    required String firstName,
+    required String lastName,
+    required int isCheckTerms,
+  }) = RegisterProfileBtnPressed;
 
   const factory RegisterFormEvent.obscureText(int field) = ObscureText;
 

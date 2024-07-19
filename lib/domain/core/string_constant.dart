@@ -257,8 +257,8 @@ class StringConstant {
   static const String otpShouldBe4Digit = "Otp should be 4 digit";
   static const String pleaseEnterNewPassword = "Please enter new password";
   static const String pleaseEnterPassword = "Please enter password";
-  static const String passwordShouldBeMinimum6Digit =
-      "Password should be minimum 6 digit";
+  static const String passwordShouldBeMinimum8Digit =
+      "Password should be minimum 8 digit";
   static const String pleaseEnterConfirmPassword =
       "Please enter confirm password";
   static const String bothPasswordsAreDoesNotMatch =
@@ -268,6 +268,10 @@ class StringConstant {
       "Please enter other facility type";
   static const String pleaseEnterAddress = "Please enter address";
   static const String pleaseEnterYourFirstName = "Please enter your first name";
+  static const String pleaseEnterYourValidFirstName =
+      "Please enter valid first name";
+  static const String pleaseEnterYourValidLastName =
+      "Please enter valid last name";
   static const String pleaseEnterYourLastName = "Please enter your last name";
   static const String termsPolicyErrorText =
       "You must accept the terms and privacy policy to register an account!";
@@ -309,6 +313,8 @@ class StringConstant {
       "Please complete all question of quiz.";
   static const String pleaseAddCardHolderName = "Please add card holder name.";
   static const String pleaseAddCardNumber = "Please add card number.";
+  static const String pleaseAddValidCardNumber =
+      "Please add valid card number.";
   static const String cardNumberIsInValid = "Card number is invalid!";
   static const String pleaseAddCvvNumber =
       "Please add last 3 digit cvv number.";

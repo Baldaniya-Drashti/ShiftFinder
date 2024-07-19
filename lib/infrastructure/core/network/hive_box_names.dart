@@ -6,6 +6,8 @@ class BoxNames {
 
 class BoxKeys {
   static const currentUser = "currentUser";
+  static const currentIndustry = "selectedIndustry";
+  static const isUserShowIntro = "isUserShowIntro";
 
   /// CONTRACTOR DOCUMENTS
   static const governmentIssueId = "governmentIssueId";
@@ -17,5 +19,4 @@ class BoxKeys {
   static const cookieKey = "cookie";
   static const userToken = "userToken";
   static const rememberToken = "rememberToken";
-  static const isUserShowIntro = "isUserShowIntro";
 }

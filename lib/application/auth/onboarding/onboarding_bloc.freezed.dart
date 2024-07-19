@@ -16,42 +16,49 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$OnboardingEvent {
-  int get selectedUser => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int selectedUser) submitOnboarding1,
+    required TResult Function(int selectedIndustry) submitOnboarding2,
+    required TResult Function() submitOnboarding3,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int selectedUser)? submitOnboarding1,
+    TResult? Function(int selectedIndustry)? submitOnboarding2,
+    TResult? Function()? submitOnboarding3,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int selectedUser)? submitOnboarding1,
+    TResult Function(int selectedIndustry)? submitOnboarding2,
+    TResult Function()? submitOnboarding3,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(SubmitOnboarding1 value) submitOnboarding1,
+    required TResult Function(SubmitOnboarding2 value) submitOnboarding2,
+    required TResult Function(SubmitOnboarding3 value) submitOnboarding3,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(SubmitOnboarding1 value)? submitOnboarding1,
+    TResult? Function(SubmitOnboarding2 value)? submitOnboarding2,
+    TResult? Function(SubmitOnboarding3 value)? submitOnboarding3,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(SubmitOnboarding1 value)? submitOnboarding1,
+    TResult Function(SubmitOnboarding2 value)? submitOnboarding2,
+    TResult Function(SubmitOnboarding3 value)? submitOnboarding3,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $OnboardingEventCopyWith<OnboardingEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -60,8 +67,6 @@ abstract class $OnboardingEventCopyWith<$Res> {
   factory $OnboardingEventCopyWith(
           OnboardingEvent value, $Res Function(OnboardingEvent) then) =
       _$OnboardingEventCopyWithImpl<$Res, OnboardingEvent>;
-  @useResult
-  $Res call({int selectedUser});
 }
 
 /// @nodoc
@@ -73,28 +78,13 @@ class _$OnboardingEventCopyWithImpl<$Res, $Val extends OnboardingEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? selectedUser = null,
-  }) {
-    return _then(_value.copyWith(
-      selectedUser: null == selectedUser
-          ? _value.selectedUser
-          : selectedUser // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$SubmitOnboarding1ImplCopyWith<$Res>
-    implements $OnboardingEventCopyWith<$Res> {
+abstract class _$$SubmitOnboarding1ImplCopyWith<$Res> {
   factory _$$SubmitOnboarding1ImplCopyWith(_$SubmitOnboarding1Impl value,
           $Res Function(_$SubmitOnboarding1Impl) then) =
       __$$SubmitOnboarding1ImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({int selectedUser});
 }
@@ -157,6 +147,8 @@ class _$SubmitOnboarding1Impl implements SubmitOnboarding1 {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int selectedUser) submitOnboarding1,
+    required TResult Function(int selectedIndustry) submitOnboarding2,
+    required TResult Function() submitOnboarding3,
   }) {
     return submitOnboarding1(selectedUser);
   }
@@ -165,6 +157,8 @@ class _$SubmitOnboarding1Impl implements SubmitOnboarding1 {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int selectedUser)? submitOnboarding1,
+    TResult? Function(int selectedIndustry)? submitOnboarding2,
+    TResult? Function()? submitOnboarding3,
   }) {
     return submitOnboarding1?.call(selectedUser);
   }
@@ -173,6 +167,8 @@ class _$SubmitOnboarding1Impl implements SubmitOnboarding1 {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int selectedUser)? submitOnboarding1,
+    TResult Function(int selectedIndustry)? submitOnboarding2,
+    TResult Function()? submitOnboarding3,
     required TResult orElse(),
   }) {
     if (submitOnboarding1 != null) {
@@ -185,6 +181,8 @@ class _$SubmitOnboarding1Impl implements SubmitOnboarding1 {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(SubmitOnboarding1 value) submitOnboarding1,
+    required TResult Function(SubmitOnboarding2 value) submitOnboarding2,
+    required TResult Function(SubmitOnboarding3 value) submitOnboarding3,
   }) {
     return submitOnboarding1(this);
   }
@@ -193,6 +191,8 @@ class _$SubmitOnboarding1Impl implements SubmitOnboarding1 {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(SubmitOnboarding1 value)? submitOnboarding1,
+    TResult? Function(SubmitOnboarding2 value)? submitOnboarding2,
+    TResult? Function(SubmitOnboarding3 value)? submitOnboarding3,
   }) {
     return submitOnboarding1?.call(this);
   }
@@ -201,6 +201,8 @@ class _$SubmitOnboarding1Impl implements SubmitOnboarding1 {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(SubmitOnboarding1 value)? submitOnboarding1,
+    TResult Function(SubmitOnboarding2 value)? submitOnboarding2,
+    TResult Function(SubmitOnboarding3 value)? submitOnboarding3,
     required TResult orElse(),
   }) {
     if (submitOnboarding1 != null) {
@@ -214,17 +216,266 @@ abstract class SubmitOnboarding1 implements OnboardingEvent {
   const factory SubmitOnboarding1(final int selectedUser) =
       _$SubmitOnboarding1Impl;
 
-  @override
   int get selectedUser;
-  @override
   @JsonKey(ignore: true)
   _$$SubmitOnboarding1ImplCopyWith<_$SubmitOnboarding1Impl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
+abstract class _$$SubmitOnboarding2ImplCopyWith<$Res> {
+  factory _$$SubmitOnboarding2ImplCopyWith(_$SubmitOnboarding2Impl value,
+          $Res Function(_$SubmitOnboarding2Impl) then) =
+      __$$SubmitOnboarding2ImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int selectedIndustry});
+}
+
+/// @nodoc
+class __$$SubmitOnboarding2ImplCopyWithImpl<$Res>
+    extends _$OnboardingEventCopyWithImpl<$Res, _$SubmitOnboarding2Impl>
+    implements _$$SubmitOnboarding2ImplCopyWith<$Res> {
+  __$$SubmitOnboarding2ImplCopyWithImpl(_$SubmitOnboarding2Impl _value,
+      $Res Function(_$SubmitOnboarding2Impl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? selectedIndustry = null,
+  }) {
+    return _then(_$SubmitOnboarding2Impl(
+      null == selectedIndustry
+          ? _value.selectedIndustry
+          : selectedIndustry // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SubmitOnboarding2Impl implements SubmitOnboarding2 {
+  const _$SubmitOnboarding2Impl(this.selectedIndustry);
+
+  @override
+  final int selectedIndustry;
+
+  @override
+  String toString() {
+    return 'OnboardingEvent.submitOnboarding2(selectedIndustry: $selectedIndustry)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SubmitOnboarding2Impl &&
+            (identical(other.selectedIndustry, selectedIndustry) ||
+                other.selectedIndustry == selectedIndustry));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, selectedIndustry);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SubmitOnboarding2ImplCopyWith<_$SubmitOnboarding2Impl> get copyWith =>
+      __$$SubmitOnboarding2ImplCopyWithImpl<_$SubmitOnboarding2Impl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int selectedUser) submitOnboarding1,
+    required TResult Function(int selectedIndustry) submitOnboarding2,
+    required TResult Function() submitOnboarding3,
+  }) {
+    return submitOnboarding2(selectedIndustry);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int selectedUser)? submitOnboarding1,
+    TResult? Function(int selectedIndustry)? submitOnboarding2,
+    TResult? Function()? submitOnboarding3,
+  }) {
+    return submitOnboarding2?.call(selectedIndustry);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int selectedUser)? submitOnboarding1,
+    TResult Function(int selectedIndustry)? submitOnboarding2,
+    TResult Function()? submitOnboarding3,
+    required TResult orElse(),
+  }) {
+    if (submitOnboarding2 != null) {
+      return submitOnboarding2(selectedIndustry);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SubmitOnboarding1 value) submitOnboarding1,
+    required TResult Function(SubmitOnboarding2 value) submitOnboarding2,
+    required TResult Function(SubmitOnboarding3 value) submitOnboarding3,
+  }) {
+    return submitOnboarding2(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SubmitOnboarding1 value)? submitOnboarding1,
+    TResult? Function(SubmitOnboarding2 value)? submitOnboarding2,
+    TResult? Function(SubmitOnboarding3 value)? submitOnboarding3,
+  }) {
+    return submitOnboarding2?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SubmitOnboarding1 value)? submitOnboarding1,
+    TResult Function(SubmitOnboarding2 value)? submitOnboarding2,
+    TResult Function(SubmitOnboarding3 value)? submitOnboarding3,
+    required TResult orElse(),
+  }) {
+    if (submitOnboarding2 != null) {
+      return submitOnboarding2(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SubmitOnboarding2 implements OnboardingEvent {
+  const factory SubmitOnboarding2(final int selectedIndustry) =
+      _$SubmitOnboarding2Impl;
+
+  int get selectedIndustry;
+  @JsonKey(ignore: true)
+  _$$SubmitOnboarding2ImplCopyWith<_$SubmitOnboarding2Impl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SubmitOnboarding3ImplCopyWith<$Res> {
+  factory _$$SubmitOnboarding3ImplCopyWith(_$SubmitOnboarding3Impl value,
+          $Res Function(_$SubmitOnboarding3Impl) then) =
+      __$$SubmitOnboarding3ImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SubmitOnboarding3ImplCopyWithImpl<$Res>
+    extends _$OnboardingEventCopyWithImpl<$Res, _$SubmitOnboarding3Impl>
+    implements _$$SubmitOnboarding3ImplCopyWith<$Res> {
+  __$$SubmitOnboarding3ImplCopyWithImpl(_$SubmitOnboarding3Impl _value,
+      $Res Function(_$SubmitOnboarding3Impl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SubmitOnboarding3Impl implements SubmitOnboarding3 {
+  const _$SubmitOnboarding3Impl();
+
+  @override
+  String toString() {
+    return 'OnboardingEvent.submitOnboarding3()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SubmitOnboarding3Impl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int selectedUser) submitOnboarding1,
+    required TResult Function(int selectedIndustry) submitOnboarding2,
+    required TResult Function() submitOnboarding3,
+  }) {
+    return submitOnboarding3();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int selectedUser)? submitOnboarding1,
+    TResult? Function(int selectedIndustry)? submitOnboarding2,
+    TResult? Function()? submitOnboarding3,
+  }) {
+    return submitOnboarding3?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int selectedUser)? submitOnboarding1,
+    TResult Function(int selectedIndustry)? submitOnboarding2,
+    TResult Function()? submitOnboarding3,
+    required TResult orElse(),
+  }) {
+    if (submitOnboarding3 != null) {
+      return submitOnboarding3();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SubmitOnboarding1 value) submitOnboarding1,
+    required TResult Function(SubmitOnboarding2 value) submitOnboarding2,
+    required TResult Function(SubmitOnboarding3 value) submitOnboarding3,
+  }) {
+    return submitOnboarding3(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SubmitOnboarding1 value)? submitOnboarding1,
+    TResult? Function(SubmitOnboarding2 value)? submitOnboarding2,
+    TResult? Function(SubmitOnboarding3 value)? submitOnboarding3,
+  }) {
+    return submitOnboarding3?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SubmitOnboarding1 value)? submitOnboarding1,
+    TResult Function(SubmitOnboarding2 value)? submitOnboarding2,
+    TResult Function(SubmitOnboarding3 value)? submitOnboarding3,
+    required TResult orElse(),
+  }) {
+    if (submitOnboarding3 != null) {
+      return submitOnboarding3(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SubmitOnboarding3 implements OnboardingEvent {
+  const factory SubmitOnboarding3() = _$SubmitOnboarding3Impl;
+}
+
+/// @nodoc
 mixin _$OnboardingState {
   int get selectedUser => throw _privateConstructorUsedError;
+  int get selectedIndustry => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
   Option<Either<AuthFailure, String>> get authFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
@@ -242,6 +493,7 @@ abstract class $OnboardingStateCopyWith<$Res> {
   @useResult
   $Res call(
       {int selectedUser,
+      int selectedIndustry,
       bool showErrorMessages,
       Option<Either<AuthFailure, String>> authFailureOrSuccessOption});
 }
@@ -260,6 +512,7 @@ class _$OnboardingStateCopyWithImpl<$Res, $Val extends OnboardingState>
   @override
   $Res call({
     Object? selectedUser = null,
+    Object? selectedIndustry = null,
     Object? showErrorMessages = null,
     Object? authFailureOrSuccessOption = null,
   }) {
@@ -267,6 +520,10 @@ class _$OnboardingStateCopyWithImpl<$Res, $Val extends OnboardingState>
       selectedUser: null == selectedUser
           ? _value.selectedUser
           : selectedUser // ignore: cast_nullable_to_non_nullable
+              as int,
+      selectedIndustry: null == selectedIndustry
+          ? _value.selectedIndustry
+          : selectedIndustry // ignore: cast_nullable_to_non_nullable
               as int,
       showErrorMessages: null == showErrorMessages
           ? _value.showErrorMessages
@@ -290,6 +547,7 @@ abstract class _$$OnboardingStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {int selectedUser,
+      int selectedIndustry,
       bool showErrorMessages,
       Option<Either<AuthFailure, String>> authFailureOrSuccessOption});
 }
@@ -306,6 +564,7 @@ class __$$OnboardingStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? selectedUser = null,
+    Object? selectedIndustry = null,
     Object? showErrorMessages = null,
     Object? authFailureOrSuccessOption = null,
   }) {
@@ -313,6 +572,10 @@ class __$$OnboardingStateImplCopyWithImpl<$Res>
       selectedUser: null == selectedUser
           ? _value.selectedUser
           : selectedUser // ignore: cast_nullable_to_non_nullable
+              as int,
+      selectedIndustry: null == selectedIndustry
+          ? _value.selectedIndustry
+          : selectedIndustry // ignore: cast_nullable_to_non_nullable
               as int,
       showErrorMessages: null == showErrorMessages
           ? _value.showErrorMessages
@@ -331,11 +594,14 @@ class __$$OnboardingStateImplCopyWithImpl<$Res>
 class _$OnboardingStateImpl implements _OnboardingState {
   const _$OnboardingStateImpl(
       {required this.selectedUser,
+      required this.selectedIndustry,
       required this.showErrorMessages,
       required this.authFailureOrSuccessOption});
 
   @override
   final int selectedUser;
+  @override
+  final int selectedIndustry;
   @override
   final bool showErrorMessages;
   @override
@@ -343,7 +609,7 @@ class _$OnboardingStateImpl implements _OnboardingState {
 
   @override
   String toString() {
-    return 'OnboardingState(selectedUser: $selectedUser, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'OnboardingState(selectedUser: $selectedUser, selectedIndustry: $selectedIndustry, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
@@ -353,6 +619,8 @@ class _$OnboardingStateImpl implements _OnboardingState {
             other is _$OnboardingStateImpl &&
             (identical(other.selectedUser, selectedUser) ||
                 other.selectedUser == selectedUser) &&
+            (identical(other.selectedIndustry, selectedIndustry) ||
+                other.selectedIndustry == selectedIndustry) &&
             (identical(other.showErrorMessages, showErrorMessages) ||
                 other.showErrorMessages == showErrorMessages) &&
             (identical(other.authFailureOrSuccessOption,
@@ -362,8 +630,8 @@ class _$OnboardingStateImpl implements _OnboardingState {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, selectedUser, showErrorMessages, authFailureOrSuccessOption);
+  int get hashCode => Object.hash(runtimeType, selectedUser, selectedIndustry,
+      showErrorMessages, authFailureOrSuccessOption);
 
   @JsonKey(ignore: true)
   @override
@@ -376,12 +644,15 @@ class _$OnboardingStateImpl implements _OnboardingState {
 abstract class _OnboardingState implements OnboardingState {
   const factory _OnboardingState(
       {required final int selectedUser,
+      required final int selectedIndustry,
       required final bool showErrorMessages,
       required final Option<Either<AuthFailure, String>>
           authFailureOrSuccessOption}) = _$OnboardingStateImpl;
 
   @override
   int get selectedUser;
+  @override
+  int get selectedIndustry;
   @override
   bool get showErrorMessages;
   @override

@@ -7,35 +7,22 @@ import 'package:shift/application/auth/onboarding/onboarding_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
-import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/back_ground_image.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 import 'package:shift/presentation/onboarding/widgets/onboard_tile.dart';
-import 'package:shift/presentation/onboarding/widgets/onboarding_model.dart';
 
 @RoutePage(name: 'onboarding1')
 class OnBoarding1 extends StatelessWidget {
   OnBoarding1({super.key});
 
-  List<OnBoardingModel> onboardList = [
-    OnBoardingModel(
-      title: "Health Service\nProfessional\n",
-      description: "Contractor",
-      image: PngImageConstants.doctors,
-      backgroundImage: SvgImageConstant.personSetting,
-    ),
-    OnBoardingModel(
-      title: "Health Service \nFacilities\n",
-      description: "Employer",
-      image: PngImageConstants.patient,
-      backgroundImage: SvgImageConstant.nurse,
-    ),
-  ];
+  List<OnBoardingDTO> userList = CommonList.userList;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -90,7 +77,7 @@ class OnBoarding1 extends StatelessWidget {
                         ),
                         Expanded(
                           child: ListView.builder(
-                              itemCount: onboardList.length,
+                              itemCount: userList.length,
                               padding: EdgeInsets.zero,
                               itemBuilder: (context, index) {
                                 return Padding(
@@ -101,16 +88,15 @@ class OnBoarding1 extends StatelessWidget {
                                   child: GestureDetector(
                                     onTap: () {
                                       context.read<OnboardingBloc>().add(
-                                          OnboardingEvent.submitOnboarding1(
-                                              (index == 0) ? 0 : 1));
+                                              OnboardingEvent.submitOnboarding1(
+                                            userList[index].id ?? 1,
+                                          ));
                                     },
                                     child: OnBoardTile(
-                                      title: onboardList[index].title,
-                                      designation:
-                                          onboardList[index].description,
-                                      dpImage: onboardList[index].image,
-                                      bgImage:
-                                          onboardList[index].backgroundImage,
+                                      title: userList[index].title ?? "",
+                                      designation: userList[index].description,
+                                      dpImage: userList[index].image ?? "",
+                                      bgImage: userList[index].backgroundImage,
                                     ),
                                   ),
                                 );

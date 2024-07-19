@@ -216,11 +216,15 @@ abstract class $AppRouter extends _i28.RootStackRouter {
       );
     },
     RegisterProfilePage.name: (routeData) {
-      final args = routeData.argsAs<RegisterProfilePageArgs>(
-          orElse: () => const RegisterProfilePageArgs());
+      final args = routeData.argsAs<RegisterProfilePageArgs>();
       return _i28.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i24.RegisterProfileScreen(key: args.key),
+        child: _i24.RegisterProfileScreen(
+          key: args.key,
+          firstName: args.firstName,
+          lastName: args.lastName,
+          checkTermsPrivacy: args.checkTermsPrivacy,
+        ),
       );
     },
     RegisterPage.name: (routeData) {
@@ -727,10 +731,18 @@ class ReferenceListScreen extends _i28.PageRouteInfo<void> {
 class RegisterProfilePage extends _i28.PageRouteInfo<RegisterProfilePageArgs> {
   RegisterProfilePage({
     _i29.Key? key,
+    required String firstName,
+    required String lastName,
+    required int checkTermsPrivacy,
     List<_i28.PageRouteInfo>? children,
   }) : super(
           RegisterProfilePage.name,
-          args: RegisterProfilePageArgs(key: key),
+          args: RegisterProfilePageArgs(
+            key: key,
+            firstName: firstName,
+            lastName: lastName,
+            checkTermsPrivacy: checkTermsPrivacy,
+          ),
           initialChildren: children,
         );
 
@@ -741,13 +753,24 @@ class RegisterProfilePage extends _i28.PageRouteInfo<RegisterProfilePageArgs> {
 }
 
 class RegisterProfilePageArgs {
-  const RegisterProfilePageArgs({this.key});
+  const RegisterProfilePageArgs({
+    this.key,
+    required this.firstName,
+    required this.lastName,
+    required this.checkTermsPrivacy,
+  });
 
   final _i29.Key? key;
 
+  final String firstName;
+
+  final String lastName;
+
+  final int checkTermsPrivacy;
+
   @override
   String toString() {
-    return 'RegisterProfilePageArgs{key: $key}';
+    return 'RegisterProfilePageArgs{key: $key, firstName: $firstName, lastName: $lastName, checkTermsPrivacy: $checkTermsPrivacy}';
   }
 }
 

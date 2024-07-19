@@ -235,7 +235,7 @@ class LoginForm extends StatelessWidget {
                       (f) => f.maybeMap(
                         empty: (value) => StringConstant.pleaseEnterPassword,
                         shortPassword: (_) =>
-                            StringConstant.passwordShouldBeMinimum6Digit,
+                            StringConstant.passwordShouldBeMinimum8Digit,
                         orElse: () => null,
                       ),
                       (_) => null,

@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, avoid_print, deprecated_member_use, prefer_const_constructors_in_immutables
+// ignore_for_file: use_build_context_synchronously, avoid_print, deprecated_member_use, prefer_const_constructors_in_immutables, non_constant_identifier_names
 
 import 'dart:io';
 import 'package:auto_route/auto_route.dart';
@@ -12,6 +12,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/auth/register/verify_mobile_number.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
@@ -28,7 +29,15 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'registerProfilePage')
 // ignore: must_be_immutable
 class RegisterProfileScreen extends StatelessWidget {
-  RegisterProfileScreen({super.key});
+  final String firstName;
+  final String lastName;
+  final int checkTermsPrivacy;
+  RegisterProfileScreen({
+    super.key,
+    required this.firstName,
+    required this.lastName,
+    required this.checkTermsPrivacy,
+  });
   // TextEditingController passwordController = TextEditingController();
   // TextEditingController phoneNoController = TextEditingController();
 
@@ -41,7 +50,7 @@ class RegisterProfileScreen extends StatelessWidget {
           onBackPressed: () {
             context.router.back();
           },
-          title: (getCurrentUser() == 0)
+          title: (getCurrentRole() == 1)
               ? StringConstant.completeProfile
               : StringConstant.companyDetails,
         ),
@@ -51,13 +60,14 @@ class RegisterProfileScreen extends StatelessWidget {
           AppFocus.unfocus(context);
         },
         child: BlocProvider(
-          create: (context) => RegisterFormBloc(),
+          create: (context) => getIt<RegisterFormBloc>(),
           child: BlocConsumer<RegisterFormBloc, RegisterFormState>(
             listener: (context, state) {
               state.authFailureOrSuccessOption.fold(
                 () {},
                 (either) => either.fold(
                   (failure) {
+                    AppFocus.unfocus(context);
                     showError(
                       message: failure.maybeMap(
                         showAPIResponseMessage: (value) => value.message,
@@ -68,9 +78,11 @@ class RegisterProfileScreen extends StatelessWidget {
                     ).show(context);
                   },
                   (r) {
+                    AppFocus.unfocus(context);
+
                     const VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
                       context,
-                      (getCurrentUser() == 0)
+                      (getCurrentRole() == 1)
                           ? "${state.selectedCountrycode} ${state.enteredPhoneNo}"
                           : state.email.getValue(),
                     );
@@ -90,7 +102,7 @@ class RegisterProfileScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         profileImageSection(context, state),
-                        if (getCurrentUser() == 1) ...[
+                        if (getCurrentRole() == 2) ...[
                           paddingBetweenFields(),
                           companyNameTextField(context, state),
                         ],
@@ -102,13 +114,13 @@ class RegisterProfileScreen extends StatelessWidget {
                         passwordTextField(context, state),
                         paddingBetweenFields(),
                         confirmPasswordTextField(context, state),
-                        if (getCurrentUser() == 1) ...[
+                        if (getCurrentRole() == 2) ...[
                           paddingBetweenFields(),
                           associationTextField(context, state),
                           paddingBetweenFields(),
                           companyDescTextField(context, state),
                         ],
-                        if (getCurrentUser() == 0) ...[
+                        if (getCurrentRole() == 1) ...[
                           paddingBetweenFields(),
                           locationAddressTextField(context, state),
                           paddingBetweenFields(),
@@ -117,13 +129,15 @@ class RegisterProfileScreen extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: getSize(50)),
                           child: CommonButton(
+                            isSubmitting: state.isSubmitting,
                             onPressed: () {
-                              print("new Password:  ${state.password}");
-                              print(
-                                  "confirm Password:  ${state.confirmPassword}");
                               context.read<RegisterFormBloc>().add(
-                                  const RegisterFormEvent
-                                      .registerProfileBtnPressed());
+                                      RegisterFormEvent
+                                          .registerProfileBtnPressed(
+                                    firstName: firstName,
+                                    lastName: lastName,
+                                    isCheckTerms: checkTermsPrivacy,
+                                  ));
                             },
                             buttonText: StringConstant.register,
                           ),
@@ -174,7 +188,7 @@ class RegisterProfileScreen extends StatelessWidget {
                               )
                         : DecorationImage(
                             image: AssetImage(
-                              (getCurrentUser() == 0)
+                              (getCurrentRole() == 1)
                                   ? PngImageConstants.contractor_employer
                                   : PngImageConstants.profile_employer,
                             ),
@@ -187,7 +201,7 @@ class RegisterProfileScreen extends StatelessWidget {
                 ),
               ),
               BaseText(
-                text: (getCurrentUser() == 0)
+                text: (getCurrentRole() == 1)
                     ? StringConstant.profilePhoto
                     : StringConstant.companyLogo,
                 fontSize: 12,
@@ -210,7 +224,7 @@ class RegisterProfileScreen extends StatelessWidget {
                   if (path.isNotEmpty) {
                     print("CAMERA IMAGE PATH: $path");
                     context.read<RegisterFormBloc>().add(
-                          RegisterFormEvent.changeProfilePicture(path),
+                          RegisterFormEvent.changeProfilePic(path),
                         );
                   }
                   context.router.maybePop();
@@ -223,7 +237,7 @@ class RegisterProfileScreen extends StatelessWidget {
                   if (path.isNotEmpty) {
                     print("GALLERY IMAGE PATH: $path");
                     context.read<RegisterFormBloc>().add(
-                          RegisterFormEvent.changeProfilePicture(path),
+                          RegisterFormEvent.changeProfilePic(path),
                         );
                   }
                   context.router.maybePop();
@@ -408,7 +422,7 @@ class RegisterProfileScreen extends StatelessWidget {
                 (f) => f.maybeMap(
                   empty: (value) => StringConstant.pleaseEnterPassword,
                   shortPassword: (_) =>
-                      StringConstant.passwordShouldBeMinimum6Digit,
+                      StringConstant.passwordShouldBeMinimum8Digit,
                   orElse: () => null,
                 ),
                 (_) => null,
@@ -460,7 +474,7 @@ class RegisterProfileScreen extends StatelessWidget {
                 (f) => f.maybeMap(
                   empty: (value) => StringConstant.pleaseEnterConfirmPassword,
                   shortPassword: (_) =>
-                      StringConstant.passwordShouldBeMinimum6Digit,
+                      StringConstant.passwordShouldBeMinimum8Digit,
                   passwordsDontMatch: (_) =>
                       StringConstant.bothPasswordsAreDoesNotMatch,
                   orElse: () => null,
@@ -530,35 +544,103 @@ class RegisterProfileScreen extends StatelessWidget {
     );
   }
 
+  // Widget locationAddressTextField(
+  //     BuildContext context, RegisterFormState state) {
+  //   return CustomTextField(
+  //     labelText: StringConstant.locationAddress,
+  //     isLabelPadding: true,
+  //     hintText: StringConstant.locationAddress,
+  //     prefixIcon: Padding(
+  //       padding: EdgeInsets.symmetric(
+  //         horizontal: getSize(14),
+  //         vertical: getSize(14),
+  //       ),
+  //       child: SvgPicture.asset(
+  //         SvgImageConstant.locationIcon,
+  //         height: getSize(24),
+  //         width: getSize(24),
+  //         color: AppColors.primaryColor,
+  //       ),
+  //     ),
+  //     onChanged: (value) => context
+  //         .read<RegisterFormBloc>()
+  //         .add(RegisterFormEvent.locationAddressChanged(value)),
+  //     validator: (p0, p1) =>
+  //         context.read<RegisterFormBloc>().state.locationAddress.value.fold(
+  //               (f) => f.maybeMap(
+  //                 empty: (value) => StringConstant.pleaseEnterLocationName,
+  //                 orElse: () => null,
+  //               ),
+  //               (_) => null,
+  //             ),
+  //   );
+  // }
+
   Widget locationAddressTextField(
       BuildContext context, RegisterFormState state) {
-    return CustomTextField(
-      labelText: StringConstant.locationAddress,
-      isLabelPadding: true,
-      hintText: StringConstant.locationAddress,
-      prefixIcon: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: getSize(14),
-          vertical: getSize(14),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        CustomTextField(
+          labelText: StringConstant.locationAddress,
+          isLabelPadding: true,
+          hintText: StringConstant.locationAddress,
+          controller: TextEditingController()
+            ..text = state.locationAddress.getValue() ?? "",
+          prefixIcon: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: getSize(14),
+              vertical: getSize(14),
+            ),
+            child: SvgPicture.asset(
+              SvgImageConstant.locationIcon,
+              height: getSize(24),
+              width: getSize(24),
+              color: AppColors.primaryColor,
+            ),
+          ),
+          onChanged: (value) => context
+              .read<RegisterFormBloc>()
+              .add(RegisterFormEvent.locationAddressChanged(value)),
+          validator: (p0, p1) =>
+              context.read<RegisterFormBloc>().state.locationAddress.value.fold(
+                    (f) => f.maybeMap(
+                      empty: (value) => StringConstant.pleaseEnterLocationName,
+                      orElse: () => null,
+                    ),
+                    (_) => null,
+                  ),
         ),
-        child: SvgPicture.asset(
-          SvgImageConstant.locationIcon,
-          height: getSize(24),
-          width: getSize(24),
-          color: AppColors.primaryColor,
-        ),
-      ),
-      onChanged: (value) => context
-          .read<RegisterFormBloc>()
-          .add(RegisterFormEvent.locationAddressChanged(value)),
-      validator: (p0, p1) =>
-          context.read<RegisterFormBloc>().state.locationAddress.value.fold(
-                (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseEnterLocationName,
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
+        if (state.searchLocationList.isNotEmpty)
+          Container(
+            height: getSize(200),
+            color: AppColors.white,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: state.searchLocationList.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  onTap: () {
+                    final selectedLocation =
+                        state.searchLocationList[index]["description"];
+
+                    context.read<RegisterFormBloc>().add(
+                        RegisterFormEvent.locationSelectedFromSearchList(
+                            selectedLocation));
+                  },
+                  dense: true,
+                  titleAlignment: ListTileTitleAlignment.top,
+                  leading: SvgPicture.asset(SvgImageConstant.locationIcon),
+                  title: BaseText(
+                    text: state.searchLocationList[index]["description"],
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                );
+              },
+            ),
+          ),
+      ],
     );
   }
 }

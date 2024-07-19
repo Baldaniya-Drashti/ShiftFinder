@@ -165,6 +165,8 @@ class AddCardDetailPage extends StatelessWidget {
           context.read<CardBloc>().state.cardHolderName.value.fold(
                 (f) => f.maybeMap(
                   empty: (value) => StringConstant.pleaseAddCardHolderName,
+                  invalidUsername: (value) =>
+                      StringConstant.pleaseAddValidCardNumber,
                   orElse: () => null,
                 ),
                 (_) => null,

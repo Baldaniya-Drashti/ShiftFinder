@@ -42,8 +42,18 @@ class RegisterForm extends StatelessWidget {
               ).show(context);
             },
             (r) {
-              context.router
-                  .push(const PageRouteInfo(RegisterProfilePage.name));
+              print(
+                  "${state.firstName.getValue()}  ${state.lastName.getValue()}  ${state.isCheck}");
+              context.router.push(
+                PageRouteInfo(
+                  RegisterProfilePage.name,
+                  args: RegisterProfilePageArgs(
+                    firstName: state.firstName.getValue(),
+                    lastName: state.lastName.getValue(),
+                    checkTermsPrivacy: (state.isCheck == true) ? 1 : 0,
+                  ),
+                ),
+              );
             },
           ),
         );
@@ -202,7 +212,7 @@ class RegisterForm extends StatelessWidget {
             ),
           ),
           BaseText(
-            text: (getCurrentUser() == 0)
+            text: (getCurrentRole() == 1)
                 ? StringConstant.createYourAccount
                 : StringConstant.shiftCoordinatorDetails,
             style: TextStyle(
@@ -217,7 +227,6 @@ class RegisterForm extends StatelessWidget {
           CustomTextField(
             hintText: StringConstant.firstName,
             labelText: StringConstant.firstName,
-            keyboardType: TextInputType.emailAddress,
             textCapitalization: TextCapitalization.words,
             errorMaxLines: 2,
             prefixIcon: Padding(
@@ -243,6 +252,8 @@ class RegisterForm extends StatelessWidget {
                 .fold(
                   (f) => f.maybeMap(
                     empty: (value) => StringConstant.pleaseEnterYourFirstName,
+                    invalidUsername: (value) =>
+                        StringConstant.pleaseEnterYourValidFirstName,
                     orElse: () => null,
                   ),
                   (_) => null,
@@ -278,6 +289,8 @@ class RegisterForm extends StatelessWidget {
                 .fold(
                   (f) => f.maybeMap(
                     empty: (value) => StringConstant.pleaseEnterYourLastName,
+                    invalidUsername: (value) =>
+                        StringConstant.pleaseEnterYourValidLastName,
                     orElse: () => null,
                   ),
                   (_) => null,
@@ -306,7 +319,7 @@ class RegisterForm extends StatelessWidget {
             height: getSize(50),
           ),
           CommonButton(
-            // isSubmitting: state.isSubmitting,
+            isSubmitting: state.isSubmitting,
             onPressed: () {
               context
                   .read<RegisterFormBloc>()

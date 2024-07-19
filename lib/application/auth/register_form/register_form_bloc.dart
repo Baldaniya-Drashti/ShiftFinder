@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'dart:async';
+import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,29 +9,55 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/domain/auth/i_auth_facade.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
+import 'package:http/http.dart' as http;
+
 part 'register_form_event.dart';
 part 'register_form_state.dart';
 part 'register_form_bloc.freezed.dart';
 
 @injectable
 class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
+  final IAuthFacade _authFacade;
+
   late Timer timer;
   bool isNewPassObscure = false;
   bool isConfirmPassObscure = false;
 
-  RegisterFormBloc() : super(RegisterFormState.initial()) {
+  /// TO GET GOOGLE PLACES
+  Future<String?> fetchUrl(String query, {Map<String, String>? headers}) async {
+    Uri uri = Uri.https(
+      "maps.googleapis.com",
+      'maps/api/place/autocomplete/json',
+      {
+        "input": query,
+        "key": "AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE",
+      },
+    );
+    try {
+      final response = await http.get(uri, headers: headers);
+      if (response.statusCode == 200) {
+        return response.body;
+      }
+    } catch (e) {
+      print("LOCATION CATCH ERROR: $e");
+    }
+    return null;
+  }
+
+  RegisterFormBloc(this._authFacade) : super(RegisterFormState.initial()) {
     on<RegisterFormEvent>((event, emit) async {
       await event.map(
-        changeProfilePicture: (value) {
+        changeProfilePic: (e) {
           emit(
-            state.copyWith(selectImage: value.imagePath),
+            state.copyWith(selectImage: e.imagePath),
           );
         },
         firstNameChanged: (e) {
           emit(
             state.copyWith(
-              firstName: InputEmptyOrNot(e.firstName),
+              firstName: Username(e.firstName),
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -38,12 +65,12 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
         lastNameChanged: (e) {
           emit(
             state.copyWith(
-              lastName: InputEmptyOrNot(e.lastName),
+              lastName: Username(e.lastName),
               authFailureOrSuccessOption: none(),
             ),
           );
         },
-        registerPressed: (e) async {
+        registerPressed: (e) {
           Either<AuthFailure, String>? failureOrSuccess;
           final isFirstNameValid = state.firstName.isValid();
           final isLastNameValid = state.lastName.isValid();
@@ -56,7 +83,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
                 authFailureOrSuccessOption: none(),
               ),
             );
-            failureOrSuccess = right("true");
+            failureOrSuccess = right("success");
           }
           emit(
             state.copyWith(
@@ -138,10 +165,27 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
             ),
           );
         },
-        locationAddressChanged: (e) {
+        locationAddressChanged: (e) async {
+          /// To get google place with serched result
+          List<dynamic> placeList = [];
+          String? response = await fetchUrl(e.location);
+          if (response != null) {
+            print("API RESPONSE----> $response");
+            placeList = json.decode(response)['predictions'];
+          }
           emit(
             state.copyWith(
               locationAddress: InputEmptyOrNot(e.location),
+              searchLocationList: placeList,
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        locationSelectedFromSearchList: (e) {
+          emit(
+            state.copyWith(
+              locationAddress: InputEmptyOrNot(e.selectedLocation),
+              searchLocationList: [],
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -163,7 +207,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
             ),
           );
         },
-        registerProfileBtnPressed: (e) {
+        registerProfileBtnPressed: (e) async {
           Either<AuthFailure, String>? failureOrSuccess;
 
           final isCompanyNameValid = state.companyName.isValid();
@@ -173,11 +217,10 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           final isConfirmPassValid = state.confirmPassword.isValid();
           final isLocationAddressValid = state.locationAddress.isValid();
 
-          print("PASS NEW-->  ${isNewPassValid}  && ${state.password}");
           print(
-              "PASS CONFIRM-->  ${isConfirmPassValid}  && ${state.confirmPassword}");
+              "Phone number NEW-->  ${state.selectedCountrycode}  && ${state.phoneNumber}");
 
-          if (getCurrentUser() == 0) {
+          if (getCurrentRole() == 1) {
             if (isPhoneNumberValid &&
                 isEmailValid &&
                 isNewPassValid &&
@@ -189,9 +232,20 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
                   authFailureOrSuccessOption: none(),
                 ),
               );
-              // failureOrSuccess = await _authFacade.login(
-              //   mobileNumber: EmailAddress(""),
+              // failureOrSuccess = await _authFacade.register(
+              //   firstName: Username(e.firstName),
+              //   lastName: Username(e.lastName),
+              //   check_terms_privacy: e.isCheckTerms,
               //   countryCode: '+${state.selectedCountrycode}',
+              //   profileImage: state.selectImage,
+              //   companyName: state.companyName,
+              //   phoneNumber: state.phoneNumber,
+              //   email: state.email,
+              //   password: state.password,
+              //   association: state.association,
+              //   companyDescription: state.companyDescription,
+              //   referralCode: state.referralCode,
+              //   locationAddress: state.locationAddress,
               // );
               failureOrSuccess = right("sucess");
             }
@@ -207,11 +261,24 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
                   authFailureOrSuccessOption: none(),
                 ),
               );
-              // failureOrSuccess = await _authFacade.login(
-              //   mobileNumber: EmailAddress(""),
-              //   countryCode: '+${state.selectedCountrycode}',
-              // );
-              failureOrSuccess = right("sucess");
+              failureOrSuccess = await _authFacade.register(
+                firstName: Username(e.firstName),
+                lastName: Username(e.lastName),
+                check_terms_privacy: e.isCheckTerms,
+                countryCode: '+${state.selectedCountrycode}',
+                profileImage: state.selectImage,
+                companyName: state.companyName,
+                phoneNumber: state.phoneNumber,
+                email: state.email,
+                password: state.password,
+                confirmPassword: state.confirmPassword,
+                association: state.association,
+                companyDescription: state.companyDescription,
+                referralCode: null,
+                locationAddress: null,
+              );
+              print("Failure Or successs---> ${failureOrSuccess}");
+              // failureOrSuccess = right("sucess");
             }
           }
 

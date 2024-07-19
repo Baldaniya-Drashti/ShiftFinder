@@ -454,7 +454,7 @@ class FilterBottomSheet extends StatelessWidget {
                       (f) => f.maybeMap(
                         empty: (value) => StringConstant.pleaseEnterNewPassword,
                         shortPassword: (_) =>
-                            StringConstant.passwordShouldBeMinimum6Digit,
+                            StringConstant.passwordShouldBeMinimum8Digit,
                         orElse: () => null,
                       ),
                       (_) => null,
@@ -509,7 +509,7 @@ class FilterBottomSheet extends StatelessWidget {
                   (f) => f.maybeMap(
                     empty: (value) => StringConstant.pleaseEnterConfirmPassword,
                     shortPassword: (_) =>
-                        StringConstant.passwordShouldBeMinimum6Digit,
+                        StringConstant.passwordShouldBeMinimum8Digit,
                     passwordsDontMatch: (_) =>
                         StringConstant.bothPasswordsAreDoesNotMatch,
                     orElse: () => null,
