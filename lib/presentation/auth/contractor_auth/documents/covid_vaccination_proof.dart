@@ -115,16 +115,15 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
                 ),
               Padding(
                 padding: EdgeInsets.only(top: getSize(90), bottom: getSize(50)),
-                child: (state.isCovidDocSubmitting)
-                    ? CenterLoadingIndicator()
-                    : CommonButton(
-                        onPressed: () {
-                          context
-                              .read<DocumentBloc>()
-                              .add(const DocumentEvent.covidDocSubmit());
-                        },
-                        buttonText: StringConstant.txtContinue,
-                      ),
+                child: CommonButton(
+                  isSubmitting: state.isCovidDocSubmitting,
+                  onPressed: () {
+                    context
+                        .read<DocumentBloc>()
+                        .add(const DocumentEvent.covidDocSubmit());
+                  },
+                  buttonText: StringConstant.txtContinue,
+                ),
               )
             ],
           ),

@@ -43,7 +43,7 @@ mixin _$CurrentUserDto {
   @JsonKey(name: 'country_name_code')
   String? get countryNameCode => throw _privateConstructorUsedError;
   @JsonKey(name: 'phone')
-  String? get phone => throw _privateConstructorUsedError;
+  int? get phone => throw _privateConstructorUsedError;
   @JsonKey(name: 'association_you_belong_to')
   String? get association => throw _privateConstructorUsedError;
   @JsonKey(name: 'company_description')
@@ -54,6 +54,8 @@ mixin _$CurrentUserDto {
   String? get referralCode => throw _privateConstructorUsedError;
   @JsonKey(name: 'last_page')
   String? get lastPage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'education')
+  List<EducationDTO>? get education => throw _privateConstructorUsedError;
   @JsonKey(name: 'auth')
   AuthDto? get authDto => throw _privateConstructorUsedError;
 
@@ -81,12 +83,13 @@ abstract class $CurrentUserDtoCopyWith<$Res> {
       @JsonKey(name: 'company_name') String? companyName,
       @JsonKey(name: 'countryCode') String? countryCode,
       @JsonKey(name: 'country_name_code') String? countryNameCode,
-      @JsonKey(name: 'phone') String? phone,
+      @JsonKey(name: 'phone') int? phone,
       @JsonKey(name: 'association_you_belong_to') String? association,
       @JsonKey(name: 'company_description') String? companyDescription,
       @JsonKey(name: 'location') String? location,
       @JsonKey(name: 'referral_code') String? referralCode,
       @JsonKey(name: 'last_page') String? lastPage,
+      @JsonKey(name: 'education') List<EducationDTO>? education,
       @JsonKey(name: 'auth') AuthDto? authDto});
 
   $AuthDtoCopyWith<$Res>? get authDto;
@@ -122,6 +125,7 @@ class _$CurrentUserDtoCopyWithImpl<$Res, $Val extends CurrentUserDto>
     Object? location = freezed,
     Object? referralCode = freezed,
     Object? lastPage = freezed,
+    Object? education = freezed,
     Object? authDto = freezed,
   }) {
     return _then(_value.copyWith(
@@ -172,7 +176,7 @@ class _$CurrentUserDtoCopyWithImpl<$Res, $Val extends CurrentUserDto>
       phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       association: freezed == association
           ? _value.association
           : association // ignore: cast_nullable_to_non_nullable
@@ -193,6 +197,10 @@ class _$CurrentUserDtoCopyWithImpl<$Res, $Val extends CurrentUserDto>
           ? _value.lastPage
           : lastPage // ignore: cast_nullable_to_non_nullable
               as String?,
+      education: freezed == education
+          ? _value.education
+          : education // ignore: cast_nullable_to_non_nullable
+              as List<EducationDTO>?,
       authDto: freezed == authDto
           ? _value.authDto
           : authDto // ignore: cast_nullable_to_non_nullable
@@ -233,12 +241,13 @@ abstract class _$$CurrentUserDtoImplCopyWith<$Res>
       @JsonKey(name: 'company_name') String? companyName,
       @JsonKey(name: 'countryCode') String? countryCode,
       @JsonKey(name: 'country_name_code') String? countryNameCode,
-      @JsonKey(name: 'phone') String? phone,
+      @JsonKey(name: 'phone') int? phone,
       @JsonKey(name: 'association_you_belong_to') String? association,
       @JsonKey(name: 'company_description') String? companyDescription,
       @JsonKey(name: 'location') String? location,
       @JsonKey(name: 'referral_code') String? referralCode,
       @JsonKey(name: 'last_page') String? lastPage,
+      @JsonKey(name: 'education') List<EducationDTO>? education,
       @JsonKey(name: 'auth') AuthDto? authDto});
 
   @override
@@ -273,6 +282,7 @@ class __$$CurrentUserDtoImplCopyWithImpl<$Res>
     Object? location = freezed,
     Object? referralCode = freezed,
     Object? lastPage = freezed,
+    Object? education = freezed,
     Object? authDto = freezed,
   }) {
     return _then(_$CurrentUserDtoImpl(
@@ -323,7 +333,7 @@ class __$$CurrentUserDtoImplCopyWithImpl<$Res>
       phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       association: freezed == association
           ? _value.association
           : association // ignore: cast_nullable_to_non_nullable
@@ -344,6 +354,10 @@ class __$$CurrentUserDtoImplCopyWithImpl<$Res>
           ? _value.lastPage
           : lastPage // ignore: cast_nullable_to_non_nullable
               as String?,
+      education: freezed == education
+          ? _value._education
+          : education // ignore: cast_nullable_to_non_nullable
+              as List<EducationDTO>?,
       authDto: freezed == authDto
           ? _value.authDto
           : authDto // ignore: cast_nullable_to_non_nullable
@@ -373,8 +387,10 @@ class _$CurrentUserDtoImpl extends _CurrentUserDto {
       @JsonKey(name: 'location') this.location,
       @JsonKey(name: 'referral_code') this.referralCode,
       @JsonKey(name: 'last_page') this.lastPage,
+      @JsonKey(name: 'education') final List<EducationDTO>? education,
       @JsonKey(name: 'auth') this.authDto})
-      : super._();
+      : _education = education,
+        super._();
 
   factory _$CurrentUserDtoImpl.fromJson(Map<String, dynamic> json) =>
       _$$CurrentUserDtoImplFromJson(json);
@@ -414,7 +430,7 @@ class _$CurrentUserDtoImpl extends _CurrentUserDto {
   final String? countryNameCode;
   @override
   @JsonKey(name: 'phone')
-  final String? phone;
+  final int? phone;
   @override
   @JsonKey(name: 'association_you_belong_to')
   final String? association;
@@ -430,13 +446,24 @@ class _$CurrentUserDtoImpl extends _CurrentUserDto {
   @override
   @JsonKey(name: 'last_page')
   final String? lastPage;
+  final List<EducationDTO>? _education;
+  @override
+  @JsonKey(name: 'education')
+  List<EducationDTO>? get education {
+    final value = _education;
+    if (value == null) return null;
+    if (_education is EqualUnmodifiableListView) return _education;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   @JsonKey(name: 'auth')
   final AuthDto? authDto;
 
   @override
   String toString() {
-    return 'CurrentUserDto(userId: $userId, firstName: $firstName, lastName: $lastName, email: $email, isVerified: $isVerified, serviceRole: $serviceRole, industryId: $industryId, profileImage: $profileImage, companyName: $companyName, countryCode: $countryCode, countryNameCode: $countryNameCode, phone: $phone, association: $association, companyDescription: $companyDescription, location: $location, referralCode: $referralCode, lastPage: $lastPage, authDto: $authDto)';
+    return 'CurrentUserDto(userId: $userId, firstName: $firstName, lastName: $lastName, email: $email, isVerified: $isVerified, serviceRole: $serviceRole, industryId: $industryId, profileImage: $profileImage, companyName: $companyName, countryCode: $countryCode, countryNameCode: $countryNameCode, phone: $phone, association: $association, companyDescription: $companyDescription, location: $location, referralCode: $referralCode, lastPage: $lastPage, education: $education, authDto: $authDto)';
   }
 
   @override
@@ -475,31 +502,35 @@ class _$CurrentUserDtoImpl extends _CurrentUserDto {
                 other.referralCode == referralCode) &&
             (identical(other.lastPage, lastPage) ||
                 other.lastPage == lastPage) &&
+            const DeepCollectionEquality()
+                .equals(other._education, _education) &&
             (identical(other.authDto, authDto) || other.authDto == authDto));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      userId,
-      firstName,
-      lastName,
-      email,
-      isVerified,
-      serviceRole,
-      industryId,
-      profileImage,
-      companyName,
-      countryCode,
-      countryNameCode,
-      phone,
-      association,
-      companyDescription,
-      location,
-      referralCode,
-      lastPage,
-      authDto);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        userId,
+        firstName,
+        lastName,
+        email,
+        isVerified,
+        serviceRole,
+        industryId,
+        profileImage,
+        companyName,
+        countryCode,
+        countryNameCode,
+        phone,
+        association,
+        companyDescription,
+        location,
+        referralCode,
+        lastPage,
+        const DeepCollectionEquality().hash(_education),
+        authDto
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -529,12 +560,13 @@ abstract class _CurrentUserDto extends CurrentUserDto {
       @JsonKey(name: 'company_name') final String? companyName,
       @JsonKey(name: 'countryCode') final String? countryCode,
       @JsonKey(name: 'country_name_code') final String? countryNameCode,
-      @JsonKey(name: 'phone') final String? phone,
+      @JsonKey(name: 'phone') final int? phone,
       @JsonKey(name: 'association_you_belong_to') final String? association,
       @JsonKey(name: 'company_description') final String? companyDescription,
       @JsonKey(name: 'location') final String? location,
       @JsonKey(name: 'referral_code') final String? referralCode,
       @JsonKey(name: 'last_page') final String? lastPage,
+      @JsonKey(name: 'education') final List<EducationDTO>? education,
       @JsonKey(name: 'auth') final AuthDto? authDto}) = _$CurrentUserDtoImpl;
   const _CurrentUserDto._() : super._();
 
@@ -576,7 +608,7 @@ abstract class _CurrentUserDto extends CurrentUserDto {
   String? get countryNameCode;
   @override
   @JsonKey(name: 'phone')
-  String? get phone;
+  int? get phone;
   @override
   @JsonKey(name: 'association_you_belong_to')
   String? get association;
@@ -592,6 +624,9 @@ abstract class _CurrentUserDto extends CurrentUserDto {
   @override
   @JsonKey(name: 'last_page')
   String? get lastPage;
+  @override
+  @JsonKey(name: 'education')
+  List<EducationDTO>? get education;
   @override
   @JsonKey(name: 'auth')
   AuthDto? get authDto;

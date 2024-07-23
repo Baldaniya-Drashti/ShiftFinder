@@ -619,6 +619,8 @@ mixin _$LoginFormState {
   FocusNode get mobileNumberFocusNode => throw _privateConstructorUsedError;
   Option<Either<AuthFailure, String>> get authFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
+  Option<Either<AuthFailure, String>> get verificationFailureOrSuccessOption =>
+      throw _privateConstructorUsedError;
   Option<Either<AuthFailure, String>> get resendFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
 
@@ -644,6 +646,7 @@ abstract class $LoginFormStateCopyWith<$Res> {
       int secondsRemaining,
       FocusNode mobileNumberFocusNode,
       Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
+      Option<Either<AuthFailure, String>> verificationFailureOrSuccessOption,
       Option<Either<AuthFailure, String>> resendFailureOrSuccessOption});
 }
 
@@ -670,6 +673,7 @@ class _$LoginFormStateCopyWithImpl<$Res, $Val extends LoginFormState>
     Object? secondsRemaining = null,
     Object? mobileNumberFocusNode = null,
     Object? authFailureOrSuccessOption = null,
+    Object? verificationFailureOrSuccessOption = null,
     Object? resendFailureOrSuccessOption = null,
   }) {
     return _then(_value.copyWith(
@@ -713,6 +717,11 @@ class _$LoginFormStateCopyWithImpl<$Res, $Val extends LoginFormState>
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, String>>,
+      verificationFailureOrSuccessOption: null ==
+              verificationFailureOrSuccessOption
+          ? _value.verificationFailureOrSuccessOption
+          : verificationFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AuthFailure, String>>,
       resendFailureOrSuccessOption: null == resendFailureOrSuccessOption
           ? _value.resendFailureOrSuccessOption
           : resendFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
@@ -740,6 +749,7 @@ abstract class _$$LoginFormStateImplCopyWith<$Res>
       int secondsRemaining,
       FocusNode mobileNumberFocusNode,
       Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
+      Option<Either<AuthFailure, String>> verificationFailureOrSuccessOption,
       Option<Either<AuthFailure, String>> resendFailureOrSuccessOption});
 }
 
@@ -764,6 +774,7 @@ class __$$LoginFormStateImplCopyWithImpl<$Res>
     Object? secondsRemaining = null,
     Object? mobileNumberFocusNode = null,
     Object? authFailureOrSuccessOption = null,
+    Object? verificationFailureOrSuccessOption = null,
     Object? resendFailureOrSuccessOption = null,
   }) {
     return _then(_$LoginFormStateImpl(
@@ -807,6 +818,11 @@ class __$$LoginFormStateImplCopyWithImpl<$Res>
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, String>>,
+      verificationFailureOrSuccessOption: null ==
+              verificationFailureOrSuccessOption
+          ? _value.verificationFailureOrSuccessOption
+          : verificationFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AuthFailure, String>>,
       resendFailureOrSuccessOption: null == resendFailureOrSuccessOption
           ? _value.resendFailureOrSuccessOption
           : resendFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
@@ -829,6 +845,7 @@ class _$LoginFormStateImpl implements _LoginFormState {
       required this.secondsRemaining,
       required this.mobileNumberFocusNode,
       required this.authFailureOrSuccessOption,
+      required this.verificationFailureOrSuccessOption,
       required this.resendFailureOrSuccessOption});
 
   @override
@@ -852,11 +869,13 @@ class _$LoginFormStateImpl implements _LoginFormState {
   @override
   final Option<Either<AuthFailure, String>> authFailureOrSuccessOption;
   @override
+  final Option<Either<AuthFailure, String>> verificationFailureOrSuccessOption;
+  @override
   final Option<Either<AuthFailure, String>> resendFailureOrSuccessOption;
 
   @override
   String toString() {
-    return 'LoginFormState(emailId: $emailId, password: $password, isObscure: $isObscure, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, selectedCountrycode: $selectedCountrycode, enteredOTP: $enteredOTP, secondsRemaining: $secondsRemaining, mobileNumberFocusNode: $mobileNumberFocusNode, authFailureOrSuccessOption: $authFailureOrSuccessOption, resendFailureOrSuccessOption: $resendFailureOrSuccessOption)';
+    return 'LoginFormState(emailId: $emailId, password: $password, isObscure: $isObscure, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, selectedCountrycode: $selectedCountrycode, enteredOTP: $enteredOTP, secondsRemaining: $secondsRemaining, mobileNumberFocusNode: $mobileNumberFocusNode, authFailureOrSuccessOption: $authFailureOrSuccessOption, verificationFailureOrSuccessOption: $verificationFailureOrSuccessOption, resendFailureOrSuccessOption: $resendFailureOrSuccessOption)';
   }
 
   @override
@@ -885,6 +904,10 @@ class _$LoginFormStateImpl implements _LoginFormState {
                     authFailureOrSuccessOption) ||
                 other.authFailureOrSuccessOption ==
                     authFailureOrSuccessOption) &&
+            (identical(other.verificationFailureOrSuccessOption,
+                    verificationFailureOrSuccessOption) ||
+                other.verificationFailureOrSuccessOption ==
+                    verificationFailureOrSuccessOption) &&
             (identical(other.resendFailureOrSuccessOption,
                     resendFailureOrSuccessOption) ||
                 other.resendFailureOrSuccessOption ==
@@ -904,6 +927,7 @@ class _$LoginFormStateImpl implements _LoginFormState {
       secondsRemaining,
       mobileNumberFocusNode,
       authFailureOrSuccessOption,
+      verificationFailureOrSuccessOption,
       resendFailureOrSuccessOption);
 
   @JsonKey(ignore: true)
@@ -928,6 +952,8 @@ abstract class _LoginFormState implements LoginFormState {
       required final Option<Either<AuthFailure, String>>
           authFailureOrSuccessOption,
       required final Option<Either<AuthFailure, String>>
+          verificationFailureOrSuccessOption,
+      required final Option<Either<AuthFailure, String>>
           resendFailureOrSuccessOption}) = _$LoginFormStateImpl;
 
   @override
@@ -950,6 +976,8 @@ abstract class _LoginFormState implements LoginFormState {
   FocusNode get mobileNumberFocusNode;
   @override
   Option<Either<AuthFailure, String>> get authFailureOrSuccessOption;
+  @override
+  Option<Either<AuthFailure, String>> get verificationFailureOrSuccessOption;
   @override
   Option<Either<AuthFailure, String>> get resendFailureOrSuccessOption;
   @override

@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shift/domain/auth/i_auth_facade.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 part 'login_form_bloc.freezed.dart';
 part 'login_form_event.dart';
 part 'login_form_state.dart';
@@ -15,10 +17,12 @@ part 'login_form_state.dart';
 /// LoginFormBloc manages the user's login flow
 @injectable
 class LoginFormBloc extends Bloc<LoginFormEvent, LoginFormState> {
+  final IAuthFacade _authFacade;
+
   late Timer timer;
   bool isObscure = false;
 
-  LoginFormBloc() : super(LoginFormState.initial()) {
+  LoginFormBloc(this._authFacade) : super(LoginFormState.initial()) {
     on<LoginFormEvent>(
       (event, emit) async {
         await event.map(
@@ -51,6 +55,8 @@ class LoginFormBloc extends Bloc<LoginFormEvent, LoginFormState> {
 
           /// Extra Unused ///
           loginPressed: (e) async {
+            print("CURRENT ROLE---> ${getCurrentRole()}");
+
             Either<AuthFailure, String>? failureOrSuccess;
             final isMobileNumberValid = state.emailId.isValid();
             final isPasswordValid = state.password.isValid();
@@ -62,19 +68,33 @@ class LoginFormBloc extends Bloc<LoginFormEvent, LoginFormState> {
                   authFailureOrSuccessOption: none(),
                 ),
               );
-              // failureOrSuccess = await _authFacade.login(
-              //   mobileNumber: state.emailId,
-              //   countryCode: '+${state.selectedCountrycode}',
-              // );
-              failureOrSuccess = right("success");
+              failureOrSuccess = await _authFacade.login(
+                email: state.emailId,
+                password: state.password,
+              );
+              // failureOrSuccess = right("success");
             }
-            emit(
-              state.copyWith(
-                isSubmitting: false,
-                showErrorMessages: true,
-                authFailureOrSuccessOption: optionOf(failureOrSuccess),
-              ),
-            );
+            final isUserVerified = await _authFacade.checkUserVerified();
+            if (!isUserVerified) {
+              emit(
+                state.copyWith(
+                  isSubmitting: false,
+                  showErrorMessages: true,
+                  verificationFailureOrSuccessOption:
+                      optionOf(failureOrSuccess),
+                  authFailureOrSuccessOption: none(),
+                ),
+              );
+            } else {
+              emit(
+                state.copyWith(
+                  isSubmitting: false,
+                  showErrorMessages: true,
+                  authFailureOrSuccessOption: optionOf(failureOrSuccess),
+                  verificationFailureOrSuccessOption: none(),
+                ),
+              );
+            }
           },
         );
       },

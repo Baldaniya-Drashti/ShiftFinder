@@ -19,32 +19,38 @@ mixin _$SplashEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
+    required TResult Function() getAccount,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
+    TResult? Function()? getAccount,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
+    TResult Function()? getAccount,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_GetAccount value) getAccount,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
+    TResult? Function(_GetAccount value)? getAccount,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_GetAccount value)? getAccount,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -107,6 +113,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
+    required TResult Function() getAccount,
   }) {
     return started();
   }
@@ -115,6 +122,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
+    TResult? Function()? getAccount,
   }) {
     return started?.call();
   }
@@ -123,6 +131,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
+    TResult Function()? getAccount,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -135,6 +144,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_GetAccount value) getAccount,
   }) {
     return started(this);
   }
@@ -143,6 +153,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
+    TResult? Function(_GetAccount value)? getAccount,
   }) {
     return started?.call(this);
   }
@@ -151,6 +162,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_GetAccount value)? getAccount,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -165,11 +177,113 @@ abstract class _Started implements SplashEvent {
 }
 
 /// @nodoc
+abstract class _$$GetAccountImplCopyWith<$Res> {
+  factory _$$GetAccountImplCopyWith(
+          _$GetAccountImpl value, $Res Function(_$GetAccountImpl) then) =
+      __$$GetAccountImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetAccountImplCopyWithImpl<$Res>
+    extends _$SplashEventCopyWithImpl<$Res, _$GetAccountImpl>
+    implements _$$GetAccountImplCopyWith<$Res> {
+  __$$GetAccountImplCopyWithImpl(
+      _$GetAccountImpl _value, $Res Function(_$GetAccountImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetAccountImpl implements _GetAccount {
+  const _$GetAccountImpl();
+
+  @override
+  String toString() {
+    return 'SplashEvent.getAccount()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GetAccountImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function() getAccount,
+  }) {
+    return getAccount();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function()? getAccount,
+  }) {
+    return getAccount?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function()? getAccount,
+    required TResult orElse(),
+  }) {
+    if (getAccount != null) {
+      return getAccount();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_GetAccount value) getAccount,
+  }) {
+    return getAccount(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_GetAccount value)? getAccount,
+  }) {
+    return getAccount?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_GetAccount value)? getAccount,
+    required TResult orElse(),
+  }) {
+    if (getAccount != null) {
+      return getAccount(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetAccount implements SplashEvent {
+  const factory _GetAccount() = _$GetAccountImpl;
+}
+
+/// @nodoc
 mixin _$SplashState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() authenticated,
+    required TResult Function(String lastPage) authenticated,
     required TResult Function(String e) unAuthenticated,
     required TResult Function() introScreenVisibilty,
   }) =>
@@ -177,7 +291,7 @@ mixin _$SplashState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? authenticated,
+    TResult? Function(String lastPage)? authenticated,
     TResult? Function(String e)? unAuthenticated,
     TResult? Function()? introScreenVisibilty,
   }) =>
@@ -185,7 +299,7 @@ mixin _$SplashState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? authenticated,
+    TResult Function(String lastPage)? authenticated,
     TResult Function(String e)? unAuthenticated,
     TResult Function()? introScreenVisibilty,
     required TResult orElse(),
@@ -275,7 +389,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() authenticated,
+    required TResult Function(String lastPage) authenticated,
     required TResult Function(String e) unAuthenticated,
     required TResult Function() introScreenVisibilty,
   }) {
@@ -286,7 +400,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? authenticated,
+    TResult? Function(String lastPage)? authenticated,
     TResult? Function(String e)? unAuthenticated,
     TResult? Function()? introScreenVisibilty,
   }) {
@@ -297,7 +411,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? authenticated,
+    TResult Function(String lastPage)? authenticated,
     TResult Function(String e)? unAuthenticated,
     TResult Function()? introScreenVisibilty,
     required TResult orElse(),
@@ -355,6 +469,8 @@ abstract class _$$AuthenticatedImplCopyWith<$Res> {
   factory _$$AuthenticatedImplCopyWith(
           _$AuthenticatedImpl value, $Res Function(_$AuthenticatedImpl) then) =
       __$$AuthenticatedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String lastPage});
 }
 
 /// @nodoc
@@ -364,60 +480,85 @@ class __$$AuthenticatedImplCopyWithImpl<$Res>
   __$$AuthenticatedImplCopyWithImpl(
       _$AuthenticatedImpl _value, $Res Function(_$AuthenticatedImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? lastPage = null,
+  }) {
+    return _then(_$AuthenticatedImpl(
+      null == lastPage
+          ? _value.lastPage
+          : lastPage // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$AuthenticatedImpl implements _Authenticated {
-  const _$AuthenticatedImpl();
+  const _$AuthenticatedImpl(this.lastPage);
+
+  @override
+  final String lastPage;
 
   @override
   String toString() {
-    return 'SplashState.authenticated()';
+    return 'SplashState.authenticated(lastPage: $lastPage)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$AuthenticatedImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$AuthenticatedImpl &&
+            (identical(other.lastPage, lastPage) ||
+                other.lastPage == lastPage));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, lastPage);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AuthenticatedImplCopyWith<_$AuthenticatedImpl> get copyWith =>
+      __$$AuthenticatedImplCopyWithImpl<_$AuthenticatedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() authenticated,
+    required TResult Function(String lastPage) authenticated,
     required TResult Function(String e) unAuthenticated,
     required TResult Function() introScreenVisibilty,
   }) {
-    return authenticated();
+    return authenticated(lastPage);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? authenticated,
+    TResult? Function(String lastPage)? authenticated,
     TResult? Function(String e)? unAuthenticated,
     TResult? Function()? introScreenVisibilty,
   }) {
-    return authenticated?.call();
+    return authenticated?.call(lastPage);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? authenticated,
+    TResult Function(String lastPage)? authenticated,
     TResult Function(String e)? unAuthenticated,
     TResult Function()? introScreenVisibilty,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
-      return authenticated();
+      return authenticated(lastPage);
     }
     return orElse();
   }
@@ -461,7 +602,12 @@ class _$AuthenticatedImpl implements _Authenticated {
 }
 
 abstract class _Authenticated implements SplashState {
-  const factory _Authenticated() = _$AuthenticatedImpl;
+  const factory _Authenticated(final String lastPage) = _$AuthenticatedImpl;
+
+  String get lastPage;
+  @JsonKey(ignore: true)
+  _$$AuthenticatedImplCopyWith<_$AuthenticatedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -530,7 +676,7 @@ class _$UnAuthenticatedImpl implements _UnAuthenticated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() authenticated,
+    required TResult Function(String lastPage) authenticated,
     required TResult Function(String e) unAuthenticated,
     required TResult Function() introScreenVisibilty,
   }) {
@@ -541,7 +687,7 @@ class _$UnAuthenticatedImpl implements _UnAuthenticated {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? authenticated,
+    TResult? Function(String lastPage)? authenticated,
     TResult? Function(String e)? unAuthenticated,
     TResult? Function()? introScreenVisibilty,
   }) {
@@ -552,7 +698,7 @@ class _$UnAuthenticatedImpl implements _UnAuthenticated {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? authenticated,
+    TResult Function(String lastPage)? authenticated,
     TResult Function(String e)? unAuthenticated,
     TResult Function()? introScreenVisibilty,
     required TResult orElse(),
@@ -650,7 +796,7 @@ class _$IntroScreenVisibiltyImpl implements IntroScreenVisibilty {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() authenticated,
+    required TResult Function(String lastPage) authenticated,
     required TResult Function(String e) unAuthenticated,
     required TResult Function() introScreenVisibilty,
   }) {
@@ -661,7 +807,7 @@ class _$IntroScreenVisibiltyImpl implements IntroScreenVisibilty {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? authenticated,
+    TResult? Function(String lastPage)? authenticated,
     TResult? Function(String e)? unAuthenticated,
     TResult? Function()? introScreenVisibilty,
   }) {
@@ -672,7 +818,7 @@ class _$IntroScreenVisibiltyImpl implements IntroScreenVisibilty {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? authenticated,
+    TResult Function(String lastPage)? authenticated,
     TResult Function(String e)? unAuthenticated,
     TResult Function()? introScreenVisibilty,
     required TResult orElse(),

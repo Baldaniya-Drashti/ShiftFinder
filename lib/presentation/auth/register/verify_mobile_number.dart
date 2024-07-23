@@ -7,6 +7,7 @@ import 'package:shift/application/auth/register_form/register_form_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -27,6 +28,7 @@ class VerifyPhoneNumber extends StatelessWidget {
   getVerifyPhoneNoBottomSheet(
     BuildContext context,
     String emailOrPhone,
+    String password,
   ) {
     return showModalBottomSheet(
       context: context,
@@ -60,6 +62,7 @@ class VerifyPhoneNumber extends StatelessWidget {
                         orElse: () => "Server Error. Try again later.",
                       ),
                     ).show(context);
+                    AppFocus.unfocus(context);
                   },
                   (r) {
                     if (getCurrentRole() == 1) {
@@ -79,7 +82,7 @@ class VerifyPhoneNumber extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(getSize(20), 0, getSize(20),
                     MediaQuery.of(context).viewInsets.bottom),
                 child: SafeArea(
-                  child: otpView(context, state, emailOrPhone),
+                  child: otpView(context, state, emailOrPhone, password),
                 ),
               );
             },
@@ -90,7 +93,11 @@ class VerifyPhoneNumber extends StatelessWidget {
   }
 
   Widget otpView(
-      BuildContext context, RegisterFormState state, String emailOrPhone) {
+    BuildContext context,
+    RegisterFormState state,
+    String emailOrPhone,
+    String password,
+  ) {
     return Form(
       autovalidateMode: state.showOtpErrorMessages
           ? AutovalidateMode.always
@@ -225,7 +232,7 @@ class VerifyPhoneNumber extends StatelessWidget {
             onPressed: () {
               context
                   .read<RegisterFormBloc>()
-                  .add(RegisterFormEvent.verifyOtp());
+                  .add(RegisterFormEvent.verifyOtp(password));
             },
             buttonText: StringConstant.verify,
             borderRadius: 30,

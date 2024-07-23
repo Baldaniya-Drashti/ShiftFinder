@@ -7,10 +7,12 @@ import 'package:shift/application/auth/contractor_auth/add_contractor_skill_form
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -25,25 +27,26 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 class AddContractorSkillsForm extends StatelessWidget {
   AddContractorSkillsForm({super.key});
 
-  final List<String> requiredSpecialtiesList = [
-    'Anesthesiology',
-    'Behavioral Health',
-    'Urology',
-    'Perinatal',
-    'NICU',
-    'Other',
-  ];
+  // final List<String> requiredSpecialtiesList = [
+  //   'Anesthesiology',
+  //   'Behavioral Health',
+  //   'Urology',
+  //   'Perinatal',
+  //   'NICU',
+  //   'Other',
+  // ];
 
-  final List<String> preferredSoftwareSkillList = [
-    "Visual Studio code",
-    "Android Studio",
-    "Sublime Text",
-    "Bluefish",
-    "Notepad++",
-    "OTHER",
-  ];
+  // final List<String> preferredSoftwareSkillList = [
+  //   "Visual Studio code",
+  //   "Android Studio",
+  //   "Sublime Text",
+  //   "Bluefish",
+  //   "Notepad++",
+  //   "OTHER",
+  // ];
 
   TextEditingController otherSpecialitiesController = TextEditingController();
+  TextEditingController otherRoleController = TextEditingController();
   TextEditingController otherPreferredSkillsController =
       TextEditingController();
   TextEditingController languageController = TextEditingController();
@@ -52,7 +55,8 @@ class AddContractorSkillsForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<AddContractorSkillFormBloc>(),
+      create: (context) => getIt<AddContractorSkillFormBloc>()
+        ..add(const AddContractorSkillFormEvent.getAllDropDownList()),
       child: GestureDetector(
         onTap: () {
           AppFocus.unfocus(context);
@@ -88,43 +92,48 @@ class AddContractorSkillsForm extends StatelessWidget {
                 );
               },
               builder: (context, state) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                  child: Form(
-                    autovalidateMode: state.showErrorMessages
-                        ? AutovalidateMode.always
-                        : AutovalidateMode.disabled,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            PngImageConstants.healthcare_post_contractor,
-                          ),
-                          paddingBetweenFields(),
-                          roleDropDown(context, state),
-                          paddingBetweenFields(),
-                          requiredSpecialityDropDownChipset(context, state),
-                          preferredSoftwareSkillsDropDownChipSet(
-                              context, state),
-                          paddingBetweenFields(),
-                          languageDropDownChipSet(context, state),
-                          Padding(
-                            padding:
-                                EdgeInsets.symmetric(vertical: getSize(50)),
-                            child: CommonButton(
-                              onPressed: () {
-                                context.read<AddContractorSkillFormBloc>().add(
-                                    const AddContractorSkillFormEvent
-                                        .continueBtnPressed());
-                              },
-                              buttonText: StringConstant.txtContinue,
+                return (state.isLoading)
+                    ? const CenterLoadingIndicator()
+                    : Padding(
+                        padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                        child: Form(
+                          autovalidateMode: state.showErrorMessages
+                              ? AutovalidateMode.always
+                              : AutovalidateMode.disabled,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  PngImageConstants.healthcare_post_contractor,
+                                ),
+                                paddingBetweenFields(),
+                                roleDropDown(context, state),
+                                paddingBetweenFields(),
+                                requiredSpecialityDropDownChipset(
+                                    context, state),
+                                preferredSoftwareSkillsDropDownChipSet(
+                                    context, state),
+                                paddingBetweenFields(),
+                                languageDropDownChipSet(context, state),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(50)),
+                                  child: CommonButton(
+                                    isSubmitting: state.isSubmitting,
+                                    onPressed: () {
+                                      context
+                                          .read<AddContractorSkillFormBloc>()
+                                          .add(const AddContractorSkillFormEvent
+                                              .continueBtnPressed());
+                                    },
+                                    buttonText: StringConstant.txtContinue,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
+                        ),
+                      );
               },
             )),
       ),
@@ -146,17 +155,11 @@ class AddContractorSkillsForm extends StatelessWidget {
           labelText: StringConstant.role,
           isLabelPadding: true,
           showTextfield: false,
-          items: const [
-            "Registered Nurse",
-            "Registered Practical Nurse",
-            "PSW (Personal Support Worker)",
-            "Nurse Practitioner",
-            "Anaesthesiology Assistant",
-          ].map((val) {
-            return DropdownMenuItem(
-              value: val,
+          items: state.roleList.map((val) {
+            return DropdownMenuItem<String>(
+              value: val.name,
               child: BaseText(
-                text: val,
+                text: val.name ?? "",
                 fontSize: 14,
                 textColor: AppColors.black,
               ),
@@ -193,36 +196,25 @@ class AddContractorSkillsForm extends StatelessWidget {
                 .add(AddContractorSkillFormEvent.removeRoleTypeChips(value));
           },
         ),
-      ],
-    );
-  }
 
-  Widget requiredSpecialityDropDownChipset(
-      BuildContext context, AddContractorSkillFormState state) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        CustomDropdwonWithTextField(
+        /*CustomDropdwonWithTextField(
           isLabelPadding: true,
-          fieldController: otherSpecialitiesController,
-          labelText: StringConstant.specialties,
-          hintText: StringConstant.specialties,
-          showTextfield: state.requiredSpecialityChip.toLowerCase() == "other",
-          fieldHintText: StringConstant.addYourSpecializations,
-          items: requiredSpecialtiesList.map((val) {
-            return DropdownMenuItem(
-              value: val,
+          fieldController: otherRoleController,
+          labelText: StringConstant.role,
+          hintText: StringConstant.role,
+          showTextfield: state.roleTypeChip.toLowerCase() == "other",
+          fieldHintText: StringConstant.selectRoles,
+          items: state.roleList.map((val) {
+            return DropdownMenuItem<String>(
+              value: val.name,
               child: BaseText(
-                text: val,
+                text: val.name ?? "",
                 fontSize: 14,
                 textColor: AppColors.black,
               ),
             );
           }).toList(),
-          value: (state.requiredSpecialityChip.isEmpty)
-              ? null
-              : state.requiredSpecialityChip,
+          value: (state.roleTypeChip.isEmpty) ? null : state.roleTypeChip,
           validator: (val) {
             if (val != null && val.toLowerCase() == "other") {
               return null;
@@ -230,12 +222,12 @@ class AddContractorSkillsForm extends StatelessWidget {
               return context
                   .read<AddContractorSkillFormBloc>()
                   .state
-                  .requiredSpecialityChipList
+                  .roleTypeChipList
                   .value
                   .fold(
                     (f) => f.maybeMap(
                       empty: (value) =>
-                          StringConstant.pleaseSelectAtLeastOneSpeciality,
+                          StringConstant.pleaseSelectAtLeastOneRole,
                       orElse: () => null,
                     ),
                     (_) => null,
@@ -244,9 +236,9 @@ class AddContractorSkillsForm extends StatelessWidget {
           },
           onChanged: (newValue) {
             if (newValue != null) {
-              context.read<AddContractorSkillFormBloc>().add(
-                  AddContractorSkillFormEvent.addRequiredSpecialitichips(
-                      newValue));
+              context
+                  .read<AddContractorSkillFormBloc>()
+                  .add(AddContractorSkillFormEvent.addRoleTypeChips(newValue));
             }
           },
           suffixIcon: CommonButton(
@@ -256,20 +248,29 @@ class AddContractorSkillsForm extends StatelessWidget {
             buttonText: StringConstant.add,
             buttonFontSize: 10,
             onPressed: () {
-              context.read<AddContractorSkillFormBloc>().add(
-                    AddContractorSkillFormEvent.addRequiredSpecialitichips(
-                      otherSpecialitiesController.text,
-                      isOtherValue: true,
-                    ),
-                  );
-              otherSpecialitiesController.clear();
+              context
+                  .read<AddContractorSkillFormBloc>()
+                  .add(AddContractorSkillFormEvent.addRoleTypeChips(
+                    otherRoleController.text,
+                    isOtherValue: true,
+                  ));
+
+              otherRoleController.clear();
             },
           ),
         ),
-        if (state.requiredSpecialityChip.toLowerCase() == "other" &&
-            state.showSpecialityError)
-          commonErrorText(StringConstant.pleaseAddOtherTypeOfSpeciality),
-        specialityBox(state),
+        if (state.roleTypeChip.toLowerCase() == "other" &&
+            state.showRoleTypeError)
+          commonErrorText(StringConstant.pleaseAddOtherTypeOfRole),
+        CustomChipSet(
+          chipList: (state.roleTypeChipList.getValue()).cast<String>(),
+          onDelete: (value) {
+            context
+                .read<AddContractorSkillFormBloc>()
+                .add(AddContractorSkillFormEvent.removeRoleTypeChips(value));
+          },
+        ),
+    */
       ],
     );
   }
@@ -288,11 +289,11 @@ class AddContractorSkillsForm extends StatelessWidget {
           showTextfield:
               state.requiredSoftwareSkillChip.toLowerCase() == "other",
           fieldHintText: StringConstant.addYourSoftwareSkills,
-          items: preferredSoftwareSkillList.map((val) {
-            return DropdownMenuItem(
-              value: val,
+          items: state.softwareList.map((val) {
+            return DropdownMenuItem<String>(
+              value: val.name,
               child: BaseText(
-                text: val,
+                text: val.name ?? "",
                 fontSize: 14,
                 textColor: AppColors.black,
               ),
@@ -360,6 +361,84 @@ class AddContractorSkillsForm extends StatelessWidget {
     );
   }
 
+  Widget requiredSpecialityDropDownChipset(
+      BuildContext context, AddContractorSkillFormState state) {
+    print("SPECIALITY LIST--> ${state.specialityList}");
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        CustomDropdwonWithTextField(
+          isLabelPadding: true,
+          fieldController: otherSpecialitiesController,
+          labelText: StringConstant.specialties,
+          hintText: StringConstant.specialties,
+          showTextfield: state.requiredSpecialityChip.toLowerCase() == "other",
+          fieldHintText: StringConstant.addYourSpecializations,
+          items: state.specialityList.map((val) {
+            return DropdownMenuItem<String>(
+              value: val.name,
+              child: BaseText(
+                text: val.name ?? "",
+                fontSize: 14,
+                textColor: AppColors.black,
+              ),
+            );
+          }).toList(),
+          value: (state.requiredSpecialityChip.isEmpty)
+              ? null
+              : state.requiredSpecialityChip,
+          validator: (val) {
+            if (val != null && val.toLowerCase() == "other") {
+              return null;
+            } else {
+              return context
+                  .read<AddContractorSkillFormBloc>()
+                  .state
+                  .requiredSpecialityChipList
+                  .value
+                  .fold(
+                    (f) => f.maybeMap(
+                      empty: (value) =>
+                          StringConstant.pleaseSelectAtLeastOneSpeciality,
+                      orElse: () => null,
+                    ),
+                    (_) => null,
+                  );
+            }
+          },
+          onChanged: (newValue) {
+            if (newValue != null) {
+              context.read<AddContractorSkillFormBloc>().add(
+                  AddContractorSkillFormEvent.addRequiredSpecialitichips(
+                      newValue));
+            }
+          },
+          suffixIcon: CommonButton(
+            height: getSize(27),
+            width: getSize(59),
+            borderRadius: getSize(10),
+            buttonText: StringConstant.add,
+            buttonFontSize: 10,
+            onPressed: () {
+              context.read<AddContractorSkillFormBloc>().add(
+                    AddContractorSkillFormEvent.addRequiredSpecialitichips(
+                      otherSpecialitiesController.text,
+                      isOtherValue: true,
+                    ),
+                  );
+              otherSpecialitiesController.clear();
+            },
+          ),
+        ),
+        if (state.requiredSpecialityChip.toLowerCase() == "other" &&
+            state.showSpecialityError)
+          commonErrorText(StringConstant.pleaseAddOtherTypeOfSpeciality),
+        specialityBox(state),
+      ],
+    );
+  }
+
   Widget languageDropDownChipSet(
       BuildContext context, AddContractorSkillFormState state) {
     return Column(
@@ -373,11 +452,11 @@ class AddContractorSkillsForm extends StatelessWidget {
           hintText: StringConstant.languagesKnown,
           showTextfield: state.languageChip.toLowerCase() == "other",
           fieldHintText: StringConstant.addYourLanguage,
-          items: CommonList.languageList.map((val) {
-            return DropdownMenuItem(
-              value: val.title,
+          items: state.languageList.map((val) {
+            return DropdownMenuItem<String>(
+              value: val.name,
               child: BaseText(
-                text: val.title ?? "",
+                text: val.name ?? "",
                 fontSize: 14,
                 textColor: AppColors.black,
               ),
@@ -464,8 +543,10 @@ class AddContractorSkillsForm extends StatelessWidget {
         itemCount: state.requiredSpecialityChipList.getValue().length,
         itemBuilder: (context, index) {
           var selectedObj = state.requiredSpecialityChipList.getValue()[index];
+          print("PRINT SPECC--> ${selectedObj}");
+
           return CustomeSpecialityBox(
-            selectedValue: selectedObj.specialityName ?? "",
+            selectedValue: selectedObj.name ?? "",
             hintText: StringConstant.addYourExperience,
             onDelete: () {
               context.read<AddContractorSkillFormBloc>().add(
@@ -487,27 +568,20 @@ class AddContractorSkillsForm extends StatelessWidget {
                 ? true
                 : false,
             errorText: StringConstant.experienceMustBeSelected,
-            // value: (state.selectedSpecialityExperience.isEmpty)
-            //     ? null
-            //     : state.selectedSpecialityExperience,
-            items: const [
-              "03 Months",
-              "06 Months",
-              "01 Year",
-              "03 Years",
-              "04 Years",
-              "05 Years",
-              "06 Years",
-              "07 Years",
-              "08 Years",
-              "09 Years",
-              "10 Years",
-              "11 Years",
-              "12 Years",
-              "13 Years",
-              "14 Years",
-              "Other",
-            ],
+            value: (selectedObj.specialityExperience != null &&
+                    selectedObj.specialityExperience!.isNotEmpty)
+                ? selectedObj.specialityExperience
+                : null,
+            items: state.experienceList.map((val) {
+              return DropdownMenuItem<String>(
+                value: val.name,
+                child: BaseText(
+                  text: val.name ?? "",
+                  fontSize: 14,
+                  textColor: AppColors.black,
+                ),
+              );
+            }).toList(),
           );
         });
   }

@@ -22,7 +22,7 @@ class AccountEntityAdapter extends TypeAdapter<AccountEntity> {
       fields[2] as String?,
       fields[3] as String?,
       fields[9] as String?,
-      fields[11] as String?,
+      fields[11] as int?,
       fields[12] as String?,
       fields[13] as String?,
       fields[8] as String?,

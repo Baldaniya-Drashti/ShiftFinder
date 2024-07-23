@@ -8,12 +8,22 @@ class ApiConstants {
 
   //auth
   static String register = 'register';
-  static String login = 'auth/login';
-  static String sendOtp = 'auth/send-otp';
-  static String verifyOtp = 'auth/verify-otp';
+  static String login = 'login';
+  static String resendOtp = 'resend_otp';
+  static String verifyOtp = 'verify_otp';
   static String logout = 'auth/logout';
 
-  static String getUser = 'user/info';
+  static String getUserInfo = 'get_user_info';
+  static String completeProfile = 'complete_profile';
+  static String education = 'education';
+  static String destroyEducation = 'destroy_education';
+
+// common
+  static String roleList = 'role_list';
+  static String specialtieList = 'specialtie_list';
+  static String experienceList = 'experience_list';
+  static String softwaresSkillList = 'softwares_skill_list';
+  static String languageList = 'language_list';
 
   //edit user
   static String updateUser = 'edit/user';

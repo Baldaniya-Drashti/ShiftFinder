@@ -44,7 +44,7 @@ mixin _$RegisterFormEvent {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -73,7 +73,7 @@ mixin _$RegisterFormEvent {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -102,7 +102,7 @@ mixin _$RegisterFormEvent {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -309,7 +309,7 @@ class _$FirstNameChangedImpl implements FirstNameChanged {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return firstNameChanged(firstName);
   }
@@ -341,7 +341,7 @@ class _$FirstNameChangedImpl implements FirstNameChanged {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return firstNameChanged?.call(firstName);
   }
@@ -373,7 +373,7 @@ class _$FirstNameChangedImpl implements FirstNameChanged {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (firstNameChanged != null) {
@@ -588,7 +588,7 @@ class _$LastNameChangedImpl implements LastNameChanged {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return lastNameChanged(lastName);
   }
@@ -620,7 +620,7 @@ class _$LastNameChangedImpl implements LastNameChanged {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return lastNameChanged?.call(lastName);
   }
@@ -652,7 +652,7 @@ class _$LastNameChangedImpl implements LastNameChanged {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (lastNameChanged != null) {
@@ -865,7 +865,7 @@ class _$CheckTermsConditionImpl implements CheckTermsCondition {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return checkTermsCondition(isCheck);
   }
@@ -897,7 +897,7 @@ class _$CheckTermsConditionImpl implements CheckTermsCondition {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return checkTermsCondition?.call(isCheck);
   }
@@ -929,7 +929,7 @@ class _$CheckTermsConditionImpl implements CheckTermsCondition {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (checkTermsCondition != null) {
@@ -1116,7 +1116,7 @@ class _$RegisterPressedImpl implements RegisterPressed {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return registerPressed();
   }
@@ -1148,7 +1148,7 @@ class _$RegisterPressedImpl implements RegisterPressed {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return registerPressed?.call();
   }
@@ -1180,7 +1180,7 @@ class _$RegisterPressedImpl implements RegisterPressed {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (registerPressed != null) {
@@ -1389,7 +1389,7 @@ class _$ChangeProfilePicImpl implements ChangeProfilePic {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return changeProfilePic(imagePath);
   }
@@ -1421,7 +1421,7 @@ class _$ChangeProfilePicImpl implements ChangeProfilePic {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return changeProfilePic?.call(imagePath);
   }
@@ -1453,7 +1453,7 @@ class _$ChangeProfilePicImpl implements ChangeProfilePic {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (changeProfilePic != null) {
@@ -1668,7 +1668,7 @@ class _$CompanyNameChangedImpl implements CompanyNameChanged {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return companyNameChanged(companyName);
   }
@@ -1700,7 +1700,7 @@ class _$CompanyNameChangedImpl implements CompanyNameChanged {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return companyNameChanged?.call(companyName);
   }
@@ -1732,7 +1732,7 @@ class _$CompanyNameChangedImpl implements CompanyNameChanged {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (companyNameChanged != null) {
@@ -1947,7 +1947,7 @@ class _$phoneNumberChangedImpl implements phoneNumberChanged {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return phoneNumberChanged(phoneNumber);
   }
@@ -1979,7 +1979,7 @@ class _$phoneNumberChangedImpl implements phoneNumberChanged {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return phoneNumberChanged?.call(phoneNumber);
   }
@@ -2011,7 +2011,7 @@ class _$phoneNumberChangedImpl implements phoneNumberChanged {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (phoneNumberChanged != null) {
@@ -2224,7 +2224,7 @@ class _$EmailChangedImpl implements EmailChanged {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return emailChanged(email);
   }
@@ -2256,7 +2256,7 @@ class _$EmailChangedImpl implements EmailChanged {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return emailChanged?.call(email);
   }
@@ -2288,7 +2288,7 @@ class _$EmailChangedImpl implements EmailChanged {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (emailChanged != null) {
@@ -2504,7 +2504,7 @@ class _$LocationAddressChangedImpl implements LocationAddressChanged {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return locationAddressChanged(location);
   }
@@ -2536,7 +2536,7 @@ class _$LocationAddressChangedImpl implements LocationAddressChanged {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return locationAddressChanged?.call(location);
   }
@@ -2568,7 +2568,7 @@ class _$LocationAddressChangedImpl implements LocationAddressChanged {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (locationAddressChanged != null) {
@@ -2788,7 +2788,7 @@ class _$LocationSelectedFromSearchListImpl
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return locationSelectedFromSearchList(selectedLocation);
   }
@@ -2820,7 +2820,7 @@ class _$LocationSelectedFromSearchListImpl
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return locationSelectedFromSearchList?.call(selectedLocation);
   }
@@ -2852,7 +2852,7 @@ class _$LocationSelectedFromSearchListImpl
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (locationSelectedFromSearchList != null) {
@@ -3068,7 +3068,7 @@ class _$PasswordChangedImpl implements PasswordChanged {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return passwordChanged(password);
   }
@@ -3100,7 +3100,7 @@ class _$PasswordChangedImpl implements PasswordChanged {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return passwordChanged?.call(password);
   }
@@ -3132,7 +3132,7 @@ class _$PasswordChangedImpl implements PasswordChanged {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (passwordChanged != null) {
@@ -3357,7 +3357,7 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return confirmPasswordChanged(confirmPassword, password);
   }
@@ -3389,7 +3389,7 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return confirmPasswordChanged?.call(confirmPassword, password);
   }
@@ -3421,7 +3421,7 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (confirmPasswordChanged != null) {
@@ -3640,7 +3640,7 @@ class _$AssociationTextChangedImpl implements AssociationTextChanged {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return associationTextChanged(associationText);
   }
@@ -3672,7 +3672,7 @@ class _$AssociationTextChangedImpl implements AssociationTextChanged {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return associationTextChanged?.call(associationText);
   }
@@ -3704,7 +3704,7 @@ class _$AssociationTextChangedImpl implements AssociationTextChanged {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (associationTextChanged != null) {
@@ -3919,7 +3919,7 @@ class _$ReferralCodeChangedImpl implements ReferralCodeChanged {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return referralCodeChanged(referralCode);
   }
@@ -3951,7 +3951,7 @@ class _$ReferralCodeChangedImpl implements ReferralCodeChanged {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return referralCodeChanged?.call(referralCode);
   }
@@ -3983,7 +3983,7 @@ class _$ReferralCodeChangedImpl implements ReferralCodeChanged {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (referralCodeChanged != null) {
@@ -4198,7 +4198,7 @@ class _$CompanyDescChangedImpl implements CompanyDescChanged {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return companyDescChanged(companyDesc);
   }
@@ -4230,7 +4230,7 @@ class _$CompanyDescChangedImpl implements CompanyDescChanged {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return companyDescChanged?.call(companyDesc);
   }
@@ -4262,7 +4262,7 @@ class _$CompanyDescChangedImpl implements CompanyDescChanged {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (companyDescChanged != null) {
@@ -4485,7 +4485,7 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return selectCountryCode(phoneCode, flag);
   }
@@ -4517,7 +4517,7 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return selectCountryCode?.call(phoneCode, flag);
   }
@@ -4549,7 +4549,7 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (selectCountryCode != null) {
@@ -4790,7 +4790,7 @@ class _$RegisterProfileBtnPressedImpl implements RegisterProfileBtnPressed {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return registerProfileBtnPressed(firstName, lastName, isCheckTerms);
   }
@@ -4822,7 +4822,7 @@ class _$RegisterProfileBtnPressedImpl implements RegisterProfileBtnPressed {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return registerProfileBtnPressed?.call(firstName, lastName, isCheckTerms);
   }
@@ -4854,7 +4854,7 @@ class _$RegisterProfileBtnPressedImpl implements RegisterProfileBtnPressed {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (registerProfileBtnPressed != null) {
@@ -5071,7 +5071,7 @@ class _$ObscureTextImpl implements ObscureText {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return obscureText(field);
   }
@@ -5103,7 +5103,7 @@ class _$ObscureTextImpl implements ObscureText {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return obscureText?.call(field);
   }
@@ -5135,7 +5135,7 @@ class _$ObscureTextImpl implements ObscureText {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (obscureText != null) {
@@ -5347,7 +5347,7 @@ class _$ChangeOTPImpl implements ChangeOTP {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return changeOTP(otp);
   }
@@ -5379,7 +5379,7 @@ class _$ChangeOTPImpl implements ChangeOTP {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return changeOTP?.call(otp);
   }
@@ -5411,7 +5411,7 @@ class _$ChangeOTPImpl implements ChangeOTP {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (changeOTP != null) {
@@ -5597,7 +5597,7 @@ class _$StartCountdownImpl implements StartCountdown {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return startCountdown();
   }
@@ -5629,7 +5629,7 @@ class _$StartCountdownImpl implements StartCountdown {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return startCountdown?.call();
   }
@@ -5661,7 +5661,7 @@ class _$StartCountdownImpl implements StartCountdown {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (startCountdown != null) {
@@ -5842,7 +5842,7 @@ class _$DecrementTimerImpl implements DecrementTimer {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return decrementTimer();
   }
@@ -5874,7 +5874,7 @@ class _$DecrementTimerImpl implements DecrementTimer {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return decrementTimer?.call();
   }
@@ -5906,7 +5906,7 @@ class _$DecrementTimerImpl implements DecrementTimer {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (decrementTimer != null) {
@@ -6087,7 +6087,7 @@ class _$ResendOtpImpl implements ResendOtp {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
     return resendOtp();
   }
@@ -6119,7 +6119,7 @@ class _$ResendOtpImpl implements ResendOtp {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
     return resendOtp?.call();
   }
@@ -6151,7 +6151,7 @@ class _$ResendOtpImpl implements ResendOtp {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (resendOtp != null) {
@@ -6273,6 +6273,8 @@ abstract class _$$VerifyOtpImplCopyWith<$Res> {
   factory _$$VerifyOtpImplCopyWith(
           _$VerifyOtpImpl value, $Res Function(_$VerifyOtpImpl) then) =
       __$$VerifyOtpImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String password});
 }
 
 /// @nodoc
@@ -6282,26 +6284,51 @@ class __$$VerifyOtpImplCopyWithImpl<$Res>
   __$$VerifyOtpImplCopyWithImpl(
       _$VerifyOtpImpl _value, $Res Function(_$VerifyOtpImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? password = null,
+  }) {
+    return _then(_$VerifyOtpImpl(
+      null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$VerifyOtpImpl implements VerifyOtp {
-  const _$VerifyOtpImpl();
+  const _$VerifyOtpImpl(this.password);
+
+  @override
+  final String password;
 
   @override
   String toString() {
-    return 'RegisterFormEvent.verifyOtp()';
+    return 'RegisterFormEvent.verifyOtp(password: $password)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$VerifyOtpImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$VerifyOtpImpl &&
+            (identical(other.password, password) ||
+                other.password == password));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, password);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$VerifyOtpImplCopyWith<_$VerifyOtpImpl> get copyWith =>
+      __$$VerifyOtpImplCopyWithImpl<_$VerifyOtpImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -6332,9 +6359,9 @@ class _$VerifyOtpImpl implements VerifyOtp {
     required TResult Function() startCountdown,
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
-    required TResult Function() verifyOtp,
+    required TResult Function(String password) verifyOtp,
   }) {
-    return verifyOtp();
+    return verifyOtp(password);
   }
 
   @override
@@ -6364,9 +6391,9 @@ class _$VerifyOtpImpl implements VerifyOtp {
     TResult? Function()? startCountdown,
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
-    TResult? Function()? verifyOtp,
+    TResult? Function(String password)? verifyOtp,
   }) {
-    return verifyOtp?.call();
+    return verifyOtp?.call(password);
   }
 
   @override
@@ -6396,11 +6423,11 @@ class _$VerifyOtpImpl implements VerifyOtp {
     TResult Function()? startCountdown,
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
-    TResult Function()? verifyOtp,
+    TResult Function(String password)? verifyOtp,
     required TResult orElse(),
   }) {
     if (verifyOtp != null) {
-      return verifyOtp();
+      return verifyOtp(password);
     }
     return orElse();
   }
@@ -6510,7 +6537,12 @@ class _$VerifyOtpImpl implements VerifyOtp {
 }
 
 abstract class VerifyOtp implements RegisterFormEvent {
-  const factory VerifyOtp() = _$VerifyOtpImpl;
+  const factory VerifyOtp(final String password) = _$VerifyOtpImpl;
+
+  String get password;
+  @JsonKey(ignore: true)
+  _$$VerifyOtpImplCopyWith<_$VerifyOtpImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

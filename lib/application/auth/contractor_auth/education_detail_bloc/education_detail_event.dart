@@ -2,6 +2,9 @@ part of 'education_detail_bloc.dart';
 
 @freezed
 class EducationDetailEvent with _$EducationDetailEvent {
+  const factory EducationDetailEvent.getEducationList() = GetEducationList;
+  const factory EducationDetailEvent.deleteEducation(int educationId) =
+      DeleteEducation;
   const factory EducationDetailEvent.addProgramChanged(String program) =
       AddProgramChanged;
   const factory EducationDetailEvent.addCompletionYearChanged(String year) =

@@ -8,6 +8,7 @@ import 'package:shift/presentation/core/widgets/utility/life_cycle_watcher.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' as bloc;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shift/presentation/profile/account/account_cubit.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -24,6 +25,9 @@ class AppWidget extends StatelessWidget {
         // ),
         bloc.BlocProvider(
           create: (context) => getIt<SplashBloc>()..add(SplashEvent.started()),
+        ),
+        bloc.BlocProvider(
+          create: (context) => getIt<AccountCubit>(),
         ),
       ],
       child: _App(),

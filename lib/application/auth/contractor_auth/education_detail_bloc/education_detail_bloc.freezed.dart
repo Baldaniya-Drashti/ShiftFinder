@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$EducationDetailEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() getEducationList,
+    required TResult Function(int educationId) deleteEducation,
     required TResult Function(String program) addProgramChanged,
     required TResult Function(String year) addCompletionYearChanged,
     required TResult Function(String institute) addInstituteChanged,
@@ -26,6 +28,8 @@ mixin _$EducationDetailEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getEducationList,
+    TResult? Function(int educationId)? deleteEducation,
     TResult? Function(String program)? addProgramChanged,
     TResult? Function(String year)? addCompletionYearChanged,
     TResult? Function(String institute)? addInstituteChanged,
@@ -34,6 +38,8 @@ mixin _$EducationDetailEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getEducationList,
+    TResult Function(int educationId)? deleteEducation,
     TResult Function(String program)? addProgramChanged,
     TResult Function(String year)? addCompletionYearChanged,
     TResult Function(String institute)? addInstituteChanged,
@@ -43,6 +49,8 @@ mixin _$EducationDetailEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetEducationList value) getEducationList,
+    required TResult Function(DeleteEducation value) deleteEducation,
     required TResult Function(AddProgramChanged value) addProgramChanged,
     required TResult Function(AddCompletionYearChanged value)
         addCompletionYearChanged,
@@ -52,6 +60,8 @@ mixin _$EducationDetailEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetEducationList value)? getEducationList,
+    TResult? Function(DeleteEducation value)? deleteEducation,
     TResult? Function(AddProgramChanged value)? addProgramChanged,
     TResult? Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult? Function(AddInstituteChanged value)? addInstituteChanged,
@@ -60,6 +70,8 @@ mixin _$EducationDetailEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetEducationList value)? getEducationList,
+    TResult Function(DeleteEducation value)? deleteEducation,
     TResult Function(AddProgramChanged value)? addProgramChanged,
     TResult Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult Function(AddInstituteChanged value)? addInstituteChanged,
@@ -86,6 +98,293 @@ class _$EducationDetailEventCopyWithImpl<$Res,
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$GetEducationListImplCopyWith<$Res> {
+  factory _$$GetEducationListImplCopyWith(_$GetEducationListImpl value,
+          $Res Function(_$GetEducationListImpl) then) =
+      __$$GetEducationListImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetEducationListImplCopyWithImpl<$Res>
+    extends _$EducationDetailEventCopyWithImpl<$Res, _$GetEducationListImpl>
+    implements _$$GetEducationListImplCopyWith<$Res> {
+  __$$GetEducationListImplCopyWithImpl(_$GetEducationListImpl _value,
+      $Res Function(_$GetEducationListImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetEducationListImpl implements GetEducationList {
+  const _$GetEducationListImpl();
+
+  @override
+  String toString() {
+    return 'EducationDetailEvent.getEducationList()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GetEducationListImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getEducationList,
+    required TResult Function(int educationId) deleteEducation,
+    required TResult Function(String program) addProgramChanged,
+    required TResult Function(String year) addCompletionYearChanged,
+    required TResult Function(String institute) addInstituteChanged,
+    required TResult Function() onAddBtnPressed,
+  }) {
+    return getEducationList();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getEducationList,
+    TResult? Function(int educationId)? deleteEducation,
+    TResult? Function(String program)? addProgramChanged,
+    TResult? Function(String year)? addCompletionYearChanged,
+    TResult? Function(String institute)? addInstituteChanged,
+    TResult? Function()? onAddBtnPressed,
+  }) {
+    return getEducationList?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getEducationList,
+    TResult Function(int educationId)? deleteEducation,
+    TResult Function(String program)? addProgramChanged,
+    TResult Function(String year)? addCompletionYearChanged,
+    TResult Function(String institute)? addInstituteChanged,
+    TResult Function()? onAddBtnPressed,
+    required TResult orElse(),
+  }) {
+    if (getEducationList != null) {
+      return getEducationList();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetEducationList value) getEducationList,
+    required TResult Function(DeleteEducation value) deleteEducation,
+    required TResult Function(AddProgramChanged value) addProgramChanged,
+    required TResult Function(AddCompletionYearChanged value)
+        addCompletionYearChanged,
+    required TResult Function(AddInstituteChanged value) addInstituteChanged,
+    required TResult Function(OnAddBtnPressed value) onAddBtnPressed,
+  }) {
+    return getEducationList(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetEducationList value)? getEducationList,
+    TResult? Function(DeleteEducation value)? deleteEducation,
+    TResult? Function(AddProgramChanged value)? addProgramChanged,
+    TResult? Function(AddCompletionYearChanged value)? addCompletionYearChanged,
+    TResult? Function(AddInstituteChanged value)? addInstituteChanged,
+    TResult? Function(OnAddBtnPressed value)? onAddBtnPressed,
+  }) {
+    return getEducationList?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetEducationList value)? getEducationList,
+    TResult Function(DeleteEducation value)? deleteEducation,
+    TResult Function(AddProgramChanged value)? addProgramChanged,
+    TResult Function(AddCompletionYearChanged value)? addCompletionYearChanged,
+    TResult Function(AddInstituteChanged value)? addInstituteChanged,
+    TResult Function(OnAddBtnPressed value)? onAddBtnPressed,
+    required TResult orElse(),
+  }) {
+    if (getEducationList != null) {
+      return getEducationList(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetEducationList implements EducationDetailEvent {
+  const factory GetEducationList() = _$GetEducationListImpl;
+}
+
+/// @nodoc
+abstract class _$$DeleteEducationImplCopyWith<$Res> {
+  factory _$$DeleteEducationImplCopyWith(_$DeleteEducationImpl value,
+          $Res Function(_$DeleteEducationImpl) then) =
+      __$$DeleteEducationImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int educationId});
+}
+
+/// @nodoc
+class __$$DeleteEducationImplCopyWithImpl<$Res>
+    extends _$EducationDetailEventCopyWithImpl<$Res, _$DeleteEducationImpl>
+    implements _$$DeleteEducationImplCopyWith<$Res> {
+  __$$DeleteEducationImplCopyWithImpl(
+      _$DeleteEducationImpl _value, $Res Function(_$DeleteEducationImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? educationId = null,
+  }) {
+    return _then(_$DeleteEducationImpl(
+      null == educationId
+          ? _value.educationId
+          : educationId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeleteEducationImpl implements DeleteEducation {
+  const _$DeleteEducationImpl(this.educationId);
+
+  @override
+  final int educationId;
+
+  @override
+  String toString() {
+    return 'EducationDetailEvent.deleteEducation(educationId: $educationId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteEducationImpl &&
+            (identical(other.educationId, educationId) ||
+                other.educationId == educationId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, educationId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeleteEducationImplCopyWith<_$DeleteEducationImpl> get copyWith =>
+      __$$DeleteEducationImplCopyWithImpl<_$DeleteEducationImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getEducationList,
+    required TResult Function(int educationId) deleteEducation,
+    required TResult Function(String program) addProgramChanged,
+    required TResult Function(String year) addCompletionYearChanged,
+    required TResult Function(String institute) addInstituteChanged,
+    required TResult Function() onAddBtnPressed,
+  }) {
+    return deleteEducation(educationId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getEducationList,
+    TResult? Function(int educationId)? deleteEducation,
+    TResult? Function(String program)? addProgramChanged,
+    TResult? Function(String year)? addCompletionYearChanged,
+    TResult? Function(String institute)? addInstituteChanged,
+    TResult? Function()? onAddBtnPressed,
+  }) {
+    return deleteEducation?.call(educationId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getEducationList,
+    TResult Function(int educationId)? deleteEducation,
+    TResult Function(String program)? addProgramChanged,
+    TResult Function(String year)? addCompletionYearChanged,
+    TResult Function(String institute)? addInstituteChanged,
+    TResult Function()? onAddBtnPressed,
+    required TResult orElse(),
+  }) {
+    if (deleteEducation != null) {
+      return deleteEducation(educationId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetEducationList value) getEducationList,
+    required TResult Function(DeleteEducation value) deleteEducation,
+    required TResult Function(AddProgramChanged value) addProgramChanged,
+    required TResult Function(AddCompletionYearChanged value)
+        addCompletionYearChanged,
+    required TResult Function(AddInstituteChanged value) addInstituteChanged,
+    required TResult Function(OnAddBtnPressed value) onAddBtnPressed,
+  }) {
+    return deleteEducation(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetEducationList value)? getEducationList,
+    TResult? Function(DeleteEducation value)? deleteEducation,
+    TResult? Function(AddProgramChanged value)? addProgramChanged,
+    TResult? Function(AddCompletionYearChanged value)? addCompletionYearChanged,
+    TResult? Function(AddInstituteChanged value)? addInstituteChanged,
+    TResult? Function(OnAddBtnPressed value)? onAddBtnPressed,
+  }) {
+    return deleteEducation?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetEducationList value)? getEducationList,
+    TResult Function(DeleteEducation value)? deleteEducation,
+    TResult Function(AddProgramChanged value)? addProgramChanged,
+    TResult Function(AddCompletionYearChanged value)? addCompletionYearChanged,
+    TResult Function(AddInstituteChanged value)? addInstituteChanged,
+    TResult Function(OnAddBtnPressed value)? onAddBtnPressed,
+    required TResult orElse(),
+  }) {
+    if (deleteEducation != null) {
+      return deleteEducation(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DeleteEducation implements EducationDetailEvent {
+  const factory DeleteEducation(final int educationId) = _$DeleteEducationImpl;
+
+  int get educationId;
+  @JsonKey(ignore: true)
+  _$$DeleteEducationImplCopyWith<_$DeleteEducationImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -153,6 +452,8 @@ class _$AddProgramChangedImpl implements AddProgramChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() getEducationList,
+    required TResult Function(int educationId) deleteEducation,
     required TResult Function(String program) addProgramChanged,
     required TResult Function(String year) addCompletionYearChanged,
     required TResult Function(String institute) addInstituteChanged,
@@ -164,6 +465,8 @@ class _$AddProgramChangedImpl implements AddProgramChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getEducationList,
+    TResult? Function(int educationId)? deleteEducation,
     TResult? Function(String program)? addProgramChanged,
     TResult? Function(String year)? addCompletionYearChanged,
     TResult? Function(String institute)? addInstituteChanged,
@@ -175,6 +478,8 @@ class _$AddProgramChangedImpl implements AddProgramChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getEducationList,
+    TResult Function(int educationId)? deleteEducation,
     TResult Function(String program)? addProgramChanged,
     TResult Function(String year)? addCompletionYearChanged,
     TResult Function(String institute)? addInstituteChanged,
@@ -190,6 +495,8 @@ class _$AddProgramChangedImpl implements AddProgramChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetEducationList value) getEducationList,
+    required TResult Function(DeleteEducation value) deleteEducation,
     required TResult Function(AddProgramChanged value) addProgramChanged,
     required TResult Function(AddCompletionYearChanged value)
         addCompletionYearChanged,
@@ -202,6 +509,8 @@ class _$AddProgramChangedImpl implements AddProgramChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetEducationList value)? getEducationList,
+    TResult? Function(DeleteEducation value)? deleteEducation,
     TResult? Function(AddProgramChanged value)? addProgramChanged,
     TResult? Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult? Function(AddInstituteChanged value)? addInstituteChanged,
@@ -213,6 +522,8 @@ class _$AddProgramChangedImpl implements AddProgramChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetEducationList value)? getEducationList,
+    TResult Function(DeleteEducation value)? deleteEducation,
     TResult Function(AddProgramChanged value)? addProgramChanged,
     TResult Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult Function(AddInstituteChanged value)? addInstituteChanged,
@@ -304,6 +615,8 @@ class _$AddCompletionYearChangedImpl implements AddCompletionYearChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() getEducationList,
+    required TResult Function(int educationId) deleteEducation,
     required TResult Function(String program) addProgramChanged,
     required TResult Function(String year) addCompletionYearChanged,
     required TResult Function(String institute) addInstituteChanged,
@@ -315,6 +628,8 @@ class _$AddCompletionYearChangedImpl implements AddCompletionYearChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getEducationList,
+    TResult? Function(int educationId)? deleteEducation,
     TResult? Function(String program)? addProgramChanged,
     TResult? Function(String year)? addCompletionYearChanged,
     TResult? Function(String institute)? addInstituteChanged,
@@ -326,6 +641,8 @@ class _$AddCompletionYearChangedImpl implements AddCompletionYearChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getEducationList,
+    TResult Function(int educationId)? deleteEducation,
     TResult Function(String program)? addProgramChanged,
     TResult Function(String year)? addCompletionYearChanged,
     TResult Function(String institute)? addInstituteChanged,
@@ -341,6 +658,8 @@ class _$AddCompletionYearChangedImpl implements AddCompletionYearChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetEducationList value) getEducationList,
+    required TResult Function(DeleteEducation value) deleteEducation,
     required TResult Function(AddProgramChanged value) addProgramChanged,
     required TResult Function(AddCompletionYearChanged value)
         addCompletionYearChanged,
@@ -353,6 +672,8 @@ class _$AddCompletionYearChangedImpl implements AddCompletionYearChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetEducationList value)? getEducationList,
+    TResult? Function(DeleteEducation value)? deleteEducation,
     TResult? Function(AddProgramChanged value)? addProgramChanged,
     TResult? Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult? Function(AddInstituteChanged value)? addInstituteChanged,
@@ -364,6 +685,8 @@ class _$AddCompletionYearChangedImpl implements AddCompletionYearChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetEducationList value)? getEducationList,
+    TResult Function(DeleteEducation value)? deleteEducation,
     TResult Function(AddProgramChanged value)? addProgramChanged,
     TResult Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult Function(AddInstituteChanged value)? addInstituteChanged,
@@ -453,6 +776,8 @@ class _$AddInstituteChangedImpl implements AddInstituteChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() getEducationList,
+    required TResult Function(int educationId) deleteEducation,
     required TResult Function(String program) addProgramChanged,
     required TResult Function(String year) addCompletionYearChanged,
     required TResult Function(String institute) addInstituteChanged,
@@ -464,6 +789,8 @@ class _$AddInstituteChangedImpl implements AddInstituteChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getEducationList,
+    TResult? Function(int educationId)? deleteEducation,
     TResult? Function(String program)? addProgramChanged,
     TResult? Function(String year)? addCompletionYearChanged,
     TResult? Function(String institute)? addInstituteChanged,
@@ -475,6 +802,8 @@ class _$AddInstituteChangedImpl implements AddInstituteChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getEducationList,
+    TResult Function(int educationId)? deleteEducation,
     TResult Function(String program)? addProgramChanged,
     TResult Function(String year)? addCompletionYearChanged,
     TResult Function(String institute)? addInstituteChanged,
@@ -490,6 +819,8 @@ class _$AddInstituteChangedImpl implements AddInstituteChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetEducationList value) getEducationList,
+    required TResult Function(DeleteEducation value) deleteEducation,
     required TResult Function(AddProgramChanged value) addProgramChanged,
     required TResult Function(AddCompletionYearChanged value)
         addCompletionYearChanged,
@@ -502,6 +833,8 @@ class _$AddInstituteChangedImpl implements AddInstituteChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetEducationList value)? getEducationList,
+    TResult? Function(DeleteEducation value)? deleteEducation,
     TResult? Function(AddProgramChanged value)? addProgramChanged,
     TResult? Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult? Function(AddInstituteChanged value)? addInstituteChanged,
@@ -513,6 +846,8 @@ class _$AddInstituteChangedImpl implements AddInstituteChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetEducationList value)? getEducationList,
+    TResult Function(DeleteEducation value)? deleteEducation,
     TResult Function(AddProgramChanged value)? addProgramChanged,
     TResult Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult Function(AddInstituteChanged value)? addInstituteChanged,
@@ -574,6 +909,8 @@ class _$OnAddBtnPressedImpl implements OnAddBtnPressed {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() getEducationList,
+    required TResult Function(int educationId) deleteEducation,
     required TResult Function(String program) addProgramChanged,
     required TResult Function(String year) addCompletionYearChanged,
     required TResult Function(String institute) addInstituteChanged,
@@ -585,6 +922,8 @@ class _$OnAddBtnPressedImpl implements OnAddBtnPressed {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getEducationList,
+    TResult? Function(int educationId)? deleteEducation,
     TResult? Function(String program)? addProgramChanged,
     TResult? Function(String year)? addCompletionYearChanged,
     TResult? Function(String institute)? addInstituteChanged,
@@ -596,6 +935,8 @@ class _$OnAddBtnPressedImpl implements OnAddBtnPressed {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getEducationList,
+    TResult Function(int educationId)? deleteEducation,
     TResult Function(String program)? addProgramChanged,
     TResult Function(String year)? addCompletionYearChanged,
     TResult Function(String institute)? addInstituteChanged,
@@ -611,6 +952,8 @@ class _$OnAddBtnPressedImpl implements OnAddBtnPressed {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetEducationList value) getEducationList,
+    required TResult Function(DeleteEducation value) deleteEducation,
     required TResult Function(AddProgramChanged value) addProgramChanged,
     required TResult Function(AddCompletionYearChanged value)
         addCompletionYearChanged,
@@ -623,6 +966,8 @@ class _$OnAddBtnPressedImpl implements OnAddBtnPressed {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetEducationList value)? getEducationList,
+    TResult? Function(DeleteEducation value)? deleteEducation,
     TResult? Function(AddProgramChanged value)? addProgramChanged,
     TResult? Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult? Function(AddInstituteChanged value)? addInstituteChanged,
@@ -634,6 +979,8 @@ class _$OnAddBtnPressedImpl implements OnAddBtnPressed {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetEducationList value)? getEducationList,
+    TResult Function(DeleteEducation value)? deleteEducation,
     TResult Function(AddProgramChanged value)? addProgramChanged,
     TResult Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult Function(AddInstituteChanged value)? addInstituteChanged,
@@ -657,11 +1004,17 @@ mixin _$EducationDetailState {
   InputEmptyOrNot get selectedProgram => throw _privateConstructorUsedError;
   InputEmptyOrNot get yearOfCompletion => throw _privateConstructorUsedError;
   InputEmptyOrNot get selectedGraduation => throw _privateConstructorUsedError;
+  List<EducationDTO> get educationList => throw _privateConstructorUsedError;
 
   /// SUBMIT
   bool get isSubmitting => throw _privateConstructorUsedError;
   bool get showAddEducationErrorMessages => throw _privateConstructorUsedError;
+  bool get showErrorMessages => throw _privateConstructorUsedError;
   Option<Either<AuthFailure, String>> get authFailureOrSuccessOption =>
+      throw _privateConstructorUsedError;
+  Option<Either<AccountFailure, String>> get failureOrSuccessOption =>
+      throw _privateConstructorUsedError;
+  Option<Either<AccountFailure, Account>> get listFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -679,9 +1032,13 @@ abstract class $EducationDetailStateCopyWith<$Res> {
       {InputEmptyOrNot selectedProgram,
       InputEmptyOrNot yearOfCompletion,
       InputEmptyOrNot selectedGraduation,
+      List<EducationDTO> educationList,
       bool isSubmitting,
       bool showAddEducationErrorMessages,
-      Option<Either<AuthFailure, String>> authFailureOrSuccessOption});
+      bool showErrorMessages,
+      Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
+      Option<Either<AccountFailure, String>> failureOrSuccessOption,
+      Option<Either<AccountFailure, Account>> listFailureOrSuccessOption});
 }
 
 /// @nodoc
@@ -701,9 +1058,13 @@ class _$EducationDetailStateCopyWithImpl<$Res,
     Object? selectedProgram = null,
     Object? yearOfCompletion = null,
     Object? selectedGraduation = null,
+    Object? educationList = null,
     Object? isSubmitting = null,
     Object? showAddEducationErrorMessages = null,
+    Object? showErrorMessages = null,
     Object? authFailureOrSuccessOption = null,
+    Object? failureOrSuccessOption = null,
+    Object? listFailureOrSuccessOption = null,
   }) {
     return _then(_value.copyWith(
       selectedProgram: null == selectedProgram
@@ -718,6 +1079,10 @@ class _$EducationDetailStateCopyWithImpl<$Res,
           ? _value.selectedGraduation
           : selectedGraduation // ignore: cast_nullable_to_non_nullable
               as InputEmptyOrNot,
+      educationList: null == educationList
+          ? _value.educationList
+          : educationList // ignore: cast_nullable_to_non_nullable
+              as List<EducationDTO>,
       isSubmitting: null == isSubmitting
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -726,10 +1091,22 @@ class _$EducationDetailStateCopyWithImpl<$Res,
           ? _value.showAddEducationErrorMessages
           : showAddEducationErrorMessages // ignore: cast_nullable_to_non_nullable
               as bool,
+      showErrorMessages: null == showErrorMessages
+          ? _value.showErrorMessages
+          : showErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool,
       authFailureOrSuccessOption: null == authFailureOrSuccessOption
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, String>>,
+      failureOrSuccessOption: null == failureOrSuccessOption
+          ? _value.failureOrSuccessOption
+          : failureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AccountFailure, String>>,
+      listFailureOrSuccessOption: null == listFailureOrSuccessOption
+          ? _value.listFailureOrSuccessOption
+          : listFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AccountFailure, Account>>,
     ) as $Val);
   }
 }
@@ -746,9 +1123,13 @@ abstract class _$$EducationDetailStateImplCopyWith<$Res>
       {InputEmptyOrNot selectedProgram,
       InputEmptyOrNot yearOfCompletion,
       InputEmptyOrNot selectedGraduation,
+      List<EducationDTO> educationList,
       bool isSubmitting,
       bool showAddEducationErrorMessages,
-      Option<Either<AuthFailure, String>> authFailureOrSuccessOption});
+      bool showErrorMessages,
+      Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
+      Option<Either<AccountFailure, String>> failureOrSuccessOption,
+      Option<Either<AccountFailure, Account>> listFailureOrSuccessOption});
 }
 
 /// @nodoc
@@ -765,9 +1146,13 @@ class __$$EducationDetailStateImplCopyWithImpl<$Res>
     Object? selectedProgram = null,
     Object? yearOfCompletion = null,
     Object? selectedGraduation = null,
+    Object? educationList = null,
     Object? isSubmitting = null,
     Object? showAddEducationErrorMessages = null,
+    Object? showErrorMessages = null,
     Object? authFailureOrSuccessOption = null,
+    Object? failureOrSuccessOption = null,
+    Object? listFailureOrSuccessOption = null,
   }) {
     return _then(_$EducationDetailStateImpl(
       selectedProgram: null == selectedProgram
@@ -782,6 +1167,10 @@ class __$$EducationDetailStateImplCopyWithImpl<$Res>
           ? _value.selectedGraduation
           : selectedGraduation // ignore: cast_nullable_to_non_nullable
               as InputEmptyOrNot,
+      educationList: null == educationList
+          ? _value._educationList
+          : educationList // ignore: cast_nullable_to_non_nullable
+              as List<EducationDTO>,
       isSubmitting: null == isSubmitting
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -790,10 +1179,22 @@ class __$$EducationDetailStateImplCopyWithImpl<$Res>
           ? _value.showAddEducationErrorMessages
           : showAddEducationErrorMessages // ignore: cast_nullable_to_non_nullable
               as bool,
+      showErrorMessages: null == showErrorMessages
+          ? _value.showErrorMessages
+          : showErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool,
       authFailureOrSuccessOption: null == authFailureOrSuccessOption
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, String>>,
+      failureOrSuccessOption: null == failureOrSuccessOption
+          ? _value.failureOrSuccessOption
+          : failureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AccountFailure, String>>,
+      listFailureOrSuccessOption: null == listFailureOrSuccessOption
+          ? _value.listFailureOrSuccessOption
+          : listFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AccountFailure, Account>>,
     ));
   }
 }
@@ -805,9 +1206,14 @@ class _$EducationDetailStateImpl implements _EducationDetailState {
       {required this.selectedProgram,
       required this.yearOfCompletion,
       required this.selectedGraduation,
+      required final List<EducationDTO> educationList,
       required this.isSubmitting,
       required this.showAddEducationErrorMessages,
-      required this.authFailureOrSuccessOption});
+      required this.showErrorMessages,
+      required this.authFailureOrSuccessOption,
+      required this.failureOrSuccessOption,
+      required this.listFailureOrSuccessOption})
+      : _educationList = educationList;
 
   /// Add Education
   @override
@@ -816,6 +1222,13 @@ class _$EducationDetailStateImpl implements _EducationDetailState {
   final InputEmptyOrNot yearOfCompletion;
   @override
   final InputEmptyOrNot selectedGraduation;
+  final List<EducationDTO> _educationList;
+  @override
+  List<EducationDTO> get educationList {
+    if (_educationList is EqualUnmodifiableListView) return _educationList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_educationList);
+  }
 
   /// SUBMIT
   @override
@@ -823,11 +1236,17 @@ class _$EducationDetailStateImpl implements _EducationDetailState {
   @override
   final bool showAddEducationErrorMessages;
   @override
+  final bool showErrorMessages;
+  @override
   final Option<Either<AuthFailure, String>> authFailureOrSuccessOption;
+  @override
+  final Option<Either<AccountFailure, String>> failureOrSuccessOption;
+  @override
+  final Option<Either<AccountFailure, Account>> listFailureOrSuccessOption;
 
   @override
   String toString() {
-    return 'EducationDetailState(selectedProgram: $selectedProgram, yearOfCompletion: $yearOfCompletion, selectedGraduation: $selectedGraduation, isSubmitting: $isSubmitting, showAddEducationErrorMessages: $showAddEducationErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'EducationDetailState(selectedProgram: $selectedProgram, yearOfCompletion: $yearOfCompletion, selectedGraduation: $selectedGraduation, educationList: $educationList, isSubmitting: $isSubmitting, showAddEducationErrorMessages: $showAddEducationErrorMessages, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption, failureOrSuccessOption: $failureOrSuccessOption, listFailureOrSuccessOption: $listFailureOrSuccessOption)';
   }
 
   @override
@@ -841,16 +1260,26 @@ class _$EducationDetailStateImpl implements _EducationDetailState {
                 other.yearOfCompletion == yearOfCompletion) &&
             (identical(other.selectedGraduation, selectedGraduation) ||
                 other.selectedGraduation == selectedGraduation) &&
+            const DeepCollectionEquality()
+                .equals(other._educationList, _educationList) &&
             (identical(other.isSubmitting, isSubmitting) ||
                 other.isSubmitting == isSubmitting) &&
             (identical(other.showAddEducationErrorMessages,
                     showAddEducationErrorMessages) ||
                 other.showAddEducationErrorMessages ==
                     showAddEducationErrorMessages) &&
+            (identical(other.showErrorMessages, showErrorMessages) ||
+                other.showErrorMessages == showErrorMessages) &&
             (identical(other.authFailureOrSuccessOption,
                     authFailureOrSuccessOption) ||
                 other.authFailureOrSuccessOption ==
-                    authFailureOrSuccessOption));
+                    authFailureOrSuccessOption) &&
+            (identical(other.failureOrSuccessOption, failureOrSuccessOption) ||
+                other.failureOrSuccessOption == failureOrSuccessOption) &&
+            (identical(other.listFailureOrSuccessOption,
+                    listFailureOrSuccessOption) ||
+                other.listFailureOrSuccessOption ==
+                    listFailureOrSuccessOption));
   }
 
   @override
@@ -859,9 +1288,13 @@ class _$EducationDetailStateImpl implements _EducationDetailState {
       selectedProgram,
       yearOfCompletion,
       selectedGraduation,
+      const DeepCollectionEquality().hash(_educationList),
       isSubmitting,
       showAddEducationErrorMessages,
-      authFailureOrSuccessOption);
+      showErrorMessages,
+      authFailureOrSuccessOption,
+      failureOrSuccessOption,
+      listFailureOrSuccessOption);
 
   @JsonKey(ignore: true)
   @override
@@ -877,10 +1310,16 @@ abstract class _EducationDetailState implements EducationDetailState {
       {required final InputEmptyOrNot selectedProgram,
       required final InputEmptyOrNot yearOfCompletion,
       required final InputEmptyOrNot selectedGraduation,
+      required final List<EducationDTO> educationList,
       required final bool isSubmitting,
       required final bool showAddEducationErrorMessages,
+      required final bool showErrorMessages,
       required final Option<Either<AuthFailure, String>>
-          authFailureOrSuccessOption}) = _$EducationDetailStateImpl;
+          authFailureOrSuccessOption,
+      required final Option<Either<AccountFailure, String>>
+          failureOrSuccessOption,
+      required final Option<Either<AccountFailure, Account>>
+          listFailureOrSuccessOption}) = _$EducationDetailStateImpl;
 
   @override
 
@@ -891,13 +1330,21 @@ abstract class _EducationDetailState implements EducationDetailState {
   @override
   InputEmptyOrNot get selectedGraduation;
   @override
+  List<EducationDTO> get educationList;
+  @override
 
   /// SUBMIT
   bool get isSubmitting;
   @override
   bool get showAddEducationErrorMessages;
   @override
+  bool get showErrorMessages;
+  @override
   Option<Either<AuthFailure, String>> get authFailureOrSuccessOption;
+  @override
+  Option<Either<AccountFailure, String>> get failureOrSuccessOption;
+  @override
+  Option<Either<AccountFailure, Account>> get listFailureOrSuccessOption;
   @override
   @JsonKey(ignore: true)
   _$$EducationDetailStateImplCopyWith<_$EducationDetailStateImpl>

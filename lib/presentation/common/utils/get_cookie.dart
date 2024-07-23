@@ -10,22 +10,58 @@ String? getUserToken() {
   return Hive.box(BoxNames.settingsBox).get(BoxKeys.userToken);
 }
 
+Future<void> setUserToken(String authToken) async {
+  // Hacky solution to allow testing
+  if (!Platform.environment.containsKey('FLUTTER_TEST')) {
+    if (authToken.isNotEmpty) {
+      await Hive.box(BoxNames.settingsBox).put(BoxKeys.userToken, authToken);
+    }
+  }
+}
+
 /// CUREENT USER
 Future<void> setCurrentRole(int selectedUser) async {
   return await Hive.box(BoxNames.settingsBox)
-      .put(BoxKeys.currentUser, selectedUser);
+      .put(BoxKeys.currentRole, selectedUser);
 }
 
 int? getCurrentRole() {
-  return Hive.box(BoxNames.settingsBox).get(BoxKeys.currentUser);
+  return Hive.box(BoxNames.settingsBox).get(BoxKeys.currentRole);
 }
+
+// Future<void> setCurrentUser(Account account) async {
+//   // Hacky solution to allow testing
+//   if (!Platform.environment.containsKey('FLUTTER_TEST')) {
+//     final box = await Hive.openBox<AccountEntity>(BoxNames.currentUser);
+//     // Open the box if it's not already open
+//     // final box = Hive.isBoxOpen(BoxNames.currentUser)
+//     //   ? Hive.box<AccountEntity>(BoxNames.currentUser)
+//     //   : Hive.openBox<AccountEntity>(BoxNames.currentUser);
+//     box.put(BoxKeys.currentKey, AccountEntity.fromDomain(account));
+//   }
+// }
 
 void setCurrentUser(Account account) {
   // Hacky solution to allow testing
   if (!Platform.environment.containsKey('FLUTTER_TEST')) {
     final box = Hive.box<AccountEntity>(BoxNames.currentUser);
     box.put(BoxKeys.currentKey, AccountEntity.fromDomain(account));
+    print("USER OF SET---->   ${box.get(BoxKeys.currentKey)!.toDomain()}");
   }
+}
+
+// Account getCurrentUser() {
+//   final accountBox = Hive.box<AccountEntity>(BoxNames.currentUser);
+//   return accountBox.get(BoxKeys.currentKey)!.toDomain();
+// }
+
+Account getCurrentUser() {
+  final accountBox = Hive.box<AccountEntity>(BoxNames.currentUser);
+  final accountEntity = accountBox.get(BoxKeys.currentKey);
+  if (accountEntity != null) {
+    return accountEntity.toDomain();
+  }
+  return Account();
 }
 
 /// CUREENT INDUSTRY
@@ -35,7 +71,7 @@ Future<void> setCurrentIndustry(int selectedIndustry) async {
 }
 
 int? getCurrentIndustry() {
-  return Hive.box(BoxNames.settingsBox).get(BoxKeys.currentUser);
+  return Hive.box(BoxNames.settingsBox).get(BoxKeys.currentIndustry);
 }
 
 /// Show Onboarding / Introduction screen or not

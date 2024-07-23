@@ -3,6 +3,8 @@
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:dartz/dartz.dart';
+import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/infrastructure/core/speciality/speciality_dto.dart';
 
 abstract class IAuthFacade {
   Future<Either<AuthFailure, String>> register({
@@ -10,7 +12,7 @@ abstract class IAuthFacade {
     required Username lastName,
     required int check_terms_privacy,
     required String profileImage,
-    required InputEmptyOrNot companyName,
+    required String? companyName,
     required String countryCode,
     required MobileNumber phoneNumber,
     required EmailAddress email,
@@ -27,11 +29,12 @@ abstract class IAuthFacade {
   });
 
   Future<Either<AuthFailure, String>> login({
-    required String countryCode,
-    required EmailAddress mobileNumber,
+    required EmailAddress email,
+    required Password password,
   });
 
   Future<bool> checkAuthenticated();
+  Future<bool> checkUserVerified();
 
   Future<Either<AuthFailure, String>> logout();
 
@@ -45,12 +48,37 @@ abstract class IAuthFacade {
     required String fcmToken,
   });
   Future<Either<AuthFailure, String>> verifyOtp({
-    required String countryCode,
-    required EmailAddress mobileNumber,
+    required String emailAddress,
+    required String phoneNumber,
+    required String password,
     required OTPText otp,
   });
   Future<Either<AuthFailure, String>> resendOtp({
-    required String countryCode,
-    required EmailAddress mobileNumber,
+    required String emailAddress,
+    required String phoneNumber,
   });
+
+  Future<Either<AuthFailure, List<SkillDTO>>> getRoleList();
+  Future<Either<AuthFailure, List<SpecialityDTO>>> getSpecialityList();
+  Future<Either<AuthFailure, List<SkillDTO>>> getExperienceList();
+  Future<Either<AuthFailure, List<SkillDTO>>> getSoftwareSkillList();
+  Future<Either<AuthFailure, List<SkillDTO>>> getLanguageList();
+
+  Future<Either<AuthFailure, String>> completeProfileAPI({
+    required String? languageOther,
+    required String languageListId,
+    required String softwareSkillOther,
+    required String softwaresSkillListId,
+    required String specialtiesDetail,
+    required String rolesListId,
+  });
+
+  Future<Either<AuthFailure, String>> addEducationApi({
+    required InputEmptyOrNot programCompleted,
+    required InputEmptyOrNot yearOfCompletion,
+    required InputEmptyOrNot graduatingInstitution,
+  });
+  // Future<Either<AuthFailure, String>> deleteEducationApi({
+  //   required int educationId,
+  // });
 }

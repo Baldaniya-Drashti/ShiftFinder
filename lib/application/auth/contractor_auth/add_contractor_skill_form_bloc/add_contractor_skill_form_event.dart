@@ -2,8 +2,11 @@ part of 'add_contractor_skill_form_bloc.dart';
 
 @freezed
 class AddContractorSkillFormEvent with _$AddContractorSkillFormEvent {
-  const factory AddContractorSkillFormEvent.addRoleTypeChips(String roleType) =
-      AddRoleTypeChips;
+  const factory AddContractorSkillFormEvent.getAllDropDownList() =
+      GetAllDropDownList;
+
+  const factory AddContractorSkillFormEvent.addRoleTypeChips(String roleType,
+      {bool? isOtherValue}) = AddRoleTypeChips;
   const factory AddContractorSkillFormEvent.removeRoleTypeChips(
       String roleType) = RemoveRoleTypeChips;
 

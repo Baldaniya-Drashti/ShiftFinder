@@ -127,15 +127,15 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(
                           top: getSize(40), bottom: getSize(20)),
-                      child: (state.isSubmitting)
-                          ? CenterLoadingIndicator()
-                          : CommonButton(
-                              onPressed: () {
-                                context.read<LegalScreeningBloc>().add(
-                                    LegalScreeningEvent.continueBtnPressed());
-                              },
-                              buttonText: StringConstant.txtContinue,
-                            ),
+                      child: CommonButton(
+                        isSubmitting: state.isSubmitting,
+                        onPressed: () {
+                          context
+                              .read<LegalScreeningBloc>()
+                              .add(LegalScreeningEvent.continueBtnPressed());
+                        },
+                        buttonText: StringConstant.txtContinue,
+                      ),
                     )
                   ],
                 ),

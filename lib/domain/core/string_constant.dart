@@ -222,6 +222,8 @@ class StringConstant {
       "Please select at least one language";
   static const String pleaseSelectAtLeastOneSkillSet =
       "Please select at least one software skillset";
+  static const String pleaseSelectAtLeastOneRole =
+      "Please select at least one role";
   static const String pleaseSelectAtLeastOneSpeciality =
       "Please select at least one speciality";
   static const String experienceMustBeSelected = "Experience must be selected";
@@ -229,6 +231,8 @@ class StringConstant {
       "Please add other type of speciality";
   static const String pleaseAddOtherTypeOfSoftwareSkill =
       "Please add other type of software skill";
+  static const String pleaseAddOtherTypeOfRole =
+      "Please add other type of role";
   static const String pleaseAddOtherTypeOfLanguage =
       "Please add other type of language";
   static const String pleaseAddCompletedProgram =

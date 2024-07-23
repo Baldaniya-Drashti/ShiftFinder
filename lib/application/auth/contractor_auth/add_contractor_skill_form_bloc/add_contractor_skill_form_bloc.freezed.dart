@@ -18,7 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AddContractorSkillFormEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String roleType) addRoleTypeChips,
+    required TResult Function() getAllDropDownList,
+    required TResult Function(String roleType, bool? isOtherValue)
+        addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -38,7 +40,8 @@ mixin _$AddContractorSkillFormEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String roleType)? addRoleTypeChips,
+    TResult? Function()? getAllDropDownList,
+    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -57,7 +60,8 @@ mixin _$AddContractorSkillFormEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String roleType)? addRoleTypeChips,
+    TResult Function()? getAllDropDownList,
+    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -77,6 +81,7 @@ mixin _$AddContractorSkillFormEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetAllDropDownList value) getAllDropDownList,
     required TResult Function(AddRoleTypeChips value) addRoleTypeChips,
     required TResult Function(RemoveRoleTypeChips value) removeRoleTypeChips,
     required TResult Function(AddLanguageChips value) addLanguageChips,
@@ -96,6 +101,7 @@ mixin _$AddContractorSkillFormEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetAllDropDownList value)? getAllDropDownList,
     TResult? Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult? Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult? Function(AddLanguageChips value)? addLanguageChips,
@@ -115,6 +121,7 @@ mixin _$AddContractorSkillFormEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetAllDropDownList value)? getAllDropDownList,
     TResult Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult Function(AddLanguageChips value)? addLanguageChips,
@@ -157,73 +164,47 @@ class _$AddContractorSkillFormEventCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$AddRoleTypeChipsImplCopyWith<$Res> {
-  factory _$$AddRoleTypeChipsImplCopyWith(_$AddRoleTypeChipsImpl value,
-          $Res Function(_$AddRoleTypeChipsImpl) then) =
-      __$$AddRoleTypeChipsImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String roleType});
+abstract class _$$GetAllDropDownListImplCopyWith<$Res> {
+  factory _$$GetAllDropDownListImplCopyWith(_$GetAllDropDownListImpl value,
+          $Res Function(_$GetAllDropDownListImpl) then) =
+      __$$GetAllDropDownListImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$AddRoleTypeChipsImplCopyWithImpl<$Res>
+class __$$GetAllDropDownListImplCopyWithImpl<$Res>
     extends _$AddContractorSkillFormEventCopyWithImpl<$Res,
-        _$AddRoleTypeChipsImpl>
-    implements _$$AddRoleTypeChipsImplCopyWith<$Res> {
-  __$$AddRoleTypeChipsImplCopyWithImpl(_$AddRoleTypeChipsImpl _value,
-      $Res Function(_$AddRoleTypeChipsImpl) _then)
+        _$GetAllDropDownListImpl>
+    implements _$$GetAllDropDownListImplCopyWith<$Res> {
+  __$$GetAllDropDownListImplCopyWithImpl(_$GetAllDropDownListImpl _value,
+      $Res Function(_$GetAllDropDownListImpl) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? roleType = null,
-  }) {
-    return _then(_$AddRoleTypeChipsImpl(
-      null == roleType
-          ? _value.roleType
-          : roleType // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$AddRoleTypeChipsImpl implements AddRoleTypeChips {
-  const _$AddRoleTypeChipsImpl(this.roleType);
-
-  @override
-  final String roleType;
+class _$GetAllDropDownListImpl implements GetAllDropDownList {
+  const _$GetAllDropDownListImpl();
 
   @override
   String toString() {
-    return 'AddContractorSkillFormEvent.addRoleTypeChips(roleType: $roleType)';
+    return 'AddContractorSkillFormEvent.getAllDropDownList()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AddRoleTypeChipsImpl &&
-            (identical(other.roleType, roleType) ||
-                other.roleType == roleType));
+        (other.runtimeType == runtimeType && other is _$GetAllDropDownListImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, roleType);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AddRoleTypeChipsImplCopyWith<_$AddRoleTypeChipsImpl> get copyWith =>
-      __$$AddRoleTypeChipsImplCopyWithImpl<_$AddRoleTypeChipsImpl>(
-          this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String roleType) addRoleTypeChips,
+    required TResult Function() getAllDropDownList,
+    required TResult Function(String roleType, bool? isOtherValue)
+        addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -240,13 +221,14 @@ class _$AddRoleTypeChipsImpl implements AddRoleTypeChips {
         removePreferedSoftwareSkillchips,
     required TResult Function() continueBtnPressed,
   }) {
-    return addRoleTypeChips(roleType);
+    return getAllDropDownList();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String roleType)? addRoleTypeChips,
+    TResult? Function()? getAllDropDownList,
+    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -262,13 +244,240 @@ class _$AddRoleTypeChipsImpl implements AddRoleTypeChips {
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
     TResult? Function()? continueBtnPressed,
   }) {
-    return addRoleTypeChips?.call(roleType);
+    return getAllDropDownList?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String roleType)? addRoleTypeChips,
+    TResult Function()? getAllDropDownList,
+    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult Function(String roleType)? removeRoleTypeChips,
+    TResult Function(String selectedLanguage, bool? isOtherValue)?
+        addLanguageChips,
+    TResult Function(String selectedLanguage)? removeLanguageChips,
+    TResult Function(String selectedValue, bool? isOtherValue)?
+        addRequiredSpecialitichips,
+    TResult Function(
+            String selectedValue, int currentIndex, bool? isOtherValue)?
+        addSpecialityExperienceList,
+    TResult Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue, bool? isOtherValue)?
+        addPreferedSoftwareSkillchips,
+    TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
+    TResult Function()? continueBtnPressed,
+    required TResult orElse(),
+  }) {
+    if (getAllDropDownList != null) {
+      return getAllDropDownList();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetAllDropDownList value) getAllDropDownList,
+    required TResult Function(AddRoleTypeChips value) addRoleTypeChips,
+    required TResult Function(RemoveRoleTypeChips value) removeRoleTypeChips,
+    required TResult Function(AddLanguageChips value) addLanguageChips,
+    required TResult Function(RemoveLanguageChips value) removeLanguageChips,
+    required TResult Function(AddRequiredSpecialitichips value)
+        addRequiredSpecialitichips,
+    required TResult Function(AddSpecialityExperienceList value)
+        addSpecialityExperienceList,
+    required TResult Function(RemoveRequiredSpecialitichips value)
+        removeRequiredSpecialitichips,
+    required TResult Function(AddPreferedSoftwareSkillchips value)
+        addPreferedSoftwareSkillchips,
+    required TResult Function(RemovePreferedSoftwareSkillchips value)
+        removePreferedSoftwareSkillchips,
+    required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+  }) {
+    return getAllDropDownList(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetAllDropDownList value)? getAllDropDownList,
+    TResult? Function(AddRoleTypeChips value)? addRoleTypeChips,
+    TResult? Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
+    TResult? Function(AddLanguageChips value)? addLanguageChips,
+    TResult? Function(RemoveLanguageChips value)? removeLanguageChips,
+    TResult? Function(AddRequiredSpecialitichips value)?
+        addRequiredSpecialitichips,
+    TResult? Function(AddSpecialityExperienceList value)?
+        addSpecialityExperienceList,
+    TResult? Function(RemoveRequiredSpecialitichips value)?
+        removeRequiredSpecialitichips,
+    TResult? Function(AddPreferedSoftwareSkillchips value)?
+        addPreferedSoftwareSkillchips,
+    TResult? Function(RemovePreferedSoftwareSkillchips value)?
+        removePreferedSoftwareSkillchips,
+    TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+  }) {
+    return getAllDropDownList?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetAllDropDownList value)? getAllDropDownList,
+    TResult Function(AddRoleTypeChips value)? addRoleTypeChips,
+    TResult Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
+    TResult Function(AddLanguageChips value)? addLanguageChips,
+    TResult Function(RemoveLanguageChips value)? removeLanguageChips,
+    TResult Function(AddRequiredSpecialitichips value)?
+        addRequiredSpecialitichips,
+    TResult Function(AddSpecialityExperienceList value)?
+        addSpecialityExperienceList,
+    TResult Function(RemoveRequiredSpecialitichips value)?
+        removeRequiredSpecialitichips,
+    TResult Function(AddPreferedSoftwareSkillchips value)?
+        addPreferedSoftwareSkillchips,
+    TResult Function(RemovePreferedSoftwareSkillchips value)?
+        removePreferedSoftwareSkillchips,
+    TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    required TResult orElse(),
+  }) {
+    if (getAllDropDownList != null) {
+      return getAllDropDownList(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetAllDropDownList implements AddContractorSkillFormEvent {
+  const factory GetAllDropDownList() = _$GetAllDropDownListImpl;
+}
+
+/// @nodoc
+abstract class _$$AddRoleTypeChipsImplCopyWith<$Res> {
+  factory _$$AddRoleTypeChipsImplCopyWith(_$AddRoleTypeChipsImpl value,
+          $Res Function(_$AddRoleTypeChipsImpl) then) =
+      __$$AddRoleTypeChipsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String roleType, bool? isOtherValue});
+}
+
+/// @nodoc
+class __$$AddRoleTypeChipsImplCopyWithImpl<$Res>
+    extends _$AddContractorSkillFormEventCopyWithImpl<$Res,
+        _$AddRoleTypeChipsImpl>
+    implements _$$AddRoleTypeChipsImplCopyWith<$Res> {
+  __$$AddRoleTypeChipsImplCopyWithImpl(_$AddRoleTypeChipsImpl _value,
+      $Res Function(_$AddRoleTypeChipsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? roleType = null,
+    Object? isOtherValue = freezed,
+  }) {
+    return _then(_$AddRoleTypeChipsImpl(
+      null == roleType
+          ? _value.roleType
+          : roleType // ignore: cast_nullable_to_non_nullable
+              as String,
+      isOtherValue: freezed == isOtherValue
+          ? _value.isOtherValue
+          : isOtherValue // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AddRoleTypeChipsImpl implements AddRoleTypeChips {
+  const _$AddRoleTypeChipsImpl(this.roleType, {this.isOtherValue});
+
+  @override
+  final String roleType;
+  @override
+  final bool? isOtherValue;
+
+  @override
+  String toString() {
+    return 'AddContractorSkillFormEvent.addRoleTypeChips(roleType: $roleType, isOtherValue: $isOtherValue)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddRoleTypeChipsImpl &&
+            (identical(other.roleType, roleType) ||
+                other.roleType == roleType) &&
+            (identical(other.isOtherValue, isOtherValue) ||
+                other.isOtherValue == isOtherValue));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, roleType, isOtherValue);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AddRoleTypeChipsImplCopyWith<_$AddRoleTypeChipsImpl> get copyWith =>
+      __$$AddRoleTypeChipsImplCopyWithImpl<_$AddRoleTypeChipsImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getAllDropDownList,
+    required TResult Function(String roleType, bool? isOtherValue)
+        addRoleTypeChips,
+    required TResult Function(String roleType) removeRoleTypeChips,
+    required TResult Function(String selectedLanguage, bool? isOtherValue)
+        addLanguageChips,
+    required TResult Function(String selectedLanguage) removeLanguageChips,
+    required TResult Function(String selectedValue, bool? isOtherValue)
+        addRequiredSpecialitichips,
+    required TResult Function(
+            String selectedValue, int currentIndex, bool? isOtherValue)
+        addSpecialityExperienceList,
+    required TResult Function(int currentIndex) removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue, bool? isOtherValue)
+        addPreferedSoftwareSkillchips,
+    required TResult Function(String selectedValue)
+        removePreferedSoftwareSkillchips,
+    required TResult Function() continueBtnPressed,
+  }) {
+    return addRoleTypeChips(roleType, isOtherValue);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getAllDropDownList,
+    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult? Function(String roleType)? removeRoleTypeChips,
+    TResult? Function(String selectedLanguage, bool? isOtherValue)?
+        addLanguageChips,
+    TResult? Function(String selectedLanguage)? removeLanguageChips,
+    TResult? Function(String selectedValue, bool? isOtherValue)?
+        addRequiredSpecialitichips,
+    TResult? Function(
+            String selectedValue, int currentIndex, bool? isOtherValue)?
+        addSpecialityExperienceList,
+    TResult? Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue, bool? isOtherValue)?
+        addPreferedSoftwareSkillchips,
+    TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
+    TResult? Function()? continueBtnPressed,
+  }) {
+    return addRoleTypeChips?.call(roleType, isOtherValue);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getAllDropDownList,
+    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -286,7 +495,7 @@ class _$AddRoleTypeChipsImpl implements AddRoleTypeChips {
     required TResult orElse(),
   }) {
     if (addRoleTypeChips != null) {
-      return addRoleTypeChips(roleType);
+      return addRoleTypeChips(roleType, isOtherValue);
     }
     return orElse();
   }
@@ -294,6 +503,7 @@ class _$AddRoleTypeChipsImpl implements AddRoleTypeChips {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetAllDropDownList value) getAllDropDownList,
     required TResult Function(AddRoleTypeChips value) addRoleTypeChips,
     required TResult Function(RemoveRoleTypeChips value) removeRoleTypeChips,
     required TResult Function(AddLanguageChips value) addLanguageChips,
@@ -316,6 +526,7 @@ class _$AddRoleTypeChipsImpl implements AddRoleTypeChips {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetAllDropDownList value)? getAllDropDownList,
     TResult? Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult? Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult? Function(AddLanguageChips value)? addLanguageChips,
@@ -338,6 +549,7 @@ class _$AddRoleTypeChipsImpl implements AddRoleTypeChips {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetAllDropDownList value)? getAllDropDownList,
     TResult Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult Function(AddLanguageChips value)? addLanguageChips,
@@ -363,10 +575,11 @@ class _$AddRoleTypeChipsImpl implements AddRoleTypeChips {
 }
 
 abstract class AddRoleTypeChips implements AddContractorSkillFormEvent {
-  const factory AddRoleTypeChips(final String roleType) =
-      _$AddRoleTypeChipsImpl;
+  const factory AddRoleTypeChips(final String roleType,
+      {final bool? isOtherValue}) = _$AddRoleTypeChipsImpl;
 
   String get roleType;
+  bool? get isOtherValue;
   @JsonKey(ignore: true)
   _$$AddRoleTypeChipsImplCopyWith<_$AddRoleTypeChipsImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -439,7 +652,9 @@ class _$RemoveRoleTypeChipsImpl implements RemoveRoleTypeChips {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String roleType) addRoleTypeChips,
+    required TResult Function() getAllDropDownList,
+    required TResult Function(String roleType, bool? isOtherValue)
+        addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -462,7 +677,8 @@ class _$RemoveRoleTypeChipsImpl implements RemoveRoleTypeChips {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String roleType)? addRoleTypeChips,
+    TResult? Function()? getAllDropDownList,
+    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -484,7 +700,8 @@ class _$RemoveRoleTypeChipsImpl implements RemoveRoleTypeChips {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String roleType)? addRoleTypeChips,
+    TResult Function()? getAllDropDownList,
+    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -510,6 +727,7 @@ class _$RemoveRoleTypeChipsImpl implements RemoveRoleTypeChips {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetAllDropDownList value) getAllDropDownList,
     required TResult Function(AddRoleTypeChips value) addRoleTypeChips,
     required TResult Function(RemoveRoleTypeChips value) removeRoleTypeChips,
     required TResult Function(AddLanguageChips value) addLanguageChips,
@@ -532,6 +750,7 @@ class _$RemoveRoleTypeChipsImpl implements RemoveRoleTypeChips {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetAllDropDownList value)? getAllDropDownList,
     TResult? Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult? Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult? Function(AddLanguageChips value)? addLanguageChips,
@@ -554,6 +773,7 @@ class _$RemoveRoleTypeChipsImpl implements RemoveRoleTypeChips {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetAllDropDownList value)? getAllDropDownList,
     TResult Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult Function(AddLanguageChips value)? addLanguageChips,
@@ -664,7 +884,9 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String roleType) addRoleTypeChips,
+    required TResult Function() getAllDropDownList,
+    required TResult Function(String roleType, bool? isOtherValue)
+        addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -687,7 +909,8 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String roleType)? addRoleTypeChips,
+    TResult? Function()? getAllDropDownList,
+    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -709,7 +932,8 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String roleType)? addRoleTypeChips,
+    TResult Function()? getAllDropDownList,
+    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -735,6 +959,7 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetAllDropDownList value) getAllDropDownList,
     required TResult Function(AddRoleTypeChips value) addRoleTypeChips,
     required TResult Function(RemoveRoleTypeChips value) removeRoleTypeChips,
     required TResult Function(AddLanguageChips value) addLanguageChips,
@@ -757,6 +982,7 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetAllDropDownList value)? getAllDropDownList,
     TResult? Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult? Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult? Function(AddLanguageChips value)? addLanguageChips,
@@ -779,6 +1005,7 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetAllDropDownList value)? getAllDropDownList,
     TResult Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult Function(AddLanguageChips value)? addLanguageChips,
@@ -881,7 +1108,9 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String roleType) addRoleTypeChips,
+    required TResult Function() getAllDropDownList,
+    required TResult Function(String roleType, bool? isOtherValue)
+        addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -904,7 +1133,8 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String roleType)? addRoleTypeChips,
+    TResult? Function()? getAllDropDownList,
+    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -926,7 +1156,8 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String roleType)? addRoleTypeChips,
+    TResult Function()? getAllDropDownList,
+    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -952,6 +1183,7 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetAllDropDownList value) getAllDropDownList,
     required TResult Function(AddRoleTypeChips value) addRoleTypeChips,
     required TResult Function(RemoveRoleTypeChips value) removeRoleTypeChips,
     required TResult Function(AddLanguageChips value) addLanguageChips,
@@ -974,6 +1206,7 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetAllDropDownList value)? getAllDropDownList,
     TResult? Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult? Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult? Function(AddLanguageChips value)? addLanguageChips,
@@ -996,6 +1229,7 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetAllDropDownList value)? getAllDropDownList,
     TResult Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult Function(AddLanguageChips value)? addLanguageChips,
@@ -1109,7 +1343,9 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String roleType) addRoleTypeChips,
+    required TResult Function() getAllDropDownList,
+    required TResult Function(String roleType, bool? isOtherValue)
+        addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -1132,7 +1368,8 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String roleType)? addRoleTypeChips,
+    TResult? Function()? getAllDropDownList,
+    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1154,7 +1391,8 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String roleType)? addRoleTypeChips,
+    TResult Function()? getAllDropDownList,
+    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1180,6 +1418,7 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetAllDropDownList value) getAllDropDownList,
     required TResult Function(AddRoleTypeChips value) addRoleTypeChips,
     required TResult Function(RemoveRoleTypeChips value) removeRoleTypeChips,
     required TResult Function(AddLanguageChips value) addLanguageChips,
@@ -1202,6 +1441,7 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetAllDropDownList value)? getAllDropDownList,
     TResult? Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult? Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult? Function(AddLanguageChips value)? addLanguageChips,
@@ -1224,6 +1464,7 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetAllDropDownList value)? getAllDropDownList,
     TResult Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult Function(AddLanguageChips value)? addLanguageChips,
@@ -1349,7 +1590,9 @@ class _$AddSpecialityExperienceListImpl implements AddSpecialityExperienceList {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String roleType) addRoleTypeChips,
+    required TResult Function() getAllDropDownList,
+    required TResult Function(String roleType, bool? isOtherValue)
+        addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -1373,7 +1616,8 @@ class _$AddSpecialityExperienceListImpl implements AddSpecialityExperienceList {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String roleType)? addRoleTypeChips,
+    TResult? Function()? getAllDropDownList,
+    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1396,7 +1640,8 @@ class _$AddSpecialityExperienceListImpl implements AddSpecialityExperienceList {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String roleType)? addRoleTypeChips,
+    TResult Function()? getAllDropDownList,
+    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1423,6 +1668,7 @@ class _$AddSpecialityExperienceListImpl implements AddSpecialityExperienceList {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetAllDropDownList value) getAllDropDownList,
     required TResult Function(AddRoleTypeChips value) addRoleTypeChips,
     required TResult Function(RemoveRoleTypeChips value) removeRoleTypeChips,
     required TResult Function(AddLanguageChips value) addLanguageChips,
@@ -1445,6 +1691,7 @@ class _$AddSpecialityExperienceListImpl implements AddSpecialityExperienceList {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetAllDropDownList value)? getAllDropDownList,
     TResult? Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult? Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult? Function(AddLanguageChips value)? addLanguageChips,
@@ -1467,6 +1714,7 @@ class _$AddSpecialityExperienceListImpl implements AddSpecialityExperienceList {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetAllDropDownList value)? getAllDropDownList,
     TResult Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult Function(AddLanguageChips value)? addLanguageChips,
@@ -1576,7 +1824,9 @@ class _$RemoveRequiredSpecialitichipsImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String roleType) addRoleTypeChips,
+    required TResult Function() getAllDropDownList,
+    required TResult Function(String roleType, bool? isOtherValue)
+        addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -1599,7 +1849,8 @@ class _$RemoveRequiredSpecialitichipsImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String roleType)? addRoleTypeChips,
+    TResult? Function()? getAllDropDownList,
+    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1621,7 +1872,8 @@ class _$RemoveRequiredSpecialitichipsImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String roleType)? addRoleTypeChips,
+    TResult Function()? getAllDropDownList,
+    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1647,6 +1899,7 @@ class _$RemoveRequiredSpecialitichipsImpl
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetAllDropDownList value) getAllDropDownList,
     required TResult Function(AddRoleTypeChips value) addRoleTypeChips,
     required TResult Function(RemoveRoleTypeChips value) removeRoleTypeChips,
     required TResult Function(AddLanguageChips value) addLanguageChips,
@@ -1669,6 +1922,7 @@ class _$RemoveRequiredSpecialitichipsImpl
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetAllDropDownList value)? getAllDropDownList,
     TResult? Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult? Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult? Function(AddLanguageChips value)? addLanguageChips,
@@ -1691,6 +1945,7 @@ class _$RemoveRequiredSpecialitichipsImpl
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetAllDropDownList value)? getAllDropDownList,
     TResult Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult Function(AddLanguageChips value)? addLanguageChips,
@@ -1808,7 +2063,9 @@ class _$AddPreferedSoftwareSkillchipsImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String roleType) addRoleTypeChips,
+    required TResult Function() getAllDropDownList,
+    required TResult Function(String roleType, bool? isOtherValue)
+        addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -1831,7 +2088,8 @@ class _$AddPreferedSoftwareSkillchipsImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String roleType)? addRoleTypeChips,
+    TResult? Function()? getAllDropDownList,
+    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1853,7 +2111,8 @@ class _$AddPreferedSoftwareSkillchipsImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String roleType)? addRoleTypeChips,
+    TResult Function()? getAllDropDownList,
+    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1879,6 +2138,7 @@ class _$AddPreferedSoftwareSkillchipsImpl
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetAllDropDownList value) getAllDropDownList,
     required TResult Function(AddRoleTypeChips value) addRoleTypeChips,
     required TResult Function(RemoveRoleTypeChips value) removeRoleTypeChips,
     required TResult Function(AddLanguageChips value) addLanguageChips,
@@ -1901,6 +2161,7 @@ class _$AddPreferedSoftwareSkillchipsImpl
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetAllDropDownList value)? getAllDropDownList,
     TResult? Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult? Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult? Function(AddLanguageChips value)? addLanguageChips,
@@ -1923,6 +2184,7 @@ class _$AddPreferedSoftwareSkillchipsImpl
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetAllDropDownList value)? getAllDropDownList,
     TResult Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult Function(AddLanguageChips value)? addLanguageChips,
@@ -2031,7 +2293,9 @@ class _$RemovePreferedSoftwareSkillchipsImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String roleType) addRoleTypeChips,
+    required TResult Function() getAllDropDownList,
+    required TResult Function(String roleType, bool? isOtherValue)
+        addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -2054,7 +2318,8 @@ class _$RemovePreferedSoftwareSkillchipsImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String roleType)? addRoleTypeChips,
+    TResult? Function()? getAllDropDownList,
+    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -2076,7 +2341,8 @@ class _$RemovePreferedSoftwareSkillchipsImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String roleType)? addRoleTypeChips,
+    TResult Function()? getAllDropDownList,
+    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -2102,6 +2368,7 @@ class _$RemovePreferedSoftwareSkillchipsImpl
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetAllDropDownList value) getAllDropDownList,
     required TResult Function(AddRoleTypeChips value) addRoleTypeChips,
     required TResult Function(RemoveRoleTypeChips value) removeRoleTypeChips,
     required TResult Function(AddLanguageChips value) addLanguageChips,
@@ -2124,6 +2391,7 @@ class _$RemovePreferedSoftwareSkillchipsImpl
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetAllDropDownList value)? getAllDropDownList,
     TResult? Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult? Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult? Function(AddLanguageChips value)? addLanguageChips,
@@ -2146,6 +2414,7 @@ class _$RemovePreferedSoftwareSkillchipsImpl
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetAllDropDownList value)? getAllDropDownList,
     TResult Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult Function(AddLanguageChips value)? addLanguageChips,
@@ -2221,7 +2490,9 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String roleType) addRoleTypeChips,
+    required TResult Function() getAllDropDownList,
+    required TResult Function(String roleType, bool? isOtherValue)
+        addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -2244,7 +2515,8 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String roleType)? addRoleTypeChips,
+    TResult? Function()? getAllDropDownList,
+    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -2266,7 +2538,8 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String roleType)? addRoleTypeChips,
+    TResult Function()? getAllDropDownList,
+    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -2292,6 +2565,7 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetAllDropDownList value) getAllDropDownList,
     required TResult Function(AddRoleTypeChips value) addRoleTypeChips,
     required TResult Function(RemoveRoleTypeChips value) removeRoleTypeChips,
     required TResult Function(AddLanguageChips value) addLanguageChips,
@@ -2314,6 +2588,7 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetAllDropDownList value)? getAllDropDownList,
     TResult? Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult? Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult? Function(AddLanguageChips value)? addLanguageChips,
@@ -2336,6 +2611,7 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetAllDropDownList value)? getAllDropDownList,
     TResult Function(AddRoleTypeChips value)? addRoleTypeChips,
     TResult Function(RemoveRoleTypeChips value)? removeRoleTypeChips,
     TResult Function(AddLanguageChips value)? addLanguageChips,
@@ -2372,30 +2648,38 @@ mixin _$AddContractorSkillFormState {
   /// SPECIALITY
   ListInputEmptyOrNot<SpecialityDTO> get requiredSpecialityChipList =>
       throw _privateConstructorUsedError;
+  List<SpecialityDTO> get specialityList => throw _privateConstructorUsedError;
   String get requiredSpecialityChip => throw _privateConstructorUsedError;
 
   /// Add EXPERIENCE OF SELECTED SPECIALITY
   ListInputEmptyOrNot<dynamic> get selectedSpecialityExperienceList =>
       throw _privateConstructorUsedError;
   String get selectedSpecialityExperience => throw _privateConstructorUsedError;
+  List<SkillDTO> get experienceList => throw _privateConstructorUsedError;
 
   /// ROLE TYPE
+  List<SkillDTO> get roleList => throw _privateConstructorUsedError;
   ListInputEmptyOrNot<dynamic> get roleTypeChipList =>
       throw _privateConstructorUsedError;
   String get roleTypeChip => throw _privateConstructorUsedError;
 
   /// SOFTWARE SKILL
+  List<SkillDTO> get softwareList => throw _privateConstructorUsedError;
+  List<String> get softwareSkillOther => throw _privateConstructorUsedError;
   String get requiredSoftwareSkillChip => throw _privateConstructorUsedError;
   ListInputEmptyOrNot<dynamic> get requiredSoftwareSkillChipList =>
       throw _privateConstructorUsedError;
 
   /// LANGUAGE
   String get languageChip => throw _privateConstructorUsedError;
+  List<String> get languageOther => throw _privateConstructorUsedError;
   ListInputEmptyOrNot<dynamic> get languageChipList =>
       throw _privateConstructorUsedError;
+  List<SkillDTO> get languageList => throw _privateConstructorUsedError;
 
   /// SUBMIT
   bool get isSubmitting => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
   bool get showLanguageError => throw _privateConstructorUsedError;
   bool get showSoftwareSkillError => throw _privateConstructorUsedError;
@@ -2420,16 +2704,24 @@ abstract class $AddContractorSkillFormStateCopyWith<$Res> {
   @useResult
   $Res call(
       {ListInputEmptyOrNot<SpecialityDTO> requiredSpecialityChipList,
+      List<SpecialityDTO> specialityList,
       String requiredSpecialityChip,
       ListInputEmptyOrNot<dynamic> selectedSpecialityExperienceList,
       String selectedSpecialityExperience,
+      List<SkillDTO> experienceList,
+      List<SkillDTO> roleList,
       ListInputEmptyOrNot<dynamic> roleTypeChipList,
       String roleTypeChip,
+      List<SkillDTO> softwareList,
+      List<String> softwareSkillOther,
       String requiredSoftwareSkillChip,
       ListInputEmptyOrNot<dynamic> requiredSoftwareSkillChipList,
       String languageChip,
+      List<String> languageOther,
       ListInputEmptyOrNot<dynamic> languageChipList,
+      List<SkillDTO> languageList,
       bool isSubmitting,
+      bool isLoading,
       bool showErrorMessages,
       bool showLanguageError,
       bool showSoftwareSkillError,
@@ -2454,16 +2746,24 @@ class _$AddContractorSkillFormStateCopyWithImpl<$Res,
   @override
   $Res call({
     Object? requiredSpecialityChipList = null,
+    Object? specialityList = null,
     Object? requiredSpecialityChip = null,
     Object? selectedSpecialityExperienceList = null,
     Object? selectedSpecialityExperience = null,
+    Object? experienceList = null,
+    Object? roleList = null,
     Object? roleTypeChipList = null,
     Object? roleTypeChip = null,
+    Object? softwareList = null,
+    Object? softwareSkillOther = null,
     Object? requiredSoftwareSkillChip = null,
     Object? requiredSoftwareSkillChipList = null,
     Object? languageChip = null,
+    Object? languageOther = null,
     Object? languageChipList = null,
+    Object? languageList = null,
     Object? isSubmitting = null,
+    Object? isLoading = null,
     Object? showErrorMessages = null,
     Object? showLanguageError = null,
     Object? showSoftwareSkillError = null,
@@ -2477,6 +2777,10 @@ class _$AddContractorSkillFormStateCopyWithImpl<$Res,
           ? _value.requiredSpecialityChipList
           : requiredSpecialityChipList // ignore: cast_nullable_to_non_nullable
               as ListInputEmptyOrNot<SpecialityDTO>,
+      specialityList: null == specialityList
+          ? _value.specialityList
+          : specialityList // ignore: cast_nullable_to_non_nullable
+              as List<SpecialityDTO>,
       requiredSpecialityChip: null == requiredSpecialityChip
           ? _value.requiredSpecialityChip
           : requiredSpecialityChip // ignore: cast_nullable_to_non_nullable
@@ -2489,6 +2793,14 @@ class _$AddContractorSkillFormStateCopyWithImpl<$Res,
           ? _value.selectedSpecialityExperience
           : selectedSpecialityExperience // ignore: cast_nullable_to_non_nullable
               as String,
+      experienceList: null == experienceList
+          ? _value.experienceList
+          : experienceList // ignore: cast_nullable_to_non_nullable
+              as List<SkillDTO>,
+      roleList: null == roleList
+          ? _value.roleList
+          : roleList // ignore: cast_nullable_to_non_nullable
+              as List<SkillDTO>,
       roleTypeChipList: null == roleTypeChipList
           ? _value.roleTypeChipList
           : roleTypeChipList // ignore: cast_nullable_to_non_nullable
@@ -2497,6 +2809,14 @@ class _$AddContractorSkillFormStateCopyWithImpl<$Res,
           ? _value.roleTypeChip
           : roleTypeChip // ignore: cast_nullable_to_non_nullable
               as String,
+      softwareList: null == softwareList
+          ? _value.softwareList
+          : softwareList // ignore: cast_nullable_to_non_nullable
+              as List<SkillDTO>,
+      softwareSkillOther: null == softwareSkillOther
+          ? _value.softwareSkillOther
+          : softwareSkillOther // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       requiredSoftwareSkillChip: null == requiredSoftwareSkillChip
           ? _value.requiredSoftwareSkillChip
           : requiredSoftwareSkillChip // ignore: cast_nullable_to_non_nullable
@@ -2509,13 +2829,25 @@ class _$AddContractorSkillFormStateCopyWithImpl<$Res,
           ? _value.languageChip
           : languageChip // ignore: cast_nullable_to_non_nullable
               as String,
+      languageOther: null == languageOther
+          ? _value.languageOther
+          : languageOther // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       languageChipList: null == languageChipList
           ? _value.languageChipList
           : languageChipList // ignore: cast_nullable_to_non_nullable
               as ListInputEmptyOrNot<dynamic>,
+      languageList: null == languageList
+          ? _value.languageList
+          : languageList // ignore: cast_nullable_to_non_nullable
+              as List<SkillDTO>,
       isSubmitting: null == isSubmitting
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       showErrorMessages: null == showErrorMessages
           ? _value.showErrorMessages
@@ -2560,16 +2892,24 @@ abstract class _$$AddContractorSkillFormStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {ListInputEmptyOrNot<SpecialityDTO> requiredSpecialityChipList,
+      List<SpecialityDTO> specialityList,
       String requiredSpecialityChip,
       ListInputEmptyOrNot<dynamic> selectedSpecialityExperienceList,
       String selectedSpecialityExperience,
+      List<SkillDTO> experienceList,
+      List<SkillDTO> roleList,
       ListInputEmptyOrNot<dynamic> roleTypeChipList,
       String roleTypeChip,
+      List<SkillDTO> softwareList,
+      List<String> softwareSkillOther,
       String requiredSoftwareSkillChip,
       ListInputEmptyOrNot<dynamic> requiredSoftwareSkillChipList,
       String languageChip,
+      List<String> languageOther,
       ListInputEmptyOrNot<dynamic> languageChipList,
+      List<SkillDTO> languageList,
       bool isSubmitting,
+      bool isLoading,
       bool showErrorMessages,
       bool showLanguageError,
       bool showSoftwareSkillError,
@@ -2593,16 +2933,24 @@ class __$$AddContractorSkillFormStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? requiredSpecialityChipList = null,
+    Object? specialityList = null,
     Object? requiredSpecialityChip = null,
     Object? selectedSpecialityExperienceList = null,
     Object? selectedSpecialityExperience = null,
+    Object? experienceList = null,
+    Object? roleList = null,
     Object? roleTypeChipList = null,
     Object? roleTypeChip = null,
+    Object? softwareList = null,
+    Object? softwareSkillOther = null,
     Object? requiredSoftwareSkillChip = null,
     Object? requiredSoftwareSkillChipList = null,
     Object? languageChip = null,
+    Object? languageOther = null,
     Object? languageChipList = null,
+    Object? languageList = null,
     Object? isSubmitting = null,
+    Object? isLoading = null,
     Object? showErrorMessages = null,
     Object? showLanguageError = null,
     Object? showSoftwareSkillError = null,
@@ -2616,6 +2964,10 @@ class __$$AddContractorSkillFormStateImplCopyWithImpl<$Res>
           ? _value.requiredSpecialityChipList
           : requiredSpecialityChipList // ignore: cast_nullable_to_non_nullable
               as ListInputEmptyOrNot<SpecialityDTO>,
+      specialityList: null == specialityList
+          ? _value._specialityList
+          : specialityList // ignore: cast_nullable_to_non_nullable
+              as List<SpecialityDTO>,
       requiredSpecialityChip: null == requiredSpecialityChip
           ? _value.requiredSpecialityChip
           : requiredSpecialityChip // ignore: cast_nullable_to_non_nullable
@@ -2628,6 +2980,14 @@ class __$$AddContractorSkillFormStateImplCopyWithImpl<$Res>
           ? _value.selectedSpecialityExperience
           : selectedSpecialityExperience // ignore: cast_nullable_to_non_nullable
               as String,
+      experienceList: null == experienceList
+          ? _value._experienceList
+          : experienceList // ignore: cast_nullable_to_non_nullable
+              as List<SkillDTO>,
+      roleList: null == roleList
+          ? _value._roleList
+          : roleList // ignore: cast_nullable_to_non_nullable
+              as List<SkillDTO>,
       roleTypeChipList: null == roleTypeChipList
           ? _value.roleTypeChipList
           : roleTypeChipList // ignore: cast_nullable_to_non_nullable
@@ -2636,6 +2996,14 @@ class __$$AddContractorSkillFormStateImplCopyWithImpl<$Res>
           ? _value.roleTypeChip
           : roleTypeChip // ignore: cast_nullable_to_non_nullable
               as String,
+      softwareList: null == softwareList
+          ? _value._softwareList
+          : softwareList // ignore: cast_nullable_to_non_nullable
+              as List<SkillDTO>,
+      softwareSkillOther: null == softwareSkillOther
+          ? _value._softwareSkillOther
+          : softwareSkillOther // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       requiredSoftwareSkillChip: null == requiredSoftwareSkillChip
           ? _value.requiredSoftwareSkillChip
           : requiredSoftwareSkillChip // ignore: cast_nullable_to_non_nullable
@@ -2648,13 +3016,25 @@ class __$$AddContractorSkillFormStateImplCopyWithImpl<$Res>
           ? _value.languageChip
           : languageChip // ignore: cast_nullable_to_non_nullable
               as String,
+      languageOther: null == languageOther
+          ? _value._languageOther
+          : languageOther // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       languageChipList: null == languageChipList
           ? _value.languageChipList
           : languageChipList // ignore: cast_nullable_to_non_nullable
               as ListInputEmptyOrNot<dynamic>,
+      languageList: null == languageList
+          ? _value._languageList
+          : languageList // ignore: cast_nullable_to_non_nullable
+              as List<SkillDTO>,
       isSubmitting: null == isSubmitting
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       showErrorMessages: null == showErrorMessages
           ? _value.showErrorMessages
@@ -2694,23 +3074,38 @@ class _$AddContractorSkillFormStateImpl
     implements _AddContractorSkillFormState {
   const _$AddContractorSkillFormStateImpl(
       {required this.requiredSpecialityChipList,
+      required final List<SpecialityDTO> specialityList,
       required this.requiredSpecialityChip,
       required this.selectedSpecialityExperienceList,
       required this.selectedSpecialityExperience,
+      required final List<SkillDTO> experienceList,
+      required final List<SkillDTO> roleList,
       required this.roleTypeChipList,
       required this.roleTypeChip,
+      required final List<SkillDTO> softwareList,
+      required final List<String> softwareSkillOther,
       required this.requiredSoftwareSkillChip,
       required this.requiredSoftwareSkillChipList,
       required this.languageChip,
+      required final List<String> languageOther,
       required this.languageChipList,
+      required final List<SkillDTO> languageList,
       required this.isSubmitting,
+      required this.isLoading,
       required this.showErrorMessages,
       required this.showLanguageError,
       required this.showSoftwareSkillError,
       required this.showSpecialityError,
       required this.showRoleTypeError,
       required this.showSpeExperienceError,
-      required this.authFailureOrSuccessOption});
+      required this.authFailureOrSuccessOption})
+      : _specialityList = specialityList,
+        _experienceList = experienceList,
+        _roleList = roleList,
+        _softwareList = softwareList,
+        _softwareSkillOther = softwareSkillOther,
+        _languageOther = languageOther,
+        _languageList = languageList;
 
   /// SPECIALITY
 // required ListInputEmptyOrNot requiredSpecialityChipList,
@@ -2718,6 +3113,14 @@ class _$AddContractorSkillFormStateImpl
   /// SPECIALITY
   @override
   final ListInputEmptyOrNot<SpecialityDTO> requiredSpecialityChipList;
+  final List<SpecialityDTO> _specialityList;
+  @override
+  List<SpecialityDTO> get specialityList {
+    if (_specialityList is EqualUnmodifiableListView) return _specialityList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_specialityList);
+  }
+
   @override
   final String requiredSpecialityChip;
 
@@ -2726,14 +3129,50 @@ class _$AddContractorSkillFormStateImpl
   final ListInputEmptyOrNot<dynamic> selectedSpecialityExperienceList;
   @override
   final String selectedSpecialityExperience;
+  final List<SkillDTO> _experienceList;
+  @override
+  List<SkillDTO> get experienceList {
+    if (_experienceList is EqualUnmodifiableListView) return _experienceList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_experienceList);
+  }
 
   /// ROLE TYPE
+  final List<SkillDTO> _roleList;
+
+  /// ROLE TYPE
+  @override
+  List<SkillDTO> get roleList {
+    if (_roleList is EqualUnmodifiableListView) return _roleList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_roleList);
+  }
+
   @override
   final ListInputEmptyOrNot<dynamic> roleTypeChipList;
   @override
   final String roleTypeChip;
 
   /// SOFTWARE SKILL
+  final List<SkillDTO> _softwareList;
+
+  /// SOFTWARE SKILL
+  @override
+  List<SkillDTO> get softwareList {
+    if (_softwareList is EqualUnmodifiableListView) return _softwareList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_softwareList);
+  }
+
+  final List<String> _softwareSkillOther;
+  @override
+  List<String> get softwareSkillOther {
+    if (_softwareSkillOther is EqualUnmodifiableListView)
+      return _softwareSkillOther;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_softwareSkillOther);
+  }
+
   @override
   final String requiredSoftwareSkillChip;
   @override
@@ -2742,12 +3181,29 @@ class _$AddContractorSkillFormStateImpl
   /// LANGUAGE
   @override
   final String languageChip;
+  final List<String> _languageOther;
+  @override
+  List<String> get languageOther {
+    if (_languageOther is EqualUnmodifiableListView) return _languageOther;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_languageOther);
+  }
+
   @override
   final ListInputEmptyOrNot<dynamic> languageChipList;
+  final List<SkillDTO> _languageList;
+  @override
+  List<SkillDTO> get languageList {
+    if (_languageList is EqualUnmodifiableListView) return _languageList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_languageList);
+  }
 
   /// SUBMIT
   @override
   final bool isSubmitting;
+  @override
+  final bool isLoading;
   @override
   final bool showErrorMessages;
   @override
@@ -2765,7 +3221,7 @@ class _$AddContractorSkillFormStateImpl
 
   @override
   String toString() {
-    return 'AddContractorSkillFormState(requiredSpecialityChipList: $requiredSpecialityChipList, requiredSpecialityChip: $requiredSpecialityChip, selectedSpecialityExperienceList: $selectedSpecialityExperienceList, selectedSpecialityExperience: $selectedSpecialityExperience, roleTypeChipList: $roleTypeChipList, roleTypeChip: $roleTypeChip, requiredSoftwareSkillChip: $requiredSoftwareSkillChip, requiredSoftwareSkillChipList: $requiredSoftwareSkillChipList, languageChip: $languageChip, languageChipList: $languageChipList, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, showLanguageError: $showLanguageError, showSoftwareSkillError: $showSoftwareSkillError, showSpecialityError: $showSpecialityError, showRoleTypeError: $showRoleTypeError, showSpeExperienceError: $showSpeExperienceError, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'AddContractorSkillFormState(requiredSpecialityChipList: $requiredSpecialityChipList, specialityList: $specialityList, requiredSpecialityChip: $requiredSpecialityChip, selectedSpecialityExperienceList: $selectedSpecialityExperienceList, selectedSpecialityExperience: $selectedSpecialityExperience, experienceList: $experienceList, roleList: $roleList, roleTypeChipList: $roleTypeChipList, roleTypeChip: $roleTypeChip, softwareList: $softwareList, softwareSkillOther: $softwareSkillOther, requiredSoftwareSkillChip: $requiredSoftwareSkillChip, requiredSoftwareSkillChipList: $requiredSoftwareSkillChipList, languageChip: $languageChip, languageOther: $languageOther, languageChipList: $languageChipList, languageList: $languageList, isSubmitting: $isSubmitting, isLoading: $isLoading, showErrorMessages: $showErrorMessages, showLanguageError: $showLanguageError, showSoftwareSkillError: $showSoftwareSkillError, showSpecialityError: $showSpecialityError, showRoleTypeError: $showRoleTypeError, showSpeExperienceError: $showSpeExperienceError, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
@@ -2776,6 +3232,8 @@ class _$AddContractorSkillFormStateImpl
             (identical(other.requiredSpecialityChipList, requiredSpecialityChipList) ||
                 other.requiredSpecialityChipList ==
                     requiredSpecialityChipList) &&
+            const DeepCollectionEquality()
+                .equals(other._specialityList, _specialityList) &&
             (identical(other.requiredSpecialityChip, requiredSpecialityChip) ||
                 other.requiredSpecialityChip == requiredSpecialityChip) &&
             (identical(other.selectedSpecialityExperienceList, selectedSpecialityExperienceList) ||
@@ -2784,10 +3242,17 @@ class _$AddContractorSkillFormStateImpl
             (identical(other.selectedSpecialityExperience, selectedSpecialityExperience) ||
                 other.selectedSpecialityExperience ==
                     selectedSpecialityExperience) &&
+            const DeepCollectionEquality()
+                .equals(other._experienceList, _experienceList) &&
+            const DeepCollectionEquality().equals(other._roleList, _roleList) &&
             (identical(other.roleTypeChipList, roleTypeChipList) ||
                 other.roleTypeChipList == roleTypeChipList) &&
             (identical(other.roleTypeChip, roleTypeChip) ||
                 other.roleTypeChip == roleTypeChip) &&
+            const DeepCollectionEquality()
+                .equals(other._softwareList, _softwareList) &&
+            const DeepCollectionEquality()
+                .equals(other._softwareSkillOther, _softwareSkillOther) &&
             (identical(other.requiredSoftwareSkillChip, requiredSoftwareSkillChip) ||
                 other.requiredSoftwareSkillChip == requiredSoftwareSkillChip) &&
             (identical(other.requiredSoftwareSkillChipList, requiredSoftwareSkillChipList) ||
@@ -2795,48 +3260,57 @@ class _$AddContractorSkillFormStateImpl
                     requiredSoftwareSkillChipList) &&
             (identical(other.languageChip, languageChip) ||
                 other.languageChip == languageChip) &&
+            const DeepCollectionEquality()
+                .equals(other._languageOther, _languageOther) &&
             (identical(other.languageChipList, languageChipList) ||
                 other.languageChipList == languageChipList) &&
+            const DeepCollectionEquality()
+                .equals(other._languageList, _languageList) &&
             (identical(other.isSubmitting, isSubmitting) ||
                 other.isSubmitting == isSubmitting) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
             (identical(other.showErrorMessages, showErrorMessages) ||
                 other.showErrorMessages == showErrorMessages) &&
             (identical(other.showLanguageError, showLanguageError) ||
                 other.showLanguageError == showLanguageError) &&
-            (identical(other.showSoftwareSkillError, showSoftwareSkillError) ||
-                other.showSoftwareSkillError == showSoftwareSkillError) &&
-            (identical(other.showSpecialityError, showSpecialityError) ||
-                other.showSpecialityError == showSpecialityError) &&
-            (identical(other.showRoleTypeError, showRoleTypeError) ||
-                other.showRoleTypeError == showRoleTypeError) &&
-            (identical(other.showSpeExperienceError, showSpeExperienceError) ||
-                other.showSpeExperienceError == showSpeExperienceError) &&
-            (identical(other.authFailureOrSuccessOption, authFailureOrSuccessOption) ||
-                other.authFailureOrSuccessOption ==
-                    authFailureOrSuccessOption));
+            (identical(other.showSoftwareSkillError, showSoftwareSkillError) || other.showSoftwareSkillError == showSoftwareSkillError) &&
+            (identical(other.showSpecialityError, showSpecialityError) || other.showSpecialityError == showSpecialityError) &&
+            (identical(other.showRoleTypeError, showRoleTypeError) || other.showRoleTypeError == showRoleTypeError) &&
+            (identical(other.showSpeExperienceError, showSpeExperienceError) || other.showSpeExperienceError == showSpeExperienceError) &&
+            (identical(other.authFailureOrSuccessOption, authFailureOrSuccessOption) || other.authFailureOrSuccessOption == authFailureOrSuccessOption));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      requiredSpecialityChipList,
-      requiredSpecialityChip,
-      selectedSpecialityExperienceList,
-      selectedSpecialityExperience,
-      roleTypeChipList,
-      roleTypeChip,
-      requiredSoftwareSkillChip,
-      requiredSoftwareSkillChipList,
-      languageChip,
-      languageChipList,
-      isSubmitting,
-      showErrorMessages,
-      showLanguageError,
-      showSoftwareSkillError,
-      showSpecialityError,
-      showRoleTypeError,
-      showSpeExperienceError,
-      authFailureOrSuccessOption);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        requiredSpecialityChipList,
+        const DeepCollectionEquality().hash(_specialityList),
+        requiredSpecialityChip,
+        selectedSpecialityExperienceList,
+        selectedSpecialityExperience,
+        const DeepCollectionEquality().hash(_experienceList),
+        const DeepCollectionEquality().hash(_roleList),
+        roleTypeChipList,
+        roleTypeChip,
+        const DeepCollectionEquality().hash(_softwareList),
+        const DeepCollectionEquality().hash(_softwareSkillOther),
+        requiredSoftwareSkillChip,
+        requiredSoftwareSkillChipList,
+        languageChip,
+        const DeepCollectionEquality().hash(_languageOther),
+        languageChipList,
+        const DeepCollectionEquality().hash(_languageList),
+        isSubmitting,
+        isLoading,
+        showErrorMessages,
+        showLanguageError,
+        showSoftwareSkillError,
+        showSpecialityError,
+        showRoleTypeError,
+        showSpeExperienceError,
+        authFailureOrSuccessOption
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -2851,17 +3325,25 @@ abstract class _AddContractorSkillFormState
   const factory _AddContractorSkillFormState(
       {required final ListInputEmptyOrNot<SpecialityDTO>
           requiredSpecialityChipList,
+      required final List<SpecialityDTO> specialityList,
       required final String requiredSpecialityChip,
       required final ListInputEmptyOrNot<dynamic>
           selectedSpecialityExperienceList,
       required final String selectedSpecialityExperience,
+      required final List<SkillDTO> experienceList,
+      required final List<SkillDTO> roleList,
       required final ListInputEmptyOrNot<dynamic> roleTypeChipList,
       required final String roleTypeChip,
+      required final List<SkillDTO> softwareList,
+      required final List<String> softwareSkillOther,
       required final String requiredSoftwareSkillChip,
       required final ListInputEmptyOrNot<dynamic> requiredSoftwareSkillChipList,
       required final String languageChip,
+      required final List<String> languageOther,
       required final ListInputEmptyOrNot<dynamic> languageChipList,
+      required final List<SkillDTO> languageList,
       required final bool isSubmitting,
+      required final bool isLoading,
       required final bool showErrorMessages,
       required final bool showLanguageError,
       required final bool showSoftwareSkillError,
@@ -2879,6 +3361,8 @@ abstract class _AddContractorSkillFormState
   /// SPECIALITY
   ListInputEmptyOrNot<SpecialityDTO> get requiredSpecialityChipList;
   @override
+  List<SpecialityDTO> get specialityList;
+  @override
   String get requiredSpecialityChip;
   @override
 
@@ -2887,14 +3371,22 @@ abstract class _AddContractorSkillFormState
   @override
   String get selectedSpecialityExperience;
   @override
+  List<SkillDTO> get experienceList;
+  @override
 
   /// ROLE TYPE
+  List<SkillDTO> get roleList;
+  @override
   ListInputEmptyOrNot<dynamic> get roleTypeChipList;
   @override
   String get roleTypeChip;
   @override
 
   /// SOFTWARE SKILL
+  List<SkillDTO> get softwareList;
+  @override
+  List<String> get softwareSkillOther;
+  @override
   String get requiredSoftwareSkillChip;
   @override
   ListInputEmptyOrNot<dynamic> get requiredSoftwareSkillChipList;
@@ -2903,11 +3395,17 @@ abstract class _AddContractorSkillFormState
   /// LANGUAGE
   String get languageChip;
   @override
+  List<String> get languageOther;
+  @override
   ListInputEmptyOrNot<dynamic> get languageChipList;
+  @override
+  List<SkillDTO> get languageList;
   @override
 
   /// SUBMIT
   bool get isSubmitting;
+  @override
+  bool get isLoading;
   @override
   bool get showErrorMessages;
   @override

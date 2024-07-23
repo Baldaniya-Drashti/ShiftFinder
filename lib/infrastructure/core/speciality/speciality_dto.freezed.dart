@@ -20,8 +20,12 @@ SpecialityDTO _$SpecialityDTOFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SpecialityDTO {
-  String? get specialityName => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
+  String? get shortName => throw _privateConstructorUsedError;
+  int? get experienceId => throw _privateConstructorUsedError;
   String? get specialityExperience => throw _privateConstructorUsedError;
+  String? get specialityOther => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +39,13 @@ abstract class $SpecialityDTOCopyWith<$Res> {
           SpecialityDTO value, $Res Function(SpecialityDTO) then) =
       _$SpecialityDTOCopyWithImpl<$Res, SpecialityDTO>;
   @useResult
-  $Res call({String? specialityName, String? specialityExperience});
+  $Res call(
+      {int? id,
+      String? name,
+      String? shortName,
+      int? experienceId,
+      String? specialityExperience,
+      String? specialityOther});
 }
 
 /// @nodoc
@@ -51,17 +61,37 @@ class _$SpecialityDTOCopyWithImpl<$Res, $Val extends SpecialityDTO>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? specialityName = freezed,
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? shortName = freezed,
+    Object? experienceId = freezed,
     Object? specialityExperience = freezed,
+    Object? specialityOther = freezed,
   }) {
     return _then(_value.copyWith(
-      specialityName: freezed == specialityName
-          ? _value.specialityName
-          : specialityName // ignore: cast_nullable_to_non_nullable
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      shortName: freezed == shortName
+          ? _value.shortName
+          : shortName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      experienceId: freezed == experienceId
+          ? _value.experienceId
+          : experienceId // ignore: cast_nullable_to_non_nullable
+              as int?,
       specialityExperience: freezed == specialityExperience
           ? _value.specialityExperience
           : specialityExperience // ignore: cast_nullable_to_non_nullable
+              as String?,
+      specialityOther: freezed == specialityOther
+          ? _value.specialityOther
+          : specialityOther // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -75,7 +105,13 @@ abstract class _$$SpecialityDTOImplCopyWith<$Res>
       __$$SpecialityDTOImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? specialityName, String? specialityExperience});
+  $Res call(
+      {int? id,
+      String? name,
+      String? shortName,
+      int? experienceId,
+      String? specialityExperience,
+      String? specialityOther});
 }
 
 /// @nodoc
@@ -89,17 +125,37 @@ class __$$SpecialityDTOImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? specialityName = freezed,
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? shortName = freezed,
+    Object? experienceId = freezed,
     Object? specialityExperience = freezed,
+    Object? specialityOther = freezed,
   }) {
     return _then(_$SpecialityDTOImpl(
-      specialityName: freezed == specialityName
-          ? _value.specialityName
-          : specialityName // ignore: cast_nullable_to_non_nullable
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      shortName: freezed == shortName
+          ? _value.shortName
+          : shortName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      experienceId: freezed == experienceId
+          ? _value.experienceId
+          : experienceId // ignore: cast_nullable_to_non_nullable
+              as int?,
       specialityExperience: freezed == specialityExperience
           ? _value.specialityExperience
           : specialityExperience // ignore: cast_nullable_to_non_nullable
+              as String?,
+      specialityOther: freezed == specialityOther
+          ? _value.specialityOther
+          : specialityOther // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -108,19 +164,33 @@ class __$$SpecialityDTOImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$SpecialityDTOImpl implements _SpecialityDTO {
-  _$SpecialityDTOImpl({this.specialityName, this.specialityExperience});
+  const _$SpecialityDTOImpl(
+      {this.id,
+      this.name,
+      this.shortName,
+      this.experienceId,
+      this.specialityExperience,
+      this.specialityOther});
 
   factory _$SpecialityDTOImpl.fromJson(Map<String, dynamic> json) =>
       _$$SpecialityDTOImplFromJson(json);
 
   @override
-  final String? specialityName;
+  final int? id;
+  @override
+  final String? name;
+  @override
+  final String? shortName;
+  @override
+  final int? experienceId;
   @override
   final String? specialityExperience;
+  @override
+  final String? specialityOther;
 
   @override
   String toString() {
-    return 'SpecialityDTO(specialityName: $specialityName, specialityExperience: $specialityExperience)';
+    return 'SpecialityDTO(id: $id, name: $name, shortName: $shortName, experienceId: $experienceId, specialityExperience: $specialityExperience, specialityOther: $specialityOther)';
   }
 
   @override
@@ -128,16 +198,22 @@ class _$SpecialityDTOImpl implements _SpecialityDTO {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SpecialityDTOImpl &&
-            (identical(other.specialityName, specialityName) ||
-                other.specialityName == specialityName) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.shortName, shortName) ||
+                other.shortName == shortName) &&
+            (identical(other.experienceId, experienceId) ||
+                other.experienceId == experienceId) &&
             (identical(other.specialityExperience, specialityExperience) ||
-                other.specialityExperience == specialityExperience));
+                other.specialityExperience == specialityExperience) &&
+            (identical(other.specialityOther, specialityOther) ||
+                other.specialityOther == specialityOther));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, specialityName, specialityExperience);
+  int get hashCode => Object.hash(runtimeType, id, name, shortName,
+      experienceId, specialityExperience, specialityOther);
 
   @JsonKey(ignore: true)
   @override
@@ -154,17 +230,29 @@ class _$SpecialityDTOImpl implements _SpecialityDTO {
 }
 
 abstract class _SpecialityDTO implements SpecialityDTO {
-  factory _SpecialityDTO(
-      {final String? specialityName,
-      final String? specialityExperience}) = _$SpecialityDTOImpl;
+  const factory _SpecialityDTO(
+      {final int? id,
+      final String? name,
+      final String? shortName,
+      final int? experienceId,
+      final String? specialityExperience,
+      final String? specialityOther}) = _$SpecialityDTOImpl;
 
   factory _SpecialityDTO.fromJson(Map<String, dynamic> json) =
       _$SpecialityDTOImpl.fromJson;
 
   @override
-  String? get specialityName;
+  int? get id;
+  @override
+  String? get name;
+  @override
+  String? get shortName;
+  @override
+  int? get experienceId;
   @override
   String? get specialityExperience;
+  @override
+  String? get specialityOther;
   @override
   @JsonKey(ignore: true)
   _$$SpecialityDTOImplCopyWith<_$SpecialityDTOImpl> get copyWith =>

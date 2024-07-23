@@ -85,6 +85,7 @@ class RegisterProfileScreen extends StatelessWidget {
                       (getCurrentRole() == 1)
                           ? "${state.selectedCountrycode} ${state.enteredPhoneNo}"
                           : state.email.getValue(),
+                      state.password.getValue(),
                     );
                   },
                 ),
@@ -354,6 +355,7 @@ class RegisterProfileScreen extends StatelessWidget {
       labelText: StringConstant.email,
       isLabelPadding: true,
       hintText: StringConstant.email,
+      keyboardType: TextInputType.emailAddress,
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),

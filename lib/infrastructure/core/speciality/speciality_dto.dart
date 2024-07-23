@@ -3,10 +3,27 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'speciality_dto.freezed.dart';
 part 'speciality_dto.g.dart';
 
+// @freezed
+// class SpecialityDTO with _$SpecialityDTO {
+//   factory SpecialityDTO({
+//     String? specialityName,
+//     String? specialityExperience,
+//   }) = _SpecialityDTO;
+
+//   factory SpecialityDTO.fromJson(Map<String, dynamic> json) =>
+//       _$SpecialityDTOFromJson(json);
+// }
+
 @freezed
 class SpecialityDTO with _$SpecialityDTO {
-  factory SpecialityDTO(
-      {String? specialityName, String? specialityExperience}) = _SpecialityDTO;
+  const factory SpecialityDTO({
+    int? id,
+    String? name,
+    String? shortName,
+    int? experienceId,
+    String? specialityExperience,
+    String? specialityOther,
+  }) = _SpecialityDTO;
 
   factory SpecialityDTO.fromJson(Map<String, dynamic> json) =>
       _$SpecialityDTOFromJson(json);

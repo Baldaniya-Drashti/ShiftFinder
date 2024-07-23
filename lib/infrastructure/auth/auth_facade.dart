@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, avoid_print
 
 import 'dart:convert';
 import 'dart:developer';
@@ -12,6 +12,8 @@ import 'package:shift/domain/core/api_constants.dart';
 import 'package:shift/infrastructure/account/current_user_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/network/injectable_module.dart';
+import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/infrastructure/core/speciality/speciality_dto.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
@@ -40,27 +42,36 @@ class AuthFacade implements IAuthFacade {
   }
 
   @override
+  Future<bool> checkUserVerified() async {
+    log('getUserVerified() : ${getCurrentUser().isVerified}');
+    // getCookie returns null as a String, so it has to be checked like this.
+    return getCurrentUser().isVerified == 1;
+  }
+
+  @override
   Future<Either<AuthFailure, String>> login({
-    required String countryCode,
-    required EmailAddress mobileNumber,
+    required EmailAddress email,
+    required Password password,
   }) async {
     try {
       final response = await apiService.postMethod(
         ApiConstants.login,
         {
-          "role": 2,
-          "country_code": countryCode,
-          "mobile": "9664620465",
+          "email": email.getOrCrash(),
+          "password": password.getOrCrash(),
+          "service_roles": getCurrentRole(),
         },
       );
 
-      // final account = CurrentUserDto.fromJson(response.data).toDomain();
-      // setRememberToken(account.rememberToken ?? "");
-      // _setUserData(account);
+      final account = CurrentUserDto.fromJson(response.data).toDomain();
+      logger.d("RESPONSE OF LOGIN---> ${response.data}");
+
+      setCurrentUser(account);
       return right(response.dioMessage ?? "");
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
+
         if (commonRespose.dioMessage != null) {
           return left(
               AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
@@ -68,6 +79,7 @@ class AuthFacade implements IAuthFacade {
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AuthFailure.networkError());
       }
+
       return left(const AuthFailure.serverError());
     }
   }
@@ -82,7 +94,7 @@ class AuthFacade implements IAuthFacade {
     required Username firstName,
     required Username lastName,
     required int check_terms_privacy,
-    required InputEmptyOrNot companyName,
+    required String? companyName,
     required String countryCode,
     required MobileNumber phoneNumber,
     required EmailAddress email,
@@ -109,13 +121,13 @@ class AuthFacade implements IAuthFacade {
         "email": email.getOrCrash(),
         "password": password.getOrCrash(),
         "password_confirmation": confirmPassword.getOrCrash(),
-        "company_name": companyName.getOrCrash(),
+        "company_name": companyName,
         "phone": phoneNumber.getOrCrash(),
         "association_you_belong_to": association,
         "company_description": companyDescription,
         "location": locationAddress,
         "referral_code": referralCode,
-        "last_page": 1,
+        "last_page": "Login",
       });
       // var formData = FormData.fromMap({
       //   "service_roles": 2,
@@ -138,7 +150,7 @@ class AuthFacade implements IAuthFacade {
 
       // logger.d('formData: ${jsonEncode(formData)}');
 
-      logger.d('formData : ${formData.fields.map((e) => e)}');
+      // logger.d('formData : ${formData.fields.map((e) => e)}');
       // log('role : ${getCurrentRole()} \n ${getCurrentIndustry()}');
       // log('');
 
@@ -186,18 +198,360 @@ class AuthFacade implements IAuthFacade {
   }
 
   @override
-  Future<Either<AuthFailure, String>> resendOtp(
-      {required String countryCode, required EmailAddress mobileNumber}) {
-    throw UnimplementedError();
+  Future<Either<AuthFailure, String>> verifyOtp({
+    required String emailAddress,
+    required String phoneNumber,
+    required String password,
+    required OTPText otp,
+  }) async {
+    try {
+      final mapData = {
+        "otp": otp.getOrCrash(),
+        "phone": phoneNumber,
+        "password": password,
+        "service_roles": getCurrentRole(),
+        "last_page":
+            (getCurrentRole() == 1) ? "ContractorSkill" : "EmployerLocation",
+      };
+      if (emailAddress.isNotEmpty) {
+        mapData["email"] = emailAddress;
+      }
+      final response =
+          await apiService.postMethod(ApiConstants.verifyOtp, mapData);
+
+      final account = CurrentUserDto.fromJson(response.data).toDomain();
+      setUserToken(account.auth?.accessToken ?? "");
+      setCurrentUser(account);
+      return right(response.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      }
+
+      return left(const AuthFailure.serverError());
+    }
   }
 
   @override
-  Future<Either<AuthFailure, String>> verifyOtp(
-      {required String countryCode,
-      required EmailAddress mobileNumber,
-      required OTPText otp}) {
-    throw UnimplementedError();
+  Future<Either<AuthFailure, String>> resendOtp({
+    required String emailAddress,
+    required String phoneNumber,
+  }) async {
+    try {
+      final response = await apiService.postMethod(ApiConstants.resendOtp, {
+        "email": emailAddress,
+        "phone": phoneNumber,
+        "service_roles": getCurrentRole()
+      });
+
+      final account = CurrentUserDto.fromJson(response.data).toDomain();
+      setUserToken(account.auth?.accessToken ?? "");
+      setCurrentUser(account);
+      return right(response.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      }
+
+      return left(const AuthFailure.serverError());
+    }
   }
+
+  /// ROLE LIST
+  @override
+  Future<Either<AuthFailure, List<SkillDTO>>> getRoleList() async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.roleList,
+      );
+
+      if (response != null) {
+        var account = response.data as List<dynamic>;
+        var list = account.map((e) => SkillDTO.fromJson(e)).toList();
+
+        logger.d("ROLE LIST RESPONSE---> $list");
+        return right(list);
+        // final list = SkillListDTO.fromJson(response.data);
+
+        // logger.d("ROLE LIST RESPONSE---> ${account.data}");
+        // return right(account);
+      } else {
+        return left(const AuthFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AuthFailure.networkError());
+      }
+
+      return left(const AuthFailure.serverError());
+    }
+  }
+
+  /// SPECIALITY LIST
+  @override
+  Future<Either<AuthFailure, List<SpecialityDTO>>> getSpecialityList() async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.specialtieList,
+      );
+
+      if (response != null) {
+        var account = response.data as List<dynamic>;
+        var list = account.map((e) => SpecialityDTO.fromJson(e)).toList();
+
+        logger.d("SPECIALITY LIST RESPONSE---> $list");
+        return right(list);
+      } else {
+        return left(const AuthFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AuthFailure.networkError());
+      }
+
+      return left(const AuthFailure.serverError());
+    }
+  }
+
+  /// EXPERIENCE LIST
+  @override
+  Future<Either<AuthFailure, List<SkillDTO>>> getExperienceList() async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.experienceList,
+      );
+
+      if (response != null) {
+        var account = response.data as List<dynamic>;
+        var list = account.map((e) => SkillDTO.fromJson(e)).toList();
+
+        logger.d("EXPERIENCE LIST RESPONSE---> $list");
+        return right(list);
+      } else {
+        return left(const AuthFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AuthFailure.networkError());
+      }
+
+      return left(const AuthFailure.serverError());
+    }
+  }
+
+  /// SOFTWARE SKILL LIST
+  @override
+  Future<Either<AuthFailure, List<SkillDTO>>> getSoftwareSkillList() async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.softwaresSkillList,
+      );
+
+      if (response != null) {
+        var account = response.data as List<dynamic>;
+        var list = account.map((e) => SkillDTO.fromJson(e)).toList();
+
+        logger.d("SOFTWARE LIST RESPONSE---> $list");
+        return right(list);
+      } else {
+        return left(const AuthFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AuthFailure.networkError());
+      }
+
+      return left(const AuthFailure.serverError());
+    }
+  }
+
+  /// LANGUAGE LIST
+  @override
+  Future<Either<AuthFailure, List<SkillDTO>>> getLanguageList() async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.languageList,
+      );
+
+      if (response != null) {
+        var account = response.data as List<dynamic>;
+        var list = account.map((e) => SkillDTO.fromJson(e)).toList();
+
+        logger.d("LANGUAGE LIST RESPONSE---> $list");
+        return right(list);
+      } else {
+        return left(const AuthFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AuthFailure.networkError());
+      }
+
+      return left(const AuthFailure.serverError());
+    }
+  }
+
+  /// COMPLETE PROFILE
+  @override
+  Future<Either<AuthFailure, String>> completeProfileAPI({
+    required String? languageOther,
+    required String languageListId,
+    required String softwareSkillOther,
+    required String softwaresSkillListId,
+    required String specialtiesDetail,
+    required String rolesListId,
+  }) async {
+    try {
+      final mapData = {
+        "roles_list_id": rolesListId,
+        "specialties_detail": specialtiesDetail,
+        "softwares_skill_list_id": softwaresSkillListId,
+        "software_skill_other": softwareSkillOther,
+        "languages_list_id": languageListId,
+        "language_other": languageOther,
+        "last_page": "Education",
+      };
+
+      print("Sending Params:---> ${jsonEncode(mapData)}");
+      final response =
+          await apiService.postMethod(ApiConstants.completeProfile, mapData);
+      logger.d("RESPONSE OF COMPLETE PROFILE---> ${jsonEncode(response.data)}");
+
+      return right(response.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AuthFailure.networkError());
+      }
+
+      return left(const AuthFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AuthFailure, String>> addEducationApi({
+    required InputEmptyOrNot programCompleted,
+    required InputEmptyOrNot yearOfCompletion,
+    required InputEmptyOrNot graduatingInstitution,
+  }) async {
+    try {
+      final mapData = {
+        "program_completed": programCompleted.getOrCrash(),
+        "year_of_completion": yearOfCompletion.getOrCrash(),
+        "graduating_institution": graduatingInstitution.getOrCrash(),
+        "last_page": "Education",
+      };
+
+      print("Sending Params:---> ${jsonEncode(mapData)}");
+      final response =
+          await apiService.postMethod(ApiConstants.education, mapData);
+      logger.d("Response of Add Education---> ${jsonEncode(response.data)}");
+
+      return right(response.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AuthFailure.networkError());
+      }
+
+      return left(const AuthFailure.serverError());
+    }
+  }
+
+  // @override
+  // Future<Either<AuthFailure, String>> deleteEducationApi({
+  //   required int educationId,
+  // }) async {
+  //   try {
+  //     final mapData = {
+  //       "id": educationId,
+  //     };
+
+  //     print("Sending Params:---> ${jsonEncode(mapData)}");
+
+  //     final response = await apiService
+  //         .deleteMethod('${ApiConstants.destroyEducation}?id=$educationId');
+
+  //     if (response != null && response.data != null) {
+  //       // final account = CurrentUserDto.fromJson(response.data).toDomain();
+  //       print("Response:---> ${response.dioMessage}");
+
+  //       return right(response.dioMessage ?? "");
+  //     } else {
+  //       return left(const AuthFailure.serverError());
+  //     }
+  //   } on DioException catch (err) {
+  //     if (err.response != null) {
+  //       var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+  //       if (commonRespose.dioMessage != null) {
+  //         return left(
+  //             AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+  //       }
+  //     } else if (err.type == DioExceptionType.connectionError) {
+  //       return left(const AuthFailure.networkError());
+  //     }
+
+  //     return left(const AuthFailure.serverError());
+  //   }
+  // }
 
   // @override
   // Future<Either<AuthFailure, String>> login({

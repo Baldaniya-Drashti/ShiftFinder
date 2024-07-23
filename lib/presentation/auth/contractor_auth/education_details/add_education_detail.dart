@@ -8,6 +8,7 @@ import 'package:shift/application/auth/contractor_auth/education_detail_bloc/edu
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -23,7 +24,7 @@ class AddEducationDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => EducationDetailBloc(),
+      create: (context) => getIt<EducationDetailBloc>(),
       child: GestureDetector(
         onTap: () {
           AppFocus.unfocus(context);
@@ -37,7 +38,7 @@ class AddEducationDetail extends StatelessWidget {
           ),
           body: BlocConsumer<EducationDetailBloc, EducationDetailState>(
             listener: (context, state) {
-              state.authFailureOrSuccessOption.fold(
+              state.failureOrSuccessOption.fold(
                 () {},
                 (either) => either.fold(
                   (failure) {
@@ -115,6 +116,7 @@ class AddEducationDetail extends StatelessWidget {
       labelText: StringConstant.programCompleted,
       isLabelPadding: true,
       hintText: StringConstant.programCompleted,
+      textCapitalization: TextCapitalization.words,
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -180,6 +182,7 @@ class AddEducationDetail extends StatelessWidget {
       labelText: StringConstant.graduatingInstitution,
       isLabelPadding: true,
       hintText: StringConstant.graduatingInstitution,
+      textCapitalization: TextCapitalization.words,
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),

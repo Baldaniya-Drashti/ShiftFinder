@@ -8,7 +8,10 @@ import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/auth/login/forgot_password.dart';
+import 'package:shift/presentation/auth/register/verify_mobile_number.dart';
+import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/back_ground_image.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -26,6 +29,8 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(
+        "CURRENT USER INFORMATION FROM STORAGE---->  ${getCurrentUser().userId}");
     return BlocConsumer<LoginFormBloc, LoginFormState>(
       listener: (context, state) {
         state.authFailureOrSuccessOption.fold(
@@ -54,6 +59,27 @@ class LoginForm extends StatelessWidget {
               //   ),
               // );
               // RestartWidget.restartApp(context);
+            },
+          ),
+        );
+        state.verificationFailureOrSuccessOption.fold(
+          () {},
+          (either) => either.fold(
+            (failure) {
+              showError(
+                message: failure.maybeMap(
+                  showAPIResponseMessage: (value) => value.message,
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
+                  orElse: () => "Server Error. Try again later.",
+                ),
+              ).show(context);
+              AppFocus.unfocus(context);
+            },
+            (r) {
+              AppFocus.unfocus(context);
+              const VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
+                  context, state.emailId.getValue(), state.password.getValue());
             },
           ),
         );

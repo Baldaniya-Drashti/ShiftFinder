@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shift/infrastructure/core/education_dto/education_dto.dart';
 
 part 'account.freezed.dart';
 
@@ -18,12 +19,13 @@ class Account with _$Account {
     String? companyName,
     String? countryCode,
     String? countryNameCode,
-    String? phone,
+    int? phone,
     String? association,
     String? companyDescription,
     String? location,
     String? referralCode,
     String? lastPage,
+    List<EducationDTO>? education,
     Auth? auth,
   }) = _Account;
 }

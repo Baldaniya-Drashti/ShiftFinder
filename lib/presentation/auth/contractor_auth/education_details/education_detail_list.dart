@@ -8,7 +8,11 @@ import 'package:shift/application/auth/contractor_auth/education_detail_bloc/edu
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/education_dto/education_dto.dart';
+import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/no_data_ui.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -19,156 +23,203 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'educationListScreen')
 class EducationListScreen extends StatelessWidget {
   EducationListScreen({super.key});
-  bool isNext = false;
+  // bool isNext = false;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => EducationDetailBloc(),
-      child: Scaffold(
-        appBar: CommonAppBar(
-          onBackPressed: () {
-            context.router.back();
-          },
-          title: StringConstant.education,
-          showSkipBtn: !isNext,
-          onSkipped: !isNext
-              ? () {
-                  context.router
-                      .replace(PageRouteInfo(AddExperienceDetailScreen.name));
-                }
-              : null,
-        ),
-        body: BlocConsumer<EducationDetailBloc, EducationDetailState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            return Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: getSize(20),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    (isNext)
-                        ? educationListUI(context)
-                        : Expanded(
-                            child: NoDataText(
-                              title: StringConstant.noEducationAdded,
-                              description: StringConstant.noEducationDesc,
-                              image: SvgImageConstant.graduationCap,
+      create: (context) => getIt<EducationDetailBloc>()
+        ..add(EducationDetailEvent.getEducationList()),
+      child: BlocConsumer<EducationDetailBloc, EducationDetailState>(
+        listener: (context, state) {
+          state.listFailureOrSuccessOption.fold(
+            () {},
+            (either) => either.fold(
+              (failure) {
+                showError(
+                  message: failure.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(context);
+              },
+              (r) {
+                // showSuccess(
+                //   message: "Successfully Deleted!",
+                // ).show(context);
+                // context.read<EducationDetailBloc>().add(
+                //       EducationDetailEvent.getEducationList(),
+                //     );
+              },
+            ),
+          );
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          return Scaffold(
+            appBar: CommonAppBar(
+              onBackPressed: () {
+                context.router.maybePop();
+              },
+              title: StringConstant.education,
+              showSkipBtn: (state.educationList.isEmpty) ? true : false,
+              onSkipped: (state.educationList.isEmpty)
+                  ? () {
+                      context.router.replace(
+                          PageRouteInfo(AddExperienceDetailScreen.name));
+                    }
+                  : null,
+            ),
+            body: (state.isSubmitting)
+                ? CenterLoadingIndicator()
+                : Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: getSize(20),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          (state.educationList.isNotEmpty)
+                              ? educationListUI(context, state)
+                              : NoDataText(
+                                  title: StringConstant.noEducationAdded,
+                                  description: StringConstant.noEducationDesc,
+                                  image: SvgImageConstant.graduationCap,
+                                ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              bottom: getSize(20),
+                            ),
+                            child: CommonButton(
+                              onPressed: () {
+                                if (state.educationList.isNotEmpty) {
+                                  context.router.push(PageRouteInfo(
+                                      AddExperienceDetailScreen.name));
+                                } else {
+                                  context.router
+                                      .push(PageRouteInfo(
+                                          AddEducationDetailScreen.name))
+                                      .then((value) {
+                                    print("Value when back ---> ${value}");
+                                    if (value != null && value == true) {
+                                      context.read<EducationDetailBloc>().add(
+                                          EducationDetailEvent
+                                              .getEducationList());
+
+                                      /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
+                                    }
+                                  });
+                                }
+                              },
+                              buttonText: (state.educationList.isNotEmpty)
+                                  ? StringConstant.txtContinue
+                                  : StringConstant.addYourEducation,
                             ),
                           ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        bottom: getSize(40),
-                      ),
-                      child: CommonButton(
-                        onPressed: () {
-                          if (isNext) {
-                            context.router.push(
-                                PageRouteInfo(AddExperienceDetailScreen.name));
-                          } else {
-                            context.router
-                                .push(PageRouteInfo(
-                                    AddEducationDetailScreen.name))
-                                .then((value) {
-                              if (value != null && value == true) {
-                                isNext = true;
-
-                                /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
-                              }
-                            });
-                          }
-                        },
-                        buttonText: isNext
-                            ? StringConstant.txtContinue
-                            : StringConstant.addYourEducation,
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget educationListUI(BuildContext context, EducationDetailState state) {
+    return SizedBox(
+      height: getSize(660),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListView.builder(
+              itemCount: state.educationList.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(vertical: getSize(10)),
+                  child: ListTile(
+                    tileColor: AppColors.grey.withOpacity(0.4),
+                    minTileHeight: getSize(103),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    leading: SvgPicture.asset(
+                      SvgImageConstant.capWithVerticalLine,
+                      width: getSize(59.56),
+                      height: getSize(63),
+                      fit: BoxFit.fitHeight,
+                    ),
+                    title: boxTitleUI(state.educationList[index]),
+                    trailing: GestureDetector(
+                      onTap: () {
+                        AppDialog.showDelete(
+                          context,
+                          title: StringConstant.delete,
+                          infoMessage: StringConstant.deleteEducationDesc,
+                          onCancelClick: () {
+                            context.router.maybePop();
+                          },
+                          onDeleteClick: () {
+                            context.router.maybePop();
+                            context.read<EducationDetailBloc>().add(
+                                EducationDetailEvent.deleteEducation(
+                                    state.educationList[index].id ?? -1));
+                          },
+                        );
+                      },
+                      child: SvgPicture.asset(SvgImageConstant.bin),
+                    ),
+                  ),
+                );
+              },
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: getSize(20)),
+              child: CommonButton(
+                onPressed: () {
+                  context.router
+                      .push(PageRouteInfo(AddEducationDetailScreen.name))
+                      .then((value) {
+                    print("Value when back ---> ${value}");
+
+                    if (value != null && value == true) {
+                      context
+                          .read<EducationDetailBloc>()
+                          .add(EducationDetailEvent.getEducationList());
+
+                      /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
+                    }
+                  });
+                },
+                buttonText: "+ ${StringConstant.addMore}",
+                width: 105,
+                borderRadius: 10,
+                buttonFontSize: 12,
+                buttonFontWeight: FontWeight.w600,
+                height: 35,
+                backgroundColor: AppColors.primaryColor.withOpacity(0.15),
+                buttonTextColor: AppColors.primaryColor,
               ),
-            );
-          },
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget educationListUI(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ListView.builder(
-          itemCount: 1,
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return ListTile(
-              tileColor: AppColors.grey.withOpacity(0.4),
-              minTileHeight: getSize(103),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              leading: SvgPicture.asset(
-                SvgImageConstant.capWithVerticalLine,
-                width: getSize(59.56),
-                height: getSize(63),
-                fit: BoxFit.fitHeight,
-              ),
-              title: boxTitleUI(),
-              trailing: GestureDetector(
-                onTap: () {
-                  AppDialog.showDelete(
-                    context,
-                    title: StringConstant.delete,
-                    infoMessage: StringConstant.deleteEducationDesc,
-                    onCancelClick: () {
-                      context.router.maybePop();
-                    },
-                    onDeleteClick: () {
-                      context.router.maybePop();
-                    },
-                  );
-                },
-                child: SvgPicture.asset(SvgImageConstant.bin),
-              ),
-            );
-          },
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: getSize(20)),
-          child: CommonButton(
-            onPressed: () {
-              context.router
-                  .push(PageRouteInfo(AddEducationDetailScreen.name))
-                  .then((value) {
-                if (value != null && value == true) {
-                  /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
-                }
-              });
-            },
-            buttonText: "+ ${StringConstant.addMore}",
-            width: 105,
-            borderRadius: 10,
-            buttonFontSize: 12,
-            buttonFontWeight: FontWeight.w600,
-            height: 35,
-            backgroundColor: AppColors.primaryColor.withOpacity(0.15),
-            buttonTextColor: AppColors.primaryColor,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget boxTitleUI() {
+  Widget boxTitleUI(EducationDTO education) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         BaseText(
-          text: "Program Completed",
+          text: education.program_completed ?? "",
           fontWeight: FontWeight.w600,
           fontSize: 14,
         ),
@@ -182,10 +233,10 @@ class EducationListScreen extends StatelessWidget {
             ),
             children: [
               TextSpan(
-                text: 'Completed in',
+                text: 'Completed in - ',
               ),
               TextSpan(
-                text: " - 2010",
+                text: education.year_of_completion ?? "",
                 style: TextStyle(
                   fontSize: getFontSize(12),
                   fontWeight: FontWeight.w500,
@@ -197,7 +248,7 @@ class EducationListScreen extends StatelessWidget {
         ),
         SizedBox(height: getSize(3)),
         BaseText(
-          text: "Veritex Community Inst.of USA",
+          text: education.graduating_institution ?? "",
           fontSize: 10,
           fontWeight: FontWeight.w400,
           textColor: AppColors.black.withOpacity(0.8),

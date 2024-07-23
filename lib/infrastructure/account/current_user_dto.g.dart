@@ -19,12 +19,15 @@ _$CurrentUserDtoImpl _$$CurrentUserDtoImplFromJson(Map<String, dynamic> json) =>
       companyName: json['company_name'] as String?,
       countryCode: json['countryCode'] as String?,
       countryNameCode: json['country_name_code'] as String?,
-      phone: json['phone'] as String?,
+      phone: (json['phone'] as num?)?.toInt(),
       association: json['association_you_belong_to'] as String?,
       companyDescription: json['company_description'] as String?,
       location: json['location'] as String?,
       referralCode: json['referral_code'] as String?,
       lastPage: json['last_page'] as String?,
+      education: (json['education'] as List<dynamic>?)
+          ?.map((e) => EducationDTO.fromJson(e as Map<String, dynamic>))
+          .toList(),
       authDto: json['auth'] == null
           ? null
           : AuthDto.fromJson(json['auth'] as Map<String, dynamic>),
@@ -50,6 +53,7 @@ Map<String, dynamic> _$$CurrentUserDtoImplToJson(
       'location': instance.location,
       'referral_code': instance.referralCode,
       'last_page': instance.lastPage,
+      'education': instance.education,
       'auth': instance.authDto,
     };
 

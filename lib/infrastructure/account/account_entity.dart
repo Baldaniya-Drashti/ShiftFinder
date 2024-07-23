@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:shift/domain/account/account.dart';
+import 'package:shift/infrastructure/core/education_dto/education_dto.dart';
 
 part 'account_entity.g.dart';
 
@@ -28,7 +29,7 @@ class AccountEntity extends HiveObject {
   @HiveField(10)
   final String? countryNameCode;
   @HiveField(11)
-  final String? phone;
+  final int? phone;
   @HiveField(12)
   final String? association;
   @HiveField(13)
@@ -41,23 +42,24 @@ class AccountEntity extends HiveObject {
   final String? lastPage;
 
   AccountEntity(
-      this.userId,
-      this.firstName,
-      this.lastName,
-      this.email,
-      this.countryCode,
-      this.phone,
-      this.association,
-      this.companyDescription,
-      this.companyName,
-      this.countryNameCode,
-      this.industryId,
-      this.isVerified,
-      this.lastPage,
-      this.location,
-      this.profileImage,
-      this.referralCode,
-      this.serviceRole);
+    this.userId,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.countryCode,
+    this.phone,
+    this.association,
+    this.companyDescription,
+    this.companyName,
+    this.countryNameCode,
+    this.industryId,
+    this.isVerified,
+    this.lastPage,
+    this.location,
+    this.profileImage,
+    this.referralCode,
+    this.serviceRole,
+  );
 
   Account toDomain() {
     return Account(

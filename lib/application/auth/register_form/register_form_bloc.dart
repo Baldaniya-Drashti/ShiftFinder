@@ -208,6 +208,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           );
         },
         registerProfileBtnPressed: (e) async {
+          print("Cureent User ---> ${getCurrentRole()}");
           Either<AuthFailure, String>? failureOrSuccess;
 
           final isCompanyNameValid = state.companyName.isValid();
@@ -232,22 +233,23 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
                   authFailureOrSuccessOption: none(),
                 ),
               );
-              // failureOrSuccess = await _authFacade.register(
-              //   firstName: Username(e.firstName),
-              //   lastName: Username(e.lastName),
-              //   check_terms_privacy: e.isCheckTerms,
-              //   countryCode: '+${state.selectedCountrycode}',
-              //   profileImage: state.selectImage,
-              //   companyName: state.companyName,
-              //   phoneNumber: state.phoneNumber,
-              //   email: state.email,
-              //   password: state.password,
-              //   association: state.association,
-              //   companyDescription: state.companyDescription,
-              //   referralCode: state.referralCode,
-              //   locationAddress: state.locationAddress,
-              // );
-              failureOrSuccess = right("sucess");
+              failureOrSuccess = await _authFacade.register(
+                firstName: Username(e.firstName),
+                lastName: Username(e.lastName),
+                check_terms_privacy: e.isCheckTerms,
+                profileImage: state.selectImage,
+                companyName: null,
+                phoneNumber: state.phoneNumber,
+                countryCode: '+${state.selectedCountrycode}',
+                email: state.email,
+                password: state.password,
+                confirmPassword: state.confirmPassword,
+                association: null,
+                companyDescription: null,
+                referralCode: state.referralCode,
+                locationAddress: state.locationAddress.getValue() ?? "",
+              );
+              // failureOrSuccess = right("sucess");
             }
           } else {
             if (isCompanyNameValid &&
@@ -265,9 +267,9 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
                 firstName: Username(e.firstName),
                 lastName: Username(e.lastName),
                 check_terms_privacy: e.isCheckTerms,
-                countryCode: '+${state.selectedCountrycode}',
                 profileImage: state.selectImage,
-                companyName: state.companyName,
+                companyName: state.companyName.getValue(),
+                countryCode: '+${state.selectedCountrycode}',
                 phoneNumber: state.phoneNumber,
                 email: state.email,
                 password: state.password,
@@ -366,9 +368,37 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           //     resendFailureOrSuccessOption: optionOf(failureOrSuccess),
           //   ),
           // );
+
+          Either<AuthFailure, String>? failureOrSuccess;
+
+          emit(
+            state.copyWith(
+              isSubmitting: true,
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+
+          failureOrSuccess = await _authFacade.resendOtp(
+            emailAddress:
+                (getCurrentRole() == 1) ? "" : getCurrentUser().email ?? "",
+            phoneNumber: (getCurrentRole() == 1)
+                ? "${getCurrentUser().phone ?? ""}"
+                : "",
+          );
+
+          emit(
+            state.copyWith(
+              isSubmitting: false,
+              //showErrorMessages: true,
+              secondsRemaining: 30,
+              resendFailureOrSuccessOption: optionOf(failureOrSuccess),
+            ),
+          );
+          add(const RegisterFormEvent.startCountdown());
           add(const RegisterFormEvent.startCountdown());
         },
-        verifyOtp: (VerifyOtp value) async {
+
+        verifyOtp: (e) async {
           Either<AuthFailure, String>? failureOrSuccess;
 
           final isOTPValid = state.enteredOTP.isValid();
@@ -380,12 +410,18 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
                 authFailureOrSuccessOption: none(),
               ),
             );
-            // failureOrSuccess = await _authFacade.verifyOtp(
-            //   countryCode: '+${state.selectedCountrycode}',
-            //   mobileNumber: state.mobileNumber,
-            //   otp: state.enteredOTP,
-            // );
-            failureOrSuccess = right("success");
+
+            failureOrSuccess = await _authFacade.verifyOtp(
+              emailAddress:
+                  (getCurrentRole() == 1) ? "" : getCurrentUser().email ?? "",
+              phoneNumber: (getCurrentRole() == 1)
+                  ? "${getCurrentUser().phone ?? ""}"
+                  : "",
+              password: e.password,
+              otp: state.enteredOTP,
+            );
+
+            // failureOrSuccess = right("success");
             timer.cancel();
           }
 

@@ -11,26 +11,34 @@ class AddContractorSkillFormState with _$AddContractorSkillFormState {
 
     /// SPECIALITY
     required ListInputEmptyOrNot<SpecialityDTO> requiredSpecialityChipList,
+    required List<SpecialityDTO> specialityList,
     required String requiredSpecialityChip,
 
     /// Add EXPERIENCE OF SELECTED SPECIALITY
     required ListInputEmptyOrNot selectedSpecialityExperienceList,
     required String selectedSpecialityExperience,
+    required List<SkillDTO> experienceList,
 
     /// ROLE TYPE
+    required List<SkillDTO> roleList,
     required ListInputEmptyOrNot roleTypeChipList,
     required String roleTypeChip,
 
     /// SOFTWARE SKILL
+    required List<SkillDTO> softwareList,
+    required List<String> softwareSkillOther,
     required String requiredSoftwareSkillChip,
     required ListInputEmptyOrNot requiredSoftwareSkillChipList,
 
     /// LANGUAGE
     required String languageChip,
+    required List<String> languageOther,
     required ListInputEmptyOrNot languageChipList,
+    required List<SkillDTO> languageList,
 
     /// SUBMIT
     required bool isSubmitting,
+    required bool isLoading,
     required bool showErrorMessages,
     required bool showLanguageError,
     required bool showSoftwareSkillError,
@@ -46,11 +54,19 @@ class AddContractorSkillFormState with _$AddContractorSkillFormState {
         selectedSpecialityExperience: "",
         languageChip: "",
         languageChipList: ListInputEmptyOrNot(["English"]),
+        roleList: [],
+        specialityList: [],
+        experienceList: [],
+        softwareList: [],
+        languageList: [],
+        languageOther: [],
+        softwareSkillOther: [],
         roleTypeChip: "",
         roleTypeChipList: ListInputEmptyOrNot([]),
         requiredSoftwareSkillChipList: ListInputEmptyOrNot([]),
         requiredSoftwareSkillChip: "",
         isSubmitting: false,
+        isLoading: false,
         showErrorMessages: false,
         showRoleTypeError: false,
         showSpecialityError: false,

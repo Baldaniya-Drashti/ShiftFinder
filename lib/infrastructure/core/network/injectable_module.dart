@@ -7,6 +7,7 @@ import 'package:shift/infrastructure/core/network/interceptor/dio_connectivity_r
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 
 @lazySingleton
 class ApiService {
@@ -16,7 +17,7 @@ class ApiService {
   static Dio initAPIService({bool isMultipart = false}) {
     final interceptor = InterceptorsWrapper(
       onRequest: (options, handler) {
-        String? userToken = '';
+        String? userToken = getUserToken();
         options.headers.addAll({
           "Authorization": "Bearer $userToken",
         });

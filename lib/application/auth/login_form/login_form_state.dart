@@ -13,6 +13,8 @@ class LoginFormState with _$LoginFormState {
     required int secondsRemaining,
     required FocusNode mobileNumberFocusNode,
     required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
+    required Option<Either<AuthFailure, String>>
+        verificationFailureOrSuccessOption,
     required Option<Either<AuthFailure, String>> resendFailureOrSuccessOption,
   }) = _LoginFormState;
 
@@ -23,6 +25,7 @@ class LoginFormState with _$LoginFormState {
         showErrorMessages: false,
         isSubmitting: false,
         authFailureOrSuccessOption: none(),
+        verificationFailureOrSuccessOption: none(),
         selectedCountrycode: '91',
         enteredOTP: OTPText(''),
         secondsRemaining: 0,

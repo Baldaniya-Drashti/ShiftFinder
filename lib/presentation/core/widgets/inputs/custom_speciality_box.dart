@@ -42,7 +42,7 @@ class CustomeSpecialityBox extends StatelessWidget {
   final String? fieldHintText;
   final String? childDroDwonHintText;
   final String? value;
-  final List<String> items;
+  final List<DropdownMenuItem<String>>? items;
   final bool? isLabelPadding;
   final bool showTextfield;
   final bool showDropDown;
@@ -162,16 +162,7 @@ class CustomeSpecialityBox extends StatelessWidget {
                   SvgImageConstant.downArrow,
                 ),
                 isExpanded: true,
-                items: items.map((val) {
-                  return DropdownMenuItem(
-                    value: val,
-                    child: BaseText(
-                      text: val,
-                      fontSize: 14,
-                      textColor: AppColors.black,
-                    ),
-                  );
-                }).toList(),
+                items: items,
                 onChanged: experienceOnChanged,
               ),
             ],

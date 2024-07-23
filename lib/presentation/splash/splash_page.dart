@@ -28,11 +28,11 @@ class SplashPage extends StatelessWidget {
         state.map(
           initial: (_) {},
           authenticated: (value) async {
-            // await Future.delayed(
-            //   const Duration(seconds: 1),
-            //   () => context.router
-            //       .replace(const PageRouteInfo(MainTabView.name)),
-            // );
+            await Future.delayed(
+              const Duration(seconds: 1),
+              () => context.router
+                  .replace(PageRouteInfo(getCurrentPage(value.lastPage))),
+            );
           },
           unAuthenticated: (value) async {
             await Future.delayed(
@@ -107,5 +107,22 @@ class SplashPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String getCurrentPage(String lastPage) {
+    switch (lastPage) {
+      case "Login":
+        return LoginPage.name;
+      case "EmployerLocation":
+        return LocationDetailForm.name;
+      case "ContractorSkill":
+        return AddContractorSkillsForm.name;
+      case "Education":
+        return EducationListScreen.name;
+      case "Experience":
+        return EducationListScreen.name;
+      default:
+        return EducationListScreen.name;
+    }
   }
 }

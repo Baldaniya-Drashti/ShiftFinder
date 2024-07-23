@@ -130,16 +130,15 @@ class _GovernmentIssueDocumentState extends State<GovernmentIssueDocument> {
                 ),
               Padding(
                 padding: EdgeInsets.only(top: getSize(90), bottom: getSize(50)),
-                child: (state.isGovermentDocSubmitting)
-                    ? CenterLoadingIndicator()
-                    : CommonButton(
-                        onPressed: () {
-                          context
-                              .read<DocumentBloc>()
-                              .add(const DocumentEvent.govermentDocSubmit());
-                        },
-                        buttonText: StringConstant.txtContinue,
-                      ),
+                child: CommonButton(
+                  isSubmitting: state.isGovermentDocSubmitting,
+                  onPressed: () {
+                    context
+                        .read<DocumentBloc>()
+                        .add(const DocumentEvent.govermentDocSubmit());
+                  },
+                  buttonText: StringConstant.txtContinue,
+                ),
               ),
             ],
           ),

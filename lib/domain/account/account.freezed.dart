@@ -27,12 +27,13 @@ mixin _$Account {
   String? get companyName => throw _privateConstructorUsedError;
   String? get countryCode => throw _privateConstructorUsedError;
   String? get countryNameCode => throw _privateConstructorUsedError;
-  String? get phone => throw _privateConstructorUsedError;
+  int? get phone => throw _privateConstructorUsedError;
   String? get association => throw _privateConstructorUsedError;
   String? get companyDescription => throw _privateConstructorUsedError;
   String? get location => throw _privateConstructorUsedError;
   String? get referralCode => throw _privateConstructorUsedError;
   String? get lastPage => throw _privateConstructorUsedError;
+  List<EducationDTO>? get education => throw _privateConstructorUsedError;
   Auth? get auth => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -56,12 +57,13 @@ abstract class $AccountCopyWith<$Res> {
       String? companyName,
       String? countryCode,
       String? countryNameCode,
-      String? phone,
+      int? phone,
       String? association,
       String? companyDescription,
       String? location,
       String? referralCode,
       String? lastPage,
+      List<EducationDTO>? education,
       Auth? auth});
 
   $AuthCopyWith<$Res>? get auth;
@@ -97,6 +99,7 @@ class _$AccountCopyWithImpl<$Res, $Val extends Account>
     Object? location = freezed,
     Object? referralCode = freezed,
     Object? lastPage = freezed,
+    Object? education = freezed,
     Object? auth = freezed,
   }) {
     return _then(_value.copyWith(
@@ -147,7 +150,7 @@ class _$AccountCopyWithImpl<$Res, $Val extends Account>
       phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       association: freezed == association
           ? _value.association
           : association // ignore: cast_nullable_to_non_nullable
@@ -168,6 +171,10 @@ class _$AccountCopyWithImpl<$Res, $Val extends Account>
           ? _value.lastPage
           : lastPage // ignore: cast_nullable_to_non_nullable
               as String?,
+      education: freezed == education
+          ? _value.education
+          : education // ignore: cast_nullable_to_non_nullable
+              as List<EducationDTO>?,
       auth: freezed == auth
           ? _value.auth
           : auth // ignore: cast_nullable_to_non_nullable
@@ -207,12 +214,13 @@ abstract class _$$AccountImplCopyWith<$Res> implements $AccountCopyWith<$Res> {
       String? companyName,
       String? countryCode,
       String? countryNameCode,
-      String? phone,
+      int? phone,
       String? association,
       String? companyDescription,
       String? location,
       String? referralCode,
       String? lastPage,
+      List<EducationDTO>? education,
       Auth? auth});
 
   @override
@@ -247,6 +255,7 @@ class __$$AccountImplCopyWithImpl<$Res>
     Object? location = freezed,
     Object? referralCode = freezed,
     Object? lastPage = freezed,
+    Object? education = freezed,
     Object? auth = freezed,
   }) {
     return _then(_$AccountImpl(
@@ -297,7 +306,7 @@ class __$$AccountImplCopyWithImpl<$Res>
       phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       association: freezed == association
           ? _value.association
           : association // ignore: cast_nullable_to_non_nullable
@@ -318,6 +327,10 @@ class __$$AccountImplCopyWithImpl<$Res>
           ? _value.lastPage
           : lastPage // ignore: cast_nullable_to_non_nullable
               as String?,
+      education: freezed == education
+          ? _value._education
+          : education // ignore: cast_nullable_to_non_nullable
+              as List<EducationDTO>?,
       auth: freezed == auth
           ? _value.auth
           : auth // ignore: cast_nullable_to_non_nullable
@@ -347,8 +360,10 @@ class _$AccountImpl extends _Account {
       this.location,
       this.referralCode,
       this.lastPage,
+      final List<EducationDTO>? education,
       this.auth})
-      : super._();
+      : _education = education,
+        super._();
 
   @override
   final int? userId;
@@ -373,7 +388,7 @@ class _$AccountImpl extends _Account {
   @override
   final String? countryNameCode;
   @override
-  final String? phone;
+  final int? phone;
   @override
   final String? association;
   @override
@@ -384,12 +399,22 @@ class _$AccountImpl extends _Account {
   final String? referralCode;
   @override
   final String? lastPage;
+  final List<EducationDTO>? _education;
+  @override
+  List<EducationDTO>? get education {
+    final value = _education;
+    if (value == null) return null;
+    if (_education is EqualUnmodifiableListView) return _education;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final Auth? auth;
 
   @override
   String toString() {
-    return 'Account(userId: $userId, firstName: $firstName, lastName: $lastName, email: $email, isVerified: $isVerified, serviceRole: $serviceRole, industryId: $industryId, profileImage: $profileImage, companyName: $companyName, countryCode: $countryCode, countryNameCode: $countryNameCode, phone: $phone, association: $association, companyDescription: $companyDescription, location: $location, referralCode: $referralCode, lastPage: $lastPage, auth: $auth)';
+    return 'Account(userId: $userId, firstName: $firstName, lastName: $lastName, email: $email, isVerified: $isVerified, serviceRole: $serviceRole, industryId: $industryId, profileImage: $profileImage, companyName: $companyName, countryCode: $countryCode, countryNameCode: $countryNameCode, phone: $phone, association: $association, companyDescription: $companyDescription, location: $location, referralCode: $referralCode, lastPage: $lastPage, education: $education, auth: $auth)';
   }
 
   @override
@@ -428,30 +453,34 @@ class _$AccountImpl extends _Account {
                 other.referralCode == referralCode) &&
             (identical(other.lastPage, lastPage) ||
                 other.lastPage == lastPage) &&
+            const DeepCollectionEquality()
+                .equals(other._education, _education) &&
             (identical(other.auth, auth) || other.auth == auth));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      userId,
-      firstName,
-      lastName,
-      email,
-      isVerified,
-      serviceRole,
-      industryId,
-      profileImage,
-      companyName,
-      countryCode,
-      countryNameCode,
-      phone,
-      association,
-      companyDescription,
-      location,
-      referralCode,
-      lastPage,
-      auth);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        userId,
+        firstName,
+        lastName,
+        email,
+        isVerified,
+        serviceRole,
+        industryId,
+        profileImage,
+        companyName,
+        countryCode,
+        countryNameCode,
+        phone,
+        association,
+        companyDescription,
+        location,
+        referralCode,
+        lastPage,
+        const DeepCollectionEquality().hash(_education),
+        auth
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -473,12 +502,13 @@ abstract class _Account extends Account {
       final String? companyName,
       final String? countryCode,
       final String? countryNameCode,
-      final String? phone,
+      final int? phone,
       final String? association,
       final String? companyDescription,
       final String? location,
       final String? referralCode,
       final String? lastPage,
+      final List<EducationDTO>? education,
       final Auth? auth}) = _$AccountImpl;
   const _Account._() : super._();
 
@@ -505,7 +535,7 @@ abstract class _Account extends Account {
   @override
   String? get countryNameCode;
   @override
-  String? get phone;
+  int? get phone;
   @override
   String? get association;
   @override
@@ -516,6 +546,8 @@ abstract class _Account extends Account {
   String? get referralCode;
   @override
   String? get lastPage;
+  @override
+  List<EducationDTO>? get education;
   @override
   Auth? get auth;
   @override

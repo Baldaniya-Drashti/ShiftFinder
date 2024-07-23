@@ -64,5 +64,5 @@ class RegisterFormEvent with _$RegisterFormEvent {
   const factory RegisterFormEvent.startCountdown() = StartCountdown;
   const factory RegisterFormEvent.decrementTimer() = DecrementTimer;
   const factory RegisterFormEvent.resendOtp() = ResendOtp;
-  const factory RegisterFormEvent.verifyOtp() = VerifyOtp;
+  const factory RegisterFormEvent.verifyOtp(String password) = VerifyOtp;
 }
