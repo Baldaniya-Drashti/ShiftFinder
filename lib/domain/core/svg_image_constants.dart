@@ -1,0 +1,62 @@
+class SvgImageConstant {
+  static const backButton = "assets/svg/back_button.svg";
+  static const loginFrame = "assets/svg/login_frame.svg";
+  static const email = "assets/svg/ic_email.svg";
+  static const lock = "assets/svg/ic_lock.svg";
+  static const openEye = "assets/svg/ic_eye.svg";
+  static const closeEye = "assets/svg/ic_close_eye.svg";
+  static const twoPerson = "assets/svg/two_person.svg";
+  static const female = "assets/svg/ic_female.svg";
+  static const location = "assets/svg/location.svg";
+  static const threePerson = "assets/svg/three_person.svg";
+  static const delete = "assets/svg/delete.svg";
+  static const edit = "assets/svg/edit.svg";
+  static const person = "assets/svg/person.svg";
+  static const back = "assets/svg/ic_back.svg";
+  static const personSetting = "assets/svg/person_setting.svg";
+  static const nurse = "assets/svg/nurse.svg";
+  static const forward = "assets/svg/ic_forward.svg";
+  static const nurseGreen = "assets/svg/nurse_green.svg";
+  static const eye = "assets/svg/eye.svg";
+  static const teeth = "assets/svg/teeth.svg";
+  static const heart = "assets/svg/heart.svg";
+  static const medicine = "assets/svg/medicine.svg";
+  static const downArrow = "assets/svg/down_arrow.svg";
+  static const contact = "assets/svg/contact.svg";
+  static const camera = "assets/svg/camera.svg";
+  static const building = "assets/svg/building.svg";
+  static const association = "assets/svg/association.svg";
+  static const referral = "assets/svg/referral.svg";
+  static const locationIcon = "assets/svg/location_icon.svg";
+  static const note = "assets/svg/note.svg";
+  static const circleC = "assets/svg/circle_c.svg";
+  static const twoLines = "assets/svg/onboarding3_two_line.svg";
+  static const infoCircle = "assets/svg/info_circle.svg";
+  static const remove = "assets/svg/remove.svg";
+  static const graduationCap = "assets/svg/graduation_cap.svg";
+  static const capOutline = "assets/svg/cap_outline.svg";
+  static const institute = "assets/svg/institute.svg";
+  static const calendar = "assets/svg/calendar.svg";
+  static const bin = "assets/svg/bin.svg";
+  static const clock = "assets/svg/clock.svg";
+  static const capWithVerticalLine = "assets/svg/cap_with_vertical_line.svg";
+  static const personWithVerticalLine =
+      "assets/svg/person_with_vertical_line.svg";
+  static const referencePerson = "assets/svg/reference_person.svg";
+  static const bag = "assets/svg/bag.svg";
+  static const personPlus = "assets/svg/person_plus.svg";
+  static const departmentSetting = "assets/svg/department_setting.svg";
+  static const clockWithVerticalLine =
+      "assets/svg/clock_with_vertical_line.svg";
+  static const documentWithVerticalLine =
+      "assets/svg/document_with_vertical_line.svg";
+  static const checkedArrow = "assets/svg/checked_arrow.svg";
+  static const upload = "assets/svg/upload.svg";
+  static const minusCircle = "assets/svg/minus_circle.svg";
+  static const verticalLine = "assets/svg/vertical_line.svg";
+  static const pause = "assets/svg/pause.svg";
+  static const play = "assets/svg/play.svg";
+  static const card = "assets/svg/card.svg";
+  static const icCard = "assets/svg/ic_card.svg";
+  static const expDateCalendar = "assets/svg/exp_date_calendar.svg";
+}

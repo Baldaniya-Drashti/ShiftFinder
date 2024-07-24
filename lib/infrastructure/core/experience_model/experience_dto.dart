@@ -1,0 +1,16 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'experience_dto.freezed.dart';
+part 'experience_dto.g.dart';
+
+@freezed
+class ExperienceDTO with _$ExperienceDTO {
+  factory ExperienceDTO({
+    int? id,
+    String? name,
+    String? experience_year,
+    String? experience_month,
+  }) = _ExperienceDTO;
+
+  factory ExperienceDTO.fromJson(Map<String, dynamic> json) =>
+      _$ExperienceDTOFromJson(json);
+}

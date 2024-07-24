@@ -1,0 +1,140 @@
+part of 'document_bloc.dart';
+
+@freezed
+class DocumentEvent with _$DocumentEvent {
+  const factory DocumentEvent.nextPage(int page) = _NextPage;
+  // FOR GOVERNMENT DOCUMENT
+  const factory DocumentEvent.selectGovermentDoc(String govermentDoc) =
+      _SelectGovermentDoc;
+  const factory DocumentEvent.deleteGovermentDoc(String govermentDoc) =
+      _DeleteGovermentDoc;
+  const factory DocumentEvent.govermentDocSubmit() = _GovermentDocSubmit;
+
+  // FOR COVID DOCUMENT
+  const factory DocumentEvent.selectCovidVaccinationDoc(String covidDoc) =
+      _SelectCovidVaccinationDoc;
+  const factory DocumentEvent.deleteCovidDoc(String covidDoc) = _DeleteCovidDoc;
+  const factory DocumentEvent.covidDocSubmit() = _CovidDocSubmit;
+
+  // /// FOR CREDENTIALS-REGISTRATION DOCUMENT
+  // const factory DocumentEvent.registrationNumberChanegd(String registrationNo) =
+  //     _RegistrationNumberChanegd;
+  // const factory DocumentEvent.documentTitleChanged(String documentTitle) =
+  //     _DocumentTitleChanged;
+  // const factory DocumentEvent.selectProvinceRegistration(
+  //     String provinceRegistration) = _SelectProvinceRegistration;
+  // const factory DocumentEvent.selectCredentialDoc(String credentialDoc) =
+  //     _SelectCredentialRegistrationDoc;
+  // const factory DocumentEvent.deleteCredentialDoc(String credentialDoc) =
+  //     _DeleteCredentialDoc;
+  // const factory DocumentEvent.addMoreCredentialDoc() = _AddMoreCredentialDoc;
+  // const factory DocumentEvent.deleteCredentialObject(int index) =
+  //     _DeleteCredentialObject;
+  // const factory DocumentEvent.credentialDocSubmit(
+  //     {required bool isAddMoreBtnClick}) = _CredentialDocSubmit;
+}
+
+@freezed
+class CredentialEvent with _$CredentialEvent {
+  /// FOR CREDENTIALS-REGISTRATION DOCUMENT
+  const factory CredentialEvent.registrationNumberChanegd(
+      String registrationNo) = _RegistrationNumberChanegd;
+  const factory CredentialEvent.documentTitleChanged(String documentTitle) =
+      _DocumentTitleChanged;
+  const factory CredentialEvent.selectProvinceRegistration(
+      String provinceRegistration) = _SelectProvinceRegistration;
+  const factory CredentialEvent.selectCredentialDoc(String credentialDoc) =
+      _SelectCredentialRegistrationDoc;
+  const factory CredentialEvent.deleteCredentialDoc(String credentialDoc) =
+      _DeleteCredentialDoc;
+  const factory CredentialEvent.addMoreCredentialDoc() = _AddMoreCredentialDoc;
+  const factory CredentialEvent.deleteCredentialObject(int index) =
+      _DeleteCredentialObject;
+  const factory CredentialEvent.credentialDocSubmit(
+      {required bool isAddMoreBtnClick}) = _CredentialDocSubmit;
+}
+
+@freezed
+class ProfessionalLicensesEvent with _$ProfessionalLicensesEvent {
+  /// FOR PROFESSIONAL LICENSES DOCUMENT
+  const factory ProfessionalLicensesEvent.licensesRegistrationNumberChanegd(
+      String registrationNo) = _LicensesRegistrationNumberChanegd;
+  const factory ProfessionalLicensesEvent.licensesDocumentTitleChanged(
+      String documentTitle) = _LicensesDocumentTitleChanged;
+  const factory ProfessionalLicensesEvent.selectProvinceLicenses(
+      String provinceRegistration) = _SelectProvinceLicenses;
+  const factory ProfessionalLicensesEvent.selectLicensesDoc(
+      String licensesDoc) = _SelectLicensesDoc;
+  const factory ProfessionalLicensesEvent.deleteLicensesDoc(
+      String licensesDoc) = _DeleteLicensesDoc;
+  const factory ProfessionalLicensesEvent.addMoreLicensesDoc() =
+      _AddMoreLicensesDoc;
+  const factory ProfessionalLicensesEvent.deleteLicensesObject(int index) =
+      _DeleteLicensesObject;
+  const factory ProfessionalLicensesEvent.licensesDocSubmit(
+      {required bool isAddMoreBtnClick}) = _LicensesDocSubmit;
+}
+
+@freezed
+class ImmunizationEvent with _$ImmunizationEvent {
+  /// FOR Immunizations-Vaccinations DOCUMENT
+  const factory ImmunizationEvent.getImmunizationDataOnInit() =
+      _GetImmunizationDataOnInit;
+  const factory ImmunizationEvent.immunizationsNameChanegd(
+      String immunizationsName) = _ImmunizationsNameChanegd;
+
+  const factory ImmunizationEvent.selectImmunizationDoc(
+      String immunizationDoc) = _SelectImmunizationDoc;
+  const factory ImmunizationEvent.deleteImmunizationDoc(
+      String immunizationDoc) = _DeleteImmunizationDoc;
+  const factory ImmunizationEvent.addMoreImmunizationDoc() =
+      _AddMoreImmunizationDoc;
+  const factory ImmunizationEvent.deleteImmunizationObject(int index) =
+      _DeleteImmunizationObject;
+  const factory ImmunizationEvent.immunizationDocSubmit(
+      {required bool isAddMoreBtnClick}) = _ImmunizationDocSubmit;
+}
+
+@freezed
+class ProfessionalLiabilityEvent with _$ProfessionalLiabilityEvent {
+  /// FOR Professional Liability Protection DOCUMENT
+
+  const factory ProfessionalLiabilityEvent.selectLiabilityDoc(
+      String liabilityDoc) = _SelectLiabilityDoc;
+  const factory ProfessionalLiabilityEvent.deleteLiabilityDoc(
+      String liabilityDoc) = _DeleteLiabilityDoc;
+  const factory ProfessionalLiabilityEvent.addMoreLiabilityDoc() =
+      _AddMoreLiabilityDoc;
+  const factory ProfessionalLiabilityEvent.deleteLiabilityObject(int index) =
+      _DeleteLiabilityObject;
+  const factory ProfessionalLiabilityEvent.liabilityDocSubmit(
+      {required bool isAddMoreBtnClick}) = _LiabilityDocSubmit;
+}
+
+@freezed
+class ResumeEvent with _$ResumeEvent {
+  /// FOR Resume DOCUMENT
+
+  const factory ResumeEvent.selectResumeDoc(String resumeDoc) =
+      _SelectResumeDoc;
+  const factory ResumeEvent.deleteResumeDoc(String resumeDoc) =
+      _DeleteResumeDoc;
+  const factory ResumeEvent.resumeDocSubmit() = _ResumeDocSubmit;
+}
+
+@freezed
+class EquipmentEvent with _$EquipmentEvent {
+  /// FOR Apparel/Equipment DOCUMENT
+  const factory EquipmentEvent.equipmentNameChanegd(String equipmentName) =
+      _EquipmentNameChanegd;
+
+  const factory EquipmentEvent.selectEquipmentDoc(String equipmentDoc) =
+      _SelectEquipmentDoc;
+  const factory EquipmentEvent.deleteEquipmentDoc(String equipmentDoc) =
+      _DeleteEquipmentDoc;
+  const factory EquipmentEvent.addMoreEquipmentDoc() = _AddMoreEquipmentDoc;
+  const factory EquipmentEvent.deleteEquipmentObject(int index) =
+      _DeleteEquipmentObject;
+  const factory EquipmentEvent.equipmentDocSubmit(
+      {required bool isAddMoreBtnClick}) = _EquipmentDocSubmit;
+}
