@@ -19,6 +19,8 @@ import 'package:shift/presentation/core/widgets/custom_year_picker/custom_date_p
 import 'package:shift/presentation/core/widgets/custom_year_picker/order_format.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
+import '../../common/widgets/center_loading_indicator.dart';
+
 @RoutePage(name: 'addExperienceDetailScreen')
 class AddExperienceDetail extends StatelessWidget {
   const AddExperienceDetail({super.key});
@@ -41,6 +43,7 @@ class AddExperienceDetail extends StatelessWidget {
               () {},
               (either) => either.fold(
                 (failure) {
+                  print("fjgdg");
                   showError(
                     message: failure.maybeMap(
                       showAPIResponseMessage: (value) => value.message,
@@ -58,37 +61,47 @@ class AddExperienceDetail extends StatelessWidget {
             );
           },
           builder: (context, state) {
-            return Form(
-              autovalidateMode: (state.showErrorMessages)
-                  ? AutovalidateMode.always
-                  : AutovalidateMode.disabled,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Image.asset(PngImageConstants.add_experience_desc),
-                    SizedBox(
-                      height: getSize(20),
+            return Stack(
+              children: [
+                Form(
+                  autovalidateMode: (state.showErrorMessages)
+                      ? AutovalidateMode.always
+                      : AutovalidateMode.disabled,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                    child: Column(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Image.asset(PngImageConstants.add_experience_desc),
+                        SizedBox(
+                          height: getSize(20),
+                        ),
+                        Expanded(
+                          child: (state.isLoading)
+                              ? CenterLoadingIndicator(isOnlyLoader: true)
+                              : mainListView(context, state),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            bottom: getSize(40),
+                          ),
+                          child: CommonButton(
+                            isSubmitting: state.isSubmitting,
+                            onPressed: () {
+                              context.read<ExperienceBloc>().add(
+                                  const ExperienceEvent
+                                      .continueBtnPressedEvent());
+                            },
+                            buttonText: StringConstant.txtContinue,
+                          ),
+                        ),
+                      ],
                     ),
-                    Expanded(
-                      child: mainListView(context, state),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        bottom: getSize(40),
-                      ),
-                      child: CommonButton(
-                        onPressed: () {
-                          context.read<ExperienceBloc>().add(
-                              const ExperienceEvent.continueBtnPressedEvent());
-                        },
-                        buttonText: StringConstant.txtContinue,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                // if(state.isLoading)
+                //   const CenterLoadingIndicator(),
+              ],
             );
           },
         ),
@@ -125,6 +138,7 @@ class AddExperienceDetail extends StatelessWidget {
               ),
             ),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 customPicker(
@@ -137,7 +151,7 @@ class AddExperienceDetail extends StatelessWidget {
                         .add(ExperienceEvent.updateRecordEvent(
                           index: index,
                           year: value ?? "",
-                          month: currentObj.month ?? "",
+                          month: currentObj.experience_month ?? "",
                           name: currentObj.name ?? "",
                         ));
                   },
@@ -152,7 +166,7 @@ class AddExperienceDetail extends StatelessWidget {
                         .read<ExperienceBloc>()
                         .add(ExperienceEvent.updateRecordEvent(
                           index: index,
-                          year: currentObj.year ?? "",
+                          year: currentObj.experience_year ?? "",
                           month: value ?? "",
                           name: currentObj.name ?? "",
                         ));
@@ -178,7 +192,7 @@ class AddExperienceDetail extends StatelessWidget {
       void Function(String?)? onChangeyear,
       void Function(String?)? onChangedMonth}) {
     return SizedBox(
-      width: getSize(180),
+      width: getSize(160),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -205,7 +219,7 @@ class AddExperienceDetail extends StatelessWidget {
             hintMonth: StringConstant.month,
             onChangedMonth: onChangedMonth,
             onChangedYear: onChangeyear,
-            isExpanded: false,
+            isExpanded: true,
             inputDecoration: InputDecoration(
               iconColor: AppColors.black,
               filled: true,

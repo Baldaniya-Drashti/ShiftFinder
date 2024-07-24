@@ -3,6 +3,8 @@ part of 'reference_bloc.dart';
 @freezed
 class ReferenceState with _$ReferenceState {
   const factory ReferenceState({
+    required List<ReferenceDTO> referenceList,
+
     required int selectedTab,
     // FOR PROFESSIONAL
     required InputEmptyOrNot jobPosition,
@@ -36,8 +38,14 @@ class ReferenceState with _$ReferenceState {
     required bool showPersonalErrorMessage,
     required Option<Either<AuthFailure, String>>
         authFailureOrSuccessOptionPersonal,
+
+    required bool isLoading,
+    required Option<Either<AccountFailure, Account>>
+    failureOrSuccessOptionPersonal,
+
   }) = _ReferenceState;
   factory ReferenceState.initial() => ReferenceState(
+    referenceList : [],
         selectedTab: 0,
         // FOR PROFESSIONAL
         jobPosition: InputEmptyOrNot(""),
@@ -69,5 +77,8 @@ class ReferenceState with _$ReferenceState {
         isPersonalSubmitting: false,
         showPersonalErrorMessage: false,
         authFailureOrSuccessOptionPersonal: none(),
+
+    isLoading: false,
+    failureOrSuccessOptionPersonal: none(),
       );
 }

@@ -5,9 +5,10 @@ part 'experience_dto.g.dart';
 @freezed
 class ExperienceDTO with _$ExperienceDTO {
   factory ExperienceDTO({
+    int? id,
     String? name,
-    String? year,
-    String? month,
+    String? experience_year,
+    String? experience_month,
   }) = _ExperienceDTO;
 
   factory ExperienceDTO.fromJson(Map<String, dynamic> json) =>

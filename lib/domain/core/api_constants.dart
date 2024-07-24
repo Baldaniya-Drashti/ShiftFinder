@@ -17,6 +17,8 @@ class ApiConstants {
   static String completeProfile = 'complete_profile';
   static String education = 'education';
   static String destroyEducation = 'destroy_education';
+  static String experience = 'experience';
+  static String reference = 'reference';
 
 // common
   static String roleList = 'role_list';
@@ -24,6 +26,7 @@ class ApiConstants {
   static String experienceList = 'experience_list';
   static String softwaresSkillList = 'softwares_skill_list';
   static String languageList = 'language_list';
+  static String getYourRolesList = 'get_your_roles_list';
 
   //edit user
   static String updateUser = 'edit/user';

@@ -93,7 +93,7 @@ class AddContractorSkillsForm extends StatelessWidget {
               },
               builder: (context, state) {
                 return (state.isLoading)
-                    ? const CenterLoadingIndicator()
+                    ?  CenterLoadingIndicator()
                     : Padding(
                         padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                         child: Form(

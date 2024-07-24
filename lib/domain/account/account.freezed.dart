@@ -34,6 +34,7 @@ mixin _$Account {
   String? get referralCode => throw _privateConstructorUsedError;
   String? get lastPage => throw _privateConstructorUsedError;
   List<EducationDTO>? get education => throw _privateConstructorUsedError;
+  List<ReferenceDTO>? get reference => throw _privateConstructorUsedError;
   Auth? get auth => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -64,6 +65,7 @@ abstract class $AccountCopyWith<$Res> {
       String? referralCode,
       String? lastPage,
       List<EducationDTO>? education,
+      List<ReferenceDTO>? reference,
       Auth? auth});
 
   $AuthCopyWith<$Res>? get auth;
@@ -100,6 +102,7 @@ class _$AccountCopyWithImpl<$Res, $Val extends Account>
     Object? referralCode = freezed,
     Object? lastPage = freezed,
     Object? education = freezed,
+    Object? reference = freezed,
     Object? auth = freezed,
   }) {
     return _then(_value.copyWith(
@@ -175,6 +178,10 @@ class _$AccountCopyWithImpl<$Res, $Val extends Account>
           ? _value.education
           : education // ignore: cast_nullable_to_non_nullable
               as List<EducationDTO>?,
+      reference: freezed == reference
+          ? _value.reference
+          : reference // ignore: cast_nullable_to_non_nullable
+              as List<ReferenceDTO>?,
       auth: freezed == auth
           ? _value.auth
           : auth // ignore: cast_nullable_to_non_nullable
@@ -221,6 +228,7 @@ abstract class _$$AccountImplCopyWith<$Res> implements $AccountCopyWith<$Res> {
       String? referralCode,
       String? lastPage,
       List<EducationDTO>? education,
+      List<ReferenceDTO>? reference,
       Auth? auth});
 
   @override
@@ -256,6 +264,7 @@ class __$$AccountImplCopyWithImpl<$Res>
     Object? referralCode = freezed,
     Object? lastPage = freezed,
     Object? education = freezed,
+    Object? reference = freezed,
     Object? auth = freezed,
   }) {
     return _then(_$AccountImpl(
@@ -331,6 +340,10 @@ class __$$AccountImplCopyWithImpl<$Res>
           ? _value._education
           : education // ignore: cast_nullable_to_non_nullable
               as List<EducationDTO>?,
+      reference: freezed == reference
+          ? _value._reference
+          : reference // ignore: cast_nullable_to_non_nullable
+              as List<ReferenceDTO>?,
       auth: freezed == auth
           ? _value.auth
           : auth // ignore: cast_nullable_to_non_nullable
@@ -361,8 +374,10 @@ class _$AccountImpl extends _Account {
       this.referralCode,
       this.lastPage,
       final List<EducationDTO>? education,
+      final List<ReferenceDTO>? reference,
       this.auth})
       : _education = education,
+        _reference = reference,
         super._();
 
   @override
@@ -409,12 +424,22 @@ class _$AccountImpl extends _Account {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<ReferenceDTO>? _reference;
+  @override
+  List<ReferenceDTO>? get reference {
+    final value = _reference;
+    if (value == null) return null;
+    if (_reference is EqualUnmodifiableListView) return _reference;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final Auth? auth;
 
   @override
   String toString() {
-    return 'Account(userId: $userId, firstName: $firstName, lastName: $lastName, email: $email, isVerified: $isVerified, serviceRole: $serviceRole, industryId: $industryId, profileImage: $profileImage, companyName: $companyName, countryCode: $countryCode, countryNameCode: $countryNameCode, phone: $phone, association: $association, companyDescription: $companyDescription, location: $location, referralCode: $referralCode, lastPage: $lastPage, education: $education, auth: $auth)';
+    return 'Account(userId: $userId, firstName: $firstName, lastName: $lastName, email: $email, isVerified: $isVerified, serviceRole: $serviceRole, industryId: $industryId, profileImage: $profileImage, companyName: $companyName, countryCode: $countryCode, countryNameCode: $countryNameCode, phone: $phone, association: $association, companyDescription: $companyDescription, location: $location, referralCode: $referralCode, lastPage: $lastPage, education: $education, reference: $reference, auth: $auth)';
   }
 
   @override
@@ -455,6 +480,8 @@ class _$AccountImpl extends _Account {
                 other.lastPage == lastPage) &&
             const DeepCollectionEquality()
                 .equals(other._education, _education) &&
+            const DeepCollectionEquality()
+                .equals(other._reference, _reference) &&
             (identical(other.auth, auth) || other.auth == auth));
   }
 
@@ -479,6 +506,7 @@ class _$AccountImpl extends _Account {
         referralCode,
         lastPage,
         const DeepCollectionEquality().hash(_education),
+        const DeepCollectionEquality().hash(_reference),
         auth
       ]);
 
@@ -509,6 +537,7 @@ abstract class _Account extends Account {
       final String? referralCode,
       final String? lastPage,
       final List<EducationDTO>? education,
+      final List<ReferenceDTO>? reference,
       final Auth? auth}) = _$AccountImpl;
   const _Account._() : super._();
 
@@ -548,6 +577,8 @@ abstract class _Account extends Account {
   String? get lastPage;
   @override
   List<EducationDTO>? get education;
+  @override
+  List<ReferenceDTO>? get reference;
   @override
   Auth? get auth;
   @override

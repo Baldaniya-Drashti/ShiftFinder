@@ -19,10 +19,9 @@ part 'education_detail_bloc.freezed.dart';
 @injectable
 class EducationDetailBloc
     extends Bloc<EducationDetailEvent, EducationDetailState> {
-  final IAuthFacade _authFacade;
   final IAccountRepository _repository;
 
-  EducationDetailBloc(this._authFacade, this._repository)
+  EducationDetailBloc(this._repository)
       : super(EducationDetailState.initial()) {
     on<EducationDetailEvent>((event, emit) async {
       await event.map(
@@ -111,23 +110,43 @@ class EducationDetailBloc
           );
         },
         deleteEducation: (e) async {
-          emit(
-            state.copyWith(
-              isSubmitting: true,
-              authFailureOrSuccessOption: none(),
-            ),
-          );
-          print("Delete Iddd-> ${e.educationId}");
-          final failureOrSuccess =
-              await _repository.deleteEducationApi(educationId: e.educationId);
+          Either<AccountFailure, Account>? failureOrSuccess;
 
           emit(
             state.copyWith(
-              isSubmitting: false,
-              showAddEducationErrorMessages: true,
-              listFailureOrSuccessOption: optionOf(failureOrSuccess),
+              isSubmitting: true,
+              listFailureOrSuccessOption: none(),
             ),
           );
+
+          print("Delete Id-> ${e.educationId}");
+           failureOrSuccess =
+              await _repository.deleteEducationApi(educationId: e.educationId);
+
+
+          failureOrSuccess.fold(
+                (l) => emit(
+              state.copyWith(
+                isSubmitting: false,
+                educationList: List.from(state.educationList),
+              ),
+            ),
+                (r) {
+              return emit(
+                state.copyWith(
+                  isSubmitting: false,
+                  educationList: r.education ?? [],
+                ),
+              );
+            },
+          );
+          // emit(
+          //   state.copyWith(
+          //     isSubmitting: false,
+          //     showAddEducationErrorMessages: true,
+          //     listFailureOrSuccessOption: optionOf(failureOrSuccess),
+          //   ),
+          // );
         },
       );
     });

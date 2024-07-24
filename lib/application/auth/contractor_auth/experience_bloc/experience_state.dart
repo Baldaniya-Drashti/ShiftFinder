@@ -7,12 +7,15 @@ class ExperienceState with _$ExperienceState {
 
     /// SUBMIT
     required bool isSubmitting,
+    required bool isLoading,
     required bool showErrorMessages,
-    required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
+    required Option<Either<AccountFailure, Account>> authFailureOrSuccessOption,
   }) = _ExperienceState;
+
   factory ExperienceState.initial() => ExperienceState(
         records: [],
         isSubmitting: false,
+        isLoading: false,
         showErrorMessages: false,
         authFailureOrSuccessOption: none(),
       );

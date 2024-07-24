@@ -8,14 +8,16 @@ part of 'experience_dto.dart';
 
 _$ExperienceDTOImpl _$$ExperienceDTOImplFromJson(Map<String, dynamic> json) =>
     _$ExperienceDTOImpl(
+      id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
-      year: json['year'] as String?,
-      month: json['month'] as String?,
+      experience_year: json['experience_year'] as String?,
+      experience_month: json['experience_month'] as String?,
     );
 
 Map<String, dynamic> _$$ExperienceDTOImplToJson(_$ExperienceDTOImpl instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
-      'year': instance.year,
-      'month': instance.month,
+      'experience_year': instance.experience_year,
+      'experience_month': instance.experience_month,
     };

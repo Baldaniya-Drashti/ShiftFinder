@@ -2,6 +2,8 @@ part of 'reference_bloc.dart';
 
 @freezed
 class ReferenceEvent with _$ReferenceEvent {
+  const factory ReferenceEvent.getReferenceList() = GetReferenceList;
+
   const factory ReferenceEvent.tabChangeEvent(int tabIndex) = _TabChangeEvent;
   // FOR PROFESSIONAL
   const factory ReferenceEvent.jobPositionChanged(String jobPosition) =

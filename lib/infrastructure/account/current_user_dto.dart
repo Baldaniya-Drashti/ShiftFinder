@@ -3,6 +3,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shift/domain/account/account.dart';
 import 'package:shift/infrastructure/core/education_dto/education_dto.dart';
+import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
 
 part 'current_user_dto.freezed.dart';
 part 'current_user_dto.g.dart';
@@ -29,6 +30,7 @@ class CurrentUserDto with _$CurrentUserDto {
     @JsonKey(name: 'referral_code') String? referralCode,
     @JsonKey(name: 'last_page') String? lastPage,
     @JsonKey(name: 'education') List<EducationDTO>? education,
+    @JsonKey(name: 'reference') List<ReferenceDTO>? reference,
     @JsonKey(name: 'auth') AuthDto? authDto,
   }) = _CurrentUserDto;
   Account toDomain() {
@@ -51,6 +53,7 @@ class CurrentUserDto with _$CurrentUserDto {
       referralCode: referralCode,
       serviceRole: serviceRole,
       education: education,
+      reference: reference,
       auth: authDto?.toDomain(),
     );
   }
@@ -75,6 +78,7 @@ class CurrentUserDto with _$CurrentUserDto {
       referralCode: account.referralCode,
       serviceRole: account.serviceRole,
       education: account.education,
+      reference: account.reference,
       authDto: account.auth != null ? AuthDto.fromDomain(account.auth!) : null,
     );
   }

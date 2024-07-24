@@ -502,8 +502,9 @@ mixin _$ExperienceState {
 
   /// SUBMIT
   bool get isSubmitting => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
-  Option<Either<AuthFailure, String>> get authFailureOrSuccessOption =>
+  Option<Either<AccountFailure, Account>> get authFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -520,8 +521,9 @@ abstract class $ExperienceStateCopyWith<$Res> {
   $Res call(
       {List<ExperienceDTO> records,
       bool isSubmitting,
+      bool isLoading,
       bool showErrorMessages,
-      Option<Either<AuthFailure, String>> authFailureOrSuccessOption});
+      Option<Either<AccountFailure, Account>> authFailureOrSuccessOption});
 }
 
 /// @nodoc
@@ -539,6 +541,7 @@ class _$ExperienceStateCopyWithImpl<$Res, $Val extends ExperienceState>
   $Res call({
     Object? records = null,
     Object? isSubmitting = null,
+    Object? isLoading = null,
     Object? showErrorMessages = null,
     Object? authFailureOrSuccessOption = null,
   }) {
@@ -551,6 +554,10 @@ class _$ExperienceStateCopyWithImpl<$Res, $Val extends ExperienceState>
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
               as bool,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       showErrorMessages: null == showErrorMessages
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
@@ -558,7 +565,7 @@ class _$ExperienceStateCopyWithImpl<$Res, $Val extends ExperienceState>
       authFailureOrSuccessOption: null == authFailureOrSuccessOption
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<AuthFailure, String>>,
+              as Option<Either<AccountFailure, Account>>,
     ) as $Val);
   }
 }
@@ -574,8 +581,9 @@ abstract class _$$ExperienceStateImplCopyWith<$Res>
   $Res call(
       {List<ExperienceDTO> records,
       bool isSubmitting,
+      bool isLoading,
       bool showErrorMessages,
-      Option<Either<AuthFailure, String>> authFailureOrSuccessOption});
+      Option<Either<AccountFailure, Account>> authFailureOrSuccessOption});
 }
 
 /// @nodoc
@@ -591,6 +599,7 @@ class __$$ExperienceStateImplCopyWithImpl<$Res>
   $Res call({
     Object? records = null,
     Object? isSubmitting = null,
+    Object? isLoading = null,
     Object? showErrorMessages = null,
     Object? authFailureOrSuccessOption = null,
   }) {
@@ -603,6 +612,10 @@ class __$$ExperienceStateImplCopyWithImpl<$Res>
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
               as bool,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       showErrorMessages: null == showErrorMessages
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
@@ -610,7 +623,7 @@ class __$$ExperienceStateImplCopyWithImpl<$Res>
       authFailureOrSuccessOption: null == authFailureOrSuccessOption
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<AuthFailure, String>>,
+              as Option<Either<AccountFailure, Account>>,
     ));
   }
 }
@@ -621,6 +634,7 @@ class _$ExperienceStateImpl implements _ExperienceState {
   const _$ExperienceStateImpl(
       {required final List<ExperienceDTO> records,
       required this.isSubmitting,
+      required this.isLoading,
       required this.showErrorMessages,
       required this.authFailureOrSuccessOption})
       : _records = records;
@@ -637,13 +651,15 @@ class _$ExperienceStateImpl implements _ExperienceState {
   @override
   final bool isSubmitting;
   @override
+  final bool isLoading;
+  @override
   final bool showErrorMessages;
   @override
-  final Option<Either<AuthFailure, String>> authFailureOrSuccessOption;
+  final Option<Either<AccountFailure, Account>> authFailureOrSuccessOption;
 
   @override
   String toString() {
-    return 'ExperienceState(records: $records, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'ExperienceState(records: $records, isSubmitting: $isSubmitting, isLoading: $isLoading, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
@@ -654,6 +670,8 @@ class _$ExperienceStateImpl implements _ExperienceState {
             const DeepCollectionEquality().equals(other._records, _records) &&
             (identical(other.isSubmitting, isSubmitting) ||
                 other.isSubmitting == isSubmitting) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
             (identical(other.showErrorMessages, showErrorMessages) ||
                 other.showErrorMessages == showErrorMessages) &&
             (identical(other.authFailureOrSuccessOption,
@@ -667,6 +685,7 @@ class _$ExperienceStateImpl implements _ExperienceState {
       runtimeType,
       const DeepCollectionEquality().hash(_records),
       isSubmitting,
+      isLoading,
       showErrorMessages,
       authFailureOrSuccessOption);
 
@@ -682,8 +701,9 @@ abstract class _ExperienceState implements ExperienceState {
   const factory _ExperienceState(
       {required final List<ExperienceDTO> records,
       required final bool isSubmitting,
+      required final bool isLoading,
       required final bool showErrorMessages,
-      required final Option<Either<AuthFailure, String>>
+      required final Option<Either<AccountFailure, Account>>
           authFailureOrSuccessOption}) = _$ExperienceStateImpl;
 
   @override
@@ -693,9 +713,11 @@ abstract class _ExperienceState implements ExperienceState {
   /// SUBMIT
   bool get isSubmitting;
   @override
+  bool get isLoading;
+  @override
   bool get showErrorMessages;
   @override
-  Option<Either<AuthFailure, String>> get authFailureOrSuccessOption;
+  Option<Either<AccountFailure, Account>> get authFailureOrSuccessOption;
   @override
   @JsonKey(ignore: true)
   _$$ExperienceStateImplCopyWith<_$ExperienceStateImpl> get copyWith =>

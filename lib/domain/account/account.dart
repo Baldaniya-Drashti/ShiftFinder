@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shift/infrastructure/core/education_dto/education_dto.dart';
+import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
 
 part 'account.freezed.dart';
 
@@ -26,6 +27,7 @@ class Account with _$Account {
     String? referralCode,
     String? lastPage,
     List<EducationDTO>? education,
+    List<ReferenceDTO>? reference,
     Auth? auth,
   }) = _Account;
 }

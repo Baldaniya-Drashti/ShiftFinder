@@ -2,11 +2,17 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shift/application/auth/contractor_auth/reference_bloc/reference_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/common/widgets/no_data_ui.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -19,68 +25,88 @@ class ReferenceListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CommonAppBar(
-        onBackPressed: () {
-          context.router.maybePop();
+    return BlocProvider(
+      create: (context) => getIt<ReferenceBloc>()..add(ReferenceEvent.getReferenceList()),
+      child: BlocConsumer<ReferenceBloc, ReferenceState>(
+        listener: (context, state) {
+          // TODO: implement listener
         },
-        title: StringConstant.reference,
-        showSkipBtn: true,
-        onSkipped: () {
-          context.router.replace(PageRouteInfo(DocumentPageScreen.name));
-        },
-      ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: getSize(20),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              referenceListUI(context),
-              // Expanded(
-              //   child: NoDataText(
-              //     title: StringConstant.noReferenceAdded,
-              //     description: StringConstant.noReferenceDesc,
-              //     image: SvgImageConstant.referencePerson,
-              //   ),
-              // ),
-              Padding(
-                padding: EdgeInsets.only(
-                  bottom: getSize(40),
+        builder: (context, state) {
+          return Scaffold(
+            appBar: CommonAppBar(
+              onBackPressed: () {
+                context.router.maybePop();
+              },
+              title: StringConstant.reference,
+              showSkipBtn: true,
+              onSkipped: () {
+                context.router.replace(PageRouteInfo(DocumentPageScreen.name));
+              },
+            ),
+            body:
+            (state.isLoading)
+                ? CenterLoadingIndicator()
+                : Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: getSize(20),
                 ),
-                child: CommonButton(
-                  onPressed: () {
-                    // context.router
-                    //     .push(
-                    //         const PageRouteInfo(AddReferenceDetailScreen.name))
-                    //     .then((value) {
-                    //   if (value != null && value == true) {
-                    //     print("Please refresh the API");
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                        (state.referenceList.isNotEmpty)?
+                        referenceListUI(context,state)
+                    : Expanded(
+                          child: NoDataText(
+                            title: StringConstant.noReferenceAdded,
+                            description: StringConstant.noReferenceDesc,
+                            image: SvgImageConstant.referencePerson,
+                          ),
+                        ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        bottom: getSize(40),
+                      ),
+                      child: CommonButton(
+                        onPressed: () {
+                          if (state.referenceList.isNotEmpty) {
+                            context.router.push(PageRouteInfo(
+                                DocumentPageScreen.name));
+                          } else {
+                            context.router
+                                .push(PageRouteInfo(
+                                AddReferenceDetailScreen.name))
+                                .then((value) {
+                              print("Value when back ---> $value");
+                              if (value != null && value == true) {
+                                /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
+                                context.read<ReferenceBloc>().add(
+                                    ReferenceEvent
+                                        .getReferenceList());
 
-                    //     /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
-                    //   }
-                    // });
-
-                    context.router.push(PageRouteInfo(DocumentPageScreen.name));
-                  },
-                  buttonText: StringConstant.addYourReference,
+                              }
+                            });
+                          }
+                        },
+                        buttonText: StringConstant.addYourReference,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
 
-  Widget referenceListUI(BuildContext context) {
+  Widget referenceListUI(BuildContext context,ReferenceState state) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         ListView.builder(
-          itemCount: 1,
+          itemCount: state.referenceList.length,
           shrinkWrap: true,
           itemBuilder: (context, index) {
             return ListTile(
@@ -95,7 +121,7 @@ class ReferenceListScreen extends StatelessWidget {
                 height: getSize(63),
                 fit: BoxFit.fitHeight,
               ),
-              title: boxTitleUI(),
+              title: boxTitleUI(state.referenceList[index]),
               trailing: GestureDetector(
                 onTap: () {
                   AppDialog.showDelete(
@@ -123,7 +149,9 @@ class ReferenceListScreen extends StatelessWidget {
                   .push(const PageRouteInfo(AddReferenceDetailScreen.name))
                   .then((value) {
                 if (value != null && value == true) {
-                  /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
+                  context
+                      .read<ReferenceBloc>()
+                      .add(ReferenceEvent.getReferenceList());
                 }
               });
             },
@@ -141,24 +169,24 @@ class ReferenceListScreen extends StatelessWidget {
     );
   }
 
-  Widget boxTitleUI() {
+  Widget boxTitleUI(ReferenceDTO reference) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const BaseText(
-          text: "Professional",
+         BaseText(
+          text: (reference.type == 1) ? StringConstant.professional: StringConstant.personal,
           fontWeight: FontWeight.w600,
           fontSize: 14,
         ),
         BaseText(
-          text: "Organization Name",
+          text: reference.organization ?? "",
           fontSize: 12,
           fontWeight: FontWeight.w500,
           textColor: AppColors.black.withOpacity(0.8),
         ),
         BaseText(
-          text: "debra.holt@example.com",
+          text: reference.email ?? "",
           fontSize: 10,
           fontWeight: FontWeight.w400,
           textColor: AppColors.black.withOpacity(0.8),

@@ -46,16 +46,10 @@ class EducationListScreen extends StatelessWidget {
                 ).show(context);
               },
               (r) {
-                // showSuccess(
-                //   message: "Successfully Deleted!",
-                // ).show(context);
-                // context.read<EducationDetailBloc>().add(
-                //       EducationDetailEvent.getEducationList(),
-                //     );
+
               },
             ),
           );
-          // TODO: implement listener
         },
         builder: (context, state) {
           return Scaffold(
@@ -67,8 +61,8 @@ class EducationListScreen extends StatelessWidget {
               showSkipBtn: (state.educationList.isEmpty) ? true : false,
               onSkipped: (state.educationList.isEmpty)
                   ? () {
-                      context.router.replace(
-                          PageRouteInfo(AddExperienceDetailScreen.name));
+                      // context.router.replace(
+                      //     PageRouteInfo(AddExperienceDetailScreen.name));
                     }
                   : null,
             ),
@@ -84,11 +78,13 @@ class EducationListScreen extends StatelessWidget {
                         children: [
                           (state.educationList.isNotEmpty)
                               ? educationListUI(context, state)
-                              : NoDataText(
-                                  title: StringConstant.noEducationAdded,
-                                  description: StringConstant.noEducationDesc,
-                                  image: SvgImageConstant.graduationCap,
-                                ),
+                              : Expanded(
+                                child: NoDataText(
+                                    title: StringConstant.noEducationAdded,
+                                    description: StringConstant.noEducationDesc,
+                                    image: SvgImageConstant.graduationCap,
+                                  ),
+                              ),
                           Padding(
                             padding: EdgeInsets.only(
                               bottom: getSize(20),

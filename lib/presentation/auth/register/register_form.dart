@@ -362,7 +362,7 @@ class RegisterForm extends StatelessWidget {
         Container(
           // color: Colors.red,
           margin: EdgeInsets.only(left: getSize(10)),
-          width: getSize(330),
+          width: getSize(300),
           child: termsAndCondition(
             title: StringConstant.pleaseCheckTheBoxToConfirmThatYouHaveReviewed,
             title1: StringConstant.andAgreeToOur,

@@ -120,7 +120,9 @@ class SplashPage extends StatelessWidget {
       case "Education":
         return EducationListScreen.name;
       case "Experience":
-        return EducationListScreen.name;
+        return AddExperienceDetailScreen.name;
+        case "Reference":
+        return ReferenceListScreen.name;
       default:
         return EducationListScreen.name;
     }
