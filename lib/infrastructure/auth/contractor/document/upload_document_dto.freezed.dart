@@ -25,6 +25,8 @@ mixin _$CredentialRegistrationDTO {
   String? get documentTitle => throw _privateConstructorUsedError;
   String? get credentialDocument => throw _privateConstructorUsedError;
   String? get provinceRegistration => throw _privateConstructorUsedError;
+  String? get expiryDate => throw _privateConstructorUsedError;
+  bool? get isExpiryNotApplicable => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +44,9 @@ abstract class $CredentialRegistrationDTOCopyWith<$Res> {
       {String? registrationNo,
       String? documentTitle,
       String? credentialDocument,
-      String? provinceRegistration});
+      String? provinceRegistration,
+      String? expiryDate,
+      bool? isExpiryNotApplicable});
 }
 
 /// @nodoc
@@ -63,6 +67,8 @@ class _$CredentialRegistrationDTOCopyWithImpl<$Res,
     Object? documentTitle = freezed,
     Object? credentialDocument = freezed,
     Object? provinceRegistration = freezed,
+    Object? expiryDate = freezed,
+    Object? isExpiryNotApplicable = freezed,
   }) {
     return _then(_value.copyWith(
       registrationNo: freezed == registrationNo
@@ -81,6 +87,14 @@ class _$CredentialRegistrationDTOCopyWithImpl<$Res,
           ? _value.provinceRegistration
           : provinceRegistration // ignore: cast_nullable_to_non_nullable
               as String?,
+      expiryDate: freezed == expiryDate
+          ? _value.expiryDate
+          : expiryDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isExpiryNotApplicable: freezed == isExpiryNotApplicable
+          ? _value.isExpiryNotApplicable
+          : isExpiryNotApplicable // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -98,7 +112,9 @@ abstract class _$$CredentialRegistrationDTOImplCopyWith<$Res>
       {String? registrationNo,
       String? documentTitle,
       String? credentialDocument,
-      String? provinceRegistration});
+      String? provinceRegistration,
+      String? expiryDate,
+      bool? isExpiryNotApplicable});
 }
 
 /// @nodoc
@@ -118,6 +134,8 @@ class __$$CredentialRegistrationDTOImplCopyWithImpl<$Res>
     Object? documentTitle = freezed,
     Object? credentialDocument = freezed,
     Object? provinceRegistration = freezed,
+    Object? expiryDate = freezed,
+    Object? isExpiryNotApplicable = freezed,
   }) {
     return _then(_$CredentialRegistrationDTOImpl(
       registrationNo: freezed == registrationNo
@@ -136,6 +154,14 @@ class __$$CredentialRegistrationDTOImplCopyWithImpl<$Res>
           ? _value.provinceRegistration
           : provinceRegistration // ignore: cast_nullable_to_non_nullable
               as String?,
+      expiryDate: freezed == expiryDate
+          ? _value.expiryDate
+          : expiryDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isExpiryNotApplicable: freezed == isExpiryNotApplicable
+          ? _value.isExpiryNotApplicable
+          : isExpiryNotApplicable // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -147,7 +173,9 @@ class _$CredentialRegistrationDTOImpl extends _CredentialRegistrationDTO {
       {this.registrationNo,
       this.documentTitle,
       this.credentialDocument,
-      this.provinceRegistration})
+      this.provinceRegistration,
+      this.expiryDate,
+      this.isExpiryNotApplicable})
       : super._();
 
   factory _$CredentialRegistrationDTOImpl.fromJson(Map<String, dynamic> json) =>
@@ -161,10 +189,14 @@ class _$CredentialRegistrationDTOImpl extends _CredentialRegistrationDTO {
   final String? credentialDocument;
   @override
   final String? provinceRegistration;
+  @override
+  final String? expiryDate;
+  @override
+  final bool? isExpiryNotApplicable;
 
   @override
   String toString() {
-    return 'CredentialRegistrationDTO(registrationNo: $registrationNo, documentTitle: $documentTitle, credentialDocument: $credentialDocument, provinceRegistration: $provinceRegistration)';
+    return 'CredentialRegistrationDTO(registrationNo: $registrationNo, documentTitle: $documentTitle, credentialDocument: $credentialDocument, provinceRegistration: $provinceRegistration, expiryDate: $expiryDate, isExpiryNotApplicable: $isExpiryNotApplicable)';
   }
 
   @override
@@ -179,13 +211,23 @@ class _$CredentialRegistrationDTOImpl extends _CredentialRegistrationDTO {
             (identical(other.credentialDocument, credentialDocument) ||
                 other.credentialDocument == credentialDocument) &&
             (identical(other.provinceRegistration, provinceRegistration) ||
-                other.provinceRegistration == provinceRegistration));
+                other.provinceRegistration == provinceRegistration) &&
+            (identical(other.expiryDate, expiryDate) ||
+                other.expiryDate == expiryDate) &&
+            (identical(other.isExpiryNotApplicable, isExpiryNotApplicable) ||
+                other.isExpiryNotApplicable == isExpiryNotApplicable));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, registrationNo, documentTitle,
-      credentialDocument, provinceRegistration);
+  int get hashCode => Object.hash(
+      runtimeType,
+      registrationNo,
+      documentTitle,
+      credentialDocument,
+      provinceRegistration,
+      expiryDate,
+      isExpiryNotApplicable);
 
   @JsonKey(ignore: true)
   @override
@@ -207,7 +249,9 @@ abstract class _CredentialRegistrationDTO extends CredentialRegistrationDTO {
       {final String? registrationNo,
       final String? documentTitle,
       final String? credentialDocument,
-      final String? provinceRegistration}) = _$CredentialRegistrationDTOImpl;
+      final String? provinceRegistration,
+      final String? expiryDate,
+      final bool? isExpiryNotApplicable}) = _$CredentialRegistrationDTOImpl;
   _CredentialRegistrationDTO._() : super._();
 
   factory _CredentialRegistrationDTO.fromJson(Map<String, dynamic> json) =
@@ -222,6 +266,10 @@ abstract class _CredentialRegistrationDTO extends CredentialRegistrationDTO {
   @override
   String? get provinceRegistration;
   @override
+  String? get expiryDate;
+  @override
+  bool? get isExpiryNotApplicable;
+  @override
   @JsonKey(ignore: true)
   _$$CredentialRegistrationDTOImplCopyWith<_$CredentialRegistrationDTOImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -235,6 +283,8 @@ ImmunizationDTO _$ImmunizationDTOFromJson(Map<String, dynamic> json) {
 mixin _$ImmunizationDTO {
   String? get nameOfImmunization => throw _privateConstructorUsedError;
   String? get immunizationDocument => throw _privateConstructorUsedError;
+  String? get expiryDate => throw _privateConstructorUsedError;
+  bool? get isExpiryNotApplicable => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -248,7 +298,11 @@ abstract class $ImmunizationDTOCopyWith<$Res> {
           ImmunizationDTO value, $Res Function(ImmunizationDTO) then) =
       _$ImmunizationDTOCopyWithImpl<$Res, ImmunizationDTO>;
   @useResult
-  $Res call({String? nameOfImmunization, String? immunizationDocument});
+  $Res call(
+      {String? nameOfImmunization,
+      String? immunizationDocument,
+      String? expiryDate,
+      bool? isExpiryNotApplicable});
 }
 
 /// @nodoc
@@ -266,6 +320,8 @@ class _$ImmunizationDTOCopyWithImpl<$Res, $Val extends ImmunizationDTO>
   $Res call({
     Object? nameOfImmunization = freezed,
     Object? immunizationDocument = freezed,
+    Object? expiryDate = freezed,
+    Object? isExpiryNotApplicable = freezed,
   }) {
     return _then(_value.copyWith(
       nameOfImmunization: freezed == nameOfImmunization
@@ -276,6 +332,14 @@ class _$ImmunizationDTOCopyWithImpl<$Res, $Val extends ImmunizationDTO>
           ? _value.immunizationDocument
           : immunizationDocument // ignore: cast_nullable_to_non_nullable
               as String?,
+      expiryDate: freezed == expiryDate
+          ? _value.expiryDate
+          : expiryDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isExpiryNotApplicable: freezed == isExpiryNotApplicable
+          ? _value.isExpiryNotApplicable
+          : isExpiryNotApplicable // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -288,7 +352,11 @@ abstract class _$$ImmunizationDTOImplCopyWith<$Res>
       __$$ImmunizationDTOImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? nameOfImmunization, String? immunizationDocument});
+  $Res call(
+      {String? nameOfImmunization,
+      String? immunizationDocument,
+      String? expiryDate,
+      bool? isExpiryNotApplicable});
 }
 
 /// @nodoc
@@ -304,6 +372,8 @@ class __$$ImmunizationDTOImplCopyWithImpl<$Res>
   $Res call({
     Object? nameOfImmunization = freezed,
     Object? immunizationDocument = freezed,
+    Object? expiryDate = freezed,
+    Object? isExpiryNotApplicable = freezed,
   }) {
     return _then(_$ImmunizationDTOImpl(
       nameOfImmunization: freezed == nameOfImmunization
@@ -314,6 +384,14 @@ class __$$ImmunizationDTOImplCopyWithImpl<$Res>
           ? _value.immunizationDocument
           : immunizationDocument // ignore: cast_nullable_to_non_nullable
               as String?,
+      expiryDate: freezed == expiryDate
+          ? _value.expiryDate
+          : expiryDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isExpiryNotApplicable: freezed == isExpiryNotApplicable
+          ? _value.isExpiryNotApplicable
+          : isExpiryNotApplicable // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -321,7 +399,11 @@ class __$$ImmunizationDTOImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ImmunizationDTOImpl extends _ImmunizationDTO {
-  _$ImmunizationDTOImpl({this.nameOfImmunization, this.immunizationDocument})
+  _$ImmunizationDTOImpl(
+      {this.nameOfImmunization,
+      this.immunizationDocument,
+      this.expiryDate,
+      this.isExpiryNotApplicable})
       : super._();
 
   factory _$ImmunizationDTOImpl.fromJson(Map<String, dynamic> json) =>
@@ -331,10 +413,14 @@ class _$ImmunizationDTOImpl extends _ImmunizationDTO {
   final String? nameOfImmunization;
   @override
   final String? immunizationDocument;
+  @override
+  final String? expiryDate;
+  @override
+  final bool? isExpiryNotApplicable;
 
   @override
   String toString() {
-    return 'ImmunizationDTO(nameOfImmunization: $nameOfImmunization, immunizationDocument: $immunizationDocument)';
+    return 'ImmunizationDTO(nameOfImmunization: $nameOfImmunization, immunizationDocument: $immunizationDocument, expiryDate: $expiryDate, isExpiryNotApplicable: $isExpiryNotApplicable)';
   }
 
   @override
@@ -345,13 +431,17 @@ class _$ImmunizationDTOImpl extends _ImmunizationDTO {
             (identical(other.nameOfImmunization, nameOfImmunization) ||
                 other.nameOfImmunization == nameOfImmunization) &&
             (identical(other.immunizationDocument, immunizationDocument) ||
-                other.immunizationDocument == immunizationDocument));
+                other.immunizationDocument == immunizationDocument) &&
+            (identical(other.expiryDate, expiryDate) ||
+                other.expiryDate == expiryDate) &&
+            (identical(other.isExpiryNotApplicable, isExpiryNotApplicable) ||
+                other.isExpiryNotApplicable == isExpiryNotApplicable));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, nameOfImmunization, immunizationDocument);
+  int get hashCode => Object.hash(runtimeType, nameOfImmunization,
+      immunizationDocument, expiryDate, isExpiryNotApplicable);
 
   @JsonKey(ignore: true)
   @override
@@ -371,7 +461,9 @@ class _$ImmunizationDTOImpl extends _ImmunizationDTO {
 abstract class _ImmunizationDTO extends ImmunizationDTO {
   factory _ImmunizationDTO(
       {final String? nameOfImmunization,
-      final String? immunizationDocument}) = _$ImmunizationDTOImpl;
+      final String? immunizationDocument,
+      final String? expiryDate,
+      final bool? isExpiryNotApplicable}) = _$ImmunizationDTOImpl;
   _ImmunizationDTO._() : super._();
 
   factory _ImmunizationDTO.fromJson(Map<String, dynamic> json) =
@@ -381,6 +473,10 @@ abstract class _ImmunizationDTO extends ImmunizationDTO {
   String? get nameOfImmunization;
   @override
   String? get immunizationDocument;
+  @override
+  String? get expiryDate;
+  @override
+  bool? get isExpiryNotApplicable;
   @override
   @JsonKey(ignore: true)
   _$$ImmunizationDTOImplCopyWith<_$ImmunizationDTOImpl> get copyWith =>

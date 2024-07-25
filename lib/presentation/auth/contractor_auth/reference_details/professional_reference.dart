@@ -106,6 +106,7 @@ class ProfessionalReferenceWidget extends StatelessWidget {
       labelText: StringConstant.organization,
       isLabelPadding: true,
       hintText: StringConstant.organization,
+      textCapitalization: TextCapitalization.words,
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),

@@ -65,7 +65,7 @@ class AuthFacade implements IAuthFacade {
 
       final account = CurrentUserDto.fromJson(response.data).toDomain();
       logger.d("RESPONSE OF LOGIN---> ${response.data}");
-
+      // setUserToken(account.auth?.accessToken ?? "");
       setCurrentUser(account);
       return right(response.dioMessage ?? "");
     } on DioException catch (err) {

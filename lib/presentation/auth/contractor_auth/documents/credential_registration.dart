@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print, unnecessary_string_interpolations
 
 import 'dart:io';
 import 'package:auto_route/auto_route.dart';
@@ -7,14 +7,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shift/application/auth/contractor_auth/document_bloc/document_bloc.dart';
+import 'package:shift/domain/core/document_expiry_picker.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/auth/contractor/document/upload_document_dto.dart';
+import 'package:shift/presentation/common/utils/file_picker_utils.dart';
 import 'package:shift/presentation/common/utils/image_picker_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
 import 'package:shift/presentation/common/widgets/selected_document_box.dart';
+import 'package:shift/presentation/common/widgets/show_picked_file.dart';
 import 'package:shift/presentation/common/widgets/upload_document_box.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -53,8 +56,9 @@ class CredentialRegistration extends StatelessWidget {
                               return Padding(
                                 padding: EdgeInsets.only(top: getSize(10)),
                                 child: SelectedDocumentBox(
-                                  leadingImage: Image.file(File(
-                                      credObject.credentialDocument ?? "")),
+                                  // leadingImage: Image.file(File(
+                                  //     credObject.credentialDocument ?? "")),
+                                  pickedFile: credObject.credentialDocument,
                                   title: credObject.documentTitle ?? "",
                                   subTitle1:
                                       credObject.provinceRegistration ?? "",
@@ -116,6 +120,41 @@ class CredentialRegistration extends StatelessWidget {
                         ),
                       ),
                     paddingBetweenFields(),
+                    DocumentExpiryDatePicker().notApplicableExpiryCheckBox(
+                      context,
+                      value: state.isCredExpiryCheck,
+                      isDisabled: (state.credentialExpiryDate.isNotEmpty),
+                      onChanged: (value) {
+                        if (value != null) {
+                          context.read<CredentialBloc>().add(
+                              CredentialEvent.checkNACredExpiryDate(value));
+                        }
+                      },
+                    ),
+                    DocumentExpiryDatePicker.expiryDateTextField(
+                      context,
+                      onPickedDate: (pickedDate) {
+                        context.read<CredentialBloc>().add(
+                            CredentialEvent.credExpiryDateChanged(
+                                pickedDate.toString()));
+                      },
+                      selectedDate: state.credentialExpiryDate,
+                      isDisabled: !state.isCredExpiryCheck,
+                    ),
+                    paddingBetweenFields(height: 5),
+                    if ((!state.isCredExpiryCheck &&
+                            state.credentialExpiryDate.isEmpty) &&
+                        state.showCredintialErrorMessages)
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                        child: const BaseText(
+                          text:
+                              "${StringConstant.pleaseSelectExpiryDateIfApplicable}",
+                          fontSize: 12,
+                          textColor: AppColors.red,
+                        ),
+                      ),
+                    paddingBetweenFields(),
                     addMoreButton(
                       context,
                       state,
@@ -152,31 +191,12 @@ class CredentialRegistration extends StatelessWidget {
     return Stack(
       alignment: Alignment.topRight,
       children: [
-        Container(
-            height: getSize(300),
-            decoration: BoxDecoration(
-              color: AppColors.grey.withOpacity(0.4),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            padding: EdgeInsets.symmetric(vertical: getSize(10)),
-            alignment: Alignment.center,
-            child: Container(
-              height: getSize(250),
-              width: getSize(250),
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.grey,
-                    spreadRadius: 0.2,
-                    blurRadius: 10,
-                  )
-                ],
-              ),
-              child: Image.file(
-                File(selectedFile),
-                fit: BoxFit.fitWidth,
-              ),
-            )),
+        ShowPickedFile(
+          selectedFile: selectedFile,
+          mainBoxHeight: getSize(300),
+          childBoxHeight: getSize(250),
+          childBoxWidth: getSize(250),
+        ),
         Positioned(
           top: getSize(14),
           left: getSize(300),
@@ -230,6 +250,16 @@ class CredentialRegistration extends StatelessWidget {
 
         if (path.isNotEmpty) {
           print("GALLERY IMAGE PATH: $path");
+          context.read<CredentialBloc>().add(
+                CredentialEvent.selectCredentialDoc(path),
+              );
+        }
+        context.router.maybePop();
+      },
+      selectPdfCallback: () async {
+        String path = await FilePickerUtils().pickPdf(context: context) ?? '';
+        if (path.isNotEmpty) {
+          print("SELECTED FILE PATH: $path");
           context.read<CredentialBloc>().add(
                 CredentialEvent.selectCredentialDoc(path),
               );
@@ -334,7 +364,8 @@ class CredentialRegistration extends StatelessWidget {
       {required VoidCallback onPressed}) {
     bool isAllDetailsAdded = (state.selectedProvinceRegistration.isValid() &&
             state.documentTitle.isValid() &&
-            state.credentialRegistrationDoc.isValid())
+            state.credentialRegistrationDoc.isValid() &&
+            (state.isCredExpiryCheck || state.credentialExpiryDate.isNotEmpty))
         ? true
         : false;
     return Align(

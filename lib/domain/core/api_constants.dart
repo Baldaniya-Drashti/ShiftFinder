@@ -19,6 +19,9 @@ class ApiConstants {
   static String destroyEducation = 'destroy_education';
   static String experience = 'experience';
   static String reference = 'reference';
+  static String destroyReference = 'destroy_reference';
+  static String getDocument = 'get_document';
+  static String document = 'document';
 
 // common
   static String roleList = 'role_list';

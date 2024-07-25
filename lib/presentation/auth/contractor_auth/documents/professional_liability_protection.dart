@@ -8,14 +8,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shift/application/auth/contractor_auth/document_bloc/document_bloc.dart';
+import 'package:shift/domain/core/document_expiry_picker.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/auth/contractor/document/upload_document_dto.dart';
+import 'package:shift/presentation/common/utils/file_picker_utils.dart';
 import 'package:shift/presentation/common/utils/image_picker_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
 import 'package:shift/presentation/common/widgets/selected_document_box.dart';
+import 'package:shift/presentation/common/widgets/show_picked_file.dart';
 import 'package:shift/presentation/common/widgets/upload_document_box.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -53,10 +56,12 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
                               return Padding(
                                 padding: EdgeInsets.only(top: getSize(10)),
                                 child: SelectedDocumentBox(
-                                  leadingImage: Image.file(
-                                    File(liabilityObject.immunizationDocument ??
-                                        ""),
-                                  ),
+                                  // leadingImage: Image.file(
+                                  //   File(liabilityObject.immunizationDocument ??
+                                  //       ""),
+                                  // ),
+                                  pickedFile:
+                                      liabilityObject.immunizationDocument,
                                   title: StringConstant
                                       .professionalLiabilityProtection,
                                   showDeleteButton: true,
@@ -122,6 +127,42 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
                         ),
                       ),
                     paddingBetweenFields(),
+                    DocumentExpiryDatePicker().notApplicableExpiryCheckBox(
+                      context,
+                      value: state.isLiabilityExpiryCheck,
+                      isDisabled: (state.liabilityExpiryDate.isNotEmpty),
+                      onChanged: (value) {
+                        if (value != null) {
+                          context.read<ProfessionalLiabilityBloc>().add(
+                              ProfessionalLiabilityEvent
+                                  .checkNALiabilityExpiryDate(value));
+                        }
+                      },
+                    ),
+                    DocumentExpiryDatePicker.expiryDateTextField(
+                      context,
+                      onPickedDate: (pickedDate) {
+                        context.read<ProfessionalLiabilityBloc>().add(
+                            ProfessionalLiabilityEvent
+                                .liabilityExpiryDateChanged(
+                                    pickedDate.toString()));
+                      },
+                      selectedDate: state.liabilityExpiryDate,
+                      isDisabled: !state.isLiabilityExpiryCheck,
+                    ),
+                    paddingBetweenFields(height: 5),
+                    if ((!state.isLiabilityExpiryCheck &&
+                            state.liabilityExpiryDate.isEmpty) &&
+                        state.showLiabilityErrorMessages)
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                        child: const BaseText(
+                          text:
+                              StringConstant.pleaseSelectExpiryDateIfApplicable,
+                          fontSize: 12,
+                          textColor: AppColors.red,
+                        ),
+                      ),
                     addMoreButton(
                       context,
                       state,
@@ -159,31 +200,12 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
     return Stack(
       alignment: Alignment.topRight,
       children: [
-        Container(
-            height: getSize(400),
-            decoration: BoxDecoration(
-              color: AppColors.grey.withOpacity(0.4),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            padding: EdgeInsets.symmetric(vertical: getSize(10)),
-            alignment: Alignment.center,
-            child: Container(
-              height: getSize(250),
-              width: getSize(250),
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.grey,
-                    spreadRadius: 0.2,
-                    blurRadius: 10,
-                  )
-                ],
-              ),
-              child: Image.file(
-                File(selectedFile),
-                fit: BoxFit.fitWidth,
-              ),
-            )),
+        ShowPickedFile(
+          selectedFile: selectedFile,
+          mainBoxHeight: getSize(300),
+          childBoxHeight: getSize(250),
+          childBoxWidth: getSize(250),
+        ),
         Positioned(
           top: getSize(14),
           left: getSize(300),
@@ -243,6 +265,16 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
         }
         context.router.maybePop();
       },
+      selectPdfCallback: () async {
+        String path = await FilePickerUtils().pickPdf(context: context) ?? '';
+        if (path.isNotEmpty) {
+          print("SELECTED FILE PATH: $path");
+          context.read<ProfessionalLiabilityBloc>().add(
+                ProfessionalLiabilityEvent.selectLiabilityDoc(path),
+              );
+        }
+        context.router.maybePop();
+      },
       context: context,
     );
   }
@@ -255,7 +287,11 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
 
   Widget addMoreButton(BuildContext context, ProfessionalLiabilityState state,
       {required VoidCallback onPressed}) {
-    bool isAllDetailsAdded = (state.liabilityDoc.isValid()) ? true : false;
+    bool isAllDetailsAdded = (state.liabilityDoc.isValid() &&
+            (state.isLiabilityExpiryCheck ||
+                state.liabilityExpiryDate.isNotEmpty))
+        ? true
+        : false;
     return Align(
       alignment: Alignment.center,
       child: CommonButton(

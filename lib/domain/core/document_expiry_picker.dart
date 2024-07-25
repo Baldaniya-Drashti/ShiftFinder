@@ -1,0 +1,157 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
+import 'package:shift/application/auth/contractor_auth/document_bloc/document_bloc.dart';
+import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
+
+class DocumentExpiryDatePicker {
+  static Widget expiryDateTextField(
+    BuildContext context, {
+    required String selectedDate,
+    required void Function(DateTime) onPickedDate,
+    bool isDisabled = false,
+  }) {
+    return CustomTextField(
+      labelText: StringConstant.expiryDate,
+      labelStyle: (!isDisabled)
+          ? TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.3))
+          : null,
+      fillColor: (!isDisabled) ? AppColors.grey.withOpacity(0.4) : null,
+      isLabelPadding: true,
+      readOnly: true,
+      hintText: (selectedDate.isNotEmpty)
+          ? DateFormat("yyyy-MM-dd").format(DateTime.parse(selectedDate))
+          : StringConstant.expiryDate,
+      hintAsValue: (selectedDate.isNotEmpty) ? true : false,
+      onTap: (!isDisabled)
+          ? null
+          : () {
+              customDatePicker(
+                context,
+                onPickedDate,
+                selectedDate: (selectedDate.isNotEmpty)
+                    ? DateTime.parse(selectedDate)
+                    : DateTime.now(),
+              );
+            },
+      prefixIcon: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: getSize(14),
+          vertical: getSize(14),
+        ),
+        child: SvgPicture.asset(
+          SvgImageConstant.calendar,
+          height: getSize(24),
+          width: getSize(24),
+        ),
+      ),
+      // validator: (p0, p1) =>
+      //     context.read<DocumentBloc>().state.governmentExpiryDate.fold(
+      //           (f) => f.maybeMap(
+      //             empty: (value) => StringConstant.pleaseSelectStartDate,
+      //             orElse: () => null,
+      //           ),
+      //           (_) => null,
+      //         ),
+    );
+  }
+
+  static Future<void> customDatePicker(
+    BuildContext context,
+    void Function(DateTime) onPickedDate, {
+    required DateTime? selectedDate,
+  }) async {
+    print("selectedDate------->  ${selectedDate}");
+
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      firstDate: DateTime(1950, 1),
+      lastDate: DateTime(2100, 1),
+      initialDate: selectedDate,
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: AppColors.primaryColor,
+              onPrimary: AppColors.white,
+              onSurface: AppColors.black,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+    if (pickedDate != null && pickedDate != DateTime.now()) {
+      onPickedDate(pickedDate);
+    }
+  }
+
+  Widget notApplicableExpiryCheckBox(
+    BuildContext context, {
+    required void Function(bool?) onChanged,
+    bool isDisabled = false,
+    required bool value,
+  }) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: getSize(5)),
+      child: Container(
+        height: getSize(46),
+        width: double.infinity,
+        margin: EdgeInsets.symmetric(
+          vertical: getSize(10),
+        ),
+        alignment: Alignment.centerLeft,
+        padding: EdgeInsets.symmetric(
+          horizontal: getSize(20),
+        ),
+        decoration: BoxDecoration(
+          color: AppColors.grey.withOpacity((isDisabled) ? 0.2 : 0.4),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: getSize(20),
+              width: getSize(16.67),
+              // color: Colors.green,
+              child: Checkbox(
+                value: value,
+                activeColor: AppColors.primaryColor,
+                side: BorderSide(
+                  width: getSize(1.5),
+                  color: AppColors.black.withOpacity(0.5),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                onChanged: (isDisabled)
+                    ? null
+                    : (value) {
+                        onChanged(value);
+                      },
+              ),
+            ),
+            SizedBox(
+              width: getSize(20),
+            ),
+            Flexible(
+              child: BaseText(
+                text: StringConstant.expiryDateIsNotApplicable,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                textColor:
+                    (isDisabled) ? AppColors.black.withOpacity(0.5) : null,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

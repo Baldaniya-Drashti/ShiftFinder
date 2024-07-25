@@ -5,10 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
+import 'package:shift/domain/account/account.dart';
+import 'package:shift/domain/account/account_failure.dart';
+import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/auth/contractor/document/upload_document_dto.dart';
+import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/immunizations.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/Professional_liability_protection.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/apparel_equipment.dart';
@@ -76,21 +81,99 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
     }
   }
 
-  DocumentBloc() : super(DocumentState.initial()) {
-    on<DocumentEvent>((event, emit) {
-      event.map(
+  final IAccountRepository _repository;
+
+  DocumentBloc(this._repository) : super(DocumentState.initial()) {
+    on<DocumentEvent>((event, emit) async {
+      await event.map(
         /// GO TO NEXT PAGE
         nextPage: (e) {
           emit(state.copyWith(currentPage: e.page));
         },
 
         /// FOR GOVERNEMT DOCUMENT
+        getGovermentDoc: (e) async {
+          Either<AccountFailure, List<DocumentDTO>>? failureOrSuccess;
+
+          emit(
+            state.copyWith(
+              isLoading: true,
+              governmentDocAuthFailureOrSuccessOption: none(),
+            ),
+          );
+          failureOrSuccess = await _repository.getDocumentApi(documentType: 1);
+          failureOrSuccess.fold(
+            (l) => emit(
+              state.copyWith(
+                isLoading: false,
+                govermentDoc: InputEmptyOrNot(""),
+                governmentExpiryDate: "",
+                isGovernemtExpiryCheck: false,
+              ),
+            ),
+            (r) {
+              print("r.length---> ${r.length}");
+              if (r.isNotEmpty) {
+                return emit(
+                  state.copyWith(
+                    isLoading: false,
+                    govermentDoc: InputEmptyOrNot(r[0].file ?? ""),
+                    governmentExpiryDate: (r[0].expiry_date != null)
+                        ? DateFormat('yyyy-MM-dd').format(
+                            DateTime.fromMillisecondsSinceEpoch(
+                                r[0].expiry_date ?? 0),
+                          )
+                        : "",
+                    isGovernemtExpiryCheck:
+                        (r[0].expiry_date_not_applicable == 0) ? false : true,
+                  ),
+                );
+              } else {
+                return emit(
+                  state.copyWith(
+                    isLoading: false,
+                    govermentDoc: InputEmptyOrNot(""),
+                    governmentExpiryDate: "",
+                    isGovernemtExpiryCheck: false,
+                  ),
+                );
+              }
+            },
+          );
+
+          emit(
+            state.copyWith(
+              isLoading: false,
+              // governmentDocAuthFailureOrSuccessOption:
+              //     optionOf(failureOrSuccess),
+            ),
+          );
+        },
         selectGovermentDoc: (e) {
           emit(
             state.copyWith(
               govermentDoc: InputEmptyOrNot(e.govermentDoc),
+              governmentExpiryDate: "",
+              isGovernemtExpiryCheck: false,
               isGovermentDocSubmitting: false,
               showGovernmentIdErrorMessages: false,
+              governmentDocAuthFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+
+        checkNAGovermentExpiryDate: (e) {
+          emit(
+            state.copyWith(
+              isGovernemtExpiryCheck: e.isCheck,
+              governmentDocAuthFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        govermentExpiryDateChanged: (e) {
+          emit(
+            state.copyWith(
+              governmentExpiryDate: e.expiryDate,
               governmentDocAuthFailureOrSuccessOption: none(),
             ),
           );
@@ -104,21 +187,72 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
             ),
           );
         },
-        govermentDocSubmit: (e) {
+        govermentDocSubmit: (e) async {
+          Either<AccountFailure, String>? failureOrSuccess;
+
           final isGovernmentDocValid = state.govermentDoc.isValid();
+
           print("DOC IS VALID--> $isGovernmentDocValid");
-          if (isGovernmentDocValid) {
+          print("DOC IS VALID111--> ${state.isGovernemtExpiryCheck}");
+          print("DOC IS VALID222--> ${state.governmentExpiryDate}");
+          if ((state.isGovernemtExpiryCheck ||
+                  state.governmentExpiryDate.isNotEmpty) &&
+              isGovernmentDocValid) {
             emit(
               state.copyWith(
-                isGovermentDocSubmitting: true,
-                showGovernmentIdErrorMessages: false,
-                governmentDocAuthFailureOrSuccessOption:
-                    optionOf(right("success")),
+                isSubmitting: true,
+                governmentDocAuthFailureOrSuccessOption: none(),
               ),
             );
-            DocumentBloc.pageController.nextPage(
-                duration: const Duration(milliseconds: 10),
-                curve: Curves.easeInOut);
+            failureOrSuccess = await _repository.addDocumentApi(
+              documentType: 1,
+              documentFile: state.govermentDoc.getValue() ?? "",
+              expiryDate: state.governmentExpiryDate,
+              expiryDateNotApplicable: state.isGovernemtExpiryCheck,
+            );
+            failureOrSuccess.fold(
+              (l) => emit(
+                state.copyWith(
+                  isSubmitting: false,
+                  govermentDoc: InputEmptyOrNot(""),
+                  governmentExpiryDate: "",
+                  isGovernemtExpiryCheck: false,
+                ),
+              ),
+              (r) {
+                DocumentBloc.pageController.nextPage(
+                    duration: const Duration(milliseconds: 10),
+                    curve: Curves.easeInOut);
+                // return emit(
+                //   state.copyWith(
+                //     isLoading: false,
+                //     govermentDoc: InputEmptyOrNot(r[0].file ?? ""),
+                //     governmentExpiryDate: DateFormat('yyyy-MM-dd').format(
+                //       DateTime.fromMillisecondsSinceEpoch(
+                //           r[0].expiry_date ?? 0),
+                //     ),
+                //     isGovernemtExpiryCheck: false,
+                //   ),
+                // );
+              },
+            );
+
+            emit(
+              state.copyWith(
+                isLoading: false,
+                governmentDocAuthFailureOrSuccessOption:
+                    optionOf(failureOrSuccess),
+              ),
+            );
+
+            // emit(
+            //   state.copyWith(
+            //     isGovermentDocSubmitting: true,
+            //     showGovernmentIdErrorMessages: false,
+            //     // governmentDocAuthFailureOrSuccessOption:
+            //     //     optionOf(right("success")),
+            //   ),
+            // );
           } else {
             emit(
               state.copyWith(
@@ -152,26 +286,26 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
         },
         covidDocSubmit: (e) {
           final isCovidDocValid = state.covidVaccinationDoc.isValid();
-          if (isCovidDocValid) {
-            emit(
-              state.copyWith(
-                isCovidDocSubmitting: true,
-                showCovidErrorMessages: false,
-                coviDocAuthFailureOrSuccessOption: optionOf(right("success")),
-              ),
-            );
-            DocumentBloc.pageController.nextPage(
-                duration: const Duration(milliseconds: 10),
-                curve: Curves.easeInOut);
-          } else {
-            emit(
-              state.copyWith(
-                isCovidDocSubmitting: false,
-                showCovidErrorMessages: true,
-                coviDocAuthFailureOrSuccessOption: none(),
-              ),
-            );
-          }
+          // if (isCovidDocValid) {
+          emit(
+            state.copyWith(
+              isCovidDocSubmitting: true,
+              showCovidErrorMessages: false,
+              coviDocAuthFailureOrSuccessOption: optionOf(right("success")),
+            ),
+          );
+          DocumentBloc.pageController.nextPage(
+              duration: const Duration(milliseconds: 10),
+              curve: Curves.easeInOut);
+          // } else {
+          //   emit(
+          //     state.copyWith(
+          //       isCovidDocSubmitting: false,
+          //       showCovidErrorMessages: true,
+          //       coviDocAuthFailureOrSuccessOption: none(),
+          //     ),
+          //   );
+          // }
         },
 
         /// FOR CREDENTIALS-REGISTRATION DOCUMENT
@@ -356,6 +490,22 @@ class CredentialBloc extends Bloc<CredentialEvent, CredentialState> {
             ),
           );
         },
+        checkNACredExpiryDate: (e) {
+          emit(
+            state.copyWith(
+              isCredExpiryCheck: e.isCheck,
+              credintialDocAuthFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        credExpiryDateChanged: (e) {
+          emit(
+            state.copyWith(
+              credentialExpiryDate: e.expiryDate,
+              credintialDocAuthFailureOrSuccessOption: none(),
+            ),
+          );
+        },
         documentTitleChanged: (e) {
           emit(
             state.copyWith(
@@ -405,7 +555,9 @@ class CredentialBloc extends Bloc<CredentialEvent, CredentialState> {
               state.selectedProvinceRegistration.isValid();
           if (isCredentialDocValid &&
               isDocumentTitleValid &&
-              isProvinceRegistrationValid) {
+              isProvinceRegistrationValid &&
+              (state.isCredExpiryCheck ||
+                  state.credentialExpiryDate.isNotEmpty)) {
             emit(
               state.copyWith(
                 credentialRegistrationList: [
@@ -417,6 +569,8 @@ class CredentialBloc extends Bloc<CredentialEvent, CredentialState> {
                     documentTitle: state.documentTitle.getValue(),
                     credentialDocument:
                         state.credentialRegistrationDoc.getValue(),
+                    expiryDate: state.credentialExpiryDate,
+                    isExpiryNotApplicable: state.isCredExpiryCheck,
                   )
                 ],
                 credentialRegistrationDoc: InputEmptyOrNot(""),
@@ -461,7 +615,9 @@ class CredentialBloc extends Bloc<CredentialEvent, CredentialState> {
           /// True When click on continue - add more btn and all details are valid
           if (isCredentialDocValid &&
               isDocumentTitleValid &&
-              isProvinceRegistrationValid) {
+              isProvinceRegistrationValid &&
+              (state.isCredExpiryCheck ||
+                  state.credentialExpiryDate.isNotEmpty)) {
             emit(
               state.copyWith(
                 isCredintialDocSubmitting: true,
@@ -481,7 +637,9 @@ class CredentialBloc extends Bloc<CredentialEvent, CredentialState> {
           else if (!e.isAddMoreBtnClick &&
               !isCredentialDocValid &&
               !isDocumentTitleValid &&
-              !isProvinceRegistrationValid) {
+              !isProvinceRegistrationValid &&
+              (!state.isCredExpiryCheck &&
+                  state.credentialExpiryDate.isEmpty)) {
             emit(
               state.copyWith(
                 isCredintialDocSubmitting: true,
@@ -518,6 +676,23 @@ class ProfessionalLicensesBloc
     on<ProfessionalLicensesEvent>((event, emit) {
       event.map(
         /// FOR PROFESSIONAL LICENSES DOCUMENT
+        checkNALicensesExpiryDate: (e) {
+          emit(
+            state.copyWith(
+              isLicensesExpiryCheck: e.isCheck,
+              licensesDocAuthFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        licensesExpiryDateChanged: (e) {
+          emit(
+            state.copyWith(
+              licensesExpiryDate: e.expiryDate,
+              licensesDocAuthFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+
         licensesRegistrationNumberChanegd: (e) {
           emit(
             state.copyWith(
@@ -577,7 +752,9 @@ class ProfessionalLicensesBloc
               state.selectedProvinceRegistration.isValid();
           if (isProfessionalLicensesDocValid &&
               isDocumentTitleValid &&
-              isProvinceRegistrationValid) {
+              isProvinceRegistrationValid &&
+              (state.isLicensesExpiryCheck ||
+                  state.licensesExpiryDate.isNotEmpty)) {
             emit(
               state.copyWith(
                 professionalLicensesList: [
@@ -589,10 +766,14 @@ class ProfessionalLicensesBloc
                     documentTitle: state.documentTitle.getValue(),
                     credentialDocument:
                         state.professionalLicensesDoc.getValue(),
+                    expiryDate: state.licensesExpiryDate,
+                    isExpiryNotApplicable: state.isLicensesExpiryCheck,
                   )
                 ],
                 professionalLicensesDoc: InputEmptyOrNot(""),
                 documentTitle: InputEmptyOrNot(""),
+                isLicensesExpiryCheck: false,
+                licensesExpiryDate: "",
                 selectedProvinceRegistration: InputEmptyOrNot(""),
                 registrationNumber: "",
                 isLicensesDocSubmitting: false,
@@ -632,7 +813,9 @@ class ProfessionalLicensesBloc
           /// True When click on continue - add more btn and all details are valid
           if (isProfessionalLicensesDocValid &&
               isDocumentTitleValid &&
-              isProvinceRegistrationValid) {
+              isProvinceRegistrationValid &&
+              (state.isLicensesExpiryCheck ||
+                  state.licensesExpiryDate.isNotEmpty)) {
             emit(
               state.copyWith(
                 isLicensesDocSubmitting: true,
@@ -652,7 +835,9 @@ class ProfessionalLicensesBloc
           else if (!e.isAddMoreBtnClick &&
               !isProfessionalLicensesDocValid &&
               !isDocumentTitleValid &&
-              !isProvinceRegistrationValid) {
+              !isProvinceRegistrationValid &&
+              (!state.isLicensesExpiryCheck &&
+                  state.licensesExpiryDate.isEmpty)) {
             emit(
               state.copyWith(
                 isLicensesDocSubmitting: true,
@@ -725,6 +910,22 @@ class ImmunizationBloc extends Bloc<ImmunizationEvent, ImmunizationState> {
           //   ),
           // );
         },
+        checkNAImmunizationExpiryDate: (e) {
+          emit(
+            state.copyWith(
+              isImmunizationExpiryCheck: e.isCheck,
+              immunizationDocAuthFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        immunizationExpiryDateChanged: (e) {
+          emit(
+            state.copyWith(
+              immunizationExpiryDate: e.expiryDate,
+              immunizationDocAuthFailureOrSuccessOption: none(),
+            ),
+          );
+        },
         immunizationsNameChanegd: (e) {
           emit(
             state.copyWith(
@@ -759,7 +960,10 @@ class ImmunizationBloc extends Bloc<ImmunizationEvent, ImmunizationState> {
           final isImmunizationDocValid = state.immunizationDoc.isValid();
           final isImmunizationNameValid = state.immunizationName.isValid();
 
-          if (isImmunizationDocValid && isImmunizationNameValid) {
+          if (isImmunizationDocValid &&
+              isImmunizationNameValid &&
+              (state.isImmunizationExpiryCheck ||
+                  state.immunizationExpiryDate.isNotEmpty)) {
             emit(
               state.copyWith(
                 immunizationList: [
@@ -767,11 +971,15 @@ class ImmunizationBloc extends Bloc<ImmunizationEvent, ImmunizationState> {
                   ImmunizationDTO(
                     nameOfImmunization: state.immunizationName.getValue(),
                     immunizationDocument: state.immunizationDoc.getValue(),
+                    expiryDate: state.immunizationExpiryDate,
+                    isExpiryNotApplicable: state.isImmunizationExpiryCheck,
                   )
                 ],
                 immunizationDoc: InputEmptyOrNot(""),
                 immunizationName: InputEmptyOrNot(""),
                 isImmunizationDocSubmitting: false,
+                immunizationExpiryDate: "",
+                isImmunizationExpiryCheck: false,
                 showImmunizationErrorMessages: false,
                 immunizationDocAuthFailureOrSuccessOption: none(),
               ),
@@ -802,7 +1010,10 @@ class ImmunizationBloc extends Bloc<ImmunizationEvent, ImmunizationState> {
           final isImmunizationNameValid = state.immunizationName.isValid();
 
           /// True When click on continue - add more btn and all details are valid
-          if (isImmunizationDocValid && isImmunizationNameValid) {
+          if (isImmunizationDocValid &&
+              isImmunizationNameValid &&
+              (state.isImmunizationExpiryCheck ||
+                  state.immunizationExpiryDate.isNotEmpty)) {
             emit(
               state.copyWith(
                 isImmunizationDocSubmitting: true,
@@ -821,7 +1032,9 @@ class ImmunizationBloc extends Bloc<ImmunizationEvent, ImmunizationState> {
 
           else if (!e.isAddMoreBtnClick &&
               !isImmunizationDocValid &&
-              !isImmunizationNameValid) {
+              !isImmunizationNameValid &&
+              (!state.isImmunizationExpiryCheck &&
+                  state.immunizationExpiryDate.isEmpty)) {
             emit(
               state.copyWith(
                 isImmunizationDocSubmitting: true,
@@ -858,6 +1071,22 @@ class ProfessionalLiabilityBloc
   ProfessionalLiabilityBloc() : super(ProfessionalLiabilityState.initial()) {
     on<ProfessionalLiabilityEvent>((event, emit) {
       event.map(
+        checkNALiabilityExpiryDate: (e) {
+          emit(
+            state.copyWith(
+              isLiabilityExpiryCheck: e.isCheck,
+              liabilityDocAuthFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        liabilityExpiryDateChanged: (e) {
+          emit(
+            state.copyWith(
+              liabilityExpiryDate: e.expiryDate,
+              liabilityDocAuthFailureOrSuccessOption: none(),
+            ),
+          );
+        },
         selectLiabilityDoc: (e) {
           emit(
             state.copyWith(
@@ -881,16 +1110,22 @@ class ProfessionalLiabilityBloc
         addMoreLiabilityDoc: (e) {
           final isLiabilityDocValid = state.liabilityDoc.isValid();
 
-          if (isLiabilityDocValid) {
+          if (isLiabilityDocValid &&
+              (state.isLiabilityExpiryCheck ||
+                  state.liabilityExpiryDate.isNotEmpty)) {
             emit(
               state.copyWith(
                 liabilityList: [
                   ...state.liabilityList,
                   ImmunizationDTO(
                     immunizationDocument: state.liabilityDoc.getValue(),
+                    expiryDate: state.liabilityExpiryDate,
+                    isExpiryNotApplicable: state.isLiabilityExpiryCheck,
                   )
                 ],
                 liabilityDoc: InputEmptyOrNot(""),
+                isLiabilityExpiryCheck: false,
+                liabilityExpiryDate: "",
                 isLiabilityDocSubmitting: false,
                 showLiabilityErrorMessages: false,
                 liabilityDocAuthFailureOrSuccessOption: none(),
@@ -920,7 +1155,9 @@ class ProfessionalLiabilityBloc
           final isLiabilityDocValid = state.liabilityDoc.isValid();
 
           /// True When click on continue - add more btn and all details are valid
-          if (isLiabilityDocValid) {
+          if (isLiabilityDocValid &&
+              (state.isLiabilityExpiryCheck ||
+                  state.liabilityExpiryDate.isNotEmpty)) {
             emit(
               state.copyWith(
                 isLiabilityDocSubmitting: true,
@@ -936,7 +1173,10 @@ class ProfessionalLiabilityBloc
           }
 
           /// True When click on continue btn and all details are empty
-          else if (!e.isAddMoreBtnClick && !isLiabilityDocValid) {
+          else if (!e.isAddMoreBtnClick &&
+              !isLiabilityDocValid &&
+              (!state.isLiabilityExpiryCheck &&
+                  state.liabilityExpiryDate.isEmpty)) {
             emit(
               state.copyWith(
                 isLiabilityDocSubmitting: true,

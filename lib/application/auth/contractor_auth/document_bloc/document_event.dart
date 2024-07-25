@@ -6,6 +6,11 @@ class DocumentEvent with _$DocumentEvent {
   // FOR GOVERNMENT DOCUMENT
   const factory DocumentEvent.selectGovermentDoc(String govermentDoc) =
       _SelectGovermentDoc;
+  const factory DocumentEvent.getGovermentDoc() = _GetGovermentDoc;
+  const factory DocumentEvent.checkNAGovermentExpiryDate(bool isCheck) =
+      CheckNAGovermentExpiryDate;
+  const factory DocumentEvent.govermentExpiryDateChanged(String expiryDate) =
+      _GovermentExpiryDateChanged;
   const factory DocumentEvent.deleteGovermentDoc(String govermentDoc) =
       _DeleteGovermentDoc;
   const factory DocumentEvent.govermentDocSubmit() = _GovermentDocSubmit;
@@ -37,6 +42,10 @@ class DocumentEvent with _$DocumentEvent {
 @freezed
 class CredentialEvent with _$CredentialEvent {
   /// FOR CREDENTIALS-REGISTRATION DOCUMENT
+  const factory CredentialEvent.checkNACredExpiryDate(bool isCheck) =
+      CheckNACredExpiryDate;
+  const factory CredentialEvent.credExpiryDateChanged(String expiryDate) =
+      _CredExpiryDateChanged;
   const factory CredentialEvent.registrationNumberChanegd(
       String registrationNo) = _RegistrationNumberChanegd;
   const factory CredentialEvent.documentTitleChanged(String documentTitle) =
@@ -57,6 +66,10 @@ class CredentialEvent with _$CredentialEvent {
 @freezed
 class ProfessionalLicensesEvent with _$ProfessionalLicensesEvent {
   /// FOR PROFESSIONAL LICENSES DOCUMENT
+  const factory ProfessionalLicensesEvent.checkNALicensesExpiryDate(
+      bool isCheck) = CheckNALicensesExpiryDate;
+  const factory ProfessionalLicensesEvent.licensesExpiryDateChanged(
+      String expiryDate) = _LicensesExpiryDateChanged;
   const factory ProfessionalLicensesEvent.licensesRegistrationNumberChanegd(
       String registrationNo) = _LicensesRegistrationNumberChanegd;
   const factory ProfessionalLicensesEvent.licensesDocumentTitleChanged(
@@ -82,7 +95,10 @@ class ImmunizationEvent with _$ImmunizationEvent {
       _GetImmunizationDataOnInit;
   const factory ImmunizationEvent.immunizationsNameChanegd(
       String immunizationsName) = _ImmunizationsNameChanegd;
-
+  const factory ImmunizationEvent.checkNAImmunizationExpiryDate(bool isCheck) =
+      CheckNAImmunizationExpiryDate;
+  const factory ImmunizationEvent.immunizationExpiryDateChanged(
+      String expiryDate) = _ImmunizationExpiryDateChanged;
   const factory ImmunizationEvent.selectImmunizationDoc(
       String immunizationDoc) = _SelectImmunizationDoc;
   const factory ImmunizationEvent.deleteImmunizationDoc(
@@ -99,6 +115,10 @@ class ImmunizationEvent with _$ImmunizationEvent {
 class ProfessionalLiabilityEvent with _$ProfessionalLiabilityEvent {
   /// FOR Professional Liability Protection DOCUMENT
 
+  const factory ProfessionalLiabilityEvent.checkNALiabilityExpiryDate(
+      bool isCheck) = CheckNALiabilityExpiryDate;
+  const factory ProfessionalLiabilityEvent.liabilityExpiryDateChanged(
+      String expiryDate) = _LiabilityExpiryDateChanged;
   const factory ProfessionalLiabilityEvent.selectLiabilityDoc(
       String liabilityDoc) = _SelectLiabilityDoc;
   const factory ProfessionalLiabilityEvent.deleteLiabilityDoc(

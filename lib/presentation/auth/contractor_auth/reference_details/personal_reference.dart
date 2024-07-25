@@ -71,6 +71,7 @@ class PersonalReferenceWidget extends StatelessWidget {
       labelText: StringConstant.contactPerson,
       isLabelPadding: true,
       hintText: StringConstant.contactPerson,
+      textCapitalization: TextCapitalization.words,
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -103,6 +104,7 @@ class PersonalReferenceWidget extends StatelessWidget {
       labelText: StringConstant.e_mail,
       isLabelPadding: true,
       hintText: StringConstant.e_mail,
+      keyboardType: TextInputType.emailAddress,
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),

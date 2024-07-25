@@ -54,7 +54,7 @@ class _DocumentPageState extends State<DocumentPage> {
     return PageView.builder(
       controller: DocumentBloc.pageController,
       itemCount: DocumentBloc.documentPageList.length,
-      physics: const BouncingScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) => DocumentBloc.documentPageList[index],
       onPageChanged: (value) {
         print("CUrRENT PAGE IS===> $value");

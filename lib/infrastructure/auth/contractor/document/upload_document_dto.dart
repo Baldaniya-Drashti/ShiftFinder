@@ -11,6 +11,8 @@ class CredentialRegistrationDTO with _$CredentialRegistrationDTO {
     String? documentTitle,
     String? credentialDocument,
     String? provinceRegistration,
+    String? expiryDate,
+    bool? isExpiryNotApplicable,
   }) = _CredentialRegistrationDTO;
 
   factory CredentialRegistrationDTO.fromJson(Map<String, dynamic> json) =>
@@ -23,6 +25,8 @@ class ImmunizationDTO with _$ImmunizationDTO {
   factory ImmunizationDTO({
     String? nameOfImmunization,
     String? immunizationDocument,
+    String? expiryDate,
+    bool? isExpiryNotApplicable,
   }) = _ImmunizationDTO;
 
   factory ImmunizationDTO.fromJson(Map<String, dynamic> json) =>

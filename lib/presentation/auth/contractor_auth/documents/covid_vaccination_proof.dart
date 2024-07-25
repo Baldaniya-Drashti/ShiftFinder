@@ -11,15 +11,18 @@ import 'package:shift/application/auth/contractor_auth/document_bloc/document_bl
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/presentation/common/utils/file_picker_utils.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/utils/image_picker_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
+import 'package:shift/presentation/common/widgets/show_picked_file.dart';
 import 'package:shift/presentation/common/widgets/upload_document_box.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
+import 'package:path/path.dart' as path;
 
 class CovidVaccinationDocument extends StatefulWidget {
   const CovidVaccinationDocument({super.key});
@@ -42,6 +45,8 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
     return BlocConsumer<DocumentBloc, DocumentState>(
       listener: (context, state) {},
       builder: (context, state) {
+        print(
+            "covidVaccinationDoc-->  ${state.covidVaccinationDoc.getValue()}");
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: getSize(20)),
           child: Column(
@@ -99,6 +104,19 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
                               }
                               context.router.maybePop();
                             },
+                            selectPdfCallback: () async {
+                              String path = await FilePickerUtils()
+                                      .pickPdf(context: context) ??
+                                  '';
+                              if (path.isNotEmpty) {
+                                print("PDF FILE PATH: $path");
+                                context.read<DocumentBloc>().add(
+                                      DocumentEvent.selectCovidVaccinationDoc(
+                                          path),
+                                    );
+                              }
+                              context.router.maybePop();
+                            },
                             context: context,
                           );
                         },
@@ -136,30 +154,11 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
       {required DocumentState state}) {
     return Stack(
       children: [
-        Container(
-            decoration: BoxDecoration(
-              color: AppColors.grey.withOpacity(0.4),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            alignment: Alignment.center,
-            child: Container(
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.grey,
-                    spreadRadius: 0.2,
-                    blurRadius: 10,
-                  )
-                ],
-              ),
-              height: getSize(384),
-              width: getSize(298),
-              child: Image.file(
-                File(selectedFile),
-                fit: BoxFit.cover,
-                width: double.infinity,
-              ),
-            )),
+        ShowPickedFile(
+          selectedFile: selectedFile,
+          childBoxWidth: getSize(320),
+          childBoxHeight: getSize(380),
+        ),
         Positioned(
           top: getSize(52),
           left: getSize(325),

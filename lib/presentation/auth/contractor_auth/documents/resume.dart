@@ -14,6 +14,7 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/utils/image_picker_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
+import 'package:shift/presentation/common/widgets/show_picked_file.dart';
 import 'package:shift/presentation/common/widgets/upload_document_box.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -90,30 +91,11 @@ class ResumeDocument extends StatelessWidget {
       {required ResumeState state}) {
     return Stack(
       children: [
-        Container(
-            decoration: BoxDecoration(
-              color: AppColors.grey.withOpacity(0.4),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            alignment: Alignment.center,
-            child: Container(
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.grey,
-                    spreadRadius: 0.2,
-                    blurRadius: 10,
-                  )
-                ],
-              ),
-              height: getSize(425),
-              width: getSize(315),
-              child: Image.file(
-                File(selectedFile),
-                fit: BoxFit.contain,
-                width: double.infinity,
-              ),
-            )),
+        ShowPickedFile(
+          selectedFile: selectedFile,
+          childBoxHeight: getSize(425),
+          childBoxWidth: getSize(315),
+        ),
         Positioned(
           top: getSize(60),
           left: getSize(330),

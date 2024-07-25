@@ -12,11 +12,13 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/auth/contractor/document/upload_document_dto.dart';
+import 'package:shift/presentation/common/utils/file_picker_utils.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/image_picker_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
 import 'package:shift/presentation/common/widgets/selected_document_box.dart';
+import 'package:shift/presentation/common/widgets/show_picked_file.dart';
 import 'package:shift/presentation/common/widgets/upload_document_box.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -80,9 +82,8 @@ class ApparelEquipment extends StatelessWidget {
                               return Padding(
                                 padding: EdgeInsets.only(top: getSize(10)),
                                 child: SelectedDocumentBox(
-                                  leadingImage: Image.file(File(
-                                      immunizationObject.immunizationDocument ??
-                                          "")),
+                                  pickedFile:
+                                      immunizationObject.immunizationDocument,
                                   title:
                                       immunizationObject.nameOfImmunization ??
                                           "",
@@ -167,34 +168,15 @@ class ApparelEquipment extends StatelessWidget {
     return Stack(
       alignment: Alignment.topRight,
       children: [
-        Container(
-            height: getSize(400),
-            decoration: BoxDecoration(
-              color: AppColors.grey.withOpacity(0.4),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            padding: EdgeInsets.symmetric(vertical: getSize(10)),
-            alignment: Alignment.center,
-            child: Container(
-              height: getSize(350),
-              width: getSize(350),
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.grey,
-                    spreadRadius: 0.2,
-                    blurRadius: 10,
-                  )
-                ],
-              ),
-              child: Image.file(
-                File(selectedFile),
-                fit: BoxFit.fitWidth,
-              ),
-            )),
+        ShowPickedFile(
+          selectedFile: selectedFile,
+          mainBoxHeight: getSize(400),
+          childBoxHeight: getSize(350),
+          childBoxWidth: getSize(315),
+        ),
         Positioned(
           top: getSize(14),
-          left: getSize(350),
+          left: getSize(330),
           child: GestureDetector(
             onTap: () {
               AppDialog.showDelete(
@@ -245,6 +227,16 @@ class ApparelEquipment extends StatelessWidget {
 
         if (path.isNotEmpty) {
           print("GALLERY IMAGE PATH: $path");
+          context.read<EquipmentBloc>().add(
+                EquipmentEvent.selectEquipmentDoc(path),
+              );
+        }
+        context.router.maybePop();
+      },
+      selectPdfCallback: () async {
+        String path = await FilePickerUtils().pickPdf(context: context) ?? '';
+        if (path.isNotEmpty) {
+          print("SELECTED FILE PATH: $path");
           context.read<EquipmentBloc>().add(
                 EquipmentEvent.selectEquipmentDoc(path),
               );

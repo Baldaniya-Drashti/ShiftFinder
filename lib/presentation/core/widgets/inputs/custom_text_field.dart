@@ -15,6 +15,7 @@ class CustomTextField extends StatelessWidget {
     this.hintText,
     this.keyboardType,
     this.labelText,
+    this.labelStyle,
     this.isLabelPadding = true,
     this.isOptional = false,
     this.initialValue,
@@ -32,6 +33,7 @@ class CustomTextField extends StatelessWidget {
     this.errorMaxLines,
     this.suffixIcon,
     this.maxLength,
+    this.fillColor,
     this.obscureText = false,
     this.focusNode,
     this.isBoxShadow = true,
@@ -46,6 +48,7 @@ class CustomTextField extends StatelessWidget {
   final String? hintText;
   final TextInputType? keyboardType;
   final String? labelText;
+  final TextStyle? labelStyle;
   final bool? isLabelPadding;
   final bool? isOptional;
   final Widget? optionalWidget;
@@ -55,6 +58,7 @@ class CustomTextField extends StatelessWidget {
   final VoidCallback? onTap;
   final bool readOnly;
   final bool autofocus;
+  final Color? fillColor;
   final int maxLines;
   final String? Function(String?, BuildContext)? validator;
   final Widget? prefixIcon;
@@ -73,11 +77,17 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final border = OutlineInputBorder(
-      borderSide: BorderSide(color: AppColors.white),
+      borderSide: BorderSide(
+          color: (fillColor != null)
+              ? fillColor ?? AppColors.white
+              : AppColors.white),
       borderRadius: BorderRadius.circular(getSize(10)),
     );
     final focusedBorder = OutlineInputBorder(
-      borderSide: BorderSide(color: AppColors.white),
+      borderSide: BorderSide(
+          color: (fillColor != null)
+              ? fillColor ?? AppColors.white
+              : AppColors.white),
       borderRadius: BorderRadius.circular(getSize(10)),
     );
     final errorBorder = errorInputBorder ??
@@ -112,9 +122,9 @@ class CustomTextField extends StatelessWidget {
               children: [
                 BaseText(
                   text: labelText ?? "",
-                  fontSize: 14,
+                  fontSize: labelStyle?.fontSize ?? 14,
                   fontWeight: FontWeight.w500,
-                  textColor: AppColors.black,
+                  textColor: labelStyle?.color ?? AppColors.black,
                 ),
                 Padding(
                   padding: EdgeInsets.only(
@@ -223,7 +233,7 @@ class CustomTextField extends StatelessWidget {
                 InputDecoration(
                   counterText: '',
                   filled: true,
-                  fillColor: AppColors.white,
+                  fillColor: fillColor ?? AppColors.white,
                   hintText: hintText,
                   contentPadding: EdgeInsets.symmetric(
                     vertical: getSize(12),

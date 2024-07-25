@@ -8,14 +8,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shift/application/auth/contractor_auth/document_bloc/document_bloc.dart';
+import 'package:shift/domain/core/document_expiry_picker.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/auth/contractor/document/upload_document_dto.dart';
+import 'package:shift/presentation/common/utils/file_picker_utils.dart';
 import 'package:shift/presentation/common/utils/image_picker_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
 import 'package:shift/presentation/common/widgets/selected_document_box.dart';
+import 'package:shift/presentation/common/widgets/show_picked_file.dart';
 import 'package:shift/presentation/common/widgets/upload_document_box.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -54,9 +57,11 @@ class ImmunizationsVaccinations extends StatelessWidget {
                               return Padding(
                                 padding: EdgeInsets.only(top: getSize(10)),
                                 child: SelectedDocumentBox(
-                                  leadingImage: Image.file(File(
-                                      immunizationObject.immunizationDocument ??
-                                          "")),
+                                  // leadingImage: Image.file(File(
+                                  //     immunizationObject.immunizationDocument ??
+                                  //         "")),
+                                  pickedFile:
+                                      immunizationObject.immunizationDocument,
                                   title:
                                       immunizationObject.nameOfImmunization ??
                                           "",
@@ -111,6 +116,41 @@ class ImmunizationsVaccinations extends StatelessWidget {
                         ),
                       ),
                     paddingBetweenFields(),
+                    DocumentExpiryDatePicker().notApplicableExpiryCheckBox(
+                      context,
+                      value: state.isImmunizationExpiryCheck,
+                      isDisabled: (state.immunizationExpiryDate.isNotEmpty),
+                      onChanged: (value) {
+                        if (value != null) {
+                          context.read<ImmunizationBloc>().add(
+                              ImmunizationEvent.checkNAImmunizationExpiryDate(
+                                  value));
+                        }
+                      },
+                    ),
+                    DocumentExpiryDatePicker.expiryDateTextField(
+                      context,
+                      onPickedDate: (pickedDate) {
+                        context.read<ImmunizationBloc>().add(
+                            ImmunizationEvent.immunizationExpiryDateChanged(
+                                pickedDate.toString()));
+                      },
+                      selectedDate: state.immunizationExpiryDate,
+                      isDisabled: !state.isImmunizationExpiryCheck,
+                    ),
+                    paddingBetweenFields(height: 5),
+                    if ((!state.isImmunizationExpiryCheck &&
+                            state.immunizationExpiryDate.isEmpty) &&
+                        state.showImmunizationErrorMessages)
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                        child: const BaseText(
+                          text:
+                              StringConstant.pleaseSelectExpiryDateIfApplicable,
+                          fontSize: 12,
+                          textColor: AppColors.red,
+                        ),
+                      ),
                     addMoreButton(
                       context,
                       state,
@@ -146,31 +186,12 @@ class ImmunizationsVaccinations extends StatelessWidget {
     return Stack(
       alignment: Alignment.topRight,
       children: [
-        Container(
-            height: getSize(300),
-            decoration: BoxDecoration(
-              color: AppColors.grey.withOpacity(0.4),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            padding: EdgeInsets.symmetric(vertical: getSize(10)),
-            alignment: Alignment.center,
-            child: Container(
-              height: getSize(250),
-              width: getSize(250),
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.grey,
-                    spreadRadius: 0.2,
-                    blurRadius: 10,
-                  )
-                ],
-              ),
-              child: Image.file(
-                File(selectedFile),
-                fit: BoxFit.fitWidth,
-              ),
-            )),
+        ShowPickedFile(
+          selectedFile: selectedFile,
+          mainBoxHeight: getSize(300),
+          childBoxHeight: getSize(250),
+          childBoxWidth: getSize(250),
+        ),
         Positioned(
           top: getSize(14),
           left: getSize(300),
@@ -230,6 +251,16 @@ class ImmunizationsVaccinations extends StatelessWidget {
         }
         context.router.maybePop();
       },
+      selectPdfCallback: () async {
+        String path = await FilePickerUtils().pickPdf(context: context) ?? '';
+        if (path.isNotEmpty) {
+          print("SELECTED FILE PATH: $path");
+          context.read<ImmunizationBloc>().add(
+                ImmunizationEvent.selectImmunizationDoc(path),
+              );
+        }
+        context.router.maybePop();
+      },
       context: context,
     );
   }
@@ -260,10 +291,12 @@ class ImmunizationsVaccinations extends StatelessWidget {
 
   Widget addMoreButton(BuildContext context, ImmunizationState state,
       {required VoidCallback onPressed}) {
-    bool isAllDetailsAdded =
-        (state.immunizationName.isValid() && state.immunizationDoc.isValid())
-            ? true
-            : false;
+    bool isAllDetailsAdded = (state.immunizationName.isValid() &&
+            state.immunizationDoc.isValid() &&
+            (state.isImmunizationExpiryCheck ||
+                state.immunizationExpiryDate.isNotEmpty))
+        ? true
+        : false;
     return Align(
       alignment: Alignment.center,
       child: CommonButton(

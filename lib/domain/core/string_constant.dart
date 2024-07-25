@@ -63,6 +63,7 @@ class StringConstant {
   static const String typeHere = "Type here...";
   static const String takePhoto = "Take Photo";
   static const String galleryPhoto = "Gallery Photo";
+  static const String chooseFile = "Choose File";
   static const String cancle = "Cancel";
   static const String locationDetails = "Location Details";
   static const String address = "Address";
@@ -212,8 +213,11 @@ class StringConstant {
   static const String cardHoldersName = "Card Holder’s Name";
   static const String cardNumber = "Card Number";
   static const String expDate = "Exp Date";
+  static const String expiryDate = "Expiry Date";
   static const String cvv = "Cvv";
   static const String addYourCard = "Add Your Card";
+  static const String expiryDateIsNotApplicable =
+      "Expiry date is not applicable";
 
   ///
 
@@ -291,6 +295,8 @@ class StringConstant {
       "Please add profession of the referrer";
   static const String pleaseSelectGovernmentIssuedId =
       "Please select government issued id";
+  static const String pleaseSelectExpiryDateIfApplicable =
+      "Please add expiry date if applicable";
   static const String pleaseSelectCovidVaccinationDoc =
       "Please select covid vaccination document";
   static const String pleaseAddDocumentTitle = "Please add document title";

@@ -8,6 +8,7 @@ class ImageChooserDialog {
   showImageChooserDialog({
     required VoidCallback takePhotoCallback,
     required VoidCallback selectPhotoCallback,
+    VoidCallback? selectPdfCallback,
     required BuildContext context,
   }) {
     showCupertinoModalPopup<void>(
@@ -26,6 +27,13 @@ class ImageChooserDialog {
               text: StringConstant.galleryPhoto,
             ),
           ),
+          if (selectPdfCallback != null)
+            CupertinoActionSheetAction(
+              onPressed: selectPdfCallback,
+              child: BaseText(
+                text: StringConstant.chooseFile,
+              ),
+            ),
         ],
         cancelButton: CupertinoActionSheetAction(
           child: BaseText(

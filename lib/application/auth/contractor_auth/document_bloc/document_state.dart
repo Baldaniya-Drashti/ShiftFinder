@@ -6,10 +6,13 @@ class DocumentState with _$DocumentState {
     required int currentPage,
 
     /// FOR GOVERNMENT DOCUMENT
+    required bool isLoading,
     required InputEmptyOrNot govermentDoc,
+    required bool isGovernemtExpiryCheck,
+    required String governmentExpiryDate,
     required bool showGovernmentIdErrorMessages,
     required bool isGovermentDocSubmitting,
-    required Option<Either<AuthFailure, String>>
+    required Option<Either<AccountFailure, String>>
         governmentDocAuthFailureOrSuccessOption,
 
     /// FOR COVID DOCUMENT
@@ -25,11 +28,14 @@ class DocumentState with _$DocumentState {
   }) = _DocumentState;
   factory DocumentState.initial() => DocumentState(
         currentPage: 0,
+        isLoading: false,
 
         /// FOR GOVERNMENT DOCUMENT
         govermentDoc: InputEmptyOrNot(""),
         showGovernmentIdErrorMessages: false,
         isGovermentDocSubmitting: false,
+        isGovernemtExpiryCheck: false,
+        governmentExpiryDate: "",
         governmentDocAuthFailureOrSuccessOption: none(),
 
         /// FOR COVID DOCUMENT
@@ -54,6 +60,8 @@ class CredentialState with _$CredentialState {
     required InputEmptyOrNot documentTitle,
     required InputEmptyOrNot credentialRegistrationDoc,
     required InputEmptyOrNot selectedProvinceRegistration,
+    required bool isCredExpiryCheck,
+    required String credentialExpiryDate,
     required bool showCredintialErrorMessages,
     required bool isCredintialDocSubmitting,
     required Option<Either<AuthFailure, String>>
@@ -68,6 +76,8 @@ class CredentialState with _$CredentialState {
         selectedProvinceRegistration: InputEmptyOrNot(""),
         showCredintialErrorMessages: false,
         isCredintialDocSubmitting: false,
+        credentialExpiryDate: "",
+        isCredExpiryCheck: false,
         credintialDocAuthFailureOrSuccessOption: none(),
       );
 }
@@ -79,6 +89,8 @@ class ProfessionalLicensesState with _$ProfessionalLicensesState {
     required List<CredentialRegistrationDTO> professionalLicensesList,
     required String registrationNumber,
     required InputEmptyOrNot documentTitle,
+    required bool isLicensesExpiryCheck,
+    required String licensesExpiryDate,
     required InputEmptyOrNot professionalLicensesDoc,
     required InputEmptyOrNot selectedProvinceRegistration,
     required bool showLicensesErrorMessages,
@@ -90,6 +102,8 @@ class ProfessionalLicensesState with _$ProfessionalLicensesState {
         /// FOR PROFESSIONAL LICENSES DOCUMENT
 
         professionalLicensesList: [],
+        isLicensesExpiryCheck: false,
+        licensesExpiryDate: "",
         registrationNumber: "",
         documentTitle: InputEmptyOrNot(""),
         professionalLicensesDoc: InputEmptyOrNot(""),
@@ -108,6 +122,8 @@ class ImmunizationState with _$ImmunizationState {
     required InputEmptyOrNot immunizationName,
     required InputEmptyOrNot immunizationDoc,
     required bool showImmunizationErrorMessages,
+    required bool isImmunizationExpiryCheck,
+    required String immunizationExpiryDate,
     required bool isImmunizationDocSubmitting,
     required Option<Either<AuthFailure, String>>
         immunizationDocAuthFailureOrSuccessOption,
@@ -116,6 +132,8 @@ class ImmunizationState with _$ImmunizationState {
         /// FOR Immunizations-Vaccinations DOCUMENT
         immunizationList: [],
         immunizationName: InputEmptyOrNot(""),
+        immunizationExpiryDate: "",
+        isImmunizationExpiryCheck: false,
         immunizationDoc: InputEmptyOrNot(""),
         showImmunizationErrorMessages: false,
         isImmunizationDocSubmitting: false,
@@ -129,6 +147,8 @@ class ProfessionalLiabilityState with _$ProfessionalLiabilityState {
     /// FOR Professional Liability Protection DOCUMENT
     required List<ImmunizationDTO> liabilityList,
     required InputEmptyOrNot liabilityDoc,
+    required bool isLiabilityExpiryCheck,
+    required String liabilityExpiryDate,
     required bool showLiabilityErrorMessages,
     required bool isLiabilityDocSubmitting,
     required Option<Either<AuthFailure, String>>
@@ -138,6 +158,8 @@ class ProfessionalLiabilityState with _$ProfessionalLiabilityState {
         /// FOR Professional Liability Protection DOCUMENT
         liabilityList: [],
         liabilityDoc: InputEmptyOrNot(""),
+        liabilityExpiryDate: "",
+        isLiabilityExpiryCheck: false,
         showLiabilityErrorMessages: false,
         isLiabilityDocSubmitting: false,
         liabilityDocAuthFailureOrSuccessOption: none(),

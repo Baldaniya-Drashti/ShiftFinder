@@ -26,7 +26,8 @@ class ReferenceListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<ReferenceBloc>()..add(ReferenceEvent.getReferenceList()),
+      create: (context) =>
+          getIt<ReferenceBloc>()..add(ReferenceEvent.getReferenceList()),
       child: BlocConsumer<ReferenceBloc, ReferenceState>(
         listener: (context, state) {
           // TODO: implement listener
@@ -38,70 +39,69 @@ class ReferenceListScreen extends StatelessWidget {
                 context.router.maybePop();
               },
               title: StringConstant.reference,
-              showSkipBtn: true,
+              showSkipBtn: (state.referenceList.isEmpty) ? true : false,
               onSkipped: () {
                 context.router.replace(PageRouteInfo(DocumentPageScreen.name));
               },
             ),
-            body:
-            (state.isLoading)
+            body: (state.isLoading)
                 ? CenterLoadingIndicator()
                 : Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: getSize(20),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                        (state.referenceList.isNotEmpty)?
-                        referenceListUI(context,state)
-                    : Expanded(
-                          child: NoDataText(
-                            title: StringConstant.noReferenceAdded,
-                            description: StringConstant.noReferenceDesc,
-                            image: SvgImageConstant.referencePerson,
-                          ),
-                        ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        bottom: getSize(40),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: getSize(20),
                       ),
-                      child: CommonButton(
-                        onPressed: () {
-                          if (state.referenceList.isNotEmpty) {
-                            context.router.push(PageRouteInfo(
-                                DocumentPageScreen.name));
-                          } else {
-                            context.router
-                                .push(PageRouteInfo(
-                                AddReferenceDetailScreen.name))
-                                .then((value) {
-                              print("Value when back ---> $value");
-                              if (value != null && value == true) {
-                                /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
-                                context.read<ReferenceBloc>().add(
-                                    ReferenceEvent
-                                        .getReferenceList());
-
-                              }
-                            });
-                          }
-                        },
-                        buttonText: StringConstant.addYourReference,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          (state.referenceList.isNotEmpty)
+                              ? referenceListUI(context, state)
+                              : Expanded(
+                                  child: NoDataText(
+                                    title: StringConstant.noReferenceAdded,
+                                    description: StringConstant.noReferenceDesc,
+                                    image: SvgImageConstant.referencePerson,
+                                  ),
+                                ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              bottom: getSize(40),
+                            ),
+                            child: CommonButton(
+                              onPressed: () {
+                                if (state.referenceList.isNotEmpty) {
+                                  context.router.push(
+                                      PageRouteInfo(DocumentPageScreen.name));
+                                } else {
+                                  context.router
+                                      .push(PageRouteInfo(
+                                          AddReferenceDetailScreen.name))
+                                      .then((value) {
+                                    print("Value when back ---> $value");
+                                    if (value != null && value == true) {
+                                      /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
+                                      context.read<ReferenceBloc>().add(
+                                          ReferenceEvent.getReferenceList());
+                                    }
+                                  });
+                                }
+                              },
+                              buttonText: (state.referenceList.isNotEmpty)
+                                  ? StringConstant.txtContinue
+                                  : StringConstant.addYourReference,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
+                  ),
           );
         },
       ),
     );
   }
 
-  Widget referenceListUI(BuildContext context,ReferenceState state) {
+  Widget referenceListUI(BuildContext context, ReferenceState state) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -109,34 +109,40 @@ class ReferenceListScreen extends StatelessWidget {
           itemCount: state.referenceList.length,
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            return ListTile(
-              tileColor: AppColors.grey.withOpacity(0.4),
-              minTileHeight: getSize(103),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              leading: SvgPicture.asset(
-                SvgImageConstant.personWithVerticalLine,
-                width: getSize(59.56),
-                height: getSize(63),
-                fit: BoxFit.fitHeight,
-              ),
-              title: boxTitleUI(state.referenceList[index]),
-              trailing: GestureDetector(
-                onTap: () {
-                  AppDialog.showDelete(
-                    context,
-                    title: StringConstant.delete,
-                    infoMessage: StringConstant.deleteReferenceDesc,
-                    onCancelClick: () {
-                      context.router.maybePop();
-                    },
-                    onDeleteClick: () {
-                      context.router.maybePop();
-                    },
-                  );
-                },
-                child: SvgPicture.asset(SvgImageConstant.bin),
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: getSize(10)),
+              child: ListTile(
+                tileColor: AppColors.grey.withOpacity(0.4),
+                minTileHeight: getSize(103),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                leading: SvgPicture.asset(
+                  SvgImageConstant.personWithVerticalLine,
+                  width: getSize(59.56),
+                  height: getSize(63),
+                  fit: BoxFit.fitHeight,
+                ),
+                title: boxTitleUI(state.referenceList[index]),
+                trailing: GestureDetector(
+                  onTap: () {
+                    AppDialog.showDelete(
+                      context,
+                      title: StringConstant.delete,
+                      infoMessage: StringConstant.deleteReferenceDesc,
+                      onCancelClick: () {
+                        context.router.maybePop();
+                      },
+                      onDeleteClick: () {
+                        context.router.maybePop();
+                        context.read<ReferenceBloc>().add(
+                            ReferenceEvent.deleteReference(
+                                state.referenceList[index].id ?? -1));
+                      },
+                    );
+                  },
+                  child: SvgPicture.asset(SvgImageConstant.bin),
+                ),
               ),
             );
           },
@@ -174,13 +180,17 @@ class ReferenceListScreen extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         BaseText(
-          text: (reference.type == 1) ? StringConstant.professional: StringConstant.personal,
+        BaseText(
+          text: (reference.type == 1)
+              ? StringConstant.professional
+              : StringConstant.personal,
           fontWeight: FontWeight.w600,
           fontSize: 14,
         ),
         BaseText(
-          text: reference.organization ?? "",
+          text: (reference.type == 1)
+              ? reference.organization ?? ""
+              : reference.contact_person ?? "",
           fontSize: 12,
           fontWeight: FontWeight.w500,
           textColor: AppColors.black.withOpacity(0.8),

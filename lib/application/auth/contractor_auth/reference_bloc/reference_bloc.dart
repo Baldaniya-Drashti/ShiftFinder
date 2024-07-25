@@ -142,7 +142,7 @@ class ReferenceBloc extends Bloc<ReferenceEvent, ReferenceState> {
           );
         },
         professinalBtnPressed: (e) async {
-         /* Either<AccountFailure, Account>? failureOrSuccess;
+          Either<AccountFailure, Account>? failureOrSuccess;
 
           final isMobileNumberValid = state.referrerPhoneNo.isValid();
           final isJobPositonValid = state.jobPosition.isValid();
@@ -176,17 +176,15 @@ class ReferenceBloc extends Bloc<ReferenceEvent, ReferenceState> {
               jobPosition: state.jobPosition.getValue() ?? "",
               organization: state.organization.getValue() ?? "",
               referrer: state.referrer.getValue() ?? "",
-              email: email,
-              countryCode: countryCode,
-              phone: phone,
-              jobLatitude: jobLatitude,
-              jobLongitude: jobLongitude,
-              jobLocation: jobLocation,
-              unit: unit,
-              startDate: startDate,
-              endDate: endDate,
-              contactPerson: contactPerson,
-              professionReferrer: professionReferrer,
+              email: state.referrerEmail.getValue(),
+              countryCode: state.selectedCountrycode,
+              phone: state.referrerPhoneNo.getValue(),
+              jobLocation: state.jobLocation.getValue() ?? "",
+              unit: state.unitDepartment.getValue() ?? "",
+              startDate: state.startDate.getValue() ?? "",
+              endDate: state.endDate.getValue() ?? "",
+              contactPerson: "",
+              professionReferrer: "",
             );
           }
           emit(
@@ -196,7 +194,7 @@ class ReferenceBloc extends Bloc<ReferenceEvent, ReferenceState> {
               authFailureOrSuccessOptionProfessional:
                   optionOf(failureOrSuccess),
             ),
-          );*/
+          );
         },
         // FOR PERSONAL
         contactPersonChanged: (e) {
@@ -240,8 +238,8 @@ class ReferenceBloc extends Bloc<ReferenceEvent, ReferenceState> {
             ),
           );
         },
-        personalBtnPressed: (e) {
-          Either<AuthFailure, String>? failureOrSuccess;
+        personalBtnPressed: (e) async {
+          Either<AccountFailure, Account>? failureOrSuccess;
           final isContactPersonValid = state.contactPerson.isValid();
           final isPersonalEmailValid = state.personalEmail.isValid();
           final isPersonalPhoneNoValid = state.personalPhoneNo.isValid();
@@ -258,18 +256,59 @@ class ReferenceBloc extends Bloc<ReferenceEvent, ReferenceState> {
                 authFailureOrSuccessOptionPersonal: none(),
               ),
             );
-            // failureOrSuccess = await _authFacade.login(
-            //   mobileNumber: state.emailId,
-            //   countryCode: '+${state.selectedCountrycode}',
-            // );
-            failureOrSuccess = right("success");
+            failureOrSuccess = await _repository.addReferenceApi(
+              type: 2,
+              jobPosition: "",
+              organization: "",
+              referrer: "",
+              email: state.personalEmail.getValue(),
+              countryCode: state.personalCountrycode,
+              phone: state.personalPhoneNo.getValue(),
+              jobLocation: "",
+              unit: "",
+              startDate: "",
+              endDate: "",
+              contactPerson: state.contactPerson.getValue(),
+              professionReferrer: state.profession.getValue(),
+            );
           }
           emit(
             state.copyWith(
               isPersonalSubmitting: false,
-              showPersonalErrorMessage: true,
+              showProfessionalErrorMessage: true,
               authFailureOrSuccessOptionPersonal: optionOf(failureOrSuccess),
             ),
+          );
+        },
+        deleteReference: (e) async {
+          Either<AccountFailure, Account>? failureOrSuccess;
+
+          emit(
+            state.copyWith(
+              isLoading: true,
+              failureOrSuccessOptionPersonal: none(),
+            ),
+          );
+
+          print("Delete Id-> ${e.referenceId}");
+          failureOrSuccess =
+              await _repository.deleteReferenceApi(referenceId: e.referenceId);
+
+          failureOrSuccess.fold(
+            (l) => emit(
+              state.copyWith(
+                isLoading: false,
+                referenceList: List.from(state.referenceList),
+              ),
+            ),
+            (r) {
+              return emit(
+                state.copyWith(
+                  isLoading: false,
+                  referenceList: r.reference ?? [],
+                ),
+              );
+            },
           );
         },
       );
