@@ -37,7 +37,7 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
   void initState() {
     super.initState();
     BlocProvider.of<DocumentBloc>(context)
-        .add(DocumentEvent.selectCovidVaccinationDoc(getCovidVaccinationDoc()));
+        .add(DocumentEvent.getCovidDoc());
   }
 
   @override
@@ -47,7 +47,11 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
       builder: (context, state) {
         print(
             "covidVaccinationDoc-->  ${state.covidVaccinationDoc.getValue()}");
-        return Padding(
+        return
+          (state.isLoading)
+              ? CenterLoadingIndicator()
+              :
+          Padding(
           padding: EdgeInsets.symmetric(horizontal: getSize(20)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,12 +160,12 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
       children: [
         ShowPickedFile(
           selectedFile: selectedFile,
-          childBoxWidth: getSize(320),
+          childBoxWidth: getSize(300),
           childBoxHeight: getSize(380),
         ),
         Positioned(
-          top: getSize(52),
-          left: getSize(325),
+          top: getSize(60),
+          left: getSize(315),
           child: GestureDetector(
             onTap: () {
               AppDialog.showDelete(

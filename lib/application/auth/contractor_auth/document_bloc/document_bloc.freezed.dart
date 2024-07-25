@@ -27,6 +27,7 @@ mixin _$DocumentEvent {
     required TResult Function() govermentDocSubmit,
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
+    required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
   }) =>
       throw _privateConstructorUsedError;
@@ -41,6 +42,7 @@ mixin _$DocumentEvent {
     TResult? Function()? govermentDocSubmit,
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
+    TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
   }) =>
       throw _privateConstructorUsedError;
@@ -55,6 +57,7 @@ mixin _$DocumentEvent {
     TResult Function()? govermentDocSubmit,
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
+    TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
     required TResult orElse(),
   }) =>
@@ -73,6 +76,7 @@ mixin _$DocumentEvent {
     required TResult Function(_SelectCovidVaccinationDoc value)
         selectCovidVaccinationDoc,
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
+    required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
   }) =>
       throw _privateConstructorUsedError;
@@ -90,6 +94,7 @@ mixin _$DocumentEvent {
     TResult? Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
   }) =>
       throw _privateConstructorUsedError;
@@ -107,6 +112,7 @@ mixin _$DocumentEvent {
     TResult Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
     required TResult orElse(),
   }) =>
@@ -204,6 +210,7 @@ class _$NextPageImpl implements _NextPage {
     required TResult Function() govermentDocSubmit,
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
+    required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
   }) {
     return nextPage(page);
@@ -221,6 +228,7 @@ class _$NextPageImpl implements _NextPage {
     TResult? Function()? govermentDocSubmit,
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
+    TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
   }) {
     return nextPage?.call(page);
@@ -238,6 +246,7 @@ class _$NextPageImpl implements _NextPage {
     TResult Function()? govermentDocSubmit,
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
+    TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
     required TResult orElse(),
   }) {
@@ -262,6 +271,7 @@ class _$NextPageImpl implements _NextPage {
     required TResult Function(_SelectCovidVaccinationDoc value)
         selectCovidVaccinationDoc,
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
+    required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
   }) {
     return nextPage(this);
@@ -282,6 +292,7 @@ class _$NextPageImpl implements _NextPage {
     TResult? Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
   }) {
     return nextPage?.call(this);
@@ -302,6 +313,7 @@ class _$NextPageImpl implements _NextPage {
     TResult Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
     required TResult orElse(),
   }) {
@@ -396,6 +408,7 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
     required TResult Function() govermentDocSubmit,
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
+    required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
   }) {
     return selectGovermentDoc(govermentDoc);
@@ -413,6 +426,7 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
     TResult? Function()? govermentDocSubmit,
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
+    TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
   }) {
     return selectGovermentDoc?.call(govermentDoc);
@@ -430,6 +444,7 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
     TResult Function()? govermentDocSubmit,
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
+    TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
     required TResult orElse(),
   }) {
@@ -454,6 +469,7 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
     required TResult Function(_SelectCovidVaccinationDoc value)
         selectCovidVaccinationDoc,
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
+    required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
   }) {
     return selectGovermentDoc(this);
@@ -474,6 +490,7 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
     TResult? Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
   }) {
     return selectGovermentDoc?.call(this);
@@ -494,6 +511,7 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
     TResult Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
     required TResult orElse(),
   }) {
@@ -561,6 +579,7 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
     required TResult Function() govermentDocSubmit,
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
+    required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
   }) {
     return getGovermentDoc();
@@ -578,6 +597,7 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
     TResult? Function()? govermentDocSubmit,
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
+    TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
   }) {
     return getGovermentDoc?.call();
@@ -595,6 +615,7 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
     TResult Function()? govermentDocSubmit,
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
+    TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
     required TResult orElse(),
   }) {
@@ -619,6 +640,7 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
     required TResult Function(_SelectCovidVaccinationDoc value)
         selectCovidVaccinationDoc,
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
+    required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
   }) {
     return getGovermentDoc(this);
@@ -639,6 +661,7 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
     TResult? Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
   }) {
     return getGovermentDoc?.call(this);
@@ -659,6 +682,7 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
     TResult Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
     required TResult orElse(),
   }) {
@@ -749,6 +773,7 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
     required TResult Function() govermentDocSubmit,
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
+    required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
   }) {
     return checkNAGovermentExpiryDate(isCheck);
@@ -766,6 +791,7 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
     TResult? Function()? govermentDocSubmit,
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
+    TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
   }) {
     return checkNAGovermentExpiryDate?.call(isCheck);
@@ -783,6 +809,7 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
     TResult Function()? govermentDocSubmit,
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
+    TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
     required TResult orElse(),
   }) {
@@ -807,6 +834,7 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
     required TResult Function(_SelectCovidVaccinationDoc value)
         selectCovidVaccinationDoc,
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
+    required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
   }) {
     return checkNAGovermentExpiryDate(this);
@@ -827,6 +855,7 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
     TResult? Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
   }) {
     return checkNAGovermentExpiryDate?.call(this);
@@ -847,6 +876,7 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
     TResult Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
     required TResult orElse(),
   }) {
@@ -944,6 +974,7 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
     required TResult Function() govermentDocSubmit,
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
+    required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
   }) {
     return govermentExpiryDateChanged(expiryDate);
@@ -961,6 +992,7 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
     TResult? Function()? govermentDocSubmit,
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
+    TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
   }) {
     return govermentExpiryDateChanged?.call(expiryDate);
@@ -978,6 +1010,7 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
     TResult Function()? govermentDocSubmit,
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
+    TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
     required TResult orElse(),
   }) {
@@ -1002,6 +1035,7 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
     required TResult Function(_SelectCovidVaccinationDoc value)
         selectCovidVaccinationDoc,
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
+    required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
   }) {
     return govermentExpiryDateChanged(this);
@@ -1022,6 +1056,7 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
     TResult? Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
   }) {
     return govermentExpiryDateChanged?.call(this);
@@ -1042,6 +1077,7 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
     TResult Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
     required TResult orElse(),
   }) {
@@ -1137,6 +1173,7 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
     required TResult Function() govermentDocSubmit,
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
+    required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
   }) {
     return deleteGovermentDoc(govermentDoc);
@@ -1154,6 +1191,7 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
     TResult? Function()? govermentDocSubmit,
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
+    TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
   }) {
     return deleteGovermentDoc?.call(govermentDoc);
@@ -1171,6 +1209,7 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
     TResult Function()? govermentDocSubmit,
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
+    TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
     required TResult orElse(),
   }) {
@@ -1195,6 +1234,7 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
     required TResult Function(_SelectCovidVaccinationDoc value)
         selectCovidVaccinationDoc,
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
+    required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
   }) {
     return deleteGovermentDoc(this);
@@ -1215,6 +1255,7 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
     TResult? Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
   }) {
     return deleteGovermentDoc?.call(this);
@@ -1235,6 +1276,7 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
     TResult Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
     required TResult orElse(),
   }) {
@@ -1302,6 +1344,7 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
     required TResult Function() govermentDocSubmit,
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
+    required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
   }) {
     return govermentDocSubmit();
@@ -1319,6 +1362,7 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
     TResult? Function()? govermentDocSubmit,
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
+    TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
   }) {
     return govermentDocSubmit?.call();
@@ -1336,6 +1380,7 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
     TResult Function()? govermentDocSubmit,
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
+    TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
     required TResult orElse(),
   }) {
@@ -1360,6 +1405,7 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
     required TResult Function(_SelectCovidVaccinationDoc value)
         selectCovidVaccinationDoc,
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
+    required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
   }) {
     return govermentDocSubmit(this);
@@ -1380,6 +1426,7 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
     TResult? Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
   }) {
     return govermentDocSubmit?.call(this);
@@ -1400,6 +1447,7 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
     TResult Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
     required TResult orElse(),
   }) {
@@ -1491,6 +1539,7 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
     required TResult Function() govermentDocSubmit,
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
+    required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
   }) {
     return selectCovidVaccinationDoc(covidDoc);
@@ -1508,6 +1557,7 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
     TResult? Function()? govermentDocSubmit,
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
+    TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
   }) {
     return selectCovidVaccinationDoc?.call(covidDoc);
@@ -1525,6 +1575,7 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
     TResult Function()? govermentDocSubmit,
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
+    TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
     required TResult orElse(),
   }) {
@@ -1549,6 +1600,7 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
     required TResult Function(_SelectCovidVaccinationDoc value)
         selectCovidVaccinationDoc,
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
+    required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
   }) {
     return selectCovidVaccinationDoc(this);
@@ -1569,6 +1621,7 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
     TResult? Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
   }) {
     return selectCovidVaccinationDoc?.call(this);
@@ -1589,6 +1642,7 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
     TResult Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
     required TResult orElse(),
   }) {
@@ -1684,6 +1738,7 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
     required TResult Function() govermentDocSubmit,
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
+    required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
   }) {
     return deleteCovidDoc(covidDoc);
@@ -1701,6 +1756,7 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
     TResult? Function()? govermentDocSubmit,
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
+    TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
   }) {
     return deleteCovidDoc?.call(covidDoc);
@@ -1718,6 +1774,7 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
     TResult Function()? govermentDocSubmit,
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
+    TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
     required TResult orElse(),
   }) {
@@ -1742,6 +1799,7 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
     required TResult Function(_SelectCovidVaccinationDoc value)
         selectCovidVaccinationDoc,
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
+    required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
   }) {
     return deleteCovidDoc(this);
@@ -1762,6 +1820,7 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
     TResult? Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
   }) {
     return deleteCovidDoc?.call(this);
@@ -1782,6 +1841,7 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
     TResult Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
     required TResult orElse(),
   }) {
@@ -1799,6 +1859,171 @@ abstract class _DeleteCovidDoc implements DocumentEvent {
   @JsonKey(ignore: true)
   _$$DeleteCovidDocImplCopyWith<_$DeleteCovidDocImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetCovidDocImplCopyWith<$Res> {
+  factory _$$GetCovidDocImplCopyWith(
+          _$GetCovidDocImpl value, $Res Function(_$GetCovidDocImpl) then) =
+      __$$GetCovidDocImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetCovidDocImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$GetCovidDocImpl>
+    implements _$$GetCovidDocImplCopyWith<$Res> {
+  __$$GetCovidDocImplCopyWithImpl(
+      _$GetCovidDocImpl _value, $Res Function(_$GetCovidDocImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetCovidDocImpl implements _GetCovidDoc {
+  const _$GetCovidDocImpl();
+
+  @override
+  String toString() {
+    return 'DocumentEvent.getCovidDoc()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GetCovidDocImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int page) nextPage,
+    required TResult Function(String govermentDoc) selectGovermentDoc,
+    required TResult Function() getGovermentDoc,
+    required TResult Function(bool isCheck) checkNAGovermentExpiryDate,
+    required TResult Function(String expiryDate) govermentExpiryDateChanged,
+    required TResult Function(String govermentDoc) deleteGovermentDoc,
+    required TResult Function() govermentDocSubmit,
+    required TResult Function(String covidDoc) selectCovidVaccinationDoc,
+    required TResult Function(String covidDoc) deleteCovidDoc,
+    required TResult Function() getCovidDoc,
+    required TResult Function() covidDocSubmit,
+  }) {
+    return getCovidDoc();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int page)? nextPage,
+    TResult? Function(String govermentDoc)? selectGovermentDoc,
+    TResult? Function()? getGovermentDoc,
+    TResult? Function(bool isCheck)? checkNAGovermentExpiryDate,
+    TResult? Function(String expiryDate)? govermentExpiryDateChanged,
+    TResult? Function(String govermentDoc)? deleteGovermentDoc,
+    TResult? Function()? govermentDocSubmit,
+    TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
+    TResult? Function(String covidDoc)? deleteCovidDoc,
+    TResult? Function()? getCovidDoc,
+    TResult? Function()? covidDocSubmit,
+  }) {
+    return getCovidDoc?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int page)? nextPage,
+    TResult Function(String govermentDoc)? selectGovermentDoc,
+    TResult Function()? getGovermentDoc,
+    TResult Function(bool isCheck)? checkNAGovermentExpiryDate,
+    TResult Function(String expiryDate)? govermentExpiryDateChanged,
+    TResult Function(String govermentDoc)? deleteGovermentDoc,
+    TResult Function()? govermentDocSubmit,
+    TResult Function(String covidDoc)? selectCovidVaccinationDoc,
+    TResult Function(String covidDoc)? deleteCovidDoc,
+    TResult Function()? getCovidDoc,
+    TResult Function()? covidDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (getCovidDoc != null) {
+      return getCovidDoc();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_NextPage value) nextPage,
+    required TResult Function(_SelectGovermentDoc value) selectGovermentDoc,
+    required TResult Function(_GetGovermentDoc value) getGovermentDoc,
+    required TResult Function(CheckNAGovermentExpiryDate value)
+        checkNAGovermentExpiryDate,
+    required TResult Function(_GovermentExpiryDateChanged value)
+        govermentExpiryDateChanged,
+    required TResult Function(_DeleteGovermentDoc value) deleteGovermentDoc,
+    required TResult Function(_GovermentDocSubmit value) govermentDocSubmit,
+    required TResult Function(_SelectCovidVaccinationDoc value)
+        selectCovidVaccinationDoc,
+    required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
+    required TResult Function(_GetCovidDoc value) getCovidDoc,
+    required TResult Function(_CovidDocSubmit value) covidDocSubmit,
+  }) {
+    return getCovidDoc(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_NextPage value)? nextPage,
+    TResult? Function(_SelectGovermentDoc value)? selectGovermentDoc,
+    TResult? Function(_GetGovermentDoc value)? getGovermentDoc,
+    TResult? Function(CheckNAGovermentExpiryDate value)?
+        checkNAGovermentExpiryDate,
+    TResult? Function(_GovermentExpiryDateChanged value)?
+        govermentExpiryDateChanged,
+    TResult? Function(_DeleteGovermentDoc value)? deleteGovermentDoc,
+    TResult? Function(_GovermentDocSubmit value)? govermentDocSubmit,
+    TResult? Function(_SelectCovidVaccinationDoc value)?
+        selectCovidVaccinationDoc,
+    TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult? Function(_GetCovidDoc value)? getCovidDoc,
+    TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
+  }) {
+    return getCovidDoc?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_NextPage value)? nextPage,
+    TResult Function(_SelectGovermentDoc value)? selectGovermentDoc,
+    TResult Function(_GetGovermentDoc value)? getGovermentDoc,
+    TResult Function(CheckNAGovermentExpiryDate value)?
+        checkNAGovermentExpiryDate,
+    TResult Function(_GovermentExpiryDateChanged value)?
+        govermentExpiryDateChanged,
+    TResult Function(_DeleteGovermentDoc value)? deleteGovermentDoc,
+    TResult Function(_GovermentDocSubmit value)? govermentDocSubmit,
+    TResult Function(_SelectCovidVaccinationDoc value)?
+        selectCovidVaccinationDoc,
+    TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult Function(_GetCovidDoc value)? getCovidDoc,
+    TResult Function(_CovidDocSubmit value)? covidDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (getCovidDoc != null) {
+      return getCovidDoc(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetCovidDoc implements DocumentEvent {
+  const factory _GetCovidDoc() = _$GetCovidDocImpl;
 }
 
 /// @nodoc
@@ -1848,6 +2073,7 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
     required TResult Function() govermentDocSubmit,
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
+    required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
   }) {
     return covidDocSubmit();
@@ -1865,6 +2091,7 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
     TResult? Function()? govermentDocSubmit,
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
+    TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
   }) {
     return covidDocSubmit?.call();
@@ -1882,6 +2109,7 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
     TResult Function()? govermentDocSubmit,
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
+    TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
     required TResult orElse(),
   }) {
@@ -1906,6 +2134,7 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
     required TResult Function(_SelectCovidVaccinationDoc value)
         selectCovidVaccinationDoc,
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
+    required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
   }) {
     return covidDocSubmit(this);
@@ -1926,6 +2155,7 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
     TResult? Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
   }) {
     return covidDocSubmit?.call(this);
@@ -1946,6 +2176,7 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
     TResult Function(_SelectCovidVaccinationDoc value)?
         selectCovidVaccinationDoc,
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
     required TResult orElse(),
   }) {
@@ -1964,6 +2195,7 @@ abstract class _CovidDocSubmit implements DocumentEvent {
 mixin _$CredentialEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() getCredentialDocList,
     required TResult Function(bool isCheck) checkNACredExpiryDate,
     required TResult Function(String expiryDate) credExpiryDateChanged,
     required TResult Function(String registrationNo) registrationNumberChanegd,
@@ -1979,6 +2211,7 @@ mixin _$CredentialEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCredentialDocList,
     TResult? Function(bool isCheck)? checkNACredExpiryDate,
     TResult? Function(String expiryDate)? credExpiryDateChanged,
     TResult? Function(String registrationNo)? registrationNumberChanegd,
@@ -1993,6 +2226,7 @@ mixin _$CredentialEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCredentialDocList,
     TResult Function(bool isCheck)? checkNACredExpiryDate,
     TResult Function(String expiryDate)? credExpiryDateChanged,
     TResult Function(String registrationNo)? registrationNumberChanegd,
@@ -2008,6 +2242,7 @@ mixin _$CredentialEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetCredentialDocList value) getCredentialDocList,
     required TResult Function(CheckNACredExpiryDate value)
         checkNACredExpiryDate,
     required TResult Function(_CredExpiryDateChanged value)
@@ -2028,6 +2263,7 @@ mixin _$CredentialEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCredentialDocList value)? getCredentialDocList,
     TResult? Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult? Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult? Function(_RegistrationNumberChanegd value)?
@@ -2045,6 +2281,7 @@ mixin _$CredentialEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCredentialDocList value)? getCredentialDocList,
     TResult Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult Function(_RegistrationNumberChanegd value)?
@@ -2079,6 +2316,176 @@ class _$CredentialEventCopyWithImpl<$Res, $Val extends CredentialEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$GetCredentialDocListImplCopyWith<$Res> {
+  factory _$$GetCredentialDocListImplCopyWith(_$GetCredentialDocListImpl value,
+          $Res Function(_$GetCredentialDocListImpl) then) =
+      __$$GetCredentialDocListImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetCredentialDocListImplCopyWithImpl<$Res>
+    extends _$CredentialEventCopyWithImpl<$Res, _$GetCredentialDocListImpl>
+    implements _$$GetCredentialDocListImplCopyWith<$Res> {
+  __$$GetCredentialDocListImplCopyWithImpl(_$GetCredentialDocListImpl _value,
+      $Res Function(_$GetCredentialDocListImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetCredentialDocListImpl implements GetCredentialDocList {
+  const _$GetCredentialDocListImpl();
+
+  @override
+  String toString() {
+    return 'CredentialEvent.getCredentialDocList()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetCredentialDocListImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getCredentialDocList,
+    required TResult Function(bool isCheck) checkNACredExpiryDate,
+    required TResult Function(String expiryDate) credExpiryDateChanged,
+    required TResult Function(String registrationNo) registrationNumberChanegd,
+    required TResult Function(String documentTitle) documentTitleChanged,
+    required TResult Function(String provinceRegistration)
+        selectProvinceRegistration,
+    required TResult Function(String credentialDoc) selectCredentialDoc,
+    required TResult Function(String credentialDoc) deleteCredentialDoc,
+    required TResult Function() addMoreCredentialDoc,
+    required TResult Function(int index) deleteCredentialObject,
+    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+  }) {
+    return getCredentialDocList();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCredentialDocList,
+    TResult? Function(bool isCheck)? checkNACredExpiryDate,
+    TResult? Function(String expiryDate)? credExpiryDateChanged,
+    TResult? Function(String registrationNo)? registrationNumberChanegd,
+    TResult? Function(String documentTitle)? documentTitleChanged,
+    TResult? Function(String provinceRegistration)? selectProvinceRegistration,
+    TResult? Function(String credentialDoc)? selectCredentialDoc,
+    TResult? Function(String credentialDoc)? deleteCredentialDoc,
+    TResult? Function()? addMoreCredentialDoc,
+    TResult? Function(int index)? deleteCredentialObject,
+    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+  }) {
+    return getCredentialDocList?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCredentialDocList,
+    TResult Function(bool isCheck)? checkNACredExpiryDate,
+    TResult Function(String expiryDate)? credExpiryDateChanged,
+    TResult Function(String registrationNo)? registrationNumberChanegd,
+    TResult Function(String documentTitle)? documentTitleChanged,
+    TResult Function(String provinceRegistration)? selectProvinceRegistration,
+    TResult Function(String credentialDoc)? selectCredentialDoc,
+    TResult Function(String credentialDoc)? deleteCredentialDoc,
+    TResult Function()? addMoreCredentialDoc,
+    TResult Function(int index)? deleteCredentialObject,
+    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (getCredentialDocList != null) {
+      return getCredentialDocList();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetCredentialDocList value) getCredentialDocList,
+    required TResult Function(CheckNACredExpiryDate value)
+        checkNACredExpiryDate,
+    required TResult Function(_CredExpiryDateChanged value)
+        credExpiryDateChanged,
+    required TResult Function(_RegistrationNumberChanegd value)
+        registrationNumberChanegd,
+    required TResult Function(_DocumentTitleChanged value) documentTitleChanged,
+    required TResult Function(_SelectProvinceRegistration value)
+        selectProvinceRegistration,
+    required TResult Function(_SelectCredentialRegistrationDoc value)
+        selectCredentialDoc,
+    required TResult Function(_DeleteCredentialDoc value) deleteCredentialDoc,
+    required TResult Function(_AddMoreCredentialDoc value) addMoreCredentialDoc,
+    required TResult Function(_DeleteCredentialObject value)
+        deleteCredentialObject,
+    required TResult Function(_CredentialDocSubmit value) credentialDocSubmit,
+  }) {
+    return getCredentialDocList(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCredentialDocList value)? getCredentialDocList,
+    TResult? Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
+    TResult? Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
+    TResult? Function(_RegistrationNumberChanegd value)?
+        registrationNumberChanegd,
+    TResult? Function(_DocumentTitleChanged value)? documentTitleChanged,
+    TResult? Function(_SelectProvinceRegistration value)?
+        selectProvinceRegistration,
+    TResult? Function(_SelectCredentialRegistrationDoc value)?
+        selectCredentialDoc,
+    TResult? Function(_DeleteCredentialDoc value)? deleteCredentialDoc,
+    TResult? Function(_AddMoreCredentialDoc value)? addMoreCredentialDoc,
+    TResult? Function(_DeleteCredentialObject value)? deleteCredentialObject,
+    TResult? Function(_CredentialDocSubmit value)? credentialDocSubmit,
+  }) {
+    return getCredentialDocList?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCredentialDocList value)? getCredentialDocList,
+    TResult Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
+    TResult Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
+    TResult Function(_RegistrationNumberChanegd value)?
+        registrationNumberChanegd,
+    TResult Function(_DocumentTitleChanged value)? documentTitleChanged,
+    TResult Function(_SelectProvinceRegistration value)?
+        selectProvinceRegistration,
+    TResult Function(_SelectCredentialRegistrationDoc value)?
+        selectCredentialDoc,
+    TResult Function(_DeleteCredentialDoc value)? deleteCredentialDoc,
+    TResult Function(_AddMoreCredentialDoc value)? addMoreCredentialDoc,
+    TResult Function(_DeleteCredentialObject value)? deleteCredentialObject,
+    TResult Function(_CredentialDocSubmit value)? credentialDocSubmit,
+    required TResult orElse(),
+  }) {
+    if (getCredentialDocList != null) {
+      return getCredentialDocList(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetCredentialDocList implements CredentialEvent {
+  const factory GetCredentialDocList() = _$GetCredentialDocListImpl;
 }
 
 /// @nodoc
@@ -2147,6 +2554,7 @@ class _$CheckNACredExpiryDateImpl implements CheckNACredExpiryDate {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() getCredentialDocList,
     required TResult Function(bool isCheck) checkNACredExpiryDate,
     required TResult Function(String expiryDate) credExpiryDateChanged,
     required TResult Function(String registrationNo) registrationNumberChanegd,
@@ -2165,6 +2573,7 @@ class _$CheckNACredExpiryDateImpl implements CheckNACredExpiryDate {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCredentialDocList,
     TResult? Function(bool isCheck)? checkNACredExpiryDate,
     TResult? Function(String expiryDate)? credExpiryDateChanged,
     TResult? Function(String registrationNo)? registrationNumberChanegd,
@@ -2182,6 +2591,7 @@ class _$CheckNACredExpiryDateImpl implements CheckNACredExpiryDate {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCredentialDocList,
     TResult Function(bool isCheck)? checkNACredExpiryDate,
     TResult Function(String expiryDate)? credExpiryDateChanged,
     TResult Function(String registrationNo)? registrationNumberChanegd,
@@ -2203,6 +2613,7 @@ class _$CheckNACredExpiryDateImpl implements CheckNACredExpiryDate {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetCredentialDocList value) getCredentialDocList,
     required TResult Function(CheckNACredExpiryDate value)
         checkNACredExpiryDate,
     required TResult Function(_CredExpiryDateChanged value)
@@ -2226,6 +2637,7 @@ class _$CheckNACredExpiryDateImpl implements CheckNACredExpiryDate {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCredentialDocList value)? getCredentialDocList,
     TResult? Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult? Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult? Function(_RegistrationNumberChanegd value)?
@@ -2246,6 +2658,7 @@ class _$CheckNACredExpiryDateImpl implements CheckNACredExpiryDate {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCredentialDocList value)? getCredentialDocList,
     TResult Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult Function(_RegistrationNumberChanegd value)?
@@ -2345,6 +2758,7 @@ class _$CredExpiryDateChangedImpl implements _CredExpiryDateChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() getCredentialDocList,
     required TResult Function(bool isCheck) checkNACredExpiryDate,
     required TResult Function(String expiryDate) credExpiryDateChanged,
     required TResult Function(String registrationNo) registrationNumberChanegd,
@@ -2363,6 +2777,7 @@ class _$CredExpiryDateChangedImpl implements _CredExpiryDateChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCredentialDocList,
     TResult? Function(bool isCheck)? checkNACredExpiryDate,
     TResult? Function(String expiryDate)? credExpiryDateChanged,
     TResult? Function(String registrationNo)? registrationNumberChanegd,
@@ -2380,6 +2795,7 @@ class _$CredExpiryDateChangedImpl implements _CredExpiryDateChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCredentialDocList,
     TResult Function(bool isCheck)? checkNACredExpiryDate,
     TResult Function(String expiryDate)? credExpiryDateChanged,
     TResult Function(String registrationNo)? registrationNumberChanegd,
@@ -2401,6 +2817,7 @@ class _$CredExpiryDateChangedImpl implements _CredExpiryDateChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetCredentialDocList value) getCredentialDocList,
     required TResult Function(CheckNACredExpiryDate value)
         checkNACredExpiryDate,
     required TResult Function(_CredExpiryDateChanged value)
@@ -2424,6 +2841,7 @@ class _$CredExpiryDateChangedImpl implements _CredExpiryDateChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCredentialDocList value)? getCredentialDocList,
     TResult? Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult? Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult? Function(_RegistrationNumberChanegd value)?
@@ -2444,6 +2862,7 @@ class _$CredExpiryDateChangedImpl implements _CredExpiryDateChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCredentialDocList value)? getCredentialDocList,
     TResult Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult Function(_RegistrationNumberChanegd value)?
@@ -2544,6 +2963,7 @@ class _$RegistrationNumberChanegdImpl implements _RegistrationNumberChanegd {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() getCredentialDocList,
     required TResult Function(bool isCheck) checkNACredExpiryDate,
     required TResult Function(String expiryDate) credExpiryDateChanged,
     required TResult Function(String registrationNo) registrationNumberChanegd,
@@ -2562,6 +2982,7 @@ class _$RegistrationNumberChanegdImpl implements _RegistrationNumberChanegd {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCredentialDocList,
     TResult? Function(bool isCheck)? checkNACredExpiryDate,
     TResult? Function(String expiryDate)? credExpiryDateChanged,
     TResult? Function(String registrationNo)? registrationNumberChanegd,
@@ -2579,6 +3000,7 @@ class _$RegistrationNumberChanegdImpl implements _RegistrationNumberChanegd {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCredentialDocList,
     TResult Function(bool isCheck)? checkNACredExpiryDate,
     TResult Function(String expiryDate)? credExpiryDateChanged,
     TResult Function(String registrationNo)? registrationNumberChanegd,
@@ -2600,6 +3022,7 @@ class _$RegistrationNumberChanegdImpl implements _RegistrationNumberChanegd {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetCredentialDocList value) getCredentialDocList,
     required TResult Function(CheckNACredExpiryDate value)
         checkNACredExpiryDate,
     required TResult Function(_CredExpiryDateChanged value)
@@ -2623,6 +3046,7 @@ class _$RegistrationNumberChanegdImpl implements _RegistrationNumberChanegd {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCredentialDocList value)? getCredentialDocList,
     TResult? Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult? Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult? Function(_RegistrationNumberChanegd value)?
@@ -2643,6 +3067,7 @@ class _$RegistrationNumberChanegdImpl implements _RegistrationNumberChanegd {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCredentialDocList value)? getCredentialDocList,
     TResult Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult Function(_RegistrationNumberChanegd value)?
@@ -2742,6 +3167,7 @@ class _$DocumentTitleChangedImpl implements _DocumentTitleChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() getCredentialDocList,
     required TResult Function(bool isCheck) checkNACredExpiryDate,
     required TResult Function(String expiryDate) credExpiryDateChanged,
     required TResult Function(String registrationNo) registrationNumberChanegd,
@@ -2760,6 +3186,7 @@ class _$DocumentTitleChangedImpl implements _DocumentTitleChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCredentialDocList,
     TResult? Function(bool isCheck)? checkNACredExpiryDate,
     TResult? Function(String expiryDate)? credExpiryDateChanged,
     TResult? Function(String registrationNo)? registrationNumberChanegd,
@@ -2777,6 +3204,7 @@ class _$DocumentTitleChangedImpl implements _DocumentTitleChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCredentialDocList,
     TResult Function(bool isCheck)? checkNACredExpiryDate,
     TResult Function(String expiryDate)? credExpiryDateChanged,
     TResult Function(String registrationNo)? registrationNumberChanegd,
@@ -2798,6 +3226,7 @@ class _$DocumentTitleChangedImpl implements _DocumentTitleChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetCredentialDocList value) getCredentialDocList,
     required TResult Function(CheckNACredExpiryDate value)
         checkNACredExpiryDate,
     required TResult Function(_CredExpiryDateChanged value)
@@ -2821,6 +3250,7 @@ class _$DocumentTitleChangedImpl implements _DocumentTitleChanged {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCredentialDocList value)? getCredentialDocList,
     TResult? Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult? Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult? Function(_RegistrationNumberChanegd value)?
@@ -2841,6 +3271,7 @@ class _$DocumentTitleChangedImpl implements _DocumentTitleChanged {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCredentialDocList value)? getCredentialDocList,
     TResult Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult Function(_RegistrationNumberChanegd value)?
@@ -2942,6 +3373,7 @@ class _$SelectProvinceRegistrationImpl implements _SelectProvinceRegistration {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() getCredentialDocList,
     required TResult Function(bool isCheck) checkNACredExpiryDate,
     required TResult Function(String expiryDate) credExpiryDateChanged,
     required TResult Function(String registrationNo) registrationNumberChanegd,
@@ -2960,6 +3392,7 @@ class _$SelectProvinceRegistrationImpl implements _SelectProvinceRegistration {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCredentialDocList,
     TResult? Function(bool isCheck)? checkNACredExpiryDate,
     TResult? Function(String expiryDate)? credExpiryDateChanged,
     TResult? Function(String registrationNo)? registrationNumberChanegd,
@@ -2977,6 +3410,7 @@ class _$SelectProvinceRegistrationImpl implements _SelectProvinceRegistration {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCredentialDocList,
     TResult Function(bool isCheck)? checkNACredExpiryDate,
     TResult Function(String expiryDate)? credExpiryDateChanged,
     TResult Function(String registrationNo)? registrationNumberChanegd,
@@ -2998,6 +3432,7 @@ class _$SelectProvinceRegistrationImpl implements _SelectProvinceRegistration {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetCredentialDocList value) getCredentialDocList,
     required TResult Function(CheckNACredExpiryDate value)
         checkNACredExpiryDate,
     required TResult Function(_CredExpiryDateChanged value)
@@ -3021,6 +3456,7 @@ class _$SelectProvinceRegistrationImpl implements _SelectProvinceRegistration {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCredentialDocList value)? getCredentialDocList,
     TResult? Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult? Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult? Function(_RegistrationNumberChanegd value)?
@@ -3041,6 +3477,7 @@ class _$SelectProvinceRegistrationImpl implements _SelectProvinceRegistration {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCredentialDocList value)? getCredentialDocList,
     TResult Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult Function(_RegistrationNumberChanegd value)?
@@ -3144,6 +3581,7 @@ class _$SelectCredentialRegistrationDocImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() getCredentialDocList,
     required TResult Function(bool isCheck) checkNACredExpiryDate,
     required TResult Function(String expiryDate) credExpiryDateChanged,
     required TResult Function(String registrationNo) registrationNumberChanegd,
@@ -3162,6 +3600,7 @@ class _$SelectCredentialRegistrationDocImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCredentialDocList,
     TResult? Function(bool isCheck)? checkNACredExpiryDate,
     TResult? Function(String expiryDate)? credExpiryDateChanged,
     TResult? Function(String registrationNo)? registrationNumberChanegd,
@@ -3179,6 +3618,7 @@ class _$SelectCredentialRegistrationDocImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCredentialDocList,
     TResult Function(bool isCheck)? checkNACredExpiryDate,
     TResult Function(String expiryDate)? credExpiryDateChanged,
     TResult Function(String registrationNo)? registrationNumberChanegd,
@@ -3200,6 +3640,7 @@ class _$SelectCredentialRegistrationDocImpl
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetCredentialDocList value) getCredentialDocList,
     required TResult Function(CheckNACredExpiryDate value)
         checkNACredExpiryDate,
     required TResult Function(_CredExpiryDateChanged value)
@@ -3223,6 +3664,7 @@ class _$SelectCredentialRegistrationDocImpl
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCredentialDocList value)? getCredentialDocList,
     TResult? Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult? Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult? Function(_RegistrationNumberChanegd value)?
@@ -3243,6 +3685,7 @@ class _$SelectCredentialRegistrationDocImpl
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCredentialDocList value)? getCredentialDocList,
     TResult Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult Function(_RegistrationNumberChanegd value)?
@@ -3342,6 +3785,7 @@ class _$DeleteCredentialDocImpl implements _DeleteCredentialDoc {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() getCredentialDocList,
     required TResult Function(bool isCheck) checkNACredExpiryDate,
     required TResult Function(String expiryDate) credExpiryDateChanged,
     required TResult Function(String registrationNo) registrationNumberChanegd,
@@ -3360,6 +3804,7 @@ class _$DeleteCredentialDocImpl implements _DeleteCredentialDoc {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCredentialDocList,
     TResult? Function(bool isCheck)? checkNACredExpiryDate,
     TResult? Function(String expiryDate)? credExpiryDateChanged,
     TResult? Function(String registrationNo)? registrationNumberChanegd,
@@ -3377,6 +3822,7 @@ class _$DeleteCredentialDocImpl implements _DeleteCredentialDoc {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCredentialDocList,
     TResult Function(bool isCheck)? checkNACredExpiryDate,
     TResult Function(String expiryDate)? credExpiryDateChanged,
     TResult Function(String registrationNo)? registrationNumberChanegd,
@@ -3398,6 +3844,7 @@ class _$DeleteCredentialDocImpl implements _DeleteCredentialDoc {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetCredentialDocList value) getCredentialDocList,
     required TResult Function(CheckNACredExpiryDate value)
         checkNACredExpiryDate,
     required TResult Function(_CredExpiryDateChanged value)
@@ -3421,6 +3868,7 @@ class _$DeleteCredentialDocImpl implements _DeleteCredentialDoc {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCredentialDocList value)? getCredentialDocList,
     TResult? Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult? Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult? Function(_RegistrationNumberChanegd value)?
@@ -3441,6 +3889,7 @@ class _$DeleteCredentialDocImpl implements _DeleteCredentialDoc {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCredentialDocList value)? getCredentialDocList,
     TResult Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult Function(_RegistrationNumberChanegd value)?
@@ -3512,6 +3961,7 @@ class _$AddMoreCredentialDocImpl implements _AddMoreCredentialDoc {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() getCredentialDocList,
     required TResult Function(bool isCheck) checkNACredExpiryDate,
     required TResult Function(String expiryDate) credExpiryDateChanged,
     required TResult Function(String registrationNo) registrationNumberChanegd,
@@ -3530,6 +3980,7 @@ class _$AddMoreCredentialDocImpl implements _AddMoreCredentialDoc {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCredentialDocList,
     TResult? Function(bool isCheck)? checkNACredExpiryDate,
     TResult? Function(String expiryDate)? credExpiryDateChanged,
     TResult? Function(String registrationNo)? registrationNumberChanegd,
@@ -3547,6 +3998,7 @@ class _$AddMoreCredentialDocImpl implements _AddMoreCredentialDoc {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCredentialDocList,
     TResult Function(bool isCheck)? checkNACredExpiryDate,
     TResult Function(String expiryDate)? credExpiryDateChanged,
     TResult Function(String registrationNo)? registrationNumberChanegd,
@@ -3568,6 +4020,7 @@ class _$AddMoreCredentialDocImpl implements _AddMoreCredentialDoc {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetCredentialDocList value) getCredentialDocList,
     required TResult Function(CheckNACredExpiryDate value)
         checkNACredExpiryDate,
     required TResult Function(_CredExpiryDateChanged value)
@@ -3591,6 +4044,7 @@ class _$AddMoreCredentialDocImpl implements _AddMoreCredentialDoc {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCredentialDocList value)? getCredentialDocList,
     TResult? Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult? Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult? Function(_RegistrationNumberChanegd value)?
@@ -3611,6 +4065,7 @@ class _$AddMoreCredentialDocImpl implements _AddMoreCredentialDoc {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCredentialDocList value)? getCredentialDocList,
     TResult Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult Function(_RegistrationNumberChanegd value)?
@@ -3704,6 +4159,7 @@ class _$DeleteCredentialObjectImpl implements _DeleteCredentialObject {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() getCredentialDocList,
     required TResult Function(bool isCheck) checkNACredExpiryDate,
     required TResult Function(String expiryDate) credExpiryDateChanged,
     required TResult Function(String registrationNo) registrationNumberChanegd,
@@ -3722,6 +4178,7 @@ class _$DeleteCredentialObjectImpl implements _DeleteCredentialObject {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCredentialDocList,
     TResult? Function(bool isCheck)? checkNACredExpiryDate,
     TResult? Function(String expiryDate)? credExpiryDateChanged,
     TResult? Function(String registrationNo)? registrationNumberChanegd,
@@ -3739,6 +4196,7 @@ class _$DeleteCredentialObjectImpl implements _DeleteCredentialObject {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCredentialDocList,
     TResult Function(bool isCheck)? checkNACredExpiryDate,
     TResult Function(String expiryDate)? credExpiryDateChanged,
     TResult Function(String registrationNo)? registrationNumberChanegd,
@@ -3760,6 +4218,7 @@ class _$DeleteCredentialObjectImpl implements _DeleteCredentialObject {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetCredentialDocList value) getCredentialDocList,
     required TResult Function(CheckNACredExpiryDate value)
         checkNACredExpiryDate,
     required TResult Function(_CredExpiryDateChanged value)
@@ -3783,6 +4242,7 @@ class _$DeleteCredentialObjectImpl implements _DeleteCredentialObject {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCredentialDocList value)? getCredentialDocList,
     TResult? Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult? Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult? Function(_RegistrationNumberChanegd value)?
@@ -3803,6 +4263,7 @@ class _$DeleteCredentialObjectImpl implements _DeleteCredentialObject {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCredentialDocList value)? getCredentialDocList,
     TResult Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult Function(_RegistrationNumberChanegd value)?
@@ -3901,6 +4362,7 @@ class _$CredentialDocSubmitImpl implements _CredentialDocSubmit {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() getCredentialDocList,
     required TResult Function(bool isCheck) checkNACredExpiryDate,
     required TResult Function(String expiryDate) credExpiryDateChanged,
     required TResult Function(String registrationNo) registrationNumberChanegd,
@@ -3919,6 +4381,7 @@ class _$CredentialDocSubmitImpl implements _CredentialDocSubmit {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getCredentialDocList,
     TResult? Function(bool isCheck)? checkNACredExpiryDate,
     TResult? Function(String expiryDate)? credExpiryDateChanged,
     TResult? Function(String registrationNo)? registrationNumberChanegd,
@@ -3936,6 +4399,7 @@ class _$CredentialDocSubmitImpl implements _CredentialDocSubmit {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getCredentialDocList,
     TResult Function(bool isCheck)? checkNACredExpiryDate,
     TResult Function(String expiryDate)? credExpiryDateChanged,
     TResult Function(String registrationNo)? registrationNumberChanegd,
@@ -3957,6 +4421,7 @@ class _$CredentialDocSubmitImpl implements _CredentialDocSubmit {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(GetCredentialDocList value) getCredentialDocList,
     required TResult Function(CheckNACredExpiryDate value)
         checkNACredExpiryDate,
     required TResult Function(_CredExpiryDateChanged value)
@@ -3980,6 +4445,7 @@ class _$CredentialDocSubmitImpl implements _CredentialDocSubmit {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetCredentialDocList value)? getCredentialDocList,
     TResult? Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult? Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult? Function(_RegistrationNumberChanegd value)?
@@ -4000,6 +4466,7 @@ class _$CredentialDocSubmitImpl implements _CredentialDocSubmit {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetCredentialDocList value)? getCredentialDocList,
     TResult Function(CheckNACredExpiryDate value)? checkNACredExpiryDate,
     TResult Function(_CredExpiryDateChanged value)? credExpiryDateChanged,
     TResult Function(_RegistrationNumberChanegd value)?
@@ -10764,6 +11231,7 @@ mixin _$DocumentState {
 
   /// FOR GOVERNMENT DOCUMENT
   bool get isLoading => throw _privateConstructorUsedError;
+  int get govermentDocId => throw _privateConstructorUsedError;
   InputEmptyOrNot get govermentDoc => throw _privateConstructorUsedError;
   bool get isGovernemtExpiryCheck => throw _privateConstructorUsedError;
   String get governmentExpiryDate => throw _privateConstructorUsedError;
@@ -10776,9 +11244,11 @@ mixin _$DocumentState {
   /// FOR COVID DOCUMENT
   InputEmptyOrNot get covidVaccinationDoc => throw _privateConstructorUsedError;
   bool get showCovidErrorMessages => throw _privateConstructorUsedError;
+  int get covidDocId => throw _privateConstructorUsedError;
   bool get isCovidDocSubmitting => throw _privateConstructorUsedError;
-  Option<Either<AuthFailure, String>> get coviDocAuthFailureOrSuccessOption =>
-      throw _privateConstructorUsedError;
+  Option<Either<AccountFailure, String>>
+      get coviDocAuthFailureOrSuccessOption =>
+          throw _privateConstructorUsedError;
 
   /// SUBMIT
   bool get isSubmitting => throw _privateConstructorUsedError;
@@ -10799,6 +11269,7 @@ abstract class $DocumentStateCopyWith<$Res> {
   $Res call(
       {int currentPage,
       bool isLoading,
+      int govermentDocId,
       InputEmptyOrNot govermentDoc,
       bool isGovernemtExpiryCheck,
       String governmentExpiryDate,
@@ -10808,8 +11279,9 @@ abstract class $DocumentStateCopyWith<$Res> {
           governmentDocAuthFailureOrSuccessOption,
       InputEmptyOrNot covidVaccinationDoc,
       bool showCovidErrorMessages,
+      int covidDocId,
       bool isCovidDocSubmitting,
-      Option<Either<AuthFailure, String>> coviDocAuthFailureOrSuccessOption,
+      Option<Either<AccountFailure, String>> coviDocAuthFailureOrSuccessOption,
       bool isSubmitting,
       Option<Either<AuthFailure, String>> authFailureOrSuccessOption});
 }
@@ -10829,6 +11301,7 @@ class _$DocumentStateCopyWithImpl<$Res, $Val extends DocumentState>
   $Res call({
     Object? currentPage = null,
     Object? isLoading = null,
+    Object? govermentDocId = null,
     Object? govermentDoc = null,
     Object? isGovernemtExpiryCheck = null,
     Object? governmentExpiryDate = null,
@@ -10837,6 +11310,7 @@ class _$DocumentStateCopyWithImpl<$Res, $Val extends DocumentState>
     Object? governmentDocAuthFailureOrSuccessOption = null,
     Object? covidVaccinationDoc = null,
     Object? showCovidErrorMessages = null,
+    Object? covidDocId = null,
     Object? isCovidDocSubmitting = null,
     Object? coviDocAuthFailureOrSuccessOption = null,
     Object? isSubmitting = null,
@@ -10851,6 +11325,10 @@ class _$DocumentStateCopyWithImpl<$Res, $Val extends DocumentState>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      govermentDocId: null == govermentDocId
+          ? _value.govermentDocId
+          : govermentDocId // ignore: cast_nullable_to_non_nullable
+              as int,
       govermentDoc: null == govermentDoc
           ? _value.govermentDoc
           : govermentDoc // ignore: cast_nullable_to_non_nullable
@@ -10884,6 +11362,10 @@ class _$DocumentStateCopyWithImpl<$Res, $Val extends DocumentState>
           ? _value.showCovidErrorMessages
           : showCovidErrorMessages // ignore: cast_nullable_to_non_nullable
               as bool,
+      covidDocId: null == covidDocId
+          ? _value.covidDocId
+          : covidDocId // ignore: cast_nullable_to_non_nullable
+              as int,
       isCovidDocSubmitting: null == isCovidDocSubmitting
           ? _value.isCovidDocSubmitting
           : isCovidDocSubmitting // ignore: cast_nullable_to_non_nullable
@@ -10892,7 +11374,7 @@ class _$DocumentStateCopyWithImpl<$Res, $Val extends DocumentState>
               coviDocAuthFailureOrSuccessOption
           ? _value.coviDocAuthFailureOrSuccessOption
           : coviDocAuthFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<AuthFailure, String>>,
+              as Option<Either<AccountFailure, String>>,
       isSubmitting: null == isSubmitting
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -10916,6 +11398,7 @@ abstract class _$$DocumentStateImplCopyWith<$Res>
   $Res call(
       {int currentPage,
       bool isLoading,
+      int govermentDocId,
       InputEmptyOrNot govermentDoc,
       bool isGovernemtExpiryCheck,
       String governmentExpiryDate,
@@ -10925,8 +11408,9 @@ abstract class _$$DocumentStateImplCopyWith<$Res>
           governmentDocAuthFailureOrSuccessOption,
       InputEmptyOrNot covidVaccinationDoc,
       bool showCovidErrorMessages,
+      int covidDocId,
       bool isCovidDocSubmitting,
-      Option<Either<AuthFailure, String>> coviDocAuthFailureOrSuccessOption,
+      Option<Either<AccountFailure, String>> coviDocAuthFailureOrSuccessOption,
       bool isSubmitting,
       Option<Either<AuthFailure, String>> authFailureOrSuccessOption});
 }
@@ -10944,6 +11428,7 @@ class __$$DocumentStateImplCopyWithImpl<$Res>
   $Res call({
     Object? currentPage = null,
     Object? isLoading = null,
+    Object? govermentDocId = null,
     Object? govermentDoc = null,
     Object? isGovernemtExpiryCheck = null,
     Object? governmentExpiryDate = null,
@@ -10952,6 +11437,7 @@ class __$$DocumentStateImplCopyWithImpl<$Res>
     Object? governmentDocAuthFailureOrSuccessOption = null,
     Object? covidVaccinationDoc = null,
     Object? showCovidErrorMessages = null,
+    Object? covidDocId = null,
     Object? isCovidDocSubmitting = null,
     Object? coviDocAuthFailureOrSuccessOption = null,
     Object? isSubmitting = null,
@@ -10966,6 +11452,10 @@ class __$$DocumentStateImplCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      govermentDocId: null == govermentDocId
+          ? _value.govermentDocId
+          : govermentDocId // ignore: cast_nullable_to_non_nullable
+              as int,
       govermentDoc: null == govermentDoc
           ? _value.govermentDoc
           : govermentDoc // ignore: cast_nullable_to_non_nullable
@@ -10999,6 +11489,10 @@ class __$$DocumentStateImplCopyWithImpl<$Res>
           ? _value.showCovidErrorMessages
           : showCovidErrorMessages // ignore: cast_nullable_to_non_nullable
               as bool,
+      covidDocId: null == covidDocId
+          ? _value.covidDocId
+          : covidDocId // ignore: cast_nullable_to_non_nullable
+              as int,
       isCovidDocSubmitting: null == isCovidDocSubmitting
           ? _value.isCovidDocSubmitting
           : isCovidDocSubmitting // ignore: cast_nullable_to_non_nullable
@@ -11007,7 +11501,7 @@ class __$$DocumentStateImplCopyWithImpl<$Res>
               coviDocAuthFailureOrSuccessOption
           ? _value.coviDocAuthFailureOrSuccessOption
           : coviDocAuthFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<AuthFailure, String>>,
+              as Option<Either<AccountFailure, String>>,
       isSubmitting: null == isSubmitting
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -11026,6 +11520,7 @@ class _$DocumentStateImpl implements _DocumentState {
   const _$DocumentStateImpl(
       {required this.currentPage,
       required this.isLoading,
+      required this.govermentDocId,
       required this.govermentDoc,
       required this.isGovernemtExpiryCheck,
       required this.governmentExpiryDate,
@@ -11034,6 +11529,7 @@ class _$DocumentStateImpl implements _DocumentState {
       required this.governmentDocAuthFailureOrSuccessOption,
       required this.covidVaccinationDoc,
       required this.showCovidErrorMessages,
+      required this.covidDocId,
       required this.isCovidDocSubmitting,
       required this.coviDocAuthFailureOrSuccessOption,
       required this.isSubmitting,
@@ -11045,6 +11541,8 @@ class _$DocumentStateImpl implements _DocumentState {
   /// FOR GOVERNMENT DOCUMENT
   @override
   final bool isLoading;
+  @override
+  final int govermentDocId;
   @override
   final InputEmptyOrNot govermentDoc;
   @override
@@ -11065,9 +11563,12 @@ class _$DocumentStateImpl implements _DocumentState {
   @override
   final bool showCovidErrorMessages;
   @override
+  final int covidDocId;
+  @override
   final bool isCovidDocSubmitting;
   @override
-  final Option<Either<AuthFailure, String>> coviDocAuthFailureOrSuccessOption;
+  final Option<Either<AccountFailure, String>>
+      coviDocAuthFailureOrSuccessOption;
 
   /// SUBMIT
   @override
@@ -11077,7 +11578,7 @@ class _$DocumentStateImpl implements _DocumentState {
 
   @override
   String toString() {
-    return 'DocumentState(currentPage: $currentPage, isLoading: $isLoading, govermentDoc: $govermentDoc, isGovernemtExpiryCheck: $isGovernemtExpiryCheck, governmentExpiryDate: $governmentExpiryDate, showGovernmentIdErrorMessages: $showGovernmentIdErrorMessages, isGovermentDocSubmitting: $isGovermentDocSubmitting, governmentDocAuthFailureOrSuccessOption: $governmentDocAuthFailureOrSuccessOption, covidVaccinationDoc: $covidVaccinationDoc, showCovidErrorMessages: $showCovidErrorMessages, isCovidDocSubmitting: $isCovidDocSubmitting, coviDocAuthFailureOrSuccessOption: $coviDocAuthFailureOrSuccessOption, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'DocumentState(currentPage: $currentPage, isLoading: $isLoading, govermentDocId: $govermentDocId, govermentDoc: $govermentDoc, isGovernemtExpiryCheck: $isGovernemtExpiryCheck, governmentExpiryDate: $governmentExpiryDate, showGovernmentIdErrorMessages: $showGovernmentIdErrorMessages, isGovermentDocSubmitting: $isGovermentDocSubmitting, governmentDocAuthFailureOrSuccessOption: $governmentDocAuthFailureOrSuccessOption, covidVaccinationDoc: $covidVaccinationDoc, showCovidErrorMessages: $showCovidErrorMessages, covidDocId: $covidDocId, isCovidDocSubmitting: $isCovidDocSubmitting, coviDocAuthFailureOrSuccessOption: $coviDocAuthFailureOrSuccessOption, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
@@ -11089,6 +11590,8 @@ class _$DocumentStateImpl implements _DocumentState {
                 other.currentPage == currentPage) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
+            (identical(other.govermentDocId, govermentDocId) ||
+                other.govermentDocId == govermentDocId) &&
             (identical(other.govermentDoc, govermentDoc) ||
                 other.govermentDoc == govermentDoc) &&
             (identical(other.isGovernemtExpiryCheck, isGovernemtExpiryCheck) ||
@@ -11109,6 +11612,8 @@ class _$DocumentStateImpl implements _DocumentState {
                 other.covidVaccinationDoc == covidVaccinationDoc) &&
             (identical(other.showCovidErrorMessages, showCovidErrorMessages) ||
                 other.showCovidErrorMessages == showCovidErrorMessages) &&
+            (identical(other.covidDocId, covidDocId) ||
+                other.covidDocId == covidDocId) &&
             (identical(other.isCovidDocSubmitting, isCovidDocSubmitting) ||
                 other.isCovidDocSubmitting == isCovidDocSubmitting) &&
             (identical(other.coviDocAuthFailureOrSuccessOption,
@@ -11117,8 +11622,7 @@ class _$DocumentStateImpl implements _DocumentState {
                     coviDocAuthFailureOrSuccessOption) &&
             (identical(other.isSubmitting, isSubmitting) ||
                 other.isSubmitting == isSubmitting) &&
-            (identical(
-                    other.authFailureOrSuccessOption, authFailureOrSuccessOption) ||
+            (identical(other.authFailureOrSuccessOption, authFailureOrSuccessOption) ||
                 other.authFailureOrSuccessOption == authFailureOrSuccessOption));
   }
 
@@ -11127,6 +11631,7 @@ class _$DocumentStateImpl implements _DocumentState {
       runtimeType,
       currentPage,
       isLoading,
+      govermentDocId,
       govermentDoc,
       isGovernemtExpiryCheck,
       governmentExpiryDate,
@@ -11135,6 +11640,7 @@ class _$DocumentStateImpl implements _DocumentState {
       governmentDocAuthFailureOrSuccessOption,
       covidVaccinationDoc,
       showCovidErrorMessages,
+      covidDocId,
       isCovidDocSubmitting,
       coviDocAuthFailureOrSuccessOption,
       isSubmitting,
@@ -11151,6 +11657,7 @@ abstract class _DocumentState implements DocumentState {
   const factory _DocumentState(
       {required final int currentPage,
       required final bool isLoading,
+      required final int govermentDocId,
       required final InputEmptyOrNot govermentDoc,
       required final bool isGovernemtExpiryCheck,
       required final String governmentExpiryDate,
@@ -11160,8 +11667,9 @@ abstract class _DocumentState implements DocumentState {
           governmentDocAuthFailureOrSuccessOption,
       required final InputEmptyOrNot covidVaccinationDoc,
       required final bool showCovidErrorMessages,
+      required final int covidDocId,
       required final bool isCovidDocSubmitting,
-      required final Option<Either<AuthFailure, String>>
+      required final Option<Either<AccountFailure, String>>
           coviDocAuthFailureOrSuccessOption,
       required final bool isSubmitting,
       required final Option<Either<AuthFailure, String>>
@@ -11173,6 +11681,8 @@ abstract class _DocumentState implements DocumentState {
 
   /// FOR GOVERNMENT DOCUMENT
   bool get isLoading;
+  @override
+  int get govermentDocId;
   @override
   InputEmptyOrNot get govermentDoc;
   @override
@@ -11193,9 +11703,11 @@ abstract class _DocumentState implements DocumentState {
   @override
   bool get showCovidErrorMessages;
   @override
+  int get covidDocId;
+  @override
   bool get isCovidDocSubmitting;
   @override
-  Option<Either<AuthFailure, String>> get coviDocAuthFailureOrSuccessOption;
+  Option<Either<AccountFailure, String>> get coviDocAuthFailureOrSuccessOption;
   @override
 
   /// SUBMIT
@@ -11211,7 +11723,8 @@ abstract class _DocumentState implements DocumentState {
 /// @nodoc
 mixin _$CredentialState {
   /// FOR CREDENTIALS-REGISTRATION DOCUMENT
-  List<CredentialRegistrationDTO> get credentialRegistrationList =>
+  bool get isLoading => throw _privateConstructorUsedError;
+  List<DocumentDTO> get credentialRegistrationList =>
       throw _privateConstructorUsedError;
   String get registrationNumber =>
       throw _privateConstructorUsedError; // required InputEmptyOrNot provinceRegistration,
@@ -11224,7 +11737,7 @@ mixin _$CredentialState {
   String get credentialExpiryDate => throw _privateConstructorUsedError;
   bool get showCredintialErrorMessages => throw _privateConstructorUsedError;
   bool get isCredintialDocSubmitting => throw _privateConstructorUsedError;
-  Option<Either<AuthFailure, String>>
+  Option<Either<AccountFailure, Account>?>
       get credintialDocAuthFailureOrSuccessOption =>
           throw _privateConstructorUsedError;
 
@@ -11240,7 +11753,8 @@ abstract class $CredentialStateCopyWith<$Res> {
       _$CredentialStateCopyWithImpl<$Res, CredentialState>;
   @useResult
   $Res call(
-      {List<CredentialRegistrationDTO> credentialRegistrationList,
+      {bool isLoading,
+      List<DocumentDTO> credentialRegistrationList,
       String registrationNumber,
       InputEmptyOrNot documentTitle,
       InputEmptyOrNot credentialRegistrationDoc,
@@ -11249,7 +11763,7 @@ abstract class $CredentialStateCopyWith<$Res> {
       String credentialExpiryDate,
       bool showCredintialErrorMessages,
       bool isCredintialDocSubmitting,
-      Option<Either<AuthFailure, String>>
+      Option<Either<AccountFailure, Account>?>
           credintialDocAuthFailureOrSuccessOption});
 }
 
@@ -11266,6 +11780,7 @@ class _$CredentialStateCopyWithImpl<$Res, $Val extends CredentialState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isLoading = null,
     Object? credentialRegistrationList = null,
     Object? registrationNumber = null,
     Object? documentTitle = null,
@@ -11278,10 +11793,14 @@ class _$CredentialStateCopyWithImpl<$Res, $Val extends CredentialState>
     Object? credintialDocAuthFailureOrSuccessOption = null,
   }) {
     return _then(_value.copyWith(
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       credentialRegistrationList: null == credentialRegistrationList
           ? _value.credentialRegistrationList
           : credentialRegistrationList // ignore: cast_nullable_to_non_nullable
-              as List<CredentialRegistrationDTO>,
+              as List<DocumentDTO>,
       registrationNumber: null == registrationNumber
           ? _value.registrationNumber
           : registrationNumber // ignore: cast_nullable_to_non_nullable
@@ -11318,7 +11837,7 @@ class _$CredentialStateCopyWithImpl<$Res, $Val extends CredentialState>
               credintialDocAuthFailureOrSuccessOption
           ? _value.credintialDocAuthFailureOrSuccessOption
           : credintialDocAuthFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<AuthFailure, String>>,
+              as Option<Either<AccountFailure, Account>?>,
     ) as $Val);
   }
 }
@@ -11332,7 +11851,8 @@ abstract class _$$CredentialStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<CredentialRegistrationDTO> credentialRegistrationList,
+      {bool isLoading,
+      List<DocumentDTO> credentialRegistrationList,
       String registrationNumber,
       InputEmptyOrNot documentTitle,
       InputEmptyOrNot credentialRegistrationDoc,
@@ -11341,7 +11861,7 @@ abstract class _$$CredentialStateImplCopyWith<$Res>
       String credentialExpiryDate,
       bool showCredintialErrorMessages,
       bool isCredintialDocSubmitting,
-      Option<Either<AuthFailure, String>>
+      Option<Either<AccountFailure, Account>?>
           credintialDocAuthFailureOrSuccessOption});
 }
 
@@ -11356,6 +11876,7 @@ class __$$CredentialStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? isLoading = null,
     Object? credentialRegistrationList = null,
     Object? registrationNumber = null,
     Object? documentTitle = null,
@@ -11368,10 +11889,14 @@ class __$$CredentialStateImplCopyWithImpl<$Res>
     Object? credintialDocAuthFailureOrSuccessOption = null,
   }) {
     return _then(_$CredentialStateImpl(
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       credentialRegistrationList: null == credentialRegistrationList
           ? _value._credentialRegistrationList
           : credentialRegistrationList // ignore: cast_nullable_to_non_nullable
-              as List<CredentialRegistrationDTO>,
+              as List<DocumentDTO>,
       registrationNumber: null == registrationNumber
           ? _value.registrationNumber
           : registrationNumber // ignore: cast_nullable_to_non_nullable
@@ -11408,7 +11933,7 @@ class __$$CredentialStateImplCopyWithImpl<$Res>
               credintialDocAuthFailureOrSuccessOption
           ? _value.credintialDocAuthFailureOrSuccessOption
           : credintialDocAuthFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<AuthFailure, String>>,
+              as Option<Either<AccountFailure, Account>?>,
     ));
   }
 }
@@ -11417,8 +11942,8 @@ class __$$CredentialStateImplCopyWithImpl<$Res>
 
 class _$CredentialStateImpl implements _CredentialState {
   const _$CredentialStateImpl(
-      {required final List<CredentialRegistrationDTO>
-          credentialRegistrationList,
+      {required this.isLoading,
+      required final List<DocumentDTO> credentialRegistrationList,
       required this.registrationNumber,
       required this.documentTitle,
       required this.credentialRegistrationDoc,
@@ -11431,11 +11956,11 @@ class _$CredentialStateImpl implements _CredentialState {
       : _credentialRegistrationList = credentialRegistrationList;
 
   /// FOR CREDENTIALS-REGISTRATION DOCUMENT
-  final List<CredentialRegistrationDTO> _credentialRegistrationList;
-
-  /// FOR CREDENTIALS-REGISTRATION DOCUMENT
   @override
-  List<CredentialRegistrationDTO> get credentialRegistrationList {
+  final bool isLoading;
+  final List<DocumentDTO> _credentialRegistrationList;
+  @override
+  List<DocumentDTO> get credentialRegistrationList {
     if (_credentialRegistrationList is EqualUnmodifiableListView)
       return _credentialRegistrationList;
     // ignore: implicit_dynamic_type
@@ -11460,12 +11985,12 @@ class _$CredentialStateImpl implements _CredentialState {
   @override
   final bool isCredintialDocSubmitting;
   @override
-  final Option<Either<AuthFailure, String>>
+  final Option<Either<AccountFailure, Account>?>
       credintialDocAuthFailureOrSuccessOption;
 
   @override
   String toString() {
-    return 'CredentialState(credentialRegistrationList: $credentialRegistrationList, registrationNumber: $registrationNumber, documentTitle: $documentTitle, credentialRegistrationDoc: $credentialRegistrationDoc, selectedProvinceRegistration: $selectedProvinceRegistration, isCredExpiryCheck: $isCredExpiryCheck, credentialExpiryDate: $credentialExpiryDate, showCredintialErrorMessages: $showCredintialErrorMessages, isCredintialDocSubmitting: $isCredintialDocSubmitting, credintialDocAuthFailureOrSuccessOption: $credintialDocAuthFailureOrSuccessOption)';
+    return 'CredentialState(isLoading: $isLoading, credentialRegistrationList: $credentialRegistrationList, registrationNumber: $registrationNumber, documentTitle: $documentTitle, credentialRegistrationDoc: $credentialRegistrationDoc, selectedProvinceRegistration: $selectedProvinceRegistration, isCredExpiryCheck: $isCredExpiryCheck, credentialExpiryDate: $credentialExpiryDate, showCredintialErrorMessages: $showCredintialErrorMessages, isCredintialDocSubmitting: $isCredintialDocSubmitting, credintialDocAuthFailureOrSuccessOption: $credintialDocAuthFailureOrSuccessOption)';
   }
 
   @override
@@ -11473,6 +11998,8 @@ class _$CredentialStateImpl implements _CredentialState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CredentialStateImpl &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
             const DeepCollectionEquality().equals(
                 other._credentialRegistrationList,
                 _credentialRegistrationList) &&
@@ -11507,6 +12034,7 @@ class _$CredentialStateImpl implements _CredentialState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      isLoading,
       const DeepCollectionEquality().hash(_credentialRegistrationList),
       registrationNumber,
       documentTitle,
@@ -11528,8 +12056,8 @@ class _$CredentialStateImpl implements _CredentialState {
 
 abstract class _CredentialState implements CredentialState {
   const factory _CredentialState(
-      {required final List<CredentialRegistrationDTO>
-          credentialRegistrationList,
+      {required final bool isLoading,
+      required final List<DocumentDTO> credentialRegistrationList,
       required final String registrationNumber,
       required final InputEmptyOrNot documentTitle,
       required final InputEmptyOrNot credentialRegistrationDoc,
@@ -11538,13 +12066,15 @@ abstract class _CredentialState implements CredentialState {
       required final String credentialExpiryDate,
       required final bool showCredintialErrorMessages,
       required final bool isCredintialDocSubmitting,
-      required final Option<Either<AuthFailure, String>>
+      required final Option<Either<AccountFailure, Account>?>
           credintialDocAuthFailureOrSuccessOption}) = _$CredentialStateImpl;
 
   @override
 
   /// FOR CREDENTIALS-REGISTRATION DOCUMENT
-  List<CredentialRegistrationDTO> get credentialRegistrationList;
+  bool get isLoading;
+  @override
+  List<DocumentDTO> get credentialRegistrationList;
   @override
   String get registrationNumber;
   @override // required InputEmptyOrNot provinceRegistration,
@@ -11562,7 +12092,7 @@ abstract class _CredentialState implements CredentialState {
   @override
   bool get isCredintialDocSubmitting;
   @override
-  Option<Either<AuthFailure, String>>
+  Option<Either<AccountFailure, Account>?>
       get credintialDocAuthFailureOrSuccessOption;
   @override
   @JsonKey(ignore: true)

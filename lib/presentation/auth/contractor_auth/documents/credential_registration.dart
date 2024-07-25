@@ -12,9 +12,12 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/auth/contractor/document/upload_document_dto.dart';
+import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/file_picker_utils.dart';
 import 'package:shift/presentation/common/utils/image_picker_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
 import 'package:shift/presentation/common/widgets/selected_document_box.dart';
 import 'package:shift/presentation/common/widgets/show_picked_file.dart';
@@ -31,13 +34,17 @@ class CredentialRegistration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CredentialBloc(),
+      create: (context) => getIt<CredentialBloc>()..add(CredentialEvent.getCredentialDocList()),
       child: BlocConsumer<CredentialBloc, CredentialState>(
         listener: (context, state) {},
         builder: (context, state) {
-          return Padding(
+          return
+            // (state.isCredintialDocSubmitting)
+            //   ? CenterLoadingIndicator():
+            Padding(
             padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-            child: SingleChildScrollView(
+            child:
+            SingleChildScrollView(
               child: Form(
                 autovalidateMode: (state.showCredintialErrorMessages)
                     ? AutovalidateMode.always
@@ -51,18 +58,18 @@ class CredentialRegistration extends StatelessWidget {
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              CredentialRegistrationDTO credObject =
+                              DocumentDTO credObject =
                                   state.credentialRegistrationList[index];
                               return Padding(
                                 padding: EdgeInsets.only(top: getSize(10)),
                                 child: SelectedDocumentBox(
                                   // leadingImage: Image.file(File(
                                   //     credObject.credentialDocument ?? "")),
-                                  pickedFile: credObject.credentialDocument,
-                                  title: credObject.documentTitle ?? "",
+                                  pickedFile: credObject.file,
+                                  title: credObject.document_title ?? "",
                                   subTitle1:
-                                      credObject.provinceRegistration ?? "",
-                                  subTitle2: credObject.registrationNo ?? "",
+                                      credObject.province_of_registration ?? "",
+                                  subTitle2: credObject.registration_number ?? "",
                                   showDeleteButton: true,
                                   deleteDescription: StringConstant
                                       .deleteCredentialRegistrationDesc,
@@ -199,7 +206,7 @@ class CredentialRegistration extends StatelessWidget {
         ),
         Positioned(
           top: getSize(14),
-          left: getSize(300),
+          left: getSize(290),
           child: GestureDetector(
             onTap: () {
               AppDialog.showDelete(

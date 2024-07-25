@@ -7,6 +7,7 @@ class DocumentState with _$DocumentState {
 
     /// FOR GOVERNMENT DOCUMENT
     required bool isLoading,
+    required int govermentDocId,
     required InputEmptyOrNot govermentDoc,
     required bool isGovernemtExpiryCheck,
     required String governmentExpiryDate,
@@ -18,8 +19,10 @@ class DocumentState with _$DocumentState {
     /// FOR COVID DOCUMENT
     required InputEmptyOrNot covidVaccinationDoc,
     required bool showCovidErrorMessages,
+    required int covidDocId,
+
     required bool isCovidDocSubmitting,
-    required Option<Either<AuthFailure, String>>
+    required Option<Either<AccountFailure, String>>
         coviDocAuthFailureOrSuccessOption,
 
     /// SUBMIT
@@ -36,12 +39,15 @@ class DocumentState with _$DocumentState {
         isGovermentDocSubmitting: false,
         isGovernemtExpiryCheck: false,
         governmentExpiryDate: "",
+        govermentDocId: -1,
         governmentDocAuthFailureOrSuccessOption: none(),
 
         /// FOR COVID DOCUMENT
         covidVaccinationDoc: InputEmptyOrNot(""),
         showCovidErrorMessages: false,
         isCovidDocSubmitting: false,
+    covidDocId: -1,
+
         coviDocAuthFailureOrSuccessOption: none(),
 
         ///
@@ -54,7 +60,8 @@ class DocumentState with _$DocumentState {
 class CredentialState with _$CredentialState {
   const factory CredentialState({
     /// FOR CREDENTIALS-REGISTRATION DOCUMENT
-    required List<CredentialRegistrationDTO> credentialRegistrationList,
+    required bool isLoading,
+    required List<DocumentDTO> credentialRegistrationList,
     required String registrationNumber,
     // required InputEmptyOrNot provinceRegistration,
     required InputEmptyOrNot documentTitle,
@@ -64,11 +71,12 @@ class CredentialState with _$CredentialState {
     required String credentialExpiryDate,
     required bool showCredintialErrorMessages,
     required bool isCredintialDocSubmitting,
-    required Option<Either<AuthFailure, String>>
+    required Option<Either<AccountFailure, Account>?>
         credintialDocAuthFailureOrSuccessOption,
   }) = _CredentialState;
   factory CredentialState.initial() => CredentialState(
         /// FOR CREDENTIALS-REGISTRATION DOCUMENT
+    isLoading:  false,
         credentialRegistrationList: [],
         registrationNumber: "",
         documentTitle: InputEmptyOrNot(""),

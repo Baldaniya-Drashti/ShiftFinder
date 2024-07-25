@@ -58,6 +58,8 @@ mixin _$CurrentUserDto {
   List<EducationDTO>? get education => throw _privateConstructorUsedError;
   @JsonKey(name: 'reference')
   List<ReferenceDTO>? get reference => throw _privateConstructorUsedError;
+  @JsonKey(name: 'document')
+  List<DocumentDTO>? get document => throw _privateConstructorUsedError;
   @JsonKey(name: 'auth')
   AuthDto? get authDto => throw _privateConstructorUsedError;
 
@@ -93,6 +95,7 @@ abstract class $CurrentUserDtoCopyWith<$Res> {
       @JsonKey(name: 'last_page') String? lastPage,
       @JsonKey(name: 'education') List<EducationDTO>? education,
       @JsonKey(name: 'reference') List<ReferenceDTO>? reference,
+      @JsonKey(name: 'document') List<DocumentDTO>? document,
       @JsonKey(name: 'auth') AuthDto? authDto});
 
   $AuthDtoCopyWith<$Res>? get authDto;
@@ -130,6 +133,7 @@ class _$CurrentUserDtoCopyWithImpl<$Res, $Val extends CurrentUserDto>
     Object? lastPage = freezed,
     Object? education = freezed,
     Object? reference = freezed,
+    Object? document = freezed,
     Object? authDto = freezed,
   }) {
     return _then(_value.copyWith(
@@ -209,6 +213,10 @@ class _$CurrentUserDtoCopyWithImpl<$Res, $Val extends CurrentUserDto>
           ? _value.reference
           : reference // ignore: cast_nullable_to_non_nullable
               as List<ReferenceDTO>?,
+      document: freezed == document
+          ? _value.document
+          : document // ignore: cast_nullable_to_non_nullable
+              as List<DocumentDTO>?,
       authDto: freezed == authDto
           ? _value.authDto
           : authDto // ignore: cast_nullable_to_non_nullable
@@ -257,6 +265,7 @@ abstract class _$$CurrentUserDtoImplCopyWith<$Res>
       @JsonKey(name: 'last_page') String? lastPage,
       @JsonKey(name: 'education') List<EducationDTO>? education,
       @JsonKey(name: 'reference') List<ReferenceDTO>? reference,
+      @JsonKey(name: 'document') List<DocumentDTO>? document,
       @JsonKey(name: 'auth') AuthDto? authDto});
 
   @override
@@ -293,6 +302,7 @@ class __$$CurrentUserDtoImplCopyWithImpl<$Res>
     Object? lastPage = freezed,
     Object? education = freezed,
     Object? reference = freezed,
+    Object? document = freezed,
     Object? authDto = freezed,
   }) {
     return _then(_$CurrentUserDtoImpl(
@@ -372,6 +382,10 @@ class __$$CurrentUserDtoImplCopyWithImpl<$Res>
           ? _value._reference
           : reference // ignore: cast_nullable_to_non_nullable
               as List<ReferenceDTO>?,
+      document: freezed == document
+          ? _value._document
+          : document // ignore: cast_nullable_to_non_nullable
+              as List<DocumentDTO>?,
       authDto: freezed == authDto
           ? _value.authDto
           : authDto // ignore: cast_nullable_to_non_nullable
@@ -403,9 +417,11 @@ class _$CurrentUserDtoImpl extends _CurrentUserDto {
       @JsonKey(name: 'last_page') this.lastPage,
       @JsonKey(name: 'education') final List<EducationDTO>? education,
       @JsonKey(name: 'reference') final List<ReferenceDTO>? reference,
+      @JsonKey(name: 'document') final List<DocumentDTO>? document,
       @JsonKey(name: 'auth') this.authDto})
       : _education = education,
         _reference = reference,
+        _document = document,
         super._();
 
   factory _$CurrentUserDtoImpl.fromJson(Map<String, dynamic> json) =>
@@ -484,13 +500,24 @@ class _$CurrentUserDtoImpl extends _CurrentUserDto {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<DocumentDTO>? _document;
+  @override
+  @JsonKey(name: 'document')
+  List<DocumentDTO>? get document {
+    final value = _document;
+    if (value == null) return null;
+    if (_document is EqualUnmodifiableListView) return _document;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   @JsonKey(name: 'auth')
   final AuthDto? authDto;
 
   @override
   String toString() {
-    return 'CurrentUserDto(userId: $userId, firstName: $firstName, lastName: $lastName, email: $email, isVerified: $isVerified, serviceRole: $serviceRole, industryId: $industryId, profileImage: $profileImage, companyName: $companyName, countryCode: $countryCode, countryNameCode: $countryNameCode, phone: $phone, association: $association, companyDescription: $companyDescription, location: $location, referralCode: $referralCode, lastPage: $lastPage, education: $education, reference: $reference, authDto: $authDto)';
+    return 'CurrentUserDto(userId: $userId, firstName: $firstName, lastName: $lastName, email: $email, isVerified: $isVerified, serviceRole: $serviceRole, industryId: $industryId, profileImage: $profileImage, companyName: $companyName, countryCode: $countryCode, countryNameCode: $countryNameCode, phone: $phone, association: $association, companyDescription: $companyDescription, location: $location, referralCode: $referralCode, lastPage: $lastPage, education: $education, reference: $reference, document: $document, authDto: $authDto)';
   }
 
   @override
@@ -533,6 +560,7 @@ class _$CurrentUserDtoImpl extends _CurrentUserDto {
                 .equals(other._education, _education) &&
             const DeepCollectionEquality()
                 .equals(other._reference, _reference) &&
+            const DeepCollectionEquality().equals(other._document, _document) &&
             (identical(other.authDto, authDto) || other.authDto == authDto));
   }
 
@@ -559,6 +587,7 @@ class _$CurrentUserDtoImpl extends _CurrentUserDto {
         lastPage,
         const DeepCollectionEquality().hash(_education),
         const DeepCollectionEquality().hash(_reference),
+        const DeepCollectionEquality().hash(_document),
         authDto
       ]);
 
@@ -598,6 +627,7 @@ abstract class _CurrentUserDto extends CurrentUserDto {
       @JsonKey(name: 'last_page') final String? lastPage,
       @JsonKey(name: 'education') final List<EducationDTO>? education,
       @JsonKey(name: 'reference') final List<ReferenceDTO>? reference,
+      @JsonKey(name: 'document') final List<DocumentDTO>? document,
       @JsonKey(name: 'auth') final AuthDto? authDto}) = _$CurrentUserDtoImpl;
   const _CurrentUserDto._() : super._();
 
@@ -661,6 +691,9 @@ abstract class _CurrentUserDto extends CurrentUserDto {
   @override
   @JsonKey(name: 'reference')
   List<ReferenceDTO>? get reference;
+  @override
+  @JsonKey(name: 'document')
+  List<DocumentDTO>? get document;
   @override
   @JsonKey(name: 'auth')
   AuthDto? get authDto;

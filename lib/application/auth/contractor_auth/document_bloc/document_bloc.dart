@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +28,9 @@ import 'package:shift/presentation/auth/contractor_auth/documents/resume.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 
 part 'document_event.dart';
+
 part 'document_state.dart';
+
 part 'document_bloc.freezed.dart';
 
 @injectable
@@ -94,7 +98,6 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
         /// FOR GOVERNEMT DOCUMENT
         getGovermentDoc: (e) async {
           Either<AccountFailure, List<DocumentDTO>>? failureOrSuccess;
-
           emit(
             state.copyWith(
               isLoading: true,
@@ -112,16 +115,18 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
               ),
             ),
             (r) {
-              print("r.length---> ${r.length}");
+              print("r.length---> ${r[0].expiry_date}");
               if (r.isNotEmpty) {
                 return emit(
                   state.copyWith(
                     isLoading: false,
+                    govermentDocId: (r[0].id != null) ? r[0].id! : -1,
                     govermentDoc: InputEmptyOrNot(r[0].file ?? ""),
                     governmentExpiryDate: (r[0].expiry_date != null)
                         ? DateFormat('yyyy-MM-dd').format(
                             DateTime.fromMillisecondsSinceEpoch(
-                                r[0].expiry_date ?? 0),
+                                (r[0].expiry_date ?? -1) * 1000,
+                                isUtc: true),
                           )
                         : "",
                     isGovernemtExpiryCheck:
@@ -192,7 +197,8 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
 
           final isGovernmentDocValid = state.govermentDoc.isValid();
 
-          print("DOC IS VALID--> $isGovernmentDocValid");
+          print("DOC IS VALID--> ${state.govermentDoc}");
+          print("DOC IS VALID--> ${state.govermentDocId}");
           print("DOC IS VALID111--> ${state.isGovernemtExpiryCheck}");
           print("DOC IS VALID222--> ${state.governmentExpiryDate}");
           if ((state.isGovernemtExpiryCheck ||
@@ -204,19 +210,28 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                 governmentDocAuthFailureOrSuccessOption: none(),
               ),
             );
-            failureOrSuccess = await _repository.addDocumentApi(
-              documentType: 1,
-              documentFile: state.govermentDoc.getValue() ?? "",
-              expiryDate: state.governmentExpiryDate,
-              expiryDateNotApplicable: state.isGovernemtExpiryCheck,
-            );
+
+            if (state.govermentDocId != -1) {
+              failureOrSuccess = await _repository.updateDocumentApi(
+                id: state.govermentDocId,
+                documentType: 1,
+                documentFile: state.govermentDoc.getValue() ?? "",
+                expiryDate: state.governmentExpiryDate,
+                expiryDateNotApplicable: state.isGovernemtExpiryCheck,
+              );
+            } else {
+              failureOrSuccess = await _repository.addDocumentApi(
+                documentType: 1,
+                documentFile: state.govermentDoc.getValue() ?? "",
+                expiryDate: state.governmentExpiryDate,
+                expiryDateNotApplicable: state.isGovernemtExpiryCheck,
+              );
+            }
+
             failureOrSuccess.fold(
               (l) => emit(
                 state.copyWith(
                   isSubmitting: false,
-                  govermentDoc: InputEmptyOrNot(""),
-                  governmentExpiryDate: "",
-                  isGovernemtExpiryCheck: false,
                 ),
               ),
               (r) {
@@ -244,15 +259,6 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                     optionOf(failureOrSuccess),
               ),
             );
-
-            // emit(
-            //   state.copyWith(
-            //     isGovermentDocSubmitting: true,
-            //     showGovernmentIdErrorMessages: false,
-            //     // governmentDocAuthFailureOrSuccessOption:
-            //     //     optionOf(right("success")),
-            //   ),
-            // );
           } else {
             emit(
               state.copyWith(
@@ -265,6 +271,50 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
         },
 
         /// FOR COVID DOCUMENT
+        getCovidDoc: (e) async {
+          Either<AccountFailure, List<DocumentDTO>>? failureOrSuccess;
+          emit(
+            state.copyWith(
+              isLoading: true,
+              coviDocAuthFailureOrSuccessOption: none(),
+            ),
+          );
+          failureOrSuccess = await _repository.getDocumentApi(documentType: 2);
+          failureOrSuccess.fold(
+            (l) => emit(
+              state.copyWith(
+                isLoading: false,
+                covidVaccinationDoc: InputEmptyOrNot(""),
+              ),
+            ),
+            (r) {
+              if (r.isNotEmpty) {
+                return emit(
+                  state.copyWith(
+                    isLoading: false,
+                    covidDocId: (r[0].id != null) ? r[0].id! : -1,
+                    covidVaccinationDoc: InputEmptyOrNot(r[0].file ?? ""),
+                  ),
+                );
+              } else {
+                return emit(
+                  state.copyWith(
+                    isLoading: false,
+                    covidVaccinationDoc: InputEmptyOrNot(""),
+                  ),
+                );
+              }
+            },
+          );
+
+          emit(
+            state.copyWith(
+              isLoading: false,
+              // governmentDocAuthFailureOrSuccessOption:
+              //     optionOf(failureOrSuccess),
+            ),
+          );
+        },
         selectCovidVaccinationDoc: (e) {
           emit(
             state.copyWith(
@@ -284,28 +334,63 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
             ),
           );
         },
-        covidDocSubmit: (e) {
+        covidDocSubmit: (e) async {
+          Either<AccountFailure, String>? failureOrSuccess;
+
           final isCovidDocValid = state.covidVaccinationDoc.isValid();
           // if (isCovidDocValid) {
+          // emit(
+          //   state.copyWith(
+          //     isCovidDocSubmitting: true,
+          //     showCovidErrorMessages: false,
+          //     coviDocAuthFailureOrSuccessOption: optionOf(right("success")),
+          //   ),
+          // );
+
           emit(
             state.copyWith(
               isCovidDocSubmitting: true,
-              showCovidErrorMessages: false,
-              coviDocAuthFailureOrSuccessOption: optionOf(right("success")),
+              coviDocAuthFailureOrSuccessOption: none(),
             ),
           );
-          DocumentBloc.pageController.nextPage(
-              duration: const Duration(milliseconds: 10),
-              curve: Curves.easeInOut);
-          // } else {
-          //   emit(
-          //     state.copyWith(
-          //       isCovidDocSubmitting: false,
-          //       showCovidErrorMessages: true,
-          //       coviDocAuthFailureOrSuccessOption: none(),
-          //     ),
-          //   );
-          // }
+
+          if (state.covidDocId != -1) {
+            failureOrSuccess = await _repository.updateDocumentApi(
+              id: state.covidDocId,
+              documentType: 2,
+              documentFile: state.covidVaccinationDoc.getValue() ?? "",
+            );
+          } else if (state.covidVaccinationDoc.isValid()) {
+            failureOrSuccess = await _repository.addDocumentApi(
+              documentType: 2,
+              documentFile: state.covidVaccinationDoc.getValue() ?? "",
+            );
+          } else {
+            failureOrSuccess = right("success");
+          }
+
+          failureOrSuccess.fold(
+            (l) => emit(
+              state.copyWith(
+                isCovidDocSubmitting: false,
+              ),
+            ),
+            (r) {
+              DocumentBloc.pageController.nextPage(
+                  duration: const Duration(milliseconds: 10),
+                  curve: Curves.easeInOut);
+            },
+          );
+
+          emit(
+            state.copyWith(
+              isCovidDocSubmitting: false,
+              coviDocAuthFailureOrSuccessOption: optionOf(failureOrSuccess),
+            ),
+          );
+          // DocumentBloc.pageController.nextPage(
+          //     duration: const Duration(milliseconds: 10),
+          //     curve: Curves.easeInOut);
         },
 
         /// FOR CREDENTIALS-REGISTRATION DOCUMENT
@@ -475,11 +560,58 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
   }
 }
 
+@injectable
 class CredentialBloc extends Bloc<CredentialEvent, CredentialState> {
-  CredentialBloc() : super(CredentialState.initial()) {
-    on<CredentialEvent>((event, emit) {
-      event.map(
+  final IAccountRepository _repository;
+
+  CredentialBloc(this._repository) : super(CredentialState.initial()) {
+    on<CredentialEvent>((event, emit) async {
+     await event.map(
         /// FOR CREDENTIALS-REGISTRATION DOCUMENT
+       getCredentialDocList: (e) async {
+            Either<AccountFailure, List<DocumentDTO>>? failureOrSuccess;
+            emit(
+              state.copyWith(
+                isLoading: true,
+                credintialDocAuthFailureOrSuccessOption: none(),
+              ),
+            );
+            failureOrSuccess = await _repository.getDocumentApi(documentType: 3);
+            failureOrSuccess.fold(
+                  (l) => emit(
+                state.copyWith(
+                  isLoading: false,
+                 credentialRegistrationList: [],
+                ),
+              ),
+                  (r) {
+                print("r.length---> ${r.length}");
+                if (r.isNotEmpty) {
+                  return emit(
+                    state.copyWith(
+                      isLoading: false,
+                      credentialRegistrationList: r,
+                    ),
+                  );
+                } else {
+                  return emit(
+                    state.copyWith(
+                      isLoading: false,
+                     credentialRegistrationList: [],
+                    ),
+                  );
+                }
+              },
+            );
+
+            emit(
+              state.copyWith(
+                isLoading: false,
+                // credintialDocAuthFailureOrSuccessOption:
+                //     optionOf(failureOrSuccess),
+              ),
+            );
+          },
         registrationNumberChanegd: (e) {
           emit(
             state.copyWith(
@@ -547,7 +679,9 @@ class CredentialBloc extends Bloc<CredentialEvent, CredentialState> {
             ),
           );
         },
-        addMoreCredentialDoc: (e) {
+        addMoreCredentialDoc: (e) async {
+          Either<AccountFailure, Account>? failureOrSuccess;
+
           final isCredentialDocValid =
               state.credentialRegistrationDoc.isValid();
           final isDocumentTitleValid = state.documentTitle.isValid();
@@ -558,20 +692,88 @@ class CredentialBloc extends Bloc<CredentialEvent, CredentialState> {
               isProvinceRegistrationValid &&
               (state.isCredExpiryCheck ||
                   state.credentialExpiryDate.isNotEmpty)) {
-            emit(
+            print("province Number---> ${state.selectedProvinceRegistration.getValue()}");
+
+            /// FROMMMMMM
+              emit(
+                state.copyWith(
+                  isCredintialDocSubmitting: true,
+                  credintialDocAuthFailureOrSuccessOption: none(),
+                ),
+              );
+
+              // if (state.govermentDocId != -1) {
+              //   failureOrSuccess = await _repository.updateDocumentApi(
+              //     id: state.govermentDocId,
+              //     documentType: 1,
+              //     documentFile: state.govermentDoc.getValue() ?? "",
+              //     expiryDate: state.governmentExpiryDate,
+              //     expiryDateNotApplicable: state.isGovernemtExpiryCheck,
+              //   );
+              // } else {
+                failureOrSuccess = await _repository.addMultiDocumentApi(
+                  documentType: 3,
+                  registrationNumber: state.registrationNumber,
+                  provinceOfRegistration:
+                  state.selectedProvinceRegistration.getValue(),
+                  documentTitle: state.documentTitle.getValue(),
+                  documentFile:
+                  state.credentialRegistrationDoc.getValue() ?? "",
+                  expiryDate: state.credentialExpiryDate,
+                  expiryDateNotApplicable: state.isCredExpiryCheck,
+                );
+              // }
+
+              failureOrSuccess.fold(
+                    (l) => emit(
+                  state.copyWith(
+                    isCredintialDocSubmitting: false,
+                  ),
+                ),
+                    (r) {
+                /*  DocumentBloc.pageController.nextPage(
+                      duration: const Duration(milliseconds: 10),
+                      curve: Curves.easeInOut);*/
+                      print("credential List ----> ${jsonEncode(r.document!.length)}");
+                      emit(
+                        state.copyWith(
+                          credentialRegistrationList: r.document ?? [],
+                          credentialRegistrationDoc: InputEmptyOrNot(""),
+                          documentTitle: InputEmptyOrNot(""),
+                          selectedProvinceRegistration: InputEmptyOrNot(""),
+                          registrationNumber: "",
+                          credentialExpiryDate: "",
+                          isCredExpiryCheck: false,
+                          isCredintialDocSubmitting: false,
+                          showCredintialErrorMessages: false,
+                          credintialDocAuthFailureOrSuccessOption: none(),
+                        ),
+                      );
+                },
+              );
+              emit(
+                state.copyWith(
+                  isLoading: false,
+                  credintialDocAuthFailureOrSuccessOption:optionOf(failureOrSuccess),
+                ),
+              );
+
+            /// TOOOO
+
+            /*emit(
               state.copyWith(
                 credentialRegistrationList: [
                   ...state.credentialRegistrationList,
-                  CredentialRegistrationDTO(
-                    registrationNo: state.registrationNumber,
-                    provinceRegistration:
+                  DocumentDTO(
+                    registration_number: state.registrationNumber,
+                    province_of_registration:
                         state.selectedProvinceRegistration.getValue(),
-                    documentTitle: state.documentTitle.getValue(),
-                    credentialDocument:
+                    document_title: state.documentTitle.getValue(),
+                    file:
                         state.credentialRegistrationDoc.getValue(),
-                    expiryDate: state.credentialExpiryDate,
-                    isExpiryNotApplicable: state.isCredExpiryCheck,
-                  )
+                    // expiry_date: (DateTime.parse(state.credentialExpiryDate).millisecondsSinceEpoch / 1000),
+                    expiry_date_not_applicable: (state.isCredExpiryCheck == true) ? 1 : 0,
+                  ),
                 ],
                 credentialRegistrationDoc: InputEmptyOrNot(""),
                 documentTitle: InputEmptyOrNot(""),
@@ -581,7 +783,7 @@ class CredentialBloc extends Bloc<CredentialEvent, CredentialState> {
                 showCredintialErrorMessages: false,
                 credintialDocAuthFailureOrSuccessOption: none(),
               ),
-            );
+            );*/
           } else {
             emit(
               state.copyWith(
@@ -592,19 +794,39 @@ class CredentialBloc extends Bloc<CredentialEvent, CredentialState> {
             );
           }
         },
-        deleteCredentialObject: (e) {
+        deleteCredentialObject: (e) async {
+
+
+          Either<AccountFailure, Account>? failureOrSuccess;
+
           emit(
             state.copyWith(
-              credentialRegistrationList:
-                  List.from(state.credentialRegistrationList)
-                    ..removeAt(e.index),
-              isCredintialDocSubmitting: false,
-              showCredintialErrorMessages: false,
+              isCredintialDocSubmitting: true,
               credintialDocAuthFailureOrSuccessOption: none(),
             ),
           );
-        },
 
+          print("Delete Id-> ${state.credentialRegistrationList[e.index].id}");
+          failureOrSuccess =
+              await _repository.deleteDocumentApi(credId: state.credentialRegistrationList[e.index].id ?? -1);
+
+          failureOrSuccess.fold(
+                (l) => emit(
+              state.copyWith(
+                isCredintialDocSubmitting: false,
+                credentialRegistrationList: List.from(state.credentialRegistrationList),
+              ),
+            ),
+                (r) {
+              return emit(
+                state.copyWith(
+                  isCredintialDocSubmitting: false,
+                  credentialRegistrationList: List.from(r.document ?? []),
+                ),
+              );
+            },
+          );
+        },
         credentialDocSubmit: (e) {
           final isCredentialDocValid =
               state.credentialRegistrationDoc.isValid();
@@ -623,7 +845,7 @@ class CredentialBloc extends Bloc<CredentialEvent, CredentialState> {
                 isCredintialDocSubmitting: true,
                 showCredintialErrorMessages: false,
                 credintialDocAuthFailureOrSuccessOption:
-                    optionOf(right("success")),
+                    optionOf(right(Account())),
               ),
             );
             DocumentBloc.pageController.nextPage(
@@ -645,7 +867,7 @@ class CredentialBloc extends Bloc<CredentialEvent, CredentialState> {
                 isCredintialDocSubmitting: true,
                 showCredintialErrorMessages: false,
                 credintialDocAuthFailureOrSuccessOption:
-                    optionOf(right("success")),
+                    optionOf(right(Account())),
               ),
             );
             DocumentBloc.pageController.nextPage(
@@ -670,6 +892,7 @@ class CredentialBloc extends Bloc<CredentialEvent, CredentialState> {
   }
 }
 
+@injectable
 class ProfessionalLicensesBloc
     extends Bloc<ProfessionalLicensesEvent, ProfessionalLicensesState> {
   ProfessionalLicensesBloc() : super(ProfessionalLicensesState.initial()) {
@@ -868,6 +1091,7 @@ class ProfessionalLicensesBloc
   }
 }
 
+@injectable
 class ImmunizationBloc extends Bloc<ImmunizationEvent, ImmunizationState> {
   ImmunizationBloc() : super(ImmunizationState.initial()) {
     // List<ImmunizationDTO> updateTestImmunizationList = [
@@ -1066,6 +1290,8 @@ class ImmunizationBloc extends Bloc<ImmunizationEvent, ImmunizationState> {
 }
 
 /// FOR Professional Liability Protection DOCUMENT
+
+@injectable
 class ProfessionalLiabilityBloc
     extends Bloc<ProfessionalLiabilityEvent, ProfessionalLiabilityState> {
   ProfessionalLiabilityBloc() : super(ProfessionalLiabilityState.initial()) {
@@ -1206,6 +1432,7 @@ class ProfessionalLiabilityBloc
   }
 }
 
+@injectable
 class ResumeBloc extends Bloc<ResumeEvent, ResumeState> {
   ResumeBloc() : super(ResumeState.initial()) {
     on<ResumeEvent>((event, emit) {
@@ -1246,6 +1473,7 @@ class ResumeBloc extends Bloc<ResumeEvent, ResumeState> {
   }
 }
 
+@injectable
 class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
   EquipmentBloc() : super(EquipmentState.initial()) {
     on<EquipmentEvent>((event, emit) {

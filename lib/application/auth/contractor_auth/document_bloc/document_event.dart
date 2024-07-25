@@ -19,6 +19,8 @@ class DocumentEvent with _$DocumentEvent {
   const factory DocumentEvent.selectCovidVaccinationDoc(String covidDoc) =
       _SelectCovidVaccinationDoc;
   const factory DocumentEvent.deleteCovidDoc(String covidDoc) = _DeleteCovidDoc;
+  const factory DocumentEvent.getCovidDoc() = _GetCovidDoc;
+
   const factory DocumentEvent.covidDocSubmit() = _CovidDocSubmit;
 
   // /// FOR CREDENTIALS-REGISTRATION DOCUMENT
@@ -42,6 +44,8 @@ class DocumentEvent with _$DocumentEvent {
 @freezed
 class CredentialEvent with _$CredentialEvent {
   /// FOR CREDENTIALS-REGISTRATION DOCUMENT
+  const factory CredentialEvent.getCredentialDocList() =
+  GetCredentialDocList;
   const factory CredentialEvent.checkNACredExpiryDate(bool isCheck) =
       CheckNACredExpiryDate;
   const factory CredentialEvent.credExpiryDateChanged(String expiryDate) =

@@ -22,6 +22,8 @@ class ApiConstants {
   static String destroyReference = 'destroy_reference';
   static String getDocument = 'get_document';
   static String document = 'document';
+  static String updateDocument = 'update_document';
+  static String destroyDocument = 'destroy_document';
 
 // common
   static String roleList = 'role_list';

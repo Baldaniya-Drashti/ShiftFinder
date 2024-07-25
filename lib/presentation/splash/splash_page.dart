@@ -122,7 +122,7 @@ class SplashPage extends StatelessWidget {
       case "Experience":
         return AddExperienceDetailScreen.name;
       case "Reference":
-        return ReferenceListScreen.name;
+        return DocumentPageScreen.name;
       case "Document":
         return DocumentPageScreen.name;
       default:

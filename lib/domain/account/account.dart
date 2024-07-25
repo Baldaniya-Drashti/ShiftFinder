@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/education_dto/education_dto.dart';
 import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
 
@@ -28,6 +29,7 @@ class Account with _$Account {
     String? lastPage,
     List<EducationDTO>? education,
     List<ReferenceDTO>? reference,
+    List<DocumentDTO>? document,
     Auth? auth,
   }) = _Account;
 }

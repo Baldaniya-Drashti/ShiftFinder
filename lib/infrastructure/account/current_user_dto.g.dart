@@ -31,6 +31,9 @@ _$CurrentUserDtoImpl _$$CurrentUserDtoImplFromJson(Map<String, dynamic> json) =>
       reference: (json['reference'] as List<dynamic>?)
           ?.map((e) => ReferenceDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
+      document: (json['document'] as List<dynamic>?)
+          ?.map((e) => DocumentDTO.fromJson(e as Map<String, dynamic>))
+          .toList(),
       authDto: json['auth'] == null
           ? null
           : AuthDto.fromJson(json['auth'] as Map<String, dynamic>),
@@ -58,6 +61,7 @@ Map<String, dynamic> _$$CurrentUserDtoImplToJson(
       'last_page': instance.lastPage,
       'education': instance.education,
       'reference': instance.reference,
+      'document': instance.document,
       'auth': instance.authDto,
     };
 

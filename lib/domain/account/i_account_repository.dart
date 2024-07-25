@@ -57,4 +57,34 @@ abstract class IAccountRepository {
     String? nameOfVaccinations,
     String? lastPage,
   });
+
+  Future<Either<AccountFailure, Account>> addMultiDocumentApi({
+    required int documentType,
+    required String documentFile,
+    String? expiryDate,
+    bool? expiryDateNotApplicable,
+    String? registrationNumber,
+    String? provinceOfRegistration,
+    String? documentTitle,
+    String? nameOfVaccinations,
+    String? lastPage,
+  });
+
+  Future<Either<AccountFailure, String>> updateDocumentApi({
+    required int id,
+    required int documentType,
+    required String documentFile,
+    String? expiryDate,
+    bool? expiryDateNotApplicable,
+    String? registrationNumber,
+    String? provinceOfRegistration,
+    String? documentTitle,
+    String? nameOfVaccinations,
+    String? lastPage,
+  });
+
+
+  Future<Either<AccountFailure, Account>> deleteDocumentApi({
+    required int credId,
+  });
 }

@@ -350,14 +350,14 @@ class AccountRepository extends IAccountRepository {
     String? lastPage,
   }) async {
     try {
-      print("expiry dat---> ${expiryDate}");
+      print("expiry dat---> $expiryDate");
       print(
           "expiry date after timestamp---> ${DateTime.now().millisecondsSinceEpoch}");
 
       var formData = FormData.fromMap({
         "document_type": documentType,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime.now().millisecondsSinceEpoch / 1000).toString()
+            ? (DateTime.parse(expiryDate).millisecondsSinceEpoch / 1000).toString()
             : "",
         "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
         "registration_number": registrationNumber,
@@ -387,6 +387,187 @@ class AccountRepository extends IAccountRepository {
       // var account = response.data as List<dynamic>;
       // var list = account.map((e) => DocumentDTO.fromJson(e)).toList();
       return right(response.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+      return left(const AccountFailure.serverError());
+    } catch (e) {
+      print("CATCH ERRO---> ${e}");
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AccountFailure, String>> updateDocumentApi({
+    required int id,
+    required int documentType,
+    required String documentFile,
+    String? expiryDate,
+    bool? expiryDateNotApplicable,
+    String? registrationNumber,
+    String? provinceOfRegistration,
+    String? documentTitle,
+    String? nameOfVaccinations,
+    String? lastPage,
+  }) async {
+    try {
+      print("expiry dat---> $expiryDate");
+      print("Document file---> $documentFile");
+      print("expiry date after timestamp---> ${DateTime.now().millisecondsSinceEpoch}");
+
+      var formData = FormData.fromMap({
+        "id": id,
+        "document_type": documentType,
+        "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
+            ? (DateTime.parse(expiryDate).millisecondsSinceEpoch / 1000).toString()
+            : "",
+        "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
+        "registration_number": registrationNumber,
+        "province_of_registration": provinceOfRegistration,
+        "document_title": documentTitle,
+        "name_of_vaccinations": nameOfVaccinations,
+      });
+      if (documentFile.isNotEmpty && !documentFile.contains('http')) {
+        var multipartFile = await MultipartFile.fromFile(
+          documentFile,
+        );
+        formData.files.add(MapEntry('file', multipartFile));
+      }
+
+      print('Sending Data: ${formData.fields.map((e) => e)}');
+      // print('Sending Data: ${formData['file']}');
+
+      final response = await apiService.postMethod(
+        ApiConstants.updateDocument,
+        {},
+        formData: formData,
+        isMultipart: true,
+      );
+
+      print("Response of Update Document---> ${jsonEncode(response.data)}");
+
+      // var account = response.data as List<dynamic>;
+      // var list = account.map((e) => DocumentDTO.fromJson(e)).toList();
+      return right(response.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+      return left(const AccountFailure.serverError());
+    } catch (e) {
+      print("CATCH ERRO---> ${e}");
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+
+  @override
+  Future<Either<AccountFailure, Account>> addMultiDocumentApi({
+    required int documentType,
+    required String documentFile,
+    String? expiryDate,
+    bool? expiryDateNotApplicable,
+    String? registrationNumber,
+    String? provinceOfRegistration,
+    String? documentTitle,
+    String? nameOfVaccinations,
+    String? lastPage,
+  }) async {
+    try {
+      print("expiry dat---> $expiryDate");
+      print(
+          "expiry date after timestamp---> ${DateTime.now().millisecondsSinceEpoch}");
+
+      var formData = FormData.fromMap({
+        "document_type": documentType,
+        "province_of_registration": provinceOfRegistration,
+
+        "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
+            ? (DateTime.parse(expiryDate).millisecondsSinceEpoch / 1000).toString()
+            : "",
+        "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
+        "registration_number": registrationNumber,
+        "document_title": documentTitle,
+        "name_of_vaccinations": nameOfVaccinations,
+        "last_page": lastPage ?? "Document",
+      });
+      if (documentFile.isNotEmpty && !documentFile.contains('http')) {
+        var multipartFile = await MultipartFile.fromFile(
+          documentFile,
+        );
+        formData.files.add(MapEntry('file', multipartFile));
+      }
+
+      print('Sending Data: ${formData.fields.map((e) => e)}');
+
+      final response = await apiService.postMethod(
+        ApiConstants.document,
+        {},
+        formData: formData,
+        isMultipart: true,
+      );
+
+      // print("Response of Add Document---> ${jsonEncode(response.data)}");
+      final account = CurrentUserDto.fromJson(response.data).toDomain();
+      // return right(account);
+      // var account = response.data as List<dynamic>;
+      // var list = account.values.map((e) => DocumentDTO.fromJson(e)).toList();
+
+      // var list = account.map((e) => DocumentDTO.fromJson(e)).toList();
+      return right(account);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+      return left(const AccountFailure.serverError());
+    } catch (e) {
+      print("CATCH ERRO---> ${e}");
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AccountFailure, Account>> deleteDocumentApi({
+    required int credId,
+  }) async {
+    try {
+
+
+      final response = await apiService.deleteMethod(
+        "${ApiConstants.destroyDocument}?id=$credId",
+      );
+
+      if (response != null && response.data != null) {
+        final account = CurrentUserDto.fromJson(response.data).toDomain();
+        print("Response of Delete Document---> ${jsonEncode(response.data)}");
+
+        return right(account);
+      } else {
+        return left(const AccountFailure.serverError());
+      }
+
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
