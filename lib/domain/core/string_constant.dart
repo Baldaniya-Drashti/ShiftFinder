@@ -218,6 +218,18 @@ class StringConstant {
   static const String addYourCard = "Add Your Card";
   static const String expiryDateIsNotApplicable =
       "Expiry date is not applicable";
+  static const String termsScreenImageDesc =
+      "Before you start work with us please read carefully our term and conditions";
+  static const String summary = "Summary";
+  static const String summaryDesc =
+      "Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi.";
+  static const String terms = "Terms";
+  static const String termsDesc1 =
+      "Aliqua id fugiat nostrud irure ex duis ea fdsquis id quis ad et. Sunt qui esse pariatur duis deserunt mollit fdsfdolore cillum minim tempor enim. Elit aute irure tempofdsfd or cupidatat incididunt sint deserunt ut voluptate aute deid dfsd deserunt nisi.Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation dfsincididunt aliquip deserunnaekea maeti ormer rt reprehenderit elit labor";
+  static const String termsDesc2 =
+      "Aliqua id fugiat nostrud irure ex duis ea quissdre id quis ad et. Sunt qui esse pariatur duis deserunt mollit dsf dfdolore cillum minim tempor enim. Elit aute irure tempordffasf fsd  cupidatat incididunt sint deserunt ut voluptate aute id deserun i.";
+  static const String termsDesc3 =
+      "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Volupta exercitationdr incididunt  lake aliquip deserunt reprehenderit elit laborum. ";
 
   ///
 
@@ -295,6 +307,8 @@ class StringConstant {
       "Please add profession of the referrer";
   static const String pleaseSelectGovernmentIssuedId =
       "Please select government issued id";
+  static const String pleaseAddGovernmentIssuedId =
+      "Please add Government Issued Id";
   static const String pleaseSelectExpiryDateIfApplicable =
       "Please add expiry date if applicable";
   static const String pleaseSelectCovidVaccinationDoc =

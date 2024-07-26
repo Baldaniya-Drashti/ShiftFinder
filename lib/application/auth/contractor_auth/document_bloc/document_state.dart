@@ -1,9 +1,13 @@
+// ignore_for_file: prefer_const_constructors
+
 part of 'document_bloc.dart';
 
 @freezed
 class DocumentState with _$DocumentState {
   const factory DocumentState({
     required int currentPage,
+    required List<DocumentDTO> allDocumentList,
+    required bool allListLoading,
 
     /// FOR GOVERNMENT DOCUMENT
     required bool isLoading,
@@ -20,18 +24,20 @@ class DocumentState with _$DocumentState {
     required InputEmptyOrNot covidVaccinationDoc,
     required bool showCovidErrorMessages,
     required int covidDocId,
-
     required bool isCovidDocSubmitting,
     required Option<Either<AccountFailure, String>>
         coviDocAuthFailureOrSuccessOption,
 
     /// SUBMIT
     required bool isSubmitting,
-    required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
+    required Option<Either<AccountFailure, List<DocumentDTO>>>
+        authFailureOrSuccessOption,
   }) = _DocumentState;
   factory DocumentState.initial() => DocumentState(
         currentPage: 0,
         isLoading: false,
+        allDocumentList: [],
+        allListLoading: false,
 
         /// FOR GOVERNMENT DOCUMENT
         govermentDoc: InputEmptyOrNot(""),
@@ -46,7 +52,7 @@ class DocumentState with _$DocumentState {
         covidVaccinationDoc: InputEmptyOrNot(""),
         showCovidErrorMessages: false,
         isCovidDocSubmitting: false,
-    covidDocId: -1,
+        covidDocId: -1,
 
         coviDocAuthFailureOrSuccessOption: none(),
 
@@ -71,12 +77,12 @@ class CredentialState with _$CredentialState {
     required String credentialExpiryDate,
     required bool showCredintialErrorMessages,
     required bool isCredintialDocSubmitting,
-    required Option<Either<AccountFailure, Account>?>
+    required Option<Either<AccountFailure, Account>>
         credintialDocAuthFailureOrSuccessOption,
   }) = _CredentialState;
   factory CredentialState.initial() => CredentialState(
         /// FOR CREDENTIALS-REGISTRATION DOCUMENT
-    isLoading:  false,
+        isLoading: false,
         credentialRegistrationList: [],
         registrationNumber: "",
         documentTitle: InputEmptyOrNot(""),
@@ -94,7 +100,7 @@ class CredentialState with _$CredentialState {
 class ProfessionalLicensesState with _$ProfessionalLicensesState {
   const factory ProfessionalLicensesState({
     /// FOR PROFESSIONAL LICENSES DOCUMENT
-    required List<CredentialRegistrationDTO> professionalLicensesList,
+    required List<DocumentDTO> professionalLicensesList,
     required String registrationNumber,
     required InputEmptyOrNot documentTitle,
     required bool isLicensesExpiryCheck,
@@ -103,7 +109,7 @@ class ProfessionalLicensesState with _$ProfessionalLicensesState {
     required InputEmptyOrNot selectedProvinceRegistration,
     required bool showLicensesErrorMessages,
     required bool isLicensesDocSubmitting,
-    required Option<Either<AuthFailure, String>>
+    required Option<Either<AccountFailure, Account>>
         licensesDocAuthFailureOrSuccessOption,
   }) = _ProfessionalLicensesState;
   factory ProfessionalLicensesState.initial() => ProfessionalLicensesState(
@@ -126,14 +132,14 @@ class ProfessionalLicensesState with _$ProfessionalLicensesState {
 class ImmunizationState with _$ImmunizationState {
   const factory ImmunizationState({
     /// FOR Immunizations-Vaccinations DOCUMENT
-    required List<ImmunizationDTO> immunizationList,
+    required List<DocumentDTO> immunizationList,
     required InputEmptyOrNot immunizationName,
     required InputEmptyOrNot immunizationDoc,
     required bool showImmunizationErrorMessages,
     required bool isImmunizationExpiryCheck,
     required String immunizationExpiryDate,
     required bool isImmunizationDocSubmitting,
-    required Option<Either<AuthFailure, String>>
+    required Option<Either<AccountFailure, Account>>
         immunizationDocAuthFailureOrSuccessOption,
   }) = _ImmunizationState;
   factory ImmunizationState.initial() => ImmunizationState(
@@ -153,13 +159,13 @@ class ImmunizationState with _$ImmunizationState {
 class ProfessionalLiabilityState with _$ProfessionalLiabilityState {
   const factory ProfessionalLiabilityState({
     /// FOR Professional Liability Protection DOCUMENT
-    required List<ImmunizationDTO> liabilityList,
+    required List<DocumentDTO> liabilityList,
     required InputEmptyOrNot liabilityDoc,
     required bool isLiabilityExpiryCheck,
     required String liabilityExpiryDate,
     required bool showLiabilityErrorMessages,
     required bool isLiabilityDocSubmitting,
-    required Option<Either<AuthFailure, String>>
+    required Option<Either<AccountFailure, Account>>
         liabilityDocAuthFailureOrSuccessOption,
   }) = _ProfessionalLiabilityState;
   factory ProfessionalLiabilityState.initial() => ProfessionalLiabilityState(
@@ -178,15 +184,17 @@ class ProfessionalLiabilityState with _$ProfessionalLiabilityState {
 class ResumeState with _$ResumeState {
   const factory ResumeState({
     /// FOR RESUME DOCUMENT
-    required InputEmptyOrNot resumeDoc,
+    // required InputEmptyOrNot resumeDoc,
+    required DocumentDTO resume,
     required bool showResumeErrorMessages,
     required bool isResumeDocSubmitting,
-    required Option<Either<AuthFailure, String>>
+    required Option<Either<AccountFailure, Account>>
         resumeDocAuthFailureOrSuccessOption,
   }) = _ResumeState;
   factory ResumeState.initial() => ResumeState(
         /// FOR RESUME DOCUMENT
-        resumeDoc: InputEmptyOrNot(""),
+        // resumeDoc: InputEmptyOrNot(""),
+        resume: DocumentDTO(),
         showResumeErrorMessages: false,
         isResumeDocSubmitting: false,
         resumeDocAuthFailureOrSuccessOption: none(),
@@ -197,13 +205,15 @@ class ResumeState with _$ResumeState {
 class EquipmentState with _$EquipmentState {
   const factory EquipmentState({
     /// FOR Apparel/Equipment DOCUMENT
-    required List<ImmunizationDTO> equipmentList,
+    required List<DocumentDTO> equipmentList,
     required InputEmptyOrNot equipmentName,
     required InputEmptyOrNot equipmentDoc,
     required bool showEquipmentErrorMessages,
     required bool isEquipmentDocSubmitting,
-    required Option<Either<AuthFailure, String>>
+    required Option<Either<AccountFailure, Account>>
         equipmentDocAuthFailureOrSuccessOption,
+    required Option<Either<AccountFailure, Account>>
+        submitDocAuthFailureOrSuccessOption,
   }) = _EquipmentState;
   factory EquipmentState.initial() => EquipmentState(
         equipmentList: [],
@@ -211,6 +221,7 @@ class EquipmentState with _$EquipmentState {
         equipmentDoc: InputEmptyOrNot(""),
         showEquipmentErrorMessages: false,
         isEquipmentDocSubmitting: false,
+        submitDocAuthFailureOrSuccessOption: none(),
         equipmentDocAuthFailureOrSuccessOption: none(),
       );
 }

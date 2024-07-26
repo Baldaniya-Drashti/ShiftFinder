@@ -1,23 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'skill_dto.dart';
+part of 'legal_screening_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$SkillDTOImpl _$$SkillDTOImplFromJson(Map<String, dynamic> json) =>
-    _$SkillDTOImpl(
+_$LegalScreeningDTOImpl _$$LegalScreeningDTOImplFromJson(
+        Map<String, dynamic> json) =>
+    _$LegalScreeningDTOImpl(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
-      shortName: json['shortName'] as String?,
+      isNa: (json['isNa'] as num?)?.toInt(),
       answer: (json['answer'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$SkillDTOImplToJson(_$SkillDTOImpl instance) =>
+Map<String, dynamic> _$$LegalScreeningDTOImplToJson(
+        _$LegalScreeningDTOImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'shortName': instance.shortName,
+      'isNa': instance.isNa,
       'answer': instance.answer,
     };

@@ -24,6 +24,10 @@ class ApiConstants {
   static String document = 'document';
   static String updateDocument = 'update_document';
   static String destroyDocument = 'destroy_document';
+  static String quizList = 'quiz_list';
+  static String legalScreeningQuestionList = 'legal_screening_question_list';
+  static String legalScreeningQuestionAnswer =
+      'legal_screening_question_answer';
 
 // common
   static String roleList = 'role_list';

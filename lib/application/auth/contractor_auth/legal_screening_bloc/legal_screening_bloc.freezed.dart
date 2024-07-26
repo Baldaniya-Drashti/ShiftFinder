@@ -20,7 +20,7 @@ mixin _$LegalScreeningEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getLegalScreeningQuestionList,
     required TResult Function(bool isCheck) checkTermsConfirmation,
-    required TResult Function(int currentIndex, String answer) storeAnswerEvent,
+    required TResult Function(int currentIndex, int answer) storeAnswerEvent,
     required TResult Function() continueBtnPressed,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$LegalScreeningEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getLegalScreeningQuestionList,
     TResult? Function(bool isCheck)? checkTermsConfirmation,
-    TResult? Function(int currentIndex, String answer)? storeAnswerEvent,
+    TResult? Function(int currentIndex, int answer)? storeAnswerEvent,
     TResult? Function()? continueBtnPressed,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$LegalScreeningEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getLegalScreeningQuestionList,
     TResult Function(bool isCheck)? checkTermsConfirmation,
-    TResult Function(int currentIndex, String answer)? storeAnswerEvent,
+    TResult Function(int currentIndex, int answer)? storeAnswerEvent,
     TResult Function()? continueBtnPressed,
     required TResult orElse(),
   }) =>
@@ -135,7 +135,7 @@ class _$GetLegalScreeningQuestionListImpl
   TResult when<TResult extends Object?>({
     required TResult Function() getLegalScreeningQuestionList,
     required TResult Function(bool isCheck) checkTermsConfirmation,
-    required TResult Function(int currentIndex, String answer) storeAnswerEvent,
+    required TResult Function(int currentIndex, int answer) storeAnswerEvent,
     required TResult Function() continueBtnPressed,
   }) {
     return getLegalScreeningQuestionList();
@@ -146,7 +146,7 @@ class _$GetLegalScreeningQuestionListImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getLegalScreeningQuestionList,
     TResult? Function(bool isCheck)? checkTermsConfirmation,
-    TResult? Function(int currentIndex, String answer)? storeAnswerEvent,
+    TResult? Function(int currentIndex, int answer)? storeAnswerEvent,
     TResult? Function()? continueBtnPressed,
   }) {
     return getLegalScreeningQuestionList?.call();
@@ -157,7 +157,7 @@ class _$GetLegalScreeningQuestionListImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getLegalScreeningQuestionList,
     TResult Function(bool isCheck)? checkTermsConfirmation,
-    TResult Function(int currentIndex, String answer)? storeAnswerEvent,
+    TResult Function(int currentIndex, int answer)? storeAnswerEvent,
     TResult Function()? continueBtnPressed,
     required TResult orElse(),
   }) {
@@ -284,7 +284,7 @@ class _$CheckTermsConfirmationImpl implements CheckTermsConfirmation {
   TResult when<TResult extends Object?>({
     required TResult Function() getLegalScreeningQuestionList,
     required TResult Function(bool isCheck) checkTermsConfirmation,
-    required TResult Function(int currentIndex, String answer) storeAnswerEvent,
+    required TResult Function(int currentIndex, int answer) storeAnswerEvent,
     required TResult Function() continueBtnPressed,
   }) {
     return checkTermsConfirmation(isCheck);
@@ -295,7 +295,7 @@ class _$CheckTermsConfirmationImpl implements CheckTermsConfirmation {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getLegalScreeningQuestionList,
     TResult? Function(bool isCheck)? checkTermsConfirmation,
-    TResult? Function(int currentIndex, String answer)? storeAnswerEvent,
+    TResult? Function(int currentIndex, int answer)? storeAnswerEvent,
     TResult? Function()? continueBtnPressed,
   }) {
     return checkTermsConfirmation?.call(isCheck);
@@ -306,7 +306,7 @@ class _$CheckTermsConfirmationImpl implements CheckTermsConfirmation {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getLegalScreeningQuestionList,
     TResult Function(bool isCheck)? checkTermsConfirmation,
-    TResult Function(int currentIndex, String answer)? storeAnswerEvent,
+    TResult Function(int currentIndex, int answer)? storeAnswerEvent,
     TResult Function()? continueBtnPressed,
     required TResult orElse(),
   }) {
@@ -374,7 +374,7 @@ abstract class _$$StoreAnswerEventImplCopyWith<$Res> {
           $Res Function(_$StoreAnswerEventImpl) then) =
       __$$StoreAnswerEventImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int currentIndex, String answer});
+  $Res call({int currentIndex, int answer});
 }
 
 /// @nodoc
@@ -399,7 +399,7 @@ class __$$StoreAnswerEventImplCopyWithImpl<$Res>
       null == answer
           ? _value.answer
           : answer // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
     ));
   }
 }
@@ -412,7 +412,7 @@ class _$StoreAnswerEventImpl implements StoreAnswerEvent {
   @override
   final int currentIndex;
   @override
-  final String answer;
+  final int answer;
 
   @override
   String toString() {
@@ -444,7 +444,7 @@ class _$StoreAnswerEventImpl implements StoreAnswerEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getLegalScreeningQuestionList,
     required TResult Function(bool isCheck) checkTermsConfirmation,
-    required TResult Function(int currentIndex, String answer) storeAnswerEvent,
+    required TResult Function(int currentIndex, int answer) storeAnswerEvent,
     required TResult Function() continueBtnPressed,
   }) {
     return storeAnswerEvent(currentIndex, answer);
@@ -455,7 +455,7 @@ class _$StoreAnswerEventImpl implements StoreAnswerEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getLegalScreeningQuestionList,
     TResult? Function(bool isCheck)? checkTermsConfirmation,
-    TResult? Function(int currentIndex, String answer)? storeAnswerEvent,
+    TResult? Function(int currentIndex, int answer)? storeAnswerEvent,
     TResult? Function()? continueBtnPressed,
   }) {
     return storeAnswerEvent?.call(currentIndex, answer);
@@ -466,7 +466,7 @@ class _$StoreAnswerEventImpl implements StoreAnswerEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getLegalScreeningQuestionList,
     TResult Function(bool isCheck)? checkTermsConfirmation,
-    TResult Function(int currentIndex, String answer)? storeAnswerEvent,
+    TResult Function(int currentIndex, int answer)? storeAnswerEvent,
     TResult Function()? continueBtnPressed,
     required TResult orElse(),
   }) {
@@ -519,11 +519,11 @@ class _$StoreAnswerEventImpl implements StoreAnswerEvent {
 }
 
 abstract class StoreAnswerEvent implements LegalScreeningEvent {
-  const factory StoreAnswerEvent(final int currentIndex, final String answer) =
+  const factory StoreAnswerEvent(final int currentIndex, final int answer) =
       _$StoreAnswerEventImpl;
 
   int get currentIndex;
-  String get answer;
+  int get answer;
   @JsonKey(ignore: true)
   _$$StoreAnswerEventImplCopyWith<_$StoreAnswerEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -569,7 +569,7 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   TResult when<TResult extends Object?>({
     required TResult Function() getLegalScreeningQuestionList,
     required TResult Function(bool isCheck) checkTermsConfirmation,
-    required TResult Function(int currentIndex, String answer) storeAnswerEvent,
+    required TResult Function(int currentIndex, int answer) storeAnswerEvent,
     required TResult Function() continueBtnPressed,
   }) {
     return continueBtnPressed();
@@ -580,7 +580,7 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getLegalScreeningQuestionList,
     TResult? Function(bool isCheck)? checkTermsConfirmation,
-    TResult? Function(int currentIndex, String answer)? storeAnswerEvent,
+    TResult? Function(int currentIndex, int answer)? storeAnswerEvent,
     TResult? Function()? continueBtnPressed,
   }) {
     return continueBtnPressed?.call();
@@ -591,7 +591,7 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getLegalScreeningQuestionList,
     TResult Function(bool isCheck)? checkTermsConfirmation,
-    TResult Function(int currentIndex, String answer)? storeAnswerEvent,
+    TResult Function(int currentIndex, int answer)? storeAnswerEvent,
     TResult Function()? continueBtnPressed,
     required TResult orElse(),
   }) {
@@ -649,12 +649,15 @@ abstract class ContinueBtnPressed implements LegalScreeningEvent {
 
 /// @nodoc
 mixin _$LegalScreeningState {
-  List<QuestionModel> get questionList => throw _privateConstructorUsedError;
+  List<LegalScreeningDTO> get questionList =>
+      throw _privateConstructorUsedError;
   bool get isCheck => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
   bool get isAllAnswered => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
-  Option<Either<AuthFailure, String>> get authFailureOrSuccessOption =>
+  Option<Either<AccountFailure, List<LegalScreeningDTO>>>
+      get authFailureOrSuccessOption => throw _privateConstructorUsedError;
+  Option<Either<AccountFailure, Account>> get submitFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -669,12 +672,14 @@ abstract class $LegalScreeningStateCopyWith<$Res> {
       _$LegalScreeningStateCopyWithImpl<$Res, LegalScreeningState>;
   @useResult
   $Res call(
-      {List<QuestionModel> questionList,
+      {List<LegalScreeningDTO> questionList,
       bool isCheck,
       bool showErrorMessages,
       bool isAllAnswered,
       bool isSubmitting,
-      Option<Either<AuthFailure, String>> authFailureOrSuccessOption});
+      Option<Either<AccountFailure, List<LegalScreeningDTO>>>
+          authFailureOrSuccessOption,
+      Option<Either<AccountFailure, Account>> submitFailureOrSuccessOption});
 }
 
 /// @nodoc
@@ -696,12 +701,13 @@ class _$LegalScreeningStateCopyWithImpl<$Res, $Val extends LegalScreeningState>
     Object? isAllAnswered = null,
     Object? isSubmitting = null,
     Object? authFailureOrSuccessOption = null,
+    Object? submitFailureOrSuccessOption = null,
   }) {
     return _then(_value.copyWith(
       questionList: null == questionList
           ? _value.questionList
           : questionList // ignore: cast_nullable_to_non_nullable
-              as List<QuestionModel>,
+              as List<LegalScreeningDTO>,
       isCheck: null == isCheck
           ? _value.isCheck
           : isCheck // ignore: cast_nullable_to_non_nullable
@@ -721,7 +727,11 @@ class _$LegalScreeningStateCopyWithImpl<$Res, $Val extends LegalScreeningState>
       authFailureOrSuccessOption: null == authFailureOrSuccessOption
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<AuthFailure, String>>,
+              as Option<Either<AccountFailure, List<LegalScreeningDTO>>>,
+      submitFailureOrSuccessOption: null == submitFailureOrSuccessOption
+          ? _value.submitFailureOrSuccessOption
+          : submitFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AccountFailure, Account>>,
     ) as $Val);
   }
 }
@@ -735,12 +745,14 @@ abstract class _$$LegalScreeningStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<QuestionModel> questionList,
+      {List<LegalScreeningDTO> questionList,
       bool isCheck,
       bool showErrorMessages,
       bool isAllAnswered,
       bool isSubmitting,
-      Option<Either<AuthFailure, String>> authFailureOrSuccessOption});
+      Option<Either<AccountFailure, List<LegalScreeningDTO>>>
+          authFailureOrSuccessOption,
+      Option<Either<AccountFailure, Account>> submitFailureOrSuccessOption});
 }
 
 /// @nodoc
@@ -760,12 +772,13 @@ class __$$LegalScreeningStateImplCopyWithImpl<$Res>
     Object? isAllAnswered = null,
     Object? isSubmitting = null,
     Object? authFailureOrSuccessOption = null,
+    Object? submitFailureOrSuccessOption = null,
   }) {
     return _then(_$LegalScreeningStateImpl(
       questionList: null == questionList
           ? _value._questionList
           : questionList // ignore: cast_nullable_to_non_nullable
-              as List<QuestionModel>,
+              as List<LegalScreeningDTO>,
       isCheck: null == isCheck
           ? _value.isCheck
           : isCheck // ignore: cast_nullable_to_non_nullable
@@ -785,7 +798,11 @@ class __$$LegalScreeningStateImplCopyWithImpl<$Res>
       authFailureOrSuccessOption: null == authFailureOrSuccessOption
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<AuthFailure, String>>,
+              as Option<Either<AccountFailure, List<LegalScreeningDTO>>>,
+      submitFailureOrSuccessOption: null == submitFailureOrSuccessOption
+          ? _value.submitFailureOrSuccessOption
+          : submitFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AccountFailure, Account>>,
     ));
   }
 }
@@ -794,17 +811,18 @@ class __$$LegalScreeningStateImplCopyWithImpl<$Res>
 
 class _$LegalScreeningStateImpl implements _LegalScreeningState {
   const _$LegalScreeningStateImpl(
-      {required final List<QuestionModel> questionList,
+      {required final List<LegalScreeningDTO> questionList,
       required this.isCheck,
       required this.showErrorMessages,
       required this.isAllAnswered,
       required this.isSubmitting,
-      required this.authFailureOrSuccessOption})
+      required this.authFailureOrSuccessOption,
+      required this.submitFailureOrSuccessOption})
       : _questionList = questionList;
 
-  final List<QuestionModel> _questionList;
+  final List<LegalScreeningDTO> _questionList;
   @override
-  List<QuestionModel> get questionList {
+  List<LegalScreeningDTO> get questionList {
     if (_questionList is EqualUnmodifiableListView) return _questionList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_questionList);
@@ -819,11 +837,14 @@ class _$LegalScreeningStateImpl implements _LegalScreeningState {
   @override
   final bool isSubmitting;
   @override
-  final Option<Either<AuthFailure, String>> authFailureOrSuccessOption;
+  final Option<Either<AccountFailure, List<LegalScreeningDTO>>>
+      authFailureOrSuccessOption;
+  @override
+  final Option<Either<AccountFailure, Account>> submitFailureOrSuccessOption;
 
   @override
   String toString() {
-    return 'LegalScreeningState(questionList: $questionList, isCheck: $isCheck, showErrorMessages: $showErrorMessages, isAllAnswered: $isAllAnswered, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'LegalScreeningState(questionList: $questionList, isCheck: $isCheck, showErrorMessages: $showErrorMessages, isAllAnswered: $isAllAnswered, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption, submitFailureOrSuccessOption: $submitFailureOrSuccessOption)';
   }
 
   @override
@@ -843,7 +864,11 @@ class _$LegalScreeningStateImpl implements _LegalScreeningState {
             (identical(other.authFailureOrSuccessOption,
                     authFailureOrSuccessOption) ||
                 other.authFailureOrSuccessOption ==
-                    authFailureOrSuccessOption));
+                    authFailureOrSuccessOption) &&
+            (identical(other.submitFailureOrSuccessOption,
+                    submitFailureOrSuccessOption) ||
+                other.submitFailureOrSuccessOption ==
+                    submitFailureOrSuccessOption));
   }
 
   @override
@@ -854,7 +879,8 @@ class _$LegalScreeningStateImpl implements _LegalScreeningState {
       showErrorMessages,
       isAllAnswered,
       isSubmitting,
-      authFailureOrSuccessOption);
+      authFailureOrSuccessOption,
+      submitFailureOrSuccessOption);
 
   @JsonKey(ignore: true)
   @override
@@ -866,16 +892,18 @@ class _$LegalScreeningStateImpl implements _LegalScreeningState {
 
 abstract class _LegalScreeningState implements LegalScreeningState {
   const factory _LegalScreeningState(
-      {required final List<QuestionModel> questionList,
+      {required final List<LegalScreeningDTO> questionList,
       required final bool isCheck,
       required final bool showErrorMessages,
       required final bool isAllAnswered,
       required final bool isSubmitting,
-      required final Option<Either<AuthFailure, String>>
-          authFailureOrSuccessOption}) = _$LegalScreeningStateImpl;
+      required final Option<Either<AccountFailure, List<LegalScreeningDTO>>>
+          authFailureOrSuccessOption,
+      required final Option<Either<AccountFailure, Account>>
+          submitFailureOrSuccessOption}) = _$LegalScreeningStateImpl;
 
   @override
-  List<QuestionModel> get questionList;
+  List<LegalScreeningDTO> get questionList;
   @override
   bool get isCheck;
   @override
@@ -885,7 +913,10 @@ abstract class _LegalScreeningState implements LegalScreeningState {
   @override
   bool get isSubmitting;
   @override
-  Option<Either<AuthFailure, String>> get authFailureOrSuccessOption;
+  Option<Either<AccountFailure, List<LegalScreeningDTO>>>
+      get authFailureOrSuccessOption;
+  @override
+  Option<Either<AccountFailure, Account>> get submitFailureOrSuccessOption;
   @override
   @JsonKey(ignore: true)
   _$$LegalScreeningStateImplCopyWith<_$LegalScreeningStateImpl> get copyWith =>

@@ -13,9 +13,13 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/auth/contractor/document/upload_document_dto.dart';
+import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/file_picker_utils.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/image_picker_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
 import 'package:shift/presentation/common/widgets/selected_document_box.dart';
 import 'package:shift/presentation/common/widgets/show_picked_file.dart';
@@ -30,166 +34,191 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ProfessionalLiabilityBloc(),
+      create: (context) => getIt<ProfessionalLiabilityBloc>()
+        ..add(ProfessionalLiabilityEvent.getLiabilityList()),
       child:
           BlocConsumer<ProfessionalLiabilityBloc, ProfessionalLiabilityState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-            child: SingleChildScrollView(
-              child: Form(
-                autovalidateMode: (state.showLiabilityErrorMessages)
-                    ? AutovalidateMode.always
-                    : AutovalidateMode.disabled,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    (state.liabilityList.isNotEmpty)
-                        ? ListView.builder(
-                            itemCount: state.liabilityList.length,
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              ImmunizationDTO liabilityObject =
-                                  state.liabilityList[index];
-                              return Padding(
-                                padding: EdgeInsets.only(top: getSize(10)),
-                                child: SelectedDocumentBox(
-                                  // leadingImage: Image.file(
-                                  //   File(liabilityObject.immunizationDocument ??
-                                  //       ""),
-                                  // ),
-                                  pickedFile:
-                                      liabilityObject.immunizationDocument,
-                                  title: StringConstant
-                                      .professionalLiabilityProtection,
-                                  showDeleteButton: true,
-                                  deleteDescription:
-                                      StringConstant.deleteLiabilityDesc,
-                                  onCancelClick: () {
-                                    context.router.maybePop();
-                                  },
-                                  onDeleteClick: () {
-                                    context
-                                        .read<ProfessionalLiabilityBloc>()
-                                        .add(ProfessionalLiabilityEvent
-                                            .deleteLiabilityObject(index));
-                                    context.router.maybePop();
-                                  },
-                                ),
-                              );
-                            })
-                        : SelectedDocumentBox(
-                            leadingImageString:
-                                SvgImageConstant.documentWithVerticalLine,
-                            title: "",
-                            subTitle1: StringConstant.liabilityDesc,
-                            showDeleteButton: false,
-                          ),
-                    SizedBox(
-                      height: getSize(20),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: BaseText(
-                        text: (state.liabilityDoc.isValid())
-                            ? StringConstant.uploadedDocument
-                            : StringConstant.pleaseUploadTheDocument,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(
-                      height: getSize(10),
-                    ),
-                    (state.liabilityDoc.isValid())
-                        ? selectedImage(
-                            context,
-                            state.liabilityDoc.getValue() ?? "",
-                            state: state,
-                          )
-                        : UploadDocumentBox(
-                            height: getSize(400),
-                            onUploadBtnPressed: () {
-                              clickUploadButton(context);
-                            },
-                          ),
-                    if (state.showLiabilityErrorMessages &&
-                        !state.liabilityDoc.isValid())
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: getSize(10), horizontal: getSize(20)),
-                        child: const BaseText(
-                          text: StringConstant.pleaseSelectLiabilityDocument,
-                          fontSize: 12,
-                          textColor: AppColors.red,
-                        ),
-                      ),
-                    paddingBetweenFields(),
-                    DocumentExpiryDatePicker().notApplicableExpiryCheckBox(
-                      context,
-                      value: state.isLiabilityExpiryCheck,
-                      isDisabled: (state.liabilityExpiryDate.isNotEmpty),
-                      onChanged: (value) {
-                        if (value != null) {
-                          context.read<ProfessionalLiabilityBloc>().add(
-                              ProfessionalLiabilityEvent
-                                  .checkNALiabilityExpiryDate(value));
-                        }
-                      },
-                    ),
-                    DocumentExpiryDatePicker.expiryDateTextField(
-                      context,
-                      onPickedDate: (pickedDate) {
-                        context.read<ProfessionalLiabilityBloc>().add(
-                            ProfessionalLiabilityEvent
-                                .liabilityExpiryDateChanged(
-                                    pickedDate.toString()));
-                      },
-                      selectedDate: state.liabilityExpiryDate,
-                      isDisabled: !state.isLiabilityExpiryCheck,
-                    ),
-                    paddingBetweenFields(height: 5),
-                    if ((!state.isLiabilityExpiryCheck &&
-                            state.liabilityExpiryDate.isEmpty) &&
-                        state.showLiabilityErrorMessages)
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                        child: const BaseText(
-                          text:
-                              StringConstant.pleaseSelectExpiryDateIfApplicable,
-                          fontSize: 12,
-                          textColor: AppColors.red,
-                        ),
-                      ),
-                    addMoreButton(
-                      context,
-                      state,
-                      onPressed: () {
-                        context.read<ProfessionalLiabilityBloc>().add(
-                            const ProfessionalLiabilityEvent
-                                .addMoreLiabilityDoc());
-                      },
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: getSize(40), bottom: getSize(50)),
-                      child: CommonButton(
-                        onPressed: () {
-                          context.read<ProfessionalLiabilityBloc>().add(
-                              const ProfessionalLiabilityEvent
-                                  .liabilityDocSubmit(
-                                  isAddMoreBtnClick: false));
-                        },
-                        buttonText: StringConstant.txtContinue,
-                      ),
-                    )
-                  ],
-                ),
-              ),
+        listener: (context, state) {
+          state.liabilityDocAuthFailureOrSuccessOption.fold(
+            () {},
+            (either) => either.fold(
+              (failure) {
+                showError(
+                  message: failure.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(context);
+              },
+              (r) {},
             ),
           );
+        },
+        builder: (context, state) {
+          return (state.isLiabilityDocSubmitting)
+              ? CenterLoadingIndicator()
+              : Padding(
+                  padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                  child: SingleChildScrollView(
+                    child: Form(
+                      autovalidateMode: (state.showLiabilityErrorMessages)
+                          ? AutovalidateMode.always
+                          : AutovalidateMode.disabled,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          (state.liabilityList.isNotEmpty)
+                              ? ListView.builder(
+                                  itemCount: state.liabilityList.length,
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    DocumentDTO liabilityObject =
+                                        state.liabilityList[index];
+                                    return Padding(
+                                      padding:
+                                          EdgeInsets.only(top: getSize(10)),
+                                      child: SelectedDocumentBox(
+                                        // leadingImage: Image.file(
+                                        //   File(liabilityObject.immunizationDocument ??
+                                        //       ""),
+                                        // ),
+                                        pickedFile: liabilityObject.file,
+                                        title: StringConstant
+                                            .professionalLiabilityProtection,
+                                        showDeleteButton: true,
+                                        deleteDescription:
+                                            StringConstant.deleteLiabilityDesc,
+                                        onCancelClick: () {
+                                          context.router.maybePop();
+                                        },
+                                        onDeleteClick: () {
+                                          context
+                                              .read<ProfessionalLiabilityBloc>()
+                                              .add(ProfessionalLiabilityEvent
+                                                  .deleteLiabilityObject(
+                                                      index));
+                                          context.router.maybePop();
+                                        },
+                                      ),
+                                    );
+                                  })
+                              : SelectedDocumentBox(
+                                  leadingImageString:
+                                      SvgImageConstant.documentWithVerticalLine,
+                                  title: "",
+                                  subTitle1: StringConstant.liabilityDesc,
+                                  showDeleteButton: false,
+                                ),
+                          SizedBox(
+                            height: getSize(20),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: BaseText(
+                              text: (state.liabilityDoc.isValid())
+                                  ? StringConstant.uploadedDocument
+                                  : StringConstant.pleaseUploadTheDocument,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(
+                            height: getSize(10),
+                          ),
+                          (state.liabilityDoc.isValid())
+                              ? selectedImage(
+                                  context,
+                                  state.liabilityDoc.getValue() ?? "",
+                                  state: state,
+                                )
+                              : UploadDocumentBox(
+                                  height: getSize(400),
+                                  onUploadBtnPressed: () {
+                                    clickUploadButton(context);
+                                  },
+                                ),
+                          if (state.showLiabilityErrorMessages &&
+                              !state.liabilityDoc.isValid())
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: getSize(10),
+                                  horizontal: getSize(20)),
+                              child: const BaseText(
+                                text: StringConstant
+                                    .pleaseSelectLiabilityDocument,
+                                fontSize: 12,
+                                textColor: AppColors.red,
+                              ),
+                            ),
+                          paddingBetweenFields(),
+                          DocumentExpiryDatePicker()
+                              .notApplicableExpiryCheckBox(
+                            context,
+                            value: state.isLiabilityExpiryCheck,
+                            isDisabled: (state.liabilityExpiryDate.isNotEmpty),
+                            onChanged: (value) {
+                              if (value != null) {
+                                context.read<ProfessionalLiabilityBloc>().add(
+                                    ProfessionalLiabilityEvent
+                                        .checkNALiabilityExpiryDate(value));
+                              }
+                            },
+                          ),
+                          DocumentExpiryDatePicker.expiryDateTextField(
+                            context,
+                            onPickedDate: (pickedDate) {
+                              context.read<ProfessionalLiabilityBloc>().add(
+                                  ProfessionalLiabilityEvent
+                                      .liabilityExpiryDateChanged(
+                                          pickedDate.toString()));
+                            },
+                            selectedDate: state.liabilityExpiryDate,
+                            isDisabled: !state.isLiabilityExpiryCheck,
+                          ),
+                          paddingBetweenFields(height: 5),
+                          if ((!state.isLiabilityExpiryCheck &&
+                                  state.liabilityExpiryDate.isEmpty) &&
+                              state.showLiabilityErrorMessages)
+                            Padding(
+                              padding:
+                                  EdgeInsets.symmetric(horizontal: getSize(20)),
+                              child: const BaseText(
+                                text: StringConstant
+                                    .pleaseSelectExpiryDateIfApplicable,
+                                fontSize: 12,
+                                textColor: AppColors.red,
+                              ),
+                            ),
+                          addMoreButton(
+                            context,
+                            state,
+                            onPressed: () {
+                              context.read<ProfessionalLiabilityBloc>().add(
+                                  const ProfessionalLiabilityEvent
+                                      .addMoreLiabilityDoc());
+                            },
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: getSize(40), bottom: getSize(50)),
+                            child: CommonButton(
+                              onPressed: () {
+                                context.read<ProfessionalLiabilityBloc>().add(
+                                    const ProfessionalLiabilityEvent
+                                        .liabilityDocSubmit(
+                                        isAddMoreBtnClick: false));
+                              },
+                              buttonText: StringConstant.txtContinue,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                );
         },
       ),
     );

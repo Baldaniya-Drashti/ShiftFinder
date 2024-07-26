@@ -4,6 +4,8 @@ import 'package:shift/domain/account/account_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/experience_model/experience_dto.dart';
+import 'package:shift/infrastructure/core/legal_screening_dto/legal_screening_dto.dart';
+import 'package:shift/infrastructure/core/quiz_dto/quiz_dto.dart';
 
 import '../../infrastructure/core/skill_list_model/skill_dto.dart';
 
@@ -43,8 +45,10 @@ abstract class IAccountRepository {
     required int referenceId,
   });
   Future<Either<AccountFailure, List<DocumentDTO>>> getDocumentApi({
-    required int documentType,
+    required int? documentType,
   });
+  Future<Either<AccountFailure, List<LegalScreeningDTO>>>
+      getLegalScreeningListApi();
 
   Future<Either<AccountFailure, String>> addDocumentApi({
     required int documentType,
@@ -83,8 +87,14 @@ abstract class IAccountRepository {
     String? lastPage,
   });
 
-
   Future<Either<AccountFailure, Account>> deleteDocumentApi({
     required int credId,
   });
+
+  Future<Either<AccountFailure, Account>> addLergalScreeningAnswerApi({
+    required int affirmIsCheck,
+    required String questionAnswerDetail,
+  });
+
+  Future<Either<AccountFailure, List<QuizDTO>>> getQuizListApi();
 }

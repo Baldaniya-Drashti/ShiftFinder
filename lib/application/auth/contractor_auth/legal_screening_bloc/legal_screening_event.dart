@@ -8,6 +8,6 @@ class LegalScreeningEvent with _$LegalScreeningEvent {
       CheckTermsConfirmation;
 
   const factory LegalScreeningEvent.storeAnswerEvent(
-      int currentIndex, String answer) = StoreAnswerEvent;
+      int currentIndex, int answer) = StoreAnswerEvent;
   const factory LegalScreeningEvent.continueBtnPressed() = ContinueBtnPressed;
 }

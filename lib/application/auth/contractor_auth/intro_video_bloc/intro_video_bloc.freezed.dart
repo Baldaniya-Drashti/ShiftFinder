@@ -22,7 +22,8 @@ mixin _$IntroVideoEvent {
     required TResult Function() playVideo,
     required TResult Function() pauseVideo,
     required TResult Function() videoCompleted,
-    required TResult Function(int questionIndex, QuizMcq selectedOption)
+    required TResult Function() getQuizQuestionlist,
+    required TResult Function(int questionIndex, QuizMcqDTO selectedOption)
         optionSelected,
     required TResult Function() submitQuiz,
   }) =>
@@ -33,7 +34,8 @@ mixin _$IntroVideoEvent {
     TResult? Function()? playVideo,
     TResult? Function()? pauseVideo,
     TResult? Function()? videoCompleted,
-    TResult? Function(int questionIndex, QuizMcq selectedOption)?
+    TResult? Function()? getQuizQuestionlist,
+    TResult? Function(int questionIndex, QuizMcqDTO selectedOption)?
         optionSelected,
     TResult? Function()? submitQuiz,
   }) =>
@@ -44,7 +46,9 @@ mixin _$IntroVideoEvent {
     TResult Function()? playVideo,
     TResult Function()? pauseVideo,
     TResult Function()? videoCompleted,
-    TResult Function(int questionIndex, QuizMcq selectedOption)? optionSelected,
+    TResult Function()? getQuizQuestionlist,
+    TResult Function(int questionIndex, QuizMcqDTO selectedOption)?
+        optionSelected,
     TResult Function()? submitQuiz,
     required TResult orElse(),
   }) =>
@@ -55,6 +59,7 @@ mixin _$IntroVideoEvent {
     required TResult Function(_PlayVideo value) playVideo,
     required TResult Function(_PauseVideo value) pauseVideo,
     required TResult Function(_VideoCompleted value) videoCompleted,
+    required TResult Function(_GetQuizQuestionList value) getQuizQuestionlist,
     required TResult Function(_OptionSelected value) optionSelected,
     required TResult Function(_SubmitQuiz value) submitQuiz,
   }) =>
@@ -65,6 +70,7 @@ mixin _$IntroVideoEvent {
     TResult? Function(_PlayVideo value)? playVideo,
     TResult? Function(_PauseVideo value)? pauseVideo,
     TResult? Function(_VideoCompleted value)? videoCompleted,
+    TResult? Function(_GetQuizQuestionList value)? getQuizQuestionlist,
     TResult? Function(_OptionSelected value)? optionSelected,
     TResult? Function(_SubmitQuiz value)? submitQuiz,
   }) =>
@@ -75,6 +81,7 @@ mixin _$IntroVideoEvent {
     TResult Function(_PlayVideo value)? playVideo,
     TResult Function(_PauseVideo value)? pauseVideo,
     TResult Function(_VideoCompleted value)? videoCompleted,
+    TResult Function(_GetQuizQuestionList value)? getQuizQuestionlist,
     TResult Function(_OptionSelected value)? optionSelected,
     TResult Function(_SubmitQuiz value)? submitQuiz,
     required TResult orElse(),
@@ -142,7 +149,8 @@ class _$SetupVideoImpl implements _SetupVideo {
     required TResult Function() playVideo,
     required TResult Function() pauseVideo,
     required TResult Function() videoCompleted,
-    required TResult Function(int questionIndex, QuizMcq selectedOption)
+    required TResult Function() getQuizQuestionlist,
+    required TResult Function(int questionIndex, QuizMcqDTO selectedOption)
         optionSelected,
     required TResult Function() submitQuiz,
   }) {
@@ -156,7 +164,8 @@ class _$SetupVideoImpl implements _SetupVideo {
     TResult? Function()? playVideo,
     TResult? Function()? pauseVideo,
     TResult? Function()? videoCompleted,
-    TResult? Function(int questionIndex, QuizMcq selectedOption)?
+    TResult? Function()? getQuizQuestionlist,
+    TResult? Function(int questionIndex, QuizMcqDTO selectedOption)?
         optionSelected,
     TResult? Function()? submitQuiz,
   }) {
@@ -170,7 +179,9 @@ class _$SetupVideoImpl implements _SetupVideo {
     TResult Function()? playVideo,
     TResult Function()? pauseVideo,
     TResult Function()? videoCompleted,
-    TResult Function(int questionIndex, QuizMcq selectedOption)? optionSelected,
+    TResult Function()? getQuizQuestionlist,
+    TResult Function(int questionIndex, QuizMcqDTO selectedOption)?
+        optionSelected,
     TResult Function()? submitQuiz,
     required TResult orElse(),
   }) {
@@ -187,6 +198,7 @@ class _$SetupVideoImpl implements _SetupVideo {
     required TResult Function(_PlayVideo value) playVideo,
     required TResult Function(_PauseVideo value) pauseVideo,
     required TResult Function(_VideoCompleted value) videoCompleted,
+    required TResult Function(_GetQuizQuestionList value) getQuizQuestionlist,
     required TResult Function(_OptionSelected value) optionSelected,
     required TResult Function(_SubmitQuiz value) submitQuiz,
   }) {
@@ -200,6 +212,7 @@ class _$SetupVideoImpl implements _SetupVideo {
     TResult? Function(_PlayVideo value)? playVideo,
     TResult? Function(_PauseVideo value)? pauseVideo,
     TResult? Function(_VideoCompleted value)? videoCompleted,
+    TResult? Function(_GetQuizQuestionList value)? getQuizQuestionlist,
     TResult? Function(_OptionSelected value)? optionSelected,
     TResult? Function(_SubmitQuiz value)? submitQuiz,
   }) {
@@ -213,6 +226,7 @@ class _$SetupVideoImpl implements _SetupVideo {
     TResult Function(_PlayVideo value)? playVideo,
     TResult Function(_PauseVideo value)? pauseVideo,
     TResult Function(_VideoCompleted value)? videoCompleted,
+    TResult Function(_GetQuizQuestionList value)? getQuizQuestionlist,
     TResult Function(_OptionSelected value)? optionSelected,
     TResult Function(_SubmitQuiz value)? submitQuiz,
     required TResult orElse(),
@@ -270,7 +284,8 @@ class _$PlayVideoImpl implements _PlayVideo {
     required TResult Function() playVideo,
     required TResult Function() pauseVideo,
     required TResult Function() videoCompleted,
-    required TResult Function(int questionIndex, QuizMcq selectedOption)
+    required TResult Function() getQuizQuestionlist,
+    required TResult Function(int questionIndex, QuizMcqDTO selectedOption)
         optionSelected,
     required TResult Function() submitQuiz,
   }) {
@@ -284,7 +299,8 @@ class _$PlayVideoImpl implements _PlayVideo {
     TResult? Function()? playVideo,
     TResult? Function()? pauseVideo,
     TResult? Function()? videoCompleted,
-    TResult? Function(int questionIndex, QuizMcq selectedOption)?
+    TResult? Function()? getQuizQuestionlist,
+    TResult? Function(int questionIndex, QuizMcqDTO selectedOption)?
         optionSelected,
     TResult? Function()? submitQuiz,
   }) {
@@ -298,7 +314,9 @@ class _$PlayVideoImpl implements _PlayVideo {
     TResult Function()? playVideo,
     TResult Function()? pauseVideo,
     TResult Function()? videoCompleted,
-    TResult Function(int questionIndex, QuizMcq selectedOption)? optionSelected,
+    TResult Function()? getQuizQuestionlist,
+    TResult Function(int questionIndex, QuizMcqDTO selectedOption)?
+        optionSelected,
     TResult Function()? submitQuiz,
     required TResult orElse(),
   }) {
@@ -315,6 +333,7 @@ class _$PlayVideoImpl implements _PlayVideo {
     required TResult Function(_PlayVideo value) playVideo,
     required TResult Function(_PauseVideo value) pauseVideo,
     required TResult Function(_VideoCompleted value) videoCompleted,
+    required TResult Function(_GetQuizQuestionList value) getQuizQuestionlist,
     required TResult Function(_OptionSelected value) optionSelected,
     required TResult Function(_SubmitQuiz value) submitQuiz,
   }) {
@@ -328,6 +347,7 @@ class _$PlayVideoImpl implements _PlayVideo {
     TResult? Function(_PlayVideo value)? playVideo,
     TResult? Function(_PauseVideo value)? pauseVideo,
     TResult? Function(_VideoCompleted value)? videoCompleted,
+    TResult? Function(_GetQuizQuestionList value)? getQuizQuestionlist,
     TResult? Function(_OptionSelected value)? optionSelected,
     TResult? Function(_SubmitQuiz value)? submitQuiz,
   }) {
@@ -341,6 +361,7 @@ class _$PlayVideoImpl implements _PlayVideo {
     TResult Function(_PlayVideo value)? playVideo,
     TResult Function(_PauseVideo value)? pauseVideo,
     TResult Function(_VideoCompleted value)? videoCompleted,
+    TResult Function(_GetQuizQuestionList value)? getQuizQuestionlist,
     TResult Function(_OptionSelected value)? optionSelected,
     TResult Function(_SubmitQuiz value)? submitQuiz,
     required TResult orElse(),
@@ -398,7 +419,8 @@ class _$PauseVideoImpl implements _PauseVideo {
     required TResult Function() playVideo,
     required TResult Function() pauseVideo,
     required TResult Function() videoCompleted,
-    required TResult Function(int questionIndex, QuizMcq selectedOption)
+    required TResult Function() getQuizQuestionlist,
+    required TResult Function(int questionIndex, QuizMcqDTO selectedOption)
         optionSelected,
     required TResult Function() submitQuiz,
   }) {
@@ -412,7 +434,8 @@ class _$PauseVideoImpl implements _PauseVideo {
     TResult? Function()? playVideo,
     TResult? Function()? pauseVideo,
     TResult? Function()? videoCompleted,
-    TResult? Function(int questionIndex, QuizMcq selectedOption)?
+    TResult? Function()? getQuizQuestionlist,
+    TResult? Function(int questionIndex, QuizMcqDTO selectedOption)?
         optionSelected,
     TResult? Function()? submitQuiz,
   }) {
@@ -426,7 +449,9 @@ class _$PauseVideoImpl implements _PauseVideo {
     TResult Function()? playVideo,
     TResult Function()? pauseVideo,
     TResult Function()? videoCompleted,
-    TResult Function(int questionIndex, QuizMcq selectedOption)? optionSelected,
+    TResult Function()? getQuizQuestionlist,
+    TResult Function(int questionIndex, QuizMcqDTO selectedOption)?
+        optionSelected,
     TResult Function()? submitQuiz,
     required TResult orElse(),
   }) {
@@ -443,6 +468,7 @@ class _$PauseVideoImpl implements _PauseVideo {
     required TResult Function(_PlayVideo value) playVideo,
     required TResult Function(_PauseVideo value) pauseVideo,
     required TResult Function(_VideoCompleted value) videoCompleted,
+    required TResult Function(_GetQuizQuestionList value) getQuizQuestionlist,
     required TResult Function(_OptionSelected value) optionSelected,
     required TResult Function(_SubmitQuiz value) submitQuiz,
   }) {
@@ -456,6 +482,7 @@ class _$PauseVideoImpl implements _PauseVideo {
     TResult? Function(_PlayVideo value)? playVideo,
     TResult? Function(_PauseVideo value)? pauseVideo,
     TResult? Function(_VideoCompleted value)? videoCompleted,
+    TResult? Function(_GetQuizQuestionList value)? getQuizQuestionlist,
     TResult? Function(_OptionSelected value)? optionSelected,
     TResult? Function(_SubmitQuiz value)? submitQuiz,
   }) {
@@ -469,6 +496,7 @@ class _$PauseVideoImpl implements _PauseVideo {
     TResult Function(_PlayVideo value)? playVideo,
     TResult Function(_PauseVideo value)? pauseVideo,
     TResult Function(_VideoCompleted value)? videoCompleted,
+    TResult Function(_GetQuizQuestionList value)? getQuizQuestionlist,
     TResult Function(_OptionSelected value)? optionSelected,
     TResult Function(_SubmitQuiz value)? submitQuiz,
     required TResult orElse(),
@@ -526,7 +554,8 @@ class _$VideoCompletedImpl implements _VideoCompleted {
     required TResult Function() playVideo,
     required TResult Function() pauseVideo,
     required TResult Function() videoCompleted,
-    required TResult Function(int questionIndex, QuizMcq selectedOption)
+    required TResult Function() getQuizQuestionlist,
+    required TResult Function(int questionIndex, QuizMcqDTO selectedOption)
         optionSelected,
     required TResult Function() submitQuiz,
   }) {
@@ -540,7 +569,8 @@ class _$VideoCompletedImpl implements _VideoCompleted {
     TResult? Function()? playVideo,
     TResult? Function()? pauseVideo,
     TResult? Function()? videoCompleted,
-    TResult? Function(int questionIndex, QuizMcq selectedOption)?
+    TResult? Function()? getQuizQuestionlist,
+    TResult? Function(int questionIndex, QuizMcqDTO selectedOption)?
         optionSelected,
     TResult? Function()? submitQuiz,
   }) {
@@ -554,7 +584,9 @@ class _$VideoCompletedImpl implements _VideoCompleted {
     TResult Function()? playVideo,
     TResult Function()? pauseVideo,
     TResult Function()? videoCompleted,
-    TResult Function(int questionIndex, QuizMcq selectedOption)? optionSelected,
+    TResult Function()? getQuizQuestionlist,
+    TResult Function(int questionIndex, QuizMcqDTO selectedOption)?
+        optionSelected,
     TResult Function()? submitQuiz,
     required TResult orElse(),
   }) {
@@ -571,6 +603,7 @@ class _$VideoCompletedImpl implements _VideoCompleted {
     required TResult Function(_PlayVideo value) playVideo,
     required TResult Function(_PauseVideo value) pauseVideo,
     required TResult Function(_VideoCompleted value) videoCompleted,
+    required TResult Function(_GetQuizQuestionList value) getQuizQuestionlist,
     required TResult Function(_OptionSelected value) optionSelected,
     required TResult Function(_SubmitQuiz value) submitQuiz,
   }) {
@@ -584,6 +617,7 @@ class _$VideoCompletedImpl implements _VideoCompleted {
     TResult? Function(_PlayVideo value)? playVideo,
     TResult? Function(_PauseVideo value)? pauseVideo,
     TResult? Function(_VideoCompleted value)? videoCompleted,
+    TResult? Function(_GetQuizQuestionList value)? getQuizQuestionlist,
     TResult? Function(_OptionSelected value)? optionSelected,
     TResult? Function(_SubmitQuiz value)? submitQuiz,
   }) {
@@ -597,6 +631,7 @@ class _$VideoCompletedImpl implements _VideoCompleted {
     TResult Function(_PlayVideo value)? playVideo,
     TResult Function(_PauseVideo value)? pauseVideo,
     TResult Function(_VideoCompleted value)? videoCompleted,
+    TResult Function(_GetQuizQuestionList value)? getQuizQuestionlist,
     TResult Function(_OptionSelected value)? optionSelected,
     TResult Function(_SubmitQuiz value)? submitQuiz,
     required TResult orElse(),
@@ -613,14 +648,150 @@ abstract class _VideoCompleted implements IntroVideoEvent {
 }
 
 /// @nodoc
+abstract class _$$GetQuizQuestionListImplCopyWith<$Res> {
+  factory _$$GetQuizQuestionListImplCopyWith(_$GetQuizQuestionListImpl value,
+          $Res Function(_$GetQuizQuestionListImpl) then) =
+      __$$GetQuizQuestionListImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetQuizQuestionListImplCopyWithImpl<$Res>
+    extends _$IntroVideoEventCopyWithImpl<$Res, _$GetQuizQuestionListImpl>
+    implements _$$GetQuizQuestionListImplCopyWith<$Res> {
+  __$$GetQuizQuestionListImplCopyWithImpl(_$GetQuizQuestionListImpl _value,
+      $Res Function(_$GetQuizQuestionListImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetQuizQuestionListImpl implements _GetQuizQuestionList {
+  const _$GetQuizQuestionListImpl();
+
+  @override
+  String toString() {
+    return 'IntroVideoEvent.getQuizQuestionlist()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetQuizQuestionListImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() setupVideo,
+    required TResult Function() playVideo,
+    required TResult Function() pauseVideo,
+    required TResult Function() videoCompleted,
+    required TResult Function() getQuizQuestionlist,
+    required TResult Function(int questionIndex, QuizMcqDTO selectedOption)
+        optionSelected,
+    required TResult Function() submitQuiz,
+  }) {
+    return getQuizQuestionlist();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? setupVideo,
+    TResult? Function()? playVideo,
+    TResult? Function()? pauseVideo,
+    TResult? Function()? videoCompleted,
+    TResult? Function()? getQuizQuestionlist,
+    TResult? Function(int questionIndex, QuizMcqDTO selectedOption)?
+        optionSelected,
+    TResult? Function()? submitQuiz,
+  }) {
+    return getQuizQuestionlist?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? setupVideo,
+    TResult Function()? playVideo,
+    TResult Function()? pauseVideo,
+    TResult Function()? videoCompleted,
+    TResult Function()? getQuizQuestionlist,
+    TResult Function(int questionIndex, QuizMcqDTO selectedOption)?
+        optionSelected,
+    TResult Function()? submitQuiz,
+    required TResult orElse(),
+  }) {
+    if (getQuizQuestionlist != null) {
+      return getQuizQuestionlist();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_SetupVideo value) setupVideo,
+    required TResult Function(_PlayVideo value) playVideo,
+    required TResult Function(_PauseVideo value) pauseVideo,
+    required TResult Function(_VideoCompleted value) videoCompleted,
+    required TResult Function(_GetQuizQuestionList value) getQuizQuestionlist,
+    required TResult Function(_OptionSelected value) optionSelected,
+    required TResult Function(_SubmitQuiz value) submitQuiz,
+  }) {
+    return getQuizQuestionlist(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_SetupVideo value)? setupVideo,
+    TResult? Function(_PlayVideo value)? playVideo,
+    TResult? Function(_PauseVideo value)? pauseVideo,
+    TResult? Function(_VideoCompleted value)? videoCompleted,
+    TResult? Function(_GetQuizQuestionList value)? getQuizQuestionlist,
+    TResult? Function(_OptionSelected value)? optionSelected,
+    TResult? Function(_SubmitQuiz value)? submitQuiz,
+  }) {
+    return getQuizQuestionlist?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_SetupVideo value)? setupVideo,
+    TResult Function(_PlayVideo value)? playVideo,
+    TResult Function(_PauseVideo value)? pauseVideo,
+    TResult Function(_VideoCompleted value)? videoCompleted,
+    TResult Function(_GetQuizQuestionList value)? getQuizQuestionlist,
+    TResult Function(_OptionSelected value)? optionSelected,
+    TResult Function(_SubmitQuiz value)? submitQuiz,
+    required TResult orElse(),
+  }) {
+    if (getQuizQuestionlist != null) {
+      return getQuizQuestionlist(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetQuizQuestionList implements IntroVideoEvent {
+  const factory _GetQuizQuestionList() = _$GetQuizQuestionListImpl;
+}
+
+/// @nodoc
 abstract class _$$OptionSelectedImplCopyWith<$Res> {
   factory _$$OptionSelectedImplCopyWith(_$OptionSelectedImpl value,
           $Res Function(_$OptionSelectedImpl) then) =
       __$$OptionSelectedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int questionIndex, QuizMcq selectedOption});
+  $Res call({int questionIndex, QuizMcqDTO selectedOption});
 
-  $QuizMcqCopyWith<$Res> get selectedOption;
+  $QuizMcqDTOCopyWith<$Res> get selectedOption;
 }
 
 /// @nodoc
@@ -645,14 +816,14 @@ class __$$OptionSelectedImplCopyWithImpl<$Res>
       selectedOption: null == selectedOption
           ? _value.selectedOption
           : selectedOption // ignore: cast_nullable_to_non_nullable
-              as QuizMcq,
+              as QuizMcqDTO,
     ));
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $QuizMcqCopyWith<$Res> get selectedOption {
-    return $QuizMcqCopyWith<$Res>(_value.selectedOption, (value) {
+  $QuizMcqDTOCopyWith<$Res> get selectedOption {
+    return $QuizMcqDTOCopyWith<$Res>(_value.selectedOption, (value) {
       return _then(_value.copyWith(selectedOption: value));
     });
   }
@@ -667,7 +838,7 @@ class _$OptionSelectedImpl implements _OptionSelected {
   @override
   final int questionIndex;
   @override
-  final QuizMcq selectedOption;
+  final QuizMcqDTO selectedOption;
 
   @override
   String toString() {
@@ -702,7 +873,8 @@ class _$OptionSelectedImpl implements _OptionSelected {
     required TResult Function() playVideo,
     required TResult Function() pauseVideo,
     required TResult Function() videoCompleted,
-    required TResult Function(int questionIndex, QuizMcq selectedOption)
+    required TResult Function() getQuizQuestionlist,
+    required TResult Function(int questionIndex, QuizMcqDTO selectedOption)
         optionSelected,
     required TResult Function() submitQuiz,
   }) {
@@ -716,7 +888,8 @@ class _$OptionSelectedImpl implements _OptionSelected {
     TResult? Function()? playVideo,
     TResult? Function()? pauseVideo,
     TResult? Function()? videoCompleted,
-    TResult? Function(int questionIndex, QuizMcq selectedOption)?
+    TResult? Function()? getQuizQuestionlist,
+    TResult? Function(int questionIndex, QuizMcqDTO selectedOption)?
         optionSelected,
     TResult? Function()? submitQuiz,
   }) {
@@ -730,7 +903,9 @@ class _$OptionSelectedImpl implements _OptionSelected {
     TResult Function()? playVideo,
     TResult Function()? pauseVideo,
     TResult Function()? videoCompleted,
-    TResult Function(int questionIndex, QuizMcq selectedOption)? optionSelected,
+    TResult Function()? getQuizQuestionlist,
+    TResult Function(int questionIndex, QuizMcqDTO selectedOption)?
+        optionSelected,
     TResult Function()? submitQuiz,
     required TResult orElse(),
   }) {
@@ -747,6 +922,7 @@ class _$OptionSelectedImpl implements _OptionSelected {
     required TResult Function(_PlayVideo value) playVideo,
     required TResult Function(_PauseVideo value) pauseVideo,
     required TResult Function(_VideoCompleted value) videoCompleted,
+    required TResult Function(_GetQuizQuestionList value) getQuizQuestionlist,
     required TResult Function(_OptionSelected value) optionSelected,
     required TResult Function(_SubmitQuiz value) submitQuiz,
   }) {
@@ -760,6 +936,7 @@ class _$OptionSelectedImpl implements _OptionSelected {
     TResult? Function(_PlayVideo value)? playVideo,
     TResult? Function(_PauseVideo value)? pauseVideo,
     TResult? Function(_VideoCompleted value)? videoCompleted,
+    TResult? Function(_GetQuizQuestionList value)? getQuizQuestionlist,
     TResult? Function(_OptionSelected value)? optionSelected,
     TResult? Function(_SubmitQuiz value)? submitQuiz,
   }) {
@@ -773,6 +950,7 @@ class _$OptionSelectedImpl implements _OptionSelected {
     TResult Function(_PlayVideo value)? playVideo,
     TResult Function(_PauseVideo value)? pauseVideo,
     TResult Function(_VideoCompleted value)? videoCompleted,
+    TResult Function(_GetQuizQuestionList value)? getQuizQuestionlist,
     TResult Function(_OptionSelected value)? optionSelected,
     TResult Function(_SubmitQuiz value)? submitQuiz,
     required TResult orElse(),
@@ -787,10 +965,10 @@ class _$OptionSelectedImpl implements _OptionSelected {
 abstract class _OptionSelected implements IntroVideoEvent {
   const factory _OptionSelected(
       {required final int questionIndex,
-      required final QuizMcq selectedOption}) = _$OptionSelectedImpl;
+      required final QuizMcqDTO selectedOption}) = _$OptionSelectedImpl;
 
   int get questionIndex;
-  QuizMcq get selectedOption;
+  QuizMcqDTO get selectedOption;
   @JsonKey(ignore: true)
   _$$OptionSelectedImplCopyWith<_$OptionSelectedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -838,7 +1016,8 @@ class _$SubmitQuizImpl implements _SubmitQuiz {
     required TResult Function() playVideo,
     required TResult Function() pauseVideo,
     required TResult Function() videoCompleted,
-    required TResult Function(int questionIndex, QuizMcq selectedOption)
+    required TResult Function() getQuizQuestionlist,
+    required TResult Function(int questionIndex, QuizMcqDTO selectedOption)
         optionSelected,
     required TResult Function() submitQuiz,
   }) {
@@ -852,7 +1031,8 @@ class _$SubmitQuizImpl implements _SubmitQuiz {
     TResult? Function()? playVideo,
     TResult? Function()? pauseVideo,
     TResult? Function()? videoCompleted,
-    TResult? Function(int questionIndex, QuizMcq selectedOption)?
+    TResult? Function()? getQuizQuestionlist,
+    TResult? Function(int questionIndex, QuizMcqDTO selectedOption)?
         optionSelected,
     TResult? Function()? submitQuiz,
   }) {
@@ -866,7 +1046,9 @@ class _$SubmitQuizImpl implements _SubmitQuiz {
     TResult Function()? playVideo,
     TResult Function()? pauseVideo,
     TResult Function()? videoCompleted,
-    TResult Function(int questionIndex, QuizMcq selectedOption)? optionSelected,
+    TResult Function()? getQuizQuestionlist,
+    TResult Function(int questionIndex, QuizMcqDTO selectedOption)?
+        optionSelected,
     TResult Function()? submitQuiz,
     required TResult orElse(),
   }) {
@@ -883,6 +1065,7 @@ class _$SubmitQuizImpl implements _SubmitQuiz {
     required TResult Function(_PlayVideo value) playVideo,
     required TResult Function(_PauseVideo value) pauseVideo,
     required TResult Function(_VideoCompleted value) videoCompleted,
+    required TResult Function(_GetQuizQuestionList value) getQuizQuestionlist,
     required TResult Function(_OptionSelected value) optionSelected,
     required TResult Function(_SubmitQuiz value) submitQuiz,
   }) {
@@ -896,6 +1079,7 @@ class _$SubmitQuizImpl implements _SubmitQuiz {
     TResult? Function(_PlayVideo value)? playVideo,
     TResult? Function(_PauseVideo value)? pauseVideo,
     TResult? Function(_VideoCompleted value)? videoCompleted,
+    TResult? Function(_GetQuizQuestionList value)? getQuizQuestionlist,
     TResult? Function(_OptionSelected value)? optionSelected,
     TResult? Function(_SubmitQuiz value)? submitQuiz,
   }) {
@@ -909,6 +1093,7 @@ class _$SubmitQuizImpl implements _SubmitQuiz {
     TResult Function(_PlayVideo value)? playVideo,
     TResult Function(_PauseVideo value)? pauseVideo,
     TResult Function(_VideoCompleted value)? videoCompleted,
+    TResult Function(_GetQuizQuestionList value)? getQuizQuestionlist,
     TResult Function(_OptionSelected value)? optionSelected,
     TResult Function(_SubmitQuiz value)? submitQuiz,
     required TResult orElse(),
@@ -937,12 +1122,15 @@ mixin _$IntroVideoState {
 // required List<QuizModel> questionList,
 // required bool showQuizErrorMessages,
 // required bool isQuizSubmitting,
-  List<QuizQuestion> get questions => throw _privateConstructorUsedError;
-  List<QuizQuestion> get updatedQuestions => throw _privateConstructorUsedError;
+  List<QuizDTO> get questions => throw _privateConstructorUsedError;
+  List<QuizDTO> get updatedQuestions => throw _privateConstructorUsedError;
   bool get showQuizErrorMessages => throw _privateConstructorUsedError;
   bool get isQuizSubmitting => throw _privateConstructorUsedError;
   Option<Either<AuthFailure, String>> get quizAuthFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
+  Option<Either<AccountFailure, List<QuizDTO>>>
+      get quizQuestionFailureOrSuccessOption =>
+          throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $IntroVideoStateCopyWith<IntroVideoState> get copyWith =>
@@ -961,11 +1149,13 @@ abstract class $IntroVideoStateCopyWith<$Res> {
       bool showErrorMessages,
       bool isSubmitting,
       Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
-      List<QuizQuestion> questions,
-      List<QuizQuestion> updatedQuestions,
+      List<QuizDTO> questions,
+      List<QuizDTO> updatedQuestions,
       bool showQuizErrorMessages,
       bool isQuizSubmitting,
-      Option<Either<AuthFailure, String>> quizAuthFailureOrSuccessOption});
+      Option<Either<AuthFailure, String>> quizAuthFailureOrSuccessOption,
+      Option<Either<AccountFailure, List<QuizDTO>>>
+          quizQuestionFailureOrSuccessOption});
 }
 
 /// @nodoc
@@ -991,6 +1181,7 @@ class _$IntroVideoStateCopyWithImpl<$Res, $Val extends IntroVideoState>
     Object? showQuizErrorMessages = null,
     Object? isQuizSubmitting = null,
     Object? quizAuthFailureOrSuccessOption = null,
+    Object? quizQuestionFailureOrSuccessOption = null,
   }) {
     return _then(_value.copyWith(
       controller: freezed == controller
@@ -1016,11 +1207,11 @@ class _$IntroVideoStateCopyWithImpl<$Res, $Val extends IntroVideoState>
       questions: null == questions
           ? _value.questions
           : questions // ignore: cast_nullable_to_non_nullable
-              as List<QuizQuestion>,
+              as List<QuizDTO>,
       updatedQuestions: null == updatedQuestions
           ? _value.updatedQuestions
           : updatedQuestions // ignore: cast_nullable_to_non_nullable
-              as List<QuizQuestion>,
+              as List<QuizDTO>,
       showQuizErrorMessages: null == showQuizErrorMessages
           ? _value.showQuizErrorMessages
           : showQuizErrorMessages // ignore: cast_nullable_to_non_nullable
@@ -1033,6 +1224,11 @@ class _$IntroVideoStateCopyWithImpl<$Res, $Val extends IntroVideoState>
           ? _value.quizAuthFailureOrSuccessOption
           : quizAuthFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, String>>,
+      quizQuestionFailureOrSuccessOption: null ==
+              quizQuestionFailureOrSuccessOption
+          ? _value.quizQuestionFailureOrSuccessOption
+          : quizQuestionFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AccountFailure, List<QuizDTO>>>,
     ) as $Val);
   }
 }
@@ -1051,11 +1247,13 @@ abstract class _$$IntroVideoStateImplCopyWith<$Res>
       bool showErrorMessages,
       bool isSubmitting,
       Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
-      List<QuizQuestion> questions,
-      List<QuizQuestion> updatedQuestions,
+      List<QuizDTO> questions,
+      List<QuizDTO> updatedQuestions,
       bool showQuizErrorMessages,
       bool isQuizSubmitting,
-      Option<Either<AuthFailure, String>> quizAuthFailureOrSuccessOption});
+      Option<Either<AuthFailure, String>> quizAuthFailureOrSuccessOption,
+      Option<Either<AccountFailure, List<QuizDTO>>>
+          quizQuestionFailureOrSuccessOption});
 }
 
 /// @nodoc
@@ -1079,6 +1277,7 @@ class __$$IntroVideoStateImplCopyWithImpl<$Res>
     Object? showQuizErrorMessages = null,
     Object? isQuizSubmitting = null,
     Object? quizAuthFailureOrSuccessOption = null,
+    Object? quizQuestionFailureOrSuccessOption = null,
   }) {
     return _then(_$IntroVideoStateImpl(
       controller: freezed == controller
@@ -1104,11 +1303,11 @@ class __$$IntroVideoStateImplCopyWithImpl<$Res>
       questions: null == questions
           ? _value._questions
           : questions // ignore: cast_nullable_to_non_nullable
-              as List<QuizQuestion>,
+              as List<QuizDTO>,
       updatedQuestions: null == updatedQuestions
           ? _value._updatedQuestions
           : updatedQuestions // ignore: cast_nullable_to_non_nullable
-              as List<QuizQuestion>,
+              as List<QuizDTO>,
       showQuizErrorMessages: null == showQuizErrorMessages
           ? _value.showQuizErrorMessages
           : showQuizErrorMessages // ignore: cast_nullable_to_non_nullable
@@ -1121,6 +1320,11 @@ class __$$IntroVideoStateImplCopyWithImpl<$Res>
           ? _value.quizAuthFailureOrSuccessOption
           : quizAuthFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, String>>,
+      quizQuestionFailureOrSuccessOption: null ==
+              quizQuestionFailureOrSuccessOption
+          ? _value.quizQuestionFailureOrSuccessOption
+          : quizQuestionFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AccountFailure, List<QuizDTO>>>,
     ));
   }
 }
@@ -1134,11 +1338,12 @@ class _$IntroVideoStateImpl implements _IntroVideoState {
       required this.showErrorMessages,
       required this.isSubmitting,
       required this.authFailureOrSuccessOption,
-      required final List<QuizQuestion> questions,
-      required final List<QuizQuestion> updatedQuestions,
+      required final List<QuizDTO> questions,
+      required final List<QuizDTO> updatedQuestions,
       required this.showQuizErrorMessages,
       required this.isQuizSubmitting,
-      required this.quizAuthFailureOrSuccessOption})
+      required this.quizAuthFailureOrSuccessOption,
+      required this.quizQuestionFailureOrSuccessOption})
       : _questions = questions,
         _updatedQuestions = updatedQuestions;
 
@@ -1157,22 +1362,22 @@ class _$IntroVideoStateImpl implements _IntroVideoState {
 // required List<QuizModel> questionList,
 // required bool showQuizErrorMessages,
 // required bool isQuizSubmitting,
-  final List<QuizQuestion> _questions;
+  final List<QuizDTO> _questions;
 
   /// FOR INTRO QUIZ
 // required List<QuizModel> questionList,
 // required bool showQuizErrorMessages,
 // required bool isQuizSubmitting,
   @override
-  List<QuizQuestion> get questions {
+  List<QuizDTO> get questions {
     if (_questions is EqualUnmodifiableListView) return _questions;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_questions);
   }
 
-  final List<QuizQuestion> _updatedQuestions;
+  final List<QuizDTO> _updatedQuestions;
   @override
-  List<QuizQuestion> get updatedQuestions {
+  List<QuizDTO> get updatedQuestions {
     if (_updatedQuestions is EqualUnmodifiableListView)
       return _updatedQuestions;
     // ignore: implicit_dynamic_type
@@ -1185,10 +1390,13 @@ class _$IntroVideoStateImpl implements _IntroVideoState {
   final bool isQuizSubmitting;
   @override
   final Option<Either<AuthFailure, String>> quizAuthFailureOrSuccessOption;
+  @override
+  final Option<Either<AccountFailure, List<QuizDTO>>>
+      quizQuestionFailureOrSuccessOption;
 
   @override
   String toString() {
-    return 'IntroVideoState(controller: $controller, isPlaying: $isPlaying, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption, questions: $questions, updatedQuestions: $updatedQuestions, showQuizErrorMessages: $showQuizErrorMessages, isQuizSubmitting: $isQuizSubmitting, quizAuthFailureOrSuccessOption: $quizAuthFailureOrSuccessOption)';
+    return 'IntroVideoState(controller: $controller, isPlaying: $isPlaying, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption, questions: $questions, updatedQuestions: $updatedQuestions, showQuizErrorMessages: $showQuizErrorMessages, isQuizSubmitting: $isQuizSubmitting, quizAuthFailureOrSuccessOption: $quizAuthFailureOrSuccessOption, quizQuestionFailureOrSuccessOption: $quizQuestionFailureOrSuccessOption)';
   }
 
   @override
@@ -1219,7 +1427,11 @@ class _$IntroVideoStateImpl implements _IntroVideoState {
             (identical(other.quizAuthFailureOrSuccessOption,
                     quizAuthFailureOrSuccessOption) ||
                 other.quizAuthFailureOrSuccessOption ==
-                    quizAuthFailureOrSuccessOption));
+                    quizAuthFailureOrSuccessOption) &&
+            (identical(other.quizQuestionFailureOrSuccessOption,
+                    quizQuestionFailureOrSuccessOption) ||
+                other.quizQuestionFailureOrSuccessOption ==
+                    quizQuestionFailureOrSuccessOption));
   }
 
   @override
@@ -1234,7 +1446,8 @@ class _$IntroVideoStateImpl implements _IntroVideoState {
       const DeepCollectionEquality().hash(_updatedQuestions),
       showQuizErrorMessages,
       isQuizSubmitting,
-      quizAuthFailureOrSuccessOption);
+      quizAuthFailureOrSuccessOption,
+      quizQuestionFailureOrSuccessOption);
 
   @JsonKey(ignore: true)
   @override
@@ -1252,12 +1465,14 @@ abstract class _IntroVideoState implements IntroVideoState {
       required final bool isSubmitting,
       required final Option<Either<AuthFailure, String>>
           authFailureOrSuccessOption,
-      required final List<QuizQuestion> questions,
-      required final List<QuizQuestion> updatedQuestions,
+      required final List<QuizDTO> questions,
+      required final List<QuizDTO> updatedQuestions,
       required final bool showQuizErrorMessages,
       required final bool isQuizSubmitting,
       required final Option<Either<AuthFailure, String>>
-          quizAuthFailureOrSuccessOption}) = _$IntroVideoStateImpl;
+          quizAuthFailureOrSuccessOption,
+      required final Option<Either<AccountFailure, List<QuizDTO>>>
+          quizQuestionFailureOrSuccessOption}) = _$IntroVideoStateImpl;
 
   @override
   VideoPlayerController? get controller;
@@ -1275,9 +1490,9 @@ abstract class _IntroVideoState implements IntroVideoState {
 // required List<QuizModel> questionList,
 // required bool showQuizErrorMessages,
 // required bool isQuizSubmitting,
-  List<QuizQuestion> get questions;
+  List<QuizDTO> get questions;
   @override
-  List<QuizQuestion> get updatedQuestions;
+  List<QuizDTO> get updatedQuestions;
   @override
   bool get showQuizErrorMessages;
   @override
@@ -1285,314 +1500,10 @@ abstract class _IntroVideoState implements IntroVideoState {
   @override
   Option<Either<AuthFailure, String>> get quizAuthFailureOrSuccessOption;
   @override
+  Option<Either<AccountFailure, List<QuizDTO>>>
+      get quizQuestionFailureOrSuccessOption;
+  @override
   @JsonKey(ignore: true)
   _$$IntroVideoStateImplCopyWith<_$IntroVideoStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-mixin _$QuizQuestion {
-  String get question => throw _privateConstructorUsedError;
-  List<QuizMcq> get options => throw _privateConstructorUsedError;
-  List<QuizMcq> get selectedOptions => throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $QuizQuestionCopyWith<QuizQuestion> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $QuizQuestionCopyWith<$Res> {
-  factory $QuizQuestionCopyWith(
-          QuizQuestion value, $Res Function(QuizQuestion) then) =
-      _$QuizQuestionCopyWithImpl<$Res, QuizQuestion>;
-  @useResult
-  $Res call(
-      {String question, List<QuizMcq> options, List<QuizMcq> selectedOptions});
-}
-
-/// @nodoc
-class _$QuizQuestionCopyWithImpl<$Res, $Val extends QuizQuestion>
-    implements $QuizQuestionCopyWith<$Res> {
-  _$QuizQuestionCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? question = null,
-    Object? options = null,
-    Object? selectedOptions = null,
-  }) {
-    return _then(_value.copyWith(
-      question: null == question
-          ? _value.question
-          : question // ignore: cast_nullable_to_non_nullable
-              as String,
-      options: null == options
-          ? _value.options
-          : options // ignore: cast_nullable_to_non_nullable
-              as List<QuizMcq>,
-      selectedOptions: null == selectedOptions
-          ? _value.selectedOptions
-          : selectedOptions // ignore: cast_nullable_to_non_nullable
-              as List<QuizMcq>,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$QuizQuestionImplCopyWith<$Res>
-    implements $QuizQuestionCopyWith<$Res> {
-  factory _$$QuizQuestionImplCopyWith(
-          _$QuizQuestionImpl value, $Res Function(_$QuizQuestionImpl) then) =
-      __$$QuizQuestionImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {String question, List<QuizMcq> options, List<QuizMcq> selectedOptions});
-}
-
-/// @nodoc
-class __$$QuizQuestionImplCopyWithImpl<$Res>
-    extends _$QuizQuestionCopyWithImpl<$Res, _$QuizQuestionImpl>
-    implements _$$QuizQuestionImplCopyWith<$Res> {
-  __$$QuizQuestionImplCopyWithImpl(
-      _$QuizQuestionImpl _value, $Res Function(_$QuizQuestionImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? question = null,
-    Object? options = null,
-    Object? selectedOptions = null,
-  }) {
-    return _then(_$QuizQuestionImpl(
-      question: null == question
-          ? _value.question
-          : question // ignore: cast_nullable_to_non_nullable
-              as String,
-      options: null == options
-          ? _value._options
-          : options // ignore: cast_nullable_to_non_nullable
-              as List<QuizMcq>,
-      selectedOptions: null == selectedOptions
-          ? _value._selectedOptions
-          : selectedOptions // ignore: cast_nullable_to_non_nullable
-              as List<QuizMcq>,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$QuizQuestionImpl implements _QuizQuestion {
-  const _$QuizQuestionImpl(
-      {required this.question,
-      required final List<QuizMcq> options,
-      required final List<QuizMcq> selectedOptions})
-      : _options = options,
-        _selectedOptions = selectedOptions;
-
-  @override
-  final String question;
-  final List<QuizMcq> _options;
-  @override
-  List<QuizMcq> get options {
-    if (_options is EqualUnmodifiableListView) return _options;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_options);
-  }
-
-  final List<QuizMcq> _selectedOptions;
-  @override
-  List<QuizMcq> get selectedOptions {
-    if (_selectedOptions is EqualUnmodifiableListView) return _selectedOptions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_selectedOptions);
-  }
-
-  @override
-  String toString() {
-    return 'QuizQuestion(question: $question, options: $options, selectedOptions: $selectedOptions)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$QuizQuestionImpl &&
-            (identical(other.question, question) ||
-                other.question == question) &&
-            const DeepCollectionEquality().equals(other._options, _options) &&
-            const DeepCollectionEquality()
-                .equals(other._selectedOptions, _selectedOptions));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      question,
-      const DeepCollectionEquality().hash(_options),
-      const DeepCollectionEquality().hash(_selectedOptions));
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$QuizQuestionImplCopyWith<_$QuizQuestionImpl> get copyWith =>
-      __$$QuizQuestionImplCopyWithImpl<_$QuizQuestionImpl>(this, _$identity);
-}
-
-abstract class _QuizQuestion implements QuizQuestion {
-  const factory _QuizQuestion(
-      {required final String question,
-      required final List<QuizMcq> options,
-      required final List<QuizMcq> selectedOptions}) = _$QuizQuestionImpl;
-
-  @override
-  String get question;
-  @override
-  List<QuizMcq> get options;
-  @override
-  List<QuizMcq> get selectedOptions;
-  @override
-  @JsonKey(ignore: true)
-  _$$QuizQuestionImplCopyWith<_$QuizQuestionImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-mixin _$QuizMcq {
-  int get id => throw _privateConstructorUsedError;
-  String get mcq => throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $QuizMcqCopyWith<QuizMcq> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $QuizMcqCopyWith<$Res> {
-  factory $QuizMcqCopyWith(QuizMcq value, $Res Function(QuizMcq) then) =
-      _$QuizMcqCopyWithImpl<$Res, QuizMcq>;
-  @useResult
-  $Res call({int id, String mcq});
-}
-
-/// @nodoc
-class _$QuizMcqCopyWithImpl<$Res, $Val extends QuizMcq>
-    implements $QuizMcqCopyWith<$Res> {
-  _$QuizMcqCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? mcq = null,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      mcq: null == mcq
-          ? _value.mcq
-          : mcq // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$QuizMcqImplCopyWith<$Res> implements $QuizMcqCopyWith<$Res> {
-  factory _$$QuizMcqImplCopyWith(
-          _$QuizMcqImpl value, $Res Function(_$QuizMcqImpl) then) =
-      __$$QuizMcqImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({int id, String mcq});
-}
-
-/// @nodoc
-class __$$QuizMcqImplCopyWithImpl<$Res>
-    extends _$QuizMcqCopyWithImpl<$Res, _$QuizMcqImpl>
-    implements _$$QuizMcqImplCopyWith<$Res> {
-  __$$QuizMcqImplCopyWithImpl(
-      _$QuizMcqImpl _value, $Res Function(_$QuizMcqImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = null,
-    Object? mcq = null,
-  }) {
-    return _then(_$QuizMcqImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      mcq: null == mcq
-          ? _value.mcq
-          : mcq // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$QuizMcqImpl implements _QuizMcq {
-  const _$QuizMcqImpl({required this.id, required this.mcq});
-
-  @override
-  final int id;
-  @override
-  final String mcq;
-
-  @override
-  String toString() {
-    return 'QuizMcq(id: $id, mcq: $mcq)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$QuizMcqImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.mcq, mcq) || other.mcq == mcq));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, id, mcq);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$QuizMcqImplCopyWith<_$QuizMcqImpl> get copyWith =>
-      __$$QuizMcqImplCopyWithImpl<_$QuizMcqImpl>(this, _$identity);
-}
-
-abstract class _QuizMcq implements QuizMcq {
-  const factory _QuizMcq({required final int id, required final String mcq}) =
-      _$QuizMcqImpl;
-
-  @override
-  int get id;
-  @override
-  String get mcq;
-  @override
-  @JsonKey(ignore: true)
-  _$$QuizMcqImplCopyWith<_$QuizMcqImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

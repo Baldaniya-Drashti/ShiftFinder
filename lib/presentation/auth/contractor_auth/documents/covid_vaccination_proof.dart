@@ -36,8 +36,7 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<DocumentBloc>(context)
-        .add(DocumentEvent.getCovidDoc());
+    BlocProvider.of<DocumentBloc>(context).add(DocumentEvent.getCovidDoc());
   }
 
   @override
@@ -45,111 +44,115 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
     return BlocConsumer<DocumentBloc, DocumentState>(
       listener: (context, state) {},
       builder: (context, state) {
-        print(
-            "covidVaccinationDoc-->  ${state.covidVaccinationDoc.getValue()}");
-        return
-          (state.isLoading)
-              ? CenterLoadingIndicator()
-              :
-          Padding(
-          padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: BaseText(
-                  text: (state.covidVaccinationDoc.isValid())
-                      ? StringConstant.uploadedDocument
-                      : StringConstant.pleaseUploadTheDocument,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              SizedBox(
-                height: getSize(10),
-              ),
-              Expanded(
-                child: (state.covidVaccinationDoc.isValid())
-                    ? selectedImage(
-                        context,
-                        state.covidVaccinationDoc.getValue() ?? "",
-                        state: state,
-                      )
-                    : UploadDocumentBox(
-                        onUploadBtnPressed: () {
-                          ImageChooserDialog().showImageChooserDialog(
-                            takePhotoCallback: () async {
-                              String path = await ImagePickerUtils().pickImage(
-                                      imageSource: ImageSource.camera,
-                                      context: context) ??
-                                  '';
-                              if (path.isNotEmpty) {
-                                print("CAMERA IMAGE PATH: $path");
-                                context.read<DocumentBloc>().add(
-                                      DocumentEvent.selectCovidVaccinationDoc(
-                                          path),
-                                    );
-                              }
-                              context.router.maybePop();
-                            },
-                            selectPhotoCallback: () async {
-                              String path = await ImagePickerUtils().pickImage(
-                                      imageSource: ImageSource.gallery,
-                                      context: context) ??
-                                  '';
-
-                              if (path.isNotEmpty) {
-                                print("GALLERY IMAGE PATH: $path");
-                                context.read<DocumentBloc>().add(
-                                      DocumentEvent.selectCovidVaccinationDoc(
-                                          path),
-                                    );
-                              }
-                              context.router.maybePop();
-                            },
-                            selectPdfCallback: () async {
-                              String path = await FilePickerUtils()
-                                      .pickPdf(context: context) ??
-                                  '';
-                              if (path.isNotEmpty) {
-                                print("PDF FILE PATH: $path");
-                                context.read<DocumentBloc>().add(
-                                      DocumentEvent.selectCovidVaccinationDoc(
-                                          path),
-                                    );
-                              }
-                              context.router.maybePop();
-                            },
-                            context: context,
-                          );
-                        },
+        return (state.isLoading)
+            ? CenterLoadingIndicator()
+            : Padding(
+                padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: BaseText(
+                        text: (state.covidVaccinationDoc.isValid())
+                            ? StringConstant.uploadedDocument
+                            : StringConstant.pleaseUploadTheDocument,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
                       ),
-              ),
-              if (state.showCovidErrorMessages)
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: getSize(10)),
-                  child: const BaseText(
-                    text: "* ${StringConstant.pleaseSelectCovidVaccinationDoc}",
-                    fontSize: 12,
-                    textColor: AppColors.red,
-                  ),
+                    ),
+                    SizedBox(
+                      height: getSize(10),
+                    ),
+                    Expanded(
+                      child: (state.covidVaccinationDoc.isValid())
+                          ? selectedImage(
+                              context,
+                              state.covidVaccinationDoc.getValue() ?? "",
+                              state: state,
+                            )
+                          : UploadDocumentBox(
+                              onUploadBtnPressed: () {
+                                ImageChooserDialog().showImageChooserDialog(
+                                  takePhotoCallback: () async {
+                                    String path = await ImagePickerUtils()
+                                            .pickImage(
+                                                imageSource: ImageSource.camera,
+                                                context: context) ??
+                                        '';
+                                    if (path.isNotEmpty) {
+                                      print("CAMERA IMAGE PATH: $path");
+                                      context.read<DocumentBloc>().add(
+                                            DocumentEvent
+                                                .selectCovidVaccinationDoc(
+                                                    path),
+                                          );
+                                    }
+                                    context.router.maybePop();
+                                  },
+                                  selectPhotoCallback: () async {
+                                    String path = await ImagePickerUtils()
+                                            .pickImage(
+                                                imageSource:
+                                                    ImageSource.gallery,
+                                                context: context) ??
+                                        '';
+
+                                    if (path.isNotEmpty) {
+                                      print("GALLERY IMAGE PATH: $path");
+                                      context.read<DocumentBloc>().add(
+                                            DocumentEvent
+                                                .selectCovidVaccinationDoc(
+                                                    path),
+                                          );
+                                    }
+                                    context.router.maybePop();
+                                  },
+                                  selectPdfCallback: () async {
+                                    String path = await FilePickerUtils()
+                                            .pickPdf(context: context) ??
+                                        '';
+                                    if (path.isNotEmpty) {
+                                      print("PDF FILE PATH: $path");
+                                      context.read<DocumentBloc>().add(
+                                            DocumentEvent
+                                                .selectCovidVaccinationDoc(
+                                                    path),
+                                          );
+                                    }
+                                    context.router.maybePop();
+                                  },
+                                  context: context,
+                                );
+                              },
+                            ),
+                    ),
+                    if (state.showCovidErrorMessages)
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: getSize(10)),
+                        child: const BaseText(
+                          text:
+                              "* ${StringConstant.pleaseSelectCovidVaccinationDoc}",
+                          fontSize: 12,
+                          textColor: AppColors.red,
+                        ),
+                      ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: getSize(90), bottom: getSize(50)),
+                      child: CommonButton(
+                        isSubmitting: state.isCovidDocSubmitting,
+                        onPressed: () {
+                          context
+                              .read<DocumentBloc>()
+                              .add(const DocumentEvent.covidDocSubmit());
+                        },
+                        buttonText: StringConstant.txtContinue,
+                      ),
+                    )
+                  ],
                 ),
-              Padding(
-                padding: EdgeInsets.only(top: getSize(90), bottom: getSize(50)),
-                child: CommonButton(
-                  isSubmitting: state.isCovidDocSubmitting,
-                  onPressed: () {
-                    context
-                        .read<DocumentBloc>()
-                        .add(const DocumentEvent.covidDocSubmit());
-                  },
-                  buttonText: StringConstant.txtContinue,
-                ),
-              )
-            ],
-          ),
-        );
+              );
       },
     );
   }

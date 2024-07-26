@@ -3,6 +3,7 @@ part of 'document_bloc.dart';
 @freezed
 class DocumentEvent with _$DocumentEvent {
   const factory DocumentEvent.nextPage(int page) = _NextPage;
+  const factory DocumentEvent.getAllDocumentStatus() = _GetAllDocumentStatus;
   // FOR GOVERNMENT DOCUMENT
   const factory DocumentEvent.selectGovermentDoc(String govermentDoc) =
       _SelectGovermentDoc;
@@ -44,8 +45,7 @@ class DocumentEvent with _$DocumentEvent {
 @freezed
 class CredentialEvent with _$CredentialEvent {
   /// FOR CREDENTIALS-REGISTRATION DOCUMENT
-  const factory CredentialEvent.getCredentialDocList() =
-  GetCredentialDocList;
+  const factory CredentialEvent.getCredentialDocList() = GetCredentialDocList;
   const factory CredentialEvent.checkNACredExpiryDate(bool isCheck) =
       CheckNACredExpiryDate;
   const factory CredentialEvent.credExpiryDateChanged(String expiryDate) =
@@ -70,6 +70,8 @@ class CredentialEvent with _$CredentialEvent {
 @freezed
 class ProfessionalLicensesEvent with _$ProfessionalLicensesEvent {
   /// FOR PROFESSIONAL LICENSES DOCUMENT
+  const factory ProfessionalLicensesEvent.getProfessinalLicensesList() =
+      GetProfessinalLicensesList;
   const factory ProfessionalLicensesEvent.checkNALicensesExpiryDate(
       bool isCheck) = CheckNALicensesExpiryDate;
   const factory ProfessionalLicensesEvent.licensesExpiryDateChanged(
@@ -118,7 +120,8 @@ class ImmunizationEvent with _$ImmunizationEvent {
 @freezed
 class ProfessionalLiabilityEvent with _$ProfessionalLiabilityEvent {
   /// FOR Professional Liability Protection DOCUMENT
-
+  const factory ProfessionalLiabilityEvent.getLiabilityList() =
+      GetLiabilityList;
   const factory ProfessionalLiabilityEvent.checkNALiabilityExpiryDate(
       bool isCheck) = CheckNALiabilityExpiryDate;
   const factory ProfessionalLiabilityEvent.liabilityExpiryDateChanged(
@@ -138,7 +141,7 @@ class ProfessionalLiabilityEvent with _$ProfessionalLiabilityEvent {
 @freezed
 class ResumeEvent with _$ResumeEvent {
   /// FOR Resume DOCUMENT
-
+  const factory ResumeEvent.getResumeDoc() = GetResumeDoc;
   const factory ResumeEvent.selectResumeDoc(String resumeDoc) =
       _SelectResumeDoc;
   const factory ResumeEvent.deleteResumeDoc(String resumeDoc) =
@@ -149,6 +152,7 @@ class ResumeEvent with _$ResumeEvent {
 @freezed
 class EquipmentEvent with _$EquipmentEvent {
   /// FOR Apparel/Equipment DOCUMENT
+  const factory EquipmentEvent.getEquipmentList() = GetEquipmentList;
   const factory EquipmentEvent.equipmentNameChanegd(String equipmentName) =
       _EquipmentNameChanegd;
 

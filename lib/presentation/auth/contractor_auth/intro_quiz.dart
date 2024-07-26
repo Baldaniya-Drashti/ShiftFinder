@@ -170,6 +170,8 @@
 //   QuizMcq({this.option1, this.option2, this.option3, this.option4});
 // }
 
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -179,7 +181,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
@@ -190,15 +192,17 @@ class IntroQuizScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt<IntroVideoBloc>(),
+      create: (_) =>
+          getIt<IntroVideoBloc>()..add(IntroVideoEvent.getQuizQuestionlist()),
       child: Scaffold(
         appBar: CommonAppBar(
-          onBackPressed: () {},
+          onBackPressed: () {
+            context.router.maybePop();
+          },
           title: StringConstant.quiz,
         ),
         body: BlocConsumer<IntroVideoBloc, IntroVideoState>(
           listener: (context, state) {
-            // TODO: implement listener
             state.authFailureOrSuccessOption.fold(
               () {},
               (either) => either.fold(
@@ -220,111 +224,124 @@ class IntroQuizScreen extends StatelessWidget {
             );
           },
           builder: (context, state) {
-            return SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ListView.builder(
-                    itemCount: state.questions.length,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      final question = state.questions[index];
-                      return Container(
-                        alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.symmetric(
-                            horizontal: getSize(20), vertical: getSize(10)),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: getSize(10), vertical: getSize(10)),
-                        color: AppColors.grey.withOpacity(0.4),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.white,
-                                borderRadius: BorderRadius.circular(7),
-                              ),
+            return (state.isSubmitting)
+                ? CenterLoadingIndicator()
+                : SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ListView.builder(
+                          itemCount: state.questions.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            final question = state.questions[index];
+                            return Container(
+                              alignment: Alignment.centerLeft,
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: getSize(20),
+                                  vertical: getSize(10)),
                               padding: EdgeInsets.symmetric(
                                   horizontal: getSize(10),
                                   vertical: getSize(10)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                              color: AppColors.grey.withOpacity(0.4),
+                              child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  BaseText(
-                                    text: "${index + 1}. ",
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                  Flexible(
-                                    child: BaseText(
-                                      text: question.question,
-                                      textAlign: TextAlign.start,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: AppColors.white,
+                                      borderRadius: BorderRadius.circular(7),
+                                    ),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: getSize(10),
+                                        vertical: getSize(10)),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        BaseText(
+                                          text: "${index + 1}. ",
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                        Flexible(
+                                          child: BaseText(
+                                            text: question.question ?? "",
+                                            textAlign: TextAlign.start,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
+                                  if (question.answers != null)
+                                    ...question.answers!.map((option) {
+                                      return Row(
+                                        children: [
+                                          Checkbox(
+                                            value: question.selectedAnswers!
+                                                .contains(option),
+                                            onChanged: (isSelected) {
+                                              context
+                                                  .read<IntroVideoBloc>()
+                                                  .add(
+                                                    IntroVideoEvent
+                                                        .optionSelected(
+                                                      questionIndex: index,
+                                                      selectedOption: option,
+                                                    ),
+                                                  );
+                                            },
+                                            activeColor: AppColors.primaryColor,
+                                            side: BorderSide(
+                                              width: getSize(1.5),
+                                              color: AppColors.black
+                                                  .withOpacity(0.5),
+                                            ),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                          ),
+                                          BaseText(
+                                            text: option.answer ?? "",
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ],
+                                      );
+                                    }),
                                 ],
                               ),
-                            ),
-                            ...question.options.map((option) {
-                              return Row(
-                                children: [
-                                  Checkbox(
-                                    value: question.selectedOptions
-                                        .contains(option),
-                                    onChanged: (isSelected) {
-                                      context.read<IntroVideoBloc>().add(
-                                            IntroVideoEvent.optionSelected(
-                                              questionIndex: index,
-                                              selectedOption: option,
-                                            ),
-                                          );
-                                    },
-                                    activeColor: AppColors.primaryColor,
-                                    side: BorderSide(
-                                      width: getSize(1.5),
-                                      color: AppColors.black.withOpacity(0.5),
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                  ),
-                                  BaseText(
-                                    text: option.mcq,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ],
-                              );
-                            }),
-                          ],
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
-                  if (state.showQuizErrorMessages)
-                    commonErrorText(
-                        "* ${StringConstant.pleaseCompleteAllQuestionOfQuiz}"),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: getSize(20)),
-                      child: CommonButton(
-                        isSubmitting: state.isQuizSubmitting,
-                        onPressed: () {
-                          context
-                              .read<IntroVideoBloc>()
-                              .add(const IntroVideoEvent.submitQuiz());
-                        },
-                        buttonText: StringConstant.submitTheQuiz,
-                      ),
+                        if (state.showQuizErrorMessages)
+                          commonErrorText(
+                              "* ${StringConstant.pleaseCompleteAllQuestionOfQuiz}"),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding:
+                                EdgeInsets.symmetric(vertical: getSize(20)),
+                            child: CommonButton(
+                              isSubmitting: state.isQuizSubmitting,
+                              onPressed: () {
+                                context
+                                    .read<IntroVideoBloc>()
+                                    .add(const IntroVideoEvent.submitQuiz());
+                              },
+                              buttonText: StringConstant.submitTheQuiz,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-            );
+                  );
           },
         ),
       ),

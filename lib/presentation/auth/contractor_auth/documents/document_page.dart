@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, prefer_const_constructors
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/auth/contractor_auth/document_bloc/document_bloc.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'DocumentPageScreen')
@@ -24,25 +26,54 @@ class _DocumentPageState extends State<DocumentPage> {
         AppFocus.unfocus(context);
       },
       child: BlocProvider(
-        create: (context) => getIt<DocumentBloc>(),
-        child: BlocBuilder<DocumentBloc, DocumentState>(
+        create: (context) =>
+            getIt<DocumentBloc>()..add(DocumentEvent.getAllDocumentStatus()),
+        child: BlocConsumer<DocumentBloc, DocumentState>(
+          listener: (context, state) {
+            state.authFailureOrSuccessOption.fold(
+              () {},
+              (either) => either.fold(
+                (failure) {
+                  showError(
+                    message: failure.maybeMap(
+                      showAPIResponseMessage: (value) => value.message,
+                      networkError: (value) =>
+                          'Please check your internet connectivity',
+                      orElse: () => "Server Error. Try again later.",
+                    ),
+                  ).show(context);
+                },
+                (r) {},
+              ),
+            );
+          },
           builder: (context, state) {
             return Scaffold(
               appBar: CommonAppBar(
                 onBackPressed: () {
+                  AppFocus.unfocus(context);
                   if (state.currentPage == 0) {
                     context.router.maybePop();
                   } else {
-                    DocumentBloc.pageController.animateTo(
+                    DocumentBloc.pageController
+                        .animateTo(
                       0,
                       duration: const Duration(milliseconds: 10),
                       curve: Curves.easeOut,
-                    );
+                    )
+                        .then((value) {
+                      print("WHEN CLICK ON BACK OF PAGE VIEW >THEN IS CALLED!");
+                      context
+                          .read<DocumentBloc>()
+                          .add(DocumentEvent.getAllDocumentStatus());
+                    });
                   }
                 },
                 title: DocumentBloc.appbarTitleList[state.currentPage],
               ),
-              body: getPageView(state, context),
+              body: (state.allListLoading)
+                  ? CenterLoadingIndicator()
+                  : getPageView(state, context),
             );
           },
         ),

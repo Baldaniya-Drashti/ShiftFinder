@@ -11,12 +11,15 @@ import 'package:shift/application/auth/contractor_auth/document_bloc/document_bl
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/file_picker_utils.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/image_picker_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
 import 'package:shift/presentation/common/widgets/show_picked_file.dart';
 import 'package:shift/presentation/common/widgets/upload_document_box.dart';
-import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 
@@ -26,62 +29,83 @@ class ResumeDocument extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ResumeBloc(),
+      create: (context) => getIt<ResumeBloc>()..add(ResumeEvent.getResumeDoc()),
       child: BlocConsumer<ResumeBloc, ResumeState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-            child: Form(
-              autovalidateMode: (state.showResumeErrorMessages)
-                  ? AutovalidateMode.always
-                  : AutovalidateMode.disabled,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: BaseText(
-                      text: (state.resumeDoc.isValid())
-                          ? StringConstant.uploadedResume
-                          : StringConstant.uploadYourResume,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
+        listener: (context, state) {
+          state.resumeDocAuthFailureOrSuccessOption.fold(
+            () {},
+            (either) => either.fold(
+              (failure) {
+                showError(
+                  message: failure.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
                   ),
-                  SizedBox(
-                    height: getSize(10),
-                  ),
-                  Expanded(
-                    child: (state.resumeDoc.isValid())
-                        ? selectedImage(
-                            context,
-                            state.resumeDoc.getValue() ?? "",
-                            state: state,
-                          )
-                        : UploadDocumentBox(
-                            height: getSize(400),
-                            onUploadBtnPressed: () {
-                              clickUploadButton(context);
-                            },
-                          ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(top: getSize(40), bottom: getSize(50)),
-                    child: CommonButton(
-                      onPressed: () {
-                        context
-                            .read<ResumeBloc>()
-                            .add(const ResumeEvent.resumeDocSubmit());
-                      },
-                      buttonText: StringConstant.txtContinue,
-                    ),
-                  )
-                ],
-              ),
+                ).show(context);
+              },
+              (r) {},
             ),
           );
+        },
+        builder: (context, state) {
+          return (state.isResumeDocSubmitting)
+              ? CenterLoadingIndicator()
+              : Padding(
+                  padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                  child: Form(
+                    autovalidateMode: (state.showResumeErrorMessages)
+                        ? AutovalidateMode.always
+                        : AutovalidateMode.disabled,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: BaseText(
+                            text: (state.resume.file != null &&
+                                    state.resume.file!.isNotEmpty)
+                                ? StringConstant.uploadedResume
+                                : StringConstant.uploadYourResume,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(
+                          height: getSize(10),
+                        ),
+                        Expanded(
+                          child: (state.resume.file != null &&
+                                  state.resume.file!.isNotEmpty)
+                              ? selectedImage(
+                                  context,
+                                  state.resume.file ?? "",
+                                  state: state,
+                                )
+                              : UploadDocumentBox(
+                                  height: getSize(400),
+                                  onUploadBtnPressed: () {
+                                    clickUploadButton(context);
+                                  },
+                                ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: getSize(40), bottom: getSize(50)),
+                          child: CommonButton(
+                            onPressed: () {
+                              context
+                                  .read<ResumeBloc>()
+                                  .add(const ResumeEvent.resumeDocSubmit());
+                            },
+                            buttonText: StringConstant.txtContinue,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                );
         },
       ),
     );
@@ -109,10 +133,10 @@ class ResumeDocument extends StatelessWidget {
                   context.router.maybePop();
                 },
                 onDeleteClick: () {
-                  if (state.resumeDoc.isValid()) {
-                    context.read<DocumentBloc>().add(
-                          DocumentEvent.deleteGovermentDoc(
-                              state.resumeDoc.getValue()!),
+                  if (state.resume.file != null &&
+                      state.resume.file!.isNotEmpty) {
+                    context.read<ResumeBloc>().add(
+                          ResumeEvent.deleteResumeDoc(state.resume.file!),
                         );
                   }
                   context.router.maybePop();
@@ -149,6 +173,16 @@ class ResumeDocument extends StatelessWidget {
 
         if (path.isNotEmpty) {
           print("GALLERY IMAGE PATH: $path");
+          context.read<ResumeBloc>().add(
+                ResumeEvent.selectResumeDoc(path),
+              );
+        }
+        context.router.maybePop();
+      },
+      selectPdfCallback: () async {
+        String path = await FilePickerUtils().pickPdf(context: context) ?? '';
+        if (path.isNotEmpty) {
+          print("PDF FILE PATH: $path");
           context.read<ResumeBloc>().add(
                 ResumeEvent.selectResumeDoc(path),
               );

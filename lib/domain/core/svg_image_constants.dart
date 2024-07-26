@@ -59,4 +59,7 @@ class SvgImageConstant {
   static const card = "assets/svg/card.svg";
   static const icCard = "assets/svg/ic_card.svg";
   static const expDateCalendar = "assets/svg/exp_date_calendar.svg";
+  static const icYes = "assets/svg/ic_right.svg";
+  static const icNo = "assets/svg/ic_close.svg";
+  static const notApplicable = "assets/svg/not_applicable.svg";
 }

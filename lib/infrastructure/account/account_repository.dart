@@ -13,8 +13,10 @@ import 'package:shift/domain/core/api_constants.dart';
 import 'package:shift/infrastructure/account/current_user_dto.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/experience_model/experience_dto.dart';
+import 'package:shift/infrastructure/core/legal_screening_dto/legal_screening_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/network/injectable_module.dart';
+import 'package:shift/infrastructure/core/quiz_dto/quiz_dto.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 
 import '../core/skill_list_model/skill_dto.dart';
@@ -305,12 +307,17 @@ class AccountRepository extends IAccountRepository {
 
   @override
   Future<Either<AccountFailure, List<DocumentDTO>>> getDocumentApi({
-    required int documentType,
+    required int? documentType,
   }) async {
     try {
       print("Sending Params:---> $documentType");
-      final response = await apiService
-          .getMethod("${ApiConstants.getDocument}?document_type=$documentType");
+
+      final response = await apiService.getMethod(
+        (documentType != null)
+            ? "${ApiConstants.getDocument}?document_type=$documentType"
+            : ApiConstants.getDocument,
+      );
+
       if (response != null && response.data != null) {
         print("Response of Get Document---> ${jsonEncode(response.data)}");
 
@@ -333,6 +340,7 @@ class AccountRepository extends IAccountRepository {
       }
       return left(const AccountFailure.serverError());
     } catch (e) {
+      print("ERRORRRRRR----->  $e");
       return left(const AccountFailure.serverError());
     }
   }
@@ -357,7 +365,8 @@ class AccountRepository extends IAccountRepository {
       var formData = FormData.fromMap({
         "document_type": documentType,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime.parse(expiryDate).millisecondsSinceEpoch / 1000).toString()
+            ? (DateTime.parse(expiryDate).millisecondsSinceEpoch / 1000)
+                .toString()
             : "",
         "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
         "registration_number": registrationNumber,
@@ -421,13 +430,15 @@ class AccountRepository extends IAccountRepository {
     try {
       print("expiry dat---> $expiryDate");
       print("Document file---> $documentFile");
-      print("expiry date after timestamp---> ${DateTime.now().millisecondsSinceEpoch}");
+      print(
+          "expiry date after timestamp---> ${DateTime.now().millisecondsSinceEpoch}");
 
       var formData = FormData.fromMap({
         "id": id,
         "document_type": documentType,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime.parse(expiryDate).millisecondsSinceEpoch / 1000).toString()
+            ? (DateTime.parse(expiryDate).millisecondsSinceEpoch / 1000)
+                .toString()
             : "",
         "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
         "registration_number": registrationNumber,
@@ -475,7 +486,6 @@ class AccountRepository extends IAccountRepository {
     }
   }
 
-
   @override
   Future<Either<AccountFailure, Account>> addMultiDocumentApi({
     required int documentType,
@@ -496,9 +506,9 @@ class AccountRepository extends IAccountRepository {
       var formData = FormData.fromMap({
         "document_type": documentType,
         "province_of_registration": provinceOfRegistration,
-
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime.parse(expiryDate).millisecondsSinceEpoch / 1000).toString()
+            ? (DateTime.parse(expiryDate).millisecondsSinceEpoch / 1000)
+                .toString()
             : "",
         "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
         "registration_number": registrationNumber,
@@ -553,8 +563,6 @@ class AccountRepository extends IAccountRepository {
     required int credId,
   }) async {
     try {
-
-
       final response = await apiService.deleteMethod(
         "${ApiConstants.destroyDocument}?id=$credId",
       );
@@ -567,7 +575,6 @@ class AccountRepository extends IAccountRepository {
       } else {
         return left(const AccountFailure.serverError());
       }
-
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
@@ -582,6 +589,121 @@ class AccountRepository extends IAccountRepository {
       return left(const AccountFailure.serverError());
     } catch (e) {
       print("CATCH ERRO---> ${e}");
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AccountFailure, List<LegalScreeningDTO>>>
+      getLegalScreeningListApi() async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.legalScreeningQuestionList,
+      );
+
+      if (response != null && response.data != null) {
+        print("Response of Legal Screening---> ${jsonEncode(response.data)}");
+
+        var account = response.data as List<dynamic>;
+        var list = account.map((e) => LegalScreeningDTO.fromJson(e)).toList();
+        return right(list);
+      } else {
+        return left(const AccountFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+      return left(const AccountFailure.serverError());
+    } catch (e) {
+      print("ERRORRRRRR----->  $e");
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AccountFailure, Account>> addLergalScreeningAnswerApi({
+    required int affirmIsCheck,
+    required String questionAnswerDetail,
+  }) async {
+    try {
+      var mapData = {
+        "check_affirm_resp_release_shiftfinder_liabilities": affirmIsCheck,
+        "question_answer_detail": questionAnswerDetail,
+        "last_page": "LegalScreening",
+      };
+
+      print('Sending Data: $mapData');
+
+      final response = await apiService.postMethod(
+        ApiConstants.legalScreeningQuestionAnswer,
+        mapData,
+      );
+      print("Response of Add Questions---> ${jsonEncode(response.data)}");
+
+      final account = CurrentUserDto.fromJson(response.data).toDomain();
+
+      // return right(account);
+      // var account = response.data as List<dynamic>;
+      // var list = account.values.map((e) => DocumentDTO.fromJson(e)).toList();
+
+      // var list = account.map((e) => DocumentDTO.fromJson(e)).toList();
+      return right(account);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+      return left(const AccountFailure.serverError());
+    } catch (e) {
+      print("CATCH ERRO---> ${e}");
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AccountFailure, List<QuizDTO>>> getQuizListApi() async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.quizList,
+      );
+
+      if (response != null && response.data != null) {
+        print("Response of Quiz List---> ${jsonEncode(response.data)}");
+
+        var account = response.data as List<dynamic>;
+        var list = account.map((e) => QuizDTO.fromJson(e)).toList();
+        return right(list);
+      } else {
+        return left(const AccountFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+      return left(const AccountFailure.serverError());
+    } catch (e) {
+      print("ERRORRRRRR----->  $e");
       return left(const AccountFailure.serverError());
     }
   }

@@ -8,9 +8,10 @@ class IntroVideoEvent with _$IntroVideoEvent {
   const factory IntroVideoEvent.videoCompleted() = _VideoCompleted;
 
   /// FOR INTRO QUIZ
+  const factory IntroVideoEvent.getQuizQuestionlist() = _GetQuizQuestionList;
   const factory IntroVideoEvent.optionSelected({
     required int questionIndex,
-    required QuizMcq selectedOption,
+    required QuizMcqDTO selectedOption,
   }) = _OptionSelected;
 
   const factory IntroVideoEvent.submitQuiz() = _SubmitQuiz;

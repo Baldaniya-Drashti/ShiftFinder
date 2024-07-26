@@ -2,8 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shift/domain/account/account_failure.dart';
+import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
-import 'package:shift/presentation/auth/contractor_auth/intro_quiz.dart';
+import 'package:shift/infrastructure/core/quiz_dto/quiz_dto.dart';
 import 'package:video_player/video_player.dart';
 part 'intro_video_event.dart';
 part 'intro_video_state.dart';
@@ -11,7 +13,9 @@ part 'intro_video_bloc.freezed.dart';
 
 @injectable
 class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
-  IntroVideoBloc() : super(IntroVideoState.initial()) {
+  final IAccountRepository _repository;
+
+  IntroVideoBloc(this._repository) : super(IntroVideoState.initial()) {
     on<IntroVideoEvent>((event, emit) async {
       await event.map(
         setupVideo: (e) async {
@@ -52,10 +56,51 @@ class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
         },
 
         /// FOR QUIZ OF VIDEO
+
+        getQuizQuestionlist: (e) async {
+          Either<AccountFailure, List<QuizDTO>>? failureOrSuccess;
+          emit(
+            state.copyWith(
+              isSubmitting: true,
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+          failureOrSuccess = await _repository.getQuizListApi();
+          failureOrSuccess.fold(
+            (l) => emit(
+              state.copyWith(
+                isSubmitting: false,
+              ),
+            ),
+            (r) {
+              if (r.isNotEmpty) {
+                return emit(
+                  state.copyWith(
+                    isSubmitting: false,
+                    questions: r,
+                  ),
+                );
+              } else {
+                return emit(
+                  state.copyWith(
+                    isSubmitting: false,
+                  ),
+                );
+              }
+            },
+          );
+
+          emit(
+            state.copyWith(
+              isSubmitting: false,
+              quizQuestionFailureOrSuccessOption: optionOf(failureOrSuccess),
+            ),
+          );
+        },
         optionSelected: (e) {
-          final updatedQuestionList = List<QuizQuestion>.from(state.questions);
-          final updatedSelectedOptions = List<QuizMcq>.from(
-              updatedQuestionList[e.questionIndex].selectedOptions);
+          final updatedQuestionList = List<QuizDTO>.from(state.questions);
+          final updatedSelectedOptions = List<QuizMcqDTO>.from(
+              updatedQuestionList[e.questionIndex].selectedAnswers ?? []);
 
           if (updatedSelectedOptions.contains(e.selectedOption)) {
             updatedSelectedOptions.remove(e.selectedOption);
@@ -64,7 +109,7 @@ class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
           }
 
           final updatedQuestion = updatedQuestionList[e.questionIndex].copyWith(
-            selectedOptions: updatedSelectedOptions,
+            selectedAnswers: updatedSelectedOptions,
           );
           updatedQuestionList[e.questionIndex] = updatedQuestion;
           print("Updated question list---> ${updatedQuestionList}");
@@ -72,14 +117,15 @@ class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
         },
         submitQuiz: (e) {
           var isAllValidated = state.questions.every((element) {
-            print("element.selectedOptions -->  ${element.selectedOptions}");
-            return element.selectedOptions.isNotEmpty;
+            print("element.selectedOptions -->  ${element.selectedAnswers}");
+            return (element.selectedAnswers != null &&
+                element.selectedAnswers!.isNotEmpty);
           });
           print("Is All validated -->  ${isAllValidated}");
           if (isAllValidated) {
             emit(state.copyWith(
               questions: state.questions
-                  .map((q) => q.copyWith(selectedOptions: []))
+                  .map((q) => q.copyWith(selectedAnswers: []))
                   .toList(),
               isQuizSubmitting: true,
               showQuizErrorMessages: false,

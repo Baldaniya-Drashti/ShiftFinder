@@ -3,13 +3,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shift/application/auth/contractor_auth/legal_screening_bloc/legal_screening_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/legal_screening_dto/legal_screening_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -39,6 +43,22 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
                   ),
                 ).show(context);
               },
+              (r) {},
+            ),
+          );
+          state.submitFailureOrSuccessOption.fold(
+            () {},
+            (either) => either.fold(
+              (failure) {
+                showError(
+                  message: failure.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(context);
+              },
               (r) {
                 context.router
                     .push(const PageRouteInfo(TermsAndConditionsScreen.name));
@@ -54,93 +74,94 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
               },
               title: StringConstant.legalScreening,
             ),
-            body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    ListView.builder(
-                      itemCount: state.questionList.length,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        print("IS SUBMITTING--->  ${state.isSubmitting}");
-                        QuestionModel currentQuestion =
-                            state.questionList[index];
-                        return questionBox(
-                          state,
-                          numberOfQuestion: index + 1,
-                          questionText: currentQuestion.question ?? "",
-                          isAnswered: (currentQuestion.answer != null &&
-                              currentQuestion.answer!.isNotEmpty),
-                          yesOnPressed: () {
-                            context.read<LegalScreeningBloc>().add(
-                                LegalScreeningEvent.storeAnswerEvent(
-                                    index, "yes"));
-                          },
-                          noOnPressed: () {
-                            context.read<LegalScreeningBloc>().add(
-                                LegalScreeningEvent.storeAnswerEvent(
-                                    index, "no"));
-                          },
-                          notApplicableOnPressed:
-                              (currentQuestion.showNotApplicableButton == true)
-                                  ? () {
-                                      context.read<LegalScreeningBloc>().add(
-                                          LegalScreeningEvent.storeAnswerEvent(
-                                              index, "not applicable"));
-                                    }
-                                  : null,
-                        );
-                      },
-                    ),
-                    if (state.showErrorMessages && !state.isAllAnswered)
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: BaseText(
-                          text: StringConstant.youMustAnswerAllTheQuestions,
-                          style: TextStyle(
-                            color: AppColors.red,
-                            fontSize: getFontSize(11),
-                            fontWeight: FontWeight.w500,
+            body: (state.isSubmitting)
+                ? CenterLoadingIndicator()
+                : Padding(
+                    padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          ListView.builder(
+                            itemCount: state.questionList.length,
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              print("IS SUBMITTING--->  ${state.isSubmitting}");
+                              LegalScreeningDTO currentQuestion =
+                                  state.questionList[index];
+                              return questionBox(
+                                state,
+                                numberOfQuestion: index + 1,
+                                questionModel: currentQuestion,
+                                questionText: currentQuestion.name ?? "",
+                                showNAButton: currentQuestion.isNa ?? 1,
+                                yesOnPressed: () {
+                                  context.read<LegalScreeningBloc>().add(
+                                      LegalScreeningEvent.storeAnswerEvent(
+                                          index, 1));
+                                },
+                                noOnPressed: () {
+                                  context.read<LegalScreeningBloc>().add(
+                                      LegalScreeningEvent.storeAnswerEvent(
+                                          index, 2));
+                                },
+                                notApplicableOnPressed: () {
+                                  context.read<LegalScreeningBloc>().add(
+                                      LegalScreeningEvent.storeAnswerEvent(
+                                          index, 0));
+                                },
+                              );
+                            },
                           ),
-                        ),
-                      ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: getSize(10)),
-                      child: confirmationCheckBox(context, state),
-                    ),
-                    Visibility(
-                      visible: (state.showErrorMessages && !state.isCheck),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: BaseText(
-                          text: StringConstant.legalScreeningTermsErrorText,
-                          style: TextStyle(
-                            color: AppColors.red,
-                            fontSize: getFontSize(11),
-                            fontWeight: FontWeight.w500,
+                          if (state.showErrorMessages && !state.isAllAnswered)
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: BaseText(
+                                text:
+                                    StringConstant.youMustAnswerAllTheQuestions,
+                                style: TextStyle(
+                                  color: AppColors.red,
+                                  fontSize: getFontSize(11),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          Padding(
+                            padding:
+                                EdgeInsets.symmetric(vertical: getSize(10)),
+                            child: confirmationCheckBox(context, state),
                           ),
-                        ),
+                          Visibility(
+                            visible:
+                                (state.showErrorMessages && !state.isCheck),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: BaseText(
+                                text:
+                                    StringConstant.legalScreeningTermsErrorText,
+                                style: TextStyle(
+                                  color: AppColors.red,
+                                  fontSize: getFontSize(11),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: getSize(40), bottom: getSize(20)),
+                            child: CommonButton(
+                              onPressed: () {
+                                context.read<LegalScreeningBloc>().add(
+                                    LegalScreeningEvent.continueBtnPressed());
+                              },
+                              buttonText: StringConstant.txtContinue,
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: getSize(40), bottom: getSize(20)),
-                      child: CommonButton(
-                        isSubmitting: state.isSubmitting,
-                        onPressed: () {
-                          context
-                              .read<LegalScreeningBloc>()
-                              .add(LegalScreeningEvent.continueBtnPressed());
-                        },
-                        buttonText: StringConstant.txtContinue,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
+                  ),
           );
         },
       ),
@@ -149,12 +170,13 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
 
   Widget questionBox(
     LegalScreeningState state, {
+    required LegalScreeningDTO questionModel,
     required int numberOfQuestion,
-    required bool isAnswered,
+    required int showNAButton,
     required String questionText,
     required VoidCallback yesOnPressed,
     required VoidCallback noOnPressed,
-    VoidCallback? notApplicableOnPressed,
+    required VoidCallback notApplicableOnPressed,
   }) {
     return Container(
       padding:
@@ -181,9 +203,24 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
+              (questionModel.answer == 0)
+                  ? SvgPicture.asset(
+                      SvgImageConstant.notApplicable,
+                      height: getSize(16),
+                      width: getSize(23),
+                    )
+                  : (questionModel.answer == 1 || questionModel.answer == 2)
+                      ? SvgPicture.asset(
+                          (questionModel.answer == 1)
+                              ? SvgImageConstant.icYes
+                              : SvgImageConstant.icNo,
+                          height: getSize(24),
+                          width: getSize(24),
+                        )
+                      : Container(),
             ],
           ),
-          if (!isAnswered) ...[
+          if (questionModel.answer == null) ...[
             SizedBox(
               height: getSize(10),
             ),
@@ -201,7 +238,7 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
                   buttonColor: AppColors.redAccent,
                 ),
                 SizedBox(width: getSize(20)),
-                if (notApplicableOnPressed != null)
+                if (showNAButton == 1)
                   answerButton(
                     onPressed: notApplicableOnPressed,
                     buttonText: StringConstant.notApplicable,
@@ -282,10 +319,10 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
   }
 }
 
-class QuestionModel {
-  String? question;
-  bool showNotApplicableButton;
-  String? answer;
-  QuestionModel(
-      {this.question, this.showNotApplicableButton = false, this.answer});
-}
+// class QuestionModel {
+//   String? question;
+//   bool showNotApplicableButton;
+//   String? answer;
+//   QuestionModel(
+//       {this.question, this.showNotApplicableButton = false, this.answer});
+// }
