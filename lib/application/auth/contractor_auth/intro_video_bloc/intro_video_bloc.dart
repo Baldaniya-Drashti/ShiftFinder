@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/account/account_failure.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
@@ -78,6 +81,7 @@ class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
                   state.copyWith(
                     isSubmitting: false,
                     questions: r,
+
                   ),
                 );
               } else {
@@ -115,32 +119,78 @@ class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
           print("Updated question list---> ${updatedQuestionList}");
           emit(state.copyWith(questions: updatedQuestionList));
         },
-        submitQuiz: (e) {
+        submitQuiz: (e) async {
+          Either<AccountFailure, Account>? failureOrSuccess;
+
           var isAllValidated = state.questions.every((element) {
-            print("element.selectedOptions -->  ${element.selectedAnswers}");
             return (element.selectedAnswers != null &&
                 element.selectedAnswers!.isNotEmpty);
           });
           print("Is All validated -->  ${isAllValidated}");
           if (isAllValidated) {
-            emit(state.copyWith(
-              questions: state.questions
-                  .map((q) => q.copyWith(selectedAnswers: []))
-                  .toList(),
-              isQuizSubmitting: true,
-              showQuizErrorMessages: false,
-              quizAuthFailureOrSuccessOption: some(right("success")),
-            ));
+
+            List<Map<String, dynamic>> formattedData = state.questions.map((question) {
+              return {
+                'question_id': question.id,
+                'answer': question.selectedAnswers!.map((answer) => answer.id.toString()).join(','),
+              };
+            }).toList();
+            print("selected answers -->  ${formattedData}");
+
+            // emit(state.copyWith(
+            //   questions: state.questions
+            //       .map((q) => q.copyWith(selectedAnswers: []))
+            //       .toList(),
+            //   isQuizSubmitting: true,
+            //   showQuizErrorMessages: false,
+            //   // quizAuthFailureOrSuccessOption: some(right("success")),
+            // ));
+            emit(
+              state.copyWith(
+                isSubmitting: true,
+                quizAuthFailureOrSuccessOption: none(),
+              ),
+            );
+
+            failureOrSuccess = await _repository.addQuizAnswerApi(
+              quizDetails: jsonEncode(formattedData),
+            );
+
+            failureOrSuccess.fold(
+                  (l) => emit(
+                state.copyWith(
+                  isSubmitting: false,
+                ),
+              ),
+                  (r) {
+                emit(
+                  state.copyWith(
+                    isSubmitting: false,
+                    showErrorMessages: false,
+                    quizAuthFailureOrSuccessOption: none(),
+                  ),
+                );
+              },
+            );
           } else {
             emit(state.copyWith(
               showQuizErrorMessages: true,
-              isQuizSubmitting: false,
+              isSubmitting: false,
               quizAuthFailureOrSuccessOption: none(),
             ));
           }
+
+          emit(
+            state.copyWith(
+              isSubmitting: false,
+              showErrorMessages: true,
+              quizAuthFailureOrSuccessOption: optionOf(failureOrSuccess),
+            ),
+          );
         },
       );
     });
+
   }
 
   @override

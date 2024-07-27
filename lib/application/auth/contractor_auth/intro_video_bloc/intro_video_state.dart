@@ -17,7 +17,7 @@ class IntroVideoState with _$IntroVideoState {
     required List<QuizDTO> updatedQuestions,
     required bool showQuizErrorMessages,
     required bool isQuizSubmitting,
-    required Option<Either<AuthFailure, String>> quizAuthFailureOrSuccessOption,
+    required Option<Either<AccountFailure, Account>> quizAuthFailureOrSuccessOption,
     required Option<Either<AccountFailure, List<QuizDTO>>>
         quizQuestionFailureOrSuccessOption,
   }) = _IntroVideoState;

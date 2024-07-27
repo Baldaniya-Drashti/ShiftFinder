@@ -707,4 +707,48 @@ class AccountRepository extends IAccountRepository {
       return left(const AccountFailure.serverError());
     }
   }
+
+  @override
+  Future<Either<AccountFailure, Account>> addQuizAnswerApi({
+    required String quizDetails,
+  }) async {
+    try {
+      var mapData = {
+        "quiz_details ": quizDetails,
+        "last_page": "Quiz",
+      };
+
+      print('Sending Data: $mapData');
+
+      final response = await apiService.postMethod(
+        ApiConstants.quiz,
+        mapData,
+      );
+      print("Response of Add Quiz---> ${jsonEncode(response.data)}");
+
+      final account = CurrentUserDto.fromJson(response.data).toDomain();
+
+      // return right(account);
+      // var account = response.data as List<dynamic>;
+      // var list = account.values.map((e) => DocumentDTO.fromJson(e)).toList();
+
+      // var list = account.map((e) => DocumentDTO.fromJson(e)).toList();
+      return right(account);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+      return left(const AccountFailure.serverError());
+    } catch (e) {
+      print("CATCH ERROR---> ${e}");
+      return left(const AccountFailure.serverError());
+    }
+  }
 }

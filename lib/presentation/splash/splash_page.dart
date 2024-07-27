@@ -116,7 +116,7 @@ class SplashPage extends StatelessWidget {
       case "EmployerLocation":
         return LocationDetailForm.name;
       case "ContractorSkill":
-        return AddContractorSkillsForm.name;
+        return IntroQuizScreen.name;
       case "Education":
         return EducationListScreen.name;
       case "Experience":

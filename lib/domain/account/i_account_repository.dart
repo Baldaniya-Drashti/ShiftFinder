@@ -95,6 +95,9 @@ abstract class IAccountRepository {
     required int affirmIsCheck,
     required String questionAnswerDetail,
   });
+  Future<Either<AccountFailure, Account>> addQuizAnswerApi({
+    required String quizDetails,
+  });
 
   Future<Either<AccountFailure, List<QuizDTO>>> getQuizListApi();
 }

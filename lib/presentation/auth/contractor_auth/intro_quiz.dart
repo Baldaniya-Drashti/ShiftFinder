@@ -217,6 +217,24 @@ class IntroQuizScreen extends StatelessWidget {
                   ).show(context);
                 },
                 (r) {
+
+                },
+              ),
+            );
+            state.authFailureOrSuccessOption.fold(
+                  () {},
+                  (either) => either.fold(
+                    (failure) {
+                  showError(
+                    message: failure.maybeMap(
+                      showAPIResponseMessage: (value) => value.message,
+                      networkError: (value) =>
+                      'Please check your internet connectivity',
+                      orElse: () => "Server Error. Try again later.",
+                    ),
+                  ).show(context);
+                },
+                    (r) {
                   print("GO TO NEXT SCREEN!");
                   // context.router.push(const PageRouteInfo(MainTabView.name));
                 },
@@ -283,8 +301,8 @@ class IntroQuizScreen extends StatelessWidget {
                                       return Row(
                                         children: [
                                           Checkbox(
-                                            value: question.selectedAnswers!
-                                                .contains(option),
+                                            value: (question.selectedAnswers != null) ?  question.selectedAnswers!
+                                                .contains(option) : false,
                                             onChanged: (isSelected) {
                                               context
                                                   .read<IntroVideoBloc>()
@@ -327,9 +345,8 @@ class IntroQuizScreen extends StatelessWidget {
                           alignment: Alignment.center,
                           child: Padding(
                             padding:
-                                EdgeInsets.symmetric(vertical: getSize(20)),
+                                EdgeInsets.symmetric(vertical: getSize(20),horizontal: getSize(20)),
                             child: CommonButton(
-                              isSubmitting: state.isQuizSubmitting,
                               onPressed: () {
                                 context
                                     .read<IntroVideoBloc>()

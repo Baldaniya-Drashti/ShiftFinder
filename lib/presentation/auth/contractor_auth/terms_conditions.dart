@@ -85,7 +85,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
                 lineHeight: 1.5,
               ),
               SizedBox(
-                width: getSize(230),
+                width: getSize(200),
                 child: BaseText(
                   text: StringConstant.termsScreenImageDesc,
                   fontSize: 10,

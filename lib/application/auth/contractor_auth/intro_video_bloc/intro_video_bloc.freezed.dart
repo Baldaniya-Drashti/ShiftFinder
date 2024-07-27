@@ -1126,7 +1126,7 @@ mixin _$IntroVideoState {
   List<QuizDTO> get updatedQuestions => throw _privateConstructorUsedError;
   bool get showQuizErrorMessages => throw _privateConstructorUsedError;
   bool get isQuizSubmitting => throw _privateConstructorUsedError;
-  Option<Either<AuthFailure, String>> get quizAuthFailureOrSuccessOption =>
+  Option<Either<AccountFailure, Account>> get quizAuthFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
   Option<Either<AccountFailure, List<QuizDTO>>>
       get quizQuestionFailureOrSuccessOption =>
@@ -1153,7 +1153,7 @@ abstract class $IntroVideoStateCopyWith<$Res> {
       List<QuizDTO> updatedQuestions,
       bool showQuizErrorMessages,
       bool isQuizSubmitting,
-      Option<Either<AuthFailure, String>> quizAuthFailureOrSuccessOption,
+      Option<Either<AccountFailure, Account>> quizAuthFailureOrSuccessOption,
       Option<Either<AccountFailure, List<QuizDTO>>>
           quizQuestionFailureOrSuccessOption});
 }
@@ -1223,7 +1223,7 @@ class _$IntroVideoStateCopyWithImpl<$Res, $Val extends IntroVideoState>
       quizAuthFailureOrSuccessOption: null == quizAuthFailureOrSuccessOption
           ? _value.quizAuthFailureOrSuccessOption
           : quizAuthFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<AuthFailure, String>>,
+              as Option<Either<AccountFailure, Account>>,
       quizQuestionFailureOrSuccessOption: null ==
               quizQuestionFailureOrSuccessOption
           ? _value.quizQuestionFailureOrSuccessOption
@@ -1251,7 +1251,7 @@ abstract class _$$IntroVideoStateImplCopyWith<$Res>
       List<QuizDTO> updatedQuestions,
       bool showQuizErrorMessages,
       bool isQuizSubmitting,
-      Option<Either<AuthFailure, String>> quizAuthFailureOrSuccessOption,
+      Option<Either<AccountFailure, Account>> quizAuthFailureOrSuccessOption,
       Option<Either<AccountFailure, List<QuizDTO>>>
           quizQuestionFailureOrSuccessOption});
 }
@@ -1319,7 +1319,7 @@ class __$$IntroVideoStateImplCopyWithImpl<$Res>
       quizAuthFailureOrSuccessOption: null == quizAuthFailureOrSuccessOption
           ? _value.quizAuthFailureOrSuccessOption
           : quizAuthFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<AuthFailure, String>>,
+              as Option<Either<AccountFailure, Account>>,
       quizQuestionFailureOrSuccessOption: null ==
               quizQuestionFailureOrSuccessOption
           ? _value.quizQuestionFailureOrSuccessOption
@@ -1389,7 +1389,7 @@ class _$IntroVideoStateImpl implements _IntroVideoState {
   @override
   final bool isQuizSubmitting;
   @override
-  final Option<Either<AuthFailure, String>> quizAuthFailureOrSuccessOption;
+  final Option<Either<AccountFailure, Account>> quizAuthFailureOrSuccessOption;
   @override
   final Option<Either<AccountFailure, List<QuizDTO>>>
       quizQuestionFailureOrSuccessOption;
@@ -1469,7 +1469,7 @@ abstract class _IntroVideoState implements IntroVideoState {
       required final List<QuizDTO> updatedQuestions,
       required final bool showQuizErrorMessages,
       required final bool isQuizSubmitting,
-      required final Option<Either<AuthFailure, String>>
+      required final Option<Either<AccountFailure, Account>>
           quizAuthFailureOrSuccessOption,
       required final Option<Either<AccountFailure, List<QuizDTO>>>
           quizQuestionFailureOrSuccessOption}) = _$IntroVideoStateImpl;
@@ -1498,7 +1498,7 @@ abstract class _IntroVideoState implements IntroVideoState {
   @override
   bool get isQuizSubmitting;
   @override
-  Option<Either<AuthFailure, String>> get quizAuthFailureOrSuccessOption;
+  Option<Either<AccountFailure, Account>> get quizAuthFailureOrSuccessOption;
   @override
   Option<Either<AccountFailure, List<QuizDTO>>>
       get quizQuestionFailureOrSuccessOption;
