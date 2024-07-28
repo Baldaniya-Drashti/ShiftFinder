@@ -1,7 +1,7 @@
 # shift
 
 A new Flutter project.
-
+/// last_page in locationDetails
 ## Getting Started
 
 This project is a starting point for a Flutter application.

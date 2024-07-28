@@ -100,4 +100,15 @@ abstract class IAccountRepository {
   });
 
   Future<Either<AccountFailure, List<QuizDTO>>> getQuizListApi();
+
+  Future<Either<AccountFailure, Account>> addLocationDetailsApi({
+    required String locationAddress,
+    required String facilityType,
+    required String facilityTypeOther,
+    required String locationId,
+    required String accreditationNumber,
+    required String locationNotes,
+    required String unitNumber,
+    required String unitNotes,
+  });
 }

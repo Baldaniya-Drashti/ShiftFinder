@@ -17,7 +17,7 @@ class LocationDetailsState with _$LocationDetailsState {
     required List<String> unitNoNameChipList,
     required bool isSubmitting,
     required bool showErrorMessages,
-    required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
+    required Option<Either<AccountFailure, Account>> authFailureOrSuccessOption,
   }) = _LocationDetailsState;
   factory LocationDetailsState.initial() => LocationDetailsState(
         address: InputEmptyOrNot(""),

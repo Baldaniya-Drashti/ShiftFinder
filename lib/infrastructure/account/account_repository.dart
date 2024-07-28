@@ -751,4 +751,62 @@ class AccountRepository extends IAccountRepository {
       return left(const AccountFailure.serverError());
     }
   }
+
+
+  @override
+  Future<Either<AccountFailure, Account>> addLocationDetailsApi({
+    required String locationAddress,
+    required String facilityType,
+    required String facilityTypeOther,
+    required String locationId,
+    required String accreditationNumber,
+    required String locationNotes,
+    required String unitNumber,
+    required String unitNotes,
+  }) async {
+    try {
+      var mapData = {
+        "location": locationAddress,
+        "facility_type_lists_id": facilityType,
+        "facility_type_other": facilityTypeOther,
+        "location_id": locationId,
+        "accreditation_number": accreditationNumber,
+        "location_note": locationNotes,
+        "units_number_or_name": unitNumber,
+        "units_note": unitNotes,
+      };
+
+      print('Sending Data: $mapData');
+
+      final response = await apiService.postMethod(
+        ApiConstants.location,
+        mapData,
+      );
+      print("Response of Add location details---> ${jsonEncode(response.data)}");
+
+      final account = CurrentUserDto.fromJson(response.data).toDomain();
+
+      // return right(account);
+      // var account = response.data as List<dynamic>;
+      // var list = account.values.map((e) => DocumentDTO.fromJson(e)).toList();
+
+      // var list = account.map((e) => DocumentDTO.fromJson(e)).toList();
+      return right(account);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonResponse = CommonResponse.fromJson(err.response?.data);
+
+        if (commonResponse.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonResponse.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+      return left(const AccountFailure.serverError());
+    } catch (e) {
+      print("CATCH ERROR---> ${e}");
+      return left(const AccountFailure.serverError());
+    }
+  }
 }

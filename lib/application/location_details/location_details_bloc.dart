@@ -4,6 +4,9 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shift/domain/account/account.dart';
+import 'package:shift/domain/account/account_failure.dart';
+import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,6 +18,8 @@ part 'location_details_bloc.freezed.dart';
 @injectable
 class LocationDetailsBloc
     extends Bloc<LocationDetailsEvent, LocationDetailsState> {
+  final IAccountRepository _repository;
+
   /// TO GET GOOGLE PLACES
   Future<String?> fetchUrl(String query, {Map<String, String>? headers}) async {
     Uri uri = Uri.https(
@@ -36,7 +41,7 @@ class LocationDetailsBloc
     return null;
   }
 
-  LocationDetailsBloc() : super(LocationDetailsState.initial()) {
+  LocationDetailsBloc(this._repository) : super(LocationDetailsState.initial()) {
     on<LocationDetailsEvent>((event, emit) async {
       await event.map(
         addressChanged: (e) async {
@@ -143,11 +148,14 @@ class LocationDetailsBloc
             ),
           );
         },
-        continueBtnPressed: (e) {
-          Either<AuthFailure, String>? failureOrSuccess;
+        continueBtnPressed: (e) async {
+          Either<AccountFailure, Account>? failureOrSuccess;
           final isAddressValid = state.address.isValid();
           bool isFaciltyTypeValid = state.faciltyType.isValid();
 
+          print("facilityType= ${state.faciltyType.getValue()}");
+          print("facilityType= ${state.otherFaciltyType.getValue()}");
+          print("facilityType= ${state.otherFaciltyTypeValue}");
           if (state.faciltyType.getValue()!.toLowerCase() == "other") {
             isFaciltyTypeValid = state.otherFaciltyType.isValid();
           }
@@ -159,11 +167,18 @@ class LocationDetailsBloc
                 authFailureOrSuccessOption: none(),
               ),
             );
-            // failureOrSuccess = await _authFacade.login(
-            //   mobileNumber: EmailAddress(""),
-            //   countryCode: '+${state.selectedCountrycode}',
-            // );
-            failureOrSuccess = right("sucess");
+
+
+            failureOrSuccess = await _repository.addLocationDetailsApi(
+              locationAddress: state.address.getValue() ?? '',
+              facilityType: (state.faciltyType.getValue()!.toLowerCase() != "other") ?  state.faciltyType.getValue()  ?? "": "" ,
+              facilityTypeOther: (state.faciltyType.getValue()!.toLowerCase() == "other") ?  state.otherFaciltyType.getValue() ?? "" : "",
+              accreditationNumber: state.accreditationNumber,
+              locationId: state.locationId,
+              locationNotes: state.locationNote,
+              unitNotes: state.unitNoNameChipList.join(','),
+              unitNumber: state.unitNumber,
+            );
           }
           emit(
             state.copyWith(
@@ -173,6 +188,7 @@ class LocationDetailsBloc
             ),
           );
         },
+
         addOtherfaciltyType: (e) {
           emit(
             state.copyWith(

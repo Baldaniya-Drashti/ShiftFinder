@@ -23,6 +23,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
+import 'package:shift/presentation/splash/splash_page.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -47,18 +48,8 @@ class LoginForm extends StatelessWidget {
               ).show(context);
             },
             (r) {
-              context.router.push(const PageRouteInfo(MainTabView.name));
-              // context.router.push(PageRouteInfo(HomeView.name));
-              // context.router.push(
-              //   PageRouteInfo(
-              //     OtpLoginVerificationView.name,
-              //     args: OtpLoginVerificationViewArgs(
-              //       countryCode: state.selectedCountrycode,
-              //       phoneNumber: state.emailId.getValue(),
-              //     ),
-              //   ),
-              // );
-              // RestartWidget.restartApp(context);
+              // context.router.push(const PageRouteInfo(MainTabView.name));
+              context.router.push( PageRouteInfo(getCurrentPage(r)));
             },
           ),
         );

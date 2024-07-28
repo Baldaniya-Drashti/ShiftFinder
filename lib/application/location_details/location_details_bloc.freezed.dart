@@ -2593,7 +2593,7 @@ mixin _$LocationDetailsState {
   List<String> get unitNoNameChipList => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
-  Option<Either<AuthFailure, String>> get authFailureOrSuccessOption =>
+  Option<Either<AccountFailure, Account>> get authFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -2622,7 +2622,7 @@ abstract class $LocationDetailsStateCopyWith<$Res> {
       List<String> unitNoNameChipList,
       bool isSubmitting,
       bool showErrorMessages,
-      Option<Either<AuthFailure, String>> authFailureOrSuccessOption});
+      Option<Either<AccountFailure, Account>> authFailureOrSuccessOption});
 }
 
 /// @nodoc
@@ -2715,7 +2715,7 @@ class _$LocationDetailsStateCopyWithImpl<$Res,
       authFailureOrSuccessOption: null == authFailureOrSuccessOption
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<AuthFailure, String>>,
+              as Option<Either<AccountFailure, Account>>,
     ) as $Val);
   }
 }
@@ -2743,7 +2743,7 @@ abstract class _$$LocationDetailsStateImplCopyWith<$Res>
       List<String> unitNoNameChipList,
       bool isSubmitting,
       bool showErrorMessages,
-      Option<Either<AuthFailure, String>> authFailureOrSuccessOption});
+      Option<Either<AccountFailure, Account>> authFailureOrSuccessOption});
 }
 
 /// @nodoc
@@ -2833,7 +2833,7 @@ class __$$LocationDetailsStateImplCopyWithImpl<$Res>
       authFailureOrSuccessOption: null == authFailureOrSuccessOption
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<AuthFailure, String>>,
+              as Option<Either<AccountFailure, Account>>,
     ));
   }
 }
@@ -2903,7 +2903,7 @@ class _$LocationDetailsStateImpl implements _LocationDetailsState {
   @override
   final bool showErrorMessages;
   @override
-  final Option<Either<AuthFailure, String>> authFailureOrSuccessOption;
+  final Option<Either<AccountFailure, Account>> authFailureOrSuccessOption;
 
   @override
   String toString() {
@@ -2991,7 +2991,7 @@ abstract class _LocationDetailsState implements LocationDetailsState {
       required final List<String> unitNoNameChipList,
       required final bool isSubmitting,
       required final bool showErrorMessages,
-      required final Option<Either<AuthFailure, String>>
+      required final Option<Either<AccountFailure, Account>>
           authFailureOrSuccessOption}) = _$LocationDetailsStateImpl;
 
   @override
@@ -3023,7 +3023,7 @@ abstract class _LocationDetailsState implements LocationDetailsState {
   @override
   bool get showErrorMessages;
   @override
-  Option<Either<AuthFailure, String>> get authFailureOrSuccessOption;
+  Option<Either<AccountFailure, Account>> get authFailureOrSuccessOption;
   @override
   @JsonKey(ignore: true)
   _$$LocationDetailsStateImplCopyWith<_$LocationDetailsStateImpl>

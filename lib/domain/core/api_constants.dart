@@ -26,6 +26,7 @@ class ApiConstants {
   static String destroyDocument = 'destroy_document';
   static String quizList = 'quiz_list';
   static String quiz = 'quiz';
+  static String location = 'location';
 
   static String legalScreeningQuestionList = 'legal_screening_question_list';
   static String legalScreeningQuestionAnswer =
