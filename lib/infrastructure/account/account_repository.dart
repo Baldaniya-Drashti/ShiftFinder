@@ -637,7 +637,7 @@ class AccountRepository extends IAccountRepository {
       var mapData = {
         "check_affirm_resp_release_shiftfinder_liabilities": affirmIsCheck,
         "question_answer_detail": questionAnswerDetail,
-        "last_page": "LegalScreening",
+        "last_page": "TermsAndCondition",
       };
 
       print('Sending Data: $mapData');

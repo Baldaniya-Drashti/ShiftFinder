@@ -20,6 +20,7 @@ class SplashPage extends StatelessWidget {
   }
 
   const SplashPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<SplashBloc, SplashState>(
@@ -116,7 +117,7 @@ class SplashPage extends StatelessWidget {
       case "EmployerLocation":
         return LocationDetailForm.name;
       case "ContractorSkill":
-        return IntroQuizScreen.name;
+        return AddContractorSkillsForm.name;
       case "Education":
         return EducationListScreen.name;
       case "Experience":
@@ -124,11 +125,13 @@ class SplashPage extends StatelessWidget {
       case "Reference":
         return ReferenceListScreen.name;
       case "Document":
-        return LegalScreeningQuestionsPage.name;
+        return DocumentPageScreen.name;
       case "LegalScreening":
-        return IntroQuizScreen.name;
-      default:
+        return LegalScreeningQuestionsPage.name;
+      case "TermsAndCondition":
         return TermsAndConditionsScreen.name;
+      default:
+        return LoginPage.name;
     }
   }
 }

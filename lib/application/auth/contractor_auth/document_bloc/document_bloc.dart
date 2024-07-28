@@ -1920,7 +1920,7 @@ class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
               equipmentDocAuthFailureOrSuccessOption: none(),
             ),
           );
-          failureOrSuccess = await _repository.getDocumentApi(documentType: 8);
+          failureOrSuccess = await _repository.getDocumentApi(documentType: 8,);
           failureOrSuccess.fold(
             (l) => emit(
               state.copyWith(
@@ -2098,6 +2098,7 @@ class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
               documentType: 8,
               documentFile: state.equipmentDoc.getValue() ?? "",
               documentTitle: state.equipmentName.getValue(),
+              lastPage: "LegalScreening"
             );
 
             failureOrSuccess.fold(

@@ -155,6 +155,7 @@ class LegalScreeningBloc
             failureOrSuccess = await _repository.addLergalScreeningAnswerApi(
               affirmIsCheck: (isCheckTerms) ? 1 : 0,
               questionAnswerDetail: jsonEncode(list),
+
             );
 
             failureOrSuccess.fold(
