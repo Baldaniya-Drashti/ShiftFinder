@@ -19,10 +19,13 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
+import 'package:shift/presentation/splash/splash_page.dart';
 
 @RoutePage(name: 'educationListScreen')
 class EducationListScreen extends StatelessWidget {
-  EducationListScreen({super.key});
+  bool isFromSplash = false;
+
+  EducationListScreen({super.key, this.isFromSplash = false});
   // bool isNext = false;
 
   @override
@@ -45,8 +48,25 @@ class EducationListScreen extends StatelessWidget {
                   ),
                 ).show(context);
               },
+              (r) {},
+            ),
+          );
+          state.skipFailureOrSuccessOption.fold(
+            () {},
+            (either) => either.fold(
+              (failure) {
+                showError(
+                  message: failure.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(context);
+              },
               (r) {
-
+                context.router
+                    .push(PageRouteInfo(AddExperienceDetailScreen.name));
               },
             ),
           );
@@ -54,6 +74,7 @@ class EducationListScreen extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: CommonAppBar(
+              isShowBackBtn: !isFromSplash,
               onBackPressed: () {
                 context.router.maybePop();
               },
@@ -61,6 +82,9 @@ class EducationListScreen extends StatelessWidget {
               showSkipBtn: (state.educationList.isEmpty) ? true : false,
               onSkipped: (state.educationList.isEmpty)
                   ? () {
+                      context
+                          .read<EducationDetailBloc>()
+                          .add(EducationDetailEvent.skipEducation());
                       // context.router.replace(
                       //     PageRouteInfo(AddExperienceDetailScreen.name));
                     }
@@ -79,12 +103,12 @@ class EducationListScreen extends StatelessWidget {
                           (state.educationList.isNotEmpty)
                               ? educationListUI(context, state)
                               : Expanded(
-                                child: NoDataText(
+                                  child: NoDataText(
                                     title: StringConstant.noEducationAdded,
                                     description: StringConstant.noEducationDesc,
                                     image: SvgImageConstant.graduationCap,
                                   ),
-                              ),
+                                ),
                           Padding(
                             padding: EdgeInsets.only(
                               bottom: getSize(20),

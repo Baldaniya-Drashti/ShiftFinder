@@ -36,6 +36,8 @@ mixin _$CurrentUserDto {
   int? get industryId => throw _privateConstructorUsedError;
   @JsonKey(name: 'profile')
   String? get profileImage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'isProfileComplete')
+  int? get isProfileComplete => throw _privateConstructorUsedError;
   @JsonKey(name: 'company_name')
   String? get companyName => throw _privateConstructorUsedError;
   @JsonKey(name: 'countryCode')
@@ -84,6 +86,7 @@ abstract class $CurrentUserDtoCopyWith<$Res> {
       @JsonKey(name: 'service_roles') int? serviceRole,
       @JsonKey(name: 'industry_id') int? industryId,
       @JsonKey(name: 'profile') String? profileImage,
+      @JsonKey(name: 'isProfileComplete') int? isProfileComplete,
       @JsonKey(name: 'company_name') String? companyName,
       @JsonKey(name: 'countryCode') String? countryCode,
       @JsonKey(name: 'country_name_code') String? countryNameCode,
@@ -122,6 +125,7 @@ class _$CurrentUserDtoCopyWithImpl<$Res, $Val extends CurrentUserDto>
     Object? serviceRole = freezed,
     Object? industryId = freezed,
     Object? profileImage = freezed,
+    Object? isProfileComplete = freezed,
     Object? companyName = freezed,
     Object? countryCode = freezed,
     Object? countryNameCode = freezed,
@@ -169,6 +173,10 @@ class _$CurrentUserDtoCopyWithImpl<$Res, $Val extends CurrentUserDto>
           ? _value.profileImage
           : profileImage // ignore: cast_nullable_to_non_nullable
               as String?,
+      isProfileComplete: freezed == isProfileComplete
+          ? _value.isProfileComplete
+          : isProfileComplete // ignore: cast_nullable_to_non_nullable
+              as int?,
       companyName: freezed == companyName
           ? _value.companyName
           : companyName // ignore: cast_nullable_to_non_nullable
@@ -254,6 +262,7 @@ abstract class _$$CurrentUserDtoImplCopyWith<$Res>
       @JsonKey(name: 'service_roles') int? serviceRole,
       @JsonKey(name: 'industry_id') int? industryId,
       @JsonKey(name: 'profile') String? profileImage,
+      @JsonKey(name: 'isProfileComplete') int? isProfileComplete,
       @JsonKey(name: 'company_name') String? companyName,
       @JsonKey(name: 'countryCode') String? countryCode,
       @JsonKey(name: 'country_name_code') String? countryNameCode,
@@ -291,6 +300,7 @@ class __$$CurrentUserDtoImplCopyWithImpl<$Res>
     Object? serviceRole = freezed,
     Object? industryId = freezed,
     Object? profileImage = freezed,
+    Object? isProfileComplete = freezed,
     Object? companyName = freezed,
     Object? countryCode = freezed,
     Object? countryNameCode = freezed,
@@ -338,6 +348,10 @@ class __$$CurrentUserDtoImplCopyWithImpl<$Res>
           ? _value.profileImage
           : profileImage // ignore: cast_nullable_to_non_nullable
               as String?,
+      isProfileComplete: freezed == isProfileComplete
+          ? _value.isProfileComplete
+          : isProfileComplete // ignore: cast_nullable_to_non_nullable
+              as int?,
       companyName: freezed == companyName
           ? _value.companyName
           : companyName // ignore: cast_nullable_to_non_nullable
@@ -406,6 +420,7 @@ class _$CurrentUserDtoImpl extends _CurrentUserDto {
       @JsonKey(name: 'service_roles') this.serviceRole,
       @JsonKey(name: 'industry_id') this.industryId,
       @JsonKey(name: 'profile') this.profileImage,
+      @JsonKey(name: 'isProfileComplete') this.isProfileComplete,
       @JsonKey(name: 'company_name') this.companyName,
       @JsonKey(name: 'countryCode') this.countryCode,
       @JsonKey(name: 'country_name_code') this.countryNameCode,
@@ -451,6 +466,9 @@ class _$CurrentUserDtoImpl extends _CurrentUserDto {
   @override
   @JsonKey(name: 'profile')
   final String? profileImage;
+  @override
+  @JsonKey(name: 'isProfileComplete')
+  final int? isProfileComplete;
   @override
   @JsonKey(name: 'company_name')
   final String? companyName;
@@ -517,7 +535,7 @@ class _$CurrentUserDtoImpl extends _CurrentUserDto {
 
   @override
   String toString() {
-    return 'CurrentUserDto(userId: $userId, firstName: $firstName, lastName: $lastName, email: $email, isVerified: $isVerified, serviceRole: $serviceRole, industryId: $industryId, profileImage: $profileImage, companyName: $companyName, countryCode: $countryCode, countryNameCode: $countryNameCode, phone: $phone, association: $association, companyDescription: $companyDescription, location: $location, referralCode: $referralCode, lastPage: $lastPage, education: $education, reference: $reference, document: $document, authDto: $authDto)';
+    return 'CurrentUserDto(userId: $userId, firstName: $firstName, lastName: $lastName, email: $email, isVerified: $isVerified, serviceRole: $serviceRole, industryId: $industryId, profileImage: $profileImage, isProfileComplete: $isProfileComplete, companyName: $companyName, countryCode: $countryCode, countryNameCode: $countryNameCode, phone: $phone, association: $association, companyDescription: $companyDescription, location: $location, referralCode: $referralCode, lastPage: $lastPage, education: $education, reference: $reference, document: $document, authDto: $authDto)';
   }
 
   @override
@@ -539,6 +557,8 @@ class _$CurrentUserDtoImpl extends _CurrentUserDto {
                 other.industryId == industryId) &&
             (identical(other.profileImage, profileImage) ||
                 other.profileImage == profileImage) &&
+            (identical(other.isProfileComplete, isProfileComplete) ||
+                other.isProfileComplete == isProfileComplete) &&
             (identical(other.companyName, companyName) ||
                 other.companyName == companyName) &&
             (identical(other.countryCode, countryCode) ||
@@ -576,6 +596,7 @@ class _$CurrentUserDtoImpl extends _CurrentUserDto {
         serviceRole,
         industryId,
         profileImage,
+        isProfileComplete,
         companyName,
         countryCode,
         countryNameCode,
@@ -616,6 +637,7 @@ abstract class _CurrentUserDto extends CurrentUserDto {
       @JsonKey(name: 'service_roles') final int? serviceRole,
       @JsonKey(name: 'industry_id') final int? industryId,
       @JsonKey(name: 'profile') final String? profileImage,
+      @JsonKey(name: 'isProfileComplete') final int? isProfileComplete,
       @JsonKey(name: 'company_name') final String? companyName,
       @JsonKey(name: 'countryCode') final String? countryCode,
       @JsonKey(name: 'country_name_code') final String? countryNameCode,
@@ -658,6 +680,9 @@ abstract class _CurrentUserDto extends CurrentUserDto {
   @override
   @JsonKey(name: 'profile')
   String? get profileImage;
+  @override
+  @JsonKey(name: 'isProfileComplete')
+  int? get isProfileComplete;
   @override
   @JsonKey(name: 'company_name')
   String? get companyName;

@@ -559,6 +559,75 @@ class AccountRepository extends IAccountRepository {
   }
 
   @override
+  Future<Either<AccountFailure, Account>> updateMultiDocumentApi({
+    required int id,
+    required int documentType,
+    required String documentFile,
+    String? expiryDate,
+    bool? expiryDateNotApplicable,
+    String? registrationNumber,
+    String? provinceOfRegistration,
+    String? documentTitle,
+    String? nameOfVaccinations,
+    String? lastPage,
+  }) async {
+    try {
+      print("expiry dat---> $expiryDate");
+      print("Document file---> $documentFile");
+      print(
+          "expiry date after timestamp---> ${DateTime.now().millisecondsSinceEpoch}");
+
+      var formData = FormData.fromMap({
+        "id": id,
+        "document_type": documentType,
+        "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
+            ? (DateTime.parse(expiryDate).millisecondsSinceEpoch / 1000)
+                .toString()
+            : "",
+        "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
+        "registration_number": registrationNumber,
+        "province_of_registration": provinceOfRegistration,
+        "document_title": documentTitle,
+        "name_of_vaccinations": nameOfVaccinations,
+      });
+      if (documentFile.isNotEmpty && !documentFile.contains('http')) {
+        var multipartFile = await MultipartFile.fromFile(
+          documentFile,
+        );
+        formData.files.add(MapEntry('file', multipartFile));
+      }
+
+      print('Sending Data: ${formData.fields.map((e) => e)}');
+
+      final response = await apiService.postMethod(
+        ApiConstants.updateDocument,
+        {},
+        formData: formData,
+        isMultipart: true,
+      );
+
+      print("Response of Update Document---> ${jsonEncode(response.data)}");
+      final account = CurrentUserDto.fromJson(response.data).toDomain();
+      return right(account);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+      return left(const AccountFailure.serverError());
+    } catch (e) {
+      print("CATCH ERRO---> ${e}");
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
   Future<Either<AccountFailure, Account>> deleteDocumentApi({
     required int credId,
   }) async {
@@ -715,7 +784,8 @@ class AccountRepository extends IAccountRepository {
     try {
       var mapData = {
         "quiz_details ": quizDetails,
-        "last_page": "Quiz",
+        "last_page": "MainTab",
+        "isProfileComplete": 1,
       };
 
       print('Sending Data: $mapData');
@@ -752,6 +822,37 @@ class AccountRepository extends IAccountRepository {
     }
   }
 
+  @override
+  Future<Either<AccountFailure, List<SkillDTO>>> getFacilityTypeList() async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.facilityTypeList,
+      );
+
+      if (response != null) {
+        var account = response.data as List<dynamic>;
+        var list = account.map((e) => SkillDTO.fromJson(e)).toList();
+
+        print("FACILITY TYPE LIST RESPONSE---> $list");
+        return right(list);
+      } else {
+        return left(const AccountFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+
+      return left(const AccountFailure.serverError());
+    }
+  }
 
   @override
   Future<Either<AccountFailure, Account>> addLocationDetailsApi({
@@ -774,15 +875,17 @@ class AccountRepository extends IAccountRepository {
         "location_note": locationNotes,
         "units_number_or_name": unitNumber,
         "units_note": unitNotes,
+        "isProfileComplete": 1,
       };
 
-      print('Sending Data: $mapData');
+      print('Sending Data: ${jsonEncode(mapData)}');
 
       final response = await apiService.postMethod(
         ApiConstants.location,
         mapData,
       );
-      print("Response of Add location details---> ${jsonEncode(response.data)}");
+      print(
+          "Response of Add location details---> ${jsonEncode(response.data)}");
 
       final account = CurrentUserDto.fromJson(response.data).toDomain();
 
@@ -797,8 +900,8 @@ class AccountRepository extends IAccountRepository {
         var commonResponse = CommonResponse.fromJson(err.response?.data);
 
         if (commonResponse.dioMessage != null) {
-          return left(
-              AccountFailure.showAPIResponseMessage(commonResponse.dioMessage!));
+          return left(AccountFailure.showAPIResponseMessage(
+              commonResponse.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());

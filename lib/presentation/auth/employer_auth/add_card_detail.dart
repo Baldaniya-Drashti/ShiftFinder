@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
 import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -21,7 +20,9 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'addCardDetailPage')
 class AddCardDetailPage extends StatelessWidget {
-  const AddCardDetailPage({super.key});
+  bool isFromSplash = false;
+
+  AddCardDetailPage({super.key, this.isFromSplash = false});
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +33,12 @@ class AddCardDetailPage extends StatelessWidget {
       child: BlocProvider(
         create: (context) => getIt<CardBloc>(),
         child: BlocConsumer<CardBloc, CardState>(
-          listener: (context, state) {
-            // TODO: implement listener
-          },
+          listener: (context, state) {},
           builder: (context, state) {
             return Scaffold(
               resizeToAvoidBottomInset: false,
               appBar: CommonAppBar(
+                isShowBackBtn: !isFromSplash,
                 onBackPressed: () {
                   context.router.maybePop();
                 },

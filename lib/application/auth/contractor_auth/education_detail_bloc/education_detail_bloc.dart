@@ -20,8 +20,9 @@ part 'education_detail_bloc.freezed.dart';
 class EducationDetailBloc
     extends Bloc<EducationDetailEvent, EducationDetailState> {
   final IAccountRepository _repository;
+  final IAuthFacade _authFacade;
 
-  EducationDetailBloc(this._repository)
+  EducationDetailBloc(this._repository, this._authFacade)
       : super(EducationDetailState.initial()) {
     on<EducationDetailEvent>((event, emit) async {
       await event.map(
@@ -54,6 +55,44 @@ class EducationDetailBloc
             state.copyWith(
               isSubmitting: false,
               showAddEducationErrorMessages: true,
+            ),
+          );
+        },
+        skipEducation: (e) async {
+          Either<AuthFailure, Account>? failureOrSuccess;
+
+          emit(
+            state.copyWith(
+              isSubmitting: true,
+              skipFailureOrSuccessOption: none(),
+            ),
+          );
+
+          failureOrSuccess = await _authFacade.addLastPageApi(
+            lastPage: "Experience",
+          );
+
+          failureOrSuccess.fold(
+            (l) => emit(
+              state.copyWith(
+                isSubmitting: false,
+              ),
+            ),
+            (r) {
+              emit(
+                state.copyWith(
+                  isSubmitting: false,
+                  showErrorMessages: false,
+                ),
+              );
+            },
+          );
+
+          emit(
+            state.copyWith(
+              isSubmitting: false,
+              showErrorMessages: true,
+              skipFailureOrSuccessOption: optionOf(failureOrSuccess),
             ),
           );
         },
@@ -120,18 +159,17 @@ class EducationDetailBloc
           );
 
           print("Delete Id-> ${e.educationId}");
-           failureOrSuccess =
+          failureOrSuccess =
               await _repository.deleteEducationApi(educationId: e.educationId);
 
-
           failureOrSuccess.fold(
-                (l) => emit(
+            (l) => emit(
               state.copyWith(
                 isSubmitting: false,
                 educationList: List.from(state.educationList),
               ),
             ),
-                (r) {
+            (r) {
               return emit(
                 state.copyWith(
                   isSubmitting: false,

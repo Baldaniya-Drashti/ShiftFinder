@@ -12,6 +12,7 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -24,19 +25,23 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'locationDetailForm')
 class LocationDetailForm extends StatelessWidget {
-  LocationDetailForm({super.key});
+  bool isFromSplash = false;
+
+  LocationDetailForm({super.key, this.isFromSplash = false});
 
   TextEditingController addressController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<LocationDetailsBloc>(),
-      child: GestureDetector(
-        onTap: () {
-          AppFocus.unfocus(context);
-        },
+    return GestureDetector(
+      onTap: () {
+        AppFocus.unfocus(context);
+      },
+      child: BlocProvider(
+        create: (context) => getIt<LocationDetailsBloc>()
+          ..add(LocationDetailsEvent.getFacilityTypeList()),
         child: Scaffold(
             appBar: CommonAppBar(
+              isShowBackBtn: !isFromSplash,
               onBackPressed: () {
                 context.router.back();
               },
@@ -65,70 +70,73 @@ class LocationDetailForm extends StatelessWidget {
                 );
               },
               builder: (context, state) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                  child: Form(
-                    autovalidateMode: state.showErrorMessages
-                        ? AutovalidateMode.always
-                        : AutovalidateMode.disabled,
-                    child: SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
-                      child: Column(
-                        children: [
-                          locationAddressTextField(context, state),
-                          paddingBetweenFields(),
-                          facilityTypeField(context, state),
-                          paddingBetweenFields(),
-                          locationIdField(context, state),
-                          paddingBetweenFields(),
-                          accreditationNumberField(context, state),
-                          paddingBetweenFields(),
-                          locationNoteField(context, state),
-                          paddingBetweenFields(),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: RichText(
-                              text: TextSpan(
-                                text: StringConstant.addUnits,
-                                style: TextStyle(
-                                  fontSize: getFontSize(14),
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.black,
-                                  fontFamily: "Roboto Flex",
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: "  (Optional)",
-                                    style: TextStyle(
-                                      fontSize: getFontSize(10),
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.black.withOpacity(0.8),
-                                      fontFamily: "Roboto Flex",
+                return (state.isSubmitting)
+                    ? CenterLoadingIndicator()
+                    : Padding(
+                        padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                        child: Form(
+                          autovalidateMode: state.showErrorMessages
+                              ? AutovalidateMode.always
+                              : AutovalidateMode.disabled,
+                          child: SingleChildScrollView(
+                            physics: BouncingScrollPhysics(),
+                            child: Column(
+                              children: [
+                                locationAddressTextField(context, state),
+                                paddingBetweenFields(),
+                                facilityTypeField(context, state),
+                                paddingBetweenFields(),
+                                locationIdField(context, state),
+                                paddingBetweenFields(),
+                                accreditationNumberField(context, state),
+                                paddingBetweenFields(),
+                                locationNoteField(context, state),
+                                paddingBetweenFields(),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: RichText(
+                                    text: TextSpan(
+                                      text: StringConstant.addUnits,
+                                      style: TextStyle(
+                                        fontSize: getFontSize(14),
+                                        fontWeight: FontWeight.w500,
+                                        color: AppColors.black,
+                                        fontFamily: "Roboto Flex",
+                                      ),
+                                      children: [
+                                        TextSpan(
+                                          text: "  (Optional)",
+                                          style: TextStyle(
+                                            fontSize: getFontSize(10),
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColors.black
+                                                .withOpacity(0.8),
+                                            fontFamily: "Roboto Flex",
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                                paddingBetweenFields(height: 10),
+                                unitBox(context, state),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(50)),
+                                  child: CommonButton(
+                                    onPressed: () {
+                                      context.read<LocationDetailsBloc>().add(
+                                          const LocationDetailsEvent
+                                              .continueBtnPressed());
+                                    },
+                                    buttonText: StringConstant.txtContinue,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          paddingBetweenFields(height: 10),
-                          unitBox(context, state),
-                          Padding(
-                            padding:
-                                EdgeInsets.symmetric(vertical: getSize(50)),
-                            child: CommonButton(
-                              onPressed: () {
-                                context.read<LocationDetailsBloc>().add(
-                                    const LocationDetailsEvent
-                                        .continueBtnPressed());
-                              },
-                              buttonText: StringConstant.txtContinue,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
+                        ),
+                      );
               },
             )),
       ),
@@ -155,17 +163,11 @@ class LocationDetailForm extends StatelessWidget {
           isLabelPadding: true,
           showPrefixIcon: true,
           showTextfield: state.faciltyTypeDDValue.toLowerCase() == "other",
-          items: const [
-            "TESTING 1",
-            "Testing 2",
-            "TESTING 3",
-            "Testing 4",
-            "OTHER"
-          ].map((val) {
-            return DropdownMenuItem(
-              value: val,
+          items: state.facilityTypeList.map((val) {
+            return DropdownMenuItem<String>(
+              value: val.name,
               child: BaseText(
-                text: val,
+                text: val.name ?? '',
                 fontSize: 14,
                 textColor: AppColors.black,
               ),

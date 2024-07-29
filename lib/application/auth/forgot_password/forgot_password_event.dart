@@ -6,6 +6,7 @@ class ForgotPasswordEvent with _$ForgotPasswordEvent {
 
   const factory ForgotPasswordEvent.mobileNumberChanged(String mobileNumber) =
       MobileNumberChanged;
+  const factory ForgotPasswordEvent.emailChanged(String email) = EmailChanged;
   const factory ForgotPasswordEvent.selectCountryCode(String counryCode) =
       SelectCountryCode;
   const factory ForgotPasswordEvent.sendOtpPressed() = SendOtpPressed;

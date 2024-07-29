@@ -13,10 +13,13 @@ import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
+import 'package:shift/presentation/splash/splash_page.dart';
 
 @RoutePage(name: 'addReferenceDetailScreen')
 class AddReferenceDetail extends StatelessWidget {
-  AddReferenceDetail({super.key});
+  bool isFromSplash = false;
+
+  AddReferenceDetail({super.key, this.isFromSplash = false});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,7 @@ class AddReferenceDetail extends StatelessWidget {
         },
         child: Scaffold(
           appBar: CommonAppBar(
+            isShowBackBtn: !isFromSplash,
             title: StringConstant.reference,
             onBackPressed: () {
               context.router.maybePop();

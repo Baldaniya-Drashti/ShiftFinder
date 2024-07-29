@@ -87,6 +87,18 @@ abstract class IAccountRepository {
     String? lastPage,
   });
 
+  Future<Either<AccountFailure, Account>> updateMultiDocumentApi({
+    required int id,
+    required int documentType,
+    required String documentFile,
+    String? expiryDate,
+    bool? expiryDateNotApplicable,
+    String? registrationNumber,
+    String? provinceOfRegistration,
+    String? documentTitle,
+    String? nameOfVaccinations,
+    String? lastPage,
+  });
   Future<Either<AccountFailure, Account>> deleteDocumentApi({
     required int credId,
   });
@@ -100,6 +112,7 @@ abstract class IAccountRepository {
   });
 
   Future<Either<AccountFailure, List<QuizDTO>>> getQuizListApi();
+  Future<Either<AccountFailure, List<SkillDTO>>> getFacilityTypeList();
 
   Future<Either<AccountFailure, Account>> addLocationDetailsApi({
     required String locationAddress,

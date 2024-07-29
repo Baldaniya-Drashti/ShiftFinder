@@ -417,7 +417,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
               phoneNumber: (getCurrentRole() == 1)
                   ? "${getCurrentUser().phone ?? ""}"
                   : "",
-              password: e.password,
+              // password: e.password,
               otp: state.enteredOTP,
             );
 

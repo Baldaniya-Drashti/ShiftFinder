@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'package:auto_route/auto_route.dart';
 import 'package:shift/application/splash/splash_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
@@ -31,8 +33,10 @@ class SplashPage extends StatelessWidget {
           authenticated: (value) async {
             await Future.delayed(
               const Duration(seconds: 1),
-              () => context.router
-                  .replace(PageRouteInfo(getCurrentPage(value.lastPage))),
+              () => context.router.replace(getCurrentPage(
+                value.lastPage,
+                fromSplash: true,
+              )),
             );
           },
           unAuthenticated: (value) async {
@@ -109,31 +113,95 @@ class SplashPage extends StatelessWidget {
       ),
     );
   }
-
-
 }
 
-String getCurrentPage(String lastPage) {
+// String getCurrentPage(String lastPage) {
+//   switch (lastPage) {
+//     case "Login":
+//       return LocationDetailForm.name;
+//     case "EmployerLocation":
+//       return LocationDetailForm.name;
+//     case "ContractorSkill":
+//       return AddContractorSkillsForm.name;
+//     case "Education":
+//       return EducationListScreen.name;
+//     case "Experience":
+//       return AddExperienceDetailScreen.name;
+//     case "Reference":
+//       return ReferenceListScreen.name;
+//     case "Document":
+//       return DocumentPageScreen.name;
+//     case "LegalScreening":
+//       return LegalScreeningQuestionsPage.name;
+//     case "TermsAndCondition":
+//       return TermsAndConditionsScreen.name;
+//     case "IntroVideo":
+//       return TermsAndConditionsScreen.name;
+//     default:
+//       return LoginPage.name;
+//   }
+// }
+
+PageRouteInfo getCurrentPage(String lastPage, {bool fromSplash = true}) {
   switch (lastPage) {
     case "Login":
-      return LoginPage.name;
+      return PageRouteInfo(
+        LoginPage.name,
+      );
     case "EmployerLocation":
-      return LocationDetailForm.name;
+      return PageRouteInfo(
+        LocationDetailForm.name,
+        args: LocationDetailFormArgs(isFromSplash: fromSplash),
+      );
     case "ContractorSkill":
-      return AddContractorSkillsForm.name;
+      return PageRouteInfo(
+        AddContractorSkillsForm.name,
+        args: AddContractorSkillsFormArgs(isFromSplash: fromSplash),
+      );
     case "Education":
-      return EducationListScreen.name;
+      return PageRouteInfo(
+        EducationListScreen.name,
+        args: EducationListScreenArgs(isFromSplash: fromSplash),
+      );
     case "Experience":
-      return AddExperienceDetailScreen.name;
+      return PageRouteInfo(
+        AddExperienceDetailScreen.name,
+        args: AddExperienceDetailScreenArgs(isFromSplash: fromSplash),
+      );
     case "Reference":
-      return ReferenceListScreen.name;
+      return PageRouteInfo(
+        ReferenceListScreen.name,
+        args: ReferenceListScreenArgs(isFromSplash: fromSplash),
+      );
     case "Document":
-      return DocumentPageScreen.name;
+      return PageRouteInfo(
+        DocumentPageScreen.name,
+        args: DocumentPageScreenArgs(isFromSplash: fromSplash),
+      );
     case "LegalScreening":
-      return LegalScreeningQuestionsPage.name;
+      return PageRouteInfo(
+        LegalScreeningQuestionsPage.name,
+        args: LegalScreeningQuestionsPageArgs(isFromSplash: fromSplash),
+      );
     case "TermsAndCondition":
-      return TermsAndConditionsScreen.name;
+      return PageRouteInfo(
+        TermsAndConditionsScreen.name,
+        args: TermsAndConditionsScreenArgs(isFromSplash: fromSplash),
+      );
+    case "IntroVideo":
+      return PageRouteInfo(
+        IntroVideoScreen.name,
+        args: GeneralScreenArgs(fromSplash: fromSplash),
+      );
     default:
-      return LoginPage.name;
+      return PageRouteInfo(LoginPage.name);
   }
+}
+
+class GeneralScreenArgs {
+  final bool fromSplash;
+
+  GeneralScreenArgs({
+    required this.fromSplash,
+  });
 }

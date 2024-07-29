@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:auto_route/auto_route.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 

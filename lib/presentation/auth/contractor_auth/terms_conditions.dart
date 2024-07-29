@@ -2,12 +2,17 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shift/application/auth/contractor_auth/terms_and_condition_bloc/terms_and_condition_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -15,45 +20,76 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'termsAndConditionsScreen')
 class TermsAndConditionsScreen extends StatelessWidget {
-  TermsAndConditionsScreen({super.key});
+  bool isFromSplash = false;
+  TermsAndConditionsScreen({super.key, this.isFromSplash = false});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: CommonAppBar(
-          onBackPressed: () {
-            context.router.maybePop();
-          },
-          title: StringConstant.termsAndConditions,
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                documentImage(),
-                SizedBox(
-                  height: getSize(20),
-                ),
-                summaryAndTermsDesc(),
-                SizedBox(
-                  height: getSize(30),
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: CommonButton(
-                    onPressed: () {
-                      context.router
-                          .push(const PageRouteInfo(IntroVideoScreen.name));
-                    },
-                    buttonText: StringConstant.txtContinue,
+    return BlocProvider(
+      create: (context) => getIt<TermsAndConditionBloc>(),
+      child: BlocConsumer<TermsAndConditionBloc, TermsAndConditionState>(
+        listener: (context, state) {
+          state.authFailureOrSuccessOption.fold(
+            () {},
+            (either) => either.fold(
+              (failure) {
+                showError(
+                  message: failure.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
                   ),
-                ),
-              ],
+                ).show(context);
+              },
+              (r) {
+                context.router.push(const PageRouteInfo(IntroVideoScreen.name));
+              },
             ),
-          ),
-        ));
+          );
+        },
+        builder: (context, state) {
+          return Scaffold(
+              appBar: CommonAppBar(
+                isShowBackBtn: !isFromSplash,
+                onBackPressed: () {
+                  context.router.maybePop();
+                },
+                title: StringConstant.termsAndConditions,
+              ),
+              body: (state.isSubmitting)
+                  ? CenterLoadingIndicator()
+                  : SingleChildScrollView(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            documentImage(),
+                            SizedBox(
+                              height: getSize(20),
+                            ),
+                            summaryAndTermsDesc(),
+                            SizedBox(
+                              height: getSize(30),
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: CommonButton(
+                                onPressed: () {
+                                  context.read<TermsAndConditionBloc>().add(
+                                      TermsAndConditionEvent.submitTerms());
+                                },
+                                buttonText: StringConstant.txtContinue,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ));
+        },
+      ),
+    );
   }
 
   Widget documentImage() {

@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:dartz/dartz.dart';
@@ -28,9 +29,13 @@ abstract class IAuthFacade {
     required String? locationAddress,
   });
 
-  Future<Either<AuthFailure, String>> login({
+  Future<Either<AuthFailure, Account>> login({
     required EmailAddress email,
     required Password password,
+  });
+
+  Future<Either<AuthFailure, Account>> addLastPageApi({
+    required String lastPage,
   });
 
   Future<bool> checkAuthenticated();
@@ -50,12 +55,18 @@ abstract class IAuthFacade {
   Future<Either<AuthFailure, String>> verifyOtp({
     required String emailAddress,
     required String phoneNumber,
-    required String password,
     required OTPText otp,
+    bool isForgotPassword = false,
   });
   Future<Either<AuthFailure, String>> resendOtp({
     required String emailAddress,
     required String phoneNumber,
+    bool forgotPassword = false,
+  });
+
+  Future<Either<AuthFailure, String>> forgotPassword({
+    required String password,
+    required String confirmPassword,
   });
 
   Future<Either<AuthFailure, List<SkillDTO>>> getRoleList();

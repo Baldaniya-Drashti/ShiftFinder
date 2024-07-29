@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
@@ -7,10 +9,10 @@ import 'package:injectable/injectable.dart';
 import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/account/account_failure.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
-import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 part 'location_details_event.dart';
 part 'location_details_state.dart';
 part 'location_details_bloc.freezed.dart';
@@ -41,9 +43,37 @@ class LocationDetailsBloc
     return null;
   }
 
-  LocationDetailsBloc(this._repository) : super(LocationDetailsState.initial()) {
+  LocationDetailsBloc(this._repository)
+      : super(LocationDetailsState.initial()) {
     on<LocationDetailsEvent>((event, emit) async {
       await event.map(
+        getFacilityTypeList: (e) async {
+          emit(
+            state.copyWith(
+              isSubmitting: true,
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+          final facilityTypeList = await _repository.getFacilityTypeList();
+          print("Facility type List ---> $facilityTypeList");
+          facilityTypeList.fold(
+            (l) => emit(
+              state.copyWith(
+                isSubmitting: false,
+                facilityTypeList: [],
+              ),
+            ),
+            (r) {
+              return emit(
+                state.copyWith(
+                  isSubmitting: false,
+                  facilityTypeList: List.from(state.facilityTypeList)
+                    ..addAll(r),
+                ),
+              );
+            },
+          );
+        },
         addressChanged: (e) async {
           /// To get google place with serched result
           List<dynamic> placeList = [];
@@ -112,8 +142,12 @@ class LocationDetailsBloc
           );
         },
         addUnitNumberChipList: (e) {
-          if (state.unitNoNameChipList.isEmpty ||
-              !state.unitNoNameChipList.contains(e.unitNumber)) {
+          print("e unintNumber ---> ${e.unitNumber}");
+          if (e.unitNumber.isNotEmpty &&
+              (!state.unitNoNameChipList.contains(e.unitNumber) ||
+                  state.unitNoNameChipList.isEmpty)) {
+            print("e unintNumber ---> ${e.unitNumber}");
+
             emit(
               state.copyWith(
                 unitNoNameChipList: List.from(state.unitNoNameChipList)
@@ -156,6 +190,7 @@ class LocationDetailsBloc
           print("facilityType= ${state.faciltyType.getValue()}");
           print("facilityType= ${state.otherFaciltyType.getValue()}");
           print("facilityType= ${state.otherFaciltyTypeValue}");
+
           if (state.faciltyType.getValue()!.toLowerCase() == "other") {
             isFaciltyTypeValid = state.otherFaciltyType.isValid();
           }
@@ -168,16 +203,21 @@ class LocationDetailsBloc
               ),
             );
 
-
             failureOrSuccess = await _repository.addLocationDetailsApi(
               locationAddress: state.address.getValue() ?? '',
-              facilityType: (state.faciltyType.getValue()!.toLowerCase() != "other") ?  state.faciltyType.getValue()  ?? "": "" ,
-              facilityTypeOther: (state.faciltyType.getValue()!.toLowerCase() == "other") ?  state.otherFaciltyType.getValue() ?? "" : "",
+              facilityType:
+                  (state.faciltyType.getValue()!.toLowerCase() != "other")
+                      ? getSelectedFacilityTypeId()
+                      : "",
+              facilityTypeOther:
+                  (state.faciltyType.getValue()!.toLowerCase() == "other")
+                      ? state.otherFaciltyType.getValue() ?? ""
+                      : "",
               accreditationNumber: state.accreditationNumber,
               locationId: state.locationId,
               locationNotes: state.locationNote,
-              unitNotes: state.unitNoNameChipList.join(','),
-              unitNumber: state.unitNumber,
+              unitNotes: state.unitNumber,
+              unitNumber: state.unitNoNameChipList.join(','),
             );
           }
           emit(
@@ -188,16 +228,24 @@ class LocationDetailsBloc
             ),
           );
         },
-
         addOtherfaciltyType: (e) {
           emit(
             state.copyWith(
               otherFaciltyTypeValue: e.faciltyType,
               otherFaciltyType: InputEmptyOrNot(e.faciltyType),
+              authFailureOrSuccessOption: none(),
             ),
           );
         },
       );
     });
+  }
+
+  String getSelectedFacilityTypeId() {
+    final selectedFacilityType = state.facilityTypeList.firstWhere(
+      (facilityType) => facilityType.name == state.faciltyType.getValue(),
+      orElse: () => const SkillDTO(id: -1, name: 'Unknown'),
+    );
+    return selectedFacilityType.id.toString();
   }
 }

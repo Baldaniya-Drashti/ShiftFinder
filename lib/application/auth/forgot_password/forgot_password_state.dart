@@ -9,6 +9,7 @@ class ForgotPasswordState with _$ForgotPasswordState {
     /// >>>>>>>>>>>>>>>>>>>> FOR FORGOT PASSWORD SCREEN <<<<<<<<<<<<<<<<<<<<
 
     required MobileNumber mobileNumber,
+    required EmailAddress emailAddress,
     required String selectedCountrycode,
     required bool showErrorMessages,
     required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
@@ -39,6 +40,7 @@ class ForgotPasswordState with _$ForgotPasswordState {
 
         /// MOBILE NO VIEW
         mobileNumber: MobileNumber(""),
+        emailAddress: EmailAddress(""),
         selectedCountrycode: "🇨🇦",
         showErrorMessages: false,
         authFailureOrSuccessOption: none(),

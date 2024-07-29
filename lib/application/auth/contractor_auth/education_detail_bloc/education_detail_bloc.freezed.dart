@@ -20,6 +20,7 @@ mixin _$EducationDetailEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getEducationList,
     required TResult Function(int educationId) deleteEducation,
+    required TResult Function() skipEducation,
     required TResult Function(String program) addProgramChanged,
     required TResult Function(String year) addCompletionYearChanged,
     required TResult Function(String institute) addInstituteChanged,
@@ -30,6 +31,7 @@ mixin _$EducationDetailEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getEducationList,
     TResult? Function(int educationId)? deleteEducation,
+    TResult? Function()? skipEducation,
     TResult? Function(String program)? addProgramChanged,
     TResult? Function(String year)? addCompletionYearChanged,
     TResult? Function(String institute)? addInstituteChanged,
@@ -40,6 +42,7 @@ mixin _$EducationDetailEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getEducationList,
     TResult Function(int educationId)? deleteEducation,
+    TResult Function()? skipEducation,
     TResult Function(String program)? addProgramChanged,
     TResult Function(String year)? addCompletionYearChanged,
     TResult Function(String institute)? addInstituteChanged,
@@ -51,6 +54,7 @@ mixin _$EducationDetailEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(GetEducationList value) getEducationList,
     required TResult Function(DeleteEducation value) deleteEducation,
+    required TResult Function(SkipEducation value) skipEducation,
     required TResult Function(AddProgramChanged value) addProgramChanged,
     required TResult Function(AddCompletionYearChanged value)
         addCompletionYearChanged,
@@ -62,6 +66,7 @@ mixin _$EducationDetailEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetEducationList value)? getEducationList,
     TResult? Function(DeleteEducation value)? deleteEducation,
+    TResult? Function(SkipEducation value)? skipEducation,
     TResult? Function(AddProgramChanged value)? addProgramChanged,
     TResult? Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult? Function(AddInstituteChanged value)? addInstituteChanged,
@@ -72,6 +77,7 @@ mixin _$EducationDetailEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetEducationList value)? getEducationList,
     TResult Function(DeleteEducation value)? deleteEducation,
+    TResult Function(SkipEducation value)? skipEducation,
     TResult Function(AddProgramChanged value)? addProgramChanged,
     TResult Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult Function(AddInstituteChanged value)? addInstituteChanged,
@@ -140,6 +146,7 @@ class _$GetEducationListImpl implements GetEducationList {
   TResult when<TResult extends Object?>({
     required TResult Function() getEducationList,
     required TResult Function(int educationId) deleteEducation,
+    required TResult Function() skipEducation,
     required TResult Function(String program) addProgramChanged,
     required TResult Function(String year) addCompletionYearChanged,
     required TResult Function(String institute) addInstituteChanged,
@@ -153,6 +160,7 @@ class _$GetEducationListImpl implements GetEducationList {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getEducationList,
     TResult? Function(int educationId)? deleteEducation,
+    TResult? Function()? skipEducation,
     TResult? Function(String program)? addProgramChanged,
     TResult? Function(String year)? addCompletionYearChanged,
     TResult? Function(String institute)? addInstituteChanged,
@@ -166,6 +174,7 @@ class _$GetEducationListImpl implements GetEducationList {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getEducationList,
     TResult Function(int educationId)? deleteEducation,
+    TResult Function()? skipEducation,
     TResult Function(String program)? addProgramChanged,
     TResult Function(String year)? addCompletionYearChanged,
     TResult Function(String institute)? addInstituteChanged,
@@ -183,6 +192,7 @@ class _$GetEducationListImpl implements GetEducationList {
   TResult map<TResult extends Object?>({
     required TResult Function(GetEducationList value) getEducationList,
     required TResult Function(DeleteEducation value) deleteEducation,
+    required TResult Function(SkipEducation value) skipEducation,
     required TResult Function(AddProgramChanged value) addProgramChanged,
     required TResult Function(AddCompletionYearChanged value)
         addCompletionYearChanged,
@@ -197,6 +207,7 @@ class _$GetEducationListImpl implements GetEducationList {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetEducationList value)? getEducationList,
     TResult? Function(DeleteEducation value)? deleteEducation,
+    TResult? Function(SkipEducation value)? skipEducation,
     TResult? Function(AddProgramChanged value)? addProgramChanged,
     TResult? Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult? Function(AddInstituteChanged value)? addInstituteChanged,
@@ -210,6 +221,7 @@ class _$GetEducationListImpl implements GetEducationList {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetEducationList value)? getEducationList,
     TResult Function(DeleteEducation value)? deleteEducation,
+    TResult Function(SkipEducation value)? skipEducation,
     TResult Function(AddProgramChanged value)? addProgramChanged,
     TResult Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult Function(AddInstituteChanged value)? addInstituteChanged,
@@ -295,6 +307,7 @@ class _$DeleteEducationImpl implements DeleteEducation {
   TResult when<TResult extends Object?>({
     required TResult Function() getEducationList,
     required TResult Function(int educationId) deleteEducation,
+    required TResult Function() skipEducation,
     required TResult Function(String program) addProgramChanged,
     required TResult Function(String year) addCompletionYearChanged,
     required TResult Function(String institute) addInstituteChanged,
@@ -308,6 +321,7 @@ class _$DeleteEducationImpl implements DeleteEducation {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getEducationList,
     TResult? Function(int educationId)? deleteEducation,
+    TResult? Function()? skipEducation,
     TResult? Function(String program)? addProgramChanged,
     TResult? Function(String year)? addCompletionYearChanged,
     TResult? Function(String institute)? addInstituteChanged,
@@ -321,6 +335,7 @@ class _$DeleteEducationImpl implements DeleteEducation {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getEducationList,
     TResult Function(int educationId)? deleteEducation,
+    TResult Function()? skipEducation,
     TResult Function(String program)? addProgramChanged,
     TResult Function(String year)? addCompletionYearChanged,
     TResult Function(String institute)? addInstituteChanged,
@@ -338,6 +353,7 @@ class _$DeleteEducationImpl implements DeleteEducation {
   TResult map<TResult extends Object?>({
     required TResult Function(GetEducationList value) getEducationList,
     required TResult Function(DeleteEducation value) deleteEducation,
+    required TResult Function(SkipEducation value) skipEducation,
     required TResult Function(AddProgramChanged value) addProgramChanged,
     required TResult Function(AddCompletionYearChanged value)
         addCompletionYearChanged,
@@ -352,6 +368,7 @@ class _$DeleteEducationImpl implements DeleteEducation {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetEducationList value)? getEducationList,
     TResult? Function(DeleteEducation value)? deleteEducation,
+    TResult? Function(SkipEducation value)? skipEducation,
     TResult? Function(AddProgramChanged value)? addProgramChanged,
     TResult? Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult? Function(AddInstituteChanged value)? addInstituteChanged,
@@ -365,6 +382,7 @@ class _$DeleteEducationImpl implements DeleteEducation {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetEducationList value)? getEducationList,
     TResult Function(DeleteEducation value)? deleteEducation,
+    TResult Function(SkipEducation value)? skipEducation,
     TResult Function(AddProgramChanged value)? addProgramChanged,
     TResult Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult Function(AddInstituteChanged value)? addInstituteChanged,
@@ -385,6 +403,139 @@ abstract class DeleteEducation implements EducationDetailEvent {
   @JsonKey(ignore: true)
   _$$DeleteEducationImplCopyWith<_$DeleteEducationImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SkipEducationImplCopyWith<$Res> {
+  factory _$$SkipEducationImplCopyWith(
+          _$SkipEducationImpl value, $Res Function(_$SkipEducationImpl) then) =
+      __$$SkipEducationImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SkipEducationImplCopyWithImpl<$Res>
+    extends _$EducationDetailEventCopyWithImpl<$Res, _$SkipEducationImpl>
+    implements _$$SkipEducationImplCopyWith<$Res> {
+  __$$SkipEducationImplCopyWithImpl(
+      _$SkipEducationImpl _value, $Res Function(_$SkipEducationImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SkipEducationImpl implements SkipEducation {
+  const _$SkipEducationImpl();
+
+  @override
+  String toString() {
+    return 'EducationDetailEvent.skipEducation()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SkipEducationImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getEducationList,
+    required TResult Function(int educationId) deleteEducation,
+    required TResult Function() skipEducation,
+    required TResult Function(String program) addProgramChanged,
+    required TResult Function(String year) addCompletionYearChanged,
+    required TResult Function(String institute) addInstituteChanged,
+    required TResult Function() onAddBtnPressed,
+  }) {
+    return skipEducation();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getEducationList,
+    TResult? Function(int educationId)? deleteEducation,
+    TResult? Function()? skipEducation,
+    TResult? Function(String program)? addProgramChanged,
+    TResult? Function(String year)? addCompletionYearChanged,
+    TResult? Function(String institute)? addInstituteChanged,
+    TResult? Function()? onAddBtnPressed,
+  }) {
+    return skipEducation?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getEducationList,
+    TResult Function(int educationId)? deleteEducation,
+    TResult Function()? skipEducation,
+    TResult Function(String program)? addProgramChanged,
+    TResult Function(String year)? addCompletionYearChanged,
+    TResult Function(String institute)? addInstituteChanged,
+    TResult Function()? onAddBtnPressed,
+    required TResult orElse(),
+  }) {
+    if (skipEducation != null) {
+      return skipEducation();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetEducationList value) getEducationList,
+    required TResult Function(DeleteEducation value) deleteEducation,
+    required TResult Function(SkipEducation value) skipEducation,
+    required TResult Function(AddProgramChanged value) addProgramChanged,
+    required TResult Function(AddCompletionYearChanged value)
+        addCompletionYearChanged,
+    required TResult Function(AddInstituteChanged value) addInstituteChanged,
+    required TResult Function(OnAddBtnPressed value) onAddBtnPressed,
+  }) {
+    return skipEducation(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetEducationList value)? getEducationList,
+    TResult? Function(DeleteEducation value)? deleteEducation,
+    TResult? Function(SkipEducation value)? skipEducation,
+    TResult? Function(AddProgramChanged value)? addProgramChanged,
+    TResult? Function(AddCompletionYearChanged value)? addCompletionYearChanged,
+    TResult? Function(AddInstituteChanged value)? addInstituteChanged,
+    TResult? Function(OnAddBtnPressed value)? onAddBtnPressed,
+  }) {
+    return skipEducation?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetEducationList value)? getEducationList,
+    TResult Function(DeleteEducation value)? deleteEducation,
+    TResult Function(SkipEducation value)? skipEducation,
+    TResult Function(AddProgramChanged value)? addProgramChanged,
+    TResult Function(AddCompletionYearChanged value)? addCompletionYearChanged,
+    TResult Function(AddInstituteChanged value)? addInstituteChanged,
+    TResult Function(OnAddBtnPressed value)? onAddBtnPressed,
+    required TResult orElse(),
+  }) {
+    if (skipEducation != null) {
+      return skipEducation(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SkipEducation implements EducationDetailEvent {
+  const factory SkipEducation() = _$SkipEducationImpl;
 }
 
 /// @nodoc
@@ -454,6 +605,7 @@ class _$AddProgramChangedImpl implements AddProgramChanged {
   TResult when<TResult extends Object?>({
     required TResult Function() getEducationList,
     required TResult Function(int educationId) deleteEducation,
+    required TResult Function() skipEducation,
     required TResult Function(String program) addProgramChanged,
     required TResult Function(String year) addCompletionYearChanged,
     required TResult Function(String institute) addInstituteChanged,
@@ -467,6 +619,7 @@ class _$AddProgramChangedImpl implements AddProgramChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getEducationList,
     TResult? Function(int educationId)? deleteEducation,
+    TResult? Function()? skipEducation,
     TResult? Function(String program)? addProgramChanged,
     TResult? Function(String year)? addCompletionYearChanged,
     TResult? Function(String institute)? addInstituteChanged,
@@ -480,6 +633,7 @@ class _$AddProgramChangedImpl implements AddProgramChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getEducationList,
     TResult Function(int educationId)? deleteEducation,
+    TResult Function()? skipEducation,
     TResult Function(String program)? addProgramChanged,
     TResult Function(String year)? addCompletionYearChanged,
     TResult Function(String institute)? addInstituteChanged,
@@ -497,6 +651,7 @@ class _$AddProgramChangedImpl implements AddProgramChanged {
   TResult map<TResult extends Object?>({
     required TResult Function(GetEducationList value) getEducationList,
     required TResult Function(DeleteEducation value) deleteEducation,
+    required TResult Function(SkipEducation value) skipEducation,
     required TResult Function(AddProgramChanged value) addProgramChanged,
     required TResult Function(AddCompletionYearChanged value)
         addCompletionYearChanged,
@@ -511,6 +666,7 @@ class _$AddProgramChangedImpl implements AddProgramChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetEducationList value)? getEducationList,
     TResult? Function(DeleteEducation value)? deleteEducation,
+    TResult? Function(SkipEducation value)? skipEducation,
     TResult? Function(AddProgramChanged value)? addProgramChanged,
     TResult? Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult? Function(AddInstituteChanged value)? addInstituteChanged,
@@ -524,6 +680,7 @@ class _$AddProgramChangedImpl implements AddProgramChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetEducationList value)? getEducationList,
     TResult Function(DeleteEducation value)? deleteEducation,
+    TResult Function(SkipEducation value)? skipEducation,
     TResult Function(AddProgramChanged value)? addProgramChanged,
     TResult Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult Function(AddInstituteChanged value)? addInstituteChanged,
@@ -617,6 +774,7 @@ class _$AddCompletionYearChangedImpl implements AddCompletionYearChanged {
   TResult when<TResult extends Object?>({
     required TResult Function() getEducationList,
     required TResult Function(int educationId) deleteEducation,
+    required TResult Function() skipEducation,
     required TResult Function(String program) addProgramChanged,
     required TResult Function(String year) addCompletionYearChanged,
     required TResult Function(String institute) addInstituteChanged,
@@ -630,6 +788,7 @@ class _$AddCompletionYearChangedImpl implements AddCompletionYearChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getEducationList,
     TResult? Function(int educationId)? deleteEducation,
+    TResult? Function()? skipEducation,
     TResult? Function(String program)? addProgramChanged,
     TResult? Function(String year)? addCompletionYearChanged,
     TResult? Function(String institute)? addInstituteChanged,
@@ -643,6 +802,7 @@ class _$AddCompletionYearChangedImpl implements AddCompletionYearChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getEducationList,
     TResult Function(int educationId)? deleteEducation,
+    TResult Function()? skipEducation,
     TResult Function(String program)? addProgramChanged,
     TResult Function(String year)? addCompletionYearChanged,
     TResult Function(String institute)? addInstituteChanged,
@@ -660,6 +820,7 @@ class _$AddCompletionYearChangedImpl implements AddCompletionYearChanged {
   TResult map<TResult extends Object?>({
     required TResult Function(GetEducationList value) getEducationList,
     required TResult Function(DeleteEducation value) deleteEducation,
+    required TResult Function(SkipEducation value) skipEducation,
     required TResult Function(AddProgramChanged value) addProgramChanged,
     required TResult Function(AddCompletionYearChanged value)
         addCompletionYearChanged,
@@ -674,6 +835,7 @@ class _$AddCompletionYearChangedImpl implements AddCompletionYearChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetEducationList value)? getEducationList,
     TResult? Function(DeleteEducation value)? deleteEducation,
+    TResult? Function(SkipEducation value)? skipEducation,
     TResult? Function(AddProgramChanged value)? addProgramChanged,
     TResult? Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult? Function(AddInstituteChanged value)? addInstituteChanged,
@@ -687,6 +849,7 @@ class _$AddCompletionYearChangedImpl implements AddCompletionYearChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetEducationList value)? getEducationList,
     TResult Function(DeleteEducation value)? deleteEducation,
+    TResult Function(SkipEducation value)? skipEducation,
     TResult Function(AddProgramChanged value)? addProgramChanged,
     TResult Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult Function(AddInstituteChanged value)? addInstituteChanged,
@@ -778,6 +941,7 @@ class _$AddInstituteChangedImpl implements AddInstituteChanged {
   TResult when<TResult extends Object?>({
     required TResult Function() getEducationList,
     required TResult Function(int educationId) deleteEducation,
+    required TResult Function() skipEducation,
     required TResult Function(String program) addProgramChanged,
     required TResult Function(String year) addCompletionYearChanged,
     required TResult Function(String institute) addInstituteChanged,
@@ -791,6 +955,7 @@ class _$AddInstituteChangedImpl implements AddInstituteChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getEducationList,
     TResult? Function(int educationId)? deleteEducation,
+    TResult? Function()? skipEducation,
     TResult? Function(String program)? addProgramChanged,
     TResult? Function(String year)? addCompletionYearChanged,
     TResult? Function(String institute)? addInstituteChanged,
@@ -804,6 +969,7 @@ class _$AddInstituteChangedImpl implements AddInstituteChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getEducationList,
     TResult Function(int educationId)? deleteEducation,
+    TResult Function()? skipEducation,
     TResult Function(String program)? addProgramChanged,
     TResult Function(String year)? addCompletionYearChanged,
     TResult Function(String institute)? addInstituteChanged,
@@ -821,6 +987,7 @@ class _$AddInstituteChangedImpl implements AddInstituteChanged {
   TResult map<TResult extends Object?>({
     required TResult Function(GetEducationList value) getEducationList,
     required TResult Function(DeleteEducation value) deleteEducation,
+    required TResult Function(SkipEducation value) skipEducation,
     required TResult Function(AddProgramChanged value) addProgramChanged,
     required TResult Function(AddCompletionYearChanged value)
         addCompletionYearChanged,
@@ -835,6 +1002,7 @@ class _$AddInstituteChangedImpl implements AddInstituteChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetEducationList value)? getEducationList,
     TResult? Function(DeleteEducation value)? deleteEducation,
+    TResult? Function(SkipEducation value)? skipEducation,
     TResult? Function(AddProgramChanged value)? addProgramChanged,
     TResult? Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult? Function(AddInstituteChanged value)? addInstituteChanged,
@@ -848,6 +1016,7 @@ class _$AddInstituteChangedImpl implements AddInstituteChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetEducationList value)? getEducationList,
     TResult Function(DeleteEducation value)? deleteEducation,
+    TResult Function(SkipEducation value)? skipEducation,
     TResult Function(AddProgramChanged value)? addProgramChanged,
     TResult Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult Function(AddInstituteChanged value)? addInstituteChanged,
@@ -911,6 +1080,7 @@ class _$OnAddBtnPressedImpl implements OnAddBtnPressed {
   TResult when<TResult extends Object?>({
     required TResult Function() getEducationList,
     required TResult Function(int educationId) deleteEducation,
+    required TResult Function() skipEducation,
     required TResult Function(String program) addProgramChanged,
     required TResult Function(String year) addCompletionYearChanged,
     required TResult Function(String institute) addInstituteChanged,
@@ -924,6 +1094,7 @@ class _$OnAddBtnPressedImpl implements OnAddBtnPressed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getEducationList,
     TResult? Function(int educationId)? deleteEducation,
+    TResult? Function()? skipEducation,
     TResult? Function(String program)? addProgramChanged,
     TResult? Function(String year)? addCompletionYearChanged,
     TResult? Function(String institute)? addInstituteChanged,
@@ -937,6 +1108,7 @@ class _$OnAddBtnPressedImpl implements OnAddBtnPressed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getEducationList,
     TResult Function(int educationId)? deleteEducation,
+    TResult Function()? skipEducation,
     TResult Function(String program)? addProgramChanged,
     TResult Function(String year)? addCompletionYearChanged,
     TResult Function(String institute)? addInstituteChanged,
@@ -954,6 +1126,7 @@ class _$OnAddBtnPressedImpl implements OnAddBtnPressed {
   TResult map<TResult extends Object?>({
     required TResult Function(GetEducationList value) getEducationList,
     required TResult Function(DeleteEducation value) deleteEducation,
+    required TResult Function(SkipEducation value) skipEducation,
     required TResult Function(AddProgramChanged value) addProgramChanged,
     required TResult Function(AddCompletionYearChanged value)
         addCompletionYearChanged,
@@ -968,6 +1141,7 @@ class _$OnAddBtnPressedImpl implements OnAddBtnPressed {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetEducationList value)? getEducationList,
     TResult? Function(DeleteEducation value)? deleteEducation,
+    TResult? Function(SkipEducation value)? skipEducation,
     TResult? Function(AddProgramChanged value)? addProgramChanged,
     TResult? Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult? Function(AddInstituteChanged value)? addInstituteChanged,
@@ -981,6 +1155,7 @@ class _$OnAddBtnPressedImpl implements OnAddBtnPressed {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetEducationList value)? getEducationList,
     TResult Function(DeleteEducation value)? deleteEducation,
+    TResult Function(SkipEducation value)? skipEducation,
     TResult Function(AddProgramChanged value)? addProgramChanged,
     TResult Function(AddCompletionYearChanged value)? addCompletionYearChanged,
     TResult Function(AddInstituteChanged value)? addInstituteChanged,
@@ -1012,6 +1187,8 @@ mixin _$EducationDetailState {
   bool get showErrorMessages => throw _privateConstructorUsedError;
   Option<Either<AuthFailure, String>> get authFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
+  Option<Either<AuthFailure, Account>> get skipFailureOrSuccessOption =>
+      throw _privateConstructorUsedError;
   Option<Either<AccountFailure, String>> get failureOrSuccessOption =>
       throw _privateConstructorUsedError;
   Option<Either<AccountFailure, Account>> get listFailureOrSuccessOption =>
@@ -1037,6 +1214,7 @@ abstract class $EducationDetailStateCopyWith<$Res> {
       bool showAddEducationErrorMessages,
       bool showErrorMessages,
       Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
+      Option<Either<AuthFailure, Account>> skipFailureOrSuccessOption,
       Option<Either<AccountFailure, String>> failureOrSuccessOption,
       Option<Either<AccountFailure, Account>> listFailureOrSuccessOption});
 }
@@ -1063,6 +1241,7 @@ class _$EducationDetailStateCopyWithImpl<$Res,
     Object? showAddEducationErrorMessages = null,
     Object? showErrorMessages = null,
     Object? authFailureOrSuccessOption = null,
+    Object? skipFailureOrSuccessOption = null,
     Object? failureOrSuccessOption = null,
     Object? listFailureOrSuccessOption = null,
   }) {
@@ -1099,6 +1278,10 @@ class _$EducationDetailStateCopyWithImpl<$Res,
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, String>>,
+      skipFailureOrSuccessOption: null == skipFailureOrSuccessOption
+          ? _value.skipFailureOrSuccessOption
+          : skipFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AuthFailure, Account>>,
       failureOrSuccessOption: null == failureOrSuccessOption
           ? _value.failureOrSuccessOption
           : failureOrSuccessOption // ignore: cast_nullable_to_non_nullable
@@ -1128,6 +1311,7 @@ abstract class _$$EducationDetailStateImplCopyWith<$Res>
       bool showAddEducationErrorMessages,
       bool showErrorMessages,
       Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
+      Option<Either<AuthFailure, Account>> skipFailureOrSuccessOption,
       Option<Either<AccountFailure, String>> failureOrSuccessOption,
       Option<Either<AccountFailure, Account>> listFailureOrSuccessOption});
 }
@@ -1151,6 +1335,7 @@ class __$$EducationDetailStateImplCopyWithImpl<$Res>
     Object? showAddEducationErrorMessages = null,
     Object? showErrorMessages = null,
     Object? authFailureOrSuccessOption = null,
+    Object? skipFailureOrSuccessOption = null,
     Object? failureOrSuccessOption = null,
     Object? listFailureOrSuccessOption = null,
   }) {
@@ -1187,6 +1372,10 @@ class __$$EducationDetailStateImplCopyWithImpl<$Res>
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, String>>,
+      skipFailureOrSuccessOption: null == skipFailureOrSuccessOption
+          ? _value.skipFailureOrSuccessOption
+          : skipFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AuthFailure, Account>>,
       failureOrSuccessOption: null == failureOrSuccessOption
           ? _value.failureOrSuccessOption
           : failureOrSuccessOption // ignore: cast_nullable_to_non_nullable
@@ -1211,6 +1400,7 @@ class _$EducationDetailStateImpl implements _EducationDetailState {
       required this.showAddEducationErrorMessages,
       required this.showErrorMessages,
       required this.authFailureOrSuccessOption,
+      required this.skipFailureOrSuccessOption,
       required this.failureOrSuccessOption,
       required this.listFailureOrSuccessOption})
       : _educationList = educationList;
@@ -1240,13 +1430,15 @@ class _$EducationDetailStateImpl implements _EducationDetailState {
   @override
   final Option<Either<AuthFailure, String>> authFailureOrSuccessOption;
   @override
+  final Option<Either<AuthFailure, Account>> skipFailureOrSuccessOption;
+  @override
   final Option<Either<AccountFailure, String>> failureOrSuccessOption;
   @override
   final Option<Either<AccountFailure, Account>> listFailureOrSuccessOption;
 
   @override
   String toString() {
-    return 'EducationDetailState(selectedProgram: $selectedProgram, yearOfCompletion: $yearOfCompletion, selectedGraduation: $selectedGraduation, educationList: $educationList, isSubmitting: $isSubmitting, showAddEducationErrorMessages: $showAddEducationErrorMessages, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption, failureOrSuccessOption: $failureOrSuccessOption, listFailureOrSuccessOption: $listFailureOrSuccessOption)';
+    return 'EducationDetailState(selectedProgram: $selectedProgram, yearOfCompletion: $yearOfCompletion, selectedGraduation: $selectedGraduation, educationList: $educationList, isSubmitting: $isSubmitting, showAddEducationErrorMessages: $showAddEducationErrorMessages, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption, skipFailureOrSuccessOption: $skipFailureOrSuccessOption, failureOrSuccessOption: $failureOrSuccessOption, listFailureOrSuccessOption: $listFailureOrSuccessOption)';
   }
 
   @override
@@ -1274,6 +1466,10 @@ class _$EducationDetailStateImpl implements _EducationDetailState {
                     authFailureOrSuccessOption) ||
                 other.authFailureOrSuccessOption ==
                     authFailureOrSuccessOption) &&
+            (identical(other.skipFailureOrSuccessOption,
+                    skipFailureOrSuccessOption) ||
+                other.skipFailureOrSuccessOption ==
+                    skipFailureOrSuccessOption) &&
             (identical(other.failureOrSuccessOption, failureOrSuccessOption) ||
                 other.failureOrSuccessOption == failureOrSuccessOption) &&
             (identical(other.listFailureOrSuccessOption,
@@ -1293,6 +1489,7 @@ class _$EducationDetailStateImpl implements _EducationDetailState {
       showAddEducationErrorMessages,
       showErrorMessages,
       authFailureOrSuccessOption,
+      skipFailureOrSuccessOption,
       failureOrSuccessOption,
       listFailureOrSuccessOption);
 
@@ -1316,6 +1513,8 @@ abstract class _EducationDetailState implements EducationDetailState {
       required final bool showErrorMessages,
       required final Option<Either<AuthFailure, String>>
           authFailureOrSuccessOption,
+      required final Option<Either<AuthFailure, Account>>
+          skipFailureOrSuccessOption,
       required final Option<Either<AccountFailure, String>>
           failureOrSuccessOption,
       required final Option<Either<AccountFailure, Account>>
@@ -1341,6 +1540,8 @@ abstract class _EducationDetailState implements EducationDetailState {
   bool get showErrorMessages;
   @override
   Option<Either<AuthFailure, String>> get authFailureOrSuccessOption;
+  @override
+  Option<Either<AuthFailure, Account>> get skipFailureOrSuccessOption;
   @override
   Option<Either<AccountFailure, String>> get failureOrSuccessOption;
   @override

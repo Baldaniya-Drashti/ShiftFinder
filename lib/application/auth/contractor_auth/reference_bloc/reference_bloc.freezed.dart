@@ -19,6 +19,7 @@ mixin _$ReferenceEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -44,6 +45,7 @@ mixin _$ReferenceEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -68,6 +70,7 @@ mixin _$ReferenceEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -93,6 +96,7 @@ mixin _$ReferenceEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -121,6 +125,7 @@ mixin _$ReferenceEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -145,6 +150,7 @@ mixin _$ReferenceEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -226,6 +232,7 @@ class _$GetReferenceListImpl implements GetReferenceList {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -254,6 +261,7 @@ class _$GetReferenceListImpl implements GetReferenceList {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -281,6 +289,7 @@ class _$GetReferenceListImpl implements GetReferenceList {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -312,6 +321,7 @@ class _$GetReferenceListImpl implements GetReferenceList {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -343,6 +353,7 @@ class _$GetReferenceListImpl implements GetReferenceList {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -370,6 +381,7 @@ class _$GetReferenceListImpl implements GetReferenceList {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -400,6 +412,227 @@ class _$GetReferenceListImpl implements GetReferenceList {
 
 abstract class GetReferenceList implements ReferenceEvent {
   const factory GetReferenceList() = _$GetReferenceListImpl;
+}
+
+/// @nodoc
+abstract class _$$SkipReferenceImplCopyWith<$Res> {
+  factory _$$SkipReferenceImplCopyWith(
+          _$SkipReferenceImpl value, $Res Function(_$SkipReferenceImpl) then) =
+      __$$SkipReferenceImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SkipReferenceImplCopyWithImpl<$Res>
+    extends _$ReferenceEventCopyWithImpl<$Res, _$SkipReferenceImpl>
+    implements _$$SkipReferenceImplCopyWith<$Res> {
+  __$$SkipReferenceImplCopyWithImpl(
+      _$SkipReferenceImpl _value, $Res Function(_$SkipReferenceImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SkipReferenceImpl implements SkipReference {
+  const _$SkipReferenceImpl();
+
+  @override
+  String toString() {
+    return 'ReferenceEvent.skipReference()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SkipReferenceImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
+    required TResult Function(int referenceId) deleteReference,
+    required TResult Function(int tabIndex) tabChangeEvent,
+    required TResult Function(String jobPosition) jobPositionChanged,
+    required TResult Function(String organization) organizationChanged,
+    required TResult Function(String referrer) referrerChanged,
+    required TResult Function(String referrerEmail) referrerEmailChanged,
+    required TResult Function(String referrerPhoneNo) referrerPhoneNoChanged,
+    required TResult Function(String jobLocation) jobLocationChanged,
+    required TResult Function(String unitDepartment) unitDepartmentChanged,
+    required TResult Function(String startDate) startDateChanged,
+    required TResult Function(String endDate) endDateChanged,
+    required TResult Function(String phoneCode, String flag) selectCountryCode,
+    required TResult Function() professinalBtnPressed,
+    required TResult Function(String personalEmail) personalEmailChanged,
+    required TResult Function(String personalPhoneNo) personalPhoneNoChanged,
+    required TResult Function(String contactPerson) contactPersonChanged,
+    required TResult Function(String profession) professionChanged,
+    required TResult Function(String phoneCode, String flag)
+        personalCountryCode,
+    required TResult Function() personalBtnPressed,
+  }) {
+    return skipReference();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
+    TResult? Function(int referenceId)? deleteReference,
+    TResult? Function(int tabIndex)? tabChangeEvent,
+    TResult? Function(String jobPosition)? jobPositionChanged,
+    TResult? Function(String organization)? organizationChanged,
+    TResult? Function(String referrer)? referrerChanged,
+    TResult? Function(String referrerEmail)? referrerEmailChanged,
+    TResult? Function(String referrerPhoneNo)? referrerPhoneNoChanged,
+    TResult? Function(String jobLocation)? jobLocationChanged,
+    TResult? Function(String unitDepartment)? unitDepartmentChanged,
+    TResult? Function(String startDate)? startDateChanged,
+    TResult? Function(String endDate)? endDateChanged,
+    TResult? Function(String phoneCode, String flag)? selectCountryCode,
+    TResult? Function()? professinalBtnPressed,
+    TResult? Function(String personalEmail)? personalEmailChanged,
+    TResult? Function(String personalPhoneNo)? personalPhoneNoChanged,
+    TResult? Function(String contactPerson)? contactPersonChanged,
+    TResult? Function(String profession)? professionChanged,
+    TResult? Function(String phoneCode, String flag)? personalCountryCode,
+    TResult? Function()? personalBtnPressed,
+  }) {
+    return skipReference?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
+    TResult Function(int referenceId)? deleteReference,
+    TResult Function(int tabIndex)? tabChangeEvent,
+    TResult Function(String jobPosition)? jobPositionChanged,
+    TResult Function(String organization)? organizationChanged,
+    TResult Function(String referrer)? referrerChanged,
+    TResult Function(String referrerEmail)? referrerEmailChanged,
+    TResult Function(String referrerPhoneNo)? referrerPhoneNoChanged,
+    TResult Function(String jobLocation)? jobLocationChanged,
+    TResult Function(String unitDepartment)? unitDepartmentChanged,
+    TResult Function(String startDate)? startDateChanged,
+    TResult Function(String endDate)? endDateChanged,
+    TResult Function(String phoneCode, String flag)? selectCountryCode,
+    TResult Function()? professinalBtnPressed,
+    TResult Function(String personalEmail)? personalEmailChanged,
+    TResult Function(String personalPhoneNo)? personalPhoneNoChanged,
+    TResult Function(String contactPerson)? contactPersonChanged,
+    TResult Function(String profession)? professionChanged,
+    TResult Function(String phoneCode, String flag)? personalCountryCode,
+    TResult Function()? personalBtnPressed,
+    required TResult orElse(),
+  }) {
+    if (skipReference != null) {
+      return skipReference();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
+    required TResult Function(DeleteReference value) deleteReference,
+    required TResult Function(_TabChangeEvent value) tabChangeEvent,
+    required TResult Function(_JobPositionChanged value) jobPositionChanged,
+    required TResult Function(_OrganizationChanged value) organizationChanged,
+    required TResult Function(_referrerChanged value) referrerChanged,
+    required TResult Function(_ReferrerEmailChanged value) referrerEmailChanged,
+    required TResult Function(_ReferrerPhoneNoChanged value)
+        referrerPhoneNoChanged,
+    required TResult Function(_JobLocationChanged value) jobLocationChanged,
+    required TResult Function(_UnitDepartmentChanged value)
+        unitDepartmentChanged,
+    required TResult Function(_StartDateChanged value) startDateChanged,
+    required TResult Function(_EndDateChanged value) endDateChanged,
+    required TResult Function(SelectCountryCode value) selectCountryCode,
+    required TResult Function(_ProfessinalBtnPressed value)
+        professinalBtnPressed,
+    required TResult Function(_PersonalEmailChanged value) personalEmailChanged,
+    required TResult Function(_PersonalPhoneNoChanged value)
+        personalPhoneNoChanged,
+    required TResult Function(_ContactPersonChanged value) contactPersonChanged,
+    required TResult Function(_ProfessionChanged value) professionChanged,
+    required TResult Function(_PersonalCountryCode value) personalCountryCode,
+    required TResult Function(_PersonalBtnPressed value) personalBtnPressed,
+  }) {
+    return skipReference(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
+    TResult? Function(DeleteReference value)? deleteReference,
+    TResult? Function(_TabChangeEvent value)? tabChangeEvent,
+    TResult? Function(_JobPositionChanged value)? jobPositionChanged,
+    TResult? Function(_OrganizationChanged value)? organizationChanged,
+    TResult? Function(_referrerChanged value)? referrerChanged,
+    TResult? Function(_ReferrerEmailChanged value)? referrerEmailChanged,
+    TResult? Function(_ReferrerPhoneNoChanged value)? referrerPhoneNoChanged,
+    TResult? Function(_JobLocationChanged value)? jobLocationChanged,
+    TResult? Function(_UnitDepartmentChanged value)? unitDepartmentChanged,
+    TResult? Function(_StartDateChanged value)? startDateChanged,
+    TResult? Function(_EndDateChanged value)? endDateChanged,
+    TResult? Function(SelectCountryCode value)? selectCountryCode,
+    TResult? Function(_ProfessinalBtnPressed value)? professinalBtnPressed,
+    TResult? Function(_PersonalEmailChanged value)? personalEmailChanged,
+    TResult? Function(_PersonalPhoneNoChanged value)? personalPhoneNoChanged,
+    TResult? Function(_ContactPersonChanged value)? contactPersonChanged,
+    TResult? Function(_ProfessionChanged value)? professionChanged,
+    TResult? Function(_PersonalCountryCode value)? personalCountryCode,
+    TResult? Function(_PersonalBtnPressed value)? personalBtnPressed,
+  }) {
+    return skipReference?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
+    TResult Function(DeleteReference value)? deleteReference,
+    TResult Function(_TabChangeEvent value)? tabChangeEvent,
+    TResult Function(_JobPositionChanged value)? jobPositionChanged,
+    TResult Function(_OrganizationChanged value)? organizationChanged,
+    TResult Function(_referrerChanged value)? referrerChanged,
+    TResult Function(_ReferrerEmailChanged value)? referrerEmailChanged,
+    TResult Function(_ReferrerPhoneNoChanged value)? referrerPhoneNoChanged,
+    TResult Function(_JobLocationChanged value)? jobLocationChanged,
+    TResult Function(_UnitDepartmentChanged value)? unitDepartmentChanged,
+    TResult Function(_StartDateChanged value)? startDateChanged,
+    TResult Function(_EndDateChanged value)? endDateChanged,
+    TResult Function(SelectCountryCode value)? selectCountryCode,
+    TResult Function(_ProfessinalBtnPressed value)? professinalBtnPressed,
+    TResult Function(_PersonalEmailChanged value)? personalEmailChanged,
+    TResult Function(_PersonalPhoneNoChanged value)? personalPhoneNoChanged,
+    TResult Function(_ContactPersonChanged value)? contactPersonChanged,
+    TResult Function(_ProfessionChanged value)? professionChanged,
+    TResult Function(_PersonalCountryCode value)? personalCountryCode,
+    TResult Function(_PersonalBtnPressed value)? personalBtnPressed,
+    required TResult orElse(),
+  }) {
+    if (skipReference != null) {
+      return skipReference(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SkipReference implements ReferenceEvent {
+  const factory SkipReference() = _$SkipReferenceImpl;
 }
 
 /// @nodoc
@@ -469,6 +702,7 @@ class _$DeleteReferenceImpl implements DeleteReference {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -497,6 +731,7 @@ class _$DeleteReferenceImpl implements DeleteReference {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -524,6 +759,7 @@ class _$DeleteReferenceImpl implements DeleteReference {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -555,6 +791,7 @@ class _$DeleteReferenceImpl implements DeleteReference {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -586,6 +823,7 @@ class _$DeleteReferenceImpl implements DeleteReference {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -613,6 +851,7 @@ class _$DeleteReferenceImpl implements DeleteReference {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -717,6 +956,7 @@ class _$TabChangeEventImpl implements _TabChangeEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -745,6 +985,7 @@ class _$TabChangeEventImpl implements _TabChangeEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -772,6 +1013,7 @@ class _$TabChangeEventImpl implements _TabChangeEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -803,6 +1045,7 @@ class _$TabChangeEventImpl implements _TabChangeEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -834,6 +1077,7 @@ class _$TabChangeEventImpl implements _TabChangeEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -861,6 +1105,7 @@ class _$TabChangeEventImpl implements _TabChangeEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -965,6 +1210,7 @@ class _$JobPositionChangedImpl implements _JobPositionChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -993,6 +1239,7 @@ class _$JobPositionChangedImpl implements _JobPositionChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -1020,6 +1267,7 @@ class _$JobPositionChangedImpl implements _JobPositionChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -1051,6 +1299,7 @@ class _$JobPositionChangedImpl implements _JobPositionChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -1082,6 +1331,7 @@ class _$JobPositionChangedImpl implements _JobPositionChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -1109,6 +1359,7 @@ class _$JobPositionChangedImpl implements _JobPositionChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -1214,6 +1465,7 @@ class _$OrganizationChangedImpl implements _OrganizationChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -1242,6 +1494,7 @@ class _$OrganizationChangedImpl implements _OrganizationChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -1269,6 +1522,7 @@ class _$OrganizationChangedImpl implements _OrganizationChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -1300,6 +1554,7 @@ class _$OrganizationChangedImpl implements _OrganizationChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -1331,6 +1586,7 @@ class _$OrganizationChangedImpl implements _OrganizationChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -1358,6 +1614,7 @@ class _$OrganizationChangedImpl implements _OrganizationChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -1463,6 +1720,7 @@ class _$referrerChangedImpl implements _referrerChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -1491,6 +1749,7 @@ class _$referrerChangedImpl implements _referrerChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -1518,6 +1777,7 @@ class _$referrerChangedImpl implements _referrerChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -1549,6 +1809,7 @@ class _$referrerChangedImpl implements _referrerChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -1580,6 +1841,7 @@ class _$referrerChangedImpl implements _referrerChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -1607,6 +1869,7 @@ class _$referrerChangedImpl implements _referrerChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -1712,6 +1975,7 @@ class _$ReferrerEmailChangedImpl implements _ReferrerEmailChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -1740,6 +2004,7 @@ class _$ReferrerEmailChangedImpl implements _ReferrerEmailChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -1767,6 +2032,7 @@ class _$ReferrerEmailChangedImpl implements _ReferrerEmailChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -1798,6 +2064,7 @@ class _$ReferrerEmailChangedImpl implements _ReferrerEmailChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -1829,6 +2096,7 @@ class _$ReferrerEmailChangedImpl implements _ReferrerEmailChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -1856,6 +2124,7 @@ class _$ReferrerEmailChangedImpl implements _ReferrerEmailChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -1963,6 +2232,7 @@ class _$ReferrerPhoneNoChangedImpl implements _ReferrerPhoneNoChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -1991,6 +2261,7 @@ class _$ReferrerPhoneNoChangedImpl implements _ReferrerPhoneNoChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -2018,6 +2289,7 @@ class _$ReferrerPhoneNoChangedImpl implements _ReferrerPhoneNoChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -2049,6 +2321,7 @@ class _$ReferrerPhoneNoChangedImpl implements _ReferrerPhoneNoChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -2080,6 +2353,7 @@ class _$ReferrerPhoneNoChangedImpl implements _ReferrerPhoneNoChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -2107,6 +2381,7 @@ class _$ReferrerPhoneNoChangedImpl implements _ReferrerPhoneNoChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -2212,6 +2487,7 @@ class _$JobLocationChangedImpl implements _JobLocationChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -2240,6 +2516,7 @@ class _$JobLocationChangedImpl implements _JobLocationChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -2267,6 +2544,7 @@ class _$JobLocationChangedImpl implements _JobLocationChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -2298,6 +2576,7 @@ class _$JobLocationChangedImpl implements _JobLocationChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -2329,6 +2608,7 @@ class _$JobLocationChangedImpl implements _JobLocationChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -2356,6 +2636,7 @@ class _$JobLocationChangedImpl implements _JobLocationChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -2462,6 +2743,7 @@ class _$UnitDepartmentChangedImpl implements _UnitDepartmentChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -2490,6 +2772,7 @@ class _$UnitDepartmentChangedImpl implements _UnitDepartmentChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -2517,6 +2800,7 @@ class _$UnitDepartmentChangedImpl implements _UnitDepartmentChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -2548,6 +2832,7 @@ class _$UnitDepartmentChangedImpl implements _UnitDepartmentChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -2579,6 +2864,7 @@ class _$UnitDepartmentChangedImpl implements _UnitDepartmentChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -2606,6 +2892,7 @@ class _$UnitDepartmentChangedImpl implements _UnitDepartmentChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -2711,6 +2998,7 @@ class _$StartDateChangedImpl implements _StartDateChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -2739,6 +3027,7 @@ class _$StartDateChangedImpl implements _StartDateChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -2766,6 +3055,7 @@ class _$StartDateChangedImpl implements _StartDateChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -2797,6 +3087,7 @@ class _$StartDateChangedImpl implements _StartDateChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -2828,6 +3119,7 @@ class _$StartDateChangedImpl implements _StartDateChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -2855,6 +3147,7 @@ class _$StartDateChangedImpl implements _StartDateChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -2959,6 +3252,7 @@ class _$EndDateChangedImpl implements _EndDateChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -2987,6 +3281,7 @@ class _$EndDateChangedImpl implements _EndDateChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -3014,6 +3309,7 @@ class _$EndDateChangedImpl implements _EndDateChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -3045,6 +3341,7 @@ class _$EndDateChangedImpl implements _EndDateChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -3076,6 +3373,7 @@ class _$EndDateChangedImpl implements _EndDateChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -3103,6 +3401,7 @@ class _$EndDateChangedImpl implements _EndDateChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -3215,6 +3514,7 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -3243,6 +3543,7 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -3270,6 +3571,7 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -3301,6 +3603,7 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -3332,6 +3635,7 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -3359,6 +3663,7 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -3439,6 +3744,7 @@ class _$ProfessinalBtnPressedImpl implements _ProfessinalBtnPressed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -3467,6 +3773,7 @@ class _$ProfessinalBtnPressedImpl implements _ProfessinalBtnPressed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -3494,6 +3801,7 @@ class _$ProfessinalBtnPressedImpl implements _ProfessinalBtnPressed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -3525,6 +3833,7 @@ class _$ProfessinalBtnPressedImpl implements _ProfessinalBtnPressed {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -3556,6 +3865,7 @@ class _$ProfessinalBtnPressedImpl implements _ProfessinalBtnPressed {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -3583,6 +3893,7 @@ class _$ProfessinalBtnPressedImpl implements _ProfessinalBtnPressed {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -3683,6 +3994,7 @@ class _$PersonalEmailChangedImpl implements _PersonalEmailChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -3711,6 +4023,7 @@ class _$PersonalEmailChangedImpl implements _PersonalEmailChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -3738,6 +4051,7 @@ class _$PersonalEmailChangedImpl implements _PersonalEmailChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -3769,6 +4083,7 @@ class _$PersonalEmailChangedImpl implements _PersonalEmailChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -3800,6 +4115,7 @@ class _$PersonalEmailChangedImpl implements _PersonalEmailChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -3827,6 +4143,7 @@ class _$PersonalEmailChangedImpl implements _PersonalEmailChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -3934,6 +4251,7 @@ class _$PersonalPhoneNoChangedImpl implements _PersonalPhoneNoChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -3962,6 +4280,7 @@ class _$PersonalPhoneNoChangedImpl implements _PersonalPhoneNoChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -3989,6 +4308,7 @@ class _$PersonalPhoneNoChangedImpl implements _PersonalPhoneNoChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -4020,6 +4340,7 @@ class _$PersonalPhoneNoChangedImpl implements _PersonalPhoneNoChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -4051,6 +4372,7 @@ class _$PersonalPhoneNoChangedImpl implements _PersonalPhoneNoChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -4078,6 +4400,7 @@ class _$PersonalPhoneNoChangedImpl implements _PersonalPhoneNoChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -4184,6 +4507,7 @@ class _$ContactPersonChangedImpl implements _ContactPersonChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -4212,6 +4536,7 @@ class _$ContactPersonChangedImpl implements _ContactPersonChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -4239,6 +4564,7 @@ class _$ContactPersonChangedImpl implements _ContactPersonChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -4270,6 +4596,7 @@ class _$ContactPersonChangedImpl implements _ContactPersonChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -4301,6 +4628,7 @@ class _$ContactPersonChangedImpl implements _ContactPersonChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -4328,6 +4656,7 @@ class _$ContactPersonChangedImpl implements _ContactPersonChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -4433,6 +4762,7 @@ class _$ProfessionChangedImpl implements _ProfessionChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -4461,6 +4791,7 @@ class _$ProfessionChangedImpl implements _ProfessionChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -4488,6 +4819,7 @@ class _$ProfessionChangedImpl implements _ProfessionChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -4519,6 +4851,7 @@ class _$ProfessionChangedImpl implements _ProfessionChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -4550,6 +4883,7 @@ class _$ProfessionChangedImpl implements _ProfessionChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -4577,6 +4911,7 @@ class _$ProfessionChangedImpl implements _ProfessionChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -4690,6 +5025,7 @@ class _$PersonalCountryCodeImpl implements _PersonalCountryCode {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -4718,6 +5054,7 @@ class _$PersonalCountryCodeImpl implements _PersonalCountryCode {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -4745,6 +5082,7 @@ class _$PersonalCountryCodeImpl implements _PersonalCountryCode {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -4776,6 +5114,7 @@ class _$PersonalCountryCodeImpl implements _PersonalCountryCode {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -4807,6 +5146,7 @@ class _$PersonalCountryCodeImpl implements _PersonalCountryCode {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -4834,6 +5174,7 @@ class _$PersonalCountryCodeImpl implements _PersonalCountryCode {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -4912,6 +5253,7 @@ class _$PersonalBtnPressedImpl implements _PersonalBtnPressed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getReferenceList,
+    required TResult Function() skipReference,
     required TResult Function(int referenceId) deleteReference,
     required TResult Function(int tabIndex) tabChangeEvent,
     required TResult Function(String jobPosition) jobPositionChanged,
@@ -4940,6 +5282,7 @@ class _$PersonalBtnPressedImpl implements _PersonalBtnPressed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getReferenceList,
+    TResult? Function()? skipReference,
     TResult? Function(int referenceId)? deleteReference,
     TResult? Function(int tabIndex)? tabChangeEvent,
     TResult? Function(String jobPosition)? jobPositionChanged,
@@ -4967,6 +5310,7 @@ class _$PersonalBtnPressedImpl implements _PersonalBtnPressed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getReferenceList,
+    TResult Function()? skipReference,
     TResult Function(int referenceId)? deleteReference,
     TResult Function(int tabIndex)? tabChangeEvent,
     TResult Function(String jobPosition)? jobPositionChanged,
@@ -4998,6 +5342,7 @@ class _$PersonalBtnPressedImpl implements _PersonalBtnPressed {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetReferenceList value) getReferenceList,
+    required TResult Function(SkipReference value) skipReference,
     required TResult Function(DeleteReference value) deleteReference,
     required TResult Function(_TabChangeEvent value) tabChangeEvent,
     required TResult Function(_JobPositionChanged value) jobPositionChanged,
@@ -5029,6 +5374,7 @@ class _$PersonalBtnPressedImpl implements _PersonalBtnPressed {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetReferenceList value)? getReferenceList,
+    TResult? Function(SkipReference value)? skipReference,
     TResult? Function(DeleteReference value)? deleteReference,
     TResult? Function(_TabChangeEvent value)? tabChangeEvent,
     TResult? Function(_JobPositionChanged value)? jobPositionChanged,
@@ -5056,6 +5402,7 @@ class _$PersonalBtnPressedImpl implements _PersonalBtnPressed {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetReferenceList value)? getReferenceList,
+    TResult Function(SkipReference value)? skipReference,
     TResult Function(DeleteReference value)? deleteReference,
     TResult Function(_TabChangeEvent value)? tabChangeEvent,
     TResult Function(_JobPositionChanged value)? jobPositionChanged,
@@ -5102,7 +5449,8 @@ mixin _$ReferenceState {
   InputEmptyOrNot get startDate => throw _privateConstructorUsedError;
   InputEmptyOrNot get endDate => throw _privateConstructorUsedError;
   String get selectedCountrycode => throw _privateConstructorUsedError;
-  String get selectedCountryFlag =>
+  String get selectedCountryFlag => throw _privateConstructorUsedError;
+  Option<Either<AuthFailure, Account>> get skipFailureOrSuccessOption =>
       throw _privateConstructorUsedError; // FOR PERSONAL
   InputEmptyOrNot get contactPerson => throw _privateConstructorUsedError;
   EmailAddress get personalEmail => throw _privateConstructorUsedError;
@@ -5153,6 +5501,7 @@ abstract class $ReferenceStateCopyWith<$Res> {
       InputEmptyOrNot endDate,
       String selectedCountrycode,
       String selectedCountryFlag,
+      Option<Either<AuthFailure, Account>> skipFailureOrSuccessOption,
       InputEmptyOrNot contactPerson,
       EmailAddress personalEmail,
       MobileNumber personalPhoneNo,
@@ -5197,6 +5546,7 @@ class _$ReferenceStateCopyWithImpl<$Res, $Val extends ReferenceState>
     Object? endDate = null,
     Object? selectedCountrycode = null,
     Object? selectedCountryFlag = null,
+    Object? skipFailureOrSuccessOption = null,
     Object? contactPerson = null,
     Object? personalEmail = null,
     Object? personalPhoneNo = null,
@@ -5265,6 +5615,10 @@ class _$ReferenceStateCopyWithImpl<$Res, $Val extends ReferenceState>
           ? _value.selectedCountryFlag
           : selectedCountryFlag // ignore: cast_nullable_to_non_nullable
               as String,
+      skipFailureOrSuccessOption: null == skipFailureOrSuccessOption
+          ? _value.skipFailureOrSuccessOption
+          : skipFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AuthFailure, Account>>,
       contactPerson: null == contactPerson
           ? _value.contactPerson
           : contactPerson // ignore: cast_nullable_to_non_nullable
@@ -5349,6 +5703,7 @@ abstract class _$$ReferenceStateImplCopyWith<$Res>
       InputEmptyOrNot endDate,
       String selectedCountrycode,
       String selectedCountryFlag,
+      Option<Either<AuthFailure, Account>> skipFailureOrSuccessOption,
       InputEmptyOrNot contactPerson,
       EmailAddress personalEmail,
       MobileNumber personalPhoneNo,
@@ -5391,6 +5746,7 @@ class __$$ReferenceStateImplCopyWithImpl<$Res>
     Object? endDate = null,
     Object? selectedCountrycode = null,
     Object? selectedCountryFlag = null,
+    Object? skipFailureOrSuccessOption = null,
     Object? contactPerson = null,
     Object? personalEmail = null,
     Object? personalPhoneNo = null,
@@ -5459,6 +5815,10 @@ class __$$ReferenceStateImplCopyWithImpl<$Res>
           ? _value.selectedCountryFlag
           : selectedCountryFlag // ignore: cast_nullable_to_non_nullable
               as String,
+      skipFailureOrSuccessOption: null == skipFailureOrSuccessOption
+          ? _value.skipFailureOrSuccessOption
+          : skipFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AuthFailure, Account>>,
       contactPerson: null == contactPerson
           ? _value.contactPerson
           : contactPerson // ignore: cast_nullable_to_non_nullable
@@ -5538,6 +5898,7 @@ class _$ReferenceStateImpl implements _ReferenceState {
       required this.endDate,
       required this.selectedCountrycode,
       required this.selectedCountryFlag,
+      required this.skipFailureOrSuccessOption,
       required this.contactPerson,
       required this.personalEmail,
       required this.personalPhoneNo,
@@ -5587,6 +5948,8 @@ class _$ReferenceStateImpl implements _ReferenceState {
   final String selectedCountrycode;
   @override
   final String selectedCountryFlag;
+  @override
+  final Option<Either<AuthFailure, Account>> skipFailureOrSuccessOption;
 // FOR PERSONAL
   @override
   final InputEmptyOrNot contactPerson;
@@ -5625,7 +5988,7 @@ class _$ReferenceStateImpl implements _ReferenceState {
 
   @override
   String toString() {
-    return 'ReferenceState(referenceList: $referenceList, selectedTab: $selectedTab, jobPosition: $jobPosition, organization: $organization, referrer: $referrer, referrerEmail: $referrerEmail, referrerPhoneNo: $referrerPhoneNo, jobLocation: $jobLocation, unitDepartment: $unitDepartment, startDate: $startDate, endDate: $endDate, selectedCountrycode: $selectedCountrycode, selectedCountryFlag: $selectedCountryFlag, contactPerson: $contactPerson, personalEmail: $personalEmail, personalPhoneNo: $personalPhoneNo, profession: $profession, personalCountrycode: $personalCountrycode, personalCountryFlag: $personalCountryFlag, isProfessionalSubmitting: $isProfessionalSubmitting, showProfessionalErrorMessage: $showProfessionalErrorMessage, authFailureOrSuccessOptionProfessional: $authFailureOrSuccessOptionProfessional, isPersonalSubmitting: $isPersonalSubmitting, showPersonalErrorMessage: $showPersonalErrorMessage, authFailureOrSuccessOptionPersonal: $authFailureOrSuccessOptionPersonal, isLoading: $isLoading, failureOrSuccessOptionPersonal: $failureOrSuccessOptionPersonal)';
+    return 'ReferenceState(referenceList: $referenceList, selectedTab: $selectedTab, jobPosition: $jobPosition, organization: $organization, referrer: $referrer, referrerEmail: $referrerEmail, referrerPhoneNo: $referrerPhoneNo, jobLocation: $jobLocation, unitDepartment: $unitDepartment, startDate: $startDate, endDate: $endDate, selectedCountrycode: $selectedCountrycode, selectedCountryFlag: $selectedCountryFlag, skipFailureOrSuccessOption: $skipFailureOrSuccessOption, contactPerson: $contactPerson, personalEmail: $personalEmail, personalPhoneNo: $personalPhoneNo, profession: $profession, personalCountrycode: $personalCountrycode, personalCountryFlag: $personalCountryFlag, isProfessionalSubmitting: $isProfessionalSubmitting, showProfessionalErrorMessage: $showProfessionalErrorMessage, authFailureOrSuccessOptionProfessional: $authFailureOrSuccessOptionProfessional, isPersonalSubmitting: $isPersonalSubmitting, showPersonalErrorMessage: $showPersonalErrorMessage, authFailureOrSuccessOptionPersonal: $authFailureOrSuccessOptionPersonal, isLoading: $isLoading, failureOrSuccessOptionPersonal: $failureOrSuccessOptionPersonal)';
   }
 
   @override
@@ -5658,6 +6021,9 @@ class _$ReferenceStateImpl implements _ReferenceState {
                 other.selectedCountrycode == selectedCountrycode) &&
             (identical(other.selectedCountryFlag, selectedCountryFlag) ||
                 other.selectedCountryFlag == selectedCountryFlag) &&
+            (identical(other.skipFailureOrSuccessOption, skipFailureOrSuccessOption) ||
+                other.skipFailureOrSuccessOption ==
+                    skipFailureOrSuccessOption) &&
             (identical(other.contactPerson, contactPerson) ||
                 other.contactPerson == contactPerson) &&
             (identical(other.personalEmail, personalEmail) ||
@@ -5683,15 +6049,13 @@ class _$ReferenceStateImpl implements _ReferenceState {
                 other.isPersonalSubmitting == isPersonalSubmitting) &&
             (identical(other.showPersonalErrorMessage, showPersonalErrorMessage) ||
                 other.showPersonalErrorMessage == showPersonalErrorMessage) &&
-            (identical(other.authFailureOrSuccessOptionPersonal,
-                    authFailureOrSuccessOptionPersonal) ||
+            (identical(other.authFailureOrSuccessOptionPersonal, authFailureOrSuccessOptionPersonal) ||
                 other.authFailureOrSuccessOptionPersonal ==
                     authFailureOrSuccessOptionPersonal) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.failureOrSuccessOptionPersonal, failureOrSuccessOptionPersonal) ||
-                other.failureOrSuccessOptionPersonal ==
-                    failureOrSuccessOptionPersonal));
+                other.failureOrSuccessOptionPersonal == failureOrSuccessOptionPersonal));
   }
 
   @override
@@ -5710,6 +6074,7 @@ class _$ReferenceStateImpl implements _ReferenceState {
         endDate,
         selectedCountrycode,
         selectedCountryFlag,
+        skipFailureOrSuccessOption,
         contactPerson,
         personalEmail,
         personalPhoneNo,
@@ -5749,6 +6114,8 @@ abstract class _ReferenceState implements ReferenceState {
       required final InputEmptyOrNot endDate,
       required final String selectedCountrycode,
       required final String selectedCountryFlag,
+      required final Option<Either<AuthFailure, Account>>
+          skipFailureOrSuccessOption,
       required final InputEmptyOrNot contactPerson,
       required final EmailAddress personalEmail,
       required final MobileNumber personalPhoneNo,
@@ -5793,6 +6160,8 @@ abstract class _ReferenceState implements ReferenceState {
   String get selectedCountrycode;
   @override
   String get selectedCountryFlag;
+  @override
+  Option<Either<AuthFailure, Account>> get skipFailureOrSuccessOption;
   @override // FOR PERSONAL
   InputEmptyOrNot get contactPerson;
   @override

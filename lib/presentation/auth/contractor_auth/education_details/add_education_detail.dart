@@ -16,10 +16,13 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
+import 'package:shift/presentation/splash/splash_page.dart';
 
 @RoutePage(name: 'addEducationDetailScreen')
 class AddEducationDetail extends StatelessWidget {
-  AddEducationDetail({super.key});
+  bool isFromSplash = false;
+
+  AddEducationDetail({super.key, this.isFromSplash = false});
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +34,7 @@ class AddEducationDetail extends StatelessWidget {
         },
         child: Scaffold(
           appBar: CommonAppBar(
+            isShowBackBtn: !isFromSplash,
             onBackPressed: () {
               context.router.maybePop();
             },

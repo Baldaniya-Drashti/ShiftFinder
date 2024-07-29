@@ -9,6 +9,7 @@ import 'package:shift/domain/account/account_failure.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/domain/auth/i_auth_facade.dart';
 import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
 
 part 'reference_event.dart';
@@ -20,8 +21,10 @@ part 'reference_bloc.freezed.dart';
 @injectable
 class ReferenceBloc extends Bloc<ReferenceEvent, ReferenceState> {
   final IAccountRepository _repository;
+  final IAuthFacade _authFacade;
 
-  ReferenceBloc(this._repository) : super(ReferenceState.initial()) {
+  ReferenceBloc(this._repository, this._authFacade)
+      : super(ReferenceState.initial()) {
     on<ReferenceEvent>((event, emit) async {
       await event.map(
         getReferenceList: (e) async {
@@ -56,6 +59,44 @@ class ReferenceBloc extends Bloc<ReferenceEvent, ReferenceState> {
             ),
           );
         },
+
+        skipReference: (e) async {
+          Either<AuthFailure, Account>? failureOrSuccess;
+
+          emit(
+            state.copyWith(
+              isLoading: true,
+              skipFailureOrSuccessOption: none(),
+            ),
+          );
+
+          failureOrSuccess = await _authFacade.addLastPageApi(
+            lastPage: "Document",
+          );
+
+          failureOrSuccess.fold(
+            (l) => emit(
+              state.copyWith(
+                isLoading: false,
+              ),
+            ),
+            (r) {
+              emit(
+                state.copyWith(
+                  isLoading: false,
+                ),
+              );
+            },
+          );
+
+          emit(
+            state.copyWith(
+              isLoading: false,
+              skipFailureOrSuccessOption: optionOf(failureOrSuccess),
+            ),
+          );
+        },
+
         tabChangeEvent: (value) async {
           emit(state.copyWith(selectedTab: value.tabIndex));
         },

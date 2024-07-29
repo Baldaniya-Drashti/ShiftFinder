@@ -12,8 +12,8 @@ class LoginFormState with _$LoginFormState {
     required OTPText enteredOTP,
     required int secondsRemaining,
     required FocusNode mobileNumberFocusNode,
-    required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
-    required Option<Either<AuthFailure, String>>
+    required Option<Either<AuthFailure, Account>> authFailureOrSuccessOption,
+    required Option<Either<AuthFailure, Account>>
         verificationFailureOrSuccessOption,
     required Option<Either<AuthFailure, String>> resendFailureOrSuccessOption,
   }) = _LoginFormState;

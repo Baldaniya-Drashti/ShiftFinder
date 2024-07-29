@@ -7,14 +7,12 @@ import 'package:shift/application/auth/contractor_auth/add_contractor_skill_form
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
-import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
-import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
@@ -25,7 +23,9 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'addContractorSkillsForm')
 class AddContractorSkillsForm extends StatelessWidget {
-  AddContractorSkillsForm({super.key});
+  bool isFromSplash = false;
+
+  AddContractorSkillsForm({super.key, this.isFromSplash = false});
 
   // final List<String> requiredSpecialtiesList = [
   //   'Anesthesiology',
@@ -63,6 +63,7 @@ class AddContractorSkillsForm extends StatelessWidget {
         },
         child: Scaffold(
             appBar: CommonAppBar(
+              isShowBackBtn: !isFromSplash,
               onBackPressed: () {
                 context.router.back();
               },
@@ -93,7 +94,7 @@ class AddContractorSkillsForm extends StatelessWidget {
               },
               builder: (context, state) {
                 return (state.isLoading)
-                    ?  CenterLoadingIndicator()
+                    ? CenterLoadingIndicator()
                     : Padding(
                         padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                         child: Form(

@@ -24,6 +24,7 @@ mixin _$Account {
   int? get serviceRole => throw _privateConstructorUsedError;
   int? get industryId => throw _privateConstructorUsedError;
   String? get profileImage => throw _privateConstructorUsedError;
+  int? get isProfileComplete => throw _privateConstructorUsedError;
   String? get companyName => throw _privateConstructorUsedError;
   String? get countryCode => throw _privateConstructorUsedError;
   String? get countryNameCode => throw _privateConstructorUsedError;
@@ -56,6 +57,7 @@ abstract class $AccountCopyWith<$Res> {
       int? serviceRole,
       int? industryId,
       String? profileImage,
+      int? isProfileComplete,
       String? companyName,
       String? countryCode,
       String? countryNameCode,
@@ -94,6 +96,7 @@ class _$AccountCopyWithImpl<$Res, $Val extends Account>
     Object? serviceRole = freezed,
     Object? industryId = freezed,
     Object? profileImage = freezed,
+    Object? isProfileComplete = freezed,
     Object? companyName = freezed,
     Object? countryCode = freezed,
     Object? countryNameCode = freezed,
@@ -141,6 +144,10 @@ class _$AccountCopyWithImpl<$Res, $Val extends Account>
           ? _value.profileImage
           : profileImage // ignore: cast_nullable_to_non_nullable
               as String?,
+      isProfileComplete: freezed == isProfileComplete
+          ? _value.isProfileComplete
+          : isProfileComplete // ignore: cast_nullable_to_non_nullable
+              as int?,
       companyName: freezed == companyName
           ? _value.companyName
           : companyName // ignore: cast_nullable_to_non_nullable
@@ -225,6 +232,7 @@ abstract class _$$AccountImplCopyWith<$Res> implements $AccountCopyWith<$Res> {
       int? serviceRole,
       int? industryId,
       String? profileImage,
+      int? isProfileComplete,
       String? companyName,
       String? countryCode,
       String? countryNameCode,
@@ -262,6 +270,7 @@ class __$$AccountImplCopyWithImpl<$Res>
     Object? serviceRole = freezed,
     Object? industryId = freezed,
     Object? profileImage = freezed,
+    Object? isProfileComplete = freezed,
     Object? companyName = freezed,
     Object? countryCode = freezed,
     Object? countryNameCode = freezed,
@@ -309,6 +318,10 @@ class __$$AccountImplCopyWithImpl<$Res>
           ? _value.profileImage
           : profileImage // ignore: cast_nullable_to_non_nullable
               as String?,
+      isProfileComplete: freezed == isProfileComplete
+          ? _value.isProfileComplete
+          : isProfileComplete // ignore: cast_nullable_to_non_nullable
+              as int?,
       companyName: freezed == companyName
           ? _value.companyName
           : companyName // ignore: cast_nullable_to_non_nullable
@@ -377,6 +390,7 @@ class _$AccountImpl extends _Account {
       this.serviceRole,
       this.industryId,
       this.profileImage,
+      this.isProfileComplete,
       this.companyName,
       this.countryCode,
       this.countryNameCode,
@@ -411,6 +425,8 @@ class _$AccountImpl extends _Account {
   final int? industryId;
   @override
   final String? profileImage;
+  @override
+  final int? isProfileComplete;
   @override
   final String? companyName;
   @override
@@ -464,7 +480,7 @@ class _$AccountImpl extends _Account {
 
   @override
   String toString() {
-    return 'Account(userId: $userId, firstName: $firstName, lastName: $lastName, email: $email, isVerified: $isVerified, serviceRole: $serviceRole, industryId: $industryId, profileImage: $profileImage, companyName: $companyName, countryCode: $countryCode, countryNameCode: $countryNameCode, phone: $phone, association: $association, companyDescription: $companyDescription, location: $location, referralCode: $referralCode, lastPage: $lastPage, education: $education, reference: $reference, document: $document, auth: $auth)';
+    return 'Account(userId: $userId, firstName: $firstName, lastName: $lastName, email: $email, isVerified: $isVerified, serviceRole: $serviceRole, industryId: $industryId, profileImage: $profileImage, isProfileComplete: $isProfileComplete, companyName: $companyName, countryCode: $countryCode, countryNameCode: $countryNameCode, phone: $phone, association: $association, companyDescription: $companyDescription, location: $location, referralCode: $referralCode, lastPage: $lastPage, education: $education, reference: $reference, document: $document, auth: $auth)';
   }
 
   @override
@@ -486,6 +502,8 @@ class _$AccountImpl extends _Account {
                 other.industryId == industryId) &&
             (identical(other.profileImage, profileImage) ||
                 other.profileImage == profileImage) &&
+            (identical(other.isProfileComplete, isProfileComplete) ||
+                other.isProfileComplete == isProfileComplete) &&
             (identical(other.companyName, companyName) ||
                 other.companyName == companyName) &&
             (identical(other.countryCode, countryCode) ||
@@ -522,6 +540,7 @@ class _$AccountImpl extends _Account {
         serviceRole,
         industryId,
         profileImage,
+        isProfileComplete,
         companyName,
         countryCode,
         countryNameCode,
@@ -554,6 +573,7 @@ abstract class _Account extends Account {
       final int? serviceRole,
       final int? industryId,
       final String? profileImage,
+      final int? isProfileComplete,
       final String? companyName,
       final String? countryCode,
       final String? countryNameCode,
@@ -585,6 +605,8 @@ abstract class _Account extends Account {
   int? get industryId;
   @override
   String? get profileImage;
+  @override
+  int? get isProfileComplete;
   @override
   String? get companyName;
   @override

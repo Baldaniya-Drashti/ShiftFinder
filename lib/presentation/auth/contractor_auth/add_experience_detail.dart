@@ -18,12 +18,12 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/custom_year_picker/custom_date_picker_dropdown.dart';
 import 'package:shift/presentation/core/widgets/custom_year_picker/order_format.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
-
 import '../../common/widgets/center_loading_indicator.dart';
 
 @RoutePage(name: 'addExperienceDetailScreen')
 class AddExperienceDetail extends StatelessWidget {
-  const AddExperienceDetail({super.key});
+  bool isFromSplash = false;
+  AddExperienceDetail({super.key, this.isFromSplash = false});
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +32,7 @@ class AddExperienceDetail extends StatelessWidget {
         ..add(const ExperienceEvent.getExperinceDataEvent()),
       child: Scaffold(
         appBar: CommonAppBar(
+          isShowBackBtn: !isFromSplash,
           onBackPressed: () {
             context.router.maybePop();
           },

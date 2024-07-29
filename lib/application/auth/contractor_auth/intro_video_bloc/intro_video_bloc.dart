@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
@@ -81,7 +83,6 @@ class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
                   state.copyWith(
                     isSubmitting: false,
                     questions: r,
-
                   ),
                 );
               } else {
@@ -116,7 +117,7 @@ class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
             selectedAnswers: updatedSelectedOptions,
           );
           updatedQuestionList[e.questionIndex] = updatedQuestion;
-          print("Updated question list---> ${updatedQuestionList}");
+          print("Updated question list---> $updatedQuestionList");
           emit(state.copyWith(questions: updatedQuestionList));
         },
         submitQuiz: (e) async {
@@ -126,16 +127,18 @@ class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
             return (element.selectedAnswers != null &&
                 element.selectedAnswers!.isNotEmpty);
           });
-          print("Is All validated -->  ${isAllValidated}");
+          print("Is All validated -->  $isAllValidated");
           if (isAllValidated) {
-
-            List<Map<String, dynamic>> formattedData = state.questions.map((question) {
+            List<Map<String, dynamic>> formattedData =
+                state.questions.map((question) {
               return {
                 'question_id': question.id,
-                'answer': question.selectedAnswers!.map((answer) => answer.id.toString()).join(','),
+                'answer': question.selectedAnswers!
+                    .map((answer) => answer.id.toString())
+                    .join(','),
               };
             }).toList();
-            print("selected answers -->  ${formattedData}");
+            print("selected answers -->  $formattedData");
 
             // emit(state.copyWith(
             //   questions: state.questions
@@ -157,12 +160,12 @@ class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
             );
 
             failureOrSuccess.fold(
-                  (l) => emit(
+              (l) => emit(
                 state.copyWith(
                   isSubmitting: false,
                 ),
               ),
-                  (r) {
+              (r) {
                 emit(
                   state.copyWith(
                     isSubmitting: false,
@@ -190,7 +193,6 @@ class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
         },
       );
     });
-
   }
 
   @override

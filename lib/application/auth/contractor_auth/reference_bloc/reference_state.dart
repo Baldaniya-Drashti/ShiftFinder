@@ -17,6 +17,7 @@ class ReferenceState with _$ReferenceState {
     required InputEmptyOrNot endDate,
     required String selectedCountrycode,
     required String selectedCountryFlag,
+    required Option<Either<AuthFailure, Account>> skipFailureOrSuccessOption,
 
     // FOR PERSONAL
     required InputEmptyOrNot contactPerson,
@@ -77,5 +78,6 @@ class ReferenceState with _$ReferenceState {
 
         isLoading: false,
         failureOrSuccessOptionPersonal: none(),
+        skipFailureOrSuccessOption: none(),
       );
 }

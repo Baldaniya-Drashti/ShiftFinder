@@ -3,6 +3,7 @@ part of 'reference_bloc.dart';
 @freezed
 class ReferenceEvent with _$ReferenceEvent {
   const factory ReferenceEvent.getReferenceList() = GetReferenceList;
+  const factory ReferenceEvent.skipReference() = SkipReference;
 
   const factory ReferenceEvent.deleteReference(int referenceId) =
       DeleteReference;

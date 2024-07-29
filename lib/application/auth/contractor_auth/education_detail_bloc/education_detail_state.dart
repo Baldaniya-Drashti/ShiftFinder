@@ -14,6 +14,7 @@ class EducationDetailState with _$EducationDetailState {
     required bool showAddEducationErrorMessages,
     required bool showErrorMessages,
     required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
+    required Option<Either<AuthFailure, Account>> skipFailureOrSuccessOption,
     required Option<Either<AccountFailure, String>> failureOrSuccessOption,
     required Option<Either<AccountFailure, Account>> listFailureOrSuccessOption,
   }) = _EducationDetailState;
@@ -28,5 +29,6 @@ class EducationDetailState with _$EducationDetailState {
         authFailureOrSuccessOption: none(),
         failureOrSuccessOption: none(),
         listFailureOrSuccessOption: none(),
+        skipFailureOrSuccessOption: none(),
       );
 }

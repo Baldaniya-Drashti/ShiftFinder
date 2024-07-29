@@ -70,7 +70,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   String title;
   TextStyle? textStyle;
   Color? iconColor;
-  bool isShowBackBtn;
+  bool? isShowBackBtn;
   SystemUiOverlayStyle? systemOverlayStyle;
   List<Widget>? actions;
   bool showSkipBtn;
@@ -92,7 +92,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       forceMaterialTransparency: true,
-      leading: (isShowBackBtn)
+      leading: (isShowBackBtn != null && isShowBackBtn == true)
           ? Padding(
               padding: EdgeInsets.only(left: getSize(20)),
               child: GestureDetector(

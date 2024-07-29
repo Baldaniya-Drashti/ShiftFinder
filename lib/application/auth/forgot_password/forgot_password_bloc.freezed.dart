@@ -19,6 +19,7 @@ mixin _$ForgotPasswordEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String mobileNumber) mobileNumberChanged,
+    required TResult Function(String email) emailChanged,
     required TResult Function(String counryCode) selectCountryCode,
     required TResult Function() sendOtpPressed,
     required TResult Function(int page) nextPage,
@@ -37,6 +38,7 @@ mixin _$ForgotPasswordEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String mobileNumber)? mobileNumberChanged,
+    TResult? Function(String email)? emailChanged,
     TResult? Function(String counryCode)? selectCountryCode,
     TResult? Function()? sendOtpPressed,
     TResult? Function(int page)? nextPage,
@@ -55,6 +57,7 @@ mixin _$ForgotPasswordEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String mobileNumber)? mobileNumberChanged,
+    TResult Function(String email)? emailChanged,
     TResult Function(String counryCode)? selectCountryCode,
     TResult Function()? sendOtpPressed,
     TResult Function(int page)? nextPage,
@@ -74,6 +77,7 @@ mixin _$ForgotPasswordEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MobileNumberChanged value) mobileNumberChanged,
+    required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(SelectCountryCode value) selectCountryCode,
     required TResult Function(SendOtpPressed value) sendOtpPressed,
     required TResult Function(NextPage value) nextPage,
@@ -92,6 +96,7 @@ mixin _$ForgotPasswordEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(SelectCountryCode value)? selectCountryCode,
     TResult? Function(SendOtpPressed value)? sendOtpPressed,
     TResult? Function(NextPage value)? nextPage,
@@ -109,6 +114,7 @@ mixin _$ForgotPasswordEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult Function(EmailChanged value)? emailChanged,
     TResult Function(SelectCountryCode value)? selectCountryCode,
     TResult Function(SendOtpPressed value)? sendOtpPressed,
     TResult Function(NextPage value)? nextPage,
@@ -211,6 +217,7 @@ class _$MobileNumberChangedImpl implements MobileNumberChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String mobileNumber) mobileNumberChanged,
+    required TResult Function(String email) emailChanged,
     required TResult Function(String counryCode) selectCountryCode,
     required TResult Function() sendOtpPressed,
     required TResult Function(int page) nextPage,
@@ -232,6 +239,7 @@ class _$MobileNumberChangedImpl implements MobileNumberChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String mobileNumber)? mobileNumberChanged,
+    TResult? Function(String email)? emailChanged,
     TResult? Function(String counryCode)? selectCountryCode,
     TResult? Function()? sendOtpPressed,
     TResult? Function(int page)? nextPage,
@@ -253,6 +261,7 @@ class _$MobileNumberChangedImpl implements MobileNumberChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String mobileNumber)? mobileNumberChanged,
+    TResult Function(String email)? emailChanged,
     TResult Function(String counryCode)? selectCountryCode,
     TResult Function()? sendOtpPressed,
     TResult Function(int page)? nextPage,
@@ -278,6 +287,7 @@ class _$MobileNumberChangedImpl implements MobileNumberChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MobileNumberChanged value) mobileNumberChanged,
+    required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(SelectCountryCode value) selectCountryCode,
     required TResult Function(SendOtpPressed value) sendOtpPressed,
     required TResult Function(NextPage value) nextPage,
@@ -299,6 +309,7 @@ class _$MobileNumberChangedImpl implements MobileNumberChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(SelectCountryCode value)? selectCountryCode,
     TResult? Function(SendOtpPressed value)? sendOtpPressed,
     TResult? Function(NextPage value)? nextPage,
@@ -319,6 +330,7 @@ class _$MobileNumberChangedImpl implements MobileNumberChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult Function(EmailChanged value)? emailChanged,
     TResult Function(SelectCountryCode value)? selectCountryCode,
     TResult Function(SendOtpPressed value)? sendOtpPressed,
     TResult Function(NextPage value)? nextPage,
@@ -347,6 +359,215 @@ abstract class MobileNumberChanged implements ForgotPasswordEvent {
   String get mobileNumber;
   @JsonKey(ignore: true)
   _$$MobileNumberChangedImplCopyWith<_$MobileNumberChangedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$EmailChangedImplCopyWith<$Res> {
+  factory _$$EmailChangedImplCopyWith(
+          _$EmailChangedImpl value, $Res Function(_$EmailChangedImpl) then) =
+      __$$EmailChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String email});
+}
+
+/// @nodoc
+class __$$EmailChangedImplCopyWithImpl<$Res>
+    extends _$ForgotPasswordEventCopyWithImpl<$Res, _$EmailChangedImpl>
+    implements _$$EmailChangedImplCopyWith<$Res> {
+  __$$EmailChangedImplCopyWithImpl(
+      _$EmailChangedImpl _value, $Res Function(_$EmailChangedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+  }) {
+    return _then(_$EmailChangedImpl(
+      null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$EmailChangedImpl implements EmailChanged {
+  const _$EmailChangedImpl(this.email);
+
+  @override
+  final String email;
+
+  @override
+  String toString() {
+    return 'ForgotPasswordEvent.emailChanged(email: $email)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$EmailChangedImpl &&
+            (identical(other.email, email) || other.email == email));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, email);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$EmailChangedImplCopyWith<_$EmailChangedImpl> get copyWith =>
+      __$$EmailChangedImplCopyWithImpl<_$EmailChangedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String mobileNumber) mobileNumberChanged,
+    required TResult Function(String email) emailChanged,
+    required TResult Function(String counryCode) selectCountryCode,
+    required TResult Function() sendOtpPressed,
+    required TResult Function(int page) nextPage,
+    required TResult Function(String otp) changeOTP,
+    required TResult Function() startCountdown,
+    required TResult Function() decrementTimer,
+    required TResult Function() resendOtp,
+    required TResult Function() verifyOtp,
+    required TResult Function(String newPassword) newPasswordChanged,
+    required TResult Function(String confirmPassword, String newPassword)
+        confirmPasswordChanged,
+    required TResult Function(int field) obscureText,
+    required TResult Function() saveNewPassword,
+  }) {
+    return emailChanged(email);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String mobileNumber)? mobileNumberChanged,
+    TResult? Function(String email)? emailChanged,
+    TResult? Function(String counryCode)? selectCountryCode,
+    TResult? Function()? sendOtpPressed,
+    TResult? Function(int page)? nextPage,
+    TResult? Function(String otp)? changeOTP,
+    TResult? Function()? startCountdown,
+    TResult? Function()? decrementTimer,
+    TResult? Function()? resendOtp,
+    TResult? Function()? verifyOtp,
+    TResult? Function(String newPassword)? newPasswordChanged,
+    TResult? Function(String confirmPassword, String newPassword)?
+        confirmPasswordChanged,
+    TResult? Function(int field)? obscureText,
+    TResult? Function()? saveNewPassword,
+  }) {
+    return emailChanged?.call(email);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String mobileNumber)? mobileNumberChanged,
+    TResult Function(String email)? emailChanged,
+    TResult Function(String counryCode)? selectCountryCode,
+    TResult Function()? sendOtpPressed,
+    TResult Function(int page)? nextPage,
+    TResult Function(String otp)? changeOTP,
+    TResult Function()? startCountdown,
+    TResult Function()? decrementTimer,
+    TResult Function()? resendOtp,
+    TResult Function()? verifyOtp,
+    TResult Function(String newPassword)? newPasswordChanged,
+    TResult Function(String confirmPassword, String newPassword)?
+        confirmPasswordChanged,
+    TResult Function(int field)? obscureText,
+    TResult Function()? saveNewPassword,
+    required TResult orElse(),
+  }) {
+    if (emailChanged != null) {
+      return emailChanged(email);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MobileNumberChanged value) mobileNumberChanged,
+    required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(SelectCountryCode value) selectCountryCode,
+    required TResult Function(SendOtpPressed value) sendOtpPressed,
+    required TResult Function(NextPage value) nextPage,
+    required TResult Function(ChangeOTP value) changeOTP,
+    required TResult Function(StartCountdown value) startCountdown,
+    required TResult Function(DecrementTimer value) decrementTimer,
+    required TResult Function(ResendOtp value) resendOtp,
+    required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(NewPasswordChanged value) newPasswordChanged,
+    required TResult Function(ConfirmPasswordChanged value)
+        confirmPasswordChanged,
+    required TResult Function(ObscureText value) obscureText,
+    required TResult Function(SaveNewPassword value) saveNewPassword,
+  }) {
+    return emailChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(SelectCountryCode value)? selectCountryCode,
+    TResult? Function(SendOtpPressed value)? sendOtpPressed,
+    TResult? Function(NextPage value)? nextPage,
+    TResult? Function(ChangeOTP value)? changeOTP,
+    TResult? Function(StartCountdown value)? startCountdown,
+    TResult? Function(DecrementTimer value)? decrementTimer,
+    TResult? Function(ResendOtp value)? resendOtp,
+    TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(NewPasswordChanged value)? newPasswordChanged,
+    TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
+    TResult? Function(ObscureText value)? obscureText,
+    TResult? Function(SaveNewPassword value)? saveNewPassword,
+  }) {
+    return emailChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(SelectCountryCode value)? selectCountryCode,
+    TResult Function(SendOtpPressed value)? sendOtpPressed,
+    TResult Function(NextPage value)? nextPage,
+    TResult Function(ChangeOTP value)? changeOTP,
+    TResult Function(StartCountdown value)? startCountdown,
+    TResult Function(DecrementTimer value)? decrementTimer,
+    TResult Function(ResendOtp value)? resendOtp,
+    TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(NewPasswordChanged value)? newPasswordChanged,
+    TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
+    TResult Function(ObscureText value)? obscureText,
+    TResult Function(SaveNewPassword value)? saveNewPassword,
+    required TResult orElse(),
+  }) {
+    if (emailChanged != null) {
+      return emailChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class EmailChanged implements ForgotPasswordEvent {
+  const factory EmailChanged(final String email) = _$EmailChangedImpl;
+
+  String get email;
+  @JsonKey(ignore: true)
+  _$$EmailChangedImplCopyWith<_$EmailChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -417,6 +638,7 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String mobileNumber) mobileNumberChanged,
+    required TResult Function(String email) emailChanged,
     required TResult Function(String counryCode) selectCountryCode,
     required TResult Function() sendOtpPressed,
     required TResult Function(int page) nextPage,
@@ -438,6 +660,7 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String mobileNumber)? mobileNumberChanged,
+    TResult? Function(String email)? emailChanged,
     TResult? Function(String counryCode)? selectCountryCode,
     TResult? Function()? sendOtpPressed,
     TResult? Function(int page)? nextPage,
@@ -459,6 +682,7 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String mobileNumber)? mobileNumberChanged,
+    TResult Function(String email)? emailChanged,
     TResult Function(String counryCode)? selectCountryCode,
     TResult Function()? sendOtpPressed,
     TResult Function(int page)? nextPage,
@@ -484,6 +708,7 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MobileNumberChanged value) mobileNumberChanged,
+    required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(SelectCountryCode value) selectCountryCode,
     required TResult Function(SendOtpPressed value) sendOtpPressed,
     required TResult Function(NextPage value) nextPage,
@@ -505,6 +730,7 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(SelectCountryCode value)? selectCountryCode,
     TResult? Function(SendOtpPressed value)? sendOtpPressed,
     TResult? Function(NextPage value)? nextPage,
@@ -525,6 +751,7 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult Function(EmailChanged value)? emailChanged,
     TResult Function(SelectCountryCode value)? selectCountryCode,
     TResult Function(SendOtpPressed value)? sendOtpPressed,
     TResult Function(NextPage value)? nextPage,
@@ -595,6 +822,7 @@ class _$SendOtpPressedImpl implements SendOtpPressed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String mobileNumber) mobileNumberChanged,
+    required TResult Function(String email) emailChanged,
     required TResult Function(String counryCode) selectCountryCode,
     required TResult Function() sendOtpPressed,
     required TResult Function(int page) nextPage,
@@ -616,6 +844,7 @@ class _$SendOtpPressedImpl implements SendOtpPressed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String mobileNumber)? mobileNumberChanged,
+    TResult? Function(String email)? emailChanged,
     TResult? Function(String counryCode)? selectCountryCode,
     TResult? Function()? sendOtpPressed,
     TResult? Function(int page)? nextPage,
@@ -637,6 +866,7 @@ class _$SendOtpPressedImpl implements SendOtpPressed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String mobileNumber)? mobileNumberChanged,
+    TResult Function(String email)? emailChanged,
     TResult Function(String counryCode)? selectCountryCode,
     TResult Function()? sendOtpPressed,
     TResult Function(int page)? nextPage,
@@ -662,6 +892,7 @@ class _$SendOtpPressedImpl implements SendOtpPressed {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MobileNumberChanged value) mobileNumberChanged,
+    required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(SelectCountryCode value) selectCountryCode,
     required TResult Function(SendOtpPressed value) sendOtpPressed,
     required TResult Function(NextPage value) nextPage,
@@ -683,6 +914,7 @@ class _$SendOtpPressedImpl implements SendOtpPressed {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(SelectCountryCode value)? selectCountryCode,
     TResult? Function(SendOtpPressed value)? sendOtpPressed,
     TResult? Function(NextPage value)? nextPage,
@@ -703,6 +935,7 @@ class _$SendOtpPressedImpl implements SendOtpPressed {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult Function(EmailChanged value)? emailChanged,
     TResult Function(SelectCountryCode value)? selectCountryCode,
     TResult Function(SendOtpPressed value)? sendOtpPressed,
     TResult Function(NextPage value)? nextPage,
@@ -793,6 +1026,7 @@ class _$NextPageImpl implements NextPage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String mobileNumber) mobileNumberChanged,
+    required TResult Function(String email) emailChanged,
     required TResult Function(String counryCode) selectCountryCode,
     required TResult Function() sendOtpPressed,
     required TResult Function(int page) nextPage,
@@ -814,6 +1048,7 @@ class _$NextPageImpl implements NextPage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String mobileNumber)? mobileNumberChanged,
+    TResult? Function(String email)? emailChanged,
     TResult? Function(String counryCode)? selectCountryCode,
     TResult? Function()? sendOtpPressed,
     TResult? Function(int page)? nextPage,
@@ -835,6 +1070,7 @@ class _$NextPageImpl implements NextPage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String mobileNumber)? mobileNumberChanged,
+    TResult Function(String email)? emailChanged,
     TResult Function(String counryCode)? selectCountryCode,
     TResult Function()? sendOtpPressed,
     TResult Function(int page)? nextPage,
@@ -860,6 +1096,7 @@ class _$NextPageImpl implements NextPage {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MobileNumberChanged value) mobileNumberChanged,
+    required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(SelectCountryCode value) selectCountryCode,
     required TResult Function(SendOtpPressed value) sendOtpPressed,
     required TResult Function(NextPage value) nextPage,
@@ -881,6 +1118,7 @@ class _$NextPageImpl implements NextPage {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(SelectCountryCode value)? selectCountryCode,
     TResult? Function(SendOtpPressed value)? sendOtpPressed,
     TResult? Function(NextPage value)? nextPage,
@@ -901,6 +1139,7 @@ class _$NextPageImpl implements NextPage {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult Function(EmailChanged value)? emailChanged,
     TResult Function(SelectCountryCode value)? selectCountryCode,
     TResult Function(SendOtpPressed value)? sendOtpPressed,
     TResult Function(NextPage value)? nextPage,
@@ -996,6 +1235,7 @@ class _$ChangeOTPImpl implements ChangeOTP {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String mobileNumber) mobileNumberChanged,
+    required TResult Function(String email) emailChanged,
     required TResult Function(String counryCode) selectCountryCode,
     required TResult Function() sendOtpPressed,
     required TResult Function(int page) nextPage,
@@ -1017,6 +1257,7 @@ class _$ChangeOTPImpl implements ChangeOTP {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String mobileNumber)? mobileNumberChanged,
+    TResult? Function(String email)? emailChanged,
     TResult? Function(String counryCode)? selectCountryCode,
     TResult? Function()? sendOtpPressed,
     TResult? Function(int page)? nextPage,
@@ -1038,6 +1279,7 @@ class _$ChangeOTPImpl implements ChangeOTP {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String mobileNumber)? mobileNumberChanged,
+    TResult Function(String email)? emailChanged,
     TResult Function(String counryCode)? selectCountryCode,
     TResult Function()? sendOtpPressed,
     TResult Function(int page)? nextPage,
@@ -1063,6 +1305,7 @@ class _$ChangeOTPImpl implements ChangeOTP {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MobileNumberChanged value) mobileNumberChanged,
+    required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(SelectCountryCode value) selectCountryCode,
     required TResult Function(SendOtpPressed value) sendOtpPressed,
     required TResult Function(NextPage value) nextPage,
@@ -1084,6 +1327,7 @@ class _$ChangeOTPImpl implements ChangeOTP {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(SelectCountryCode value)? selectCountryCode,
     TResult? Function(SendOtpPressed value)? sendOtpPressed,
     TResult? Function(NextPage value)? nextPage,
@@ -1104,6 +1348,7 @@ class _$ChangeOTPImpl implements ChangeOTP {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult Function(EmailChanged value)? emailChanged,
     TResult Function(SelectCountryCode value)? selectCountryCode,
     TResult Function(SendOtpPressed value)? sendOtpPressed,
     TResult Function(NextPage value)? nextPage,
@@ -1173,6 +1418,7 @@ class _$StartCountdownImpl implements StartCountdown {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String mobileNumber) mobileNumberChanged,
+    required TResult Function(String email) emailChanged,
     required TResult Function(String counryCode) selectCountryCode,
     required TResult Function() sendOtpPressed,
     required TResult Function(int page) nextPage,
@@ -1194,6 +1440,7 @@ class _$StartCountdownImpl implements StartCountdown {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String mobileNumber)? mobileNumberChanged,
+    TResult? Function(String email)? emailChanged,
     TResult? Function(String counryCode)? selectCountryCode,
     TResult? Function()? sendOtpPressed,
     TResult? Function(int page)? nextPage,
@@ -1215,6 +1462,7 @@ class _$StartCountdownImpl implements StartCountdown {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String mobileNumber)? mobileNumberChanged,
+    TResult Function(String email)? emailChanged,
     TResult Function(String counryCode)? selectCountryCode,
     TResult Function()? sendOtpPressed,
     TResult Function(int page)? nextPage,
@@ -1240,6 +1488,7 @@ class _$StartCountdownImpl implements StartCountdown {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MobileNumberChanged value) mobileNumberChanged,
+    required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(SelectCountryCode value) selectCountryCode,
     required TResult Function(SendOtpPressed value) sendOtpPressed,
     required TResult Function(NextPage value) nextPage,
@@ -1261,6 +1510,7 @@ class _$StartCountdownImpl implements StartCountdown {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(SelectCountryCode value)? selectCountryCode,
     TResult? Function(SendOtpPressed value)? sendOtpPressed,
     TResult? Function(NextPage value)? nextPage,
@@ -1281,6 +1531,7 @@ class _$StartCountdownImpl implements StartCountdown {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult Function(EmailChanged value)? emailChanged,
     TResult Function(SelectCountryCode value)? selectCountryCode,
     TResult Function(SendOtpPressed value)? sendOtpPressed,
     TResult Function(NextPage value)? nextPage,
@@ -1345,6 +1596,7 @@ class _$DecrementTimerImpl implements DecrementTimer {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String mobileNumber) mobileNumberChanged,
+    required TResult Function(String email) emailChanged,
     required TResult Function(String counryCode) selectCountryCode,
     required TResult Function() sendOtpPressed,
     required TResult Function(int page) nextPage,
@@ -1366,6 +1618,7 @@ class _$DecrementTimerImpl implements DecrementTimer {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String mobileNumber)? mobileNumberChanged,
+    TResult? Function(String email)? emailChanged,
     TResult? Function(String counryCode)? selectCountryCode,
     TResult? Function()? sendOtpPressed,
     TResult? Function(int page)? nextPage,
@@ -1387,6 +1640,7 @@ class _$DecrementTimerImpl implements DecrementTimer {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String mobileNumber)? mobileNumberChanged,
+    TResult Function(String email)? emailChanged,
     TResult Function(String counryCode)? selectCountryCode,
     TResult Function()? sendOtpPressed,
     TResult Function(int page)? nextPage,
@@ -1412,6 +1666,7 @@ class _$DecrementTimerImpl implements DecrementTimer {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MobileNumberChanged value) mobileNumberChanged,
+    required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(SelectCountryCode value) selectCountryCode,
     required TResult Function(SendOtpPressed value) sendOtpPressed,
     required TResult Function(NextPage value) nextPage,
@@ -1433,6 +1688,7 @@ class _$DecrementTimerImpl implements DecrementTimer {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(SelectCountryCode value)? selectCountryCode,
     TResult? Function(SendOtpPressed value)? sendOtpPressed,
     TResult? Function(NextPage value)? nextPage,
@@ -1453,6 +1709,7 @@ class _$DecrementTimerImpl implements DecrementTimer {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult Function(EmailChanged value)? emailChanged,
     TResult Function(SelectCountryCode value)? selectCountryCode,
     TResult Function(SendOtpPressed value)? sendOtpPressed,
     TResult Function(NextPage value)? nextPage,
@@ -1517,6 +1774,7 @@ class _$ResendOtpImpl implements ResendOtp {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String mobileNumber) mobileNumberChanged,
+    required TResult Function(String email) emailChanged,
     required TResult Function(String counryCode) selectCountryCode,
     required TResult Function() sendOtpPressed,
     required TResult Function(int page) nextPage,
@@ -1538,6 +1796,7 @@ class _$ResendOtpImpl implements ResendOtp {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String mobileNumber)? mobileNumberChanged,
+    TResult? Function(String email)? emailChanged,
     TResult? Function(String counryCode)? selectCountryCode,
     TResult? Function()? sendOtpPressed,
     TResult? Function(int page)? nextPage,
@@ -1559,6 +1818,7 @@ class _$ResendOtpImpl implements ResendOtp {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String mobileNumber)? mobileNumberChanged,
+    TResult Function(String email)? emailChanged,
     TResult Function(String counryCode)? selectCountryCode,
     TResult Function()? sendOtpPressed,
     TResult Function(int page)? nextPage,
@@ -1584,6 +1844,7 @@ class _$ResendOtpImpl implements ResendOtp {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MobileNumberChanged value) mobileNumberChanged,
+    required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(SelectCountryCode value) selectCountryCode,
     required TResult Function(SendOtpPressed value) sendOtpPressed,
     required TResult Function(NextPage value) nextPage,
@@ -1605,6 +1866,7 @@ class _$ResendOtpImpl implements ResendOtp {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(SelectCountryCode value)? selectCountryCode,
     TResult? Function(SendOtpPressed value)? sendOtpPressed,
     TResult? Function(NextPage value)? nextPage,
@@ -1625,6 +1887,7 @@ class _$ResendOtpImpl implements ResendOtp {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult Function(EmailChanged value)? emailChanged,
     TResult Function(SelectCountryCode value)? selectCountryCode,
     TResult Function(SendOtpPressed value)? sendOtpPressed,
     TResult Function(NextPage value)? nextPage,
@@ -1689,6 +1952,7 @@ class _$VerifyOtpImpl implements VerifyOtp {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String mobileNumber) mobileNumberChanged,
+    required TResult Function(String email) emailChanged,
     required TResult Function(String counryCode) selectCountryCode,
     required TResult Function() sendOtpPressed,
     required TResult Function(int page) nextPage,
@@ -1710,6 +1974,7 @@ class _$VerifyOtpImpl implements VerifyOtp {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String mobileNumber)? mobileNumberChanged,
+    TResult? Function(String email)? emailChanged,
     TResult? Function(String counryCode)? selectCountryCode,
     TResult? Function()? sendOtpPressed,
     TResult? Function(int page)? nextPage,
@@ -1731,6 +1996,7 @@ class _$VerifyOtpImpl implements VerifyOtp {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String mobileNumber)? mobileNumberChanged,
+    TResult Function(String email)? emailChanged,
     TResult Function(String counryCode)? selectCountryCode,
     TResult Function()? sendOtpPressed,
     TResult Function(int page)? nextPage,
@@ -1756,6 +2022,7 @@ class _$VerifyOtpImpl implements VerifyOtp {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MobileNumberChanged value) mobileNumberChanged,
+    required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(SelectCountryCode value) selectCountryCode,
     required TResult Function(SendOtpPressed value) sendOtpPressed,
     required TResult Function(NextPage value) nextPage,
@@ -1777,6 +2044,7 @@ class _$VerifyOtpImpl implements VerifyOtp {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(SelectCountryCode value)? selectCountryCode,
     TResult? Function(SendOtpPressed value)? sendOtpPressed,
     TResult? Function(NextPage value)? nextPage,
@@ -1797,6 +2065,7 @@ class _$VerifyOtpImpl implements VerifyOtp {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult Function(EmailChanged value)? emailChanged,
     TResult Function(SelectCountryCode value)? selectCountryCode,
     TResult Function(SendOtpPressed value)? sendOtpPressed,
     TResult Function(NextPage value)? nextPage,
@@ -1889,6 +2158,7 @@ class _$NewPasswordChangedImpl implements NewPasswordChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String mobileNumber) mobileNumberChanged,
+    required TResult Function(String email) emailChanged,
     required TResult Function(String counryCode) selectCountryCode,
     required TResult Function() sendOtpPressed,
     required TResult Function(int page) nextPage,
@@ -1910,6 +2180,7 @@ class _$NewPasswordChangedImpl implements NewPasswordChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String mobileNumber)? mobileNumberChanged,
+    TResult? Function(String email)? emailChanged,
     TResult? Function(String counryCode)? selectCountryCode,
     TResult? Function()? sendOtpPressed,
     TResult? Function(int page)? nextPage,
@@ -1931,6 +2202,7 @@ class _$NewPasswordChangedImpl implements NewPasswordChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String mobileNumber)? mobileNumberChanged,
+    TResult Function(String email)? emailChanged,
     TResult Function(String counryCode)? selectCountryCode,
     TResult Function()? sendOtpPressed,
     TResult Function(int page)? nextPage,
@@ -1956,6 +2228,7 @@ class _$NewPasswordChangedImpl implements NewPasswordChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MobileNumberChanged value) mobileNumberChanged,
+    required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(SelectCountryCode value) selectCountryCode,
     required TResult Function(SendOtpPressed value) sendOtpPressed,
     required TResult Function(NextPage value) nextPage,
@@ -1977,6 +2250,7 @@ class _$NewPasswordChangedImpl implements NewPasswordChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(SelectCountryCode value)? selectCountryCode,
     TResult? Function(SendOtpPressed value)? sendOtpPressed,
     TResult? Function(NextPage value)? nextPage,
@@ -1997,6 +2271,7 @@ class _$NewPasswordChangedImpl implements NewPasswordChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult Function(EmailChanged value)? emailChanged,
     TResult Function(SelectCountryCode value)? selectCountryCode,
     TResult Function(SendOtpPressed value)? sendOtpPressed,
     TResult Function(NextPage value)? nextPage,
@@ -2107,6 +2382,7 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String mobileNumber) mobileNumberChanged,
+    required TResult Function(String email) emailChanged,
     required TResult Function(String counryCode) selectCountryCode,
     required TResult Function() sendOtpPressed,
     required TResult Function(int page) nextPage,
@@ -2128,6 +2404,7 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String mobileNumber)? mobileNumberChanged,
+    TResult? Function(String email)? emailChanged,
     TResult? Function(String counryCode)? selectCountryCode,
     TResult? Function()? sendOtpPressed,
     TResult? Function(int page)? nextPage,
@@ -2149,6 +2426,7 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String mobileNumber)? mobileNumberChanged,
+    TResult Function(String email)? emailChanged,
     TResult Function(String counryCode)? selectCountryCode,
     TResult Function()? sendOtpPressed,
     TResult Function(int page)? nextPage,
@@ -2174,6 +2452,7 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MobileNumberChanged value) mobileNumberChanged,
+    required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(SelectCountryCode value) selectCountryCode,
     required TResult Function(SendOtpPressed value) sendOtpPressed,
     required TResult Function(NextPage value) nextPage,
@@ -2195,6 +2474,7 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(SelectCountryCode value)? selectCountryCode,
     TResult? Function(SendOtpPressed value)? sendOtpPressed,
     TResult? Function(NextPage value)? nextPage,
@@ -2215,6 +2495,7 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult Function(EmailChanged value)? emailChanged,
     TResult Function(SelectCountryCode value)? selectCountryCode,
     TResult Function(SendOtpPressed value)? sendOtpPressed,
     TResult Function(NextPage value)? nextPage,
@@ -2313,6 +2594,7 @@ class _$ObscureTextImpl implements ObscureText {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String mobileNumber) mobileNumberChanged,
+    required TResult Function(String email) emailChanged,
     required TResult Function(String counryCode) selectCountryCode,
     required TResult Function() sendOtpPressed,
     required TResult Function(int page) nextPage,
@@ -2334,6 +2616,7 @@ class _$ObscureTextImpl implements ObscureText {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String mobileNumber)? mobileNumberChanged,
+    TResult? Function(String email)? emailChanged,
     TResult? Function(String counryCode)? selectCountryCode,
     TResult? Function()? sendOtpPressed,
     TResult? Function(int page)? nextPage,
@@ -2355,6 +2638,7 @@ class _$ObscureTextImpl implements ObscureText {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String mobileNumber)? mobileNumberChanged,
+    TResult Function(String email)? emailChanged,
     TResult Function(String counryCode)? selectCountryCode,
     TResult Function()? sendOtpPressed,
     TResult Function(int page)? nextPage,
@@ -2380,6 +2664,7 @@ class _$ObscureTextImpl implements ObscureText {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MobileNumberChanged value) mobileNumberChanged,
+    required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(SelectCountryCode value) selectCountryCode,
     required TResult Function(SendOtpPressed value) sendOtpPressed,
     required TResult Function(NextPage value) nextPage,
@@ -2401,6 +2686,7 @@ class _$ObscureTextImpl implements ObscureText {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(SelectCountryCode value)? selectCountryCode,
     TResult? Function(SendOtpPressed value)? sendOtpPressed,
     TResult? Function(NextPage value)? nextPage,
@@ -2421,6 +2707,7 @@ class _$ObscureTextImpl implements ObscureText {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult Function(EmailChanged value)? emailChanged,
     TResult Function(SelectCountryCode value)? selectCountryCode,
     TResult Function(SendOtpPressed value)? sendOtpPressed,
     TResult Function(NextPage value)? nextPage,
@@ -2490,6 +2777,7 @@ class _$SaveNewPasswordImpl implements SaveNewPassword {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String mobileNumber) mobileNumberChanged,
+    required TResult Function(String email) emailChanged,
     required TResult Function(String counryCode) selectCountryCode,
     required TResult Function() sendOtpPressed,
     required TResult Function(int page) nextPage,
@@ -2511,6 +2799,7 @@ class _$SaveNewPasswordImpl implements SaveNewPassword {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String mobileNumber)? mobileNumberChanged,
+    TResult? Function(String email)? emailChanged,
     TResult? Function(String counryCode)? selectCountryCode,
     TResult? Function()? sendOtpPressed,
     TResult? Function(int page)? nextPage,
@@ -2532,6 +2821,7 @@ class _$SaveNewPasswordImpl implements SaveNewPassword {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String mobileNumber)? mobileNumberChanged,
+    TResult Function(String email)? emailChanged,
     TResult Function(String counryCode)? selectCountryCode,
     TResult Function()? sendOtpPressed,
     TResult Function(int page)? nextPage,
@@ -2557,6 +2847,7 @@ class _$SaveNewPasswordImpl implements SaveNewPassword {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MobileNumberChanged value) mobileNumberChanged,
+    required TResult Function(EmailChanged value) emailChanged,
     required TResult Function(SelectCountryCode value) selectCountryCode,
     required TResult Function(SendOtpPressed value) sendOtpPressed,
     required TResult Function(NextPage value) nextPage,
@@ -2578,6 +2869,7 @@ class _$SaveNewPasswordImpl implements SaveNewPassword {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult? Function(EmailChanged value)? emailChanged,
     TResult? Function(SelectCountryCode value)? selectCountryCode,
     TResult? Function(SendOtpPressed value)? sendOtpPressed,
     TResult? Function(NextPage value)? nextPage,
@@ -2598,6 +2890,7 @@ class _$SaveNewPasswordImpl implements SaveNewPassword {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MobileNumberChanged value)? mobileNumberChanged,
+    TResult Function(EmailChanged value)? emailChanged,
     TResult Function(SelectCountryCode value)? selectCountryCode,
     TResult Function(SendOtpPressed value)? sendOtpPressed,
     TResult Function(NextPage value)? nextPage,
@@ -2630,6 +2923,7 @@ mixin _$ForgotPasswordState {
 
   /// >>>>>>>>>>>>>>>>>>>> FOR FORGOT PASSWORD SCREEN <<<<<<<<<<<<<<<<<<<<
   MobileNumber get mobileNumber => throw _privateConstructorUsedError;
+  EmailAddress get emailAddress => throw _privateConstructorUsedError;
   String get selectedCountrycode => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
   Option<Either<AuthFailure, String>> get authFailureOrSuccessOption =>
@@ -2668,6 +2962,7 @@ abstract class $ForgotPasswordStateCopyWith<$Res> {
       {bool isSubmitting,
       int currentView,
       MobileNumber mobileNumber,
+      EmailAddress emailAddress,
       String selectedCountrycode,
       bool showErrorMessages,
       Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
@@ -2700,6 +2995,7 @@ class _$ForgotPasswordStateCopyWithImpl<$Res, $Val extends ForgotPasswordState>
     Object? isSubmitting = null,
     Object? currentView = null,
     Object? mobileNumber = null,
+    Object? emailAddress = null,
     Object? selectedCountrycode = null,
     Object? showErrorMessages = null,
     Object? authFailureOrSuccessOption = null,
@@ -2728,6 +3024,10 @@ class _$ForgotPasswordStateCopyWithImpl<$Res, $Val extends ForgotPasswordState>
           ? _value.mobileNumber
           : mobileNumber // ignore: cast_nullable_to_non_nullable
               as MobileNumber,
+      emailAddress: null == emailAddress
+          ? _value.emailAddress
+          : emailAddress // ignore: cast_nullable_to_non_nullable
+              as EmailAddress,
       selectedCountrycode: null == selectedCountrycode
           ? _value.selectedCountrycode
           : selectedCountrycode // ignore: cast_nullable_to_non_nullable
@@ -2801,6 +3101,7 @@ abstract class _$$ForgotPasswordStateImplCopyWith<$Res>
       {bool isSubmitting,
       int currentView,
       MobileNumber mobileNumber,
+      EmailAddress emailAddress,
       String selectedCountrycode,
       bool showErrorMessages,
       Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
@@ -2831,6 +3132,7 @@ class __$$ForgotPasswordStateImplCopyWithImpl<$Res>
     Object? isSubmitting = null,
     Object? currentView = null,
     Object? mobileNumber = null,
+    Object? emailAddress = null,
     Object? selectedCountrycode = null,
     Object? showErrorMessages = null,
     Object? authFailureOrSuccessOption = null,
@@ -2859,6 +3161,10 @@ class __$$ForgotPasswordStateImplCopyWithImpl<$Res>
           ? _value.mobileNumber
           : mobileNumber // ignore: cast_nullable_to_non_nullable
               as MobileNumber,
+      emailAddress: null == emailAddress
+          ? _value.emailAddress
+          : emailAddress // ignore: cast_nullable_to_non_nullable
+              as EmailAddress,
       selectedCountrycode: null == selectedCountrycode
           ? _value.selectedCountrycode
           : selectedCountrycode // ignore: cast_nullable_to_non_nullable
@@ -2927,6 +3233,7 @@ class _$ForgotPasswordStateImpl implements _ForgotPasswordState {
       {required this.isSubmitting,
       required this.currentView,
       required this.mobileNumber,
+      required this.emailAddress,
       required this.selectedCountrycode,
       required this.showErrorMessages,
       required this.authFailureOrSuccessOption,
@@ -2950,6 +3257,8 @@ class _$ForgotPasswordStateImpl implements _ForgotPasswordState {
   /// >>>>>>>>>>>>>>>>>>>> FOR FORGOT PASSWORD SCREEN <<<<<<<<<<<<<<<<<<<<
   @override
   final MobileNumber mobileNumber;
+  @override
+  final EmailAddress emailAddress;
   @override
   final String selectedCountrycode;
   @override
@@ -2985,7 +3294,7 @@ class _$ForgotPasswordStateImpl implements _ForgotPasswordState {
 
   @override
   String toString() {
-    return 'ForgotPasswordState(isSubmitting: $isSubmitting, currentView: $currentView, mobileNumber: $mobileNumber, selectedCountrycode: $selectedCountrycode, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption, enteredOTP: $enteredOTP, secondsRemaining: $secondsRemaining, showOtpErrorMessages: $showOtpErrorMessages, resendFailureOrSuccessOption: $resendFailureOrSuccessOption, verifyOtpFailureOrSuccessOption: $verifyOtpFailureOrSuccessOption, newPassword: $newPassword, confirmPassword: $confirmPassword, isNewPassObscure: $isNewPassObscure, isConfirmPassObscure: $isConfirmPassObscure, showNewPassErrorMessages: $showNewPassErrorMessages, saveNewPassFailureOrSuccessOption: $saveNewPassFailureOrSuccessOption)';
+    return 'ForgotPasswordState(isSubmitting: $isSubmitting, currentView: $currentView, mobileNumber: $mobileNumber, emailAddress: $emailAddress, selectedCountrycode: $selectedCountrycode, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption, enteredOTP: $enteredOTP, secondsRemaining: $secondsRemaining, showOtpErrorMessages: $showOtpErrorMessages, resendFailureOrSuccessOption: $resendFailureOrSuccessOption, verifyOtpFailureOrSuccessOption: $verifyOtpFailureOrSuccessOption, newPassword: $newPassword, confirmPassword: $confirmPassword, isNewPassObscure: $isNewPassObscure, isConfirmPassObscure: $isConfirmPassObscure, showNewPassErrorMessages: $showNewPassErrorMessages, saveNewPassFailureOrSuccessOption: $saveNewPassFailureOrSuccessOption)';
   }
 
   @override
@@ -2999,6 +3308,8 @@ class _$ForgotPasswordStateImpl implements _ForgotPasswordState {
                 other.currentView == currentView) &&
             (identical(other.mobileNumber, mobileNumber) ||
                 other.mobileNumber == mobileNumber) &&
+            (identical(other.emailAddress, emailAddress) ||
+                other.emailAddress == emailAddress) &&
             (identical(other.selectedCountrycode, selectedCountrycode) ||
                 other.selectedCountrycode == selectedCountrycode) &&
             (identical(other.showErrorMessages, showErrorMessages) ||
@@ -3042,6 +3353,7 @@ class _$ForgotPasswordStateImpl implements _ForgotPasswordState {
       isSubmitting,
       currentView,
       mobileNumber,
+      emailAddress,
       selectedCountrycode,
       showErrorMessages,
       authFailureOrSuccessOption,
@@ -3070,6 +3382,7 @@ abstract class _ForgotPasswordState implements ForgotPasswordState {
       {required final bool isSubmitting,
       required final int currentView,
       required final MobileNumber mobileNumber,
+      required final EmailAddress emailAddress,
       required final String selectedCountrycode,
       required final bool showErrorMessages,
       required final Option<Either<AuthFailure, String>>
@@ -3097,6 +3410,8 @@ abstract class _ForgotPasswordState implements ForgotPasswordState {
 
   /// >>>>>>>>>>>>>>>>>>>> FOR FORGOT PASSWORD SCREEN <<<<<<<<<<<<<<<<<<<<
   MobileNumber get mobileNumber;
+  @override
+  EmailAddress get emailAddress;
   @override
   String get selectedCountrycode;
   @override

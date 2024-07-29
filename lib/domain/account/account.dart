@@ -18,6 +18,7 @@ class Account with _$Account {
     int? serviceRole,
     int? industryId,
     String? profileImage,
+    int? isProfileComplete,
     String? companyName,
     String? countryCode,
     String? countryNameCode,

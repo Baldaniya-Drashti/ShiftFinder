@@ -8,6 +8,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/domain/auth/i_auth_facade.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 part 'forgot_password_event.dart';
 part 'forgot_password_state.dart';
 part 'forgot_password_bloc.freezed.dart';
@@ -15,11 +17,12 @@ part 'forgot_password_bloc.freezed.dart';
 @injectable
 class ForgotPasswordBloc
     extends Bloc<ForgotPasswordEvent, ForgotPasswordState> {
+  final IAuthFacade _authFacade;
   late Timer timer;
   bool isNewPassObscure = false;
   bool isConfirmPassObscure = false;
 
-  ForgotPasswordBloc() : super(ForgotPasswordState.initial()) {
+  ForgotPasswordBloc(this._authFacade) : super(ForgotPasswordState.initial()) {
     on<ForgotPasswordEvent>((event, emit) async {
       await event.map(
         /// >>>>>>>>>>>>>>>>>>>> FOR FORGOT PASSWORD SCREEN <<<<<<<<<<<<<<<<<<<<
@@ -28,6 +31,14 @@ class ForgotPasswordBloc
           emit(
             state.copyWith(
               mobileNumber: MobileNumber(e.mobileNumber),
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        emailChanged: (e) {
+          emit(
+            state.copyWith(
+              emailAddress: EmailAddress(e.email),
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -42,9 +53,13 @@ class ForgotPasswordBloc
         },
         sendOtpPressed: (e) async {
           Either<AuthFailure, String>? failureOrSuccess;
-
-          final isMobileNumberValid = state.mobileNumber.isValid();
-          if (isMobileNumberValid) {
+          bool isMobileEmailValid = false;
+          if (getCurrentRole() == 1) {
+            isMobileEmailValid = state.mobileNumber.isValid();
+          } else {
+            isMobileEmailValid = state.emailAddress.isValid();
+          }
+          if (isMobileEmailValid) {
             emit(
               state.copyWith(
                 isSubmitting: true,
@@ -52,10 +67,13 @@ class ForgotPasswordBloc
               ),
             );
 
-            // failureOrSuccess = await _authFacade.login(
-            //   mobileNumber: EmailAddress(""),
-            //   countryCode: '+${state.selectedCountrycode}',
-            // );
+            failureOrSuccess = await _authFacade.resendOtp(
+              emailAddress:
+                  (getCurrentRole() == 1) ? "" : state.emailAddress.getValue(),
+              phoneNumber:
+                  (getCurrentRole() == 1) ? state.mobileNumber.getValue() : "",
+              forgotPassword: true,
+            );
 
             failureOrSuccess = right("sucess");
           }
@@ -153,12 +171,16 @@ class ForgotPasswordBloc
                 authFailureOrSuccessOption: none(),
               ),
             );
-            // failureOrSuccess = await _authFacade.verifyOtp(
-            //   countryCode: '+${state.selectedCountrycode}',
-            //   mobileNumber: state.mobileNumber,
-            //   otp: state.enteredOTP,
-            // );
-            failureOrSuccess = right("success");
+
+            failureOrSuccess = await _authFacade.verifyOtp(
+              emailAddress:
+                  (getCurrentRole() == 1) ? "" : state.emailAddress.getValue(),
+              phoneNumber: (getCurrentRole() == 1)
+                  ? "${state.mobileNumber.getValue}"
+                  : "",
+              otp: state.enteredOTP,
+              isForgotPassword: true,
+            );
           }
 
           emit(
@@ -209,7 +231,7 @@ class ForgotPasswordBloc
             );
           }
         },
-        saveNewPassword: (e) {
+        saveNewPassword: (e) async {
           Either<AuthFailure, String>? failureOrSuccess;
           final isNewPassValid = state.newPassword.isValid();
           final isConfirmPassValid = state.confirmPassword.isValid();
@@ -221,13 +243,10 @@ class ForgotPasswordBloc
                 authFailureOrSuccessOption: none(),
               ),
             );
-            // failureOrSuccess = await _authFacade.login(
-            //   mobileNumber: EmailAddress(""),
-            //   countryCode: '+${state.selectedCountrycode}',
-            // );
-            failureOrSuccess = right("sucess");
+            failureOrSuccess = await _authFacade.forgotPassword(
+                password: state.newPassword.getValue(),
+                confirmPassword: state.confirmPassword.getValue());
           }
-
           emit(
             state.copyWith(
               isSubmitting: false,

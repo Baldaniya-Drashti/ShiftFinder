@@ -19,6 +19,7 @@ mixin _$LocationDetailsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String address) addressChanged,
+    required TResult Function() getFacilityTypeList,
     required TResult Function(String selectedLocation)
         locationSelectedFromSearchList,
     required TResult Function(String locationId) locationIdChanged,
@@ -37,6 +38,7 @@ mixin _$LocationDetailsEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String address)? addressChanged,
+    TResult? Function()? getFacilityTypeList,
     TResult? Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult? Function(String locationId)? locationIdChanged,
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
@@ -53,6 +55,7 @@ mixin _$LocationDetailsEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String address)? addressChanged,
+    TResult Function()? getFacilityTypeList,
     TResult Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult Function(String locationId)? locationIdChanged,
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
@@ -70,6 +73,7 @@ mixin _$LocationDetailsEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(AddressChanged value) addressChanged,
+    required TResult Function(GetFacilityTypeList value) getFacilityTypeList,
     required TResult Function(_LocationSelectedFromSearchList value)
         locationSelectedFromSearchList,
     required TResult Function(LocationIdChanged value) locationIdChanged,
@@ -89,6 +93,7 @@ mixin _$LocationDetailsEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddressChanged value)? addressChanged,
+    TResult? Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult? Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult? Function(LocationIdChanged value)? locationIdChanged,
@@ -107,6 +112,7 @@ mixin _$LocationDetailsEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddressChanged value)? addressChanged,
+    TResult Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult Function(LocationIdChanged value)? locationIdChanged,
@@ -210,6 +216,7 @@ class _$AddressChangedImpl implements AddressChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String address) addressChanged,
+    required TResult Function() getFacilityTypeList,
     required TResult Function(String selectedLocation)
         locationSelectedFromSearchList,
     required TResult Function(String locationId) locationIdChanged,
@@ -231,6 +238,7 @@ class _$AddressChangedImpl implements AddressChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String address)? addressChanged,
+    TResult? Function()? getFacilityTypeList,
     TResult? Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult? Function(String locationId)? locationIdChanged,
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
@@ -250,6 +258,7 @@ class _$AddressChangedImpl implements AddressChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String address)? addressChanged,
+    TResult Function()? getFacilityTypeList,
     TResult Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult Function(String locationId)? locationIdChanged,
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
@@ -273,6 +282,7 @@ class _$AddressChangedImpl implements AddressChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(AddressChanged value) addressChanged,
+    required TResult Function(GetFacilityTypeList value) getFacilityTypeList,
     required TResult Function(_LocationSelectedFromSearchList value)
         locationSelectedFromSearchList,
     required TResult Function(LocationIdChanged value) locationIdChanged,
@@ -295,6 +305,7 @@ class _$AddressChangedImpl implements AddressChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddressChanged value)? addressChanged,
+    TResult? Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult? Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult? Function(LocationIdChanged value)? locationIdChanged,
@@ -316,6 +327,7 @@ class _$AddressChangedImpl implements AddressChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddressChanged value)? addressChanged,
+    TResult Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult Function(LocationIdChanged value)? locationIdChanged,
@@ -345,6 +357,184 @@ abstract class AddressChanged implements LocationDetailsEvent {
   @JsonKey(ignore: true)
   _$$AddressChangedImplCopyWith<_$AddressChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetFacilityTypeListImplCopyWith<$Res> {
+  factory _$$GetFacilityTypeListImplCopyWith(_$GetFacilityTypeListImpl value,
+          $Res Function(_$GetFacilityTypeListImpl) then) =
+      __$$GetFacilityTypeListImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetFacilityTypeListImplCopyWithImpl<$Res>
+    extends _$LocationDetailsEventCopyWithImpl<$Res, _$GetFacilityTypeListImpl>
+    implements _$$GetFacilityTypeListImplCopyWith<$Res> {
+  __$$GetFacilityTypeListImplCopyWithImpl(_$GetFacilityTypeListImpl _value,
+      $Res Function(_$GetFacilityTypeListImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetFacilityTypeListImpl implements GetFacilityTypeList {
+  const _$GetFacilityTypeListImpl();
+
+  @override
+  String toString() {
+    return 'LocationDetailsEvent.getFacilityTypeList()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetFacilityTypeListImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String address) addressChanged,
+    required TResult Function() getFacilityTypeList,
+    required TResult Function(String selectedLocation)
+        locationSelectedFromSearchList,
+    required TResult Function(String locationId) locationIdChanged,
+    required TResult Function(String accreditationNumber)
+        accreditationNumberChanged,
+    required TResult Function(String locationNote) locationNoteChanged,
+    required TResult Function(String unitNumber) unitNumberChanged,
+    required TResult Function(String unitNumber) addUnitNumberChipList,
+    required TResult Function(String unitNumber) removeUnitNumberChip,
+    required TResult Function(String notes) notesChanged,
+    required TResult Function(String faciltyType) facilityTypeChanged,
+    required TResult Function(String faciltyType) addOtherfaciltyType,
+    required TResult Function() continueBtnPressed,
+  }) {
+    return getFacilityTypeList();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String address)? addressChanged,
+    TResult? Function()? getFacilityTypeList,
+    TResult? Function(String selectedLocation)? locationSelectedFromSearchList,
+    TResult? Function(String locationId)? locationIdChanged,
+    TResult? Function(String accreditationNumber)? accreditationNumberChanged,
+    TResult? Function(String locationNote)? locationNoteChanged,
+    TResult? Function(String unitNumber)? unitNumberChanged,
+    TResult? Function(String unitNumber)? addUnitNumberChipList,
+    TResult? Function(String unitNumber)? removeUnitNumberChip,
+    TResult? Function(String notes)? notesChanged,
+    TResult? Function(String faciltyType)? facilityTypeChanged,
+    TResult? Function(String faciltyType)? addOtherfaciltyType,
+    TResult? Function()? continueBtnPressed,
+  }) {
+    return getFacilityTypeList?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String address)? addressChanged,
+    TResult Function()? getFacilityTypeList,
+    TResult Function(String selectedLocation)? locationSelectedFromSearchList,
+    TResult Function(String locationId)? locationIdChanged,
+    TResult Function(String accreditationNumber)? accreditationNumberChanged,
+    TResult Function(String locationNote)? locationNoteChanged,
+    TResult Function(String unitNumber)? unitNumberChanged,
+    TResult Function(String unitNumber)? addUnitNumberChipList,
+    TResult Function(String unitNumber)? removeUnitNumberChip,
+    TResult Function(String notes)? notesChanged,
+    TResult Function(String faciltyType)? facilityTypeChanged,
+    TResult Function(String faciltyType)? addOtherfaciltyType,
+    TResult Function()? continueBtnPressed,
+    required TResult orElse(),
+  }) {
+    if (getFacilityTypeList != null) {
+      return getFacilityTypeList();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddressChanged value) addressChanged,
+    required TResult Function(GetFacilityTypeList value) getFacilityTypeList,
+    required TResult Function(_LocationSelectedFromSearchList value)
+        locationSelectedFromSearchList,
+    required TResult Function(LocationIdChanged value) locationIdChanged,
+    required TResult Function(AccreditationNumberChanged value)
+        accreditationNumberChanged,
+    required TResult Function(LocationNoteChanged value) locationNoteChanged,
+    required TResult Function(UnitNumberChanged value) unitNumberChanged,
+    required TResult Function(AddUnitNumberChipList value)
+        addUnitNumberChipList,
+    required TResult Function(RemoveUnitNumberChip value) removeUnitNumberChip,
+    required TResult Function(NotesChanged value) notesChanged,
+    required TResult Function(FacilityTypeChanged value) facilityTypeChanged,
+    required TResult Function(AddOtherfaciltyType value) addOtherfaciltyType,
+    required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+  }) {
+    return getFacilityTypeList(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddressChanged value)? addressChanged,
+    TResult? Function(GetFacilityTypeList value)? getFacilityTypeList,
+    TResult? Function(_LocationSelectedFromSearchList value)?
+        locationSelectedFromSearchList,
+    TResult? Function(LocationIdChanged value)? locationIdChanged,
+    TResult? Function(AccreditationNumberChanged value)?
+        accreditationNumberChanged,
+    TResult? Function(LocationNoteChanged value)? locationNoteChanged,
+    TResult? Function(UnitNumberChanged value)? unitNumberChanged,
+    TResult? Function(AddUnitNumberChipList value)? addUnitNumberChipList,
+    TResult? Function(RemoveUnitNumberChip value)? removeUnitNumberChip,
+    TResult? Function(NotesChanged value)? notesChanged,
+    TResult? Function(FacilityTypeChanged value)? facilityTypeChanged,
+    TResult? Function(AddOtherfaciltyType value)? addOtherfaciltyType,
+    TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+  }) {
+    return getFacilityTypeList?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddressChanged value)? addressChanged,
+    TResult Function(GetFacilityTypeList value)? getFacilityTypeList,
+    TResult Function(_LocationSelectedFromSearchList value)?
+        locationSelectedFromSearchList,
+    TResult Function(LocationIdChanged value)? locationIdChanged,
+    TResult Function(AccreditationNumberChanged value)?
+        accreditationNumberChanged,
+    TResult Function(LocationNoteChanged value)? locationNoteChanged,
+    TResult Function(UnitNumberChanged value)? unitNumberChanged,
+    TResult Function(AddUnitNumberChipList value)? addUnitNumberChipList,
+    TResult Function(RemoveUnitNumberChip value)? removeUnitNumberChip,
+    TResult Function(NotesChanged value)? notesChanged,
+    TResult Function(FacilityTypeChanged value)? facilityTypeChanged,
+    TResult Function(AddOtherfaciltyType value)? addOtherfaciltyType,
+    TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    required TResult orElse(),
+  }) {
+    if (getFacilityTypeList != null) {
+      return getFacilityTypeList(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetFacilityTypeList implements LocationDetailsEvent {
+  const factory GetFacilityTypeList() = _$GetFacilityTypeListImpl;
 }
 
 /// @nodoc
@@ -419,6 +609,7 @@ class _$LocationSelectedFromSearchListImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String address) addressChanged,
+    required TResult Function() getFacilityTypeList,
     required TResult Function(String selectedLocation)
         locationSelectedFromSearchList,
     required TResult Function(String locationId) locationIdChanged,
@@ -440,6 +631,7 @@ class _$LocationSelectedFromSearchListImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String address)? addressChanged,
+    TResult? Function()? getFacilityTypeList,
     TResult? Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult? Function(String locationId)? locationIdChanged,
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
@@ -459,6 +651,7 @@ class _$LocationSelectedFromSearchListImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String address)? addressChanged,
+    TResult Function()? getFacilityTypeList,
     TResult Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult Function(String locationId)? locationIdChanged,
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
@@ -482,6 +675,7 @@ class _$LocationSelectedFromSearchListImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(AddressChanged value) addressChanged,
+    required TResult Function(GetFacilityTypeList value) getFacilityTypeList,
     required TResult Function(_LocationSelectedFromSearchList value)
         locationSelectedFromSearchList,
     required TResult Function(LocationIdChanged value) locationIdChanged,
@@ -504,6 +698,7 @@ class _$LocationSelectedFromSearchListImpl
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddressChanged value)? addressChanged,
+    TResult? Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult? Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult? Function(LocationIdChanged value)? locationIdChanged,
@@ -525,6 +720,7 @@ class _$LocationSelectedFromSearchListImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddressChanged value)? addressChanged,
+    TResult Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult Function(LocationIdChanged value)? locationIdChanged,
@@ -625,6 +821,7 @@ class _$LocationIdChangedImpl implements LocationIdChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String address) addressChanged,
+    required TResult Function() getFacilityTypeList,
     required TResult Function(String selectedLocation)
         locationSelectedFromSearchList,
     required TResult Function(String locationId) locationIdChanged,
@@ -646,6 +843,7 @@ class _$LocationIdChangedImpl implements LocationIdChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String address)? addressChanged,
+    TResult? Function()? getFacilityTypeList,
     TResult? Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult? Function(String locationId)? locationIdChanged,
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
@@ -665,6 +863,7 @@ class _$LocationIdChangedImpl implements LocationIdChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String address)? addressChanged,
+    TResult Function()? getFacilityTypeList,
     TResult Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult Function(String locationId)? locationIdChanged,
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
@@ -688,6 +887,7 @@ class _$LocationIdChangedImpl implements LocationIdChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(AddressChanged value) addressChanged,
+    required TResult Function(GetFacilityTypeList value) getFacilityTypeList,
     required TResult Function(_LocationSelectedFromSearchList value)
         locationSelectedFromSearchList,
     required TResult Function(LocationIdChanged value) locationIdChanged,
@@ -710,6 +910,7 @@ class _$LocationIdChangedImpl implements LocationIdChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddressChanged value)? addressChanged,
+    TResult? Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult? Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult? Function(LocationIdChanged value)? locationIdChanged,
@@ -731,6 +932,7 @@ class _$LocationIdChangedImpl implements LocationIdChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddressChanged value)? addressChanged,
+    TResult Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult Function(LocationIdChanged value)? locationIdChanged,
@@ -833,6 +1035,7 @@ class _$AccreditationNumberChangedImpl implements AccreditationNumberChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String address) addressChanged,
+    required TResult Function() getFacilityTypeList,
     required TResult Function(String selectedLocation)
         locationSelectedFromSearchList,
     required TResult Function(String locationId) locationIdChanged,
@@ -854,6 +1057,7 @@ class _$AccreditationNumberChangedImpl implements AccreditationNumberChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String address)? addressChanged,
+    TResult? Function()? getFacilityTypeList,
     TResult? Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult? Function(String locationId)? locationIdChanged,
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
@@ -873,6 +1077,7 @@ class _$AccreditationNumberChangedImpl implements AccreditationNumberChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String address)? addressChanged,
+    TResult Function()? getFacilityTypeList,
     TResult Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult Function(String locationId)? locationIdChanged,
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
@@ -896,6 +1101,7 @@ class _$AccreditationNumberChangedImpl implements AccreditationNumberChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(AddressChanged value) addressChanged,
+    required TResult Function(GetFacilityTypeList value) getFacilityTypeList,
     required TResult Function(_LocationSelectedFromSearchList value)
         locationSelectedFromSearchList,
     required TResult Function(LocationIdChanged value) locationIdChanged,
@@ -918,6 +1124,7 @@ class _$AccreditationNumberChangedImpl implements AccreditationNumberChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddressChanged value)? addressChanged,
+    TResult? Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult? Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult? Function(LocationIdChanged value)? locationIdChanged,
@@ -939,6 +1146,7 @@ class _$AccreditationNumberChangedImpl implements AccreditationNumberChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddressChanged value)? addressChanged,
+    TResult Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult Function(LocationIdChanged value)? locationIdChanged,
@@ -1038,6 +1246,7 @@ class _$LocationNoteChangedImpl implements LocationNoteChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String address) addressChanged,
+    required TResult Function() getFacilityTypeList,
     required TResult Function(String selectedLocation)
         locationSelectedFromSearchList,
     required TResult Function(String locationId) locationIdChanged,
@@ -1059,6 +1268,7 @@ class _$LocationNoteChangedImpl implements LocationNoteChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String address)? addressChanged,
+    TResult? Function()? getFacilityTypeList,
     TResult? Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult? Function(String locationId)? locationIdChanged,
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
@@ -1078,6 +1288,7 @@ class _$LocationNoteChangedImpl implements LocationNoteChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String address)? addressChanged,
+    TResult Function()? getFacilityTypeList,
     TResult Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult Function(String locationId)? locationIdChanged,
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
@@ -1101,6 +1312,7 @@ class _$LocationNoteChangedImpl implements LocationNoteChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(AddressChanged value) addressChanged,
+    required TResult Function(GetFacilityTypeList value) getFacilityTypeList,
     required TResult Function(_LocationSelectedFromSearchList value)
         locationSelectedFromSearchList,
     required TResult Function(LocationIdChanged value) locationIdChanged,
@@ -1123,6 +1335,7 @@ class _$LocationNoteChangedImpl implements LocationNoteChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddressChanged value)? addressChanged,
+    TResult? Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult? Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult? Function(LocationIdChanged value)? locationIdChanged,
@@ -1144,6 +1357,7 @@ class _$LocationNoteChangedImpl implements LocationNoteChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddressChanged value)? addressChanged,
+    TResult Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult Function(LocationIdChanged value)? locationIdChanged,
@@ -1243,6 +1457,7 @@ class _$UnitNumberChangedImpl implements UnitNumberChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String address) addressChanged,
+    required TResult Function() getFacilityTypeList,
     required TResult Function(String selectedLocation)
         locationSelectedFromSearchList,
     required TResult Function(String locationId) locationIdChanged,
@@ -1264,6 +1479,7 @@ class _$UnitNumberChangedImpl implements UnitNumberChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String address)? addressChanged,
+    TResult? Function()? getFacilityTypeList,
     TResult? Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult? Function(String locationId)? locationIdChanged,
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
@@ -1283,6 +1499,7 @@ class _$UnitNumberChangedImpl implements UnitNumberChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String address)? addressChanged,
+    TResult Function()? getFacilityTypeList,
     TResult Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult Function(String locationId)? locationIdChanged,
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
@@ -1306,6 +1523,7 @@ class _$UnitNumberChangedImpl implements UnitNumberChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(AddressChanged value) addressChanged,
+    required TResult Function(GetFacilityTypeList value) getFacilityTypeList,
     required TResult Function(_LocationSelectedFromSearchList value)
         locationSelectedFromSearchList,
     required TResult Function(LocationIdChanged value) locationIdChanged,
@@ -1328,6 +1546,7 @@ class _$UnitNumberChangedImpl implements UnitNumberChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddressChanged value)? addressChanged,
+    TResult? Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult? Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult? Function(LocationIdChanged value)? locationIdChanged,
@@ -1349,6 +1568,7 @@ class _$UnitNumberChangedImpl implements UnitNumberChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddressChanged value)? addressChanged,
+    TResult Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult Function(LocationIdChanged value)? locationIdChanged,
@@ -1450,6 +1670,7 @@ class _$AddUnitNumberChipListImpl implements AddUnitNumberChipList {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String address) addressChanged,
+    required TResult Function() getFacilityTypeList,
     required TResult Function(String selectedLocation)
         locationSelectedFromSearchList,
     required TResult Function(String locationId) locationIdChanged,
@@ -1471,6 +1692,7 @@ class _$AddUnitNumberChipListImpl implements AddUnitNumberChipList {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String address)? addressChanged,
+    TResult? Function()? getFacilityTypeList,
     TResult? Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult? Function(String locationId)? locationIdChanged,
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
@@ -1490,6 +1712,7 @@ class _$AddUnitNumberChipListImpl implements AddUnitNumberChipList {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String address)? addressChanged,
+    TResult Function()? getFacilityTypeList,
     TResult Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult Function(String locationId)? locationIdChanged,
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
@@ -1513,6 +1736,7 @@ class _$AddUnitNumberChipListImpl implements AddUnitNumberChipList {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(AddressChanged value) addressChanged,
+    required TResult Function(GetFacilityTypeList value) getFacilityTypeList,
     required TResult Function(_LocationSelectedFromSearchList value)
         locationSelectedFromSearchList,
     required TResult Function(LocationIdChanged value) locationIdChanged,
@@ -1535,6 +1759,7 @@ class _$AddUnitNumberChipListImpl implements AddUnitNumberChipList {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddressChanged value)? addressChanged,
+    TResult? Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult? Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult? Function(LocationIdChanged value)? locationIdChanged,
@@ -1556,6 +1781,7 @@ class _$AddUnitNumberChipListImpl implements AddUnitNumberChipList {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddressChanged value)? addressChanged,
+    TResult Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult Function(LocationIdChanged value)? locationIdChanged,
@@ -1656,6 +1882,7 @@ class _$RemoveUnitNumberChipImpl implements RemoveUnitNumberChip {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String address) addressChanged,
+    required TResult Function() getFacilityTypeList,
     required TResult Function(String selectedLocation)
         locationSelectedFromSearchList,
     required TResult Function(String locationId) locationIdChanged,
@@ -1677,6 +1904,7 @@ class _$RemoveUnitNumberChipImpl implements RemoveUnitNumberChip {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String address)? addressChanged,
+    TResult? Function()? getFacilityTypeList,
     TResult? Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult? Function(String locationId)? locationIdChanged,
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
@@ -1696,6 +1924,7 @@ class _$RemoveUnitNumberChipImpl implements RemoveUnitNumberChip {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String address)? addressChanged,
+    TResult Function()? getFacilityTypeList,
     TResult Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult Function(String locationId)? locationIdChanged,
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
@@ -1719,6 +1948,7 @@ class _$RemoveUnitNumberChipImpl implements RemoveUnitNumberChip {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(AddressChanged value) addressChanged,
+    required TResult Function(GetFacilityTypeList value) getFacilityTypeList,
     required TResult Function(_LocationSelectedFromSearchList value)
         locationSelectedFromSearchList,
     required TResult Function(LocationIdChanged value) locationIdChanged,
@@ -1741,6 +1971,7 @@ class _$RemoveUnitNumberChipImpl implements RemoveUnitNumberChip {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddressChanged value)? addressChanged,
+    TResult? Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult? Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult? Function(LocationIdChanged value)? locationIdChanged,
@@ -1762,6 +1993,7 @@ class _$RemoveUnitNumberChipImpl implements RemoveUnitNumberChip {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddressChanged value)? addressChanged,
+    TResult Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult Function(LocationIdChanged value)? locationIdChanged,
@@ -1859,6 +2091,7 @@ class _$NotesChangedImpl implements NotesChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String address) addressChanged,
+    required TResult Function() getFacilityTypeList,
     required TResult Function(String selectedLocation)
         locationSelectedFromSearchList,
     required TResult Function(String locationId) locationIdChanged,
@@ -1880,6 +2113,7 @@ class _$NotesChangedImpl implements NotesChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String address)? addressChanged,
+    TResult? Function()? getFacilityTypeList,
     TResult? Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult? Function(String locationId)? locationIdChanged,
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
@@ -1899,6 +2133,7 @@ class _$NotesChangedImpl implements NotesChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String address)? addressChanged,
+    TResult Function()? getFacilityTypeList,
     TResult Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult Function(String locationId)? locationIdChanged,
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
@@ -1922,6 +2157,7 @@ class _$NotesChangedImpl implements NotesChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(AddressChanged value) addressChanged,
+    required TResult Function(GetFacilityTypeList value) getFacilityTypeList,
     required TResult Function(_LocationSelectedFromSearchList value)
         locationSelectedFromSearchList,
     required TResult Function(LocationIdChanged value) locationIdChanged,
@@ -1944,6 +2180,7 @@ class _$NotesChangedImpl implements NotesChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddressChanged value)? addressChanged,
+    TResult? Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult? Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult? Function(LocationIdChanged value)? locationIdChanged,
@@ -1965,6 +2202,7 @@ class _$NotesChangedImpl implements NotesChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddressChanged value)? addressChanged,
+    TResult Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult Function(LocationIdChanged value)? locationIdChanged,
@@ -2063,6 +2301,7 @@ class _$FacilityTypeChangedImpl implements FacilityTypeChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String address) addressChanged,
+    required TResult Function() getFacilityTypeList,
     required TResult Function(String selectedLocation)
         locationSelectedFromSearchList,
     required TResult Function(String locationId) locationIdChanged,
@@ -2084,6 +2323,7 @@ class _$FacilityTypeChangedImpl implements FacilityTypeChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String address)? addressChanged,
+    TResult? Function()? getFacilityTypeList,
     TResult? Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult? Function(String locationId)? locationIdChanged,
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
@@ -2103,6 +2343,7 @@ class _$FacilityTypeChangedImpl implements FacilityTypeChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String address)? addressChanged,
+    TResult Function()? getFacilityTypeList,
     TResult Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult Function(String locationId)? locationIdChanged,
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
@@ -2126,6 +2367,7 @@ class _$FacilityTypeChangedImpl implements FacilityTypeChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(AddressChanged value) addressChanged,
+    required TResult Function(GetFacilityTypeList value) getFacilityTypeList,
     required TResult Function(_LocationSelectedFromSearchList value)
         locationSelectedFromSearchList,
     required TResult Function(LocationIdChanged value) locationIdChanged,
@@ -2148,6 +2390,7 @@ class _$FacilityTypeChangedImpl implements FacilityTypeChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddressChanged value)? addressChanged,
+    TResult? Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult? Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult? Function(LocationIdChanged value)? locationIdChanged,
@@ -2169,6 +2412,7 @@ class _$FacilityTypeChangedImpl implements FacilityTypeChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddressChanged value)? addressChanged,
+    TResult Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult Function(LocationIdChanged value)? locationIdChanged,
@@ -2268,6 +2512,7 @@ class _$AddOtherfaciltyTypeImpl implements AddOtherfaciltyType {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String address) addressChanged,
+    required TResult Function() getFacilityTypeList,
     required TResult Function(String selectedLocation)
         locationSelectedFromSearchList,
     required TResult Function(String locationId) locationIdChanged,
@@ -2289,6 +2534,7 @@ class _$AddOtherfaciltyTypeImpl implements AddOtherfaciltyType {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String address)? addressChanged,
+    TResult? Function()? getFacilityTypeList,
     TResult? Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult? Function(String locationId)? locationIdChanged,
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
@@ -2308,6 +2554,7 @@ class _$AddOtherfaciltyTypeImpl implements AddOtherfaciltyType {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String address)? addressChanged,
+    TResult Function()? getFacilityTypeList,
     TResult Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult Function(String locationId)? locationIdChanged,
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
@@ -2331,6 +2578,7 @@ class _$AddOtherfaciltyTypeImpl implements AddOtherfaciltyType {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(AddressChanged value) addressChanged,
+    required TResult Function(GetFacilityTypeList value) getFacilityTypeList,
     required TResult Function(_LocationSelectedFromSearchList value)
         locationSelectedFromSearchList,
     required TResult Function(LocationIdChanged value) locationIdChanged,
@@ -2353,6 +2601,7 @@ class _$AddOtherfaciltyTypeImpl implements AddOtherfaciltyType {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddressChanged value)? addressChanged,
+    TResult? Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult? Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult? Function(LocationIdChanged value)? locationIdChanged,
@@ -2374,6 +2623,7 @@ class _$AddOtherfaciltyTypeImpl implements AddOtherfaciltyType {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddressChanged value)? addressChanged,
+    TResult Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult Function(LocationIdChanged value)? locationIdChanged,
@@ -2445,6 +2695,7 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String address) addressChanged,
+    required TResult Function() getFacilityTypeList,
     required TResult Function(String selectedLocation)
         locationSelectedFromSearchList,
     required TResult Function(String locationId) locationIdChanged,
@@ -2466,6 +2717,7 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String address)? addressChanged,
+    TResult? Function()? getFacilityTypeList,
     TResult? Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult? Function(String locationId)? locationIdChanged,
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
@@ -2485,6 +2737,7 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String address)? addressChanged,
+    TResult Function()? getFacilityTypeList,
     TResult Function(String selectedLocation)? locationSelectedFromSearchList,
     TResult Function(String locationId)? locationIdChanged,
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
@@ -2508,6 +2761,7 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(AddressChanged value) addressChanged,
+    required TResult Function(GetFacilityTypeList value) getFacilityTypeList,
     required TResult Function(_LocationSelectedFromSearchList value)
         locationSelectedFromSearchList,
     required TResult Function(LocationIdChanged value) locationIdChanged,
@@ -2530,6 +2784,7 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AddressChanged value)? addressChanged,
+    TResult? Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult? Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult? Function(LocationIdChanged value)? locationIdChanged,
@@ -2551,6 +2806,7 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AddressChanged value)? addressChanged,
+    TResult Function(GetFacilityTypeList value)? getFacilityTypeList,
     TResult Function(_LocationSelectedFromSearchList value)?
         locationSelectedFromSearchList,
     TResult Function(LocationIdChanged value)? locationIdChanged,
@@ -2581,6 +2837,7 @@ abstract class ContinueBtnPressed implements LocationDetailsEvent {
 mixin _$LocationDetailsState {
   InputEmptyOrNot get address => throw _privateConstructorUsedError;
   List<dynamic> get searchLocationList => throw _privateConstructorUsedError;
+  List<SkillDTO> get facilityTypeList => throw _privateConstructorUsedError;
   InputEmptyOrNot get faciltyType => throw _privateConstructorUsedError;
   InputEmptyOrNot get otherFaciltyType => throw _privateConstructorUsedError;
   String get locationId => throw _privateConstructorUsedError;
@@ -2610,6 +2867,7 @@ abstract class $LocationDetailsStateCopyWith<$Res> {
   $Res call(
       {InputEmptyOrNot address,
       List<dynamic> searchLocationList,
+      List<SkillDTO> facilityTypeList,
       InputEmptyOrNot faciltyType,
       InputEmptyOrNot otherFaciltyType,
       String locationId,
@@ -2641,6 +2899,7 @@ class _$LocationDetailsStateCopyWithImpl<$Res,
   $Res call({
     Object? address = null,
     Object? searchLocationList = null,
+    Object? facilityTypeList = null,
     Object? faciltyType = null,
     Object? otherFaciltyType = null,
     Object? locationId = null,
@@ -2664,6 +2923,10 @@ class _$LocationDetailsStateCopyWithImpl<$Res,
           ? _value.searchLocationList
           : searchLocationList // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
+      facilityTypeList: null == facilityTypeList
+          ? _value.facilityTypeList
+          : facilityTypeList // ignore: cast_nullable_to_non_nullable
+              as List<SkillDTO>,
       faciltyType: null == faciltyType
           ? _value.faciltyType
           : faciltyType // ignore: cast_nullable_to_non_nullable
@@ -2731,6 +2994,7 @@ abstract class _$$LocationDetailsStateImplCopyWith<$Res>
   $Res call(
       {InputEmptyOrNot address,
       List<dynamic> searchLocationList,
+      List<SkillDTO> facilityTypeList,
       InputEmptyOrNot faciltyType,
       InputEmptyOrNot otherFaciltyType,
       String locationId,
@@ -2759,6 +3023,7 @@ class __$$LocationDetailsStateImplCopyWithImpl<$Res>
   $Res call({
     Object? address = null,
     Object? searchLocationList = null,
+    Object? facilityTypeList = null,
     Object? faciltyType = null,
     Object? otherFaciltyType = null,
     Object? locationId = null,
@@ -2782,6 +3047,10 @@ class __$$LocationDetailsStateImplCopyWithImpl<$Res>
           ? _value._searchLocationList
           : searchLocationList // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
+      facilityTypeList: null == facilityTypeList
+          ? _value._facilityTypeList
+          : facilityTypeList // ignore: cast_nullable_to_non_nullable
+              as List<SkillDTO>,
       faciltyType: null == faciltyType
           ? _value.faciltyType
           : faciltyType // ignore: cast_nullable_to_non_nullable
@@ -2844,6 +3113,7 @@ class _$LocationDetailsStateImpl implements _LocationDetailsState {
   const _$LocationDetailsStateImpl(
       {required this.address,
       required final List<dynamic> searchLocationList,
+      required final List<SkillDTO> facilityTypeList,
       required this.faciltyType,
       required this.otherFaciltyType,
       required this.locationId,
@@ -2858,6 +3128,7 @@ class _$LocationDetailsStateImpl implements _LocationDetailsState {
       required this.showErrorMessages,
       required this.authFailureOrSuccessOption})
       : _searchLocationList = searchLocationList,
+        _facilityTypeList = facilityTypeList,
         _unitNoNameChipList = unitNoNameChipList;
 
   @override
@@ -2869,6 +3140,15 @@ class _$LocationDetailsStateImpl implements _LocationDetailsState {
       return _searchLocationList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_searchLocationList);
+  }
+
+  final List<SkillDTO> _facilityTypeList;
+  @override
+  List<SkillDTO> get facilityTypeList {
+    if (_facilityTypeList is EqualUnmodifiableListView)
+      return _facilityTypeList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_facilityTypeList);
   }
 
   @override
@@ -2907,7 +3187,7 @@ class _$LocationDetailsStateImpl implements _LocationDetailsState {
 
   @override
   String toString() {
-    return 'LocationDetailsState(address: $address, searchLocationList: $searchLocationList, faciltyType: $faciltyType, otherFaciltyType: $otherFaciltyType, locationId: $locationId, accreditationNumber: $accreditationNumber, locationNote: $locationNote, unitNumber: $unitNumber, notes: $notes, faciltyTypeDDValue: $faciltyTypeDDValue, otherFaciltyTypeValue: $otherFaciltyTypeValue, unitNoNameChipList: $unitNoNameChipList, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'LocationDetailsState(address: $address, searchLocationList: $searchLocationList, facilityTypeList: $facilityTypeList, faciltyType: $faciltyType, otherFaciltyType: $otherFaciltyType, locationId: $locationId, accreditationNumber: $accreditationNumber, locationNote: $locationNote, unitNumber: $unitNumber, notes: $notes, faciltyTypeDDValue: $faciltyTypeDDValue, otherFaciltyTypeValue: $otherFaciltyTypeValue, unitNoNameChipList: $unitNoNameChipList, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
@@ -2918,6 +3198,8 @@ class _$LocationDetailsStateImpl implements _LocationDetailsState {
             (identical(other.address, address) || other.address == address) &&
             const DeepCollectionEquality()
                 .equals(other._searchLocationList, _searchLocationList) &&
+            const DeepCollectionEquality()
+                .equals(other._facilityTypeList, _facilityTypeList) &&
             (identical(other.faciltyType, faciltyType) ||
                 other.faciltyType == faciltyType) &&
             (identical(other.otherFaciltyType, otherFaciltyType) ||
@@ -2952,6 +3234,7 @@ class _$LocationDetailsStateImpl implements _LocationDetailsState {
       runtimeType,
       address,
       const DeepCollectionEquality().hash(_searchLocationList),
+      const DeepCollectionEquality().hash(_facilityTypeList),
       faciltyType,
       otherFaciltyType,
       locationId,
@@ -2979,6 +3262,7 @@ abstract class _LocationDetailsState implements LocationDetailsState {
   const factory _LocationDetailsState(
       {required final InputEmptyOrNot address,
       required final List<dynamic> searchLocationList,
+      required final List<SkillDTO> facilityTypeList,
       required final InputEmptyOrNot faciltyType,
       required final InputEmptyOrNot otherFaciltyType,
       required final String locationId,
@@ -2998,6 +3282,8 @@ abstract class _LocationDetailsState implements LocationDetailsState {
   InputEmptyOrNot get address;
   @override
   List<dynamic> get searchLocationList;
+  @override
+  List<SkillDTO> get facilityTypeList;
   @override
   InputEmptyOrNot get faciltyType;
   @override

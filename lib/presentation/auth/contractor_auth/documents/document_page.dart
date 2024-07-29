@@ -9,10 +9,13 @@ import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
+import 'package:shift/presentation/splash/splash_page.dart';
 
 @RoutePage(name: 'DocumentPageScreen')
 class DocumentPage extends StatefulWidget {
-  const DocumentPage({super.key});
+  bool isFromSplash = false;
+
+  DocumentPage({super.key, this.isFromSplash = false});
 
   @override
   State<DocumentPage> createState() => _DocumentPageState();
@@ -50,6 +53,8 @@ class _DocumentPageState extends State<DocumentPage> {
           builder: (context, state) {
             return Scaffold(
               appBar: CommonAppBar(
+                isShowBackBtn:
+                    (state.currentPage == 0) ? !widget.isFromSplash : true,
                 onBackPressed: () {
                   AppFocus.unfocus(context);
                   if (state.currentPage == 0) {

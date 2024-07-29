@@ -1861,12 +1861,18 @@ class ResumeBloc extends Bloc<ResumeEvent, ResumeState> {
               resumeDocAuthFailureOrSuccessOption: none(),
             ),
           );
-
-          failureOrSuccess = await _repository.addMultiDocumentApi(
-            documentType: 7,
-            documentFile: state.resume.file ?? "",
-          );
-
+          if (state.resume.id != null) {
+            failureOrSuccess = await _repository.updateMultiDocumentApi(
+              id: state.resume.id!,
+              documentType: 7,
+              documentFile: state.resume.file ?? "",
+            );
+          } else {
+            failureOrSuccess = await _repository.addMultiDocumentApi(
+              documentType: 7,
+              documentFile: state.resume.file ?? "",
+            );
+          }
           failureOrSuccess.fold(
             (l) => emit(
               state.copyWith(
@@ -1920,7 +1926,9 @@ class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
               equipmentDocAuthFailureOrSuccessOption: none(),
             ),
           );
-          failureOrSuccess = await _repository.getDocumentApi(documentType: 8,);
+          failureOrSuccess = await _repository.getDocumentApi(
+            documentType: 8,
+          );
           failureOrSuccess.fold(
             (l) => emit(
               state.copyWith(
@@ -2095,11 +2103,10 @@ class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
             );
 
             failureOrSuccess = await _repository.addMultiDocumentApi(
-              documentType: 8,
-              documentFile: state.equipmentDoc.getValue() ?? "",
-              documentTitle: state.equipmentName.getValue(),
-              lastPage: "LegalScreening"
-            );
+                documentType: 8,
+                documentFile: state.equipmentDoc.getValue() ?? "",
+                documentTitle: state.equipmentName.getValue(),
+                lastPage: "LegalScreening");
 
             failureOrSuccess.fold(
               (l) => emit(

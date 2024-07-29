@@ -58,9 +58,14 @@ abstract class $AppRouter extends _i28.RootStackRouter {
   @override
   final Map<String, _i28.PageFactory> pagesMap = {
     AddCardDetailPage.name: (routeData) {
+      final args = routeData.argsAs<AddCardDetailPageArgs>(
+          orElse: () => const AddCardDetailPageArgs());
       return _i28.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i1.AddCardDetailPage(),
+        child: _i1.AddCardDetailPage(
+          key: args.key,
+          isFromSplash: args.isFromSplash,
+        ),
       );
     },
     AddContractorSkillsForm.name: (routeData) {
@@ -68,7 +73,10 @@ abstract class $AppRouter extends _i28.RootStackRouter {
           orElse: () => const AddContractorSkillsFormArgs());
       return _i28.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i2.AddContractorSkillsForm(key: args.key),
+        child: _i2.AddContractorSkillsForm(
+          key: args.key,
+          isFromSplash: args.isFromSplash,
+        ),
       );
     },
     AddEducationDetailScreen.name: (routeData) {
@@ -76,13 +84,21 @@ abstract class $AppRouter extends _i28.RootStackRouter {
           orElse: () => const AddEducationDetailScreenArgs());
       return _i28.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i3.AddEducationDetail(key: args.key),
+        child: _i3.AddEducationDetail(
+          key: args.key,
+          isFromSplash: args.isFromSplash,
+        ),
       );
     },
     AddExperienceDetailScreen.name: (routeData) {
+      final args = routeData.argsAs<AddExperienceDetailScreenArgs>(
+          orElse: () => const AddExperienceDetailScreenArgs());
       return _i28.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i4.AddExperienceDetail(),
+        child: _i4.AddExperienceDetail(
+          key: args.key,
+          isFromSplash: args.isFromSplash,
+        ),
       );
     },
     AddReferenceDetailScreen.name: (routeData) {
@@ -90,13 +106,21 @@ abstract class $AppRouter extends _i28.RootStackRouter {
           orElse: () => const AddReferenceDetailScreenArgs());
       return _i28.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i5.AddReferenceDetail(key: args.key),
+        child: _i5.AddReferenceDetail(
+          key: args.key,
+          isFromSplash: args.isFromSplash,
+        ),
       );
     },
     DocumentPageScreen.name: (routeData) {
+      final args = routeData.argsAs<DocumentPageScreenArgs>(
+          orElse: () => const DocumentPageScreenArgs());
       return _i28.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i6.DocumentPage(),
+        child: _i6.DocumentPage(
+          key: args.key,
+          isFromSplash: args.isFromSplash,
+        ),
       );
     },
     EducationListScreen.name: (routeData) {
@@ -104,7 +128,10 @@ abstract class $AppRouter extends _i28.RootStackRouter {
           orElse: () => const EducationListScreenArgs());
       return _i28.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i7.EducationListScreen(key: args.key),
+        child: _i7.EducationListScreen(
+          key: args.key,
+          isFromSplash: args.isFromSplash,
+        ),
       );
     },
     HealthCarePostForm.name: (routeData) {
@@ -144,7 +171,10 @@ abstract class $AppRouter extends _i28.RootStackRouter {
           orElse: () => const LegalScreeningQuestionsPageArgs());
       return _i28.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i13.LegalScreeningQuestionsPage(key: args.key),
+        child: _i13.LegalScreeningQuestionsPage(
+          key: args.key,
+          isFromSplash: args.isFromSplash,
+        ),
       );
     },
     LocationDetailForm.name: (routeData) {
@@ -152,7 +182,10 @@ abstract class $AppRouter extends _i28.RootStackRouter {
           orElse: () => const LocationDetailFormArgs());
       return _i28.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i14.LocationDetailForm(key: args.key),
+        child: _i14.LocationDetailForm(
+          key: args.key,
+          isFromSplash: args.isFromSplash,
+        ),
       );
     },
     LocationExample.name: (routeData) {
@@ -210,9 +243,14 @@ abstract class $AppRouter extends _i28.RootStackRouter {
       );
     },
     ReferenceListScreen.name: (routeData) {
+      final args = routeData.argsAs<ReferenceListScreenArgs>(
+          orElse: () => const ReferenceListScreenArgs());
       return _i28.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i23.ReferenceListScreen(),
+        child: _i23.ReferenceListScreen(
+          key: args.key,
+          isFromSplash: args.isFromSplash,
+        ),
       );
     },
     RegisterProfilePage.name: (routeData) {
@@ -244,7 +282,10 @@ abstract class $AppRouter extends _i28.RootStackRouter {
           orElse: () => const TermsAndConditionsScreenArgs());
       return _i28.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i27.TermsAndConditionsScreen(key: args.key),
+        child: _i27.TermsAndConditionsScreen(
+          key: args.key,
+          isFromSplash: args.isFromSplash,
+        ),
       );
     },
   };
@@ -252,16 +293,40 @@ abstract class $AppRouter extends _i28.RootStackRouter {
 
 /// generated route for
 /// [_i1.AddCardDetailPage]
-class AddCardDetailPage extends _i28.PageRouteInfo<void> {
-  const AddCardDetailPage({List<_i28.PageRouteInfo>? children})
-      : super(
+class AddCardDetailPage extends _i28.PageRouteInfo<AddCardDetailPageArgs> {
+  AddCardDetailPage({
+    _i29.Key? key,
+    bool isFromSplash = false,
+    List<_i28.PageRouteInfo>? children,
+  }) : super(
           AddCardDetailPage.name,
+          args: AddCardDetailPageArgs(
+            key: key,
+            isFromSplash: isFromSplash,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'AddCardDetailPage';
 
-  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+  static const _i28.PageInfo<AddCardDetailPageArgs> page =
+      _i28.PageInfo<AddCardDetailPageArgs>(name);
+}
+
+class AddCardDetailPageArgs {
+  const AddCardDetailPageArgs({
+    this.key,
+    this.isFromSplash = false,
+  });
+
+  final _i29.Key? key;
+
+  final bool isFromSplash;
+
+  @override
+  String toString() {
+    return 'AddCardDetailPageArgs{key: $key, isFromSplash: $isFromSplash}';
+  }
 }
 
 /// generated route for
@@ -270,10 +335,14 @@ class AddContractorSkillsForm
     extends _i28.PageRouteInfo<AddContractorSkillsFormArgs> {
   AddContractorSkillsForm({
     _i29.Key? key,
+    bool isFromSplash = false,
     List<_i28.PageRouteInfo>? children,
   }) : super(
           AddContractorSkillsForm.name,
-          args: AddContractorSkillsFormArgs(key: key),
+          args: AddContractorSkillsFormArgs(
+            key: key,
+            isFromSplash: isFromSplash,
+          ),
           initialChildren: children,
         );
 
@@ -284,13 +353,18 @@ class AddContractorSkillsForm
 }
 
 class AddContractorSkillsFormArgs {
-  const AddContractorSkillsFormArgs({this.key});
+  const AddContractorSkillsFormArgs({
+    this.key,
+    this.isFromSplash = false,
+  });
 
   final _i29.Key? key;
 
+  final bool isFromSplash;
+
   @override
   String toString() {
-    return 'AddContractorSkillsFormArgs{key: $key}';
+    return 'AddContractorSkillsFormArgs{key: $key, isFromSplash: $isFromSplash}';
   }
 }
 
@@ -300,10 +374,14 @@ class AddEducationDetailScreen
     extends _i28.PageRouteInfo<AddEducationDetailScreenArgs> {
   AddEducationDetailScreen({
     _i29.Key? key,
+    bool isFromSplash = false,
     List<_i28.PageRouteInfo>? children,
   }) : super(
           AddEducationDetailScreen.name,
-          args: AddEducationDetailScreenArgs(key: key),
+          args: AddEducationDetailScreenArgs(
+            key: key,
+            isFromSplash: isFromSplash,
+          ),
           initialChildren: children,
         );
 
@@ -314,28 +392,58 @@ class AddEducationDetailScreen
 }
 
 class AddEducationDetailScreenArgs {
-  const AddEducationDetailScreenArgs({this.key});
+  const AddEducationDetailScreenArgs({
+    this.key,
+    this.isFromSplash = false,
+  });
 
   final _i29.Key? key;
 
+  final bool isFromSplash;
+
   @override
   String toString() {
-    return 'AddEducationDetailScreenArgs{key: $key}';
+    return 'AddEducationDetailScreenArgs{key: $key, isFromSplash: $isFromSplash}';
   }
 }
 
 /// generated route for
 /// [_i4.AddExperienceDetail]
-class AddExperienceDetailScreen extends _i28.PageRouteInfo<void> {
-  const AddExperienceDetailScreen({List<_i28.PageRouteInfo>? children})
-      : super(
+class AddExperienceDetailScreen
+    extends _i28.PageRouteInfo<AddExperienceDetailScreenArgs> {
+  AddExperienceDetailScreen({
+    _i29.Key? key,
+    bool isFromSplash = false,
+    List<_i28.PageRouteInfo>? children,
+  }) : super(
           AddExperienceDetailScreen.name,
+          args: AddExperienceDetailScreenArgs(
+            key: key,
+            isFromSplash: isFromSplash,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'AddExperienceDetailScreen';
 
-  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+  static const _i28.PageInfo<AddExperienceDetailScreenArgs> page =
+      _i28.PageInfo<AddExperienceDetailScreenArgs>(name);
+}
+
+class AddExperienceDetailScreenArgs {
+  const AddExperienceDetailScreenArgs({
+    this.key,
+    this.isFromSplash = false,
+  });
+
+  final _i29.Key? key;
+
+  final bool isFromSplash;
+
+  @override
+  String toString() {
+    return 'AddExperienceDetailScreenArgs{key: $key, isFromSplash: $isFromSplash}';
+  }
 }
 
 /// generated route for
@@ -344,10 +452,14 @@ class AddReferenceDetailScreen
     extends _i28.PageRouteInfo<AddReferenceDetailScreenArgs> {
   AddReferenceDetailScreen({
     _i29.Key? key,
+    bool isFromSplash = false,
     List<_i28.PageRouteInfo>? children,
   }) : super(
           AddReferenceDetailScreen.name,
-          args: AddReferenceDetailScreenArgs(key: key),
+          args: AddReferenceDetailScreenArgs(
+            key: key,
+            isFromSplash: isFromSplash,
+          ),
           initialChildren: children,
         );
 
@@ -358,28 +470,57 @@ class AddReferenceDetailScreen
 }
 
 class AddReferenceDetailScreenArgs {
-  const AddReferenceDetailScreenArgs({this.key});
+  const AddReferenceDetailScreenArgs({
+    this.key,
+    this.isFromSplash = false,
+  });
 
   final _i29.Key? key;
 
+  final bool isFromSplash;
+
   @override
   String toString() {
-    return 'AddReferenceDetailScreenArgs{key: $key}';
+    return 'AddReferenceDetailScreenArgs{key: $key, isFromSplash: $isFromSplash}';
   }
 }
 
 /// generated route for
 /// [_i6.DocumentPage]
-class DocumentPageScreen extends _i28.PageRouteInfo<void> {
-  const DocumentPageScreen({List<_i28.PageRouteInfo>? children})
-      : super(
+class DocumentPageScreen extends _i28.PageRouteInfo<DocumentPageScreenArgs> {
+  DocumentPageScreen({
+    _i29.Key? key,
+    bool isFromSplash = false,
+    List<_i28.PageRouteInfo>? children,
+  }) : super(
           DocumentPageScreen.name,
+          args: DocumentPageScreenArgs(
+            key: key,
+            isFromSplash: isFromSplash,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'DocumentPageScreen';
 
-  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+  static const _i28.PageInfo<DocumentPageScreenArgs> page =
+      _i28.PageInfo<DocumentPageScreenArgs>(name);
+}
+
+class DocumentPageScreenArgs {
+  const DocumentPageScreenArgs({
+    this.key,
+    this.isFromSplash = false,
+  });
+
+  final _i29.Key? key;
+
+  final bool isFromSplash;
+
+  @override
+  String toString() {
+    return 'DocumentPageScreenArgs{key: $key, isFromSplash: $isFromSplash}';
+  }
 }
 
 /// generated route for
@@ -387,10 +528,14 @@ class DocumentPageScreen extends _i28.PageRouteInfo<void> {
 class EducationListScreen extends _i28.PageRouteInfo<EducationListScreenArgs> {
   EducationListScreen({
     _i29.Key? key,
+    bool isFromSplash = false,
     List<_i28.PageRouteInfo>? children,
   }) : super(
           EducationListScreen.name,
-          args: EducationListScreenArgs(key: key),
+          args: EducationListScreenArgs(
+            key: key,
+            isFromSplash: isFromSplash,
+          ),
           initialChildren: children,
         );
 
@@ -401,13 +546,18 @@ class EducationListScreen extends _i28.PageRouteInfo<EducationListScreenArgs> {
 }
 
 class EducationListScreenArgs {
-  const EducationListScreenArgs({this.key});
+  const EducationListScreenArgs({
+    this.key,
+    this.isFromSplash = false,
+  });
 
   final _i29.Key? key;
 
+  final bool isFromSplash;
+
   @override
   String toString() {
-    return 'EducationListScreenArgs{key: $key}';
+    return 'EducationListScreenArgs{key: $key, isFromSplash: $isFromSplash}';
   }
 }
 
@@ -502,10 +652,14 @@ class LegalScreeningQuestionsPage
     extends _i28.PageRouteInfo<LegalScreeningQuestionsPageArgs> {
   LegalScreeningQuestionsPage({
     _i29.Key? key,
+    bool isFromSplash = false,
     List<_i28.PageRouteInfo>? children,
   }) : super(
           LegalScreeningQuestionsPage.name,
-          args: LegalScreeningQuestionsPageArgs(key: key),
+          args: LegalScreeningQuestionsPageArgs(
+            key: key,
+            isFromSplash: isFromSplash,
+          ),
           initialChildren: children,
         );
 
@@ -516,13 +670,18 @@ class LegalScreeningQuestionsPage
 }
 
 class LegalScreeningQuestionsPageArgs {
-  const LegalScreeningQuestionsPageArgs({this.key});
+  const LegalScreeningQuestionsPageArgs({
+    this.key,
+    this.isFromSplash = false,
+  });
 
   final _i29.Key? key;
 
+  final bool isFromSplash;
+
   @override
   String toString() {
-    return 'LegalScreeningQuestionsPageArgs{key: $key}';
+    return 'LegalScreeningQuestionsPageArgs{key: $key, isFromSplash: $isFromSplash}';
   }
 }
 
@@ -531,10 +690,14 @@ class LegalScreeningQuestionsPageArgs {
 class LocationDetailForm extends _i28.PageRouteInfo<LocationDetailFormArgs> {
   LocationDetailForm({
     _i29.Key? key,
+    bool isFromSplash = false,
     List<_i28.PageRouteInfo>? children,
   }) : super(
           LocationDetailForm.name,
-          args: LocationDetailFormArgs(key: key),
+          args: LocationDetailFormArgs(
+            key: key,
+            isFromSplash: isFromSplash,
+          ),
           initialChildren: children,
         );
 
@@ -545,13 +708,18 @@ class LocationDetailForm extends _i28.PageRouteInfo<LocationDetailFormArgs> {
 }
 
 class LocationDetailFormArgs {
-  const LocationDetailFormArgs({this.key});
+  const LocationDetailFormArgs({
+    this.key,
+    this.isFromSplash = false,
+  });
 
   final _i29.Key? key;
 
+  final bool isFromSplash;
+
   @override
   String toString() {
-    return 'LocationDetailFormArgs{key: $key}';
+    return 'LocationDetailFormArgs{key: $key, isFromSplash: $isFromSplash}';
   }
 }
 
@@ -714,16 +882,40 @@ class ProfileView extends _i28.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i23.ReferenceListScreen]
-class ReferenceListScreen extends _i28.PageRouteInfo<void> {
-  const ReferenceListScreen({List<_i28.PageRouteInfo>? children})
-      : super(
+class ReferenceListScreen extends _i28.PageRouteInfo<ReferenceListScreenArgs> {
+  ReferenceListScreen({
+    _i29.Key? key,
+    bool isFromSplash = false,
+    List<_i28.PageRouteInfo>? children,
+  }) : super(
           ReferenceListScreen.name,
+          args: ReferenceListScreenArgs(
+            key: key,
+            isFromSplash: isFromSplash,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ReferenceListScreen';
 
-  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+  static const _i28.PageInfo<ReferenceListScreenArgs> page =
+      _i28.PageInfo<ReferenceListScreenArgs>(name);
+}
+
+class ReferenceListScreenArgs {
+  const ReferenceListScreenArgs({
+    this.key,
+    this.isFromSplash = false,
+  });
+
+  final _i29.Key? key;
+
+  final bool isFromSplash;
+
+  @override
+  String toString() {
+    return 'ReferenceListScreenArgs{key: $key, isFromSplash: $isFromSplash}';
+  }
 }
 
 /// generated route for
@@ -808,10 +1000,14 @@ class TermsAndConditionsScreen
     extends _i28.PageRouteInfo<TermsAndConditionsScreenArgs> {
   TermsAndConditionsScreen({
     _i29.Key? key,
+    bool isFromSplash = false,
     List<_i28.PageRouteInfo>? children,
   }) : super(
           TermsAndConditionsScreen.name,
-          args: TermsAndConditionsScreenArgs(key: key),
+          args: TermsAndConditionsScreenArgs(
+            key: key,
+            isFromSplash: isFromSplash,
+          ),
           initialChildren: children,
         );
 
@@ -822,12 +1018,17 @@ class TermsAndConditionsScreen
 }
 
 class TermsAndConditionsScreenArgs {
-  const TermsAndConditionsScreenArgs({this.key});
+  const TermsAndConditionsScreenArgs({
+    this.key,
+    this.isFromSplash = false,
+  });
 
   final _i29.Key? key;
 
+  final bool isFromSplash;
+
   @override
   String toString() {
-    return 'TermsAndConditionsScreenArgs{key: $key}';
+    return 'TermsAndConditionsScreenArgs{key: $key, isFromSplash: $isFromSplash}';
   }
 }

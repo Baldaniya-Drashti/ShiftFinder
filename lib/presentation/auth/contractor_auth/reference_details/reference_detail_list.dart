@@ -10,6 +10,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/no_data_ui.dart';
@@ -18,10 +19,13 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
+import 'package:shift/presentation/splash/splash_page.dart';
 
 @RoutePage(name: 'referenceListScreen')
 class ReferenceListScreen extends StatelessWidget {
-  const ReferenceListScreen({super.key});
+  bool isFromSplash = false;
+
+  ReferenceListScreen({super.key, this.isFromSplash = false});
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +34,39 @@ class ReferenceListScreen extends StatelessWidget {
           getIt<ReferenceBloc>()..add(ReferenceEvent.getReferenceList()),
       child: BlocConsumer<ReferenceBloc, ReferenceState>(
         listener: (context, state) {
-          // TODO: implement listener
+          state.skipFailureOrSuccessOption.fold(
+            () {},
+            (either) => either.fold(
+              (failure) {
+                showError(
+                  message: failure.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(context);
+              },
+              (r) {
+                context.router.push(PageRouteInfo(DocumentPageScreen.name));
+              },
+            ),
+          );
         },
         builder: (context, state) {
           return Scaffold(
             appBar: CommonAppBar(
+              isShowBackBtn: !isFromSplash,
               onBackPressed: () {
                 context.router.maybePop();
               },
               title: StringConstant.reference,
               showSkipBtn: (state.referenceList.isEmpty) ? true : false,
               onSkipped: () {
-                context.router.replace(PageRouteInfo(DocumentPageScreen.name));
+                context
+                    .read<ReferenceBloc>()
+                    .add(ReferenceEvent.skipReference());
+                // context.router.replace(PageRouteInfo(DocumentPageScreen.name));
               },
             ),
             body: (state.isLoading)

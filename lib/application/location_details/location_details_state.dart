@@ -5,6 +5,7 @@ class LocationDetailsState with _$LocationDetailsState {
   const factory LocationDetailsState({
     required InputEmptyOrNot address,
     required List<dynamic> searchLocationList,
+    required List<SkillDTO> facilityTypeList,
     required InputEmptyOrNot faciltyType,
     required InputEmptyOrNot otherFaciltyType,
     required String locationId,
@@ -22,6 +23,7 @@ class LocationDetailsState with _$LocationDetailsState {
   factory LocationDetailsState.initial() => LocationDetailsState(
         address: InputEmptyOrNot(""),
         searchLocationList: [],
+        facilityTypeList: [],
         faciltyType: InputEmptyOrNot(""),
         otherFaciltyType: InputEmptyOrNot(""),
         locationId: "",

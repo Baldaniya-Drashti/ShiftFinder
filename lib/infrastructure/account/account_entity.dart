@@ -40,6 +40,8 @@ class AccountEntity extends HiveObject {
   final String? referralCode;
   @HiveField(16)
   final String? lastPage;
+  @HiveField(17)
+  final int? isProfileComplete;
 
   AccountEntity(
     this.userId,
@@ -57,6 +59,7 @@ class AccountEntity extends HiveObject {
     this.lastPage,
     this.location,
     this.profileImage,
+    this.isProfileComplete,
     this.referralCode,
     this.serviceRole,
   );
@@ -78,6 +81,7 @@ class AccountEntity extends HiveObject {
       lastPage: lastPage,
       location: location,
       profileImage: profileImage,
+      isProfileComplete: isProfileComplete,
       referralCode: referralCode,
       serviceRole: serviceRole,
     );
@@ -100,6 +104,7 @@ class AccountEntity extends HiveObject {
       account.lastPage,
       account.location,
       account.profileImage,
+      account.isProfileComplete,
       account.referralCode,
       account.serviceRole,
     );

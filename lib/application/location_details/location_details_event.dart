@@ -4,6 +4,8 @@ part of 'location_details_bloc.dart';
 class LocationDetailsEvent with _$LocationDetailsEvent {
   const factory LocationDetailsEvent.addressChanged(String address) =
       AddressChanged;
+  const factory LocationDetailsEvent.getFacilityTypeList() =
+      GetFacilityTypeList;
 
   const factory LocationDetailsEvent.locationSelectedFromSearchList(
       String selectedLocation) = _LocationSelectedFromSearchList;

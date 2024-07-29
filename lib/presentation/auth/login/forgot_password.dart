@@ -10,6 +10,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/common_country_code_picker.dart';
 import 'package:shift/presentation/core/inputs/custom_pin_field.dart';
@@ -181,42 +182,45 @@ class FilterBottomSheet extends StatelessWidget {
           SizedBox(
             height: getSize(50),
           ),
-          CustomTextField(
-            labelText: StringConstant.phoneNumber,
-            hintText: StringConstant.phoneNumber,
-            keyboardType: TextInputType.phone,
-            errorMaxLines: 2,
-            maxLength: 10,
-            // focusNode: state.mobileNumberFocusNode,
-            onChanged: (value) => context.read<ForgotPasswordBloc>().add(
-                  ForgotPasswordEvent.mobileNumberChanged(value),
-                ),
-            validator: (_, context) => context
-                .read<ForgotPasswordBloc>()
-                .state
-                .mobileNumber
-                .value
-                .fold(
-                  (f) => f.maybeMap(
-                    empty: (value) => StringConstant.pleaseEnterMobileNumber,
-                    invalidMobileNumber: (_) =>
-                        StringConstant.phoneNumberShouldBeBetween10And15Digits,
-                    orElse: () => null,
-                  ),
-                  (_) => null,
-                ),
-            prefixIcon: CommonCountryCodePicker(
-              initialSelection: state.selectedCountrycode,
-              onChanged: (countryCode) {
-                print(countryCode.flagEmoji);
-                context.read<ForgotPasswordBloc>().add(
-                      ForgotPasswordEvent.selectCountryCode(
-                        countryCode.flagEmoji,
+          (getCurrentRole() == 1)
+              ? CustomTextField(
+                  labelText: StringConstant.phoneNumber,
+                  hintText: StringConstant.phoneNumber,
+                  keyboardType: TextInputType.phone,
+                  errorMaxLines: 2,
+                  maxLength: 10,
+                  // focusNode: state.mobileNumberFocusNode,
+                  onChanged: (value) => context.read<ForgotPasswordBloc>().add(
+                        ForgotPasswordEvent.mobileNumberChanged(value),
                       ),
-                    );
-              },
-            ),
-          ),
+                  validator: (_, context) => context
+                      .read<ForgotPasswordBloc>()
+                      .state
+                      .mobileNumber
+                      .value
+                      .fold(
+                        (f) => f.maybeMap(
+                          empty: (value) =>
+                              StringConstant.pleaseEnterMobileNumber,
+                          invalidMobileNumber: (_) => StringConstant
+                              .phoneNumberShouldBeBetween10And15Digits,
+                          orElse: () => null,
+                        ),
+                        (_) => null,
+                      ),
+                  prefixIcon: CommonCountryCodePicker(
+                    initialSelection: state.selectedCountrycode,
+                    onChanged: (countryCode) {
+                      print(countryCode.flagEmoji);
+                      context.read<ForgotPasswordBloc>().add(
+                            ForgotPasswordEvent.selectCountryCode(
+                              countryCode.flagEmoji,
+                            ),
+                          );
+                    },
+                  ),
+                )
+              : emailTextField(context, state),
           SizedBox(
             height: getSize(90),
           ),
@@ -236,6 +240,39 @@ class FilterBottomSheet extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget emailTextField(BuildContext context, ForgotPasswordState state) {
+    return CustomTextField(
+      labelText: StringConstant.email,
+      isLabelPadding: true,
+      hintText: StringConstant.email,
+      keyboardType: TextInputType.emailAddress,
+      prefixIcon: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: getSize(14),
+          vertical: getSize(14),
+        ),
+        child: SvgPicture.asset(
+          SvgImageConstant.email,
+          height: getSize(24),
+          width: getSize(24),
+          color: AppColors.primaryColor,
+        ),
+      ),
+      onChanged: (value) => context
+          .read<ForgotPasswordBloc>()
+          .add(ForgotPasswordEvent.emailChanged(value)),
+      validator: (p0, p1) =>
+          context.read<ForgotPasswordBloc>().state.emailAddress.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseEnterEmail,
+                  invalidEmail: (_) => StringConstant.pleaseEnterValidEmail,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
     );
   }
 

@@ -49,7 +49,12 @@ class LoginForm extends StatelessWidget {
             },
             (r) {
               // context.router.push(const PageRouteInfo(MainTabView.name));
-              context.router.push( PageRouteInfo(getCurrentPage(r)));
+              if (r.isProfileComplete == 1) {
+                context.router.replace(const PageRouteInfo(MainTabView.name));
+              } else {
+                context.router.replace(
+                    getCurrentPage(r.lastPage ?? '', fromSplash: true));
+              }
             },
           ),
         );

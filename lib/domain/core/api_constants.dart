@@ -11,7 +11,9 @@ class ApiConstants {
   static String login = 'login';
   static String resendOtp = 'resend_otp';
   static String verifyOtp = 'verify_otp';
+  static String forgotPassword = 'forgot_password';
   static String logout = 'auth/logout';
+  static String editLastPage = 'edit_last_page';
 
   static String getUserInfo = 'get_user_info';
   static String completeProfile = 'complete_profile';
@@ -27,6 +29,7 @@ class ApiConstants {
   static String quizList = 'quiz_list';
   static String quiz = 'quiz';
   static String location = 'location';
+  static String facilityTypeList = 'facility_type_list';
 
   static String legalScreeningQuestionList = 'legal_screening_question_list';
   static String legalScreeningQuestionAnswer =

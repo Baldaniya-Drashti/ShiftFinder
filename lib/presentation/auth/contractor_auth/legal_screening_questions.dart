@@ -18,10 +18,13 @@ import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
+import 'package:shift/presentation/splash/splash_page.dart';
 
 @RoutePage(name: 'legalScreeningQuestionsPage')
 class LegalScreeningQuestionsPage extends StatelessWidget {
-  LegalScreeningQuestionsPage({super.key});
+  bool isFromSplash = false;
+
+  LegalScreeningQuestionsPage({super.key, this.isFromSplash = false});
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +72,7 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: CommonAppBar(
+              isShowBackBtn: !isFromSplash,
               onBackPressed: () {
                 context.router.maybePop();
               },

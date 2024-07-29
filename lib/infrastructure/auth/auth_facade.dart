@@ -5,6 +5,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:logger/web.dart';
+import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/auth/i_auth_facade.dart';
@@ -49,7 +50,7 @@ class AuthFacade implements IAuthFacade {
   }
 
   @override
-  Future<Either<AuthFailure, String>> login({
+  Future<Either<AuthFailure, Account>> login({
     required EmailAddress email,
     required Password password,
   }) async {
@@ -65,9 +66,9 @@ class AuthFacade implements IAuthFacade {
 
       final account = CurrentUserDto.fromJson(response.data).toDomain();
       logger.d("RESPONSE OF LOGIN---> ${response.data}");
-      // setUserToken(account.auth?.accessToken ?? "");
+      setUserToken(account.auth?.accessToken ?? "");
       setCurrentUser(account);
-      return right(response.dioMessage ?? "");
+      return right(account);
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
@@ -201,17 +202,19 @@ class AuthFacade implements IAuthFacade {
   Future<Either<AuthFailure, String>> verifyOtp({
     required String emailAddress,
     required String phoneNumber,
-    required String password,
     required OTPText otp,
+    bool isForgotPassword = false,
   }) async {
     try {
       final mapData = {
         "otp": otp.getOrCrash(),
         "phone": phoneNumber,
-        "password": password,
         "service_roles": getCurrentRole(),
-        "last_page":
-            (getCurrentRole() == 1) ? "ContractorSkill" : "EmployerLocation",
+        "last_page": (isForgotPassword == true)
+            ? "Login"
+            : (getCurrentRole() == 1)
+                ? "ContractorSkill"
+                : "EmployerLocation",
       };
       if (emailAddress.isNotEmpty) {
         mapData["email"] = emailAddress;
@@ -241,17 +244,29 @@ class AuthFacade implements IAuthFacade {
   Future<Either<AuthFailure, String>> resendOtp({
     required String emailAddress,
     required String phoneNumber,
+    bool forgotPassword = false,
   }) async {
     try {
-      final response = await apiService.postMethod(ApiConstants.resendOtp, {
+      var mapData = {
         "email": emailAddress,
         "phone": phoneNumber,
         "service_roles": getCurrentRole()
-      });
+      };
+
+      if (forgotPassword == true) {
+        mapData.addAll({
+          "is_forgot_password": 1,
+        });
+      }
+
+      final response =
+          await apiService.postMethod(ApiConstants.resendOtp, mapData);
 
       final account = CurrentUserDto.fromJson(response.data).toDomain();
-      setUserToken(account.auth?.accessToken ?? "");
-      setCurrentUser(account);
+      if (forgotPassword != true) {
+        setUserToken(account.auth?.accessToken ?? "");
+        setCurrentUser(account);
+      }
       return right(response.dioMessage ?? "");
     } on DioException catch (err) {
       if (err.response != null) {
@@ -263,6 +278,33 @@ class AuthFacade implements IAuthFacade {
         }
       }
 
+      return left(const AuthFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AuthFailure, String>> forgotPassword({
+    required String password,
+    required String confirmPassword,
+  }) async {
+    try {
+      final mapData = {
+        "password": password,
+        "password_confirmation": confirmPassword,
+      };
+
+      final response =
+          await apiService.postMethod(ApiConstants.forgotPassword, mapData);
+
+      return right(response.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      }
       return left(const AuthFailure.serverError());
     }
   }
@@ -499,6 +541,36 @@ class AuthFacade implements IAuthFacade {
       logger.d("Response of Add Education---> ${jsonEncode(response.data)}");
 
       return right(response.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AuthFailure.networkError());
+      }
+
+      return left(const AuthFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AuthFailure, Account>> addLastPageApi({
+    required String lastPage,
+  }) async {
+    try {
+      final response = await apiService.postMethod(
+        ApiConstants.editLastPage,
+        {"last_page": lastPage},
+      );
+
+      final account = CurrentUserDto.fromJson(response.data).toDomain();
+      logger.d("RESPONSE OF LAST PAGE---> ${response.data}");
+
+      return right(account);
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);

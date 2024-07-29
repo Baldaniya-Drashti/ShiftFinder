@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'dart:async';
+import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:dartz/dartz.dart';
@@ -57,7 +58,7 @@ class LoginFormBloc extends Bloc<LoginFormEvent, LoginFormState> {
           loginPressed: (e) async {
             print("CURRENT ROLE---> ${getCurrentRole()}");
 
-            Either<AuthFailure, String>? failureOrSuccess;
+            Either<AuthFailure, Account>? failureOrSuccess;
             final isMobileNumberValid = state.emailId.isValid();
             final isPasswordValid = state.password.isValid();
             if (isMobileNumberValid && isPasswordValid) {
