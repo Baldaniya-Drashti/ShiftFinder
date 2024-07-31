@@ -2103,10 +2103,11 @@ class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
             );
 
             failureOrSuccess = await _repository.addMultiDocumentApi(
-                documentType: 8,
-                documentFile: state.equipmentDoc.getValue() ?? "",
-                documentTitle: state.equipmentName.getValue(),
-                lastPage: "LegalScreening");
+              documentType: 8,
+              documentFile: state.equipmentDoc.getValue() ?? "",
+              documentTitle: state.equipmentName.getValue(),
+              lastPage: "BankDetail",
+            );
 
             failureOrSuccess.fold(
               (l) => emit(

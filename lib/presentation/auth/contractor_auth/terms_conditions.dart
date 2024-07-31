@@ -94,7 +94,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
 
   Widget documentImage() {
     return Container(
-      height: getSize(103),
+      // height: getSize(103),
       padding:
           EdgeInsets.symmetric(vertical: getSize(20), horizontal: getSize(32)),
       decoration: BoxDecoration(
@@ -111,6 +111,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
             width: getSize(15),
           ),
           Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BaseText(
@@ -121,7 +122,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
                 lineHeight: 1.5,
               ),
               SizedBox(
-                width: getSize(200),
+                width: getHorizontalSize(200),
                 child: BaseText(
                   text: StringConstant.termsScreenImageDesc,
                   fontSize: 10,

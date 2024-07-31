@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -21,6 +22,7 @@ part 'location_details_bloc.freezed.dart';
 class LocationDetailsBloc
     extends Bloc<LocationDetailsEvent, LocationDetailsState> {
   final IAccountRepository _repository;
+  static TextEditingController locationCtrl = TextEditingController();
 
   /// TO GET GOOGLE PLACES
   Future<String?> fetchUrl(String query, {Map<String, String>? headers}) async {
@@ -91,6 +93,7 @@ class LocationDetailsBloc
           );
         },
         locationSelectedFromSearchList: (e) {
+          locationCtrl.text = e.selectedLocation;
           emit(
             state.copyWith(
               address: InputEmptyOrNot(e.selectedLocation),

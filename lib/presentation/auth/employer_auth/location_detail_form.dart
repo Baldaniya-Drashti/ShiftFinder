@@ -43,6 +43,7 @@ class LocationDetailForm extends StatelessWidget {
             appBar: CommonAppBar(
               isShowBackBtn: !isFromSplash,
               onBackPressed: () {
+                LocationDetailsBloc.locationCtrl.clear();
                 context.router.back();
               },
               title: StringConstant.locationDetails,
@@ -246,7 +247,8 @@ class LocationDetailForm extends StatelessWidget {
               color: AppColors.primaryColor,
             ),
           ),
-          controller: addressController..text = state.address.getValue() ?? "",
+          // controller: addressController..text = state.address.getValue() ?? "",
+          controller: LocationDetailsBloc.locationCtrl,
           onChanged: (value) {
             context
                 .read<LocationDetailsBloc>()

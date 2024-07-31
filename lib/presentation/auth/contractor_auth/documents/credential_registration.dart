@@ -222,44 +222,30 @@ class CredentialRegistration extends StatelessWidget {
 
   Widget selectedImage(BuildContext context, String selectedFile,
       {required CredentialState state}) {
-    return Stack(
-      alignment: Alignment.topRight,
-      children: [
-        ShowPickedFile(
-          selectedFile: selectedFile,
-          mainBoxHeight: getSize(300),
-          childBoxHeight: getSize(250),
-          childBoxWidth: getSize(250),
-        ),
-        Positioned(
-          top: getSize(14),
-          left: getSize(290),
-          child: GestureDetector(
-            onTap: () {
-              AppDialog.showDelete(
-                context,
-                title: StringConstant.delete,
-                infoMessage: StringConstant.deleteCredentialImageDesc,
-                onCancelClick: () {
-                  context.router.maybePop();
-                },
-                onDeleteClick: () {
-                  if (state.credentialRegistrationDoc.isValid()) {
-                    context.read<CredentialBloc>().add(
-                          CredentialEvent.deleteCredentialDoc(
-                              state.credentialRegistrationDoc.getValue()!),
-                        );
-                  }
-                  context.router.maybePop();
-                },
-              );
-            },
-            child: SvgPicture.asset(
-              SvgImageConstant.minusCircle,
-            ),
-          ),
-        ),
-      ],
+    return ShowPickedFile(
+      selectedFile: selectedFile,
+      mainBoxHeight: getSize(300),
+      childBoxHeight: getSize(250),
+      childBoxWidth: getSize(250),
+      onDelete: () {
+        AppDialog.showDelete(
+          context,
+          title: StringConstant.delete,
+          infoMessage: StringConstant.deleteCredentialImageDesc,
+          onCancelClick: () {
+            context.router.maybePop();
+          },
+          onDeleteClick: () {
+            if (state.credentialRegistrationDoc.isValid()) {
+              context.read<CredentialBloc>().add(
+                    CredentialEvent.deleteCredentialDoc(
+                        state.credentialRegistrationDoc.getValue()!),
+                  );
+            }
+            context.router.maybePop();
+          },
+        );
+      },
     );
   }
 

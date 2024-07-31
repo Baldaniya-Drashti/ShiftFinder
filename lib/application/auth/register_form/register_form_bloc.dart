@@ -24,6 +24,9 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
   late Timer timer;
   bool isNewPassObscure = false;
   bool isConfirmPassObscure = false;
+  List<dynamic> placeList = [];
+
+  static TextEditingController locationCtrl = TextEditingController();
 
   /// TO GET GOOGLE PLACES
   Future<String?> fetchUrl(String query, {Map<String, String>? headers}) async {
@@ -167,7 +170,9 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
         },
         locationAddressChanged: (e) async {
           /// To get google place with serched result
-          List<dynamic> placeList = [];
+          if (placeList.isNotEmpty) {
+            placeList.clear();
+          }
           String? response = await fetchUrl(e.location);
           if (response != null) {
             print("API RESPONSE----> $response");
@@ -182,6 +187,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           );
         },
         locationSelectedFromSearchList: (e) {
+          locationCtrl.text = e.selectedLocation;
           emit(
             state.copyWith(
               locationAddress: InputEmptyOrNot(e.selectedLocation),
@@ -208,7 +214,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           );
         },
         registerProfileBtnPressed: (e) async {
-          print("Cureent User ---> ${getCurrentRole()}");
+          print("Cureent Location ---> ${state.locationAddress.getValue()}");
           Either<AuthFailure, String>? failureOrSuccess;
 
           final isCompanyNameValid = state.companyName.isValid();

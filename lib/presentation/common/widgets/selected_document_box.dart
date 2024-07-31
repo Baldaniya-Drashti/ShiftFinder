@@ -68,6 +68,7 @@ class SelectedDocumentBox extends StatelessWidget {
                   // ),
                   ShowPickedFile(
                     selectedFile: pickedFile,
+                    showBadge: false,
                     isExpandedImage: false,
                     mainBoxHeight: getSize(60),
                     mainBoxWidth: getSize(50),

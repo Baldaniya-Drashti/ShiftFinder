@@ -3,9 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shift/application/auth/contractor_auth/document_bloc/document_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
-import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -95,7 +93,6 @@ class _DocumentListState extends State<DocumentList> {
 
   Widget documentImage() {
     return Container(
-      height: getSize(103),
       padding: EdgeInsets.symmetric(
           vertical: getSize(20), horizontal: getSize(36.025)),
       decoration: BoxDecoration(

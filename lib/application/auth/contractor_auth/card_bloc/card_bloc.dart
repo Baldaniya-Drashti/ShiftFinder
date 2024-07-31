@@ -4,7 +4,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
-import 'package:shift/presentation/core/widgets/inputs/custom_card_number_formatter.dart';
 
 part 'card_event.dart';
 part 'card_state.dart';

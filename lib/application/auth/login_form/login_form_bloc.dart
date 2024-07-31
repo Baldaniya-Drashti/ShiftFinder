@@ -31,26 +31,26 @@ class LoginFormBloc extends Bloc<LoginFormEvent, LoginFormState> {
             isObscure = !isObscure;
             emit(
               state.copyWith(
-                isObscure: isObscure,
-                authFailureOrSuccessOption: none(),
-              ),
+                  isObscure: isObscure,
+                  authFailureOrSuccessOption: none(),
+                  verificationFailureOrSuccessOption: none()),
             );
           },
           emailChanged: (e) {
             print("Email changed click!");
             emit(
               state.copyWith(
-                emailId: EmailAddress(e.emailId),
-                authFailureOrSuccessOption: none(),
-              ),
+                  emailId: EmailAddress(e.emailId),
+                  authFailureOrSuccessOption: none(),
+                  verificationFailureOrSuccessOption: none()),
             );
           },
           passwordChanged: (e) {
             emit(
               state.copyWith(
-                password: Password(e.password),
-                authFailureOrSuccessOption: none(),
-              ),
+                  password: Password(e.password),
+                  authFailureOrSuccessOption: none(),
+                  verificationFailureOrSuccessOption: none()),
             );
           },
 

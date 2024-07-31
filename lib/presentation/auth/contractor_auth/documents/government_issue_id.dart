@@ -216,43 +216,30 @@ class _GovernmentIssueDocumentState extends State<GovernmentIssueDocument> {
 
   Widget selectedImage(BuildContext context, String selectedFile,
       {required DocumentState state}) {
-    return Stack(
-      children: [
-        ShowPickedFile(
-          selectedFile: selectedFile,
-          mainBoxHeight: getSize(390),
-          childBoxHeight: getSize(300),
-          childBoxWidth: getSize(260),
-        ),
-        Positioned(
-          top: getSize(30),
-          left: getSize(295),
-          child: GestureDetector(
-            onTap: () {
-              AppDialog.showDelete(
-                context,
-                title: StringConstant.delete,
-                infoMessage: StringConstant.deleteGovernmentIdDesc,
-                onCancelClick: () {
-                  context.router.maybePop();
-                },
-                onDeleteClick: () {
-                  if (state.govermentDoc.isValid()) {
-                    context.read<DocumentBloc>().add(
-                          DocumentEvent.deleteGovermentDoc(
-                              state.govermentDoc.getValue()!),
-                        );
-                  }
-                  context.router.maybePop();
-                },
-              );
-            },
-            child: SvgPicture.asset(
-              SvgImageConstant.minusCircle,
-            ),
-          ),
-        ),
-      ],
+    return ShowPickedFile(
+      selectedFile: selectedFile,
+      mainBoxHeight: getSize(390),
+      childBoxHeight: getSize(300),
+      childBoxWidth: getSize(260),
+      onDelete: () {
+        AppDialog.showDelete(
+          context,
+          title: StringConstant.delete,
+          infoMessage: StringConstant.deleteGovernmentIdDesc,
+          onCancelClick: () {
+            context.router.maybePop();
+          },
+          onDeleteClick: () {
+            if (state.govermentDoc.isValid()) {
+              context.read<DocumentBloc>().add(
+                    DocumentEvent.deleteGovermentDoc(
+                        state.govermentDoc.getValue()!),
+                  );
+            }
+            context.router.maybePop();
+          },
+        );
+      },
     );
   }
 }

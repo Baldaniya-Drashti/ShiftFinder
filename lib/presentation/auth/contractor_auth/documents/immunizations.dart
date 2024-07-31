@@ -215,44 +215,30 @@ class ImmunizationsVaccinations extends StatelessWidget {
 
   Widget selectedImage(BuildContext context, String selectedFile,
       {required ImmunizationState state}) {
-    return Stack(
-      alignment: Alignment.topRight,
-      children: [
-        ShowPickedFile(
-          selectedFile: selectedFile,
-          mainBoxHeight: getSize(300),
-          childBoxHeight: getSize(250),
-          childBoxWidth: getSize(250),
-        ),
-        Positioned(
-          top: getSize(14),
-          left: getSize(300),
-          child: GestureDetector(
-            onTap: () {
-              AppDialog.showDelete(
-                context,
-                title: StringConstant.delete,
-                infoMessage: StringConstant.deleteCredentialImageDesc,
-                onCancelClick: () {
-                  context.router.maybePop();
-                },
-                onDeleteClick: () {
-                  if (state.immunizationDoc.isValid()) {
-                    context.read<ImmunizationBloc>().add(
-                          ImmunizationEvent.deleteImmunizationDoc(
-                              state.immunizationDoc.getValue()!),
-                        );
-                  }
-                  context.router.maybePop();
-                },
-              );
-            },
-            child: SvgPicture.asset(
-              SvgImageConstant.minusCircle,
-            ),
-          ),
-        ),
-      ],
+    return ShowPickedFile(
+      selectedFile: selectedFile,
+      mainBoxHeight: getSize(300),
+      childBoxHeight: getSize(250),
+      childBoxWidth: getSize(250),
+      onDelete: () {
+        AppDialog.showDelete(
+          context,
+          title: StringConstant.delete,
+          infoMessage: StringConstant.deleteCredentialImageDesc,
+          onCancelClick: () {
+            context.router.maybePop();
+          },
+          onDeleteClick: () {
+            if (state.immunizationDoc.isValid()) {
+              context.read<ImmunizationBloc>().add(
+                    ImmunizationEvent.deleteImmunizationDoc(
+                        state.immunizationDoc.getValue()!),
+                  );
+            }
+            context.router.maybePop();
+          },
+        );
+      },
     );
   }
 

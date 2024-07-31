@@ -81,7 +81,7 @@ class IntroVideoScreenState extends State<IntroVideoScreen> {
       alignment: Alignment.bottomLeft,
       child: Container(
         // width: getSize(230),
-        width: getSize(300),
+        width: getHorizontalSize(300),
         margin: EdgeInsets.symmetric(
             horizontal: getSize(20), vertical: getSize(40)),
         child: Column(

@@ -30,6 +30,7 @@ class NoDataText extends StatelessWidget {
             fontSize: 20,
             fontWeight: FontWeight.w400,
             fontFamily: "Aclonica",
+            textAlign: TextAlign.center,
           ),
           SizedBox(
             height: getSize(5),

@@ -88,9 +88,7 @@ class RegisterForm extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: Padding(
-                          padding: EdgeInsets.only(
-                            top: getSize(30),
-                          ),
+                          padding: EdgeInsets.symmetric(vertical: getSize(33)),
                           child: alreadyHaveAnAccount(
                             title: StringConstant.alreadyHaveAnAccount,
                             description: StringConstant.login,
@@ -359,10 +357,13 @@ class RegisterForm extends StatelessWidget {
             },
           ),
         ),
-        Container(
+        SizedBox(
+          width: getSize(20),
+        ),
+        Flexible(
           // color: Colors.red,
-          margin: EdgeInsets.only(left: getSize(10)),
-          width: getSize(300),
+          // margin: EdgeInsets.only(left: getSize(10)),
+          // width: getFontSize(280),
           child: termsAndCondition(
             title: StringConstant.pleaseCheckTheBoxToConfirmThatYouHaveReviewed,
             title1: StringConstant.andAgreeToOur,

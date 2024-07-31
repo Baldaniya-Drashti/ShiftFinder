@@ -42,11 +42,7 @@ class SplashPage extends StatelessWidget {
           unAuthenticated: (value) async {
             await Future.delayed(
               const Duration(seconds: 1),
-              () =>
-                  //
-                  context.router.replace(const PageRouteInfo(LoginPage.name)),
-              // context.router
-              //     .replace(const PageRouteInfo(LocationDetailForm.name)),
+              () => context.router.replace(const PageRouteInfo(LoginPage.name)),
             );
           },
           introScreenVisibilty: (IntroScreenVisibilty value) async {
@@ -177,6 +173,11 @@ PageRouteInfo getCurrentPage(String lastPage, {bool fromSplash = true}) {
       return PageRouteInfo(
         DocumentPageScreen.name,
         args: DocumentPageScreenArgs(isFromSplash: fromSplash),
+      );
+    case "BankDetail":
+      return PageRouteInfo(
+        AddBankDetailsScreen.name,
+        args: AddBankDetailsScreenArgs(isFromSplash: fromSplash),
       );
     case "LegalScreening":
       return PageRouteInfo(

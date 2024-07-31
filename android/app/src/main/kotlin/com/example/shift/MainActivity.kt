@@ -1,4 +1,4 @@
-package com.example.shift
+package com.mobile.shiftfinder.app
 
 import io.flutter.embedding.android.FlutterActivity
 

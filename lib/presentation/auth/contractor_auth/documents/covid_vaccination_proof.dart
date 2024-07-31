@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously, prefer_const_constructors, avoid_print
 
-import 'dart:io';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +10,6 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/utils/file_picker_utils.dart';
-import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/utils/image_picker_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
@@ -22,6 +19,7 @@ import 'package:shift/presentation/common/widgets/upload_document_box.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:path/path.dart' as path;
 
 class CovidVaccinationDocument extends StatefulWidget {
@@ -159,42 +157,29 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
 
   Widget selectedImage(BuildContext context, String selectedFile,
       {required DocumentState state}) {
-    return Stack(
-      children: [
-        ShowPickedFile(
-          selectedFile: selectedFile,
-          childBoxWidth: getSize(300),
-          childBoxHeight: getSize(380),
-        ),
-        Positioned(
-          top: getSize(60),
-          left: getSize(315),
-          child: GestureDetector(
-            onTap: () {
-              AppDialog.showDelete(
-                context,
-                title: StringConstant.delete,
-                infoMessage: StringConstant.deleteCovidDocDesc,
-                onCancelClick: () {
-                  context.router.maybePop();
-                },
-                onDeleteClick: () {
-                  if (state.covidVaccinationDoc.isValid()) {
-                    context.read<DocumentBloc>().add(
-                          DocumentEvent.deleteCovidDoc(
-                              state.covidVaccinationDoc.getValue()!),
-                        );
-                  }
-                  context.router.maybePop();
-                },
-              );
-            },
-            child: SvgPicture.asset(
-              SvgImageConstant.minusCircle,
-            ),
-          ),
-        ),
-      ],
+    return ShowPickedFile(
+      selectedFile: selectedFile,
+      childBoxWidth: getSize(300),
+      childBoxHeight: getSize(380),
+      onDelete: () {
+        AppDialog.showDelete(
+          context,
+          title: StringConstant.delete,
+          infoMessage: StringConstant.deleteCovidDocDesc,
+          onCancelClick: () {
+            context.router.maybePop();
+          },
+          onDeleteClick: () {
+            if (state.covidVaccinationDoc.isValid()) {
+              context.read<DocumentBloc>().add(
+                    DocumentEvent.deleteCovidDoc(
+                        state.covidVaccinationDoc.getValue()!),
+                  );
+            }
+            context.router.maybePop();
+          },
+        );
+      },
     );
   }
 }

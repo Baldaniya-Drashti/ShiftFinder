@@ -230,6 +230,15 @@ class StringConstant {
       "Aliqua id fugiat nostrud irure ex duis ea quissdre id quis ad et. Sunt qui esse pariatur duis deserunt mollit dsf dfdolore cillum minim tempor enim. Elit aute irure tempordffasf fsd  cupidatat incididunt sint deserunt ut voluptate aute id deserun i.";
   static const String termsDesc3 =
       "Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Volupta exercitationdr incididunt  lake aliquip deserunt reprehenderit elit laborum. ";
+  static const String addBankDetails = "Add Bank Details";
+  static const String transitNumber = "Transit Number";
+  static const String bankInstitutionNumber = "Bank Institution Number";
+  static const String accountNumber = "Account Number";
+  static const String accountHolderName = "Account Holder Name";
+  static const String bankAddress = "Bank Address";
+  static const String bankName = "Bank Name";
+  static const String bankDetailsTerms =
+      "Please review and confirm the details you have entered.";
 
   ///
 
@@ -344,4 +353,14 @@ class StringConstant {
       "Please add last 3 digit cvv number.";
   static const String cvvNumberIsInValid = "Cvv number is invalid!";
   static const String enterValidExpiryDate = "Enter valid expiry date.";
+  static const String pleaseAddTransitNumber = "Please add transit number";
+  static const String pleaseSelectBankName = "Please select bank name";
+  static const String pleaseAddBankInstitutionNumber =
+      "Please add bank institution number";
+  static const String pleaseAddAccountNumber = "Please add account number";
+  static const String pleaseAddAccountHolderName =
+      "Please add account holder name";
+  static const String pleaseAddBankAddress = "Please add bank address";
+  static const String bankTermsErrorText =
+      "Please select the checkbox to confirm";
 }

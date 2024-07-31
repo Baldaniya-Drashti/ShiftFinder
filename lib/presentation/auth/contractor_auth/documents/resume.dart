@@ -113,42 +113,28 @@ class ResumeDocument extends StatelessWidget {
 
   Widget selectedImage(BuildContext context, String selectedFile,
       {required ResumeState state}) {
-    return Stack(
-      children: [
-        ShowPickedFile(
-          selectedFile: selectedFile,
-          childBoxHeight: getSize(425),
-          childBoxWidth: getSize(315),
-        ),
-        Positioned(
-          top: getSize(60),
-          left: getSize(330),
-          child: GestureDetector(
-            onTap: () {
-              AppDialog.showDelete(
-                context,
-                title: StringConstant.delete,
-                infoMessage: StringConstant.deleteGovernmentIdDesc,
-                onCancelClick: () {
-                  context.router.maybePop();
-                },
-                onDeleteClick: () {
-                  if (state.resume.file != null &&
-                      state.resume.file!.isNotEmpty) {
-                    context.read<ResumeBloc>().add(
-                          ResumeEvent.deleteResumeDoc(state.resume.file!),
-                        );
-                  }
-                  context.router.maybePop();
-                },
-              );
-            },
-            child: SvgPicture.asset(
-              SvgImageConstant.minusCircle,
-            ),
-          ),
-        ),
-      ],
+    return ShowPickedFile(
+      selectedFile: selectedFile,
+      childBoxHeight: getSize(425),
+      childBoxWidth: getSize(315),
+      onDelete: () {
+        AppDialog.showDelete(
+          context,
+          title: StringConstant.delete,
+          infoMessage: StringConstant.deleteGovernmentIdDesc,
+          onCancelClick: () {
+            context.router.maybePop();
+          },
+          onDeleteClick: () {
+            if (state.resume.file != null && state.resume.file!.isNotEmpty) {
+              context.read<ResumeBloc>().add(
+                    ResumeEvent.deleteResumeDoc(state.resume.file!),
+                  );
+            }
+            context.router.maybePop();
+          },
+        );
+      },
     );
   }
 

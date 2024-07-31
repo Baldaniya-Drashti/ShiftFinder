@@ -67,7 +67,8 @@ class ApparelEquipment extends StatelessWidget {
               },
               (r) {
                 context.router.push(
-                    const PageRouteInfo(LegalScreeningQuestionsPage.name));
+                  const PageRouteInfo(AddBankDetailsScreen.name),
+                );
                 DocumentBloc.pageController.animateToPage(
                   0,
                   duration: const Duration(milliseconds: 1),
@@ -186,44 +187,30 @@ class ApparelEquipment extends StatelessWidget {
 
   Widget selectedImage(BuildContext context, String selectedFile,
       {required EquipmentState state}) {
-    return Stack(
-      alignment: Alignment.topRight,
-      children: [
-        ShowPickedFile(
-          selectedFile: selectedFile,
-          mainBoxHeight: getSize(400),
-          childBoxHeight: getSize(350),
-          childBoxWidth: getSize(315),
-        ),
-        Positioned(
-          top: getSize(14),
-          left: getSize(330),
-          child: GestureDetector(
-            onTap: () {
-              AppDialog.showDelete(
-                context,
-                title: StringConstant.delete,
-                infoMessage: StringConstant.deleteCredentialImageDesc,
-                onCancelClick: () {
-                  context.router.maybePop();
-                },
-                onDeleteClick: () {
-                  if (state.equipmentDoc.isValid()) {
-                    context.read<EquipmentBloc>().add(
-                          EquipmentEvent.deleteEquipmentDoc(
-                              state.equipmentDoc.getValue()!),
-                        );
-                  }
-                  context.router.maybePop();
-                },
-              );
-            },
-            child: SvgPicture.asset(
-              SvgImageConstant.minusCircle,
-            ),
-          ),
-        ),
-      ],
+    return ShowPickedFile(
+      selectedFile: selectedFile,
+      mainBoxHeight: getSize(400),
+      childBoxHeight: getSize(350),
+      childBoxWidth: getSize(315),
+      onDelete: () {
+        AppDialog.showDelete(
+          context,
+          title: StringConstant.delete,
+          infoMessage: StringConstant.deleteCredentialImageDesc,
+          onCancelClick: () {
+            context.router.maybePop();
+          },
+          onDeleteClick: () {
+            if (state.equipmentDoc.isValid()) {
+              context.read<EquipmentBloc>().add(
+                    EquipmentEvent.deleteEquipmentDoc(
+                        state.equipmentDoc.getValue()!),
+                  );
+            }
+            context.router.maybePop();
+          },
+        );
+      },
     );
   }
 

@@ -47,7 +47,7 @@ import 'package:shift/infrastructure/account/account_repository.dart' as _i10;
 import 'package:shift/infrastructure/auth/auth_facade.dart' as _i8;
 import 'package:shift/infrastructure/core/network/injectable_module.dart'
     as _i6;
-import 'package:shift/presentation/profile/account/account_cubit.dart' as _i23;
+import 'package:shift/application/profile/account/account_cubit.dart' as _i23;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt

@@ -8,61 +8,75 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i28;
-import 'package:flutter/material.dart' as _i29;
+import 'package:auto_route/auto_route.dart' as _i29;
+import 'package:flutter/material.dart' as _i30;
 import 'package:shift/application/auth/contractor_auth/location_example.dart'
-    as _i15;
-import 'package:shift/presentation/auth/contractor_auth/add_contractor_skills.dart'
-    as _i2;
-import 'package:shift/presentation/auth/contractor_auth/add_experience_detail.dart'
-    as _i4;
-import 'package:shift/presentation/auth/contractor_auth/documents/document_page.dart'
-    as _i6;
-import 'package:shift/presentation/auth/contractor_auth/education_details/add_education_detail.dart'
-    as _i3;
-import 'package:shift/presentation/auth/contractor_auth/education_details/education_detail_list.dart'
-    as _i7;
-import 'package:shift/presentation/auth/contractor_auth/intro_quiz.dart'
-    as _i11;
-import 'package:shift/presentation/auth/contractor_auth/intro_video.dart'
-    as _i12;
-import 'package:shift/presentation/auth/contractor_auth/legal_screening_questions.dart'
-    as _i13;
-import 'package:shift/presentation/auth/contractor_auth/reference_details/add_reference_detail.dart'
-    as _i5;
-import 'package:shift/presentation/auth/contractor_auth/reference_details/reference_detail_list.dart'
-    as _i23;
-import 'package:shift/presentation/auth/contractor_auth/terms_conditions.dart'
-    as _i27;
-import 'package:shift/presentation/auth/employer_auth/add_card_detail.dart'
+    as _i16;
+import 'package:shift/presentation/auth/contractor_auth/add_bank_details.dart'
     as _i1;
-import 'package:shift/presentation/auth/employer_auth/location_detail_form.dart'
+import 'package:shift/presentation/auth/contractor_auth/add_contractor_skills.dart'
+    as _i3;
+import 'package:shift/presentation/auth/contractor_auth/add_experience_detail.dart'
+    as _i5;
+import 'package:shift/presentation/auth/contractor_auth/documents/document_page.dart'
+    as _i7;
+import 'package:shift/presentation/auth/contractor_auth/education_details/add_education_detail.dart'
+    as _i4;
+import 'package:shift/presentation/auth/contractor_auth/education_details/education_detail_list.dart'
+    as _i8;
+import 'package:shift/presentation/auth/contractor_auth/intro_quiz.dart'
+    as _i12;
+import 'package:shift/presentation/auth/contractor_auth/intro_video.dart'
+    as _i13;
+import 'package:shift/presentation/auth/contractor_auth/legal_screening_questions.dart'
     as _i14;
-import 'package:shift/presentation/auth/login/login_screen.dart' as _i16;
-import 'package:shift/presentation/auth/register/register_profile.dart' as _i24;
-import 'package:shift/presentation/auth/register/register_screen.dart' as _i25;
-import 'package:shift/presentation/healthcare_post/healthcare_post.dart' as _i8;
-import 'package:shift/presentation/main/main_tab.dart' as _i17;
-import 'package:shift/presentation/main/tabs/history_view.dart' as _i9;
-import 'package:shift/presentation/main/tabs/home_view.dart' as _i10;
-import 'package:shift/presentation/main/tabs/notification_view.dart' as _i18;
-import 'package:shift/presentation/main/tabs/profile_view.dart' as _i22;
-import 'package:shift/presentation/onboarding/onboarding1.dart' as _i19;
-import 'package:shift/presentation/onboarding/onboarding2.dart' as _i20;
-import 'package:shift/presentation/onboarding/onboarding3.dart' as _i21;
-import 'package:shift/presentation/splash/splash_page.dart' as _i26;
+import 'package:shift/presentation/auth/contractor_auth/reference_details/add_reference_detail.dart'
+    as _i6;
+import 'package:shift/presentation/auth/contractor_auth/reference_details/reference_detail_list.dart'
+    as _i24;
+import 'package:shift/presentation/auth/contractor_auth/terms_conditions.dart'
+    as _i28;
+import 'package:shift/presentation/auth/employer_auth/add_card_detail.dart'
+    as _i2;
+import 'package:shift/presentation/auth/employer_auth/location_detail_form.dart'
+    as _i15;
+import 'package:shift/presentation/auth/login/login_screen.dart' as _i17;
+import 'package:shift/presentation/auth/register/register_profile.dart' as _i25;
+import 'package:shift/presentation/auth/register/register_screen.dart' as _i26;
+import 'package:shift/presentation/employer/healthcare_post/healthcare_post.dart'
+    as _i9;
+import 'package:shift/presentation/main/main_tab.dart' as _i18;
+import 'package:shift/presentation/main/tabs/history_view.dart' as _i10;
+import 'package:shift/presentation/main/tabs/home_view.dart' as _i11;
+import 'package:shift/presentation/main/tabs/notification_view.dart' as _i19;
+import 'package:shift/presentation/main/tabs/profile_view.dart' as _i23;
+import 'package:shift/presentation/onboarding/onboarding1.dart' as _i20;
+import 'package:shift/presentation/onboarding/onboarding2.dart' as _i21;
+import 'package:shift/presentation/onboarding/onboarding3.dart' as _i22;
+import 'package:shift/presentation/splash/splash_page.dart' as _i27;
 
-abstract class $AppRouter extends _i28.RootStackRouter {
+abstract class $AppRouter extends _i29.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i28.PageFactory> pagesMap = {
+  final Map<String, _i29.PageFactory> pagesMap = {
+    AddBankDetailsScreen.name: (routeData) {
+      final args = routeData.argsAs<AddBankDetailsScreenArgs>(
+          orElse: () => const AddBankDetailsScreenArgs());
+      return _i29.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i1.AddBankDetailsScreen(
+          key: args.key,
+          isFromSplash: args.isFromSplash,
+        ),
+      );
+    },
     AddCardDetailPage.name: (routeData) {
       final args = routeData.argsAs<AddCardDetailPageArgs>(
           orElse: () => const AddCardDetailPageArgs());
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i1.AddCardDetailPage(
+        child: _i2.AddCardDetailPage(
           key: args.key,
           isFromSplash: args.isFromSplash,
         ),
@@ -71,9 +85,9 @@ abstract class $AppRouter extends _i28.RootStackRouter {
     AddContractorSkillsForm.name: (routeData) {
       final args = routeData.argsAs<AddContractorSkillsFormArgs>(
           orElse: () => const AddContractorSkillsFormArgs());
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i2.AddContractorSkillsForm(
+        child: _i3.AddContractorSkillsForm(
           key: args.key,
           isFromSplash: args.isFromSplash,
         ),
@@ -82,9 +96,9 @@ abstract class $AppRouter extends _i28.RootStackRouter {
     AddEducationDetailScreen.name: (routeData) {
       final args = routeData.argsAs<AddEducationDetailScreenArgs>(
           orElse: () => const AddEducationDetailScreenArgs());
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i3.AddEducationDetail(
+        child: _i4.AddEducationDetail(
           key: args.key,
           isFromSplash: args.isFromSplash,
         ),
@@ -93,9 +107,9 @@ abstract class $AppRouter extends _i28.RootStackRouter {
     AddExperienceDetailScreen.name: (routeData) {
       final args = routeData.argsAs<AddExperienceDetailScreenArgs>(
           orElse: () => const AddExperienceDetailScreenArgs());
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i4.AddExperienceDetail(
+        child: _i5.AddExperienceDetail(
           key: args.key,
           isFromSplash: args.isFromSplash,
         ),
@@ -104,9 +118,9 @@ abstract class $AppRouter extends _i28.RootStackRouter {
     AddReferenceDetailScreen.name: (routeData) {
       final args = routeData.argsAs<AddReferenceDetailScreenArgs>(
           orElse: () => const AddReferenceDetailScreenArgs());
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i5.AddReferenceDetail(
+        child: _i6.AddReferenceDetail(
           key: args.key,
           isFromSplash: args.isFromSplash,
         ),
@@ -115,9 +129,9 @@ abstract class $AppRouter extends _i28.RootStackRouter {
     DocumentPageScreen.name: (routeData) {
       final args = routeData.argsAs<DocumentPageScreenArgs>(
           orElse: () => const DocumentPageScreenArgs());
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i6.DocumentPage(
+        child: _i7.DocumentPage(
           key: args.key,
           isFromSplash: args.isFromSplash,
         ),
@@ -126,9 +140,9 @@ abstract class $AppRouter extends _i28.RootStackRouter {
     EducationListScreen.name: (routeData) {
       final args = routeData.argsAs<EducationListScreenArgs>(
           orElse: () => const EducationListScreenArgs());
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i7.EducationListScreen(
+        child: _i8.EducationListScreen(
           key: args.key,
           isFromSplash: args.isFromSplash,
         ),
@@ -137,41 +151,41 @@ abstract class $AppRouter extends _i28.RootStackRouter {
     HealthCarePostForm.name: (routeData) {
       final args = routeData.argsAs<HealthCarePostFormArgs>(
           orElse: () => const HealthCarePostFormArgs());
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i8.HealthCarePostForm(key: args.key),
+        child: _i9.HealthCarePostForm(key: args.key),
       );
     },
     HistoryView.name: (routeData) {
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i9.HistoryView(),
+        child: const _i10.HistoryView(),
       );
     },
     HomeView.name: (routeData) {
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i10.HomeView(),
+        child: const _i11.HomeView(),
       );
     },
     IntroQuizScreen.name: (routeData) {
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i11.IntroQuizScreen(),
+        child: _i12.IntroQuizScreen(),
       );
     },
     IntroVideoScreen.name: (routeData) {
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i12.IntroVideoScreen(),
+        child: _i13.IntroVideoScreen(),
       );
     },
     LegalScreeningQuestionsPage.name: (routeData) {
       final args = routeData.argsAs<LegalScreeningQuestionsPageArgs>(
           orElse: () => const LegalScreeningQuestionsPageArgs());
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i13.LegalScreeningQuestionsPage(
+        child: _i14.LegalScreeningQuestionsPage(
           key: args.key,
           isFromSplash: args.isFromSplash,
         ),
@@ -180,74 +194,74 @@ abstract class $AppRouter extends _i28.RootStackRouter {
     LocationDetailForm.name: (routeData) {
       final args = routeData.argsAs<LocationDetailFormArgs>(
           orElse: () => const LocationDetailFormArgs());
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i14.LocationDetailForm(
+        child: _i15.LocationDetailForm(
           key: args.key,
           isFromSplash: args.isFromSplash,
         ),
       );
     },
     LocationExample.name: (routeData) {
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i15.LocationExample(),
+        child: _i16.LocationExample(),
       );
     },
     LoginPage.name: (routeData) {
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i16.LoginScreen(),
+        child: const _i17.LoginScreen(),
       );
     },
     MainTabView.name: (routeData) {
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i17.MainTabView(),
+        child: const _i18.MainTabView(),
       );
     },
     NotificationView.name: (routeData) {
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i18.NotificationView(),
+        child: const _i19.NotificationView(),
       );
     },
     Onboarding1.name: (routeData) {
       final args = routeData.argsAs<Onboarding1Args>(
           orElse: () => const Onboarding1Args());
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i19.OnBoarding1(key: args.key),
+        child: _i20.OnBoarding1(key: args.key),
       );
     },
     Onboarding2.name: (routeData) {
       final args = routeData.argsAs<Onboarding2Args>(
           orElse: () => const Onboarding2Args());
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i20.OnBoarding2(key: args.key),
+        child: _i21.OnBoarding2(key: args.key),
       );
     },
     OnBoarding3.name: (routeData) {
       final args = routeData.argsAs<OnBoarding3Args>(
           orElse: () => const OnBoarding3Args());
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i21.OnBoarding3(key: args.key),
+        child: _i22.OnBoarding3(key: args.key),
       );
     },
     ProfileView.name: (routeData) {
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i22.ProfileView(),
+        child: const _i23.ProfileView(),
       );
     },
     ReferenceListScreen.name: (routeData) {
       final args = routeData.argsAs<ReferenceListScreenArgs>(
           orElse: () => const ReferenceListScreenArgs());
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i23.ReferenceListScreen(
+        child: _i24.ReferenceListScreen(
           key: args.key,
           isFromSplash: args.isFromSplash,
         ),
@@ -255,9 +269,9 @@ abstract class $AppRouter extends _i28.RootStackRouter {
     },
     RegisterProfilePage.name: (routeData) {
       final args = routeData.argsAs<RegisterProfilePageArgs>();
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i24.RegisterProfileScreen(
+        child: _i25.RegisterProfileScreen(
           key: args.key,
           firstName: args.firstName,
           lastName: args.lastName,
@@ -266,23 +280,23 @@ abstract class $AppRouter extends _i28.RootStackRouter {
       );
     },
     RegisterPage.name: (routeData) {
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i25.RegisterScreen(),
+        child: const _i26.RegisterScreen(),
       );
     },
     SplashPage.name: (routeData) {
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i26.SplashPage(),
+        child: const _i27.SplashPage(),
       );
     },
     TermsAndConditionsScreen.name: (routeData) {
       final args = routeData.argsAs<TermsAndConditionsScreenArgs>(
           orElse: () => const TermsAndConditionsScreenArgs());
-      return _i28.AutoRoutePage<dynamic>(
+      return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i27.TermsAndConditionsScreen(
+        child: _i28.TermsAndConditionsScreen(
           key: args.key,
           isFromSplash: args.isFromSplash,
         ),
@@ -292,12 +306,51 @@ abstract class $AppRouter extends _i28.RootStackRouter {
 }
 
 /// generated route for
-/// [_i1.AddCardDetailPage]
-class AddCardDetailPage extends _i28.PageRouteInfo<AddCardDetailPageArgs> {
-  AddCardDetailPage({
-    _i29.Key? key,
+/// [_i1.AddBankDetailsScreen]
+class AddBankDetailsScreen
+    extends _i29.PageRouteInfo<AddBankDetailsScreenArgs> {
+  AddBankDetailsScreen({
+    _i30.Key? key,
     bool isFromSplash = false,
-    List<_i28.PageRouteInfo>? children,
+    List<_i29.PageRouteInfo>? children,
+  }) : super(
+          AddBankDetailsScreen.name,
+          args: AddBankDetailsScreenArgs(
+            key: key,
+            isFromSplash: isFromSplash,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'AddBankDetailsScreen';
+
+  static const _i29.PageInfo<AddBankDetailsScreenArgs> page =
+      _i29.PageInfo<AddBankDetailsScreenArgs>(name);
+}
+
+class AddBankDetailsScreenArgs {
+  const AddBankDetailsScreenArgs({
+    this.key,
+    this.isFromSplash = false,
+  });
+
+  final _i30.Key? key;
+
+  final bool isFromSplash;
+
+  @override
+  String toString() {
+    return 'AddBankDetailsScreenArgs{key: $key, isFromSplash: $isFromSplash}';
+  }
+}
+
+/// generated route for
+/// [_i2.AddCardDetailPage]
+class AddCardDetailPage extends _i29.PageRouteInfo<AddCardDetailPageArgs> {
+  AddCardDetailPage({
+    _i30.Key? key,
+    bool isFromSplash = false,
+    List<_i29.PageRouteInfo>? children,
   }) : super(
           AddCardDetailPage.name,
           args: AddCardDetailPageArgs(
@@ -309,8 +362,8 @@ class AddCardDetailPage extends _i28.PageRouteInfo<AddCardDetailPageArgs> {
 
   static const String name = 'AddCardDetailPage';
 
-  static const _i28.PageInfo<AddCardDetailPageArgs> page =
-      _i28.PageInfo<AddCardDetailPageArgs>(name);
+  static const _i29.PageInfo<AddCardDetailPageArgs> page =
+      _i29.PageInfo<AddCardDetailPageArgs>(name);
 }
 
 class AddCardDetailPageArgs {
@@ -319,7 +372,7 @@ class AddCardDetailPageArgs {
     this.isFromSplash = false,
   });
 
-  final _i29.Key? key;
+  final _i30.Key? key;
 
   final bool isFromSplash;
 
@@ -330,13 +383,13 @@ class AddCardDetailPageArgs {
 }
 
 /// generated route for
-/// [_i2.AddContractorSkillsForm]
+/// [_i3.AddContractorSkillsForm]
 class AddContractorSkillsForm
-    extends _i28.PageRouteInfo<AddContractorSkillsFormArgs> {
+    extends _i29.PageRouteInfo<AddContractorSkillsFormArgs> {
   AddContractorSkillsForm({
-    _i29.Key? key,
+    _i30.Key? key,
     bool isFromSplash = false,
-    List<_i28.PageRouteInfo>? children,
+    List<_i29.PageRouteInfo>? children,
   }) : super(
           AddContractorSkillsForm.name,
           args: AddContractorSkillsFormArgs(
@@ -348,8 +401,8 @@ class AddContractorSkillsForm
 
   static const String name = 'AddContractorSkillsForm';
 
-  static const _i28.PageInfo<AddContractorSkillsFormArgs> page =
-      _i28.PageInfo<AddContractorSkillsFormArgs>(name);
+  static const _i29.PageInfo<AddContractorSkillsFormArgs> page =
+      _i29.PageInfo<AddContractorSkillsFormArgs>(name);
 }
 
 class AddContractorSkillsFormArgs {
@@ -358,7 +411,7 @@ class AddContractorSkillsFormArgs {
     this.isFromSplash = false,
   });
 
-  final _i29.Key? key;
+  final _i30.Key? key;
 
   final bool isFromSplash;
 
@@ -369,13 +422,13 @@ class AddContractorSkillsFormArgs {
 }
 
 /// generated route for
-/// [_i3.AddEducationDetail]
+/// [_i4.AddEducationDetail]
 class AddEducationDetailScreen
-    extends _i28.PageRouteInfo<AddEducationDetailScreenArgs> {
+    extends _i29.PageRouteInfo<AddEducationDetailScreenArgs> {
   AddEducationDetailScreen({
-    _i29.Key? key,
+    _i30.Key? key,
     bool isFromSplash = false,
-    List<_i28.PageRouteInfo>? children,
+    List<_i29.PageRouteInfo>? children,
   }) : super(
           AddEducationDetailScreen.name,
           args: AddEducationDetailScreenArgs(
@@ -387,8 +440,8 @@ class AddEducationDetailScreen
 
   static const String name = 'AddEducationDetailScreen';
 
-  static const _i28.PageInfo<AddEducationDetailScreenArgs> page =
-      _i28.PageInfo<AddEducationDetailScreenArgs>(name);
+  static const _i29.PageInfo<AddEducationDetailScreenArgs> page =
+      _i29.PageInfo<AddEducationDetailScreenArgs>(name);
 }
 
 class AddEducationDetailScreenArgs {
@@ -397,7 +450,7 @@ class AddEducationDetailScreenArgs {
     this.isFromSplash = false,
   });
 
-  final _i29.Key? key;
+  final _i30.Key? key;
 
   final bool isFromSplash;
 
@@ -408,13 +461,13 @@ class AddEducationDetailScreenArgs {
 }
 
 /// generated route for
-/// [_i4.AddExperienceDetail]
+/// [_i5.AddExperienceDetail]
 class AddExperienceDetailScreen
-    extends _i28.PageRouteInfo<AddExperienceDetailScreenArgs> {
+    extends _i29.PageRouteInfo<AddExperienceDetailScreenArgs> {
   AddExperienceDetailScreen({
-    _i29.Key? key,
+    _i30.Key? key,
     bool isFromSplash = false,
-    List<_i28.PageRouteInfo>? children,
+    List<_i29.PageRouteInfo>? children,
   }) : super(
           AddExperienceDetailScreen.name,
           args: AddExperienceDetailScreenArgs(
@@ -426,8 +479,8 @@ class AddExperienceDetailScreen
 
   static const String name = 'AddExperienceDetailScreen';
 
-  static const _i28.PageInfo<AddExperienceDetailScreenArgs> page =
-      _i28.PageInfo<AddExperienceDetailScreenArgs>(name);
+  static const _i29.PageInfo<AddExperienceDetailScreenArgs> page =
+      _i29.PageInfo<AddExperienceDetailScreenArgs>(name);
 }
 
 class AddExperienceDetailScreenArgs {
@@ -436,7 +489,7 @@ class AddExperienceDetailScreenArgs {
     this.isFromSplash = false,
   });
 
-  final _i29.Key? key;
+  final _i30.Key? key;
 
   final bool isFromSplash;
 
@@ -447,13 +500,13 @@ class AddExperienceDetailScreenArgs {
 }
 
 /// generated route for
-/// [_i5.AddReferenceDetail]
+/// [_i6.AddReferenceDetail]
 class AddReferenceDetailScreen
-    extends _i28.PageRouteInfo<AddReferenceDetailScreenArgs> {
+    extends _i29.PageRouteInfo<AddReferenceDetailScreenArgs> {
   AddReferenceDetailScreen({
-    _i29.Key? key,
+    _i30.Key? key,
     bool isFromSplash = false,
-    List<_i28.PageRouteInfo>? children,
+    List<_i29.PageRouteInfo>? children,
   }) : super(
           AddReferenceDetailScreen.name,
           args: AddReferenceDetailScreenArgs(
@@ -465,8 +518,8 @@ class AddReferenceDetailScreen
 
   static const String name = 'AddReferenceDetailScreen';
 
-  static const _i28.PageInfo<AddReferenceDetailScreenArgs> page =
-      _i28.PageInfo<AddReferenceDetailScreenArgs>(name);
+  static const _i29.PageInfo<AddReferenceDetailScreenArgs> page =
+      _i29.PageInfo<AddReferenceDetailScreenArgs>(name);
 }
 
 class AddReferenceDetailScreenArgs {
@@ -475,7 +528,7 @@ class AddReferenceDetailScreenArgs {
     this.isFromSplash = false,
   });
 
-  final _i29.Key? key;
+  final _i30.Key? key;
 
   final bool isFromSplash;
 
@@ -486,12 +539,12 @@ class AddReferenceDetailScreenArgs {
 }
 
 /// generated route for
-/// [_i6.DocumentPage]
-class DocumentPageScreen extends _i28.PageRouteInfo<DocumentPageScreenArgs> {
+/// [_i7.DocumentPage]
+class DocumentPageScreen extends _i29.PageRouteInfo<DocumentPageScreenArgs> {
   DocumentPageScreen({
-    _i29.Key? key,
+    _i30.Key? key,
     bool isFromSplash = false,
-    List<_i28.PageRouteInfo>? children,
+    List<_i29.PageRouteInfo>? children,
   }) : super(
           DocumentPageScreen.name,
           args: DocumentPageScreenArgs(
@@ -503,8 +556,8 @@ class DocumentPageScreen extends _i28.PageRouteInfo<DocumentPageScreenArgs> {
 
   static const String name = 'DocumentPageScreen';
 
-  static const _i28.PageInfo<DocumentPageScreenArgs> page =
-      _i28.PageInfo<DocumentPageScreenArgs>(name);
+  static const _i29.PageInfo<DocumentPageScreenArgs> page =
+      _i29.PageInfo<DocumentPageScreenArgs>(name);
 }
 
 class DocumentPageScreenArgs {
@@ -513,7 +566,7 @@ class DocumentPageScreenArgs {
     this.isFromSplash = false,
   });
 
-  final _i29.Key? key;
+  final _i30.Key? key;
 
   final bool isFromSplash;
 
@@ -524,12 +577,12 @@ class DocumentPageScreenArgs {
 }
 
 /// generated route for
-/// [_i7.EducationListScreen]
-class EducationListScreen extends _i28.PageRouteInfo<EducationListScreenArgs> {
+/// [_i8.EducationListScreen]
+class EducationListScreen extends _i29.PageRouteInfo<EducationListScreenArgs> {
   EducationListScreen({
-    _i29.Key? key,
+    _i30.Key? key,
     bool isFromSplash = false,
-    List<_i28.PageRouteInfo>? children,
+    List<_i29.PageRouteInfo>? children,
   }) : super(
           EducationListScreen.name,
           args: EducationListScreenArgs(
@@ -541,8 +594,8 @@ class EducationListScreen extends _i28.PageRouteInfo<EducationListScreenArgs> {
 
   static const String name = 'EducationListScreen';
 
-  static const _i28.PageInfo<EducationListScreenArgs> page =
-      _i28.PageInfo<EducationListScreenArgs>(name);
+  static const _i29.PageInfo<EducationListScreenArgs> page =
+      _i29.PageInfo<EducationListScreenArgs>(name);
 }
 
 class EducationListScreenArgs {
@@ -551,7 +604,7 @@ class EducationListScreenArgs {
     this.isFromSplash = false,
   });
 
-  final _i29.Key? key;
+  final _i30.Key? key;
 
   final bool isFromSplash;
 
@@ -562,11 +615,11 @@ class EducationListScreenArgs {
 }
 
 /// generated route for
-/// [_i8.HealthCarePostForm]
-class HealthCarePostForm extends _i28.PageRouteInfo<HealthCarePostFormArgs> {
+/// [_i9.HealthCarePostForm]
+class HealthCarePostForm extends _i29.PageRouteInfo<HealthCarePostFormArgs> {
   HealthCarePostForm({
-    _i29.Key? key,
-    List<_i28.PageRouteInfo>? children,
+    _i30.Key? key,
+    List<_i29.PageRouteInfo>? children,
   }) : super(
           HealthCarePostForm.name,
           args: HealthCarePostFormArgs(key: key),
@@ -575,14 +628,14 @@ class HealthCarePostForm extends _i28.PageRouteInfo<HealthCarePostFormArgs> {
 
   static const String name = 'HealthCarePostForm';
 
-  static const _i28.PageInfo<HealthCarePostFormArgs> page =
-      _i28.PageInfo<HealthCarePostFormArgs>(name);
+  static const _i29.PageInfo<HealthCarePostFormArgs> page =
+      _i29.PageInfo<HealthCarePostFormArgs>(name);
 }
 
 class HealthCarePostFormArgs {
   const HealthCarePostFormArgs({this.key});
 
-  final _i29.Key? key;
+  final _i30.Key? key;
 
   @override
   String toString() {
@@ -591,9 +644,9 @@ class HealthCarePostFormArgs {
 }
 
 /// generated route for
-/// [_i9.HistoryView]
-class HistoryView extends _i28.PageRouteInfo<void> {
-  const HistoryView({List<_i28.PageRouteInfo>? children})
+/// [_i10.HistoryView]
+class HistoryView extends _i29.PageRouteInfo<void> {
+  const HistoryView({List<_i29.PageRouteInfo>? children})
       : super(
           HistoryView.name,
           initialChildren: children,
@@ -601,13 +654,13 @@ class HistoryView extends _i28.PageRouteInfo<void> {
 
   static const String name = 'HistoryView';
 
-  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+  static const _i29.PageInfo<void> page = _i29.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i10.HomeView]
-class HomeView extends _i28.PageRouteInfo<void> {
-  const HomeView({List<_i28.PageRouteInfo>? children})
+/// [_i11.HomeView]
+class HomeView extends _i29.PageRouteInfo<void> {
+  const HomeView({List<_i29.PageRouteInfo>? children})
       : super(
           HomeView.name,
           initialChildren: children,
@@ -615,13 +668,13 @@ class HomeView extends _i28.PageRouteInfo<void> {
 
   static const String name = 'HomeView';
 
-  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+  static const _i29.PageInfo<void> page = _i29.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i11.IntroQuizScreen]
-class IntroQuizScreen extends _i28.PageRouteInfo<void> {
-  const IntroQuizScreen({List<_i28.PageRouteInfo>? children})
+/// [_i12.IntroQuizScreen]
+class IntroQuizScreen extends _i29.PageRouteInfo<void> {
+  const IntroQuizScreen({List<_i29.PageRouteInfo>? children})
       : super(
           IntroQuizScreen.name,
           initialChildren: children,
@@ -629,13 +682,13 @@ class IntroQuizScreen extends _i28.PageRouteInfo<void> {
 
   static const String name = 'IntroQuizScreen';
 
-  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+  static const _i29.PageInfo<void> page = _i29.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i12.IntroVideoScreen]
-class IntroVideoScreen extends _i28.PageRouteInfo<void> {
-  const IntroVideoScreen({List<_i28.PageRouteInfo>? children})
+/// [_i13.IntroVideoScreen]
+class IntroVideoScreen extends _i29.PageRouteInfo<void> {
+  const IntroVideoScreen({List<_i29.PageRouteInfo>? children})
       : super(
           IntroVideoScreen.name,
           initialChildren: children,
@@ -643,17 +696,17 @@ class IntroVideoScreen extends _i28.PageRouteInfo<void> {
 
   static const String name = 'IntroVideoScreen';
 
-  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+  static const _i29.PageInfo<void> page = _i29.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i13.LegalScreeningQuestionsPage]
+/// [_i14.LegalScreeningQuestionsPage]
 class LegalScreeningQuestionsPage
-    extends _i28.PageRouteInfo<LegalScreeningQuestionsPageArgs> {
+    extends _i29.PageRouteInfo<LegalScreeningQuestionsPageArgs> {
   LegalScreeningQuestionsPage({
-    _i29.Key? key,
+    _i30.Key? key,
     bool isFromSplash = false,
-    List<_i28.PageRouteInfo>? children,
+    List<_i29.PageRouteInfo>? children,
   }) : super(
           LegalScreeningQuestionsPage.name,
           args: LegalScreeningQuestionsPageArgs(
@@ -665,8 +718,8 @@ class LegalScreeningQuestionsPage
 
   static const String name = 'LegalScreeningQuestionsPage';
 
-  static const _i28.PageInfo<LegalScreeningQuestionsPageArgs> page =
-      _i28.PageInfo<LegalScreeningQuestionsPageArgs>(name);
+  static const _i29.PageInfo<LegalScreeningQuestionsPageArgs> page =
+      _i29.PageInfo<LegalScreeningQuestionsPageArgs>(name);
 }
 
 class LegalScreeningQuestionsPageArgs {
@@ -675,7 +728,7 @@ class LegalScreeningQuestionsPageArgs {
     this.isFromSplash = false,
   });
 
-  final _i29.Key? key;
+  final _i30.Key? key;
 
   final bool isFromSplash;
 
@@ -686,12 +739,12 @@ class LegalScreeningQuestionsPageArgs {
 }
 
 /// generated route for
-/// [_i14.LocationDetailForm]
-class LocationDetailForm extends _i28.PageRouteInfo<LocationDetailFormArgs> {
+/// [_i15.LocationDetailForm]
+class LocationDetailForm extends _i29.PageRouteInfo<LocationDetailFormArgs> {
   LocationDetailForm({
-    _i29.Key? key,
+    _i30.Key? key,
     bool isFromSplash = false,
-    List<_i28.PageRouteInfo>? children,
+    List<_i29.PageRouteInfo>? children,
   }) : super(
           LocationDetailForm.name,
           args: LocationDetailFormArgs(
@@ -703,8 +756,8 @@ class LocationDetailForm extends _i28.PageRouteInfo<LocationDetailFormArgs> {
 
   static const String name = 'LocationDetailForm';
 
-  static const _i28.PageInfo<LocationDetailFormArgs> page =
-      _i28.PageInfo<LocationDetailFormArgs>(name);
+  static const _i29.PageInfo<LocationDetailFormArgs> page =
+      _i29.PageInfo<LocationDetailFormArgs>(name);
 }
 
 class LocationDetailFormArgs {
@@ -713,7 +766,7 @@ class LocationDetailFormArgs {
     this.isFromSplash = false,
   });
 
-  final _i29.Key? key;
+  final _i30.Key? key;
 
   final bool isFromSplash;
 
@@ -724,9 +777,9 @@ class LocationDetailFormArgs {
 }
 
 /// generated route for
-/// [_i15.LocationExample]
-class LocationExample extends _i28.PageRouteInfo<void> {
-  const LocationExample({List<_i28.PageRouteInfo>? children})
+/// [_i16.LocationExample]
+class LocationExample extends _i29.PageRouteInfo<void> {
+  const LocationExample({List<_i29.PageRouteInfo>? children})
       : super(
           LocationExample.name,
           initialChildren: children,
@@ -734,13 +787,13 @@ class LocationExample extends _i28.PageRouteInfo<void> {
 
   static const String name = 'LocationExample';
 
-  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+  static const _i29.PageInfo<void> page = _i29.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i16.LoginScreen]
-class LoginPage extends _i28.PageRouteInfo<void> {
-  const LoginPage({List<_i28.PageRouteInfo>? children})
+/// [_i17.LoginScreen]
+class LoginPage extends _i29.PageRouteInfo<void> {
+  const LoginPage({List<_i29.PageRouteInfo>? children})
       : super(
           LoginPage.name,
           initialChildren: children,
@@ -748,13 +801,13 @@ class LoginPage extends _i28.PageRouteInfo<void> {
 
   static const String name = 'LoginPage';
 
-  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+  static const _i29.PageInfo<void> page = _i29.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i17.MainTabView]
-class MainTabView extends _i28.PageRouteInfo<void> {
-  const MainTabView({List<_i28.PageRouteInfo>? children})
+/// [_i18.MainTabView]
+class MainTabView extends _i29.PageRouteInfo<void> {
+  const MainTabView({List<_i29.PageRouteInfo>? children})
       : super(
           MainTabView.name,
           initialChildren: children,
@@ -762,13 +815,13 @@ class MainTabView extends _i28.PageRouteInfo<void> {
 
   static const String name = 'MainTabView';
 
-  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+  static const _i29.PageInfo<void> page = _i29.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i18.NotificationView]
-class NotificationView extends _i28.PageRouteInfo<void> {
-  const NotificationView({List<_i28.PageRouteInfo>? children})
+/// [_i19.NotificationView]
+class NotificationView extends _i29.PageRouteInfo<void> {
+  const NotificationView({List<_i29.PageRouteInfo>? children})
       : super(
           NotificationView.name,
           initialChildren: children,
@@ -776,15 +829,15 @@ class NotificationView extends _i28.PageRouteInfo<void> {
 
   static const String name = 'NotificationView';
 
-  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+  static const _i29.PageInfo<void> page = _i29.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i19.OnBoarding1]
-class Onboarding1 extends _i28.PageRouteInfo<Onboarding1Args> {
+/// [_i20.OnBoarding1]
+class Onboarding1 extends _i29.PageRouteInfo<Onboarding1Args> {
   Onboarding1({
-    _i29.Key? key,
-    List<_i28.PageRouteInfo>? children,
+    _i30.Key? key,
+    List<_i29.PageRouteInfo>? children,
   }) : super(
           Onboarding1.name,
           args: Onboarding1Args(key: key),
@@ -793,14 +846,14 @@ class Onboarding1 extends _i28.PageRouteInfo<Onboarding1Args> {
 
   static const String name = 'Onboarding1';
 
-  static const _i28.PageInfo<Onboarding1Args> page =
-      _i28.PageInfo<Onboarding1Args>(name);
+  static const _i29.PageInfo<Onboarding1Args> page =
+      _i29.PageInfo<Onboarding1Args>(name);
 }
 
 class Onboarding1Args {
   const Onboarding1Args({this.key});
 
-  final _i29.Key? key;
+  final _i30.Key? key;
 
   @override
   String toString() {
@@ -809,11 +862,11 @@ class Onboarding1Args {
 }
 
 /// generated route for
-/// [_i20.OnBoarding2]
-class Onboarding2 extends _i28.PageRouteInfo<Onboarding2Args> {
+/// [_i21.OnBoarding2]
+class Onboarding2 extends _i29.PageRouteInfo<Onboarding2Args> {
   Onboarding2({
-    _i29.Key? key,
-    List<_i28.PageRouteInfo>? children,
+    _i30.Key? key,
+    List<_i29.PageRouteInfo>? children,
   }) : super(
           Onboarding2.name,
           args: Onboarding2Args(key: key),
@@ -822,14 +875,14 @@ class Onboarding2 extends _i28.PageRouteInfo<Onboarding2Args> {
 
   static const String name = 'Onboarding2';
 
-  static const _i28.PageInfo<Onboarding2Args> page =
-      _i28.PageInfo<Onboarding2Args>(name);
+  static const _i29.PageInfo<Onboarding2Args> page =
+      _i29.PageInfo<Onboarding2Args>(name);
 }
 
 class Onboarding2Args {
   const Onboarding2Args({this.key});
 
-  final _i29.Key? key;
+  final _i30.Key? key;
 
   @override
   String toString() {
@@ -838,11 +891,11 @@ class Onboarding2Args {
 }
 
 /// generated route for
-/// [_i21.OnBoarding3]
-class OnBoarding3 extends _i28.PageRouteInfo<OnBoarding3Args> {
+/// [_i22.OnBoarding3]
+class OnBoarding3 extends _i29.PageRouteInfo<OnBoarding3Args> {
   OnBoarding3({
-    _i29.Key? key,
-    List<_i28.PageRouteInfo>? children,
+    _i30.Key? key,
+    List<_i29.PageRouteInfo>? children,
   }) : super(
           OnBoarding3.name,
           args: OnBoarding3Args(key: key),
@@ -851,14 +904,14 @@ class OnBoarding3 extends _i28.PageRouteInfo<OnBoarding3Args> {
 
   static const String name = 'OnBoarding3';
 
-  static const _i28.PageInfo<OnBoarding3Args> page =
-      _i28.PageInfo<OnBoarding3Args>(name);
+  static const _i29.PageInfo<OnBoarding3Args> page =
+      _i29.PageInfo<OnBoarding3Args>(name);
 }
 
 class OnBoarding3Args {
   const OnBoarding3Args({this.key});
 
-  final _i29.Key? key;
+  final _i30.Key? key;
 
   @override
   String toString() {
@@ -867,9 +920,9 @@ class OnBoarding3Args {
 }
 
 /// generated route for
-/// [_i22.ProfileView]
-class ProfileView extends _i28.PageRouteInfo<void> {
-  const ProfileView({List<_i28.PageRouteInfo>? children})
+/// [_i23.ProfileView]
+class ProfileView extends _i29.PageRouteInfo<void> {
+  const ProfileView({List<_i29.PageRouteInfo>? children})
       : super(
           ProfileView.name,
           initialChildren: children,
@@ -877,16 +930,16 @@ class ProfileView extends _i28.PageRouteInfo<void> {
 
   static const String name = 'ProfileView';
 
-  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+  static const _i29.PageInfo<void> page = _i29.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i23.ReferenceListScreen]
-class ReferenceListScreen extends _i28.PageRouteInfo<ReferenceListScreenArgs> {
+/// [_i24.ReferenceListScreen]
+class ReferenceListScreen extends _i29.PageRouteInfo<ReferenceListScreenArgs> {
   ReferenceListScreen({
-    _i29.Key? key,
+    _i30.Key? key,
     bool isFromSplash = false,
-    List<_i28.PageRouteInfo>? children,
+    List<_i29.PageRouteInfo>? children,
   }) : super(
           ReferenceListScreen.name,
           args: ReferenceListScreenArgs(
@@ -898,8 +951,8 @@ class ReferenceListScreen extends _i28.PageRouteInfo<ReferenceListScreenArgs> {
 
   static const String name = 'ReferenceListScreen';
 
-  static const _i28.PageInfo<ReferenceListScreenArgs> page =
-      _i28.PageInfo<ReferenceListScreenArgs>(name);
+  static const _i29.PageInfo<ReferenceListScreenArgs> page =
+      _i29.PageInfo<ReferenceListScreenArgs>(name);
 }
 
 class ReferenceListScreenArgs {
@@ -908,7 +961,7 @@ class ReferenceListScreenArgs {
     this.isFromSplash = false,
   });
 
-  final _i29.Key? key;
+  final _i30.Key? key;
 
   final bool isFromSplash;
 
@@ -919,14 +972,14 @@ class ReferenceListScreenArgs {
 }
 
 /// generated route for
-/// [_i24.RegisterProfileScreen]
-class RegisterProfilePage extends _i28.PageRouteInfo<RegisterProfilePageArgs> {
+/// [_i25.RegisterProfileScreen]
+class RegisterProfilePage extends _i29.PageRouteInfo<RegisterProfilePageArgs> {
   RegisterProfilePage({
-    _i29.Key? key,
+    _i30.Key? key,
     required String firstName,
     required String lastName,
     required int checkTermsPrivacy,
-    List<_i28.PageRouteInfo>? children,
+    List<_i29.PageRouteInfo>? children,
   }) : super(
           RegisterProfilePage.name,
           args: RegisterProfilePageArgs(
@@ -940,8 +993,8 @@ class RegisterProfilePage extends _i28.PageRouteInfo<RegisterProfilePageArgs> {
 
   static const String name = 'RegisterProfilePage';
 
-  static const _i28.PageInfo<RegisterProfilePageArgs> page =
-      _i28.PageInfo<RegisterProfilePageArgs>(name);
+  static const _i29.PageInfo<RegisterProfilePageArgs> page =
+      _i29.PageInfo<RegisterProfilePageArgs>(name);
 }
 
 class RegisterProfilePageArgs {
@@ -952,7 +1005,7 @@ class RegisterProfilePageArgs {
     required this.checkTermsPrivacy,
   });
 
-  final _i29.Key? key;
+  final _i30.Key? key;
 
   final String firstName;
 
@@ -967,9 +1020,9 @@ class RegisterProfilePageArgs {
 }
 
 /// generated route for
-/// [_i25.RegisterScreen]
-class RegisterPage extends _i28.PageRouteInfo<void> {
-  const RegisterPage({List<_i28.PageRouteInfo>? children})
+/// [_i26.RegisterScreen]
+class RegisterPage extends _i29.PageRouteInfo<void> {
+  const RegisterPage({List<_i29.PageRouteInfo>? children})
       : super(
           RegisterPage.name,
           initialChildren: children,
@@ -977,13 +1030,13 @@ class RegisterPage extends _i28.PageRouteInfo<void> {
 
   static const String name = 'RegisterPage';
 
-  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+  static const _i29.PageInfo<void> page = _i29.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i26.SplashPage]
-class SplashPage extends _i28.PageRouteInfo<void> {
-  const SplashPage({List<_i28.PageRouteInfo>? children})
+/// [_i27.SplashPage]
+class SplashPage extends _i29.PageRouteInfo<void> {
+  const SplashPage({List<_i29.PageRouteInfo>? children})
       : super(
           SplashPage.name,
           initialChildren: children,
@@ -991,17 +1044,17 @@ class SplashPage extends _i28.PageRouteInfo<void> {
 
   static const String name = 'SplashPage';
 
-  static const _i28.PageInfo<void> page = _i28.PageInfo<void>(name);
+  static const _i29.PageInfo<void> page = _i29.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i27.TermsAndConditionsScreen]
+/// [_i28.TermsAndConditionsScreen]
 class TermsAndConditionsScreen
-    extends _i28.PageRouteInfo<TermsAndConditionsScreenArgs> {
+    extends _i29.PageRouteInfo<TermsAndConditionsScreenArgs> {
   TermsAndConditionsScreen({
-    _i29.Key? key,
+    _i30.Key? key,
     bool isFromSplash = false,
-    List<_i28.PageRouteInfo>? children,
+    List<_i29.PageRouteInfo>? children,
   }) : super(
           TermsAndConditionsScreen.name,
           args: TermsAndConditionsScreenArgs(
@@ -1013,8 +1066,8 @@ class TermsAndConditionsScreen
 
   static const String name = 'TermsAndConditionsScreen';
 
-  static const _i28.PageInfo<TermsAndConditionsScreenArgs> page =
-      _i28.PageInfo<TermsAndConditionsScreenArgs>(name);
+  static const _i29.PageInfo<TermsAndConditionsScreenArgs> page =
+      _i29.PageInfo<TermsAndConditionsScreenArgs>(name);
 }
 
 class TermsAndConditionsScreenArgs {
@@ -1023,7 +1076,7 @@ class TermsAndConditionsScreenArgs {
     this.isFromSplash = false,
   });
 
-  final _i29.Key? key;
+  final _i30.Key? key;
 
   final bool isFromSplash;
 

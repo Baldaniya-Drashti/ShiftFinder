@@ -52,7 +52,7 @@ class OnBoarding3 extends StatelessWidget {
               children: [
                 SizedBox(
                   height: getSize(478),
-                  width: getSize(453),
+                  width: double.infinity,
                   child: Image.asset(
                     PngImageConstants.onboarding3,
                     fit: BoxFit.fitWidth,
