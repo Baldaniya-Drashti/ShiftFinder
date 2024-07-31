@@ -25,7 +25,7 @@ class DocumentExpiryDatePicker {
       isLabelPadding: true,
       readOnly: true,
       hintText: (selectedDate.isNotEmpty)
-          ? DateFormat("yyyy-MM-dd").format(DateTime.parse(selectedDate))
+          ? DateFormat('d MMM, yyyy').format(DateTime.parse(selectedDate))
           : StringConstant.expiryDate,
       hintAsValue: (selectedDate.isNotEmpty) ? true : false,
       onTap: (!isDisabled)

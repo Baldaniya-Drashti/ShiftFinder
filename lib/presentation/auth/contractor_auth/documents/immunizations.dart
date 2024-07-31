@@ -226,7 +226,7 @@ class ImmunizationsVaccinations extends StatelessWidget {
           title: StringConstant.delete,
           infoMessage: StringConstant.deleteCredentialImageDesc,
           onCancelClick: () {
-            context.router.maybePop();
+            Navigator.pop(context);
           },
           onDeleteClick: () {
             if (state.immunizationDoc.isValid()) {
@@ -235,7 +235,7 @@ class ImmunizationsVaccinations extends StatelessWidget {
                         state.immunizationDoc.getValue()!),
                   );
             }
-            context.router.maybePop();
+            Navigator.pop(context);
           },
         );
       },
@@ -254,7 +254,6 @@ class ImmunizationsVaccinations extends StatelessWidget {
                 ImmunizationEvent.selectImmunizationDoc(path),
               );
         }
-        context.router.maybePop();
       },
       selectPhotoCallback: () async {
         String path = await ImagePickerUtils().pickImage(
@@ -267,7 +266,6 @@ class ImmunizationsVaccinations extends StatelessWidget {
                 ImmunizationEvent.selectImmunizationDoc(path),
               );
         }
-        context.router.maybePop();
       },
       selectPdfCallback: () async {
         String path = await FilePickerUtils().pickPdf(context: context) ?? '';
@@ -277,7 +275,6 @@ class ImmunizationsVaccinations extends StatelessWidget {
                 ImmunizationEvent.selectImmunizationDoc(path),
               );
         }
-        context.router.maybePop();
       },
       context: context,
     );

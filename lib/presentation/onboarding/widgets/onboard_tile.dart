@@ -120,7 +120,10 @@ class OnBoardTile extends StatelessWidget {
 
   Widget onBoardTile2() {
     return ListTile(
-      leading: SvgPicture.asset(dpImage),
+      leading: SizedBox(
+        width: getSize(50),
+        child: SvgPicture.asset(dpImage),
+      ),
       tileColor: AppColors.white,
       // minTileHeight: getSize(80),
       // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

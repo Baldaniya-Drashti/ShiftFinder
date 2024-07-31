@@ -198,7 +198,7 @@ class ApparelEquipment extends StatelessWidget {
           title: StringConstant.delete,
           infoMessage: StringConstant.deleteCredentialImageDesc,
           onCancelClick: () {
-            context.router.maybePop();
+            Navigator.pop(context);
           },
           onDeleteClick: () {
             if (state.equipmentDoc.isValid()) {
@@ -207,7 +207,7 @@ class ApparelEquipment extends StatelessWidget {
                         state.equipmentDoc.getValue()!),
                   );
             }
-            context.router.maybePop();
+            Navigator.pop(context);
           },
         );
       },
@@ -226,7 +226,6 @@ class ApparelEquipment extends StatelessWidget {
                 EquipmentEvent.selectEquipmentDoc(path),
               );
         }
-        context.router.maybePop();
       },
       selectPhotoCallback: () async {
         String path = await ImagePickerUtils().pickImage(
@@ -239,7 +238,6 @@ class ApparelEquipment extends StatelessWidget {
                 EquipmentEvent.selectEquipmentDoc(path),
               );
         }
-        context.router.maybePop();
       },
       selectPdfCallback: () async {
         String path = await FilePickerUtils().pickPdf(context: context) ?? '';
@@ -249,7 +247,6 @@ class ApparelEquipment extends StatelessWidget {
                 EquipmentEvent.selectEquipmentDoc(path),
               );
         }
-        context.router.maybePop();
       },
       context: context,
     );

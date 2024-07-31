@@ -44,7 +44,7 @@ class LocationDetailForm extends StatelessWidget {
               isShowBackBtn: !isFromSplash,
               onBackPressed: () {
                 LocationDetailsBloc.locationCtrl.clear();
-                context.router.back();
+                context.router.maybePop();
               },
               title: StringConstant.locationDetails,
             ),
@@ -93,29 +93,32 @@ class LocationDetailForm extends StatelessWidget {
                                 paddingBetweenFields(),
                                 locationNoteField(context, state),
                                 paddingBetweenFields(),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: RichText(
-                                    text: TextSpan(
-                                      text: StringConstant.addUnits,
-                                      style: TextStyle(
-                                        fontSize: getFontSize(14),
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColors.black,
-                                        fontFamily: "Roboto Flex",
-                                      ),
-                                      children: [
-                                        TextSpan(
-                                          text: "  (Optional)",
-                                          style: TextStyle(
-                                            fontSize: getFontSize(10),
-                                            fontWeight: FontWeight.w500,
-                                            color: AppColors.black
-                                                .withOpacity(0.8),
-                                            fontFamily: "Roboto Flex",
-                                          ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: getSize(20)),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: RichText(
+                                      text: TextSpan(
+                                        text: StringConstant.addUnits,
+                                        style: TextStyle(
+                                          fontSize: getFontSize(14),
+                                          fontWeight: FontWeight.w500,
+                                          color: AppColors.black,
+                                          fontFamily: "Roboto Flex",
                                         ),
-                                      ],
+                                        children: [
+                                          TextSpan(
+                                            text: "  (Optional)",
+                                            style: TextStyle(
+                                              fontSize: getFontSize(10),
+                                              fontWeight: FontWeight.w500,
+                                              color: AppColors.black
+                                                  .withOpacity(0.8),
+                                              fontFamily: "Roboto Flex",
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -390,9 +393,10 @@ class LocationDetailForm extends StatelessWidget {
         ),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           unitNumberField(context, state),
-          paddingBetweenFields(),
+          paddingBetweenFields(height: getSize(10)),
           CustomChipSet(
             chipList: state.unitNoNameChipList,
             backgroundColor: AppColors.grey.withOpacity(0.4),
@@ -403,6 +407,7 @@ class LocationDetailForm extends StatelessWidget {
                   .add(LocationDetailsEvent.removeUnitNumberChip(value));
             },
           ),
+          paddingBetweenFields(height: getSize(10)),
           notesField(context, state),
         ],
       ),
@@ -418,6 +423,7 @@ class LocationDetailForm extends StatelessWidget {
       controller: unitNoNamecontroller,
       labelText: StringConstant.unitNumberName,
       hintText: StringConstant.unitNumberName,
+      isLabelPadding: false,
       errorMaxLines: 2,
       onChanged: (value) {
         context
@@ -448,6 +454,7 @@ class LocationDetailForm extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.notes,
       hintText: StringConstant.typeHere,
+      isLabelPadding: false,
       maxLines: 3,
       errorMaxLines: 2,
       onChanged: (value) {

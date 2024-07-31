@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:path/path.dart' as path;
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -52,7 +53,12 @@ class ShowPickedFile extends StatelessWidget {
       ),
       alignment: Alignment.center,
       child: badges.Badge(
-        onTap: onDelete,
+        onTap: () {
+          AppFocus.unfocus(context);
+          if (onDelete != null) {
+            onDelete!.call();
+          }
+        },
         showBadge: showBadge,
         badgeContent: SvgPicture.asset(
           SvgImageConstant.minusCircle,

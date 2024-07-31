@@ -272,7 +272,7 @@ class ProfessionalReferenceWidget extends StatelessWidget {
       isLabelPadding: true,
       readOnly: true,
       hintText: (state.startDate.getValue()!.isNotEmpty)
-          ? DateFormat("yyyy-MM-dd")
+          ? DateFormat('d MMM, yyyy')
               .format(DateTime.parse(state.startDate.getValue() ?? ""))
           : StringConstant.startDate,
       hintAsValue: (state.startDate.getValue()!.isNotEmpty) ? true : false,
@@ -314,7 +314,7 @@ class ProfessionalReferenceWidget extends StatelessWidget {
       isLabelPadding: true,
       readOnly: true,
       hintText: (state.endDate.getValue()!.isNotEmpty)
-          ? DateFormat("yyyy-MM-dd")
+          ? DateFormat('d MMM, yyyy')
               .format(DateTime.parse(state.endDate.getValue() ?? ""))
           : StringConstant.endDate,
       hintAsValue: (state.endDate.getValue()!.isNotEmpty) ? true : false,

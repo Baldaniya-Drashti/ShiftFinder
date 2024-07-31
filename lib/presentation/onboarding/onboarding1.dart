@@ -54,74 +54,68 @@ class OnBoarding1 extends StatelessWidget {
           builder: (context, state) {
             return Stack(
               children: [
-                BackGroundImage(
-                  imageString: PngImageConstants.onboarding1,
-                  child: Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: getSize(45),
-                            vertical: getSize(30),
-                          ),
-                          child: BaseText(
-                            text: StringConstant.onBoarding1Desc,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            textColor: AppColors.black.withOpacity(0.9),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Expanded(
-                          child: ListView.builder(
-                              itemCount: userList.length,
-                              padding: EdgeInsets.zero,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    vertical:
-                                        (index == 0) ? getSize(0) : getSize(20),
-                                  ),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      context.read<OnboardingBloc>().add(
-                                              OnboardingEvent.submitOnboarding1(
-                                            userList[index].id ?? 1,
-                                          ));
-                                    },
-                                    child: OnBoardTile(
-                                      title: userList[index].title ?? "",
-                                      designation: userList[index].description,
-                                      dpImage: userList[index].image ?? "",
-                                      bgImage: userList[index].backgroundImage,
-                                    ),
-                                  ),
-                                );
-                              }),
-                        ),
-                      ],
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(
+                      PngImageConstants.onboarding1,
                     ),
-                  ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: getSize(45),
+                        vertical: getSize(30),
+                      ),
+                      child: BaseText(
+                        text: StringConstant.onBoarding1Desc,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        textColor: AppColors.black.withOpacity(0.9),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                          itemCount: userList.length,
+                          padding: EdgeInsets.zero,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical:
+                                    (index == 0) ? getSize(0) : getSize(20),
+                              ),
+                              child: GestureDetector(
+                                onTap: () {
+                                  context
+                                      .read<OnboardingBloc>()
+                                      .add(OnboardingEvent.submitOnboarding1(
+                                        userList[index].id ?? 1,
+                                      ));
+                                },
+                                child: OnBoardTile(
+                                  title: userList[index].title ?? "",
+                                  designation: userList[index].description,
+                                  dpImage: userList[index].image ?? "",
+                                  bgImage: userList[index].backgroundImage,
+                                ),
+                              ),
+                            );
+                          }),
+                    ),
+                  ],
                 ),
-                Positioned(
-                  width: getSize(375),
-                  top: getSize(0),
-                  left: getSize(20),
-                  child: CommonAppBar(
-                    onBackPressed: () {},
-                    // iconColor: AppColors.white,
-                    isShowBackBtn: false,
-                    title: StringConstant.letsGetStarted,
-                    systemOverlayStyle: SystemUiOverlayStyle.light,
-                    textStyle: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.white,
-                      fontFamily: "Aclonica",
-                    ),
+                CommonAppBar(
+                  onBackPressed: () {},
+                  // iconColor: AppColors.white,
+                  isShowBackBtn: false,
+                  title: StringConstant.letsGetStarted,
+                  systemOverlayStyle: SystemUiOverlayStyle.light,
+                  textStyle: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.white,
+                    fontFamily: "Aclonica",
                   ),
                 ),
               ],

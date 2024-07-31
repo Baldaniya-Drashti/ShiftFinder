@@ -34,7 +34,9 @@ class HomeView extends StatelessWidget {
             ListView.builder(
           itemCount: 5,
           padding: EdgeInsets.symmetric(
-              horizontal: getSize(15), vertical: getSize(5)),
+            horizontal: getSize(15),
+            vertical: getSize(5),
+          ),
           shrinkWrap: true,
           physics: BouncingScrollPhysics(),
           itemBuilder: (context, index) {

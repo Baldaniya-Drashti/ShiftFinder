@@ -233,7 +233,7 @@ class CredentialRegistration extends StatelessWidget {
           title: StringConstant.delete,
           infoMessage: StringConstant.deleteCredentialImageDesc,
           onCancelClick: () {
-            context.router.maybePop();
+            Navigator.pop(context);
           },
           onDeleteClick: () {
             if (state.credentialRegistrationDoc.isValid()) {
@@ -242,7 +242,7 @@ class CredentialRegistration extends StatelessWidget {
                         state.credentialRegistrationDoc.getValue()!),
                   );
             }
-            context.router.maybePop();
+            Navigator.pop(context);
           },
         );
       },
@@ -261,7 +261,6 @@ class CredentialRegistration extends StatelessWidget {
                 CredentialEvent.selectCredentialDoc(path),
               );
         }
-        context.router.maybePop();
       },
       selectPhotoCallback: () async {
         String path = await ImagePickerUtils().pickImage(
@@ -274,7 +273,6 @@ class CredentialRegistration extends StatelessWidget {
                 CredentialEvent.selectCredentialDoc(path),
               );
         }
-        context.router.maybePop();
       },
       selectPdfCallback: () async {
         String path = await FilePickerUtils().pickPdf(context: context) ?? '';
@@ -284,7 +282,6 @@ class CredentialRegistration extends StatelessWidget {
                 CredentialEvent.selectCredentialDoc(path),
               );
         }
-        context.router.maybePop();
       },
       context: context,
     );

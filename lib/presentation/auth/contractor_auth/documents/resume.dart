@@ -123,7 +123,7 @@ class ResumeDocument extends StatelessWidget {
           title: StringConstant.delete,
           infoMessage: StringConstant.deleteGovernmentIdDesc,
           onCancelClick: () {
-            context.router.maybePop();
+            Navigator.pop(context);
           },
           onDeleteClick: () {
             if (state.resume.file != null && state.resume.file!.isNotEmpty) {
@@ -131,7 +131,7 @@ class ResumeDocument extends StatelessWidget {
                     ResumeEvent.deleteResumeDoc(state.resume.file!),
                   );
             }
-            context.router.maybePop();
+            Navigator.pop(context);
           },
         );
       },
@@ -150,7 +150,6 @@ class ResumeDocument extends StatelessWidget {
                 ResumeEvent.selectResumeDoc(path),
               );
         }
-        context.router.maybePop();
       },
       selectPhotoCallback: () async {
         String path = await ImagePickerUtils().pickImage(
@@ -163,7 +162,6 @@ class ResumeDocument extends StatelessWidget {
                 ResumeEvent.selectResumeDoc(path),
               );
         }
-        context.router.maybePop();
       },
       selectPdfCallback: () async {
         String path = await FilePickerUtils().pickPdf(context: context) ?? '';
@@ -173,7 +171,6 @@ class ResumeDocument extends StatelessWidget {
                 ResumeEvent.selectResumeDoc(path),
               );
         }
-        context.router.maybePop();
       },
       context: context,
     );

@@ -207,15 +207,18 @@ class VerifyPhoneNumber extends StatelessWidget {
           ),
           Opacity(
             opacity: state.secondsRemaining == 0 ? 1 : 0.5,
-            child: GestureDetector(
-              onTap: state.secondsRemaining == 0
+            child: CommonButton(
+              isSubmitting: state.isSubmitting,
+              onPressed: (state.secondsRemaining == 0)
                   ? () {
                       context
                           .read<RegisterFormBloc>()
                           .add(RegisterFormEvent.resendOtp());
                     }
-                  : null,
-              child: BaseText(
+                  : () {},
+              buttonText: "",
+              backgroundColor: AppColors.transparent,
+              customWidget: BaseText(
                 text: StringConstant.resendCode,
                 fontSize: 12,
                 fontWeight: FontWeight.w500,

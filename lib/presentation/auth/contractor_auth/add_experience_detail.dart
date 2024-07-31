@@ -157,6 +157,9 @@ class AddExperienceDetail extends StatelessWidget {
                         ));
                   },
                 ),
+                SizedBox(
+                  width: getSize(20),
+                ),
                 customPicker(
                   context,
                   showYear: false,
@@ -192,8 +195,7 @@ class AddExperienceDetail extends StatelessWidget {
       String? selectedYear,
       void Function(String?)? onChangeyear,
       void Function(String?)? onChangedMonth}) {
-    return SizedBox(
-      width: getSize(160),
+    return Expanded(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -234,7 +234,7 @@ class ProfessionalLicenses extends StatelessWidget {
           title: StringConstant.delete,
           infoMessage: StringConstant.deleteCredentialImageDesc,
           onCancelClick: () {
-            context.router.maybePop();
+            Navigator.pop(context);
           },
           onDeleteClick: () {
             if (state.professionalLicensesDoc.isValid()) {
@@ -243,7 +243,7 @@ class ProfessionalLicenses extends StatelessWidget {
                         state.professionalLicensesDoc.getValue()!),
                   );
             }
-            context.router.maybePop();
+            Navigator.pop(context);
           },
         );
       },
@@ -262,7 +262,6 @@ class ProfessionalLicenses extends StatelessWidget {
                 ProfessionalLicensesEvent.selectLicensesDoc(path),
               );
         }
-        context.router.maybePop();
       },
       selectPhotoCallback: () async {
         String path = await ImagePickerUtils().pickImage(
@@ -275,7 +274,6 @@ class ProfessionalLicenses extends StatelessWidget {
                 ProfessionalLicensesEvent.selectLicensesDoc(path),
               );
         }
-        context.router.maybePop();
       },
       selectPdfCallback: () async {
         String path = await FilePickerUtils().pickPdf(context: context) ?? '';
@@ -285,7 +283,6 @@ class ProfessionalLicenses extends StatelessWidget {
                 ProfessionalLicensesEvent.selectLicensesDoc(path),
               );
         }
-        context.router.maybePop();
       },
       context: context,
     );

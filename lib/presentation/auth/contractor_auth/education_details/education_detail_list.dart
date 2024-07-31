@@ -182,10 +182,10 @@ class EducationListScreen extends StatelessWidget {
                           title: StringConstant.delete,
                           infoMessage: StringConstant.deleteEducationDesc,
                           onCancelClick: () {
-                            context.router.maybePop();
+                            Navigator.pop(context);
                           },
                           onDeleteClick: () {
-                            context.router.maybePop();
+                            Navigator.pop(context);
                             context.read<EducationDetailBloc>().add(
                                 EducationDetailEvent.deleteEducation(
                                     state.educationList[index].id ?? -1));

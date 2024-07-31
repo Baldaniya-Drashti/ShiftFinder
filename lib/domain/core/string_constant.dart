@@ -144,7 +144,7 @@ class StringConstant {
   static const String professionOfTheReferrer = "Profession of the Referrer";
   static const String documents = "Documents";
   static const String governmentIssuedId = "Government Issued Id";
-  static const String pleaseUploadTheDocument = "Please upload the document";
+  static const String pleaseUploadTheDocument = "Please Upload The Document";
   static const String uploadYourResume = "Upload Your Resume";
   static const String uploadedDocument = "Uploaded Document";
   static const String uploadedResume = "Uploaded Resume";

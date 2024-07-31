@@ -176,17 +176,16 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
             ),
             (r) {
               if (r.isNotEmpty) {
+                print("ExpiryDate--> ${r[0].expiry_date}");
                 return emit(
                   state.copyWith(
                     isLoading: false,
                     govermentDocId: (r[0].id != null) ? r[0].id! : -1,
                     govermentDoc: InputEmptyOrNot(r[0].file ?? ""),
                     governmentExpiryDate: (r[0].expiry_date != null)
-                        ? DateFormat('yyyy-MM-dd').format(
-                            DateTime.fromMillisecondsSinceEpoch(
-                                (r[0].expiry_date ?? -1) * 1000,
-                                isUtc: true),
-                          )
+                        ? DateTime.fromMillisecondsSinceEpoch(
+                            (r[0].expiry_date ?? -1) * 1000,
+                          ).toIso8601String()
                         : "",
                     isGovernemtExpiryCheck:
                         (r[0].expiry_date_not_applicable == 0) ? false : true,

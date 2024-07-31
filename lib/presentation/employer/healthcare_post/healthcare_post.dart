@@ -57,7 +57,7 @@ class HealthCarePostForm extends StatelessWidget {
         child: Scaffold(
             appBar: CommonAppBar(
               onBackPressed: () {
-                context.router.back();
+                context.router.maybePop();
               },
               title: StringConstant.healthcare,
             ),

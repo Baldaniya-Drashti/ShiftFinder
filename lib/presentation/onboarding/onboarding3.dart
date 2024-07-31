@@ -14,6 +14,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart' as badges;
 
 @RoutePage(name: 'onBoarding3')
 class OnBoarding3 extends StatelessWidget {
@@ -58,16 +59,6 @@ class OnBoarding3 extends StatelessWidget {
                     fit: BoxFit.fitWidth,
                   ),
                 ),
-                Positioned(
-                  top: getSize(150),
-                  left: getSize((getCurrentRole() == 1) ? 200 : 250),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: SvgPicture.asset(
-                      SvgImageConstant.twoLines,
-                    ),
-                  ),
-                ),
                 descriptionView(
                   btnOnPressed: () {
                     print("BTN CLICKED!!!!!!!!!");
@@ -93,14 +84,26 @@ class OnBoarding3 extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BaseText(
-            text: (getCurrentRole() == 1)
-                ? StringConstant.findYourPerfectHealthcareShift
-                : StringConstant.letsFindTheRightHealthServiceProfessional,
-            fontSize: 20,
-            fontWeight: FontWeight.w400,
-            fontFamily: "Aclonica",
-            maxLines: 2,
+          badges.Badge(
+            position: badges.BadgePosition.topStart(
+              top: getSize(45),
+              start: getHorizontalSize(160),
+            ),
+            badgeContent: SvgPicture.asset(
+              SvgImageConstant.twoLines,
+            ),
+            badgeStyle: badges.BadgeStyle(
+              badgeColor: AppColors.transparent,
+            ),
+            child: BaseText(
+              text: (getCurrentRole() == 1)
+                  ? StringConstant.findYourPerfectHealthcareShift
+                  : StringConstant.letsFindTheRightHealthServiceProfessional,
+              fontSize: 20,
+              fontWeight: FontWeight.w400,
+              fontFamily: "Aclonica",
+              maxLines: 2,
+            ),
           ),
           SizedBox(
             height: getSize(15),

@@ -59,15 +59,15 @@ class RegisterForm extends StatelessWidget {
         );
       },
       builder: (context, state) {
-        return BackGroundImage(
-          imageString: PngImageConstants.register_frame,
-          child: Expanded(
-            child: KeyboardActions(
-              config: CustomKeyboardConfig(
-                focusNode: [
-                  state.firstNameFocusNode,
-                ],
-              ).buildConfig(context),
+        return KeyboardActions(
+          config: CustomKeyboardConfig(
+            focusNode: [
+              state.firstNameFocusNode,
+            ],
+          ).buildConfig(context),
+          child: SingleChildScrollView(
+            child: BackGroundImage(
+              imageString: PngImageConstants.register_frame,
               child: Form(
                 autovalidateMode: state.showErrorMessages
                     ? AutovalidateMode.always

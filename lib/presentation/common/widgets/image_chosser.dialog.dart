@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 
 class ImageChooserDialog {
@@ -16,20 +17,33 @@ class ImageChooserDialog {
       builder: (BuildContext context) => CupertinoActionSheet(
         actions: <CupertinoActionSheetAction>[
           CupertinoActionSheetAction(
-            onPressed: takePhotoCallback,
+            onPressed: () {
+              Navigator.pop(context);
+              AppFocus.unfocus(context);
+              takePhotoCallback.call();
+            },
             child: BaseText(
               text: StringConstant.takePhoto,
             ),
           ),
           CupertinoActionSheetAction(
-            onPressed: selectPhotoCallback,
+            onPressed: () {
+              Navigator.pop(context);
+              AppFocus.unfocus(context);
+              selectPhotoCallback.call();
+            },
             child: BaseText(
               text: StringConstant.galleryPhoto,
             ),
           ),
           if (selectPdfCallback != null)
             CupertinoActionSheetAction(
-              onPressed: selectPdfCallback,
+              onPressed: () {
+                Navigator.pop(context);
+
+                AppFocus.unfocus(context);
+                selectPdfCallback.call();
+              },
               child: BaseText(
                 text: StringConstant.chooseFile,
               ),

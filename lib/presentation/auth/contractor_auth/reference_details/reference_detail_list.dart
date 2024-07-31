@@ -156,10 +156,10 @@ class ReferenceListScreen extends StatelessWidget {
                       title: StringConstant.delete,
                       infoMessage: StringConstant.deleteReferenceDesc,
                       onCancelClick: () {
-                        context.router.maybePop();
+                        Navigator.pop(context);
                       },
                       onDeleteClick: () {
-                        context.router.maybePop();
+                        Navigator.pop(context);
                         context.read<ReferenceBloc>().add(
                             ReferenceEvent.deleteReference(
                                 state.referenceList[index].id ?? -1));

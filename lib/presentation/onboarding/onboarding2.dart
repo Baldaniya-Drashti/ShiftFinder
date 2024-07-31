@@ -51,7 +51,7 @@ class OnBoarding2 extends StatelessWidget {
             appBar: CommonAppBar(
               onBackPressed: () {
                 print("Back is Tapped");
-                context.router.back();
+                context.router.maybePop();
               },
               title: StringConstant.chooseIndustry,
             ),

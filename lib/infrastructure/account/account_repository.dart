@@ -365,7 +365,7 @@ class AccountRepository extends IAccountRepository {
       var formData = FormData.fromMap({
         "document_type": documentType,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime.parse(expiryDate).millisecondsSinceEpoch / 1000)
+            ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000)
                 .toString()
             : "",
         "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
@@ -431,13 +431,13 @@ class AccountRepository extends IAccountRepository {
       print("expiry dat---> $expiryDate");
       print("Document file---> $documentFile");
       print(
-          "expiry date after timestamp---> ${DateTime.now().millisecondsSinceEpoch}");
+          "Expiry Date after ISO---> ${(DateTime.parse(expiryDate!).toUtc().millisecondsSinceEpoch / 1000).toString()}");
 
       var formData = FormData.fromMap({
         "id": id,
         "document_type": documentType,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime.parse(expiryDate).millisecondsSinceEpoch / 1000)
+            ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000)
                 .toString()
             : "",
         "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
@@ -507,7 +507,7 @@ class AccountRepository extends IAccountRepository {
         "document_type": documentType,
         "province_of_registration": provinceOfRegistration,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime.parse(expiryDate).millisecondsSinceEpoch / 1000)
+            ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000)
                 .toString()
             : "",
         "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
@@ -581,7 +581,7 @@ class AccountRepository extends IAccountRepository {
         "id": id,
         "document_type": documentType,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime.parse(expiryDate).millisecondsSinceEpoch / 1000)
+            ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000)
                 .toString()
             : "",
         "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,

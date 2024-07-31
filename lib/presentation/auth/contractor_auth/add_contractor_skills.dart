@@ -65,7 +65,7 @@ class AddContractorSkillsForm extends StatelessWidget {
             appBar: CommonAppBar(
               isShowBackBtn: !isFromSplash,
               onBackPressed: () {
-                context.router.back();
+                context.router.maybePop();
               },
               title: StringConstant.completeProfile,
             ),

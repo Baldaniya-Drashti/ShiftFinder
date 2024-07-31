@@ -86,7 +86,6 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
                                                     path),
                                           );
                                     }
-                                    context.router.maybePop();
                                   },
                                   selectPhotoCallback: () async {
                                     String path = await ImagePickerUtils()
@@ -104,7 +103,6 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
                                                     path),
                                           );
                                     }
-                                    context.router.maybePop();
                                   },
                                   selectPdfCallback: () async {
                                     String path = await FilePickerUtils()
@@ -118,7 +116,6 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
                                                     path),
                                           );
                                     }
-                                    context.router.maybePop();
                                   },
                                   context: context,
                                 );
@@ -167,7 +164,7 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
           title: StringConstant.delete,
           infoMessage: StringConstant.deleteCovidDocDesc,
           onCancelClick: () {
-            context.router.maybePop();
+            Navigator.pop(context);
           },
           onDeleteClick: () {
             if (state.covidVaccinationDoc.isValid()) {
@@ -176,7 +173,7 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
                         state.covidVaccinationDoc.getValue()!),
                   );
             }
-            context.router.maybePop();
+            Navigator.pop(context);
           },
         );
       },

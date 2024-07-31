@@ -50,7 +50,8 @@ class RegisterProfileScreen extends StatelessWidget {
         child: CommonAppBar(
           onBackPressed: () {
             RegisterFormBloc.locationCtrl.clear();
-            context.router.back();
+
+            context.router.maybePop();
           },
           title: (getCurrentRole() == 1)
               ? StringConstant.completeProfile
@@ -183,7 +184,6 @@ class RegisterProfileScreen extends StatelessWidget {
                                 RegisterFormEvent.changeProfilePic(path),
                               );
                         }
-                        context.router.maybePop();
                       },
                       selectPhotoCallback: () async {
                         String path = await ImagePickerUtils().pickImage(
@@ -197,7 +197,6 @@ class RegisterProfileScreen extends StatelessWidget {
                                 RegisterFormEvent.changeProfilePic(path),
                               );
                         }
-                        context.router.maybePop();
                       },
                       context: context,
                     );
@@ -430,8 +429,8 @@ class RegisterProfileScreen extends StatelessWidget {
         },
         child: SvgPicture.asset(
           (state.isNewPassObscure)
-              ? SvgImageConstant.openEye
-              : SvgImageConstant.closeEye,
+              ? SvgImageConstant.closeEye
+              : SvgImageConstant.openEye,
           height: getSize(24),
           width: getSize(24),
         ),
@@ -479,8 +478,8 @@ class RegisterProfileScreen extends StatelessWidget {
         },
         child: SvgPicture.asset(
           (state.isConfirmPassObscure)
-              ? SvgImageConstant.openEye
-              : SvgImageConstant.closeEye,
+              ? SvgImageConstant.closeEye
+              : SvgImageConstant.openEye,
           height: getSize(24),
           width: getSize(24),
         ),

@@ -75,21 +75,27 @@ class LoginForm extends StatelessWidget {
             (r) {
               AppFocus.unfocus(context);
               const VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
-                  context, state.emailId.getValue(), state.password.getValue());
+                context,
+                // state.emailId.getValue(),
+                (getCurrentRole() == 1)
+                    ? "${r.countryCode} ${r.phone}"
+                    : state.emailId.getValue(),
+                state.password.getValue(),
+              );
             },
           ),
         );
       },
       builder: (context, state) {
-        return BackGroundImage(
-          imageString: PngImageConstants.login_frame,
-          child: Expanded(
-            child: KeyboardActions(
-              config: CustomKeyboardConfig(
-                focusNode: [
-                  state.mobileNumberFocusNode,
-                ],
-              ).buildConfig(context),
+        return KeyboardActions(
+          config: CustomKeyboardConfig(
+            focusNode: [
+              state.mobileNumberFocusNode,
+            ],
+          ).buildConfig(context),
+          child: SingleChildScrollView(
+            child: BackGroundImage(
+              imageString: PngImageConstants.login_frame,
               child: Form(
                 autovalidateMode: state.showErrorMessages
                     ? AutovalidateMode.always
@@ -243,8 +249,8 @@ class LoginForm extends StatelessWidget {
               },
               child: SvgPicture.asset(
                 (state.isObscure)
-                    ? SvgImageConstant.openEye
-                    : SvgImageConstant.closeEye,
+                    ? SvgImageConstant.closeEye
+                    : SvgImageConstant.openEye,
                 height: getSize(24),
                 width: getSize(24),
               ),

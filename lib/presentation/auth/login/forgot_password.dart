@@ -347,7 +347,9 @@ class FilterBottomSheet extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                   BaseText(
-                    text: 'Remaining 00:${state.secondsRemaining}',
+                    // text: 'Remaining 00:${state.secondsRemaining}',
+                    text:
+                        'Remaining 00:${(state.secondsRemaining.toString().length == 2) ? state.secondsRemaining : "0${state.secondsRemaining}"}',
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                     textColor: AppColors.black.withOpacity(0.6),
@@ -516,8 +518,8 @@ class FilterBottomSheet extends StatelessWidget {
               },
               child: SvgPicture.asset(
                 (state.isNewPassObscure)
-                    ? SvgImageConstant.openEye
-                    : SvgImageConstant.closeEye,
+                    ? SvgImageConstant.closeEye
+                    : SvgImageConstant.openEye,
                 height: getSize(24),
                 width: getSize(24),
               ),
@@ -573,8 +575,8 @@ class FilterBottomSheet extends StatelessWidget {
               },
               child: SvgPicture.asset(
                 (state.isConfirmPassObscure)
-                    ? SvgImageConstant.openEye
-                    : SvgImageConstant.closeEye,
+                    ? SvgImageConstant.closeEye
+                    : SvgImageConstant.openEye,
                 height: getSize(24),
                 width: getSize(24),
               ),

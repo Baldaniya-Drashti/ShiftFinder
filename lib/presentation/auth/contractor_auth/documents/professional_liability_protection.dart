@@ -192,6 +192,7 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
                                 textColor: AppColors.red,
                               ),
                             ),
+                          paddingBetweenFields(),
                           addMoreButton(
                             context,
                             state,
@@ -237,7 +238,7 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
           title: StringConstant.delete,
           infoMessage: StringConstant.deleteCredentialImageDesc,
           onCancelClick: () {
-            context.router.maybePop();
+            Navigator.pop(context);
           },
           onDeleteClick: () {
             if (state.liabilityDoc.isValid()) {
@@ -246,7 +247,7 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
                         state.liabilityDoc.getValue()!),
                   );
             }
-            context.router.maybePop();
+            Navigator.pop(context);
           },
         );
       },
@@ -265,7 +266,6 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
                 ProfessionalLiabilityEvent.selectLiabilityDoc(path),
               );
         }
-        context.router.maybePop();
       },
       selectPhotoCallback: () async {
         String path = await ImagePickerUtils().pickImage(
@@ -278,7 +278,6 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
                 ProfessionalLiabilityEvent.selectLiabilityDoc(path),
               );
         }
-        context.router.maybePop();
       },
       selectPdfCallback: () async {
         String path = await FilePickerUtils().pickPdf(context: context) ?? '';
@@ -288,7 +287,6 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
                 ProfessionalLiabilityEvent.selectLiabilityDoc(path),
               );
         }
-        context.router.maybePop();
       },
       context: context,
     );

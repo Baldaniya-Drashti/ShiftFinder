@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -86,7 +87,12 @@ class AppDialog {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CommonButton(
-                    onPressed: onCancelClick ?? () {},
+                    onPressed: () {
+                      if (onCancelClick != null) {
+                        onCancelClick.call();
+                      }
+                      AppFocus.unfocus(context);
+                    },
                     width: 150,
                     buttonText: StringConstant.cancle,
                     backgroundColor: AppColors.white,
@@ -94,7 +100,12 @@ class AppDialog {
                     borderColor: AppColors.primaryColor,
                   ),
                   CommonButton(
-                    onPressed: onDeleteClick ?? () {},
+                    onPressed: () {
+                      if (onDeleteClick != null) {
+                        onDeleteClick.call();
+                      }
+                      AppFocus.unfocus(context);
+                    },
                     width: 150,
                     buttonText: StringConstant.delete,
                   )

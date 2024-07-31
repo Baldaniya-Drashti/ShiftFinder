@@ -107,7 +107,6 @@ class _GovernmentIssueDocumentState extends State<GovernmentIssueDocument> {
                                                 path),
                                           );
                                     }
-                                    context.router.maybePop();
                                   },
                                   selectPhotoCallback: () async {
                                     String path = await ImagePickerUtils()
@@ -124,7 +123,6 @@ class _GovernmentIssueDocumentState extends State<GovernmentIssueDocument> {
                                                 path),
                                           );
                                     }
-                                    context.router.maybePop();
                                   },
                                   selectPdfCallback: () async {
                                     String path = await FilePickerUtils()
@@ -137,7 +135,6 @@ class _GovernmentIssueDocumentState extends State<GovernmentIssueDocument> {
                                                 path),
                                           );
                                     }
-                                    context.router.maybePop();
                                   },
                                   context: context,
                                 );
@@ -227,7 +224,7 @@ class _GovernmentIssueDocumentState extends State<GovernmentIssueDocument> {
           title: StringConstant.delete,
           infoMessage: StringConstant.deleteGovernmentIdDesc,
           onCancelClick: () {
-            context.router.maybePop();
+            Navigator.pop(context);
           },
           onDeleteClick: () {
             if (state.govermentDoc.isValid()) {
@@ -236,7 +233,7 @@ class _GovernmentIssueDocumentState extends State<GovernmentIssueDocument> {
                         state.govermentDoc.getValue()!),
                   );
             }
-            context.router.maybePop();
+            Navigator.pop(context);
           },
         );
       },
