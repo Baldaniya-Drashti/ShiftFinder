@@ -53,12 +53,14 @@ class AppDialog {
     String? title,
     required String infoMessage,
     EdgeInsets? insetPadding,
+    String? cancelText,
+    bool barrierDismissible = false,
     required VoidCallback? onCancelClick,
     required VoidCallback? onDeleteClick,
   }) async {
     showDialog(
         context: context,
-        // barrierDismissible: false,
+        barrierDismissible: barrierDismissible,
         builder: (context) {
           return AlertDialog(
             title: BaseText(
@@ -94,7 +96,7 @@ class AppDialog {
                       AppFocus.unfocus(context);
                     },
                     width: 150,
-                    buttonText: StringConstant.cancle,
+                    buttonText: cancelText ?? StringConstant.cancle,
                     backgroundColor: AppColors.white,
                     buttonTextColor: AppColors.primaryColor,
                     borderColor: AppColors.primaryColor,

@@ -1,7 +1,8 @@
+// ignore_for_file: unnecessary_brace_in_string_interps, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
-import 'package:shift/application/auth/contractor_auth/document_bloc/document_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
@@ -14,6 +15,7 @@ class DocumentExpiryDatePicker {
     BuildContext context, {
     required String selectedDate,
     required void Function(DateTime) onPickedDate,
+    required void Function() onCancelClick,
     bool isDisabled = false,
   }) {
     return CustomTextField(
@@ -21,7 +23,7 @@ class DocumentExpiryDatePicker {
       labelStyle: (!isDisabled)
           ? TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.3))
           : null,
-      fillColor: (!isDisabled) ? AppColors.grey.withOpacity(0.4) : null,
+      fillColor: (!isDisabled) ? AppColors.grey04 : null,
       isLabelPadding: true,
       readOnly: true,
       hintText: (selectedDate.isNotEmpty)
@@ -34,6 +36,7 @@ class DocumentExpiryDatePicker {
               customDatePicker(
                 context,
                 onPickedDate,
+                onCancelClick ?? () {},
                 selectedDate: (selectedDate.isNotEmpty)
                     ? DateTime.parse(selectedDate)
                     : DateTime.now(),
@@ -63,7 +66,8 @@ class DocumentExpiryDatePicker {
 
   static Future<void> customDatePicker(
     BuildContext context,
-    void Function(DateTime) onPickedDate, {
+    void Function(DateTime) onPickedDate,
+    void Function() onCancelClick, {
     required DateTime? selectedDate,
   }) async {
     print("selectedDate------->  ${selectedDate}");
@@ -88,6 +92,8 @@ class DocumentExpiryDatePicker {
     );
     if (pickedDate != null && pickedDate != DateTime.now()) {
       onPickedDate(pickedDate);
+    } else {
+      onCancelClick();
     }
   }
 

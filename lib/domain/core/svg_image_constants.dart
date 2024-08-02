@@ -62,4 +62,15 @@ class SvgImageConstant {
   static const icYes = "assets/svg/ic_right.svg";
   static const icNo = "assets/svg/ic_close.svg";
   static const notApplicable = "assets/svg/not_applicable.svg";
+  static const plus = "assets/svg/plus.svg";
+  static const homeTabActive = "assets/svg/home_tab.svg";
+  static const shiftTab = "assets/svg/shift_tab.svg";
+  static const notificationTab = "assets/svg/notification_tab.svg";
+  static const profileTab = "assets/svg/profile_tab.svg";
+  static const inActiveHomeTabActive = "assets/svg/inactive_home_tab.svg";
+  static const inActiveShiftTab = "assets/svg/inactive_shift_tab.svg";
+  static const inActiveNotificationTab =
+      "assets/svg/inactive_notification_tab.svg";
+  static const inActiveProfileTab = "assets/svg/inactive_profile_tab.svg";
+  static const femaleGrey = "assets/svg/female_grey.svg";
 }

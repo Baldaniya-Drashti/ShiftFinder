@@ -52,7 +52,7 @@ class LocationDetailsBloc
         getFacilityTypeList: (e) async {
           emit(
             state.copyWith(
-              isSubmitting: true,
+              isLoading: true,
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -61,14 +61,14 @@ class LocationDetailsBloc
           facilityTypeList.fold(
             (l) => emit(
               state.copyWith(
-                isSubmitting: false,
+                isLoading: false,
                 facilityTypeList: [],
               ),
             ),
             (r) {
               return emit(
                 state.copyWith(
-                  isSubmitting: false,
+                  isLoading: false,
                   facilityTypeList: List.from(state.facilityTypeList)
                     ..addAll(r),
                 ),
@@ -145,12 +145,9 @@ class LocationDetailsBloc
           );
         },
         addUnitNumberChipList: (e) {
-          print("e unintNumber ---> ${e.unitNumber}");
-          if (e.unitNumber.isNotEmpty &&
+          if (e.unitNumber.trim().isNotEmpty &&
               (!state.unitNoNameChipList.contains(e.unitNumber) ||
                   state.unitNoNameChipList.isEmpty)) {
-            print("e unintNumber ---> ${e.unitNumber}");
-
             emit(
               state.copyWith(
                 unitNoNameChipList: List.from(state.unitNoNameChipList)
@@ -172,7 +169,7 @@ class LocationDetailsBloc
         notesChanged: (e) {
           emit(
             state.copyWith(
-              unitNumber: e.notes,
+              notes: e.notes,
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -182,6 +179,7 @@ class LocationDetailsBloc
             state.copyWith(
               faciltyTypeDDValue: e.faciltyType,
               faciltyType: InputEmptyOrNot(e.faciltyType),
+              authFailureOrSuccessOption: none(),
             ),
           );
         },
@@ -189,10 +187,6 @@ class LocationDetailsBloc
           Either<AccountFailure, Account>? failureOrSuccess;
           final isAddressValid = state.address.isValid();
           bool isFaciltyTypeValid = state.faciltyType.isValid();
-
-          print("facilityType= ${state.faciltyType.getValue()}");
-          print("facilityType= ${state.otherFaciltyType.getValue()}");
-          print("facilityType= ${state.otherFaciltyTypeValue}");
 
           if (state.faciltyType.getValue()!.toLowerCase() == "other") {
             isFaciltyTypeValid = state.otherFaciltyType.isValid();

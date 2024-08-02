@@ -11,7 +11,9 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_card_number_formatter.dart';
@@ -33,7 +35,26 @@ class AddCardDetailPage extends StatelessWidget {
       child: BlocProvider(
         create: (context) => getIt<CardBloc>(),
         child: BlocConsumer<CardBloc, CardState>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            state.authFailureOrSuccessOption.fold(
+              () {},
+              (either) => either.fold(
+                (failure) {
+                  showError(
+                    message: failure.maybeMap(
+                      showAPIResponseMessage: (value) => value.message,
+                      networkError: (value) =>
+                          'Please check your internet connectivity',
+                      orElse: () => "Server Error. Try again later.",
+                    ),
+                  ).show(context);
+                },
+                (r) {
+                  context.router.replace(const PageRouteInfo(MainTabView.name));
+                },
+              ),
+            );
+          },
           builder: (context, state) {
             return Scaffold(
               resizeToAvoidBottomInset: false,

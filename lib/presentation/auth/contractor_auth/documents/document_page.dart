@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, prefer_const_constructors
+// ignore_for_file: avoid_print, prefer_const_constructors, must_be_immutable
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,6 @@ import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
-import 'package:shift/presentation/splash/splash_page.dart';
 
 @RoutePage(name: 'DocumentPageScreen')
 class DocumentPage extends StatefulWidget {
@@ -53,6 +52,7 @@ class _DocumentPageState extends State<DocumentPage> {
           builder: (context, state) {
             return Scaffold(
               appBar: CommonAppBar(
+                forceMaterialTransparency: false,
                 isShowBackBtn:
                     (state.currentPage == 0) ? !widget.isFromSplash : true,
                 onBackPressed: () {

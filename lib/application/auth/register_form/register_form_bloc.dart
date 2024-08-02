@@ -326,6 +326,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
             state.copyWith(
               enteredOTP: OTPText(value.otp),
               authFailureOrSuccessOption: none(),
+              verifyOtpFailureOrSuccessOption: none(),
             ),
           );
         },
@@ -339,7 +340,10 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
               // add(const LoginFormEvent.resendOtp());
             }
           });
-          emit(state.copyWith(secondsRemaining: 30));
+          emit(state.copyWith(
+            secondsRemaining: 60,
+            verifyOtpFailureOrSuccessOption: none(),
+          ));
         },
         decrementTimer: (DecrementTimer value) {
           print("CURRENT SECOND: 2 ------->  ${state.secondsRemaining}");
@@ -347,6 +351,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
             secondsRemaining: state.secondsRemaining - 1,
             authFailureOrSuccessOption: none(),
             resendFailureOrSuccessOption: none(),
+            verifyOtpFailureOrSuccessOption: none(),
           ));
         },
         resendOtp: (ResendOtp value) async {
@@ -375,6 +380,8 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           //   ),
           // );
 
+          timer.cancel();
+
           Either<AuthFailure, String>? failureOrSuccess;
 
           emit(
@@ -396,11 +403,11 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
             state.copyWith(
               isSubmitting: false,
               //showErrorMessages: true,
-              secondsRemaining: 30,
+              secondsRemaining: 60,
               resendFailureOrSuccessOption: optionOf(failureOrSuccess),
+              verifyOtpFailureOrSuccessOption: none(),
             ),
           );
-          add(const RegisterFormEvent.startCountdown());
           add(const RegisterFormEvent.startCountdown());
         },
 
@@ -428,9 +435,8 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
             );
 
             // failureOrSuccess = right("success");
-            timer.cancel();
+            // timer.cancel();
           }
-
           emit(
             state.copyWith(
               isSubmitting: false,

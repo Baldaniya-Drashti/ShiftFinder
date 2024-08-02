@@ -17,6 +17,7 @@ class LocationDetailsState with _$LocationDetailsState {
     required String otherFaciltyTypeValue,
     required List<String> unitNoNameChipList,
     required bool isSubmitting,
+    required bool isLoading,
     required bool showErrorMessages,
     required Option<Either<AccountFailure, Account>> authFailureOrSuccessOption,
   }) = _LocationDetailsState;
@@ -35,6 +36,7 @@ class LocationDetailsState with _$LocationDetailsState {
         otherFaciltyTypeValue: "",
         unitNoNameChipList: [],
         isSubmitting: false,
+        isLoading: false,
         showErrorMessages: false,
         authFailureOrSuccessOption: none(),
       );

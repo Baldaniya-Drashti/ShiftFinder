@@ -44,9 +44,7 @@ class ShowPickedFile extends StatelessWidget {
       height: mainBoxHeight,
       width: mainBoxWidth,
       decoration: BoxDecoration(
-        color: (isExpandedImage == true)
-            ? AppColors.grey.withOpacity(0.4)
-            : AppColors.white,
+        color: (isExpandedImage == true) ? AppColors.grey04 : AppColors.white,
         borderRadius: (isExpandedImage == true)
             ? BorderRadius.circular(10)
             : BorderRadius.circular(5),

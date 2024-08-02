@@ -10,9 +10,9 @@ class StringConstant {
   static const String selectYourRole = "Select Your Role";
   static const String chooseIndustry = 'Choose Industry';
   static const String findYourPerfectHealthcareShift =
-      'Find Your Perfect Healthcare Shift';
+      'Find Your Perfect\nHealth Service Shift';
   static const String letsFindTheRightHealthServiceProfessional =
-      'Let\'s Find The Right Health Service Professional';
+      'Let\'s Find The Right Health\nService Professional';
   static const String onBoarding3Desc_contractor =
       'Discover health service shifts that allow you to showcase your expertise, support diverse teams, and make a meaningful impact where you\'re needed most.';
   static const String onBoarding3Desc_employer =
@@ -20,6 +20,7 @@ class StringConstant {
   static const String letsStart = 'Lets Start';
   static const String login = 'Login';
   static const String welcomeBack = 'Welcome Back!';
+  static const String welcome = 'Welcome!';
   static const String email = 'Email';
   static const String password = 'Password';
   static const String forgotPassword = 'Forgot password';
@@ -38,6 +39,8 @@ class StringConstant {
   static const String alreadyHaveAnAccount = "Already have an account?";
   static const String fogotPasswordDesc =
       "Please enter your registered phone number to get verification code.";
+  static const String fogotPasswordEmailDesc =
+      "Please enter your registered email to get verification code.";
   static const String verify = "Verify";
   static const String phoneNumber = "Phone Number";
   static const String verification = "Verification";
@@ -113,6 +116,8 @@ class StringConstant {
   static const String yearOfCompletion = "Year of Completion";
   static const String graduatingInstitution = "Graduating Institution";
   static const String addMore = "Add More";
+  static const String addMoreReference = "Add More Reference";
+  static const String addMoreEducation = "Add More Education";
   static const String experience = "Experience";
   static const String deleteEducationDesc =
       "Are you sure you want to delete this education details?";
@@ -124,7 +129,7 @@ class StringConstant {
   static const String month = "Month";
   static const String reference = "Reference";
   static const String addYourReference = "Add Your Reference";
-  static const String noReferenceAdded = "No Refrence Added";
+  static const String noReferenceAdded = "No Reference Added";
   static const String professional = "Professional";
   static const String personal = "Personal";
   static const String e_mail = "E-mail";
@@ -239,6 +244,19 @@ class StringConstant {
   static const String bankName = "Bank Name";
   static const String bankDetailsTerms =
       "Please review and confirm the details you have entered.";
+  static const String home = "Home";
+  static const String history = "History";
+  static const String notification = "Notification";
+  static const String profile = "Profile";
+  static const String viewDetails = "View Details";
+  static const String totalApplications = "Total Applications";
+  static const String totalProposals = "Total Proposals";
+  static const String shiftDate = "Shift Date";
+  static const String startAndEndTime = "Start and End Time";
+  static const String totalShifts = "Total Shifts";
+  static const String deleteTheShift = "Delete The Shift";
+  static const String deleteShiftDesc =
+      "Are you sure you want to delete the shift?";
 
   ///
 
@@ -279,7 +297,7 @@ class StringConstant {
   static const String pleaseSelectEndDate = "Please select end date";
   static const String pleaseEnterMobileNumber = "Please enter phone number";
   static const String phoneNumberShouldBeBetween10And15Digits =
-      "Phone number should be between 10 and 15 digits";
+      "Phone number should be 10 digits";
   static const String pleaseEnterEmail = "Please enter email";
   static const String pleaseEnterValidEmail = "Please enter valid email";
   static const String pleaseEnterOtp = "Please enter otp";

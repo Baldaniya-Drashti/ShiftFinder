@@ -1,8 +1,9 @@
+// ignore_for_file: unused_field, use_key_in_widget_constructors, library_private_types_in_public_api, unnecessary_brace_in_string_interps, avoid_print, deprecated_member_use
+
 import 'dart:convert';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:http/http.dart' as http;

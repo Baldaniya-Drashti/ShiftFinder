@@ -29,130 +29,29 @@ class StackedImage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
                       color: AppColors.primaryColor,
-                      width: getSize(1),
+                      width: getSize(2),
                     ),
                     image: DecorationImage(
                       opacity: (imageList.length > 6 && i == 5) ? 0.4 : 100,
                       image: NetworkImage(
                         imageList[i],
                       ),
-                      fit: BoxFit.fill,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
               ),
-          /*Positioned(
-            // height: getSize(25),
-            left: getSize(13),
-            child: Container(
-              width: getSize(30),
-              height: getSize(30),
-              decoration: BoxDecoration(
-                color: AppColors.authBlack,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: AppColors.primaryOrange,
-                ),
-                image: const DecorationImage(
-                  image: NetworkImage(
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbG-0Pc_dX0swJiOnUTf58QaSAwwUTpBUi6Q&s",
-                  ),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: getSize(26),
-            child: Container(
-              width: getSize(30),
-              height: getSize(30),
-              decoration: BoxDecoration(
-                color: AppColors.authBlack,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: AppColors.primaryOrange,
-                ),
-                image: const DecorationImage(
-                  image: NetworkImage(
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWiodenmhSgAPXBgEUGskn4mNvaixE0JlzV4o6-8K4MRUBcLWWuds9cftE1S7_A62UG6M&usqp=CAU",
-                  ),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: getSize(39),
-            child: Container(
-              width: getSize(30),
-              height: getSize(30),
-              decoration: BoxDecoration(
-                color: AppColors.authBlack,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: AppColors.primaryOrange,
-                ),
-                image: const DecorationImage(
-                  image: NetworkImage(
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoU9CKHrZmTmgm-wggrQeiLMyy12an8YR-3VSH_rF6opYSGD9GGhdSVPHwfuZD91TIBRQ&usqp=CAU",
-                  ),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: getSize(52),
-            child: Container(
-              width: getSize(30),
-              height: getSize(30),
-              decoration: BoxDecoration(
-                color: AppColors.authBlack,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: AppColors.primaryOrange,
-                ),
-                image: const DecorationImage(
-                  image: NetworkImage(
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4eg_GnT767VTLgEErziGbNpbhNYpCA118Pt2rKOtHTxGNtIBEgJb5zDI_itZ1jWG35GY&usqp=CAU",
-                  ),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: getSize(65),
-            child: Container(
-              width: getSize(30),
-              height: getSize(30),
-              decoration: BoxDecoration(
-                color: AppColors.authBlack,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: AppColors.primaryOrange,
-                ),
-                image: const DecorationImage(
-                  image: NetworkImage(
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu6XpGMYJoyiyKejzXAuppy2PHBaWoEv46iAvz2oSzNP-GzC0OIrrSV6RwmSu1zY1NXg8&usqp=CAU",
-                  ),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-          ),
-         */
           if (imageList.length > 6)
-            Positioned(
-                top: getSize(8),
-                left: getSize(75),
-                child: BaseText(
-                  text: "${imageList.length - 6} +",
-                  fontSize: 9,
-                  fontWeight: FontWeight.w500,
-                  textColor: AppColors.white,
-                )),
+            Align(
+              alignment: Alignment.centerRight,
+              child: BaseText(
+                text: "${imageList.length - 6}+",
+                fontSize: 9,
+                textAlign: TextAlign.center,
+                fontWeight: FontWeight.w500,
+                textColor: AppColors.white,
+              ),
+            ),
         ],
       ),
     );
@@ -161,6 +60,10 @@ class StackedImage extends StatelessWidget {
   List<String> imageList = [
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_1bpO0XDD8fbmRvnbnkCoQNFFoH3AqofVTg&s",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbG-0Pc_dX0swJiOnUTf58QaSAwwUTpBUi6Q&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWiodenmhSgAPXBgEUGskn4mNvaixE0JlzV4o6-8K4MRUBcLWWuds9cftE1S7_A62UG6M&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4eg_GnT767VTLgEErziGbNpbhNYpCA118Pt2rKOtHTxGNtIBEgJb5zDI_itZ1jWG35GY&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoU9CKHrZmTmgm-wggrQeiLMyy12an8YR-3VSH_rF6opYSGD9GGhdSVPHwfuZD91TIBRQ&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu6XpGMYJoyiyKejzXAuppy2PHBaWoEv46iAvz2oSzNP-GzC0OIrrSV6RwmSu1zY1NXg8&usqp=CAU",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWiodenmhSgAPXBgEUGskn4mNvaixE0JlzV4o6-8K4MRUBcLWWuds9cftE1S7_A62UG6M&usqp=CAU",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4eg_GnT767VTLgEErziGbNpbhNYpCA118Pt2rKOtHTxGNtIBEgJb5zDI_itZ1jWG35GY&usqp=CAU",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoU9CKHrZmTmgm-wggrQeiLMyy12an8YR-3VSH_rF6opYSGD9GGhdSVPHwfuZD91TIBRQ&usqp=CAU",

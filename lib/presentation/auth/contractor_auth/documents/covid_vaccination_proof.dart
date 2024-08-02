@@ -1,14 +1,11 @@
 // ignore_for_file: use_build_context_synchronously, prefer_const_constructors, avoid_print
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shift/application/auth/contractor_auth/document_bloc/document_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
-import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/utils/file_picker_utils.dart';
 import 'package:shift/presentation/common/utils/image_picker_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -19,8 +16,6 @@ import 'package:shift/presentation/common/widgets/upload_document_box.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
-import 'package:badges/badges.dart' as badges;
-import 'package:path/path.dart' as path;
 
 class CovidVaccinationDocument extends StatefulWidget {
   const CovidVaccinationDocument({super.key});
@@ -132,17 +127,20 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
                           textColor: AppColors.red,
                         ),
                       ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: getSize(90), bottom: getSize(50)),
-                      child: CommonButton(
-                        isSubmitting: state.isCovidDocSubmitting,
-                        onPressed: () {
-                          context
-                              .read<DocumentBloc>()
-                              .add(const DocumentEvent.covidDocSubmit());
-                        },
-                        buttonText: StringConstant.txtContinue,
+                    Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            top: getSize(90), bottom: getSize(50)),
+                        child: CommonButton(
+                          isSubmitting: state.isCovidDocSubmitting,
+                          onPressed: () {
+                            context
+                                .read<DocumentBloc>()
+                                .add(const DocumentEvent.covidDocSubmit());
+                          },
+                          buttonText: StringConstant.txtContinue,
+                        ),
                       ),
                     )
                   ],

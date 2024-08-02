@@ -163,7 +163,7 @@ class EducationListScreen extends StatelessWidget {
                 return Padding(
                   padding: EdgeInsets.symmetric(vertical: getSize(10)),
                   child: ListTile(
-                    tileColor: AppColors.grey.withOpacity(0.4),
+                    tileColor: AppColors.grey04,
                     minTileHeight: getSize(103),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -200,30 +200,33 @@ class EducationListScreen extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: getSize(20)),
-              child: CommonButton(
-                onPressed: () {
-                  context.router
-                      .push(PageRouteInfo(AddEducationDetailScreen.name))
-                      .then((value) {
-                    print("Value when back ---> ${value}");
+              child: Align(
+                alignment: Alignment.center,
+                child: CommonButton(
+                  onPressed: () {
+                    context.router
+                        .push(PageRouteInfo(AddEducationDetailScreen.name))
+                        .then((value) {
+                      print("Value when back ---> ${value}");
 
-                    if (value != null && value == true) {
-                      context
-                          .read<EducationDetailBloc>()
-                          .add(EducationDetailEvent.getEducationList());
+                      if (value != null && value == true) {
+                        context
+                            .read<EducationDetailBloc>()
+                            .add(EducationDetailEvent.getEducationList());
 
-                      /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
-                    }
-                  });
-                },
-                buttonText: "+ ${StringConstant.addMore}",
-                width: 105,
-                borderRadius: 10,
-                buttonFontSize: 12,
-                buttonFontWeight: FontWeight.w600,
-                height: 35,
-                backgroundColor: AppColors.primaryColor.withOpacity(0.15),
-                buttonTextColor: AppColors.primaryColor,
+                        /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
+                      }
+                    });
+                  },
+                  buttonText: "+ ${StringConstant.addMoreEducation}",
+                  width: 175,
+                  borderRadius: 10,
+                  buttonFontSize: 12,
+                  buttonFontWeight: FontWeight.w600,
+                  height: 35,
+                  backgroundColor: AppColors.primaryColor.withOpacity(0.15),
+                  buttonTextColor: AppColors.primaryColor,
+                ),
               ),
             ),
           ],

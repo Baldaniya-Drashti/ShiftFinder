@@ -1,10 +1,8 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print, unnecessary_string_interpolations
 
-import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shift/application/auth/contractor_auth/document_bloc/document_bloc.dart';
 import 'package:shift/domain/core/document_expiry_picker.dart';
@@ -172,6 +170,10 @@ class CredentialRegistration extends StatelessWidget {
                                   CredentialEvent.credExpiryDateChanged(
                                       pickedDate.toString()));
                             },
+                            onCancelClick: () {
+                              context.read<CredentialBloc>().add(
+                                  CredentialEvent.credExpiryDateChanged(""));
+                            },
                             selectedDate: state.credentialExpiryDate,
                             isDisabled: !state.isCredExpiryCheck,
                           ),
@@ -201,13 +203,16 @@ class CredentialRegistration extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(
                                 top: getSize(50), bottom: getSize(50)),
-                            child: CommonButton(
-                              onPressed: () {
-                                context.read<CredentialBloc>().add(
-                                    const CredentialEvent.credentialDocSubmit(
-                                        isAddMoreBtnClick: false));
-                              },
-                              buttonText: StringConstant.txtContinue,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: CommonButton(
+                                onPressed: () {
+                                  context.read<CredentialBloc>().add(
+                                      const CredentialEvent.credentialDocSubmit(
+                                          isAddMoreBtnClick: false));
+                                },
+                                buttonText: StringConstant.txtContinue,
+                              ),
                             ),
                           )
                         ],

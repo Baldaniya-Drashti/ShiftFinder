@@ -5,10 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/main/widgets/stacked_images.dart';
 
 @RoutePage(name: 'HomeView')
@@ -37,9 +41,10 @@ class HomeView extends StatelessWidget {
             horizontal: getSize(15),
             vertical: getSize(5),
           ),
-          shrinkWrap: true,
+          clipBehavior: Clip.none,
+          // shrinkWrap: true,
           physics: BouncingScrollPhysics(),
-          itemBuilder: (context, index) {
+          itemBuilder: (_, index) {
             return getCheckoutContainer(index, context);
           },
         ),
@@ -62,7 +67,6 @@ class HomeView extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(getSize(10)),
       margin: EdgeInsets.symmetric(vertical: getSize(12)),
-      height: getSize(368),
       width: getSize(355),
       decoration: BoxDecoration(
         color: AppColors.white,
@@ -77,37 +81,59 @@ class HomeView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          employeeDataBox(),
-          Padding(
+          employeeDataBox(context),
+          SizedBox(
+            height: getSize(8),
+          ),
+          CommonButton(
+            onPressed: () {
+              context.router.push(PageRouteInfo(ViewHomeShiftDetails.name));
+            },
+            height: getSize(40),
+            borderRadius: 7,
+            backgroundColor: AppColors.primaryColor.withOpacity(0.1),
+            buttonTextColor: AppColors.black,
+            buttonFontSize: 12,
+            buttonText: StringConstant.viewDetails,
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: AppColors.grey04,
+              borderRadius: BorderRadius.circular(5),
+            ),
             padding: EdgeInsets.symmetric(vertical: getSize(10)),
+            margin: EdgeInsets.symmetric(vertical: getSize(10)),
             child: IntrinsicHeight(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   verticalLabelValue(
-                    label: "Shift Date:-",
+                    label: "${StringConstant.shiftDate}:-",
                     value: "May 12, 2024",
                   ),
                   verticalDivider(),
                   verticalLabelValue(
-                    label: "Start and End Time:-",
+                    label: "${StringConstant.startAndEndTime}:-",
                     value: "7AM to 6PM",
                   ),
                   verticalDivider(),
                   verticalLabelValue(
-                    label: "Hourly Rate:-",
-                    value: "\$27",
-                  ),
+                    label: "${StringConstant.totalShifts}:-",
+                    value: "5 Shifts",
+                  )
                 ],
               ),
             ),
           ),
           proposalBox(
-            title: "Total Application",
+            title: StringConstant.totalApplications,
             value: "24",
           ),
+          SizedBox(
+            height: getSize(10),
+          ),
           proposalBox(
-            title: "Total Proposals",
+            title: StringConstant.totalProposals,
             value: "13",
           ),
         ],
@@ -115,7 +141,7 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget employeeDataBox() {
+  Widget employeeDataBox(BuildContext context) {
     return Container(
       height: getSize(113.41),
       decoration: BoxDecoration(
@@ -139,7 +165,7 @@ class HomeView extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
             subtitle: BaseText(
-              text: "(Healthcare)",
+              text: "(Healthcare - 2DFG125)",
               fontSize: 12,
               fontWeight: FontWeight.w400,
               textColor: AppColors.white.withOpacity(0.80),
@@ -147,7 +173,22 @@ class HomeView extends StatelessWidget {
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SvgPicture.asset(SvgImageConstant.delete),
+                GestureDetector(
+                    onTap: () {
+                      AppDialog.showDelete(
+                        context,
+                        title: StringConstant.deleteTheShift,
+                        infoMessage: StringConstant.deleteShiftDesc,
+                        cancelText: StringConstant.no,
+                        onCancelClick: () {
+                          context.router.maybePop();
+                        },
+                        onDeleteClick: () {
+                          context.router.maybePop();
+                        },
+                      );
+                    },
+                    child: SvgPicture.asset(SvgImageConstant.delete)),
                 SizedBox(
                   width: getSize(12),
                 ),
@@ -160,6 +201,7 @@ class HomeView extends StatelessWidget {
           ),
           Divider(
             color: AppColors.white.withOpacity(0.7),
+            thickness: getSize(0.5),
           ),
           Row(
             children: [
@@ -199,7 +241,7 @@ class HomeView extends StatelessWidget {
         BaseText(
           text: value,
           fontSize: 10,
-          fontWeight: FontWeight.w500,
+          fontWeight: FontWeight.w600,
         )
       ],
     );
@@ -224,7 +266,7 @@ class HomeView extends StatelessWidget {
         horizontal: getSize(12),
       ),
       decoration: BoxDecoration(
-          color: AppColors.darkWhite, borderRadius: BorderRadius.circular(10)),
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -233,6 +275,7 @@ class HomeView extends StatelessWidget {
             text: title,
             fontSize: 12,
             fontWeight: FontWeight.w500,
+            textColor: AppColors.black.withOpacity(0.7),
           ),
           Row(
             children: [

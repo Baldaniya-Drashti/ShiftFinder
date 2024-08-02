@@ -137,7 +137,7 @@ class ReferenceListScreen extends StatelessWidget {
             return Padding(
               padding: EdgeInsets.symmetric(vertical: getSize(10)),
               child: ListTile(
-                tileColor: AppColors.grey.withOpacity(0.4),
+                tileColor: AppColors.grey04,
                 minTileHeight: getSize(103),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -186,8 +186,8 @@ class ReferenceListScreen extends StatelessWidget {
                 }
               });
             },
-            buttonText: "+ ${StringConstant.addMore}",
-            width: 105,
+            buttonText: "+ ${StringConstant.addMoreReference}",
+            width: 175,
             borderRadius: 10,
             buttonFontSize: 12,
             buttonFontWeight: FontWeight.w600,

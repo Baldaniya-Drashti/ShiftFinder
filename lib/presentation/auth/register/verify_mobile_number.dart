@@ -208,7 +208,6 @@ class VerifyPhoneNumber extends StatelessWidget {
           Opacity(
             opacity: state.secondsRemaining == 0 ? 1 : 0.5,
             child: CommonButton(
-              isSubmitting: state.isSubmitting,
               onPressed: (state.secondsRemaining == 0)
                   ? () {
                       context

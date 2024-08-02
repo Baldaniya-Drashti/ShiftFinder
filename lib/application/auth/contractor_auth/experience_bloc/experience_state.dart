@@ -9,6 +9,8 @@ class ExperienceState with _$ExperienceState {
     required bool isSubmitting,
     required bool isLoading,
     required bool showErrorMessages,
+    required bool showYearError,
+    required bool showMonthError,
     required Option<Either<AccountFailure, Account>> authFailureOrSuccessOption,
   }) = _ExperienceState;
 
@@ -17,6 +19,8 @@ class ExperienceState with _$ExperienceState {
         isSubmitting: false,
         isLoading: false,
         showErrorMessages: false,
+        showMonthError: false,
+        showYearError: false,
         authFailureOrSuccessOption: none(),
       );
 }

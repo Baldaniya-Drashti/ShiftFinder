@@ -96,8 +96,7 @@ class _DocumentListState extends State<DocumentList> {
       padding: EdgeInsets.symmetric(
           vertical: getSize(20), horizontal: getSize(36.025)),
       decoration: BoxDecoration(
-          color: AppColors.grey.withOpacity(0.4),
-          borderRadius: BorderRadius.circular(10)),
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: Row(
         children: [
           SvgPicture.asset(

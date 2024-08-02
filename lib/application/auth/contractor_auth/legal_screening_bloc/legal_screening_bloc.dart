@@ -9,10 +9,7 @@ import 'package:injectable/injectable.dart';
 import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/account/account_failure.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
-import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/infrastructure/core/legal_screening_dto/legal_screening_dto.dart';
-import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
-import 'package:shift/presentation/auth/contractor_auth/legal_screening_questions.dart';
 
 part 'legal_screening_event.dart';
 part 'legal_screening_state.dart';
@@ -155,7 +152,6 @@ class LegalScreeningBloc
             failureOrSuccess = await _repository.addLergalScreeningAnswerApi(
               affirmIsCheck: (isCheckTerms) ? 1 : 0,
               questionAnswerDetail: jsonEncode(list),
-
             );
 
             failureOrSuccess.fold(

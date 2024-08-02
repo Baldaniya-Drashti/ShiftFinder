@@ -39,7 +39,7 @@ class SelectedDocumentBox extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       child: ListTile(
-        tileColor: AppColors.grey.withOpacity(0.4),
+        tileColor: AppColors.grey04,
         minTileHeight: getSize(103),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),

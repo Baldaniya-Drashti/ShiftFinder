@@ -32,13 +32,13 @@ class LocationDetailForm extends StatelessWidget {
   TextEditingController addressController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        AppFocus.unfocus(context);
-      },
-      child: BlocProvider(
-        create: (context) => getIt<LocationDetailsBloc>()
-          ..add(LocationDetailsEvent.getFacilityTypeList()),
+    return BlocProvider(
+      create: (context) => getIt<LocationDetailsBloc>()
+        ..add(LocationDetailsEvent.getFacilityTypeList()),
+      child: GestureDetector(
+        onTap: () {
+          AppFocus.unfocus(context);
+        },
         child: Scaffold(
             appBar: CommonAppBar(
               isShowBackBtn: !isFromSplash,
@@ -65,13 +65,16 @@ class LocationDetailForm extends StatelessWidget {
                     },
                     (r) {
                       context.router
-                          .push(const PageRouteInfo(AddCardDetailPage.name));
+                          .push(const PageRouteInfo(AddCardDetailPage.name))
+                          .then((value) {
+                        AppFocus.unfocus(context);
+                      });
                     },
                   ),
                 );
               },
               builder: (context, state) {
-                return (state.isSubmitting)
+                return (state.isLoading)
                     ? CenterLoadingIndicator()
                     : Padding(
                         padding: EdgeInsets.symmetric(horizontal: getSize(20)),
@@ -128,6 +131,7 @@ class LocationDetailForm extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(
                                       vertical: getSize(50)),
                                   child: CommonButton(
+                                    isSubmitting: state.isSubmitting,
                                     onPressed: () {
                                       context.read<LocationDetailsBloc>().add(
                                           const LocationDetailsEvent
@@ -387,7 +391,7 @@ class LocationDetailForm extends StatelessWidget {
         getSize(20),
       ),
       decoration: BoxDecoration(
-        color: AppColors.grey.withOpacity(0.4),
+        color: AppColors.grey04,
         borderRadius: BorderRadius.circular(
           getSize(20),
         ),
@@ -399,7 +403,7 @@ class LocationDetailForm extends StatelessWidget {
           paddingBetweenFields(height: getSize(10)),
           CustomChipSet(
             chipList: state.unitNoNameChipList,
-            backgroundColor: AppColors.grey.withOpacity(0.4),
+            backgroundColor: AppColors.grey04,
             spacing: 10,
             onDelete: (value) {
               context

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, must_be_immutable
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +13,13 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/custom_year_picker/custom_date_picker_dropdown.dart';
 import 'package:shift/presentation/core/widgets/custom_year_picker/order_format.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
+import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 import '../../common/widgets/center_loading_indicator.dart';
 
@@ -116,6 +119,7 @@ class AddExperienceDetail extends StatelessWidget {
       itemBuilder: (context, index) {
         var currentObj = state.records[index];
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               height: getSize(46),
@@ -128,7 +132,7 @@ class AddExperienceDetail extends StatelessWidget {
                 horizontal: getSize(20),
               ),
               decoration: BoxDecoration(
-                color: AppColors.grey.withOpacity(0.4),
+                color: AppColors.grey04,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: BaseText(
@@ -142,42 +146,117 @@ class AddExperienceDetail extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                customPicker(
-                  context,
-                  showYear: true,
-                  showMonth: false,
-                  onChangeyear: (value) {
-                    context
-                        .read<ExperienceBloc>()
-                        .add(ExperienceEvent.updateRecordEvent(
-                          index: index,
-                          year: value ?? "",
-                          month: currentObj.experience_month ?? "",
-                          name: currentObj.name ?? "",
-                        ));
-                  },
+                Flexible(
+                  child: customeDropDown(
+                    hintText: StringConstant.year,
+                    items: CommonList.yearList.map((val) {
+                      return DropdownMenuItem<String>(
+                        value: val,
+                        child: BaseText(
+                          text: val,
+                          fontSize: 14,
+                          textColor: AppColors.black,
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      context
+                          .read<ExperienceBloc>()
+                          .add(ExperienceEvent.updateRecordEvent(
+                            index: index,
+                            year: value ?? "",
+                            month: currentObj.experience_month ?? "",
+                            name: currentObj.name ?? "",
+                          ));
+                    },
+                    // validator: (value) {
+                    //   return (state.records[index].experience_year != null &&
+                    //           state.records[index].experience_year!.isNotEmpty)
+                    //       ? null
+                    //       : StringConstant.pleaseSelectYear;
+                    // },
+                  ),
                 ),
-                SizedBox(
-                  width: getSize(20),
+                SizedBox(width: getSize(20)),
+                Flexible(
+                  child: customeDropDown(
+                    hintText: StringConstant.month,
+                    items: CommonList.monthList.map((val) {
+                      return DropdownMenuItem<String>(
+                        value: val,
+                        child: BaseText(
+                          text: val,
+                          fontSize: 14,
+                          textColor: AppColors.black,
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      print("SELECTE MONTH $value");
+                      context
+                          .read<ExperienceBloc>()
+                          .add(ExperienceEvent.updateRecordEvent(
+                            index: index,
+                            year: currentObj.experience_year ?? "",
+                            month: value ?? "",
+                            name: currentObj.name ?? "",
+                          ));
+                    },
+                    // validator: (value) {
+                    //   return (state.records[index].experience_month != null &&
+                    //           state.records[index].experience_month!
+                    //               .isNotEmpty)
+                    //       ? null
+                    //       : StringConstant.pleaseSelectMonth;
+                    // },
+                  ),
                 ),
-                customPicker(
-                  context,
-                  showYear: false,
-                  showMonth: true,
-                  onChangedMonth: (value) {
-                    print("SELECTE MONTH $value");
-                    context
-                        .read<ExperienceBloc>()
-                        .add(ExperienceEvent.updateRecordEvent(
-                          index: index,
-                          year: currentObj.experience_year ?? "",
-                          month: value ?? "",
-                          name: currentObj.name ?? "",
-                        ));
-                  },
-                ),
+                // customPicker(
+                //   context,
+                //   showYear: true,
+                //   showMonth: false,
+                //   onChangeyear: (value) {
+                //     context
+                //         .read<ExperienceBloc>()
+                //         .add(ExperienceEvent.updateRecordEvent(
+                //           index: index,
+                //           year: value ?? "",
+                //           month: currentObj.experience_month ?? "",
+                //           name: currentObj.name ?? "",
+                //         ));
+                //   },
+                // ),
+                // SizedBox(
+                //   width: getSize(20),
+                // ),
+                // customPicker(
+                //   context,
+                //   showYear: false,
+                //   showMonth: true,
+                //   onChangedMonth: (value) {
+                //     print("SELECTE MONTH $value");
+                //     context
+                //         .read<ExperienceBloc>()
+                //         .add(ExperienceEvent.updateRecordEvent(
+                //           index: index,
+                //           year: currentObj.experience_year ?? "",
+                //           month: value ?? "",
+                //           name: currentObj.name ?? "",
+                //         ));
+                //   },
+                // ),
               ],
             ),
+            if (!(state.records[index].experience_year != null &&
+                    state.records[index].experience_year!.isNotEmpty &&
+                    state.records[index].experience_month != null &&
+                    state.records[index].experience_month!.isNotEmpty) &&
+                state.showErrorMessages)
+              commonErrorText(
+                "* Please select year and month",
+                padding: EdgeInsets.symmetric(
+                    vertical: getSize(10), horizontal: getSize(20)),
+              ),
             if (index == (state.records.length - 1))
               SizedBox(
                 height: getSize(20),
@@ -200,10 +279,13 @@ class AddExperienceDetail extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BaseText(
-            text: (showYear) ? StringConstant.year : StringConstant.month,
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
+          Padding(
+            padding: EdgeInsets.only(left: getSize(15)),
+            child: BaseText(
+              text: (showYear) ? StringConstant.year : StringConstant.month,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           DropdownDatePicker(
             menuMaxHeight: getSize(400),
@@ -215,7 +297,7 @@ class AddExperienceDetail extends StatelessWidget {
             isFormValidator: true,
             errorMonth: StringConstant.pleaseSelectMonth,
             errorYear: StringConstant.pleaseSelectYear,
-            startYear: 1900,
+            startYear: 1970,
             endYear: 2020,
             width: getSize(0),
             hintYear: StringConstant.year,
@@ -265,6 +347,86 @@ class AddExperienceDetail extends StatelessWidget {
           // )
         ],
       ),
+    );
+  }
+
+  Widget customeDropDown({
+    String? hintText,
+    String? value,
+    List<DropdownMenuItem<String>>? items,
+    Function(String?)? onChanged,
+    String? Function(String?)? validator,
+  }) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: getSize(20), bottom: getSize(5)),
+          child: BaseText(
+            text: hintText ?? "",
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            textColor: AppColors.black,
+          ),
+        ),
+        DropdownButtonFormField<String>(
+          validator: validator,
+          menuMaxHeight: getSize(400),
+          dropdownColor: AppColors.white,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: AppColors.white,
+            prefixIcon: Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: getSize(14),
+              ),
+              child: SvgPicture.asset(
+                SvgImageConstant.clock,
+                height: getSize(24),
+                width: getSize(24),
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: AppColors.white),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            border: OutlineInputBorder(
+              borderSide: const BorderSide(color: AppColors.white),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: AppColors.red),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: AppColors.white),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: AppColors.red),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: getSize(18),
+            ),
+          ),
+          alignment: Alignment.centerLeft,
+          hint: BaseText(
+            text: hintText ?? "",
+            textColor: AppColors.black.withOpacity(0.50),
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+          value: value,
+          icon: SvgPicture.asset(
+            SvgImageConstant.downArrow,
+          ),
+          isExpanded: true,
+          items: items,
+          onChanged: onChanged,
+        ),
+      ],
     );
   }
 }

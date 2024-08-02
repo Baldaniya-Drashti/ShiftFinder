@@ -175,6 +175,11 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
                                       .liabilityExpiryDateChanged(
                                           pickedDate.toString()));
                             },
+                            onCancelClick: () {
+                              context.read<ProfessionalLiabilityBloc>().add(
+                                  ProfessionalLiabilityEvent
+                                      .liabilityExpiryDateChanged(""));
+                            },
                             selectedDate: state.liabilityExpiryDate,
                             isDisabled: !state.isLiabilityExpiryCheck,
                           ),
@@ -205,14 +210,17 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(
                                 top: getSize(40), bottom: getSize(50)),
-                            child: CommonButton(
-                              onPressed: () {
-                                context.read<ProfessionalLiabilityBloc>().add(
-                                    const ProfessionalLiabilityEvent
-                                        .liabilityDocSubmit(
-                                        isAddMoreBtnClick: false));
-                              },
-                              buttonText: StringConstant.txtContinue,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: CommonButton(
+                                onPressed: () {
+                                  context.read<ProfessionalLiabilityBloc>().add(
+                                      const ProfessionalLiabilityEvent
+                                          .liabilityDocSubmit(
+                                          isAddMoreBtnClick: false));
+                                },
+                                buttonText: StringConstant.txtContinue,
+                              ),
                             ),
                           )
                         ],

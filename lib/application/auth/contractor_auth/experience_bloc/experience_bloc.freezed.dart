@@ -504,6 +504,8 @@ mixin _$ExperienceState {
   bool get isSubmitting => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
+  bool get showYearError => throw _privateConstructorUsedError;
+  bool get showMonthError => throw _privateConstructorUsedError;
   Option<Either<AccountFailure, Account>> get authFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
 
@@ -523,6 +525,8 @@ abstract class $ExperienceStateCopyWith<$Res> {
       bool isSubmitting,
       bool isLoading,
       bool showErrorMessages,
+      bool showYearError,
+      bool showMonthError,
       Option<Either<AccountFailure, Account>> authFailureOrSuccessOption});
 }
 
@@ -543,6 +547,8 @@ class _$ExperienceStateCopyWithImpl<$Res, $Val extends ExperienceState>
     Object? isSubmitting = null,
     Object? isLoading = null,
     Object? showErrorMessages = null,
+    Object? showYearError = null,
+    Object? showMonthError = null,
     Object? authFailureOrSuccessOption = null,
   }) {
     return _then(_value.copyWith(
@@ -561,6 +567,14 @@ class _$ExperienceStateCopyWithImpl<$Res, $Val extends ExperienceState>
       showErrorMessages: null == showErrorMessages
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool,
+      showYearError: null == showYearError
+          ? _value.showYearError
+          : showYearError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      showMonthError: null == showMonthError
+          ? _value.showMonthError
+          : showMonthError // ignore: cast_nullable_to_non_nullable
               as bool,
       authFailureOrSuccessOption: null == authFailureOrSuccessOption
           ? _value.authFailureOrSuccessOption
@@ -583,6 +597,8 @@ abstract class _$$ExperienceStateImplCopyWith<$Res>
       bool isSubmitting,
       bool isLoading,
       bool showErrorMessages,
+      bool showYearError,
+      bool showMonthError,
       Option<Either<AccountFailure, Account>> authFailureOrSuccessOption});
 }
 
@@ -601,6 +617,8 @@ class __$$ExperienceStateImplCopyWithImpl<$Res>
     Object? isSubmitting = null,
     Object? isLoading = null,
     Object? showErrorMessages = null,
+    Object? showYearError = null,
+    Object? showMonthError = null,
     Object? authFailureOrSuccessOption = null,
   }) {
     return _then(_$ExperienceStateImpl(
@@ -620,6 +638,14 @@ class __$$ExperienceStateImplCopyWithImpl<$Res>
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
               as bool,
+      showYearError: null == showYearError
+          ? _value.showYearError
+          : showYearError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      showMonthError: null == showMonthError
+          ? _value.showMonthError
+          : showMonthError // ignore: cast_nullable_to_non_nullable
+              as bool,
       authFailureOrSuccessOption: null == authFailureOrSuccessOption
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
@@ -636,6 +662,8 @@ class _$ExperienceStateImpl implements _ExperienceState {
       required this.isSubmitting,
       required this.isLoading,
       required this.showErrorMessages,
+      required this.showYearError,
+      required this.showMonthError,
       required this.authFailureOrSuccessOption})
       : _records = records;
 
@@ -655,11 +683,15 @@ class _$ExperienceStateImpl implements _ExperienceState {
   @override
   final bool showErrorMessages;
   @override
+  final bool showYearError;
+  @override
+  final bool showMonthError;
+  @override
   final Option<Either<AccountFailure, Account>> authFailureOrSuccessOption;
 
   @override
   String toString() {
-    return 'ExperienceState(records: $records, isSubmitting: $isSubmitting, isLoading: $isLoading, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'ExperienceState(records: $records, isSubmitting: $isSubmitting, isLoading: $isLoading, showErrorMessages: $showErrorMessages, showYearError: $showYearError, showMonthError: $showMonthError, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
@@ -674,6 +706,10 @@ class _$ExperienceStateImpl implements _ExperienceState {
                 other.isLoading == isLoading) &&
             (identical(other.showErrorMessages, showErrorMessages) ||
                 other.showErrorMessages == showErrorMessages) &&
+            (identical(other.showYearError, showYearError) ||
+                other.showYearError == showYearError) &&
+            (identical(other.showMonthError, showMonthError) ||
+                other.showMonthError == showMonthError) &&
             (identical(other.authFailureOrSuccessOption,
                     authFailureOrSuccessOption) ||
                 other.authFailureOrSuccessOption ==
@@ -687,6 +723,8 @@ class _$ExperienceStateImpl implements _ExperienceState {
       isSubmitting,
       isLoading,
       showErrorMessages,
+      showYearError,
+      showMonthError,
       authFailureOrSuccessOption);
 
   @JsonKey(ignore: true)
@@ -703,6 +741,8 @@ abstract class _ExperienceState implements ExperienceState {
       required final bool isSubmitting,
       required final bool isLoading,
       required final bool showErrorMessages,
+      required final bool showYearError,
+      required final bool showMonthError,
       required final Option<Either<AccountFailure, Account>>
           authFailureOrSuccessOption}) = _$ExperienceStateImpl;
 
@@ -716,6 +756,10 @@ abstract class _ExperienceState implements ExperienceState {
   bool get isLoading;
   @override
   bool get showErrorMessages;
+  @override
+  bool get showYearError;
+  @override
+  bool get showMonthError;
   @override
   Option<Either<AccountFailure, Account>> get authFailureOrSuccessOption;
   @override

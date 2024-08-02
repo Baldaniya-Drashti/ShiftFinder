@@ -84,25 +84,29 @@ class OnBoarding3 extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          badges.Badge(
-            position: badges.BadgePosition.topStart(
-              top: getSize(45),
-              start: getHorizontalSize(160),
-            ),
-            badgeContent: SvgPicture.asset(
-              SvgImageConstant.twoLines,
-            ),
-            badgeStyle: badges.BadgeStyle(
-              badgeColor: AppColors.transparent,
-            ),
-            child: BaseText(
-              text: (getCurrentRole() == 1)
-                  ? StringConstant.findYourPerfectHealthcareShift
-                  : StringConstant.letsFindTheRightHealthServiceProfessional,
-              fontSize: 20,
-              fontWeight: FontWeight.w400,
-              fontFamily: "Aclonica",
-              maxLines: 2,
+          Container(
+            // width: getSize(350),
+            // color: Colors.yellow,
+            child: badges.Badge(
+              position: badges.BadgePosition.bottomEnd(
+                bottom: getSize(-22),
+                end: (getCurrentRole() == 1) ? getSize(-35) : getSize(40),
+              ),
+              badgeContent: SvgPicture.asset(
+                SvgImageConstant.twoLines,
+              ),
+              badgeStyle: badges.BadgeStyle(
+                badgeColor: AppColors.transparent,
+              ),
+              child: BaseText(
+                text: (getCurrentRole() == 1)
+                    ? StringConstant.findYourPerfectHealthcareShift
+                    : StringConstant.letsFindTheRightHealthServiceProfessional,
+                fontSize: 20,
+                fontWeight: FontWeight.w400,
+                fontFamily: "Aclonica",
+                maxLines: 2,
+              ),
             ),
           ),
           SizedBox(

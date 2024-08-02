@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, prefer_const_constructors
+// ignore_for_file: avoid_print, prefer_const_constructors, unused_local_variable
 
 import 'dart:convert';
 
@@ -7,14 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:intl/intl.dart';
 import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/account/account_failure.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
-import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/string_constant.dart';
-import 'package:shift/infrastructure/auth/contractor/document/upload_document_dto.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/immunizations.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/Professional_liability_protection.dart';
@@ -25,7 +22,6 @@ import 'package:shift/presentation/auth/contractor_auth/documents/document_list.
 import 'package:shift/presentation/auth/contractor_auth/documents/government_issue_id.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/professional_licenses.dart';
 import 'package:shift/presentation/auth/contractor_auth/documents/resume.dart';
-import 'package:shift/presentation/common/utils/get_cookie.dart';
 
 part 'document_event.dart';
 
@@ -2142,13 +2138,58 @@ class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
           else if (!e.isAddMoreBtnClick &&
               !isEquipmentDocValid &&
               !isEquipmentNameValid) {
+            Either<AccountFailure, Account>? failureOrSuccess;
+
             emit(
               state.copyWith(
                 isEquipmentDocSubmitting: true,
-                showEquipmentErrorMessages: false,
-                submitDocAuthFailureOrSuccessOption: optionOf(right(Account())),
+                submitDocAuthFailureOrSuccessOption: none(),
               ),
             );
+
+            failureOrSuccess = await _repository.addMultiDocumentApi(
+              documentType: 8,
+              documentFile: state.equipmentDoc.getValue() ?? "",
+              documentTitle: state.equipmentName.getValue(),
+              lastPage: "BankDetail",
+            );
+
+            failureOrSuccess.fold(
+              (l) => emit(
+                state.copyWith(
+                  isEquipmentDocSubmitting: false,
+                ),
+              ),
+              (r) {
+                emit(
+                  state.copyWith(
+                    equipmentList: r.document
+                            ?.where((doc) => doc.document_type == 8)
+                            .toList() ??
+                        [],
+                    equipmentDoc: InputEmptyOrNot(""),
+                    equipmentName: InputEmptyOrNot(""),
+                    isEquipmentDocSubmitting: false,
+                    showEquipmentErrorMessages: false,
+                    submitDocAuthFailureOrSuccessOption: none(),
+                  ),
+                );
+              },
+            );
+            emit(
+              state.copyWith(
+                isEquipmentDocSubmitting: false,
+                submitDocAuthFailureOrSuccessOption: optionOf(failureOrSuccess),
+              ),
+            );
+
+            // emit(
+            //   state.copyWith(
+            //     isEquipmentDocSubmitting: true,
+            //     showEquipmentErrorMessages: false,
+            //     submitDocAuthFailureOrSuccessOption: optionOf(right(Account())),
+            //   ),
+            // );
           }
 
           /// True When click on continue - add more btn and some details are empty or not valid

@@ -187,8 +187,7 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
           EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(12)),
       margin: EdgeInsets.symmetric(vertical: getSize(10)),
       decoration: BoxDecoration(
-          color: AppColors.grey.withOpacity(0.4),
-          borderRadius: BorderRadius.circular(10)),
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: Column(
         children: [
           Row(
@@ -262,8 +261,7 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
           EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(12)),
       // margin: EdgeInsets.symmetric(vertical: getSize(10)),
       decoration: BoxDecoration(
-          color: AppColors.grey.withOpacity(0.4),
-          borderRadius: BorderRadius.circular(10)),
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

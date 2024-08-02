@@ -5,7 +5,6 @@ import 'package:injectable/injectable.dart';
 import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/i_auth_facade.dart';
-import 'package:shift/infrastructure/core/legal_screening_dto/legal_screening_dto.dart';
 
 part 'terms_and_condition_event.dart';
 part 'terms_and_condition_state.dart';

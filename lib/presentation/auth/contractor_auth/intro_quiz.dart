@@ -96,7 +96,7 @@
 //   Widget questionBox(int index) {
 //     return Container(
 //       decoration: BoxDecoration(
-//         color: AppColors.grey.withOpacity(0.4),
+//         color: AppColors.grey04,
 //         borderRadius: BorderRadius.circular(10),
 //       ),
 //       child: Column(
@@ -260,7 +260,7 @@ class IntroQuizScreen extends StatelessWidget {
                               padding: EdgeInsets.symmetric(
                                   horizontal: getSize(10),
                                   vertical: getSize(10)),
-                              color: AppColors.grey.withOpacity(0.4),
+                              color: AppColors.grey04,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [

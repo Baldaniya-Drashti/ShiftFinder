@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, must_be_immutable
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -278,8 +278,7 @@ class AddBankDetailsScreen extends StatelessWidget {
         vertical: getSize(10),
       ),
       decoration: BoxDecoration(
-          color: AppColors.grey.withOpacity(0.4),
-          borderRadius: BorderRadius.circular(10)),
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

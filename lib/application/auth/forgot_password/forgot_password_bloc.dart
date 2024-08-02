@@ -74,8 +74,6 @@ class ForgotPasswordBloc
                   (getCurrentRole() == 1) ? state.mobileNumber.getValue() : "",
               forgotPassword: true,
             );
-
-            failureOrSuccess = right("sucess");
           }
 
           emit(
@@ -122,7 +120,10 @@ class ForgotPasswordBloc
               // add(const LoginFormEvent.resendOtp());
             }
           });
-          emit(state.copyWith(secondsRemaining: 30));
+          emit(state.copyWith(
+            secondsRemaining: 60,
+            verifyOtpFailureOrSuccessOption: none(),
+          ));
         },
         decrementTimer: (DecrementTimer value) {
           print("CURRENT SECOND: 2 ------->  ${state.secondsRemaining}");
@@ -130,38 +131,45 @@ class ForgotPasswordBloc
             secondsRemaining: state.secondsRemaining - 1,
             authFailureOrSuccessOption: none(),
             resendFailureOrSuccessOption: none(),
+            verifyOtpFailureOrSuccessOption: none(),
           ));
         },
         resendOtp: (ResendOtp value) async {
-          //timer.cancel();
+          timer.cancel();
 
-          // Either<AuthFailure, String>? failureOrSuccess;
+          Either<AuthFailure, String>? failureOrSuccess;
 
-          // emit(
-          //   state.copyWith(
-          //     isSubmitting: true,
-          //     authFailureOrSuccessOption: none(),
-          //   ),
-          // );
+          emit(
+            state.copyWith(
+              isSubmitting: true,
+              authFailureOrSuccessOption: none(),
+            ),
+          );
 
           // failureOrSuccess = await _authFacade.resendOtp(
           //   countryCode: '+${state.selectedCountrycode}',
           //   mobileNumber: state.mobileNumber,
           // );
+          failureOrSuccess = await _authFacade.resendOtp(
+            emailAddress:
+                (getCurrentRole() == 1) ? "" : state.emailAddress.getValue(),
+            phoneNumber:
+                (getCurrentRole() == 1) ? "${state.mobileNumber.getValue}" : "",
+          );
 
-          // emit(
-          //   state.copyWith(
-          //     isSubmitting: false,
-          //     //showErrorMessages: true,
-          //     secondsRemaining: 30,
-          //     resendFailureOrSuccessOption: optionOf(failureOrSuccess),
-          //   ),
-          // );
+          emit(
+            state.copyWith(
+              isSubmitting: false,
+              //showErrorMessages: true,
+              secondsRemaining: 60,
+              resendFailureOrSuccessOption: optionOf(failureOrSuccess),
+              verifyOtpFailureOrSuccessOption: none(),
+            ),
+          );
           add(const ForgotPasswordEvent.startCountdown());
         },
         verifyOtp: (VerifyOtp value) async {
           Either<AuthFailure, String>? failureOrSuccess;
-
           final isOTPValid = state.enteredOTP.isValid();
 
           if (isOTPValid) {

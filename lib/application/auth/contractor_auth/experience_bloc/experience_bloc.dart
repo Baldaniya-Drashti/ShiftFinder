@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, prefer_const_constructors
 
 import 'dart:convert';
 
@@ -8,7 +8,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/account/account_failure.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
-import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/infrastructure/core/experience_model/experience_dto.dart';
 
 import '../../../../domain/account/account.dart';
@@ -34,13 +33,14 @@ class ExperienceBloc extends Bloc<ExperienceEvent, ExperienceState> {
             ),
           );
           final roleList = await _repository.getExperienceRoleList();
-          print("Role List ---> ${roleList}");
+
           roleList.fold(
             (l) => emit(
               state.copyWith(
-                isLoading: false,
-                records: [],
-              ),
+                  isLoading: false,
+                  records: [],
+                  authFailureOrSuccessOption:
+                      optionOf(left(AccountFailure.serverError()))),
             ),
             (r) {
               return emit(
@@ -67,8 +67,8 @@ class ExperienceBloc extends Bloc<ExperienceEvent, ExperienceState> {
             experience_year: e.year,
             experience_month: e.month,
           );
-
           print("UPDATED RECORDS------->  ${jsonEncode(updatedRecords)}");
+
           emit(
             state.copyWith(
               records: updatedRecords,
@@ -100,7 +100,8 @@ class ExperienceBloc extends Bloc<ExperienceEvent, ExperienceState> {
             );
 
             failureOrSuccess = await _repository.addExperienceApi(
-              experienceDetail: jsonEncode(mapExperienceDTOToApiFormat(state.records)),
+              experienceDetail:
+                  jsonEncode(mapExperienceDTOToApiFormat(state.records)),
             );
           }
           print("failureOrSuccess--> $failureOrSuccess");
@@ -126,5 +127,4 @@ class ExperienceBloc extends Bloc<ExperienceEvent, ExperienceState> {
       };
     }).toList();
   }
-
 }

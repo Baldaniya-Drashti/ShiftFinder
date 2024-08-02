@@ -9,6 +9,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -61,9 +62,11 @@ class FilterBottomSheet extends StatelessWidget {
                         orElse: () => "Server Error. Try again later.",
                       ),
                     ).show(context);
+                    AppFocus.unfocus(context);
                   },
                   (r) {
                     context.read<ForgotPasswordBloc>().add(NextPage(1));
+                    AppFocus.unfocus(context);
                   },
                 ),
               );
@@ -172,7 +175,9 @@ class FilterBottomSheet extends StatelessWidget {
             child: BaseText(
               textAlign: TextAlign.center,
               maxLines: 2,
-              text: StringConstant.fogotPasswordDesc,
+              text: (getCurrentRole() == 1)
+                  ? StringConstant.fogotPasswordDesc
+                  : StringConstant.fogotPasswordEmailDesc,
               lineHeight: 1,
               fontSize: getSize(14),
               textColor: AppColors.black.withOpacity(0.6),
@@ -325,7 +330,9 @@ class FilterBottomSheet extends StatelessWidget {
             child: BaseText(
               textAlign: TextAlign.center,
               maxLines: 2,
-              text: StringConstant.verificationDesc,
+              text: (getCurrentRole() == 1)
+                  ? StringConstant.verificationDesc
+                  : StringConstant.emailVerificationDesc,
               lineHeight: 1,
               fontSize: getSize(14),
               textColor: AppColors.black.withOpacity(0.6),
@@ -380,15 +387,17 @@ class FilterBottomSheet extends StatelessWidget {
           ),
           Opacity(
             opacity: state.secondsRemaining == 0 ? 1 : 0.5,
-            child: GestureDetector(
-              onTap: state.secondsRemaining == 0
+            child: CommonButton(
+              onPressed: (state.secondsRemaining == 0)
                   ? () {
                       context
                           .read<ForgotPasswordBloc>()
                           .add(ForgotPasswordEvent.resendOtp());
                     }
-                  : null,
-              child: BaseText(
+                  : () {},
+              buttonText: "",
+              backgroundColor: AppColors.transparent,
+              customWidget: BaseText(
                 text: StringConstant.resendCode,
                 fontSize: 12,
                 fontWeight: FontWeight.w500,

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unnecessary_brace_in_string_interps
 
 import 'dart:convert';
 
@@ -18,7 +18,6 @@ import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/network/injectable_module.dart';
 import 'package:shift/infrastructure/core/quiz_dto/quiz_dto.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
-
 import '../core/skill_list_model/skill_dto.dart';
 
 @LazySingleton(as: IAccountRepository)
@@ -39,19 +38,16 @@ class AccountRepository extends IAccountRepository {
       } else {
         return left(const AccountFailure.serverError());
       }
-
       //  setUserToken(account.auth?.accessToken ?? "");
       //_setUserData(account);
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
-
         if (commonRespose.dioMessage != null) {
           return left(
               AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       }
-
       return left(const AccountFailure.serverError());
     }
   }
@@ -430,8 +426,6 @@ class AccountRepository extends IAccountRepository {
     try {
       print("expiry dat---> $expiryDate");
       print("Document file---> $documentFile");
-      print(
-          "Expiry Date after ISO---> ${(DateTime.parse(expiryDate!).toUtc().millisecondsSinceEpoch / 1000).toString()}");
 
       var formData = FormData.fromMap({
         "id": id,
@@ -801,7 +795,6 @@ class AccountRepository extends IAccountRepository {
       // return right(account);
       // var account = response.data as List<dynamic>;
       // var list = account.values.map((e) => DocumentDTO.fromJson(e)).toList();
-
       // var list = account.map((e) => DocumentDTO.fromJson(e)).toList();
       return right(account);
     } on DioException catch (err) {
@@ -875,6 +868,7 @@ class AccountRepository extends IAccountRepository {
         "location_note": locationNotes,
         "units_number_or_name": unitNumber,
         "units_note": unitNotes,
+        "last_page": "Main",
         "isProfileComplete": 1,
       };
 

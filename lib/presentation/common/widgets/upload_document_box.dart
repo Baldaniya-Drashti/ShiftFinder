@@ -20,7 +20,7 @@ class UploadDocumentBox extends StatelessWidget {
     return Container(
       height: height,
       decoration: BoxDecoration(
-        color: AppColors.grey.withOpacity(0.4),
+        color: AppColors.grey04,
         borderRadius: BorderRadius.circular(10),
       ),
       alignment: Alignment.center,

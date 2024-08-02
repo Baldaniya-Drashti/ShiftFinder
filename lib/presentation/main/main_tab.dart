@@ -1,12 +1,19 @@
-// ignore_for_file: prefer_const_constructors, avoid_print
+// ignore_for_file: prefer_const_constructors, avoid_print, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/main_tab/main_tab_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
+import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/custom_cached_network_images.dart';
 import 'package:shift/presentation/core/app_router.gr.dart' as autoroute;
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/tabs/history_view.dart';
@@ -47,8 +54,8 @@ class MainTabView extends StatelessWidget {
           return DefaultTabController(
             length: 2,
             child: Scaffold(
-              // backgroundColor: AppColors.scaffoldColor,
-              appBar: HomeAppbar(),
+              backgroundColor: AppColors.scaffoldColor,
+              appBar: getAppbar(state, context),
               body: GestureDetector(
                 onTap: () {
                   AppFocus.unfocus(context);
@@ -74,26 +81,28 @@ class MainTabView extends StatelessWidget {
               ),
               floatingActionButton: FloatingActionButton(
                 onPressed: () {},
-                backgroundColor: AppColors.darkGreen,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(80),
+                backgroundColor: AppColors.primaryColor,
+                shape: CircleBorder(
+                  side: BorderSide(
+                    color: AppColors.darkGreen,
+                    width: getSize(3),
+                  ),
                 ),
                 child: Container(
-                  height: getSize(55),
-                  width: getSize(55),
                   decoration: BoxDecoration(
+                    color: AppColors.primaryColor,
                     shape: BoxShape.circle,
                     image: DecorationImage(
                       image: AssetImage(PngImageConstants.floating_background),
                     ),
                   ),
-                  child: Icon(
-                    Icons.add,
-                    color: AppColors.white,
-                    size: getSize(30),
+                  alignment: Alignment.center,
+                  child: SvgPicture.asset(
+                    SvgImageConstant.plus,
+                    height: getSize(30),
+                    width: getSize(30),
                   ),
                 ),
-                //params
               ),
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerDocked,
@@ -103,6 +112,79 @@ class MainTabView extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+getAppbar(MainTabState state, BuildContext context) {
+  switch (state.selectedTab) {
+    case 0:
+      return HomeAppbar(
+        leading: Container(
+          height: getSize(50),
+          width: getSize(50),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: AppColors.darkGreen, width: getSize(3)),
+            image: DecorationImage(
+              image: (getCurrentUser().profileImage != null &&
+                      getCurrentUser().profileImage!.isNotEmpty)
+                  ? CachedNetworkImageProvider(
+                      // getCurrentUser().profileImage!,
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBLrdd7MIMxvrcpH-P3EtMy2jhc5PL0tDNww&s",
+                    )
+                  : AssetImage(
+                      PngImageConstants.profile_employer,
+                    ),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        titleWidget: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            BaseText(
+              text: StringConstant.welcome,
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              fontFamily: "Aclonica",
+              textColor: AppColors.black.withOpacity(0.7),
+            ),
+            BaseText(
+              text:
+                  "${getCurrentUser().firstName ?? ''} ${getCurrentUser().lastName ?? ''}",
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              fontFamily: "Aclonica",
+            ),
+            BaseText(
+              text: "${getCurrentUser().companyName ?? ''}",
+              fontSize: 8,
+              fontWeight: FontWeight.w600,
+              textColor: AppColors.primaryColor,
+            ),
+          ],
+        ),
+        actions: [
+          SvgPicture.asset(
+            SvgImageConstant.twoPerson,
+          ),
+        ],
+      );
+    case 1:
+      return HomeAppbar(
+        titleText: StringConstant.history,
+      );
+    case 2:
+      return HomeAppbar(
+        titleText: StringConstant.notification,
+      );
+    case 3:
+      return HomeAppbar(
+        titleText: StringConstant.profile,
+      );
+
+    default:
   }
 }
 

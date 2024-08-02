@@ -93,13 +93,16 @@ class ResumeDocument extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(
                               top: getSize(40), bottom: getSize(50)),
-                          child: CommonButton(
-                            onPressed: () {
-                              context
-                                  .read<ResumeBloc>()
-                                  .add(const ResumeEvent.resumeDocSubmit());
-                            },
-                            buttonText: StringConstant.txtContinue,
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: CommonButton(
+                              onPressed: () {
+                                context
+                                    .read<ResumeBloc>()
+                                    .add(const ResumeEvent.resumeDocSubmit());
+                              },
+                              buttonText: StringConstant.txtContinue,
+                            ),
                           ),
                         )
                       ],

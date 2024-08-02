@@ -2849,6 +2849,7 @@ mixin _$LocationDetailsState {
   String get otherFaciltyTypeValue => throw _privateConstructorUsedError;
   List<String> get unitNoNameChipList => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
+  bool get isLoading => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
   Option<Either<AccountFailure, Account>> get authFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
@@ -2879,6 +2880,7 @@ abstract class $LocationDetailsStateCopyWith<$Res> {
       String otherFaciltyTypeValue,
       List<String> unitNoNameChipList,
       bool isSubmitting,
+      bool isLoading,
       bool showErrorMessages,
       Option<Either<AccountFailure, Account>> authFailureOrSuccessOption});
 }
@@ -2911,6 +2913,7 @@ class _$LocationDetailsStateCopyWithImpl<$Res,
     Object? otherFaciltyTypeValue = null,
     Object? unitNoNameChipList = null,
     Object? isSubmitting = null,
+    Object? isLoading = null,
     Object? showErrorMessages = null,
     Object? authFailureOrSuccessOption = null,
   }) {
@@ -2971,6 +2974,10 @@ class _$LocationDetailsStateCopyWithImpl<$Res,
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
               as bool,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       showErrorMessages: null == showErrorMessages
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
@@ -3006,6 +3013,7 @@ abstract class _$$LocationDetailsStateImplCopyWith<$Res>
       String otherFaciltyTypeValue,
       List<String> unitNoNameChipList,
       bool isSubmitting,
+      bool isLoading,
       bool showErrorMessages,
       Option<Either<AccountFailure, Account>> authFailureOrSuccessOption});
 }
@@ -3035,6 +3043,7 @@ class __$$LocationDetailsStateImplCopyWithImpl<$Res>
     Object? otherFaciltyTypeValue = null,
     Object? unitNoNameChipList = null,
     Object? isSubmitting = null,
+    Object? isLoading = null,
     Object? showErrorMessages = null,
     Object? authFailureOrSuccessOption = null,
   }) {
@@ -3095,6 +3104,10 @@ class __$$LocationDetailsStateImplCopyWithImpl<$Res>
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
               as bool,
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
       showErrorMessages: null == showErrorMessages
           ? _value.showErrorMessages
           : showErrorMessages // ignore: cast_nullable_to_non_nullable
@@ -3125,6 +3138,7 @@ class _$LocationDetailsStateImpl implements _LocationDetailsState {
       required this.otherFaciltyTypeValue,
       required final List<String> unitNoNameChipList,
       required this.isSubmitting,
+      required this.isLoading,
       required this.showErrorMessages,
       required this.authFailureOrSuccessOption})
       : _searchLocationList = searchLocationList,
@@ -3181,13 +3195,15 @@ class _$LocationDetailsStateImpl implements _LocationDetailsState {
   @override
   final bool isSubmitting;
   @override
+  final bool isLoading;
+  @override
   final bool showErrorMessages;
   @override
   final Option<Either<AccountFailure, Account>> authFailureOrSuccessOption;
 
   @override
   String toString() {
-    return 'LocationDetailsState(address: $address, searchLocationList: $searchLocationList, facilityTypeList: $facilityTypeList, faciltyType: $faciltyType, otherFaciltyType: $otherFaciltyType, locationId: $locationId, accreditationNumber: $accreditationNumber, locationNote: $locationNote, unitNumber: $unitNumber, notes: $notes, faciltyTypeDDValue: $faciltyTypeDDValue, otherFaciltyTypeValue: $otherFaciltyTypeValue, unitNoNameChipList: $unitNoNameChipList, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'LocationDetailsState(address: $address, searchLocationList: $searchLocationList, facilityTypeList: $facilityTypeList, faciltyType: $faciltyType, otherFaciltyType: $otherFaciltyType, locationId: $locationId, accreditationNumber: $accreditationNumber, locationNote: $locationNote, unitNumber: $unitNumber, notes: $notes, faciltyTypeDDValue: $faciltyTypeDDValue, otherFaciltyTypeValue: $otherFaciltyTypeValue, unitNoNameChipList: $unitNoNameChipList, isSubmitting: $isSubmitting, isLoading: $isLoading, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
@@ -3221,6 +3237,8 @@ class _$LocationDetailsStateImpl implements _LocationDetailsState {
                 .equals(other._unitNoNameChipList, _unitNoNameChipList) &&
             (identical(other.isSubmitting, isSubmitting) ||
                 other.isSubmitting == isSubmitting) &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading) &&
             (identical(other.showErrorMessages, showErrorMessages) ||
                 other.showErrorMessages == showErrorMessages) &&
             (identical(other.authFailureOrSuccessOption,
@@ -3246,6 +3264,7 @@ class _$LocationDetailsStateImpl implements _LocationDetailsState {
       otherFaciltyTypeValue,
       const DeepCollectionEquality().hash(_unitNoNameChipList),
       isSubmitting,
+      isLoading,
       showErrorMessages,
       authFailureOrSuccessOption);
 
@@ -3274,6 +3293,7 @@ abstract class _LocationDetailsState implements LocationDetailsState {
       required final String otherFaciltyTypeValue,
       required final List<String> unitNoNameChipList,
       required final bool isSubmitting,
+      required final bool isLoading,
       required final bool showErrorMessages,
       required final Option<Either<AccountFailure, Account>>
           authFailureOrSuccessOption}) = _$LocationDetailsStateImpl;
@@ -3306,6 +3326,8 @@ abstract class _LocationDetailsState implements LocationDetailsState {
   List<String> get unitNoNameChipList;
   @override
   bool get isSubmitting;
+  @override
+  bool get isLoading;
   @override
   bool get showErrorMessages;
   @override

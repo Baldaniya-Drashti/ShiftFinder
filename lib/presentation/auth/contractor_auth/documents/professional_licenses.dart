@@ -172,6 +172,11 @@ class ProfessionalLicenses extends StatelessWidget {
                                       .licensesExpiryDateChanged(
                                           pickedDate.toString()));
                             },
+                            onCancelClick: () {
+                              context.read<ProfessionalLicensesBloc>().add(
+                                  ProfessionalLicensesEvent
+                                      .licensesExpiryDateChanged(""));
+                            },
                             selectedDate: state.licensesExpiryDate,
                             isDisabled: !state.isLicensesExpiryCheck,
                           ),
@@ -201,14 +206,17 @@ class ProfessionalLicenses extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(
                                 top: getSize(50), bottom: getSize(50)),
-                            child: CommonButton(
-                              onPressed: () {
-                                context.read<ProfessionalLicensesBloc>().add(
-                                    const ProfessionalLicensesEvent
-                                        .licensesDocSubmit(
-                                        isAddMoreBtnClick: false));
-                              },
-                              buttonText: StringConstant.txtContinue,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: CommonButton(
+                                onPressed: () {
+                                  context.read<ProfessionalLicensesBloc>().add(
+                                      const ProfessionalLicensesEvent
+                                          .licensesDocSubmit(
+                                          isAddMoreBtnClick: false));
+                                },
+                                buttonText: StringConstant.txtContinue,
+                              ),
                             ),
                           )
                         ],

@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'dart:math';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -170,6 +172,7 @@ class ReferenceBloc extends Bloc<ReferenceEvent, ReferenceState> {
           emit(
             state.copyWith(
               startDate: InputEmptyOrNot(e.startDate),
+              endDate: InputEmptyOrNot(""),
               authFailureOrSuccessOptionProfessional: none(),
             ),
           );
@@ -316,7 +319,7 @@ class ReferenceBloc extends Bloc<ReferenceEvent, ReferenceState> {
           emit(
             state.copyWith(
               isPersonalSubmitting: false,
-              showProfessionalErrorMessage: true,
+              showPersonalErrorMessage: true,
               authFailureOrSuccessOptionPersonal: optionOf(failureOrSuccess),
             ),
           );

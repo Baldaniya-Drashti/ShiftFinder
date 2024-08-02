@@ -98,8 +98,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
       padding:
           EdgeInsets.symmetric(vertical: getSize(20), horizontal: getSize(32)),
       decoration: BoxDecoration(
-          color: AppColors.grey.withOpacity(0.4),
-          borderRadius: BorderRadius.circular(10)),
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: Row(
         children: [
           SvgPicture.asset(

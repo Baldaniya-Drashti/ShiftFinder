@@ -169,81 +169,83 @@ class RegisterProfileScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Center(
-                child: badges.Badge(
-                  onTap: () {
-                    ImageChooserDialog().showImageChooserDialog(
-                      takePhotoCallback: () async {
-                        String path = await ImagePickerUtils().pickImage(
-                                imageSource: ImageSource.camera,
-                                context: context) ??
-                            '';
-                        if (path.isNotEmpty) {
-                          print("CAMERA IMAGE PATH: $path");
-                          context.read<RegisterFormBloc>().add(
-                                RegisterFormEvent.changeProfilePic(path),
-                              );
-                        }
-                      },
-                      selectPhotoCallback: () async {
-                        String path = await ImagePickerUtils().pickImage(
-                                imageSource: ImageSource.gallery,
-                                context: context) ??
-                            '';
+              GestureDetector(
+                onTap: () {
+                  ImageChooserDialog().showImageChooserDialog(
+                    takePhotoCallback: () async {
+                      String path = await ImagePickerUtils().pickImage(
+                              imageSource: ImageSource.camera,
+                              context: context) ??
+                          '';
+                      if (path.isNotEmpty) {
+                        print("CAMERA IMAGE PATH: $path");
+                        context.read<RegisterFormBloc>().add(
+                              RegisterFormEvent.changeProfilePic(path),
+                            );
+                      }
+                    },
+                    selectPhotoCallback: () async {
+                      String path = await ImagePickerUtils().pickImage(
+                              imageSource: ImageSource.gallery,
+                              context: context) ??
+                          '';
 
-                        if (path.isNotEmpty) {
-                          print("GALLERY IMAGE PATH: $path");
-                          context.read<RegisterFormBloc>().add(
-                                RegisterFormEvent.changeProfilePic(path),
-                              );
-                        }
-                      },
-                      context: context,
-                    );
-                  },
-                  position: badges.BadgePosition.bottomEnd(
-                    bottom: getSize(2),
-                    end: getSize(5),
-                  ),
-                  badgeContent: SvgPicture.asset(
-                    SvgImageConstant.camera,
-                    height: getSize(15),
-                    width: getSize(15),
-                  ),
-                  badgeStyle: badges.BadgeStyle(
-                      badgeColor: AppColors.white,
-                      borderSide: BorderSide(
-                          color: AppColors.primaryColor, width: 0.4)),
-                  child: Container(
-                    height: getSize(100),
-                    width: getSize(100),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      shape: BoxShape.circle,
-                      image: state.selectImage.isNotEmpty
-                          ? state.selectImage.contains('https')
-                              ? DecorationImage(
-                                  image: CachedNetworkImageProvider(
-                                      state.selectImage),
-                                  fit: BoxFit.cover,
-                                )
-                              : DecorationImage(
-                                  image: FileImage(
-                                    File(state.selectImage),
-                                  ),
-                                  fit: BoxFit.cover,
-                                )
-                          : DecorationImage(
-                              image: AssetImage(
-                                (getCurrentRole() == 1)
-                                    ? PngImageConstants.contractor_employer
-                                    : PngImageConstants.profile_employer,
+                      if (path.isNotEmpty) {
+                        print("GALLERY IMAGE PATH: $path");
+                        context.read<RegisterFormBloc>().add(
+                              RegisterFormEvent.changeProfilePic(path),
+                            );
+                      }
+                    },
+                    context: context,
+                  );
+                },
+                child: Center(
+                  child: badges.Badge(
+                    position: badges.BadgePosition.bottomEnd(
+                      bottom: getSize(2),
+                      end: getSize(5),
+                    ),
+                    badgeContent: SvgPicture.asset(
+                      SvgImageConstant.camera,
+                      height: getSize(15),
+                      width: getSize(15),
+                    ),
+                    badgeStyle: badges.BadgeStyle(
+                        badgeColor: AppColors.white,
+                        borderSide: BorderSide(
+                            color: AppColors.primaryColor, width: 0.4)),
+                    child: Container(
+                      height: getSize(100),
+                      width: getSize(100),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        shape: BoxShape.circle,
+                        image: state.selectImage.isNotEmpty
+                            ? state.selectImage.contains('https')
+                                ? DecorationImage(
+                                    image: CachedNetworkImageProvider(
+                                        state.selectImage),
+                                    fit: BoxFit.cover,
+                                  )
+                                : DecorationImage(
+                                    image: FileImage(
+                                      File(state.selectImage),
+                                    ),
+                                    fit: BoxFit.cover,
+                                  )
+                            : DecorationImage(
+                                image: AssetImage(
+                                  (getCurrentRole() == 1)
+                                      ? PngImageConstants.contractor_employer
+                                      : PngImageConstants.contractor_employer,
+                                ),
                               ),
-                            ),
-                      border: Border.all(
-                        color: AppColors.darkGreen,
-                        width: getSize(2),
+                        border: Border.all(
+                          color: AppColors.darkGreen,
+                          width: getSize(2),
+                        ),
                       ),
                     ),
                   ),
@@ -407,7 +409,6 @@ class RegisterProfileScreen extends StatelessWidget {
       labelText: StringConstant.password,
       isLabelPadding: true,
       hintText: StringConstant.password,
-      textCapitalization: TextCapitalization.words,
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),

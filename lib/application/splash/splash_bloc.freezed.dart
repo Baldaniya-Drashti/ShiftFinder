@@ -283,7 +283,8 @@ mixin _$SplashState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String lastPage) authenticated,
+    required TResult Function(String lastPage, int isProfileComplete)
+        authenticated,
     required TResult Function(String e) unAuthenticated,
     required TResult Function() introScreenVisibilty,
   }) =>
@@ -291,7 +292,7 @@ mixin _$SplashState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String lastPage)? authenticated,
+    TResult? Function(String lastPage, int isProfileComplete)? authenticated,
     TResult? Function(String e)? unAuthenticated,
     TResult? Function()? introScreenVisibilty,
   }) =>
@@ -299,7 +300,7 @@ mixin _$SplashState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String lastPage)? authenticated,
+    TResult Function(String lastPage, int isProfileComplete)? authenticated,
     TResult Function(String e)? unAuthenticated,
     TResult Function()? introScreenVisibilty,
     required TResult orElse(),
@@ -389,7 +390,8 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String lastPage) authenticated,
+    required TResult Function(String lastPage, int isProfileComplete)
+        authenticated,
     required TResult Function(String e) unAuthenticated,
     required TResult Function() introScreenVisibilty,
   }) {
@@ -400,7 +402,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String lastPage)? authenticated,
+    TResult? Function(String lastPage, int isProfileComplete)? authenticated,
     TResult? Function(String e)? unAuthenticated,
     TResult? Function()? introScreenVisibilty,
   }) {
@@ -411,7 +413,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String lastPage)? authenticated,
+    TResult Function(String lastPage, int isProfileComplete)? authenticated,
     TResult Function(String e)? unAuthenticated,
     TResult Function()? introScreenVisibilty,
     required TResult orElse(),
@@ -470,7 +472,7 @@ abstract class _$$AuthenticatedImplCopyWith<$Res> {
           _$AuthenticatedImpl value, $Res Function(_$AuthenticatedImpl) then) =
       __$$AuthenticatedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String lastPage});
+  $Res call({String lastPage, int isProfileComplete});
 }
 
 /// @nodoc
@@ -485,12 +487,17 @@ class __$$AuthenticatedImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? lastPage = null,
+    Object? isProfileComplete = null,
   }) {
     return _then(_$AuthenticatedImpl(
       null == lastPage
           ? _value.lastPage
           : lastPage // ignore: cast_nullable_to_non_nullable
               as String,
+      null == isProfileComplete
+          ? _value.isProfileComplete
+          : isProfileComplete // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -498,14 +505,16 @@ class __$$AuthenticatedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AuthenticatedImpl implements _Authenticated {
-  const _$AuthenticatedImpl(this.lastPage);
+  const _$AuthenticatedImpl(this.lastPage, this.isProfileComplete);
 
   @override
   final String lastPage;
+  @override
+  final int isProfileComplete;
 
   @override
   String toString() {
-    return 'SplashState.authenticated(lastPage: $lastPage)';
+    return 'SplashState.authenticated(lastPage: $lastPage, isProfileComplete: $isProfileComplete)';
   }
 
   @override
@@ -514,11 +523,13 @@ class _$AuthenticatedImpl implements _Authenticated {
         (other.runtimeType == runtimeType &&
             other is _$AuthenticatedImpl &&
             (identical(other.lastPage, lastPage) ||
-                other.lastPage == lastPage));
+                other.lastPage == lastPage) &&
+            (identical(other.isProfileComplete, isProfileComplete) ||
+                other.isProfileComplete == isProfileComplete));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, lastPage);
+  int get hashCode => Object.hash(runtimeType, lastPage, isProfileComplete);
 
   @JsonKey(ignore: true)
   @override
@@ -530,35 +541,36 @@ class _$AuthenticatedImpl implements _Authenticated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String lastPage) authenticated,
+    required TResult Function(String lastPage, int isProfileComplete)
+        authenticated,
     required TResult Function(String e) unAuthenticated,
     required TResult Function() introScreenVisibilty,
   }) {
-    return authenticated(lastPage);
+    return authenticated(lastPage, isProfileComplete);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String lastPage)? authenticated,
+    TResult? Function(String lastPage, int isProfileComplete)? authenticated,
     TResult? Function(String e)? unAuthenticated,
     TResult? Function()? introScreenVisibilty,
   }) {
-    return authenticated?.call(lastPage);
+    return authenticated?.call(lastPage, isProfileComplete);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String lastPage)? authenticated,
+    TResult Function(String lastPage, int isProfileComplete)? authenticated,
     TResult Function(String e)? unAuthenticated,
     TResult Function()? introScreenVisibilty,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
-      return authenticated(lastPage);
+      return authenticated(lastPage, isProfileComplete);
     }
     return orElse();
   }
@@ -602,9 +614,11 @@ class _$AuthenticatedImpl implements _Authenticated {
 }
 
 abstract class _Authenticated implements SplashState {
-  const factory _Authenticated(final String lastPage) = _$AuthenticatedImpl;
+  const factory _Authenticated(
+      final String lastPage, final int isProfileComplete) = _$AuthenticatedImpl;
 
   String get lastPage;
+  int get isProfileComplete;
   @JsonKey(ignore: true)
   _$$AuthenticatedImplCopyWith<_$AuthenticatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -676,7 +690,8 @@ class _$UnAuthenticatedImpl implements _UnAuthenticated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String lastPage) authenticated,
+    required TResult Function(String lastPage, int isProfileComplete)
+        authenticated,
     required TResult Function(String e) unAuthenticated,
     required TResult Function() introScreenVisibilty,
   }) {
@@ -687,7 +702,7 @@ class _$UnAuthenticatedImpl implements _UnAuthenticated {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String lastPage)? authenticated,
+    TResult? Function(String lastPage, int isProfileComplete)? authenticated,
     TResult? Function(String e)? unAuthenticated,
     TResult? Function()? introScreenVisibilty,
   }) {
@@ -698,7 +713,7 @@ class _$UnAuthenticatedImpl implements _UnAuthenticated {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String lastPage)? authenticated,
+    TResult Function(String lastPage, int isProfileComplete)? authenticated,
     TResult Function(String e)? unAuthenticated,
     TResult Function()? introScreenVisibilty,
     required TResult orElse(),
@@ -796,7 +811,8 @@ class _$IntroScreenVisibiltyImpl implements IntroScreenVisibilty {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(String lastPage) authenticated,
+    required TResult Function(String lastPage, int isProfileComplete)
+        authenticated,
     required TResult Function(String e) unAuthenticated,
     required TResult Function() introScreenVisibilty,
   }) {
@@ -807,7 +823,7 @@ class _$IntroScreenVisibiltyImpl implements IntroScreenVisibilty {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(String lastPage)? authenticated,
+    TResult? Function(String lastPage, int isProfileComplete)? authenticated,
     TResult? Function(String e)? unAuthenticated,
     TResult? Function()? introScreenVisibilty,
   }) {
@@ -818,7 +834,7 @@ class _$IntroScreenVisibiltyImpl implements IntroScreenVisibilty {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(String lastPage)? authenticated,
+    TResult Function(String lastPage, int isProfileComplete)? authenticated,
     TResult Function(String e)? unAuthenticated,
     TResult Function()? introScreenVisibilty,
     required TResult orElse(),

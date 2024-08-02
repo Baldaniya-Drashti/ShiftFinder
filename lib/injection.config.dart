@@ -40,6 +40,7 @@ import 'package:shift/application/healthcare_post/healthcare_post_bloc.dart'
 import 'package:shift/application/location_details/location_details_bloc.dart'
     as _i22;
 import 'package:shift/application/main_tab/main_tab_bloc.dart' as _i12;
+import 'package:shift/application/profile/account/account_cubit.dart' as _i23;
 import 'package:shift/application/splash/splash_bloc.dart' as _i11;
 import 'package:shift/domain/account/i_account_repository.dart' as _i9;
 import 'package:shift/domain/auth/i_auth_facade.dart' as _i7;
@@ -47,7 +48,6 @@ import 'package:shift/infrastructure/account/account_repository.dart' as _i10;
 import 'package:shift/infrastructure/auth/auth_facade.dart' as _i8;
 import 'package:shift/infrastructure/core/network/injectable_module.dart'
     as _i6;
-import 'package:shift/application/profile/account/account_cubit.dart' as _i23;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt

@@ -330,9 +330,14 @@ class ProfessionalReferenceWidget extends StatelessWidget {
         ),
       ),
       onTap: () {
+        print("Date Time satrt---->  ${state.startDate}");
         customDatePicker(
           context,
           state,
+          startDate:
+              (state.startDate.getValue() != null && state.startDate.isValid())
+                  ? DateTime.parse(state.startDate.getValue()!)
+                  : null,
           isStartDate: false,
           selectedDate: (state.endDate.getValue()!.isNotEmpty)
               ? DateTime.parse(state.endDate.getValue()!)
@@ -396,13 +401,14 @@ class ProfessionalReferenceWidget extends StatelessWidget {
     BuildContext context,
     ReferenceState state, {
     required DateTime? selectedDate,
+    DateTime? startDate,
     required bool isStartDate,
   }) async {
     print("selectedDate------->  ${selectedDate}");
 
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      firstDate: DateTime(1950, 1),
+      firstDate: startDate ?? DateTime(1950, 1),
       lastDate: DateTime.now(),
       initialDate: selectedDate,
       builder: (context, child) {

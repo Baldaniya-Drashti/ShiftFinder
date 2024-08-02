@@ -1,19 +1,14 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously, prefer_const_constructors
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:shift/application/auth/contractor_auth/document_bloc/document_bloc.dart';
 import 'package:shift/domain/core/document_expiry_picker.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
-import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/utils/file_picker_utils.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
-import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/utils/image_picker_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
@@ -23,8 +18,6 @@ import 'package:shift/presentation/common/widgets/upload_document_box.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
-import 'package:path/path.dart' as path;
-import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
 class GovernmentIssueDocument extends StatefulWidget {
   const GovernmentIssueDocument({super.key});
@@ -173,6 +166,10 @@ class _GovernmentIssueDocumentState extends State<GovernmentIssueDocument> {
                               DocumentEvent.govermentExpiryDateChanged(
                                   pickedDate.toString()));
                         },
+                        onCancelClick: () {
+                          context.read<DocumentBloc>().add(
+                              DocumentEvent.govermentExpiryDateChanged(""));
+                        },
                         selectedDate: state.governmentExpiryDate,
                         isDisabled: !state.isGovernemtExpiryCheck,
                       ),
@@ -188,6 +185,7 @@ class _GovernmentIssueDocumentState extends State<GovernmentIssueDocument> {
                             textColor: AppColors.red,
                           ),
                         ),
+
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Padding(

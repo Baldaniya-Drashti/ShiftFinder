@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shift/application/main_tab/main_tab_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -33,10 +34,12 @@ class CustomBottomNavigationWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset(
-                    tabIconList[index],
+                    (isActive)
+                        ? activeTabIconList[index]
+                        : inActiveTabIconList[index],
                     height: getSize(24),
                     width: getSize(24),
-                    color: isActive ? AppColors.primaryColor : AppColors.black,
+                    // color: isActive ? AppColors.primaryColor : AppColors.black,
                   ),
                   SizedBox(
                     height: getSize(5),
@@ -61,25 +64,33 @@ class CustomBottomNavigationWidget extends StatelessWidget {
               blurRadius: getSize(15),
               blurStyle: BlurStyle.normal,
             ),
-            leftCornerRadius: 32,
-            rightCornerRadius: 32,
+            elevation: 0,
+            leftCornerRadius: getSize(35),
+            rightCornerRadius: getSize(35),
           ),
         );
       },
     );
   }
 
-  List tabIconList = [
-    SvgImageConstant.email,
-    SvgImageConstant.email,
-    SvgImageConstant.email,
-    SvgImageConstant.email,
+  List activeTabIconList = [
+    SvgImageConstant.homeTabActive,
+    SvgImageConstant.shiftTab,
+    SvgImageConstant.notificationTab,
+    SvgImageConstant.profileTab,
+  ];
+
+  List inActiveTabIconList = [
+    SvgImageConstant.inActiveHomeTabActive,
+    SvgImageConstant.inActiveShiftTab,
+    SvgImageConstant.inActiveNotificationTab,
+    SvgImageConstant.inActiveProfileTab,
   ];
 
   List<String> tabLabelList = [
-    "Home",
-    "History",
-    "Notification",
-    "Profile",
+    StringConstant.home,
+    StringConstant.history,
+    StringConstant.notification,
+    StringConstant.profile,
   ];
 }

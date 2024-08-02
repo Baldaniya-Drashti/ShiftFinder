@@ -3,12 +3,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shift/application/auth/contractor_auth/document_bloc/document_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
-import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/file_picker_utils.dart';
@@ -166,13 +164,16 @@ class ApparelEquipment extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(
                                 top: getSize(50), bottom: getSize(50)),
-                            child: CommonButton(
-                              onPressed: () {
-                                context.read<EquipmentBloc>().add(
-                                    const EquipmentEvent.equipmentDocSubmit(
-                                        isAddMoreBtnClick: false));
-                              },
-                              buttonText: StringConstant.txtContinue,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: CommonButton(
+                                onPressed: () {
+                                  context.read<EquipmentBloc>().add(
+                                      const EquipmentEvent.equipmentDocSubmit(
+                                          isAddMoreBtnClick: false));
+                                },
+                                buttonText: StringConstant.txtContinue,
+                              ),
                             ),
                           )
                         ],
@@ -260,8 +261,8 @@ class ApparelEquipment extends StatelessWidget {
 
   Widget equipmentNameField(BuildContext context, EquipmentState state) {
     return CustomTextField(
-      labelText: StringConstant.title,
-      hintText: StringConstant.title,
+      labelText: StringConstant.documentTitle,
+      hintText: StringConstant.documentTitle,
       textCapitalization: TextCapitalization.sentences,
       onChanged: (value) => context
           .read<EquipmentBloc>()

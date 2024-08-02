@@ -88,7 +88,8 @@ class _CommonButtonState extends State<CommonButton> {
             widget.backgroundColor ?? AppColors.primaryColor,
         padding: EdgeInsets.zero,
         fixedSize: Size(
-          getSize(widget.width ?? MediaQuery.of(context).size.width),
+          getSize(widget.width ?? MediaQuery.of(context).size.width * 100),
+          // (widget.width != null) ? getSize(widget.width!) : double.infinity,
           getSize(
             widget.height ?? 50,
           ),

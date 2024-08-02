@@ -164,6 +164,11 @@ class ImmunizationsVaccinations extends StatelessWidget {
                                       .immunizationExpiryDateChanged(
                                           pickedDate.toString()));
                             },
+                            onCancelClick: () {
+                              context.read<ImmunizationBloc>().add(
+                                  ImmunizationEvent
+                                      .immunizationExpiryDateChanged(""));
+                            },
                             selectedDate: state.immunizationExpiryDate,
                             isDisabled: !state.isImmunizationExpiryCheck,
                           ),
@@ -193,14 +198,17 @@ class ImmunizationsVaccinations extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(
                                 top: getSize(50), bottom: getSize(50)),
-                            child: CommonButton(
-                              onPressed: () {
-                                context.read<ImmunizationBloc>().add(
-                                    const ImmunizationEvent
-                                        .immunizationDocSubmit(
-                                        isAddMoreBtnClick: false));
-                              },
-                              buttonText: StringConstant.txtContinue,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: CommonButton(
+                                onPressed: () {
+                                  context.read<ImmunizationBloc>().add(
+                                      const ImmunizationEvent
+                                          .immunizationDocSubmit(
+                                          isAddMoreBtnClick: false));
+                                },
+                                buttonText: StringConstant.txtContinue,
+                              ),
                             ),
                           )
                         ],

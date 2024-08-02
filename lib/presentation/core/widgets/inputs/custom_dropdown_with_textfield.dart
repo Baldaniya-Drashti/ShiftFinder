@@ -34,8 +34,10 @@ class CustomDropdwonWithTextField extends StatelessWidget {
     this.childDropDownValue,
     this.showChildDropDownPrefixIcon = false,
     this.childDropDownItems,
+    this.ddPrefixIcon,
   });
   final String? labelText;
+  final Widget? ddPrefixIcon;
   final String? hintText;
   final String? fieldHintText;
   final String? childDroDwonHintText;
@@ -138,11 +140,12 @@ class CustomDropdwonWithTextField extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                             vertical: getSize(14),
                           ),
-                          child: SvgPicture.asset(
-                            SvgImageConstant.association,
-                            height: getSize(24),
-                            width: getSize(24),
-                          ),
+                          child: ddPrefixIcon ??
+                              SvgPicture.asset(
+                                SvgImageConstant.association,
+                                height: getSize(24),
+                                width: getSize(24),
+                              ),
                         )
                       : null,
                   enabledBorder: border,

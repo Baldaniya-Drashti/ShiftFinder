@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
 import 'package:shift/domain/account/account.dart';
-import 'package:shift/infrastructure/core/education_dto/education_dto.dart';
 
 part 'account_entity.g.dart';
 
