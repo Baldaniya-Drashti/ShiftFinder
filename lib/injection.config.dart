@@ -36,18 +36,18 @@ import 'package:shift/application/auth/login_form/login_form_bloc.dart' as _i17;
 import 'package:shift/application/auth/register_form/register_form_bloc.dart'
     as _i16;
 import 'package:shift/application/healthcare_post/healthcare_post_bloc.dart'
-    as _i5;
+    as _i11;
 import 'package:shift/application/location_details/location_details_bloc.dart'
     as _i22;
 import 'package:shift/application/main_tab/main_tab_bloc.dart' as _i12;
 import 'package:shift/application/profile/account/account_cubit.dart' as _i23;
-import 'package:shift/application/splash/splash_bloc.dart' as _i11;
-import 'package:shift/domain/account/i_account_repository.dart' as _i9;
-import 'package:shift/domain/auth/i_auth_facade.dart' as _i7;
-import 'package:shift/infrastructure/account/account_repository.dart' as _i10;
-import 'package:shift/infrastructure/auth/auth_facade.dart' as _i8;
+import 'package:shift/application/splash/splash_bloc.dart' as _i10;
+import 'package:shift/domain/account/i_account_repository.dart' as _i8;
+import 'package:shift/domain/auth/i_auth_facade.dart' as _i6;
+import 'package:shift/infrastructure/account/account_repository.dart' as _i9;
+import 'package:shift/infrastructure/auth/auth_facade.dart' as _i7;
 import 'package:shift/infrastructure/core/network/injectable_module.dart'
-    as _i6;
+    as _i5;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -62,56 +62,59 @@ extension GetItInjectableX on _i1.GetIt {
     );
     gh.factory<_i3.AuthStatusBloc>(() => _i3.AuthStatusBloc());
     gh.factory<_i4.CardBloc>(() => _i4.CardBloc());
-    gh.factory<_i5.HealthcarePostBloc>(() => _i5.HealthcarePostBloc());
-    gh.lazySingleton<_i6.ApiService>(() => _i6.ApiService());
-    gh.lazySingleton<_i7.IAuthFacade>(
-        () => _i8.AuthFacade(gh<_i6.ApiService>()));
-    gh.lazySingleton<_i9.IAccountRepository>(
-        () => _i10.AccountRepository(gh<_i6.ApiService>()));
-    gh.factory<_i11.SplashBloc>(() => _i11.SplashBloc(
-          gh<_i7.IAuthFacade>(),
-          gh<_i9.IAccountRepository>(),
+    gh.lazySingleton<_i5.ApiService>(() => _i5.ApiService());
+    gh.lazySingleton<_i6.IAuthFacade>(
+        () => _i7.AuthFacade(gh<_i5.ApiService>()));
+    gh.lazySingleton<_i8.IAccountRepository>(
+        () => _i9.AccountRepository(gh<_i5.ApiService>()));
+    gh.factory<_i10.SplashBloc>(() => _i10.SplashBloc(
+          gh<_i6.IAuthFacade>(),
+          gh<_i8.IAccountRepository>(),
         ));
-    gh.factory<_i12.MainTabBloc>(() => _i12.MainTabBloc(gh<_i7.IAuthFacade>()));
+    gh.factory<_i11.HealthcarePostBloc>(() => _i11.HealthcarePostBloc(
+          gh<_i6.IAuthFacade>(),
+          gh<_i8.IAccountRepository>(),
+        ));
+    gh.factory<_i12.MainTabBloc>(() => _i12.MainTabBloc(gh<_i6.IAuthFacade>()));
     gh.factory<_i13.ForgotPasswordBloc>(
-        () => _i13.ForgotPasswordBloc(gh<_i7.IAuthFacade>()));
+        () => _i13.ForgotPasswordBloc(gh<_i6.IAuthFacade>()));
     gh.factory<_i14.AddContractorSkillFormBloc>(
-        () => _i14.AddContractorSkillFormBloc(gh<_i7.IAuthFacade>()));
+        () => _i14.AddContractorSkillFormBloc(gh<_i6.IAuthFacade>()));
     gh.factory<_i15.TermsAndConditionBloc>(
-        () => _i15.TermsAndConditionBloc(gh<_i7.IAuthFacade>()));
+        () => _i15.TermsAndConditionBloc(gh<_i6.IAuthFacade>()));
     gh.factory<_i16.RegisterFormBloc>(
-        () => _i16.RegisterFormBloc(gh<_i7.IAuthFacade>()));
+        () => _i16.RegisterFormBloc(gh<_i6.IAuthFacade>()));
     gh.factory<_i17.LoginFormBloc>(
-        () => _i17.LoginFormBloc(gh<_i7.IAuthFacade>()));
+        () => _i17.LoginFormBloc(gh<_i6.IAuthFacade>()));
     gh.factory<_i18.IntroVideoBloc>(
-        () => _i18.IntroVideoBloc(gh<_i9.IAccountRepository>()));
+        () => _i18.IntroVideoBloc(gh<_i8.IAccountRepository>()));
     gh.factory<_i19.ExperienceBloc>(
-        () => _i19.ExperienceBloc(gh<_i9.IAccountRepository>()));
+        () => _i19.ExperienceBloc(gh<_i8.IAccountRepository>()));
     gh.factory<_i20.LegalScreeningBloc>(
-        () => _i20.LegalScreeningBloc(gh<_i9.IAccountRepository>()));
+        () => _i20.LegalScreeningBloc(gh<_i8.IAccountRepository>()));
     gh.factory<_i21.DocumentBloc>(
-        () => _i21.DocumentBloc(gh<_i9.IAccountRepository>()));
+        () => _i21.DocumentBloc(gh<_i8.IAccountRepository>()));
     gh.factory<_i21.ProfessionalLicensesBloc>(
-        () => _i21.ProfessionalLicensesBloc(gh<_i9.IAccountRepository>()));
+        () => _i21.ProfessionalLicensesBloc(gh<_i8.IAccountRepository>()));
     gh.factory<_i21.ImmunizationBloc>(
-        () => _i21.ImmunizationBloc(gh<_i9.IAccountRepository>()));
+        () => _i21.ImmunizationBloc(gh<_i8.IAccountRepository>()));
     gh.factory<_i21.ProfessionalLiabilityBloc>(
-        () => _i21.ProfessionalLiabilityBloc(gh<_i9.IAccountRepository>()));
+        () => _i21.ProfessionalLiabilityBloc(gh<_i8.IAccountRepository>()));
     gh.factory<_i21.ResumeBloc>(
-        () => _i21.ResumeBloc(gh<_i9.IAccountRepository>()));
+        () => _i21.ResumeBloc(gh<_i8.IAccountRepository>()));
     gh.factory<_i21.EquipmentBloc>(
-        () => _i21.EquipmentBloc(gh<_i9.IAccountRepository>()));
+        () => _i21.EquipmentBloc(gh<_i8.IAccountRepository>()));
     gh.factory<_i22.LocationDetailsBloc>(
-        () => _i22.LocationDetailsBloc(gh<_i9.IAccountRepository>()));
+        () => _i22.LocationDetailsBloc(gh<_i8.IAccountRepository>()));
     gh.factory<_i23.AccountCubit>(
-        () => _i23.AccountCubit(gh<_i9.IAccountRepository>()));
+        () => _i23.AccountCubit(gh<_i8.IAccountRepository>()));
     gh.factory<_i24.EducationDetailBloc>(() => _i24.EducationDetailBloc(
-          gh<_i9.IAccountRepository>(),
-          gh<_i7.IAuthFacade>(),
+          gh<_i8.IAccountRepository>(),
+          gh<_i6.IAuthFacade>(),
         ));
     gh.factory<_i25.ReferenceBloc>(() => _i25.ReferenceBloc(
-          gh<_i9.IAccountRepository>(),
-          gh<_i7.IAuthFacade>(),
+          gh<_i8.IAccountRepository>(),
+          gh<_i6.IAuthFacade>(),
         ));
     return this;
   }

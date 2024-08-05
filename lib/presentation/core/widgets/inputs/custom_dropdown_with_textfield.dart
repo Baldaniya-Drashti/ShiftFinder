@@ -60,7 +60,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
   final String? Function(String?)? childDropDownValidator;
   final bool showChildDropDownPrefixIcon;
   final String? childDropDownValue;
-  List<String>? childDropDownItems;
+  final List<DropdownMenuItem<String>>? childDropDownItems;
 
   @override
   Widget build(BuildContext context) {
@@ -265,22 +265,11 @@ class CustomDropdwonWithTextField extends StatelessWidget {
         fontWeight: FontWeight.w500,
       ),
       value: childDropDownValue,
-      icon: Icon(
-        Icons.keyboard_arrow_down,
-        size: getSize(25),
-        color: AppColors.black,
+      icon: SvgPicture.asset(
+        SvgImageConstant.downArrow,
       ),
       isExpanded: true,
-      items: childDropDownItems!.map((val) {
-        return DropdownMenuItem(
-          value: val,
-          child: BaseText(
-            text: val,
-            fontSize: 14,
-            textColor: AppColors.black,
-          ),
-        );
-      }).toList(),
+      items: childDropDownItems,
       onChanged: childDropDownOnChanged,
     );
   }

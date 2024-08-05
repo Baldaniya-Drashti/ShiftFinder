@@ -31,6 +31,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: LocationExample.page),
         AutoRoute(page: AddBankDetailsScreen.page),
         AutoRoute(page: ViewHomeShiftDetails.page),
+        AutoRoute(page: ViewDates.page),
         AutoRoute(
           page: MainTabView.page,
           children: [

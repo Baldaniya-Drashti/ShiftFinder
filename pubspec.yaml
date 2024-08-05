@@ -69,6 +69,8 @@ dependencies:
   http: ^0.13.1
   logger: ^2.4.0
   badges: ^3.1.2
+  # table_calendar: ^3.1.2
+  calendar_date_picker2: ^1.1.5
   # datepicker_dropdown: ^0.1.4
   
 

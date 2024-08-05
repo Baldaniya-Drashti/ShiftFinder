@@ -5,6 +5,7 @@ import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/experience_model/experience_dto.dart';
 import 'package:shift/infrastructure/core/legal_screening_dto/legal_screening_dto.dart';
+import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/core/quiz_dto/quiz_dto.dart';
 
 import '../../infrastructure/core/skill_list_model/skill_dto.dart';
@@ -113,6 +114,7 @@ abstract class IAccountRepository {
 
   Future<Either<AccountFailure, List<QuizDTO>>> getQuizListApi();
   Future<Either<AccountFailure, List<SkillDTO>>> getFacilityTypeList();
+  Future<Either<AccountFailure, List<LocationDTO>>> getLocationListApi();
 
   Future<Either<AccountFailure, Account>> addLocationDetailsApi({
     required String locationAddress,

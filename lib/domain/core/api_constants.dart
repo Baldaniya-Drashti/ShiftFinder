@@ -29,6 +29,7 @@ class ApiConstants {
   static String quizList = 'quiz_list';
   static String quiz = 'quiz';
   static String location = 'location';
+  static String getLocation = 'get_location';
   static String facilityTypeList = 'facility_type_list';
 
   static String legalScreeningQuestionList = 'legal_screening_question_list';

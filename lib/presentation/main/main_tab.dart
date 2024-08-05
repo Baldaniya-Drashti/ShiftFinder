@@ -80,7 +80,10 @@ class MainTabView extends StatelessWidget {
                 ),
               ),
               floatingActionButton: FloatingActionButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.router
+                      .push(PageRouteInfo(autoroute.HealthCarePostForm.name));
+                },
                 backgroundColor: AppColors.primaryColor,
                 shape: CircleBorder(
                   side: BorderSide(

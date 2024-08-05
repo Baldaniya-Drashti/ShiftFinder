@@ -14,6 +14,7 @@ import 'package:shift/infrastructure/account/current_user_dto.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/experience_model/experience_dto.dart';
 import 'package:shift/infrastructure/core/legal_screening_dto/legal_screening_dto.dart';
+import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/network/injectable_module.dart';
 import 'package:shift/infrastructure/core/quiz_dto/quiz_dto.dart';
@@ -903,6 +904,38 @@ class AccountRepository extends IAccountRepository {
       return left(const AccountFailure.serverError());
     } catch (e) {
       print("CATCH ERROR---> ${e}");
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AccountFailure, List<LocationDTO>>> getLocationListApi() async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.getLocation,
+      );
+
+      if (response != null) {
+        var account = response.data as List<dynamic>;
+        var list = account.map((e) => LocationDTO.fromJson(e)).toList();
+
+        print("LOCATION LIST RESPONSE---> $list");
+        return right(list);
+      } else {
+        return left(const AccountFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+
       return left(const AccountFailure.serverError());
     }
   }

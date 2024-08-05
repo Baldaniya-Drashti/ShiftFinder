@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +7,9 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
-import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
+import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'ViewHomeShiftDetails')
@@ -34,25 +35,236 @@ class ViewHomeShiftDetails extends StatelessWidget {
           color: AppColors.white,
           borderRadius: BorderRadius.circular(20),
         ),
-        child: Column(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              userDataBox(context),
+              singleShiftDateTimeBreakUI(context),
+              multiShiftDateTimeBreakUI(context),
+              requiredSkillBox(
+                  svgPrefixIcon: SvgImageConstant.female,
+                  title: StringConstant.specialtiesRequired,
+                  value:
+                      "Behavioral Health, Perinatal, Urology, Anesthesiology, NICU"),
+              requiredSkillBox(
+                svgPrefixIcon: SvgImageConstant.mouse,
+                title: StringConstant.softwareSkills,
+                value: "Solvo Portal, PointClickCare, Solvo Portal",
+              ),
+              rateHoursBox(),
+              languageBox(
+                title: StringConstant.languageRequirements,
+                value: "English, Hindi",
+              ),
+              notesBox(
+                  title: StringConstant.shiftNote,
+                  value:
+                      "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?"),
+              notesBox(
+                  title: StringConstant.disclaimer,
+                  value:
+                      "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?"),
+              locationDetailBox(
+                  title: StringConstant.locationDetails,
+                  locationValue: "2464 Royal Ln. Mesa, New Jersey 45463",
+                  units: "X-ray"),
+              payableBox(
+                vacancy: "08",
+                accommodationAllowance: "\$20",
+                commuteAllowance: "\$10",
+                serviceFee: "\$150",
+                totalPayable: "\$4675.00",
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget languageBox({
+    required String title,
+    required String value,
+  }) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: getSize(12),
+      ),
+      margin: EdgeInsets.symmetric(vertical: getSize(5)),
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        minVerticalPadding: 0,
+        horizontalTitleGap: getSize(0),
+        subtitle: BaseText(
+          text: value,
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          textColor: AppColors.primaryColor,
+          maxLines: 5,
+        ),
+        title: BaseText(
+          text: title,
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          lineHeight: getSize(3),
+        ),
+      ),
+    );
+  }
+
+  Widget notesBox({
+    required String title,
+    required String value,
+  }) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: getSize(12),
+        vertical: getSize(10),
+      ),
+      margin: EdgeInsets.symmetric(vertical: getSize(5)),
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        minVerticalPadding: 0,
+        horizontalTitleGap: getSize(0),
+        title: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            userDataBox(context),
-            dateTimeBreakUI(context),
+            BaseText(
+              text: title,
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              textColor: AppColors.black.withOpacity(0.7),
+            ),
+            commonDivider(),
+            BaseText(
+              text: value,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              lineHeight: getSize(1),
+              textColor: AppColors.black.withOpacity(0.9),
+            ),
           ],
         ),
       ),
     );
   }
 
+  Widget requiredSkillBox({
+    required String svgPrefixIcon,
+    required String title,
+    required String value,
+  }) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: getSize(12),
+        vertical: getSize(10),
+      ),
+      margin: EdgeInsets.symmetric(vertical: getSize(5)),
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        minVerticalPadding: 0,
+        horizontalTitleGap: getSize(0),
+        leading: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              height: getSize(43),
+              width: getSize(35),
+              child: SvgPicture.asset(
+                svgPrefixIcon,
+                color: AppColors.primaryColor,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+              child: SvgPicture.asset(
+                SvgImageConstant.verticalLine,
+              ),
+            ),
+          ],
+        ),
+        title: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BaseText(
+              text: title,
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+            ),
+            Flexible(
+              child: BaseText(
+                text: value,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                lineHeight: getSize(1),
+                maxLines: 10,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget rateHoursBox(
+      //   {
+      //   required String svgPrefixIcon,
+      //   required String title,
+      //   required String value,
+      // }
+      ) {
+    return Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: getSize(12),
+          vertical: getSize(10),
+        ),
+        margin: EdgeInsets.symmetric(vertical: getSize(5)),
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            rateWithBGIcon(
+              svgIcon: SvgImageConstant.clockWithBag,
+              title: StringConstant.hourlyRate,
+              value: "\$27",
+            ),
+            Container(
+              width: getSize(40),
+              // height: getSize(50),
+              padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+              child: SvgPicture.asset(SvgImageConstant.verticalLine),
+            ),
+            rateWithBGIcon(
+              svgIcon: SvgImageConstant.clockWithOuterLine,
+              title: StringConstant.totalHours,
+              value: "9h 15min",
+            ),
+          ],
+        ));
+  }
+
   Widget userDataBox(BuildContext context) {
     return Container(
-      // height: getSize(113.41),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
         color: AppColors.grey04,
       ),
       padding:
           EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
+      margin: EdgeInsets.symmetric(vertical: getSize(5)),
       child: Column(
         children: [
           ListTile(
@@ -83,10 +295,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
             contentPadding: EdgeInsets.zero,
             visualDensity: VisualDensity.compact,
           ),
-          Divider(
-            color: AppColors.black.withOpacity(0.2),
-            thickness: getSize(0.5),
-          ),
+          commonDivider(),
           Row(
             children: [
               SvgPicture.asset(
@@ -110,59 +319,435 @@ class ViewHomeShiftDetails extends StatelessWidget {
     );
   }
 
-  Widget dateTimeBreakUI(BuildContext context) {
+  Widget singleShiftDateTimeBreakUI(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
         color: AppColors.grey04,
       ),
-      margin: EdgeInsets.symmetric(vertical: getSize(10)),
+      margin: EdgeInsets.symmetric(vertical: getSize(5)),
       padding: EdgeInsets.symmetric(
         horizontal: getSize(12),
         vertical: getSize(10),
       ),
-      child: Column(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          dateTime(),
-          dateTime(),
-          dateTime(),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              displayDateBreak(
+                context,
+                boldValue: "12 May, ",
+                timidValue: "2024",
+                title: StringConstant.shiftDate,
+                svgPrefixIcon: SvgImageConstant.calendar,
+              ),
+              displayTime(
+                title: StringConstant.time,
+                startDate: "09:15 AM",
+                endDate: "07:30 PM",
+                svgPrefixIcon: SvgImageConstant.clock,
+              ),
+              displayDateBreak(context,
+                  boldValue: "45 Min",
+                  timidValue: "",
+                  title: StringConstant.unpaidBreak,
+                  svgPrefixIcon: SvgImageConstant.clock),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: getSize(10), right: getSize(20)),
+            child: SvgPicture.asset(
+              SvgImageConstant.clockWithBag,
+              height: getSize(85),
+              width: getSize(85),
+              color: AppColors.primaryColor.withOpacity(0.15),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget dateTime() {
+  Widget multiShiftDateTimeBreakUI(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(getSize(10)),
+        color: AppColors.grey04,
+      ),
+      margin: EdgeInsets.symmetric(vertical: getSize(5)),
+      padding: EdgeInsets.symmetric(
+        horizontal: getSize(12),
+        vertical: getSize(10),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              displayDateBreak(
+                context,
+                boldValue: "",
+                timidValue: "",
+                showBtn: true,
+                title: StringConstant.shiftDates,
+                svgPrefixIcon: SvgImageConstant.calendar,
+              ),
+              displayDateBreak(context,
+                  boldValue: "45 Min",
+                  timidValue: "",
+                  title: StringConstant.unpaidBreak,
+                  svgPrefixIcon: SvgImageConstant.clock),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: getSize(10), right: getSize(20)),
+            child: SvgPicture.asset(
+              SvgImageConstant.clockWithBag,
+              height: getSize(85),
+              width: getSize(85),
+              color: AppColors.primaryColor.withOpacity(0.15),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget displayDateBreak(
+    BuildContext context, {
+    required String title,
+    required String boldValue,
+    required String timidValue,
+    required String svgPrefixIcon,
+    bool showBtn = false,
+  }) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: getSize(10)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           SvgPicture.asset(
-            SvgImageConstant.calendar,
+            svgPrefixIcon,
             color: AppColors.black,
-            height: getSize(15),
+            height: getSize(20),
             width: getSize(16),
           ),
           SizedBox(width: getSize(10)),
           Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BaseText(
-                text: "Shift Date",
+                text: title,
                 fontSize: 10,
                 fontWeight: FontWeight.w400,
                 textColor: AppColors.black.withOpacity(0.7),
               ),
+              (showBtn)
+                  ? CommonButton(
+                      onPressed: () {
+                        context.router
+                            .push(const PageRouteInfo(ViewDates.name));
+                      },
+                      width: getSize(100),
+                      height: getSize(23),
+                      borderRadius: 5,
+                      buttonFontSize: 12,
+                      buttonFontWeight: FontWeight.w500,
+                      buttonText: StringConstant.viewDates,
+                    )
+                  : highLightText(boldValue: boldValue, timidValue: timidValue),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget displayTime({
+    required String title,
+    required String startDate,
+    required String endDate,
+    required String svgPrefixIcon,
+  }) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: getSize(10)),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          SvgPicture.asset(
+            svgPrefixIcon,
+            color: AppColors.black,
+            height: getSize(20),
+            width: getSize(16),
+          ),
+          SizedBox(width: getSize(10)),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               BaseText(
-                text: "12 May, 2024",
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                textColor: AppColors.primaryColor,
+                text: StringConstant.time,
+                fontSize: 10,
+                fontWeight: FontWeight.w400,
+                textColor: AppColors.black.withOpacity(0.7),
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  highLightText(
+                      boldValue: "${startDate.split(':')[0]}:",
+                      timidValue: startDate.split(':')[1].split(' ')[0],
+                      thirdValue: " ${startDate.split(':')[1].split(' ')[1]}"),
+                  BaseText(
+                    text: "  to  ",
+                    fontSize: 8,
+                    fontWeight: FontWeight.w400,
+                    textColor: AppColors.black.withOpacity(0.7),
+                  ),
+                  highLightText(
+                      boldValue: "${endDate.split(':')[0]}:",
+                      timidValue: endDate.split(':')[1].split(' ')[0],
+                      thirdValue: " ${endDate.split(':')[1].split(' ')[1]}"),
+                ],
               ),
             ],
           )
         ],
       ),
+    );
+  }
+
+  Widget highLightText(
+      {required String boldValue,
+      required String timidValue,
+      String? thirdValue}) {
+    return RichText(
+        text: TextSpan(
+      text: boldValue,
+      style: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: AppColors.primaryColor,
+      ),
+      children: [
+        TextSpan(
+          text: timidValue,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: AppColors.primaryColor.withOpacity(0.5),
+          ),
+        ),
+        TextSpan(
+          text: thirdValue ?? "",
+        ),
+      ],
+    ));
+  }
+
+  Widget rateWithBGIcon(
+      {required String svgIcon, required String title, required String value}) {
+    return Flexible(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BaseText(
+                text: title,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                textColor: AppColors.black.withOpacity(0.7),
+              ),
+              BaseText(
+                text: value,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                textColor: AppColors.black,
+              ),
+            ],
+          ),
+          Flexible(
+            child: Align(
+              alignment: Alignment.center,
+              child: SvgPicture.asset(
+                svgIcon,
+                height: getSize(35),
+                width: getSize(35),
+                color: AppColors.primaryColor.withOpacity(0.2),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget locationDetailBox({
+    required String title,
+    required String locationValue,
+    required String units,
+  }) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: getSize(12),
+        vertical: getSize(10),
+      ),
+      margin: EdgeInsets.symmetric(vertical: getSize(5)),
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        minVerticalPadding: 0,
+        horizontalTitleGap: getSize(0),
+        title: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BaseText(
+              text: title,
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              textColor: AppColors.black.withOpacity(0.7),
+            ),
+            commonDivider(),
+            BaseText(
+              text: StringConstant.location,
+              fontSize: 10,
+              fontWeight: FontWeight.w400,
+              textColor: AppColors.primaryColor,
+            ),
+            BaseText(
+              text: locationValue,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              textColor: AppColors.black.withOpacity(0.9),
+            ),
+            SizedBox(
+              height: getSize(10),
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                BaseText(
+                  text: "${StringConstant.unit} - ",
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
+                  textColor: AppColors.primaryColor,
+                ),
+                BaseText(
+                  text: StringConstant.unitName,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  textColor: AppColors.black,
+                ),
+              ],
+            ),
+            BaseText(
+              text: units,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              textColor: AppColors.black.withOpacity(0.9),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget payableBox({
+    required String vacancy,
+    required String accommodationAllowance,
+    required String commuteAllowance,
+    required String serviceFee,
+    required String totalPayable,
+  }) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: getSize(12),
+        vertical: getSize(10),
+      ),
+      margin: EdgeInsets.symmetric(vertical: getSize(5)),
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        minVerticalPadding: 0,
+        horizontalTitleGap: getSize(0),
+        title: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            paybaleTitleRate(
+              title: StringConstant.totalNumberOfVacancy,
+              value: vacancy,
+              isFirst: true,
+            ),
+            commonDivider(),
+            paybaleTitleRate(
+              title: "${StringConstant.accommodationAllowance}:-",
+              value: accommodationAllowance,
+            ),
+            paybaleTitleRate(
+              title: "${StringConstant.commuteAllowance}:-",
+              value: commuteAllowance,
+            ),
+            paybaleTitleRate(
+              title: "${StringConstant.shiftFinderServiceFee}:-",
+              value: serviceFee,
+            ),
+            commonDivider(),
+            paybaleTitleRate(
+              title: "${StringConstant.estimatedTotalPayable}:-",
+              value: totalPayable,
+              isLast: true,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget commonDivider() {
+    return Divider(
+      color: AppColors.black.withOpacity(0.2),
+      thickness: getSize(0.5),
+    );
+  }
+
+  Widget paybaleTitleRate(
+      {required String title,
+      required String value,
+      bool isFirst = false,
+      isLast = false}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        BaseText(
+          text: title,
+          fontSize: 12,
+          fontWeight: (isLast) ? FontWeight.w600 : FontWeight.w400,
+          textColor: AppColors.black.withOpacity(0.7),
+        ),
+        BaseText(
+          text: value,
+          fontSize: (isLast) ? 18 : 14,
+          fontWeight: (isLast) ? FontWeight.w600 : FontWeight.w400,
+          textColor: (isFirst) ? AppColors.primaryColor : AppColors.black,
+        ),
+      ],
     );
   }
 }

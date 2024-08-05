@@ -239,7 +239,7 @@ class RegisterProfileScreen extends StatelessWidget {
                                 image: AssetImage(
                                   (getCurrentRole() == 1)
                                       ? PngImageConstants.contractor_employer
-                                      : PngImageConstants.contractor_employer,
+                                      : PngImageConstants.profile_employer,
                                 ),
                               ),
                         border: Border.all(

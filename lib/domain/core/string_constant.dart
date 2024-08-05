@@ -254,9 +254,28 @@ class StringConstant {
   static const String shiftDate = "Shift Date";
   static const String startAndEndTime = "Start and End Time";
   static const String totalShifts = "Total Shifts";
-  static const String deleteTheShift = "Delete The Shift";
   static const String deleteShiftDesc =
       "Are you sure you want to delete the shift?";
+  static const String deleteTheShift = "Delete The Shift";
+  static const String unpaidBreak = "Unpaid Break";
+  static const String time = "Time";
+  static const String specialtiesRequired = "Specialties required";
+  static const String hourlyRate = "Hourly Rate";
+  static const String totalHours = "Total Hours";
+  static const String shiftNote = "Shift Note";
+  static const String disclaimer = "Disclaimer";
+  static const String unit = "Unit";
+  static const String unitName = "Unit Name";
+  static const String accommodationAllowance = "Accommodation Allowance";
+  static const String commuteAllowance = "Commute Allowance";
+  static const String shiftFinderServiceFee = "ShiftFinder Service Fee";
+  static const String estimatedTotalPayable = "Estimated Total Payable";
+  static const String totalNumberOfVacancy = "Total Number of Vacancy";
+  static const String shiftDates = "Shift Dates";
+  static const String viewDates = "View Dates";
+  static const String totalNumberOfShifts = "Total Number of Shifts";
+  static const String endTime = "End Time";
+  static const String startTime = "Start Time";
 
   ///
 

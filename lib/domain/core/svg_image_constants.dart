@@ -73,4 +73,7 @@ class SvgImageConstant {
       "assets/svg/inactive_notification_tab.svg";
   static const inActiveProfileTab = "assets/svg/inactive_profile_tab.svg";
   static const femaleGrey = "assets/svg/female_grey.svg";
+  static const mouse = "assets/svg/mouse.svg";
+  static const clockWithBag = "assets/svg/clock_with_bag.svg";
+  static const clockWithOuterLine = "assets/svg/clock_with_outer_line.svg";
 }
