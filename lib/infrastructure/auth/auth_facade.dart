@@ -219,6 +219,8 @@ class AuthFacade implements IAuthFacade {
       if (emailAddress.isNotEmpty) {
         mapData["email"] = emailAddress;
       }
+
+      print("Sending Data--->  ${jsonEncode(mapData)}");
       final response =
           await apiService.postMethod(ApiConstants.verifyOtp, mapData);
 
@@ -258,6 +260,8 @@ class AuthFacade implements IAuthFacade {
           "is_forgot_password": 1,
         });
       }
+
+      print("Sending Data---> ${jsonEncode(mapData)}");
 
       final response =
           await apiService.postMethod(ApiConstants.resendOtp, mapData);

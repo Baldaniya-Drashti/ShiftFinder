@@ -346,7 +346,6 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           ));
         },
         decrementTimer: (DecrementTimer value) {
-          print("CURRENT SECOND: 2 ------->  ${state.secondsRemaining}");
           emit(state.copyWith(
             secondsRemaining: state.secondsRemaining - 1,
             authFailureOrSuccessOption: none(),

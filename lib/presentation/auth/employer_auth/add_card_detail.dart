@@ -50,7 +50,7 @@ class AddCardDetailPage extends StatelessWidget {
                   ).show(context);
                 },
                 (r) {
-                  context.router.replace(const PageRouteInfo(MainTabView.name));
+                  // context.router.replace(const PageRouteInfo(MainTabView.name));
                 },
               ),
             );

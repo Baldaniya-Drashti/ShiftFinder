@@ -15,7 +15,6 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: RegisterPage.page),
         AutoRoute(page: RegisterProfilePage.page),
         AutoRoute(page: LocationDetailForm.page),
-        AutoRoute(page: HealthCarePostForm.page),
         AutoRoute(page: AddContractorSkillsForm.page),
         AutoRoute(page: EducationListScreen.page),
         AutoRoute(page: AddEducationDetailScreen.page),
@@ -32,6 +31,8 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: AddBankDetailsScreen.page),
         AutoRoute(page: ViewHomeShiftDetails.page),
         AutoRoute(page: ViewDates.page),
+        AutoRoute(page: HealthCarePostForm.page),
+        AutoRoute(page: HealthcarePostShift.page),
         AutoRoute(
           page: MainTabView.page,
           children: [

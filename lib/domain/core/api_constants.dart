@@ -44,6 +44,9 @@ class ApiConstants {
   static String languageList = 'language_list';
   static String getYourRolesList = 'get_your_roles_list';
 
+  /// Healthcare Post
+  static String createPost = 'create_post';
+
   //edit user
   static String updateUser = 'edit/user';
   static String editUserSendOtp = 'edit/user/send/otp';

@@ -112,9 +112,7 @@ class ForgotPasswordBloc
         startCountdown: (StartCountdown value) {
           timer = Timer.periodic(const Duration(seconds: 1), (timer) {
             if (state.secondsRemaining > 0 && !isClosed) {
-              print("CURRENT SECOND: 0 ------->  ${state.secondsRemaining}");
               add(const ForgotPasswordEvent.decrementTimer());
-              print("CURRENT SECOND: 1 ------->  ${state.secondsRemaining}");
             } else {
               timer.cancel();
               // add(const LoginFormEvent.resendOtp());
@@ -126,7 +124,6 @@ class ForgotPasswordBloc
           ));
         },
         decrementTimer: (DecrementTimer value) {
-          print("CURRENT SECOND: 2 ------->  ${state.secondsRemaining}");
           emit(state.copyWith(
             secondsRemaining: state.secondsRemaining - 1,
             authFailureOrSuccessOption: none(),
@@ -154,7 +151,8 @@ class ForgotPasswordBloc
             emailAddress:
                 (getCurrentRole() == 1) ? "" : state.emailAddress.getValue(),
             phoneNumber:
-                (getCurrentRole() == 1) ? "${state.mobileNumber.getValue}" : "",
+                (getCurrentRole() == 1) ? state.mobileNumber.getValue() : "",
+            forgotPassword: true,
           );
 
           emit(
@@ -183,9 +181,8 @@ class ForgotPasswordBloc
             failureOrSuccess = await _authFacade.verifyOtp(
               emailAddress:
                   (getCurrentRole() == 1) ? "" : state.emailAddress.getValue(),
-              phoneNumber: (getCurrentRole() == 1)
-                  ? "${state.mobileNumber.getValue}"
-                  : "",
+              phoneNumber:
+                  (getCurrentRole() == 1) ? state.mobileNumber.getValue() : "",
               otp: state.enteredOTP,
               isForgotPassword: true,
             );

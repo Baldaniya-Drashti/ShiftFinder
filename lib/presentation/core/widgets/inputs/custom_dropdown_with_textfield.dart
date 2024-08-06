@@ -82,7 +82,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
         if (labelText != null) ...[
           Padding(
             padding: EdgeInsets.only(
-                left: getSize((isLabelPadding == true) ? 20 : 0)),
+                left: getSize((isLabelPadding == true) ? 18 : 0)),
             child: Row(
               children: [
                 BaseText(

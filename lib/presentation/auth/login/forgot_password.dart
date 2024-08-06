@@ -106,6 +106,24 @@ class FilterBottomSheet extends StatelessWidget {
                   },
                 ),
               );
+              state.resendFailureOrSuccessOption.fold(
+                () {},
+                (either) => either.fold(
+                  (failure) {
+                    showError(
+                      message: failure.maybeMap(
+                        showAPIResponseMessage: (value) => value.message,
+                        networkError: (value) => 'Connection error',
+                        orElse: () => "Server Error. Try again later.",
+                      ),
+                    ).show(context);
+                  },
+                  (r) {
+                    showSuccess(message: r).show(context);
+                    print("Success");
+                  },
+                ),
+              );
             },
             builder: (context, state) {
               return Padding(

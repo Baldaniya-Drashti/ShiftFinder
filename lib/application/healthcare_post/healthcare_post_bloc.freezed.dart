@@ -2862,8 +2862,9 @@ mixin _$HealthcarePostState {
   bool get showSpecialityError => throw _privateConstructorUsedError;
   bool get showRoleTypeError => throw _privateConstructorUsedError;
   bool get showSpeExperienceError => throw _privateConstructorUsedError;
-  Option<Either<AuthFailure, String>> get authFailureOrSuccessOption =>
-      throw _privateConstructorUsedError;
+  bool get showLocationError => throw _privateConstructorUsedError;
+  Option<Either<MainFailure, HealthcarePostDTO>>
+      get authFailureOrSuccessOption => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HealthcarePostStateCopyWith<HealthcarePostState> get copyWith =>
@@ -2904,7 +2905,9 @@ abstract class $HealthcarePostStateCopyWith<$Res> {
       bool showSpecialityError,
       bool showRoleTypeError,
       bool showSpeExperienceError,
-      Option<Either<AuthFailure, String>> authFailureOrSuccessOption});
+      bool showLocationError,
+      Option<Either<MainFailure, HealthcarePostDTO>>
+          authFailureOrSuccessOption});
 }
 
 /// @nodoc
@@ -2947,6 +2950,7 @@ class _$HealthcarePostStateCopyWithImpl<$Res, $Val extends HealthcarePostState>
     Object? showSpecialityError = null,
     Object? showRoleTypeError = null,
     Object? showSpeExperienceError = null,
+    Object? showLocationError = null,
     Object? authFailureOrSuccessOption = null,
   }) {
     return _then(_value.copyWith(
@@ -3058,10 +3062,14 @@ class _$HealthcarePostStateCopyWithImpl<$Res, $Val extends HealthcarePostState>
           ? _value.showSpeExperienceError
           : showSpeExperienceError // ignore: cast_nullable_to_non_nullable
               as bool,
+      showLocationError: null == showLocationError
+          ? _value.showLocationError
+          : showLocationError // ignore: cast_nullable_to_non_nullable
+              as bool,
       authFailureOrSuccessOption: null == authFailureOrSuccessOption
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<AuthFailure, String>>,
+              as Option<Either<MainFailure, HealthcarePostDTO>>,
     ) as $Val);
   }
 }
@@ -3102,7 +3110,9 @@ abstract class _$$HealthcarePostStateImplCopyWith<$Res>
       bool showSpecialityError,
       bool showRoleTypeError,
       bool showSpeExperienceError,
-      Option<Either<AuthFailure, String>> authFailureOrSuccessOption});
+      bool showLocationError,
+      Option<Either<MainFailure, HealthcarePostDTO>>
+          authFailureOrSuccessOption});
 }
 
 /// @nodoc
@@ -3143,6 +3153,7 @@ class __$$HealthcarePostStateImplCopyWithImpl<$Res>
     Object? showSpecialityError = null,
     Object? showRoleTypeError = null,
     Object? showSpeExperienceError = null,
+    Object? showLocationError = null,
     Object? authFailureOrSuccessOption = null,
   }) {
     return _then(_$HealthcarePostStateImpl(
@@ -3254,10 +3265,14 @@ class __$$HealthcarePostStateImplCopyWithImpl<$Res>
           ? _value.showSpeExperienceError
           : showSpeExperienceError // ignore: cast_nullable_to_non_nullable
               as bool,
+      showLocationError: null == showLocationError
+          ? _value.showLocationError
+          : showLocationError // ignore: cast_nullable_to_non_nullable
+              as bool,
       authFailureOrSuccessOption: null == authFailureOrSuccessOption
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<AuthFailure, String>>,
+              as Option<Either<MainFailure, HealthcarePostDTO>>,
     ));
   }
 }
@@ -3293,6 +3308,7 @@ class _$HealthcarePostStateImpl implements _HealthcarePostState {
       required this.showSpecialityError,
       required this.showRoleTypeError,
       required this.showSpeExperienceError,
+      required this.showLocationError,
       required this.authFailureOrSuccessOption})
       : _specialityList = specialityList,
         _specialityOther = specialityOther,
@@ -3442,11 +3458,14 @@ class _$HealthcarePostStateImpl implements _HealthcarePostState {
   @override
   final bool showSpeExperienceError;
   @override
-  final Option<Either<AuthFailure, String>> authFailureOrSuccessOption;
+  final bool showLocationError;
+  @override
+  final Option<Either<MainFailure, HealthcarePostDTO>>
+      authFailureOrSuccessOption;
 
   @override
   String toString() {
-    return 'HealthcarePostState(specialityList: $specialityList, specialityOther: $specialityOther, requiredSpecialityChip: $requiredSpecialityChip, requiredSpecialityChipList: $requiredSpecialityChipList, roleList: $roleList, roleType: $roleType, softwareList: $softwareList, softwareSkillOther: $softwareSkillOther, requiredSoftwareSkillChip: $requiredSoftwareSkillChip, requiredSoftwareSkillChipList: $requiredSoftwareSkillChipList, languageChip: $languageChip, languageOther: $languageOther, languageChipList: $languageChipList, languageList: $languageList, locationList: $locationList, unitList: $unitList, location: $location, selectedLocationUnit: $selectedLocationUnit, rateHour: $rateHour, isSubmitting: $isSubmitting, isLoading: $isLoading, showErrorMessages: $showErrorMessages, showLanguageError: $showLanguageError, showSoftwareSkillError: $showSoftwareSkillError, showSpecialityError: $showSpecialityError, showRoleTypeError: $showRoleTypeError, showSpeExperienceError: $showSpeExperienceError, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'HealthcarePostState(specialityList: $specialityList, specialityOther: $specialityOther, requiredSpecialityChip: $requiredSpecialityChip, requiredSpecialityChipList: $requiredSpecialityChipList, roleList: $roleList, roleType: $roleType, softwareList: $softwareList, softwareSkillOther: $softwareSkillOther, requiredSoftwareSkillChip: $requiredSoftwareSkillChip, requiredSoftwareSkillChipList: $requiredSoftwareSkillChipList, languageChip: $languageChip, languageOther: $languageOther, languageChipList: $languageChipList, languageList: $languageList, locationList: $locationList, unitList: $unitList, location: $location, selectedLocationUnit: $selectedLocationUnit, rateHour: $rateHour, isSubmitting: $isSubmitting, isLoading: $isLoading, showErrorMessages: $showErrorMessages, showLanguageError: $showLanguageError, showSoftwareSkillError: $showSoftwareSkillError, showSpecialityError: $showSpecialityError, showRoleTypeError: $showRoleTypeError, showSpeExperienceError: $showSpeExperienceError, showLocationError: $showLocationError, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
@@ -3507,6 +3526,7 @@ class _$HealthcarePostStateImpl implements _HealthcarePostState {
             (identical(other.showRoleTypeError, showRoleTypeError) ||
                 other.showRoleTypeError == showRoleTypeError) &&
             (identical(other.showSpeExperienceError, showSpeExperienceError) || other.showSpeExperienceError == showSpeExperienceError) &&
+            (identical(other.showLocationError, showLocationError) || other.showLocationError == showLocationError) &&
             (identical(other.authFailureOrSuccessOption, authFailureOrSuccessOption) || other.authFailureOrSuccessOption == authFailureOrSuccessOption));
   }
 
@@ -3540,6 +3560,7 @@ class _$HealthcarePostStateImpl implements _HealthcarePostState {
         showSpecialityError,
         showRoleTypeError,
         showSpeExperienceError,
+        showLocationError,
         authFailureOrSuccessOption
       ]);
 
@@ -3580,7 +3601,8 @@ abstract class _HealthcarePostState implements HealthcarePostState {
       required final bool showSpecialityError,
       required final bool showRoleTypeError,
       required final bool showSpeExperienceError,
-      required final Option<Either<AuthFailure, String>>
+      required final bool showLocationError,
+      required final Option<Either<MainFailure, HealthcarePostDTO>>
           authFailureOrSuccessOption}) = _$HealthcarePostStateImpl;
 
   @override
@@ -3656,7 +3678,9 @@ abstract class _HealthcarePostState implements HealthcarePostState {
   @override
   bool get showSpeExperienceError;
   @override
-  Option<Either<AuthFailure, String>> get authFailureOrSuccessOption;
+  bool get showLocationError;
+  @override
+  Option<Either<MainFailure, HealthcarePostDTO>> get authFailureOrSuccessOption;
   @override
   @JsonKey(ignore: true)
   _$$HealthcarePostStateImplCopyWith<_$HealthcarePostStateImpl> get copyWith =>

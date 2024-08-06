@@ -276,6 +276,7 @@ class StringConstant {
   static const String totalNumberOfShifts = "Total Number of Shifts";
   static const String endTime = "End Time";
   static const String startTime = "Start Time";
+  static const String shiftType = "Shift Type";
 
   ///
 
@@ -400,4 +401,6 @@ class StringConstant {
   static const String pleaseAddBankAddress = "Please add bank address";
   static const String bankTermsErrorText =
       "Please select the checkbox to confirm";
+        static const String pleaseSelectLocationUnit =
+      "Please select location unit";
 }

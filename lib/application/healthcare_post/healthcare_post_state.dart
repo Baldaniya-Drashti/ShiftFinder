@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 part of 'healthcare_post_bloc.dart';
 
 // @freezed
@@ -91,7 +93,9 @@ class HealthcarePostState with _$HealthcarePostState {
     required bool showSpecialityError,
     required bool showRoleTypeError,
     required bool showSpeExperienceError,
-    required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
+    required bool showLocationError,
+    required Option<Either<MainFailure, HealthcarePostDTO>>
+        authFailureOrSuccessOption,
   }) = _HealthcarePostState;
   factory HealthcarePostState.initial() => HealthcarePostState(
         rateHour: InputEmptyOrNot(""),
@@ -120,6 +124,7 @@ class HealthcarePostState with _$HealthcarePostState {
         showSpecialityError: false,
         showSoftwareSkillError: false,
         showLanguageError: false,
+        showLocationError: false,
         showSpeExperienceError: false,
         authFailureOrSuccessOption: none(),
       );

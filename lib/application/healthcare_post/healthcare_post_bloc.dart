@@ -172,9 +172,13 @@ import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/auth/i_auth_facade.dart';
+import 'package:shift/domain/main/i_main_facade.dart';
+import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
+import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/core/speciality/speciality_dto.dart';
+import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 part 'healthcare_post_event.dart';
 part 'healthcare_post_state.dart';
 part 'healthcare_post_bloc.freezed.dart';
@@ -184,8 +188,9 @@ class HealthcarePostBloc
     extends Bloc<HealthcarePostEvent, HealthcarePostState> {
   final IAuthFacade _authFacade;
   final IAccountRepository _repository;
+  final IMainFacade _mainFacade;
 
-  HealthcarePostBloc(this._authFacade, this._repository)
+  HealthcarePostBloc(this._authFacade, this._repository, this._mainFacade)
       : super(HealthcarePostState.initial()) {
     on<HealthcarePostEvent>((event, emit) async {
       await event.map(
@@ -203,26 +208,6 @@ class HealthcarePostBloc
           await getSpecialityListApi(emit);
           await getSoftwareListApi(emit);
           await getLanguageListApi(emit);
-          // final roleList = await _authFacade.getRoleList();
-          // print("Role List ---> ${roleList}");
-          // roleList.fold(
-          //   (l) => emit(
-          //     state.copyWith(
-          //       isLoading: false,
-          //       roleList: [],
-          //     ),
-          //   ),
-          //   (r) {
-          //     return emit(
-          //       state.copyWith(
-          //         isLoading: false,
-          //         roleList: List.from(state.roleList)..addAll(r),
-          //       ),
-          //     );
-          //   },
-          // );
-
-          // final softwareList = await _authFacade.getSoftwareSkillList();
         },
 
         /// ROLE TYPE
@@ -295,10 +280,7 @@ class HealthcarePostBloc
                   ? (List<String>.from(state.specialityOther)
                     ..remove(e.selectedValue))
                   : state.specialityOther,
-              showSpecialityError:
-                  (state.requiredSpecialityChipList.getValue().isNotEmpty)
-                      ? false
-                      : true,
+              showSpecialityError: false,
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -367,10 +349,7 @@ class HealthcarePostBloc
                       ? (List<String>.from(state.softwareSkillOther)
                         ..remove(e.selectedValue))
                       : state.softwareSkillOther,
-              showSoftwareSkillError:
-                  (state.requiredSoftwareSkillChipList.getValue().isNotEmpty)
-                      ? false
-                      : true,
+              showSoftwareSkillError: false,
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -452,6 +431,10 @@ class HealthcarePostBloc
               location: InputEmptyOrNot(e.location),
               unitList: selectedLocationObject.add_units ?? [],
               selectedLocationUnit: "",
+              showLocationError: (selectedLocationObject.add_units != null &&
+                      selectedLocationObject.add_units!.isNotEmpty)
+                  ? true
+                  : false,
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -460,6 +443,7 @@ class HealthcarePostBloc
           emit(
             state.copyWith(
               selectedLocationUnit: e.selectedUnit,
+              showLocationError: false,
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -477,58 +461,69 @@ class HealthcarePostBloc
 
         /// Click Continue Button
         continueBtnPressed: (e) async {
-          print("Location0---> ${state.location}");
-          print("Location1---> ${state.selectedLocationUnit}");
-          Either<AuthFailure, String>? failureOrSuccess;
+          Either<MainFailure, HealthcarePostDTO>? failureOrSuccess;
           final roleTypeListValid = state.roleType.isValid();
           final languageListValid = state.languageChipList.isValid();
-          final softwareSkillListValid =
-              state.requiredSoftwareSkillChipList.isValid();
-          final specialityListValid =
-              state.requiredSpecialityChipList.isValid();
+          final isLocationValid = state.location.isValid();
+          final isRateHourValid = state.rateHour.isValid();
 
-          print(
-              "ROLE ALL !-------->  ${roleTypeListValid} ${state.showRoleTypeError}");
-          print(
-              "SPECIALITY ALL !-------->  ${specialityListValid} ${state.showSpecialityError}");
-          print(
-              "SOFTWARE ALL !-------->  ${softwareSkillListValid} ${state.showSoftwareSkillError}");
-          print(
-              "LANGUAGE ALL !-------->  ${state.languageChipList.getValue()} ${state.showLanguageError}");
-          print(
-              "EXPERIENCE ALL !-------->  ${specialityListValid} ${state.showSpeExperienceError}");
-
-          if (roleTypeListValid &&
-              languageListValid &&
-              softwareSkillListValid &&
-              specialityListValid &&
-              !state.showRoleTypeError &&
-              !state.showSpecialityError &&
+          if ((!(state.requiredSpecialityChip.toLowerCase() == "other") &&
+                  !state.showSpecialityError) &&
+              !(state.requiredSoftwareSkillChip.toLowerCase() == "other") &&
               !state.showSoftwareSkillError &&
+              roleTypeListValid &&
+              languageListValid &&
+              !state.showRoleTypeError &&
               !state.showLanguageError &&
-              !state.showSpeExperienceError) {
+              !state.showSpeExperienceError &&
+              isLocationValid &&
+              !state.showLocationError &&
+              isRateHourValid) {
             print("ALL DETAILS ARE VALID!---->  ");
             emit(
               state.copyWith(
-                isSubmitting: true,
+                isLoading: true,
                 authFailureOrSuccessOption: none(),
               ),
             );
-
-            // failureOrSuccess = await _authFacade.completeProfileAPI(
-            //   rolesListId: getSelectedRoleIds(),
-            //   specialtiesDetail: getSelectedSpecialityIdsAsJson(),
-            //   softwaresSkillListId: getSelectedSoftwareIds(),
-            //   softwareSkillOther: state.softwareSkillOther.join(','),
-            //   languageListId: getSelectedLanguageId(),
-            //   languageOther: state.languageOther.join(','),
-            // );
+            failureOrSuccess = await _mainFacade.createPostApi(
+              roleListId: getSelectedRoleIds(),
+              specialityDetailId: getSelectedSpecialtiyIds(),
+              specialityDetailOther: state.specialityOther.join(','),
+              softwareSkillId: getSelectedSoftwareIds(),
+              softwareSkillOther: state.softwareSkillOther.join(','),
+              languageListId: getSelectedLanguageId(),
+              languageOther: state.languageOther.join(','),
+              locationId: getSelectedLocationIds(),
+              locationUnit: state.selectedLocationUnit,
+              rateHour: double.parse(state.rateHour.getValue() ?? "0.0"),
+            );
           } else {
             print("Some DETAILS ARE INVALID!");
           }
+          print("Failure or success--> ${failureOrSuccess}");
+          // failureOrSuccess!.fold(
+          //   (l) => emit(
+          //     state.copyWith(
+          //       showErrorMessages: true,
+          //       isLoading: false,
+          //       authFailureOrSuccessOption: optionOf(failureOrSuccess),
+          //     ),
+          //   ),
+          //   (r) {
+          //     return emit(
+          //       state.copyWith(
+          //         isLoading: false,
+          //         showErrorMessages: false,
+          //         authFailureOrSuccessOption: optionOf(failureOrSuccess),
+          //       ),
+          //     );
+          //   },
+          // );
           emit(
             state.copyWith(
               isSubmitting: false,
+              isLoading: false,
               showErrorMessages: true,
               authFailureOrSuccessOption: optionOf(failureOrSuccess),
             ),
@@ -567,19 +562,11 @@ class HealthcarePostBloc
   }
 
   String getSelectedRoleIds() {
-    // final roleIds = state.roleTypeChipList
-    //     .getValue()
-    //     .map((chipName) => state.roleList.firstWhere(
-    //           (role) => role.name == chipName,
-    //           orElse: () => SkillDTO(), // Handle cases where no match is found
-    //         ))
-    //     .where((role) => role.id != null) // Filter out null values
-    //     .map((role) => role.id) // Extract IDs
-    //     .toList();
-    // String commaSeparated = roleIds.join(',');
-    String commaSeparated = "";
-    print('Role IDs: $commaSeparated');
-    return commaSeparated;
+    final roleIds = state.roleList.firstWhere(
+        (role) => role.name == state.roleType.getValue(),
+        orElse: () => SkillDTO());
+    print("Role ID --> $roleIds");
+    return "${roleIds.id ?? -1}";
   }
 
   String getSelectedSpecialtiyIds() {
@@ -612,6 +599,14 @@ class HealthcarePostBloc
     print('Software IDs: $commaSeparated');
 
     return commaSeparated;
+  }
+
+  String getSelectedLocationIds() {
+    final locationIds = state.locationList.firstWhere(
+        (location) => location.location == state.location.getValue(),
+        orElse: () => LocationDTO());
+    print("Location ID --> $locationIds");
+    return "${locationIds.id ?? -1}";
   }
 
   getRoleListApi(Emitter<HealthcarePostState> emit) async {
