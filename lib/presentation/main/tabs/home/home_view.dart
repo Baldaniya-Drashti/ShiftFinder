@@ -128,6 +128,9 @@ class HomeView extends StatelessWidget {
           proposalBox(
             title: StringConstant.totalApplications,
             value: "24",
+            onTap: () {
+              context.router.push(PageRouteInfo(ViewSingleApplicants.name));
+            },
           ),
           SizedBox(
             height: getSize(10),
@@ -255,47 +258,48 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget proposalBox({
-    required String title,
-    required String value,
-  }) {
-    return Container(
-      height: getSize(78),
-      padding: EdgeInsets.symmetric(
-        vertical: getSize(8),
-        horizontal: getSize(12),
-      ),
-      decoration: BoxDecoration(
-          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          BaseText(
-            text: title,
-            fontSize: 12,
-            fontWeight: FontWeight.w500,
-            textColor: AppColors.black.withOpacity(0.7),
-          ),
-          Row(
-            children: [
-              BaseText(
-                text: value,
-                fontSize: 25,
-                fontWeight: FontWeight.w600,
-                textColor: AppColors.primaryColor,
-              ),
-              SizedBox(
-                width: getSize(15),
-              ),
-              SvgPicture.asset(
-                SvgImageConstant.threePerson,
-              ),
-              Spacer(),
-              StackedImage(),
-            ],
-          )
-        ],
+  Widget proposalBox(
+      {required String title, required String value, Function()? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        // height: getSize(78),
+        padding: EdgeInsets.symmetric(
+          vertical: getSize(8),
+          horizontal: getSize(12),
+        ),
+        decoration: BoxDecoration(
+            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            BaseText(
+              text: title,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              textColor: AppColors.black.withOpacity(0.7),
+            ),
+            Row(
+              children: [
+                BaseText(
+                  text: value,
+                  fontSize: 25,
+                  fontWeight: FontWeight.w600,
+                  textColor: AppColors.primaryColor,
+                ),
+                SizedBox(
+                  width: getSize(15),
+                ),
+                SvgPicture.asset(
+                  SvgImageConstant.threePerson,
+                ),
+                Spacer(),
+                StackedImage(),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

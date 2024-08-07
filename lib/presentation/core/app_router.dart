@@ -33,6 +33,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: ViewDates.page),
         AutoRoute(page: HealthCarePostForm.page),
         AutoRoute(page: HealthcarePostShift.page),
+        AutoRoute(page: ViewSingleApplicants.page),
         AutoRoute(
           page: MainTabView.page,
           children: [

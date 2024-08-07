@@ -111,9 +111,10 @@ class LoginForm extends StatelessWidget {
                         child: createAccount(
                           onRegisterTap: () async {
                             print("create an account clicked!");
-
                             context.router.replace(
                                 const PageRouteInfo(RegisterPage.name));
+                            // context.router.replaceAll(
+                            //     [const PageRouteInfo(RegisterPage.name)]);
                           },
                           title: StringConstant.dontHaveAnAccount,
                           description: StringConstant.register,
