@@ -36,7 +36,7 @@ class DocumentExpiryDatePicker {
               customDatePicker(
                 context,
                 onPickedDate,
-                onCancelClick ?? () {},
+                onCancelClick,
                 selectedDate: (selectedDate.isNotEmpty)
                     ? DateTime.parse(selectedDate)
                     : DateTime.now(),

@@ -104,7 +104,7 @@ class MainFacade implements IMainFacade {
       );
 
       final data = HealthcarePostDTO.fromJson(res.data);
-      print("Healthercare Post Response->  ${data}");
+      print("Healthercare Post Response->  $data");
 
       return right(data);
       // return left(const MainFailure.networkError());

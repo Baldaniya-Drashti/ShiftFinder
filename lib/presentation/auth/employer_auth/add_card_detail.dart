@@ -13,7 +13,6 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_card_number_formatter.dart';
@@ -22,9 +21,9 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'addCardDetailPage')
 class AddCardDetailPage extends StatelessWidget {
-  bool isFromSplash = false;
+  final bool isFromSplash;
 
-  AddCardDetailPage({super.key, this.isFromSplash = false});
+  const AddCardDetailPage({super.key, this.isFromSplash = false});
 
   @override
   Widget build(BuildContext context) {
@@ -296,7 +295,7 @@ class AddCardDetailPage extends StatelessWidget {
     CardState state, {
     required DateTime? selectedDate,
   }) async {
-    print("selectedDate------->  ${selectedDate}");
+    print("selectedDate------->  $selectedDate");
 
     final DateTime? pickedDate = await showDatePicker(
       context: context,

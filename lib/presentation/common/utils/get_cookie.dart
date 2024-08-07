@@ -61,7 +61,7 @@ Account getCurrentUser() {
   if (accountEntity != null) {
     return accountEntity.toDomain();
   }
-  return Account();
+  return const Account();
 }
 
 /// CUREENT INDUSTRY

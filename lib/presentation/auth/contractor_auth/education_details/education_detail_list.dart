@@ -122,7 +122,7 @@ class EducationListScreen extends StatelessWidget {
                                       .push(PageRouteInfo(
                                           AddEducationDetailScreen.name))
                                       .then((value) {
-                                    print("Value when back ---> ${value}");
+                                    print("Value when back ---> $value");
                                     if (value != null && value == true) {
                                       context.read<EducationDetailBloc>().add(
                                           EducationDetailEvent
@@ -207,7 +207,7 @@ class EducationListScreen extends StatelessWidget {
                     context.router
                         .push(PageRouteInfo(AddEducationDetailScreen.name))
                         .then((value) {
-                      print("Value when back ---> ${value}");
+                      print("Value when back ---> $value");
 
                       if (value != null && value == true) {
                         context

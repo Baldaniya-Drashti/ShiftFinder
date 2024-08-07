@@ -19,13 +19,12 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
-import 'package:shift/presentation/splash/splash_page.dart';
 
 @RoutePage(name: 'referenceListScreen')
 class ReferenceListScreen extends StatelessWidget {
-  bool isFromSplash = false;
+  final bool isFromSplash;
 
-  ReferenceListScreen({super.key, this.isFromSplash = false});
+  const ReferenceListScreen({super.key, this.isFromSplash = false});
 
   @override
   Widget build(BuildContext context) {

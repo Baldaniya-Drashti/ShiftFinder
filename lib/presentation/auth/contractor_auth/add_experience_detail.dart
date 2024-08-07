@@ -18,7 +18,6 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/custom_year_picker/custom_date_picker_dropdown.dart';
 import 'package:shift/presentation/core/widgets/custom_year_picker/order_format.dart';
-import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 import '../../common/widgets/center_loading_indicator.dart';

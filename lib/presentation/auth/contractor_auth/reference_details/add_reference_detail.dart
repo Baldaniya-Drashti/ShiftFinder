@@ -13,11 +13,10 @@ import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
-import 'package:shift/presentation/splash/splash_page.dart';
 
 @RoutePage(name: 'addReferenceDetailScreen')
 class AddReferenceDetail extends StatelessWidget {
-  bool isFromSplash = false;
+  final bool isFromSplash;
 
   AddReferenceDetail({super.key, this.isFromSplash = false});
 

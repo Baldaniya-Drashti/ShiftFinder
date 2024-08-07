@@ -388,7 +388,7 @@ class IntroQuizScreen extends StatelessWidget {
             },
           ),
         ),
-        BaseText(text: mcqOption ?? "")
+        BaseText(text: mcqOption)
       ],
     );
   }

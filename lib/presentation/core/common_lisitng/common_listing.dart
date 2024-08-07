@@ -1,6 +1,5 @@
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/infrastructure/core/common_list_dto.dart';
 import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
 
 class CommonList {

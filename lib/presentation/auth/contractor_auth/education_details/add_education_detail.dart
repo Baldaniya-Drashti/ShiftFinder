@@ -16,11 +16,10 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
-import 'package:shift/presentation/splash/splash_page.dart';
 
 @RoutePage(name: 'addEducationDetailScreen')
 class AddEducationDetail extends StatelessWidget {
-  bool isFromSplash = false;
+  final bool isFromSplash;
 
   AddEducationDetail({super.key, this.isFromSplash = false});
 

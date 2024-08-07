@@ -9,7 +9,7 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
 class CustomDropdwonWithTextField extends StatelessWidget {
-  CustomDropdwonWithTextField({
+  const CustomDropdwonWithTextField({
     super.key,
     this.labelText,
     required this.hintText,

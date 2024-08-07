@@ -18,7 +18,7 @@ import 'package:video_player/video_player.dart';
 
 @RoutePage(name: 'introVideoScreen')
 class IntroVideoScreen extends StatefulWidget {
-  bool isFromSplash = false;
+  final bool isFromSplash = false;
   @override
   IntroVideoScreenState createState() => IntroVideoScreenState();
 }

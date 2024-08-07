@@ -14,11 +14,11 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'ViewDates')
 class ViewDates extends StatelessWidget {
-  ViewDates({super.key});
+  const ViewDates({super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<DateTime?> _selectedDates = [
+    List<DateTime?> selectedDates = [
       DateTime(2024, 8, 7),
       DateTime(2024, 8, 8),
       DateTime(2024, 8, 11),
@@ -63,7 +63,7 @@ class ViewDates extends StatelessWidget {
                   return false;
                 },
               ),
-              value: _selectedDates,
+              value: selectedDates,
               onValueChanged: (day) {},
             ),
             startEndDate(
