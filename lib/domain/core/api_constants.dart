@@ -43,6 +43,8 @@ class ApiConstants {
   static String softwaresSkillList = 'softwares_skill_list';
   static String languageList = 'language_list';
   static String getYourRolesList = 'get_your_roles_list';
+  static String unpaidBreakList = 'unpaid_break_list';
+  static String accomdationHourList = 'hour_list';
 
   /// Healthcare Post
   static String createPost = 'create_post';

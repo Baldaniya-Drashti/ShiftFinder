@@ -277,6 +277,18 @@ class StringConstant {
   static const String endTime = "End Time";
   static const String startTime = "Start Time";
   static const String shiftType = "Shift Type";
+  static const String single = "Single";
+  static const String multi = "Multi";
+  static const String longTerm = "Long-Term";
+  static const String date = "Date";
+  static const String hour = "Hour";
+  static const String min = "Min";
+  static const String totalPayableHours = "Total Payable Hours";
+  static const String addShiftNotes = "Add Shift Notes";
+  static const String singleShiftVacancyDesc =
+      "We are looking to fill more than one vacancies with the same requirements.";
+  static const String numberOfVacancies = "Number of vacancies";
+  static const String selectHours = "Select Hours";
 
   ///
 
@@ -401,6 +413,18 @@ class StringConstant {
   static const String pleaseAddBankAddress = "Please add bank address";
   static const String bankTermsErrorText =
       "Please select the checkbox to confirm";
-        static const String pleaseSelectLocationUnit =
-      "Please select location unit";
+  static const String pleaseSelectLocationUnit = "Please select location unit";
+  static const String pleaseSelectHourAndMinutesOfStartTime =
+      "Please select hour and minutes of start time";
+  static const String pleaseSelectHourAndMinutesOfEndTime =
+      "Please select hour and minutes of end time";
+  static const String pleaseSelectUnpaidBreakTime =
+      "Please select unpaid break time";
+  static const String pleaseSelectDate = "Please select date";
+  static const String pleaseSelectCommuteAllownceValue =
+      "Please add commute allowance value";
+  static const String pleaseSelectAccomdationAllownceValue =
+      "Please add accomdation allowance value";
+  static const String pleaseAddNumberOfVacancies =
+      "Please add number of vacancies";
 }

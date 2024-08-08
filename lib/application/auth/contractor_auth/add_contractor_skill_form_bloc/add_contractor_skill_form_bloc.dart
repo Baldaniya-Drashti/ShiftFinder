@@ -35,8 +35,8 @@ class AddContractorSkillFormBloc
           await getRoleListApi(emit);
           await getSpecialityListApi(emit);
           await getExperienceListApi(emit);
-          await getSoftwareListApi(emit);
           await getLanguageListApi(emit);
+          await getSoftwareListApi(emit);
           // final roleList = await _authFacade.getRoleList();
           // print("Role List ---> ${roleList}");
           // roleList.fold(

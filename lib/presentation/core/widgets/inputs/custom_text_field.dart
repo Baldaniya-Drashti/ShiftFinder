@@ -41,9 +41,7 @@ class CustomTextField extends StatelessWidget {
     this.optionalWidget,
     this.isPrefixValueShow = false,
     this.hintAsValue = false,
-    this.prefix,
     this.prefixIconConstraints,
-    this.onEditingComplete,
   }) : super(key: key);
 
   final List<TextInputFormatter>? inputFormatters;
@@ -77,9 +75,8 @@ class CustomTextField extends StatelessWidget {
   final InputBorder? errorInputBorder;
   final bool isPrefixValueShow;
   final bool hintAsValue;
-  final Widget? prefix;
   final BoxConstraints? prefixIconConstraints;
-  final void Function(String)? onEditingComplete;
+
   @override
   Widget build(BuildContext context) {
     final border = OutlineInputBorder(
@@ -196,7 +193,6 @@ class CustomTextField extends StatelessWidget {
             validator: (inputString) {
               return validator?.call(inputString, context);
             },
-            onFieldSubmitted: onEditingComplete,
             maxLength: maxLength,
             scrollPadding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom +
@@ -252,8 +248,6 @@ class CustomTextField extends StatelessWidget {
                   enabledBorder: border,
                   errorMaxLines: errorMaxLines,
                   prefixIcon: prefixIcon,
-                  prefix: prefix,
-                  // prefix: prefixIcon,
                   suffixIcon: Padding(
                     padding: EdgeInsets.only(right: getSize(10)),
                     child: suffixIcon,

@@ -35,8 +35,8 @@ class DocumentExpiryDatePicker {
           : () {
               customDatePicker(
                 context,
-                onPickedDate,
-                onCancelClick ?? () {},
+                onPickedDate: onPickedDate,
+                onCancelClick: onCancelClick ?? () {},
                 selectedDate: (selectedDate.isNotEmpty)
                     ? DateTime.parse(selectedDate)
                     : DateTime.now(),
@@ -53,29 +53,21 @@ class DocumentExpiryDatePicker {
           width: getSize(24),
         ),
       ),
-      // validator: (p0, p1) =>
-      //     context.read<DocumentBloc>().state.governmentExpiryDate.fold(
-      //           (f) => f.maybeMap(
-      //             empty: (value) => StringConstant.pleaseSelectStartDate,
-      //             orElse: () => null,
-      //           ),
-      //           (_) => null,
-      //         ),
     );
   }
 
   static Future<void> customDatePicker(
-    BuildContext context,
-    void Function(DateTime) onPickedDate,
-    void Function() onCancelClick, {
+    BuildContext context, {
+    required void Function(DateTime) onPickedDate,
+    required void Function() onCancelClick,
     required DateTime? selectedDate,
+    DateTime? firstDate,
+    DateTime? lastDate,
   }) async {
-    print("selectedDate------->  ${selectedDate}");
-
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      firstDate: DateTime(1950, 1),
-      lastDate: DateTime(2100, 1),
+      firstDate: firstDate ?? DateTime(1950, 1),
+      lastDate: lastDate ?? DateTime(2100, 1),
       initialDate: selectedDate,
       builder: (context, child) {
         return Theme(
