@@ -130,7 +130,7 @@ class CustomTextField extends StatelessWidget {
                   text: labelText ?? "",
                   fontSize: labelStyle?.fontSize ?? 14,
                   fontWeight: FontWeight.w500,
-                  textColor: labelStyle?.color ?? AppColors.black,
+                  textColor: labelStyle?.color ?? Color(0xff030202),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
@@ -244,9 +244,9 @@ class CustomTextField extends StatelessWidget {
                   hintText: hintText,
                   contentPadding: EdgeInsets.symmetric(
                     vertical: getSize(12),
-                    horizontal: getSize(18),
+                    horizontal: getSize(20),
                   ),
-                  // isDense: true,
+                  isDense: true,
                   alignLabelWithHint: true,
                   border: border,
                   enabledBorder: border,

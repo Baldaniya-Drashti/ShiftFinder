@@ -27,6 +27,8 @@ class PngImageConstants {
   static const document_img = "assets/png/document_img.png";
   static const upload = "assets/png/upload.png";
   static const intro__video_image = "assets/png/intro__video_image.png";
+  static const curvedBackgroundImage = "assets/png/curve_background.png";
+  static const line = "assets/png/line.png";
 
   static const List<String> allImages = [
     iroid_logo,

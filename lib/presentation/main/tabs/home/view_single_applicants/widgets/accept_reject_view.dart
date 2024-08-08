@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/common_card_dialog.dart';
 
 class AcceptRejectView extends StatelessWidget {
   const AcceptRejectView({super.key});
@@ -13,7 +14,16 @@ class AcceptRejectView extends StatelessWidget {
       children: [
         Expanded(
           child: CommonButton(
-            onPressed: () {},
+            onPressed: () {
+              CommonCardDialog(
+                title: 'Accept',
+                description: 'Are you sure you want to accept this applicant?',
+                buttonText: 'Accept',
+                onPressed: () {},
+                image: 'assets/svg/accept.svg',
+              ).addCardDialog(context);
+              //   AddCardDialog().addCardDialog(context);
+            },
             buttonText: 'Accept',
             buttonFontSize: 12,
             borderRadius: 10,

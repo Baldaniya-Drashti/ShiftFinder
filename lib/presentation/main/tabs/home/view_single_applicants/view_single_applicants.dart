@@ -149,7 +149,7 @@ class ViewSingleApplicants extends StatelessWidget {
                 text: '4517 Washington Manchester, Kentucky 39495',
                 fontSize: 10,
                 fontWeight: FontWeight.w500,
-              )
+              ),
             ],
           ),
         ],
