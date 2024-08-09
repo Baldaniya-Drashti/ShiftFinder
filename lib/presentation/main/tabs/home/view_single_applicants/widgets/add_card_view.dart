@@ -14,6 +14,7 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_card_number_formatter.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
+import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/common_card_dialog.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'AddCardView')
@@ -154,8 +155,19 @@ class AddCardView extends StatelessWidget {
                 ),
                 child: CommonButton(
                   onPressed: () {
-                    context.read<ViewSingleApplicantsBloc>().add(
-                        ViewSingleApplicantsEvent.saveButtonPressed(context));
+                    CommonCardDialog(
+                      title: 'Awaiting Confirmation',
+                      description:
+                          'Application accepted, Contractor\nnotified for Confirmation.',
+                      buttonText: 'Ok',
+                      onPressed: () {
+                        context.router.maybePop();
+                        // context.router.push(PageRouteInfo(AddCardView.name));
+                      },
+                      image: SvgImageConstant.awaitingConfirmation,
+                    ).addCardDialog(context);
+                    // context.read<ViewSingleApplicantsBloc>().add(
+                    //     ViewSingleApplicantsEvent.saveButtonPressed(context));
                   },
                   buttonText: 'Add Your Card',
                   isSubmitting: state.isSubmitting,

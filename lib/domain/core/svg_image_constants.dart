@@ -78,4 +78,9 @@ class SvgImageConstant {
   static const clockWithOuterLine = "assets/svg/clock_with_outer_line.svg";
   static const cardImage = "assets/svg/card_detail.svg";
   static const expDate = "assets/svg/exp_date.svg";
+  static const awaitingConfirmation = "assets/svg/awaiting_confirmation.svg";
+  static const briefcase = "assets/svg/briefcase.svg";
+  static const organization = "assets/svg/organization.svg";
+  static const call = "assets/svg/call.svg";
+  static const unitDepartment = "assets/svg/unit_department.svg";
 }
