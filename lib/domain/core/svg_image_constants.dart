@@ -76,4 +76,5 @@ class SvgImageConstant {
   static const mouse = "assets/svg/mouse.svg";
   static const clockWithBag = "assets/svg/clock_with_bag.svg";
   static const clockWithOuterLine = "assets/svg/clock_with_outer_line.svg";
+  static const threePersonWithPlus = "assets/svg/three_person_with_plus.svg";
 }

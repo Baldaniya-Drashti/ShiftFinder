@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 part of 'post_shift_bloc.dart';
 
 @freezed
@@ -29,6 +31,21 @@ class PostShiftState with _$PostShiftState {
     required bool singleShiftErrorMessages,
     required Option<Either<AuthFailure, String>>
         singleShiftFailureOrSuccessOption,
+
+    /// For recurring,sahre with teams, save as template
+    required bool isToBeRecurring,
+    required bool isShareWithTeams,
+    required bool isSaveAsTemplate,
+    required String disclaimerNote,
+    required InputEmptyOrNot recurringStartDate,
+    required InputEmptyOrNot recurringEndDate,
+    required ListInputEmptyOrNot<SkillDTO> recurrenceWeekList,
+    required ListInputEmptyOrNot<SkillDTO> selectedTeamList,
+    required InputEmptyOrNot recurrenceMode,
+    required bool isNeverEndDate,
+    required bool recurringErrorMessage,
+    required Option<Either<AuthFailure, String>>
+        recurringFailureOrSuccessOption,
   }) = _PostShiftState;
 
   factory PostShiftState.initial() => PostShiftState(
@@ -58,5 +75,20 @@ class PostShiftState with _$PostShiftState {
         isMoreVacancy: false,
         singleShiftErrorMessages: false,
         singleShiftFailureOrSuccessOption: none(),
+
+        /// For recurring,share with teams, save as template
+        isSaveAsTemplate: false,
+        isShareWithTeams: false,
+        isToBeRecurring: false,
+        disclaimerNote: "",
+        recurringStartDate: InputEmptyOrNot(""),
+        recurringEndDate: InputEmptyOrNot(""),
+        recurrenceMode: InputEmptyOrNot(""),
+        recurrenceWeekList: ListInputEmptyOrNot([]),
+        selectedTeamList: ListInputEmptyOrNot([]),
+        isNeverEndDate: false,
+
+        recurringErrorMessage: false,
+        recurringFailureOrSuccessOption: none(),
       );
 }

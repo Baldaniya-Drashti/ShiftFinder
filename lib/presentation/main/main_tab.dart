@@ -83,10 +83,13 @@ class MainTabView extends StatelessWidget {
                 onPressed: () {
                   // context.router
                   //     .push(PageRouteInfo(autoroute.HealthCarePostForm.name));
-                  context.router.push(PageRouteInfo(
-                    autoroute.HealthcarePostShift.name,
-                    args: autoroute.HealthcarePostShiftArgs(postId: -1),
-                  ));
+                  // context.router.push(PageRouteInfo(
+                  //   autoroute.HealthcarePostShift.name,
+                  //   args: autoroute.HealthcarePostShiftArgs(postId: -1),
+                  // ));
+
+                  context.router
+                      .push(PageRouteInfo(autoroute.PostShiftRecurring.name));
                 },
                 backgroundColor: AppColors.primaryColor,
                 shape: CircleBorder(

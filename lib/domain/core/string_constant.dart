@@ -289,6 +289,26 @@ class StringConstant {
       "We are looking to fill more than one vacancies with the same requirements.";
   static const String numberOfVacancies = "Number of vacancies";
   static const String selectHours = "Select Hours";
+  static const String idLikeThisShiftToBeRecurring =
+      "I’d like this shift to be recurring";
+  static const String shareThisPostingWithTheTeam =
+      "Share this posting with the Team";
+  static const String saveThisAsATemplateForFuturePosting =
+      "Save this as a template for future posting";
+  static const String startDateForRecurrence = "Start Date For Recurrence";
+  static const String recurrenceMode = "Recurrence Mode";
+  static const String selectTheDaysForRecurring =
+      "Select The Days For Recurring";
+  static const String endDateForRecurrence = "End Date For Recurrence";
+  static const String never = "Never";
+  static const String selectTeams = "Select Teams";
+  static const String reviewDetails = "Review Details";
+  static const String payables = "Payables";
+  static const String totalWage = "Total Wage";
+  static const String totalAllowance = "Total Allowance";
+  static const String totalPayableForOneShift = "Total payable for one shift";
+  static const String totalAmountPayable = "Total Amount Payable";
+  static const String postTheShift = "Post The Shift";
 
   ///
 
@@ -427,4 +447,8 @@ class StringConstant {
       "Please add accomdation allowance value";
   static const String pleaseAddNumberOfVacancies =
       "Please add number of vacancies";
+  static const String pleaseSelectRecurrenceMode =
+      "Please select recurrence mode";
+  static const String pleaseSelectAtLeastOneTeam =
+      "Please select at least one team";
 }

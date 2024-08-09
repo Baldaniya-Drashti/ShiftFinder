@@ -46,4 +46,25 @@ class PostShiftEvent with _$PostShiftEvent {
       AddVacancyChanged;
 
   const factory PostShiftEvent.continueBtnPressed() = ContinueBtnPressed;
+
+  /// For recurring, template,share with teams
+  const factory PostShiftEvent.recurringCheck(bool isCheck) = RecurringCheck;
+  const factory PostShiftEvent.shareWithTeamsCheck(bool isCheck) =
+      ShareWithTeamsCheck;
+  const factory PostShiftEvent.saveAsTemplateCheck(bool isCheck) =
+      SaveAsTemplateCheck;
+  const factory PostShiftEvent.disclaimerChanged(String note) =
+      DisclaimerChanged;
+  const factory PostShiftEvent.recurringStartDateChanged(String selectedDate) =
+      RecurringStartDateChanged;
+  const factory PostShiftEvent.recurrenceModeChanged(String mode) =
+      RecurrenceModeChanged;
+  const factory PostShiftEvent.recurrenceWeeksChanged(SkillDTO day) =
+      RecurrenceWeeksChanged;
+  const factory PostShiftEvent.recurringEndDateChanged(String selectedDate) =
+      RecurringEndDateChanged;
+  const factory PostShiftEvent.neverEndDateCheck(bool isCheck) =
+      NeverEndDateCheck;
+  const factory PostShiftEvent.selectTeamEvent(SkillDTO team) = SelectTeamEvent;
+  const factory PostShiftEvent.recurringButtonEvent() = RecurringButtonEvent;
 }

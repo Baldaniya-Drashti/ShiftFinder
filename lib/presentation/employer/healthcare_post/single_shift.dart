@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_brace_in_string_interps, avoid_print
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +11,9 @@ import 'package:shift/domain/core/document_expiry_picker.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -25,7 +28,26 @@ class SinglePostShift extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<PostShiftBloc, PostShiftState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        state.singleShiftFailureOrSuccessOption.fold(
+          () {},
+          (either) => either.fold(
+            (failure) {
+              showError(
+                message: failure.maybeMap(
+                  showAPIResponseMessage: (value) => value.message,
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
+                  orElse: () => "Server Error. Try again later.",
+                ),
+              ).show(context);
+            },
+            (r) {
+              context.router.push(const PageRouteInfo(PostShiftRecurring.name));
+            },
+          ),
+        );
+      },
       builder: (context, state) {
         return Form(
           autovalidateMode: (state.singleShiftErrorMessages)
@@ -75,7 +97,7 @@ class SinglePostShift extends StatelessWidget {
                 paddingBetweenFields(),
                 numberOfVacancy(context, state),
                 if (state.singleShiftErrorMessages &&
-                    (PostShiftBloc.isMoreVacancyValid(
+                    !(PostShiftBloc.isMoreVacancyValid(
                         isMoreVacancy: state.isMoreVacancy,
                         vacancyValue: state.selectedVacancy)))
                   commonErrorText(

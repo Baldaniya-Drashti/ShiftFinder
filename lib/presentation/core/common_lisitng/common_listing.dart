@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/common_list_dto.dart';
+import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
 
 class CommonList {
@@ -156,4 +159,14 @@ class CommonList {
 
   static List<String> minutesList = ['00 Min', '15 Min', '30 Min', '45 Min'];
   static List<String> commuteAllownceList = ['None', 'Flat Rate', 'Hours'];
+  static List<String> recurrenceModeList = ['Daily', 'Weekly'];
+  static List<SkillDTO> weekList = [
+    SkillDTO(id: 0, name: "Monday"),
+    SkillDTO(id: 1, name: "Tuesday"),
+    SkillDTO(id: 2, name: "Wednesday"),
+    SkillDTO(id: 3, name: "Thursday"),
+    SkillDTO(id: 4, name: "Friday"),
+    SkillDTO(id: 5, name: "Saturday"),
+    SkillDTO(id: 6, name: "Sunday"),
+  ];
 }

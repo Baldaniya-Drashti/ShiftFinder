@@ -10,14 +10,19 @@ class CustomChipSet extends StatelessWidget {
   Color? backgroundColor;
   double? spacing;
   double? runSpacing;
+  Widget? deleteIcon;
+  BoxConstraints? deleteIconBoxConstraints;
 
-  CustomChipSet(
-      {super.key,
-      required this.onDelete,
-      required this.chipList,
-      this.backgroundColor,
-      this.runSpacing,
-      this.spacing});
+  CustomChipSet({
+    super.key,
+    required this.onDelete,
+    required this.chipList,
+    this.backgroundColor,
+    this.runSpacing,
+    this.spacing,
+    this.deleteIcon,
+    this.deleteIconBoxConstraints,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +31,12 @@ class CustomChipSet extends StatelessWidget {
       runSpacing: getSize(runSpacing ?? 0),
       children: chipList.map((String option) {
         return Chip(
-          deleteIcon: Icon(
-            Icons.close,
-            size: getSize(18),
-          ),
+          deleteIconBoxConstraints: deleteIconBoxConstraints,
+          deleteIcon: deleteIcon ??
+              Icon(
+                Icons.close,
+                size: getSize(18),
+              ),
           backgroundColor: backgroundColor ?? AppColors.scaffoldColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),

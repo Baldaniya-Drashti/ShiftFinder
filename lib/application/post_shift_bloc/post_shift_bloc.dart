@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print
+// ignore_for_file: prefer_const_constructors, avoid_print, prefer_const_literals_to_create_immutables
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -68,22 +68,6 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             state.copyWith(
               shiftType: selectedSkillDTO.id ?? -1,
               isLoading: false,
-              singleShiftFailureOrSuccessOption: none(),
-            ),
-          );
-        },
-        addVacancyChanged: (e) {
-          emit(
-            state.copyWith(
-              selectedVacancy: InputEmptyOrNot(e.vacancy),
-              singleShiftFailureOrSuccessOption: none(),
-            ),
-          );
-        },
-        checkIsMoreVancancy: (e) {
-          emit(
-            state.copyWith(
-              isMoreVacancy: e.isMoreVacancy,
               singleShiftFailureOrSuccessOption: none(),
             ),
           );
@@ -236,7 +220,26 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             ),
           );
         },
+        addVacancyChanged: (e) {
+          emit(
+            state.copyWith(
+              selectedVacancy: InputEmptyOrNot(e.vacancy),
+              singleShiftFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        checkIsMoreVancancy: (e) {
+          emit(
+            state.copyWith(
+              isMoreVacancy: e.isMoreVacancy,
+              singleShiftFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+
         continueBtnPressed: (e) {
+          Either<AuthFailure, String>? failureOrSuccess;
+
           final isCommuteAllownceValid = isAllownceValid(
               selectedValue: state.selectedCommuteAllownce,
               hourValue: state.commuteHour,
@@ -251,7 +254,9 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           final isStartMinuteValid = state.startMinute.isValid();
           final isEndHourValid = state.endHour.isValid();
           final isEndMinuteValid = state.endMinute.isValid();
-          final isMoreVacancyValid = (state);
+          final isVacancyValid = isMoreVacancyValid(
+              isMoreVacancy: state.isMoreVacancy,
+              vacancyValue: state.selectedVacancy);
 
           if (isSingleDateValid &&
               isCommuteAllownceValid &&
@@ -261,8 +266,9 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               isEndHourValid &&
               isEndMinuteValid &&
               isUnpaidBreakValid &&
-              isMoreVacancyValid) {
+              isVacancyValid) {
             print("All details are valid!");
+            failureOrSuccess = right("Success");
           } else {
             print("Some details are invalid!");
           }
@@ -270,7 +276,122 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           emit(
             state.copyWith(
               singleShiftErrorMessages: true,
-              singleShiftFailureOrSuccessOption: none(),
+              singleShiftFailureOrSuccessOption: optionOf(failureOrSuccess),
+            ),
+          );
+        },
+
+        /// For recurring,share with teams, save as template
+        recurringCheck: (e) {
+          emit(
+            state.copyWith(
+              isToBeRecurring: e.isCheck,
+              recurringErrorMessage: false,
+              recurringFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        saveAsTemplateCheck: (e) {
+          emit(
+            state.copyWith(
+              isSaveAsTemplate: e.isCheck,
+              recurringErrorMessage: false,
+              recurringFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        shareWithTeamsCheck: (e) {
+          emit(
+            state.copyWith(
+              isShareWithTeams: e.isCheck,
+              selectedTeamList: ListInputEmptyOrNot([]),
+              recurringErrorMessage: false,
+              recurringFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        disclaimerChanged: (e) {
+          emit(
+            state.copyWith(
+              disclaimerNote: e.note,
+              recurringFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        recurringStartDateChanged: (e) {
+          emit(
+            state.copyWith(
+              recurringStartDate: InputEmptyOrNot(e.selectedDate),
+              recurringEndDate: InputEmptyOrNot(""),
+              recurringFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        recurrenceModeChanged: (e) {
+          emit(state.copyWith(
+            recurrenceMode: InputEmptyOrNot(e.mode),
+            recurrenceWeekList: ListInputEmptyOrNot([]),
+            singleShiftFailureOrSuccessOption: none(),
+          ));
+        },
+        recurrenceWeeksChanged: (e) {
+          List<SkillDTO> list = state.recurrenceWeekList.getValue();
+          bool isAlreadyInList = list.any((item) => item.id == e.day.id);
+          List<SkillDTO> updatedList;
+          if (isAlreadyInList) {
+            updatedList = list.where((item) => item.id != e.day.id).toList();
+          } else {
+            updatedList = List.from(list)..add(e.day);
+          }
+
+          emit(state.copyWith(
+            recurrenceWeekList: ListInputEmptyOrNot(updatedList),
+            singleShiftFailureOrSuccessOption: none(),
+          ));
+        },
+        neverEndDateCheck: (e) {
+          emit(state.copyWith(
+            isNeverEndDate: e.isCheck,
+            recurringFailureOrSuccessOption: none(),
+          ));
+        },
+        recurringEndDateChanged: (e) {
+          emit(
+            state.copyWith(
+              recurringEndDate: InputEmptyOrNot(e.selectedDate),
+              recurringFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        selectTeamEvent: (e) {
+          List<SkillDTO> list = state.selectedTeamList.getValue();
+          bool isAlreadyInList = list.any((item) => item.id == e.team.id);
+          List<SkillDTO> updatedList;
+          if (isAlreadyInList) {
+            updatedList = list.where((item) => item.id != e.team.id).toList();
+          } else {
+            updatedList = List.from(list)..add(e.team);
+          }
+
+          emit(state.copyWith(
+            selectedTeamList: ListInputEmptyOrNot(updatedList),
+            singleShiftFailureOrSuccessOption: none(),
+          ));
+        },
+        recurringButtonEvent: (e) {
+          Either<AuthFailure, String>? failureOrSuccess;
+          if (isRecurringValid(state) && isTeamsValid(state)) {
+            print("save as template---> ${state.isSaveAsTemplate}");
+            print("All details are valid!");
+            failureOrSuccess = right("Success");
+          } else {
+            print("Some details are invalid!");
+          }
+          print("recurringErrorMessage---> ${state.recurringErrorMessage}");
+          emit(
+            state.copyWith(
+              recurringErrorMessage: true,
+              recurringFailureOrSuccessOption: optionOf(failureOrSuccess),
             ),
           );
         },
@@ -318,5 +439,37 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
         );
       },
     );
+  }
+
+  bool isRecurringValid(
+    PostShiftState state,
+  ) {
+    if (state.isToBeRecurring &&
+        (state.recurringStartDate.isValid() &&
+            state.recurringEndDate.isValid() &&
+            state.recurrenceMode.isValid())) {
+      if (state.recurrenceMode.getValue() == "Weekly" &&
+          !state.recurrenceWeekList.isValid()) {
+        return false;
+      } else {
+        return true;
+      }
+    } else if (!state.isToBeRecurring) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool isTeamsValid(
+    PostShiftState state,
+  ) {
+    if (state.isShareWithTeams && (state.selectedTeamList.isValid())) {
+      return true;
+    } else if (!state.isShareWithTeams) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
