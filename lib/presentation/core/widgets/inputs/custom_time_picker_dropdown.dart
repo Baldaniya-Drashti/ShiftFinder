@@ -14,6 +14,7 @@ class CustomTimePickerDropdown extends StatelessWidget {
   String? minHintText;
   String? hourValue;
   String? minuteValue;
+  bool isLabelPadding;
   dynamic Function(String?)? minOnChanged;
   dynamic Function(String?)? hourOnChanged;
   List<DropdownMenuItem<String>>? hourItems;
@@ -29,6 +30,7 @@ class CustomTimePickerDropdown extends StatelessWidget {
     this.minItems,
     required this.hourOnChanged,
     required this.minOnChanged,
+    this.isLabelPadding = true,
   });
 
   @override
@@ -40,7 +42,7 @@ class CustomTimePickerDropdown extends StatelessWidget {
           child: CustomDropdwonWithTextField(
             labelText: labelText,
             hintText: hourHintText ?? StringConstant.hour,
-            isLabelPadding: true,
+            isLabelPadding: isLabelPadding,
             value: hourValue,
             showTextfield: false,
             showPrefixIcon: true,

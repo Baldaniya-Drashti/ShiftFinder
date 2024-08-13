@@ -115,8 +115,6 @@ class PostShiftRecurring extends StatelessWidget {
                                           .pleaseSelectRecurrenceMode),
                                     paddingBetweenFields(),
                                   ],
-                                  neverEndDateCheckBox(context, state),
-                                  paddingBetweenFields(),
                                   recurringEndDateField(context, state),
                                   paddingBetweenFields(),
                                 ],
@@ -479,71 +477,6 @@ class PostShiftRecurring extends StatelessWidget {
                 ),
               );
             }));
-  }
-
-  Widget neverEndDateCheckBox(
-    BuildContext context,
-    PostShiftState state,
-  ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: getSize(18), bottom: getSize(5)),
-          child: BaseText(
-            text: StringConstant.endDate,
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: getSize(20),
-            vertical: getSize(10),
-          ),
-          decoration: BoxDecoration(
-              color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: getSize(20),
-                width: getSize(16.67),
-                child: Checkbox(
-                  value: state.isNeverEndDate,
-                  activeColor: AppColors.primaryColor,
-                  side: BorderSide(
-                    width: getSize(1.5),
-                    color: AppColors.black.withOpacity(0.5),
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  onChanged: (value) {
-                    if (value != null) {
-                      context
-                          .read<PostShiftBloc>()
-                          .add(PostShiftEvent.neverEndDateCheck(value));
-                    }
-                  },
-                ),
-              ),
-              SizedBox(
-                width: getSize(15),
-              ),
-              Flexible(
-                child: BaseText(
-                  text: StringConstant.never,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
   }
 
   Widget recurringEndDateField(BuildContext context, PostShiftState state) {

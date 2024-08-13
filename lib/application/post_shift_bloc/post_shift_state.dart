@@ -42,10 +42,19 @@ class PostShiftState with _$PostShiftState {
     required ListInputEmptyOrNot<SkillDTO> recurrenceWeekList,
     required ListInputEmptyOrNot<SkillDTO> selectedTeamList,
     required InputEmptyOrNot recurrenceMode,
-    required bool isNeverEndDate,
     required bool recurringErrorMessage,
     required Option<Either<AuthFailure, String>>
         recurringFailureOrSuccessOption,
+
+    /// Multi shift
+    required bool isIndividualPost,
+    required int selectedMultiShiftType,
+    required ListInputEmptyOrNot<DateTime> selectedMultiDates,
+    required List<String> startHourList,
+    required List<String> startMinuteList,
+    required List<String> endHourList,
+    required List<String> endMinuteList,
+    required List<DateTimeDTO> multiDateTimeList,
   }) = _PostShiftState;
 
   factory PostShiftState.initial() => PostShiftState(
@@ -86,9 +95,17 @@ class PostShiftState with _$PostShiftState {
         recurrenceMode: InputEmptyOrNot(""),
         recurrenceWeekList: ListInputEmptyOrNot([]),
         selectedTeamList: ListInputEmptyOrNot([]),
-        isNeverEndDate: false,
-
         recurringErrorMessage: false,
         recurringFailureOrSuccessOption: none(),
+
+        /// Multi Shift
+        isIndividualPost: false,
+        selectedMultiShiftType: 1,
+        selectedMultiDates: ListInputEmptyOrNot([]),
+        startHourList: [],
+        startMinuteList: [],
+        endHourList: [],
+        endMinuteList: [],
+        multiDateTimeList: [],
       );
 }

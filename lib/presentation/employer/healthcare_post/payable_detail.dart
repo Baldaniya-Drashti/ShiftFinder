@@ -10,6 +10,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
@@ -75,7 +76,28 @@ class PayableDetail extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: getSize(20)),
                     child: CommonButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        AppDialog.showDelete(
+                          context,
+                          title: StringConstant.postTheShift,
+                          infoMessage: StringConstant.postShiftDesc,
+                          deleteBtnText: StringConstant.post,
+                          onCancelClick: () {
+                            Navigator.pop(context);
+                          },
+                          onDeleteClick: () {
+                            Navigator.pop(context);
+                            AppDialog.showSuccess(
+                              context,
+                              title: StringConstant.allSet,
+                              infoMessage: StringConstant.shiftSuccessDesc,
+                              onOkClick: () {
+                                context.router.maybePop();
+                              },
+                            );
+                          },
+                        );
+                      },
                       buttonText: StringConstant.postTheShift,
                     ),
                   ),

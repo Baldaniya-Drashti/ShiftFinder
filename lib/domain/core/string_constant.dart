@@ -309,6 +309,16 @@ class StringConstant {
   static const String totalPayableForOneShift = "Total payable for one shift";
   static const String totalAmountPayable = "Total Amount Payable";
   static const String postTheShift = "Post The Shift";
+  static const String postShiftDesc =
+      "Once posted, the shift date and time cannot be changed";
+  static const String post = "Post";
+  static const String allSet = "All Set!";
+  static const String shiftSuccessDesc =
+      "Your healthcare shift has been successfully posted, with a total of 5 vacancy.";
+  static const String postAsIndividualShifts = "Post as individual shifts";
+  static const String addTime = "Add Time";
+  static const String sameTimeForAllDates = "Same Time For All Dates";
+  static const String differentTimeForEachDate = "Different Time For Each Date";
 
   ///
 
@@ -451,4 +461,7 @@ class StringConstant {
       "Please select recurrence mode";
   static const String pleaseSelectAtLeastOneTeam =
       "Please select at least one team";
+
+  static const String pleaseSelectAtLeastOneDate =
+      "Please select at least one date";
 }

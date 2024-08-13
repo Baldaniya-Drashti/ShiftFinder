@@ -63,8 +63,29 @@ class PostShiftEvent with _$PostShiftEvent {
       RecurrenceWeeksChanged;
   const factory PostShiftEvent.recurringEndDateChanged(String selectedDate) =
       RecurringEndDateChanged;
-  const factory PostShiftEvent.neverEndDateCheck(bool isCheck) =
-      NeverEndDateCheck;
+
   const factory PostShiftEvent.selectTeamEvent(SkillDTO team) = SelectTeamEvent;
   const factory PostShiftEvent.recurringButtonEvent() = RecurringButtonEvent;
+
+  /// Multi Shift
+  const factory PostShiftEvent.checkIsIndividualPost(bool isIndividualPost) =
+      CheckIsIndividualPost;
+  const factory PostShiftEvent.multiDateSelectionChanged(
+      List<DateTime> selectedDates) = multiDateSelectionChanged;
+  const factory PostShiftEvent.multidateContinueButtonPressed() =
+      MultidateContinueButtonPressed;
+  const factory PostShiftEvent.multiDateSameDiffTypeChanged(int selectedType) =
+      MultiDateSameDiffTypeChanged;
+
+  const factory PostShiftEvent.startHourListChanged(
+      String hour, int index, String date) = StartHourListChanged;
+  const factory PostShiftEvent.startMinuteListChanged(
+      String minute, int index, String date) = StartMinuteListChanged;
+  const factory PostShiftEvent.endHourListChanged(
+      String hour, int index, String date) = EndHourListChanged;
+  const factory PostShiftEvent.endMinuteListChanged(
+      String minute, int index, String date) = EndMinuteListChanged;
+
+  const factory PostShiftEvent.initMultiDifferentDateEvent(
+      List<DateTimeDTO> list) = InitMultiDifferentDateEvent;
 }

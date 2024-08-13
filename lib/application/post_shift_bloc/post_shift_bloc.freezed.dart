@@ -45,9 +45,23 @@ mixin _$PostShiftEvent {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -79,9 +93,20 @@ mixin _$PostShiftEvent {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -113,9 +138,19 @@ mixin _$PostShiftEvent {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -159,9 +194,23 @@ mixin _$PostShiftEvent {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -196,9 +245,21 @@ mixin _$PostShiftEvent {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -233,9 +294,21 @@ mixin _$PostShiftEvent {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -352,9 +425,23 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return changeShiftType(shiftType);
   }
@@ -389,9 +476,20 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return changeShiftType?.call(shiftType);
   }
@@ -426,9 +524,19 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (changeShiftType != null) {
@@ -478,9 +586,23 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return changeShiftType(this);
   }
@@ -518,9 +640,21 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return changeShiftType?.call(this);
   }
@@ -558,9 +692,21 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (changeShiftType != null) {
@@ -647,9 +793,23 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return getBreakAllownceListApi();
   }
@@ -684,9 +844,20 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return getBreakAllownceListApi?.call();
   }
@@ -721,9 +892,19 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (getBreakAllownceListApi != null) {
@@ -773,9 +954,23 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return getBreakAllownceListApi(this);
   }
@@ -813,9 +1008,21 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return getBreakAllownceListApi?.call(this);
   }
@@ -853,9 +1060,21 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (getBreakAllownceListApi != null) {
@@ -965,9 +1184,23 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return singleShiftDateChangedEvent(selectedDate);
   }
@@ -1002,9 +1235,20 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return singleShiftDateChangedEvent?.call(selectedDate);
   }
@@ -1039,9 +1283,19 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (singleShiftDateChangedEvent != null) {
@@ -1091,9 +1345,23 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return singleShiftDateChangedEvent(this);
   }
@@ -1131,9 +1399,21 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return singleShiftDateChangedEvent?.call(this);
   }
@@ -1171,9 +1451,21 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (singleShiftDateChangedEvent != null) {
@@ -1285,9 +1577,23 @@ class _$StartHourChangedImpl implements StartHourChanged {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return startHourChanged(hour);
   }
@@ -1322,9 +1628,20 @@ class _$StartHourChangedImpl implements StartHourChanged {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return startHourChanged?.call(hour);
   }
@@ -1359,9 +1676,19 @@ class _$StartHourChangedImpl implements StartHourChanged {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (startHourChanged != null) {
@@ -1411,9 +1738,23 @@ class _$StartHourChangedImpl implements StartHourChanged {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return startHourChanged(this);
   }
@@ -1451,9 +1792,21 @@ class _$StartHourChangedImpl implements StartHourChanged {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return startHourChanged?.call(this);
   }
@@ -1491,9 +1844,21 @@ class _$StartHourChangedImpl implements StartHourChanged {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (startHourChanged != null) {
@@ -1604,9 +1969,23 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return startMinuteChanged(minute);
   }
@@ -1641,9 +2020,20 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return startMinuteChanged?.call(minute);
   }
@@ -1678,9 +2068,19 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (startMinuteChanged != null) {
@@ -1730,9 +2130,23 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return startMinuteChanged(this);
   }
@@ -1770,9 +2184,21 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return startMinuteChanged?.call(this);
   }
@@ -1810,9 +2236,21 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (startMinuteChanged != null) {
@@ -1924,9 +2362,23 @@ class _$EndHourChangedImpl implements EndHourChanged {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return endHourChanged(hour);
   }
@@ -1961,9 +2413,20 @@ class _$EndHourChangedImpl implements EndHourChanged {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return endHourChanged?.call(hour);
   }
@@ -1998,9 +2461,19 @@ class _$EndHourChangedImpl implements EndHourChanged {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (endHourChanged != null) {
@@ -2050,9 +2523,23 @@ class _$EndHourChangedImpl implements EndHourChanged {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return endHourChanged(this);
   }
@@ -2090,9 +2577,21 @@ class _$EndHourChangedImpl implements EndHourChanged {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return endHourChanged?.call(this);
   }
@@ -2130,9 +2629,21 @@ class _$EndHourChangedImpl implements EndHourChanged {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (endHourChanged != null) {
@@ -2243,9 +2754,23 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return endMinuteChanged(minute);
   }
@@ -2280,9 +2805,20 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return endMinuteChanged?.call(minute);
   }
@@ -2317,9 +2853,19 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (endMinuteChanged != null) {
@@ -2369,9 +2915,23 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return endMinuteChanged(this);
   }
@@ -2409,9 +2969,21 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return endMinuteChanged?.call(this);
   }
@@ -2449,9 +3021,21 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (endMinuteChanged != null) {
@@ -2563,9 +3147,23 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return unpaidBreakChanged(breakTime);
   }
@@ -2600,9 +3198,20 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return unpaidBreakChanged?.call(breakTime);
   }
@@ -2637,9 +3246,19 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (unpaidBreakChanged != null) {
@@ -2689,9 +3308,23 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return unpaidBreakChanged(this);
   }
@@ -2729,9 +3362,21 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return unpaidBreakChanged?.call(this);
   }
@@ -2769,9 +3414,21 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (unpaidBreakChanged != null) {
@@ -2859,9 +3516,23 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return totalPayableHoursChanged();
   }
@@ -2896,9 +3567,20 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return totalPayableHoursChanged?.call();
   }
@@ -2933,9 +3615,19 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (totalPayableHoursChanged != null) {
@@ -2985,9 +3677,23 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return totalPayableHoursChanged(this);
   }
@@ -3025,9 +3731,21 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return totalPayableHoursChanged?.call(this);
   }
@@ -3065,9 +3783,21 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (totalPayableHoursChanged != null) {
@@ -3176,9 +3906,23 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return commuteAllownceChanged(selectedValue);
   }
@@ -3213,9 +3957,20 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return commuteAllownceChanged?.call(selectedValue);
   }
@@ -3250,9 +4005,19 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (commuteAllownceChanged != null) {
@@ -3302,9 +4067,23 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return commuteAllownceChanged(this);
   }
@@ -3342,9 +4121,21 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return commuteAllownceChanged?.call(this);
   }
@@ -3382,9 +4173,21 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (commuteAllownceChanged != null) {
@@ -3497,9 +4300,23 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return commuteHoursChanged(selectedValue);
   }
@@ -3534,9 +4351,20 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return commuteHoursChanged?.call(selectedValue);
   }
@@ -3571,9 +4399,19 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (commuteHoursChanged != null) {
@@ -3623,9 +4461,23 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return commuteHoursChanged(this);
   }
@@ -3663,9 +4515,21 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return commuteHoursChanged?.call(this);
   }
@@ -3703,9 +4567,21 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (commuteHoursChanged != null) {
@@ -3818,9 +4694,23 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return commuteRateChanged(selectedValue);
   }
@@ -3855,9 +4745,20 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return commuteRateChanged?.call(selectedValue);
   }
@@ -3892,9 +4793,19 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (commuteRateChanged != null) {
@@ -3944,9 +4855,23 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return commuteRateChanged(this);
   }
@@ -3984,9 +4909,21 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return commuteRateChanged?.call(this);
   }
@@ -4024,9 +4961,21 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (commuteRateChanged != null) {
@@ -4141,9 +5090,23 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return accomdationAllownceChanged(selectedValue);
   }
@@ -4178,9 +5141,20 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return accomdationAllownceChanged?.call(selectedValue);
   }
@@ -4215,9 +5189,19 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (accomdationAllownceChanged != null) {
@@ -4267,9 +5251,23 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return accomdationAllownceChanged(this);
   }
@@ -4307,9 +5305,21 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return accomdationAllownceChanged?.call(this);
   }
@@ -4347,9 +5357,21 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (accomdationAllownceChanged != null) {
@@ -4464,9 +5486,23 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return accomdationHoursChanged(selectedValue);
   }
@@ -4501,9 +5537,20 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return accomdationHoursChanged?.call(selectedValue);
   }
@@ -4538,9 +5585,19 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (accomdationHoursChanged != null) {
@@ -4590,9 +5647,23 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return accomdationHoursChanged(this);
   }
@@ -4630,9 +5701,21 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return accomdationHoursChanged?.call(this);
   }
@@ -4670,9 +5753,21 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (accomdationHoursChanged != null) {
@@ -4787,9 +5882,23 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return accomdationRateChanged(selectedValue);
   }
@@ -4824,9 +5933,20 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return accomdationRateChanged?.call(selectedValue);
   }
@@ -4861,9 +5981,19 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (accomdationRateChanged != null) {
@@ -4913,9 +6043,23 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return accomdationRateChanged(this);
   }
@@ -4953,9 +6097,21 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return accomdationRateChanged?.call(this);
   }
@@ -4993,9 +6149,21 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (accomdationRateChanged != null) {
@@ -5107,9 +6275,23 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return singleShiftNotesChanged(note);
   }
@@ -5144,9 +6326,20 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return singleShiftNotesChanged?.call(note);
   }
@@ -5181,9 +6374,19 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (singleShiftNotesChanged != null) {
@@ -5233,9 +6436,23 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return singleShiftNotesChanged(this);
   }
@@ -5273,9 +6490,21 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return singleShiftNotesChanged?.call(this);
   }
@@ -5313,9 +6542,21 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (singleShiftNotesChanged != null) {
@@ -5427,9 +6668,23 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return checkIsMoreVancancy(isMoreVacancy);
   }
@@ -5464,9 +6719,20 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return checkIsMoreVancancy?.call(isMoreVacancy);
   }
@@ -5501,9 +6767,19 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (checkIsMoreVancancy != null) {
@@ -5553,9 +6829,23 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return checkIsMoreVancancy(this);
   }
@@ -5593,9 +6883,21 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return checkIsMoreVancancy?.call(this);
   }
@@ -5633,9 +6935,21 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (checkIsMoreVancancy != null) {
@@ -5747,9 +7061,23 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return addVacancyChanged(vacancy);
   }
@@ -5784,9 +7112,20 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return addVacancyChanged?.call(vacancy);
   }
@@ -5821,9 +7160,19 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (addVacancyChanged != null) {
@@ -5873,9 +7222,23 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return addVacancyChanged(this);
   }
@@ -5913,9 +7276,21 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return addVacancyChanged?.call(this);
   }
@@ -5953,9 +7328,21 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (addVacancyChanged != null) {
@@ -6040,9 +7427,23 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return continueBtnPressed();
   }
@@ -6077,9 +7478,20 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return continueBtnPressed?.call();
   }
@@ -6114,9 +7526,19 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (continueBtnPressed != null) {
@@ -6166,9 +7588,23 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return continueBtnPressed(this);
   }
@@ -6206,9 +7642,21 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return continueBtnPressed?.call(this);
   }
@@ -6246,9 +7694,21 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (continueBtnPressed != null) {
@@ -6354,9 +7814,23 @@ class _$RecurringCheckImpl implements RecurringCheck {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return recurringCheck(isCheck);
   }
@@ -6391,9 +7865,20 @@ class _$RecurringCheckImpl implements RecurringCheck {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return recurringCheck?.call(isCheck);
   }
@@ -6428,9 +7913,19 @@ class _$RecurringCheckImpl implements RecurringCheck {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (recurringCheck != null) {
@@ -6480,9 +7975,23 @@ class _$RecurringCheckImpl implements RecurringCheck {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return recurringCheck(this);
   }
@@ -6520,9 +8029,21 @@ class _$RecurringCheckImpl implements RecurringCheck {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return recurringCheck?.call(this);
   }
@@ -6560,9 +8081,21 @@ class _$RecurringCheckImpl implements RecurringCheck {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (recurringCheck != null) {
@@ -6673,9 +8206,23 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return shareWithTeamsCheck(isCheck);
   }
@@ -6710,9 +8257,20 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return shareWithTeamsCheck?.call(isCheck);
   }
@@ -6747,9 +8305,19 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (shareWithTeamsCheck != null) {
@@ -6799,9 +8367,23 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return shareWithTeamsCheck(this);
   }
@@ -6839,9 +8421,21 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return shareWithTeamsCheck?.call(this);
   }
@@ -6879,9 +8473,21 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (shareWithTeamsCheck != null) {
@@ -6993,9 +8599,23 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return saveAsTemplateCheck(isCheck);
   }
@@ -7030,9 +8650,20 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return saveAsTemplateCheck?.call(isCheck);
   }
@@ -7067,9 +8698,19 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (saveAsTemplateCheck != null) {
@@ -7119,9 +8760,23 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return saveAsTemplateCheck(this);
   }
@@ -7159,9 +8814,21 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return saveAsTemplateCheck?.call(this);
   }
@@ -7199,9 +8866,21 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (saveAsTemplateCheck != null) {
@@ -7313,9 +8992,23 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return disclaimerChanged(note);
   }
@@ -7350,9 +9043,20 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return disclaimerChanged?.call(note);
   }
@@ -7387,9 +9091,19 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (disclaimerChanged != null) {
@@ -7439,9 +9153,23 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return disclaimerChanged(this);
   }
@@ -7479,9 +9207,21 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return disclaimerChanged?.call(this);
   }
@@ -7519,9 +9259,21 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (disclaimerChanged != null) {
@@ -7635,9 +9387,23 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return recurringStartDateChanged(selectedDate);
   }
@@ -7672,9 +9438,20 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return recurringStartDateChanged?.call(selectedDate);
   }
@@ -7709,9 +9486,19 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (recurringStartDateChanged != null) {
@@ -7761,9 +9548,23 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return recurringStartDateChanged(this);
   }
@@ -7801,9 +9602,21 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return recurringStartDateChanged?.call(this);
   }
@@ -7841,9 +9654,21 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (recurringStartDateChanged != null) {
@@ -7956,9 +9781,23 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return recurrenceModeChanged(mode);
   }
@@ -7993,9 +9832,20 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return recurrenceModeChanged?.call(mode);
   }
@@ -8030,9 +9880,19 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (recurrenceModeChanged != null) {
@@ -8082,9 +9942,23 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return recurrenceModeChanged(this);
   }
@@ -8122,9 +9996,21 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return recurrenceModeChanged?.call(this);
   }
@@ -8162,9 +10048,21 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (recurrenceModeChanged != null) {
@@ -8288,9 +10186,23 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return recurrenceWeeksChanged(day);
   }
@@ -8325,9 +10237,20 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return recurrenceWeeksChanged?.call(day);
   }
@@ -8362,9 +10285,19 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (recurrenceWeeksChanged != null) {
@@ -8414,9 +10347,23 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return recurrenceWeeksChanged(this);
   }
@@ -8454,9 +10401,21 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return recurrenceWeeksChanged?.call(this);
   }
@@ -8494,9 +10453,21 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (recurrenceWeeksChanged != null) {
@@ -8611,9 +10582,23 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return recurringEndDateChanged(selectedDate);
   }
@@ -8648,9 +10633,20 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return recurringEndDateChanged?.call(selectedDate);
   }
@@ -8685,9 +10681,19 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (recurringEndDateChanged != null) {
@@ -8737,9 +10743,23 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return recurringEndDateChanged(this);
   }
@@ -8777,9 +10797,21 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return recurringEndDateChanged?.call(this);
   }
@@ -8817,9 +10849,21 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (recurringEndDateChanged != null) {
@@ -8837,325 +10881,6 @@ abstract class RecurringEndDateChanged implements PostShiftEvent {
   @JsonKey(ignore: true)
   _$$RecurringEndDateChangedImplCopyWith<_$RecurringEndDateChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$NeverEndDateCheckImplCopyWith<$Res> {
-  factory _$$NeverEndDateCheckImplCopyWith(_$NeverEndDateCheckImpl value,
-          $Res Function(_$NeverEndDateCheckImpl) then) =
-      __$$NeverEndDateCheckImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({bool isCheck});
-}
-
-/// @nodoc
-class __$$NeverEndDateCheckImplCopyWithImpl<$Res>
-    extends _$PostShiftEventCopyWithImpl<$Res, _$NeverEndDateCheckImpl>
-    implements _$$NeverEndDateCheckImplCopyWith<$Res> {
-  __$$NeverEndDateCheckImplCopyWithImpl(_$NeverEndDateCheckImpl _value,
-      $Res Function(_$NeverEndDateCheckImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isCheck = null,
-  }) {
-    return _then(_$NeverEndDateCheckImpl(
-      null == isCheck
-          ? _value.isCheck
-          : isCheck // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$NeverEndDateCheckImpl implements NeverEndDateCheck {
-  const _$NeverEndDateCheckImpl(this.isCheck);
-
-  @override
-  final bool isCheck;
-
-  @override
-  String toString() {
-    return 'PostShiftEvent.neverEndDateCheck(isCheck: $isCheck)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$NeverEndDateCheckImpl &&
-            (identical(other.isCheck, isCheck) || other.isCheck == isCheck));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, isCheck);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$NeverEndDateCheckImplCopyWith<_$NeverEndDateCheckImpl> get copyWith =>
-      __$$NeverEndDateCheckImplCopyWithImpl<_$NeverEndDateCheckImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType) changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
-    required TResult Function(String selectedDate) singleShiftDateChangedEvent,
-    required TResult Function(String hour) startHourChanged,
-    required TResult Function(String minute) startMinuteChanged,
-    required TResult Function(String hour) endHourChanged,
-    required TResult Function(String minute) endMinuteChanged,
-    required TResult Function(String breakTime) unpaidBreakChanged,
-    required TResult Function() totalPayableHoursChanged,
-    required TResult Function(String selectedValue) commuteAllownceChanged,
-    required TResult Function(String selectedValue) commuteHoursChanged,
-    required TResult Function(String selectedValue) commuteRateChanged,
-    required TResult Function(String selectedValue) accomdationAllownceChanged,
-    required TResult Function(String selectedValue) accomdationHoursChanged,
-    required TResult Function(String selectedValue) accomdationRateChanged,
-    required TResult Function(String note) singleShiftNotesChanged,
-    required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
-    required TResult Function(String vacancy) addVacancyChanged,
-    required TResult Function() continueBtnPressed,
-    required TResult Function(bool isCheck) recurringCheck,
-    required TResult Function(bool isCheck) shareWithTeamsCheck,
-    required TResult Function(bool isCheck) saveAsTemplateCheck,
-    required TResult Function(String note) disclaimerChanged,
-    required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
-    required TResult Function(SkillDTO day) recurrenceWeeksChanged,
-    required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
-    required TResult Function(SkillDTO team) selectTeamEvent,
-    required TResult Function() recurringButtonEvent,
-  }) {
-    return neverEndDateCheck(isCheck);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType)? changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
-    TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
-    TResult? Function(String hour)? startHourChanged,
-    TResult? Function(String minute)? startMinuteChanged,
-    TResult? Function(String hour)? endHourChanged,
-    TResult? Function(String minute)? endMinuteChanged,
-    TResult? Function(String breakTime)? unpaidBreakChanged,
-    TResult? Function()? totalPayableHoursChanged,
-    TResult? Function(String selectedValue)? commuteAllownceChanged,
-    TResult? Function(String selectedValue)? commuteHoursChanged,
-    TResult? Function(String selectedValue)? commuteRateChanged,
-    TResult? Function(String selectedValue)? accomdationAllownceChanged,
-    TResult? Function(String selectedValue)? accomdationHoursChanged,
-    TResult? Function(String selectedValue)? accomdationRateChanged,
-    TResult? Function(String note)? singleShiftNotesChanged,
-    TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
-    TResult? Function(String vacancy)? addVacancyChanged,
-    TResult? Function()? continueBtnPressed,
-    TResult? Function(bool isCheck)? recurringCheck,
-    TResult? Function(bool isCheck)? shareWithTeamsCheck,
-    TResult? Function(bool isCheck)? saveAsTemplateCheck,
-    TResult? Function(String note)? disclaimerChanged,
-    TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
-    TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
-    TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
-    TResult? Function(SkillDTO team)? selectTeamEvent,
-    TResult? Function()? recurringButtonEvent,
-  }) {
-    return neverEndDateCheck?.call(isCheck);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType)? changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
-    TResult Function(String selectedDate)? singleShiftDateChangedEvent,
-    TResult Function(String hour)? startHourChanged,
-    TResult Function(String minute)? startMinuteChanged,
-    TResult Function(String hour)? endHourChanged,
-    TResult Function(String minute)? endMinuteChanged,
-    TResult Function(String breakTime)? unpaidBreakChanged,
-    TResult Function()? totalPayableHoursChanged,
-    TResult Function(String selectedValue)? commuteAllownceChanged,
-    TResult Function(String selectedValue)? commuteHoursChanged,
-    TResult Function(String selectedValue)? commuteRateChanged,
-    TResult Function(String selectedValue)? accomdationAllownceChanged,
-    TResult Function(String selectedValue)? accomdationHoursChanged,
-    TResult Function(String selectedValue)? accomdationRateChanged,
-    TResult Function(String note)? singleShiftNotesChanged,
-    TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
-    TResult Function(String vacancy)? addVacancyChanged,
-    TResult Function()? continueBtnPressed,
-    TResult Function(bool isCheck)? recurringCheck,
-    TResult Function(bool isCheck)? shareWithTeamsCheck,
-    TResult Function(bool isCheck)? saveAsTemplateCheck,
-    TResult Function(String note)? disclaimerChanged,
-    TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
-    TResult Function(SkillDTO day)? recurrenceWeeksChanged,
-    TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
-    TResult Function(SkillDTO team)? selectTeamEvent,
-    TResult Function()? recurringButtonEvent,
-    required TResult orElse(),
-  }) {
-    if (neverEndDateCheck != null) {
-      return neverEndDateCheck(isCheck);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(ChangeShiftType value) changeShiftType,
-    required TResult Function(GetBreakAllownceListApi value)
-        getBreakAllownceListApi,
-    required TResult Function(SingleShiftDateChangedEvent value)
-        singleShiftDateChangedEvent,
-    required TResult Function(StartHourChanged value) startHourChanged,
-    required TResult Function(StartMinuteChanged value) startMinuteChanged,
-    required TResult Function(EndHourChanged value) endHourChanged,
-    required TResult Function(EndMinuteChanged value) endMinuteChanged,
-    required TResult Function(UnpaidBreakChanged value) unpaidBreakChanged,
-    required TResult Function(TotalPayableHoursChanged value)
-        totalPayableHoursChanged,
-    required TResult Function(CommuteAllownceChanged value)
-        commuteAllownceChanged,
-    required TResult Function(CommuteHoursChanged value) commuteHoursChanged,
-    required TResult Function(CommuteRateChanged value) commuteRateChanged,
-    required TResult Function(AccomdationAllownceChanged value)
-        accomdationAllownceChanged,
-    required TResult Function(AccomdationHoursChanged value)
-        accomdationHoursChanged,
-    required TResult Function(AccomdationRateChanged value)
-        accomdationRateChanged,
-    required TResult Function(SingleShiftNotes value) singleShiftNotesChanged,
-    required TResult Function(CheckIsMoreVancancy value) checkIsMoreVancancy,
-    required TResult Function(AddVacancyChanged value) addVacancyChanged,
-    required TResult Function(ContinueBtnPressed value) continueBtnPressed,
-    required TResult Function(RecurringCheck value) recurringCheck,
-    required TResult Function(ShareWithTeamsCheck value) shareWithTeamsCheck,
-    required TResult Function(SaveAsTemplateCheck value) saveAsTemplateCheck,
-    required TResult Function(DisclaimerChanged value) disclaimerChanged,
-    required TResult Function(RecurringStartDateChanged value)
-        recurringStartDateChanged,
-    required TResult Function(RecurrenceModeChanged value)
-        recurrenceModeChanged,
-    required TResult Function(RecurrenceWeeksChanged value)
-        recurrenceWeeksChanged,
-    required TResult Function(RecurringEndDateChanged value)
-        recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
-    required TResult Function(SelectTeamEvent value) selectTeamEvent,
-    required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
-  }) {
-    return neverEndDateCheck(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(ChangeShiftType value)? changeShiftType,
-    TResult? Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
-    TResult? Function(SingleShiftDateChangedEvent value)?
-        singleShiftDateChangedEvent,
-    TResult? Function(StartHourChanged value)? startHourChanged,
-    TResult? Function(StartMinuteChanged value)? startMinuteChanged,
-    TResult? Function(EndHourChanged value)? endHourChanged,
-    TResult? Function(EndMinuteChanged value)? endMinuteChanged,
-    TResult? Function(UnpaidBreakChanged value)? unpaidBreakChanged,
-    TResult? Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
-    TResult? Function(CommuteAllownceChanged value)? commuteAllownceChanged,
-    TResult? Function(CommuteHoursChanged value)? commuteHoursChanged,
-    TResult? Function(CommuteRateChanged value)? commuteRateChanged,
-    TResult? Function(AccomdationAllownceChanged value)?
-        accomdationAllownceChanged,
-    TResult? Function(AccomdationHoursChanged value)? accomdationHoursChanged,
-    TResult? Function(AccomdationRateChanged value)? accomdationRateChanged,
-    TResult? Function(SingleShiftNotes value)? singleShiftNotesChanged,
-    TResult? Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
-    TResult? Function(AddVacancyChanged value)? addVacancyChanged,
-    TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
-    TResult? Function(RecurringCheck value)? recurringCheck,
-    TResult? Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
-    TResult? Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
-    TResult? Function(DisclaimerChanged value)? disclaimerChanged,
-    TResult? Function(RecurringStartDateChanged value)?
-        recurringStartDateChanged,
-    TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
-    TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
-    TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
-    TResult? Function(SelectTeamEvent value)? selectTeamEvent,
-    TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
-  }) {
-    return neverEndDateCheck?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(ChangeShiftType value)? changeShiftType,
-    TResult Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
-    TResult Function(SingleShiftDateChangedEvent value)?
-        singleShiftDateChangedEvent,
-    TResult Function(StartHourChanged value)? startHourChanged,
-    TResult Function(StartMinuteChanged value)? startMinuteChanged,
-    TResult Function(EndHourChanged value)? endHourChanged,
-    TResult Function(EndMinuteChanged value)? endMinuteChanged,
-    TResult Function(UnpaidBreakChanged value)? unpaidBreakChanged,
-    TResult Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
-    TResult Function(CommuteAllownceChanged value)? commuteAllownceChanged,
-    TResult Function(CommuteHoursChanged value)? commuteHoursChanged,
-    TResult Function(CommuteRateChanged value)? commuteRateChanged,
-    TResult Function(AccomdationAllownceChanged value)?
-        accomdationAllownceChanged,
-    TResult Function(AccomdationHoursChanged value)? accomdationHoursChanged,
-    TResult Function(AccomdationRateChanged value)? accomdationRateChanged,
-    TResult Function(SingleShiftNotes value)? singleShiftNotesChanged,
-    TResult Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
-    TResult Function(AddVacancyChanged value)? addVacancyChanged,
-    TResult Function(ContinueBtnPressed value)? continueBtnPressed,
-    TResult Function(RecurringCheck value)? recurringCheck,
-    TResult Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
-    TResult Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
-    TResult Function(DisclaimerChanged value)? disclaimerChanged,
-    TResult Function(RecurringStartDateChanged value)?
-        recurringStartDateChanged,
-    TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
-    TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
-    TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
-    TResult Function(SelectTeamEvent value)? selectTeamEvent,
-    TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
-    required TResult orElse(),
-  }) {
-    if (neverEndDateCheck != null) {
-      return neverEndDateCheck(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class NeverEndDateCheck implements PostShiftEvent {
-  const factory NeverEndDateCheck(final bool isCheck) = _$NeverEndDateCheckImpl;
-
-  bool get isCheck;
-  @JsonKey(ignore: true)
-  _$$NeverEndDateCheckImplCopyWith<_$NeverEndDateCheckImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -9260,9 +10985,23 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return selectTeamEvent(team);
   }
@@ -9297,9 +11036,20 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return selectTeamEvent?.call(team);
   }
@@ -9334,9 +11084,19 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (selectTeamEvent != null) {
@@ -9386,9 +11146,23 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return selectTeamEvent(this);
   }
@@ -9426,9 +11200,21 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return selectTeamEvent?.call(this);
   }
@@ -9466,9 +11252,21 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (selectTeamEvent != null) {
@@ -9553,9 +11351,23 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     required TResult Function(String mode) recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
-    required TResult Function(bool isCheck) neverEndDateCheck,
     required TResult Function(SkillDTO team) selectTeamEvent,
     required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
   }) {
     return recurringButtonEvent();
   }
@@ -9590,9 +11402,20 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     TResult? Function(String mode)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
-    TResult? Function(bool isCheck)? neverEndDateCheck,
     TResult? Function(SkillDTO team)? selectTeamEvent,
     TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
   }) {
     return recurringButtonEvent?.call();
   }
@@ -9627,9 +11450,19 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     TResult Function(String mode)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
-    TResult Function(bool isCheck)? neverEndDateCheck,
     TResult Function(SkillDTO team)? selectTeamEvent,
     TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (recurringButtonEvent != null) {
@@ -9679,9 +11512,23 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
         recurrenceWeeksChanged,
     required TResult Function(RecurringEndDateChanged value)
         recurringEndDateChanged,
-    required TResult Function(NeverEndDateCheck value) neverEndDateCheck,
     required TResult Function(SelectTeamEvent value) selectTeamEvent,
     required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
   }) {
     return recurringButtonEvent(this);
   }
@@ -9719,9 +11566,21 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult? Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult? Function(SelectTeamEvent value)? selectTeamEvent,
     TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
   }) {
     return recurringButtonEvent?.call(this);
   }
@@ -9759,9 +11618,21 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
     TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
     TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
-    TResult Function(NeverEndDateCheck value)? neverEndDateCheck,
     TResult Function(SelectTeamEvent value)? selectTeamEvent,
     TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
     required TResult orElse(),
   }) {
     if (recurringButtonEvent != null) {
@@ -9773,6 +11644,3625 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
 
 abstract class RecurringButtonEvent implements PostShiftEvent {
   const factory RecurringButtonEvent() = _$RecurringButtonEventImpl;
+}
+
+/// @nodoc
+abstract class _$$CheckIsIndividualPostImplCopyWith<$Res> {
+  factory _$$CheckIsIndividualPostImplCopyWith(
+          _$CheckIsIndividualPostImpl value,
+          $Res Function(_$CheckIsIndividualPostImpl) then) =
+      __$$CheckIsIndividualPostImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isIndividualPost});
+}
+
+/// @nodoc
+class __$$CheckIsIndividualPostImplCopyWithImpl<$Res>
+    extends _$PostShiftEventCopyWithImpl<$Res, _$CheckIsIndividualPostImpl>
+    implements _$$CheckIsIndividualPostImplCopyWith<$Res> {
+  __$$CheckIsIndividualPostImplCopyWithImpl(_$CheckIsIndividualPostImpl _value,
+      $Res Function(_$CheckIsIndividualPostImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isIndividualPost = null,
+  }) {
+    return _then(_$CheckIsIndividualPostImpl(
+      null == isIndividualPost
+          ? _value.isIndividualPost
+          : isIndividualPost // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
+  const _$CheckIsIndividualPostImpl(this.isIndividualPost);
+
+  @override
+  final bool isIndividualPost;
+
+  @override
+  String toString() {
+    return 'PostShiftEvent.checkIsIndividualPost(isIndividualPost: $isIndividualPost)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CheckIsIndividualPostImpl &&
+            (identical(other.isIndividualPost, isIndividualPost) ||
+                other.isIndividualPost == isIndividualPost));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isIndividualPost);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CheckIsIndividualPostImplCopyWith<_$CheckIsIndividualPostImpl>
+      get copyWith => __$$CheckIsIndividualPostImplCopyWithImpl<
+          _$CheckIsIndividualPostImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String shiftType) changeShiftType,
+    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(String selectedDate) singleShiftDateChangedEvent,
+    required TResult Function(String hour) startHourChanged,
+    required TResult Function(String minute) startMinuteChanged,
+    required TResult Function(String hour) endHourChanged,
+    required TResult Function(String minute) endMinuteChanged,
+    required TResult Function(String breakTime) unpaidBreakChanged,
+    required TResult Function() totalPayableHoursChanged,
+    required TResult Function(String selectedValue) commuteAllownceChanged,
+    required TResult Function(String selectedValue) commuteHoursChanged,
+    required TResult Function(String selectedValue) commuteRateChanged,
+    required TResult Function(String selectedValue) accomdationAllownceChanged,
+    required TResult Function(String selectedValue) accomdationHoursChanged,
+    required TResult Function(String selectedValue) accomdationRateChanged,
+    required TResult Function(String note) singleShiftNotesChanged,
+    required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
+    required TResult Function(String vacancy) addVacancyChanged,
+    required TResult Function() continueBtnPressed,
+    required TResult Function(bool isCheck) recurringCheck,
+    required TResult Function(bool isCheck) shareWithTeamsCheck,
+    required TResult Function(bool isCheck) saveAsTemplateCheck,
+    required TResult Function(String note) disclaimerChanged,
+    required TResult Function(String selectedDate) recurringStartDateChanged,
+    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(SkillDTO day) recurrenceWeeksChanged,
+    required TResult Function(String selectedDate) recurringEndDateChanged,
+    required TResult Function(SkillDTO team) selectTeamEvent,
+    required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
+  }) {
+    return checkIsIndividualPost(isIndividualPost);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String shiftType)? changeShiftType,
+    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult? Function(String hour)? startHourChanged,
+    TResult? Function(String minute)? startMinuteChanged,
+    TResult? Function(String hour)? endHourChanged,
+    TResult? Function(String minute)? endMinuteChanged,
+    TResult? Function(String breakTime)? unpaidBreakChanged,
+    TResult? Function()? totalPayableHoursChanged,
+    TResult? Function(String selectedValue)? commuteAllownceChanged,
+    TResult? Function(String selectedValue)? commuteHoursChanged,
+    TResult? Function(String selectedValue)? commuteRateChanged,
+    TResult? Function(String selectedValue)? accomdationAllownceChanged,
+    TResult? Function(String selectedValue)? accomdationHoursChanged,
+    TResult? Function(String selectedValue)? accomdationRateChanged,
+    TResult? Function(String note)? singleShiftNotesChanged,
+    TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult? Function(String vacancy)? addVacancyChanged,
+    TResult? Function()? continueBtnPressed,
+    TResult? Function(bool isCheck)? recurringCheck,
+    TResult? Function(bool isCheck)? shareWithTeamsCheck,
+    TResult? Function(bool isCheck)? saveAsTemplateCheck,
+    TResult? Function(String note)? disclaimerChanged,
+    TResult? Function(String selectedDate)? recurringStartDateChanged,
+    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult? Function(String selectedDate)? recurringEndDateChanged,
+    TResult? Function(SkillDTO team)? selectTeamEvent,
+    TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+  }) {
+    return checkIsIndividualPost?.call(isIndividualPost);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String shiftType)? changeShiftType,
+    TResult Function()? getBreakAllownceListApi,
+    TResult Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult Function(String hour)? startHourChanged,
+    TResult Function(String minute)? startMinuteChanged,
+    TResult Function(String hour)? endHourChanged,
+    TResult Function(String minute)? endMinuteChanged,
+    TResult Function(String breakTime)? unpaidBreakChanged,
+    TResult Function()? totalPayableHoursChanged,
+    TResult Function(String selectedValue)? commuteAllownceChanged,
+    TResult Function(String selectedValue)? commuteHoursChanged,
+    TResult Function(String selectedValue)? commuteRateChanged,
+    TResult Function(String selectedValue)? accomdationAllownceChanged,
+    TResult Function(String selectedValue)? accomdationHoursChanged,
+    TResult Function(String selectedValue)? accomdationRateChanged,
+    TResult Function(String note)? singleShiftNotesChanged,
+    TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult Function(String vacancy)? addVacancyChanged,
+    TResult Function()? continueBtnPressed,
+    TResult Function(bool isCheck)? recurringCheck,
+    TResult Function(bool isCheck)? shareWithTeamsCheck,
+    TResult Function(bool isCheck)? saveAsTemplateCheck,
+    TResult Function(String note)? disclaimerChanged,
+    TResult Function(String selectedDate)? recurringStartDateChanged,
+    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult Function(String selectedDate)? recurringEndDateChanged,
+    TResult Function(SkillDTO team)? selectTeamEvent,
+    TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    required TResult orElse(),
+  }) {
+    if (checkIsIndividualPost != null) {
+      return checkIsIndividualPost(isIndividualPost);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChangeShiftType value) changeShiftType,
+    required TResult Function(GetBreakAllownceListApi value)
+        getBreakAllownceListApi,
+    required TResult Function(SingleShiftDateChangedEvent value)
+        singleShiftDateChangedEvent,
+    required TResult Function(StartHourChanged value) startHourChanged,
+    required TResult Function(StartMinuteChanged value) startMinuteChanged,
+    required TResult Function(EndHourChanged value) endHourChanged,
+    required TResult Function(EndMinuteChanged value) endMinuteChanged,
+    required TResult Function(UnpaidBreakChanged value) unpaidBreakChanged,
+    required TResult Function(TotalPayableHoursChanged value)
+        totalPayableHoursChanged,
+    required TResult Function(CommuteAllownceChanged value)
+        commuteAllownceChanged,
+    required TResult Function(CommuteHoursChanged value) commuteHoursChanged,
+    required TResult Function(CommuteRateChanged value) commuteRateChanged,
+    required TResult Function(AccomdationAllownceChanged value)
+        accomdationAllownceChanged,
+    required TResult Function(AccomdationHoursChanged value)
+        accomdationHoursChanged,
+    required TResult Function(AccomdationRateChanged value)
+        accomdationRateChanged,
+    required TResult Function(SingleShiftNotes value) singleShiftNotesChanged,
+    required TResult Function(CheckIsMoreVancancy value) checkIsMoreVancancy,
+    required TResult Function(AddVacancyChanged value) addVacancyChanged,
+    required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(RecurringCheck value) recurringCheck,
+    required TResult Function(ShareWithTeamsCheck value) shareWithTeamsCheck,
+    required TResult Function(SaveAsTemplateCheck value) saveAsTemplateCheck,
+    required TResult Function(DisclaimerChanged value) disclaimerChanged,
+    required TResult Function(RecurringStartDateChanged value)
+        recurringStartDateChanged,
+    required TResult Function(RecurrenceModeChanged value)
+        recurrenceModeChanged,
+    required TResult Function(RecurrenceWeeksChanged value)
+        recurrenceWeeksChanged,
+    required TResult Function(RecurringEndDateChanged value)
+        recurringEndDateChanged,
+    required TResult Function(SelectTeamEvent value) selectTeamEvent,
+    required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
+  }) {
+    return checkIsIndividualPost(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChangeShiftType value)? changeShiftType,
+    TResult? Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult? Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult? Function(StartHourChanged value)? startHourChanged,
+    TResult? Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult? Function(EndHourChanged value)? endHourChanged,
+    TResult? Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult? Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult? Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult? Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult? Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult? Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult? Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult? Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult? Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult? Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult? Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult? Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(RecurringCheck value)? recurringCheck,
+    TResult? Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult? Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult? Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult? Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult? Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+  }) {
+    return checkIsIndividualPost?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChangeShiftType value)? changeShiftType,
+    TResult Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult Function(StartHourChanged value)? startHourChanged,
+    TResult Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult Function(EndHourChanged value)? endHourChanged,
+    TResult Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(RecurringCheck value)? recurringCheck,
+    TResult Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+    required TResult orElse(),
+  }) {
+    if (checkIsIndividualPost != null) {
+      return checkIsIndividualPost(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CheckIsIndividualPost implements PostShiftEvent {
+  const factory CheckIsIndividualPost(final bool isIndividualPost) =
+      _$CheckIsIndividualPostImpl;
+
+  bool get isIndividualPost;
+  @JsonKey(ignore: true)
+  _$$CheckIsIndividualPostImplCopyWith<_$CheckIsIndividualPostImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$multiDateSelectionChangedImplCopyWith<$Res> {
+  factory _$$multiDateSelectionChangedImplCopyWith(
+          _$multiDateSelectionChangedImpl value,
+          $Res Function(_$multiDateSelectionChangedImpl) then) =
+      __$$multiDateSelectionChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<DateTime> selectedDates});
+}
+
+/// @nodoc
+class __$$multiDateSelectionChangedImplCopyWithImpl<$Res>
+    extends _$PostShiftEventCopyWithImpl<$Res, _$multiDateSelectionChangedImpl>
+    implements _$$multiDateSelectionChangedImplCopyWith<$Res> {
+  __$$multiDateSelectionChangedImplCopyWithImpl(
+      _$multiDateSelectionChangedImpl _value,
+      $Res Function(_$multiDateSelectionChangedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? selectedDates = null,
+  }) {
+    return _then(_$multiDateSelectionChangedImpl(
+      null == selectedDates
+          ? _value._selectedDates
+          : selectedDates // ignore: cast_nullable_to_non_nullable
+              as List<DateTime>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
+  const _$multiDateSelectionChangedImpl(final List<DateTime> selectedDates)
+      : _selectedDates = selectedDates;
+
+  final List<DateTime> _selectedDates;
+  @override
+  List<DateTime> get selectedDates {
+    if (_selectedDates is EqualUnmodifiableListView) return _selectedDates;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_selectedDates);
+  }
+
+  @override
+  String toString() {
+    return 'PostShiftEvent.multiDateSelectionChanged(selectedDates: $selectedDates)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$multiDateSelectionChangedImpl &&
+            const DeepCollectionEquality()
+                .equals(other._selectedDates, _selectedDates));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_selectedDates));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$multiDateSelectionChangedImplCopyWith<_$multiDateSelectionChangedImpl>
+      get copyWith => __$$multiDateSelectionChangedImplCopyWithImpl<
+          _$multiDateSelectionChangedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String shiftType) changeShiftType,
+    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(String selectedDate) singleShiftDateChangedEvent,
+    required TResult Function(String hour) startHourChanged,
+    required TResult Function(String minute) startMinuteChanged,
+    required TResult Function(String hour) endHourChanged,
+    required TResult Function(String minute) endMinuteChanged,
+    required TResult Function(String breakTime) unpaidBreakChanged,
+    required TResult Function() totalPayableHoursChanged,
+    required TResult Function(String selectedValue) commuteAllownceChanged,
+    required TResult Function(String selectedValue) commuteHoursChanged,
+    required TResult Function(String selectedValue) commuteRateChanged,
+    required TResult Function(String selectedValue) accomdationAllownceChanged,
+    required TResult Function(String selectedValue) accomdationHoursChanged,
+    required TResult Function(String selectedValue) accomdationRateChanged,
+    required TResult Function(String note) singleShiftNotesChanged,
+    required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
+    required TResult Function(String vacancy) addVacancyChanged,
+    required TResult Function() continueBtnPressed,
+    required TResult Function(bool isCheck) recurringCheck,
+    required TResult Function(bool isCheck) shareWithTeamsCheck,
+    required TResult Function(bool isCheck) saveAsTemplateCheck,
+    required TResult Function(String note) disclaimerChanged,
+    required TResult Function(String selectedDate) recurringStartDateChanged,
+    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(SkillDTO day) recurrenceWeeksChanged,
+    required TResult Function(String selectedDate) recurringEndDateChanged,
+    required TResult Function(SkillDTO team) selectTeamEvent,
+    required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
+  }) {
+    return multiDateSelectionChanged(selectedDates);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String shiftType)? changeShiftType,
+    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult? Function(String hour)? startHourChanged,
+    TResult? Function(String minute)? startMinuteChanged,
+    TResult? Function(String hour)? endHourChanged,
+    TResult? Function(String minute)? endMinuteChanged,
+    TResult? Function(String breakTime)? unpaidBreakChanged,
+    TResult? Function()? totalPayableHoursChanged,
+    TResult? Function(String selectedValue)? commuteAllownceChanged,
+    TResult? Function(String selectedValue)? commuteHoursChanged,
+    TResult? Function(String selectedValue)? commuteRateChanged,
+    TResult? Function(String selectedValue)? accomdationAllownceChanged,
+    TResult? Function(String selectedValue)? accomdationHoursChanged,
+    TResult? Function(String selectedValue)? accomdationRateChanged,
+    TResult? Function(String note)? singleShiftNotesChanged,
+    TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult? Function(String vacancy)? addVacancyChanged,
+    TResult? Function()? continueBtnPressed,
+    TResult? Function(bool isCheck)? recurringCheck,
+    TResult? Function(bool isCheck)? shareWithTeamsCheck,
+    TResult? Function(bool isCheck)? saveAsTemplateCheck,
+    TResult? Function(String note)? disclaimerChanged,
+    TResult? Function(String selectedDate)? recurringStartDateChanged,
+    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult? Function(String selectedDate)? recurringEndDateChanged,
+    TResult? Function(SkillDTO team)? selectTeamEvent,
+    TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+  }) {
+    return multiDateSelectionChanged?.call(selectedDates);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String shiftType)? changeShiftType,
+    TResult Function()? getBreakAllownceListApi,
+    TResult Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult Function(String hour)? startHourChanged,
+    TResult Function(String minute)? startMinuteChanged,
+    TResult Function(String hour)? endHourChanged,
+    TResult Function(String minute)? endMinuteChanged,
+    TResult Function(String breakTime)? unpaidBreakChanged,
+    TResult Function()? totalPayableHoursChanged,
+    TResult Function(String selectedValue)? commuteAllownceChanged,
+    TResult Function(String selectedValue)? commuteHoursChanged,
+    TResult Function(String selectedValue)? commuteRateChanged,
+    TResult Function(String selectedValue)? accomdationAllownceChanged,
+    TResult Function(String selectedValue)? accomdationHoursChanged,
+    TResult Function(String selectedValue)? accomdationRateChanged,
+    TResult Function(String note)? singleShiftNotesChanged,
+    TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult Function(String vacancy)? addVacancyChanged,
+    TResult Function()? continueBtnPressed,
+    TResult Function(bool isCheck)? recurringCheck,
+    TResult Function(bool isCheck)? shareWithTeamsCheck,
+    TResult Function(bool isCheck)? saveAsTemplateCheck,
+    TResult Function(String note)? disclaimerChanged,
+    TResult Function(String selectedDate)? recurringStartDateChanged,
+    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult Function(String selectedDate)? recurringEndDateChanged,
+    TResult Function(SkillDTO team)? selectTeamEvent,
+    TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    required TResult orElse(),
+  }) {
+    if (multiDateSelectionChanged != null) {
+      return multiDateSelectionChanged(selectedDates);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChangeShiftType value) changeShiftType,
+    required TResult Function(GetBreakAllownceListApi value)
+        getBreakAllownceListApi,
+    required TResult Function(SingleShiftDateChangedEvent value)
+        singleShiftDateChangedEvent,
+    required TResult Function(StartHourChanged value) startHourChanged,
+    required TResult Function(StartMinuteChanged value) startMinuteChanged,
+    required TResult Function(EndHourChanged value) endHourChanged,
+    required TResult Function(EndMinuteChanged value) endMinuteChanged,
+    required TResult Function(UnpaidBreakChanged value) unpaidBreakChanged,
+    required TResult Function(TotalPayableHoursChanged value)
+        totalPayableHoursChanged,
+    required TResult Function(CommuteAllownceChanged value)
+        commuteAllownceChanged,
+    required TResult Function(CommuteHoursChanged value) commuteHoursChanged,
+    required TResult Function(CommuteRateChanged value) commuteRateChanged,
+    required TResult Function(AccomdationAllownceChanged value)
+        accomdationAllownceChanged,
+    required TResult Function(AccomdationHoursChanged value)
+        accomdationHoursChanged,
+    required TResult Function(AccomdationRateChanged value)
+        accomdationRateChanged,
+    required TResult Function(SingleShiftNotes value) singleShiftNotesChanged,
+    required TResult Function(CheckIsMoreVancancy value) checkIsMoreVancancy,
+    required TResult Function(AddVacancyChanged value) addVacancyChanged,
+    required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(RecurringCheck value) recurringCheck,
+    required TResult Function(ShareWithTeamsCheck value) shareWithTeamsCheck,
+    required TResult Function(SaveAsTemplateCheck value) saveAsTemplateCheck,
+    required TResult Function(DisclaimerChanged value) disclaimerChanged,
+    required TResult Function(RecurringStartDateChanged value)
+        recurringStartDateChanged,
+    required TResult Function(RecurrenceModeChanged value)
+        recurrenceModeChanged,
+    required TResult Function(RecurrenceWeeksChanged value)
+        recurrenceWeeksChanged,
+    required TResult Function(RecurringEndDateChanged value)
+        recurringEndDateChanged,
+    required TResult Function(SelectTeamEvent value) selectTeamEvent,
+    required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
+  }) {
+    return multiDateSelectionChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChangeShiftType value)? changeShiftType,
+    TResult? Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult? Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult? Function(StartHourChanged value)? startHourChanged,
+    TResult? Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult? Function(EndHourChanged value)? endHourChanged,
+    TResult? Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult? Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult? Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult? Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult? Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult? Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult? Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult? Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult? Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult? Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult? Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult? Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(RecurringCheck value)? recurringCheck,
+    TResult? Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult? Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult? Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult? Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult? Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+  }) {
+    return multiDateSelectionChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChangeShiftType value)? changeShiftType,
+    TResult Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult Function(StartHourChanged value)? startHourChanged,
+    TResult Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult Function(EndHourChanged value)? endHourChanged,
+    TResult Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(RecurringCheck value)? recurringCheck,
+    TResult Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+    required TResult orElse(),
+  }) {
+    if (multiDateSelectionChanged != null) {
+      return multiDateSelectionChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class multiDateSelectionChanged implements PostShiftEvent {
+  const factory multiDateSelectionChanged(final List<DateTime> selectedDates) =
+      _$multiDateSelectionChangedImpl;
+
+  List<DateTime> get selectedDates;
+  @JsonKey(ignore: true)
+  _$$multiDateSelectionChangedImplCopyWith<_$multiDateSelectionChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$MultidateContinueButtonPressedImplCopyWith<$Res> {
+  factory _$$MultidateContinueButtonPressedImplCopyWith(
+          _$MultidateContinueButtonPressedImpl value,
+          $Res Function(_$MultidateContinueButtonPressedImpl) then) =
+      __$$MultidateContinueButtonPressedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$MultidateContinueButtonPressedImplCopyWithImpl<$Res>
+    extends _$PostShiftEventCopyWithImpl<$Res,
+        _$MultidateContinueButtonPressedImpl>
+    implements _$$MultidateContinueButtonPressedImplCopyWith<$Res> {
+  __$$MultidateContinueButtonPressedImplCopyWithImpl(
+      _$MultidateContinueButtonPressedImpl _value,
+      $Res Function(_$MultidateContinueButtonPressedImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$MultidateContinueButtonPressedImpl
+    implements MultidateContinueButtonPressed {
+  const _$MultidateContinueButtonPressedImpl();
+
+  @override
+  String toString() {
+    return 'PostShiftEvent.multidateContinueButtonPressed()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MultidateContinueButtonPressedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String shiftType) changeShiftType,
+    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(String selectedDate) singleShiftDateChangedEvent,
+    required TResult Function(String hour) startHourChanged,
+    required TResult Function(String minute) startMinuteChanged,
+    required TResult Function(String hour) endHourChanged,
+    required TResult Function(String minute) endMinuteChanged,
+    required TResult Function(String breakTime) unpaidBreakChanged,
+    required TResult Function() totalPayableHoursChanged,
+    required TResult Function(String selectedValue) commuteAllownceChanged,
+    required TResult Function(String selectedValue) commuteHoursChanged,
+    required TResult Function(String selectedValue) commuteRateChanged,
+    required TResult Function(String selectedValue) accomdationAllownceChanged,
+    required TResult Function(String selectedValue) accomdationHoursChanged,
+    required TResult Function(String selectedValue) accomdationRateChanged,
+    required TResult Function(String note) singleShiftNotesChanged,
+    required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
+    required TResult Function(String vacancy) addVacancyChanged,
+    required TResult Function() continueBtnPressed,
+    required TResult Function(bool isCheck) recurringCheck,
+    required TResult Function(bool isCheck) shareWithTeamsCheck,
+    required TResult Function(bool isCheck) saveAsTemplateCheck,
+    required TResult Function(String note) disclaimerChanged,
+    required TResult Function(String selectedDate) recurringStartDateChanged,
+    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(SkillDTO day) recurrenceWeeksChanged,
+    required TResult Function(String selectedDate) recurringEndDateChanged,
+    required TResult Function(SkillDTO team) selectTeamEvent,
+    required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
+  }) {
+    return multidateContinueButtonPressed();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String shiftType)? changeShiftType,
+    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult? Function(String hour)? startHourChanged,
+    TResult? Function(String minute)? startMinuteChanged,
+    TResult? Function(String hour)? endHourChanged,
+    TResult? Function(String minute)? endMinuteChanged,
+    TResult? Function(String breakTime)? unpaidBreakChanged,
+    TResult? Function()? totalPayableHoursChanged,
+    TResult? Function(String selectedValue)? commuteAllownceChanged,
+    TResult? Function(String selectedValue)? commuteHoursChanged,
+    TResult? Function(String selectedValue)? commuteRateChanged,
+    TResult? Function(String selectedValue)? accomdationAllownceChanged,
+    TResult? Function(String selectedValue)? accomdationHoursChanged,
+    TResult? Function(String selectedValue)? accomdationRateChanged,
+    TResult? Function(String note)? singleShiftNotesChanged,
+    TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult? Function(String vacancy)? addVacancyChanged,
+    TResult? Function()? continueBtnPressed,
+    TResult? Function(bool isCheck)? recurringCheck,
+    TResult? Function(bool isCheck)? shareWithTeamsCheck,
+    TResult? Function(bool isCheck)? saveAsTemplateCheck,
+    TResult? Function(String note)? disclaimerChanged,
+    TResult? Function(String selectedDate)? recurringStartDateChanged,
+    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult? Function(String selectedDate)? recurringEndDateChanged,
+    TResult? Function(SkillDTO team)? selectTeamEvent,
+    TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+  }) {
+    return multidateContinueButtonPressed?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String shiftType)? changeShiftType,
+    TResult Function()? getBreakAllownceListApi,
+    TResult Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult Function(String hour)? startHourChanged,
+    TResult Function(String minute)? startMinuteChanged,
+    TResult Function(String hour)? endHourChanged,
+    TResult Function(String minute)? endMinuteChanged,
+    TResult Function(String breakTime)? unpaidBreakChanged,
+    TResult Function()? totalPayableHoursChanged,
+    TResult Function(String selectedValue)? commuteAllownceChanged,
+    TResult Function(String selectedValue)? commuteHoursChanged,
+    TResult Function(String selectedValue)? commuteRateChanged,
+    TResult Function(String selectedValue)? accomdationAllownceChanged,
+    TResult Function(String selectedValue)? accomdationHoursChanged,
+    TResult Function(String selectedValue)? accomdationRateChanged,
+    TResult Function(String note)? singleShiftNotesChanged,
+    TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult Function(String vacancy)? addVacancyChanged,
+    TResult Function()? continueBtnPressed,
+    TResult Function(bool isCheck)? recurringCheck,
+    TResult Function(bool isCheck)? shareWithTeamsCheck,
+    TResult Function(bool isCheck)? saveAsTemplateCheck,
+    TResult Function(String note)? disclaimerChanged,
+    TResult Function(String selectedDate)? recurringStartDateChanged,
+    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult Function(String selectedDate)? recurringEndDateChanged,
+    TResult Function(SkillDTO team)? selectTeamEvent,
+    TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    required TResult orElse(),
+  }) {
+    if (multidateContinueButtonPressed != null) {
+      return multidateContinueButtonPressed();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChangeShiftType value) changeShiftType,
+    required TResult Function(GetBreakAllownceListApi value)
+        getBreakAllownceListApi,
+    required TResult Function(SingleShiftDateChangedEvent value)
+        singleShiftDateChangedEvent,
+    required TResult Function(StartHourChanged value) startHourChanged,
+    required TResult Function(StartMinuteChanged value) startMinuteChanged,
+    required TResult Function(EndHourChanged value) endHourChanged,
+    required TResult Function(EndMinuteChanged value) endMinuteChanged,
+    required TResult Function(UnpaidBreakChanged value) unpaidBreakChanged,
+    required TResult Function(TotalPayableHoursChanged value)
+        totalPayableHoursChanged,
+    required TResult Function(CommuteAllownceChanged value)
+        commuteAllownceChanged,
+    required TResult Function(CommuteHoursChanged value) commuteHoursChanged,
+    required TResult Function(CommuteRateChanged value) commuteRateChanged,
+    required TResult Function(AccomdationAllownceChanged value)
+        accomdationAllownceChanged,
+    required TResult Function(AccomdationHoursChanged value)
+        accomdationHoursChanged,
+    required TResult Function(AccomdationRateChanged value)
+        accomdationRateChanged,
+    required TResult Function(SingleShiftNotes value) singleShiftNotesChanged,
+    required TResult Function(CheckIsMoreVancancy value) checkIsMoreVancancy,
+    required TResult Function(AddVacancyChanged value) addVacancyChanged,
+    required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(RecurringCheck value) recurringCheck,
+    required TResult Function(ShareWithTeamsCheck value) shareWithTeamsCheck,
+    required TResult Function(SaveAsTemplateCheck value) saveAsTemplateCheck,
+    required TResult Function(DisclaimerChanged value) disclaimerChanged,
+    required TResult Function(RecurringStartDateChanged value)
+        recurringStartDateChanged,
+    required TResult Function(RecurrenceModeChanged value)
+        recurrenceModeChanged,
+    required TResult Function(RecurrenceWeeksChanged value)
+        recurrenceWeeksChanged,
+    required TResult Function(RecurringEndDateChanged value)
+        recurringEndDateChanged,
+    required TResult Function(SelectTeamEvent value) selectTeamEvent,
+    required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
+  }) {
+    return multidateContinueButtonPressed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChangeShiftType value)? changeShiftType,
+    TResult? Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult? Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult? Function(StartHourChanged value)? startHourChanged,
+    TResult? Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult? Function(EndHourChanged value)? endHourChanged,
+    TResult? Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult? Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult? Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult? Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult? Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult? Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult? Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult? Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult? Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult? Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult? Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult? Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(RecurringCheck value)? recurringCheck,
+    TResult? Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult? Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult? Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult? Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult? Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+  }) {
+    return multidateContinueButtonPressed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChangeShiftType value)? changeShiftType,
+    TResult Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult Function(StartHourChanged value)? startHourChanged,
+    TResult Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult Function(EndHourChanged value)? endHourChanged,
+    TResult Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(RecurringCheck value)? recurringCheck,
+    TResult Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+    required TResult orElse(),
+  }) {
+    if (multidateContinueButtonPressed != null) {
+      return multidateContinueButtonPressed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class MultidateContinueButtonPressed implements PostShiftEvent {
+  const factory MultidateContinueButtonPressed() =
+      _$MultidateContinueButtonPressedImpl;
+}
+
+/// @nodoc
+abstract class _$$MultiDateSameDiffTypeChangedImplCopyWith<$Res> {
+  factory _$$MultiDateSameDiffTypeChangedImplCopyWith(
+          _$MultiDateSameDiffTypeChangedImpl value,
+          $Res Function(_$MultiDateSameDiffTypeChangedImpl) then) =
+      __$$MultiDateSameDiffTypeChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int selectedType});
+}
+
+/// @nodoc
+class __$$MultiDateSameDiffTypeChangedImplCopyWithImpl<$Res>
+    extends _$PostShiftEventCopyWithImpl<$Res,
+        _$MultiDateSameDiffTypeChangedImpl>
+    implements _$$MultiDateSameDiffTypeChangedImplCopyWith<$Res> {
+  __$$MultiDateSameDiffTypeChangedImplCopyWithImpl(
+      _$MultiDateSameDiffTypeChangedImpl _value,
+      $Res Function(_$MultiDateSameDiffTypeChangedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? selectedType = null,
+  }) {
+    return _then(_$MultiDateSameDiffTypeChangedImpl(
+      null == selectedType
+          ? _value.selectedType
+          : selectedType // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$MultiDateSameDiffTypeChangedImpl
+    implements MultiDateSameDiffTypeChanged {
+  const _$MultiDateSameDiffTypeChangedImpl(this.selectedType);
+
+  @override
+  final int selectedType;
+
+  @override
+  String toString() {
+    return 'PostShiftEvent.multiDateSameDiffTypeChanged(selectedType: $selectedType)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$MultiDateSameDiffTypeChangedImpl &&
+            (identical(other.selectedType, selectedType) ||
+                other.selectedType == selectedType));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, selectedType);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MultiDateSameDiffTypeChangedImplCopyWith<
+          _$MultiDateSameDiffTypeChangedImpl>
+      get copyWith => __$$MultiDateSameDiffTypeChangedImplCopyWithImpl<
+          _$MultiDateSameDiffTypeChangedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String shiftType) changeShiftType,
+    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(String selectedDate) singleShiftDateChangedEvent,
+    required TResult Function(String hour) startHourChanged,
+    required TResult Function(String minute) startMinuteChanged,
+    required TResult Function(String hour) endHourChanged,
+    required TResult Function(String minute) endMinuteChanged,
+    required TResult Function(String breakTime) unpaidBreakChanged,
+    required TResult Function() totalPayableHoursChanged,
+    required TResult Function(String selectedValue) commuteAllownceChanged,
+    required TResult Function(String selectedValue) commuteHoursChanged,
+    required TResult Function(String selectedValue) commuteRateChanged,
+    required TResult Function(String selectedValue) accomdationAllownceChanged,
+    required TResult Function(String selectedValue) accomdationHoursChanged,
+    required TResult Function(String selectedValue) accomdationRateChanged,
+    required TResult Function(String note) singleShiftNotesChanged,
+    required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
+    required TResult Function(String vacancy) addVacancyChanged,
+    required TResult Function() continueBtnPressed,
+    required TResult Function(bool isCheck) recurringCheck,
+    required TResult Function(bool isCheck) shareWithTeamsCheck,
+    required TResult Function(bool isCheck) saveAsTemplateCheck,
+    required TResult Function(String note) disclaimerChanged,
+    required TResult Function(String selectedDate) recurringStartDateChanged,
+    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(SkillDTO day) recurrenceWeeksChanged,
+    required TResult Function(String selectedDate) recurringEndDateChanged,
+    required TResult Function(SkillDTO team) selectTeamEvent,
+    required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
+  }) {
+    return multiDateSameDiffTypeChanged(selectedType);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String shiftType)? changeShiftType,
+    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult? Function(String hour)? startHourChanged,
+    TResult? Function(String minute)? startMinuteChanged,
+    TResult? Function(String hour)? endHourChanged,
+    TResult? Function(String minute)? endMinuteChanged,
+    TResult? Function(String breakTime)? unpaidBreakChanged,
+    TResult? Function()? totalPayableHoursChanged,
+    TResult? Function(String selectedValue)? commuteAllownceChanged,
+    TResult? Function(String selectedValue)? commuteHoursChanged,
+    TResult? Function(String selectedValue)? commuteRateChanged,
+    TResult? Function(String selectedValue)? accomdationAllownceChanged,
+    TResult? Function(String selectedValue)? accomdationHoursChanged,
+    TResult? Function(String selectedValue)? accomdationRateChanged,
+    TResult? Function(String note)? singleShiftNotesChanged,
+    TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult? Function(String vacancy)? addVacancyChanged,
+    TResult? Function()? continueBtnPressed,
+    TResult? Function(bool isCheck)? recurringCheck,
+    TResult? Function(bool isCheck)? shareWithTeamsCheck,
+    TResult? Function(bool isCheck)? saveAsTemplateCheck,
+    TResult? Function(String note)? disclaimerChanged,
+    TResult? Function(String selectedDate)? recurringStartDateChanged,
+    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult? Function(String selectedDate)? recurringEndDateChanged,
+    TResult? Function(SkillDTO team)? selectTeamEvent,
+    TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+  }) {
+    return multiDateSameDiffTypeChanged?.call(selectedType);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String shiftType)? changeShiftType,
+    TResult Function()? getBreakAllownceListApi,
+    TResult Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult Function(String hour)? startHourChanged,
+    TResult Function(String minute)? startMinuteChanged,
+    TResult Function(String hour)? endHourChanged,
+    TResult Function(String minute)? endMinuteChanged,
+    TResult Function(String breakTime)? unpaidBreakChanged,
+    TResult Function()? totalPayableHoursChanged,
+    TResult Function(String selectedValue)? commuteAllownceChanged,
+    TResult Function(String selectedValue)? commuteHoursChanged,
+    TResult Function(String selectedValue)? commuteRateChanged,
+    TResult Function(String selectedValue)? accomdationAllownceChanged,
+    TResult Function(String selectedValue)? accomdationHoursChanged,
+    TResult Function(String selectedValue)? accomdationRateChanged,
+    TResult Function(String note)? singleShiftNotesChanged,
+    TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult Function(String vacancy)? addVacancyChanged,
+    TResult Function()? continueBtnPressed,
+    TResult Function(bool isCheck)? recurringCheck,
+    TResult Function(bool isCheck)? shareWithTeamsCheck,
+    TResult Function(bool isCheck)? saveAsTemplateCheck,
+    TResult Function(String note)? disclaimerChanged,
+    TResult Function(String selectedDate)? recurringStartDateChanged,
+    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult Function(String selectedDate)? recurringEndDateChanged,
+    TResult Function(SkillDTO team)? selectTeamEvent,
+    TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    required TResult orElse(),
+  }) {
+    if (multiDateSameDiffTypeChanged != null) {
+      return multiDateSameDiffTypeChanged(selectedType);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChangeShiftType value) changeShiftType,
+    required TResult Function(GetBreakAllownceListApi value)
+        getBreakAllownceListApi,
+    required TResult Function(SingleShiftDateChangedEvent value)
+        singleShiftDateChangedEvent,
+    required TResult Function(StartHourChanged value) startHourChanged,
+    required TResult Function(StartMinuteChanged value) startMinuteChanged,
+    required TResult Function(EndHourChanged value) endHourChanged,
+    required TResult Function(EndMinuteChanged value) endMinuteChanged,
+    required TResult Function(UnpaidBreakChanged value) unpaidBreakChanged,
+    required TResult Function(TotalPayableHoursChanged value)
+        totalPayableHoursChanged,
+    required TResult Function(CommuteAllownceChanged value)
+        commuteAllownceChanged,
+    required TResult Function(CommuteHoursChanged value) commuteHoursChanged,
+    required TResult Function(CommuteRateChanged value) commuteRateChanged,
+    required TResult Function(AccomdationAllownceChanged value)
+        accomdationAllownceChanged,
+    required TResult Function(AccomdationHoursChanged value)
+        accomdationHoursChanged,
+    required TResult Function(AccomdationRateChanged value)
+        accomdationRateChanged,
+    required TResult Function(SingleShiftNotes value) singleShiftNotesChanged,
+    required TResult Function(CheckIsMoreVancancy value) checkIsMoreVancancy,
+    required TResult Function(AddVacancyChanged value) addVacancyChanged,
+    required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(RecurringCheck value) recurringCheck,
+    required TResult Function(ShareWithTeamsCheck value) shareWithTeamsCheck,
+    required TResult Function(SaveAsTemplateCheck value) saveAsTemplateCheck,
+    required TResult Function(DisclaimerChanged value) disclaimerChanged,
+    required TResult Function(RecurringStartDateChanged value)
+        recurringStartDateChanged,
+    required TResult Function(RecurrenceModeChanged value)
+        recurrenceModeChanged,
+    required TResult Function(RecurrenceWeeksChanged value)
+        recurrenceWeeksChanged,
+    required TResult Function(RecurringEndDateChanged value)
+        recurringEndDateChanged,
+    required TResult Function(SelectTeamEvent value) selectTeamEvent,
+    required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
+  }) {
+    return multiDateSameDiffTypeChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChangeShiftType value)? changeShiftType,
+    TResult? Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult? Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult? Function(StartHourChanged value)? startHourChanged,
+    TResult? Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult? Function(EndHourChanged value)? endHourChanged,
+    TResult? Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult? Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult? Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult? Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult? Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult? Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult? Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult? Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult? Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult? Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult? Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult? Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(RecurringCheck value)? recurringCheck,
+    TResult? Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult? Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult? Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult? Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult? Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+  }) {
+    return multiDateSameDiffTypeChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChangeShiftType value)? changeShiftType,
+    TResult Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult Function(StartHourChanged value)? startHourChanged,
+    TResult Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult Function(EndHourChanged value)? endHourChanged,
+    TResult Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(RecurringCheck value)? recurringCheck,
+    TResult Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+    required TResult orElse(),
+  }) {
+    if (multiDateSameDiffTypeChanged != null) {
+      return multiDateSameDiffTypeChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class MultiDateSameDiffTypeChanged implements PostShiftEvent {
+  const factory MultiDateSameDiffTypeChanged(final int selectedType) =
+      _$MultiDateSameDiffTypeChangedImpl;
+
+  int get selectedType;
+  @JsonKey(ignore: true)
+  _$$MultiDateSameDiffTypeChangedImplCopyWith<
+          _$MultiDateSameDiffTypeChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$StartHourListChangedImplCopyWith<$Res> {
+  factory _$$StartHourListChangedImplCopyWith(_$StartHourListChangedImpl value,
+          $Res Function(_$StartHourListChangedImpl) then) =
+      __$$StartHourListChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String hour, int index, String date});
+}
+
+/// @nodoc
+class __$$StartHourListChangedImplCopyWithImpl<$Res>
+    extends _$PostShiftEventCopyWithImpl<$Res, _$StartHourListChangedImpl>
+    implements _$$StartHourListChangedImplCopyWith<$Res> {
+  __$$StartHourListChangedImplCopyWithImpl(_$StartHourListChangedImpl _value,
+      $Res Function(_$StartHourListChangedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? hour = null,
+    Object? index = null,
+    Object? date = null,
+  }) {
+    return _then(_$StartHourListChangedImpl(
+      null == hour
+          ? _value.hour
+          : hour // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$StartHourListChangedImpl implements StartHourListChanged {
+  const _$StartHourListChangedImpl(this.hour, this.index, this.date);
+
+  @override
+  final String hour;
+  @override
+  final int index;
+  @override
+  final String date;
+
+  @override
+  String toString() {
+    return 'PostShiftEvent.startHourListChanged(hour: $hour, index: $index, date: $date)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$StartHourListChangedImpl &&
+            (identical(other.hour, hour) || other.hour == hour) &&
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.date, date) || other.date == date));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, hour, index, date);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$StartHourListChangedImplCopyWith<_$StartHourListChangedImpl>
+      get copyWith =>
+          __$$StartHourListChangedImplCopyWithImpl<_$StartHourListChangedImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String shiftType) changeShiftType,
+    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(String selectedDate) singleShiftDateChangedEvent,
+    required TResult Function(String hour) startHourChanged,
+    required TResult Function(String minute) startMinuteChanged,
+    required TResult Function(String hour) endHourChanged,
+    required TResult Function(String minute) endMinuteChanged,
+    required TResult Function(String breakTime) unpaidBreakChanged,
+    required TResult Function() totalPayableHoursChanged,
+    required TResult Function(String selectedValue) commuteAllownceChanged,
+    required TResult Function(String selectedValue) commuteHoursChanged,
+    required TResult Function(String selectedValue) commuteRateChanged,
+    required TResult Function(String selectedValue) accomdationAllownceChanged,
+    required TResult Function(String selectedValue) accomdationHoursChanged,
+    required TResult Function(String selectedValue) accomdationRateChanged,
+    required TResult Function(String note) singleShiftNotesChanged,
+    required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
+    required TResult Function(String vacancy) addVacancyChanged,
+    required TResult Function() continueBtnPressed,
+    required TResult Function(bool isCheck) recurringCheck,
+    required TResult Function(bool isCheck) shareWithTeamsCheck,
+    required TResult Function(bool isCheck) saveAsTemplateCheck,
+    required TResult Function(String note) disclaimerChanged,
+    required TResult Function(String selectedDate) recurringStartDateChanged,
+    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(SkillDTO day) recurrenceWeeksChanged,
+    required TResult Function(String selectedDate) recurringEndDateChanged,
+    required TResult Function(SkillDTO team) selectTeamEvent,
+    required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
+  }) {
+    return startHourListChanged(hour, index, date);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String shiftType)? changeShiftType,
+    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult? Function(String hour)? startHourChanged,
+    TResult? Function(String minute)? startMinuteChanged,
+    TResult? Function(String hour)? endHourChanged,
+    TResult? Function(String minute)? endMinuteChanged,
+    TResult? Function(String breakTime)? unpaidBreakChanged,
+    TResult? Function()? totalPayableHoursChanged,
+    TResult? Function(String selectedValue)? commuteAllownceChanged,
+    TResult? Function(String selectedValue)? commuteHoursChanged,
+    TResult? Function(String selectedValue)? commuteRateChanged,
+    TResult? Function(String selectedValue)? accomdationAllownceChanged,
+    TResult? Function(String selectedValue)? accomdationHoursChanged,
+    TResult? Function(String selectedValue)? accomdationRateChanged,
+    TResult? Function(String note)? singleShiftNotesChanged,
+    TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult? Function(String vacancy)? addVacancyChanged,
+    TResult? Function()? continueBtnPressed,
+    TResult? Function(bool isCheck)? recurringCheck,
+    TResult? Function(bool isCheck)? shareWithTeamsCheck,
+    TResult? Function(bool isCheck)? saveAsTemplateCheck,
+    TResult? Function(String note)? disclaimerChanged,
+    TResult? Function(String selectedDate)? recurringStartDateChanged,
+    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult? Function(String selectedDate)? recurringEndDateChanged,
+    TResult? Function(SkillDTO team)? selectTeamEvent,
+    TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+  }) {
+    return startHourListChanged?.call(hour, index, date);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String shiftType)? changeShiftType,
+    TResult Function()? getBreakAllownceListApi,
+    TResult Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult Function(String hour)? startHourChanged,
+    TResult Function(String minute)? startMinuteChanged,
+    TResult Function(String hour)? endHourChanged,
+    TResult Function(String minute)? endMinuteChanged,
+    TResult Function(String breakTime)? unpaidBreakChanged,
+    TResult Function()? totalPayableHoursChanged,
+    TResult Function(String selectedValue)? commuteAllownceChanged,
+    TResult Function(String selectedValue)? commuteHoursChanged,
+    TResult Function(String selectedValue)? commuteRateChanged,
+    TResult Function(String selectedValue)? accomdationAllownceChanged,
+    TResult Function(String selectedValue)? accomdationHoursChanged,
+    TResult Function(String selectedValue)? accomdationRateChanged,
+    TResult Function(String note)? singleShiftNotesChanged,
+    TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult Function(String vacancy)? addVacancyChanged,
+    TResult Function()? continueBtnPressed,
+    TResult Function(bool isCheck)? recurringCheck,
+    TResult Function(bool isCheck)? shareWithTeamsCheck,
+    TResult Function(bool isCheck)? saveAsTemplateCheck,
+    TResult Function(String note)? disclaimerChanged,
+    TResult Function(String selectedDate)? recurringStartDateChanged,
+    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult Function(String selectedDate)? recurringEndDateChanged,
+    TResult Function(SkillDTO team)? selectTeamEvent,
+    TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    required TResult orElse(),
+  }) {
+    if (startHourListChanged != null) {
+      return startHourListChanged(hour, index, date);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChangeShiftType value) changeShiftType,
+    required TResult Function(GetBreakAllownceListApi value)
+        getBreakAllownceListApi,
+    required TResult Function(SingleShiftDateChangedEvent value)
+        singleShiftDateChangedEvent,
+    required TResult Function(StartHourChanged value) startHourChanged,
+    required TResult Function(StartMinuteChanged value) startMinuteChanged,
+    required TResult Function(EndHourChanged value) endHourChanged,
+    required TResult Function(EndMinuteChanged value) endMinuteChanged,
+    required TResult Function(UnpaidBreakChanged value) unpaidBreakChanged,
+    required TResult Function(TotalPayableHoursChanged value)
+        totalPayableHoursChanged,
+    required TResult Function(CommuteAllownceChanged value)
+        commuteAllownceChanged,
+    required TResult Function(CommuteHoursChanged value) commuteHoursChanged,
+    required TResult Function(CommuteRateChanged value) commuteRateChanged,
+    required TResult Function(AccomdationAllownceChanged value)
+        accomdationAllownceChanged,
+    required TResult Function(AccomdationHoursChanged value)
+        accomdationHoursChanged,
+    required TResult Function(AccomdationRateChanged value)
+        accomdationRateChanged,
+    required TResult Function(SingleShiftNotes value) singleShiftNotesChanged,
+    required TResult Function(CheckIsMoreVancancy value) checkIsMoreVancancy,
+    required TResult Function(AddVacancyChanged value) addVacancyChanged,
+    required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(RecurringCheck value) recurringCheck,
+    required TResult Function(ShareWithTeamsCheck value) shareWithTeamsCheck,
+    required TResult Function(SaveAsTemplateCheck value) saveAsTemplateCheck,
+    required TResult Function(DisclaimerChanged value) disclaimerChanged,
+    required TResult Function(RecurringStartDateChanged value)
+        recurringStartDateChanged,
+    required TResult Function(RecurrenceModeChanged value)
+        recurrenceModeChanged,
+    required TResult Function(RecurrenceWeeksChanged value)
+        recurrenceWeeksChanged,
+    required TResult Function(RecurringEndDateChanged value)
+        recurringEndDateChanged,
+    required TResult Function(SelectTeamEvent value) selectTeamEvent,
+    required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
+  }) {
+    return startHourListChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChangeShiftType value)? changeShiftType,
+    TResult? Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult? Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult? Function(StartHourChanged value)? startHourChanged,
+    TResult? Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult? Function(EndHourChanged value)? endHourChanged,
+    TResult? Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult? Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult? Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult? Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult? Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult? Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult? Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult? Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult? Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult? Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult? Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult? Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(RecurringCheck value)? recurringCheck,
+    TResult? Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult? Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult? Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult? Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult? Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+  }) {
+    return startHourListChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChangeShiftType value)? changeShiftType,
+    TResult Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult Function(StartHourChanged value)? startHourChanged,
+    TResult Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult Function(EndHourChanged value)? endHourChanged,
+    TResult Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(RecurringCheck value)? recurringCheck,
+    TResult Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+    required TResult orElse(),
+  }) {
+    if (startHourListChanged != null) {
+      return startHourListChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class StartHourListChanged implements PostShiftEvent {
+  const factory StartHourListChanged(
+          final String hour, final int index, final String date) =
+      _$StartHourListChangedImpl;
+
+  String get hour;
+  int get index;
+  String get date;
+  @JsonKey(ignore: true)
+  _$$StartHourListChangedImplCopyWith<_$StartHourListChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$StartMinuteListChangedImplCopyWith<$Res> {
+  factory _$$StartMinuteListChangedImplCopyWith(
+          _$StartMinuteListChangedImpl value,
+          $Res Function(_$StartMinuteListChangedImpl) then) =
+      __$$StartMinuteListChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String minute, int index, String date});
+}
+
+/// @nodoc
+class __$$StartMinuteListChangedImplCopyWithImpl<$Res>
+    extends _$PostShiftEventCopyWithImpl<$Res, _$StartMinuteListChangedImpl>
+    implements _$$StartMinuteListChangedImplCopyWith<$Res> {
+  __$$StartMinuteListChangedImplCopyWithImpl(
+      _$StartMinuteListChangedImpl _value,
+      $Res Function(_$StartMinuteListChangedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? minute = null,
+    Object? index = null,
+    Object? date = null,
+  }) {
+    return _then(_$StartMinuteListChangedImpl(
+      null == minute
+          ? _value.minute
+          : minute // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
+  const _$StartMinuteListChangedImpl(this.minute, this.index, this.date);
+
+  @override
+  final String minute;
+  @override
+  final int index;
+  @override
+  final String date;
+
+  @override
+  String toString() {
+    return 'PostShiftEvent.startMinuteListChanged(minute: $minute, index: $index, date: $date)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$StartMinuteListChangedImpl &&
+            (identical(other.minute, minute) || other.minute == minute) &&
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.date, date) || other.date == date));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, minute, index, date);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$StartMinuteListChangedImplCopyWith<_$StartMinuteListChangedImpl>
+      get copyWith => __$$StartMinuteListChangedImplCopyWithImpl<
+          _$StartMinuteListChangedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String shiftType) changeShiftType,
+    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(String selectedDate) singleShiftDateChangedEvent,
+    required TResult Function(String hour) startHourChanged,
+    required TResult Function(String minute) startMinuteChanged,
+    required TResult Function(String hour) endHourChanged,
+    required TResult Function(String minute) endMinuteChanged,
+    required TResult Function(String breakTime) unpaidBreakChanged,
+    required TResult Function() totalPayableHoursChanged,
+    required TResult Function(String selectedValue) commuteAllownceChanged,
+    required TResult Function(String selectedValue) commuteHoursChanged,
+    required TResult Function(String selectedValue) commuteRateChanged,
+    required TResult Function(String selectedValue) accomdationAllownceChanged,
+    required TResult Function(String selectedValue) accomdationHoursChanged,
+    required TResult Function(String selectedValue) accomdationRateChanged,
+    required TResult Function(String note) singleShiftNotesChanged,
+    required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
+    required TResult Function(String vacancy) addVacancyChanged,
+    required TResult Function() continueBtnPressed,
+    required TResult Function(bool isCheck) recurringCheck,
+    required TResult Function(bool isCheck) shareWithTeamsCheck,
+    required TResult Function(bool isCheck) saveAsTemplateCheck,
+    required TResult Function(String note) disclaimerChanged,
+    required TResult Function(String selectedDate) recurringStartDateChanged,
+    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(SkillDTO day) recurrenceWeeksChanged,
+    required TResult Function(String selectedDate) recurringEndDateChanged,
+    required TResult Function(SkillDTO team) selectTeamEvent,
+    required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
+  }) {
+    return startMinuteListChanged(minute, index, date);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String shiftType)? changeShiftType,
+    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult? Function(String hour)? startHourChanged,
+    TResult? Function(String minute)? startMinuteChanged,
+    TResult? Function(String hour)? endHourChanged,
+    TResult? Function(String minute)? endMinuteChanged,
+    TResult? Function(String breakTime)? unpaidBreakChanged,
+    TResult? Function()? totalPayableHoursChanged,
+    TResult? Function(String selectedValue)? commuteAllownceChanged,
+    TResult? Function(String selectedValue)? commuteHoursChanged,
+    TResult? Function(String selectedValue)? commuteRateChanged,
+    TResult? Function(String selectedValue)? accomdationAllownceChanged,
+    TResult? Function(String selectedValue)? accomdationHoursChanged,
+    TResult? Function(String selectedValue)? accomdationRateChanged,
+    TResult? Function(String note)? singleShiftNotesChanged,
+    TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult? Function(String vacancy)? addVacancyChanged,
+    TResult? Function()? continueBtnPressed,
+    TResult? Function(bool isCheck)? recurringCheck,
+    TResult? Function(bool isCheck)? shareWithTeamsCheck,
+    TResult? Function(bool isCheck)? saveAsTemplateCheck,
+    TResult? Function(String note)? disclaimerChanged,
+    TResult? Function(String selectedDate)? recurringStartDateChanged,
+    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult? Function(String selectedDate)? recurringEndDateChanged,
+    TResult? Function(SkillDTO team)? selectTeamEvent,
+    TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+  }) {
+    return startMinuteListChanged?.call(minute, index, date);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String shiftType)? changeShiftType,
+    TResult Function()? getBreakAllownceListApi,
+    TResult Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult Function(String hour)? startHourChanged,
+    TResult Function(String minute)? startMinuteChanged,
+    TResult Function(String hour)? endHourChanged,
+    TResult Function(String minute)? endMinuteChanged,
+    TResult Function(String breakTime)? unpaidBreakChanged,
+    TResult Function()? totalPayableHoursChanged,
+    TResult Function(String selectedValue)? commuteAllownceChanged,
+    TResult Function(String selectedValue)? commuteHoursChanged,
+    TResult Function(String selectedValue)? commuteRateChanged,
+    TResult Function(String selectedValue)? accomdationAllownceChanged,
+    TResult Function(String selectedValue)? accomdationHoursChanged,
+    TResult Function(String selectedValue)? accomdationRateChanged,
+    TResult Function(String note)? singleShiftNotesChanged,
+    TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult Function(String vacancy)? addVacancyChanged,
+    TResult Function()? continueBtnPressed,
+    TResult Function(bool isCheck)? recurringCheck,
+    TResult Function(bool isCheck)? shareWithTeamsCheck,
+    TResult Function(bool isCheck)? saveAsTemplateCheck,
+    TResult Function(String note)? disclaimerChanged,
+    TResult Function(String selectedDate)? recurringStartDateChanged,
+    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult Function(String selectedDate)? recurringEndDateChanged,
+    TResult Function(SkillDTO team)? selectTeamEvent,
+    TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    required TResult orElse(),
+  }) {
+    if (startMinuteListChanged != null) {
+      return startMinuteListChanged(minute, index, date);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChangeShiftType value) changeShiftType,
+    required TResult Function(GetBreakAllownceListApi value)
+        getBreakAllownceListApi,
+    required TResult Function(SingleShiftDateChangedEvent value)
+        singleShiftDateChangedEvent,
+    required TResult Function(StartHourChanged value) startHourChanged,
+    required TResult Function(StartMinuteChanged value) startMinuteChanged,
+    required TResult Function(EndHourChanged value) endHourChanged,
+    required TResult Function(EndMinuteChanged value) endMinuteChanged,
+    required TResult Function(UnpaidBreakChanged value) unpaidBreakChanged,
+    required TResult Function(TotalPayableHoursChanged value)
+        totalPayableHoursChanged,
+    required TResult Function(CommuteAllownceChanged value)
+        commuteAllownceChanged,
+    required TResult Function(CommuteHoursChanged value) commuteHoursChanged,
+    required TResult Function(CommuteRateChanged value) commuteRateChanged,
+    required TResult Function(AccomdationAllownceChanged value)
+        accomdationAllownceChanged,
+    required TResult Function(AccomdationHoursChanged value)
+        accomdationHoursChanged,
+    required TResult Function(AccomdationRateChanged value)
+        accomdationRateChanged,
+    required TResult Function(SingleShiftNotes value) singleShiftNotesChanged,
+    required TResult Function(CheckIsMoreVancancy value) checkIsMoreVancancy,
+    required TResult Function(AddVacancyChanged value) addVacancyChanged,
+    required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(RecurringCheck value) recurringCheck,
+    required TResult Function(ShareWithTeamsCheck value) shareWithTeamsCheck,
+    required TResult Function(SaveAsTemplateCheck value) saveAsTemplateCheck,
+    required TResult Function(DisclaimerChanged value) disclaimerChanged,
+    required TResult Function(RecurringStartDateChanged value)
+        recurringStartDateChanged,
+    required TResult Function(RecurrenceModeChanged value)
+        recurrenceModeChanged,
+    required TResult Function(RecurrenceWeeksChanged value)
+        recurrenceWeeksChanged,
+    required TResult Function(RecurringEndDateChanged value)
+        recurringEndDateChanged,
+    required TResult Function(SelectTeamEvent value) selectTeamEvent,
+    required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
+  }) {
+    return startMinuteListChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChangeShiftType value)? changeShiftType,
+    TResult? Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult? Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult? Function(StartHourChanged value)? startHourChanged,
+    TResult? Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult? Function(EndHourChanged value)? endHourChanged,
+    TResult? Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult? Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult? Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult? Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult? Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult? Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult? Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult? Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult? Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult? Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult? Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult? Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(RecurringCheck value)? recurringCheck,
+    TResult? Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult? Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult? Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult? Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult? Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+  }) {
+    return startMinuteListChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChangeShiftType value)? changeShiftType,
+    TResult Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult Function(StartHourChanged value)? startHourChanged,
+    TResult Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult Function(EndHourChanged value)? endHourChanged,
+    TResult Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(RecurringCheck value)? recurringCheck,
+    TResult Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+    required TResult orElse(),
+  }) {
+    if (startMinuteListChanged != null) {
+      return startMinuteListChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class StartMinuteListChanged implements PostShiftEvent {
+  const factory StartMinuteListChanged(
+          final String minute, final int index, final String date) =
+      _$StartMinuteListChangedImpl;
+
+  String get minute;
+  int get index;
+  String get date;
+  @JsonKey(ignore: true)
+  _$$StartMinuteListChangedImplCopyWith<_$StartMinuteListChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$EndHourListChangedImplCopyWith<$Res> {
+  factory _$$EndHourListChangedImplCopyWith(_$EndHourListChangedImpl value,
+          $Res Function(_$EndHourListChangedImpl) then) =
+      __$$EndHourListChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String hour, int index, String date});
+}
+
+/// @nodoc
+class __$$EndHourListChangedImplCopyWithImpl<$Res>
+    extends _$PostShiftEventCopyWithImpl<$Res, _$EndHourListChangedImpl>
+    implements _$$EndHourListChangedImplCopyWith<$Res> {
+  __$$EndHourListChangedImplCopyWithImpl(_$EndHourListChangedImpl _value,
+      $Res Function(_$EndHourListChangedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? hour = null,
+    Object? index = null,
+    Object? date = null,
+  }) {
+    return _then(_$EndHourListChangedImpl(
+      null == hour
+          ? _value.hour
+          : hour // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$EndHourListChangedImpl implements EndHourListChanged {
+  const _$EndHourListChangedImpl(this.hour, this.index, this.date);
+
+  @override
+  final String hour;
+  @override
+  final int index;
+  @override
+  final String date;
+
+  @override
+  String toString() {
+    return 'PostShiftEvent.endHourListChanged(hour: $hour, index: $index, date: $date)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$EndHourListChangedImpl &&
+            (identical(other.hour, hour) || other.hour == hour) &&
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.date, date) || other.date == date));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, hour, index, date);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$EndHourListChangedImplCopyWith<_$EndHourListChangedImpl> get copyWith =>
+      __$$EndHourListChangedImplCopyWithImpl<_$EndHourListChangedImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String shiftType) changeShiftType,
+    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(String selectedDate) singleShiftDateChangedEvent,
+    required TResult Function(String hour) startHourChanged,
+    required TResult Function(String minute) startMinuteChanged,
+    required TResult Function(String hour) endHourChanged,
+    required TResult Function(String minute) endMinuteChanged,
+    required TResult Function(String breakTime) unpaidBreakChanged,
+    required TResult Function() totalPayableHoursChanged,
+    required TResult Function(String selectedValue) commuteAllownceChanged,
+    required TResult Function(String selectedValue) commuteHoursChanged,
+    required TResult Function(String selectedValue) commuteRateChanged,
+    required TResult Function(String selectedValue) accomdationAllownceChanged,
+    required TResult Function(String selectedValue) accomdationHoursChanged,
+    required TResult Function(String selectedValue) accomdationRateChanged,
+    required TResult Function(String note) singleShiftNotesChanged,
+    required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
+    required TResult Function(String vacancy) addVacancyChanged,
+    required TResult Function() continueBtnPressed,
+    required TResult Function(bool isCheck) recurringCheck,
+    required TResult Function(bool isCheck) shareWithTeamsCheck,
+    required TResult Function(bool isCheck) saveAsTemplateCheck,
+    required TResult Function(String note) disclaimerChanged,
+    required TResult Function(String selectedDate) recurringStartDateChanged,
+    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(SkillDTO day) recurrenceWeeksChanged,
+    required TResult Function(String selectedDate) recurringEndDateChanged,
+    required TResult Function(SkillDTO team) selectTeamEvent,
+    required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
+  }) {
+    return endHourListChanged(hour, index, date);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String shiftType)? changeShiftType,
+    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult? Function(String hour)? startHourChanged,
+    TResult? Function(String minute)? startMinuteChanged,
+    TResult? Function(String hour)? endHourChanged,
+    TResult? Function(String minute)? endMinuteChanged,
+    TResult? Function(String breakTime)? unpaidBreakChanged,
+    TResult? Function()? totalPayableHoursChanged,
+    TResult? Function(String selectedValue)? commuteAllownceChanged,
+    TResult? Function(String selectedValue)? commuteHoursChanged,
+    TResult? Function(String selectedValue)? commuteRateChanged,
+    TResult? Function(String selectedValue)? accomdationAllownceChanged,
+    TResult? Function(String selectedValue)? accomdationHoursChanged,
+    TResult? Function(String selectedValue)? accomdationRateChanged,
+    TResult? Function(String note)? singleShiftNotesChanged,
+    TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult? Function(String vacancy)? addVacancyChanged,
+    TResult? Function()? continueBtnPressed,
+    TResult? Function(bool isCheck)? recurringCheck,
+    TResult? Function(bool isCheck)? shareWithTeamsCheck,
+    TResult? Function(bool isCheck)? saveAsTemplateCheck,
+    TResult? Function(String note)? disclaimerChanged,
+    TResult? Function(String selectedDate)? recurringStartDateChanged,
+    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult? Function(String selectedDate)? recurringEndDateChanged,
+    TResult? Function(SkillDTO team)? selectTeamEvent,
+    TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+  }) {
+    return endHourListChanged?.call(hour, index, date);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String shiftType)? changeShiftType,
+    TResult Function()? getBreakAllownceListApi,
+    TResult Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult Function(String hour)? startHourChanged,
+    TResult Function(String minute)? startMinuteChanged,
+    TResult Function(String hour)? endHourChanged,
+    TResult Function(String minute)? endMinuteChanged,
+    TResult Function(String breakTime)? unpaidBreakChanged,
+    TResult Function()? totalPayableHoursChanged,
+    TResult Function(String selectedValue)? commuteAllownceChanged,
+    TResult Function(String selectedValue)? commuteHoursChanged,
+    TResult Function(String selectedValue)? commuteRateChanged,
+    TResult Function(String selectedValue)? accomdationAllownceChanged,
+    TResult Function(String selectedValue)? accomdationHoursChanged,
+    TResult Function(String selectedValue)? accomdationRateChanged,
+    TResult Function(String note)? singleShiftNotesChanged,
+    TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult Function(String vacancy)? addVacancyChanged,
+    TResult Function()? continueBtnPressed,
+    TResult Function(bool isCheck)? recurringCheck,
+    TResult Function(bool isCheck)? shareWithTeamsCheck,
+    TResult Function(bool isCheck)? saveAsTemplateCheck,
+    TResult Function(String note)? disclaimerChanged,
+    TResult Function(String selectedDate)? recurringStartDateChanged,
+    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult Function(String selectedDate)? recurringEndDateChanged,
+    TResult Function(SkillDTO team)? selectTeamEvent,
+    TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    required TResult orElse(),
+  }) {
+    if (endHourListChanged != null) {
+      return endHourListChanged(hour, index, date);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChangeShiftType value) changeShiftType,
+    required TResult Function(GetBreakAllownceListApi value)
+        getBreakAllownceListApi,
+    required TResult Function(SingleShiftDateChangedEvent value)
+        singleShiftDateChangedEvent,
+    required TResult Function(StartHourChanged value) startHourChanged,
+    required TResult Function(StartMinuteChanged value) startMinuteChanged,
+    required TResult Function(EndHourChanged value) endHourChanged,
+    required TResult Function(EndMinuteChanged value) endMinuteChanged,
+    required TResult Function(UnpaidBreakChanged value) unpaidBreakChanged,
+    required TResult Function(TotalPayableHoursChanged value)
+        totalPayableHoursChanged,
+    required TResult Function(CommuteAllownceChanged value)
+        commuteAllownceChanged,
+    required TResult Function(CommuteHoursChanged value) commuteHoursChanged,
+    required TResult Function(CommuteRateChanged value) commuteRateChanged,
+    required TResult Function(AccomdationAllownceChanged value)
+        accomdationAllownceChanged,
+    required TResult Function(AccomdationHoursChanged value)
+        accomdationHoursChanged,
+    required TResult Function(AccomdationRateChanged value)
+        accomdationRateChanged,
+    required TResult Function(SingleShiftNotes value) singleShiftNotesChanged,
+    required TResult Function(CheckIsMoreVancancy value) checkIsMoreVancancy,
+    required TResult Function(AddVacancyChanged value) addVacancyChanged,
+    required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(RecurringCheck value) recurringCheck,
+    required TResult Function(ShareWithTeamsCheck value) shareWithTeamsCheck,
+    required TResult Function(SaveAsTemplateCheck value) saveAsTemplateCheck,
+    required TResult Function(DisclaimerChanged value) disclaimerChanged,
+    required TResult Function(RecurringStartDateChanged value)
+        recurringStartDateChanged,
+    required TResult Function(RecurrenceModeChanged value)
+        recurrenceModeChanged,
+    required TResult Function(RecurrenceWeeksChanged value)
+        recurrenceWeeksChanged,
+    required TResult Function(RecurringEndDateChanged value)
+        recurringEndDateChanged,
+    required TResult Function(SelectTeamEvent value) selectTeamEvent,
+    required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
+  }) {
+    return endHourListChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChangeShiftType value)? changeShiftType,
+    TResult? Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult? Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult? Function(StartHourChanged value)? startHourChanged,
+    TResult? Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult? Function(EndHourChanged value)? endHourChanged,
+    TResult? Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult? Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult? Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult? Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult? Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult? Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult? Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult? Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult? Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult? Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult? Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult? Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(RecurringCheck value)? recurringCheck,
+    TResult? Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult? Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult? Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult? Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult? Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+  }) {
+    return endHourListChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChangeShiftType value)? changeShiftType,
+    TResult Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult Function(StartHourChanged value)? startHourChanged,
+    TResult Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult Function(EndHourChanged value)? endHourChanged,
+    TResult Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(RecurringCheck value)? recurringCheck,
+    TResult Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+    required TResult orElse(),
+  }) {
+    if (endHourListChanged != null) {
+      return endHourListChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class EndHourListChanged implements PostShiftEvent {
+  const factory EndHourListChanged(
+          final String hour, final int index, final String date) =
+      _$EndHourListChangedImpl;
+
+  String get hour;
+  int get index;
+  String get date;
+  @JsonKey(ignore: true)
+  _$$EndHourListChangedImplCopyWith<_$EndHourListChangedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$EndMinuteListChangedImplCopyWith<$Res> {
+  factory _$$EndMinuteListChangedImplCopyWith(_$EndMinuteListChangedImpl value,
+          $Res Function(_$EndMinuteListChangedImpl) then) =
+      __$$EndMinuteListChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String minute, int index, String date});
+}
+
+/// @nodoc
+class __$$EndMinuteListChangedImplCopyWithImpl<$Res>
+    extends _$PostShiftEventCopyWithImpl<$Res, _$EndMinuteListChangedImpl>
+    implements _$$EndMinuteListChangedImplCopyWith<$Res> {
+  __$$EndMinuteListChangedImplCopyWithImpl(_$EndMinuteListChangedImpl _value,
+      $Res Function(_$EndMinuteListChangedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? minute = null,
+    Object? index = null,
+    Object? date = null,
+  }) {
+    return _then(_$EndMinuteListChangedImpl(
+      null == minute
+          ? _value.minute
+          : minute // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
+  const _$EndMinuteListChangedImpl(this.minute, this.index, this.date);
+
+  @override
+  final String minute;
+  @override
+  final int index;
+  @override
+  final String date;
+
+  @override
+  String toString() {
+    return 'PostShiftEvent.endMinuteListChanged(minute: $minute, index: $index, date: $date)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$EndMinuteListChangedImpl &&
+            (identical(other.minute, minute) || other.minute == minute) &&
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.date, date) || other.date == date));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, minute, index, date);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$EndMinuteListChangedImplCopyWith<_$EndMinuteListChangedImpl>
+      get copyWith =>
+          __$$EndMinuteListChangedImplCopyWithImpl<_$EndMinuteListChangedImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String shiftType) changeShiftType,
+    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(String selectedDate) singleShiftDateChangedEvent,
+    required TResult Function(String hour) startHourChanged,
+    required TResult Function(String minute) startMinuteChanged,
+    required TResult Function(String hour) endHourChanged,
+    required TResult Function(String minute) endMinuteChanged,
+    required TResult Function(String breakTime) unpaidBreakChanged,
+    required TResult Function() totalPayableHoursChanged,
+    required TResult Function(String selectedValue) commuteAllownceChanged,
+    required TResult Function(String selectedValue) commuteHoursChanged,
+    required TResult Function(String selectedValue) commuteRateChanged,
+    required TResult Function(String selectedValue) accomdationAllownceChanged,
+    required TResult Function(String selectedValue) accomdationHoursChanged,
+    required TResult Function(String selectedValue) accomdationRateChanged,
+    required TResult Function(String note) singleShiftNotesChanged,
+    required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
+    required TResult Function(String vacancy) addVacancyChanged,
+    required TResult Function() continueBtnPressed,
+    required TResult Function(bool isCheck) recurringCheck,
+    required TResult Function(bool isCheck) shareWithTeamsCheck,
+    required TResult Function(bool isCheck) saveAsTemplateCheck,
+    required TResult Function(String note) disclaimerChanged,
+    required TResult Function(String selectedDate) recurringStartDateChanged,
+    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(SkillDTO day) recurrenceWeeksChanged,
+    required TResult Function(String selectedDate) recurringEndDateChanged,
+    required TResult Function(SkillDTO team) selectTeamEvent,
+    required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
+  }) {
+    return endMinuteListChanged(minute, index, date);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String shiftType)? changeShiftType,
+    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult? Function(String hour)? startHourChanged,
+    TResult? Function(String minute)? startMinuteChanged,
+    TResult? Function(String hour)? endHourChanged,
+    TResult? Function(String minute)? endMinuteChanged,
+    TResult? Function(String breakTime)? unpaidBreakChanged,
+    TResult? Function()? totalPayableHoursChanged,
+    TResult? Function(String selectedValue)? commuteAllownceChanged,
+    TResult? Function(String selectedValue)? commuteHoursChanged,
+    TResult? Function(String selectedValue)? commuteRateChanged,
+    TResult? Function(String selectedValue)? accomdationAllownceChanged,
+    TResult? Function(String selectedValue)? accomdationHoursChanged,
+    TResult? Function(String selectedValue)? accomdationRateChanged,
+    TResult? Function(String note)? singleShiftNotesChanged,
+    TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult? Function(String vacancy)? addVacancyChanged,
+    TResult? Function()? continueBtnPressed,
+    TResult? Function(bool isCheck)? recurringCheck,
+    TResult? Function(bool isCheck)? shareWithTeamsCheck,
+    TResult? Function(bool isCheck)? saveAsTemplateCheck,
+    TResult? Function(String note)? disclaimerChanged,
+    TResult? Function(String selectedDate)? recurringStartDateChanged,
+    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult? Function(String selectedDate)? recurringEndDateChanged,
+    TResult? Function(SkillDTO team)? selectTeamEvent,
+    TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+  }) {
+    return endMinuteListChanged?.call(minute, index, date);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String shiftType)? changeShiftType,
+    TResult Function()? getBreakAllownceListApi,
+    TResult Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult Function(String hour)? startHourChanged,
+    TResult Function(String minute)? startMinuteChanged,
+    TResult Function(String hour)? endHourChanged,
+    TResult Function(String minute)? endMinuteChanged,
+    TResult Function(String breakTime)? unpaidBreakChanged,
+    TResult Function()? totalPayableHoursChanged,
+    TResult Function(String selectedValue)? commuteAllownceChanged,
+    TResult Function(String selectedValue)? commuteHoursChanged,
+    TResult Function(String selectedValue)? commuteRateChanged,
+    TResult Function(String selectedValue)? accomdationAllownceChanged,
+    TResult Function(String selectedValue)? accomdationHoursChanged,
+    TResult Function(String selectedValue)? accomdationRateChanged,
+    TResult Function(String note)? singleShiftNotesChanged,
+    TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult Function(String vacancy)? addVacancyChanged,
+    TResult Function()? continueBtnPressed,
+    TResult Function(bool isCheck)? recurringCheck,
+    TResult Function(bool isCheck)? shareWithTeamsCheck,
+    TResult Function(bool isCheck)? saveAsTemplateCheck,
+    TResult Function(String note)? disclaimerChanged,
+    TResult Function(String selectedDate)? recurringStartDateChanged,
+    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult Function(String selectedDate)? recurringEndDateChanged,
+    TResult Function(SkillDTO team)? selectTeamEvent,
+    TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    required TResult orElse(),
+  }) {
+    if (endMinuteListChanged != null) {
+      return endMinuteListChanged(minute, index, date);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChangeShiftType value) changeShiftType,
+    required TResult Function(GetBreakAllownceListApi value)
+        getBreakAllownceListApi,
+    required TResult Function(SingleShiftDateChangedEvent value)
+        singleShiftDateChangedEvent,
+    required TResult Function(StartHourChanged value) startHourChanged,
+    required TResult Function(StartMinuteChanged value) startMinuteChanged,
+    required TResult Function(EndHourChanged value) endHourChanged,
+    required TResult Function(EndMinuteChanged value) endMinuteChanged,
+    required TResult Function(UnpaidBreakChanged value) unpaidBreakChanged,
+    required TResult Function(TotalPayableHoursChanged value)
+        totalPayableHoursChanged,
+    required TResult Function(CommuteAllownceChanged value)
+        commuteAllownceChanged,
+    required TResult Function(CommuteHoursChanged value) commuteHoursChanged,
+    required TResult Function(CommuteRateChanged value) commuteRateChanged,
+    required TResult Function(AccomdationAllownceChanged value)
+        accomdationAllownceChanged,
+    required TResult Function(AccomdationHoursChanged value)
+        accomdationHoursChanged,
+    required TResult Function(AccomdationRateChanged value)
+        accomdationRateChanged,
+    required TResult Function(SingleShiftNotes value) singleShiftNotesChanged,
+    required TResult Function(CheckIsMoreVancancy value) checkIsMoreVancancy,
+    required TResult Function(AddVacancyChanged value) addVacancyChanged,
+    required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(RecurringCheck value) recurringCheck,
+    required TResult Function(ShareWithTeamsCheck value) shareWithTeamsCheck,
+    required TResult Function(SaveAsTemplateCheck value) saveAsTemplateCheck,
+    required TResult Function(DisclaimerChanged value) disclaimerChanged,
+    required TResult Function(RecurringStartDateChanged value)
+        recurringStartDateChanged,
+    required TResult Function(RecurrenceModeChanged value)
+        recurrenceModeChanged,
+    required TResult Function(RecurrenceWeeksChanged value)
+        recurrenceWeeksChanged,
+    required TResult Function(RecurringEndDateChanged value)
+        recurringEndDateChanged,
+    required TResult Function(SelectTeamEvent value) selectTeamEvent,
+    required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
+  }) {
+    return endMinuteListChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChangeShiftType value)? changeShiftType,
+    TResult? Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult? Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult? Function(StartHourChanged value)? startHourChanged,
+    TResult? Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult? Function(EndHourChanged value)? endHourChanged,
+    TResult? Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult? Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult? Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult? Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult? Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult? Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult? Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult? Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult? Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult? Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult? Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult? Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(RecurringCheck value)? recurringCheck,
+    TResult? Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult? Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult? Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult? Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult? Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+  }) {
+    return endMinuteListChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChangeShiftType value)? changeShiftType,
+    TResult Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult Function(StartHourChanged value)? startHourChanged,
+    TResult Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult Function(EndHourChanged value)? endHourChanged,
+    TResult Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(RecurringCheck value)? recurringCheck,
+    TResult Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+    required TResult orElse(),
+  }) {
+    if (endMinuteListChanged != null) {
+      return endMinuteListChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class EndMinuteListChanged implements PostShiftEvent {
+  const factory EndMinuteListChanged(
+          final String minute, final int index, final String date) =
+      _$EndMinuteListChangedImpl;
+
+  String get minute;
+  int get index;
+  String get date;
+  @JsonKey(ignore: true)
+  _$$EndMinuteListChangedImplCopyWith<_$EndMinuteListChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$InitMultiDifferentDateEventImplCopyWith<$Res> {
+  factory _$$InitMultiDifferentDateEventImplCopyWith(
+          _$InitMultiDifferentDateEventImpl value,
+          $Res Function(_$InitMultiDifferentDateEventImpl) then) =
+      __$$InitMultiDifferentDateEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<DateTimeDTO> list});
+}
+
+/// @nodoc
+class __$$InitMultiDifferentDateEventImplCopyWithImpl<$Res>
+    extends _$PostShiftEventCopyWithImpl<$Res,
+        _$InitMultiDifferentDateEventImpl>
+    implements _$$InitMultiDifferentDateEventImplCopyWith<$Res> {
+  __$$InitMultiDifferentDateEventImplCopyWithImpl(
+      _$InitMultiDifferentDateEventImpl _value,
+      $Res Function(_$InitMultiDifferentDateEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? list = null,
+  }) {
+    return _then(_$InitMultiDifferentDateEventImpl(
+      null == list
+          ? _value._list
+          : list // ignore: cast_nullable_to_non_nullable
+              as List<DateTimeDTO>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
+  const _$InitMultiDifferentDateEventImpl(final List<DateTimeDTO> list)
+      : _list = list;
+
+  final List<DateTimeDTO> _list;
+  @override
+  List<DateTimeDTO> get list {
+    if (_list is EqualUnmodifiableListView) return _list;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_list);
+  }
+
+  @override
+  String toString() {
+    return 'PostShiftEvent.initMultiDifferentDateEvent(list: $list)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InitMultiDifferentDateEventImpl &&
+            const DeepCollectionEquality().equals(other._list, _list));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_list));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InitMultiDifferentDateEventImplCopyWith<_$InitMultiDifferentDateEventImpl>
+      get copyWith => __$$InitMultiDifferentDateEventImplCopyWithImpl<
+          _$InitMultiDifferentDateEventImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String shiftType) changeShiftType,
+    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(String selectedDate) singleShiftDateChangedEvent,
+    required TResult Function(String hour) startHourChanged,
+    required TResult Function(String minute) startMinuteChanged,
+    required TResult Function(String hour) endHourChanged,
+    required TResult Function(String minute) endMinuteChanged,
+    required TResult Function(String breakTime) unpaidBreakChanged,
+    required TResult Function() totalPayableHoursChanged,
+    required TResult Function(String selectedValue) commuteAllownceChanged,
+    required TResult Function(String selectedValue) commuteHoursChanged,
+    required TResult Function(String selectedValue) commuteRateChanged,
+    required TResult Function(String selectedValue) accomdationAllownceChanged,
+    required TResult Function(String selectedValue) accomdationHoursChanged,
+    required TResult Function(String selectedValue) accomdationRateChanged,
+    required TResult Function(String note) singleShiftNotesChanged,
+    required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
+    required TResult Function(String vacancy) addVacancyChanged,
+    required TResult Function() continueBtnPressed,
+    required TResult Function(bool isCheck) recurringCheck,
+    required TResult Function(bool isCheck) shareWithTeamsCheck,
+    required TResult Function(bool isCheck) saveAsTemplateCheck,
+    required TResult Function(String note) disclaimerChanged,
+    required TResult Function(String selectedDate) recurringStartDateChanged,
+    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(SkillDTO day) recurrenceWeeksChanged,
+    required TResult Function(String selectedDate) recurringEndDateChanged,
+    required TResult Function(SkillDTO team) selectTeamEvent,
+    required TResult Function() recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(List<DateTimeDTO> list)
+        initMultiDifferentDateEvent,
+  }) {
+    return initMultiDifferentDateEvent(list);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String shiftType)? changeShiftType,
+    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult? Function(String hour)? startHourChanged,
+    TResult? Function(String minute)? startMinuteChanged,
+    TResult? Function(String hour)? endHourChanged,
+    TResult? Function(String minute)? endMinuteChanged,
+    TResult? Function(String breakTime)? unpaidBreakChanged,
+    TResult? Function()? totalPayableHoursChanged,
+    TResult? Function(String selectedValue)? commuteAllownceChanged,
+    TResult? Function(String selectedValue)? commuteHoursChanged,
+    TResult? Function(String selectedValue)? commuteRateChanged,
+    TResult? Function(String selectedValue)? accomdationAllownceChanged,
+    TResult? Function(String selectedValue)? accomdationHoursChanged,
+    TResult? Function(String selectedValue)? accomdationRateChanged,
+    TResult? Function(String note)? singleShiftNotesChanged,
+    TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult? Function(String vacancy)? addVacancyChanged,
+    TResult? Function()? continueBtnPressed,
+    TResult? Function(bool isCheck)? recurringCheck,
+    TResult? Function(bool isCheck)? shareWithTeamsCheck,
+    TResult? Function(bool isCheck)? saveAsTemplateCheck,
+    TResult? Function(String note)? disclaimerChanged,
+    TResult? Function(String selectedDate)? recurringStartDateChanged,
+    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult? Function(String selectedDate)? recurringEndDateChanged,
+    TResult? Function(SkillDTO team)? selectTeamEvent,
+    TResult? Function()? recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+  }) {
+    return initMultiDifferentDateEvent?.call(list);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String shiftType)? changeShiftType,
+    TResult Function()? getBreakAllownceListApi,
+    TResult Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult Function(String hour)? startHourChanged,
+    TResult Function(String minute)? startMinuteChanged,
+    TResult Function(String hour)? endHourChanged,
+    TResult Function(String minute)? endMinuteChanged,
+    TResult Function(String breakTime)? unpaidBreakChanged,
+    TResult Function()? totalPayableHoursChanged,
+    TResult Function(String selectedValue)? commuteAllownceChanged,
+    TResult Function(String selectedValue)? commuteHoursChanged,
+    TResult Function(String selectedValue)? commuteRateChanged,
+    TResult Function(String selectedValue)? accomdationAllownceChanged,
+    TResult Function(String selectedValue)? accomdationHoursChanged,
+    TResult Function(String selectedValue)? accomdationRateChanged,
+    TResult Function(String note)? singleShiftNotesChanged,
+    TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult Function(String vacancy)? addVacancyChanged,
+    TResult Function()? continueBtnPressed,
+    TResult Function(bool isCheck)? recurringCheck,
+    TResult Function(bool isCheck)? shareWithTeamsCheck,
+    TResult Function(bool isCheck)? saveAsTemplateCheck,
+    TResult Function(String note)? disclaimerChanged,
+    TResult Function(String selectedDate)? recurringStartDateChanged,
+    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult Function(String selectedDate)? recurringEndDateChanged,
+    TResult Function(SkillDTO team)? selectTeamEvent,
+    TResult Function()? recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    required TResult orElse(),
+  }) {
+    if (initMultiDifferentDateEvent != null) {
+      return initMultiDifferentDateEvent(list);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChangeShiftType value) changeShiftType,
+    required TResult Function(GetBreakAllownceListApi value)
+        getBreakAllownceListApi,
+    required TResult Function(SingleShiftDateChangedEvent value)
+        singleShiftDateChangedEvent,
+    required TResult Function(StartHourChanged value) startHourChanged,
+    required TResult Function(StartMinuteChanged value) startMinuteChanged,
+    required TResult Function(EndHourChanged value) endHourChanged,
+    required TResult Function(EndMinuteChanged value) endMinuteChanged,
+    required TResult Function(UnpaidBreakChanged value) unpaidBreakChanged,
+    required TResult Function(TotalPayableHoursChanged value)
+        totalPayableHoursChanged,
+    required TResult Function(CommuteAllownceChanged value)
+        commuteAllownceChanged,
+    required TResult Function(CommuteHoursChanged value) commuteHoursChanged,
+    required TResult Function(CommuteRateChanged value) commuteRateChanged,
+    required TResult Function(AccomdationAllownceChanged value)
+        accomdationAllownceChanged,
+    required TResult Function(AccomdationHoursChanged value)
+        accomdationHoursChanged,
+    required TResult Function(AccomdationRateChanged value)
+        accomdationRateChanged,
+    required TResult Function(SingleShiftNotes value) singleShiftNotesChanged,
+    required TResult Function(CheckIsMoreVancancy value) checkIsMoreVancancy,
+    required TResult Function(AddVacancyChanged value) addVacancyChanged,
+    required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(RecurringCheck value) recurringCheck,
+    required TResult Function(ShareWithTeamsCheck value) shareWithTeamsCheck,
+    required TResult Function(SaveAsTemplateCheck value) saveAsTemplateCheck,
+    required TResult Function(DisclaimerChanged value) disclaimerChanged,
+    required TResult Function(RecurringStartDateChanged value)
+        recurringStartDateChanged,
+    required TResult Function(RecurrenceModeChanged value)
+        recurrenceModeChanged,
+    required TResult Function(RecurrenceWeeksChanged value)
+        recurrenceWeeksChanged,
+    required TResult Function(RecurringEndDateChanged value)
+        recurringEndDateChanged,
+    required TResult Function(SelectTeamEvent value) selectTeamEvent,
+    required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
+  }) {
+    return initMultiDifferentDateEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChangeShiftType value)? changeShiftType,
+    TResult? Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult? Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult? Function(StartHourChanged value)? startHourChanged,
+    TResult? Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult? Function(EndHourChanged value)? endHourChanged,
+    TResult? Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult? Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult? Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult? Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult? Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult? Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult? Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult? Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult? Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult? Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult? Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult? Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(RecurringCheck value)? recurringCheck,
+    TResult? Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult? Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult? Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult? Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult? Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+  }) {
+    return initMultiDifferentDateEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChangeShiftType value)? changeShiftType,
+    TResult Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult Function(StartHourChanged value)? startHourChanged,
+    TResult Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult Function(EndHourChanged value)? endHourChanged,
+    TResult Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(RecurringCheck value)? recurringCheck,
+    TResult Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+    required TResult orElse(),
+  }) {
+    if (initMultiDifferentDateEvent != null) {
+      return initMultiDifferentDateEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InitMultiDifferentDateEvent implements PostShiftEvent {
+  const factory InitMultiDifferentDateEvent(final List<DateTimeDTO> list) =
+      _$InitMultiDifferentDateEventImpl;
+
+  List<DateTimeDTO> get list;
+  @JsonKey(ignore: true)
+  _$$InitMultiDifferentDateEventImplCopyWith<_$InitMultiDifferentDateEventImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -9818,10 +15308,20 @@ mixin _$PostShiftState {
   ListInputEmptyOrNot<SkillDTO> get selectedTeamList =>
       throw _privateConstructorUsedError;
   InputEmptyOrNot get recurrenceMode => throw _privateConstructorUsedError;
-  bool get isNeverEndDate => throw _privateConstructorUsedError;
   bool get recurringErrorMessage => throw _privateConstructorUsedError;
   Option<Either<AuthFailure, String>> get recurringFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
+
+  /// Multi shift
+  bool get isIndividualPost => throw _privateConstructorUsedError;
+  int get selectedMultiShiftType => throw _privateConstructorUsedError;
+  ListInputEmptyOrNot<DateTime> get selectedMultiDates =>
+      throw _privateConstructorUsedError;
+  List<String> get startHourList => throw _privateConstructorUsedError;
+  List<String> get startMinuteList => throw _privateConstructorUsedError;
+  List<String> get endHourList => throw _privateConstructorUsedError;
+  List<String> get endMinuteList => throw _privateConstructorUsedError;
+  List<DateTimeDTO> get multiDateTimeList => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PostShiftStateCopyWith<PostShiftState> get copyWith =>
@@ -9866,9 +15366,16 @@ abstract class $PostShiftStateCopyWith<$Res> {
       ListInputEmptyOrNot<SkillDTO> recurrenceWeekList,
       ListInputEmptyOrNot<SkillDTO> selectedTeamList,
       InputEmptyOrNot recurrenceMode,
-      bool isNeverEndDate,
       bool recurringErrorMessage,
-      Option<Either<AuthFailure, String>> recurringFailureOrSuccessOption});
+      Option<Either<AuthFailure, String>> recurringFailureOrSuccessOption,
+      bool isIndividualPost,
+      int selectedMultiShiftType,
+      ListInputEmptyOrNot<DateTime> selectedMultiDates,
+      List<String> startHourList,
+      List<String> startMinuteList,
+      List<String> endHourList,
+      List<String> endMinuteList,
+      List<DateTimeDTO> multiDateTimeList});
 }
 
 /// @nodoc
@@ -9915,9 +15422,16 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
     Object? recurrenceWeekList = null,
     Object? selectedTeamList = null,
     Object? recurrenceMode = null,
-    Object? isNeverEndDate = null,
     Object? recurringErrorMessage = null,
     Object? recurringFailureOrSuccessOption = null,
+    Object? isIndividualPost = null,
+    Object? selectedMultiShiftType = null,
+    Object? selectedMultiDates = null,
+    Object? startHourList = null,
+    Object? startMinuteList = null,
+    Object? endHourList = null,
+    Object? endMinuteList = null,
+    Object? multiDateTimeList = null,
   }) {
     return _then(_value.copyWith(
       shiftType: null == shiftType
@@ -10045,10 +15559,6 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
           ? _value.recurrenceMode
           : recurrenceMode // ignore: cast_nullable_to_non_nullable
               as InputEmptyOrNot,
-      isNeverEndDate: null == isNeverEndDate
-          ? _value.isNeverEndDate
-          : isNeverEndDate // ignore: cast_nullable_to_non_nullable
-              as bool,
       recurringErrorMessage: null == recurringErrorMessage
           ? _value.recurringErrorMessage
           : recurringErrorMessage // ignore: cast_nullable_to_non_nullable
@@ -10057,6 +15567,38 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
           ? _value.recurringFailureOrSuccessOption
           : recurringFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, String>>,
+      isIndividualPost: null == isIndividualPost
+          ? _value.isIndividualPost
+          : isIndividualPost // ignore: cast_nullable_to_non_nullable
+              as bool,
+      selectedMultiShiftType: null == selectedMultiShiftType
+          ? _value.selectedMultiShiftType
+          : selectedMultiShiftType // ignore: cast_nullable_to_non_nullable
+              as int,
+      selectedMultiDates: null == selectedMultiDates
+          ? _value.selectedMultiDates
+          : selectedMultiDates // ignore: cast_nullable_to_non_nullable
+              as ListInputEmptyOrNot<DateTime>,
+      startHourList: null == startHourList
+          ? _value.startHourList
+          : startHourList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      startMinuteList: null == startMinuteList
+          ? _value.startMinuteList
+          : startMinuteList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      endHourList: null == endHourList
+          ? _value.endHourList
+          : endHourList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      endMinuteList: null == endMinuteList
+          ? _value.endMinuteList
+          : endMinuteList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      multiDateTimeList: null == multiDateTimeList
+          ? _value.multiDateTimeList
+          : multiDateTimeList // ignore: cast_nullable_to_non_nullable
+              as List<DateTimeDTO>,
     ) as $Val);
   }
 }
@@ -10101,9 +15643,16 @@ abstract class _$$PostShiftStateImplCopyWith<$Res>
       ListInputEmptyOrNot<SkillDTO> recurrenceWeekList,
       ListInputEmptyOrNot<SkillDTO> selectedTeamList,
       InputEmptyOrNot recurrenceMode,
-      bool isNeverEndDate,
       bool recurringErrorMessage,
-      Option<Either<AuthFailure, String>> recurringFailureOrSuccessOption});
+      Option<Either<AuthFailure, String>> recurringFailureOrSuccessOption,
+      bool isIndividualPost,
+      int selectedMultiShiftType,
+      ListInputEmptyOrNot<DateTime> selectedMultiDates,
+      List<String> startHourList,
+      List<String> startMinuteList,
+      List<String> endHourList,
+      List<String> endMinuteList,
+      List<DateTimeDTO> multiDateTimeList});
 }
 
 /// @nodoc
@@ -10148,9 +15697,16 @@ class __$$PostShiftStateImplCopyWithImpl<$Res>
     Object? recurrenceWeekList = null,
     Object? selectedTeamList = null,
     Object? recurrenceMode = null,
-    Object? isNeverEndDate = null,
     Object? recurringErrorMessage = null,
     Object? recurringFailureOrSuccessOption = null,
+    Object? isIndividualPost = null,
+    Object? selectedMultiShiftType = null,
+    Object? selectedMultiDates = null,
+    Object? startHourList = null,
+    Object? startMinuteList = null,
+    Object? endHourList = null,
+    Object? endMinuteList = null,
+    Object? multiDateTimeList = null,
   }) {
     return _then(_$PostShiftStateImpl(
       shiftType: null == shiftType
@@ -10278,10 +15834,6 @@ class __$$PostShiftStateImplCopyWithImpl<$Res>
           ? _value.recurrenceMode
           : recurrenceMode // ignore: cast_nullable_to_non_nullable
               as InputEmptyOrNot,
-      isNeverEndDate: null == isNeverEndDate
-          ? _value.isNeverEndDate
-          : isNeverEndDate // ignore: cast_nullable_to_non_nullable
-              as bool,
       recurringErrorMessage: null == recurringErrorMessage
           ? _value.recurringErrorMessage
           : recurringErrorMessage // ignore: cast_nullable_to_non_nullable
@@ -10290,6 +15842,38 @@ class __$$PostShiftStateImplCopyWithImpl<$Res>
           ? _value.recurringFailureOrSuccessOption
           : recurringFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, String>>,
+      isIndividualPost: null == isIndividualPost
+          ? _value.isIndividualPost
+          : isIndividualPost // ignore: cast_nullable_to_non_nullable
+              as bool,
+      selectedMultiShiftType: null == selectedMultiShiftType
+          ? _value.selectedMultiShiftType
+          : selectedMultiShiftType // ignore: cast_nullable_to_non_nullable
+              as int,
+      selectedMultiDates: null == selectedMultiDates
+          ? _value.selectedMultiDates
+          : selectedMultiDates // ignore: cast_nullable_to_non_nullable
+              as ListInputEmptyOrNot<DateTime>,
+      startHourList: null == startHourList
+          ? _value._startHourList
+          : startHourList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      startMinuteList: null == startMinuteList
+          ? _value._startMinuteList
+          : startMinuteList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      endHourList: null == endHourList
+          ? _value._endHourList
+          : endHourList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      endMinuteList: null == endMinuteList
+          ? _value._endMinuteList
+          : endMinuteList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      multiDateTimeList: null == multiDateTimeList
+          ? _value._multiDateTimeList
+          : multiDateTimeList // ignore: cast_nullable_to_non_nullable
+              as List<DateTimeDTO>,
     ));
   }
 }
@@ -10329,11 +15913,23 @@ class _$PostShiftStateImpl implements _PostShiftState {
       required this.recurrenceWeekList,
       required this.selectedTeamList,
       required this.recurrenceMode,
-      required this.isNeverEndDate,
       required this.recurringErrorMessage,
-      required this.recurringFailureOrSuccessOption})
+      required this.recurringFailureOrSuccessOption,
+      required this.isIndividualPost,
+      required this.selectedMultiShiftType,
+      required this.selectedMultiDates,
+      required final List<String> startHourList,
+      required final List<String> startMinuteList,
+      required final List<String> endHourList,
+      required final List<String> endMinuteList,
+      required final List<DateTimeDTO> multiDateTimeList})
       : _breakList = breakList,
-        _accomdationHoursList = accomdationHoursList;
+        _accomdationHoursList = accomdationHoursList,
+        _startHourList = startHourList,
+        _startMinuteList = startMinuteList,
+        _endHourList = endHourList,
+        _endMinuteList = endMinuteList,
+        _multiDateTimeList = multiDateTimeList;
 
   /// Change hift Type(Single, Multi,Long-Term)
   @override
@@ -10416,15 +16012,61 @@ class _$PostShiftStateImpl implements _PostShiftState {
   @override
   final InputEmptyOrNot recurrenceMode;
   @override
-  final bool isNeverEndDate;
-  @override
   final bool recurringErrorMessage;
   @override
   final Option<Either<AuthFailure, String>> recurringFailureOrSuccessOption;
 
+  /// Multi shift
+  @override
+  final bool isIndividualPost;
+  @override
+  final int selectedMultiShiftType;
+  @override
+  final ListInputEmptyOrNot<DateTime> selectedMultiDates;
+  final List<String> _startHourList;
+  @override
+  List<String> get startHourList {
+    if (_startHourList is EqualUnmodifiableListView) return _startHourList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_startHourList);
+  }
+
+  final List<String> _startMinuteList;
+  @override
+  List<String> get startMinuteList {
+    if (_startMinuteList is EqualUnmodifiableListView) return _startMinuteList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_startMinuteList);
+  }
+
+  final List<String> _endHourList;
+  @override
+  List<String> get endHourList {
+    if (_endHourList is EqualUnmodifiableListView) return _endHourList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_endHourList);
+  }
+
+  final List<String> _endMinuteList;
+  @override
+  List<String> get endMinuteList {
+    if (_endMinuteList is EqualUnmodifiableListView) return _endMinuteList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_endMinuteList);
+  }
+
+  final List<DateTimeDTO> _multiDateTimeList;
+  @override
+  List<DateTimeDTO> get multiDateTimeList {
+    if (_multiDateTimeList is EqualUnmodifiableListView)
+      return _multiDateTimeList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_multiDateTimeList);
+  }
+
   @override
   String toString() {
-    return 'PostShiftState(shiftType: $shiftType, isLoading: $isLoading, signleShiftDate: $signleShiftDate, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, breakList: $breakList, accomdationHoursList: $accomdationHoursList, unpaidBreak: $unpaidBreak, totalPaybleHours: $totalPaybleHours, selectedCommuteAllownce: $selectedCommuteAllownce, commuteHour: $commuteHour, commuteRate: $commuteRate, selectedAccomdationAllownce: $selectedAccomdationAllownce, accomdationHour: $accomdationHour, accomdationRate: $accomdationRate, singleShiftNote: $singleShiftNote, isMoreVacancy: $isMoreVacancy, selectedVacancy: $selectedVacancy, singleShiftErrorMessages: $singleShiftErrorMessages, singleShiftFailureOrSuccessOption: $singleShiftFailureOrSuccessOption, isToBeRecurring: $isToBeRecurring, isShareWithTeams: $isShareWithTeams, isSaveAsTemplate: $isSaveAsTemplate, disclaimerNote: $disclaimerNote, recurringStartDate: $recurringStartDate, recurringEndDate: $recurringEndDate, recurrenceWeekList: $recurrenceWeekList, selectedTeamList: $selectedTeamList, recurrenceMode: $recurrenceMode, isNeverEndDate: $isNeverEndDate, recurringErrorMessage: $recurringErrorMessage, recurringFailureOrSuccessOption: $recurringFailureOrSuccessOption)';
+    return 'PostShiftState(shiftType: $shiftType, isLoading: $isLoading, signleShiftDate: $signleShiftDate, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, breakList: $breakList, accomdationHoursList: $accomdationHoursList, unpaidBreak: $unpaidBreak, totalPaybleHours: $totalPaybleHours, selectedCommuteAllownce: $selectedCommuteAllownce, commuteHour: $commuteHour, commuteRate: $commuteRate, selectedAccomdationAllownce: $selectedAccomdationAllownce, accomdationHour: $accomdationHour, accomdationRate: $accomdationRate, singleShiftNote: $singleShiftNote, isMoreVacancy: $isMoreVacancy, selectedVacancy: $selectedVacancy, singleShiftErrorMessages: $singleShiftErrorMessages, singleShiftFailureOrSuccessOption: $singleShiftFailureOrSuccessOption, isToBeRecurring: $isToBeRecurring, isShareWithTeams: $isShareWithTeams, isSaveAsTemplate: $isSaveAsTemplate, disclaimerNote: $disclaimerNote, recurringStartDate: $recurringStartDate, recurringEndDate: $recurringEndDate, recurrenceWeekList: $recurrenceWeekList, selectedTeamList: $selectedTeamList, recurrenceMode: $recurrenceMode, recurringErrorMessage: $recurringErrorMessage, recurringFailureOrSuccessOption: $recurringFailureOrSuccessOption, isIndividualPost: $isIndividualPost, selectedMultiShiftType: $selectedMultiShiftType, selectedMultiDates: $selectedMultiDates, startHourList: $startHourList, startMinuteList: $startMinuteList, endHourList: $endHourList, endMinuteList: $endMinuteList, multiDateTimeList: $multiDateTimeList)';
   }
 
   @override
@@ -10494,9 +16136,16 @@ class _$PostShiftStateImpl implements _PostShiftState {
             (identical(other.selectedTeamList, selectedTeamList) ||
                 other.selectedTeamList == selectedTeamList) &&
             (identical(other.recurrenceMode, recurrenceMode) || other.recurrenceMode == recurrenceMode) &&
-            (identical(other.isNeverEndDate, isNeverEndDate) || other.isNeverEndDate == isNeverEndDate) &&
             (identical(other.recurringErrorMessage, recurringErrorMessage) || other.recurringErrorMessage == recurringErrorMessage) &&
-            (identical(other.recurringFailureOrSuccessOption, recurringFailureOrSuccessOption) || other.recurringFailureOrSuccessOption == recurringFailureOrSuccessOption));
+            (identical(other.recurringFailureOrSuccessOption, recurringFailureOrSuccessOption) || other.recurringFailureOrSuccessOption == recurringFailureOrSuccessOption) &&
+            (identical(other.isIndividualPost, isIndividualPost) || other.isIndividualPost == isIndividualPost) &&
+            (identical(other.selectedMultiShiftType, selectedMultiShiftType) || other.selectedMultiShiftType == selectedMultiShiftType) &&
+            (identical(other.selectedMultiDates, selectedMultiDates) || other.selectedMultiDates == selectedMultiDates) &&
+            const DeepCollectionEquality().equals(other._startHourList, _startHourList) &&
+            const DeepCollectionEquality().equals(other._startMinuteList, _startMinuteList) &&
+            const DeepCollectionEquality().equals(other._endHourList, _endHourList) &&
+            const DeepCollectionEquality().equals(other._endMinuteList, _endMinuteList) &&
+            const DeepCollectionEquality().equals(other._multiDateTimeList, _multiDateTimeList));
   }
 
   @override
@@ -10533,9 +16182,16 @@ class _$PostShiftStateImpl implements _PostShiftState {
         recurrenceWeekList,
         selectedTeamList,
         recurrenceMode,
-        isNeverEndDate,
         recurringErrorMessage,
-        recurringFailureOrSuccessOption
+        recurringFailureOrSuccessOption,
+        isIndividualPost,
+        selectedMultiShiftType,
+        selectedMultiDates,
+        const DeepCollectionEquality().hash(_startHourList),
+        const DeepCollectionEquality().hash(_startMinuteList),
+        const DeepCollectionEquality().hash(_endHourList),
+        const DeepCollectionEquality().hash(_endMinuteList),
+        const DeepCollectionEquality().hash(_multiDateTimeList)
       ]);
 
   @JsonKey(ignore: true)
@@ -10548,42 +16204,50 @@ class _$PostShiftStateImpl implements _PostShiftState {
 
 abstract class _PostShiftState implements PostShiftState {
   const factory _PostShiftState(
-      {required final int shiftType,
-      required final bool isLoading,
-      required final InputEmptyOrNot signleShiftDate,
-      required final InputEmptyOrNot startHour,
-      required final InputEmptyOrNot startMinute,
-      required final InputEmptyOrNot endHour,
-      required final InputEmptyOrNot endMinute,
-      required final List<SkillDTO> breakList,
-      required final List<SkillDTO> accomdationHoursList,
-      required final InputEmptyOrNot unpaidBreak,
-      required final String totalPaybleHours,
-      required final InputEmptyOrNot selectedCommuteAllownce,
-      required final InputEmptyOrNot commuteHour,
-      required final InputEmptyOrNot commuteRate,
-      required final InputEmptyOrNot selectedAccomdationAllownce,
-      required final InputEmptyOrNot accomdationHour,
-      required final InputEmptyOrNot accomdationRate,
-      required final String singleShiftNote,
-      required final bool isMoreVacancy,
-      required final InputEmptyOrNot selectedVacancy,
-      required final bool singleShiftErrorMessages,
-      required final Option<Either<AuthFailure, String>>
-          singleShiftFailureOrSuccessOption,
-      required final bool isToBeRecurring,
-      required final bool isShareWithTeams,
-      required final bool isSaveAsTemplate,
-      required final String disclaimerNote,
-      required final InputEmptyOrNot recurringStartDate,
-      required final InputEmptyOrNot recurringEndDate,
-      required final ListInputEmptyOrNot<SkillDTO> recurrenceWeekList,
-      required final ListInputEmptyOrNot<SkillDTO> selectedTeamList,
-      required final InputEmptyOrNot recurrenceMode,
-      required final bool isNeverEndDate,
-      required final bool recurringErrorMessage,
-      required final Option<Either<AuthFailure, String>>
-          recurringFailureOrSuccessOption}) = _$PostShiftStateImpl;
+          {required final int shiftType,
+          required final bool isLoading,
+          required final InputEmptyOrNot signleShiftDate,
+          required final InputEmptyOrNot startHour,
+          required final InputEmptyOrNot startMinute,
+          required final InputEmptyOrNot endHour,
+          required final InputEmptyOrNot endMinute,
+          required final List<SkillDTO> breakList,
+          required final List<SkillDTO> accomdationHoursList,
+          required final InputEmptyOrNot unpaidBreak,
+          required final String totalPaybleHours,
+          required final InputEmptyOrNot selectedCommuteAllownce,
+          required final InputEmptyOrNot commuteHour,
+          required final InputEmptyOrNot commuteRate,
+          required final InputEmptyOrNot selectedAccomdationAllownce,
+          required final InputEmptyOrNot accomdationHour,
+          required final InputEmptyOrNot accomdationRate,
+          required final String singleShiftNote,
+          required final bool isMoreVacancy,
+          required final InputEmptyOrNot selectedVacancy,
+          required final bool singleShiftErrorMessages,
+          required final Option<Either<AuthFailure, String>>
+              singleShiftFailureOrSuccessOption,
+          required final bool isToBeRecurring,
+          required final bool isShareWithTeams,
+          required final bool isSaveAsTemplate,
+          required final String disclaimerNote,
+          required final InputEmptyOrNot recurringStartDate,
+          required final InputEmptyOrNot recurringEndDate,
+          required final ListInputEmptyOrNot<SkillDTO> recurrenceWeekList,
+          required final ListInputEmptyOrNot<SkillDTO> selectedTeamList,
+          required final InputEmptyOrNot recurrenceMode,
+          required final bool recurringErrorMessage,
+          required final Option<Either<AuthFailure, String>>
+              recurringFailureOrSuccessOption,
+          required final bool isIndividualPost,
+          required final int selectedMultiShiftType,
+          required final ListInputEmptyOrNot<DateTime> selectedMultiDates,
+          required final List<String> startHourList,
+          required final List<String> startMinuteList,
+          required final List<String> endHourList,
+          required final List<String> endMinuteList,
+          required final List<DateTimeDTO> multiDateTimeList}) =
+      _$PostShiftStateImpl;
 
   @override
 
@@ -10654,11 +16318,27 @@ abstract class _PostShiftState implements PostShiftState {
   @override
   InputEmptyOrNot get recurrenceMode;
   @override
-  bool get isNeverEndDate;
-  @override
   bool get recurringErrorMessage;
   @override
   Option<Either<AuthFailure, String>> get recurringFailureOrSuccessOption;
+  @override
+
+  /// Multi shift
+  bool get isIndividualPost;
+  @override
+  int get selectedMultiShiftType;
+  @override
+  ListInputEmptyOrNot<DateTime> get selectedMultiDates;
+  @override
+  List<String> get startHourList;
+  @override
+  List<String> get startMinuteList;
+  @override
+  List<String> get endHourList;
+  @override
+  List<String> get endMinuteList;
+  @override
+  List<DateTimeDTO> get multiDateTimeList;
   @override
   @JsonKey(ignore: true)
   _$$PostShiftStateImplCopyWith<_$PostShiftStateImpl> get copyWith =>

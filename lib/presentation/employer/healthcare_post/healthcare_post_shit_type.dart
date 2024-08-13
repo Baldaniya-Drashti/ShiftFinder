@@ -37,62 +37,59 @@ class HealthcarePostShift extends StatelessWidget {
               },
               title: StringConstant.healthcare,
             ),
-            body: Stack(
-              children: [
-                SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: getSize(10),
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        CustomDropdwonWithTextField(
-                          hintText: "",
-                          isLabelPadding: true,
-                          showTextfield: false,
-                          labelText: StringConstant.shiftType,
-                          value: PostShiftBloc.shiftTypeList
-                              .firstWhere(
-                                (shift) => shift.id == state.shiftType,
-                                orElse: () => SkillDTO(id: 1, name: "Single"),
-                              )
-                              .name,
-                          items: PostShiftBloc.shiftTypeList.map((val) {
-                            return DropdownMenuItem<String>(
-                              value: val.name,
-                              child: BaseText(
-                                text: val.name ?? "",
-                                fontSize: 14,
-                                textColor: AppColors.black,
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            if (value != null) {
-                              context
-                                  .read<PostShiftBloc>()
-                                  .add(PostShiftEvent.changeShiftType(value));
-                            }
-                          },
-                        ),
-                        (state.shiftType == 3)
-                            ? Center(
+            body: (state.isLoading)
+                ? CenterLoadingIndicator()
+                : SingleChildScrollView(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: getSize(10),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          CustomDropdwonWithTextField(
+                            hintText: "",
+                            isLabelPadding: true,
+                            showTextfield: false,
+                            labelText: StringConstant.shiftType,
+                            value: PostShiftBloc.shiftTypeList
+                                .firstWhere(
+                                  (shift) => shift.id == state.shiftType,
+                                  orElse: () => SkillDTO(id: 1, name: "Single"),
+                                )
+                                .name,
+                            items: PostShiftBloc.shiftTypeList.map((val) {
+                              return DropdownMenuItem<String>(
+                                value: val.name,
                                 child: BaseText(
-                                  text: StringConstant.longTerm,
-                                  fontSize: 25,
+                                  text: val.name ?? "",
+                                  fontSize: 14,
+                                  textColor: AppColors.black,
                                 ),
-                              )
-                            : (state.shiftType == 2)
-                                ? MultiPostShift()
-                                : SinglePostShift(),
-                      ],
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              if (value != null) {
+                                context
+                                    .read<PostShiftBloc>()
+                                    .add(PostShiftEvent.changeShiftType(value));
+                              }
+                            },
+                          ),
+                          (state.shiftType == 3)
+                              ? Center(
+                                  child: BaseText(
+                                    text: StringConstant.longTerm,
+                                    fontSize: 25,
+                                  ),
+                                )
+                              : (state.shiftType == 2)
+                                  ? MultiPostShift()
+                                  : SinglePostShift(),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                if (state.isLoading) CenterLoadingIndicator(),
-              ],
-            ),
           );
         },
       ),

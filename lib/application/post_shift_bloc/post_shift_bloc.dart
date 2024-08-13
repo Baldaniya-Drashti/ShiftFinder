@@ -1,13 +1,16 @@
-// ignore_for_file: prefer_const_constructors, avoid_print, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, avoid_print, prefer_const_literals_to_create_immutables, unnecessary_brace_in_string_interps
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
+import 'package:shift/infrastructure/main/start_end_time_dto/start_end_time_dto.dart';
 import 'package:shift/presentation/common/utils/date_time_format.dart';
 part 'post_shift_event.dart';
 part 'post_shift_state.dart';
@@ -349,12 +352,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             singleShiftFailureOrSuccessOption: none(),
           ));
         },
-        neverEndDateCheck: (e) {
-          emit(state.copyWith(
-            isNeverEndDate: e.isCheck,
-            recurringFailureOrSuccessOption: none(),
-          ));
-        },
+
         recurringEndDateChanged: (e) {
           emit(
             state.copyWith(
@@ -392,6 +390,147 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             state.copyWith(
               recurringErrorMessage: true,
               recurringFailureOrSuccessOption: optionOf(failureOrSuccess),
+            ),
+          );
+        },
+
+        /// Multi Shift
+        multiDateSameDiffTypeChanged: (e) async {
+          emit(
+            state.copyWith(
+              isLoading: true,
+              singleShiftFailureOrSuccessOption: none(),
+            ),
+          );
+          await Future.delayed(Duration(seconds: 2));
+          emit(
+            state.copyWith(
+              isLoading: false,
+              selectedMultiShiftType: e.selectedType,
+              singleShiftFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        checkIsIndividualPost: (e) {
+          emit(
+            state.copyWith(
+              isIndividualPost: e.isIndividualPost,
+              singleShiftFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+
+        multiDateSelectionChanged: (e) {
+          emit(
+            state.copyWith(
+              selectedMultiDates: ListInputEmptyOrNot(e.selectedDates),
+              singleShiftFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        multidateContinueButtonPressed: (e) {
+          Either<AuthFailure, String>? failureOrSuccess;
+          final isMultiDateValid = state.selectedMultiDates.isValid();
+          final isCommuteAllownceValid = isAllownceValid(
+              selectedValue: state.selectedCommuteAllownce,
+              hourValue: state.commuteHour,
+              rateValue: state.commuteRate);
+          final isAccomdationAllownceValid = isAllownceValid(
+              selectedValue: state.selectedCommuteAllownce,
+              hourValue: state.commuteHour,
+              rateValue: state.commuteRate);
+
+          final isVacancyValid = isMoreVacancyValid(
+              isMoreVacancy: state.isMoreVacancy,
+              vacancyValue: state.selectedVacancy);
+
+          if (isMultiDateValid &&
+              isCommuteAllownceValid &&
+              isAccomdationAllownceValid &&
+              isVacancyValid) {
+            print("All details are valid!  $failureOrSuccess");
+            failureOrSuccess = right("Success");
+          } else {
+            print("Some details are invalid!");
+          }
+          print("failureOrSuccess  $failureOrSuccess");
+
+          emit(
+            state.copyWith(
+              singleShiftErrorMessages: true,
+              singleShiftFailureOrSuccessOption: optionOf(failureOrSuccess),
+            ),
+          );
+        },
+        startHourListChanged: (e) {
+          final list = createOrUpdateDateTimeDTO(
+            state,
+            index: e.index,
+            condition: 1,
+            value: e.hour,
+            date: e.date,
+          );
+          emit(state.copyWith(
+            multiDateTimeList: list,
+            singleShiftFailureOrSuccessOption: none(),
+          ));
+        },
+        startMinuteListChanged: (e) {
+          final list = createOrUpdateDateTimeDTO(
+            state,
+            index: e.index,
+            condition: 2,
+            value: e.minute,
+            date: e.date,
+          );
+          emit(state.copyWith(
+            multiDateTimeList: list,
+            singleShiftFailureOrSuccessOption: none(),
+          ));
+        },
+        endHourListChanged: (e) {
+          final list = createOrUpdateDateTimeDTO(
+            state,
+            index: e.index,
+            condition: 3,
+            value: e.hour,
+            date: e.date,
+          );
+          emit(state.copyWith(
+            multiDateTimeList: list,
+            singleShiftFailureOrSuccessOption: none(),
+          ));
+        },
+        endMinuteListChanged: (e) {
+          final list = createOrUpdateDateTimeDTO(
+            state,
+            index: e.index,
+            condition: 4,
+            value: e.minute,
+            date: e.date,
+          );
+          emit(state.copyWith(
+            multiDateTimeList: list,
+            singleShiftFailureOrSuccessOption: none(),
+          ));
+        },
+        initMultiDifferentDateEvent: (e) async {
+          emit(
+            state.copyWith(
+              isLoading: true,
+              singleShiftFailureOrSuccessOption: none(),
+            ),
+          );
+          // add(PostShiftEvent.getBreakAllownceListApi());
+          // SkillDTO? selectedSkillDTO = shiftTypeList.firstWhere(
+          //   (skill) => skill.name == e.shiftType,
+          //   orElse: () => SkillDTO(),
+          // );
+          emit(
+            state.copyWith(
+              isLoading: false,
+              multiDateTimeList: e.list,
+              singleShiftFailureOrSuccessOption: none(),
             ),
           );
         },
@@ -471,5 +610,61 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
     } else {
       return false;
     }
+  }
+
+  List<DateTimeDTO> createOrUpdateDateTimeDTO(
+    PostShiftState state, {
+    required String date,
+    required int condition,
+    required String value,
+    required int index,
+  }) {
+    final list = List<DateTimeDTO>.from(state.multiDateTimeList);
+
+    // Check if the item with the given date exists
+    final existingIndex = list.indexWhere((item) => item.date == date);
+
+    // Create or update the DTO
+    DateTimeDTO updatedDTO = existingIndex != -1
+        ? list[existingIndex]
+        : DateTimeDTO(
+            date: date,
+            objId: index,
+          );
+
+    // Update fields based on the condition
+    updatedDTO = updatedDTO.copyWith(
+      startHour: condition == 1 ? value : updatedDTO.startHour,
+      startMinute: condition == 2 ? value : updatedDTO.startMinute,
+      endHour: condition == 3 ? value : updatedDTO.endHour,
+      endMinute: condition == 4 ? value : updatedDTO.endMinute,
+    );
+
+    // Update start_time if startHour and startMinute are set
+    if (updatedDTO.startHour != null && updatedDTO.startMinute != null) {
+      final startTime = CustomDateTimeFormat.parseTime(
+          updatedDTO.startHour!, updatedDTO.startMinute!);
+      updatedDTO = updatedDTO.copyWith(
+          start_time: DateFormat('hh:mm a').format(startTime));
+    }
+
+    // Update end_time if endHour and endMinute are set
+    if (updatedDTO.endHour != null && updatedDTO.endMinute != null) {
+      final endTime = CustomDateTimeFormat.parseTime(
+          updatedDTO.endHour!, updatedDTO.endMinute!);
+      updatedDTO =
+          updatedDTO.copyWith(end_time: DateFormat('hh:mm a').format(endTime));
+    }
+
+    if (existingIndex != -1) {
+      // If the item exists, update it
+      list[existingIndex] = updatedDTO;
+    } else {
+      // If the item does not exist, insert it
+      list.add(updatedDTO);
+      list.sort((a, b) => a.date!.compareTo(b.date!));
+    }
+
+    return list;
   }
 }

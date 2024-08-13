@@ -36,6 +36,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: PostShiftRecurring.page),
         AutoRoute(page: ReviewPostShiftDetail.page),
         AutoRoute(page: PayableDetail.page),
+        AutoRoute(page: AddMultiDateTime.page),
         AutoRoute(
           page: MainTabView.page,
           children: [
