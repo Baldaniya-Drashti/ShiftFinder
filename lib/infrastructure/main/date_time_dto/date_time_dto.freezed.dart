@@ -28,6 +28,7 @@ mixin _$DateTimeDTO {
   String? get startMinute => throw _privateConstructorUsedError;
   String? get endHour => throw _privateConstructorUsedError;
   String? get endMinute => throw _privateConstructorUsedError;
+  String? get totalPaybleHours => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -49,7 +50,8 @@ abstract class $DateTimeDTOCopyWith<$Res> {
       String? startHour,
       String? startMinute,
       String? endHour,
-      String? endMinute});
+      String? endMinute,
+      String? totalPaybleHours});
 }
 
 /// @nodoc
@@ -73,6 +75,7 @@ class _$DateTimeDTOCopyWithImpl<$Res, $Val extends DateTimeDTO>
     Object? startMinute = freezed,
     Object? endHour = freezed,
     Object? endMinute = freezed,
+    Object? totalPaybleHours = freezed,
   }) {
     return _then(_value.copyWith(
       start_time: freezed == start_time
@@ -107,6 +110,10 @@ class _$DateTimeDTOCopyWithImpl<$Res, $Val extends DateTimeDTO>
           ? _value.endMinute
           : endMinute // ignore: cast_nullable_to_non_nullable
               as String?,
+      totalPaybleHours: freezed == totalPaybleHours
+          ? _value.totalPaybleHours
+          : totalPaybleHours // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -127,7 +134,8 @@ abstract class _$$DateTimeDTOImplCopyWith<$Res>
       String? startHour,
       String? startMinute,
       String? endHour,
-      String? endMinute});
+      String? endMinute,
+      String? totalPaybleHours});
 }
 
 /// @nodoc
@@ -149,6 +157,7 @@ class __$$DateTimeDTOImplCopyWithImpl<$Res>
     Object? startMinute = freezed,
     Object? endHour = freezed,
     Object? endMinute = freezed,
+    Object? totalPaybleHours = freezed,
   }) {
     return _then(_$DateTimeDTOImpl(
       start_time: freezed == start_time
@@ -183,6 +192,10 @@ class __$$DateTimeDTOImplCopyWithImpl<$Res>
           ? _value.endMinute
           : endMinute // ignore: cast_nullable_to_non_nullable
               as String?,
+      totalPaybleHours: freezed == totalPaybleHours
+          ? _value.totalPaybleHours
+          : totalPaybleHours // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -198,7 +211,8 @@ class _$DateTimeDTOImpl implements _DateTimeDTO {
       this.startHour,
       this.startMinute,
       this.endHour,
-      this.endMinute});
+      this.endMinute,
+      this.totalPaybleHours});
 
   factory _$DateTimeDTOImpl.fromJson(Map<String, dynamic> json) =>
       _$$DateTimeDTOImplFromJson(json);
@@ -219,10 +233,12 @@ class _$DateTimeDTOImpl implements _DateTimeDTO {
   final String? endHour;
   @override
   final String? endMinute;
+  @override
+  final String? totalPaybleHours;
 
   @override
   String toString() {
-    return 'DateTimeDTO(start_time: $start_time, end_time: $end_time, objId: $objId, date: $date, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute)';
+    return 'DateTimeDTO(start_time: $start_time, end_time: $end_time, objId: $objId, date: $date, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, totalPaybleHours: $totalPaybleHours)';
   }
 
   @override
@@ -242,13 +258,15 @@ class _$DateTimeDTOImpl implements _DateTimeDTO {
                 other.startMinute == startMinute) &&
             (identical(other.endHour, endHour) || other.endHour == endHour) &&
             (identical(other.endMinute, endMinute) ||
-                other.endMinute == endMinute));
+                other.endMinute == endMinute) &&
+            (identical(other.totalPaybleHours, totalPaybleHours) ||
+                other.totalPaybleHours == totalPaybleHours));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, start_time, end_time, objId,
-      date, startHour, startMinute, endHour, endMinute);
+      date, startHour, startMinute, endHour, endMinute, totalPaybleHours);
 
   @JsonKey(ignore: true)
   @override
@@ -273,7 +291,8 @@ abstract class _DateTimeDTO implements DateTimeDTO {
       final String? startHour,
       final String? startMinute,
       final String? endHour,
-      final String? endMinute}) = _$DateTimeDTOImpl;
+      final String? endMinute,
+      final String? totalPaybleHours}) = _$DateTimeDTOImpl;
 
   factory _DateTimeDTO.fromJson(Map<String, dynamic> json) =
       _$DateTimeDTOImpl.fromJson;
@@ -294,6 +313,8 @@ abstract class _DateTimeDTO implements DateTimeDTO {
   String? get endHour;
   @override
   String? get endMinute;
+  @override
+  String? get totalPaybleHours;
   @override
   @JsonKey(ignore: true)
   _$$DateTimeDTOImplCopyWith<_$DateTimeDTOImpl> get copyWith =>

@@ -470,8 +470,10 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             value: e.hour,
             date: e.date,
           );
+
           emit(state.copyWith(
             multiDateTimeList: list,
+            totalPaybleHours: allTimesFilled(list),
             singleShiftFailureOrSuccessOption: none(),
           ));
         },
@@ -485,6 +487,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           );
           emit(state.copyWith(
             multiDateTimeList: list,
+            totalPaybleHours: allTimesFilled(list),
             singleShiftFailureOrSuccessOption: none(),
           ));
         },
@@ -498,6 +501,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           );
           emit(state.copyWith(
             multiDateTimeList: list,
+            totalPaybleHours: allTimesFilled(list),
             singleShiftFailureOrSuccessOption: none(),
           ));
         },
@@ -511,6 +515,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           );
           emit(state.copyWith(
             multiDateTimeList: list,
+            totalPaybleHours: allTimesFilled(list),
             singleShiftFailureOrSuccessOption: none(),
           ));
         },
@@ -521,7 +526,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               singleShiftFailureOrSuccessOption: none(),
             ),
           );
-          // add(PostShiftEvent.getBreakAllownceListApi());
+          await getUnpaidBreakListApi(emit);
           // SkillDTO? selectedSkillDTO = shiftTypeList.firstWhere(
           //   (skill) => skill.name == e.shiftType,
           //   orElse: () => SkillDTO(),
@@ -644,16 +649,24 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
     if (updatedDTO.startHour != null && updatedDTO.startMinute != null) {
       final startTime = CustomDateTimeFormat.parseTime(
           updatedDTO.startHour!, updatedDTO.startMinute!);
-      updatedDTO = updatedDTO.copyWith(
-          start_time: DateFormat('hh:mm a').format(startTime));
+      updatedDTO = updatedDTO.copyWith(start_time: startTime.toString());
     }
 
     // Update end_time if endHour and endMinute are set
     if (updatedDTO.endHour != null && updatedDTO.endMinute != null) {
       final endTime = CustomDateTimeFormat.parseTime(
           updatedDTO.endHour!, updatedDTO.endMinute!);
-      updatedDTO =
-          updatedDTO.copyWith(end_time: DateFormat('hh:mm a').format(endTime));
+      updatedDTO = updatedDTO.copyWith(end_time: endTime.toString());
+    }
+    if (isTimeFilled(updatedDTO)) {
+      // final unpaidBreak = CustomDateTimeFormat.extractUnpaidBreak(
+      //     state.unpaidBreak.getValue()!);
+      var timeDiffBetweenEndStartTime = DateTime.parse(updatedDTO.end_time!)
+          .difference(DateTime.parse(updatedDTO.start_time!));
+      // final timeDifference =
+      //     timeDiffBetweenEndStartTime - Duration(minutes: unpaidBreak);
+      updatedDTO = updatedDTO.copyWith(
+          totalPaybleHours: timeDiffBetweenEndStartTime.toString());
     }
 
     if (existingIndex != -1) {
@@ -666,5 +679,41 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
     }
 
     return list;
+  }
+
+  String allTimesFilled(List<DateTimeDTO> multiDateTimeList) {
+    bool isAllFilled = multiDateTimeList.every((dto) =>
+        dto.totalPaybleHours != null && dto.totalPaybleHours!.isNotEmpty);
+    if (isAllFilled) {
+      final totalHour = CustomDateTimeFormat.formatDuration(
+          sumTotalPayableHours(multiDateTimeList));
+      // final timeDifference =
+      //       timeDiffBetweenEndStartTime - Duration(minutes: unpaidBreak);
+      print("totalHour--> ${totalHour}");
+      return totalHour;
+    } else {
+      return "00h 00min";
+    }
+  }
+
+  Duration parseDuration(String duration) {
+    final parts = duration.split(':');
+    final hours = int.parse(parts[0]);
+    final minutes = int.parse(parts[1]);
+    final seconds = double.parse(parts[2])
+        .round(); // Handles the case of fractional seconds
+    return Duration(hours: hours, minutes: minutes, seconds: seconds);
+  }
+
+  Duration sumTotalPayableHours(List<DateTimeDTO> multiDateTimeList) {
+    return multiDateTimeList.fold(Duration.zero,
+        (total, dto) => total + parseDuration(dto.totalPaybleHours ?? ""));
+  }
+
+  bool isTimeFilled(DateTimeDTO dto) {
+    return (dto.start_time != null &&
+        dto.start_time!.isNotEmpty &&
+        dto.end_time != null &&
+        dto.end_time!.isNotEmpty);
   }
 }
