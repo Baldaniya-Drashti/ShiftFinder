@@ -11,6 +11,7 @@ import 'package:shift/domain/core/document_expiry_picker.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -23,102 +24,111 @@ import 'package:shift/presentation/core/widgets/inputs/custom_time_picker_dropdo
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 
 class SinglePostShift extends StatelessWidget {
-  const SinglePostShift({super.key});
+  int shiftType;
+  SinglePostShift({super.key, required this.shiftType});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<PostShiftBloc, PostShiftState>(
-      listener: (context, state) {
-        state.singleShiftFailureOrSuccessOption.fold(
-          () {},
-          (either) => either.fold(
-            (failure) {
-              showError(
-                message: failure.maybeMap(
-                  showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) =>
-                      'Please check your internet connectivity',
-                  orElse: () => "Server Error. Try again later.",
-                ),
-              ).show(context);
-            },
-            (r) {
-              context.router.push(const PageRouteInfo(PostShiftRecurring.name));
-            },
-          ),
-        );
-      },
-      builder: (context, state) {
-        return Form(
-          autovalidateMode: (state.singleShiftErrorMessages)
-              ? AutovalidateMode.always
-              : AutovalidateMode.disabled,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              paddingBetweenFields(),
-              dateField(context, state),
-              paddingBetweenFields(),
-              startTime(context, state),
-              paddingBetweenFields(),
-              endTime(context, state),
-              paddingBetweenFields(),
-              unpaidBreakDropDown(context, state),
-              if (state.singleShiftErrorMessages &&
-                  (!state.unpaidBreak.isValid()))
-                commonErrorText(
-                  StringConstant.pleaseSelectUnpaidBreakTime,
-                ),
-              paddingBetweenFields(),
-              totalPaybleHours(state),
-              paddingBetweenFields(),
-              commuteAllownceDropDown(context, state),
-              if (state.singleShiftErrorMessages &&
-                  !(PostShiftBloc.isAllownceValid(
-                      selectedValue: state.selectedCommuteAllownce,
-                      hourValue: state.commuteHour,
-                      rateValue: state.commuteRate)))
-                commonErrorText(
-                    StringConstant.pleaseSelectCommuteAllownceValue),
-              paddingBetweenFields(),
-              accommodationAllowanceDropDown(context, state),
-              if (state.singleShiftErrorMessages &&
-                  !(PostShiftBloc.isAllownceValid(
-                      selectedValue: state.selectedAccomdationAllownce,
-                      hourValue: state.accomdationHour,
-                      rateValue: state.accomdationRate)))
-                commonErrorText(
-                    StringConstant.pleaseSelectAccomdationAllownceValue),
-              paddingBetweenFields(),
-              shiftNotesField(context, state),
-              paddingBetweenFields(),
-              vacancyCheckBox(context, state),
-              if (state.isMoreVacancy) ...[
-                paddingBetweenFields(),
-                numberOfVacancy(context, state),
-                if (state.singleShiftErrorMessages &&
-                    !(PostShiftBloc.isMoreVacancyValid(
-                        isMoreVacancy: state.isMoreVacancy,
-                        vacancyValue: state.selectedVacancy)))
-                  commonErrorText(
-                    StringConstant.pleaseAddNumberOfVacancies,
+    return BlocProvider(
+      create: (context) =>
+          getIt<PostShiftBloc>()..add(PostShiftEvent.changeShiftType("Single")),
+      child: BlocConsumer<PostShiftBloc, PostShiftState>(
+        listener: (context, state) {
+          state.singleShiftFailureOrSuccessOption.fold(
+            () {},
+            (either) => either.fold(
+              (failure) {
+                showError(
+                  message: failure.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
                   ),
-              ],
-              Padding(
-                padding: EdgeInsets.only(top: getSize(50), bottom: getSize(30)),
-                child: CommonButton(
-                  onPressed: () {
-                    context
-                        .read<PostShiftBloc>()
-                        .add(PostShiftEvent.continueBtnPressed());
-                  },
-                  buttonText: StringConstant.txtContinue,
+                ).show(context);
+              },
+              (r) {
+                context.router.push(PageRouteInfo(
+                  PostShiftRecurring.name,
+                  args: PostShiftRecurringArgs(shiftType: shiftType),
+                ));
+              },
+            ),
+          );
+        },
+        builder: (context, state) {
+          return Form(
+            autovalidateMode: (state.singleShiftErrorMessages)
+                ? AutovalidateMode.always
+                : AutovalidateMode.disabled,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                paddingBetweenFields(),
+                dateField(context, state),
+                paddingBetweenFields(),
+                startTime(context, state),
+                paddingBetweenFields(),
+                endTime(context, state),
+                paddingBetweenFields(),
+                unpaidBreakDropDown(context, state),
+                if (state.singleShiftErrorMessages &&
+                    (!state.unpaidBreak.isValid()))
+                  commonErrorText(
+                    StringConstant.pleaseSelectUnpaidBreakTime,
+                  ),
+                paddingBetweenFields(),
+                totalPaybleHours(state),
+                paddingBetweenFields(),
+                commuteAllownceDropDown(context, state),
+                if (state.singleShiftErrorMessages &&
+                    !(PostShiftBloc.isAllownceValid(
+                        selectedValue: state.selectedCommuteAllownce,
+                        hourValue: state.commuteHour,
+                        rateValue: state.commuteRate)))
+                  commonErrorText(
+                      StringConstant.pleaseSelectCommuteAllownceValue),
+                paddingBetweenFields(),
+                accommodationAllowanceDropDown(context, state),
+                if (state.singleShiftErrorMessages &&
+                    !(PostShiftBloc.isAllownceValid(
+                        selectedValue: state.selectedAccomdationAllownce,
+                        hourValue: state.accomdationHour,
+                        rateValue: state.accomdationRate)))
+                  commonErrorText(
+                      StringConstant.pleaseSelectAccomdationAllownceValue),
+                paddingBetweenFields(),
+                shiftNotesField(context, state),
+                paddingBetweenFields(),
+                vacancyCheckBox(context, state),
+                if (state.isMoreVacancy) ...[
+                  paddingBetweenFields(),
+                  numberOfVacancy(context, state),
+                  if (state.singleShiftErrorMessages &&
+                      !(PostShiftBloc.isMoreVacancyValid(
+                          isMoreVacancy: state.isMoreVacancy,
+                          vacancyValue: state.selectedVacancy)))
+                    commonErrorText(
+                      StringConstant.pleaseAddNumberOfVacancies,
+                    ),
+                ],
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: getSize(50), bottom: getSize(30)),
+                  child: CommonButton(
+                    onPressed: () {
+                      context
+                          .read<PostShiftBloc>()
+                          .add(PostShiftEvent.singleShiftSubmitted());
+                    },
+                    buttonText: StringConstant.txtContinue,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        );
-      },
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -243,7 +253,7 @@ class SinglePostShift extends StatelessWidget {
         if (state.singleShiftErrorMessages &&
             (!state.endHour.isValid() || !state.endMinute.isValid()))
           commonErrorText(
-            StringConstant.pleaseSelectHourAndMinutesOfStartTime,
+            StringConstant.pleaseSelectHourAndMinutesOfEndTime,
           ),
       ],
     );

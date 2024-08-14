@@ -1,16 +1,17 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, prefer_const_literals_to_create_immutables, unnecessary_brace_in_string_interps
 
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:intl/intl.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
-import 'package:shift/infrastructure/main/start_end_time_dto/start_end_time_dto.dart';
+import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
 import 'package:shift/presentation/common/utils/date_time_format.dart';
 part 'post_shift_event.dart';
 part 'post_shift_state.dart';
@@ -126,11 +127,26 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           add(PostShiftEvent.totalPayableHoursChanged());
         },
         unpaidBreakChanged: (e) {
-          emit(state.copyWith(
-            unpaidBreak: InputEmptyOrNot(e.breakTime),
-            singleShiftFailureOrSuccessOption: none(),
-          ));
-          add(PostShiftEvent.totalPayableHoursChanged());
+          /// shift_type: 1 means Single Shift
+          if (state.shiftType == 2 && state.selectedMultiShiftType == 2) {
+            emit(state.copyWith(
+              unpaidBreak: InputEmptyOrNot(e.breakTime),
+              singleShiftFailureOrSuccessOption: none(),
+            ));
+
+            // Substract unpaid break with allTimesFilled method
+            emit(state.copyWith(
+              totalPaybleHours: allTimesFilled(
+                  List<DateTimeDTO>.from(state.multiDateTimeList)),
+              singleShiftFailureOrSuccessOption: none(),
+            ));
+          } else {
+            emit(state.copyWith(
+              unpaidBreak: InputEmptyOrNot(e.breakTime),
+              singleShiftFailureOrSuccessOption: none(),
+            ));
+            add(PostShiftEvent.totalPayableHoursChanged());
+          }
         },
         totalPayableHoursChanged: (e) {
           final isStartHourValid = state.startHour.isValid();
@@ -240,7 +256,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           );
         },
 
-        continueBtnPressed: (e) {
+        singleShiftSubmitted: (e) {
           Either<AuthFailure, String>? failureOrSuccess;
 
           final isCommuteAllownceValid = isAllownceValid(
@@ -334,7 +350,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           emit(state.copyWith(
             recurrenceMode: InputEmptyOrNot(e.mode),
             recurrenceWeekList: ListInputEmptyOrNot([]),
-            singleShiftFailureOrSuccessOption: none(),
+            recurringFailureOrSuccessOption: none(),
           ));
         },
         recurrenceWeeksChanged: (e) {
@@ -349,7 +365,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
 
           emit(state.copyWith(
             recurrenceWeekList: ListInputEmptyOrNot(updatedList),
-            singleShiftFailureOrSuccessOption: none(),
+            recurringFailureOrSuccessOption: none(),
           ));
         },
 
@@ -373,7 +389,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
 
           emit(state.copyWith(
             selectedTeamList: ListInputEmptyOrNot(updatedList),
-            singleShiftFailureOrSuccessOption: none(),
+            recurringFailureOrSuccessOption: none(),
           ));
         },
         recurringButtonEvent: (e) {
@@ -395,6 +411,27 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
         },
 
         /// Multi Shift
+        initMultiDifferentDateEvent: (e) async {
+          emit(
+            state.copyWith(
+              isLoading: true,
+              singleShiftFailureOrSuccessOption: none(),
+            ),
+          );
+          await getUnpaidBreakListApi(emit);
+          // SkillDTO? selectedSkillDTO = shiftTypeList.firstWhere(
+          //   (skill) => skill.name == e.shiftType,
+          //   orElse: () => SkillDTO(),
+          // );
+          emit(
+            state.copyWith(
+              isLoading: false,
+              multiDateTimeList: e.list,
+              singleShiftFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+
         multiDateSameDiffTypeChanged: (e) async {
           emit(
             state.copyWith(
@@ -429,16 +466,15 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           );
         },
         multidateContinueButtonPressed: (e) {
-          Either<AuthFailure, String>? failureOrSuccess;
           final isMultiDateValid = state.selectedMultiDates.isValid();
           final isCommuteAllownceValid = isAllownceValid(
               selectedValue: state.selectedCommuteAllownce,
               hourValue: state.commuteHour,
               rateValue: state.commuteRate);
           final isAccomdationAllownceValid = isAllownceValid(
-              selectedValue: state.selectedCommuteAllownce,
-              hourValue: state.commuteHour,
-              rateValue: state.commuteRate);
+              selectedValue: state.selectedAccomdationAllownce,
+              hourValue: state.accomdationHour,
+              rateValue: state.accomdationRate);
 
           final isVacancyValid = isMoreVacancyValid(
               isMoreVacancy: state.isMoreVacancy,
@@ -448,17 +484,30 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               isCommuteAllownceValid &&
               isAccomdationAllownceValid &&
               isVacancyValid) {
-            print("All details are valid!  $failureOrSuccess");
-            failureOrSuccess = right("Success");
+            print("All details are valid!");
+            emit(
+              state.copyWith(
+                isDifferentDateDataValid: true,
+                singleShiftErrorMessages: true,
+                differentDateFailureOrSuccessOption: none(),
+              ),
+            );
           } else {
             print("Some details are invalid!");
+            emit(
+              state.copyWith(
+                isDifferentDateDataValid: false,
+                singleShiftErrorMessages: true,
+                differentDateFailureOrSuccessOption: none(),
+              ),
+            );
           }
-          print("failureOrSuccess  $failureOrSuccess");
-
+        },
+        backEvent: (e) {
           emit(
             state.copyWith(
-              singleShiftErrorMessages: true,
-              singleShiftFailureOrSuccessOption: optionOf(failureOrSuccess),
+              isDifferentDateDataValid: false,
+              differentDateFailureOrSuccessOption: none(),
             ),
           );
         },
@@ -519,23 +568,62 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             singleShiftFailureOrSuccessOption: none(),
           ));
         },
-        initMultiDifferentDateEvent: (e) async {
+        differentTimeShiftSubmitted: (e) {
+          Either<AuthFailure, String>? failureOrSuccess;
+
+          final isUnPaidBreakValid = state.unpaidBreak.isValid();
+          final isAllDatesValid = state.multiDateTimeList.every((dto) =>
+              dto.totalPaybleHours != null && dto.totalPaybleHours!.isNotEmpty);
+          if (isAllDatesValid && isUnPaidBreakValid) {
+            failureOrSuccess = right("Success");
+          } else {}
           emit(
             state.copyWith(
-              isLoading: true,
-              singleShiftFailureOrSuccessOption: none(),
+              singleShiftErrorMessages: true,
+              singleShiftFailureOrSuccessOption: optionOf(failureOrSuccess),
             ),
           );
-          await getUnpaidBreakListApi(emit);
-          // SkillDTO? selectedSkillDTO = shiftTypeList.firstWhere(
-          //   (skill) => skill.name == e.shiftType,
-          //   orElse: () => SkillDTO(),
-          // );
+        },
+        sameTimeShiftSubmitted: (e) {
+          Either<AuthFailure, String>? failureOrSuccess;
+
+          final isCommuteAllownceValid = isAllownceValid(
+              selectedValue: state.selectedCommuteAllownce,
+              hourValue: state.commuteHour,
+              rateValue: state.commuteRate);
+          final isAccomdationAllownceValid = isAllownceValid(
+              selectedValue: state.selectedCommuteAllownce,
+              hourValue: state.commuteHour,
+              rateValue: state.commuteRate);
+          final isMultiDateValid = state.selectedMultiDates.isValid();
+          final isUnpaidBreakValid = state.unpaidBreak.isValid();
+          final isStartHourValid = state.startHour.isValid();
+          final isStartMinuteValid = state.startMinute.isValid();
+          final isEndHourValid = state.endHour.isValid();
+          final isEndMinuteValid = state.endMinute.isValid();
+          final isVacancyValid = isMoreVacancyValid(
+              isMoreVacancy: state.isMoreVacancy,
+              vacancyValue: state.selectedVacancy);
+
+          if (isMultiDateValid &&
+              isCommuteAllownceValid &&
+              isAccomdationAllownceValid &&
+              isStartHourValid &&
+              isStartMinuteValid &&
+              isEndHourValid &&
+              isEndMinuteValid &&
+              isUnpaidBreakValid &&
+              isVacancyValid) {
+            print("All details are valid!");
+            failureOrSuccess = right("Success");
+          } else {
+            print("Some details are invalid!");
+          }
+
           emit(
             state.copyWith(
-              isLoading: false,
-              multiDateTimeList: e.list,
-              singleShiftFailureOrSuccessOption: none(),
+              singleShiftErrorMessages: true,
+              singleShiftFailureOrSuccessOption: optionOf(failureOrSuccess),
             ),
           );
         },
@@ -622,7 +710,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
     required String date,
     required int condition,
     required String value,
-    required int index,
+    required int? index,
   }) {
     final list = List<DateTimeDTO>.from(state.multiDateTimeList);
 
@@ -658,13 +746,12 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           updatedDTO.endHour!, updatedDTO.endMinute!);
       updatedDTO = updatedDTO.copyWith(end_time: endTime.toString());
     }
+
+    // Calculate total payable hours
     if (isTimeFilled(updatedDTO)) {
-      // final unpaidBreak = CustomDateTimeFormat.extractUnpaidBreak(
-      //     state.unpaidBreak.getValue()!);
       var timeDiffBetweenEndStartTime = DateTime.parse(updatedDTO.end_time!)
           .difference(DateTime.parse(updatedDTO.start_time!));
-      // final timeDifference =
-      //     timeDiffBetweenEndStartTime - Duration(minutes: unpaidBreak);
+      print("total hours---> ${timeDiffBetweenEndStartTime}");
       updatedDTO = updatedDTO.copyWith(
           totalPaybleHours: timeDiffBetweenEndStartTime.toString());
     }
@@ -681,14 +768,30 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
     return list;
   }
 
+  /// Addition of total_payable_hours
   String allTimesFilled(List<DateTimeDTO> multiDateTimeList) {
-    bool isAllFilled = multiDateTimeList.every((dto) =>
+    bool areAllTimesFilled = multiDateTimeList.every((dto) =>
         dto.totalPaybleHours != null && dto.totalPaybleHours!.isNotEmpty);
-    if (isAllFilled) {
+    final unpaidBreak =
+        CustomDateTimeFormat.extractUnpaidBreak(state.unpaidBreak.getValue()!);
+    if (areAllTimesFilled) {
+      // Substract unpaid break list
+      List<DateTimeDTO> updatedList = multiDateTimeList.map((dto) {
+        if (isTimeFilled(dto)) {
+          var timeDiffBetweenEndStartTime = DateTime.parse(dto.end_time!)
+              .difference(DateTime.parse(dto.start_time!));
+
+          final timeDifference =
+              timeDiffBetweenEndStartTime - Duration(minutes: unpaidBreak);
+          return dto.copyWith(totalPaybleHours: timeDifference.toString());
+        } else {
+          return dto;
+        }
+      }).toList();
+
       final totalHour = CustomDateTimeFormat.formatDuration(
-          sumTotalPayableHours(multiDateTimeList));
-      // final timeDifference =
-      //       timeDiffBetweenEndStartTime - Duration(minutes: unpaidBreak);
+          sumTotalPayableHours(updatedList));
+
       print("totalHour--> ${totalHour}");
       return totalHour;
     } else {

@@ -12,13 +12,16 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_time_picker_dropdown.dart';
+import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'addMultiDateTime')
@@ -35,7 +38,27 @@ class AddMultiDateTime extends StatelessWidget {
             selectedObj.multi_date ?? [])),
       child: BlocConsumer<PostShiftBloc, PostShiftState>(
         listener: (context, state) {
-          // TODO: implement listener
+          state.singleShiftFailureOrSuccessOption.fold(
+            () {},
+            (either) => either.fold(
+              (failure) {
+                showError(
+                  message: failure.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(context);
+              },
+              (r) {
+                context.router.push(PageRouteInfo(
+                  PostShiftRecurring.name,
+                  args: PostShiftRecurringArgs(shiftType: state.shiftType),
+                ));
+              },
+            ),
+          );
         },
         builder: (context, state) {
           return Scaffold(
@@ -45,47 +68,65 @@ class AddMultiDateTime extends StatelessWidget {
                 Navigator.pop(context);
               },
             ),
-            body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  unpaidBreakDropDown(context, state),
-                  paddingBetweenFields(),
-                  totalPaybleHours(state),
-                  paddingBetweenFields(),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          if (state.multiDateTimeList.isNotEmpty)
-                            ListView.builder(
-                                itemCount: state.multiDateTimeList.length,
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (_, index) {
-                                  return startEndTime(context, state,
-                                      state.multiDateTimeList[index],
-                                      index: index);
-                                }),
-                          Padding(
-                            padding:
-                                EdgeInsets.symmetric(vertical: getSize(30)),
-                            child: CommonButton(
-                              onPressed: () {
-                                context.router.push(const PageRouteInfo(
-                                    PostShiftRecurring.name));
-                              },
-                              buttonText: StringConstant.txtContinue,
+            body: (state.isLoading)
+                ? CenterLoadingIndicator()
+                : Padding(
+                    padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        unpaidBreakDropDown(context, state),
+                        if (state.singleShiftErrorMessages &&
+                            !state.unpaidBreak.isValid())
+                          commonErrorText(
+                            StringConstant.pleaseSelectUnpaidBreakTime,
+                          ),
+                        paddingBetweenFields(),
+                        totalPaybleHours(state),
+                        paddingBetweenFields(),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (state.multiDateTimeList.isNotEmpty)
+                                  ListView.builder(
+                                      itemCount: state.multiDateTimeList.length,
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemBuilder: (_, index) {
+                                        return startEndTime(context, state,
+                                            state.multiDateTimeList[index],
+                                            index: index);
+                                      }),
+                                if (!(state.multiDateTimeList.every((dto) =>
+                                        dto.totalPaybleHours != null &&
+                                        dto.totalPaybleHours!.isNotEmpty)) &&
+                                    state.singleShiftErrorMessages)
+                                  commonErrorText(
+                                    StringConstant
+                                        .pleaseSelectStartAndEndTimeForEachDate,
+                                  ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(30)),
+                                  child: CommonButton(
+                                    onPressed: () {
+                                      context.read<PostShiftBloc>().add(
+                                          PostShiftEvent
+                                              .differentTimeShiftSubmitted());
+                                    },
+                                    buttonText: StringConstant.txtContinue,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ),
           );
         },
       ),

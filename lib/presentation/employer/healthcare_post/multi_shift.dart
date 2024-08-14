@@ -1,45 +1,47 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_brace_in_string_interps, avoid_print
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
-import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
-import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
-import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/employer/healthcare_post/different_time_for_each_date.dart';
 import 'package:shift/presentation/employer/healthcare_post/same_time_for_multi_date.dart';
 
 class MultiPostShift extends StatelessWidget {
-  const MultiPostShift({super.key});
+  int shiftType;
+
+  MultiPostShift({super.key, required this.shiftType});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<PostShiftBloc, PostShiftState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        return Form(
-          autovalidateMode: (state.singleShiftErrorMessages)
-              ? AutovalidateMode.always
-              : AutovalidateMode.disabled,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              paddingBetweenFields(),
-              sameOrDifferentRadio(context, state),
-              paddingBetweenFields(),
-              (state.selectedMultiShiftType == 1)
-                  ? SameTimeForMultiDate()
-                  : DifferentTimeForEachDate(),
-            ],
-          ),
-        );
-      },
+    return BlocProvider(
+      create: (context) =>
+          getIt<PostShiftBloc>()..add(PostShiftEvent.changeShiftType("Multi")),
+      child: BlocConsumer<PostShiftBloc, PostShiftState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Form(
+            autovalidateMode: (state.singleShiftErrorMessages)
+                ? AutovalidateMode.always
+                : AutovalidateMode.disabled,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                paddingBetweenFields(),
+                sameOrDifferentRadio(context, state),
+                paddingBetweenFields(),
+                (state.selectedMultiShiftType == 1)
+                    ? SameTimeForMultiDate()
+                    : DifferentTimeForEachDate(),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 

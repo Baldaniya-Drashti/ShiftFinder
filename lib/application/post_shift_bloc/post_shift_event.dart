@@ -45,7 +45,7 @@ class PostShiftEvent with _$PostShiftEvent {
   const factory PostShiftEvent.addVacancyChanged(String vacancy) =
       AddVacancyChanged;
 
-  const factory PostShiftEvent.continueBtnPressed() = ContinueBtnPressed;
+  const factory PostShiftEvent.singleShiftSubmitted() = SingleShiftSubmitted;
 
   /// For recurring, template,share with teams
   const factory PostShiftEvent.recurringCheck(bool isCheck) = RecurringCheck;
@@ -85,7 +85,12 @@ class PostShiftEvent with _$PostShiftEvent {
       String hour, int index, String date) = EndHourListChanged;
   const factory PostShiftEvent.endMinuteListChanged(
       String minute, int index, String date) = EndMinuteListChanged;
+  const factory PostShiftEvent.differentTimeShiftSubmitted() =
+      DifferentTimeShiftSubmitted;
 
   const factory PostShiftEvent.initMultiDifferentDateEvent(
       List<DateTimeDTO> list) = InitMultiDifferentDateEvent;
+  const factory PostShiftEvent.backEvent() = BackEvent;
+  const factory PostShiftEvent.sameTimeShiftSubmitted() =
+      SameTimeShiftSubmitted;
 }

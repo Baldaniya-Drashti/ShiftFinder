@@ -25,7 +25,8 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'postShiftRecurring')
 class PostShiftRecurring extends StatelessWidget {
-  const PostShiftRecurring({super.key});
+  int shiftType;
+  PostShiftRecurring({super.key, required this.shiftType});
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +85,8 @@ class PostShiftRecurring extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                recurringCheckBox(context, state),
+                                if (shiftType == 1)
+                                  recurringCheckBox(context, state),
                                 paddingBetweenFields(),
                                 if (state.isToBeRecurring) ...[
                                   recurringStartDateField(context, state),

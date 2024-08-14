@@ -319,6 +319,12 @@ class StringConstant {
   static const String addTime = "Add Time";
   static const String sameTimeForAllDates = "Same Time For All Dates";
   static const String differentTimeForEachDate = "Different Time For Each Date";
+  static const String totalNumberOfDays = "Total Number of Days";
+  static const String totalCommuteAllowance = "Total Commute Allowance";
+  static const String totalAccommodationAllowance = "Total Accommodation Allowance";
+  static const String sumOfAmounts = "Sum Of Amounts";
+  static const String totalAmount = "Total Amount";
+
 
   ///
 
@@ -464,4 +470,6 @@ class StringConstant {
 
   static const String pleaseSelectAtLeastOneDate =
       "Please select at least one date";
+  static const String pleaseSelectStartAndEndTimeForEachDate =
+      "Please select start and end time for each date";
 }

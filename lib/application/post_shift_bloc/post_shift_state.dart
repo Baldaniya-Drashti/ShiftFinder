@@ -55,6 +55,9 @@ class PostShiftState with _$PostShiftState {
     required List<String> endHourList,
     required List<String> endMinuteList,
     required List<DateTimeDTO> multiDateTimeList,
+    required bool isDifferentDateDataValid,
+    required Option<Either<AuthFailure, MultiShiftDTO>>
+        differentDateFailureOrSuccessOption,
   }) = _PostShiftState;
 
   factory PostShiftState.initial() => PostShiftState(
@@ -107,5 +110,7 @@ class PostShiftState with _$PostShiftState {
         endHourList: [],
         endMinuteList: [],
         multiDateTimeList: [],
+        isDifferentDateDataValid: false,
+        differentDateFailureOrSuccessOption: none(),
       );
 }

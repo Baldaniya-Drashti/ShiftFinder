@@ -292,9 +292,13 @@ abstract class $AppRouter extends _i36.RootStackRouter {
       );
     },
     PostShiftRecurring.name: (routeData) {
+      final args = routeData.argsAs<PostShiftRecurringArgs>();
       return _i36.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i26.PostShiftRecurring(),
+        child: _i26.PostShiftRecurring(
+          key: args.key,
+          shiftType: args.shiftType,
+        ),
       );
     },
     ProfileView.name: (routeData) {
@@ -1078,16 +1082,40 @@ class PayableDetail extends _i36.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i26.PostShiftRecurring]
-class PostShiftRecurring extends _i36.PageRouteInfo<void> {
-  const PostShiftRecurring({List<_i36.PageRouteInfo>? children})
-      : super(
+class PostShiftRecurring extends _i36.PageRouteInfo<PostShiftRecurringArgs> {
+  PostShiftRecurring({
+    _i37.Key? key,
+    required int shiftType,
+    List<_i36.PageRouteInfo>? children,
+  }) : super(
           PostShiftRecurring.name,
+          args: PostShiftRecurringArgs(
+            key: key,
+            shiftType: shiftType,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'PostShiftRecurring';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i36.PageInfo<PostShiftRecurringArgs> page =
+      _i36.PageInfo<PostShiftRecurringArgs>(name);
+}
+
+class PostShiftRecurringArgs {
+  const PostShiftRecurringArgs({
+    this.key,
+    required this.shiftType,
+  });
+
+  final _i37.Key? key;
+
+  final int shiftType;
+
+  @override
+  String toString() {
+    return 'PostShiftRecurringArgs{key: $key, shiftType: $shiftType}';
+  }
 }
 
 /// generated route for

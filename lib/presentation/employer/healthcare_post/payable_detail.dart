@@ -37,42 +37,7 @@ class PayableDetail extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      payableBox(
-                        title1: StringConstant.totalPayableHours,
-                        title2: StringConstant.hourlyRate,
-                        value1: "\$20",
-                        value2: "\$10",
-                        totalPayableTitle: StringConstant.totalWage,
-                        totalPayable: "\$4675.00",
-                      ),
-                      payableBox(
-                        title1: StringConstant.commuteAllowance,
-                        title2: StringConstant.accommodationAllowance,
-                        value1: "\$20",
-                        value2: "\$10",
-                        totalPayableTitle: StringConstant.totalAllowance,
-                        totalPayable: "\$4675.00",
-                      ),
-                      payableBox(
-                        title1: StringConstant.shiftFinderServiceFee,
-                        value1: "\$20",
-                      ),
-                      payableBox(
-                        title1: StringConstant.totalPayableForOneShift,
-                        title2: StringConstant.numberOfVacancies,
-                        value1: "\$20",
-                        value2: "\$10",
-                      ),
-                      payableBox(
-                          title1: StringConstant.totalAmountPayable,
-                          value1: "\$20",
-                          backgroundColor:
-                              AppColors.primaryColor.withOpacity(0.3)),
-                    ],
-                  ),
+                  singleShiftSlip(),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: getSize(20)),
                     child: CommonButton(
@@ -146,6 +111,8 @@ class PayableDetail extends StatelessWidget {
     String? title2,
     required String value1,
     String? value2,
+    String? title3,
+    String? value3,
     String? totalPayableTitle,
     String? totalPayable,
     Color? backgroundColor,
@@ -165,6 +132,7 @@ class PayableDetail extends StatelessWidget {
         minVerticalPadding: 0,
         horizontalTitleGap: getSize(0),
         dense: true,
+        visualDensity: VisualDensity.compact,
         title: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,9 +142,17 @@ class PayableDetail extends StatelessWidget {
               value: value1,
             ),
             if (title2 != null) ...[
+              paddingBetweenFields(),
               paybaleTitleRate(
                 title: title2,
                 value: value2 ?? "",
+              ),
+            ],
+            paddingBetweenFields(),
+            if (title3 != null) ...[
+              paybaleTitleRate(
+                title: title3,
+                value: value3 ?? "",
               ),
             ],
             if (totalPayable != null) ...[
@@ -190,6 +166,121 @@ class PayableDetail extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget totalPayableBox({
+    String? totalPayableTitle,
+    String? totalPayable,
+  }) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: getSize(12),
+      ),
+      margin: EdgeInsets.symmetric(vertical: getSize(5)),
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: AppColors.primaryColor.withOpacity(0.3),
+          borderRadius: BorderRadius.circular(10)),
+      child: ListTile(
+        contentPadding: EdgeInsets.zero,
+        minVerticalPadding: 0,
+        horizontalTitleGap: getSize(0),
+        dense: true,
+        title: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            paybaleTitleRate(
+              title: totalPayableTitle ?? "",
+              value: totalPayable ?? "",
+              isLast: true,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget paddingBetweenFields({double? height}) {
+    return SizedBox(
+      height: getSize(height ?? 10),
+    );
+  }
+
+  Widget multiShiftSlip() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        payableBox(
+          title1: StringConstant.totalNumberOfDays,
+          title2: StringConstant.totalPayableHours,
+          title3: StringConstant.hourlyRate,
+          value1: "7",
+          value2: "65h 30min",
+          value3: "\$10.00",
+          totalPayableTitle: StringConstant.totalWage,
+          totalPayable: "\$655.00",
+        ),
+        payableBox(
+          title1: StringConstant.totalCommuteAllowance,
+          title2: StringConstant.totalAccommodationAllowance,
+          title3: StringConstant.shiftFinderServiceFee,
+          value1: "7",
+          value2: "65h 30min",
+          value3: "\$10.00",
+          totalPayableTitle: StringConstant.totalAllowance,
+          totalPayable: "\$655.00",
+        ),
+        payableBox(
+          title1: StringConstant.sumOfAmounts,
+          title2: StringConstant.numberOfVacancies,
+          value1: "\$20",
+          value2: "\$10",
+        ),
+        totalPayableBox(
+          totalPayableTitle: StringConstant.totalAmount,
+          totalPayable: "\$20",
+        ),
+      ],
+    );
+  }
+
+  Widget singleShiftSlip() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        payableBox(
+          title1: StringConstant.totalPayableHours,
+          title2: StringConstant.hourlyRate,
+          value1: "\$20",
+          value2: "\$10",
+          totalPayableTitle: StringConstant.totalWage,
+          totalPayable: "\$4675.00",
+        ),
+        payableBox(
+          title1: StringConstant.commuteAllowance,
+          title2: StringConstant.accommodationAllowance,
+          value1: "\$20",
+          value2: "\$10",
+          totalPayableTitle: StringConstant.totalAllowance,
+          totalPayable: "\$4675.00",
+        ),
+        payableBox(
+          title1: StringConstant.shiftFinderServiceFee,
+          value1: "\$20",
+        ),
+        payableBox(
+          title1: StringConstant.totalPayableForOneShift,
+          title2: StringConstant.numberOfVacancies,
+          value1: "\$20",
+          value2: "\$10",
+        ),
+        totalPayableBox(
+          totalPayableTitle: StringConstant.totalAmountPayable,
+          totalPayable: "\$20",
+        ),
+      ],
     );
   }
 }

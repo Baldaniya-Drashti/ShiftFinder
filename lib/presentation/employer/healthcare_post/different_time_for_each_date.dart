@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print, unnecessary_brace_in_string_interps
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,6 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
-import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
@@ -27,128 +26,119 @@ class DifferentTimeForEachDate extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<PostShiftBloc, PostShiftState>(
       listener: (context, state) {
-        state.singleShiftFailureOrSuccessOption.fold(
-          () {},
-          (either) => either.fold(
-            (failure) {
-              showError(
-                message: failure.maybeMap(
-                  showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) =>
-                      'Please check your internet connectivity',
-                  orElse: () => "Server Error. Try again later.",
-                ),
-              ).show(context);
-            },
-            (r) {
-              print("vacanciess--> ${state.selectedVacancy.getValue()}");
-
-              final data = MultiShiftDTO(
-                commute_allowance_type:
-                    (state.selectedCommuteAllownce.getValue() == "Flat Rate")
-                        ? 1
-                        : (state.selectedCommuteAllownce.getValue() == "Hours")
-                            ? 2
-                            : 0,
-                commute_allowance:
-                    (state.selectedCommuteAllownce.getValue() == "Flat Rate")
-                        ? state.commuteRate.getValue()
-                        : (state.selectedCommuteAllownce.getValue() == "Hours")
-                            ? state.commuteHour.getValue()
-                            : "",
-                accommodation_allowance_type: (state.selectedAccomdationAllownce
-                            .getValue() ==
-                        "Flat Rate")
+        if (state.isDifferentDateDataValid) {
+          final data = MultiShiftDTO(
+            commute_allowance_type:
+                (state.selectedCommuteAllownce.getValue() == "Flat Rate")
+                    ? 1
+                    : (state.selectedCommuteAllownce.getValue() == "Hours")
+                        ? 2
+                        : 0,
+            commute_allowance:
+                (state.selectedCommuteAllownce.getValue() == "Flat Rate")
+                    ? state.commuteRate.getValue()
+                    : (state.selectedCommuteAllownce.getValue() == "Hours")
+                        ? state.commuteHour.getValue()
+                        : "",
+            accommodation_allowance_type:
+                (state.selectedAccomdationAllownce.getValue() == "Flat Rate")
                     ? 1
                     : (state.selectedAccomdationAllownce.getValue() == "Hours")
                         ? 2
                         : 0,
-                accommodation_allowance: (state.selectedAccomdationAllownce
-                            .getValue() ==
-                        "Flat Rate")
+            accommodation_allowance:
+                (state.selectedAccomdationAllownce.getValue() == "Flat Rate")
                     ? state.accomdationRate.getValue()
                     : (state.selectedAccomdationAllownce.getValue() == "Hours")
                         ? state.accomdationHour.getValue()
                         : "",
-                individual_shift: (state.isIndividualPost) ? 1 : 0,
-                shift_note: state.singleShiftNote,
-                vacancie_type: (state.isMoreVacancy) ? 1 : 0,
-                number_of_vacancie: (state.selectedVacancy.isValid())
-                    ? int.parse(
-                        state.selectedVacancy.getValue() ?? "0",
-                      )
-                    : null,
-                multi_date: state.selectedMultiDates.getValue().map((date) {
-                  return DateTimeDTO(date: date.toIso8601String());
-                }).toList(),
-              );
-              print("Sending date---> ${data}");
-              context.router.push(PageRouteInfo(
-                AddMultiDateTime.name,
-                args: AddMultiDateTimeArgs(
-                  selectedObj: data,
-                ),
-              ));
-            },
-          ),
-        );
+            individual_shift: (state.isIndividualPost) ? 1 : 0,
+            shift_note: state.singleShiftNote,
+            vacancie_type: (state.isMoreVacancy) ? 1 : 0,
+            number_of_vacancie: (state.selectedVacancy.isValid())
+                ? int.parse(
+                    state.selectedVacancy.getValue() ?? "0",
+                  )
+                : null,
+            multi_date: state.selectedMultiDates.getValue().map((date) {
+              return DateTimeDTO(date: date.toIso8601String());
+            }).toList(),
+          );
+          context.router
+              .push(PageRouteInfo(
+            AddMultiDateTime.name,
+            args: AddMultiDateTimeArgs(
+              selectedObj: data,
+            ),
+          ))
+              .then((value) {
+            context.read<PostShiftBloc>().add(PostShiftEvent.backEvent());
+          });
+        }
       },
       builder: (context, state) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            selectMultiDate(context, state),
-            if (state.singleShiftErrorMessages &&
-                !(state.selectedMultiDates.isValid()))
-              commonErrorText(
-                StringConstant.pleaseSelectAtLeastOneDate,
-              ),
-            paddingBetweenFields(),
-            commuteAllownceDropDown(context, state),
-            if (state.singleShiftErrorMessages &&
-                !(PostShiftBloc.isAllownceValid(
-                    selectedValue: state.selectedCommuteAllownce,
-                    hourValue: state.commuteHour,
-                    rateValue: state.commuteRate)))
-              commonErrorText(StringConstant.pleaseSelectCommuteAllownceValue),
-            paddingBetweenFields(),
-            accommodationAllowanceDropDown(context, state),
-            if (state.singleShiftErrorMessages &&
-                !(PostShiftBloc.isAllownceValid(
-                    selectedValue: state.selectedAccomdationAllownce,
-                    hourValue: state.accomdationHour,
-                    rateValue: state.accomdationRate)))
-              commonErrorText(
-                  StringConstant.pleaseSelectAccomdationAllownceValue),
-            paddingBetweenFields(),
-            individualPostCheckBox(context, state),
-            paddingBetweenFields(),
-            shiftNotesField(context, state),
-            paddingBetweenFields(),
-            vacancyCheckBox(context, state),
-            if (state.isMoreVacancy) ...[
-              paddingBetweenFields(),
-              numberOfVacancy(context, state),
+        return Form(
+          autovalidateMode: (state.singleShiftErrorMessages)
+              ? AutovalidateMode.always
+              : AutovalidateMode.disabled,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              selectMultiDate(context, state),
               if (state.singleShiftErrorMessages &&
-                  !(PostShiftBloc.isMoreVacancyValid(
-                      isMoreVacancy: state.isMoreVacancy,
-                      vacancyValue: state.selectedVacancy)))
+                  !(state.selectedMultiDates.isValid()))
                 commonErrorText(
-                  StringConstant.pleaseAddNumberOfVacancies,
+                  StringConstant.pleaseSelectAtLeastOneDate,
                 ),
-            ],
-            Padding(
-              padding: EdgeInsets.only(top: getSize(50), bottom: getSize(30)),
-              child: CommonButton(
-                onPressed: () {
-                  context
-                      .read<PostShiftBloc>()
-                      .add(PostShiftEvent.multidateContinueButtonPressed());
-                },
-                buttonText: StringConstant.txtContinue,
+              paddingBetweenFields(),
+              commuteAllownceDropDown(context, state),
+              if (state.singleShiftErrorMessages &&
+                  !(PostShiftBloc.isAllownceValid(
+                      selectedValue: state.selectedCommuteAllownce,
+                      hourValue: state.commuteHour,
+                      rateValue: state.commuteRate)))
+                commonErrorText(
+                    StringConstant.pleaseSelectCommuteAllownceValue),
+              paddingBetweenFields(),
+              accommodationAllowanceDropDown(context, state),
+              if (state.singleShiftErrorMessages &&
+                  !(PostShiftBloc.isAllownceValid(
+                      selectedValue: state.selectedAccomdationAllownce,
+                      hourValue: state.accomdationHour,
+                      rateValue: state.accomdationRate)))
+                commonErrorText(
+                    StringConstant.pleaseSelectAccomdationAllownceValue),
+              paddingBetweenFields(),
+              individualPostCheckBox(context, state),
+              paddingBetweenFields(),
+              shiftNotesField(context, state),
+              paddingBetweenFields(),
+              vacancyCheckBox(context, state),
+              if (state.isMoreVacancy) ...[
+                paddingBetweenFields(),
+                numberOfVacancy(context, state),
+                if (state.singleShiftErrorMessages &&
+                    !(PostShiftBloc.isMoreVacancyValid(
+                        isMoreVacancy: state.isMoreVacancy,
+                        vacancyValue: state.selectedVacancy)))
+                  commonErrorText(
+                    StringConstant.pleaseAddNumberOfVacancies,
+                  ),
+              ],
+              Padding(
+                padding: EdgeInsets.only(top: getSize(50), bottom: getSize(30)),
+                child: CommonButton(
+                  onPressed: () {
+                    context
+                        .read<PostShiftBloc>()
+                        .add(PostShiftEvent.multidateContinueButtonPressed());
+                  },
+                  buttonText: StringConstant.txtContinue,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );
