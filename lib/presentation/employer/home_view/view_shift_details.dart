@@ -2,7 +2,9 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shift/application/main_tab/home/view_single_applicants/view_single_applicants_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
@@ -14,68 +16,74 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'ViewHomeShiftDetails')
 class ViewHomeShiftDetails extends StatelessWidget {
-  const ViewHomeShiftDetails({super.key});
+  final String postId;
+  final bool isTotalApplicants;
+  const ViewHomeShiftDetails(
+      {super.key, required this.postId, this.isTotalApplicants = false});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.scaffoldColor,
-      appBar: CommonAppBar(
-        onBackPressed: () {
-          Navigator.pop(context);
-        },
-        title: StringConstant.viewDetails,
-      ),
-      body: Container(
-        margin: EdgeInsets.symmetric(
-          horizontal: getSize(20),
+    return BlocProvider(
+      create: (context) => ViewSingleApplicantsBloc(),
+      child: Scaffold(
+        backgroundColor: AppColors.scaffoldColor,
+        appBar: CommonAppBar(
+          onBackPressed: () {
+            Navigator.pop(context);
+          },
+          title: StringConstant.viewDetails,
         ),
-        padding: EdgeInsets.all(getSize(10)),
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              userDataBox(context),
-              singleShiftDateTimeBreakUI(context),
-              multiShiftDateTimeBreakUI(context),
-              requiredSkillBox(
-                  svgPrefixIcon: SvgImageConstant.female,
-                  title: StringConstant.specialtiesRequired,
-                  value:
-                      "Behavioral Health, Perinatal, Urology, Anesthesiology, NICU"),
-              requiredSkillBox(
-                svgPrefixIcon: SvgImageConstant.mouse,
-                title: StringConstant.softwareSkills,
-                value: "Solvo Portal, PointClickCare, Solvo Portal",
-              ),
-              rateHoursBox(),
-              languageBox(
-                title: StringConstant.languageRequirements,
-                value: "English, Hindi",
-              ),
-              notesBox(
-                  title: StringConstant.shiftNote,
-                  value:
-                      "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?"),
-              notesBox(
-                  title: StringConstant.disclaimer,
-                  value:
-                      "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?"),
-              locationDetailBox(
-                  title: StringConstant.locationDetails,
-                  locationValue: "2464 Royal Ln. Mesa, New Jersey 45463",
-                  units: "X-ray"),
-              payableBox(
-                vacancy: "08",
-                accommodationAllowance: "\$20",
-                commuteAllowance: "\$10",
-                serviceFee: "\$150",
-                totalPayable: "\$4675.00",
-              ),
-            ],
+        body: Container(
+          margin: EdgeInsets.symmetric(
+            horizontal: getSize(20),
+          ),
+          padding: EdgeInsets.all(getSize(10)),
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                userDataBox(context),
+                singleShiftDateTimeBreakUI(context),
+                multiShiftDateTimeBreakUI(context),
+                requiredSkillBox(
+                    svgPrefixIcon: SvgImageConstant.female,
+                    title: StringConstant.specialtiesRequired,
+                    value:
+                        "Behavioral Health, Perinatal, Urology, Anesthesiology, NICU"),
+                requiredSkillBox(
+                  svgPrefixIcon: SvgImageConstant.mouse,
+                  title: StringConstant.softwareSkills,
+                  value: "Solvo Portal, PointClickCare, Solvo Portal",
+                ),
+                rateHoursBox(),
+                languageBox(
+                  title: StringConstant.languageRequirements,
+                  value: "English, Hindi",
+                ),
+                notesBox(
+                    title: StringConstant.shiftNote,
+                    value:
+                        "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?"),
+                notesBox(
+                    title: StringConstant.disclaimer,
+                    value:
+                        "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?"),
+                locationDetailBox(
+                    title: StringConstant.locationDetails,
+                    locationValue: "2464 Royal Ln. Mesa, New Jersey 45463",
+                    units: "X-ray"),
+                payableBox(
+                  vacancy: "08",
+                  accommodationAllowance: "\$20",
+                  commuteAllowance: "\$10",
+                  serviceFee: "\$150",
+                  totalPayable: "\$4675.00",
+                ),
+              ],
+            ),
           ),
         ),
       ),

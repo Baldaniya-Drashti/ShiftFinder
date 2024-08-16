@@ -400,9 +400,14 @@ abstract class $AppRouter extends _i42.RootStackRouter {
       );
     },
     ViewHomeShiftDetails.name: (routeData) {
+      final args = routeData.argsAs<ViewHomeShiftDetailsArgs>();
       return _i42.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i39.ViewHomeShiftDetails(),
+        child: _i39.ViewHomeShiftDetails(
+          key: args.key,
+          postId: args.postId,
+          isTotalApplicants: args.isTotalApplicants,
+        ),
       );
     },
     ViewPersonPraposalView.name: (routeData) {
@@ -1405,16 +1410,46 @@ class ViewDates extends _i42.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i39.ViewHomeShiftDetails]
-class ViewHomeShiftDetails extends _i42.PageRouteInfo<void> {
-  const ViewHomeShiftDetails({List<_i42.PageRouteInfo>? children})
-      : super(
+class ViewHomeShiftDetails
+    extends _i42.PageRouteInfo<ViewHomeShiftDetailsArgs> {
+  ViewHomeShiftDetails({
+    _i43.Key? key,
+    required String postId,
+    bool isTotalApplicants = false,
+    List<_i42.PageRouteInfo>? children,
+  }) : super(
           ViewHomeShiftDetails.name,
+          args: ViewHomeShiftDetailsArgs(
+            key: key,
+            postId: postId,
+            isTotalApplicants: isTotalApplicants,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ViewHomeShiftDetails';
 
-  static const _i42.PageInfo<void> page = _i42.PageInfo<void>(name);
+  static const _i42.PageInfo<ViewHomeShiftDetailsArgs> page =
+      _i42.PageInfo<ViewHomeShiftDetailsArgs>(name);
+}
+
+class ViewHomeShiftDetailsArgs {
+  const ViewHomeShiftDetailsArgs({
+    this.key,
+    required this.postId,
+    this.isTotalApplicants = false,
+  });
+
+  final _i43.Key? key;
+
+  final String postId;
+
+  final bool isTotalApplicants;
+
+  @override
+  String toString() {
+    return 'ViewHomeShiftDetailsArgs{key: $key, postId: $postId, isTotalApplicants: $isTotalApplicants}';
+  }
 }
 
 /// generated route for

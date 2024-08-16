@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:shift/domain/main/main_failure.dart';
+import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 
 abstract class IMainFacade {
@@ -14,5 +15,13 @@ abstract class IMainFacade {
     required String locationId,
     required String locationUnit,
     required double rateHour,
+  });
+  Future<Either<MainFailure, CommonResponse>> getEmployerDashboardListAPI({
+    required int page,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> getViewApplicantsAPI({
+    required String postId,
+    required bool isTotalApplicants,
   });
 }

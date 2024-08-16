@@ -2,8 +2,10 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:intl/intl.dart';
+import 'package:shift/application/main_tab/home/home_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
@@ -21,34 +23,47 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: PaginatedListView(
-        onRefresh: () {
-          // context.read<CartBloc>().add(CartEvent.getCartList(true));
-        },
-        refreshController: RefreshController(),
-        // context.read<HomeBloc>().refreshController,
-        onLoading: () {
-          // context.read<CartBloc>().add(CartEvent.getCartList(false));
-        },
-        // isNoDataFound: state.isNoDataFound,
-        child:
-            // state.isNoDataFound
-            //     ? Text(state.isNoDataFound):
-            ListView.builder(
-          itemCount: 5,
-          padding: EdgeInsets.symmetric(
-            horizontal: getSize(15),
-            vertical: getSize(5),
-          ),
-          clipBehavior: Clip.none,
-          // shrinkWrap: true,
-          physics: BouncingScrollPhysics(),
-          itemBuilder: (_, index) {
-            return getCheckoutContainer(index, context);
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        return PaginatedListView(
+          onRefresh: () {
+            context
+                .read<HomeBloc>()
+                .add(HomeEvent.getEmployerDashboardList(true));
           },
-        ),
-      ),
+          refreshController: context.read<HomeBloc>().refreshController,
+          onLoading: () {
+            context
+                .read<HomeBloc>()
+                .add(HomeEvent.getEmployerDashboardList(false));
+          },
+          isNoDataFound: state.isNoDataFound,
+          child: state.isLoading
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : state.isErrorInAPI
+                  ? Center(
+                      child: BaseText(text: StringConstant.somethindWentWrong),
+                    )
+                  :
+                  // state.isNoDataFound
+                  //     ? Text(state.isNoDataFound):
+                  ListView.builder(
+                      itemCount: state.employerDashboardList.length,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: getSize(15),
+                        vertical: getSize(5),
+                      ),
+                      clipBehavior: Clip.none,
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      itemBuilder: (_, index) {
+                        return getCheckoutContainer(index, context);
+                      },
+                    ),
+        );
+      },
     );
   }
 
@@ -64,172 +79,232 @@ class HomeView extends StatelessWidget {
     //     .where((element) => element.fieldType == 1)
     //     .toList();
 
-    return Container(
-      padding: EdgeInsets.all(getSize(10)),
-      margin: EdgeInsets.symmetric(vertical: getSize(12)),
-      width: getSize(355),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(getSize(20)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.black.withOpacity(0.2),
-            blurRadius: 25,
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          employeeDataBox(context),
-          SizedBox(
-            height: getSize(8),
-          ),
-          CommonButton(
-            onPressed: () {
-              context.router.push(PageRouteInfo(ViewHomeShiftDetails.name));
-            },
-            height: getSize(40),
-            borderRadius: 7,
-            backgroundColor: AppColors.primaryColor.withOpacity(0.1),
-            buttonTextColor: AppColors.black,
-            buttonFontSize: 12,
-            buttonText: StringConstant.viewDetails,
-          ),
-          Container(
-            decoration: BoxDecoration(
-              color: AppColors.grey04,
-              borderRadius: BorderRadius.circular(5),
-            ),
-            padding: EdgeInsets.symmetric(vertical: getSize(10)),
-            margin: EdgeInsets.symmetric(vertical: getSize(10)),
-            child: IntrinsicHeight(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  verticalLabelValue(
-                    label: "${StringConstant.shiftDate}:-",
-                    value: "May 12, 2024",
-                  ),
-                  verticalDivider(),
-                  verticalLabelValue(
-                    label: "${StringConstant.startAndEndTime}:-",
-                    value: "7AM to 6PM",
-                  ),
-                  verticalDivider(),
-                  verticalLabelValue(
-                    label: "${StringConstant.totalShifts}:-",
-                    value: "5 Shifts",
-                  )
-                ],
-              ),
-            ),
-          ),
-          proposalBox(
-            title: StringConstant.totalApplications,
-            value: "24",
-            onTap: () {
-              context.router.push(PageRouteInfo(ViewSingleApplicants.name));
-            },
-          ),
-          SizedBox(
-            height: getSize(10),
-          ),
-          proposalBox(
-            title: StringConstant.totalProposals,
-            value: "13",
-            onTap: () {
-              context.router.push(PageRouteInfo(TotalPraposalView.name));
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget employeeDataBox(BuildContext context) {
-    return Container(
-      height: getSize(113.41),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(getSize(10)),
-        color: AppColors.primaryColor,
-      ),
-      padding: EdgeInsets.symmetric(horizontal: getSize(12)),
-      child: Column(
-        children: [
-          ListTile(
-            dense: true,
-            leading: SvgPicture.asset(
-              SvgImageConstant.female,
-              width: getSize(36.28),
-              height: getSize(43.41),
-            ),
-            title: const BaseText(
-              text: "CT Technologist",
-              textColor: AppColors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            ),
-            subtitle: BaseText(
-              text: "(Healthcare - 2DFG125)",
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              textColor: AppColors.white.withOpacity(0.80),
-            ),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                GestureDetector(
-                    onTap: () {
-                      AppDialog.showDelete(
-                        context,
-                        title: StringConstant.deleteTheShift,
-                        infoMessage: StringConstant.deleteShiftDesc,
-                        cancelText: StringConstant.no,
-                        onCancelClick: () {
-                          context.router.maybePop();
-                        },
-                        onDeleteClick: () {
-                          context.router.maybePop();
-                        },
-                      );
-                    },
-                    child: SvgPicture.asset(SvgImageConstant.delete)),
-                SizedBox(
-                  width: getSize(12),
-                ),
-                SvgPicture.asset(SvgImageConstant.edit),
-              ],
-            ),
-            contentPadding: EdgeInsets.zero,
-            visualDensity: VisualDensity.compact,
-            minTileHeight: getSize(43.41),
-          ),
-          Divider(
-            color: AppColors.white.withOpacity(0.7),
-            thickness: getSize(0.5),
-          ),
-          Row(
-            children: [
-              SvgPicture.asset(
-                SvgImageConstant.location,
-                height: getSize(20),
-                width: getSize(20),
-              ),
-              SizedBox(
-                width: getSize(10),
-              ),
-              const BaseText(
-                text: "4517, Washington Manchester, Kentucky 39495",
-                fontSize: 10,
-                fontWeight: FontWeight.w500,
-                textColor: AppColors.white,
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        return Container(
+          padding: EdgeInsets.all(getSize(10)),
+          margin: EdgeInsets.symmetric(vertical: getSize(12)),
+          width: getSize(355),
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(getSize(20)),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.black.withOpacity(0.2),
+                blurRadius: 25,
               ),
             ],
           ),
-        ],
-      ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              employeeDataBox(context, index),
+              SizedBox(
+                height: getSize(8),
+              ),
+              CommonButton(
+                onPressed: () {
+                  context.router.push(
+                    PageRouteInfo(
+                      ViewHomeShiftDetails.name,
+                      args: ViewHomeShiftDetailsArgs(
+                        postId:
+                            state.employerDashboardList[index].id.toString(),
+                        isTotalApplicants: true,
+                      ),
+                    ),
+                  );
+                },
+                height: getSize(40),
+                borderRadius: 7,
+                backgroundColor: AppColors.primaryColor.withOpacity(0.1),
+                buttonTextColor: AppColors.black,
+                buttonFontSize: 12,
+                buttonText: StringConstant.viewDetails,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: AppColors.grey04,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                padding: EdgeInsets.symmetric(vertical: getSize(10)),
+                margin: EdgeInsets.symmetric(vertical: getSize(10)),
+                child: IntrinsicHeight(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      verticalLabelValue(
+                        label: "${StringConstant.shiftDate}:-",
+                        value: DateFormat('MMM dd,yyyy').format(
+                          DateTime.fromMillisecondsSinceEpoch((state
+                                      .employerDashboardList[index]
+                                      .shift_date
+                                      ?.start_date ??
+                                  0) *
+                              1000),
+                        ),
+                      ),
+                      verticalDivider(),
+                      verticalLabelValue(
+                        label: "${StringConstant.startAndEndTime}:-",
+                        value:
+                            "${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((state.employerDashboardList[index].shift_date?.start_time ?? 0) * 1000))} to ${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((state.employerDashboardList[index].shift_date?.end_time ?? 0) * 1000))}",
+                      ),
+                      // verticalDivider(),
+                      // verticalLabelValue(
+                      //   label: "${StringConstant.totalShifts}:-",
+                      //   value: "5 Shifts",
+                      // )
+                    ],
+                  ),
+                ),
+              ),
+              proposalBox(
+                  title: StringConstant.totalApplications,
+                  value: (state.employerDashboardList[index]
+                              .total_application_counts ??
+                          0)
+                      .toString(),
+                  onTap: () {
+                    context.router
+                        .push(PageRouteInfo(ViewSingleApplicants.name));
+                  },
+                  index: index,
+                  isTotalApplicants: true),
+              SizedBox(
+                height: getSize(10),
+              ),
+              proposalBox(
+                title: StringConstant.totalProposals,
+                value:
+                    (state.employerDashboardList[index].total_proposal_counts ??
+                            0)
+                        .toString(),
+                onTap: () {
+                  context.router.push(PageRouteInfo(TotalPraposalView.name));
+                },
+                index: index,
+              ),
+            ],
+          ),
+        );
+      },
     );
+  }
+
+  Widget employeeDataBox(BuildContext context, int index) {
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        return Container(
+          // height: getSize(113.41),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(getSize(10)),
+            color: AppColors.primaryColor,
+          ),
+          padding: EdgeInsets.symmetric(horizontal: getSize(12)),
+          child: Column(
+            children: [
+              ListTile(
+                dense: true,
+                leading: SvgPicture.asset(
+                  SvgImageConstant.female,
+                  width: getSize(36.28),
+                  height: getSize(43.41),
+                ),
+                title: BaseText(
+                  text:
+                      state.employerDashboardList[index].roles_list_name ?? "",
+                  textColor: AppColors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+                subtitle: BaseText(
+                  text:
+                      "(${getIndustryText(state.employerDashboardList[index].industry ?? 0)} - ${state.employerDashboardList[index].listing_id ?? ""})",
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  textColor: AppColors.white.withOpacity(0.80),
+                ),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    GestureDetector(
+                        onTap: () {
+                          AppDialog.showDelete(
+                            context,
+                            title: StringConstant.deleteTheShift,
+                            infoMessage: StringConstant.deleteShiftDesc,
+                            cancelText: StringConstant.no,
+                            onCancelClick: () {
+                              context.router.maybePop();
+                            },
+                            onDeleteClick: () {
+                              context.router.maybePop();
+                            },
+                          );
+                        },
+                        child: SvgPicture.asset(SvgImageConstant.delete)),
+                    SizedBox(
+                      width: getSize(12),
+                    ),
+                    SvgPicture.asset(SvgImageConstant.edit),
+                  ],
+                ),
+                contentPadding: EdgeInsets.zero,
+                visualDensity: VisualDensity.compact,
+                minTileHeight: getSize(43.41),
+              ),
+              Divider(
+                color: AppColors.white.withOpacity(0.7),
+                thickness: getSize(0.5),
+              ),
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    SvgImageConstant.location,
+                    height: getSize(20),
+                    width: getSize(20),
+                  ),
+                  SizedBox(
+                    width: getSize(10),
+                  ),
+                  Expanded(
+                    child: BaseText(
+                      text: state.employerDashboardList[index].location
+                              ?.location ??
+                          "",
+                      fontSize: 10,
+                      fontWeight: FontWeight.w500,
+                      textColor: AppColors.white,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: getSize(12),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  String getIndustryText(int type) {
+    switch (type) {
+      case 1:
+        return "Healthcare";
+      case 2:
+        return "Pharmacy";
+      case 3:
+        return "Dental";
+      case 4:
+        return "Hospitality";
+      case 5:
+        return "Ophthalmology";
+      default:
+    }
+    return "";
   }
 
   Widget verticalLabelValue({
@@ -261,8 +336,13 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget proposalBox(
-      {required String title, required String value, Function()? onTap}) {
+  Widget proposalBox({
+    required String title,
+    required String value,
+    Function()? onTap,
+    required int index,
+    bool isTotalApplicants = false,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -272,7 +352,9 @@ class HomeView extends StatelessWidget {
           horizontal: getSize(12),
         ),
         decoration: BoxDecoration(
-            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+          color: AppColors.grey04,
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -298,7 +380,10 @@ class HomeView extends StatelessWidget {
                   SvgImageConstant.threePerson,
                 ),
                 Spacer(),
-                StackedImage(),
+                StackedImage(
+                  index: index,
+                  isTotalApplicants: isTotalApplicants,
+                ),
               ],
             )
           ],

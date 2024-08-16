@@ -10,6 +10,9 @@ class ViewSingleApplicantsState with _$ViewSingleApplicantsState {
     required CVV cvv,
     required Option<Either<MainFailure, String>> failureOrSuccessOption,
     required bool isSubmitting,
+    required bool isLoading,
+    required bool isNoDataFound,
+    required bool isErrorInAPI,
   }) = _PaymentMethodState;
   factory ViewSingleApplicantsState.initial() => ViewSingleApplicantsState(
         cardHoldersName: Username(''),
@@ -19,5 +22,8 @@ class ViewSingleApplicantsState with _$ViewSingleApplicantsState {
         cvv: CVV(''),
         failureOrSuccessOption: none(),
         isSubmitting: false,
+        isLoading: false,
+        isNoDataFound: false,
+        isErrorInAPI: false,
       );
 }

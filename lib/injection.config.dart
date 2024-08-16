@@ -39,6 +39,7 @@ import 'package:shift/application/healthcare_post/healthcare_post_bloc.dart'
     as _i13;
 import 'package:shift/application/location_details/location_details_bloc.dart'
     as _i24;
+import 'package:shift/application/main_tab/home/home_bloc.dart' as _i28;
 import 'package:shift/application/main_tab/main_tab_bloc.dart' as _i14;
 import 'package:shift/application/profile/account/account_cubit.dart' as _i25;
 import 'package:shift/application/splash/splash_bloc.dart' as _i12;
@@ -121,6 +122,7 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i8.IAccountRepository>(),
           gh<_i6.IAuthFacade>(),
         ));
+    gh.factory<_i28.HomeBloc>(() => _i28.HomeBloc(gh<_i10.IMainFacade>()));
     return this;
   }
 }

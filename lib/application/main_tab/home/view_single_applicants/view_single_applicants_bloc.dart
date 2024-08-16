@@ -62,6 +62,7 @@ class ViewSingleApplicantsBloc
               ),
             );
           },
+          getViewSingleApplicantsAPI: (value) async {},
         );
       },
     );

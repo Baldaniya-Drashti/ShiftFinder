@@ -14,6 +14,8 @@ class ViewSingleApplicantsEvent with _$ViewSingleApplicantsEvent {
   const factory ViewSingleApplicantsEvent.cvvChanged(
       String cvv, BuildContext context) = CvvChanged;
 
+  const factory ViewSingleApplicantsEvent.getViewSingleApplicantsAPI() =
+      GetViewSingleApplicantsAPI;
   const factory ViewSingleApplicantsEvent.saveButtonPressed(
       BuildContext context) = SaveButtonPressed;
 }

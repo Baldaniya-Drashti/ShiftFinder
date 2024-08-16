@@ -401,6 +401,7 @@ class StringConstant {
   static const String pleaseAddBankAddress = "Please add bank address";
   static const String bankTermsErrorText =
       "Please select the checkbox to confirm";
-        static const String pleaseSelectLocationUnit =
-      "Please select location unit";
+  static const String pleaseSelectLocationUnit = "Please select location unit";
+  static const String somethindWentWrong =
+      "Something wrong. Please try again!!";
 }

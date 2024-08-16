@@ -106,4 +106,7 @@ class ApiConstants {
   //review
   static String getReviews = 'reviews';
   static String giveReviews = 'review';
+
+  //employer dashboard
+  static String employerDashboard = 'employer_dashboard';
 }
