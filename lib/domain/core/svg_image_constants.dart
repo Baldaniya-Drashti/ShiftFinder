@@ -83,4 +83,15 @@ class SvgImageConstant {
   static const organization = "assets/svg/organization.svg";
   static const call = "assets/svg/call.svg";
   static const unitDepartment = "assets/svg/unit_department.svg";
+
+  static const completedShifts = "assets/svg/completed_shifts.svg";
+  static const previousShifts = "assets/svg/previous_shift.svg";
+  static const chat = "assets/svg/chat.svg";
+  static const teams = "assets/svg/teams.svg";
+  static const savedTemplates = "assets/svg/saved_tamplates.svg";
+  static const billing = "assets/svg/wallet.svg";
+  static const setting = "assets/svg/setting.svg";
+  static const aboutShiftFinder = "assets/svg/about_shiftfinder.svg";
+  static const customerSupport = "assets/svg/contact_support.svg";
+  static const logout = "assets/svg/logout.svg";
 }

@@ -32,6 +32,7 @@ class PngImageConstants {
   static const horizontalLine = "assets/png/horizontal_line.png";
   static const education = "assets/png/education.png";
   static const person = "assets/png/person.png";
+  static const emptyProfileImage = "assets/png/empty_profile_image.png";
 
   static const List<String> allImages = [
     iroid_logo,

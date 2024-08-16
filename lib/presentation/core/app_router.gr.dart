@@ -74,7 +74,7 @@ import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_si
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/add_card_view.dart'
     as _i3;
 import 'package:shift/presentation/main/tabs/notification_view.dart' as _i24;
-import 'package:shift/presentation/main/tabs/profile_view.dart' as _i30;
+import 'package:shift/presentation/main/tabs/profile/profile_view.dart' as _i30;
 import 'package:shift/presentation/onboarding/onboarding1.dart' as _i25;
 import 'package:shift/presentation/onboarding/onboarding2.dart' as _i26;
 import 'package:shift/presentation/onboarding/onboarding3.dart' as _i27;
