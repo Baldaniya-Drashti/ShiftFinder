@@ -138,6 +138,9 @@ class HomeView extends StatelessWidget {
           proposalBox(
             title: StringConstant.totalProposals,
             value: "13",
+            onTap: () {
+              context.router.push(PageRouteInfo(TotalPraposalView.name));
+            },
           ),
         ],
       ),

@@ -101,6 +101,8 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       centerTitle: true,
       backgroundColor: AppColors.scaffoldColor,
+      scrolledUnderElevation: 0,
+      elevation: 0,
       systemOverlayStyle: systemOverlayStyle ?? SystemUiOverlayStyle.dark,
       title: BaseText(
         text: title,
