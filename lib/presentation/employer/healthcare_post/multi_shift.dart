@@ -7,39 +7,44 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/employer/healthcare_post/different_time_for_each_date.dart';
 import 'package:shift/presentation/employer/healthcare_post/same_time_for_multi_date.dart';
 
 class MultiPostShift extends StatelessWidget {
   int shiftType;
-
-  MultiPostShift({super.key, required this.shiftType});
+  int postId;
+  MultiPostShift({super.key, required this.shiftType, required this.postId});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          getIt<PostShiftBloc>()..add(PostShiftEvent.changeShiftType("Multi")),
+      create: (context) => getIt<PostShiftBloc>()
+        ..add(PostShiftEvent.changeShiftType("Multi", postId: postId)),
       child: BlocConsumer<PostShiftBloc, PostShiftState>(
         listener: (context, state) {},
         builder: (context, state) {
-          return Form(
-            autovalidateMode: (state.singleShiftErrorMessages)
-                ? AutovalidateMode.always
-                : AutovalidateMode.disabled,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                paddingBetweenFields(),
-                sameOrDifferentRadio(context, state),
-                paddingBetweenFields(),
-                (state.selectedMultiShiftType == 1)
-                    ? SameTimeForMultiDate()
-                    : DifferentTimeForEachDate(),
-              ],
-            ),
-          );
+          return (state.isLoading)
+              ? CenterLoadingIndicator(
+                  isOnlyLoader: true,
+                )
+              : Form(
+                  autovalidateMode: (state.singleShiftErrorMessages)
+                      ? AutovalidateMode.always
+                      : AutovalidateMode.disabled,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      paddingBetweenFields(),
+                      sameOrDifferentRadio(context, state),
+                      paddingBetweenFields(),
+                      (state.selectedMultiShiftType == 1)
+                          ? SameTimeForMultiDate()
+                          : DifferentTimeForEachDate(),
+                    ],
+                  ),
+                );
         },
       ),
     );

@@ -32,6 +32,10 @@ _$HealthcarePostDTOImpl _$$HealthcarePostDTOImplFromJson(
           : LocationDTO.fromJson(json['location'] as Map<String, dynamic>),
       location_unit: json['location_unit'] as String?,
       rate_hour: (json['rate_hour'] as num?)?.toDouble(),
+      shift_detail: json['shift_detail'] == null
+          ? null
+          : ShiftDetailDTO.fromJson(
+              json['shift_detail'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$HealthcarePostDTOImplToJson(
@@ -49,4 +53,5 @@ Map<String, dynamic> _$$HealthcarePostDTOImplToJson(
       'location': instance.location,
       'location_unit': instance.location_unit,
       'rate_hour': instance.rate_hour,
+      'shift_detail': instance.shift_detail,
     };

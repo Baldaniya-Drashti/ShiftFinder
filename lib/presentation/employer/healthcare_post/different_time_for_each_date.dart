@@ -63,6 +63,9 @@ class DifferentTimeForEachDate extends StatelessWidget {
             multi_date: state.selectedMultiDates.getValue().map((date) {
               return DateTimeDTO(date: date.toIso8601String());
             }).toList(),
+            post_id: state.postId,
+            same_or_different_time: state.selectedMultiShiftType,
+            shift_type: state.shiftType,
           );
           context.router
               .push(PageRouteInfo(

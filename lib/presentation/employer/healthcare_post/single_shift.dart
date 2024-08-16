@@ -25,13 +25,14 @@ import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 
 class SinglePostShift extends StatelessWidget {
   int shiftType;
-  SinglePostShift({super.key, required this.shiftType});
+  int postId;
+  SinglePostShift({super.key, required this.shiftType, required this.postId});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          getIt<PostShiftBloc>()..add(PostShiftEvent.changeShiftType("Single")),
+      create: (context) => getIt<PostShiftBloc>()
+        ..add(PostShiftEvent.changeShiftType("Single", postId: postId)),
       child: BlocConsumer<PostShiftBloc, PostShiftState>(
         listener: (context, state) {
           state.singleShiftFailureOrSuccessOption.fold(

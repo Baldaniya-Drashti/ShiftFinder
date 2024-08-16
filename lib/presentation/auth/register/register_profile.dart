@@ -82,11 +82,10 @@ class RegisterProfileScreen extends StatelessWidget {
                   },
                   (r) {
                     AppFocus.unfocus(context);
-
                     const VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
                       context,
                       (getCurrentRole() == 1)
-                          ? "${state.selectedCountrycode} ${state.enteredPhoneNo}"
+                          ? "+${state.selectedCountrycode} ${state.enteredPhoneNo}"
                           : state.email.getValue(),
                       state.password.getValue(),
                     );

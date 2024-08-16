@@ -176,7 +176,7 @@ class VerifyPhoneNumber extends StatelessWidget {
             alignment: Alignment.center,
             child: BaseText(
               textAlign: TextAlign.center,
-              text: (getCurrentRole() == 1) ? "+ $emailOrPhone" : emailOrPhone,
+              text: (getCurrentRole() == 1) ? emailOrPhone : emailOrPhone,
               fontSize: getSize(12),
               textColor: AppColors.black.withOpacity(0.7),
               fontWeight: FontWeight.w600,

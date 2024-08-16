@@ -34,6 +34,7 @@ mixin _$HealthcarePostDTO {
   LocationDTO? get location => throw _privateConstructorUsedError;
   String? get location_unit => throw _privateConstructorUsedError;
   double? get rate_hour => throw _privateConstructorUsedError;
+  ShiftDetailDTO? get shift_detail => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -59,9 +60,11 @@ abstract class $HealthcarePostDTOCopyWith<$Res> {
       String? language_other,
       LocationDTO? location,
       String? location_unit,
-      double? rate_hour});
+      double? rate_hour,
+      ShiftDetailDTO? shift_detail});
 
   $LocationDTOCopyWith<$Res>? get location;
+  $ShiftDetailDTOCopyWith<$Res>? get shift_detail;
 }
 
 /// @nodoc
@@ -89,6 +92,7 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
     Object? location = freezed,
     Object? location_unit = freezed,
     Object? rate_hour = freezed,
+    Object? shift_detail = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -139,6 +143,10 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
           ? _value.rate_hour
           : rate_hour // ignore: cast_nullable_to_non_nullable
               as double?,
+      shift_detail: freezed == shift_detail
+          ? _value.shift_detail
+          : shift_detail // ignore: cast_nullable_to_non_nullable
+              as ShiftDetailDTO?,
     ) as $Val);
   }
 
@@ -151,6 +159,18 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
 
     return $LocationDTOCopyWith<$Res>(_value.location!, (value) {
       return _then(_value.copyWith(location: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ShiftDetailDTOCopyWith<$Res>? get shift_detail {
+    if (_value.shift_detail == null) {
+      return null;
+    }
+
+    return $ShiftDetailDTOCopyWith<$Res>(_value.shift_detail!, (value) {
+      return _then(_value.copyWith(shift_detail: value) as $Val);
     });
   }
 }
@@ -175,10 +195,13 @@ abstract class _$$HealthcarePostDTOImplCopyWith<$Res>
       String? language_other,
       LocationDTO? location,
       String? location_unit,
-      double? rate_hour});
+      double? rate_hour,
+      ShiftDetailDTO? shift_detail});
 
   @override
   $LocationDTOCopyWith<$Res>? get location;
+  @override
+  $ShiftDetailDTOCopyWith<$Res>? get shift_detail;
 }
 
 /// @nodoc
@@ -204,6 +227,7 @@ class __$$HealthcarePostDTOImplCopyWithImpl<$Res>
     Object? location = freezed,
     Object? location_unit = freezed,
     Object? rate_hour = freezed,
+    Object? shift_detail = freezed,
   }) {
     return _then(_$HealthcarePostDTOImpl(
       id: freezed == id
@@ -254,6 +278,10 @@ class __$$HealthcarePostDTOImplCopyWithImpl<$Res>
           ? _value.rate_hour
           : rate_hour // ignore: cast_nullable_to_non_nullable
               as double?,
+      shift_detail: freezed == shift_detail
+          ? _value.shift_detail
+          : shift_detail // ignore: cast_nullable_to_non_nullable
+              as ShiftDetailDTO?,
     ));
   }
 }
@@ -273,7 +301,8 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
       this.language_other,
       this.location,
       this.location_unit,
-      this.rate_hour})
+      this.rate_hour,
+      this.shift_detail})
       : _roles_list = roles_list,
         _specialties_detail_list = specialties_detail_list,
         _softwares_skill_list = softwares_skill_list,
@@ -340,10 +369,12 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
   final String? location_unit;
   @override
   final double? rate_hour;
+  @override
+  final ShiftDetailDTO? shift_detail;
 
   @override
   String toString() {
-    return 'HealthcarePostDTO(id: $id, listing_id: $listing_id, last_ago: $last_ago, roles_list: $roles_list, specialties_detail_list: $specialties_detail_list, softwares_skill_list: $softwares_skill_list, software_skill_other: $software_skill_other, languages_list: $languages_list, language_other: $language_other, location: $location, location_unit: $location_unit, rate_hour: $rate_hour)';
+    return 'HealthcarePostDTO(id: $id, listing_id: $listing_id, last_ago: $last_ago, roles_list: $roles_list, specialties_detail_list: $specialties_detail_list, softwares_skill_list: $softwares_skill_list, software_skill_other: $software_skill_other, languages_list: $languages_list, language_other: $language_other, location: $location, location_unit: $location_unit, rate_hour: $rate_hour, shift_detail: $shift_detail)';
   }
 
   @override
@@ -373,7 +404,9 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
             (identical(other.location_unit, location_unit) ||
                 other.location_unit == location_unit) &&
             (identical(other.rate_hour, rate_hour) ||
-                other.rate_hour == rate_hour));
+                other.rate_hour == rate_hour) &&
+            (identical(other.shift_detail, shift_detail) ||
+                other.shift_detail == shift_detail));
   }
 
   @JsonKey(ignore: true)
@@ -391,7 +424,8 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
       language_other,
       location,
       location_unit,
-      rate_hour);
+      rate_hour,
+      shift_detail);
 
   @JsonKey(ignore: true)
   @override
@@ -421,7 +455,8 @@ abstract class _HealthcarePostDTO implements HealthcarePostDTO {
       final String? language_other,
       final LocationDTO? location,
       final String? location_unit,
-      final double? rate_hour}) = _$HealthcarePostDTOImpl;
+      final double? rate_hour,
+      final ShiftDetailDTO? shift_detail}) = _$HealthcarePostDTOImpl;
 
   factory _HealthcarePostDTO.fromJson(Map<String, dynamic> json) =
       _$HealthcarePostDTOImpl.fromJson;
@@ -450,6 +485,8 @@ abstract class _HealthcarePostDTO implements HealthcarePostDTO {
   String? get location_unit;
   @override
   double? get rate_hour;
+  @override
+  ShiftDetailDTO? get shift_detail;
   @override
   @JsonKey(ignore: true)
   _$$HealthcarePostDTOImplCopyWith<_$HealthcarePostDTOImpl> get copyWith =>

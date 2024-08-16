@@ -3,8 +3,8 @@ part of 'post_shift_bloc.dart';
 @freezed
 class PostShiftEvent with _$PostShiftEvent {
   /// change shift type
-  const factory PostShiftEvent.changeShiftType(String shiftType) =
-      ChangeShiftType;
+  const factory PostShiftEvent.changeShiftType(String shiftType,
+      {required int postId}) = ChangeShiftType;
 
   /// Single Shift
   const factory PostShiftEvent.getBreakAllownceListApi() =
@@ -85,8 +85,8 @@ class PostShiftEvent with _$PostShiftEvent {
       String hour, int index, String date) = EndHourListChanged;
   const factory PostShiftEvent.endMinuteListChanged(
       String minute, int index, String date) = EndMinuteListChanged;
-  const factory PostShiftEvent.differentTimeShiftSubmitted() =
-      DifferentTimeShiftSubmitted;
+  const factory PostShiftEvent.differentTimeShiftSubmitted(
+      MultiShiftDTO shiftDetail) = DifferentTimeShiftSubmitted;
 
   const factory PostShiftEvent.initMultiDifferentDateEvent(
       List<DateTimeDTO> list) = InitMultiDifferentDateEvent;

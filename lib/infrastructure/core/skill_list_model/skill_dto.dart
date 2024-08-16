@@ -9,6 +9,7 @@ class SkillDTO with _$SkillDTO {
     String? name,
     String? shortName,
     int? answer,
+    int? minute,
   }) = _SkillDTO;
 
   factory SkillDTO.fromJson(Map<String, dynamic> json) =>

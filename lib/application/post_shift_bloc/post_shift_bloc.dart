@@ -9,8 +9,10 @@ import 'package:injectable/injectable.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
+import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
+import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
 import 'package:shift/presentation/common/utils/date_time_format.dart';
 part 'post_shift_event.dart';
@@ -71,6 +73,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           emit(
             state.copyWith(
               shiftType: selectedSkillDTO.id ?? -1,
+              postId: e.postId,
               isLoading: false,
               singleShiftFailureOrSuccessOption: none(),
             ),
@@ -256,8 +259,8 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           );
         },
 
-        singleShiftSubmitted: (e) {
-          Either<AuthFailure, String>? failureOrSuccess;
+        singleShiftSubmitted: (e) async {
+          Either<MainFailure, HealthcarePostDTO>? failureOrSuccess;
 
           final isCommuteAllownceValid = isAllownceValid(
               selectedValue: state.selectedCommuteAllownce,
@@ -276,7 +279,12 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           final isVacancyValid = isMoreVacancyValid(
               isMoreVacancy: state.isMoreVacancy,
               vacancyValue: state.selectedVacancy);
-
+          emit(
+            state.copyWith(
+              isLoading: true,
+              singleShiftFailureOrSuccessOption: none(),
+            ),
+          );
           if (isSingleDateValid &&
               isCommuteAllownceValid &&
               isAccomdationAllownceValid &&
@@ -287,13 +295,16 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               isUnpaidBreakValid &&
               isVacancyValid) {
             print("All details are valid!");
-            failureOrSuccess = right("Success");
+
+            failureOrSuccess = await _mainFacade.createPostShiftApi(
+                shift: passShiftData(state));
           } else {
             print("Some details are invalid!");
           }
 
           emit(
             state.copyWith(
+              isLoading: false,
               singleShiftErrorMessages: true,
               singleShiftFailureOrSuccessOption: optionOf(failureOrSuccess),
             ),
@@ -568,15 +579,19 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             singleShiftFailureOrSuccessOption: none(),
           ));
         },
-        differentTimeShiftSubmitted: (e) {
-          Either<AuthFailure, String>? failureOrSuccess;
+        differentTimeShiftSubmitted: (e) async {
+          Either<MainFailure, HealthcarePostDTO>? failureOrSuccess;
 
           final isUnPaidBreakValid = state.unpaidBreak.isValid();
           final isAllDatesValid = state.multiDateTimeList.every((dto) =>
               dto.totalPaybleHours != null && dto.totalPaybleHours!.isNotEmpty);
           if (isAllDatesValid && isUnPaidBreakValid) {
-            failureOrSuccess = right("Success");
-          } else {}
+            failureOrSuccess = await _mainFacade.createPostShiftApi(
+                shift: passShiftData(
+              state,
+              shiftDetail: e.shiftDetail,
+            ));
+          }
           emit(
             state.copyWith(
               singleShiftErrorMessages: true,
@@ -584,8 +599,8 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             ),
           );
         },
-        sameTimeShiftSubmitted: (e) {
-          Either<AuthFailure, String>? failureOrSuccess;
+        sameTimeShiftSubmitted: (e) async {
+          Either<MainFailure, HealthcarePostDTO>? failureOrSuccess;
 
           final isCommuteAllownceValid = isAllownceValid(
               selectedValue: state.selectedCommuteAllownce,
@@ -615,7 +630,8 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               isUnpaidBreakValid &&
               isVacancyValid) {
             print("All details are valid!");
-            failureOrSuccess = right("Success");
+            failureOrSuccess = await _mainFacade.createPostShiftApi(
+                shift: passShiftData(state));
           } else {
             print("Some details are invalid!");
           }
@@ -818,5 +834,112 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
         dto.start_time!.isNotEmpty &&
         dto.end_time != null &&
         dto.end_time!.isNotEmpty);
+  }
+
+  int getSelectedUnPaidBreakId() {
+    final breakId = state.breakList.firstWhere(
+        (unpaidBreak) => unpaidBreak.name == state.unpaidBreak.getValue(),
+        orElse: () => SkillDTO());
+    print("Break ID --> $breakId");
+    return breakId.id ?? -1;
+  }
+
+  String getAccomdationHourId(String selectedHour) {
+    final hourId = state.accomdationHoursList.firstWhere(
+        (hour) => hour.name == selectedHour,
+        orElse: () => SkillDTO());
+    print("Hour ID --> $hourId");
+    return "${hourId.id ?? -1}";
+  }
+
+  MultiShiftDTO passShiftData(PostShiftState state,
+      {MultiShiftDTO? shiftDetail}) {
+    String startTime = "";
+    String endTime = "";
+
+    if (state.shiftType == 1 ||
+        (state.shiftType == 2 && state.selectedMultiShiftType == 1)) {
+      startTime = CustomDateTimeFormat.parseTime(
+              state.startHour.getValue() ?? "",
+              state.startMinute.getValue() ?? "")
+          .toString();
+      endTime = CustomDateTimeFormat.parseTime(
+              state.endHour.getValue() ?? "", state.endMinute.getValue() ?? "")
+          .toString();
+    }
+
+    /// Only true when submit from different time for each shift
+    if (shiftDetail != null) {
+      print("passShiftData222---> ${state.multiDateTimeList}");
+
+      var data = shiftDetail.copyWith(
+        unpaid_break_id: getSelectedUnPaidBreakId(),
+        total_payable_hour: state.totalPaybleHours,
+        multi_date: (state.selectedMultiShiftType == 1)
+            ? mapMultiDateToApiFormat(state)
+            : state.multiDateTimeList,
+      );
+
+      return data;
+    } else {
+      return MultiShiftDTO(
+        post_id: state.postId,
+        shift_type: state.shiftType,
+        date: state.signleShiftDate.getValue(),
+        start_time: startTime,
+        end_time: endTime,
+        unpaid_break_id: getSelectedUnPaidBreakId(),
+        total_payable_hour: state.totalPaybleHours,
+        commute_allowance_type:
+            (state.selectedCommuteAllownce.getValue() == "Flat Rate")
+                ? 1
+                : (state.selectedCommuteAllownce.getValue() == "Hours")
+                    ? 2
+                    : (state.selectedCommuteAllownce.getValue() == "None")
+                        ? 0
+                        : null,
+        commute_allowance:
+            (state.selectedCommuteAllownce.getValue() == "Flat Rate")
+                ? state.commuteRate.getValue()
+                : (state.selectedCommuteAllownce.getValue() == "Hours")
+                    ? getAccomdationHourId(state.commuteHour.getValue() ?? "")
+                    : null,
+        accommodation_allowance_type:
+            (state.selectedAccomdationAllownce.getValue() == "Flat Rate")
+                ? 1
+                : (state.selectedAccomdationAllownce.getValue() == "Hours")
+                    ? 2
+                    : (state.selectedAccomdationAllownce.getValue() == "None")
+                        ? 0
+                        : null,
+        accommodation_allowance: (state.selectedAccomdationAllownce
+                    .getValue() ==
+                "Flat Rate")
+            ? state.accomdationRate.getValue()
+            : (state.selectedAccomdationAllownce.getValue() == "Hours")
+                ? getAccomdationHourId(state.accomdationHour.getValue() ?? "")
+                : null,
+        shift_note: state.singleShiftNote,
+        vacancie_type: (state.isMoreVacancy) ? 1 : 0,
+        number_of_vacancie: (state.selectedVacancy.isValid())
+            ? int.parse(state.selectedVacancy.getValue() ?? "0")
+            : null,
+
+        /// Extra params of Multi shift
+        individual_shift: (state.isIndividualPost) ? 1 : 0,
+        multi_date: (state.selectedMultiShiftType == 1)
+            ? mapMultiDateToApiFormat(state)
+            : state.multiDateTimeList,
+        same_or_different_time: state.selectedMultiShiftType,
+      );
+    }
+  }
+
+  List<DateTimeDTO> mapMultiDateToApiFormat(PostShiftState state) {
+    return state.selectedMultiDates.getValue().map((multiDate) {
+      return DateTimeDTO(
+        date: multiDate.toString(),
+      );
+    }).toList();
   }
 }

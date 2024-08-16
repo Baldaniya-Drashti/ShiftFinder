@@ -48,6 +48,7 @@ class ApiConstants {
 
   /// Healthcare Post
   static String createPost = 'create_post';
+  static String createPostShift = 'create_post_shift';
 
   //edit user
   static String updateUser = 'edit/user';

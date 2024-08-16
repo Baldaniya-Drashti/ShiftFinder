@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, must_be_immutable
 
 import 'dart:convert';
 
@@ -27,7 +27,7 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'addMultiDateTime')
 class AddMultiDateTime extends StatelessWidget {
   MultiShiftDTO selectedObj;
-  AddMultiDateTime({required this.selectedObj});
+  AddMultiDateTime({super.key, required this.selectedObj});
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +115,8 @@ class AddMultiDateTime extends StatelessWidget {
                                     onPressed: () {
                                       context.read<PostShiftBloc>().add(
                                           PostShiftEvent
-                                              .differentTimeShiftSubmitted());
+                                              .differentTimeShiftSubmitted(
+                                                  selectedObj));
                                     },
                                     buttonText: StringConstant.txtContinue,
                                   ),

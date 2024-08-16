@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/core/speciality/speciality_dto.dart';
+import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart';
 part 'healthcare_post_dto.freezed.dart';
 part 'healthcare_post_dto.g.dart';
 
@@ -22,6 +23,7 @@ class HealthcarePostDTO with _$HealthcarePostDTO {
     LocationDTO? location,
     String? location_unit,
     double? rate_hour,
+    ShiftDetailDTO? shift_detail,
   }) = _HealthcarePostDTO;
 
   factory HealthcarePostDTO.fromJson(Map<String, dynamic> json) =>

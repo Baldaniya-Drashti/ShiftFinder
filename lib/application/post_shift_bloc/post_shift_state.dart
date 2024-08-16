@@ -7,6 +7,7 @@ class PostShiftState with _$PostShiftState {
   const factory PostShiftState({
     /// Change hift Type(Single, Multi,Long-Term)
     required int shiftType,
+    required int postId,
     required bool isLoading,
 
     /// Single Shift
@@ -29,7 +30,7 @@ class PostShiftState with _$PostShiftState {
     required bool isMoreVacancy,
     required InputEmptyOrNot selectedVacancy,
     required bool singleShiftErrorMessages,
-    required Option<Either<AuthFailure, String>>
+    required Option<Either<MainFailure, HealthcarePostDTO>>
         singleShiftFailureOrSuccessOption,
 
     /// For recurring,sahre with teams, save as template
@@ -63,6 +64,7 @@ class PostShiftState with _$PostShiftState {
   factory PostShiftState.initial() => PostShiftState(
         /// Change shift Type(Single, Multi,Long-Term)
         shiftType: -1,
+        postId: -1,
         isLoading: false,
 
         /// Single Shift
