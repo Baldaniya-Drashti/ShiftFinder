@@ -1,9 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/domain/profile/profile_item_model.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 
 class ProfileItems extends StatelessWidget {
@@ -35,7 +37,9 @@ class ProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: 'Teams',
         image: SvgImageConstant.teams,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(TeamsView.name));
+        },
       ),
       ProfileItemModel(
         title: 'Saved Templates',
