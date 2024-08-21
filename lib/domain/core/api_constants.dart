@@ -47,8 +47,14 @@ class ApiConstants {
   static String accomdationHourList = 'hour_list';
 
   /// Healthcare Post
+  static String getPost = 'get_post';
   static String createPost = 'create_post';
   static String createPostShift = 'create_post_shift';
+  static String createPostShiftAddMore = 'create_post_shift_add_more';
+  static String putPostTheShift = 'put_post_the_shift';
+
+  /// Teams
+  static String getTeam = 'get_team';
 
   //edit user
   static String updateUser = 'edit/user';

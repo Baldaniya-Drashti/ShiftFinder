@@ -4,13 +4,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
 import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart';
-import 'package:shift/domain/core/document_expiry_picker.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
-import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -46,7 +42,8 @@ class SameTimeForMultiDate extends StatelessWidget {
             (r) {
               context.router.push(PageRouteInfo(
                 PostShiftRecurring.name,
-                args: PostShiftRecurringArgs(shiftType: state.shiftType),
+                args: PostShiftRecurringArgs(
+                    shiftType: state.shiftType, healthcarePost: r),
               ));
             },
           ),

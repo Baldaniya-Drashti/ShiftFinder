@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_brace_in_string_interps, avoid_print
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_brace_in_string_interps, avoid_print, must_be_immutable
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +51,8 @@ class SinglePostShift extends StatelessWidget {
               (r) {
                 context.router.push(PageRouteInfo(
                   PostShiftRecurring.name,
-                  args: PostShiftRecurringArgs(shiftType: shiftType),
+                  args: PostShiftRecurringArgs(
+                      shiftType: shiftType, healthcarePost: r),
                 ));
               },
             ),

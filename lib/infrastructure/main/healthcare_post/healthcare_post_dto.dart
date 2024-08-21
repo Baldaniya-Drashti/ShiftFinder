@@ -15,6 +15,7 @@ class HealthcarePostDTO with _$HealthcarePostDTO {
     String? listing_id,
     String? last_ago,
     List<SkillDTO>? roles_list,
+    String? roles_list_name,
     List<SpecialityDTO>? specialties_detail_list,
     List<SkillDTO>? softwares_skill_list,
     String? software_skill_other,
@@ -24,6 +25,8 @@ class HealthcarePostDTO with _$HealthcarePostDTO {
     String? location_unit,
     double? rate_hour,
     ShiftDetailDTO? shift_detail,
+    String? software_skill,
+    String? specialties_detail,
   }) = _HealthcarePostDTO;
 
   factory HealthcarePostDTO.fromJson(Map<String, dynamic> json) =>

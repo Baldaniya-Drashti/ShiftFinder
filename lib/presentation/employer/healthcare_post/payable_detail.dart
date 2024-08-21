@@ -1,77 +1,121 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use, unnecessary_string_interpolations
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use, unnecessary_string_interpolations, must_be_immutable
 
+import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
-import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
+import 'package:shift/infrastructure/main/payable_dto.dart/payable_dto.dart';
+import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
-import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'payableDetail')
 class PayableDetail extends StatelessWidget {
-  const PayableDetail({super.key});
+  HealthcarePostDTO post;
+  PayableDetail({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.scaffoldColor,
-      appBar: CommonAppBar(
-        onBackPressed: () {
-          Navigator.pop(context);
-        },
-        title: StringConstant.payables,
-      ),
-      body: LayoutBuilder(builder: (context, constraint) {
-        return SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: constraint.maxHeight),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: getSize(10)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  singleShiftSlip(),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: getSize(20)),
-                    child: CommonButton(
-                      onPressed: () {
-                        AppDialog.showDelete(
-                          context,
-                          title: StringConstant.postTheShift,
-                          infoMessage: StringConstant.postShiftDesc,
-                          deleteBtnText: StringConstant.post,
-                          onCancelClick: () {
-                            Navigator.pop(context);
-                          },
-                          onDeleteClick: () {
-                            Navigator.pop(context);
-                            AppDialog.showSuccess(
-                              context,
-                              title: StringConstant.allSet,
-                              infoMessage: StringConstant.shiftSuccessDesc,
-                              onOkClick: () {
-                                context.router.maybePop();
-                              },
-                            );
-                          },
-                        );
-                      },
-                      buttonText: StringConstant.postTheShift,
-                    ),
+    print("Post111---->  ${jsonEncode(post)}");
+
+    return BlocProvider(
+      create: (context) => getIt<PostShiftBloc>(),
+      child: BlocConsumer<PostShiftBloc, PostShiftState>(
+        listener: (context, state) {
+          state.postShiftFailureOrSuccessOption.fold(
+            () {},
+            (either) => either.fold(
+              (failure) {
+                showError(
+                  message: failure.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
                   ),
-                ],
-              ),
+                ).show(context);
+              },
+              (r) {
+                AppDialog.showSuccess(
+                  context,
+                  title: StringConstant.allSet,
+                  infoMessage: r,
+                  onOkClick: () {
+                    context.router.maybePop();
+                  },
+                );
+              },
             ),
-          ),
-        );
-      }),
+          );
+        },
+        builder: (context, state) {
+          return Scaffold(
+            backgroundColor: AppColors.scaffoldColor,
+            appBar: CommonAppBar(
+              onBackPressed: () {
+                Navigator.pop(context);
+              },
+              title: StringConstant.payables,
+            ),
+            body: (state.isLoading)
+                ? CenterLoadingIndicator()
+                : LayoutBuilder(builder: (context, constraint) {
+                    return SingleChildScrollView(
+                      child: ConstrainedBox(
+                        constraints:
+                            BoxConstraints(minHeight: constraint.maxHeight),
+                        child: Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: getSize(10)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              (post.shift_detail != null &&
+                                      post.shift_detail!.shift_type == 1)
+                                  ? singleShiftSlip()
+                                  : multiShiftSlip(),
+                              Padding(
+                                padding:
+                                    EdgeInsets.symmetric(vertical: getSize(20)),
+                                child: CommonButton(
+                                  onPressed: () {
+                                    AppDialog.showDelete(
+                                      context,
+                                      title: StringConstant.postTheShift,
+                                      infoMessage: StringConstant.postShiftDesc,
+                                      deleteBtnText: StringConstant.post,
+                                      onCancelClick: () {
+                                        Navigator.pop(context);
+                                      },
+                                      onDeleteClick: () {
+                                        Navigator.pop(context);
+                                        context.read<PostShiftBloc>().add(
+                                            PostShiftEvent.postTheShiftEvent(
+                                                post.id ?? -1));
+                                      },
+                                    );
+                                  },
+                                  buttonText: StringConstant.postTheShift,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+          );
+        },
+      ),
     );
   }
 
@@ -209,6 +253,8 @@ class PayableDetail extends StatelessWidget {
   }
 
   Widget multiShiftSlip() {
+    final shift = post.shift_detail?.payables ?? PayableDTO();
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -217,68 +263,71 @@ class PayableDetail extends StatelessWidget {
           title2: StringConstant.totalPayableHours,
           title3: StringConstant.hourlyRate,
           value1: "7",
-          value2: "65h 30min",
-          value3: "\$10.00",
+          value2: shift.total_payable_hour,
+          value3: "\$${shift.rate_hour}",
           totalPayableTitle: StringConstant.totalWage,
-          totalPayable: "\$655.00",
+          totalPayable: "\$${shift.total_wage}",
         ),
         payableBox(
-          title1: StringConstant.totalCommuteAllowance,
-          title2: StringConstant.totalAccommodationAllowance,
-          title3: StringConstant.shiftFinderServiceFee,
-          value1: "7",
-          value2: "65h 30min",
-          value3: "\$10.00",
+          title1: StringConstant.commuteAllowance,
+          title2: StringConstant.accommodationAllowance,
+          value1: "\$${shift.commute_allowance}",
+          value2: "\$${shift.accommodation_allowance}",
           totalPayableTitle: StringConstant.totalAllowance,
-          totalPayable: "\$655.00",
+          totalPayable: "\$${shift.total_allowance}",
+        ),
+        payableBox(
+          title1: StringConstant.shiftFinderServiceFee,
+          value1: "\$${shift.service_fee}",
         ),
         payableBox(
           title1: StringConstant.sumOfAmounts,
           title2: StringConstant.numberOfVacancies,
-          value1: "\$20",
-          value2: "\$10",
+          value1: "\$${shift.total_one_shift}",
+          value2: "${shift.number_of_vacancie ?? 0}",
         ),
         totalPayableBox(
           totalPayableTitle: StringConstant.totalAmount,
-          totalPayable: "\$20",
+          totalPayable: "\$${shift.total_amount_payable}",
         ),
       ],
     );
   }
 
   Widget singleShiftSlip() {
+    final shift = post.shift_detail?.payables ?? PayableDTO();
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         payableBox(
           title1: StringConstant.totalPayableHours,
           title2: StringConstant.hourlyRate,
-          value1: "\$20",
-          value2: "\$10",
+          value1: shift.total_payable_hour ?? "",
+          value2: "\$${shift.rate_hour}",
           totalPayableTitle: StringConstant.totalWage,
-          totalPayable: "\$4675.00",
+          totalPayable: "\$${shift.total_wage}",
         ),
         payableBox(
           title1: StringConstant.commuteAllowance,
           title2: StringConstant.accommodationAllowance,
-          value1: "\$20",
-          value2: "\$10",
+          value1: "\$${shift.commute_allowance}",
+          value2: "\$${shift.accommodation_allowance}",
           totalPayableTitle: StringConstant.totalAllowance,
-          totalPayable: "\$4675.00",
+          totalPayable: "\$${shift.total_allowance}",
         ),
         payableBox(
           title1: StringConstant.shiftFinderServiceFee,
-          value1: "\$20",
+          value1: "\$${shift.service_fee}",
         ),
         payableBox(
           title1: StringConstant.totalPayableForOneShift,
           title2: StringConstant.numberOfVacancies,
-          value1: "\$20",
-          value2: "\$10",
+          value1: "\$${shift.total_one_shift}",
+          value2: "\$${shift.number_of_vacancie}",
         ),
         totalPayableBox(
           totalPayableTitle: StringConstant.totalAmountPayable,
-          totalPayable: "\$20",
+          totalPayable: "\$${shift.total_amount_payable}",
         ),
       ],
     );

@@ -1,13 +1,21 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use, unnecessary_string_interpolations
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use, unnecessary_string_interpolations, must_be_immutable, avoid_print
+
+import 'dart:convert';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
+import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
@@ -15,10 +23,12 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'reviewPostShiftDetail')
 class ReviewPostShiftDetail extends StatelessWidget {
-  const ReviewPostShiftDetail({super.key});
+  HealthcarePostDTO post;
+  ReviewPostShiftDetail({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
+    print("postpostpostpost---> ${jsonEncode(post.shift_detail!.teams)}");
     return Scaffold(
       backgroundColor: AppColors.scaffoldColor,
       appBar: CommonAppBar(
@@ -46,51 +56,82 @@ class ReviewPostShiftDetail extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         userDataBox(context),
-                        singleShiftDateTimeBreakUI(context),
-                        multiShiftDateTimeBreakUI(context),
+                        (post.shift_detail?.shift_type == 1)
+                            ? singleShiftDateTimeBreakUI(context)
+                            : multiShiftDateTimeBreakUI(context),
                         requiredSkillBox(
-                            svgPrefixIcon: SvgImageConstant.female,
-                            title: StringConstant.specialtiesRequired,
-                            value:
-                                "Behavioral Health, Perinatal, Urology, Anesthesiology, NICU"),
+                          svgPrefixIcon: SvgImageConstant.female,
+                          title: StringConstant.specialtiesRequired,
+                          value: post.specialties_detail ?? "",
+                        ),
                         requiredSkillBox(
                           svgPrefixIcon: SvgImageConstant.mouse,
                           title: StringConstant.softwareSkills,
-                          value: "Solvo Portal, PointClickCare, Solvo Portal",
+                          value: post.software_skill ?? "",
                         ),
                         rateHoursBox(),
                         languageBox(
                           title: StringConstant.languageRequirements,
-                          value: "English, Hindi",
+                          value: languageList(),
                         ),
                         locationDetailBox(
                             title: StringConstant.locationDetails,
-                            locationValue:
-                                "2464 Royal Ln. Mesa, New Jersey 45463",
-                            units: "X-ray"),
-                        notesBox(
+                            locationValue: post.location?.location ?? "",
+                            // "2464 Royal Ln. Mesa, New Jersey 45463",
+                            units: post.location_unit ?? ""),
+                        if (post.shift_detail != null &&
+                            post.shift_detail?.shift_note != null &&
+                            post.shift_detail!.shift_note!.isNotEmpty)
+                          notesBox(
                             title: StringConstant.shiftNote,
-                            value:
-                                "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?"),
-                        chipListBox(
-                          chipList: ["Monday", "Tuesday", "Wednesday"],
-                          title: StringConstant.recurrenceMode,
-                          value: "Weekly",
-                        ),
-                        notesBox(
-                            title: StringConstant.disclaimer,
-                            value:
-                                "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?"),
-                        numberOfVacancy(value: "5"),
-                        chipListBox(
-                          chipList: [
-                            "Louis Vuitton",
-                            "Nintendo",
-                          ],
-                          title: StringConstant.selectTeams,
-                          value: "02",
-                        ),
-                        templateCheckBox(),
+                            value: post.shift_detail?.shift_note ?? "",
+                          ),
+                        // "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?"),
+                        if (post.shift_detail != null &&
+                            post.shift_detail!.shift_type == 1 &&
+                            post.shift_detail!.detail![0].recurrence_mode !=
+                                null)
+                          chipListBox(
+                            chipList: [],
+                            title: StringConstant.recurrenceMode,
+                            value: (post.shift_detail?.detail![0]
+                                        .recurrence_mode ==
+                                    0)
+                                ? "Daily"
+                                : "Weekly",
+                          ),
+                        if (post.shift_detail != null &&
+                            post.shift_detail!.disclaimer != null &&
+                            post.shift_detail!.disclaimer!.isNotEmpty)
+                          notesBox(
+                              title: StringConstant.disclaimer,
+                              value: post.shift_detail?.disclaimer ?? ""),
+                        if (post.shift_detail != null &&
+                            post.shift_detail!.number_of_vacancie != null)
+                          numberOfVacancy(
+                              value: (post.shift_detail!.number_of_vacancie
+                                          .toString()
+                                          .length ==
+                                      1)
+                                  ? "0${post.shift_detail!.number_of_vacancie}"
+                                  : "${post.shift_detail!.number_of_vacancie}"),
+                        if (post.shift_detail != null &&
+                            post.shift_detail!.teams != null &&
+                            post.shift_detail!.teams!.isNotEmpty)
+                          chipListBox(
+                            chipList: post.shift_detail!.teams!
+                                .where((item) => item.name != null)
+                                .map((item) => item.name ?? "")
+                                .toList(),
+                            title: StringConstant.selectTeams,
+                            value: (post.shift_detail!.teams!.length < 10)
+                                ? "0${post.shift_detail!.teams!.length}"
+                                : "${post.shift_detail!.teams!.length}",
+                          ),
+                        if (post.shift_detail != null &&
+                            post.shift_detail!.save_template_status != null &&
+                            post.shift_detail!.save_template_status == 1)
+                          templateCheckBox(),
                       ],
                     ),
                   ),
@@ -98,7 +139,10 @@ class ReviewPostShiftDetail extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: getSize(20)),
                     child: CommonButton(
                       onPressed: () {
-                        context.router.push(PageRouteInfo(PayableDetail.name));
+                        context.router.push(PageRouteInfo(PayableDetail.name,
+                            args: PayableDetailArgs(
+                              post: post,
+                            )));
                       },
                       buttonText: StringConstant.txtContinue,
                     ),
@@ -256,7 +300,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
       ) {
     return Container(
         padding: EdgeInsets.symmetric(
-          horizontal: getSize(12),
+          horizontal: getSize(20),
           vertical: getSize(10),
         ),
         margin: EdgeInsets.symmetric(vertical: getSize(5)),
@@ -269,18 +313,17 @@ class ReviewPostShiftDetail extends StatelessWidget {
             rateWithBGIcon(
               svgIcon: SvgImageConstant.clockWithBag,
               title: StringConstant.hourlyRate,
-              value: "\$27",
+              value: "\$${post.rate_hour}",
             ),
             Container(
               width: getSize(40),
-              // height: getSize(50),
               padding: EdgeInsets.symmetric(horizontal: getSize(10)),
               child: SvgPicture.asset(SvgImageConstant.verticalLine),
             ),
             rateWithBGIcon(
               svgIcon: SvgImageConstant.clockWithOuterLine,
               title: StringConstant.totalHours,
-              value: "9h 15min",
+              value: post.shift_detail?.total_payable_hour ?? "",
             ),
           ],
         ));
@@ -305,20 +348,21 @@ class ReviewPostShiftDetail extends StatelessWidget {
               width: getSize(36.28),
               height: getSize(43.41),
             ),
-            title: const BaseText(
-              text: "CT Technologist",
+            title: BaseText(
+              text: post.roles_list_name ?? "",
               textColor: AppColors.black,
               fontSize: 16,
               fontWeight: FontWeight.w600,
             ),
             subtitle: BaseText(
-              text: "(Healthcare - 2DFG125)",
+              text:
+                  "(${CommonList.industryList.where((item) => item.id == getCurrentIndustry()).map((item) => item.title).join(', ')} - ${post.listing_id})",
               fontSize: 12,
               fontWeight: FontWeight.w600,
               textColor: AppColors.black.withOpacity(0.70),
             ),
             trailing: BaseText(
-              text: "2 Days Ago",
+              text: post.last_ago ?? "",
               fontSize: 10,
               fontWeight: FontWeight.w600,
             ),
@@ -327,6 +371,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
           ),
           commonDivider(),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SvgPicture.asset(
                 SvgImageConstant.location,
@@ -337,10 +382,13 @@ class ReviewPostShiftDetail extends StatelessWidget {
               SizedBox(
                 width: getSize(10),
               ),
-              const BaseText(
-                text: "4517, Washington Manchester, Kentucky 39495",
-                fontSize: 10,
-                fontWeight: FontWeight.w500,
+              Flexible(
+                child: BaseText(
+                  text: post.location?.location ?? "",
+                  fontSize: 10,
+                  maxLines: 5,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),
@@ -369,19 +417,26 @@ class ReviewPostShiftDetail extends StatelessWidget {
             children: [
               displayDateBreak(
                 context,
-                boldValue: "12 May, ",
-                timidValue: "2024",
+                boldValue: convertTimeStampToDate(
+                    post.shift_detail?.detail?[0].start_date ?? -1),
+                timidValue: convertTimeStampToDate(
+                    post.shift_detail?.detail?[0].start_date ?? -1,
+                    isYear: true),
                 title: StringConstant.shiftDate,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
               displayTime(
                 title: StringConstant.time,
-                startDate: "09:15 AM",
-                endDate: "07:30 PM",
+                startDate: convertTimeStampToDate(
+                    post.shift_detail?.detail?[0].start_time ?? -1,
+                    isTime: true),
+                endDate: convertTimeStampToDate(
+                    post.shift_detail?.detail?[0].end_time ?? -1,
+                    isTime: true),
                 svgPrefixIcon: SvgImageConstant.clock,
               ),
               displayDateBreak(context,
-                  boldValue: "45 Min",
+                  boldValue: post.shift_detail?.unpaid_break?.name ?? "",
                   timidValue: "",
                   title: StringConstant.unpaidBreak,
                   svgPrefixIcon: SvgImageConstant.clock),
@@ -399,6 +454,21 @@ class ReviewPostShiftDetail extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String convertTimeStampToDate(int timestamp,
+      {bool isYear = false, bool isTime = false}) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+
+    if (isTime) {
+      return DateFormat('hh:mm a').format(dateTime);
+    } else {
+      if (isYear) {
+        return DateFormat('yyyy').format(dateTime);
+      } else {
+        return DateFormat('d MMMM, ').format(dateTime);
+      }
+    }
   }
 
   Widget multiShiftDateTimeBreakUI(BuildContext context) {
@@ -481,8 +551,11 @@ class ReviewPostShiftDetail extends StatelessWidget {
               (showBtn)
                   ? CommonButton(
                       onPressed: () {
-                        context.router
-                            .push(const PageRouteInfo(ViewDates.name));
+                        if (post.shift_detail != null) {
+                          context.router.push(PageRouteInfo(ViewDates.name,
+                              args: ViewDatesArgs(
+                                  shiftDetail: post.shift_detail!)));
+                        }
                       },
                       width: getSize(100),
                       height: getSize(23),
@@ -599,6 +672,9 @@ class ReviewPostShiftDetail extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 textColor: AppColors.black.withOpacity(0.7),
               ),
+              SizedBox(
+                height: getSize(5),
+              ),
               BaseText(
                 text: value,
                 fontSize: 20,
@@ -664,21 +740,23 @@ class ReviewPostShiftDetail extends StatelessWidget {
               fontWeight: FontWeight.w400,
               textColor: AppColors.black.withOpacity(0.9),
             ),
-            SizedBox(
-              height: getSize(10),
-            ),
-            BaseText(
-              text: "${StringConstant.unit}",
-              fontSize: 10,
-              fontWeight: FontWeight.w400,
-              textColor: AppColors.primaryColor,
-            ),
-            BaseText(
-              text: units,
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              textColor: AppColors.black.withOpacity(0.9),
-            ),
+            if (units.isNotEmpty) ...[
+              SizedBox(
+                height: getSize(10),
+              ),
+              BaseText(
+                text: "${StringConstant.unit}",
+                fontSize: 10,
+                fontWeight: FontWeight.w400,
+                textColor: AppColors.primaryColor,
+              ),
+              BaseText(
+                text: units,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                textColor: AppColors.black.withOpacity(0.9),
+              ),
+            ],
           ],
         ),
       ),
@@ -710,7 +788,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
           text: value,
           fontSize: (isLast) ? 18 : 14,
           fontWeight: (isLast) ? FontWeight.w600 : FontWeight.w400,
-          textColor: (isFirst) ? AppColors.primaryColor : AppColors.black,
+          textColor: AppColors.primaryColor,
         ),
       ],
     );
@@ -825,5 +903,18 @@ class ReviewPostShiftDetail extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String languageList() {
+    List<SkillDTO> list = List<SkillDTO>.from(post.languages_list ?? []);
+    if (post.language_other != null && post.language_other!.isNotEmpty) {
+      list.add(SkillDTO(name: post.language_other));
+    }
+
+    // Return the list of language names as a comma-separated string
+    return list
+        .where((item) => item.name != null)
+        .map((item) => item.name)
+        .join(', ');
   }
 }

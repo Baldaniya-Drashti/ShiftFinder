@@ -1,4 +1,6 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, must_be_immutable, avoid_print
+
+import 'dart:convert';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +12,12 @@ import 'package:shift/domain/core/document_expiry_picker.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -26,16 +30,21 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'postShiftRecurring')
 class PostShiftRecurring extends StatelessWidget {
   int shiftType;
-  PostShiftRecurring({super.key, required this.shiftType});
+  HealthcarePostDTO healthcarePost;
+  PostShiftRecurring(
+      {super.key, required this.shiftType, required this.healthcarePost});
 
   @override
   Widget build(BuildContext context) {
+    print(
+        "Healthcare post---> ${jsonEncode(healthcarePost.shift_detail!.teams)}");
     return GestureDetector(
       onTap: () {
         AppFocus.unfocus(context);
       },
       child: BlocProvider(
-        create: (context) => getIt<PostShiftBloc>(),
+        create: (context) =>
+            getIt<PostShiftBloc>()..add(PostShiftEvent.getTeamsListEvent()),
         child: BlocConsumer<PostShiftBloc, PostShiftState>(
           listener: (context, state) {
             state.recurringFailureOrSuccessOption.fold(
@@ -52,8 +61,8 @@ class PostShiftRecurring extends StatelessWidget {
                   ).show(context);
                 },
                 (r) {
-                  context.router
-                      .push(const PageRouteInfo(ReviewPostShiftDetail.name));
+                  context.router.push(PageRouteInfo(ReviewPostShiftDetail.name,
+                      args: ReviewPostShiftDetailArgs(post: r)));
                 },
               ),
             );
@@ -66,93 +75,106 @@ class PostShiftRecurring extends StatelessWidget {
                   Navigator.pop(context);
                 },
               ),
-              body: LayoutBuilder(builder: (context, constraint) {
-                return SingleChildScrollView(
-                  child: ConstrainedBox(
-                    constraints:
-                        BoxConstraints(minHeight: constraint.maxHeight),
-                    child: Form(
-                      autovalidateMode: (state.recurringErrorMessage)
-                          ? AutovalidateMode.always
-                          : AutovalidateMode.disabled,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                if (shiftType == 1)
-                                  recurringCheckBox(context, state),
-                                paddingBetweenFields(),
-                                if (state.isToBeRecurring) ...[
-                                  recurringStartDateField(context, state),
-                                  paddingBetweenFields(),
-                                  recurrenceModeDropDown(context, state),
-                                  if (state.recurringErrorMessage &&
-                                      !state.recurrenceMode.isValid())
-                                    commonErrorText(StringConstant
-                                        .pleaseSelectRecurrenceMode),
-                                  paddingBetweenFields(),
-                                  if (state.recurrenceMode.getValue() ==
-                                      "Weekly") ...[
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                          left: getSize(18),
-                                          bottom: getSize(5)),
-                                      child: BaseText(
-                                        text: StringConstant
-                                            .selectTheDaysForRecurring,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    weeklyRecurringCheckBox(context, state),
-                                    if (state.recurringErrorMessage &&
-                                        !state.recurrenceWeekList.isValid())
-                                      commonErrorText(StringConstant
-                                          .pleaseSelectRecurrenceMode),
-                                    paddingBetweenFields(),
-                                  ],
-                                  recurringEndDateField(context, state),
-                                  paddingBetweenFields(),
-                                ],
-                                disclaimer(context, state),
-                                paddingBetweenFields(),
-                                sharePostCheckBox(context, state),
-                                paddingBetweenFields(),
-                                if (state.isShareWithTeams) ...[
-                                  selectTeamsList(context, state),
-                                  if (state.recurringErrorMessage &&
-                                      !state.selectedTeamList.isValid())
-                                    commonErrorText(StringConstant
-                                        .pleaseSelectAtLeastOneTeam),
-                                  paddingBetweenFields(),
-                                ],
-                                templateCheckBox(context, state),
-                              ],
-                            ),
-                            Padding(
+              body: (state.isLoading)
+                  ? CenterLoadingIndicator()
+                  : LayoutBuilder(builder: (context, constraint) {
+                      return SingleChildScrollView(
+                        child: ConstrainedBox(
+                          constraints:
+                              BoxConstraints(minHeight: constraint.maxHeight),
+                          child: Form(
+                            autovalidateMode: (state.recurringErrorMessage)
+                                ? AutovalidateMode.always
+                                : AutovalidateMode.disabled,
+                            child: Padding(
                               padding:
-                                  EdgeInsets.symmetric(vertical: getSize(20)),
-                              child: CommonButton(
-                                onPressed: () {
-                                  context.read<PostShiftBloc>().add(
-                                      PostShiftEvent.recurringButtonEvent());
-                                },
-                                buttonText: StringConstant.txtContinue,
+                                  EdgeInsets.symmetric(horizontal: getSize(20)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      if (shiftType == 1) ...[
+                                        recurringCheckBox(context, state),
+                                        paddingBetweenFields(),
+                                        if (state.isToBeRecurring) ...[
+                                          recurringStartDateField(
+                                              context, state),
+                                          paddingBetweenFields(),
+                                          recurrenceModeDropDown(
+                                              context, state),
+                                          if (state.recurringErrorMessage &&
+                                              !state.recurrenceMode.isValid())
+                                            commonErrorText(StringConstant
+                                                .pleaseSelectRecurrenceMode),
+                                          paddingBetweenFields(),
+                                          if (state.recurrenceMode.getValue() ==
+                                              "Weekly") ...[
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: getSize(18),
+                                                  bottom: getSize(5)),
+                                              child: BaseText(
+                                                text: StringConstant
+                                                    .selectTheDaysForRecurring,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                            weeklyRecurringCheckBox(
+                                                context, state),
+                                            if (state.recurringErrorMessage &&
+                                                !state.recurrenceWeekList
+                                                    .isValid())
+                                              commonErrorText(StringConstant
+                                                  .pleaseSelectRecurrenceMode),
+                                            paddingBetweenFields(),
+                                          ],
+                                          recurringEndDateField(context, state),
+                                          paddingBetweenFields(),
+                                        ],
+                                      ],
+                                      disclaimer(context, state),
+                                      paddingBetweenFields(),
+                                      sharePostCheckBox(context, state),
+                                      paddingBetweenFields(),
+                                      if (state.isShareWithTeams) ...[
+                                        selectTeamsList(context, state),
+                                        if (state.recurringErrorMessage &&
+                                            !state.selectedTeamList.isValid())
+                                          commonErrorText(StringConstant
+                                              .pleaseSelectAtLeastOneTeam),
+                                        paddingBetweenFields(),
+                                      ],
+                                      templateCheckBox(context, state),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: getSize(20)),
+                                    child: CommonButton(
+                                      onPressed: () {
+                                        context.read<PostShiftBloc>().add(
+                                            PostShiftEvent.recurringButtonEvent(
+                                                healthcarePost
+                                                        .shift_detail?.id ??
+                                                    -1));
+                                      },
+                                      buttonText: StringConstant.txtContinue,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                );
-              }),
+                      );
+                    }),
             );
           },
         ),
@@ -562,12 +584,12 @@ class PostShiftRecurring extends StatelessWidget {
           child: ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: CommonList.weekList.length,
+              itemCount: state.teamList.length,
               itemBuilder: (context, index) {
-                final weekList = CommonList.weekList;
-                bool isDayCheck = state.selectedTeamList
+                final teamList = state.teamList;
+                bool isTeamCheck = state.selectedTeamList
                     .getValue()
-                    .any((item) => item.id == index);
+                    .any((item) => item.name == teamList[index].name);
                 return ListTile(
                   titleAlignment: ListTileTitleAlignment.center,
                   contentPadding: EdgeInsets.zero,
@@ -580,7 +602,7 @@ class PostShiftRecurring extends StatelessWidget {
                   dense: true,
 
                   title: BaseText(
-                    text: weekList[index].name ?? '',
+                    text: teamList[index].name ?? '',
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),
@@ -588,7 +610,7 @@ class PostShiftRecurring extends StatelessWidget {
                     height: getSize(20),
                     width: getSize(16.67),
                     child: Checkbox(
-                      value: isDayCheck,
+                      value: isTeamCheck,
                       activeColor: AppColors.primaryColor,
                       side: BorderSide(
                         width: getSize(1.5),
@@ -600,7 +622,7 @@ class PostShiftRecurring extends StatelessWidget {
                       onChanged: (value) {
                         if (value != null) {
                           context.read<PostShiftBloc>().add(
-                              PostShiftEvent.selectTeamEvent(weekList[index]));
+                              PostShiftEvent.selectTeamEvent(teamList[index]));
                         }
                       },
                     ),

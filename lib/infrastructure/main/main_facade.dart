@@ -1,21 +1,18 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unnecessary_brace_in_string_interps
 
 import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart';
 import 'package:shift/domain/core/api_constants.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/network/injectable_module.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
-import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
-import 'package:shift/presentation/common/utils/date_time_format.dart';
+import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
 
 @LazySingleton(as: IMainFacade)
 class MainFacade implements IMainFacade {
@@ -223,7 +220,10 @@ class MainFacade implements IMainFacade {
       if (shift.multi_date != null && shift.multi_date!.isNotEmpty) {
         return shift.multi_date!.map((multiDate) {
           return {
-            'date': multiDate.date,
+            'date': DateTime.parse(multiDate.date ?? "")
+                    .toUtc()
+                    .millisecondsSinceEpoch /
+                1000,
             'start_time': DateTime.parse((shift.same_or_different_time == 1)
                         ? shift.start_time ?? ""
                         : multiDate.start_time ?? "")
@@ -245,7 +245,7 @@ class MainFacade implements IMainFacade {
 
     try {
       Map<String, dynamic> mapData = {
-        'post_id': 22,
+        'post_id': shift.post_id,
         'shift_type': shift.shift_type,
         'unpaid_break_id': shift.unpaid_break_id,
         'total_payable_hour': shift.total_payable_hour,
@@ -271,7 +271,7 @@ class MainFacade implements IMainFacade {
       } else if (shift.shift_type == 2) {
         mapData.addAll({
           'same_or_different_time': shift.same_or_different_time,
-          'multi_date': mapMultiDateToApiFormat(),
+          'multi_date': jsonEncode(mapMultiDateToApiFormat()),
           'individual_shift': shift.individual_shift,
         });
       }
@@ -302,16 +302,159 @@ class MainFacade implements IMainFacade {
       }
 
       print("Sending Data->  ${jsonEncode(mapData)}");
-
       final res = await apiService.postMethod(
         ApiConstants.createPostShift,
         mapData,
       );
-
       final data = HealthcarePostDTO.fromJson(res.data);
       print("Healthercare Shift Post Response->  $data");
 
       return right(data);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, HealthcarePostDTO>> createPostShiftRecurringApi({
+    required int postShiftId,
+    required int recurringStatus,
+    required String startDate,
+    required int recurrenceMode,
+    required String days,
+    required String endDate,
+    required String disclaimer,
+    required int shareTeamStatus,
+    required String teamId,
+    required int saveTemplateStatus,
+  }) async {
+    try {
+      Map<String, dynamic> mapData = {
+        // 'post_shift_id': postShiftId,
+        'post_shift_id': postShiftId,
+        'recurring_status': recurringStatus,
+        'share_team_status': shareTeamStatus,
+        'save_template_status': saveTemplateStatus,
+      };
+
+      if (disclaimer.isNotEmpty) {
+        mapData.addAll({
+          'disclaimer': disclaimer,
+        });
+      }
+
+      if (recurringStatus == 1) {
+        mapData.addAll({
+          'start_date': startDate,
+          'recurrence_mode': recurrenceMode,
+          'days': days,
+          'end_date': endDate,
+        });
+      }
+
+      if (shareTeamStatus == 1) {
+        mapData.addAll({
+          'team_id': teamId,
+        });
+      }
+
+      print("Sending Data->  ${jsonEncode(mapData)}");
+      final res = await apiService.postMethod(
+        ApiConstants.createPostShiftAddMore,
+        mapData,
+      );
+      final data = HealthcarePostDTO.fromJson(res.data);
+      print("Healthercare Shift Post Response->  $data");
+
+      return right(data);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, List<TeamDTO>>> getTeamsList({
+    int? id,
+    int? page,
+    int? perPage,
+  }) async {
+    try {
+      Map<String, dynamic> mapData = {
+        'id': id,
+        'page': page,
+        'perPage': perPage ?? 60,
+      };
+
+      print("Sending Data->  ${jsonEncode(mapData)}");
+      final res = await apiService.getMethod(ApiConstants.getTeam,
+          queryParameters: mapData);
+      if (res != null) {
+        var account = res.data as List<dynamic>;
+        var data = account.map((e) => TeamDTO.fromJson(e)).toList();
+        print("Get Team List Response->  $data");
+
+        return right(data);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, String>> postShiftApi({
+    required int postId,
+  }) async {
+    try {
+      Map<String, dynamic> mapData = {
+        'post_id': postId,
+      };
+
+      print("Sending Data->  ${jsonEncode(mapData)}");
+      final res = await apiService.putMethod(
+        ApiConstants.putPostTheShift,
+        data: mapData,
+      );
+
+      if (res != null) {
+        return right(res.dioMessage ?? "");
+      } else {
+        return left(const MainFailure.serverError());
+      }
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);

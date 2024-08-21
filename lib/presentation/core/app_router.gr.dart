@@ -12,8 +12,12 @@ import 'package:auto_route/auto_route.dart' as _i36;
 import 'package:flutter/material.dart' as _i37;
 import 'package:shift/application/auth/contractor_auth/location_example.dart'
     as _i18;
+import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart'
+    as _i39;
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart'
     as _i38;
+import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart'
+    as _i40;
 import 'package:shift/presentation/auth/contractor_auth/add_bank_details.dart'
     as _i1;
 import 'package:shift/presentation/auth/contractor_auth/add_contractor_skills.dart'
@@ -134,7 +138,10 @@ abstract class $AppRouter extends _i36.RootStackRouter {
       final args = routeData.argsAs<AddMultiDateTimeArgs>();
       return _i36.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i6.AddMultiDateTime(selectedObj: args.selectedObj),
+        child: _i6.AddMultiDateTime(
+          key: args.key,
+          selectedObj: args.selectedObj,
+        ),
       );
     },
     AddReferenceDetailScreen.name: (routeData) {
@@ -286,9 +293,13 @@ abstract class $AppRouter extends _i36.RootStackRouter {
       );
     },
     PayableDetail.name: (routeData) {
+      final args = routeData.argsAs<PayableDetailArgs>();
       return _i36.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i25.PayableDetail(),
+        child: _i25.PayableDetail(
+          key: args.key,
+          post: args.post,
+        ),
       );
     },
     PostShiftRecurring.name: (routeData) {
@@ -298,6 +309,7 @@ abstract class $AppRouter extends _i36.RootStackRouter {
         child: _i26.PostShiftRecurring(
           key: args.key,
           shiftType: args.shiftType,
+          healthcarePost: args.healthcarePost,
         ),
       );
     },
@@ -337,9 +349,13 @@ abstract class $AppRouter extends _i36.RootStackRouter {
       );
     },
     ReviewPostShiftDetail.name: (routeData) {
+      final args = routeData.argsAs<ReviewPostShiftDetailArgs>();
       return _i36.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i31.ReviewPostShiftDetail(),
+        child: _i31.ReviewPostShiftDetail(
+          key: args.key,
+          post: args.post,
+        ),
       );
     },
     SplashPage.name: (routeData) {
@@ -360,11 +376,13 @@ abstract class $AppRouter extends _i36.RootStackRouter {
       );
     },
     ViewDates.name: (routeData) {
-      final args =
-          routeData.argsAs<ViewDatesArgs>(orElse: () => const ViewDatesArgs());
+      final args = routeData.argsAs<ViewDatesArgs>();
       return _i36.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i34.ViewDates(key: args.key),
+        child: _i34.ViewDates(
+          key: args.key,
+          shiftDetail: args.shiftDetail,
+        ),
       );
     },
     ViewHomeShiftDetails.name: (routeData) {
@@ -574,11 +592,15 @@ class AddExperienceDetailScreenArgs {
 /// [_i6.AddMultiDateTime]
 class AddMultiDateTime extends _i36.PageRouteInfo<AddMultiDateTimeArgs> {
   AddMultiDateTime({
+    _i37.Key? key,
     required _i38.MultiShiftDTO selectedObj,
     List<_i36.PageRouteInfo>? children,
   }) : super(
           AddMultiDateTime.name,
-          args: AddMultiDateTimeArgs(selectedObj: selectedObj),
+          args: AddMultiDateTimeArgs(
+            key: key,
+            selectedObj: selectedObj,
+          ),
           initialChildren: children,
         );
 
@@ -589,13 +611,18 @@ class AddMultiDateTime extends _i36.PageRouteInfo<AddMultiDateTimeArgs> {
 }
 
 class AddMultiDateTimeArgs {
-  const AddMultiDateTimeArgs({required this.selectedObj});
+  const AddMultiDateTimeArgs({
+    this.key,
+    required this.selectedObj,
+  });
+
+  final _i37.Key? key;
 
   final _i38.MultiShiftDTO selectedObj;
 
   @override
   String toString() {
-    return 'AddMultiDateTimeArgs{selectedObj: $selectedObj}';
+    return 'AddMultiDateTimeArgs{key: $key, selectedObj: $selectedObj}';
   }
 }
 
@@ -1068,16 +1095,40 @@ class OnBoarding3Args {
 
 /// generated route for
 /// [_i25.PayableDetail]
-class PayableDetail extends _i36.PageRouteInfo<void> {
-  const PayableDetail({List<_i36.PageRouteInfo>? children})
-      : super(
+class PayableDetail extends _i36.PageRouteInfo<PayableDetailArgs> {
+  PayableDetail({
+    _i37.Key? key,
+    required _i39.HealthcarePostDTO post,
+    List<_i36.PageRouteInfo>? children,
+  }) : super(
           PayableDetail.name,
+          args: PayableDetailArgs(
+            key: key,
+            post: post,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'PayableDetail';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i36.PageInfo<PayableDetailArgs> page =
+      _i36.PageInfo<PayableDetailArgs>(name);
+}
+
+class PayableDetailArgs {
+  const PayableDetailArgs({
+    this.key,
+    required this.post,
+  });
+
+  final _i37.Key? key;
+
+  final _i39.HealthcarePostDTO post;
+
+  @override
+  String toString() {
+    return 'PayableDetailArgs{key: $key, post: $post}';
+  }
 }
 
 /// generated route for
@@ -1086,12 +1137,14 @@ class PostShiftRecurring extends _i36.PageRouteInfo<PostShiftRecurringArgs> {
   PostShiftRecurring({
     _i37.Key? key,
     required int shiftType,
+    required _i39.HealthcarePostDTO healthcarePost,
     List<_i36.PageRouteInfo>? children,
   }) : super(
           PostShiftRecurring.name,
           args: PostShiftRecurringArgs(
             key: key,
             shiftType: shiftType,
+            healthcarePost: healthcarePost,
           ),
           initialChildren: children,
         );
@@ -1106,15 +1159,18 @@ class PostShiftRecurringArgs {
   const PostShiftRecurringArgs({
     this.key,
     required this.shiftType,
+    required this.healthcarePost,
   });
 
   final _i37.Key? key;
 
   final int shiftType;
 
+  final _i39.HealthcarePostDTO healthcarePost;
+
   @override
   String toString() {
-    return 'PostShiftRecurringArgs{key: $key, shiftType: $shiftType}';
+    return 'PostShiftRecurringArgs{key: $key, shiftType: $shiftType, healthcarePost: $healthcarePost}';
   }
 }
 
@@ -1234,16 +1290,41 @@ class RegisterPage extends _i36.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i31.ReviewPostShiftDetail]
-class ReviewPostShiftDetail extends _i36.PageRouteInfo<void> {
-  const ReviewPostShiftDetail({List<_i36.PageRouteInfo>? children})
-      : super(
+class ReviewPostShiftDetail
+    extends _i36.PageRouteInfo<ReviewPostShiftDetailArgs> {
+  ReviewPostShiftDetail({
+    _i37.Key? key,
+    required _i39.HealthcarePostDTO post,
+    List<_i36.PageRouteInfo>? children,
+  }) : super(
           ReviewPostShiftDetail.name,
+          args: ReviewPostShiftDetailArgs(
+            key: key,
+            post: post,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ReviewPostShiftDetail';
 
-  static const _i36.PageInfo<void> page = _i36.PageInfo<void>(name);
+  static const _i36.PageInfo<ReviewPostShiftDetailArgs> page =
+      _i36.PageInfo<ReviewPostShiftDetailArgs>(name);
+}
+
+class ReviewPostShiftDetailArgs {
+  const ReviewPostShiftDetailArgs({
+    this.key,
+    required this.post,
+  });
+
+  final _i37.Key? key;
+
+  final _i39.HealthcarePostDTO post;
+
+  @override
+  String toString() {
+    return 'ReviewPostShiftDetailArgs{key: $key, post: $post}';
+  }
 }
 
 /// generated route for
@@ -1304,10 +1385,14 @@ class TermsAndConditionsScreenArgs {
 class ViewDates extends _i36.PageRouteInfo<ViewDatesArgs> {
   ViewDates({
     _i37.Key? key,
+    required _i40.ShiftDetailDTO shiftDetail,
     List<_i36.PageRouteInfo>? children,
   }) : super(
           ViewDates.name,
-          args: ViewDatesArgs(key: key),
+          args: ViewDatesArgs(
+            key: key,
+            shiftDetail: shiftDetail,
+          ),
           initialChildren: children,
         );
 
@@ -1318,13 +1403,18 @@ class ViewDates extends _i36.PageRouteInfo<ViewDatesArgs> {
 }
 
 class ViewDatesArgs {
-  const ViewDatesArgs({this.key});
+  const ViewDatesArgs({
+    this.key,
+    required this.shiftDetail,
+  });
 
   final _i37.Key? key;
 
+  final _i40.ShiftDetailDTO shiftDetail;
+
   @override
   String toString() {
-    return 'ViewDatesArgs{key: $key}';
+    return 'ViewDatesArgs{key: $key, shiftDetail: $shiftDetail}';
   }
 }
 

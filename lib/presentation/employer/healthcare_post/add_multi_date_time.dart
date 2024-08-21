@@ -54,7 +54,8 @@ class AddMultiDateTime extends StatelessWidget {
               (r) {
                 context.router.push(PageRouteInfo(
                   PostShiftRecurring.name,
-                  args: PostShiftRecurringArgs(shiftType: state.shiftType),
+                  args: PostShiftRecurringArgs(
+                      shiftType: state.shiftType, healthcarePost: r),
                 ));
               },
             ),

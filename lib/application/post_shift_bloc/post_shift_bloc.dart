@@ -1,7 +1,4 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, prefer_const_literals_to_create_immutables, unnecessary_brace_in_string_interps
-
-import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -14,6 +11,7 @@ import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
+import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
 import 'package:shift/presentation/common/utils/date_time_format.dart';
 part 'post_shift_event.dart';
 part 'post_shift_state.dart';
@@ -267,9 +265,9 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               hourValue: state.commuteHour,
               rateValue: state.commuteRate);
           final isAccomdationAllownceValid = isAllownceValid(
-              selectedValue: state.selectedCommuteAllownce,
-              hourValue: state.commuteHour,
-              rateValue: state.commuteRate);
+              selectedValue: state.selectedAccomdationAllownce,
+              hourValue: state.accomdationHour,
+              rateValue: state.accomdationRate);
           final isSingleDateValid = state.signleShiftDate.isValid();
           final isUnpaidBreakValid = state.unpaidBreak.isValid();
           final isStartHourValid = state.startHour.isValid();
@@ -295,13 +293,11 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               isUnpaidBreakValid &&
               isVacancyValid) {
             print("All details are valid!");
-
             failureOrSuccess = await _mainFacade.createPostShiftApi(
                 shift: passShiftData(state));
           } else {
             print("Some details are invalid!");
           }
-
           emit(
             state.copyWith(
               isLoading: false,
@@ -389,9 +385,9 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           );
         },
         selectTeamEvent: (e) {
-          List<SkillDTO> list = state.selectedTeamList.getValue();
+          List<TeamDTO> list = state.selectedTeamList.getValue();
           bool isAlreadyInList = list.any((item) => item.id == e.team.id);
-          List<SkillDTO> updatedList;
+          List<TeamDTO> updatedList;
           if (isAlreadyInList) {
             updatedList = list.where((item) => item.id != e.team.id).toList();
           } else {
@@ -403,12 +399,33 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             recurringFailureOrSuccessOption: none(),
           ));
         },
-        recurringButtonEvent: (e) {
-          Either<AuthFailure, String>? failureOrSuccess;
+        getTeamsListEvent: (e) async {
+          emit(
+            state.copyWith(
+              isLoading: true,
+              recurringFailureOrSuccessOption: none(),
+            ),
+          );
+          await getTeamsListApi(emit);
+        },
+        recurringButtonEvent: (e) async {
+          Either<MainFailure, HealthcarePostDTO>? failureOrSuccess;
           if (isRecurringValid(state) && isTeamsValid(state)) {
-            print("save as template---> ${state.isSaveAsTemplate}");
-            print("All details are valid!");
-            failureOrSuccess = right("Success");
+            print("All details are valid! ");
+            failureOrSuccess = await _mainFacade.createPostShiftRecurringApi(
+                postShiftId: e.postShiftId,
+                recurringStatus: (state.isToBeRecurring) ? 1 : 0,
+                startDate: state.recurringStartDate.getValue() ?? "",
+                recurrenceMode:
+                    (state.recurrenceMode.getValue() == "Weekly") ? 2 : 1,
+                days: getSelectedRecurringDayIds(
+                    state.recurrenceWeekList.getValue()),
+                endDate: state.recurringEndDate.getValue() ?? "",
+                disclaimer: state.disclaimerNote,
+                shareTeamStatus: (state.isShareWithTeams) ? 1 : 0,
+                teamId: getSelectedRecurringDayIds(
+                    state.selectedTeamList.getValue()),
+                saveTemplateStatus: (state.isSaveAsTemplate) ? 1 : 0);
           } else {
             print("Some details are invalid!");
           }
@@ -607,9 +624,9 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               hourValue: state.commuteHour,
               rateValue: state.commuteRate);
           final isAccomdationAllownceValid = isAllownceValid(
-              selectedValue: state.selectedCommuteAllownce,
-              hourValue: state.commuteHour,
-              rateValue: state.commuteRate);
+              selectedValue: state.selectedAccomdationAllownce,
+              hourValue: state.accomdationHour,
+              rateValue: state.accomdationRate);
           final isMultiDateValid = state.selectedMultiDates.isValid();
           final isUnpaidBreakValid = state.unpaidBreak.isValid();
           final isStartHourValid = state.startHour.isValid();
@@ -640,6 +657,24 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             state.copyWith(
               singleShiftErrorMessages: true,
               singleShiftFailureOrSuccessOption: optionOf(failureOrSuccess),
+            ),
+          );
+        },
+        postTheShiftEvent: (e) async {
+          Either<MainFailure, String>? failureOrSuccess;
+          emit(
+            state.copyWith(
+              isLoading: true,
+              postShiftFailureOrSuccessOption: none(),
+            ),
+          );
+          print("All details are valid! ");
+          failureOrSuccess = await _mainFacade.postShiftApi(postId: e.postId);
+          emit(
+            state.copyWith(
+              isLoading: false,
+              singleShiftErrorMessages: true,
+              postShiftFailureOrSuccessOption: optionOf(failureOrSuccess),
             ),
           );
         },
@@ -683,6 +718,27 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           state.copyWith(
             isLoading: false,
             accomdationHoursList: r,
+          ),
+        );
+      },
+    );
+  }
+
+  getTeamsListApi(Emitter<PostShiftState> emit) async {
+    final teamList = await _mainFacade.getTeamsList();
+    print("Team List ---> $teamList");
+    teamList.fold(
+      (l) => emit(
+        state.copyWith(
+          isLoading: false,
+          teamList: [],
+        ),
+      ),
+      (r) {
+        return emit(
+          state.copyWith(
+            isLoading: false,
+            teamList: r,
           ),
         );
       },
@@ -870,16 +926,13 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
 
     /// Only true when submit from different time for each shift
     if (shiftDetail != null) {
-      print("passShiftData222---> ${state.multiDateTimeList}");
-
       var data = shiftDetail.copyWith(
         unpaid_break_id: getSelectedUnPaidBreakId(),
         total_payable_hour: state.totalPaybleHours,
-        multi_date: (state.selectedMultiShiftType == 1)
+        multi_date: (shiftDetail.same_or_different_time == 1)
             ? mapMultiDateToApiFormat(state)
             : state.multiDateTimeList,
       );
-
       return data;
     } else {
       return MultiShiftDTO(
@@ -941,5 +994,15 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
         date: multiDate.toString(),
       );
     }).toList();
+  }
+
+  String getSelectedRecurringDayIds(List<dynamic> list) {
+    final dayIds = list
+        .map((day) => day.id) // Extract IDs
+        .toList();
+    String commaSeparated = dayIds.join(',');
+    print('Get IDs from list: $commaSeparated');
+
+    return commaSeparated;
   }
 }

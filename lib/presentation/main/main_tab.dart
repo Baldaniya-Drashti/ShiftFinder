@@ -9,11 +9,11 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/common/widgets/custom_cached_network_images.dart';
 import 'package:shift/presentation/core/app_router.gr.dart' as autoroute;
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/tabs/history_view.dart';
@@ -81,15 +81,19 @@ class MainTabView extends StatelessWidget {
               ),
               floatingActionButton: FloatingActionButton(
                 onPressed: () {
-                  // context.router
-                  //     .push(PageRouteInfo(autoroute.HealthCarePostForm.name));
-                  context.router.push(PageRouteInfo(
-                    autoroute.HealthcarePostShift.name,
-                    args: autoroute.HealthcarePostShiftArgs(postId: -1),
-                  ));
+                  context.router
+                      .push(PageRouteInfo(autoroute.HealthCarePostForm.name));
 
-                  // context.router
-                  //     .push(PageRouteInfo(autoroute.PostShiftRecurring.name));
+                  // context.router.push(PageRouteInfo(
+                  //   autoroute.HealthcarePostShift.name,
+                  //   args: autoroute.HealthcarePostShiftArgs(postId: 28),
+                  // ));
+
+                  // context.router.push(PageRouteInfo(
+                  //   autoroute.PostShiftRecurring.name,
+                  //   args: autoroute.PostShiftRecurringArgs(
+                  //       shiftType: 1, healthcarePost: HealthcarePostDTO()),
+                  // ));
                 },
                 backgroundColor: AppColors.primaryColor,
                 shape: CircleBorder(

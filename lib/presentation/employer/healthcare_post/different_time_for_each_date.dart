@@ -133,6 +133,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
                 padding: EdgeInsets.only(top: getSize(50), bottom: getSize(30)),
                 child: CommonButton(
                   onPressed: () {
+                    /// After click go to next screen to select time for different dates
                     context
                         .read<PostShiftBloc>()
                         .add(PostShiftEvent.multidateContinueButtonPressed());

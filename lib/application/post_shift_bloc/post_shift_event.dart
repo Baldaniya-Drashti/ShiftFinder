@@ -48,6 +48,7 @@ class PostShiftEvent with _$PostShiftEvent {
   const factory PostShiftEvent.singleShiftSubmitted() = SingleShiftSubmitted;
 
   /// For recurring, template,share with teams
+  const factory PostShiftEvent.getTeamsListEvent() = GetTeamsList;
   const factory PostShiftEvent.recurringCheck(bool isCheck) = RecurringCheck;
   const factory PostShiftEvent.shareWithTeamsCheck(bool isCheck) =
       ShareWithTeamsCheck;
@@ -64,8 +65,9 @@ class PostShiftEvent with _$PostShiftEvent {
   const factory PostShiftEvent.recurringEndDateChanged(String selectedDate) =
       RecurringEndDateChanged;
 
-  const factory PostShiftEvent.selectTeamEvent(SkillDTO team) = SelectTeamEvent;
-  const factory PostShiftEvent.recurringButtonEvent() = RecurringButtonEvent;
+  const factory PostShiftEvent.selectTeamEvent(TeamDTO team) = SelectTeamEvent;
+  const factory PostShiftEvent.recurringButtonEvent(int postShiftId) =
+      RecurringButtonEvent;
 
   /// Multi Shift
   const factory PostShiftEvent.checkIsIndividualPost(bool isIndividualPost) =
@@ -93,4 +95,8 @@ class PostShiftEvent with _$PostShiftEvent {
   const factory PostShiftEvent.backEvent() = BackEvent;
   const factory PostShiftEvent.sameTimeShiftSubmitted() =
       SameTimeShiftSubmitted;
+
+  /// Post the Shift
+  const factory PostShiftEvent.postTheShiftEvent(int postId) =
+      postTheShiftEvent;
 }

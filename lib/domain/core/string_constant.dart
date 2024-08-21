@@ -324,6 +324,7 @@ class StringConstant {
   static const String totalAccommodationAllowance = "Total Accommodation Allowance";
   static const String sumOfAmounts = "Sum Of Amounts";
   static const String totalAmount = "Total Amount";
+  static const String shiftTime = "Shift Time";
 
 
   ///

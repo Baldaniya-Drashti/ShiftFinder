@@ -24,6 +24,7 @@ mixin _$HealthcarePostDTO {
   String? get listing_id => throw _privateConstructorUsedError;
   String? get last_ago => throw _privateConstructorUsedError;
   List<SkillDTO>? get roles_list => throw _privateConstructorUsedError;
+  String? get roles_list_name => throw _privateConstructorUsedError;
   List<SpecialityDTO>? get specialties_detail_list =>
       throw _privateConstructorUsedError;
   List<SkillDTO>? get softwares_skill_list =>
@@ -35,6 +36,8 @@ mixin _$HealthcarePostDTO {
   String? get location_unit => throw _privateConstructorUsedError;
   double? get rate_hour => throw _privateConstructorUsedError;
   ShiftDetailDTO? get shift_detail => throw _privateConstructorUsedError;
+  String? get software_skill => throw _privateConstructorUsedError;
+  String? get specialties_detail => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,6 +56,7 @@ abstract class $HealthcarePostDTOCopyWith<$Res> {
       String? listing_id,
       String? last_ago,
       List<SkillDTO>? roles_list,
+      String? roles_list_name,
       List<SpecialityDTO>? specialties_detail_list,
       List<SkillDTO>? softwares_skill_list,
       String? software_skill_other,
@@ -61,7 +65,9 @@ abstract class $HealthcarePostDTOCopyWith<$Res> {
       LocationDTO? location,
       String? location_unit,
       double? rate_hour,
-      ShiftDetailDTO? shift_detail});
+      ShiftDetailDTO? shift_detail,
+      String? software_skill,
+      String? specialties_detail});
 
   $LocationDTOCopyWith<$Res>? get location;
   $ShiftDetailDTOCopyWith<$Res>? get shift_detail;
@@ -84,6 +90,7 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
     Object? listing_id = freezed,
     Object? last_ago = freezed,
     Object? roles_list = freezed,
+    Object? roles_list_name = freezed,
     Object? specialties_detail_list = freezed,
     Object? softwares_skill_list = freezed,
     Object? software_skill_other = freezed,
@@ -93,6 +100,8 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
     Object? location_unit = freezed,
     Object? rate_hour = freezed,
     Object? shift_detail = freezed,
+    Object? software_skill = freezed,
+    Object? specialties_detail = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -111,6 +120,10 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
           ? _value.roles_list
           : roles_list // ignore: cast_nullable_to_non_nullable
               as List<SkillDTO>?,
+      roles_list_name: freezed == roles_list_name
+          ? _value.roles_list_name
+          : roles_list_name // ignore: cast_nullable_to_non_nullable
+              as String?,
       specialties_detail_list: freezed == specialties_detail_list
           ? _value.specialties_detail_list
           : specialties_detail_list // ignore: cast_nullable_to_non_nullable
@@ -147,6 +160,14 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
           ? _value.shift_detail
           : shift_detail // ignore: cast_nullable_to_non_nullable
               as ShiftDetailDTO?,
+      software_skill: freezed == software_skill
+          ? _value.software_skill
+          : software_skill // ignore: cast_nullable_to_non_nullable
+              as String?,
+      specialties_detail: freezed == specialties_detail
+          ? _value.specialties_detail
+          : specialties_detail // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -188,6 +209,7 @@ abstract class _$$HealthcarePostDTOImplCopyWith<$Res>
       String? listing_id,
       String? last_ago,
       List<SkillDTO>? roles_list,
+      String? roles_list_name,
       List<SpecialityDTO>? specialties_detail_list,
       List<SkillDTO>? softwares_skill_list,
       String? software_skill_other,
@@ -196,7 +218,9 @@ abstract class _$$HealthcarePostDTOImplCopyWith<$Res>
       LocationDTO? location,
       String? location_unit,
       double? rate_hour,
-      ShiftDetailDTO? shift_detail});
+      ShiftDetailDTO? shift_detail,
+      String? software_skill,
+      String? specialties_detail});
 
   @override
   $LocationDTOCopyWith<$Res>? get location;
@@ -219,6 +243,7 @@ class __$$HealthcarePostDTOImplCopyWithImpl<$Res>
     Object? listing_id = freezed,
     Object? last_ago = freezed,
     Object? roles_list = freezed,
+    Object? roles_list_name = freezed,
     Object? specialties_detail_list = freezed,
     Object? softwares_skill_list = freezed,
     Object? software_skill_other = freezed,
@@ -228,6 +253,8 @@ class __$$HealthcarePostDTOImplCopyWithImpl<$Res>
     Object? location_unit = freezed,
     Object? rate_hour = freezed,
     Object? shift_detail = freezed,
+    Object? software_skill = freezed,
+    Object? specialties_detail = freezed,
   }) {
     return _then(_$HealthcarePostDTOImpl(
       id: freezed == id
@@ -246,6 +273,10 @@ class __$$HealthcarePostDTOImplCopyWithImpl<$Res>
           ? _value._roles_list
           : roles_list // ignore: cast_nullable_to_non_nullable
               as List<SkillDTO>?,
+      roles_list_name: freezed == roles_list_name
+          ? _value.roles_list_name
+          : roles_list_name // ignore: cast_nullable_to_non_nullable
+              as String?,
       specialties_detail_list: freezed == specialties_detail_list
           ? _value._specialties_detail_list
           : specialties_detail_list // ignore: cast_nullable_to_non_nullable
@@ -282,6 +313,14 @@ class __$$HealthcarePostDTOImplCopyWithImpl<$Res>
           ? _value.shift_detail
           : shift_detail // ignore: cast_nullable_to_non_nullable
               as ShiftDetailDTO?,
+      software_skill: freezed == software_skill
+          ? _value.software_skill
+          : software_skill // ignore: cast_nullable_to_non_nullable
+              as String?,
+      specialties_detail: freezed == specialties_detail
+          ? _value.specialties_detail
+          : specialties_detail // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -294,6 +333,7 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
       this.listing_id,
       this.last_ago,
       final List<SkillDTO>? roles_list,
+      this.roles_list_name,
       final List<SpecialityDTO>? specialties_detail_list,
       final List<SkillDTO>? softwares_skill_list,
       this.software_skill_other,
@@ -302,7 +342,9 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
       this.location,
       this.location_unit,
       this.rate_hour,
-      this.shift_detail})
+      this.shift_detail,
+      this.software_skill,
+      this.specialties_detail})
       : _roles_list = roles_list,
         _specialties_detail_list = specialties_detail_list,
         _softwares_skill_list = softwares_skill_list,
@@ -327,6 +369,8 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
     return EqualUnmodifiableListView(value);
   }
 
+  @override
+  final String? roles_list_name;
   final List<SpecialityDTO>? _specialties_detail_list;
   @override
   List<SpecialityDTO>? get specialties_detail_list {
@@ -371,10 +415,14 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
   final double? rate_hour;
   @override
   final ShiftDetailDTO? shift_detail;
+  @override
+  final String? software_skill;
+  @override
+  final String? specialties_detail;
 
   @override
   String toString() {
-    return 'HealthcarePostDTO(id: $id, listing_id: $listing_id, last_ago: $last_ago, roles_list: $roles_list, specialties_detail_list: $specialties_detail_list, softwares_skill_list: $softwares_skill_list, software_skill_other: $software_skill_other, languages_list: $languages_list, language_other: $language_other, location: $location, location_unit: $location_unit, rate_hour: $rate_hour, shift_detail: $shift_detail)';
+    return 'HealthcarePostDTO(id: $id, listing_id: $listing_id, last_ago: $last_ago, roles_list: $roles_list, roles_list_name: $roles_list_name, specialties_detail_list: $specialties_detail_list, softwares_skill_list: $softwares_skill_list, software_skill_other: $software_skill_other, languages_list: $languages_list, language_other: $language_other, location: $location, location_unit: $location_unit, rate_hour: $rate_hour, shift_detail: $shift_detail, software_skill: $software_skill, specialties_detail: $specialties_detail)';
   }
 
   @override
@@ -389,6 +437,8 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
                 other.last_ago == last_ago) &&
             const DeepCollectionEquality()
                 .equals(other._roles_list, _roles_list) &&
+            (identical(other.roles_list_name, roles_list_name) ||
+                other.roles_list_name == roles_list_name) &&
             const DeepCollectionEquality().equals(
                 other._specialties_detail_list, _specialties_detail_list) &&
             const DeepCollectionEquality()
@@ -406,7 +456,11 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
             (identical(other.rate_hour, rate_hour) ||
                 other.rate_hour == rate_hour) &&
             (identical(other.shift_detail, shift_detail) ||
-                other.shift_detail == shift_detail));
+                other.shift_detail == shift_detail) &&
+            (identical(other.software_skill, software_skill) ||
+                other.software_skill == software_skill) &&
+            (identical(other.specialties_detail, specialties_detail) ||
+                other.specialties_detail == specialties_detail));
   }
 
   @JsonKey(ignore: true)
@@ -417,6 +471,7 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
       listing_id,
       last_ago,
       const DeepCollectionEquality().hash(_roles_list),
+      roles_list_name,
       const DeepCollectionEquality().hash(_specialties_detail_list),
       const DeepCollectionEquality().hash(_softwares_skill_list),
       software_skill_other,
@@ -425,7 +480,9 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
       location,
       location_unit,
       rate_hour,
-      shift_detail);
+      shift_detail,
+      software_skill,
+      specialties_detail);
 
   @JsonKey(ignore: true)
   @override
@@ -448,6 +505,7 @@ abstract class _HealthcarePostDTO implements HealthcarePostDTO {
       final String? listing_id,
       final String? last_ago,
       final List<SkillDTO>? roles_list,
+      final String? roles_list_name,
       final List<SpecialityDTO>? specialties_detail_list,
       final List<SkillDTO>? softwares_skill_list,
       final String? software_skill_other,
@@ -456,7 +514,9 @@ abstract class _HealthcarePostDTO implements HealthcarePostDTO {
       final LocationDTO? location,
       final String? location_unit,
       final double? rate_hour,
-      final ShiftDetailDTO? shift_detail}) = _$HealthcarePostDTOImpl;
+      final ShiftDetailDTO? shift_detail,
+      final String? software_skill,
+      final String? specialties_detail}) = _$HealthcarePostDTOImpl;
 
   factory _HealthcarePostDTO.fromJson(Map<String, dynamic> json) =
       _$HealthcarePostDTOImpl.fromJson;
@@ -469,6 +529,8 @@ abstract class _HealthcarePostDTO implements HealthcarePostDTO {
   String? get last_ago;
   @override
   List<SkillDTO>? get roles_list;
+  @override
+  String? get roles_list_name;
   @override
   List<SpecialityDTO>? get specialties_detail_list;
   @override
@@ -487,6 +549,10 @@ abstract class _HealthcarePostDTO implements HealthcarePostDTO {
   double? get rate_hour;
   @override
   ShiftDetailDTO? get shift_detail;
+  @override
+  String? get software_skill;
+  @override
+  String? get specialties_detail;
   @override
   @JsonKey(ignore: true)
   _$$HealthcarePostDTOImplCopyWith<_$HealthcarePostDTOImpl> get copyWith =>

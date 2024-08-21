@@ -34,6 +34,7 @@ class PostShiftState with _$PostShiftState {
         singleShiftFailureOrSuccessOption,
 
     /// For recurring,sahre with teams, save as template
+    required List<TeamDTO> teamList,
     required bool isToBeRecurring,
     required bool isShareWithTeams,
     required bool isSaveAsTemplate,
@@ -41,10 +42,10 @@ class PostShiftState with _$PostShiftState {
     required InputEmptyOrNot recurringStartDate,
     required InputEmptyOrNot recurringEndDate,
     required ListInputEmptyOrNot<SkillDTO> recurrenceWeekList,
-    required ListInputEmptyOrNot<SkillDTO> selectedTeamList,
+    required ListInputEmptyOrNot<TeamDTO> selectedTeamList,
     required InputEmptyOrNot recurrenceMode,
     required bool recurringErrorMessage,
-    required Option<Either<AuthFailure, String>>
+    required Option<Either<MainFailure, HealthcarePostDTO>>
         recurringFailureOrSuccessOption,
 
     /// Multi shift
@@ -59,6 +60,10 @@ class PostShiftState with _$PostShiftState {
     required bool isDifferentDateDataValid,
     required Option<Either<AuthFailure, MultiShiftDTO>>
         differentDateFailureOrSuccessOption,
+
+    /// Post the Shift
+    required Option<Either<MainFailure, String>>
+        postShiftFailureOrSuccessOption,
   }) = _PostShiftState;
 
   factory PostShiftState.initial() => PostShiftState(
@@ -91,6 +96,7 @@ class PostShiftState with _$PostShiftState {
         singleShiftFailureOrSuccessOption: none(),
 
         /// For recurring,share with teams, save as template
+        teamList: [],
         isSaveAsTemplate: false,
         isShareWithTeams: false,
         isToBeRecurring: false,
@@ -114,5 +120,8 @@ class PostShiftState with _$PostShiftState {
         multiDateTimeList: [],
         isDifferentDateDataValid: false,
         differentDateFailureOrSuccessOption: none(),
+
+        /// Post the shift
+        postShiftFailureOrSuccessOption: none(),
       );
 }
