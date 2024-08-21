@@ -22,11 +22,17 @@ class EmployerLongTermPayableView extends StatelessWidget {
     required this.employerLongTermSuccessDto,
     this.postId,
     required this.postShiftDTO,
+    this.fromReview = false,
+    this.isCreate = true,
+    this.fromTemplate = false,
   });
 
   final EmployerLongTermSuccessDto employerLongTermSuccessDto;
   final PostShiftDTO postShiftDTO;
   final int? postId;
+  final bool fromReview;
+  final bool isCreate;
+  final bool fromTemplate;
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +55,15 @@ class EmployerLongTermPayableView extends StatelessWidget {
                         final result = await AppDialog.showCommonDialog(
                           context: context,
                           title:
-                              "${(postId == null || postId == -1) ? "Post" : "Update"} Long-Term Position",
+                              "${(postId != null && postId != -1 && !isCreate && !fromTemplate) ? StringConstant.update : StringConstant.post} Long-Term Position",
                           content:
-                              "Are you sure you want to post ${(postId == null || postId == -1) ? "post" : "update"} long-term position?",
-                          successLabel: (postId == null || postId == -1)
-                              ? "Post"
-                              : "Update",
+                              "Are you sure you want to ${(postId != null && postId != -1 && !isCreate && !fromTemplate) ? 'update' : 'post'} long-term position?",
+                          successLabel: (postId != null &&
+                                  postId != -1 &&
+                                  !isCreate &&
+                                  !fromTemplate)
+                              ? StringConstant.update
+                              : StringConstant.post,
                         );
                         if (result ?? false) {
                           context.read<EmployerLongTermPayableBloc>().add(
@@ -67,17 +76,25 @@ class EmployerLongTermPayableView extends StatelessWidget {
                                   postId: postId,
                                   employer: employerLongTermSuccessDto,
                                   postShift: postShiftDTO,
+                                  fromReview: fromReview,
+                                  isCreate: isCreate,
+                                  fromTemplate: fromTemplate,
                                 ),
                               );
                         }
                       },
-                      buttonText:
-                          "${(postId == null || postId == -1) ? "Post" : "Update"} The Shift",
+                      buttonText: (postId != null &&
+                              postId != -1 &&
+                              !isCreate &&
+                              !fromTemplate)
+                          ? StringConstant.updateTheShift
+                          : StringConstant.postTheShift,
                     ),
                   ),
                   appBar: CommonAppBar(
-                      onBackPressed: () => context.router.maybePop(),
-                      title: StringConstant.payables),
+                    onBackPressed: () => context.router.maybePop(),
+                    title: StringConstant.payables,
+                  ),
                   body: Padding(
                     padding: EdgeInsets.all(getSize(18)),
                     child: Column(

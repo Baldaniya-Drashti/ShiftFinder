@@ -32,14 +32,13 @@ class MainTabView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
+        /* BlocProvider(
           create: (context) => getIt<MainTabBloc>()
             // ..add(MainTabEvent.initDynamicLink(context))
-            ..add(TabChange(0)),
-        ),
-        BlocProvider(
-          create: (context) => getIt<HomeBloc>(),
-        ),
+            ..add(TabChange(0))
+            ..add(MainTabEvent.registerForPush()),
+        ), */
+        BlocProvider(create: (context) => getIt<HomeBloc>()),
         BlocProvider<AccountCubit>(
           create: (context) => getIt<AccountCubit>()..getAccount(),
         ),
@@ -61,8 +60,6 @@ class MainTabView extends StatelessWidget {
       child: Builder(builder: (context) {
         return BlocBuilder<MainTabBloc, MainTabState>(
           builder: (context, state) {
-            print(
-                "state.currentPage---> ${context.read<MainTabBloc>().pageList.length}");
             return DefaultTabController(
               length: context.read<MainTabBloc>().pageList.length,
               child: Scaffold(

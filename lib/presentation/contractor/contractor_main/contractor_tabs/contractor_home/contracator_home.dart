@@ -18,9 +18,11 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_search_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'ContractorHomeView')
@@ -121,42 +123,67 @@ class ContractorHomeView extends StatelessWidget {
                 ),
               ],
             ),
-            body: Padding(
-              padding: EdgeInsets.symmetric(horizontal: getSize(5)),
-              child: PaginatedListView(
-                onRefresh: () {
-                  context.read<ContractorHomeBloc>().add(
-                      ContractorHomeEvent.getContractorDashboardList(true));
-                },
-                refreshController:
-                    context.read<ContractorHomeBloc>().refreshController,
-                onLoading: () {
-                  context.read<ContractorHomeBloc>().add(
-                      ContractorHomeEvent.getContractorDashboardList(false));
-                },
-                isNoDataFound: state.isNoDataFound,
-                child: state.isLoading
-                    ? CenterLoadingIndicator(isOnlyLoader: true)
-                    : state.isErrorInAPI
-                        ? Center(
-                            child: BaseText(
-                                text: StringConstant.somethindWentWrong),
-                          )
-                        : ListView.builder(
-                            itemCount: state.contractorDashboardList.length,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: getSize(10),
-                              vertical: getSize(10),
-                            ),
-                            clipBehavior: Clip.none,
-                            shrinkWrap: true,
-                            physics: BouncingScrollPhysics(),
-                            itemBuilder: (_, index) {
-                              return getCheckoutContainer(
-                                  index, context, state);
-                            },
-                          ),
-              ),
+            body: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: getSize(20),
+                  ).copyWith(bottom: getSize(15)),
+                  child: DebouncingTextField(
+                    onSearch: (query) async {
+                      context
+                          .read<ContractorHomeBloc>()
+                          .add(ContractorHomeEvent.getSearchText(val: query));
+                      context.read<ContractorHomeBloc>().add(
+                          ContractorHomeEvent.onSearchJobRole(query: query));
+                    },
+                    isShowLabel: false,
+                    hintText: StringConstant.searchRole,
+                  ),
+                ),
+                Flexible(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: getSize(5)),
+                    child: PaginatedListView(
+                      onRefresh: () {
+                        context.read<ContractorHomeBloc>().add(
+                            ContractorHomeEvent.getContractorDashboardList(
+                                true));
+                      },
+                      refreshController:
+                          context.read<ContractorHomeBloc>().refreshController,
+                      onLoading: () {
+                        context.read<ContractorHomeBloc>().add(
+                            ContractorHomeEvent.getContractorDashboardList(
+                                false));
+                      },
+                      isNoDataFound: state.isNoDataFound,
+                      child: state.isLoading
+                          ? CenterLoadingIndicator(isOnlyLoader: true)
+                          : state.isErrorInAPI
+                              ? Center(
+                                  child: BaseText(
+                                      text: StringConstant.somethindWentWrong),
+                                )
+                              : ListView.builder(
+                                  itemCount:
+                                      state.contractorDashboardList.length,
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: getSize(10),
+                                  ).copyWith(bottom: getSize(10)),
+                                  // clipBehavior: Clip.none,
+                                  shrinkWrap: true,
+                                  physics: BouncingScrollPhysics(),
+                                  itemBuilder: (_, index) {
+                                    return getCheckoutContainer(
+                                        index, context, state);
+                                  },
+                                ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           );
         },
@@ -213,11 +240,16 @@ class ContractorHomeView extends StatelessWidget {
           (state.contractorDashboardList[index].shift_type == 1)
               ? singleShiftDateTimeBreakUI(context, index, state)
               : multiShiftDateTimeBreakUI(context, index, state),
-          requiredSkillBox(
-            svgPrefixIcon: SvgImageConstant.female,
-            title: StringConstant.specialtiesRequired,
-            value: state.contractorDashboardList[index].specialties_list ?? "",
-          ),
+          if (state.contractorDashboardList[index].specialties_details !=
+                  null &&
+              state.contractorDashboardList[index].specialties_details!
+                  .isNotEmpty)
+            requiredSkillBox(
+                svgPrefixIcon: SvgImageConstant.female,
+                title: StringConstant.specialtiesRequired,
+                value:
+                    state.contractorDashboardList[index].specialties_details ??
+                        ""),
           rateHoursBox(state.contractorDashboardList[index]),
           Container(
             padding: EdgeInsets.symmetric(
@@ -402,7 +434,9 @@ class ContractorHomeView extends StatelessWidget {
               final latitude = location?.latitude;
               final longitude = location?.longitude;
               if (latitude != null && longitude != null) {
-                context.router.push(
+                LocationHelper.openDirections(context,
+                    endLat: latitude, endLng: longitude);
+                /* context.router.push(
                   PageRouteInfo(
                     ShowGoogleMap.name,
                     args: ShowGoogleMapArgs(
@@ -410,7 +444,10 @@ class ContractorHomeView extends StatelessWidget {
                       longitude: longitude,
                     ),
                   ),
-                );
+                ); */
+                // // openDirections(37.7749, -122.4194, latitude, longitude);
+                // launchMapWithDirections(
+                //     37.7749, -122.4194, latitude, longitude);
               }
             },
             child: Row(
@@ -600,7 +637,9 @@ class ContractorHomeView extends StatelessWidget {
                 title: StringConstant.shiftDates,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
-              (list.shift_type == 2 && list.same_or_different_time == 2)
+              (list.shift_type == 2
+                  // && list.same_or_different_time == 2
+                  )
                   ? displayDateBreak(context, list,
                       boldValue:
                           "${list.total_shift != null ? (list.total_shift! > 9 ? list.total_shift! : "0${list.total_shift!}") : "00"}",
@@ -947,7 +986,7 @@ class ContractorHomeView extends StatelessWidget {
           commonDivider(),
           paybaleTitleRate(
             title: StringConstant.estimatedTotalEarnings,
-            value: "\$${post.total_amount ?? 00}",
+            value: "\$${post.total_amount_payable_contractor ?? 00}",
             isLast: true,
           ),
         ],

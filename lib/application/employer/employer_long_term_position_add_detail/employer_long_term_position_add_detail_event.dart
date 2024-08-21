@@ -1,21 +1,28 @@
 part of 'employer_long_term_position_add_detail_bloc.dart';
 
 @freezed
-class EmployerLongTermPositionAddDetailEvent with _$EmployerLongTermPositionAddDetailEvent {
-  const factory EmployerLongTermPositionAddDetailEvent.selectStartDate({required DateTime startDate}) = SelectStartDate;
+class EmployerLongTermPositionAddDetailEvent
+    with _$EmployerLongTermPositionAddDetailEvent {
+  const factory EmployerLongTermPositionAddDetailEvent.selectStartDate(
+      {required DateTime startDate}) = SelectStartDate;
 
-  const factory EmployerLongTermPositionAddDetailEvent.selectEndDate({required DateTime endaDate}) = SelectEndDate;
+  const factory EmployerLongTermPositionAddDetailEvent.selectEndDate(
+      {required DateTime endaDate}) = SelectEndDate;
 
-  const factory EmployerLongTermPositionAddDetailEvent.selectApplicationDeadline({required DateTime deadLine}) = SelectApplicationDeadline;
+  const factory EmployerLongTermPositionAddDetailEvent.selectApplicationDeadline(
+      {required DateTime deadLine}) = SelectApplicationDeadline;
 
-  const factory EmployerLongTermPositionAddDetailEvent.selectEstimatedHour({required TimeOfDay estimatedHour}) = SelectEstimatedHour;
+  const factory EmployerLongTermPositionAddDetailEvent.selectEstimatedHour(
+      {required TimeOfDay estimatedHour}) = SelectEstimatedHour;
 
-  const factory EmployerLongTermPositionAddDetailEvent.onShiftScheduleChanged({required CommonDropdownModel value}) =
-      OnShiftScheduleChanged;
+  const factory EmployerLongTermPositionAddDetailEvent.onShiftScheduleChanged(
+      {required CommonDropdownModel value}) = OnShiftScheduleChanged;
 
-  const factory EmployerLongTermPositionAddDetailEvent.selectDocument({required String path}) = SelectDocument;
+  const factory EmployerLongTermPositionAddDetailEvent.selectDocument(
+      {required String path}) = SelectDocument;
 
-  const factory EmployerLongTermPositionAddDetailEvent.addMoreVacancy(int value) = AddMoreVacancy;
+  const factory EmployerLongTermPositionAddDetailEvent.addMoreVacancy(
+      int value) = AddMoreVacancy;
 
   const factory EmployerLongTermPositionAddDetailEvent.onCreate(
     PostShiftDTO postShitDto,
@@ -23,13 +30,17 @@ class EmployerLongTermPositionAddDetailEvent with _$EmployerLongTermPositionAddD
     int? postId,
   ) = OnCreate;
 
-  const factory EmployerLongTermPositionAddDetailEvent.removeDocument() = RemoveDocument;
+  const factory EmployerLongTermPositionAddDetailEvent.removeDocument(
+      {required bool isCreate, required bool fromReview}) = RemoveDocument;
 
-  const factory EmployerLongTermPositionAddDetailEvent.onChangeContractIncludeCall(int value) = OnChangeContractIncludeCall;
+  const factory EmployerLongTermPositionAddDetailEvent.onChangeContractIncludeCall(
+      int value) = OnChangeContractIncludeCall;
 
-  const factory EmployerLongTermPositionAddDetailEvent.removeShiftSchedule(String selectedValue) = RemoveShiftSchedule;
+  const factory EmployerLongTermPositionAddDetailEvent.removeShiftSchedule(
+      String selectedValue) = RemoveShiftSchedule;
 
-  const factory EmployerLongTermPositionAddDetailEvent.confirmShiftSchedule(List<String> skillList) = ConfirmSoftwareSkill;
+  const factory EmployerLongTermPositionAddDetailEvent.confirmShiftSchedule(
+      List<String> skillList) = ConfirmSoftwareSkill;
 
   const factory EmployerLongTermPositionAddDetailEvent.onContinue({
     required BuildContext context,
@@ -41,5 +52,8 @@ class EmployerLongTermPositionAddDetailEvent with _$EmployerLongTermPositionAddD
     required String onboarding,
     String? terms,
     String? numberOfVacancy,
+    required bool fromReview,
+    required bool fromTemplate,
+    required bool isCreate,
   }) = OnContinue;
 }

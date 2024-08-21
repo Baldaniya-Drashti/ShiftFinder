@@ -51,11 +51,9 @@ class LoginForm extends StatelessWidget {
                   .read<SplashBloc>()
                   .add(SplashEvent.initDynamicLink(context));
               if (r.isProfileComplete == 1) {
-                print("profile complete");
                 if (getCurrentRole() == 2) {
                   context.router.replace(PageRouteInfo(MainTabView.name));
                 } else {
-                  // showSuccess(message:"Success! Next Process is under development!!").show(context);
                   context.router
                       .replace(PageRouteInfo(ContractorMainTabView.name));
                 }

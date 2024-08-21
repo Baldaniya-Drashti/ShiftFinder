@@ -69,10 +69,24 @@ Map<String, dynamic> _$$InsightListDTOImplToJson(
       'value': instance.value,
     };
 
+_$HourWorkedDetailDTOImpl _$$HourWorkedDetailDTOImplFromJson(
+        Map<String, dynamic> json) =>
+    _$HourWorkedDetailDTOImpl(
+      name: json['name'] as String?,
+      value: json['value'] as String?,
+    );
+
+Map<String, dynamic> _$$HourWorkedDetailDTOImplToJson(
+        _$HourWorkedDetailDTOImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'value': instance.value,
+    };
+
 _$HourWorkedDTOImpl _$$HourWorkedDTOImplFromJson(Map<String, dynamic> json) =>
     _$HourWorkedDTOImpl(
       list: (json['list'] as List<dynamic>?)
-          ?.map((e) => InsightListDTO.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => HourWorkedDetailDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
       heights:
           (json['heights'] as List<dynamic>?)?.map((e) => e as String).toList(),

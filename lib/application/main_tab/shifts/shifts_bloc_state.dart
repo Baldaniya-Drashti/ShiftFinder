@@ -6,7 +6,7 @@ class ShiftsBlocState with _$ShiftsBlocState {
     required int selectedTab,
     required int pageIndex,
     required bool isSubmitting,
-    // required bool isLoading,
+    required bool isLoading,
     required bool showErrorMessages,
     required InputEmptyOrNot deleteReason,
     required List<Predictions> searchLocationList,
@@ -33,7 +33,6 @@ class ShiftsBlocState with _$ShiftsBlocState {
     required bool approveErrorApi,
     required bool approveLoading,
     required List<EmployerShiftDto> approveShiftList,
-    
 
     /// Cancel
     required bool noCancelDataFound,
@@ -71,7 +70,7 @@ class ShiftsBlocState with _$ShiftsBlocState {
         selectedTab: 0,
         pageIndex: 0,
         isSubmitting: false,
-        // isLoading: false,
+        isLoading: false,
         showErrorMessages: false,
         deleteReason: InputEmptyOrNot(''),
         searchLocationList: [],

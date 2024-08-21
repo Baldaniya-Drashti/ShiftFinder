@@ -16,6 +16,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -311,15 +312,15 @@ class _PreviousShiftListTile extends StatelessWidget {
               fontWeight: FontWeight.w400,
             ),
             subtitle: Text.rich(
-              style: TextStyle(fontSize: 12),
+              style: TextStyle(fontSize: getFontSize(12)),
               TextSpan(
                 text:
-                    "${convertUnixTimeToLocalString(data.last_worked_date ?? 0)}, ",
+                    "${convertUnixTimeToLocalString(data.last_worked_end_time ?? 0)}, ",
                 style: TextStyle(fontWeight: FontWeight.w500),
                 children: [
                   TextSpan(
                       text:
-                          "${DateTime.fromMillisecondsSinceEpoch((data.last_worked_date ?? 0) * 1000).year}",
+                          "${DateTime.fromMillisecondsSinceEpoch((data.last_worked_end_time ?? 0) * 1000).year}",
                       style:
                           TextStyle(color: AppColors.black.withOpacity(0.5))),
                 ],
@@ -361,7 +362,9 @@ class _PreviousShiftListTile extends StatelessWidget {
         final latitude = data.latitude;
         final longitude = data.longitude;
         if (latitude != null && longitude != null) {
-          context.router.push(
+          LocationHelper.openDirections(context,
+              endLat: latitude, endLng: longitude);
+          /* context.router.push(
             PageRouteInfo(
               ShowGoogleMap.name,
               args: ShowGoogleMapArgs(
@@ -369,7 +372,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                 longitude: longitude,
               ),
             ),
-          );
+          ); */
         }
       },
       child: CommonInfoTile(

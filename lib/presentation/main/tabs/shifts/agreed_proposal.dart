@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/main_tab/shifts/agreed_proposal_bloc/agreed_proposal_bloc.dart';
 import 'package:shift/domain/core/string_constant.dart';
-import 'package:shift/infrastructure/main/hired_contractor_list_dto/hired_contractor_list_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
@@ -16,12 +15,12 @@ import 'package:shift/presentation/main/tabs/shifts/single_agreed_shift.dart';
 class AgreedProposal extends StatelessWidget {
   int userId;
   int postId;
-  HiredContractorListDTO post;
+  int shiftType;
   AgreedProposal(
       {super.key,
-      required this.post,
       required this.userId,
-      required this.postId});
+      required this.postId,
+      required this.shiftType});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +40,7 @@ class AgreedProposal extends StatelessWidget {
                     ? Center(
                         child:
                             BaseText(text: StringConstant.somethindWentWrong))
-                    : (post.shift_type == 1)
+                    : (shiftType == 1)
                         ? SingleAgreedShift(contractor: state.contractorDetail)
                         : MultiAgreedShift(contractor: state.contractorDetail);
           },

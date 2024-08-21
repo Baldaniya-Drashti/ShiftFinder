@@ -9,12 +9,14 @@ class PostShiftEvent with _$PostShiftEvent {
     required PostShiftDTO? post,
     required HealthcarePostDTO? updateShift,
     bool? fromSaveTemplate,
+    bool? fromReview,
   }) = ChangeShiftType;
 
   /// Single Shift
   const factory PostShiftEvent.getBreakAllownceListApi(
       HealthcarePostDTO? updateShift,
-      {bool? fromSaveTemplate}) = GetBreakAllownceListApi;
+      {bool? fromSaveTemplate,
+      bool? fromReview}) = GetBreakAllownceListApi;
 
   const factory PostShiftEvent.singleShiftDateChangedEvent(
       String selectedDate) = SingleShiftDateChangedEvent;
@@ -63,7 +65,11 @@ class PostShiftEvent with _$PostShiftEvent {
       AddVacancyChanged;
 
   const factory PostShiftEvent.singleShiftSubmitted(
-      BuildContext context, bool fromSaveTemplate) = SingleShiftSubmitted;
+    BuildContext context,
+    bool fromSaveTemplate, {
+    required bool fromReview,
+    required bool isCreate,
+  }) = SingleShiftSubmitted;
 
   /// For recurring, template,share with teams
 
@@ -97,8 +103,9 @@ class PostShiftEvent with _$PostShiftEvent {
   const factory PostShiftEvent.selectTeamEvent(TeamDTO team) = SelectTeamEvent;
 
   const factory PostShiftEvent.recurringButtonEvent(
-          BuildContext context, int postShiftId, bool fromSaveTemplate) =
-      RecurringButtonEvent;
+      BuildContext context, int postShiftId, bool fromSaveTemplate,
+      {required bool fromReview,
+      required bool isCreate}) = RecurringButtonEvent;
 
   /// Multi Shift
   const factory PostShiftEvent.checkIsIndividualPost(bool isIndividualPost) =
@@ -132,21 +139,29 @@ class PostShiftEvent with _$PostShiftEvent {
       String minute, int index, String date) = EndMinuteListChanged;
 
   const factory PostShiftEvent.differentTimeShiftSubmitted(
-      MultiShiftDTO shiftDetail,
-      BuildContext context,
-      bool fromSaveTemplate) = DifferentTimeShiftSubmitted;
+    MultiShiftDTO shiftDetail,
+    BuildContext context,
+    bool fromSaveTemplate, {
+    required bool fromReview,
+    required bool isCreate,
+  }) = DifferentTimeShiftSubmitted;
 
   const factory PostShiftEvent.initMultiDifferentDateEvent(
     List<DateTimeDTO> list, {
     required PostShiftDTO post,
     required HealthcarePostDTO? updateShift,
     required bool? fromSaveTemplate,
+    required bool? fromReview,
   }) = InitMultiDifferentDateEvent;
 
   const factory PostShiftEvent.backEvent() = BackEvent;
 
   const factory PostShiftEvent.sameTimeShiftSubmitted(
-      BuildContext context, bool fromSaveTemplate) = SameTimeShiftSubmitted;
+    BuildContext context,
+    bool fromSaveTemplate, {
+    required bool fromReview,
+    required bool isCreate,
+  }) = SameTimeShiftSubmitted;
 
   const factory PostShiftEvent.assitantOnSiteCheck(bool isCheck) =
       AssitantOnSiteCheck;
@@ -156,8 +171,8 @@ class PostShiftEvent with _$PostShiftEvent {
 
   /// Post the Shift
   const factory PostShiftEvent.postTheShiftEvent(
-          int postId, PostShiftDTO? updatedPost, bool fromSaveTemp) =
-      PostTheShiftEvent;
+      int postId, PostShiftDTO? updatedPost, bool fromSaveTemp,
+      {required bool fromReview}) = PostTheShiftEvent;
   const factory PostShiftEvent.scriptVolumeChanged(String scriptVolume) =
       ScriptVolumeChanged;
 }

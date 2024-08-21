@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_shift_bloc/contractor_shift_bloc.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
@@ -13,12 +14,15 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/contractor_main/shift/upcoming_shift_dto/upcoming_shift_dto.dart';
 import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/buttons/chat_button.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/dialogs.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
@@ -28,95 +32,151 @@ class UpcomingShift extends StatelessWidget {
   const UpcomingShift({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
-      builder: (context, state) {
-        return Padding(
-          padding: EdgeInsets.symmetric(horizontal: getSize(5)),
-          child: PaginatedListView(
-            onRefresh: () {
-              context
-                  .read<ContractorShiftBloc>()
-                  .add(ContractorShiftEvent.getUpcomingShiftAPI(true));
-            },
-            refreshController:
-                context.read<ContractorShiftBloc>().upcomingShiftRefreshCtrl,
-            onLoading: () {
-              context
-                  .read<ContractorShiftBloc>()
-                  .add(ContractorShiftEvent.getUpcomingShiftAPI(false));
-            },
-            isNoDataFound: state.isUpcomingNoDataFound,
-            child: state.isUpcomingLoading
-                ? CenterLoadingIndicator(isOnlyLoader: true)
-                : state.isUpcomingErrorInAPI
-                    ? Center(
-                        child:
-                            BaseText(text: StringConstant.somethindWentWrong))
-                    : ListView.builder(
-                        itemCount: state.upcomingShiftList.length,
-                        shrinkWrap: true,
-                        physics: BouncingScrollPhysics(),
-                        padding: EdgeInsets.symmetric(horizontal: getSize(10)),
-                        itemBuilder: (context, index) {
-                          return Container(
-                            margin: EdgeInsets.symmetric(vertical: getSize(10)),
-                            padding: EdgeInsets.all(getSize(10)),
-                            width: getSize(355),
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.circular(getSize(20)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.lightGrey.withOpacity(0.2),
-                                  blurRadius: getSize(20),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              children: [
-                                userDetail(context, state,
-                                    state.upcomingShiftList[index]),
-                                paddingBetweenFields(),
-                                dateAndTime(
-                                    context, state.upcomingShiftList[index]),
-                                paddingBetweenFields(),
-                                CommonButton(
-                                  onPressed: () {
-                                    /*context.router.push(
-                                      PageRouteInfo(
-                                        ViewUpcomingShiftDetails.name,
-                                        args: ViewUpcomingShiftDetailsArgs(
-                                            postId: 1),
-                                      ),
-                                    );*/
-                                    context.router.push(
-                                      PageRouteInfo(
-                                        ViewContractorShift.name,
-                                        args: ViewContractorShiftArgs(
-                                          postId: state.upcomingShiftList[index]
-                                                  .id ??
-                                              -1,
-                                          isTotalApplicants: true,
+    return BlocProvider(
+      create: (context) => getIt<ContractorShiftBloc>()
+        ..add(ContractorShiftEvent.getUpcomingShiftAPI(true)),
+      child: BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
+        builder: (context, state) {
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: getSize(5)),
+            child: PaginatedListView(
+              onRefresh: () {
+                context
+                    .read<ContractorShiftBloc>()
+                    .add(ContractorShiftEvent.getUpcomingShiftAPI(true));
+              },
+              refreshController:
+                  context.read<ContractorShiftBloc>().upcomingShiftRefreshCtrl,
+              onLoading: () {
+                context
+                    .read<ContractorShiftBloc>()
+                    .add(ContractorShiftEvent.getUpcomingShiftAPI(false));
+              },
+              isNoDataFound: state.isUpcomingNoDataFound,
+              child: state.isUpcomingLoading
+                  ? CenterLoadingIndicator(isOnlyLoader: true)
+                  : state.isUpcomingErrorInAPI
+                      ? Center(
+                          child:
+                              BaseText(text: StringConstant.somethindWentWrong))
+                      : ListView.builder(
+                          itemCount: state.upcomingShiftList.length,
+                          shrinkWrap: true,
+                          physics: BouncingScrollPhysics(),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: getSize(10)),
+                          itemBuilder: (context, index) {
+                            return Container(
+                              margin:
+                                  EdgeInsets.symmetric(vertical: getSize(10)),
+                              padding: EdgeInsets.all(getSize(10)),
+                              width: getSize(355),
+                              decoration: BoxDecoration(
+                                color: AppColors.white,
+                                borderRadius:
+                                    BorderRadius.circular(getSize(20)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColors.lightGrey.withOpacity(0.2),
+                                    blurRadius: getSize(20),
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                children: [
+                                  userDetail(context, state,
+                                      state.upcomingShiftList[index]),
+                                  paddingBetweenFields(),
+                                  dateAndTime(
+                                      context, state.upcomingShiftList[index]),
+                                  paddingBetweenFields(),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Expanded(
+                                        child: CommonButton(
+                                          onPressed: () {
+                                            /*context.router.push(
+                                                PageRouteInfo(
+                                                  ViewUpcomingShiftDetails.name,
+                                                  args: ViewUpcomingShiftDetailsArgs(
+                                                      postId: 1),
+                                                ),
+                                              );*/
+                                            context.router.push(
+                                              PageRouteInfo(
+                                                ViewContractorShift.name,
+                                                args: ViewContractorShiftArgs(
+                                                  postId: state
+                                                          .upcomingShiftList[
+                                                              index]
+                                                          .id ??
+                                                      -1,
+                                                  isTotalApplicants: true,
+                                                  isUpcoming: true,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          height: getSize(35),
+                                          borderRadius: 5,
+                                          buttonText:
+                                              StringConstant.viewShiftDetails,
+                                          buttonFontSize: 12,
+                                          buttonTextColor: AppColors.black,
+                                          backgroundColor: AppColors
+                                              .primaryColor
+                                              .withOpacity(0.2),
                                         ),
                                       ),
-                                    );
-                                  },
-                                  height: 34,
-                                  borderRadius: 10,
-                                  buttonText: StringConstant.viewShiftDetails,
-                                  buttonFontSize: 12,
-                                  buttonTextColor: AppColors.black,
-                                  backgroundColor:
-                                      AppColors.primaryColor.withOpacity(0.2),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-          ),
-        );
-      },
+                                      Gap(getSize(5)),
+                                      ChatButton(
+                                        badgeCount: state
+                                                .upcomingShiftList[index]
+                                                .count ??
+                                            0,
+                                        onPressed: () {
+                                          context.router
+                                              .push(
+                                            PageRouteInfo(
+                                              Message.name,
+                                              args: MessageArgs(
+                                                receiverId: state
+                                                        .upcomingShiftList[
+                                                            index]
+                                                        .employer_post_user_id ??
+                                                    0,
+                                              ),
+                                            ),
+                                          )
+                                              .then((value) {
+                                            if (state.upcomingShiftList[index]
+                                                        .count !=
+                                                    null &&
+                                                (state.upcomingShiftList[index]
+                                                            .count ??
+                                                        0) >
+                                                    0) {
+                                              context
+                                                  .read<ContractorShiftBloc>()
+                                                  .add(ContractorShiftEvent
+                                                      .getUpcomingShiftAPI(
+                                                          true));
+                                            }
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -226,7 +286,9 @@ class UpcomingShift extends StatelessWidget {
               final latitude = shift.latitude;
               final longitude = shift.longitude;
               if (latitude != null && longitude != null) {
-                context.router.push(
+                LocationHelper.openDirections(context,
+                    endLat: latitude, endLng: longitude);
+                /* context.router.push(
                   PageRouteInfo(
                     ShowGoogleMap.name,
                     args: ShowGoogleMapArgs(
@@ -234,7 +296,7 @@ class UpcomingShift extends StatelessWidget {
                       longitude: longitude,
                     ),
                   ),
-                );
+                ); */
               }
             },
             child: Row(
@@ -329,9 +391,12 @@ class UpcomingShift extends StatelessWidget {
       },
       onDeleteClick: () {
         context.read<ContractorShiftBloc>().add(
-            ContractorShiftEvent.deleteUpcomingShift(context,
+              ContractorShiftEvent.deleteUpcomingShift(
+                context,
                 isCad: (shift.isCad == true) ? 1 : null,
-                postId: shift.id ?? -1));
+                postId: shift.id ?? -1,
+              ),
+            );
       },
     );
   }
@@ -425,7 +490,7 @@ class UpcomingShift extends StatelessWidget {
                   boldValue:
                       "${shift.total_shift ?? 0} ${((shift.total_shift ?? 0) > 1) ? "Shifts" : "Shift"}",
                   timidValue: "",
-                  title: StringConstant.totalShifts,
+                  title: StringConstant.remainingShifts,
                   svgPrefixIcon: SvgImageConstant.calendar,
                 ),
         ),
@@ -453,7 +518,7 @@ class UpcomingShift extends StatelessWidget {
                     shift.date ?? -1,
                     isYear: true,
                   ),
-                  title: StringConstant.shiftStartDate,
+                  title: StringConstant.nextShiftDate,
                   svgPrefixIcon: SvgImageConstant.calendar,
                 ),
         ),

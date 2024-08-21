@@ -4,7 +4,6 @@ import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/infrastructure/core/notification_dto/notification_dto.dart';
-
 part 'contractor_notification_event.dart';
 part 'contractor_notification_state.dart';
 part 'contractor_notification_bloc.freezed.dart';
@@ -24,6 +23,8 @@ class ContractorNotificationBloc
     on<ContractorNotificationEvent>((event, emit) async {
       await event.map(
         getNotificationList: (e) async {
+          print("notification list event is called");
+
           if (e.isRefresh) {
             currentPage = 1;
             emit(state.copyWith(

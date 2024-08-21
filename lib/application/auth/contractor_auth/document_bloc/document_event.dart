@@ -214,5 +214,6 @@ class EquipmentEvent with _$EquipmentEvent {
       _DeleteEquipmentObject;
   const factory EquipmentEvent.equipmentDocSubmit(BuildContext context,
       {required bool isAddMoreBtnClick,
-      required bool isSkip}) = _EquipmentDocSubmit;
+      required bool isSkip,
+      required bool isUpdate}) = _EquipmentDocSubmit;
 }

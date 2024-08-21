@@ -758,9 +758,11 @@ class RegisterProfileScreen extends StatelessWidget {
           .bodyMedium!
           .copyWith(color: AppColors.black),
       onTap: () {
-        LocationDialog.showLocationDialog(context,
-                predictions: state.selectedLocationPrediction)
-            .then((value) {
+        LocationDialog.showLocationDialog(
+          context,
+          predictions: state.selectedLocationPrediction,
+          location: RegisterFormBloc.locationCtrl.text,
+        ).then((value) {
           if (value != null) {
             print("selected location ---> $value");
             context

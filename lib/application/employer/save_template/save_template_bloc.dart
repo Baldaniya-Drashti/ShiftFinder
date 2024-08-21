@@ -26,12 +26,18 @@ class SaveTemplateBloc extends Bloc<SaveTemplateEvent, SaveTemplateState> {
       await event.map(
         onFilterChanged: (value) {
           emit(state.copyWith(selectedFilterType: value.value));
-          add(SaveTemplateEvent.getSavedTemplateList(refresh: true));
+          add(SaveTemplateEvent.getSavedTemplateList(value.context,
+              refresh: true));
         },
         getSavedTemplateList: (GetSavedTemplateList value) async {
+          print("loaddiinn---> ${value.refresh}");
           if (value.refresh) {
             currentPage = 1;
-            emit(state.copyWith(savedTemplateList: [], loading: value.refresh));
+            emit(state.copyWith(
+              savedTemplateList: [],
+              loading: value.refresh,
+              noDataFound: false,
+            ));
             refreshController.resetNoData();
           } else {
             if (currentPage > lastPage) {
@@ -48,13 +54,23 @@ class SaveTemplateBloc extends Bloc<SaveTemplateEvent, SaveTemplateState> {
               search: state.searchQuery);
           currentPage++;
           res.fold(
-            (l) => emit(
-              state.copyWith(
-                error: true,
-                loading: false,
-                savedTemplateList: [],
-              ),
-            ),
+            (l) {
+              showError(
+                message: l.maybeMap(
+                  showAPIResponseMessage: (value) => value.message,
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
+                  orElse: () => "Something went wrong!",
+                ),
+              ).show(value.context);
+              emit(
+                state.copyWith(
+                  error: true,
+                  loading: false,
+                  savedTemplateList: [],
+                ),
+              );
+            },
             (r) {
               lastPage = r.meta?.lastPage ?? 1;
               if (value.refresh) {
@@ -82,18 +98,21 @@ class SaveTemplateBloc extends Bloc<SaveTemplateEvent, SaveTemplateState> {
         },
         onSelectMultiShift: (OnSelectMultiShift value) {
           emit(state.copyWith(selectedMultiShift: value.type));
-          add(SaveTemplateEvent.getSavedTemplateList(refresh: true));
+          add(SaveTemplateEvent.getSavedTemplateList(value.context,
+              refresh: true));
         },
         onSearchJobRole: (OnSearchJobRole value) {
           emit(state.copyWith(searchQuery: value.query));
-          add(SaveTemplateEvent.getSavedTemplateList(
+          add(SaveTemplateEvent.getSavedTemplateList(value.context,
               refresh: true, search: value.query));
         },
         onDeleteCodeSavedTemplate: (OnDeleteCodeSavedTemplate value) async {
           Either<MainFailure, CommonResponse>? failureOrSuccess;
           emit(state.copyWith(postDataLoading: true));
-          failureOrSuccess =
-              await _mainFacade.deleteEmployerSavedTemplate(id: value.id);
+          failureOrSuccess = await _mainFacade.deleteEmployerSavedTemplate(
+            id: value.id,
+            shiftType: value.shiftType,
+          );
           emit(state.copyWith(postDataLoading: false));
           failureOrSuccess.fold(
             (l) {
@@ -107,7 +126,8 @@ class SaveTemplateBloc extends Bloc<SaveTemplateEvent, SaveTemplateState> {
               ).show(value.context);
             },
             (r) {
-              add(SaveTemplateEvent.getSavedTemplateList(refresh: true));
+              add(SaveTemplateEvent.getSavedTemplateList(value.context,
+                  refresh: true));
               showSuccess(message: r.dioMessage ?? "").show(value.context);
             },
           );

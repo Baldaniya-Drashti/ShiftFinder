@@ -47,6 +47,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
     this.disableDropDownColor,
     this.dropDownIcon,
     this.onDropDownTap,
+    this.verticalAlignment = MainAxisAlignment.start,
   });
 
   final String? labelText;
@@ -84,6 +85,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
   final Color? disableDropDownColor;
   final Widget? dropDownIcon;
   final void Function()? onDropDownTap;
+  final MainAxisAlignment verticalAlignment;
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +104,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           );
     return Column(
+      mainAxisAlignment: verticalAlignment,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (labelText != null) ...[
@@ -403,7 +406,8 @@ class CustomLocationDropdDown extends StatelessWidget {
       children: [
         if (labelText != null) ...[
           Padding(
-            padding: EdgeInsets.only(left: getSize((isLabelPadding == true) ? 18 : 0)),
+            padding: EdgeInsets.only(
+                left: getSize((isLabelPadding == true) ? 18 : 0)),
             child: Row(
               children: [
                 BaseText(
@@ -435,7 +439,9 @@ class CustomLocationDropdDown extends StatelessWidget {
         ],
         Container(
           decoration: BoxDecoration(
-            color: (showTextfield || showDropDown) ? AppColors.white : AppColors.transparent,
+            color: (showTextfield || showDropDown)
+                ? AppColors.white
+                : AppColors.transparent,
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(

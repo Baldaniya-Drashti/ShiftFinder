@@ -331,6 +331,7 @@ class AddCardDetailPage extends StatelessWidget {
       firstDate: DateTime(1950, 1),
       lastDate: DateTime(2100, 1),
       initialDate: selectedDate,
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(

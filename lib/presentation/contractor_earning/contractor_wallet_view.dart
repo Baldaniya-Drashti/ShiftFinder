@@ -407,7 +407,8 @@ class TransactionListView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               BaseText(
-                  text: "\$${(wallet.type == 4) ? "-" : ""}${wallet.amount}",
+                  text:
+                      "\$${(wallet.type == 4) ? "-" : ""}${wallet.amount?.toStringAsFixed(2)}",
                   textColor: (wallet.type == 4)
                       ? AppColors.redAccent
                       : AppColors.green,

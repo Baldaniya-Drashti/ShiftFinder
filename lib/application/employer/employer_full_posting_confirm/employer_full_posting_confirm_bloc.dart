@@ -38,6 +38,7 @@ class EmployerFullPostingConfirmBloc extends Bloc<
           );
         },
         addVacancyChanged: (e) {
+          print("selectedValnnn---> ${e.vacancy}");
           emit(
             state.copyWith(
               selectedVacancy: Vacancy(e.vacancy),
@@ -123,21 +124,25 @@ class EmployerFullPostingConfirmBloc extends Bloc<
               number_of_vacancie:
                   int.tryParse(state.selectedVacancy.getValue()),
               employer_payment_confirmation: state.isTermsCheck ? 1 : 0,
-              save_template_status: state.isSaveAsTemplate ? 1 : 0,
+              save_template_status:
+                  (state.isSaveAsTemplate && !value.fromTemplate) ? 1 : 0,
               on_call_included: state.isIncludeOnCall ? 1 : 0,
             );
 
-            print("SendingData--> ${state.employerFullPosting}");
             emit(state.copyWith(postDataLoading: true));
 
-            if ((state.postId ?? -1) < 0) {
-              result = await _iMainFacade.createLongFullTermPost(
-                  data: data.toJson());
-            } else {
+            if (state.postId != null &&
+                state.postId != -1 &&
+                ((value.fromTemplate && value.fromReview) ||
+                    !value.fromTemplate)) {
               result = await _iMainFacade.updateLongFullTermPost(data: {
                 ...data.toJson(),
-                "update_status": 0,
+                // "update_status": 0,
+                "update_status": 1,
               });
+            } else {
+              result = await _iMainFacade.createLongFullTermPost(
+                  data: data.toJson());
             }
 
             emit(state.copyWith(postDataLoading: false));
@@ -153,6 +158,8 @@ class EmployerFullPostingConfirmBloc extends Bloc<
                 ).show(value.context);
               },
               (r) {
+                print(
+                    "Full porititit---> ${state.employerFullPosting.number_of_vacancie}");
                 final response = EmployerLongTermSuccessDto.fromJson(r.data);
                 value.context.router.navigate(
                   PageRouteInfo(
@@ -160,7 +167,10 @@ class EmployerFullPostingConfirmBloc extends Bloc<
                     args: EmployerFullPostingReviewViewArgs(
                       response: response,
                       postId: state.postId,
-                      data: state.employerFullPosting,
+                      data: data,
+                      fromReview: value.fromReview,
+                      fromTemplate: value.fromTemplate,
+                      isCreate: value.isCreate,
                     ),
                   ),
                 );

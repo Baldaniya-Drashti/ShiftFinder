@@ -52,7 +52,6 @@ class ContractorTotalEarningView extends StatelessWidget {
                       label: StringConstant.period,
                       selectedDate: selectedDateTime,
                       onDateSelected: (value) {
-                        print("selected range dates---> $value");
                         context.read<ContractorEarningBloc>().add(
                             ContractorEarningEvent.onDateSelected(
                                 dates: value));
@@ -110,28 +109,28 @@ class ContractorTotalEarningView extends StatelessWidget {
                                               label: StringConstant
                                                   .totalCompletedShiftEarnings,
                                               value:
-                                                  "\$${state.statement?.completed_total_earnings ?? 0.0}",
+                                                  "\$${state.statement?.completed_total_earnings?.toStringAsFixed(2) ?? 0.0}",
                                               showSign: false,
                                             ),
                                             MonthlyStatementInfo(
                                               label: StringConstant
                                                   .totalCompensationReceived,
                                               value:
-                                                  "\$${state.statement?.total_cancellation_fee ?? 0.0}",
+                                                  "\$${state.statement?.total_cancellation_fee?.toStringAsFixed(2) ?? 0.0}",
                                               showSign: false,
                                             ),
                                             MonthlyStatementInfo(
                                               label: StringConstant
                                                   .totalReferralBonusReceived,
                                               value:
-                                                  "\$${state.statement?.total_bonus ?? 0.0}",
+                                                  "\$${state.statement?.total_bonus?.toStringAsFixed(2) ?? 0.0}",
                                               showSign: false,
                                             ),
                                           ],
                                         ),
                                       ),
                                     ),
-                                    Gap(22),
+                                    Gap(getSize(22)),
                                     Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
@@ -141,7 +140,7 @@ class ContractorTotalEarningView extends StatelessWidget {
                                       child: MonthlyStatementInfo(
                                         label: StringConstant.netEarnings,
                                         value:
-                                            "\$${state.statement?.net_earnings ?? 0.0}",
+                                            "\$${state.statement?.net_earnings?.toStringAsFixed(2) ?? 0.0}",
                                         showSign: false,
                                       ),
                                     ),
@@ -244,6 +243,17 @@ class ContractorTotalEarningView extends StatelessWidget {
                   ),
                 ],
               ),
+              /* Gap(getSize(5)),
+              Row(
+                children: [
+                  BaseText(text: StringConstant.invoice, fontSize: 10),
+                  Gap(getSize(5)),
+                  BaseText(
+                      text: "74523456",
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600),
+                ],
+              ), */
             ],
           ),
         ),
@@ -399,16 +409,20 @@ class Earning extends StatelessWidget {
                     value: earning.hours_worked ?? ""),
                 TransactionInfo(
                     label: StringConstant.hourlyRate,
-                    value: "\$${earning.hourly_rate ?? 0.0}"),
+                    value:
+                        "\$${earning.hourly_rate?.toStringAsFixed(2) ?? 0.0}"),
                 TransactionInfo(
                     label: StringConstant.wages,
-                    value: "\$${earning.total_wage ?? 0.0}"),
+                    value:
+                        "\$${earning.total_wage?.toStringAsFixed(2) ?? 0.0}"),
                 TransactionInfo(
                     label: StringConstant.allowances,
-                    value: "\$${earning.total_allowance ?? 0.0}"),
+                    value:
+                        "\$${earning.total_allowance?.toStringAsFixed(2) ?? 0.0}"),
                 TransactionInfo(
                     label: StringConstant.earnings,
-                    value: "\$${earning.total_earnings ?? 0.0}",
+                    value:
+                        "\$${earning.total_earnings?.toStringAsFixed(2) ?? 0.0}",
                     valueColor: AppColors.green),
               ],
             );
@@ -425,18 +439,21 @@ class Earning extends StatelessWidget {
               children: [
                 MonthlyStatementInfo(
                   label: StringConstant.totalWage,
-                  value: "\$${statement.completed_total_wage ?? 0.0}",
+                  value:
+                      "\$${statement.completed_total_wage?.toStringAsFixed(2) ?? 0.0}",
                   showSign: false,
                 ),
                 MonthlyStatementInfo(
                   label: StringConstant.totalAllowance,
-                  value: "\$${statement.completed_total_allowance ?? 0.0}",
+                  value:
+                      "\$${statement.completed_total_allowance?.toStringAsFixed(2) ?? 0.0}",
                   showSign: false,
                 ),
                 Divider(),
                 MonthlyStatementInfo(
                     label: StringConstant.totalEarnings,
-                    value: "\$${statement.completed_total_earnings ?? 0.0}",
+                    value:
+                        "\$${statement.completed_total_earnings?.toStringAsFixed(2) ?? 0.0}",
                     showSign: false,
                     valueColor: AppColors.green),
               ],
@@ -484,7 +501,7 @@ class Compensation extends StatelessWidget {
                     value: earning.location?.location ?? ""),
                 TransactionInfo(
                     label: StringConstant.cancellationFee,
-                    value: "\$${earning.amount ?? 0.0}",
+                    value: "\$${earning.amount?.toStringAsFixed(2) ?? 0.0}",
                     valueColor: AppColors.green),
               ],
             );
@@ -499,7 +516,8 @@ class Compensation extends StatelessWidget {
           padding: EdgeInsets.all(getSize(12)),
           child: MonthlyStatementInfo(
               label: StringConstant.totalCancellationFee,
-              value: "\$${statement.total_cancellation_fee ?? 0.0}",
+              value:
+                  "\$${statement.total_cancellation_fee?.toStringAsFixed(2) ?? 0.0}",
               showSign: false,
               valueColor: AppColors.green),
         ),
@@ -556,7 +574,7 @@ class ReferralBonus extends StatelessWidget {
           padding: EdgeInsets.all(getSize(12)),
           child: MonthlyStatementInfo(
             label: StringConstant.totalBonus,
-            value: "\$${statement.total_bonus ?? 0.0}",
+            value: "\$${statement.total_bonus?.toStringAsFixed(2) ?? 0.0}",
             showSign: false,
             valueColor: AppColors.green,
           ),

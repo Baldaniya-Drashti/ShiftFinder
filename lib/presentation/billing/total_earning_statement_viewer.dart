@@ -106,7 +106,8 @@ class GenerateTotalEarningStatement extends StatelessWidget {
                     statementTotal(statement),
                     titleWidget(
                       StringConstant.netEarnings,
-                      otherValue: "\$${statement.net_earnings ?? 0.0}",
+                      otherValue:
+                          "\$${statement.net_earnings?.toStringAsFixed(2) ?? 0.0}",
                       bgColor: PdfColors.green100,
                     ),
                     detailWidget(
@@ -287,7 +288,8 @@ class GenerateTotalEarningStatement extends StatelessWidget {
           alignment: pw.Alignment.centerLeft,
           child: detailWidget(
             title: StringConstant.totalCancellationFee,
-            value: "\$${statement.total_cancellation_fee ?? 0.0}",
+            value:
+                "\$${statement.total_cancellation_fee?.toStringAsFixed(2) ?? 0.0}",
             alignment: pw.Alignment.centerRight,
             fontSize: getFontSize(12),
             valueColor: PdfColors.green,
@@ -384,16 +386,16 @@ class GenerateTotalEarningStatement extends StatelessWidget {
               value: earning.hours_worked ?? ""),
           detailWidget(
               title: "${StringConstant.hourlyRate} :",
-              value: "\$${earning.hourly_rate ?? 0.0}"),
+              value: "\$${earning.hourly_rate?.toStringAsFixed(2) ?? 0.0}"),
           detailWidget(
               title: "${StringConstant.wages} :",
-              value: "\$${earning.total_wage ?? 0.0}"),
+              value: "\$${earning.total_wage?.toStringAsFixed(2) ?? 0.0}"),
           detailWidget(
               title: "${StringConstant.allowances} :",
-              value: "\$${earning.total_allowance ?? 0.0}"),
+              value: "\$${earning.total_allowance?.toStringAsFixed(2) ?? 0.0}"),
           detailWidget(
             title: "${StringConstant.earnings} :",
-            value: "\$${earning.total_earnings ?? 0.0}",
+            value: "\$${earning.total_earnings?.toStringAsFixed(2) ?? 0.0}",
             valueColor: PdfColors.green,
           ),
         ],
@@ -418,7 +420,7 @@ class GenerateTotalEarningStatement extends StatelessWidget {
               value: earning.location?.location ?? ""),
           detailWidget(
             title: "${StringConstant.cancellationFee} :",
-            value: "\$${earning.amount ?? 0.0}",
+            value: "\$${earning.amount?.toStringAsFixed(2) ?? 0.0}",
             valueColor: PdfColors.green,
           ),
         ],
@@ -440,7 +442,7 @@ class GenerateTotalEarningStatement extends StatelessWidget {
               value: earning.referred_contractor_name ?? ""),
           detailWidget(
             title: "${StringConstant.bonusAmount} :",
-            value: "\$${earning.amount ?? 0.0}",
+            value: "\$${earning.amount?.toStringAsFixed(2) ?? 0.0}",
           ),
         ],
       ),
@@ -463,19 +465,21 @@ class GenerateTotalEarningStatement extends StatelessWidget {
         children: [
           detailWidget(
             title: StringConstant.totalCompletedShiftEarnings,
-            value: "\$${statement.completed_total_earnings ?? 0.0}",
+            value:
+                "\$${statement.completed_total_earnings?.toStringAsFixed(2) ?? 0.0}",
             alignment: pw.Alignment.centerRight,
             fontSize: getFontSize(12),
           ),
           detailWidget(
             title: StringConstant.totalCompensationReceived,
-            value: "\$${statement.total_cancellation_fee ?? 0.0}",
+            value:
+                "\$${statement.total_cancellation_fee?.toStringAsFixed(2) ?? 0.0}",
             alignment: pw.Alignment.centerRight,
             fontSize: getFontSize(12),
           ),
           detailWidget(
             title: StringConstant.totalReferralBonusReceived,
-            value: "\$${statement.total_bonus ?? 0.0}",
+            value: "\$${statement.total_bonus?.toStringAsFixed(2) ?? 0.0}",
             alignment: pw.Alignment.centerRight,
             fontSize: getFontSize(12),
           ),

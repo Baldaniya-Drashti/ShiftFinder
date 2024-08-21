@@ -26,9 +26,18 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: "EmployerLongTermPositionAddView")
 class EmployerLongTermPositionAddView extends StatelessWidget {
-  const EmployerLongTermPositionAddView({super.key, this.postId});
+  const EmployerLongTermPositionAddView({
+    super.key,
+    this.postId,
+    this.fromReview = false,
+    this.fromTemplate = false,
+    this.isCreate = true,
+  });
 
   final int? postId;
+  final bool fromReview;
+  final bool fromTemplate;
+  final bool isCreate;
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +49,12 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
       child: Scaffold(
         appBar: CommonAppBar(
             onBackPressed: () => context.router.maybePop(),
-            title: CommonList.industryList
-                    .firstWhere((item) => item.id == getCurrentIndustry())
-                    .title ??
-                ""),
+            title: (fromTemplate)
+                ? StringConstant.editTemplate
+                : CommonList.industryList
+                        .firstWhere((item) => item.id == getCurrentIndustry())
+                        .title ??
+                    ""),
         body: BlocConsumer<EmployerLongTermAddBloc, EmployerLongTermAddState>(
           listener: (context, state) {},
           builder: (context, state) {
@@ -81,8 +92,14 @@ class EmployerLongTermPositionAddView extends StatelessWidget {
                                 isSubmitting: state.isSubmitting,
                                 onPressed: () {
                                   context.read<EmployerLongTermAddBloc>().add(
-                                      EmployerLongTermAddEvent
-                                          .continueBtnPressed(context, false));
+                                          EmployerLongTermAddEvent
+                                              .continueBtnPressed(
+                                        context,
+                                        false,
+                                        fromReview: fromReview,
+                                        isCreate: isCreate,
+                                        fromTemplate: fromTemplate,
+                                      ));
                                 },
                                 buttonText: StringConstant.txtContinue,
                               ),

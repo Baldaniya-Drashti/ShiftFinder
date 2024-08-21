@@ -90,13 +90,19 @@ class HiredContractorBloc
           final formatedClockIn = state.clockIn ?? e.clockIn;
           final formatedClockOut = state.clockOut ?? e.clockOut;
 
-          print("formatedClockOut----> $formatedClockOut");
-
           final isClockInValid = formatedClockIn != null;
           final isClockOutValid = formatedClockOut != null;
 
           if (isClockInValid && isClockOutValid) {
-            emit(state.copyWith(isSubmitting: true));
+            emit(state.copyWith(
+              isSubmitting: true,
+              hiredApproveContractorList:
+                  state.hiredApproveContractorList.map((contractor) {
+                return (contractor.user_id == e.userId)
+                    ? contractor.copyWith(isLoading: true)
+                    : contractor;
+              }).toList(),
+            ));
 
             failureOrSuccess = await mainFacade.submitEmployerClockInClockOut(
               shiftId: e.postId,
@@ -107,7 +113,15 @@ class HiredContractorBloc
 
             failureOrSuccess.fold(
               (l) {
-                emit(state.copyWith(isSubmitting: false));
+                emit(state.copyWith(
+                  isSubmitting: false,
+                  hiredApproveContractorList:
+                      state.hiredApproveContractorList.map((contractor) {
+                    return (contractor.user_id == e.userId)
+                        ? contractor.copyWith(isLoading: false)
+                        : contractor;
+                  }).toList(),
+                ));
 
                 e.context.router.maybePop();
                 showError(
@@ -120,9 +134,16 @@ class HiredContractorBloc
                 ).show(e.context);
               },
               (r) async {
-                e.context.router.maybePop();
-                emit(state.copyWith(isSubmitting: false));
-
+                // e.context.router.maybePop();
+                emit(state.copyWith(
+                  isSubmitting: false,
+                  hiredApproveContractorList:
+                      state.hiredApproveContractorList.map((contractor) {
+                    return (contractor.user_id == e.userId)
+                        ? contractor.copyWith(isLoading: false)
+                        : contractor;
+                  }).toList(),
+                ));
                 await showDialog<bool?>(
                   barrierDismissible: false,
                   context: e.context,
@@ -184,8 +205,12 @@ class HiredContractorBloc
                     )
                         .then((value) {
                       if (value == true) {
-                        e.context.router.maybePop(true);
-                        // Navigator.pop(e.context, true);
+                        (e.isEdit)
+                            ? e.context.router.maybePop(true)
+                            : e.context.read<HiredContractorBloc>().add(
+                                HiredContractorEvent
+                                    .getHiredApproveContractorList(
+                                        refresh: true, postId: e.postId));
                       }
                     });
                   }

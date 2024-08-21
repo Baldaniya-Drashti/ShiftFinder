@@ -7,6 +7,7 @@ import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/co
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_profile/contractor_profile.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/contractor_shifts.dart';
 import 'package:shift/presentation/core/app_router.gr.dart' as route;
+import 'package:shift/presentation/core/helper/push_notification_helper.dart';
 import 'package:shift/presentation/main/tabs/notification_view.dart';
 part 'contractor_main_state.dart';
 part 'contractor_main_event.dart';
@@ -27,7 +28,11 @@ class ContractorMainTabBloc
       (event, emit) async {
         await event.map(
           tabChange: (value) async {
-            emit(state.copyWith(selectedTab: value.tabIndex));
+            print("PAGE IS FROM EVENT ${value.tabIndex}");
+            emit(state.copyWith(
+              selectedTab: value.tabIndex,
+              isLoading: true,
+            ));
             switch (value.tabIndex) {
               case 0:
                 if (!pageList.contains(state.homePage)) {
@@ -67,12 +72,21 @@ class ContractorMainTabBloc
                 break;
               default:
             }
+            await Future.delayed(Duration(seconds: 3));
+            emit(state.copyWith(isLoading: false));
           },
-          /* registerForPush: (RegisterForPush value) async {
-            print("FCM token----> ${value.fcmToken}");
-            await authFacade.registerForPush(fcmToken: value.fcmToken);
+          registerForPush: (RegisterForPush value) async {
+            await PushNotificationService()
+                .firebaseMessaging
+                .getToken()
+                .then((value) async {
+              print("FCM token----> $value");
+              if (value != null) {
+                await authFacade.registerForPush(fcmToken: value);
+              }
+            });
           },
-          pushNotificationInitialize: (PushNotificationInitialize value) async {
+          /* pushNotificationInitialize: (PushNotificationInitialize value) async {
             print("pushNotificationInitialize calledd");
             await PushNotificationService()
                 .setupInteractedMessage(value.context);

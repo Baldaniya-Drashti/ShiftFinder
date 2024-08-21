@@ -9,11 +9,13 @@ import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/contractor_long_term_dashboard/contractor_long_term_dashboard_dto.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/helper/helper_function.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
@@ -23,77 +25,82 @@ class ContractorUpcomingPositionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Sdsdsdsd");
-    return BlocBuilder<ContractorLongTermBloc, ContractorLongTermState>(
-      builder: (context, state) {
-        print("==>${state.upComingPositionList}");
-        return PaginatedListView(
-          isNoDataFound: state.upcomingNoDataFound,
-          onRefresh: () {
-            context.read<ContractorLongTermBloc>().add(
-                ContractorLongTermEvent.fetchUpcomingPositionList(
-                    refresh: true));
-          },
-          onLoading: () {
-            context.read<ContractorLongTermBloc>().add(
-                ContractorLongTermEvent.fetchUpcomingPositionList(
-                    refresh: false));
-          },
-          refreshController:
-              context.read<ContractorLongTermBloc>().upcomingRefreshController,
-          child: state.upcomingLoading
-              ? CenterLoadingIndicator()
-              : state.upcomingIsErrorInAPI
-                  ? Center(
-                      child: BaseText(text: StringConstant.somethindWentWrong),
-                    )
-                  : ListView.separated(
-                      padding: EdgeInsets.all(getSize(12)),
-                      itemBuilder: (context, index) {
-                        final data = state.upComingPositionList[index];
+    return BlocProvider(
+      create: (context) => getIt<ContractorLongTermBloc>()
+        ..add(ContractorLongTermEvent.fetchUpcomingPositionList(refresh: true)),
+      child: BlocBuilder<ContractorLongTermBloc, ContractorLongTermState>(
+        builder: (context, state) {
+          return PaginatedListView(
+            isNoDataFound: state.upcomingNoDataFound,
+            onRefresh: () {
+              context.read<ContractorLongTermBloc>().add(
+                  ContractorLongTermEvent.fetchUpcomingPositionList(
+                      refresh: true));
+            },
+            onLoading: () {
+              context.read<ContractorLongTermBloc>().add(
+                  ContractorLongTermEvent.fetchUpcomingPositionList(
+                      refresh: false));
+            },
+            refreshController: context
+                .read<ContractorLongTermBloc>()
+                .upcomingRefreshController,
+            child: state.upcomingLoading
+                ? CenterLoadingIndicator(isOnlyLoader: true)
+                : state.upcomingIsErrorInAPI
+                    ? Center(
+                        child:
+                            BaseText(text: StringConstant.somethindWentWrong),
+                      )
+                    : ListView.separated(
+                        padding: EdgeInsets.all(getSize(12)),
+                        itemBuilder: (context, index) {
+                          final data = state.upComingPositionList[index];
 
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.white,
-                            borderRadius: BorderRadius.circular(getSize(20)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.lightGrey.withOpacity(0.2),
-                                blurRadius: getSize(20),
-                              ),
-                            ],
-                          ),
-                          padding: EdgeInsets.all(getSize(12)),
-                          child: Column(
-                            children: [
-                              _buildPositionTile(context,
-                                  contractorLongTerm: data),
-                              Gap(getSize(12)),
-                              CommonMaterialButton(
-                                radius: 7,
-                                height: 36,
-                                onPressed: () {
-                                  context.router.push(
-                                    PageRouteInfo(
-                                        EmployerLongTermPositionDetailView.name,
-                                        args:
-                                            EmployerLongTermPositionDetailViewArgs(
-                                                id: data.id ?? -1)),
-                                  );
-                                },
-                                label: "View Position Details",
-                                backgroundColor:
-                                    AppColors.primaryColor.withOpacity(.1),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                      separatorBuilder: (context, index) => Gap(16),
-                      itemCount: state.upComingPositionList.length,
-                    ),
-        );
-      },
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.white,
+                              borderRadius: BorderRadius.circular(getSize(20)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.lightGrey.withOpacity(0.2),
+                                  blurRadius: getSize(20),
+                                ),
+                              ],
+                            ),
+                            padding: EdgeInsets.all(getSize(12)),
+                            child: Column(
+                              children: [
+                                _buildPositionTile(context,
+                                    contractorLongTerm: data),
+                                Gap(getSize(12)),
+                                CommonMaterialButton(
+                                  radius: 7,
+                                  height: 36,
+                                  onPressed: () {
+                                    context.router.push(
+                                      PageRouteInfo(
+                                          EmployerLongTermPositionDetailView
+                                              .name,
+                                          args:
+                                              EmployerLongTermPositionDetailViewArgs(
+                                                  id: data.post_id ?? -1)),
+                                    );
+                                  },
+                                  label: StringConstant.viewPositionDetails,
+                                  backgroundColor:
+                                      AppColors.primaryColor.withOpacity(.1),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) => Gap(getSize(16)),
+                        itemCount: state.upComingPositionList.length,
+                      ),
+          );
+        },
+      ),
     );
   }
 
@@ -113,7 +120,18 @@ class ContractorUpcomingPositionView extends StatelessWidget {
             Gap(getSize(6)),
             Divider(),
             Gap(getSize(6)),
-            _buildLocationInfo(context, contractorLongTerm: contractorLongTerm),
+            GestureDetector(
+                onTap: () {
+                  final location = contractorLongTerm?.location;
+                  final latitude = location?.latitude;
+                  final longitude = location?.longitude;
+                  if (latitude != null && longitude != null) {
+                    LocationHelper.openDirections(context,
+                        endLat: latitude, endLng: longitude);
+                  }
+                },
+                child: _buildLocationInfo(context,
+                    contractorLongTerm: contractorLongTerm)),
           ],
         ),
       ),

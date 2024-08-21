@@ -12,7 +12,7 @@ class CurrentShiftDTO with _$CurrentShiftDTO {
   const factory CurrentShiftDTO({
     int? id,
     int? post_id,
-    int? employer_post_user_id,
+    int? employer_user_id,
     String? listing_id,
     String? last_ago,
     int? industry_id,
@@ -37,6 +37,7 @@ class CurrentShiftDTO with _$CurrentShiftDTO {
     int? clock_out,
     int? selectedClockInTime,
     int? selectedClockOutTime,
+    int? count,
   }) = _CurrentShiftDTO;
 
   factory CurrentShiftDTO.fromJson(Map<String, dynamic> json) =>

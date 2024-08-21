@@ -37,7 +37,7 @@ class ContractorPerformanceInsightBloc extends Bloc<
             ));
 
             failureOrSuccess = await _mainFacade.getPerformanceInsightListAPI(
-              date: (e.selectedDate!.toUtc().millisecondsSinceEpoch / 1000),
+              date: (e.selectedDate!.toUtc().millisecondsSinceEpoch ~/ 1000),
             );
             failureOrSuccess.fold(
               (l) {

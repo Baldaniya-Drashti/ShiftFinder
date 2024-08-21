@@ -57,11 +57,12 @@ class ContractorPerformanceInsightView extends StatelessWidget {
                             label: StringConstant.period,
                             selectedMonth: selectedDateTime,
                             onDateSelected: (value) {
+                              DateTime updatedDate = value.copyWith(day: 2);
                               context
                                   .read<ContractorPerformanceInsightBloc>()
                                   .add(ContractorPerformanceInsightEvent
                                       .onDateSelected(context,
-                                          selectedDate: value));
+                                          selectedDate: updatedDate));
                             },
                           );
                         },
@@ -377,11 +378,12 @@ class ContractorPerformanceInsightView extends StatelessWidget {
           numberFormat: NumberFormat("0 'h'"),
         ),
         series: [
-          ColumnSeries<InsightListDTO, String>(
+          ColumnSeries<HourWorkedDetailDTO, String>(
             isTrackVisible: false,
             dataSource: state.insightDetail?.hours_worked?.list ?? [],
-            xValueMapper: (InsightListDTO data, _) => data.name,
-            yValueMapper: (InsightListDTO data, _) => data.value,
+            xValueMapper: (HourWorkedDetailDTO data, _) => data.name,
+            yValueMapper: (HourWorkedDetailDTO data, _) =>
+                convertTimeToDecimal(data.value ?? ""),
             color: AppColors.primaryColor,
             gradient: LinearGradient(
               begin: Alignment.centerLeft,
@@ -525,6 +527,33 @@ class ContractorPerformanceInsightView extends StatelessWidget {
       ],
     );
   }
+}
+
+double convertTimeToDecimal(String time) {
+  int hours = 0;
+  int minutes = 0;
+
+  // Regular expressions to extract hours and minutes
+  RegExp hourRegex = RegExp(r"(\d+)h");
+  RegExp minRegex = RegExp(r"(\d+)min");
+
+  // Extract hours if present
+  Match? hourMatch = hourRegex.firstMatch(time);
+  if (hourMatch != null) {
+    hours = int.parse(hourMatch.group(1)!);
+  }
+
+  // Extract minutes if present
+  Match? minMatch = minRegex.firstMatch(time);
+  if (minMatch != null) {
+    minutes = int.parse(minMatch.group(1)!);
+  }
+
+  // Convert time to decimal format
+  double decimalMinutes = (minutes / 100);
+  double decimalTime = hours + double.parse(decimalMinutes.toStringAsFixed(2));
+
+  return double.parse(decimalTime.toStringAsFixed(2)); // Final rounding
 }
 
 /* class EarningsGraph extends StatelessWidget {

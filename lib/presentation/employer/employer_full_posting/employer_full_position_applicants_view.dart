@@ -13,6 +13,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/avatar.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -129,7 +130,16 @@ class EmployerFullPositionApplicantsView extends StatelessWidget {
             Gap(getSize(6)),
             Divider(),
             Gap(getSize(6)),
-            _buildLocationInfo(context, data: data),
+            GestureDetector(
+                onTap: () {
+                  final latitude = data.latitude;
+                  final longitude = data.longitude;
+                  if (latitude != null && longitude != null) {
+                    LocationHelper.openDirections(context,
+                        endLat: latitude, endLng: longitude);
+                  }
+                },
+                child: _buildLocationInfo(context, data: data)),
           ],
         ),
       ),

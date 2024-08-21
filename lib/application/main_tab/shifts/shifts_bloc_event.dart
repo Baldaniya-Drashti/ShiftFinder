@@ -4,6 +4,8 @@ part of 'shifts_bloc_bloc.dart';
 class ShiftsBlocEvent with _$ShiftsBlocEvent {
   const factory ShiftsBlocEvent.started() = _Started;
 
+  const factory ShiftsBlocEvent.changeNotificationTab() = ChangeNotificationTab;
+
   factory ShiftsBlocEvent.tabChange(int tabIndex) = ShiftsTabChange;
 
   const factory ShiftsBlocEvent.getLocationListAPI() = GetLocationListAPI;

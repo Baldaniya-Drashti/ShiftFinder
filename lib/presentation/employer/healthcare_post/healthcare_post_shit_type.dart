@@ -26,13 +26,18 @@ class HealthcarePostShift extends StatelessWidget {
   HealthcarePostDTO? updateShift;
   PostShiftDTO post;
   final bool fromSaveTemplate;
+  final bool fromReview;
+  final bool isCreate;
 
-  HealthcarePostShift(
-      {super.key,
-      required this.postId,
-      this.updateShift,
-      required this.post,
-      this.fromSaveTemplate = false});
+  HealthcarePostShift({
+    super.key,
+    required this.postId,
+    this.updateShift,
+    required this.post,
+    this.fromSaveTemplate = false,
+    this.fromReview = false,
+    this.isCreate = true,
+  });
 
   String postTitle() {
     final industry = CommonList.industryList
@@ -42,6 +47,10 @@ class HealthcarePostShift extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final shift = PostShiftBloc.shiftTypeList.firstWhere(
+      (skill) => skill.id == (updateShift?.shift_detail?.shift_type ?? 1),
+      orElse: () => SkillDTO(),
+    );
     return PopScope(
       canPop: false,
       child: GestureDetector(
@@ -50,23 +59,26 @@ class HealthcarePostShift extends StatelessWidget {
         },
         child: BlocProvider(
           create: (context) => getIt<PostShiftBloc>()
-            ..add(PostShiftEvent.changeShiftType("Single",
-                postId: postId,
-                post: post,
-                updateShift: updateShift,
-                fromSaveTemplate: fromSaveTemplate)),
+            ..add(PostShiftEvent.changeShiftType(
+              shift.name ?? "Single",
+              postId: postId,
+              post: post,
+              updateShift: updateShift,
+              fromSaveTemplate: fromSaveTemplate,
+              fromReview: fromReview,
+            )),
           child: BlocBuilder<PostShiftBloc, PostShiftState>(
             builder: (context, state) {
-              print("==> ${state.updateShift.id}");
               return Scaffold(
                 appBar: CommonAppBar(
                   onBackPressed: () {
                     Navigator.pop(context);
                   },
                   title: state.fromSaveTemplate
-                      ? "Edit Template"
+                      ? StringConstant.editTemplate
                       : (state.updateShift.id != null &&
-                              state.updateShift.shift_detail != null)
+                              state.updateShift.shift_detail != null &&
+                              (fromReview == true || isCreate == false))
                           ? (state.updateShift.shift_detail!.shift_type == 1)
                               ? StringConstant.singleShift
                               : (state.updateShift.shift_detail!
@@ -86,7 +98,8 @@ class HealthcarePostShift extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Visibility(
-                            visible: state.updateShift.id == null,
+                            visible: state.updateShift.id == null ||
+                                (fromReview == false && isCreate == true),
                             child: CustomDropdwonWithTextField(
                               hintText: "",
                               isLabelPadding: true,
@@ -138,12 +151,16 @@ class HealthcarePostShift extends StatelessWidget {
                                         post: post,
                                         updateShift: updateShift,
                                         fromSaveTemplate: fromSaveTemplate,
+                                        fromReview: fromReview,
+                                        isCreate: isCreate,
                                       )
                                     : SinglePostShift(
                                         shiftType: state.shiftType,
                                         postId: postId,
                                         post: post,
                                         updateShift: updateShift,
+                                        fromReview: fromReview,
+                                        isCreate: isCreate,
                                         fromSaveTemplate: fromSaveTemplate,
                                       ),
                           ),

@@ -192,12 +192,14 @@ part 'healthcare_post_state.dart';
 part 'healthcare_post_bloc.freezed.dart';
 
 @injectable
-class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> {
+class HealthcarePostBloc
+    extends Bloc<HealthcarePostEvent, HealthcarePostState> {
   final IAuthFacade _authFacade;
   final IAccountRepository _repository;
   final IMainFacade _mainFacade;
 
-  HealthcarePostBloc(this._authFacade, this._repository, this._mainFacade) : super(HealthcarePostState.initial()) {
+  HealthcarePostBloc(this._authFacade, this._repository, this._mainFacade)
+      : super(HealthcarePostState.initial()) {
     on<HealthcarePostEvent>((event, emit) async {
       await event.map(
         confirmSoftwareSkill: (e) {
@@ -220,7 +222,8 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
             languageOther: e.otherLanguageList,
             authFailureOrSuccessOption: none(),
           ));
-          print("selected language list---> ${state.languageChipList} \n other languages ${state.languageOther}");
+          print(
+              "selected language list---> ${state.languageChipList} \n other languages ${state.languageOther}");
         },
 
         /// GET ALL DROPDOWN LIST FROM API
@@ -255,13 +258,20 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
           if (e.selectedValue.trim().isNotEmpty &&
               !(e.selectedValue.toLowerCase() == "other") &&
               (state.requiredSpecialityChipList.getValue().isEmpty ||
-                  !state.requiredSpecialityChipList.getValue().contains(e.selectedValue))) {
+                  !state.requiredSpecialityChipList
+                      .getValue()
+                      .contains(e.selectedValue))) {
             emit(
               state.copyWith(
-                requiredSpecialityChipList:
-                    ListInputEmptyOrNot(List.from(state.requiredSpecialityChipList.getValue()..add(e.selectedValue))),
-                requiredSpecialityChip: (e.isOtherValue == true) ? "" : e.selectedValue,
-                specialityOther: (e.isOtherValue == true) ? (List<String>.from(state.specialityOther)..add(e.selectedValue)) : [],
+                requiredSpecialityChipList: ListInputEmptyOrNot(List.from(
+                    state.requiredSpecialityChipList.getValue()
+                      ..add(e.selectedValue))),
+                requiredSpecialityChip:
+                    (e.isOtherValue == true) ? "" : e.selectedValue,
+                specialityOther: (e.isOtherValue == true)
+                    ? (List<String>.from(state.specialityOther)
+                      ..add(e.selectedValue))
+                    : [],
                 showSpecialityError: false,
                 authFailureOrSuccessOption: none(),
               ),
@@ -269,7 +279,9 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
           }
 
           /// when click on add button
-          else if ((state.requiredSpecialityChip.toLowerCase() == "other" && e.isOtherValue == true && e.selectedValue.isEmpty)) {
+          else if ((state.requiredSpecialityChip.toLowerCase() == "other" &&
+              e.isOtherValue == true &&
+              e.selectedValue.isEmpty)) {
             emit(
               state.copyWith(
                 showSpecialityError: true,
@@ -282,8 +294,10 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
           else {
             emit(
               state.copyWith(
-                requiredSpecialityChipList: ListInputEmptyOrNot(List.from(state.requiredSpecialityChipList.getValue())),
-                requiredSpecialityChip: (e.isOtherValue == true) ? "" : e.selectedValue,
+                requiredSpecialityChipList: ListInputEmptyOrNot(
+                    List.from(state.requiredSpecialityChipList.getValue())),
+                requiredSpecialityChip:
+                    (e.isOtherValue == true) ? "" : e.selectedValue,
                 showSpecialityError: true,
                 authFailureOrSuccessOption: none(),
               ),
@@ -309,10 +323,12 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
             state.copyWith(
               requiredSpecialityChipList: ListInputEmptyOrNot(
                 List.from(
-                  List.of(state.requiredSpecialityChipList.getValue())..remove(e.selectedValue),
+                  List.of(state.requiredSpecialityChipList.getValue())
+                    ..remove(e.selectedValue),
                 ),
               ),
-              specialityOther: List.of(state.specialityOther)..remove(e.selectedValue),
+              specialityOther: List.of(state.specialityOther)
+                ..remove(e.selectedValue),
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -323,13 +339,20 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
           if (e.selectedValue.trim().isNotEmpty &&
               !(e.selectedValue.toLowerCase() == "other") &&
               (state.requiredSoftwareSkillChipList.getValue().isEmpty ||
-                  !state.requiredSoftwareSkillChipList.getValue().contains(e.selectedValue))) {
+                  !state.requiredSoftwareSkillChipList
+                      .getValue()
+                      .contains(e.selectedValue))) {
             emit(
               state.copyWith(
-                requiredSoftwareSkillChipList:
-                    ListInputEmptyOrNot(List.from(state.requiredSoftwareSkillChipList.getValue()..add(e.selectedValue))),
-                requiredSoftwareSkillChip: (e.isOtherValue == true) ? "" : e.selectedValue,
-                softwareSkillOther: (e.isOtherValue == true) ? (List<String>.from(state.softwareSkillOther)..add(e.selectedValue)) : [],
+                requiredSoftwareSkillChipList: ListInputEmptyOrNot(List.from(
+                    state.requiredSoftwareSkillChipList.getValue()
+                      ..add(e.selectedValue))),
+                requiredSoftwareSkillChip:
+                    (e.isOtherValue == true) ? "" : e.selectedValue,
+                softwareSkillOther: (e.isOtherValue == true)
+                    ? (List<String>.from(state.softwareSkillOther)
+                      ..add(e.selectedValue))
+                    : [],
                 showSoftwareSkillError: false,
                 authFailureOrSuccessOption: none(),
               ),
@@ -337,7 +360,9 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
           }
 
           /// when click on add button
-          else if ((state.requiredSoftwareSkillChip.toLowerCase() == "other" && e.isOtherValue == true && e.selectedValue.isEmpty)) {
+          else if ((state.requiredSoftwareSkillChip.toLowerCase() == "other" &&
+              e.isOtherValue == true &&
+              e.selectedValue.isEmpty)) {
             emit(
               state.copyWith(
                 showSoftwareSkillError: true,
@@ -350,8 +375,10 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
           else {
             emit(
               state.copyWith(
-                requiredSoftwareSkillChipList: ListInputEmptyOrNot(List.from(state.requiredSoftwareSkillChipList.getValue())),
-                requiredSoftwareSkillChip: (e.isOtherValue == true) ? "" : e.selectedValue,
+                requiredSoftwareSkillChipList: ListInputEmptyOrNot(
+                    List.from(state.requiredSoftwareSkillChipList.getValue())),
+                requiredSoftwareSkillChip:
+                    (e.isOtherValue == true) ? "" : e.selectedValue,
                 showSoftwareSkillError: true,
                 authFailureOrSuccessOption: none(),
               ),
@@ -378,10 +405,12 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
             state.copyWith(
               requiredSoftwareSkillChipList: ListInputEmptyOrNot(
                 List.from(
-                  List.of(state.requiredSoftwareSkillChipList.getValue())..remove(e.selectedValue),
+                  List.of(state.requiredSoftwareSkillChipList.getValue())
+                    ..remove(e.selectedValue),
                 ),
               ),
-              softwareSkillOther: List.of(state.softwareSkillOther)..remove(e.selectedValue),
+              softwareSkillOther: List.of(state.softwareSkillOther)
+                ..remove(e.selectedValue),
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -391,17 +420,28 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
         addLanguageChips: (e) {
           if (e.selectedLanguage.isNotEmpty &&
               !e.selectedLanguage.toLowerCase().contains("other") &&
-              (state.languageChipList.getValue().isEmpty || !state.languageChipList.getValue().contains(e.selectedLanguage))) {
+              (state.languageChipList.getValue().isEmpty ||
+                  !state.languageChipList
+                      .getValue()
+                      .contains(e.selectedLanguage))) {
             emit(
               state.copyWith(
-                languageChipList: ListInputEmptyOrNot(List.from(state.languageChipList.getValue()..add(e.selectedLanguage))),
+                languageChipList: ListInputEmptyOrNot(List.from(
+                    state.languageChipList.getValue()
+                      ..add(e.selectedLanguage))),
                 showLanguageError: false,
-                languageChip: (e.isOtherValue == true) ? "" : e.selectedLanguage,
-                languageOther: (e.isOtherValue == true) ? (List<String>.from(state.languageOther)..add(e.selectedLanguage)) : [],
+                languageChip:
+                    (e.isOtherValue == true) ? "" : e.selectedLanguage,
+                languageOther: (e.isOtherValue == true)
+                    ? (List<String>.from(state.languageOther)
+                      ..add(e.selectedLanguage))
+                    : [],
                 authFailureOrSuccessOption: none(),
               ),
             );
-          } else if ((state.languageChip.toLowerCase() == "other" && e.isOtherValue == true && e.selectedLanguage.isEmpty)) {
+          } else if ((state.languageChip.toLowerCase() == "other" &&
+              e.isOtherValue == true &&
+              e.selectedLanguage.isEmpty)) {
             emit(
               state.copyWith(
                 showLanguageError: true,
@@ -411,8 +451,10 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
           } else {
             emit(
               state.copyWith(
-                languageChipList: ListInputEmptyOrNot(List.from(state.languageChipList.getValue())),
-                languageChip: (e.isOtherValue == true) ? "" : e.selectedLanguage,
+                languageChipList: ListInputEmptyOrNot(
+                    List.from(state.languageChipList.getValue())),
+                languageChip:
+                    (e.isOtherValue == true) ? "" : e.selectedLanguage,
                 showLanguageError: true,
                 authFailureOrSuccessOption: none(),
               ),
@@ -439,10 +481,12 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
             state.copyWith(
               languageChipList: ListInputEmptyOrNot(
                 List.from(
-                  List.of(state.languageChipList.getValue())..remove(e.selectedLanguage),
+                  List.of(state.languageChipList.getValue())
+                    ..remove(e.selectedLanguage),
                 ),
               ),
-              languageOther: List.of(state.languageOther)..remove(e.selectedLanguage),
+              languageOther: List.of(state.languageOther)
+                ..remove(e.selectedLanguage),
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -462,7 +506,10 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
               location: InputEmptyOrNot(selectedLocationObject.location ?? ""),
               unitList: selectedLocationObject.add_units ?? [],
               selectedLocationUnit: "",
-              showLocationError: (selectedLocationObject.add_units != null && selectedLocationObject.add_units!.isNotEmpty) ? true : false,
+              showLocationError: (selectedLocationObject.add_units != null &&
+                      selectedLocationObject.add_units!.isNotEmpty)
+                  ? true
+                  : false,
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -519,18 +566,17 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
               rate_hour: double.parse(state.rateHour.getValue()),
             );
 
-            print("Role id--> ${getSelectedRoleIds()} ");
-            print("Speciality id--> ${getSelectedSpecialtiyIds()} ");
-            print("Speciality Other--> ${state.specialityOther.join(',')} ");
-            print("Skill id--> ${getSelectedSoftwareIds()}");
-            print("Skill other--> ${state.softwareSkillOther.join(',')}");
-            print("language id--> ${getSelectedLanguageId()} ");
-            print("language other--> ${state.languageOther.join(',')} ");
-
             e.context.router
                 .push(PageRouteInfo(
               HealthcarePostShift.name,
-              args: HealthcarePostShiftArgs(postId: -1, post: post, updateShift: state.updatePost, fromSaveTemplate: e.fromSaveTemplate),
+              args: HealthcarePostShiftArgs(
+                postId: -1,
+                post: post,
+                updateShift: state.updatePost,
+                fromReview: e.fromReview,
+                fromSaveTemplate: e.fromSaveTemplate,
+                isCreate: e.isCreate,
+              ),
             ))
                 .then((value) {
               AppFocus.unfocus(e.context);
@@ -555,7 +601,10 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
               rateHour: double.parse(state.rateHour.getValue() ?? "0.0"),
             );*/
           } else {
-            showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(e.context);
+            showError(
+                    message: StringConstant
+                        .someDetailsAreMissingOrInvalidPleaseCheck)
+                .show(e.context);
             print("SOME DETAILS ARE INVALID!");
           }
           // print("Failure or success--> ${failureOrSuccess}");
@@ -589,7 +638,8 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
         .getValue()
         .map((chipName) => state.languageList.firstWhere(
               (language) => language.name == chipName,
-              orElse: () => const SkillDTO(), // Handle cases where no match is found
+              orElse: () =>
+                  const SkillDTO(), // Handle cases where no match is found
             ))
         .where((language) => language.id != null) // Filter out null values
         .map((language) => language.id) // Extract IDs
@@ -600,7 +650,9 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
   }
 
   String getSelectedRoleIds() {
-    final roleIds = state.roleList.firstWhere((role) => role.name == state.roleType.getValue(), orElse: () => SkillDTO());
+    final roleIds = state.roleList.firstWhere(
+        (role) => role.name == state.roleType.getValue(),
+        orElse: () => SkillDTO());
     print("Role ID --> $roleIds");
     return "${roleIds.id ?? -1}";
   }
@@ -638,14 +690,16 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
   }
 
   String getSelectedLocationIds() {
-    final locationIds =
-        state.locationList.firstWhere((location) => location.location == state.location.getValue(), orElse: () => LocationDTO());
+    final locationIds = state.locationList.firstWhere(
+        (location) => location.location == state.location.getValue(),
+        orElse: () => LocationDTO());
     print("Location ID --> $locationIds");
     return "${locationIds.id ?? -1}";
   }
 
   getShiftDetailApi(Emitter<HealthcarePostState> emit, int postId) async {
-    Either<MainFailure, HealthcarePostDTO> failureOrSuccess = await _mainFacade.getPostApi(
+    Either<MainFailure, HealthcarePostDTO> failureOrSuccess =
+        await _mainFacade.getPostApi(
       postId: postId,
     );
     failureOrSuccess.fold(
@@ -661,15 +715,27 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
             updatePost: r,
             roleType: InputEmptyOrNot(r.roles_list_name ?? ""),
             requiredSoftwareSkillChipList: ListInputEmptyOrNot(
-                (r.softwares_skill_list != null) ? r.softwares_skill_list!.map((element) => element.name ?? "").toList() : []),
+                (r.softwares_skill_list != null)
+                    ? r.softwares_skill_list!
+                        .map((element) => element.name ?? "")
+                        .toList()
+                    : []),
             softwareSkillOther: r.software_skill_other?.split(',') ?? [],
             requiredSpecialityChipList: ListInputEmptyOrNot(
-                (r.specialties_detail_list != null) ? r.specialties_detail_list!.map((element) => element.name ?? "").toList() : []),
+                (r.specialties_detail_list != null)
+                    ? r.specialties_detail_list!
+                        .map((element) => element.name ?? "")
+                        .toList()
+                    : []),
             specialityOther: r.specialties_detail_other?.split(',') ?? [],
-            languageChipList:
-                ListInputEmptyOrNot((r.languages_list != null) ? r.languages_list!.map((element) => element.name ?? "").toList() : []),
+            languageChipList: ListInputEmptyOrNot((r.languages_list != null)
+                ? r.languages_list!
+                    .map((element) => element.name ?? "")
+                    .toList()
+                : []),
             languageOther: r.language_other?.split(',') ?? [],
-            location: InputEmptyOrNot((r.location != null) ? r.location!.location ?? "" : ""),
+            location: InputEmptyOrNot(
+                (r.location != null) ? r.location!.location ?? "" : ""),
             locationObj: r.location ?? LocationDTO(),
             unitList: (r.location != null) ? r.location?.add_units ?? [] : [],
             selectedLocationUnit: r.location_unit ?? "",

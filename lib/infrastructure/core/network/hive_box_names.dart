@@ -10,6 +10,8 @@ class BoxKeys {
   static const isUserShowIntro = "isUserShowIntro";
   static const currentKey = "account";
   static const isShowEmptyTeamDialog = "isShowEmptyTeamDialog";
+  static const currentNotificationTab = "currentNotificationTab";
+  static const currentNotificationSubTab = "currentNotificationSubTab";
 
   /// CONTRACTOR DOCUMENTS
   static const governmentIssueId = "governmentIssueId";

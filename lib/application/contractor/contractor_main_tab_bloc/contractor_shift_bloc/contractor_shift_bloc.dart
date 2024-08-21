@@ -19,6 +19,7 @@ import 'package:shift/infrastructure/contractor_main/shift/upcoming_shift_dto/up
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 
 part 'contractor_shift_event.dart';
@@ -53,7 +54,30 @@ class ContractorShiftBloc
     on<ContractorShiftEvent>(
       (event, emit) async {
         await event.map(
+          changeNotificationTab: (e) async {
+            final currentTab = getNotificationTab();
+            final currentAppliedTab = getNotificationSubTab();
+
+            if (currentTab != null) {
+              emit(state.copyWith(isLoading: true));
+              emit(state.copyWith(
+                selectedTab: currentTab,
+                selectedAppliedTab: currentAppliedTab ?? 0,
+              ));
+              await Future.delayed(Duration(seconds: 1));
+              emit(state.copyWith(isLoading: false));
+            }
+          },
           changeShiftTab: (e) async {
+            /* emit(state.copyWith(isLoading: true));
+            if (e.notificationTabIndex != null) {
+              emit(state.copyWith(selectedTab: e.notificationTabIndex!));
+            } else {
+              emit(state.copyWith(selectedTab: e.tabIndex));
+            }
+            await Future.delayed(Duration(seconds: 1));
+            emit(state.copyWith(isLoading: false)); */
+
             print("Current Tab index---> ${e.tabIndex}");
             emit(state.copyWith(selectedTab: e.tabIndex));
           },
@@ -251,9 +275,10 @@ class ContractorShiftBloc
 
             if (state.deletePostReason.isValid()) {
               failureOrSuccess = await mainFacade.deleteUpcomingShiftApi(
-                  id: e.postId,
-                  isCad: e.isCad,
-                  reason: state.deletePostReason.getValue() ?? "");
+                id: e.postId,
+                isCad: e.isCad,
+                reason: state.deletePostReason.getValue() ?? "",
+              );
 
               failureOrSuccess.fold(
                 (l) {

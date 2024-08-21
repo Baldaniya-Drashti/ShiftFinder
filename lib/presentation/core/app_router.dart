@@ -55,7 +55,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: PrivacyPolicyScreen.page),
         AutoRoute(page: AddSpecialityExperience.page),
         AutoRoute(page: QuizResultScreen.page),
-        AutoRoute(page: ShowGoogleMap.page),
+        // AutoRoute(page: ShowGoogleMap.page),
         AutoRoute(page: ContractorMainTabView.page),
         AutoRoute(page: ContractorHomeView.page),
         AutoRoute(page: SendProposal.page),
@@ -156,6 +156,8 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: Viewmedia.page),
         AutoRoute(page: NotificationView.page),
         AutoRoute(page: CompleteShiftInvoiceView.page),
+        AutoRoute(page: ContractorProposedAvailability.page),
+        AutoRoute(page: LongTermHiredContractorList.page),
         // AutoRoute(page: ContractorNotificationView.page),
       ];
 }

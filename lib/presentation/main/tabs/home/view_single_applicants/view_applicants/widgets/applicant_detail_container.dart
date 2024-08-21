@@ -1,11 +1,10 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 
 class ApplicantsDetailView extends StatelessWidget {
@@ -48,12 +47,6 @@ class ApplicantsDetailView extends StatelessWidget {
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ),
-                    SizedBox(height: getSize(3)),
-                    BaseText(
-                      text: 'Distance - ${data.distance ?? ""}',
-                      fontSize: 8,
-                      textColor: AppColors.black.withOpacity(0.8),
-                    )
                   ],
                 ),
               ),
@@ -71,7 +64,9 @@ class ApplicantsDetailView extends StatelessWidget {
               final latitude = data.latitude;
               final longitude = data.longitude;
               if (latitude != null && longitude != null) {
-                context.router.push(
+                LocationHelper.openDirections(context,
+                    endLat: latitude, endLng: longitude);
+                /* context.router.push(
                   PageRouteInfo(
                     ShowGoogleMap.name,
                     args: ShowGoogleMapArgs(
@@ -79,7 +74,7 @@ class ApplicantsDetailView extends StatelessWidget {
                       longitude: longitude,
                     ),
                   ),
-                );
+                ); */
               }
             },
             child: Row(

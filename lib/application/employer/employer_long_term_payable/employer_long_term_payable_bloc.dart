@@ -31,10 +31,10 @@ class EmployerLongTermPayableBloc
         onPostShift: (value) async {
           Either<MainFailure, CommonResponse<dynamic>> response;
           emit(state.copyWith(postDataLoading: true));
-          print("ooooo${value.employer.toJson()}");
-          if (value.postId == null || (value.postId ?? -1) < 0) {
-            response = await _iMainFacade.updateLongTermStatus(id: value.id);
-          } else {
+          if (value.postId != null &&
+              value.postId != -1 &&
+              !value.isCreate &&
+              !value.fromTemplate) {
             final postShift = value.postShift;
             final employer = value.employer.copyWith(
                 rate_hour: postShift.rate_hour,
@@ -55,7 +55,10 @@ class EmployerLongTermPayableBloc
               ...employer.toJson(),
               "update_status": 1,
             });
+          } else {
+            response = await _iMainFacade.updateLongTermStatus(id: value.id);
           }
+
           emit(state.copyWith(postDataLoading: false));
           response.fold(
             (l) {
@@ -74,25 +77,25 @@ class EmployerLongTermPayableBloc
                 value.context,
                 title: "All Set!",
                 infoMessage:
-                    "Your healthcare long term position has been successfully ${(value.postId == null || value.postId == -1) ? "Post" : "Update"}, with a total of ${value.totalVacancy} vacancy.",
+                    "Your healthcare long term position has been successfully ${(value.postId != null && value.postId != -1 && !value.isCreate && !value.fromTemplate) ? "update" : "add"}, with a total of ${value.totalVacancy} vacancy.",
                 onOkClick: () {
-                  // value.context.router.popUntilRouteWithName(
-                  //   EmployerLongTermView.name,
-                  // );
+                  // value.context.router.popUntil((route) => route.isFirst);
 
                   value.context.router.popUntil((route) {
+                    /// When Create/Update From Long term
                     if (route.settings.name == EmployerLongTermView.name) {
                       bool argument = true;
                       route.onPopInvokedWithResult(true, argument);
-                      // (route.settings.arguments as Map)['isPOP'] = true;
+                      return true;
+                    }
+
+                    /// When Create From Save template
+                    else if (route.settings.name == SaveTemplateView.name) {
                       return true;
                     } else {
                       return false;
                     }
-                    // return route.settings.name == EmployerLongTermView.name;
                   });
-
-                  // value.context.router.popUntil((route) => route.isFirst);
                 },
               );
             },

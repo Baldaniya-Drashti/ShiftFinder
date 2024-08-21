@@ -221,7 +221,7 @@ class BaseStatementTile extends StatelessWidget {
           Row(
             children: [
               BaseText(text: StringConstant.statementPeriod, fontSize: 10),
-              Gap(3),
+              Gap(getSize(3)),
               BaseText(
                 text: getFormattedString(statementPeriod),
                 fontSize: 10,
@@ -229,6 +229,15 @@ class BaseStatementTile extends StatelessWidget {
               ),
             ],
           ),
+          /* Gap(getSize(5)),
+          Row(
+            children: [
+              BaseText(text: StringConstant.invoice, fontSize: 10),
+              Gap(getSize(5)),
+              BaseText(
+                  text: "74523456", fontSize: 10, fontWeight: FontWeight.w600),
+            ],
+          ), */
           Gap(getSize(6)),
           Divider(),
           Gap(getSize(12)),
@@ -291,16 +300,20 @@ class _Earning extends StatelessWidget {
                     value: earning.hours_worked ?? ""),
                 TransactionInfo(
                     label: StringConstant.hourlyRate,
-                    value: "\$${earning.hourly_rate ?? 0.0}"),
+                    value:
+                        "\$${earning.hourly_rate?.toStringAsFixed(2) ?? 0.0}"),
                 TransactionInfo(
                     label: StringConstant.wages,
-                    value: "\$${earning.total_wage ?? 0.0}"),
+                    value:
+                        "\$${earning.total_wage?.toStringAsFixed(2) ?? 0.0}"),
                 TransactionInfo(
                     label: StringConstant.allowances,
-                    value: "\$${earning.total_allowance ?? 0.0}"),
+                    value:
+                        "\$${earning.total_allowance?.toStringAsFixed(2) ?? 0.0}"),
                 TransactionInfo(
                     label: StringConstant.earnings,
-                    value: "\$${earning.total_earnings ?? 0.0}",
+                    value:
+                        "\$${earning.total_earnings?.toStringAsFixed(2) ?? 0.0}",
                     valueColor: AppColors.green),
               ],
             );
@@ -323,7 +336,7 @@ class _Earning extends StatelessWidget {
                 ),
                 BaseText(
                   text:
-                      "\$${statement.additional_data?.completed_total_earnings ?? 0.0}",
+                      "\$${statement.additional_data?.completed_total_earnings?.toStringAsFixed(2) ?? 0.0}",
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
                 ),
@@ -373,7 +386,7 @@ class _Compensation extends StatelessWidget {
                     value: earning.location?.location ?? ""),
                 TransactionInfo(
                     label: StringConstant.compensationFee,
-                    value: "\$${earning.amount ?? 0.0}",
+                    value: "\$${earning.amount?.toStringAsFixed(2) ?? 0.0}",
                     valueColor: AppColors.green),
               ],
             );
@@ -396,7 +409,7 @@ class _Compensation extends StatelessWidget {
                 ),
                 BaseText(
                   text:
-                      "\$${statement.additional_data?.total_cancellation_fee ?? 0.0}",
+                      "\$${statement.additional_data?.total_cancellation_fee?.toStringAsFixed(2) ?? 0.0}",
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
                 ),
@@ -443,7 +456,7 @@ class _ReferralBonus extends StatelessWidget {
                     value: earning.referred_contractor_name ?? ""),
                 TransactionInfo(
                     label: StringConstant.bonusAmount,
-                    value: "\$${earning.amount ?? 0.0}",
+                    value: "\$${earning.amount?.toStringAsFixed(2) ?? 0.0}",
                     valueColor: AppColors.green),
               ],
             );
@@ -510,7 +523,7 @@ class _Bank extends StatelessWidget {
                             earning.date! * 1000))),
                 TransactionInfo(
                   label: StringConstant.depositAmount,
-                  value: "\$${earning.amount ?? 0.0}",
+                  value: "\$${earning.amount?.toStringAsFixed(2) ?? 0.0}",
                   valueColor: AppColors.primaryColor,
                 ),
               ],

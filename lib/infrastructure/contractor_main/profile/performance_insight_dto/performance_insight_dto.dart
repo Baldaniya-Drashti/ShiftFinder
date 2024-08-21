@@ -43,11 +43,22 @@ class InsightListDTO with _$InsightListDTO {
 }
 
 @freezed
+class HourWorkedDetailDTO with _$HourWorkedDetailDTO {
+  const factory HourWorkedDetailDTO({
+    String? name,
+    String? value,
+  }) = _HourWorkedDetailDTO;
+
+  factory HourWorkedDetailDTO.fromJson(Map<String, dynamic> json) =>
+      _$HourWorkedDetailDTOFromJson(json);
+}
+
+@freezed
 class HourWorkedDTO with _$HourWorkedDTO {
   const factory HourWorkedDTO({
     // List<String>? hours_list,
     // List<String>? hours,
-    List<InsightListDTO>? list,
+    List<HourWorkedDetailDTO>? list,
     List<String>? heights,
   }) = _HourWorkedDTO;
 

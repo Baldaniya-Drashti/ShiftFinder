@@ -20,6 +20,7 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/enum.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
@@ -150,21 +151,6 @@ class ViewHomeShiftDetails extends StatelessWidget {
       ),
     );
   }
-
-  /*Widget agreedProposal(BuildContext context, HealthcarePostDTO shift) {
-    return CommonButton(
-      onPressed: () {
-        context.router.push(PageRouteInfo(AgreedProposal.name,
-            args: AgreedProposalArgs(post: shift)));
-      },
-      backgroundColor: AppColors.primaryColor.withOpacity(0.1),
-      buttonTextColor: AppColors.black,
-      buttonFontSize: 12,
-      borderRadius: 7,
-      height: 34,
-      buttonText: StringConstant.viewAgreedProposal,
-    );
-  }*/
 
   /* Widget payableBox(
       HealthcarePostDTO shift, PayableDTO payable, ShiftDetailRoute? route) {
@@ -696,7 +682,9 @@ class ViewHomeShiftDetails extends StatelessWidget {
               final latitude = location?.latitude;
               final longitude = location?.longitude;
               if (latitude != null && longitude != null) {
-                context.router.push(
+                LocationHelper.openDirections(context,
+                    endLat: latitude, endLng: longitude);
+                /* context.router.push(
                   PageRouteInfo(
                     ShowGoogleMap.name,
                     args: ShowGoogleMapArgs(
@@ -704,7 +692,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
                       longitude: longitude,
                     ),
                   ),
-                );
+                ); */
               }
             },
             child: Row(
@@ -837,8 +825,9 @@ class ViewHomeShiftDetails extends StatelessWidget {
                 title: StringConstant.shiftDates,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
-              (post.shift_detail?.shift_type == 2 &&
-                      post.shift_detail?.same_or_different_time == 2)
+              (post.shift_detail?.shift_type == 2
+                  //  &&        post.shift_detail?.same_or_different_time == 2
+                  )
                   ? displayDateBreak(context, post,
                       boldValue: (post.shift_detail?.detail != null &&
                               post.shift_detail!.detail!.isNotEmpty)

@@ -11,6 +11,7 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -22,13 +23,18 @@ class PayableDetail extends StatelessWidget {
   final PostShiftDTO? updatedPost;
   final bool isUpdate;
   final bool fromSaveTemplate;
+  final bool fromReview;
+  final bool isCreate;
 
-  const PayableDetail(
-      {super.key,
-      required this.post,
-      this.isUpdate = false,
-      this.updatedPost,
-      this.fromSaveTemplate = false});
+  const PayableDetail({
+    super.key,
+    required this.post,
+    this.isUpdate = false,
+    this.updatedPost,
+    this.fromSaveTemplate = false,
+    this.fromReview = false,
+    this.isCreate = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +63,24 @@ class PayableDetail extends StatelessWidget {
                     title: StringConstant.allSet,
                     infoMessage: r,
                     onOkClick: () {
+                      if (fromSaveTemplate == true) {
+                        context.router.popUntil((route) {
+                          if (route.settings.name == SaveTemplateView.name) {
+                            bool argument = true;
+                            route.onPopInvokedWithResult(true, argument);
+                            // (route.settings.arguments as Map)['isPOP'] = true;
+                            return true;
+                          } else {
+                            return false;
+                          }
+                          // return route.settings.name == EmployerLongTermView.name;
+                        });
+                      } else {
+                        context.router.popUntil(
+                          (route) => route.isFirst,
+                        );
+                      }
                       // context.router.maybePop();
-                      context.router.popUntil(
-                        (route) => route.isFirst,
-                      );
                     },
                   );
                 },
@@ -85,11 +105,24 @@ class PayableDetail extends StatelessWidget {
                     title: StringConstant.allSet,
                     infoMessage: r.dioMessage ?? "",
                     onOkClick: () {
-                      // context.router.maybePop();
-
-                      context.router.popUntil(
+                      if (fromSaveTemplate == true) {
+                        context.router.popUntil((route) {
+                          if (route.settings.name == SaveTemplateView.name) {
+                            bool argument = true;
+                            route.onPopInvokedWithResult(true, argument);
+                            return true;
+                          } else {
+                            return false;
+                          }
+                        });
+                      } else {
+                        context.router.popUntil(
+                          (route) => route.isFirst,
+                        );
+                      }
+                      /*  context.router.popUntil(
                         (route) => route.isFirst,
-                      );
+                      ); */
                     },
                   );
                 },
@@ -134,17 +167,21 @@ class PayableDetail extends StatelessWidget {
                                     onPressed: () {
                                       AppDialog.showDelete(
                                         context,
-                                        title: (isUpdate && !fromSaveTemplate)
+                                        title: (isUpdate &&
+                                                !fromSaveTemplate &&
+                                                !isCreate)
                                             ? StringConstant.updateTheShift
                                             : StringConstant.postTheShift,
-                                        infoMessage:
-                                            (isUpdate && !fromSaveTemplate)
-                                                ? StringConstant.updateShiftDesc
-                                                : StringConstant.postShiftDesc,
-                                        deleteBtnText:
-                                            isUpdate && !fromSaveTemplate
-                                                ? StringConstant.update
-                                                : StringConstant.post,
+                                        infoMessage: (isUpdate &&
+                                                !fromSaveTemplate &&
+                                                !isCreate)
+                                            ? StringConstant.updateShiftDesc
+                                            : StringConstant.postShiftDesc,
+                                        deleteBtnText: (isUpdate &&
+                                                !fromSaveTemplate &&
+                                                !isCreate)
+                                            ? StringConstant.update
+                                            : StringConstant.post,
                                         onCancelClick: () {
                                           Navigator.pop(context);
                                         },
@@ -154,15 +191,20 @@ class PayableDetail extends StatelessWidget {
                                                   PostShiftEvent
                                                       .postTheShiftEvent(
                                                 post.id ?? -1,
-                                                (isUpdate && !fromSaveTemplate)
+                                                (isUpdate &&
+                                                        !fromSaveTemplate &&
+                                                        !isCreate)
                                                     ? updatedPost
                                                     : null,
                                                 fromSaveTemplate,
+                                                fromReview: fromReview,
                                               ));
                                         },
                                       );
                                     },
-                                    buttonText: (isUpdate && !fromSaveTemplate)
+                                    buttonText: (isUpdate &&
+                                            !fromSaveTemplate &&
+                                            !isCreate)
                                         ? StringConstant.updateTheShift
                                         : StringConstant.postTheShift,
                                   ),

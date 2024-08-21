@@ -20,6 +20,7 @@ import 'package:shift/infrastructure/core/location_dto/search_location_dto/searc
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 
 part 'shifts_bloc_event.dart';
 
@@ -53,6 +54,16 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
       (event, emit) async {
         await event.map(
           started: (value) async {},
+          changeNotificationTab: (e) async {
+            final currentTab = getNotificationTab();
+
+            if (currentTab != null) {
+              emit(state.copyWith(isLoading: true));
+              emit(state.copyWith(selectedTab: currentTab));
+              await Future.delayed(Duration(seconds: 1));
+              emit(state.copyWith(isLoading: false));
+            }
+          },
           onFilledSorting: (e) {
             if (state.currentFilledFilter != e.currentSorting) {
               add(ShiftsBlocEvent.fetchFilledShiftList(refresh: true));
@@ -78,7 +89,24 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
             emit(state.copyWith(currentCancelLocationFilter: e.currentSorting));
           },
           tabChange: (value) async {
-            emit(state.copyWith(selectedTab: value.tabIndex));
+            final currentTab = getNotificationTab();
+
+            if (currentTab != null) {
+              emit(state.copyWith(isLoading: true));
+              emit(state.copyWith(selectedTab: currentTab));
+              await Future.delayed(Duration(seconds: 1));
+            } else {
+              emit(state.copyWith(selectedTab: value.tabIndex));
+            }
+
+            emit(state.copyWith(isLoading: false));
+            if (value.tabIndex == 0) {
+              add(ShiftsBlocEvent.fetchFilledShiftList(refresh: true));
+            } else if (value.tabIndex == 1) {
+              add(ShiftsBlocEvent.fetchApprovedShiftList(refresh: true));
+            } else if (value.tabIndex == 2) {
+              add(ShiftsBlocEvent.fetchCancelledShiftList(refresh: true));
+            }
           },
           getLocationListAPI: (GetLocationListAPI value) async {
             emit(state.copyWith(getDataLoading: true));
@@ -92,13 +120,6 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
                 ),
               ),
               (r) {
-                // var dropdownList = r
-                //     .map(
-                //       (e) => DropDownValueModel(
-                //           name: e.location ?? "", value: e.id),
-                //     )
-                //     .toList();
-
                 emit(
                   state.copyWith(
                     getDataLoading: false,
@@ -113,9 +134,10 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
                 );
               },
             );
-            add(ShiftsBlocEvent.fetchFilledShiftList(refresh: true));
-            add(ShiftsBlocEvent.fetchApprovedShiftList(refresh: true));
-            add(ShiftsBlocEvent.fetchCancelledShiftList(refresh: true));
+            add(ShiftsBlocEvent.tabChange(0));
+            // add(ShiftsBlocEvent.fetchFilledShiftList(refresh: true));
+            // add(ShiftsBlocEvent.fetchApprovedShiftList(refresh: true));
+            // add(ShiftsBlocEvent.fetchCancelledShiftList(refresh: true));
           },
           deleteReasonChange: (DeleteReasonChange e) async {
             return emit(

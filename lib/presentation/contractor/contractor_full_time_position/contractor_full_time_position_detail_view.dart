@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -22,7 +23,7 @@ class ContractorFullTimePositionDetailView extends StatelessWidget {
     return Scaffold(
       appBar: CommonAppBar(
           onBackPressed: () => context.router.maybePop(),
-          title: "View Position Details"),
+          title: StringConstant.viewPositionDetails),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(12),
         child: BaseTileDecoration(
@@ -38,17 +39,22 @@ class ContractorFullTimePositionDetailView extends StatelessWidget {
               _buildLocationDetail(context),
               _buildBargainingUnit(context),
               _buildOnCall(context),
-              _buildBulletPointsList(context, title: "Benefits Provided"),
-              _buildBulletPointsList(context, title: "Compensation Package"),
-              _buildBulletPointsList(context, title: "Job Summary"),
               _buildBulletPointsList(context,
-                  title: "External and Internal Relationships"),
-              _buildBulletPointsList(context, title: "Required Qualifications"),
-              _buildBulletPointsList(context, title: "Required Experience"),
+                  title: StringConstant.benefitsProvided),
               _buildBulletPointsList(context,
-                  title: "Required Licenses/Certifications"),
-              _buildBulletPointsList(context, title: "Required Skills"),
-              _buildBulletPointsList(context, title: "Other"),
+                  title: StringConstant.compensationPackage),
+              _buildBulletPointsList(context, title: StringConstant.jobSummary),
+              _buildBulletPointsList(context,
+                  title: StringConstant.externalAndInternalRelationships),
+              _buildBulletPointsList(context,
+                  title: StringConstant.requiredQualifications),
+              _buildBulletPointsList(context,
+                  title: StringConstant.requiredExperience),
+              _buildBulletPointsList(context,
+                  title: StringConstant.requiredLicensesCertifications),
+              _buildBulletPointsList(context,
+                  title: StringConstant.requiredSkills),
+              _buildBulletPointsList(context, title: StringConstant.other),
               _buildNumberOfVacancy(context)
             ],
           ),
@@ -365,19 +371,10 @@ class ContractorFullTimePositionDetailView extends StatelessWidget {
             BaseText(
                 text: "2464 Royal Ln. Mesa, New Jersey 45463", fontSize: 14),
             Gap(10),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                BaseText(
-                    text: "Unit - ",
-                    fontSize: 12,
-                    textColor: AppColors.primaryColor),
-                BaseText(
-                    text: "Unit Name",
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500),
-              ],
-            ),
+            BaseText(
+                text: "Unit - ",
+                fontSize: 12,
+                textColor: AppColors.primaryColor),
             Gap(4),
             BaseText(text: "X-ray", fontSize: 14),
           ],

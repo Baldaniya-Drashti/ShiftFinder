@@ -34,9 +34,7 @@ class UploadDocumentBox extends StatelessWidget {
               SizedBox(
                 height: getSize(66),
                 width: getSize(58),
-                child: Image.asset(
-                  PngImageConstants.upload
-                ),
+                child: Image.asset(PngImageConstants.upload),
               ),
               const SizedBox(
                 height: 20,
@@ -51,12 +49,8 @@ class UploadDocumentBox extends StatelessWidget {
                 customWidget: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SvgPicture.asset(
-                      SvgImageConstant.upload,
-                    ),
-                    SizedBox(
-                      width: getSize(10),
-                    ),
+                    SvgPicture.asset(SvgImageConstant.upload),
+                    SizedBox(width: getSize(10)),
                     BaseText(
                       text: StringConstant.upload,
                       fontSize: 12,

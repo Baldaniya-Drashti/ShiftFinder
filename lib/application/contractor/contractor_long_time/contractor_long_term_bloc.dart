@@ -6,6 +6,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/infrastructure/core/contractor_long_term_dashboard/contractor_long_term_dashboard_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 part 'contractor_long_term_event.dart';
 part 'contractor_long_term_state.dart';
 part 'contractor_long_term_bloc.freezed.dart';
@@ -32,6 +33,17 @@ class ContractorLongTermBloc
       : super(ContractorLongTermState.initial()) {
     on<ContractorLongTermEvent>((event, emit) async {
       await event.map(
+        changeTab: (e) async {
+          final currentTab = getNotificationTab();
+          print("selected TAB---> $currentTab");
+          if (currentTab != null) {
+            emit(state.copyWith(isLoading: true, selectedTab: currentTab));
+            await Future.delayed(Duration(seconds: 1));
+            emit(state.copyWith(isLoading: false));
+          } else {
+            emit(state.copyWith(selectedTab: e.tabIndex));
+          }
+        },
         fetchOpenPositionList: (value) async {
           if (value.refresh) {
             currentPage = 1;

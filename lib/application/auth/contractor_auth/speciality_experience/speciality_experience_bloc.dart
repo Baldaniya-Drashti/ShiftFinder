@@ -30,7 +30,8 @@ class SpecialityExperienceBloc
             ),
           );
 
-          if (e.isUpdate) {
+          await getExistingSpecialityDetail(emit);
+          /* if (e.isUpdate) {
             await getExistingSpecialityDetail(emit);
           } else {
             final specialityList =
@@ -54,7 +55,7 @@ class SpecialityExperienceBloc
                 );
               },
             );
-          }
+          } */
         },
         updateRecordEvent: (e) {
           List<ExperienceDTO> updatedRecords = List.from(state.records);
@@ -104,9 +105,8 @@ class SpecialityExperienceBloc
             );
 
             failureOrSuccess = await _repository.addSpecialityExperienceApi(
-              experienceDetail: jsonEncode(mapExperienceDTOToApiFormat(
-                  state.records,
-                  isUpdate: e.isUpdate)),
+              experienceDetail:
+                  jsonEncode(mapExperienceDTOToApiFormat(state.records)),
             );
           }
           print("failureOrSuccess--> $failureOrSuccess");
@@ -152,8 +152,8 @@ class SpecialityExperienceBloc
   }
 
   List<Map<String, dynamic>> mapExperienceDTOToApiFormat(
-      List<ExperienceDTO?> experienceSpecialityList,
-      {bool isUpdate = false}) {
+    List<ExperienceDTO?> experienceSpecialityList,
+  ) {
     return experienceSpecialityList.map((speciality) {
       return {
         'specialtie_id': speciality?.id,

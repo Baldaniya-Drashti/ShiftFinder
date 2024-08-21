@@ -131,7 +131,6 @@ class ShiftActionBloc extends Bloc<ShiftActionEvent, ShiftActionState> {
             );
           },
           leaveRating: (value) async {
-            print("testttt");
             Either<MainFailure, CommonResponse>? failureOrSuccess;
             emit(state.copyWith(postLoading: true));
             failureOrSuccess = await _mainFacade.addEmployerRating(

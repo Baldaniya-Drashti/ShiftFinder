@@ -1,20 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
-import 'package:shift/application/employer/proposal_detail/proposal_detail_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
-import 'package:shift/injection.dart';
+import 'package:shift/infrastructure/contractor_main/shift/applied_shift_dto/applied_shift_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
-import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
-import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
@@ -23,11 +18,9 @@ class ContractorProposedAvailability extends StatefulWidget {
   const ContractorProposedAvailability({
     super.key,
     required this.list,
-    this.confirmDialog = false,
   });
 
-  final List<EmployerProposalShiftDetailDto> list;
-  final bool confirmDialog;
+  final List<ProposalShiftDetailDTO> list;
 
   @override
   State<ContractorProposedAvailability> createState() =>
@@ -39,7 +32,6 @@ class _ContractorProposedAvailabilityState
   @override
   void initState() {
     super.initState();
-    // _confirmationCheckBox = ValueNotifier(widget.confirmDialog);
   }
 
   @override
@@ -50,200 +42,80 @@ class _ContractorProposedAvailabilityState
             element.proposed_end_time == null)
         .toList()
         .length;
-    return BlocProvider(
-      create: (context) => getIt<ProposalDetailBloc>()
-        ..add(
-            ProposalDetailEvent.checkConfirmAvailability(widget.confirmDialog)),
-      child: BlocBuilder<ProposalDetailBloc, ProposalDetailState>(
-        builder: (context, state) {
-          return PopScope(
-            canPop: false,
-
-            /* onPopInvoked: (
-              didPop,
-            ) {
-              Log.debug("didPop---> ${state.isConfirmProposalDate}");
-              if (didPop) {
-                // context.router.maybePop(_confirmationCheckBox.value);
-                // context.router.maybePop(state.isConfirmProposalDate);
-                // Navigator.pop(context, state.isConfirmProposalDate);
-              }
-            }, */
-            // onPopInvoked: (result) {
-            //   context.router.maybePop(_confirmationCheckBox.value);
-            // },
-            child: Scaffold(
-              appBar: CommonAppBar(
-                onBackPressed: () =>
-                    // context.router.maybePop(_confirmationCheckBox.value),
-
-                    Navigator.pop(context, state.isConfirmProposalDate),
-                title: StringConstant.viewAvailability,
+    return Scaffold(
+      appBar: CommonAppBar(
+        onBackPressed: () => Navigator.pop(context),
+        title: StringConstant.viewAvailability,
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(getSize(20)),
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
               ),
-              body: Padding(
-                padding: EdgeInsets.all(getSize(20)),
-                child: Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                      ),
-                      child: Row(
+              child: Row(
+                children: [
+                  SvgPicture.asset(SvgImageConstant.clockWithOuterLine,
+                      height: 40),
+                  Gap(12),
+                  Image.asset(
+                    PngImageConstants.line,
+                    height: 40,
+                  ),
+                  Gap(12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BaseText(
+                          text:
+                              "Total Number of Shifts - ${widget.list.length}",
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          SvgPicture.asset(SvgImageConstant.clockWithOuterLine,
-                              height: 40),
-                          Gap(12),
-                          Image.asset(
-                            PngImageConstants.line,
-                            height: 40,
+                          CircleAvatar(
+                            backgroundColor: AppColors.redAccent,
+                            radius: 4,
                           ),
-                          Gap(12),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              BaseText(
-                                  text:
-                                      "Total Number of Shifts - ${widget.list.length}",
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  CircleAvatar(
-                                    backgroundColor: AppColors.redAccent,
-                                    radius: 4,
-                                  ),
-                                  Gap(6),
-                                  BaseText(
-                                    text:
-                                        "Unavailable Shifts - $unavailableCount",
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 10,
-                                  ),
-                                ],
-                              )
-                            ],
-                          )
+                          Gap(6),
+                          BaseText(
+                            text: "Unavailable Shifts - $unavailableCount",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 10,
+                          ),
                         ],
-                      ),
-                    ),
-                    Gap(16),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ListView.separated(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) =>
-                                  EmployerAvailabilityListTile(
-                                      data: widget.list[index]),
-                              separatorBuilder: (context, index) => Gap(28),
-                              itemCount: widget.list.length,
-                            ),
-                            Gap(getSize(25)),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color(0XFFEDEDED),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              padding: EdgeInsets.all(8),
-                              child: GestureDetector(
-                                onTap: () {
-                                  print(
-                                      "isConfirmProposalDate--> ${state.isConfirmProposalDate}");
-                                  bool value =
-                                      state.isConfirmProposalDate ?? false;
-                                  value = !value;
-
-                                  context.read<ProposalDetailBloc>().add(
-                                      ProposalDetailEvent
-                                          .checkConfirmAvailability(value));
-                                },
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 6, left: 8),
-                                      child: SizedBox(
-                                        height: getSize(20),
-                                        width: getSize(16.67),
-                                        // child: ValueListenableBuilder(
-                                        //   // valueListenable: _confirmationCheckBox,
-                                        //   valueListenable:
-                                        //       state.isConfirmProposalDate,
-                                        //   builder: (context, value, child) {
-                                        //     return   },
-                                        // ),
-                                        child: Checkbox(
-                                          // value: _confirmationCheckBox.value,
-                                          value: state.isConfirmProposalDate,
-                                          activeColor: AppColors.primaryColor,
-                                          side: BorderSide(
-                                            width: getSize(1.5),
-                                            color: AppColors.black
-                                                .withOpacity(0.5),
-                                          ),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          onChanged: (value) {
-                                            // _confirmationCheckBox.value = value;
-                                            if (value != null) {
-                                              context
-                                                  .read<ProposalDetailBloc>()
-                                                  .add(ProposalDetailEvent
-                                                      .checkConfirmAvailability(
-                                                          value));
-                                            }
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                    Gap(getSize(15)),
-                                    Expanded(
-                                      child: BaseText(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 12,
-                                        text: StringConstant
-                                            .confirmProposalTimeDesc,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            if (state.isConfirmError &&
-                                state.isConfirmProposalDate == false)
-                              commonErrorText(
-                                  "* Please confirm that you reviewed proposed availability",
-                                  padding: EdgeInsets.only(
-                                      left: getSize(10), top: getSize(15))),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  top: getSize(40), bottom: getSize(40)),
-                              child: CommonButton(
-                                  onPressed: () {
-                                    context.read<ProposalDetailBloc>().add(
-                                        ProposalDetailEvent.isCheckAvailability(
-                                            context));
-                                  },
-                                  buttonText: StringConstant.confirm),
-                            ),
-                          ],
-                        ),
-                      ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+            Gap(16),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ListView.separated(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) =>
+                          EmployerAvailabilityListTile(
+                              data: widget.list[index]),
+                      separatorBuilder: (context, index) => Gap(15),
+                      itemCount: widget.list.length,
                     ),
                   ],
                 ),
               ),
             ),
-          );
-        },
+          ],
+        ),
       ),
     );
   }
@@ -252,7 +124,7 @@ class _ContractorProposedAvailabilityState
 class EmployerAvailabilityListTile extends StatelessWidget {
   const EmployerAvailabilityListTile({super.key, required this.data});
 
-  final EmployerProposalShiftDetailDto data;
+  final ProposalShiftDetailDTO data;
 
   @override
   Widget build(BuildContext context) {

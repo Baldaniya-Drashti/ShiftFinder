@@ -450,11 +450,15 @@ class StringConstant {
   static const String reject = "Reject";
   static const String urgentActionRequiredDesc =
       "Your shift application has been accepted by the employer. Please confirm your acceptance to finalize the shift.";
+  static const String urgentActionRequiredRevokeStatusDesc =
+      "Please confirm your acceptance to cancel revoking and finalize the shift.";
   static const String decline = "Decline";
   static const String declineShiftDesc =
       "Declining this shift may impact future opportunities. Are you sure you want to decline?";
   static const String areYouSureYouWantToCancelTheApplication =
       "Are you sure you want to cancel the application?";
+  static const String areYouSureYouWantToCancelTheProposal =
+      "Are you sure you want to cancel the proposal?";
   static const String offerRevokedByTheEmployer =
       "Offer Revoked by the Employer";
   static const String offerRevokedByYou = "Offer Revoked by You";
@@ -531,9 +535,9 @@ class StringConstant {
       "Approve Shifts for Contractors";
   static const String cancelledByYou = "Cancelled by You";
   static const String approveShiftDesc1 =
-      "By approving these clock in and out times, you confirm that you have reviewed the ";
+      "By approving the clock-in and clock-out times, you confirm that ";
   static const String approveShiftDesc2 =
-      "’s hours. Once approved, the times will be finalized.";
+      "’s shift hours have been reviewed. Once approved, these times will be final.";
 
   static const String withdrawnByContractor = "Withdrawn by contractor";
   static const String allWithdranContractors = "All Withdrawn Contractors";
@@ -671,13 +675,14 @@ class StringConstant {
   static const String counterProposalConfirmation =
       "Are you sure you want to send this counter proposal to the contractor?";
   static const String counterProposalExistingValueDesc =
-      "Some fields in your counter proposal are unfilled. For these fields, the contractor proposed values remain the same as the originally posted values. By proceeding, you confirm that you agree with these values and do not wish to modify them.";
+      "Some fields in your counter proposal are unfilled. For these fields, the counter proposed values will be automatically considered as the contractor proposed values. By proceeding, you confirm that you agree with these values and do not wish to modify them.";
   static const String wouldYouLikeToProceedWithSendingTheCounterProposal =
       "Would you like to proceed with sending the counter proposal?";
   static const String proposalAvailabilityConfirmationDesc =
       "Please confirm that you have reviewed the proposed availability to accept the proposal.";
   static const String currentCompleteShiftDesc =
-      "Your submitted shift will move to Profile → Previous Shifts → Completed after the payment is processed.";
+      // "Your submitted shift will move to Profile → Previous Shifts → Completed after the payment is processed.";
+      "Your submitted shift will move to Profile → Previous Shifts → Completed after the Employer approval.";
   static const String pleaseSelectYourAddressProofDocumentFromTheList =
       "Please select your address proof document from the list";
   static const String selectYourAddressProof = "Select Your Address Proof";
@@ -784,6 +789,84 @@ class StringConstant {
   static const String shiftFinderServiceFeeCalculation =
       "ShiftFinder Service Fee Calculation";
   static const String totalMonthsOfContract = "Total Months of Contract";
+  static const String shiftApprovedDesc =
+      "The shift has been approved. You can now rate, add to favorites, leave a remark, or block the contractor. These actions can also be performed later through profile -> Previous ShiftPros.";
+  static const String editTemplate = "Edit Template";
+  static const String saveAndNext = "Save and Next";
+  static const String onCall = "On-Call";
+  static const String fullTime = "Full Time";
+  static const String partTime = "Part Time";
+  static const String counterProposed = "Counter Proposed";
+  static const String pleaseSelectDateToViewMonthlyStatement =
+      "Please select date to view Monthly Statement";
+  static const String estimatedWeeklyHours = "Estimated Weekly Hours";
+  static const String viewPositionDetails = "View Position Details";
+  static const String upcomingPositions = "Upcoming Positions";
+  static const String appliedPositions = "Applied Positions";
+  static const String jobRole = "Job Role";
+  static const String searchByJobRole = "Search by Job Role";
+  static const String searchRole = "Search Role";
+  static const String agreed = "Agreed";
+  static const String agreedTime = "Agreed Time";
+  static const String deleteThePosition = "Delete The Position";
+  static const String deleteFullTimeDesc =
+      "Are you sure you want to delete this full time position?";
+  static const String shiftId = "Shift Id";
+  static const String fullTimeApplyDesc =
+      "Interviews and hiring procedures for full-time positions are managed directly by the employer, outside of the ShiftFinder platform. Once hired, the employer will be responsible for making payments directly to you.ShiftFinder is not liable for any disputes, including those related to non-payment or contract violations.";
+  static const String totalAmountPayableToShiftFinder =
+      "Total Amount Payable to ShiftFinder";
+  static const String totalAmountPayableToContractor =
+      "Total Amount Payable to Contractor";
+  static const String totalShiftHours = "Total Shift Hours";
+  static const String forceSpecialityUpdateDesc =
+      "You have update speciality. Please update your experience for this speciality before proceeding.\nTap 'Update' to continue.";
+  static const String forceRoleUpdateDesc =
+      "You have update role. Please update your experience for this role before proceeding.\nTap 'Update' to continue.";
+  static const String templates = "Templates";
+  static const String saveTemplatesDesc =
+      "Search and customize your saved shift templates by job role and shift type for quick and easy posting";
+  static const String savedTemplates = "Saved Templates";
+  static const String viewReceipt = "View Receipt";
+  static const String receipt = "Receipt";
+  static const String nextShiftDate = "Next Shift Date";
+  static const String shiftApproved = "Shift Approved";
+  static const String onboardingProcess = "Onboarding Process";
+  static const String contractTerms = "Contract Terms";
+  static const String employerCancelledThisShift =
+      "Employer cancelled this shift";
+  static const String paymentPending = "Payment is Pending";
+  static const String paymentCompleted = "Payment Completed";
+  static const String awaitingEmployerApproval = "Awaiting Employer Approval";
+  static const String proofDocument = "Proof Document";
+  static const String requiredSkills = "Required Skills";
+  static const String requiredExperience = "Required Experience";
+  static const String requiredQualifications = "Required Qualifications";
+  static const String externalAndInternalRelationships =
+      "External and Internal Relationships";
+  static const String jobSummary = "Job Summary";
+  static const String compensationPackage = "Compensation Package";
+  static const String benefitsProvided = "Benefits Provided";
+  static const String requiredLicensesCertifications =
+      "Required Licenses/Certifications";
+  static const String other = "Other";
+  static const String remark = "Remark";
+  static const String remarkAdded = "Remark Added";
+  static const String leaveARating = "Leave a Rating";
+  static const String teams = "Teams";
+  static const String locations = "Locations";
+  static const String previousShiftPros = "Previous ShiftPros";
+  static const String joinShiftFinder = "Join ShiftFinder";
+  static const String logoutJoin = "Logout";
+  static const String logoutAlertDesc = "Are you sure you want to log out?";
+  static const String added = "Added";
+  static const String unfavorite = "Unfavorite";
+  static const String allShiftPros = "All ShiftPros";
+  static const String favorites = "Favorites";
+  static const String remarked = "Remarked";
+  static const String applicationRejectedSuccessfully =
+      "Application rejected successfully";
+  static const String editBankDetails = "Edit Bank Details";
   static const String iRoidSolutions = "iRoid Solutions";
 
   static const String shiftFinderWebsite = "https://shiftfinderinc.com";
@@ -1066,6 +1149,12 @@ class StringConstant {
       "Please select application deadline";
   static const String pleaseCheckTheBoxToProceeding =
       'Please check the box to proceeding';
+  static const String pleaseSelectEstimationHours =
+      "Please select estimation hours";
+
+  static const String
+      shiftStartTimeMustBeAFutureTimeAndAtLeastTwoHoursAfterTheCurrentTime =
+      "Shift start time must be a future and at least 2 hours after the current time.";
 }
 // latitude: 21.191535534205194,
 // longitude: 72.78582206137469,

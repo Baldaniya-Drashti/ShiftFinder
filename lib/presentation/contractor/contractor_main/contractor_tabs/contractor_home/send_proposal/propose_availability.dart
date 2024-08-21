@@ -84,6 +84,23 @@ class ProposeAvailability extends StatelessWidget {
                             if (state.shift.shift_detail
                                     ?.same_or_different_time !=
                                 1) {
+                              final bool isBeforeTime =
+                                  state.multiDates.any((dto) {
+                                if (dto.start_time == null) return false;
+                                final twoHoursLater =
+                                    DateTime.now().add(Duration(hours: 2));
+                                DateTime startTime =
+                                    DateTime.parse(dto.start_time!);
+                                return startTime.isBefore(twoHoursLater);
+                              });
+
+                              if (isBeforeTime) {
+                                showError(
+                                        message: StringConstant
+                                            .shiftStartTimeMustBeAFutureTimeAndAtLeastTwoHoursAfterTheCurrentTime)
+                                    .show(context);
+                                return;
+                              }
                               final isLessThanTwoHours =
                                   state.multiDates.any((dto) {
                                 final totalPayableDuration =

@@ -12,11 +12,13 @@ import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/contractor_long_term_dashboard/contractor_long_term_dashboard_dto.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/helper/helper_function.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -27,124 +29,133 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ContractorFullTimePositionBloc,
-        ContractorFullTimePositionState>(
-      builder: (context, state) {
-        return Stack(
-          children: [
-            PaginatedListView(
-              isNoDataFound: state.isNoDataFound,
-              onRefresh: () {
-                context.read<ContractorFullTimePositionBloc>().add(
-                    ContractorFullTimePositionEvent.fetchOpenPositionList(
-                        refresh: true));
-              },
-              onLoading: () {
-                context.read<ContractorFullTimePositionBloc>().add(
-                    ContractorFullTimePositionEvent.fetchOpenPositionList(
-                        refresh: false));
-              },
-              refreshController: context
-                  .read<ContractorFullTimePositionBloc>()
-                  .openRefreshController,
-              child: state.isLoading
-                  ? CenterLoadingIndicator()
-                  : state.isErrorInAPI
-                      ? Center(
-                          child:
-                              BaseText(text: StringConstant.somethindWentWrong),
-                        )
-                      : ListView.separated(
-                          padding: EdgeInsets.all(getSize(12)),
-                          itemBuilder: (context, index) {
-                            final data = state.openPositionList[index];
-                            return Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.white,
-                                borderRadius:
-                                    BorderRadius.circular(getSize(20)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AppColors.lightGrey.withOpacity(0.2),
-                                    blurRadius: getSize(20),
-                                  ),
-                                ],
-                              ),
-                              padding: EdgeInsets.all(getSize(12)),
-                              child: Column(
-                                children: [
-                                  _buildPositionTile(context,
-                                      contractorFullPosting: data),
-                                  Gap(getSize(12)),
-                                  CommonMaterialButton(
-                                    radius: 7,
-                                    height: 36,
-                                    onPressed: () {
-                                      context.router.push(
-                                        PageRouteInfo(
-                                            EmployerFullPositionPositionDetailView
-                                                .name,
-                                            args:
-                                                EmployerFullPositionPositionDetailViewArgs(
-                                                    id: data.id ?? -1)),
-                                      );
-                                    },
-                                    label: "View Position Details",
-                                    backgroundColor:
-                                        AppColors.primaryColor.withOpacity(.1),
-                                  ),
-                                  Gap(getSize(12)),
-                                  _buildApplicationInformation(context,
-                                      contractorFullPosting: data),
-                                  Gap(getSize(10)),
-                                  _buildEstimatedHours(context,
-                                      contractorFullPosting: data),
-                                  Gap(getSize(12)),
-                                  _buildShiftSchedule(context,
-                                      contractorFullPosting: data),
-                                  Gap(getSize(12)),
-                                  _buildNumberOfVacancy(context,
-                                      contractorFullPosting: data),
-                                  Gap(getSize(12)),
-                                  CommonButton(
-                                    borderRadius: 10,
-                                    onPressed: () async {
-                                      final result =
-                                          await AppDialog.showCommonDialog(
-                                        context: context,
-                                        title: "Apply",
-                                        extraContent:
-                                            "Are you sure you want to apply for this position?",
-                                        content:
-                                            "If hired for this long term position, the employer will be responsible for making payments directly to you. ShiftFinder is not liable for any disputes, including those related to non-payment or contract violations.",
-                                        successLabel: "Apply",
-                                      );
-                                      if (result ?? false) {
-                                        context
-                                            .read<
-                                                ContractorFullTimePositionBloc>()
-                                            .add(
-                                              ContractorFullTimePositionEvent
-                                                  .applyOpenPosition(
-                                                      context: context,
-                                                      id: data.id ?? -1),
-                                            );
-                                      }
-                                    },
-                                    buttonText: "Apply",
-                                  )
-                                ],
-                              ),
-                            );
-                          },
-                          separatorBuilder: (context, index) => Gap(16),
-                          itemCount: state.openPositionList.length,
-                        ),
-            ),
-            if (state.postDataLoading) CenterLoadingIndicator()
-          ],
-        );
-      },
+    return BlocProvider(
+      create: (context) => getIt<ContractorFullTimePositionBloc>()
+        ..add(ContractorFullTimePositionEvent.fetchOpenPositionList(
+            refresh: true)),
+      child: BlocBuilder<ContractorFullTimePositionBloc,
+          ContractorFullTimePositionState>(
+        builder: (context, state) {
+          return Stack(
+            children: [
+              PaginatedListView(
+                isNoDataFound: state.isNoDataFound,
+                onRefresh: () {
+                  context.read<ContractorFullTimePositionBloc>().add(
+                      ContractorFullTimePositionEvent.fetchOpenPositionList(
+                          refresh: true));
+                },
+                onLoading: () {
+                  context.read<ContractorFullTimePositionBloc>().add(
+                      ContractorFullTimePositionEvent.fetchOpenPositionList(
+                          refresh: false));
+                },
+                refreshController: context
+                    .read<ContractorFullTimePositionBloc>()
+                    .openRefreshController,
+                child: state.isLoading
+                    ? CenterLoadingIndicator(isOnlyLoader: true)
+                    : state.isErrorInAPI
+                        ? Center(
+                            child: BaseText(
+                                text: StringConstant.somethindWentWrong),
+                          )
+                        : ListView.separated(
+                            padding: EdgeInsets.all(getSize(12)),
+                            itemBuilder: (context, index) {
+                              final data = state.openPositionList[index];
+                              return Container(
+                                decoration: BoxDecoration(
+                                  color: AppColors.white,
+                                  borderRadius:
+                                      BorderRadius.circular(getSize(20)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color:
+                                          AppColors.lightGrey.withOpacity(0.2),
+                                      blurRadius: getSize(20),
+                                    ),
+                                  ],
+                                ),
+                                padding: EdgeInsets.all(getSize(12)),
+                                child: Column(
+                                  children: [
+                                    _buildPositionTile(context,
+                                        contractorFullPosting: data),
+                                    Gap(getSize(12)),
+                                    CommonMaterialButton(
+                                      radius: 7,
+                                      height: 36,
+                                      onPressed: () {
+                                        context.router.push(
+                                          PageRouteInfo(
+                                              EmployerFullPositionPositionDetailView
+                                                  .name,
+                                              args:
+                                                  EmployerFullPositionPositionDetailViewArgs(
+                                                      id: data.id ?? -1)),
+                                        );
+                                      },
+                                      label: StringConstant.viewPositionDetails,
+                                      backgroundColor: AppColors.primaryColor
+                                          .withOpacity(.1),
+                                    ),
+                                    Gap(getSize(12)),
+                                    _buildSalaryInformation(context,
+                                        employerFullPosting: data),
+                                    // _buildApplicationInformation(context,
+                                    //     contractorFullPosting: data),
+                                    Gap(getSize(10)),
+                                    _buildEstimatedHours(context,
+                                        contractorFullPosting: data),
+                                    Gap(getSize(12)),
+                                    _buildShiftSchedule(context,
+                                        contractorFullPosting: data),
+                                    Gap(getSize(12)),
+                                    _buildNumberOfVacancy(context,
+                                        contractorFullPosting: data),
+                                    Gap(getSize(12)),
+                                    CommonButton(
+                                      borderRadius: 10,
+                                      onPressed: () async {
+                                        final result =
+                                            await AppDialog.showCommonDialog(
+                                          context: context,
+                                          title: "Apply",
+                                          extraContent:
+                                              "Are you sure you want to apply for this position?",
+                                          content:
+                                              StringConstant.fullTimeApplyDesc,
+                                          successLabel: "Apply",
+                                        );
+                                        if (result ?? false) {
+                                          context
+                                              .read<
+                                                  ContractorFullTimePositionBloc>()
+                                              .add(
+                                                ContractorFullTimePositionEvent
+                                                    .applyOpenPosition(
+                                                        context: context,
+                                                        id: data.id ?? -1),
+                                              );
+                                        }
+                                      },
+                                      buttonText: "Apply",
+                                    )
+                                  ],
+                                ),
+                              );
+                            },
+                            separatorBuilder: (context, index) => Gap(16),
+                            itemCount: state.openPositionList.length,
+                          ),
+              ),
+              if (state.postDataLoading)
+                CenterLoadingIndicator(isOnlyLoader: true)
+            ],
+          );
+        },
+      ),
     );
   }
 
@@ -317,8 +328,19 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
             Gap(getSize(6)),
             Divider(),
             Gap(getSize(6)),
-            _buildLocationInfo(context,
-                contractorFullPosting: contractorFullPosting),
+            GestureDetector(
+              onTap: () {
+                final location = contractorFullPosting?.location;
+                final latitude = location?.latitude;
+                final longitude = location?.longitude;
+                if (latitude != null && longitude != null) {
+                  LocationHelper.openDirections(context,
+                      endLat: latitude, endLng: longitude);
+                }
+              },
+              child: _buildLocationInfo(context,
+                  contractorFullPosting: contractorFullPosting),
+            ),
           ],
         ),
       ),
@@ -329,8 +351,9 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
     BuildContext context, {
     required ContractorLongTermDashboardDto? contractorFullPosting,
   }) {
-    final jobType =
-        contractorFullPosting?.job_type == "1" ? "Full Time" : "Part Time";
+    final jobType = contractorFullPosting?.job_type == "1"
+        ? StringConstant.fullTime
+        : StringConstant.partTime;
 
     return Material(
       color: AppColors.scaffoldColor,
@@ -394,7 +417,7 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
     );
   }
 
-  Widget _buildApplicationInformation(
+  /* Widget _buildApplicationInformation(
     BuildContext context, {
     required ContractorLongTermDashboardDto? contractorFullPosting,
   }) {
@@ -527,6 +550,103 @@ class ContractorFullTimeOpenPositionView extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(right: 20),
+              child: SvgPicture.asset(
+                SvgImageConstant.clockWithBag,
+                height: getSize(70),
+                width: getSize(70),
+                color: AppColors.primaryColor.withOpacity(0.15),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+ */
+
+  Widget _buildSalaryInformation(
+    BuildContext context, {
+    required ContractorLongTermDashboardDto employerFullPosting,
+  }) {
+    return Material(
+      borderRadius: BorderRadius.circular(getSize(10)),
+      color: AppColors.scaffoldColor,
+      child: Padding(
+        padding: EdgeInsets.all(getSize(16)),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      SvgPicture.asset(SvgImageConstant.dollorRound,
+                          height: getSize(18)),
+                      Gap(getSize(10)),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          BaseText(
+                              text: employerFullPosting.compensation_type == '1'
+                                  ? "Rate"
+                                  : "Salary",
+                              fontSize: 12),
+                          BaseText(
+                            text: "${employerFullPosting.rate_hour ?? ""}",
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            textColor: AppColors.green,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Gap(getSize(22)),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      SvgPicture.asset(
+                        SvgImageConstant.calendar,
+                        height: 18,
+                        color: AppColors.black.withOpacity(0.8),
+                      ),
+                      Gap(getSize(10)),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          BaseText(text: "Application Deadline", fontSize: 12),
+                          Text.rich(
+                            TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text:
+                                        "${employerFullPosting.application_deadline?.year}",
+                                    style: TextStyle(
+                                        color:
+                                            AppColors.green.withOpacity(0.5)),
+                                  )
+                                ],
+                                text:
+                                    "${DateFormat("dd MMM").format(employerFullPosting.application_deadline ?? DateTime.now())}, "),
+                            style: TextStyle(
+                                fontSize: getSize(14),
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.green),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(right: getSize(20)),
               child: SvgPicture.asset(
                 SvgImageConstant.clockWithBag,
                 height: getSize(70),

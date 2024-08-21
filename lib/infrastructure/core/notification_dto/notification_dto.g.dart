@@ -21,6 +21,9 @@ _$NotificationDTOImpl _$$NotificationDTOImplFromJson(
       last_ago: json['last_ago'] as String?,
       company_name: json['company_name'] as String?,
       type: (json['type'] as num?)?.toInt(),
+      full_term_shift_id: (json['full_term_shift_id'] as num?)?.toInt(),
+      full_term_shift_type: (json['full_term_shift_type'] as num?)?.toInt(),
+      job_type: json['job_type'] as String?,
     );
 
 Map<String, dynamic> _$$NotificationDTOImplToJson(
@@ -36,6 +39,9 @@ Map<String, dynamic> _$$NotificationDTOImplToJson(
       'last_ago': instance.last_ago,
       'company_name': instance.company_name,
       'type': instance.type,
+      'full_term_shift_id': instance.full_term_shift_id,
+      'full_term_shift_type': instance.full_term_shift_type,
+      'job_type': instance.job_type,
     };
 
 _$SenderDTOImpl _$$SenderDTOImplFromJson(Map<String, dynamic> json) =>

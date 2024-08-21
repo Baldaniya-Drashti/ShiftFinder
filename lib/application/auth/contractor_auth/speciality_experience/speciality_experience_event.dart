@@ -2,8 +2,8 @@ part of 'speciality_experience_bloc.dart';
 
 @freezed
 class SpecialityExperienceEvent with _$SpecialityExperienceEvent {
-  const factory SpecialityExperienceEvent.getSpecialityExperinceDataEvent(
-      bool isUpdate) = _GetSpecialityExperinceDataEvent;
+  const factory SpecialityExperienceEvent.getSpecialityExperinceDataEvent() =
+      _GetSpecialityExperinceDataEvent;
   // const factory SpecialityExperienceEvent.getExperienceListEvent() =
   //     _GetExperienceListEvent;
   const factory SpecialityExperienceEvent.updateRecordEvent({

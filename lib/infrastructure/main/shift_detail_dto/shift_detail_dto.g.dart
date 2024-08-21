@@ -51,6 +51,36 @@ _$ShiftDetailDTOImpl _$$ShiftDetailDTOImplFromJson(Map<String, dynamic> json) =>
       script_volume: (json['script_volume'] as num?)?.toInt(),
       assistant_on_site: (json['assistant_on_site'] as num?)?.toInt(),
       technician_on_site: (json['technician_on_site'] as num?)?.toInt(),
+      posted_hourly_rate: (json['posted_hourly_rate'] as num?)?.toDouble(),
+      proposed_hourly_rate: (json['proposed_hourly_rate'] as num?)?.toDouble(),
+      posted_commute_allowance_rate:
+          (json['posted_commute_allowance_rate'] as num?)?.toDouble(),
+      posted_commute_allowance_hour_id:
+          (json['posted_commute_allowance_hour_id'] as num?)?.toInt(),
+      posted_commute_allowance_hour_name:
+          json['posted_commute_allowance_hour_name'] as String?,
+      proposed_commute_allowance_rate:
+          (json['proposed_commute_allowance_rate'] as num?)?.toDouble(),
+      proposed_commute_allowance_hour_id:
+          (json['proposed_commute_allowance_hour_id'] as num?)?.toInt(),
+      proposed_commute_allowance_hour_name:
+          json['proposed_commute_allowance_hour_name'] as String?,
+      posted_accommodation_allowance_rate:
+          (json['posted_accommodation_allowance_rate'] as num?)?.toDouble(),
+      posted_accommodation_allowance_hour_id:
+          (json['posted_accommodation_allowance_hour_id'] as num?)?.toInt(),
+      posted_accommodation_allowance_hour_name:
+          json['posted_accommodation_allowance_hour_name'] as String?,
+      proposed_accommodation_allowance_rate:
+          (json['proposed_accommodation_allowance_rate'] as num?)?.toDouble(),
+      proposed_accommodation_allowance_hour_id:
+          (json['proposed_accommodation_allowance_hour_id'] as num?)?.toInt(),
+      proposed_accommodation_allowance_hour_name:
+          json['proposed_accommodation_allowance_hour_name'] as String?,
+      proposal_received: json['proposal_received'] == null
+          ? null
+          : ProposalDTO.fromJson(
+              json['proposal_received'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$ShiftDetailDTOImplToJson(
@@ -89,4 +119,96 @@ Map<String, dynamic> _$$ShiftDetailDTOImplToJson(
       'script_volume': instance.script_volume,
       'assistant_on_site': instance.assistant_on_site,
       'technician_on_site': instance.technician_on_site,
+      'posted_hourly_rate': instance.posted_hourly_rate,
+      'proposed_hourly_rate': instance.proposed_hourly_rate,
+      'posted_commute_allowance_rate': instance.posted_commute_allowance_rate,
+      'posted_commute_allowance_hour_id':
+          instance.posted_commute_allowance_hour_id,
+      'posted_commute_allowance_hour_name':
+          instance.posted_commute_allowance_hour_name,
+      'proposed_commute_allowance_rate':
+          instance.proposed_commute_allowance_rate,
+      'proposed_commute_allowance_hour_id':
+          instance.proposed_commute_allowance_hour_id,
+      'proposed_commute_allowance_hour_name':
+          instance.proposed_commute_allowance_hour_name,
+      'posted_accommodation_allowance_rate':
+          instance.posted_accommodation_allowance_rate,
+      'posted_accommodation_allowance_hour_id':
+          instance.posted_accommodation_allowance_hour_id,
+      'posted_accommodation_allowance_hour_name':
+          instance.posted_accommodation_allowance_hour_name,
+      'proposed_accommodation_allowance_rate':
+          instance.proposed_accommodation_allowance_rate,
+      'proposed_accommodation_allowance_hour_id':
+          instance.proposed_accommodation_allowance_hour_id,
+      'proposed_accommodation_allowance_hour_name':
+          instance.proposed_accommodation_allowance_hour_name,
+      'proposal_received': instance.proposal_received,
+    };
+
+_$ProposalDTOImpl _$$ProposalDTOImplFromJson(Map<String, dynamic> json) =>
+    _$ProposalDTOImpl(
+      commute_allowance_type: (json['commute_allowance_type'] as num?)?.toInt(),
+      accommodation_allowance_type:
+          (json['accommodation_allowance_type'] as num?)?.toInt(),
+      posted_hourly_rate: (json['posted_hourly_rate'] as num?)?.toDouble(),
+      posted_commute_allowance_rate:
+          (json['posted_commute_allowance_rate'] as num?)?.toDouble(),
+      posted_commute_allowance_hour_id:
+          (json['posted_commute_allowance_hour_id'] as num?)?.toInt(),
+      posted_accommodation_allowance_rate:
+          (json['posted_accommodation_allowance_rate'] as num?)?.toDouble(),
+      posted_accommodation_allowance_hour_id:
+          (json['posted_accommodation_allowance_hour_id'] as num?)?.toInt(),
+      proposed_hourly_rate: (json['proposed_hourly_rate'] as num?)?.toDouble(),
+      proposed_commute_allowance_rate:
+          (json['proposed_commute_allowance_rate'] as num?)?.toDouble(),
+      proposed_commute_allowance_hour_id:
+          (json['proposed_commute_allowance_hour_id'] as num?)?.toInt(),
+      proposed_accommodation_allowance_rate:
+          (json['proposed_accommodation_allowance_rate'] as num?)?.toDouble(),
+      proposed_accommodation_allowance_hour_id:
+          (json['proposed_accommodation_allowance_hour_id'] as num?)?.toInt(),
+      counter_proposal_hourly_rate:
+          (json['counter_proposal_hourly_rate'] as num?)?.toDouble(),
+      counter_commute_allowance_rate:
+          (json['counter_commute_allowance_rate'] as num?)?.toDouble(),
+      counter_commute_allowance_hour_id:
+          (json['counter_commute_allowance_hour_id'] as num?)?.toInt(),
+      counter_accommodation_allowance_rate:
+          (json['counter_accommodation_allowance_rate'] as num?)?.toDouble(),
+      counter_accommodation_allowance_hour_id:
+          (json['counter_accommodation_allowance_hour_id'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$$ProposalDTOImplToJson(_$ProposalDTOImpl instance) =>
+    <String, dynamic>{
+      'commute_allowance_type': instance.commute_allowance_type,
+      'accommodation_allowance_type': instance.accommodation_allowance_type,
+      'posted_hourly_rate': instance.posted_hourly_rate,
+      'posted_commute_allowance_rate': instance.posted_commute_allowance_rate,
+      'posted_commute_allowance_hour_id':
+          instance.posted_commute_allowance_hour_id,
+      'posted_accommodation_allowance_rate':
+          instance.posted_accommodation_allowance_rate,
+      'posted_accommodation_allowance_hour_id':
+          instance.posted_accommodation_allowance_hour_id,
+      'proposed_hourly_rate': instance.proposed_hourly_rate,
+      'proposed_commute_allowance_rate':
+          instance.proposed_commute_allowance_rate,
+      'proposed_commute_allowance_hour_id':
+          instance.proposed_commute_allowance_hour_id,
+      'proposed_accommodation_allowance_rate':
+          instance.proposed_accommodation_allowance_rate,
+      'proposed_accommodation_allowance_hour_id':
+          instance.proposed_accommodation_allowance_hour_id,
+      'counter_proposal_hourly_rate': instance.counter_proposal_hourly_rate,
+      'counter_commute_allowance_rate': instance.counter_commute_allowance_rate,
+      'counter_commute_allowance_hour_id':
+          instance.counter_commute_allowance_hour_id,
+      'counter_accommodation_allowance_rate':
+          instance.counter_accommodation_allowance_rate,
+      'counter_accommodation_allowance_hour_id':
+          instance.counter_accommodation_allowance_hour_id,
     };

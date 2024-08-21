@@ -30,13 +30,15 @@ class ChatUser {
   int? userId;
   String? userName;
   String? image;
+  int? count;
 
-  ChatUser({this.userId, this.userName, this.image});
+  ChatUser({this.userId, this.userName, this.image, this.count});
 
   ChatUser.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
     userName = json['user_name'];
     image = json['image'];
+    count = json['count'];
   }
 
   Map<String, dynamic> toJson() {
@@ -44,6 +46,7 @@ class ChatUser {
     data['user_id'] = userId;
     data['user_name'] = userName;
     data['image'] = image;
+    data['count'] = count;
     return data;
   }
 }

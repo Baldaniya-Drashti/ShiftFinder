@@ -64,6 +64,7 @@ class EmployerLongTermPositionAddDetailBloc extends Bloc<
               employerLongTermAddDetailDto:
                   state.employerLongTermAddDetailDto.copyWith(
                 terms_document: value.path,
+                is_delete_terms_document: null,
               ),
             ),
           );
@@ -77,9 +78,7 @@ class EmployerLongTermPositionAddDetailBloc extends Bloc<
             ),
           );
         }, onCreate: (OnCreate value) {
-          print("==============> ${value.employer?.job_description}");
-          print(
-              "==============> tt${getShiftSchedule(value.employer?.shift_schedule_type ?? "")}");
+          print("employer----> ${value.employer?.vacancie_type}");
           emit(
             state.copyWith(
               postShiftDto: value.postShitDto,
@@ -91,14 +90,14 @@ class EmployerLongTermPositionAddDetailBloc extends Bloc<
               ),
             ),
           );
-          print(
-              "==============>rrrr ${state.employerLongTermAddDetailDto.job_description}");
         }, removeDocument: (RemoveDocument value) {
           emit(
             state.copyWith(
               employerLongTermAddDetailDto:
                   state.employerLongTermAddDetailDto.copyWith(
                 terms_document: null,
+                is_delete_terms_document:
+                    (state.postId != null && state.postId != -1) ? 1 : null,
               ),
             ),
           );
@@ -118,15 +117,17 @@ class EmployerLongTermPositionAddDetailBloc extends Bloc<
             terms: value.terms,
           );
 
-          print("employer => ${employer.toJson()}");
-
           value.context.router.push(
             PageRouteInfo(
               EmployerLongTermPostConfirmationView.name,
               args: EmployerLongTermPostConfirmationViewArgs(
-                  postShiftDTO: postShift,
-                  employerAddDetailDto: employer,
-                  postId: state.postId),
+                postShiftDTO: postShift,
+                employerAddDetailDto: employer,
+                postId: state.postId,
+                fromReview: value.fromReview,
+                isCreate: value.isCreate,
+                fromTemplate: value.fromTemplate,
+              ),
             ),
           );
         }, onChangeContractIncludeCall: (OnChangeContractIncludeCall value) {

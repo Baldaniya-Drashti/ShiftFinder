@@ -18,6 +18,7 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/avatar.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -219,7 +220,9 @@ class InvoiceView extends StatelessWidget {
               final latitude = location?.latitude;
               final longitude = location?.longitude;
               if (latitude != null && longitude != null) {
-                context.router.push(
+                LocationHelper.openDirections(context,
+                    endLat: latitude, endLng: longitude);
+                /*  context.router.push(
                   PageRouteInfo(
                     ShowGoogleMap.name,
                     args: ShowGoogleMapArgs(
@@ -227,7 +230,7 @@ class InvoiceView extends StatelessWidget {
                       longitude: longitude,
                     ),
                   ),
-                );
+                ); */
               }
             },
             child: Row(

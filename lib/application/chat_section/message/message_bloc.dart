@@ -57,9 +57,7 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
               senderId: getCurrentUser().userId ?? 0,
             ),
           );
-          add(
-            const MessageEvent.connectSocket(),
-          );
+          add(const MessageEvent.connectSocket());
         },
         getMessageList: (e) async {
           if (e.isRefresh) {

@@ -1,7 +1,9 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:shift/domain/core/environment/base_config.dart';
+import 'package:shift/injection.dart';
 
 class ApiConstants {
-  static String baseUrl = dotenv.env['DEV_API_BASE_URL']!;
+  // static String baseUrl = dotenv.env['DEV_API_BASE_URL']!;
+  static String baseUrl = getIt<BaseConfig>().apiHost;
 
   //core
   static String registerForPush = 'register-fcm-token';
@@ -31,6 +33,7 @@ class ApiConstants {
   static String updateReference = 'update_reference';
   static String destroyReference = 'destroy_reference';
   static String getDocument = 'get_document';
+  static String getStripeDocument = 'get_stripe_document';
   static String document = 'document';
   static String updateDocument = 'update_document';
   static String destroyDocument = 'destroy_document';

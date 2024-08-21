@@ -77,6 +77,15 @@ class ContractorUpdateProfileView extends StatelessWidget {
                       label: StringConstant.documents,
                     ),
                     fieldTypeTile(
+                      icon: SvgImageConstant.document,
+                      onPressed: () {
+                        context.router.push(PageRouteInfo(
+                            AddressProofScreen.name,
+                            args: AddressProofScreenArgs(isUpdate: true)));
+                      },
+                      label: StringConstant.proofDocument,
+                    ),
+                    fieldTypeTile(
                       icon: SvgImageConstant.bank,
                       onPressed: () {
                         context.router.push(PageRouteInfo(BankListView.name));

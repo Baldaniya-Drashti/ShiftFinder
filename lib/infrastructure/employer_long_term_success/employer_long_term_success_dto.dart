@@ -74,6 +74,8 @@ class EmployerLongTermSuccessDto with _$EmployerLongTermSuccessDto {
     String? other,
     String? union_bargaining_unit,
     String? compensation_package,
+    int? is_delete_terms_document,
+    String? monthly_service_fee_new,
   }) = _EmployerLongTermSuccessDto;
 
   factory EmployerLongTermSuccessDto.fromJson(Map<String, dynamic> json) =>

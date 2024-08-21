@@ -25,13 +25,15 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'ProofOfLegalStatus')
 class ProofOfLegalStatus extends StatelessWidget {
   final bool isFromSplash;
-  const ProofOfLegalStatus({super.key, this.isFromSplash = false});
+  final bool isUpdate;
+  const ProofOfLegalStatus(
+      {super.key, this.isFromSplash = false, this.isUpdate = false});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<ProofOfLegalStatusBloc>(),
-      // ..add(ProofOfLegalStatusEvent.getAddressProof()),
+      create: (context) => getIt<ProofOfLegalStatusBloc>()
+        ..add(ProofOfLegalStatusEvent.getProofLegalDoc()),
       child: BlocConsumer<ProofOfLegalStatusBloc, ProofOfLegalStatusState>(
         listener: (context, state) {
           state.proofFailureOrSuccessOption.fold(
@@ -153,8 +155,11 @@ class ProofOfLegalStatus extends StatelessWidget {
                                 isSubmitting: state.isSubmitting,
                                 onPressed: () {
                                   context.read<ProofOfLegalStatusBloc>().add(
-                                      ProofOfLegalStatusEvent
-                                          .proofLegalDocSubmit(context));
+                                          ProofOfLegalStatusEvent
+                                              .proofLegalDocSubmit(
+                                        context,
+                                        isUpdate: isUpdate,
+                                      ));
                                 },
                                 buttonText: StringConstant.txtContinue,
                               ),

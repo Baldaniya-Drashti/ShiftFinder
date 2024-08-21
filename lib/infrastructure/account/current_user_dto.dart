@@ -6,6 +6,7 @@ import 'package:shift/infrastructure/core/contractor_complete_profile_dto.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/education_dto/education_dto.dart';
 import 'package:shift/infrastructure/core/experience_model/experience_dto.dart';
+import 'package:shift/infrastructure/core/legal_screening_dto/legal_screening_dto.dart';
 import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
 
 part 'current_user_dto.freezed.dart';
@@ -44,6 +45,8 @@ class CurrentUserDto with _$CurrentUserDto {
     @JsonKey(name: 'document') List<DocumentDTO>? document,
     @JsonKey(name: 'auth') AuthDto? authDto,
     @JsonKey(name: 'your_referral_code') String? your_referral_code,
+    @JsonKey(name: 'legal_screening_question_answer')
+    List<LegalScreeningAnswerDTO>? legal_screening_question_answer,
   }) = _CurrentUserDto;
   Account toDomain() {
     return Account(
@@ -75,6 +78,7 @@ class CurrentUserDto with _$CurrentUserDto {
       your_referral_code: your_referral_code,
       complete_profile: complete_profile,
       experience: experience,
+      legal_screening_question_answer: legal_screening_question_answer,
     );
   }
 
@@ -108,6 +112,7 @@ class CurrentUserDto with _$CurrentUserDto {
       your_referral_code: account.your_referral_code,
       complete_profile: account.complete_profile,
       experience: account.experience,
+      legal_screening_question_answer: account.legal_screening_question_answer,
     );
   }
   factory CurrentUserDto.fromJson(Map<String, dynamic> json) =>

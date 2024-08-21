@@ -96,7 +96,7 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
                     fontSize: widget.fontSize ?? 10,
                     fontWeight: FontWeight.w500),
               ),
-              Gap(8),
+              Gap(getSize(8)),
             ],
             DropdownButtonFormField2(
               autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -116,7 +116,7 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
               ),
               selectedItemBuilder: widget.selectedItemBuilder,
               dropdownStyleData: DropdownStyleData(
-                maxHeight: 200,
+                maxHeight: getSize(200),
                 padding: EdgeInsets.only(left: 12),
                 offset: const Offset(0, -8),
                 elevation: 1,
@@ -186,7 +186,7 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
               items: widget.items,
             ),
             if (field.hasError) ...[
-              Gap(4),
+              Gap(getSize(4)),
               Padding(
                 padding: const EdgeInsets.only(left: 14),
                 child: BaseText(

@@ -52,6 +52,18 @@ _$AppliedShiftDTOImpl _$$AppliedShiftDTOImplFromJson(
       date: (json['date'] as num?)?.toInt(),
       start_time: (json['start_time'] as num?)?.toInt(),
       end_time: (json['end_time'] as num?)?.toInt(),
+      start_date: (json['start_date'] as num?)?.toInt(),
+      end_date: (json['end_date'] as num?)?.toInt(),
+      posted_start_time: (json['posted_start_time'] as num?)?.toInt(),
+      posted_end_time: (json['posted_end_time'] as num?)?.toInt(),
+      agreed_start_time: (json['agreed_start_time'] as num?)?.toInt(),
+      agreed_end_time: (json['agreed_end_time'] as num?)?.toInt(),
+      date_list: json['date_list'] as String?,
+      shift_details: (json['shift_details'] as List<dynamic>?)
+          ?.map(
+              (e) => ProposalShiftDetailDTO.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      is_delete: (json['is_delete'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$AppliedShiftDTOImplToJson(
@@ -90,6 +102,15 @@ Map<String, dynamic> _$$AppliedShiftDTOImplToJson(
       'date': instance.date,
       'start_time': instance.start_time,
       'end_time': instance.end_time,
+      'start_date': instance.start_date,
+      'end_date': instance.end_date,
+      'posted_start_time': instance.posted_start_time,
+      'posted_end_time': instance.posted_end_time,
+      'agreed_start_time': instance.agreed_start_time,
+      'agreed_end_time': instance.agreed_end_time,
+      'date_list': instance.date_list,
+      'shift_details': instance.shift_details,
+      'is_delete': instance.is_delete,
     };
 
 _$ProposalReceivedDTOImpl _$$ProposalReceivedDTOImplFromJson(
@@ -134,4 +155,24 @@ Map<String, dynamic> _$$ProposalReceivedDTOImplToJson(
           instance.proposed_accommodation_allowance,
       'counter_proposal_accommodation_allowance':
           instance.counter_proposal_accommodation_allowance,
+    };
+
+_$ProposalShiftDetailDTOImpl _$$ProposalShiftDetailDTOImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ProposalShiftDetailDTOImpl(
+      start_date: (json['start_date'] as num?)?.toInt(),
+      posted_start_time: (json['posted_start_time'] as num?)?.toInt(),
+      posted_end_time: (json['posted_end_time'] as num?)?.toInt(),
+      proposed_start_time: (json['proposed_start_time'] as num?)?.toInt(),
+      proposed_end_time: (json['proposed_end_time'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$$ProposalShiftDetailDTOImplToJson(
+        _$ProposalShiftDetailDTOImpl instance) =>
+    <String, dynamic>{
+      'start_date': instance.start_date,
+      'posted_start_time': instance.posted_start_time,
+      'posted_end_time': instance.posted_end_time,
+      'proposed_start_time': instance.proposed_start_time,
+      'proposed_end_time': instance.proposed_end_time,
     };

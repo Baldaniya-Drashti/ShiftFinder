@@ -63,8 +63,10 @@ class EmployerLongTermConfirmationBloc extends Bloc<
         },
         onContinue: (value) async {
           final isTermsValid = state.isTermsCheck == true;
-
           if (isTermsValid) {
+            print(
+                "employerAddDetailDto---> ${state.employerAddDetailDto.terms_document}");
+
             final postShift = state.postShiftDTO;
             final employer = state.employerAddDetailDto.copyWith(
               rate_hour: postShift.rate_hour,
@@ -80,6 +82,9 @@ class EmployerLongTermConfirmationBloc extends Bloc<
               team_id:
                   state.selectedTeamList.map((e) => e.id).toList().join(","),
               softwares_skill_list_id: postShift.softwares_skill_list_id,
+              save_template_status: (value.fromTemplate)
+                  ? 0
+                  : state.employerAddDetailDto.save_template_status,
             );
 
             final Map<String, dynamic> data = {
@@ -88,12 +93,21 @@ class EmployerLongTermConfirmationBloc extends Bloc<
 
             emit(state.copyWith(postDataLoading: true));
             Either<MainFailure, CommonResponse<dynamic>> result;
-            if (state.postId == null || (state.postId ?? -1) < 0) {
-              result = await _mainFacade.createLongFullTermPost(data: data);
-            } else {
+
+            if (state.postId != null &&
+                state.postId != -1 &&
+                ((value.fromTemplate && value.fromReview) ||
+                    !value.fromTemplate)) {
               result = await _mainFacade.updateLongFullTermPost(data: {
                 ...data,
-                "update_status": 0,
+                // "update_status": 0,
+                "update_status": 1,
+              });
+            } else {
+              // result = await _mainFacade.createLongFullTermPost(data: data);
+              result = await _mainFacade.createLongFullTermPost(data: {
+                if (value.fromTemplate) "template_id": data['id'],
+                ...data,
               });
             }
 
@@ -115,9 +129,13 @@ class EmployerLongTermConfirmationBloc extends Bloc<
                   PageRouteInfo(
                     EmployerLongTermReviewDetailView.name,
                     args: EmployerLongTermReviewDetailViewArgs(
-                        employerLongTermSuccessDto: data,
-                        postId: state.postId,
-                        postShiftDTO: postShift),
+                      employerLongTermSuccessDto: data,
+                      postId: state.postId,
+                      postShiftDTO: postShift,
+                      fromReview: value.fromReview,
+                      isCreate: value.isCreate,
+                      fromTemplate: value.fromTemplate,
+                    ),
                   ),
                 );
               },

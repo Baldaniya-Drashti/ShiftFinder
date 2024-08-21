@@ -65,20 +65,24 @@ class ApparelEquipment extends StatelessWidget {
                 ).show(context);
               },
               (r) {
-                context.router.push(
-                  const PageRouteInfo(AddressProofScreen.name),
-                );
-                DocumentBloc.pageController
-                    .animateToPage(
-                  0,
-                  duration: const Duration(milliseconds: 1),
-                  curve: Curves.easeInOut,
-                )
-                    .then((value) {
-                  context
-                      .read<DocumentBloc>()
-                      .add(const DocumentEvent.getAllDocumentStatus());
-                });
+                if (isUpdate) {
+                  Navigator.pop(context);
+                } else {
+                  context.router.push(
+                    const PageRouteInfo(AddressProofScreen.name),
+                  );
+                  DocumentBloc.pageController
+                      .animateToPage(
+                    0,
+                    duration: const Duration(milliseconds: 1),
+                    curve: Curves.easeInOut,
+                  )
+                      .then((value) {
+                    context
+                        .read<DocumentBloc>()
+                        .add(const DocumentEvent.getAllDocumentStatus());
+                  });
+                }
               },
             ),
           );
@@ -180,17 +184,18 @@ class ApparelEquipment extends StatelessWidget {
                               alignment: Alignment.center,
                               child: CommonButton(
                                 onPressed: () {
-                                  if (isUpdate) {
-                                    Navigator.pop(context);
-                                  } else {
-                                    context
-                                        .read<EquipmentBloc>()
-                                        .add(EquipmentEvent.equipmentDocSubmit(
-                                          context,
-                                          isAddMoreBtnClick: false,
-                                          isSkip: false,
-                                        ));
-                                  }
+                                  // if (isUpdate) {
+                                  //   Navigator.pop(context);
+                                  // } else {
+                                  context
+                                      .read<EquipmentBloc>()
+                                      .add(EquipmentEvent.equipmentDocSubmit(
+                                        context,
+                                        isAddMoreBtnClick: false,
+                                        isSkip: false,
+                                        isUpdate: isUpdate,
+                                      ));
+                                  // }
                                 },
                                 buttonText: StringConstant.txtContinue,
                               ),
@@ -209,6 +214,7 @@ class ApparelEquipment extends StatelessWidget {
                                         context,
                                         isAddMoreBtnClick: false,
                                         isSkip: true,
+                                        isUpdate: isUpdate,
                                       ));
                                 }
                               },

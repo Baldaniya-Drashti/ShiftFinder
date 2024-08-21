@@ -12,12 +12,14 @@ import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/contractor_long_term_dashboard/contractor_long_term_dashboard_dto.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/common/widgets/show_picked_file.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/helper/helper_function.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/dialogs.dart';
@@ -28,299 +30,119 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ContractorLongTermBloc, ContractorLongTermState>(
-      builder: (context, state) {
-        return Stack(
-          children: [
-            PaginatedListView(
-              isNoDataFound: state.appliedNoDataFound,
-              onRefresh: () {
-                context.read<ContractorLongTermBloc>().add(
-                    ContractorLongTermEvent.fetchAppliedPositionList(
-                        refresh: true));
-              },
-              onLoading: () {
-                context.read<ContractorLongTermBloc>().add(
-                    ContractorLongTermEvent.fetchAppliedPositionList(
-                        refresh: false));
-              },
-              refreshController: context
-                  .read<ContractorLongTermBloc>()
-                  .appliedRefreshController,
-              child: state.appliedLoading
-                  ? CenterLoadingIndicator()
-                  : state.appliedIsErrorInAPI
-                      ? Center(
-                          child:
-                              BaseText(text: StringConstant.somethindWentWrong),
-                        )
-                      : ListView.separated(
-                          padding: EdgeInsets.all(getSize(12)),
-                          itemBuilder: (context, index) {
-                            final data = state.appliedPositionList[index];
-                            return Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.white,
-                                borderRadius:
-                                    BorderRadius.circular(getSize(20)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AppColors.lightGrey.withOpacity(0.2),
-                                    blurRadius: getSize(20),
-                                  ),
-                                ],
-                              ),
-                              padding: EdgeInsets.all(getSize(12)),
-                              child: Column(
-                                children: [
-                                  _buildPositionTile(context,
-                                      contractorLongTerm: data),
-                                  Gap(getSize(10)),
-                                  if (data.request == 1 ||
-                                      data.request == 2 &&
-                                          data.urgent_action == 0) ...[
-                                    CommonMaterialButton(
-                                      radius: 7,
-                                      height: 36,
-                                      onPressed: () {
-                                        context.router.push(
-                                          PageRouteInfo(
-                                              EmployerLongTermPositionDetailView
-                                                  .name,
-                                              args:
-                                                  EmployerLongTermPositionDetailViewArgs(
-                                                      id: data.post_id ?? -1)),
-                                        );
-                                      },
-                                      label: "View Position Details",
-                                      backgroundColor: AppColors.primaryColor
-                                          .withOpacity(.1),
+    return BlocProvider(
+      create: (context) => getIt<ContractorLongTermBloc>()
+        ..add(ContractorLongTermEvent.fetchAppliedPositionList(refresh: true)),
+      child: BlocBuilder<ContractorLongTermBloc, ContractorLongTermState>(
+        builder: (context, state) {
+          return Stack(
+            children: [
+              PaginatedListView(
+                isNoDataFound: state.appliedNoDataFound,
+                onRefresh: () {
+                  context.read<ContractorLongTermBloc>().add(
+                      ContractorLongTermEvent.fetchAppliedPositionList(
+                          refresh: true));
+                },
+                onLoading: () {
+                  context.read<ContractorLongTermBloc>().add(
+                      ContractorLongTermEvent.fetchAppliedPositionList(
+                          refresh: false));
+                },
+                refreshController: context
+                    .read<ContractorLongTermBloc>()
+                    .appliedRefreshController,
+                child: state.appliedLoading
+                    ? CenterLoadingIndicator(isOnlyLoader: true)
+                    : state.appliedIsErrorInAPI
+                        ? Center(
+                            child: BaseText(
+                                text: StringConstant.somethindWentWrong),
+                          )
+                        : ListView.separated(
+                            padding: EdgeInsets.all(getSize(12)),
+                            itemBuilder: (context, index) {
+                              final data = state.appliedPositionList[index];
+                              return Container(
+                                decoration: BoxDecoration(
+                                  color: AppColors.white,
+                                  borderRadius:
+                                      BorderRadius.circular(getSize(20)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color:
+                                          AppColors.lightGrey.withOpacity(0.2),
+                                      blurRadius: getSize(20),
                                     ),
-                                    Gap(getSize(10)),
                                   ],
-                                  _buildApplicationInformation(context,
-                                      contractorLongTerm: data),
-                                  Gap(getSize(12)),
-                                  if (data.offer_expires_status == true) ...[
-                                    // if (data.request == 1 && data.urgent_action == 0) ...[
-                                    //   ///Decline prtion 1
-                                    // ] else if (data.request == 2 && data.urgent_action == 0) ...[
-                                    //   ///2
-                                    // ] else ...[
-                                    //   ///4
-                                    // ]
+                                ),
+                                padding: EdgeInsets.all(getSize(12)),
+                                child: Column(
+                                  children: [
+                                    _buildPositionTile(context,
+                                        contractorLongTerm: data),
+                                    Gap(getSize(10)),
+                                    if (data.request == 1 ||
+                                        data.request == 2 &&
+                                            data.urgent_action == 0) ...[
+                                      CommonMaterialButton(
+                                        radius: 7,
+                                        height: 36,
+                                        onPressed: () {
+                                          context.router.push(
+                                            PageRouteInfo(
+                                                EmployerLongTermPositionDetailView
+                                                    .name,
+                                                args:
+                                                    EmployerLongTermPositionDetailViewArgs(
+                                                        id: data.post_id ??
+                                                            -1)),
+                                          );
+                                        },
+                                        label:
+                                            StringConstant.viewPositionDetails,
+                                        backgroundColor: AppColors.primaryColor
+                                            .withOpacity(.1),
+                                      ),
+                                      Gap(getSize(10)),
+                                    ],
+                                    _buildApplicationInformation(context,
+                                        contractorLongTerm: data),
+                                    Gap(getSize(12)),
+                                    if (data.offer_expires_status == true) ...[
+                                      // if (data.request == 1 && data.urgent_action == 0) ...[
+                                      //   ///Decline prtion 1
+                                      // ] else if (data.request == 2 && data.urgent_action == 0) ...[
+                                      //   ///2
+                                      // ] else ...[
+                                      //   ///4
+                                      // ]
 
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              SvgPicture.asset(
-                                                SvgImageConstant.clock,
-                                                color: AppColors.redAccent,
-                                                height: 16,
-                                              ),
-                                              Gap(5),
-                                              BaseText(
-                                                text: "Offer Expired",
-                                                fontSize: 12,
-                                                textColor: AppColors.redAccent,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Gap(12),
-                                        Expanded(
-                                          child: CommonMaterialButton(
-                                            onPressed: () {
-                                              context.router.push(
-                                                PageRouteInfo(
-                                                    EmployerLongTermPositionDetailView
-                                                        .name,
-                                                    args:
-                                                        EmployerLongTermPositionDetailViewArgs(
-                                                            id: data.post_id ??
-                                                                -1)),
-                                              );
-                                            },
-                                            label: "View Position Details",
-                                            backgroundColor: Color(0xFFF5F5F5),
-                                            radius: 7,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ] else ...[
-                                    if (data.deleteAt == true &&
-                                        data.request == 0) ...[
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: getSize(10)),
-                                        child: BaseText(
-                                          text: StringConstant
-                                              .youHaveCancelledThisShiftApplication,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600,
-                                          textColor: AppColors.redAccent,
-                                        ),
-                                      )
-                                    ] else if (data.deleteAt == true &&
-                                        data.request == 2) ...[
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: getSize(10)),
-                                        child: BaseText(
-                                          text: StringConstant
-                                              .yourApplicationForThisShiftWasNotAcepted,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600,
-                                          textColor: AppColors.redAccent,
-                                        ),
-                                      )
-                                    ] else if (data.deleteAt == true &&
-                                        data.request == 1) ...[
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: getSize(10)),
-                                        child: BaseText(
-                                          text: StringConstant
-                                              .youHaveDeclinedThisShift,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600,
-                                          textColor: AppColors.redAccent,
-                                        ),
-                                      )
-                                    ] else if (data.request == 1 &&
-                                        data.urgent_action == 0) ...[
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisSize: MainAxisSize.min,
+                                      Row(
                                         children: [
-                                          BaseText(
-                                              text: "Please Note",
-                                              fontSize: 10),
-                                          Text.rich(
-                                            TextSpan(
+                                          Expanded(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                TextSpan(
-                                                    text: "Offer Expires on ",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 12)),
-                                                TextSpan(
-                                                  text: DateFormat(
-                                                          "dd MMM yyyy")
-                                                      .format(
-                                                          data.offer_expires ??
-                                                              DateTime.now()),
-                                                  style: TextStyle(
-                                                      color: AppColors
-                                                          .primaryColor,
-                                                      fontSize: 12),
+                                                SvgPicture.asset(
+                                                  SvgImageConstant.clock,
+                                                  color: AppColors.redAccent,
+                                                  height: 16,
                                                 ),
-                                                TextSpan(
-                                                    text: " at ",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 12)),
-                                                TextSpan(
-                                                  text: DateFormat("hh:mm a")
-                                                      .format(
-                                                          data.offer_expires ??
-                                                              DateTime.now()),
-                                                  style: TextStyle(
-                                                      color: AppColors
-                                                          .primaryColor,
-                                                      fontSize: 12),
+                                                Gap(5),
+                                                BaseText(
+                                                  text: "Offer Expired",
+                                                  fontSize: 12,
+                                                  textColor:
+                                                      AppColors.redAccent,
                                                 ),
                                               ],
                                             ),
                                           ),
-                                          Gap(8),
-                                          Row(
-                                            children: [
-                                              Flexible(
-                                                child: CommonMaterialButton(
-                                                  onPressed: () async {
-                                                    final result =
-                                                        await AppDialog
-                                                            .showCommonDialog(
-                                                      context: context,
-                                                      content:
-                                                          "Are you sure you want to decline this offer?",
-                                                      title: "Decline Offer",
-                                                      successLabel: "Confirm",
-                                                    );
-                                                    if (result ?? false) {
-                                                      context
-                                                          .read<
-                                                              ContractorLongTermBloc>()
-                                                          .add(
-                                                            ContractorLongTermEvent
-                                                                .confirmRejectOffer(
-                                                              context: context,
-                                                              id: data.id ?? -1,
-                                                              urgent_action: 2,
-                                                            ),
-                                                          );
-                                                    }
-                                                  },
-                                                  label: "Decline Offer",
-                                                  backgroundColor: AppColors.red
-                                                      .withOpacity(0.15),
-                                                  radius: 7,
-                                                ),
-                                              ),
-                                              Gap(12),
-                                              Flexible(
-                                                child: CommonMaterialButton(
-                                                  onPressed: () async {
-                                                    final result =
-                                                        await AppDialog
-                                                            .showCommonDialog(
-                                                      context: context,
-                                                      content:
-                                                          "Are you sure you want to confirm the offer for this position?",
-                                                      title:
-                                                          "Confirm Acceptance",
-                                                      successLabel: "Confirm",
-                                                    );
-                                                    if (result ?? false) {
-                                                      context
-                                                          .read<
-                                                              ContractorLongTermBloc>()
-                                                          .add(
-                                                            ContractorLongTermEvent
-                                                                .confirmRejectOffer(
-                                                              context: context,
-                                                              id: data.id ?? -1,
-                                                              urgent_action: 1,
-                                                            ),
-                                                          );
-                                                    }
-                                                  },
-                                                  label: "Confirm Acceptance",
-                                                  backgroundColor:
-                                                      AppColors.primaryColor,
-                                                  textStyle: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: getSize(12)),
-                                                  radius: 7,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      )
-                                    ] else if (data.request == 0 &&
-                                        data.urgent_action == 0) ...[
-                                      Row(
-                                        children: [
-                                          Flexible(
+                                          Gap(12),
+                                          Expanded(
                                             child: CommonMaterialButton(
                                               onPressed: () {
                                                 context.router.push(
@@ -333,60 +155,260 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
                                                                   -1)),
                                                 );
                                               },
-                                              label: "View Position Details",
+                                              label: StringConstant
+                                                  .viewPositionDetails,
                                               backgroundColor:
                                                   Color(0xFFF5F5F5),
                                               radius: 7,
                                             ),
                                           ),
-                                          Gap(12),
-                                          Flexible(
-                                            child: CommonMaterialButton(
-                                              onPressed: () async {
-                                                final result = await AppDialog
-                                                    .showCommonDialog(
+                                        ],
+                                      )
+                                    ] else ...[
+                                      if (data.deleteAt == true &&
+                                          data.request == 0) ...[
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: getSize(10)),
+                                          child: BaseText(
+                                            text: StringConstant
+                                                .youHaveCancelledThisShiftApplication,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                            textColor: AppColors.redAccent,
+                                          ),
+                                        )
+                                      ] else if (data.deleteAt == true &&
+                                          data.request == 2) ...[
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: getSize(10)),
+                                          child: BaseText(
+                                            text: StringConstant
+                                                .yourApplicationForThisShiftWasNotAcepted,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                            textColor: AppColors.redAccent,
+                                          ),
+                                        )
+                                      ] else if (data.deleteAt == true &&
+                                          data.request == 1) ...[
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: getSize(10)),
+                                          child: BaseText(
+                                            text: StringConstant
+                                                .youHaveDeclinedThisShift,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                            textColor: AppColors.redAccent,
+                                          ),
+                                        )
+                                      ] else if (data.request == 1 &&
+                                          data.urgent_action == 0) ...[
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            BaseText(
+                                                text: "Please Note",
+                                                fontSize: 10),
+                                            Text.rich(
+                                              TextSpan(
+                                                children: [
+                                                  TextSpan(
+                                                      text: "Offer Expires on ",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 12)),
+                                                  TextSpan(
+                                                    text: DateFormat(
+                                                            "dd MMM yyyy")
+                                                        .format(
+                                                            data.offer_expires ??
+                                                                DateTime.now()),
+                                                    style: TextStyle(
+                                                        color: AppColors
+                                                            .primaryColor,
+                                                        fontSize: 12),
+                                                  ),
+                                                  TextSpan(
+                                                      text: " at ",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 12)),
+                                                  TextSpan(
+                                                    text: DateFormat("hh:mm a")
+                                                        .format(
+                                                            data.offer_expires ??
+                                                                DateTime.now()),
+                                                    style: TextStyle(
+                                                        color: AppColors
+                                                            .primaryColor,
+                                                        fontSize: 12),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Gap(8),
+                                            Row(
+                                              children: [
+                                                Flexible(
+                                                  child: CommonMaterialButton(
+                                                    onPressed: () async {
+                                                      final result =
+                                                          await AppDialog
+                                                              .showCommonDialog(
                                                         context: context,
                                                         content:
                                                             "Are you sure you want to decline this offer?",
                                                         title: "Decline Offer",
-                                                        successLabel: "Cancel",
-                                                        rejectLabel: "No");
-                                                if (result ?? false) {
-                                                  context
-                                                      .read<
-                                                          ContractorLongTermBloc>()
-                                                      .add(
-                                                        ContractorLongTermEvent
-                                                            .confirmRejectOffer(
-                                                          context: context,
-                                                          id: data.id ?? -1,
-                                                          urgent_action: 2,
-                                                        ),
+                                                        successLabel: "Confirm",
                                                       );
-                                                }
-                                              },
-                                              label: "Cancel Application",
-                                              backgroundColor: AppColors.red
-                                                  .withOpacity(0.15),
-                                              radius: 7,
+                                                      if (result ?? false) {
+                                                        context
+                                                            .read<
+                                                                ContractorLongTermBloc>()
+                                                            .add(
+                                                              ContractorLongTermEvent
+                                                                  .confirmRejectOffer(
+                                                                context:
+                                                                    context,
+                                                                id: data.id ??
+                                                                    -1,
+                                                                urgent_action:
+                                                                    2,
+                                                              ),
+                                                            );
+                                                      }
+                                                    },
+                                                    label: "Decline Offer",
+                                                    backgroundColor: AppColors
+                                                        .red
+                                                        .withOpacity(0.15),
+                                                    radius: 7,
+                                                  ),
+                                                ),
+                                                Gap(12),
+                                                Flexible(
+                                                  child: CommonMaterialButton(
+                                                    onPressed: () async {
+                                                      final result =
+                                                          await AppDialog
+                                                              .showCommonDialog(
+                                                        context: context,
+                                                        content:
+                                                            "Are you sure you want to confirm the offer for this position?",
+                                                        title:
+                                                            "Confirm Acceptance",
+                                                        successLabel: "Confirm",
+                                                      );
+                                                      if (result ?? false) {
+                                                        context
+                                                            .read<
+                                                                ContractorLongTermBloc>()
+                                                            .add(
+                                                              ContractorLongTermEvent
+                                                                  .confirmRejectOffer(
+                                                                context:
+                                                                    context,
+                                                                id: data.id ??
+                                                                    -1,
+                                                                urgent_action:
+                                                                    1,
+                                                              ),
+                                                            );
+                                                      }
+                                                    },
+                                                    label: "Confirm Acceptance",
+                                                    backgroundColor:
+                                                        AppColors.primaryColor,
+                                                    textStyle: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: getSize(12)),
+                                                    radius: 7,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          )
-                                        ],
-                                      )
-                                    ]
+                                          ],
+                                        )
+                                      ] else if (data.request == 0 &&
+                                          data.urgent_action == 0) ...[
+                                        Row(
+                                          children: [
+                                            Flexible(
+                                              child: CommonMaterialButton(
+                                                onPressed: () {
+                                                  context.router.push(
+                                                    PageRouteInfo(
+                                                        EmployerLongTermPositionDetailView
+                                                            .name,
+                                                        args: EmployerLongTermPositionDetailViewArgs(
+                                                            id: data.post_id ??
+                                                                -1)),
+                                                  );
+                                                },
+                                                label: StringConstant
+                                                    .viewPositionDetails,
+                                                backgroundColor:
+                                                    Color(0xFFF5F5F5),
+                                                radius: 7,
+                                              ),
+                                            ),
+                                            Gap(12),
+                                            Flexible(
+                                              child: CommonMaterialButton(
+                                                onPressed: () async {
+                                                  final result = await AppDialog
+                                                      .showCommonDialog(
+                                                          context: context,
+                                                          content:
+                                                              "Are you sure you want to decline this offer?",
+                                                          title:
+                                                              "Decline Offer",
+                                                          successLabel:
+                                                              "Cancel",
+                                                          rejectLabel: "No");
+                                                  if (result ?? false) {
+                                                    context
+                                                        .read<
+                                                            ContractorLongTermBloc>()
+                                                        .add(
+                                                          ContractorLongTermEvent
+                                                              .confirmRejectOffer(
+                                                            context: context,
+                                                            id: data.id ?? -1,
+                                                            urgent_action: 2,
+                                                          ),
+                                                        );
+                                                  }
+                                                },
+                                                label: "Cancel Application",
+                                                backgroundColor: AppColors.red
+                                                    .withOpacity(0.15),
+                                                radius: 7,
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ]
+                                    ],
                                   ],
-                                ],
-                              ),
-                            );
-                          },
-                          separatorBuilder: (context, index) => Gap(16),
-                          itemCount: state.appliedPositionList.length,
-                        ),
-            ),
-            if (state.postDataLoading) CenterLoadingIndicator()
-          ],
-        );
-      },
+                                ),
+                              );
+                            },
+                            separatorBuilder: (context, index) => Gap(16),
+                            itemCount: state.appliedPositionList.length,
+                          ),
+              ),
+              if (state.postDataLoading)
+                CenterLoadingIndicator(isOnlyLoader: true)
+            ],
+          );
+        },
+      ),
     );
   }
 
@@ -583,7 +605,18 @@ class ContractorLongTermAppliedPosition extends StatelessWidget {
             Gap(getSize(6)),
             Divider(),
             Gap(getSize(6)),
-            _buildLocationInfo(context, contractorLongTerm: contractorLongTerm),
+            GestureDetector(
+                onTap: () {
+                  final location = contractorLongTerm?.location;
+                  final latitude = location?.latitude;
+                  final longitude = location?.longitude;
+                  if (latitude != null && longitude != null) {
+                    LocationHelper.openDirections(context,
+                        endLat: latitude, endLng: longitude);
+                  }
+                },
+                child: _buildLocationInfo(context,
+                    contractorLongTerm: contractorLongTerm)),
           ],
         ),
       ),

@@ -9,7 +9,9 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 
 class MessageAppbar extends StatelessWidget implements PreferredSizeWidget {
   final AdditionalDataDto additionalData;
-  const MessageAppbar({super.key, required this.additionalData});
+  final void Function()? onBackPressed;
+  const MessageAppbar(
+      {super.key, required this.additionalData, this.onBackPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +48,10 @@ class MessageAppbar extends StatelessWidget implements PreferredSizeWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               GestureDetector(
-                onTap: () {
-                  context.router.maybePop();
-                },
+                onTap: onBackPressed ??
+                    () {
+                      context.router.maybePop();
+                    },
                 child: SvgPicture.asset(
                   SvgImageConstant.back,
                   colorFilter:
@@ -56,37 +59,40 @@ class MessageAppbar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
               SizedBox(width: getSize(15)),
-              Container(
-                height: getSize(30),
-                width: getSize(35),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: AppColors.primaryColor,
-                    width: getSize(2),
-                  ),
-                  image: DecorationImage(
-                    image: NetworkImage(
-                      additionalData.profile ??
-                          'https://img.freepik.com/free-photo/fashionable-young-woman-standing-front-blue-backdrop_23-2148204718.jpg?semt=ais_hybrid-rr-similar',
+              if (additionalData.profile != null)
+                Container(
+                  height: getSize(30),
+                  width: getSize(35),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: AppColors.primaryColor,
+                      width: getSize(2),
                     ),
-                    fit: BoxFit.cover,
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        additionalData.profile ??
+                            'https://img.freepik.com/free-photo/fashionable-young-woman-standing-front-blue-backdrop_23-2148204718.jpg?semt=ais_hybrid-rr-similar',
+                      ),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
               SizedBox(width: getSize(12)),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   BaseText(
-                    text: additionalData.name ?? 'Rochel Foose',
+                    text: additionalData.name ?? '',
                     fontWeight: FontWeight.w600,
                     fontSize: 13,
                   ),
                   SizedBox(height: getSize(2)),
                   BaseText(
-                    text: additionalData.role_list_name ?? 'NA',
+                    text: (additionalData.service_roles == "2")
+                        ? additionalData.location ?? ''
+                        : additionalData.role_list_name ?? "",
                     fontWeight: FontWeight.w600,
                     fontSize: 9,
                     textColor: AppColors.black.withOpacity(0.8),

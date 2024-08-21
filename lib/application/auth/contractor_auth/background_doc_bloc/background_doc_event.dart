@@ -14,8 +14,8 @@ class BackgroundDocEvent with _$BackgroundDocEvent {
       DeleteBGFrontDoc;
   const factory BackgroundDocEvent.deleteBGBackDoc(String govermentBackDoc) =
       DeleteBGBackDoc;
-  const factory BackgroundDocEvent.bgProofSubmit(BuildContext context) =
-      BGProofSubmit;
+  const factory BackgroundDocEvent.bgProofSubmit(BuildContext context,
+      {required bool isUpdate}) = BGProofSubmit;
   const factory BackgroundDocEvent.backgroundDocIssueDateChanged(
       String expiryDate) = BackgroundDocIssueDateChanged;
 }

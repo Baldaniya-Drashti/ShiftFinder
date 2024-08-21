@@ -32,6 +32,7 @@ _$ContractorPreviousShiftDTOImpl _$$ContractorPreviousShiftDTOImplFromJson(
           ?.map(
               (e) => PreviousShiftDetailDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
+      is_payment: (json['is_payment'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$ContractorPreviousShiftDTOImplToJson(
@@ -55,6 +56,7 @@ Map<String, dynamic> _$$ContractorPreviousShiftDTOImplToJson(
       'shift_type': instance.shift_type,
       'total_shifts': instance.total_shifts,
       'shift_date': instance.shift_date,
+      'is_payment': instance.is_payment,
     };
 
 _$PreviousShiftDetailDTOImpl _$$PreviousShiftDetailDTOImplFromJson(

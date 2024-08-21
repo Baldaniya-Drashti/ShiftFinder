@@ -35,7 +35,8 @@ class _TimePickerInputFieldState extends State<TimePickerInputField> {
   void initState() {
     super.initState();
     _controller = TextEditingController(
-      text: widget.initialTime != null ? widget.initialTime!.formatTimeOfDay : "",
+      text:
+          widget.initialTime != null ? widget.initialTime!.formatTimeOfDay : "",
     );
   }
 
@@ -43,9 +44,11 @@ class _TimePickerInputFieldState extends State<TimePickerInputField> {
   void didUpdateWidget(covariant TimePickerInputField oldWidget) {
     super.didUpdateWidget(oldWidget);
     Timer.run(
-          () {
+      () {
         if (widget.initialTime != oldWidget.initialTime) {
-          _controller.text = widget.initialTime != null ? widget.initialTime!.formatTimeOfDay : "";
+          _controller.text = widget.initialTime != null
+              ? widget.initialTime!.formatTimeOfDay
+              : "";
         }
       },
     );
@@ -76,7 +79,8 @@ class _TimePickerInputFieldState extends State<TimePickerInputField> {
           horizontal: getSize(14),
           vertical: getSize(14),
         ),
-        child: SvgPicture.asset(SvgImageConstant.clock, height: getSize(24), width: getSize(24)),
+        child: SvgPicture.asset(SvgImageConstant.clock,
+            height: getSize(24), width: getSize(24)),
       ),
       onTap: () async {
         final time = await _showTimePicker(context);

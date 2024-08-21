@@ -41,6 +41,7 @@ _$ContractorMyCalendarListDTOImpl _$$ContractorMyCalendarListDTOImplFromJson(
       start_time: (json['start_time'] as num?)?.toInt(),
       end_time: (json['end_time'] as num?)?.toInt(),
       total_shift: (json['total_shift'] as num?)?.toInt(),
+      count: (json['count'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$ContractorMyCalendarListDTOImplToJson(
@@ -60,6 +61,7 @@ Map<String, dynamic> _$$ContractorMyCalendarListDTOImplToJson(
       'start_time': instance.start_time,
       'end_time': instance.end_time,
       'total_shift': instance.total_shift,
+      'count': instance.count,
     };
 
 _$ContractorMyCalendarDTOImpl _$$ContractorMyCalendarDTOImplFromJson(

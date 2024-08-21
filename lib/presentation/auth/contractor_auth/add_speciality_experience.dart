@@ -17,6 +17,7 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/custom_year_picker/custom_date_picker_dropdown.dart';
 import 'package:shift/presentation/core/widgets/custom_year_picker/order_format.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 import '../../common/widgets/center_loading_indicator.dart';
@@ -25,98 +26,113 @@ import '../../common/widgets/center_loading_indicator.dart';
 class AddSpecialityExperience extends StatelessWidget {
   bool isFromSplash = false;
   bool isUpdate;
-  AddSpecialityExperience(
-      {super.key, this.isFromSplash = false, this.isUpdate = false});
+
+  bool isSpecialityForceUpdate;
+  AddSpecialityExperience({
+    super.key,
+    this.isFromSplash = false,
+    this.isUpdate = false,
+    this.isSpecialityForceUpdate = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<SpecialityExperienceBloc>()
-        ..add(SpecialityExperienceEvent.getSpecialityExperinceDataEvent(
-            isUpdate)),
-      child: Scaffold(
-        appBar: CommonAppBar(
-          isShowBackBtn: !isFromSplash,
-          onBackPressed: () {
-            context.router.maybePop();
-          },
-          title: StringConstant.specialityExperience,
-        ),
-        body: BlocConsumer<SpecialityExperienceBloc, SpecialityExperienceState>(
-          listener: (context, state) {
-            state.authFailureOrSuccessOption.fold(
-              () {},
-              (either) => either.fold(
-                (failure) {
-                  showError(
-                    message: failure.maybeMap(
-                      showAPIResponseMessage: (value) => value.message,
-                      networkError: (value) =>
-                          'Please check your internet connectivity',
-                      orElse: () => "Server Error. Try again later.",
-                    ),
-                  ).show(context);
-                },
-                (r) {
-                  // context.router.push(const PageRouteInfo(ReferenceListScreen.name));
+    return PopScope(
+      canPop: (isUpdate && !isSpecialityForceUpdate),
+      child: BlocProvider(
+        create: (context) => getIt<SpecialityExperienceBloc>()
+          ..add(SpecialityExperienceEvent.getSpecialityExperinceDataEvent()),
+        child: Scaffold(
+          appBar: CommonAppBar(
+            isShowBackBtn: !isFromSplash,
+            // isShowBackBtn: (isUpdate) ? false : !isFromSplash,
+            onBackPressed: () {
+              if (isUpdate && isSpecialityForceUpdate) {
+                AppDialog.showInfo(
+                    context, StringConstant.forceSpecialityUpdateDesc);
+              } else {
+                Navigator.pop(context);
+              }
+            },
+            title: StringConstant.specialityExperience,
+          ),
+          body:
+              BlocConsumer<SpecialityExperienceBloc, SpecialityExperienceState>(
+            listener: (context, state) {
+              state.authFailureOrSuccessOption.fold(
+                () {},
+                (either) => either.fold(
+                  (failure) {
+                    showError(
+                      message: failure.maybeMap(
+                        showAPIResponseMessage: (value) => value.message,
+                        networkError: (value) =>
+                            'Please check your internet connectivity',
+                        orElse: () => "Server Error. Try again later.",
+                      ),
+                    ).show(context);
+                  },
+                  (r) {
+                    // context.router.push(const PageRouteInfo(ReferenceListScreen.name));
 
-                  if (isUpdate) {
-                    /*  context.router.pushAndPopUntil(
-                      PageRouteInfo(AddContractorSkillsForm.name,
-                          args:
-                              AddContractorSkillsFormArgs(isFromSplash: true)),
-                      predicate:
-                          ModalRoute.withName(ContractorUpdateProfileView.name),
-                    ); */
-                    Navigator.pop(context, true);
-                  } else {
-                    context.router
-                        .push(const PageRouteInfo(EducationListScreen.name));
-                  }
-                },
-              ),
-            );
-          },
-          builder: (context, state) {
-            return Form(
-              autovalidateMode: (state.showErrorMessages)
-                  ? AutovalidateMode.always
-                  : AutovalidateMode.disabled,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                child: Column(
-                  children: [
-                    experinceDesc(),
-                    SizedBox(
-                      height: getSize(20),
-                    ),
-                    Expanded(
-                      child: (state.isLoading)
-                          ? CenterLoadingIndicator(isOnlyLoader: true)
-                          : SingleChildScrollView(
-                              child: mainListView(context, state)),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        bottom: getSize(40),
-                      ),
-                      child: CommonButton(
-                        isSubmitting: state.isSubmitting,
-                        onPressed: () {
-                          context.read<SpecialityExperienceBloc>().add(
-                              SpecialityExperienceEvent.continueBtnPressedEvent(
-                                  isUpdate));
-                        },
-                        buttonText: (isUpdate)
-                            ? StringConstant.update
-                            : StringConstant.txtContinue,
-                      ),
-                    ),
-                  ],
+                    if (isUpdate) {
+                      /*  context.router.pushAndPopUntil(
+                        PageRouteInfo(AddContractorSkillsForm.name,
+                            args:
+                                AddContractorSkillsFormArgs(isFromSplash: true)),
+                        predicate:
+                            ModalRoute.withName(ContractorUpdateProfileView.name),
+                      ); */
+                      Navigator.pop(context, true);
+                    } else {
+                      context.router
+                          .push(const PageRouteInfo(EducationListScreen.name));
+                    }
+                  },
                 ),
-              ),
-            );
-          },
+              );
+            },
+            builder: (context, state) {
+              return Form(
+                autovalidateMode: (state.showErrorMessages)
+                    ? AutovalidateMode.always
+                    : AutovalidateMode.disabled,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                  child: Column(
+                    children: [
+                      experinceDesc(),
+                      SizedBox(
+                        height: getSize(20),
+                      ),
+                      Expanded(
+                        child: (state.isLoading)
+                            ? CenterLoadingIndicator(isOnlyLoader: true)
+                            : SingleChildScrollView(
+                                child: mainListView(context, state)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: getSize(40),
+                        ),
+                        child: CommonButton(
+                          isSubmitting: state.isSubmitting,
+                          onPressed: () {
+                            context.read<SpecialityExperienceBloc>().add(
+                                SpecialityExperienceEvent
+                                    .continueBtnPressedEvent(isUpdate));
+                          },
+                          buttonText: (isUpdate)
+                              ? StringConstant.update
+                              : StringConstant.txtContinue,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
@@ -149,7 +165,8 @@ class AddSpecialityExperience extends StatelessWidget {
               ),
               child: BaseText(
                 text:
-                    "${index + 1}. ${(isUpdate) ? (currentObj.specialtie_lists_other != null) ? currentObj.specialtie_lists_other! : currentObj.role?.name ?? "" : currentObj.name}",
+                    // "${index + 1}. ${(isUpdate) ? (currentObj.specialtie_lists_other != null) ? currentObj.specialtie_lists_other! : currentObj.role?.name ?? "" : currentObj.name}",
+                    "${index + 1}. ${(currentObj.specialtie_lists_other != null) ? currentObj.specialtie_lists_other! : currentObj.role?.name ?? ""}",
                 textAlign: TextAlign.center,
                 fontSize: 14,
                 fontWeight: FontWeight.w500,

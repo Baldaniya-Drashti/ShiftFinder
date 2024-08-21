@@ -28,164 +28,182 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
     required this.employerLongTermSuccessDto,
     this.postId,
     required this.postShiftDTO,
+    this.fromReview = false,
+    this.isCreate = true,
+    this.fromTemplate = false,
   });
 
   final EmployerLongTermSuccessDto employerLongTermSuccessDto;
   final PostShiftDTO postShiftDTO;
   final int? postId;
+  final bool fromReview;
+  final bool isCreate;
+  final bool fromTemplate;
 
   @override
   Widget build(BuildContext context) {
-    print("llllll${employerLongTermSuccessDto.toJson()}");
-    return Scaffold(
-      appBar: CommonAppBar(
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        appBar: CommonAppBar(
           onBackPressed: () => context.router.maybePop(),
-          title: "Review Details"),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(getSize(12)),
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(getSize(20)),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.lightGrey.withOpacity(0.2),
-                    blurRadius: getSize(20),
-                  ),
-                ],
-              ),
-              padding: EdgeInsets.all(getSize(12)),
-              child: OverflowBar(
-                overflowSpacing: getSize(12),
-                children: [
-                  _buildPositionTile(context),
-                  _buildApplicationInformation(context),
-                  rateHoursBox(),
-                  _buildEstimatedHours(context),
-                  _buildShiftSchedule(context),
-                  _buildLanguageRequirement(context),
-                  _buildLocationDetail(context),
-                  if (employerLongTermSuccessDto.on_call_included == 1)
-                    _buildCommonDividerTile(
-                      context,
-                      title: 'On-Call',
-                      value: "This contract may include on-call",
-                    ),
-                  _buildCommonDividerTile(
-                    context,
-                    title: 'Job Description',
-                    value: employerLongTermSuccessDto.job_description ?? "",
-                  ),
-                  _buildCommonDividerTile(
-                    context,
-                    title: 'Responsibilities',
-                    value: employerLongTermSuccessDto.responsibilities ?? "",
-                  ),
-                  _buildCommonDividerTile(
-                    context,
-                    title: 'Qualifications',
-                    value: employerLongTermSuccessDto.qualifications ?? "",
-                  ),
-                  _buildCommonDividerTile(
-                    context,
-                    title: 'Licenses/Certifications',
-                    value: employerLongTermSuccessDto.licenses_certifications ??
-                        "",
-                  ),
-                  if (employerLongTermSuccessDto.terms_document != null) ...[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20),
-                          child: BaseText(
-                            text: "Contract Terms",
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                            textColor: AppColors.black.withOpacity(0.7),
-                          ),
-                        ),
-                        Gap(6),
-                        Material(
-                          color: AppColors.grey04,
-                          borderRadius: BorderRadius.circular(getSize(20)),
-                          child: Padding(
-                            padding: EdgeInsets.all(getSize(16)),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                if (employerLongTermSuccessDto.terms !=
-                                    null) ...[
-                                  BaseText(text: "Terms", fontSize: 13),
-                                  Gap(getSize(12)),
-                                  CustomTextField(
-                                    hintText: "Type Here...",
-                                    controller: TextEditingController(
-                                        text:
-                                            employerLongTermSuccessDto.terms ??
-                                                ""),
-                                    maxLines: 3,
-                                    readOnly: true,
-                                  ),
-                                  Gap(getSize(16)),
-                                ],
-                                if (employerLongTermSuccessDto.terms_document !=
-                                    null) ...[
-                                  BaseText(
-                                      text: "Upload Document", fontSize: 13),
-                                  Gap(8),
-                                  selectedImage(
-                                      context,
-                                      employerLongTermSuccessDto
-                                          .terms_document!),
-                                ]
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ] else if (employerLongTermSuccessDto.terms_document ==
-                          null &&
-                      employerLongTermSuccessDto.terms != null) ...[
-                    _buildCommonDividerTile(
-                      context,
-                      title: 'Contract Terms',
-                      value: employerLongTermSuccessDto.terms ?? "",
+          isShowBackBtn: false,
+          title: StringConstant.reviewDetails,
+        ),
+        bottomSheet: Padding(
+          padding: EdgeInsets.all(getSize(10)),
+          child: _buildSubmitButton(context),
+        ),
+        body: SingleChildScrollView(
+          padding: EdgeInsets.all(getSize(12)),
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(getSize(20)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.lightGrey.withOpacity(0.2),
+                      blurRadius: getSize(20),
                     ),
                   ],
-                  _buildCommonDividerTile(
-                    context,
-                    title: 'Onboarding Process',
-                    value: employerLongTermSuccessDto.onboarding_process ?? "",
-                  ),
-                  _buildNumberOfVacancy(context,
-                      employerLongTermSuccessDto.number_of_vacancie ?? 00),
-                  _buildCommonDividerTile(
-                    context,
-                    title: StringConstant.disclaimer,
-                    value:
-                        "By proceeding, I confirm that we, the employer, are responsible for making payments directly to the contractor for this long-term contract. We understand that ShiftFinder is not responsible for any disputes, including those arising from non-payment or contract violations. We confirm that the ShiftFinder service fee is payable by us upon accepting a contractor for the position.",
-                  ),
-                  if ((employerLongTermSuccessDto.teams ?? []).isNotEmpty)
-                    _buildSelectedTeams(context),
-                  if (employerLongTermSuccessDto.on_call_included == 1)
-                    _buildCheckListTile(
+                ),
+                padding: EdgeInsets.all(getSize(12)),
+                child: OverflowBar(
+                  overflowSpacing: getSize(12),
+                  children: [
+                    _buildPositionTile(context),
+                    _buildApplicationInformation(context),
+                    rateHoursBox(),
+                    _buildEstimatedHours(context),
+                    _buildShiftSchedule(context),
+                    _buildLanguageRequirement(context),
+                    _buildLocationDetail(context),
+                    if (employerLongTermSuccessDto.on_call_included == 1)
+                      _buildCommonDividerTile(
+                        context,
+                        title: StringConstant.onCall,
+                        value: "This contract may include on-call",
+                      ),
+                    _buildCommonDividerTile(
                       context,
-                      value: employerLongTermSuccessDto.on_call_included == 1,
-                      onChanged: (value) {},
-                      label: "This contract may include on call.",
+                      title: 'Job Description',
+                      value: employerLongTermSuccessDto.job_description ?? "",
                     ),
-                ],
+                    _buildCommonDividerTile(
+                      context,
+                      title: 'Responsibilities',
+                      value: employerLongTermSuccessDto.responsibilities ?? "",
+                    ),
+                    _buildCommonDividerTile(
+                      context,
+                      title: 'Qualifications',
+                      value: employerLongTermSuccessDto.qualifications ?? "",
+                    ),
+                    _buildCommonDividerTile(
+                      context,
+                      title: 'Licenses/Certifications',
+                      value:
+                          employerLongTermSuccessDto.licenses_certifications ??
+                              "",
+                    ),
+                    if (employerLongTermSuccessDto.terms_document != null) ...[
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: getSize(20)),
+                            child: BaseText(
+                              text: StringConstant.contractTerms,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                              textColor: AppColors.black.withOpacity(0.7),
+                            ),
+                          ),
+                          Gap(getSize(6)),
+                          Material(
+                            color: AppColors.grey04,
+                            borderRadius: BorderRadius.circular(getSize(20)),
+                            child: Padding(
+                              padding: EdgeInsets.all(getSize(16)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  if (employerLongTermSuccessDto.terms !=
+                                      null) ...[
+                                    BaseText(
+                                        text: StringConstant.terms,
+                                        fontSize: 13),
+                                    Gap(getSize(12)),
+                                    CustomTextField(
+                                      hintText: StringConstant.typeHere,
+                                      controller: TextEditingController(
+                                          text: employerLongTermSuccessDto
+                                                  .terms ??
+                                              ""),
+                                      maxLines: 3,
+                                      readOnly: true,
+                                    ),
+                                    Gap(getSize(16)),
+                                  ],
+                                  if (employerLongTermSuccessDto
+                                          .terms_document !=
+                                      null) ...[
+                                    BaseText(
+                                        text: "Upload Document", fontSize: 13),
+                                    Gap(8),
+                                    selectedImage(
+                                        context,
+                                        employerLongTermSuccessDto
+                                            .terms_document!),
+                                  ]
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ] else if (employerLongTermSuccessDto.terms_document ==
+                            null &&
+                        employerLongTermSuccessDto.terms != null) ...[
+                      _buildCommonDividerTile(
+                        context,
+                        title: StringConstant.contractTerms,
+                        value: employerLongTermSuccessDto.terms ?? "",
+                      ),
+                    ],
+                    _buildCommonDividerTile(
+                      context,
+                      title: StringConstant.onboardingProcess,
+                      value:
+                          employerLongTermSuccessDto.onboarding_process ?? "",
+                    ),
+                    _buildNumberOfVacancy(context,
+                        employerLongTermSuccessDto.number_of_vacancie ?? 00),
+                    _buildCommonDividerTile(
+                      context,
+                      title: StringConstant.disclaimer,
+                      value:
+                          "By proceeding, I confirm that we, the employer are responsible for making payments directly to the contractor for this long-term contract. We understand that ShiftFinder is not responsible for any disputes, including those arising from non-payment or contract violations. We confirm that the ShiftFinder service fee is payable by us upon accepting a contractor for the position.",
+                    ),
+                    if ((employerLongTermSuccessDto.teams ?? []).isNotEmpty)
+                      _buildSelectedTeams(context),
+                    if (employerLongTermSuccessDto.on_call_included == 1)
+                      _buildCheckListTile(
+                        context,
+                        value: employerLongTermSuccessDto.on_call_included == 1,
+                        onChanged: (value) {},
+                        label: StringConstant.thisContractMayIncludeOnCall,
+                      ),
+                  ],
+                ),
               ),
-            ),
-            Gap(28),
-            _buildSubmitButton(context)
-          ],
+              Gap(getSize(80)),
+            ],
+          ),
         ),
       ),
     );
@@ -257,9 +275,7 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(
-              width: getSize(15),
-            ),
+            SizedBox(width: getSize(15)),
             Expanded(
               child: BaseText(
                 text: label,
@@ -298,11 +314,42 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
               employerLongTermSuccessDto: employerLongTermSuccessDto,
               postId: postId,
               postShiftDTO: postShiftDTO,
+              fromReview: fromReview,
+              isCreate: isCreate,
+              fromTemplate: fromTemplate,
             ),
           ),
         );
       },
-      buttonText: "Continue",
+      buttonText: StringConstant.txtContinue,
+    );
+  }
+
+  Widget commonEditButton(
+    BuildContext context,
+  ) {
+    return GestureDetector(
+      onTap: () {
+        context.router.push(PageRouteInfo(EmployerLongTermPositionAddView.name,
+            args: EmployerLongTermPositionAddViewArgs(
+              postId: employerLongTermSuccessDto.id,
+              fromReview: true,
+              isCreate: isCreate,
+              fromTemplate: fromTemplate,
+            )));
+      },
+      child: Container(
+        padding: EdgeInsets.all(getSize(5)),
+        decoration: BoxDecoration(
+          color: AppColors.primaryColor,
+          shape: BoxShape.circle,
+        ),
+        child: SvgPicture.asset(
+          SvgImageConstant.edit,
+          height: getSize(16),
+          width: getSize(16),
+        ),
+      ),
     );
   }
 
@@ -455,11 +502,12 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
               ],
             ),
           ),
-          BaseText(
-            text: employerLongTermSuccessDto.last_ago ?? "",
-            fontSize: 10,
-            fontWeight: FontWeight.w600,
-          )
+          commonEditButton(context),
+          // BaseText(
+          //   text: employerLongTermSuccessDto.last_ago ?? "",
+          //   fontSize: 10,
+          //   fontWeight: FontWeight.w600,
+          // ),
         ],
       ),
     );
@@ -760,19 +808,8 @@ class EmployerLongTermReviewDetailView extends StatelessWidget {
             Gap(4),
             BaseText(text: location?.location ?? "", fontSize: 14),
             Gap(10),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                BaseText(
-                    text: "Unit - ",
-                    fontSize: 12,
-                    textColor: AppColors.primaryColor),
-                BaseText(
-                    text: "Unit Name",
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500),
-              ],
-            ),
+            BaseText(
+                text: "Unit", fontSize: 12, textColor: AppColors.primaryColor),
             Gap(4),
             BaseText(
                 text: employerLongTermSuccessDto.location_unit ?? "",

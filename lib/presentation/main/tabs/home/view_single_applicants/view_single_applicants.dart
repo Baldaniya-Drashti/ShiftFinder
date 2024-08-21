@@ -15,6 +15,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -658,7 +659,9 @@ class ViewSingleApplicants extends StatelessWidget {
               final latitude = data.latitude;
               final longitude = data.longitude;
               if (latitude != null && longitude != null) {
-                context.router.push(
+                LocationHelper.openDirections(context,
+                    endLat: latitude, endLng: longitude);
+                /* context.router.push(
                   PageRouteInfo(
                     ShowGoogleMap.name,
                     args: ShowGoogleMapArgs(
@@ -666,7 +669,7 @@ class ViewSingleApplicants extends StatelessWidget {
                       longitude: longitude,
                     ),
                   ),
-                );
+                ); */
               }
             },
             child: Row(
@@ -683,7 +686,7 @@ class ViewSingleApplicants extends StatelessWidget {
                 SizedBox(width: getSize(5)),
                 Expanded(
                   child: BaseText(
-                    text: "${data.location ?? ""} ${data.location}",
+                    text: data.location ?? "",
                     fontSize: 10,
                     fontWeight: FontWeight.w500,
                     maxLines: 2,

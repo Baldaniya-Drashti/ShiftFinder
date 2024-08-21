@@ -23,6 +23,8 @@ _$PayableDTOImpl _$$PayableDTOImplFromJson(Map<String, dynamic> json) =>
       service_one_fee: json['service_one_fee'] as String?,
       third_party_fee: json['third_party_fee'] as String?,
       third_party_tax_fee: json['third_party_tax_fee'] as String?,
+      total_amount_payable_contractor:
+          json['total_amount_payable_contractor'] as String?,
     );
 
 Map<String, dynamic> _$$PayableDTOImplToJson(_$PayableDTOImpl instance) =>
@@ -42,4 +44,6 @@ Map<String, dynamic> _$$PayableDTOImplToJson(_$PayableDTOImpl instance) =>
       'service_one_fee': instance.service_one_fee,
       'third_party_fee': instance.third_party_fee,
       'third_party_tax_fee': instance.third_party_tax_fee,
+      'total_amount_payable_contractor':
+          instance.total_amount_payable_contractor,
     };

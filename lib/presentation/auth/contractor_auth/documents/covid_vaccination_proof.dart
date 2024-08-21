@@ -37,6 +37,8 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
     return BlocConsumer<DocumentBloc, DocumentState>(
       listener: (context, state) {},
       builder: (context, state) {
+        print("covid issi---> ${state.covidDocId}");
+
         return (state.isLoading)
             ? CenterLoadingIndicator()
             : Padding(

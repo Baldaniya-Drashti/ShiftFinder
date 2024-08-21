@@ -485,7 +485,7 @@ class ProfessionalLicenses extends StatelessWidget {
       labelText: StringConstant.registrationNumber,
       hintText: StringConstant.registrationNumber,
       initialValue: state.registrationNumber,
-      keyboardType: TextInputType.number,
+      // keyboardType: TextInputType.number,
       isOptional: true,
       onChanged: (value) => context.read<ProfessionalLicensesBloc>().add(
           ProfessionalLicensesEvent.licensesRegistrationNumberChanegd(value)),

@@ -160,24 +160,28 @@ class _DocumentListState extends State<DocumentList> {
           SizedBox(
             width: getSize(15),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BaseText(
-                text:
-                    "Hello,✋ ${getCurrentUser().firstName} ${getCurrentUser().lastName}",
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                lineHeight: 1.5,
-              ),
-              const BaseText(
-                text: StringConstant
-                    .pleaseUploadTheDocumentsListedBelowGovtIssuedIdIsCompulsory,
-                fontSize: 10,
-                fontWeight: FontWeight.w400,
-                maxLines: 2,
-              ),
-            ],
+          Flexible(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                BaseText(
+                  text:
+                      "Hello,✋ ${getCurrentUser().firstName} ${getCurrentUser().lastName}",
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  maxLines: 1,
+                  lineHeight: 1.5,
+                ),
+                const BaseText(
+                  text: StringConstant
+                      .pleaseUploadTheDocumentsListedBelowGovtIssuedIdIsCompulsory,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
+                  maxLines: 2,
+                ),
+              ],
+            ),
           )
         ],
       ),

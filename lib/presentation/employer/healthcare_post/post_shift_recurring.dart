@@ -32,6 +32,8 @@ class PostShiftRecurring extends StatelessWidget {
   final HealthcarePostDTO? updateShift;
   final PostShiftDTO post;
   final bool fromSaveTemplate;
+  final bool fromReview;
+  final bool isCreate;
 
   const PostShiftRecurring({
     super.key,
@@ -39,6 +41,8 @@ class PostShiftRecurring extends StatelessWidget {
     required this.updateShift,
     required this.post,
     this.fromSaveTemplate = false,
+    this.fromReview = false,
+    this.isCreate = true,
   });
 
   String postTitle() {
@@ -75,19 +79,23 @@ class PostShiftRecurring extends StatelessWidget {
                     ).show(context);
                   },
                   (r) {
-                    context.router.push(PageRouteInfo(
-                        ReviewPostShiftDetail.name,
-                        args: ReviewPostShiftDetailArgs(
-                            post: r,
-                            updatedPost: (state.updateShift.id != null &&
-                                    state.updateShift.id != -1)
-                                ? state.post
-                                : null,
-                            isUpdate: (state.updateShift.id != null &&
-                                    state.updateShift.id != -1)
-                                ? true
-                                : false,
-                            fromSaveTemplate: fromSaveTemplate)));
+                    context.router
+                        .push(PageRouteInfo(ReviewPostShiftDetail.name,
+                            args: ReviewPostShiftDetailArgs(
+                              post: r,
+                              // updatedPost: (state.updateShift.id != null &&
+                              //         state.updateShift.id != -1)
+                              //     ? state.post
+                              //     : null,
+                              postRequest: state.post,
+                              isUpdate: (state.updateShift.id != null &&
+                                      state.updateShift.id != -1)
+                                  ? true
+                                  : false,
+                              fromSaveTemplate: fromSaveTemplate,
+                              fromReview: fromReview,
+                              isCreate: isCreate,
+                            )));
                   },
                 ),
               );
@@ -233,7 +241,8 @@ class PostShiftRecurring extends StatelessWidget {
                                           int selectedDayCount = 0;
 
                                           if (startDate != null &&
-                                              endDate != null) {
+                                              endDate != null &&
+                                              state.isToBeRecurring) {
                                             for (DateTime date = startDate;
                                                 date.isBefore(endDate) ||
                                                     date.isAtSameMomentAs(
@@ -252,18 +261,20 @@ class PostShiftRecurring extends StatelessWidget {
                                                 noOfShift: selectedDayCount);
                                           } else {
                                             context.read<PostShiftBloc>().add(
-                                                PostShiftEvent
-                                                    .recurringButtonEvent(
-                                                        context,
-                                                        updateShift
-                                                                ?.shift_detail
-                                                                ?.id ??
-                                                            -1,
-                                                        fromSaveTemplate));
+                                                    PostShiftEvent
+                                                        .recurringButtonEvent(
+                                                  context,
+                                                  updateShift
+                                                          ?.shift_detail?.id ??
+                                                      -1,
+                                                  fromSaveTemplate,
+                                                  fromReview: fromReview,
+                                                  isCreate: isCreate,
+                                                ));
                                           }
                                         },
                                         buttonText: fromSaveTemplate
-                                            ? "Post The Shift"
+                                            ? StringConstant.postTheShift
                                             : StringConstant.txtContinue,
                                       ),
                                     ),
@@ -303,7 +314,12 @@ class PostShiftRecurring extends StatelessWidget {
       onDeleteClick: () {
         context.router.maybePop();
         context.read<PostShiftBloc>().add(PostShiftEvent.recurringButtonEvent(
-            context, updateShift?.shift_detail?.id ?? -1, fromSaveTemplate));
+              context,
+              updateShift?.shift_detail?.id ?? -1,
+              fromSaveTemplate,
+              fromReview: fromReview,
+              isCreate: isCreate,
+            ));
       },
     );
   }

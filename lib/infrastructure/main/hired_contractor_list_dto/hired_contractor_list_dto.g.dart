@@ -25,6 +25,8 @@ _$HiredContractorListDTOImpl _$$HiredContractorListDTOImplFromJson(
       reason: json['reason'] as String?,
       post_id: (json['post_id'] as num?)?.toInt(),
       shift_complete: json['shift_complete'] as bool?,
+      count: (json['count'] as num?)?.toInt(),
+      isLoading: json['isLoading'] as bool?,
     );
 
 Map<String, dynamic> _$$HiredContractorListDTOImplToJson(
@@ -46,4 +48,6 @@ Map<String, dynamic> _$$HiredContractorListDTOImplToJson(
       'reason': instance.reason,
       'post_id': instance.post_id,
       'shift_complete': instance.shift_complete,
+      'count': instance.count,
+      'isLoading': instance.isLoading,
     };

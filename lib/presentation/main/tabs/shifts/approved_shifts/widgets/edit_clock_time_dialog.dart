@@ -22,8 +22,8 @@ class EditClockTimeDialog extends StatelessWidget {
     return const Placeholder();
   }
 
-  editClockTimeDialog(
-      BuildContext context, HiredContractorListDTO contractor) async {
+  editClockTimeDialog(BuildContext context, HiredContractorListDTO contractor,
+      {VoidCallback? callBack}) async {
     await showDialog<bool?>(
       context: context,
       builder: (__) => BlocProvider(
@@ -177,7 +177,7 @@ class EditClockTimeDialog extends StatelessWidget {
                               (contractor.clock_in_time ?? 0) * 1000);
                         } else {
                           dateTime = DateTime.fromMillisecondsSinceEpoch(
-                              (state.clockIn ?? 0) * 1000);
+                              (state.clockOut ?? 0) * 1000);
                         }
 
                         final clockOutTime =
@@ -225,6 +225,7 @@ class EditClockTimeDialog extends StatelessWidget {
                               con.read<HiredContractorBloc>().add(
                                       HiredContractorEvent.submitClockInOutTime(
                                     con,
+                                    isEdit: true,
                                     postId: contractor.post_id ?? -1,
                                     userId: contractor.user_id ?? -1,
                                     clockIn: state.clockIn,
@@ -245,7 +246,14 @@ class EditClockTimeDialog extends StatelessWidget {
           },
         ),
       ),
-    );
+    ).then((value) {
+      if (value == true) {
+        if (callBack != null) {
+          callBack();
+        }
+      }
+      print("valuee after back---> $value");
+    });
 
     // if (result ?? false) {
     //   con.read<HiredContractorBloc>().add(

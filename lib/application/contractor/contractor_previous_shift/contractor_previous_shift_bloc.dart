@@ -130,7 +130,7 @@ class ContractorPreviousShiftBloc
                       .map((e) => ContractorPreviousShiftDTO.fromJson(e))
                       .toList()
                       .isEmpty,
-                  cancelledDataList: List.from(state.completedDataList)
+                  cancelledDataList: List.from(state.cancelledDataList)
                     ..addAll((r.data as List<dynamic>)
                         .map((e) => ContractorPreviousShiftDTO.fromJson(e))
                         .toList()),

@@ -60,7 +60,8 @@ class ProofOfLegalStatusBloc
               proofFailureOrSuccessOption: none(),
             ),
           );
-          failureOrSuccess = await _repository.getDocumentApi(documentType: 1);
+          failureOrSuccess =
+              await _repository.getStripeDocumentApi(documentType: 4);
           failureOrSuccess.fold(
             (l) => emit(
               state.copyWith(
@@ -77,7 +78,7 @@ class ProofOfLegalStatusBloc
                   state.copyWith(
                     isLoading: false,
                     existingProofDoc: r[0],
-                    currentProofType: CommonList.addressProofList.firstWhere(
+                    currentProofType: CommonList.proofLegalWorkList.firstWhere(
                       (skill) => skill.id == r[0].sub_type,
                       orElse: () => SkillDTO(),
                     ),
@@ -184,7 +185,7 @@ class ProofOfLegalStatusBloc
               ),
             );
 
-            if (state.selectedDocId != -1) {
+            /* if (state.selectedDocId != -1) {
               /*  failureOrSuccess = await _repository.updateDocumentApi(
                 id: state.selectedDocId,
                 documentType: 1,
@@ -203,9 +204,17 @@ class ProofOfLegalStatusBloc
                 expiryDate: state.docExpiryDate,
                 lastPage: "BankDetail",
               );
-            }
+            } */
+            failureOrSuccess = await _repository.addAddressProofApi(
+              documentType: 4,
+              subType: state.currentProofType.id,
+              documentFile: state.proofFrontDoc.getValue() ?? "",
+              documentBackFile: state.proofBackDoc.getValue() ?? "",
+              expiryDate: state.docExpiryDate,
+              lastPage: "BankDetail",
+            );
 
-            failureOrSuccess?.fold(
+            failureOrSuccess.fold(
               (failure) {
                 showError(
                   message: failure.maybeMap(
@@ -220,7 +229,19 @@ class ProofOfLegalStatusBloc
                 );
               },
               (success) {
-                e.context.router.push(PageRouteInfo(AddBankDetailsScreen.name));
+                if (e.isUpdate) {
+                  e.context.router.popUntil((route) {
+                    if (route.settings.name ==
+                        ContractorUpdateProfileView.name) {
+                      return true;
+                    } else {
+                      return false;
+                    }
+                  });
+                } else {
+                  e.context.router
+                      .push(PageRouteInfo(AddBankDetailsScreen.name));
+                }
               },
             );
 

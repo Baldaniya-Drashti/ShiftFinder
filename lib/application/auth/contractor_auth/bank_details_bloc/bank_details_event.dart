@@ -41,6 +41,6 @@ class BankDetailsEvent with _$BankDetailsEvent {
       Predictions selectedLocation) = LocationSelectedFromSearchList;
 
   const factory BankDetailsEvent.getBankDetails() = GetBankDetails;
-  const factory BankDetailsEvent.getCurrentBank(
+  const factory BankDetailsEvent.getCurrentBank(BuildContext context,
       {BankDTO? currentBank, @Default(false) bool isUpdate}) = GetCurrentBank;
 }

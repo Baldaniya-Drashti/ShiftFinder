@@ -382,9 +382,11 @@ class ContractorEditProfile extends StatelessWidget {
           .bodyMedium!
           .copyWith(color: AppColors.black),
       onTap: () {
-        LocationDialog.showLocationDialog(context,
-                predictions: state.selectedLocationPrediction)
-            .then((value) {
+        LocationDialog.showLocationDialog(
+          context,
+          predictions: state.selectedLocationPrediction,
+          location: ContractorEditProfileBloc.locationCtrl.text,
+        ).then((value) {
           if (value != null) {
             print("selected location ---> $value");
             context.read<ContractorEditProfileBloc>().add(

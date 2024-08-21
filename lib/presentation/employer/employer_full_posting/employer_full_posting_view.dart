@@ -15,6 +15,7 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/helper/helper_function.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/dialogs.dart';
@@ -138,14 +139,21 @@ class _EmployerFullPostingContent extends StatelessWidget {
                                 if (state.employerFullPosition[index]
                                         .total_application_counts ==
                                     0) return;
-                                context.router.push(
+                                context.router
+                                    .push(
                                   PageRouteInfo(
                                     EmployerFullPositionApplicantsView.name,
                                     args:
                                         EmployerFullPositionApplicantsViewArgs(
                                             id: data.id ?? -1),
                                   ),
-                                );
+                                )
+                                    .then((value) {
+                                  context.read<EmployerFullPostingBloc>().add(
+                                      EmployerFullPostingEvent
+                                          .getEmployerFullPosition(
+                                              refresh: true, context: context));
+                                });
                               },
                             )
                           ],
@@ -209,10 +217,9 @@ class _EmployerFullPostingContent extends StatelessWidget {
                     onTap: () async {
                       final result = await AppDialog.showCommonDialog(
                         context: context,
-                        title: "Delete The Position",
-                        content:
-                            "Are you sure you want to delete this long term position?",
-                        successLabel: "Delete",
+                        title: StringConstant.deleteThePosition,
+                        content: StringConstant.deleteFullTimeDesc,
+                        successLabel: StringConstant.delete,
                       );
                       if (result ?? false) {
                         context.read<EmployerFullPostingBloc>().add(
@@ -223,19 +230,29 @@ class _EmployerFullPostingContent extends StatelessWidget {
                     },
                     child: SvgPicture.asset(SvgImageConstant.delete),
                   ),
-                  Gap(getSize(16)),
-                  GestureDetector(
-                    onTap: () {
-                      context.router.push(
-                        PageRouteInfo(
-                          EmployerFullPositionAddView.name,
-                          args: EmployerFullPositionAddViewArgs(
-                              postId: employer.id ?? -1),
-                        ),
-                      );
-                    },
-                    child: SvgPicture.asset(SvgImageConstant.edit),
-                  ),
+                  if (employer.isEditable == true) ...[
+                    Gap(getSize(16)),
+                    GestureDetector(
+                      onTap: () {
+                        context.router
+                            .push(
+                          PageRouteInfo(
+                            EmployerFullPositionAddView.name,
+                            args: EmployerFullPositionAddViewArgs(
+                              postId: employer.id ?? -1,
+                              isCreate: false,
+                            ),
+                          ),
+                        )
+                            .then((value) {
+                          context.read<EmployerFullPostingBloc>().add(
+                              EmployerFullPostingEvent.getEmployerFullPosition(
+                                  context: context, refresh: true));
+                        });
+                      },
+                      child: SvgPicture.asset(SvgImageConstant.edit),
+                    ),
+                  ],
                 ],
               ),
               contentPadding: EdgeInsets.zero,
@@ -243,9 +260,19 @@ class _EmployerFullPostingContent extends StatelessWidget {
               minTileHeight: getSize(43.41),
             ),
             Divider(color: AppColors.white.withOpacity(0.2)),
-            Gap(4),
-            _buildLocationInfo(context, employer: employer),
-            Gap(4),
+            Gap(getSize(4)),
+            GestureDetector(
+                onTap: () {
+                  final location = employer.location;
+                  final latitude = location?.latitude;
+                  final longitude = location?.longitude;
+                  if (latitude != null && longitude != null) {
+                    LocationHelper.openDirections(context,
+                        endLat: latitude, endLng: longitude);
+                  }
+                },
+                child: _buildLocationInfo(context, employer: employer)),
+            Gap(getSize(4)),
           ],
         ),
       ),
@@ -283,7 +310,7 @@ class _EmployerFullPostingContent extends StatelessWidget {
       height: 45,
       backgroundColor: AppColors.primaryColor.withOpacity(0.2),
       onPressed: onPressed,
-      buttonText: 'View Position Details',
+      buttonText: StringConstant.viewPositionDetails,
       buttonFontSize: 12,
       buttonFontWeight: FontWeight.w600,
       buttonTextColor: AppColors.black,

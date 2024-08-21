@@ -93,6 +93,9 @@ _$EmployerLongTermSuccessDtoImpl _$$EmployerLongTermSuccessDtoImplFromJson(
       other: json['other'] as String?,
       union_bargaining_unit: json['union_bargaining_unit'] as String?,
       compensation_package: json['compensation_package'] as String?,
+      is_delete_terms_document:
+          (json['is_delete_terms_document'] as num?)?.toInt(),
+      monthly_service_fee_new: json['monthly_service_fee_new'] as String?,
     );
 
 Map<String, dynamic> _$$EmployerLongTermSuccessDtoImplToJson(
@@ -165,4 +168,6 @@ Map<String, dynamic> _$$EmployerLongTermSuccessDtoImplToJson(
       'other': instance.other,
       'union_bargaining_unit': instance.union_bargaining_unit,
       'compensation_package': instance.compensation_package,
+      'is_delete_terms_document': instance.is_delete_terms_document,
+      'monthly_service_fee_new': instance.monthly_service_fee_new,
     };

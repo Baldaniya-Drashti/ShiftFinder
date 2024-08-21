@@ -59,6 +59,7 @@ _$CompletedShiftsEarningDTOImpl _$$CompletedShiftsEarningDTOImplFromJson(
     _$CompletedShiftsEarningDTOImpl(
       id: (json['id'] as num?)?.toInt(),
       post_id: (json['post_id'] as num?)?.toInt(),
+      invoice_no: (json['invoice_no'] as num?)?.toInt(),
       date: (json['date'] as num?)?.toInt(),
       company_name: json['company_name'] as String?,
       location: json['location'] == null
@@ -78,6 +79,7 @@ Map<String, dynamic> _$$CompletedShiftsEarningDTOImplToJson(
     <String, dynamic>{
       'id': instance.id,
       'post_id': instance.post_id,
+      'invoice_no': instance.invoice_no,
       'date': instance.date,
       'company_name': instance.company_name,
       'location': instance.location,

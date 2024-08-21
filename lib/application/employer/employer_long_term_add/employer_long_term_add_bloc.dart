@@ -82,11 +82,7 @@ class EmployerLongTermAddBloc
 
         /// ROLE TYPE
         roleTypeChanged: (e) {
-          emit(
-            state.copyWith(
-              roleType: InputEmptyOrNot(e.roleType),
-            ),
-          );
+          emit(state.copyWith(roleType: InputEmptyOrNot(e.roleType)));
         },
 
         addRequiredSpecialitichips: (e) {
@@ -400,16 +396,6 @@ class EmployerLongTermAddBloc
               rate_hour: double.parse(state.rateHour.getValue()),
             );
 
-            print("Role id--> ${getSelectedRoleIds()} ");
-            print("Speciality id--> ${getSelectedSpecialtiyIds()} ");
-            print("Speciality Other--> ${state.specialityOther.join(',')} ");
-            print("Skill id--> ${getSelectedSoftwareIds()}");
-            print("Skill other--> ${state.softwareSkillOther.join(',')}");
-            print("language id--> ${getSelectedLanguageId()} ");
-            print("language other--> ${state.languageOther.join(',')} ");
-
-            print("post=> ${post.toJson()}");
-
             e.context.router.push(
               PageRouteInfo(
                 EmployerLongTermPositionAddDetailView.name,
@@ -417,6 +403,9 @@ class EmployerLongTermAddBloc
                   postShiftDTO: post,
                   employer: state.updatePost,
                   postId: state.postId,
+                  fromReview: e.fromReview,
+                  isCreate: e.isCreate,
+                  fromTemplate: e.fromTemplate,
                 ),
               ),
             );
@@ -518,7 +507,7 @@ class EmployerLongTermAddBloc
       ),
       (r) {
         final data = EmployerLongTermSuccessDto.fromJson(r.data);
-        print("kkkkkk${data.job_description}");
+        print("kkkkkk---${data.vacancie_type}");
         emit(
           state.copyWith(
             updatePost: data,

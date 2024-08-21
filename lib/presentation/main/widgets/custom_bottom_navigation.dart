@@ -9,6 +9,7 @@ import 'package:shift/application/main_tab/main_tab_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 
@@ -18,10 +19,7 @@ class CustomBottomNavigationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<MainTabBloc, MainTabState>(
-      listener: (context, state) {
-        print("selectedTab---> ${state.selectedTab}");
-        print("current Index---> ${state.selectedTab}");
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Theme(
           data: ThemeData(
@@ -31,6 +29,8 @@ class CustomBottomNavigationWidget extends StatelessWidget {
             itemCount: 4,
             activeIndex: state.selectedTab,
             onTap: (index) {
+              setNotificationTab(null);
+              setNotificationSubTab(null);
               context.read<MainTabBloc>().add(MainTabEvent.tabChange(index));
             },
             tabBuilder: (index, isActive) {
@@ -113,6 +113,8 @@ class ContractorBottomNavigationWidget extends StatelessWidget {
             itemCount: 4,
             activeIndex: state.selectedTab,
             onTap: (index) {
+              setNotificationTab(null);
+              setNotificationSubTab(null);
               context
                   .read<ContractorMainTabBloc>()
                   .add(ContractorMainTabEvent.tabChange(index));

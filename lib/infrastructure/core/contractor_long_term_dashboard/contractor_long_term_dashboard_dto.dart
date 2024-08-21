@@ -24,6 +24,7 @@ class ContractorLongTermDashboardDto with _$ContractorLongTermDashboardDto {
     String? shift_schedule_type,
     String? position,
     String? specialties_list,
+    String? specialties_detail,
     int? industry_id,
     int? request,
     int? urgent_action,
@@ -31,7 +32,7 @@ class ContractorLongTermDashboardDto with _$ContractorLongTermDashboardDto {
     @TimeConverter() TimeOfDay? estimated_weekly_hours,
     @DateTimeConverter() DateTime? end_date,
     int? total_vacancy,
-    int? rate_hour,
+    double? rate_hour,
     int? total_payable_hour,
     int? number_of_vacancie,
     @DateTimeConverter() DateTime? application_deadline,
@@ -47,8 +48,8 @@ class ContractorLongTermDashboardDto with _$ContractorLongTermDashboardDto {
     bool? offer_expires_status,
     LocationDTO? location,
     bool? deleteAt,
-
   }) = _ContractorLongTermDashboardDto;
 
-  factory ContractorLongTermDashboardDto.fromJson(Map<String, dynamic> json) => _$ContractorLongTermDashboardDtoFromJson(json);
+  factory ContractorLongTermDashboardDto.fromJson(Map<String, dynamic> json) =>
+      _$ContractorLongTermDashboardDtoFromJson(json);
 }

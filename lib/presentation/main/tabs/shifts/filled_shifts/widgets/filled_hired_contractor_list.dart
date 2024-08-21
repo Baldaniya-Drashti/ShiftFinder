@@ -16,7 +16,7 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
-import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/buttons/chat_button.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'FilledHiredContractorList')
@@ -156,12 +156,13 @@ class FilledHiredContractorList extends StatelessWidget {
                   (contractor.contractor_shift_type == 2)
                       ? GestureDetector(
                           onTap: () {
-                            context.router.push(PageRouteInfo(
-                                AgreedProposal.name,
-                                args: AgreedProposalArgs(
-                                    post: contractor,
-                                    postId: postId,
-                                    userId: contractor.user_id ?? -1)));
+                            context.router
+                                .push(PageRouteInfo(AgreedProposal.name,
+                                    args: AgreedProposalArgs(
+                                        // post: contractor,
+                                        shiftType: contractor.shift_type ?? -1,
+                                        postId: postId,
+                                        userId: contractor.user_id ?? -1)));
                           },
                           child: Container(
                             alignment: Alignment.center,
@@ -218,42 +219,28 @@ class FilledHiredContractorList extends StatelessWidget {
               ),
             ),
             Spacer(),
-            CommonButton(
-              height: getSize(35),
-              width: getSize(80),
-              borderRadius: 5,
+            ChatButton(
+              badgeCount: contractor.count ?? 0,
               onPressed: () {
                 // showUnderDevelopment(context);
-                context.router.push(
+                context.router
+                    .push(
                   PageRouteInfo(
                     Message.name,
                     args: MessageArgs(
                       receiverId: contractor.user_id ?? 0,
                     ),
                   ),
-                );
+                )
+                    .then((value) {
+                  if (contractor.count != null && (contractor.count ?? 0) > 0) {
+                    context.read<HiredContractorBloc>().add(
+                        HiredContractorEvent.getHiredFilledContractorList(
+                            refresh: true, postId: postId));
+                  }
+                });
               },
-              backgroundColor: AppColors.primaryColor.withOpacity(0.15),
-              buttonText: "",
-              customWidget: Row(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    SvgImageConstant.chat,
-                    color: AppColors.black,
-                    height: getSize(15),
-                    width: getSize(15),
-                  ),
-                  SizedBox(width: getSize(5)),
-                  BaseText(
-                    text: StringConstant.chat,
-                    fontWeight: FontWeight.w600,
-                    fontSize: getFontSize(12),
-                  )
-                ],
-              ),
-            )
+            ),
           ],
         ),
       ),

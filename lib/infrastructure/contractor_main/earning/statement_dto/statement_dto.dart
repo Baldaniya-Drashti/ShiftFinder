@@ -21,6 +21,7 @@ class StatementDetailDTO with _$StatementDetailDTO {
   const factory StatementDetailDTO({
     int? id,
     int? post_id,
+    int? invoice_no,
     int? date,
     String? company_name,
     LocationDTO? location,

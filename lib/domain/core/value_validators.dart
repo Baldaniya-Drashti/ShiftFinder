@@ -111,7 +111,6 @@ Either<ValueFailure<String>, String> validateCvv(String input) {
 }
 
 Either<ValueFailure<String>, String> validateCardDate(String input) {
-  print("INPUT OF CARD DATE--->  $input");
   if (validateStringNotEmpty(input).isRight()) {
     int year;
     int month;

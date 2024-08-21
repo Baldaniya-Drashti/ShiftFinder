@@ -55,32 +55,34 @@ class MonthlyStatementBloc
           }
         },
         getMonthlyStatementListEvent: (e) async {
-          Either<MainFailure, MonthlyStatementDTO>? failureOrSuccess;
+          if (e.startDate != null && e.endDate != null) {
+            Either<MainFailure, MonthlyStatementDTO>? failureOrSuccess;
 
-          emit(state.copyWith(isLoading: true));
+            emit(state.copyWith(isLoading: true));
 
-          failureOrSuccess = await mainFacade.getEmployerMonthlyStatementAPI(
-            startDate: (e.startDate != null)
-                ? e.startDate!.toUtc().millisecondsSinceEpoch / 1000
-                : null,
-            endDate: (e.endDate != null)
-                ? e.endDate!.toUtc().millisecondsSinceEpoch / 1000
-                : null,
-          );
+            failureOrSuccess = await mainFacade.getEmployerMonthlyStatementAPI(
+              startDate: (e.startDate != null)
+                  ? e.startDate!.toUtc().millisecondsSinceEpoch / 1000
+                  : null,
+              endDate: (e.endDate != null)
+                  ? e.endDate!.toUtc().millisecondsSinceEpoch / 1000
+                  : null,
+            );
 
-          failureOrSuccess.fold(
-            (l) {
-              emit(state.copyWith(
-                isLoading: false,
-              ));
-            },
-            (r) {
-              emit(state.copyWith(
-                isLoading: false,
-                statement: r,
-              ));
-            },
-          );
+            failureOrSuccess.fold(
+              (l) {
+                emit(state.copyWith(
+                  isLoading: false,
+                ));
+              },
+              (r) {
+                emit(state.copyWith(
+                  isLoading: false,
+                  statement: r,
+                ));
+              },
+            );
+          }
         },
       );
     });

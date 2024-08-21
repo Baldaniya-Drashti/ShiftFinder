@@ -17,6 +17,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/show_picked_file.dart';
 import 'package:shift/presentation/core/helper/helper_function.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
@@ -36,7 +37,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
       child: Scaffold(
         appBar: CommonAppBar(
             onBackPressed: () => context.router.maybePop(),
-            title: "View Position Details"),
+            title: StringConstant.viewPositionDetails),
         body: BlocBuilder<EmployerLongTermDetailBloc,
             EmployerLongTermDetailState>(
           builder: (context, state) {
@@ -240,7 +241,7 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                                     context,
                                     title: 'Disclaimer',
                                     value:
-                                        "By proceeding, I confirm that we, the employer, are responsible for making payments directly to the contractor for this long-term contract. We understand that ShiftFinder is not responsible for any disputes, including those arising from non-payment or contract violations. We confirm that the ShiftFinder service fee is payable by us upon accepting a contractor for the position.",
+                                        "By proceeding, I confirm that we, the employer are responsible for making payments directly to the contractor for this long-term contract. We understand that ShiftFinder is not responsible for any disputes, including those arising from non-payment or contract violations. We confirm that the ShiftFinder service fee is payable by us upon accepting a contractor for the position.",
                                   ),
                                   if ((employerLongTermSuccessDto?.teams ?? [])
                                       .isNotEmpty)
@@ -248,18 +249,6 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                                       context,
                                       employerLongTermSuccessDto:
                                           employerLongTermSuccessDto,
-                                    ),
-                                  if (employerLongTermSuccessDto
-                                          ?.on_call_included ==
-                                      1)
-                                    _buildCheckListTile(
-                                      context,
-                                      value: employerLongTermSuccessDto
-                                              ?.on_call_included ==
-                                          1,
-                                      onChanged: (value) {},
-                                      label: StringConstant
-                                          .thisContractMayIncludeOnCall,
                                     ),
                                 ],
                               ),
@@ -329,65 +318,6 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
                 maxLines: 10,
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCheckListTile(
-    BuildContext context, {
-    required bool value,
-    required void Function(bool value) onChanged,
-    required String label,
-    EdgeInsets? padding,
-    Widget? trailing,
-  }) {
-    return Container(
-      padding: padding ??
-          EdgeInsets.symmetric(
-            horizontal: getSize(20),
-            vertical: getSize(10),
-          ),
-      decoration: BoxDecoration(
-          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
-      child: GestureDetector(
-        onTap: () {
-          onChanged(!value);
-        },
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: getSize(20),
-              width: getSize(16.67),
-              child: Checkbox(
-                value: value,
-                activeColor: AppColors.primaryColor,
-                side: BorderSide(
-                  width: getSize(1.5),
-                  color: AppColors.black.withOpacity(0.5),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                onChanged: (value) {
-                  onChanged(value!);
-                },
-              ),
-            ),
-            SizedBox(
-              width: getSize(15),
-            ),
-            Expanded(
-              child: BaseText(
-                text: label,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                maxLines: 15,
-              ),
-            ),
-            if (trailing != null) trailing
           ],
         ),
       ),
@@ -526,8 +456,19 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
             Gap(getSize(6)),
             Divider(),
             Gap(getSize(6)),
-            _buildLocationInfo(context,
-                employerLongTermSuccessDto: employerLongTermSuccessDto),
+            GestureDetector(
+              onTap: () {
+                final location = employerLongTermSuccessDto?.location;
+                final latitude = location?.latitude;
+                final longitude = location?.longitude;
+                if (latitude != null && longitude != null) {
+                  LocationHelper.openDirections(context,
+                      endLat: latitude, endLng: longitude);
+                }
+              },
+              child: _buildLocationInfo(context,
+                  employerLongTermSuccessDto: employerLongTermSuccessDto),
+            ),
           ],
         ),
       ),
@@ -892,19 +833,8 @@ class EmployerLongTermPositionDetailView extends StatelessWidget {
             Gap(4),
             BaseText(text: location?.location ?? "", fontSize: 14),
             Gap(10),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                BaseText(
-                    text: "Unit - ",
-                    fontSize: 12,
-                    textColor: AppColors.primaryColor),
-                BaseText(
-                    text: "Unit Name",
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500),
-              ],
-            ),
+            BaseText(
+                text: "Unit", fontSize: 12, textColor: AppColors.primaryColor),
             Gap(4),
             BaseText(
                 text: employerLongTermSuccessDto?.location_unit ?? "",

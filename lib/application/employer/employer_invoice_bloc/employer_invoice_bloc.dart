@@ -82,9 +82,7 @@ class EmployerInvoiceBloc
 
           failureOrSuccess.fold(
             (l) {
-              emit(state.copyWith(
-                isLoading: false,
-              ));
+              emit(state.copyWith(isLoading: false));
             },
             (r) {
               emit(state.copyWith(

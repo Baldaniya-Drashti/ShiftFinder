@@ -56,7 +56,7 @@ class PaginatedListView extends StatelessWidget {
                   return SizedBox();
                 },
               ),
-          enablePullUp: enablePullUp ?? false,
+          enablePullUp: enablePullUp ?? true,
           enablePullDown: enablePullDown ?? true,
           reverse: reverse,
           scrollDirection: scrollDirection,

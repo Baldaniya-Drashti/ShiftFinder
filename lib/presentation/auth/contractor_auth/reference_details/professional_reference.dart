@@ -369,6 +369,7 @@ class ProfessionalReferenceWidget extends StatelessWidget {
                   ? DateTime.parse(state.startDate.getValue()!)
                   : null,
           isStartDate: false,
+          lastDate: DateTime.now(),
           selectedDate: (state.endDate.getValue()!.isNotEmpty)
               ? DateTime.parse(state.endDate.getValue()!)
               : DateTime.now(),
@@ -437,6 +438,7 @@ class ProfessionalReferenceWidget extends StatelessWidget {
     ReferenceState state, {
     required DateTime? selectedDate,
     DateTime? startDate,
+    DateTime? lastDate,
     required bool isStartDate,
   }) async {
     print("selectedDate------->  ${selectedDate}");
@@ -444,8 +446,9 @@ class ProfessionalReferenceWidget extends StatelessWidget {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       firstDate: startDate ?? DateTime(1950, 1),
-      lastDate: DateTime.now(),
+      lastDate: lastDate ?? DateTime.now(),
       initialDate: selectedDate,
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(

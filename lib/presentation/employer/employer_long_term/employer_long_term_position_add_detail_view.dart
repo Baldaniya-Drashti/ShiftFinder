@@ -42,37 +42,58 @@ class EmployerLongTermPositionAddDetailView extends StatelessWidget {
     required this.postShiftDTO,
     this.employer,
     this.postId,
+    this.fromReview = false,
+    this.isCreate = true,
+    this.fromTemplate = false,
   });
 
   final PostShiftDTO postShiftDTO;
   final EmployerLongTermSuccessDto? employer;
   final int? postId;
+  final bool fromReview;
+  final bool isCreate;
+  final bool fromTemplate;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(
           onBackPressed: () => context.router.maybePop(),
-          title: CommonList.industryList
-                  .firstWhere((item) => item.id == getCurrentIndustry())
-                  .title ??
-              ""),
+          title: (fromTemplate)
+              ? StringConstant.editTemplate
+              : CommonList.industryList
+                      .firstWhere((item) => item.id == getCurrentIndustry())
+                      .title ??
+                  ""),
       body: BlocProvider(
         create: (context) => getIt<EmployerLongTermPositionAddDetailBloc>()
           ..add(
             EmployerLongTermPositionAddDetailEvent.onCreate(
                 postShiftDTO, employer, postId),
           ),
-        child: _EmployerLongTermPositionDetailContent(employer),
+        child: _EmployerLongTermPositionDetailContent(
+          employer,
+          fromReview: fromReview,
+          isCreate: isCreate,
+          fromTemplate: fromTemplate,
+        ),
       ),
     );
   }
 }
 
 class _EmployerLongTermPositionDetailContent extends StatefulWidget {
-  const _EmployerLongTermPositionDetailContent(this.data);
+  const _EmployerLongTermPositionDetailContent(
+    this.data, {
+    required this.fromReview,
+    required this.fromTemplate,
+    required this.isCreate,
+  });
 
   final EmployerLongTermSuccessDto? data;
+  final bool fromReview;
+  final bool fromTemplate;
+  final bool isCreate;
 
   @override
   State<_EmployerLongTermPositionDetailContent> createState() =>
@@ -87,7 +108,6 @@ class _EmployerLongTermPositionDetailContentState
   @override
   void initState() {
     super.initState();
-    print("data => ${widget.data?.job_description}");
     controller = UpdateLongTermDetailController(widget.data);
     _formKey = GlobalKey<FormState>();
   }
@@ -210,12 +230,12 @@ class _EmployerLongTermPositionDetailContentState
                       state.employerLongTermAddDetailDto.estimated_weekly_hours,
                   builder: (context, estimatedHours) {
                     return TimePickerInputField(
-                      label: "Estimated Weekly Hours",
+                      label: StringConstant.estimatedWeeklyHours,
                       hint: "00h 00min",
                       validator: (value, _) {
                         value = value?.trim() ?? "";
                         if (value.isEmpty) {
-                          return "Please select estimation hours";
+                          return StringConstant.pleaseSelectEstimationHours;
                         }
                         return null;
                       },
@@ -406,9 +426,8 @@ class _EmployerLongTermPositionDetailContentState
                     EmployerLongTermPositionAddDetailState, bool>(
                   selector: (state) {
                     return state.employerLongTermAddDetailDto.vacancie_type ==
-                            1 ||
-                        state.employerLongTermAddDetailDto.number_of_vacancie !=
-                            null;
+                        1;
+                    // ||state.employerLongTermAddDetailDto.number_of_vacancie !=  null;
                   },
                   builder: (context, vacancyEnable) {
                     return Column(
@@ -418,6 +437,7 @@ class _EmployerLongTermPositionDetailContentState
                           context,
                           value: vacancyEnable,
                           onChanged: (value) {
+                            controller._vacancyController.clear();
                             context
                                 .read<EmployerLongTermPositionAddDetailBloc>()
                                 .add(
@@ -426,7 +446,7 @@ class _EmployerLongTermPositionDetailContentState
                                 );
                           },
                           label:
-                              "We are looking to fill more than one vacancies with the same  requirements.",
+                              "We are looking to fill more than one vacancies with the same requirements.",
                           padding: EdgeInsets.symmetric(
                               horizontal: 12, vertical: 16),
                         ),
@@ -459,7 +479,7 @@ class _EmployerLongTermPositionDetailContentState
                               if (newValue == null) {
                                 return "Please enter valid value";
                               }
-                              if (newValue < 1) {
+                              if (newValue < 2) {
                                 return StringConstant
                                     .numberOfVacanciesMustBeGreaterThanOne;
                               } else {
@@ -526,11 +546,14 @@ class _EmployerLongTermPositionDetailContentState
                             onboarding: controller.onBoarding,
                             terms: controller.terms,
                             numberOfVacancy: controller.vacancy,
+                            fromReview: widget.fromReview,
+                            isCreate: widget.isCreate,
+                            fromTemplate: widget.fromTemplate,
                           ),
                         );
                   },
-                  buttonText: "Continue",
-                )
+                  buttonText: StringConstant.txtContinue,
+                ),
               ],
             ),
           );
@@ -611,7 +634,10 @@ class _EmployerLongTermPositionDetailContentState
             Navigator.pop(context);
             context
                 .read<EmployerLongTermPositionAddDetailBloc>()
-                .add(EmployerLongTermPositionAddDetailEvent.removeDocument());
+                .add(EmployerLongTermPositionAddDetailEvent.removeDocument(
+                  isCreate: widget.isCreate,
+                  fromReview: widget.fromReview,
+                ));
           },
         );
       },

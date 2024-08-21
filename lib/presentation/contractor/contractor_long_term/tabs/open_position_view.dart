@@ -12,12 +12,14 @@ import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/contractor_long_term_dashboard/contractor_long_term_dashboard_dto.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/common/widgets/show_picked_file.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/helper/helper_function.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/dialogs.dart';
@@ -28,130 +30,138 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ContractorLongTermBloc, ContractorLongTermState>(
-      builder: (context, state) {
-        return Stack(
-          children: [
-            PaginatedListView(
-              isNoDataFound: state.isNoDataFound,
-              onRefresh: () {
-                context.read<ContractorLongTermBloc>().add(
-                    ContractorLongTermEvent.fetchOpenPositionList(
-                        refresh: true));
-              },
-              onLoading: () {
-                context.read<ContractorLongTermBloc>().add(
-                    ContractorLongTermEvent.fetchOpenPositionList(
-                        refresh: false));
-              },
-              refreshController:
-                  context.read<ContractorLongTermBloc>().openRefreshController,
-              child: state.isLoading
-                  ? CenterLoadingIndicator()
-                  : state.isErrorInAPI
-                      ? Center(
-                          child:
-                              BaseText(text: StringConstant.somethindWentWrong),
-                        )
-                      : ListView.separated(
-                          padding: EdgeInsets.all(getSize(12)),
-                          itemBuilder: (context, index) {
-                            final data = state.openPositionList[index];
-                            return Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.white,
-                                borderRadius:
-                                    BorderRadius.circular(getSize(20)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AppColors.lightGrey.withOpacity(0.2),
-                                    blurRadius: getSize(20),
-                                  ),
-                                ],
-                              ),
-                              padding: EdgeInsets.all(getSize(12)),
-                              child: Column(
-                                children: [
-                                  _buildPositionTile(context,
-                                      contractorLongTerm: data),
-                                  Gap(getSize(12)),
-                                  CommonMaterialButton(
-                                    radius: 7,
-                                    height: 36,
-                                    onPressed: () {
-                                      context.router.push(
-                                        PageRouteInfo(
-                                            EmployerLongTermPositionDetailView
-                                                .name,
-                                            args:
-                                                EmployerLongTermPositionDetailViewArgs(
-                                                    id: data.id ?? -1)),
-                                      );
-                                    },
-                                    label: "View Position Details",
-                                    backgroundColor:
-                                        AppColors.primaryColor.withOpacity(.1),
-                                  ),
-                                  Gap(getSize(12)),
-                                  _buildApplicationInformation(context,
-                                      contractorLongTerm: data),
-                                  Gap(getSize(10)),
-                                  if ((data.specialties_list ?? "").isNotEmpty)
-                                    requiredSkillBox(
-                                      svgPrefixIcon: SvgImageConstant.female,
-                                      title: StringConstant.specialtiesRequired,
-                                      value: data.specialties_list ?? "",
+    return BlocProvider(
+      create: (context) => getIt<ContractorLongTermBloc>()
+        ..add(ContractorLongTermEvent.fetchOpenPositionList(refresh: true)),
+      child: BlocBuilder<ContractorLongTermBloc, ContractorLongTermState>(
+        builder: (context, state) {
+          return Stack(
+            children: [
+              PaginatedListView(
+                isNoDataFound: state.isNoDataFound,
+                onRefresh: () {
+                  context.read<ContractorLongTermBloc>().add(
+                      ContractorLongTermEvent.fetchOpenPositionList(
+                          refresh: true));
+                },
+                onLoading: () {
+                  context.read<ContractorLongTermBloc>().add(
+                      ContractorLongTermEvent.fetchOpenPositionList(
+                          refresh: false));
+                },
+                refreshController: context
+                    .read<ContractorLongTermBloc>()
+                    .openRefreshController,
+                child: state.isLoading
+                    ? CenterLoadingIndicator(isOnlyLoader: true)
+                    : state.isErrorInAPI
+                        ? Center(
+                            child: BaseText(
+                                text: StringConstant.somethindWentWrong))
+                        : ListView.separated(
+                            padding: EdgeInsets.all(getSize(12)),
+                            itemBuilder: (context, index) {
+                              final data = state.openPositionList[index];
+                              return Container(
+                                decoration: BoxDecoration(
+                                  color: AppColors.white,
+                                  borderRadius:
+                                      BorderRadius.circular(getSize(20)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color:
+                                          AppColors.lightGrey.withOpacity(0.2),
+                                      blurRadius: getSize(20),
                                     ),
-                                  Gap(getSize(4)),
-                                  rateHoursBox(contractorLongTerm: data),
-                                  Gap(getSize(8)),
-                                  _buildEstimatedHours(context,
-                                      contractorLongTerm: data),
-                                  Gap(getSize(12)),
-                                  _buildShiftSchedule(context,
-                                      contractorLongTerm: data),
-                                  Gap(getSize(12)),
-                                  _buildNumberOfVacancy(context,
-                                      contractorLongTerm: data),
-                                  Gap(getSize(12)),
-                                  CommonButton(
-                                    borderRadius: 10,
-                                    onPressed: () async {
-                                      final result =
-                                          await AppDialog.showCommonDialog(
-                                        context: context,
-                                        title: "Apply",
-                                        extraContent:
-                                            "Are you sure you want to apply for this position?",
-                                        content:
-                                            "If hired for this long term position, the employer will be responsible for making payments directly to you. ShiftFinder is not liable for any disputes, including those related to non-payment or contract violations.",
-                                        successLabel: "Apply",
-                                      );
-                                      if (result ?? false) {
-                                        context
-                                            .read<ContractorLongTermBloc>()
-                                            .add(
-                                              ContractorLongTermEvent
-                                                  .applyOpenPosition(
-                                                      context: context,
-                                                      id: data.id ?? -1),
-                                            );
-                                      }
-                                    },
-                                    buttonText: "Apply",
-                                  )
-                                ],
-                              ),
-                            );
-                          },
-                          separatorBuilder: (context, index) => Gap(16),
-                          itemCount: state.openPositionList.length,
-                        ),
-            ),
-            if (state.postDataLoading) CenterLoadingIndicator()
-          ],
-        );
-      },
+                                  ],
+                                ),
+                                padding: EdgeInsets.all(getSize(12)),
+                                child: Column(
+                                  children: [
+                                    _buildPositionTile(context,
+                                        contractorLongTerm: data),
+                                    Gap(getSize(12)),
+                                    CommonMaterialButton(
+                                      radius: 7,
+                                      height: 36,
+                                      onPressed: () {
+                                        context.router.push(
+                                          PageRouteInfo(
+                                              EmployerLongTermPositionDetailView
+                                                  .name,
+                                              args:
+                                                  EmployerLongTermPositionDetailViewArgs(
+                                                      id: data.id ?? -1)),
+                                        );
+                                      },
+                                      label: StringConstant.viewPositionDetails,
+                                      backgroundColor: AppColors.primaryColor
+                                          .withOpacity(.1),
+                                    ),
+                                    Gap(getSize(12)),
+                                    _buildApplicationInformation(context,
+                                        contractorLongTerm: data),
+                                    Gap(getSize(10)),
+                                    if ((data.specialties_detail ?? "")
+                                        .isNotEmpty)
+                                      requiredSkillBox(
+                                        svgPrefixIcon: SvgImageConstant.female,
+                                        title:
+                                            StringConstant.specialtiesRequired,
+                                        value: data.specialties_detail ?? "",
+                                      ),
+                                    Gap(getSize(4)),
+                                    rateHoursBox(contractorLongTerm: data),
+                                    Gap(getSize(8)),
+                                    _buildEstimatedHours(context,
+                                        contractorLongTerm: data),
+                                    Gap(getSize(12)),
+                                    _buildShiftSchedule(context,
+                                        contractorLongTerm: data),
+                                    Gap(getSize(12)),
+                                    _buildNumberOfVacancy(context,
+                                        contractorLongTerm: data),
+                                    Gap(getSize(12)),
+                                    CommonButton(
+                                      borderRadius: 10,
+                                      onPressed: () async {
+                                        final result =
+                                            await AppDialog.showCommonDialog(
+                                          context: context,
+                                          title: "Apply",
+                                          extraContent:
+                                              "Are you sure you want to apply for this position?",
+                                          content:
+                                              "If hired for this long term position, the employer will be responsible for making payments directly to you. ShiftFinder is not liable for any disputes, including those related to non-payment or contract violations.",
+                                          successLabel: "Apply",
+                                        );
+                                        if (result ?? false) {
+                                          context
+                                              .read<ContractorLongTermBloc>()
+                                              .add(
+                                                ContractorLongTermEvent
+                                                    .applyOpenPosition(
+                                                        context: context,
+                                                        id: data.id ?? -1),
+                                              );
+                                        }
+                                      },
+                                      buttonText: "Apply",
+                                    )
+                                  ],
+                                ),
+                              );
+                            },
+                            separatorBuilder: (context, index) => Gap(16),
+                            itemCount: state.openPositionList.length,
+                          ),
+              ),
+              if (state.postDataLoading)
+                CenterLoadingIndicator(isOnlyLoader: true)
+            ],
+          );
+        },
+      ),
     );
   }
 
@@ -376,7 +386,18 @@ class ContractorLongTermOpenPosition extends StatelessWidget {
             Gap(getSize(6)),
             Divider(),
             Gap(getSize(6)),
-            _buildLocationInfo(context, contractorLongTerm: contractorLongTerm),
+            GestureDetector(
+                onTap: () {
+                  final location = contractorLongTerm?.location;
+                  final latitude = location?.latitude;
+                  final longitude = location?.longitude;
+                  if (latitude != null && longitude != null) {
+                    LocationHelper.openDirections(context,
+                        endLat: latitude, endLng: longitude);
+                  }
+                },
+                child: _buildLocationInfo(context,
+                    contractorLongTerm: contractorLongTerm)),
           ],
         ),
       ),

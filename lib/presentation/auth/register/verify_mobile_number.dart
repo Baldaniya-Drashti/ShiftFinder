@@ -51,7 +51,7 @@ class VerifyPhoneNumber extends StatelessWidget {
       context: context,
       backgroundColor: AppColors.scaffoldColor,
       elevation: 0,
-      enableDrag: true,
+      enableDrag: false,
       useSafeArea: true,
       isDismissible: false,
       isScrollControlled: true,

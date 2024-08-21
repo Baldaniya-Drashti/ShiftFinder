@@ -13,6 +13,7 @@ import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
+import 'package:badges/badges.dart' as badges;
 
 @RoutePage(name: 'chat')
 class Chat extends StatelessWidget {
@@ -55,9 +56,8 @@ class Chat extends StatelessWidget {
                       refreshController:
                           context.read<ChatBloc>().refreshController,
                       child: ListView.separated(
-                        separatorBuilder: (context, index) => SizedBox(
-                          height: getSize(15),
-                        ),
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: getSize(15)),
                         itemCount: state.chatList.length,
                         physics: BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
@@ -65,7 +65,8 @@ class Chat extends StatelessWidget {
                             index: index,
                             state: state,
                             onTap: () {
-                              context.router.push(
+                              context.router
+                                  .push(
                                 PageRouteInfo(
                                   Message.name,
                                   args: MessageArgs(
@@ -73,7 +74,14 @@ class Chat extends StatelessWidget {
                                         state.chatList[index].userId ?? 0,
                                   ),
                                 ),
-                              );
+                              )
+                                  .then((value) {
+                                if ((state.chatList[index].count ?? 0) > 0) {
+                                  context
+                                      .read<ChatBloc>()
+                                      .add(ChatEvent.getChatList(true));
+                                }
+                              });
                             },
                           );
                         },
@@ -114,20 +122,37 @@ class Chat extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  SizedBox(
-                    width: getSize(12),
-                  ),
+                  SizedBox(width: getSize(12)),
                   profileImage(imageUrl: state.chatList[index].image),
-                  SizedBox(
-                    width: getSize(10),
-                  ),
+                  SizedBox(width: getSize(10)),
                   Expanded(
                     flex: 5,
-                    child: BaseText(
-                      text: state.chatList[index].userName ?? '',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      maxLines: 1,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: BaseText(
+                            text: state.chatList[index].userName ?? '',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            maxLines: 1,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: getSize(5)),
+                          child: badges.Badge(
+                            onTap: () {},
+                            showBadge: ((state.chatList[index].count ?? 0) > 0),
+                            badgeContent: BaseText(
+                              text: "${state.chatList[index].count ?? 0}",
+                              textColor: AppColors.white,
+                              fontSize: 8,
+                            ),
+                            badgeStyle: badges.BadgeStyle(
+                              badgeColor: AppColors.primaryColor,
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                   Spacer(),

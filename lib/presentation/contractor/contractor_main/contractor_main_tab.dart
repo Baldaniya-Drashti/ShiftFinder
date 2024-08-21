@@ -8,12 +8,7 @@ import 'package:shift/application/profile/account/account_cubit.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
-import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/contracator_home.dart';
-import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_profile/contractor_profile.dart';
-import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/contractor_shifts.dart';
-import 'package:shift/presentation/core/app_router.gr.dart' as autoroute;
 import 'package:shift/presentation/core/style/app_colors.dart';
-import 'package:shift/presentation/main/tabs/notification_view.dart';
 import 'package:shift/presentation/main/widgets/custom_bottom_navigation.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
@@ -25,14 +20,13 @@ class ContractorMainTabView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
+        /* BlocProvider(
           create: (context) => getIt<ContractorMainTabBloc>()
             // ..add(ContractorMainTabEvent.initDynamicLink(context))
-            ..add(ContractorMainTabEvent.tabChange(0)),
-        ),
-        BlocProvider(
-          create: (context) => getIt<ContractorHomeBloc>(),
-        ),
+            ..add(ContractorMainTabEvent.tabChange(0))
+            ..add(ContractorMainTabEvent.registerForPush()),
+        ), */
+        BlocProvider(create: (context) => getIt<ContractorHomeBloc>()),
         BlocProvider<AccountCubit>(
           create: (context) => getIt<AccountCubit>()..getAccount(),
         ),
@@ -63,6 +57,7 @@ class ContractorMainTabView extends StatelessWidget {
                               context
                                   .read<ContractorMainTabBloc>()
                                   .pageList[index],
+                              state.currentPage,
                             );
                           },
                           key: ValueKey(state.pageIndex),
@@ -121,21 +116,23 @@ getAppbar(ContractorMainTabState state, BuildContext context) {
   }
 }
 
-Route? onGenerateRoute(RouteSettings settings, String tabItem) {
+Route? onGenerateRoute(
+    RouteSettings settings, String tabItem, Widget currentPage) {
   print("TAB ITEM----->  $tabItem");
   return MaterialPageRoute(
     settings: settings,
     builder: (context) {
-      if (tabItem == autoroute.ContractorHomeView.name) {
-        return ContractorHomeView();
-      } else if (tabItem == autoroute.ContractorShiftView.name) {
-        return ContractorShiftView();
-      } else if (tabItem == autoroute.NotificationView.name) {
-        return NotificationView();
-      } else if (tabItem == autoroute.ProfileView.name) {
-        return ContractorProfileView();
-      }
-      return Container();
+      // if (tabItem == autoroute.ContractorHomeView.name) {
+      //   return ContractorHomeView();
+      // } else if (tabItem == autoroute.ContractorShiftView.name) {
+      //   return ContractorShiftView();
+      // } else if (tabItem == autoroute.NotificationView.name) {
+      //   return NotificationView();
+      // } else if (tabItem == autoroute.ProfileView.name) {
+      //   return ContractorProfileView();
+      // }
+      // return Container();
+      return currentPage;
     },
   );
 }

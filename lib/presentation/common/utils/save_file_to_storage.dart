@@ -56,13 +56,18 @@ class SaveFileToStorage {
       if (!shiftFinderDir.existsSync()) {
         shiftFinderDir.createSync(recursive: true);
       }
+      DateTime now = DateTime.now();
+      // Set Timestamp to download with unique name
+      final timestamp =
+          "${now.day}${now.month}${now.hour}${now.minute}${now.second}";
 
-      // Save the PDF file in the "ShiftFinder" directory
-      final pdfPath = '${shiftFinderDir.path}/$fileName';
+      String newFileName = fileName.replaceAll('.pdf', '_$timestamp.pdf');
+
+      final pdfPath = '${shiftFinderDir.path}/$newFileName';
       final file = File(pdfPath);
       await file.writeAsBytes(pdfData);
 
-      return pdfPath; // Return the file path
+      return pdfPath;
     } catch (e) {
       return 'Error saving PDF: $e';
     }

@@ -18,7 +18,11 @@ class EmployerLongTermConfirmationEvent
       bool value) = _SelectTermsAndCondition;
 
   const factory EmployerLongTermConfirmationEvent.onContinue(
-      BuildContext context) = _OnContinue;
+    BuildContext context, {
+    required bool fromReview,
+    required bool fromTemplate,
+    required bool isCreate,
+  }) = _OnContinue;
 
   const factory EmployerLongTermConfirmationEvent.onCreate(
     PostShiftDTO postDetail,

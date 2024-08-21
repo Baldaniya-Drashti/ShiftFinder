@@ -200,43 +200,50 @@ class CommonList {
       id: 1,
       name: "Driver’s License",
       short_name: null,
-      yearLimit: null,
+      yearLimit: "10",
+      isMandatory: true,
     ),
     SkillDTO(
       id: 2,
       name: "Utility Bill",
       short_name: "No more than 3 months old",
       yearLimit: "0.3",
+      isMandatory: false,
     ),
     SkillDTO(
       id: 3,
       name: "Bank Statement",
       short_name: "No more than 3 months old",
       yearLimit: "0.3",
+      isMandatory: false,
     ),
     SkillDTO(
       id: 4,
       name: "Pay Slip",
       short_name: "No more than 3 months old",
       yearLimit: "0.3",
+      isMandatory: false,
     ),
     SkillDTO(
       id: 5,
       name: "Home Insurance Certificate",
       short_name: "No more than 1 year old",
       yearLimit: "1",
+      isMandatory: false,
     ),
     SkillDTO(
       id: 6,
       name: "Car Insurance Certificate",
       short_name: "No more than 1 year old",
       yearLimit: "1",
+      isMandatory: false,
     ),
     SkillDTO(
       id: 7,
       name: "Municipal Tax Bill",
       short_name: "No more than 1 year old",
       yearLimit: "1",
+      isMandatory: false,
     ),
   ];
 
@@ -244,18 +251,18 @@ class CommonList {
     SkillDTO(id: 1, name: "PR Card", isMandatory: true, yearLimit: '5'),
     SkillDTO(id: 2, name: "Work Permit", isMandatory: true, yearLimit: '1,2'),
     SkillDTO(id: 3, name: "Passport", isMandatory: true),
-    SkillDTO(id: 4, name: "Citizenship Card"),
-    SkillDTO(id: 5, name: "Citizenship Certificate", isMandatory: true),
-    SkillDTO(id: 6, name: "SIN Card or SIN Letter", isMandatory: true),
+    SkillDTO(id: 4, name: "Citizenship Card", isMandatory: false),
+    SkillDTO(id: 5, name: "Citizenship Certificate", isMandatory: false),
+    SkillDTO(id: 6, name: "SIN Card or SIN Letter", isMandatory: false),
     SkillDTO(
         id: 7,
         name: "Certificate of Indian Status",
-        isMandatory: true,
+        isMandatory: false,
         yearLimit: '10'),
-    SkillDTO(id: 3, name: "Birth Certificate"),
+    SkillDTO(id: 8, name: "Birth Certificate", isMandatory: false),
     SkillDTO(
-        id: 3, name: "Canadian Forces Identification Card", isMandatory: true),
-    SkillDTO(id: 3, name: "Nexus Card", isMandatory: true, yearLimit: '5'),
+        id: 9, name: "Canadian Forces Identification Card", isMandatory: false),
+    SkillDTO(id: 10, name: "Nexus Card", isMandatory: true, yearLimit: '5'),
   ];
 
   static List<SkillDTO> cancelSortingList = [

@@ -34,7 +34,9 @@ class ApiService {
       },
     );
     var acceptHeader = Headers.jsonContentType;
-    var contentTypeHeader = isMultipart ? Headers.multipartFormDataContentType : Headers.jsonContentType;
+    var contentTypeHeader = isMultipart
+        ? Headers.multipartFormDataContentType
+        : Headers.jsonContentType;
     var headers = {
       HttpHeaders.acceptHeader: acceptHeader,
       HttpHeaders.contentTypeHeader: contentTypeHeader,
@@ -46,16 +48,18 @@ class ApiService {
       receiveTimeout: const Duration(milliseconds: 15000),
       //15s
       headers: headers,
-      contentType: isMultipart ? Headers.multipartFormDataContentType : Headers.jsonContentType,
+      contentType: isMultipart
+          ? Headers.multipartFormDataContentType
+          : Headers.jsonContentType,
     );
 
     dio = Dio(options)
       ..interceptors.addAll([
-        /* LogInterceptor(
+        LogInterceptor(
           requestBody: true,
           responseBody: true,
-        ),*/
-        LoggingInterceptor(),
+        ),
+        // LoggingInterceptor(),
         AppInterceptors(
             requestRetrier: DioConnectivityRequestRetrier(
           dio: dio,
@@ -68,7 +72,9 @@ class ApiService {
   }
 
   Future<CommonResponse> postMethod(String path, dynamic data,
-      {bool isMultipart = false, FormData? formData, Map<String, dynamic>? queryParameters}) async {
+      {bool isMultipart = false,
+      FormData? formData,
+      Map<String, dynamic>? queryParameters}) async {
     dio = initAPIService(isMultipart: isMultipart);
 
     var response = await dio.post(
@@ -80,7 +86,8 @@ class ApiService {
     return CommonResponse.fromJson(response.data);
   }
 
-  Future<CommonResponse?> getMethod(String path, {Map<String, dynamic>? queryParameters}) async {
+  Future<CommonResponse?> getMethod(String path,
+      {Map<String, dynamic>? queryParameters}) async {
     dio = initAPIService();
 
     var response = await dio.get(
@@ -92,7 +99,10 @@ class ApiService {
   }
 
   Future<CommonResponse?> putMethod(String path,
-      {Map<String, dynamic>? queryParameters, dynamic data, bool isMultipart = false, FormData? formData}) async {
+      {Map<String, dynamic>? queryParameters,
+      dynamic data,
+      bool isMultipart = false,
+      FormData? formData}) async {
     dio = initAPIService(isMultipart: isMultipart);
 
     var response = await dio.put(
@@ -125,11 +135,13 @@ const _titleSeparator = '══════════════════�
 const _encoder = JsonEncoder.withIndent('  ');
 
 mixin _LogMixin {
-  void printRequest(Object? value, [String prefix = '']) => _print(value, prefix);
+  void printRequest(Object? value, [String prefix = '']) =>
+      _print(value, prefix);
 
   void printError(Object? value, [String prefix = '']) => _print(value, prefix);
 
-  void printResponse(Object? value, [String prefix = '']) => _print(value, prefix);
+  void printResponse(Object? value, [String prefix = '']) =>
+      _print(value, prefix);
 
   void _print(Object? object, String prefix) {
     String content;
@@ -148,9 +160,13 @@ class LoggingInterceptor extends InterceptorsWrapper with _LogMixin {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     printRequest('$_titleSeparator Request Options $_titleSeparator');
     printRequest('[${options.method.toUpperCase()}] ${options.uri}');
-    if (options.queryParameters.isNotEmpty) printRequest(options.queryParameters, 'QueryParameters');
+    if (options.queryParameters.isNotEmpty) {
+      printRequest(options.queryParameters, 'QueryParameters');
+    }
     printRequest(options.headers, 'Headers');
-    if (options.data is Map || options.data is Iterable) printRequest(options.data, 'Data');
+    if (options.data is Map || options.data is Iterable) {
+      printRequest(options.data, 'Data');
+    }
     super.onRequest(options, handler);
   }
 
@@ -160,14 +176,17 @@ class LoggingInterceptor extends InterceptorsWrapper with _LogMixin {
     printResponse(
       '[${response.requestOptions.method.toUpperCase()}] [${response.statusCode}] ${response.requestOptions.uri}',
     );
-    if (response.data is Map || response.data is List) printResponse(response.data, 'Data');
+    if (response.data is Map || response.data is List) {
+      printResponse(response.data, 'Data');
+    }
     super.onResponse(response, handler);
   }
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     printError('$_titleSeparator DioError $_titleSeparator');
-    printError('[${err.requestOptions.method.toUpperCase()}] [${err.response?.statusCode}] ${err.requestOptions.uri}');
+    printError(
+        '[${err.requestOptions.method.toUpperCase()}] [${err.response?.statusCode}] ${err.requestOptions.uri}');
     printError('[${err.type}] ${err.message}');
     if (err.response?.data is Map) printError(err.response?.data, 'Data');
     super.onError(err, handler);

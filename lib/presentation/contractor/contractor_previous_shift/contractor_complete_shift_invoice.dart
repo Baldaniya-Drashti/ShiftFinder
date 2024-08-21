@@ -67,6 +67,7 @@ class CompleteShiftInvoiceView extends StatelessWidget {
                                     context,
                                     showDownloadBtn: isContractor,
                                     invoice: state.selectedInvoice!,
+                                    isContractor: isContractor,
                                   ),
                                   commonDivider(),
                                   _ContractorDetail(
@@ -93,7 +94,8 @@ class CompleteShiftInvoiceView extends StatelessWidget {
                                       isContractor,
                                       onTap: () {
                                         downloadInvoice(context,
-                                            invoice: state.selectedInvoice!);
+                                            invoice: state.selectedInvoice!,
+                                            isContractor: isContractor);
                                       },
                                     ),
                                   ] else ...[
@@ -175,7 +177,9 @@ class CompleteShiftInvoiceView extends StatelessWidget {
   }
 
   Widget companyDetail(BuildContext context,
-      {bool showDownloadBtn = false, required EmployerInvoiceDTO invoice}) {
+      {bool showDownloadBtn = false,
+      required EmployerInvoiceDTO invoice,
+      required bool isContractor}) {
     final industry = CommonList.industryList
         .firstWhere((element) => element.id == invoice.industry);
     return Row(
@@ -221,7 +225,8 @@ class CompleteShiftInvoiceView extends StatelessWidget {
                     downLoadInvoiceBtn(
                       showDownloadBtn,
                       onTap: () {
-                        downloadInvoice(context, invoice: invoice);
+                        downloadInvoice(context,
+                            invoice: invoice, isContractor: isContractor);
                       },
                     ),
                   ],
@@ -372,8 +377,9 @@ class StatementHeadingTitle extends StatelessWidget {
 }
 
 void downloadInvoice(BuildContext context,
-    {required EmployerInvoiceDTO invoice}) async {
-  final pdfData = await InvoiceGenerator().generateBillingInvoice(invoice);
+    {required EmployerInvoiceDTO invoice, required bool isContractor}) async {
+  final pdfData =
+      await InvoiceGenerator().generateBillingInvoice(invoice, isContractor);
 
   String? pdfPath = await SaveFileToStorage.savePdfToShiftFinderDirectory(
       pdfData,

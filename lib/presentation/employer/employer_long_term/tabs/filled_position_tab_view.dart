@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,6 +16,7 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/helper/helper_function.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/avatar.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -90,44 +93,95 @@ class FilledPositionTabView extends StatelessWidget {
                                 Gap(getSize(12)),
                                 _buildDateInfoSection(context, employer: data),
                                 Gap(getSize(12)),
-                                GestureDetector(
-                                  onTap: () {
-                                    context.router.push(
-                                      PageRouteInfo(
-                                        ViewApplicantProfile.name,
-                                        args: ViewApplicantProfileArgs(
-                                            id: data.user?.user_id ?? -1,
-                                            postId: data.id ?? -1,
-                                            isLongOrFull: 1),
-                                      ),
-                                    );
-                                  },
-                                  child: Material(
-                                    color: AppColors.scaffoldColor,
-                                    borderRadius: BorderRadius.circular(7),
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: getSize(8),
-                                          horizontal: getSize(12)),
-                                      child: CommonInfoTile(
-                                        leading: UserAvatar(
-                                            url: data.user?.profile ?? ""),
-                                        title: BaseText(
-                                          text:
-                                              "${data.user?.first_name ?? ""} ${data.user?.last_name ?? ""}",
-                                          fontSize: 14,
+                                (data.total_user == 1)
+                                    ? GestureDetector(
+                                        onTap: () {
+                                          context.router.push(
+                                            PageRouteInfo(
+                                              ViewApplicantProfile.name,
+                                              args: ViewApplicantProfileArgs(
+                                                  id: data.user?[0].user_id ??
+                                                      -1,
+                                                  postId: data.id ?? -1,
+                                                  isLongOrFull: 1),
+                                            ),
+                                          );
+                                        },
+                                        child: Material(
+                                          color: AppColors.scaffoldColor,
+                                          borderRadius:
+                                              BorderRadius.circular(7),
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: getSize(8),
+                                                horizontal: getSize(12)),
+                                            child: CommonInfoTile(
+                                              leading: UserAvatar(
+                                                  url: data.user?[0].profile ??
+                                                      ""),
+                                              title: BaseText(
+                                                text:
+                                                    "${data.user?[0].first_name ?? ""} ${data.user?[0].last_name ?? ""}",
+                                                fontSize: 14,
+                                              ),
+                                              trailing: SvgPicture.asset(
+                                                SvgImageConstant.rightArrow,
+                                                height: 16,
+                                                color: AppColors.black
+                                                    .withOpacity(0.5),
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                        trailing: SvgPicture.asset(
-                                          SvgImageConstant.rightArrow,
-                                          height: 16,
-                                          // ignore: deprecated_member_use
-                                          color:
-                                              AppColors.black.withOpacity(0.5),
+                                      )
+                                    : Container(
+                                        padding: EdgeInsets.symmetric(
+                                          vertical: getSize(10),
+                                          horizontal: getSize(15),
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.scaffoldColor,
+                                          borderRadius: BorderRadius.circular(
+                                              getSize(10)),
+                                        ),
+                                        child: InkWell(
+                                          onTap: () {
+                                            context.router.push(PageRouteInfo(
+                                                LongTermHiredContractorList
+                                                    .name,
+                                                args:
+                                                    LongTermHiredContractorListArgs(
+                                                  userList: data.user ?? [],
+                                                  postId: data.id ?? -1,
+                                                )));
+                                          },
+                                          child: Row(
+                                            children: [
+                                              CircleAvatar(
+                                                backgroundColor:
+                                                    AppColors.transparent,
+                                                radius: getSize(20),
+                                                child: SvgPicture.asset(
+                                                  SvgImageConstant
+                                                      .threePersonCircle,
+                                                ),
+                                              ),
+                                              SizedBox(width: getSize(10)),
+                                              BaseText(
+                                                text:
+                                                    "${StringConstant.allHiredContractors} (${data.hired_user}/${data.total_user})",
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                              Spacer(),
+                                              Icon(
+                                                Icons.arrow_forward_ios_rounded,
+                                                size: getSize(16),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                )
                               ],
                             ),
                           ),
@@ -191,7 +245,17 @@ class FilledPositionTabView extends StatelessWidget {
             ),
             Divider(color: AppColors.white.withOpacity(0.2)),
             Gap(getSize(4)),
-            _buildLocationInfo(context, employer: employer),
+            GestureDetector(
+                onTap: () {
+                  final location = employer.location;
+                  final latitude = location?.latitude;
+                  final longitude = location?.longitude;
+                  if (latitude != null && longitude != null) {
+                    LocationHelper.openDirections(context,
+                        endLat: latitude, endLng: longitude);
+                  }
+                },
+                child: _buildLocationInfo(context, employer: employer)),
             Gap(getSize(4)),
           ],
         ),
@@ -230,7 +294,7 @@ class FilledPositionTabView extends StatelessWidget {
       height: 45,
       backgroundColor: AppColors.primaryColor.withOpacity(0.2),
       onPressed: onPressed,
-      buttonText: 'View Position Details',
+      buttonText: StringConstant.viewPositionDetails,
       buttonFontSize: 12,
       buttonFontWeight: FontWeight.w600,
       buttonTextColor: AppColors.black,

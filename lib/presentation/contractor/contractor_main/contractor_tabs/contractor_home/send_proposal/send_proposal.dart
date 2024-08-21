@@ -10,8 +10,10 @@ import 'package:shift/application/contractor/contractor_main_tab_bloc/send_propo
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
+import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
@@ -19,6 +21,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
@@ -70,7 +73,7 @@ class SendProposal extends StatelessWidget {
                       child: SingleChildScrollView(
                         child: Padding(
                           padding:
-                              EdgeInsets.symmetric(horizontal: getSize(20)),
+                              EdgeInsets.symmetric(horizontal: getSize(10)),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -123,105 +126,37 @@ class SendProposal extends StatelessWidget {
                                       paddingBetweenFields(),
                                     ],
                                   )),
-                              rateHourField(context, state),
+                              hourlyRateRow(context, state),
                               paddingBetweenFields(),
                               Visibility(
                                   visible: state.shift.shift_detail
                                           ?.commute_allowance_type ==
                                       1,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      commuteAllownceField(context, state),
-                                      if (state.showErrorMessages &&
-                                          !state.commuteRate.isValid())
-                                        commonErrorText(
-                                          (double.tryParse(state.commuteRate
-                                                          .getValue()) !=
-                                                      null &&
-                                                  double.parse(state.commuteRate
-                                                          .getValue()) <=
-                                                      0)
-                                              ? StringConstant
-                                                  .flatRateShouldNotBeZero
-                                              : StringConstant
-                                                  .pleaseSelectCommuteAllownceValue,
-                                        ),
-                                      paddingBetweenFields(),
-                                    ],
-                                  )),
+                                  child:
+                                      commuteAllownceRateRow(context, state)),
                               Visibility(
                                   visible: state.shift.shift_detail
                                           ?.commute_allowance_type ==
                                       2,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      commuteAllownceDropDown(context, state),
-                                      if (state.showErrorMessages &&
-                                          !state.commuteHour.isValid())
-                                        commonErrorText(
-                                          StringConstant
-                                              .pleaseSelectCommuteAllownceValue,
-                                        ),
-                                      paddingBetweenFields(),
-                                    ],
-                                  )),
+                                  child:
+                                      commuteAllownceHourRow(context, state)),
                               Visibility(
                                   visible: state.shift.shift_detail
                                           ?.accommodation_allowance_type ==
                                       1,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      accomdationAllownceField(context, state),
-                                      if (state.showErrorMessages &&
-                                          !state.accomdationRate.isValid())
-                                        commonErrorText(
-                                          (double.tryParse(state.accomdationRate
-                                                          .getValue()) !=
-                                                      null &&
-                                                  double.parse(state
-                                                          .accomdationRate
-                                                          .getValue()) <=
-                                                      0)
-                                              ? StringConstant
-                                                  .flatRateShouldNotBeZero
-                                              : StringConstant
-                                                  .pleaseSelectAccomdationAllownceValue,
-                                        ),
-                                      paddingBetweenFields(),
-                                    ],
-                                  )),
+                                  child: accomdationAllownceRateRow(
+                                      context, state)),
                               Visibility(
                                   visible: state.shift.shift_detail
                                           ?.accommodation_allowance_type ==
                                       2,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      accomdationAllownceDropDown(
-                                          context, state),
-                                      if (state.showErrorMessages &&
-                                          !state.accomdationHour.isValid())
-                                        commonErrorText(
-                                          StringConstant
-                                              .pleaseSelectAccomdationAllownceValue,
-                                        ),
-                                      paddingBetweenFields(),
-                                    ],
-                                  )),
+                                  child: accomdationAllownceHourRow(
+                                      context, state)),
                               Padding(
                                 padding:
                                     EdgeInsets.symmetric(vertical: getSize(20)),
                                 child: CommonButton(
                                   onPressed: () {
-                                    print(
-                                        "state.shift.shift_detail?.shift_type---> ${state.shift.shift_detail?.shift_type}");
                                     if (state.shift.shift_detail?.shift_type ==
                                         1) {
                                       context.read<SendProposalBloc>().add(
@@ -257,6 +192,354 @@ class SendProposal extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget verticalDivider() {
+    return VerticalDivider(
+      width: getSize(15),
+      color: AppColors.black.withOpacity(0.30),
+      thickness: getSize(2),
+      indent: getSize(10),
+      endIndent: getSize(5),
+    );
+  }
+
+  Widget hourlyRateRow(BuildContext context, SendProposalState state) {
+    ProposalDTO proposal =
+        state.shift.shift_detail?.proposal_received ?? ProposalDTO();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: getSize(15), bottom: getSize(10)),
+          child: BaseText(
+            text: StringConstant.rateHour,
+            fontSize: 14,
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(
+              vertical: getSize(10), horizontal: getSize(10)),
+          decoration: BoxDecoration(
+            color: AppColors.grey04,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                rateHourField(
+                  context,
+                  label: StringConstant.posted,
+                  initialValue: "${proposal.posted_hourly_rate ?? 0.0}",
+                  readOnly: true,
+                ),
+                verticalDivider(),
+                rateHourField(
+                  context,
+                  initialValue: state.rateHour.getValue(),
+                  label: StringConstant.proposed,
+                ),
+                if (proposal.counter_proposal_hourly_rate != null) ...[
+                  verticalDivider(),
+                  rateHourField(
+                    context,
+                    label: "Counter \nProposed",
+                    initialValue:
+                        "${proposal.counter_proposal_hourly_rate ?? 0.0}",
+                    readOnly: true,
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ),
+        if (state.showErrorMessages && !state.rateHour.isValid())
+          commonErrorText(
+              context.read<SendProposalBloc>().state.rateHour.value.fold(
+                    (f) => f.maybeMap(
+                      empty: (value) => StringConstant.pleaseEnterRateHour,
+                      invalidRate: (value) =>
+                          StringConstant.pleaseEnterValidRateHour,
+                      orElse: () => "",
+                    ),
+                    (_) => "",
+                  ))
+      ],
+    );
+  }
+
+  Widget commuteAllownceRateRow(BuildContext context, SendProposalState state) {
+    ProposalDTO proposal =
+        state.shift.shift_detail?.proposal_received ?? ProposalDTO();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: getSize(15), bottom: getSize(10)),
+          child: BaseText(
+            text: StringConstant.commuteAllowance,
+            fontSize: 14,
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(
+              vertical: getSize(10), horizontal: getSize(10)),
+          decoration: BoxDecoration(
+            color: AppColors.grey04,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                commuteAllownceField(
+                  context,
+                  label: StringConstant.posted,
+                  initialValue:
+                      "${proposal.posted_commute_allowance_rate ?? 0.0}",
+                  readOnly: true,
+                ),
+                verticalDivider(),
+                commuteAllownceField(
+                  context,
+                  initialValue: state.commuteRate.getValue(),
+                  label: StringConstant.proposed,
+                ),
+                if (proposal.counter_commute_allowance_rate != null) ...[
+                  verticalDivider(),
+                  commuteAllownceField(
+                    context,
+                    label: "Counter \nProposed",
+                    initialValue:
+                        "${proposal.counter_commute_allowance_rate ?? 0.0}",
+                    readOnly: true,
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ),
+        if (state.showErrorMessages && !state.commuteRate.isValid())
+          commonErrorText(
+            (double.tryParse(state.commuteRate.getValue()) != null &&
+                    double.parse(state.commuteRate.getValue()) <= 0)
+                ? StringConstant.flatRateShouldNotBeZero
+                : StringConstant.pleaseSelectCommuteAllownceValue,
+          ),
+      ],
+    );
+  }
+
+  Widget accomdationAllownceRateRow(
+      BuildContext context, SendProposalState state) {
+    ProposalDTO proposal =
+        state.shift.shift_detail?.proposal_received ?? ProposalDTO();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: getSize(15), bottom: getSize(10)),
+          child: BaseText(
+            text: StringConstant.accommodationAllowance,
+            fontSize: 14,
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(
+              vertical: getSize(10), horizontal: getSize(10)),
+          decoration: BoxDecoration(
+            color: AppColors.grey04,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                accomdationAllownceField(
+                  context,
+                  label: StringConstant.posted,
+                  initialValue:
+                      "${proposal.posted_accommodation_allowance_rate ?? 0.0}",
+                  readOnly: true,
+                ),
+                verticalDivider(),
+                accomdationAllownceField(
+                  context,
+                  initialValue: state.accomdationRate.getValue(),
+                  label: StringConstant.proposed,
+                ),
+                if (proposal.counter_accommodation_allowance_rate != null) ...[
+                  verticalDivider(),
+                  accomdationAllownceField(
+                    context,
+                    label: "Counter \nProposed",
+                    initialValue:
+                        "${proposal.counter_accommodation_allowance_rate ?? 0.0}",
+                    readOnly: true,
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ),
+        if (state.showErrorMessages && !state.accomdationRate.isValid())
+          commonErrorText(
+            (double.tryParse(state.accomdationRate.getValue()) != null &&
+                    double.parse(state.accomdationRate.getValue()) <= 0)
+                ? StringConstant.flatRateShouldNotBeZero
+                : StringConstant.pleaseSelectAccomdationAllownceValue,
+          ),
+      ],
+    );
+  }
+
+  Widget accomdationAllownceHourRow(
+      BuildContext context, SendProposalState state) {
+    ProposalDTO proposal =
+        state.shift.shift_detail?.proposal_received ?? ProposalDTO();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: getSize(15), bottom: getSize(10)),
+          child: BaseText(
+            text: StringConstant.accommodationAllowance,
+            fontSize: 14,
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(
+              vertical: getSize(10), horizontal: getSize(10)),
+          alignment: Alignment.bottomCenter,
+          decoration: BoxDecoration(
+            color: AppColors.grey04,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                accomdationAllownceDropDown(
+                  context,
+                  state,
+                  label: StringConstant.posted,
+                  initialValue: getAllownceHourName(
+                      proposal.posted_accommodation_allowance_hour_id ?? 0,
+                      state),
+                  readOnly: true,
+                ),
+                verticalDivider(),
+                accomdationAllownceDropDown(
+                  context,
+                  state,
+                  initialValue: (state.accomdationHour.isValid())
+                      ? state.accomdationHour.getValue()
+                      : null,
+                  label: StringConstant.proposed,
+                ),
+                if (proposal.counter_accommodation_allowance_hour_id !=
+                    null) ...[
+                  verticalDivider(),
+                  accomdationAllownceDropDown(
+                    context,
+                    state,
+                    label: "Counter \nProposed",
+                    initialValue: getAllownceHourName(
+                        proposal.counter_accommodation_allowance_hour_id ?? 0,
+                        state),
+                    readOnly: true,
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ),
+        if (state.showErrorMessages && !state.accomdationHour.isValid())
+          commonErrorText(
+            StringConstant.pleaseSelectAccomdationAllownceValue,
+          ),
+      ],
+    );
+  }
+
+  Widget commuteAllownceHourRow(BuildContext context, SendProposalState state) {
+    ProposalDTO proposal =
+        state.shift.shift_detail?.proposal_received ?? ProposalDTO();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: getSize(15), bottom: getSize(10)),
+          child: BaseText(
+            text: StringConstant.commuteAllowance,
+            fontSize: 14,
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(
+              vertical: getSize(10), horizontal: getSize(10)),
+          decoration: BoxDecoration(
+            color: AppColors.grey04,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                commuteAllownceDropDown(
+                  context,
+                  state,
+                  label: StringConstant.posted,
+                  initialValue: getAllownceHourName(
+                      proposal.posted_commute_allowance_hour_id ?? 0, state),
+                  readOnly: true,
+                ),
+                verticalDivider(),
+                commuteAllownceDropDown(
+                  context,
+                  state,
+                  initialValue: (state.commuteHour.isValid())
+                      ? state.commuteHour.getValue()
+                      : null,
+                  label: StringConstant.proposed,
+                ),
+                if (proposal.counter_commute_allowance_hour_id != null) ...[
+                  verticalDivider(),
+                  commuteAllownceDropDown(
+                    context,
+                    state,
+                    label: "Counter \nProposed",
+                    initialValue: getAllownceHourName(
+                        proposal.counter_commute_allowance_hour_id ?? 0, state),
+                    readOnly: true,
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ),
+        if (state.showErrorMessages && !state.commuteHour.isValid())
+          commonErrorText(StringConstant.pleaseSelectCommuteAllownceValue),
+      ],
+    );
+  }
+
+  String? getAllownceHourName(int id, SendProposalState state) {
+    final hour = state.accomdationHoursList
+        .firstWhere((hour) => hour.id == id, orElse: () => SkillDTO());
+    return hour.name;
   }
 
   Widget paddingBetweenFields({double? height}) {
@@ -393,7 +676,9 @@ class SendProposal extends StatelessWidget {
               final latitude = location?.latitude;
               final longitude = location?.longitude;
               if (latitude != null && longitude != null) {
-                context.router.push(
+                LocationHelper.openDirections(context,
+                    endLat: latitude, endLng: longitude);
+                /* context.router.push(
                   PageRouteInfo(
                     ShowGoogleMap.name,
                     args: ShowGoogleMapArgs(
@@ -401,7 +686,7 @@ class SendProposal extends StatelessWidget {
                       longitude: longitude,
                     ),
                   ),
-                );
+                ); */
               }
             },
             child: Row(
@@ -825,7 +1110,69 @@ class SendProposal extends StatelessWidget {
     );
   }
 
-  Widget rateHourField(BuildContext context, SendProposalState state) {
+  Widget rateHourField(
+    BuildContext context, {
+    String? label,
+    String? initialValue,
+    bool readOnly = false,
+  }) {
+    return Expanded(
+      child: CustomTextField(
+        labelText: label ?? StringConstant.rateHour,
+        isLabelPadding: false,
+        isPrefixValueShow: true,
+        errorMaxLines: 2,
+        maxLength: 5,
+        initialValue: (initialValue != null) ? initialValue : null,
+        hintText: StringConstant.rateHour,
+        readOnly: readOnly,
+        fillColor: readOnly ? AppColors.grey04 : null,
+        keyboardType:
+            TextInputType.numberWithOptions(decimal: true, signed: true),
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+        ],
+        prefixIcon: Padding(
+          padding: EdgeInsets.only(
+            left: getSize(20),
+            top: getSize(14),
+            bottom: getSize(14),
+          ),
+          child: BaseText(
+            text: '\$ ',
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            textColor: (initialValue != null)
+                ? AppColors.black
+                : AppColors.black.withOpacity(0.5),
+          ),
+        ),
+        prefixIconConstraints:
+            BoxConstraints(maxWidth: getSize(100), minHeight: 0),
+        onChanged: (value) {
+          context
+              .read<SendProposalBloc>()
+              .add(SendProposalEvent.rateHourChanged(value));
+        },
+        errorInputBorder: InputBorder.none,
+        validator: null,
+        /* validator: (p0, p1) => context.read<SendProposalBloc>().state.rateHour.value.fold(
+                  (f) => f.maybeMap(
+                    empty: (value) => StringConstant.pleaseEnterRateHour,
+                    invalidRate: (value) =>
+                        StringConstant.pleaseEnterValidRateHour,
+                    orElse: () => null,
+                  ),
+                  (_) => null,
+                ), */
+      ),
+    );
+  }
+
+  /* Widget rateHourField(
+    BuildContext context,
+    SendProposalState state,
+  ) {
     return CustomTextField(
       labelText: StringConstant.rateHour,
       isLabelPadding: true,
@@ -877,126 +1224,70 @@ class SendProposal extends StatelessWidget {
             (_) => null,
           ),
     );
-  }
+  } 
 
-  Widget commuteAllownceField(BuildContext context, SendProposalState state) {
-    return CustomTextField(
-      labelText: StringConstant.commuteAllowance,
-      isLabelPadding: true,
-      isPrefixValueShow: true,
-      errorMaxLines: 2,
-      maxLength: 5,
-      hintText: StringConstant.commuteAllowance,
-      keyboardType:
-          TextInputType.numberWithOptions(decimal: true, signed: true),
-      inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
-      ],
-      initialValue:
-          (state.commuteRate.isValid()) ? state.commuteRate.getValue() : null,
-      prefixIcon: Padding(
-          padding: EdgeInsets.only(
-            left: getSize(20),
-            top: getSize(14),
-            bottom: getSize(14),
-          ),
-          child: BaseText(
-            text: '\$ ',
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            // textColor: (state.rateHour.isValid())
-            //     ? AppColors.black
-            //     : AppColors.black.withOpacity(0.5),
-          )),
-      prefixIconConstraints:
-          BoxConstraints(maxWidth: getSize(100), minHeight: 0),
-      onChanged: (value) {
-        context
-            .read<SendProposalBloc>()
-            .add(SendProposalEvent.commuteRateChanged(value));
-      },
-      /*validator: (p0, p1) => context
-          .read<HealthcarePostBloc>()
-          .state
-          .rateHour
-          .value
-          .fold(
-            (f) => f.maybeMap(
-              empty: (value) => StringConstant.pleaseEnterRateHour,
-              invalidRate: (value) => StringConstant.pleaseEnterValidRateHour,
-              orElse: () => null,
+   Widget commuteAllownceField(
+    BuildContext context,
+    SendProposalState state, {
+    String? label,
+    String? initialValue,
+    bool readOnly = false,
+  }) {
+    return Expanded(
+      child: CustomTextField(
+        labelText: StringConstant.commuteAllowance,
+        isLabelPadding: true,
+        isPrefixValueShow: true,
+        errorMaxLines: 2,
+        maxLength: 5,
+        readOnly: readOnly,
+        hintText: StringConstant.commuteAllowance,
+        keyboardType:
+            TextInputType.numberWithOptions(decimal: true, signed: true),
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+        ],
+        initialValue:
+            (state.commuteRate.isValid()) ? state.commuteRate.getValue() : null,
+        prefixIcon: Padding(
+            padding: EdgeInsets.only(
+              left: getSize(20),
+              top: getSize(14),
+              bottom: getSize(14),
             ),
-            (_) => null,
-          ),*/
-    );
-  }
-
-  Widget commuteAllownceDropDown(
-      BuildContext context, SendProposalState state) {
-    return CustomDropdwonWithTextField(
-      labelText: StringConstant.commuteAllowance,
-      hintText: StringConstant.commuteAllowance,
-      isLabelPadding: true,
-      fieldMaxLength: 5,
-      showTextfield: false,
-      showDropDown: false,
-      childDroDwonHintText: StringConstant.selectHours,
-      fieldInputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
-      ],
-      fieldKeyboardType: TextInputType.numberWithOptions(decimal: true),
-      fieldHintText: "0.00",
-      value:
-          (state.commuteHour.isValid()) ? state.commuteHour.getValue() : null,
-      /*value: (state.selectedCommuteAllownce.isValid())
-          ? state.selectedCommuteAllownce.getValue()
-          : null,*/
-
-      fieldPrefixIcon: Padding(
-          padding: EdgeInsets.only(
-            left: getSize(20),
-            top: getSize(14),
-            bottom: getSize(14),
-          ),
-          child: BaseText(
-            text: '\$ ',
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            textColor: AppColors.black.withOpacity(0.7),
-          )),
-      fieldPrefixIconConstraints:
-          BoxConstraints(maxWidth: getSize(100), minHeight: 0),
-      items: state.accomdationHoursList.map((val) {
-        return DropdownMenuItem<String>(
-          value: val.name,
-          child: BaseText(
-            text: val.name ?? "",
-            fontSize: 14,
-            textColor: AppColors.black,
-          ),
-        );
-      }).toList(),
-      onChanged: (value) {
-        if (value != null) {
+            child: BaseText(
+              text: '\$ ',
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              // textColor: (state.rateHour.isValid())
+              //     ? AppColors.black
+              //     : AppColors.black.withOpacity(0.5),
+            )),
+        prefixIconConstraints:
+            BoxConstraints(maxWidth: getSize(100), minHeight: 0),
+        onChanged: (value) {
           context
               .read<SendProposalBloc>()
-              .add(SendProposalEvent.commuteHourChanged(value));
-        }
-      },
-      childDropDownItems: CommonList.commuteAllownceList.map((val) {
-        return DropdownMenuItem<String>(
-          value: val,
-          child: BaseText(
-            text: val,
-            fontSize: 14,
-            textColor: AppColors.black,
-          ),
-        );
-      }).toList(),
+              .add(SendProposalEvent.commuteRateChanged(value));
+        },
+        /*validator: (p0, p1) => context
+            .read<HealthcarePostBloc>()
+            .state
+            .rateHour
+            .value
+            .fold(
+              (f) => f.maybeMap(
+                empty: (value) => StringConstant.pleaseEnterRateHour,
+                invalidRate: (value) => StringConstant.pleaseEnterValidRateHour,
+                orElse: () => null,
+              ),
+              (_) => null,
+            ),*/
+      ),
     );
   }
 
-  Widget accomdationAllownceField(
+   Widget accomdationAllownceField(
       BuildContext context, SendProposalState state) {
     return CustomTextField(
       labelText: StringConstant.accommodationAllowance,
@@ -1106,6 +1397,287 @@ class SendProposal extends StatelessWidget {
           ),
         );
       }).toList(),
+    );
+  }
+
+ Widget commuteAllownceDropDown(
+      BuildContext context, SendProposalState state) {
+    return CustomDropdwonWithTextField(
+      labelText: StringConstant.commuteAllowance,
+      hintText: StringConstant.commuteAllowance,
+      isLabelPadding: true,
+      fieldMaxLength: 5,
+      showTextfield: false,
+      showDropDown: false,
+      childDroDwonHintText: StringConstant.selectHours,
+      fieldInputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+      ],
+      fieldKeyboardType: TextInputType.numberWithOptions(decimal: true),
+      fieldHintText: "0.00",
+      value:
+          (state.commuteHour.isValid()) ? state.commuteHour.getValue() : null,
+      /*value: (state.selectedCommuteAllownce.isValid())
+          ? state.selectedCommuteAllownce.getValue()
+          : null,*/
+
+      fieldPrefixIcon: Padding(
+          padding: EdgeInsets.only(
+            left: getSize(20),
+            top: getSize(14),
+            bottom: getSize(14),
+          ),
+          child: BaseText(
+            text: '\$ ',
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            textColor: AppColors.black.withOpacity(0.7),
+          )),
+      fieldPrefixIconConstraints:
+          BoxConstraints(maxWidth: getSize(100), minHeight: 0),
+      items: state.accomdationHoursList.map((val) {
+        return DropdownMenuItem<String>(
+          value: val.name,
+          child: BaseText(
+            text: val.name ?? "",
+            fontSize: 14,
+            textColor: AppColors.black,
+          ),
+        );
+      }).toList(),
+      onChanged: (value) {
+        if (value != null) {
+          context
+              .read<SendProposalBloc>()
+              .add(SendProposalEvent.commuteHourChanged(value));
+        }
+      },
+      childDropDownItems: CommonList.commuteAllownceList.map((val) {
+        return DropdownMenuItem<String>(
+          value: val,
+          child: BaseText(
+            text: val,
+            fontSize: 14,
+            textColor: AppColors.black,
+          ),
+        );
+      }).toList(),
+    );
+  }
+
+
+ */
+
+  Widget commuteAllownceField(
+    BuildContext context, {
+    String? label,
+    String? initialValue,
+    bool readOnly = false,
+  }) {
+    return Expanded(
+      child: CustomTextField(
+        labelText: label,
+        isLabelPadding: true,
+        isPrefixValueShow: true,
+        errorMaxLines: 2,
+        maxLength: 5,
+        readOnly: readOnly,
+        initialValue: (initialValue != null) ? initialValue : null,
+        fillColor: readOnly ? AppColors.grey04 : null,
+        hintText: StringConstant.commuteAllowance,
+        keyboardType:
+            TextInputType.numberWithOptions(decimal: true, signed: true),
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+        ],
+        prefixIcon: Padding(
+            padding: EdgeInsets.only(
+              left: getSize(20),
+              top: getSize(14),
+              bottom: getSize(14),
+            ),
+            child: BaseText(
+              text: '\$ ',
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            )),
+        prefixIconConstraints:
+            BoxConstraints(maxWidth: getSize(100), minHeight: 0),
+        onChanged: (value) {
+          context
+              .read<SendProposalBloc>()
+              .add(SendProposalEvent.commuteRateChanged(value));
+        },
+      ),
+    );
+  }
+
+  Widget accomdationAllownceField(
+    BuildContext context, {
+    String? label,
+    String? initialValue,
+    bool readOnly = false,
+  }) {
+    return Expanded(
+      child: CustomTextField(
+        labelText: label,
+        isLabelPadding: true,
+        isPrefixValueShow: true,
+        errorMaxLines: 2,
+        maxLength: 5,
+        hintText: StringConstant.accommodationAllowance,
+        readOnly: readOnly,
+        initialValue: (initialValue != null) ? initialValue : null,
+        fillColor: readOnly ? AppColors.grey04 : null,
+        keyboardType:
+            TextInputType.numberWithOptions(decimal: true, signed: true),
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+        ],
+        prefixIcon: Padding(
+            padding: EdgeInsets.only(
+              left: getSize(20),
+              top: getSize(14),
+              bottom: getSize(14),
+            ),
+            child: BaseText(
+              text: '\$ ',
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              // textColor: (state.rateHour.isValid())
+              //     ? AppColors.black
+              //     : AppColors.black.withOpacity(0.5),
+            )),
+        prefixIconConstraints:
+            BoxConstraints(maxWidth: getSize(100), minHeight: 0),
+        onChanged: (value) {
+          context
+              .read<SendProposalBloc>()
+              .add(SendProposalEvent.accomdationRateChanged(value));
+        },
+      ),
+    );
+  }
+
+  Widget commuteAllownceDropDown(
+    BuildContext context,
+    SendProposalState state, {
+    String? label,
+    String? initialValue,
+    bool readOnly = false,
+  }) {
+    return Flexible(
+      child: CustomDropdwonWithTextField(
+        verticalAlignment: MainAxisAlignment.end,
+        labelText: label,
+        hintText: StringConstant.commuteAllowance,
+        isLabelPadding: true,
+        fieldMaxLength: 5,
+        showTextfield: false,
+        showDropDown: false,
+        dropDownReadOnly: readOnly,
+        dropDownIcon: readOnly ? Container() : null,
+        value: (initialValue != null) ? initialValue : null,
+        childDroDwonHintText: StringConstant.selectHours,
+        fieldInputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+        ],
+        fieldKeyboardType: TextInputType.numberWithOptions(decimal: true),
+        fieldHintText: "0.00",
+        /*value: (state.selectedCommuteAllownce.isValid())
+            ? state.selectedCommuteAllownce.getValue()
+            : null,*/
+        fieldPrefixIcon: Padding(
+            padding: EdgeInsets.only(
+              left: getSize(20),
+              top: getSize(14),
+              bottom: getSize(14),
+            ),
+            child: BaseText(
+              text: '\$ ',
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              textColor: AppColors.black.withOpacity(0.7),
+            )),
+        fieldPrefixIconConstraints:
+            BoxConstraints(maxWidth: getSize(100), minHeight: 0),
+        items: state.accomdationHoursList.map((val) {
+          return DropdownMenuItem<String>(
+            value: val.name,
+            child: BaseText(
+              text: val.name ?? "",
+              fontSize: 14,
+              textColor: AppColors.black,
+            ),
+          );
+        }).toList(),
+        onChanged: (value) {
+          if (value != null) {
+            context
+                .read<SendProposalBloc>()
+                .add(SendProposalEvent.commuteHourChanged(value));
+          }
+        },
+        childDropDownItems: CommonList.commuteAllownceList.map((val) {
+          return DropdownMenuItem<String>(
+            value: val,
+            child: BaseText(
+              text: val,
+              fontSize: 14,
+              textColor: AppColors.black,
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget accomdationAllownceDropDown(
+    BuildContext context,
+    SendProposalState state, {
+    String? label,
+    String? initialValue,
+    bool readOnly = false,
+  }) {
+    return Expanded(
+      child: CustomDropdwonWithTextField(
+        verticalAlignment: MainAxisAlignment.end,
+        labelText: label,
+        hintText: StringConstant.accommodationAllowance,
+        isLabelPadding: true,
+        showTextfield: false,
+        showDropDown: false,
+        dropDownReadOnly: readOnly,
+        dropDownIcon: readOnly ? Container() : null,
+        value: (initialValue != null) ? initialValue : null,
+        items: state.accomdationHoursList.map((val) {
+          return DropdownMenuItem<String>(
+            value: val.name,
+            child: BaseText(
+              text: val.name ?? "",
+              fontSize: 14,
+              textColor: AppColors.black,
+            ),
+          );
+        }).toList(),
+        onChanged: (value) {
+          if (value != null) {
+            context
+                .read<SendProposalBloc>()
+                .add(SendProposalEvent.accomdationHourChanged(value));
+          }
+        },
+        /*  childDropDownItems: CommonList.commuteAllownceList.map((val) {
+          return DropdownMenuItem<String>(
+            value: val,
+            child: BaseText(
+              text: val,
+              fontSize: 14,
+              textColor: AppColors.black,
+            ),
+          );
+        }).toList(), */
+      ),
     );
   }
 }

@@ -14,6 +14,7 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/billing/transaction_info.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/common/widgets/no_data_ui.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -58,130 +59,67 @@ class MonthlyStatementView extends StatelessWidget {
                 Expanded(
                   child: (state.isLoading)
                       ? CenterLoadingIndicator(isOnlyLoader: true)
-                      : SingleChildScrollView(
-                          padding: EdgeInsets.all(getSize(18)),
-                          child: BaseTileDecoration(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                companyDetail(context,
-                                    statement: state.statement),
-                                /* Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox.square(
-                                dimension: 60,
-                                child: Image.asset(PngImageConstants.splash_logo),
-                              ),
-                              Gap(8),
-                              Expanded(
+                      : (state.statement.list == null)
+                          ? NoDataText(
+                              title: '',
+                              description: StringConstant
+                                  .pleaseSelectDateToViewMonthlyStatement)
+                          : SingleChildScrollView(
+                              padding: EdgeInsets.all(getSize(18)),
+                              child: BaseTileDecoration(
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: BaseText(
-                                              text: "Louis Vuitton Pvt. Ltd.",
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 16),
-                                        ),
-                                        CommonButton(
-                                          onPressed: () {
-                                            context
-                                                .read<MonthlyStatementBloc>()
-                                                .add(MonthlyStatementEvent
-                                                    .downloadMonthlyStatementEvent(
-                                                        context));
-                                          },
-                                          buttonText: "",
-                                          customWidget: Row(
-                                            mainAxisSize: MainAxisSize.min,
+                                    companyDetail(context,
+                                        statement: state.statement),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: getSize(10)),
+                                      child: Divider(),
+                                    ),
+                                    if (state.statement.list != null &&
+                                        state.statement.list!.isNotEmpty) ...[
+                                      Material(
+                                        color: AppColors.green.withOpacity(0.2),
+                                        borderRadius: BorderRadius.circular(7),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 14, vertical: 10),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
-                                              SvgPicture.asset(
-                                                SvgImageConstant.download,
-                                                width: getSize(10),
-                                                height: getSize(10),
-                                              ),
-                                              SizedBox(width: getSize(2)),
                                               BaseText(
-                                                text: StringConstant.download,
-                                                textColor: AppColors.primaryColor,
-                                                fontSize: 8,
+                                                  text: StringConstant
+                                                      .statementDetails,
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w500),
+                                              Flexible(
+                                                child: BaseText(
+                                                  text: getFormattedString(
+                                                      state.selectedDateTime),
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
                                               ),
                                             ],
                                           ),
-                                          borderRadius: 5,
-                                          width: 70,
-                                          height: 20,
-                                          backgroundColor: AppColors.primaryColor
-                                              .withOpacity(0.20),
-                                          buttonTextColor: AppColors.primaryColor,
-                                        )
-                                      ],
-                                    ),
-                                    BaseText(
-                                        text: "Healthcare",
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400),
+                                        ),
+                                      ),
+                                      Gap(getSize(8)),
+                                      _StatementListView(
+                                        statement: state.statement,
+                                      ),
+                                    ] else
+                                      BaseText(
+                                        text: StringConstant.noResultFound,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                      ),
                                   ],
                                 ),
                               ),
-                            ],
-                          ),
-                           */
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: getSize(10)),
-                                  child: Divider(),
-                                ),
-                                if (state.statement.list != null &&
-                                    state.statement.list!.isNotEmpty) ...[
-                                  Material(
-                                    color: AppColors.green.withOpacity(0.2),
-                                    borderRadius: BorderRadius.circular(7),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 14, vertical: 10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          BaseText(
-                                              text: StringConstant
-                                                  .statementDetails,
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w500),
-                                          Flexible(
-                                            child: BaseText(
-                                              text: getFormattedString(
-                                                  state.selectedDateTime),
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Gap(getSize(8)),
-                                  _StatementListView(
-                                    statement: state.statement,
-                                  ),
-                                ] else
-                                  BaseText(
-                                    text: StringConstant.noResultFound,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                  ),
-                              ],
                             ),
-                          ),
-                        ),
                 ),
               ],
             ),
@@ -230,6 +168,10 @@ class MonthlyStatementView extends StatelessWidget {
                         text: industry.title ?? "",
                         fontSize: 10,
                         fontWeight: FontWeight.w400),
+                    /* BaseText(
+                        text: "${StringConstant.invoice} 74523456",
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400), */
                   ],
                 ),
               ),

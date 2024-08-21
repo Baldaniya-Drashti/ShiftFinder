@@ -14,9 +14,9 @@ class EnvironmentCongig {
   static const String prod = 'prod';
 
   late BaseConfig config;
-
   void initConfig(String environment) {
     config = _getConfig(environment);
+    _singleton.config;
   }
 
   BaseConfig _getConfig(String environment) {

@@ -48,6 +48,7 @@ mixin _$PostShiftDTO {
   String? get save_template_status => throw _privateConstructorUsedError;
 
   /// New Params
+  int? get dateUpdate => throw _privateConstructorUsedError;
   int? get shift_type => throw _privateConstructorUsedError;
   String? get date => throw _privateConstructorUsedError;
   int? get same_or_different_time => throw _privateConstructorUsedError;
@@ -109,6 +110,7 @@ abstract class $PostShiftDTOCopyWith<$Res> {
       String? share_team_status,
       String? team_id,
       String? save_template_status,
+      int? dateUpdate,
       int? shift_type,
       String? date,
       int? same_or_different_time,
@@ -169,6 +171,7 @@ class _$PostShiftDTOCopyWithImpl<$Res, $Val extends PostShiftDTO>
     Object? share_team_status = freezed,
     Object? team_id = freezed,
     Object? save_template_status = freezed,
+    Object? dateUpdate = freezed,
     Object? shift_type = freezed,
     Object? date = freezed,
     Object? same_or_different_time = freezed,
@@ -286,6 +289,10 @@ class _$PostShiftDTOCopyWithImpl<$Res, $Val extends PostShiftDTO>
           ? _value.save_template_status
           : save_template_status // ignore: cast_nullable_to_non_nullable
               as String?,
+      dateUpdate: freezed == dateUpdate
+          ? _value.dateUpdate
+          : dateUpdate // ignore: cast_nullable_to_non_nullable
+              as int?,
       shift_type: freezed == shift_type
           ? _value.shift_type
           : shift_type // ignore: cast_nullable_to_non_nullable
@@ -399,6 +406,7 @@ abstract class _$$PostShiftDTOImplCopyWith<$Res>
       String? share_team_status,
       String? team_id,
       String? save_template_status,
+      int? dateUpdate,
       int? shift_type,
       String? date,
       int? same_or_different_time,
@@ -457,6 +465,7 @@ class __$$PostShiftDTOImplCopyWithImpl<$Res>
     Object? share_team_status = freezed,
     Object? team_id = freezed,
     Object? save_template_status = freezed,
+    Object? dateUpdate = freezed,
     Object? shift_type = freezed,
     Object? date = freezed,
     Object? same_or_different_time = freezed,
@@ -574,6 +583,10 @@ class __$$PostShiftDTOImplCopyWithImpl<$Res>
           ? _value.save_template_status
           : save_template_status // ignore: cast_nullable_to_non_nullable
               as String?,
+      dateUpdate: freezed == dateUpdate
+          ? _value.dateUpdate
+          : dateUpdate // ignore: cast_nullable_to_non_nullable
+              as int?,
       shift_type: freezed == shift_type
           ? _value.shift_type
           : shift_type // ignore: cast_nullable_to_non_nullable
@@ -682,6 +695,7 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
       this.share_team_status,
       this.team_id,
       this.save_template_status,
+      this.dateUpdate,
       this.shift_type,
       this.date,
       this.same_or_different_time,
@@ -758,6 +772,8 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
 
   /// New Params
   @override
+  final int? dateUpdate;
+  @override
   final int? shift_type;
   @override
   final String? date;
@@ -798,7 +814,7 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
 
   @override
   String toString() {
-    return 'PostShiftDTO(update_status: $update_status, id: $id, roles_list_id: $roles_list_id, specialties_detail_id: $specialties_detail_id, specialties_detail_other: $specialties_detail_other, softwares_skill_list_id: $softwares_skill_list_id, software_skill_other: $software_skill_other, languages_list_id: $languages_list_id, language_other: $language_other, location_id: $location_id, location_unit: $location_unit, rate_hour: $rate_hour, recurring_status: $recurring_status, start_date: $start_date, recurrence_mode: $recurrence_mode, recurrence_id: $recurrence_id, recurring_start_date: $recurring_start_date, recurring_end_date: $recurring_end_date, days: $days, end_date: $end_date, disclaimer: $disclaimer, share_team_status: $share_team_status, team_id: $team_id, save_template_status: $save_template_status, shift_type: $shift_type, date: $date, same_or_different_time: $same_or_different_time, start_time: $start_time, end_time: $end_time, unpaid_break_id: $unpaid_break_id, total_payable_hour: $total_payable_hour, commute_allowance_type: $commute_allowance_type, commute_allowance: $commute_allowance, accommodation_allowance_type: $accommodation_allowance_type, accommodation_allowance: $accommodation_allowance, individual_shift: $individual_shift, shift_note: $shift_note, vacancie_type: $vacancie_type, number_of_vacancie: $number_of_vacancie, multi_date: $multi_date, script_volume: $script_volume, assistant_on_site: $assistant_on_site, technician_on_site: $technician_on_site)';
+    return 'PostShiftDTO(update_status: $update_status, id: $id, roles_list_id: $roles_list_id, specialties_detail_id: $specialties_detail_id, specialties_detail_other: $specialties_detail_other, softwares_skill_list_id: $softwares_skill_list_id, software_skill_other: $software_skill_other, languages_list_id: $languages_list_id, language_other: $language_other, location_id: $location_id, location_unit: $location_unit, rate_hour: $rate_hour, recurring_status: $recurring_status, start_date: $start_date, recurrence_mode: $recurrence_mode, recurrence_id: $recurrence_id, recurring_start_date: $recurring_start_date, recurring_end_date: $recurring_end_date, days: $days, end_date: $end_date, disclaimer: $disclaimer, share_team_status: $share_team_status, team_id: $team_id, save_template_status: $save_template_status, dateUpdate: $dateUpdate, shift_type: $shift_type, date: $date, same_or_different_time: $same_or_different_time, start_time: $start_time, end_time: $end_time, unpaid_break_id: $unpaid_break_id, total_payable_hour: $total_payable_hour, commute_allowance_type: $commute_allowance_type, commute_allowance: $commute_allowance, accommodation_allowance_type: $accommodation_allowance_type, accommodation_allowance: $accommodation_allowance, individual_shift: $individual_shift, shift_note: $shift_note, vacancie_type: $vacancie_type, number_of_vacancie: $number_of_vacancie, multi_date: $multi_date, script_volume: $script_volume, assistant_on_site: $assistant_on_site, technician_on_site: $technician_on_site)';
   }
 
   @override
@@ -851,6 +867,8 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
             (identical(other.team_id, team_id) || other.team_id == team_id) &&
             (identical(other.save_template_status, save_template_status) ||
                 other.save_template_status == save_template_status) &&
+            (identical(other.dateUpdate, dateUpdate) ||
+                other.dateUpdate == dateUpdate) &&
             (identical(other.shift_type, shift_type) ||
                 other.shift_type == shift_type) &&
             (identical(other.date, date) || other.date == date) &&
@@ -860,8 +878,7 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
                 other.start_time == start_time) &&
             (identical(other.end_time, end_time) ||
                 other.end_time == end_time) &&
-            (identical(other.unpaid_break_id, unpaid_break_id) ||
-                other.unpaid_break_id == unpaid_break_id) &&
+            (identical(other.unpaid_break_id, unpaid_break_id) || other.unpaid_break_id == unpaid_break_id) &&
             (identical(other.total_payable_hour, total_payable_hour) || other.total_payable_hour == total_payable_hour) &&
             (identical(other.commute_allowance_type, commute_allowance_type) || other.commute_allowance_type == commute_allowance_type) &&
             (identical(other.commute_allowance, commute_allowance) || other.commute_allowance == commute_allowance) &&
@@ -905,6 +922,7 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
         share_team_status,
         team_id,
         save_template_status,
+        dateUpdate,
         shift_type,
         date,
         same_or_different_time,
@@ -968,6 +986,7 @@ abstract class _PostShiftDTO implements PostShiftDTO {
       final String? share_team_status,
       final String? team_id,
       final String? save_template_status,
+      final int? dateUpdate,
       final int? shift_type,
       final String? date,
       final int? same_or_different_time,
@@ -1042,6 +1061,8 @@ abstract class _PostShiftDTO implements PostShiftDTO {
   String? get save_template_status;
 
   /// New Params
+  @override
+  int? get dateUpdate;
   @override
   int? get shift_type;
   @override

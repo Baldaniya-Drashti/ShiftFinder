@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/chat/i_chat_service.dart';
+import 'package:shift/domain/core/environment/base_config.dart';
 import 'package:shift/infrastructure/core/chat/message_response.dart';
+import 'package:shift/injection.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
 @injectable
@@ -22,8 +23,8 @@ class SocketChatService extends ChatService {
 
   SocketChatService() {
     socket = io.io(
-        dotenv.env['DEV_SOCKET_URL']!,
-        // 'http://157.245.106.111:3010/',
+        // dotenv.env['DEV_SOCKET_URL']!,
+        getIt<BaseConfig>().socketHost,
         io.OptionBuilder().setTransports(['websocket']).build());
     socket.onConnect((_) {
       log('Socket Connected');
@@ -69,6 +70,8 @@ class SocketChatService extends ChatService {
   Stream<MessageData> get newMessageStream => _newMessageController.stream;
   void connectToSocket() {
     socket.connect();
+
+    log('Socket Connected ${socket.connected}');
   }
 
   @override

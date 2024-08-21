@@ -51,6 +51,16 @@ class CustomDateTimeFormat {
     return DateTime(now.year, now.month, now.day, hourInt, minuteInt);
   }
 
+  static DateTime mergeDateAndTimeWithTimeStamp(int time,
+      {DateTime? dateTime}) {
+    final now = dateTime ?? DateTime.now();
+
+    final hourInt = DateTime.fromMillisecondsSinceEpoch(time * 1000).hour;
+    final minuteInt = DateTime.fromMillisecondsSinceEpoch(time * 1000).minute;
+
+    return DateTime(now.year, now.month, now.day, hourInt, minuteInt);
+  }
+
   static int extractHour(String timeStr) {
     final formatter = DateFormat('hh a');
     return formatter.parse(timeStr).hour;

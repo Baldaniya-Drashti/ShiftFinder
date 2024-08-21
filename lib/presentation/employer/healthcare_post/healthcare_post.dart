@@ -1,500 +1,3 @@
-// // ignore_for_file: must_be_immutable
-
-// import 'package:auto_route/auto_route.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:flutter_svg/svg.dart';
-// import 'package:shift/application/healthcare_post/healthcare_post_bloc.dart';
-// import 'package:shift/domain/core/math_utils.dart';
-// import 'package:shift/domain/core/png_image_constants.dart';
-// import 'package:shift/domain/core/string_constant.dart';
-// import 'package:shift/domain/core/svg_image_constants.dart';
-// import 'package:shift/injection.dart';
-// import 'package:shift/presentation/common/utils/app_focus.dart';
-// import 'package:shift/presentation/common/widgets/base_text.dart';
-// import 'package:shift/presentation/core/style/app_colors.dart';
-// import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
-// import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
-// import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
-// import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
-// import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
-// import 'package:shift/presentation/main/widgets/home_app_bar.dart';
-
-// @RoutePage(name: 'healthCarePostForm')
-// class HealthCarePostForm extends StatelessWidget {
-//   HealthCarePostForm({super.key});
-
-//   final List<String> requiredSpecialtiesList = [
-//     'Anesthesiology',
-//     'Behavioral Health',
-//     'Urology',
-//     'Perinatal',
-//     'NICU',
-//     'Other',
-//   ];
-
-//   final List<String> preferredSoftwareSkillList = [
-//     "Visual Studio code",
-//     "Android Studio",
-//     "Sublime Text",
-//     "Bluefish",
-//     "Notepad++",
-//     "OTHER",
-//   ];
-
-//   TextEditingController otherSpecialitiesController = TextEditingController();
-//   TextEditingController otherPreferredSkillsController =
-//       TextEditingController();
-//   bool isMultiLocation = true;
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocProvider(
-//       create: (context) => getIt<HealthcarePostBloc>(),
-//       child: GestureDetector(
-//         onTap: () {
-//           AppFocus.unfocus(context);
-//         },
-//         child: Scaffold(
-//             appBar: CommonAppBar(
-//               onBackPressed: () {
-//                 context.router.maybePop();
-//               },
-//               title: StringConstant.healthcare,
-//             ),
-//             body: BlocConsumer<HealthcarePostBloc, HealthcarePostState>(
-//               listener: (context, state) {},
-//               builder: (context, state) {
-//                 return Padding(
-//                   padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-//                   child: Form(
-//                     autovalidateMode: state.showErrorMessages
-//                         ? AutovalidateMode.always
-//                         : AutovalidateMode.disabled,
-//                     child: SingleChildScrollView(
-//                       child: Column(
-//                         children: [
-//                           Image.asset(
-//                             PngImageConstants.healthcare_post_employer,
-//                           ),
-//                           paddingBetweenFields(),
-//                           roleDropDown(context, state),
-//                           paddingBetweenFields(),
-//                           requiredSpecialityDropDownChipset(context, state),
-//                           paddingBetweenFields(),
-//                           preferredSoftwareSkillsDropDownChipSet(
-//                               context, state),
-//                           paddingBetweenFields(),
-//                           languageRequirementsDropDown(context, state),
-//                           paddingBetweenFields(),
-//                           (isMultiLocation)
-//                               ? locationDropDown(context, state)
-//                               : locationTextField(context, state),
-//                           paddingBetweenFields(),
-//                           rateHourDropDown(context, state),
-//                           Padding(
-//                             padding:
-//                                 EdgeInsets.symmetric(vertical: getSize(50)),
-//                             child: CommonButton(
-//                               onPressed: () {
-//                                 context.read<HealthcarePostBloc>().add(
-//                                     const HealthcarePostEvent
-//                                         .continueBtnPressed());
-//                               },
-//                               buttonText: StringConstant.txtContinue,
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                   ),
-//                 );
-//               },
-//             )),
-//       ),
-//     );
-//   }
-
-//   Widget roleDropDown(BuildContext context, HealthcarePostState state) {
-//     return CustomDropdwonWithTextField(
-//       labelText: StringConstant.role,
-//       isLabelPadding: true,
-//       showTextfield: false,
-//       items: const [
-//         "Registered Nurse",
-//         "Registered Practical Nurse",
-//         "PSW (Personal Support Worker)",
-//         "Nurse Practitioner",
-//         "Anaesthesiology Assistant",
-//       ].map((val) {
-//         return DropdownMenuItem(
-//           value: val,
-//           child: BaseText(
-//             text: val,
-//             fontSize: 14,
-//             textColor: AppColors.black,
-//           ),
-//         );
-//       }).toList(),
-//       validator: (p0) =>
-//           context.read<HealthcarePostBloc>().state.roleType.value.fold(
-//                 (f) => f.maybeMap(
-//                   empty: (value) => StringConstant.pleaseSelectRoleType,
-//                   orElse: () => null,
-//                 ),
-//                 (_) => null,
-//               ),
-//       onChanged: (value) {
-//         if (value != null) {
-//           context.read<HealthcarePostBloc>().add(
-//                 HealthcarePostEvent.roleTypeChanged(value),
-//               );
-//         }
-//       },
-//       hintText: StringConstant.selectRoles,
-//     );
-//   }
-
-//   Widget languageRequirementsDropDown(
-//       BuildContext context, HealthcarePostState state) {
-//     return CustomDropdwonWithTextField(
-//       labelText: StringConstant.languageRequirements,
-//       isLabelPadding: true,
-//       showTextfield: false,
-//       items: const [
-//         "English",
-//         "Hindi",
-//         "Gujarati",
-//         "Bengali",
-//         "Marathi",
-//         "Punjabi",
-//         "Tamil",
-//         "Kannad",
-//         "Other",
-//       ].map((val) {
-//         return DropdownMenuItem(
-//           value: val,
-//           child: BaseText(
-//             text: val,
-//             fontSize: 14,
-//             textColor: AppColors.black,
-//           ),
-//         );
-//       }).toList(),
-//       validator: (p0) => context
-//           .read<HealthcarePostBloc>()
-//           .state
-//           .selectedLanguage
-//           .value
-//           .fold(
-//             (f) => f.maybeMap(
-//               empty: (value) => StringConstant.pleaseSelectLanguageRequirement,
-//               orElse: () => null,
-//             ),
-//             (_) => null,
-//           ),
-//       onChanged: (value) {
-//         if (value != null) {
-//           context.read<HealthcarePostBloc>().add(
-//                 HealthcarePostEvent.selectedLanguageChanged(value),
-//               );
-//         }
-//       },
-//       hintText: StringConstant.languageRequirements,
-//     );
-//   }
-
-//   Widget rateHourDropDown(BuildContext context, HealthcarePostState state) {
-//     return CustomTextField(
-//       labelText: StringConstant.rateHour,
-//       isLabelPadding: true,
-//       isPrefixValueShow: true,
-//       hintText: "\$ ${StringConstant.rateHour}",
-//       errorMaxLines: 2,
-//       onChanged: (value) {
-//         context
-//             .read<HealthcarePostBloc>()
-//             .add(HealthcarePostEvent.rateHourChanged(value));
-//       },
-//       validator: (p0, p1) =>
-//           context.read<HealthcarePostBloc>().state.rateHour.value.fold(
-//                 (f) => f.maybeMap(
-//                   empty: (value) => StringConstant.pleaseEnterRateHour,
-//                   orElse: () => null,
-//                 ),
-//                 (_) => null,
-//               ),
-//     );
-//   }
-
-//   Widget locationDropDown(BuildContext context, HealthcarePostState state) {
-//     return CustomDropdwonWithTextField(
-//       labelText: StringConstant.location,
-//       isLabelPadding: true,
-//       showTextfield: false,
-//       isOptional: true,
-//       optionalWidget: GestureDetector(
-//         onTap: () {
-//           AppDialog.showInfo(
-//             context,
-//             StringConstant.missingLocationInfoDesc,
-//             insetPadding: EdgeInsets.symmetric(
-//               horizontal: getSize(30),
-//             ),
-//           );
-//         },
-//         child: SvgPicture.asset(
-//           SvgImageConstant.infoCircle,
-//         ),
-//       ),
-//       items: const [
-//         "1 Royal Ln. Mesa, New Jersey 45463",
-//         "264 Royal Ln. Mesa,45463",
-//         "2864 New Jersey 45463",
-//         "64 Royal Ln. Mesa, New Jersey 45463",
-//         "9 New Jersey 45463",
-//         "62 Royal La. CASA, Jersey 45463",
-//         "74 Royal Mesa, New Jersey 45463",
-//       ].map((val) {
-//         return DropdownMenuItem(
-//           value: val,
-//           child: BaseText(
-//             text: val,
-//             fontSize: 14,
-//             textColor: AppColors.black,
-//           ),
-//         );
-//       }).toList(),
-//       validator: (
-//         p0,
-//       ) =>
-//           context.read<HealthcarePostBloc>().state.location.value.fold(
-//                 (f) => f.maybeMap(
-//                   empty: (value) => StringConstant.pleaseEnterLocation,
-//                   orElse: () => null,
-//                 ),
-//                 (_) => null,
-//               ),
-//       onChanged: (value) {
-//         if (value != null) {
-//           context.read<HealthcarePostBloc>().add(
-//                 HealthcarePostEvent.locationChanged(value),
-//               );
-//         }
-//       },
-//       hintText: StringConstant.location,
-//       childDroDwonHintText: StringConstant.selectUnitIfAny,
-//       showDropDown: state.location.isValid(),
-//       childDropDownItems: const [
-//         "X-ray",
-//       ],
-//       childDropDownOnChanged: (value) {
-//         if (value != null) {
-//           context.read<HealthcarePostBloc>().add(
-//                 HealthcarePostEvent.locationUnitSelectionChanged(value),
-//               );
-//         }
-//       },
-//     );
-//   }
-
-//   Widget locationTextField(
-//     BuildContext context,
-//     HealthcarePostState state,
-//   ) {
-//     return CustomTextField(
-//       labelText: StringConstant.location,
-//       isLabelPadding: true,
-//       isOptional: true,
-//       readOnly: true,
-//       optionalWidget: GestureDetector(
-//         onTap: () {
-//           AppDialog.showInfo(
-//             context,
-//             StringConstant.missingLocationInfoDesc,
-//             insetPadding: EdgeInsets.symmetric(
-//               horizontal: getSize(30),
-//             ),
-//           );
-//         },
-//         child: SvgPicture.asset(
-//           SvgImageConstant.infoCircle,
-//         ),
-//       ),
-//       hintText: StringConstant.location,
-//       textCapitalization: TextCapitalization.words,
-//       errorMaxLines: 2,
-//       onChanged: (value) {
-//         context
-//             .read<HealthcarePostBloc>()
-//             .add(HealthcarePostEvent.locationChanged(value));
-//       },
-//       validator: (p0, p1) =>
-//           context.read<HealthcarePostBloc>().state.location.value.fold(
-//                 (f) => f.maybeMap(
-//                   empty: (value) => StringConstant.pleaseEnterLocation,
-//                   orElse: () => null,
-//                 ),
-//                 (_) => null,
-//               ),
-//     );
-//   }
-
-//   Widget paddingBetweenFields({double? height}) {
-//     return SizedBox(
-//       height: getSize(height ?? 15),
-//     );
-//   }
-
-//   Widget requiredSpecialityDropDownChipset(
-//       BuildContext context, HealthcarePostState state) {
-//     // final List<String> _selectedOptions = [];
-//     return Column(
-//       mainAxisSize: MainAxisSize.min,
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: <Widget>[
-//         CustomDropdwonWithTextField(
-//           isLabelPadding: true,
-//           isOptional: true,
-//           fieldController: otherSpecialitiesController,
-//           labelText: StringConstant.specialties,
-//           hintText: StringConstant.requiredSpecialties,
-//           showTextfield: state.requiredSpecialityChip.toLowerCase() == "other",
-//           fieldHintText: StringConstant.addYourSpecializations,
-//           items: requiredSpecialtiesList.map((val) {
-//             return DropdownMenuItem(
-//               value: val,
-//               child: BaseText(
-//                 text: val,
-//                 fontSize: 14,
-//                 textColor: AppColors.black,
-//               ),
-//             );
-//           }).toList(),
-//           value: (state.requiredSpecialityChip.isEmpty)
-//               ? null
-//               : state.requiredSpecialityChip,
-//           onChanged: (newValue) {
-//             if (newValue != null) {
-//               context.read<HealthcarePostBloc>().add(
-//                   HealthcarePostEvent.addRequiredSpecialitichips(newValue));
-//             }
-//           },
-//           suffixIcon: CommonButton(
-//             height: getSize(27),
-//             width: getSize(59),
-//             borderRadius: getSize(10),
-//             buttonText: StringConstant.add,
-//             buttonFontSize: 10,
-//             onPressed: () {
-//               context.read<HealthcarePostBloc>().add(
-//                     HealthcarePostEvent.addRequiredSpecialitichips(
-//                       otherSpecialitiesController.text,
-//                       isOtherValue: true,
-//                     ),
-//                   );
-//               otherSpecialitiesController.clear();
-//             },
-//           ),
-//         ),
-
-//         CustomChipSet(
-//           chipList: state.requiredSpecialityChipList,
-//           onDelete: (value) {
-//             context
-//                 .read<HealthcarePostBloc>()
-//                 .add(HealthcarePostEvent.removeRequiredSpecialitichips(value));
-//           },
-//         ),
-//         // Wrap(
-//         //   spacing: 10.0,
-//         //   runSpacing: 4.0,
-//         //   children: _selectedOptions.map((String option) {
-//         //     return Chip(
-//         //       backgroundColor: AppColors.scaffoldColor,
-//         //       shape: RoundedRectangleBorder(
-//         //         borderRadius: BorderRadius.circular(10),
-//         //       ),
-//         //       label: BaseText(
-//         //         text: option,
-//         //         fontSize: 12,
-//         //         fontWeight: FontWeight.w500,
-//         //       ),
-//         //       onDeleted: () {
-//         //         setState(() {
-//         //           _selectedOptions.remove(option);
-//         //         });
-//         //       },
-//         //     );
-//         //   }).toList(),
-//         // ),
-//       ],
-//     );
-//   }
-
-//   Widget preferredSoftwareSkillsDropDownChipSet(
-//       BuildContext context, HealthcarePostState state) {
-//     return Column(
-//       mainAxisSize: MainAxisSize.min,
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: <Widget>[
-//         CustomDropdwonWithTextField(
-//           isLabelPadding: true,
-//           isOptional: true,
-//           fieldController: otherPreferredSkillsController,
-//           labelText: StringConstant.softwareSkills,
-//           hintText: StringConstant.preferredSoftwareSkills,
-//           showTextfield:
-//               state.requiredSoftwareSkillChip.toLowerCase() == "other",
-//           fieldHintText: StringConstant.addYourSoftwareSkills,
-//           items: preferredSoftwareSkillList.map((val) {
-//             return DropdownMenuItem(
-//               value: val,
-//               child: BaseText(
-//                 text: val,
-//                 fontSize: 14,
-//                 textColor: AppColors.black,
-//               ),
-//             );
-//           }).toList(),
-//           value: (state.requiredSoftwareSkillChip.isEmpty)
-//               ? null
-//               : state.requiredSoftwareSkillChip,
-//           onChanged: (newValue) {
-//             if (newValue != null) {
-//               context.read<HealthcarePostBloc>().add(
-//                   HealthcarePostEvent.addPreferedSoftwareSkillchips(newValue));
-//             }
-//           },
-//           suffixIcon: CommonButton(
-//             height: getSize(27),
-//             width: getSize(59),
-//             borderRadius: getSize(10),
-//             buttonText: StringConstant.add,
-//             buttonFontSize: 10,
-//             onPressed: () {
-//               context
-//                   .read<HealthcarePostBloc>()
-//                   .add(HealthcarePostEvent.addPreferedSoftwareSkillchips(
-//                     otherPreferredSkillsController.text,
-//                     isOtherValue: true,
-//                   ));
-
-//               otherPreferredSkillsController.clear();
-//             },
-//           ),
-//         ),
-//         CustomChipSet(
-//           chipList: state.requiredSoftwareSkillChipList,
-//           onDelete: (value) {
-//             context.read<HealthcarePostBloc>().add(
-//                 HealthcarePostEvent.removePreferedSoftwareSkillchips(value));
-//           },
-//         ),
-//       ],
-//     );
-//   }
-// }
-
 // ignore_for_file: must_be_immutable, avoid_print, prefer_const_constructors, unnecessary_brace_in_string_interps
 
 import 'package:auto_route/auto_route.dart';
@@ -529,30 +32,36 @@ class HealthCarePostForm extends StatelessWidget {
   int? postId;
   bool isFromSplash = false;
   final bool fromSaveTemplate;
+  final bool fromReview;
+  final bool isCreate;
 
   HealthCarePostForm({
     super.key,
     this.postId,
     this.isFromSplash = false,
     this.fromSaveTemplate = false,
+    this.fromReview = false,
+    this.isCreate = true,
   });
 
   TextEditingController otherSpecialitiesController = TextEditingController();
   TextEditingController otherRoleController = TextEditingController();
-  TextEditingController otherPreferredSkillsController = TextEditingController();
+  TextEditingController otherPreferredSkillsController =
+      TextEditingController();
   TextEditingController languageController = TextEditingController();
   bool isMultiLocation = true;
 
   String postTitle() {
-    final industry = CommonList.industryList.firstWhere((item) => item.id == getCurrentIndustry());
+    final industry = CommonList.industryList
+        .firstWhere((item) => item.id == getCurrentIndustry());
     return industry.title ?? "";
   }
 
   @override
   Widget build(BuildContext context) {
-    print("Post id--> $postId");
     return BlocProvider(
-      create: (context) => getIt<HealthcarePostBloc>()..add(HealthcarePostEvent.getAllDropDownList(postId ?? -1)),
+      create: (context) => getIt<HealthcarePostBloc>()
+        ..add(HealthcarePostEvent.getAllDropDownList(postId ?? -1)),
       child: GestureDetector(
         onTap: () {
           AppFocus.unfocus(context);
@@ -597,17 +106,22 @@ class HealthCarePostForm extends StatelessWidget {
                     : Padding(
                         padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                         child: Form(
-                          autovalidateMode: state.showErrorMessages ? AutovalidateMode.always : AutovalidateMode.disabled,
+                          autovalidateMode: state.showErrorMessages
+                              ? AutovalidateMode.always
+                              : AutovalidateMode.disabled,
                           child: SingleChildScrollView(
                             child: Column(
                               children: [
-                                Image.asset(PngImageConstants.healthcare_post_employer),
+                                Image.asset(
+                                    PngImageConstants.healthcare_post_employer),
                                 paddingBetweenFields(),
                                 roleDropDown(context, state),
                                 paddingBetweenFields(),
-                                requiredSpecialityDropDownChipset(context, state),
+                                requiredSpecialityDropDownChipset(
+                                    context, state),
                                 paddingBetweenFields(),
-                                preferredSoftwareSkillsDropDownChipSet(context, state),
+                                preferredSoftwareSkillsDropDownChipSet(
+                                    context, state),
                                 paddingBetweenFields(),
                                 languageDropDownChipSet(context, state),
                                 paddingBetweenFields(),
@@ -615,15 +129,23 @@ class HealthCarePostForm extends StatelessWidget {
                                 paddingBetweenFields(),
                                 rateHourDropDown(context, state),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(vertical: getSize(50)),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(50)),
                                   child: CommonButton(
                                     isSubmitting: state.isSubmitting,
                                     onPressed: () {
-                                      context
-                                          .read<HealthcarePostBloc>()
-                                          .add(HealthcarePostEvent.continueBtnPressed(context, fromSaveTemplate));
+                                      context.read<HealthcarePostBloc>().add(
+                                              HealthcarePostEvent
+                                                  .continueBtnPressed(
+                                            context,
+                                            fromSaveTemplate,
+                                            fromReview: fromReview,
+                                            isCreate: isCreate,
+                                          ));
                                     },
-                                    buttonText: fromSaveTemplate ? "Save and Next" : StringConstant.txtContinue,
+                                    buttonText: fromSaveTemplate
+                                        ? "Save and Next"
+                                        : StringConstant.txtContinue,
                                   ),
                                 ),
                               ],
@@ -649,7 +171,9 @@ class HealthCarePostForm extends StatelessWidget {
       hintText: StringConstant.selectRole,
       isLabelPadding: true,
       showTextfield: false,
-      value: (state.roleType.getValue()!.isNotEmpty) ? state.roleType.getValue() : null,
+      value: (state.roleType.getValue()!.isNotEmpty)
+          ? state.roleType.getValue()
+          : null,
       items: state.roleList.map((val) {
         return DropdownMenuItem<String>(
           value: val.name,
@@ -660,13 +184,14 @@ class HealthCarePostForm extends StatelessWidget {
           ),
         );
       }).toList(),
-      validator: (p0) => context.read<HealthcarePostBloc>().state.roleType.value.fold(
-            (f) => f.maybeMap(
-              empty: (value) => StringConstant.pleaseSelectRoleType,
-              orElse: () => null,
-            ),
-            (_) => null,
-          ),
+      validator: (p0) =>
+          context.read<HealthcarePostBloc>().state.roleType.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseSelectRoleType,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
       onChanged: (value) {
         if (value != null) {
           context.read<HealthcarePostBloc>().add(
@@ -677,8 +202,10 @@ class HealthCarePostForm extends StatelessWidget {
     );
   }
 
-  Widget preferredSoftwareSkillsDropDownChipSet(BuildContext context, HealthcarePostState state) {
-    print("state.requiredSoftwareSkillChipList---> ${state.requiredSoftwareSkillChipList}");
+  Widget preferredSoftwareSkillsDropDownChipSet(
+      BuildContext context, HealthcarePostState state) {
+    print(
+        "state.requiredSoftwareSkillChipList---> ${state.requiredSoftwareSkillChipList}");
     /*return Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -770,7 +297,10 @@ class HealthCarePostForm extends StatelessWidget {
           isOptional: true,
           initialValue: state.requiredSoftwareSkillChipList.getValue(),
           otherInitialValue: state.softwareSkillOther,
-          items: state.softwareList.map((item) => MultiSelectItem<String>(item.name ?? "", item.name ?? "")).toList(),
+          items: state.softwareList
+              .map((item) =>
+                  MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
+              .toList(),
           title: StringConstant.softwareSkillSet,
           labelText: StringConstant.softwareSkillSet,
           selectedColor: AppColors.black,
@@ -782,16 +312,21 @@ class HealthCarePostForm extends StatelessWidget {
             chipColor: AppColors.transparent,
             onDelete: (value) {
               print("On delete called!");
-              context.read<HealthcarePostBloc>().add(HealthcarePostEvent.removePreferedSoftwareSkillchips(value.toString()));
+              context.read<HealthcarePostBloc>().add(
+                  HealthcarePostEvent.removePreferedSoftwareSkillchips(
+                      value.toString()));
             },
           ),
           buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
           buttonText: Text(
             StringConstant.softwareSkillSet,
-            style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+            style: TextStyle(
+                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
           ),
           onConfirm: (selectedList, otherValues) {
-            context.read<HealthcarePostBloc>().add(HealthcarePostEvent.confirmSoftwareSkill(
+            context
+                .read<HealthcarePostBloc>()
+                .add(HealthcarePostEvent.confirmSoftwareSkill(
                   List<String>.from(selectedList),
                   List<String>.from(otherValues),
                 ));
@@ -805,7 +340,8 @@ class HealthCarePostForm extends StatelessWidget {
     );
   }
 
-  Widget requiredSpecialityDropDownChipset(BuildContext context, HealthcarePostState state) {
+  Widget requiredSpecialityDropDownChipset(
+      BuildContext context, HealthcarePostState state) {
     /*return Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -896,7 +432,10 @@ class HealthCarePostForm extends StatelessWidget {
           isOptional: true,
           initialValue: state.requiredSpecialityChipList.getValue(),
           otherInitialValue: state.specialityOther,
-          items: state.specialityList.map((item) => MultiSelectItem<String>(item.name ?? "", item.name ?? "")).toList(),
+          items: state.specialityList
+              .map((item) =>
+                  MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
+              .toList(),
           title: StringConstant.specialties,
           labelText: StringConstant.specialties,
           selectedColor: AppColors.black,
@@ -908,18 +447,23 @@ class HealthCarePostForm extends StatelessWidget {
             chipColor: AppColors.transparent,
             onDelete: (value) {
               print("On delete called!");
-              context.read<HealthcarePostBloc>().add(HealthcarePostEvent.removeRequiredSpecialitichips(value.toString()));
+              context.read<HealthcarePostBloc>().add(
+                  HealthcarePostEvent.removeRequiredSpecialitichips(
+                      value.toString()));
             },
           ),
           buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
           buttonText: Text(
             StringConstant.specialties,
-            style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+            style: TextStyle(
+                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
           ),
           onConfirm: (selectedList, otherValues) {
             print("----> $selectedList");
             print("----> $otherValues");
-            context.read<HealthcarePostBloc>().add(HealthcarePostEvent.confirmSpecialityList(
+            context
+                .read<HealthcarePostBloc>()
+                .add(HealthcarePostEvent.confirmSpecialityList(
                   List<String>.from(selectedList),
                   List<String>.from(otherValues),
                 ));
@@ -933,7 +477,8 @@ class HealthCarePostForm extends StatelessWidget {
     );
   }
 
-  Widget languageDropDownChipSet(BuildContext context, HealthcarePostState state) {
+  Widget languageDropDownChipSet(
+      BuildContext context, HealthcarePostState state) {
     /*return Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1029,7 +574,10 @@ class HealthCarePostForm extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         MultiSelectDialogField(
-          items: state.languageList.map((item) => MultiSelectItem<String>(item.name ?? "", item.name ?? "")).toList(),
+          items: state.languageList
+              .map((item) =>
+                  MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
+              .toList(),
           title: StringConstant.languagesKnown,
           labelText: StringConstant.languagesKnown,
           selectedColor: AppColors.black,
@@ -1040,26 +588,32 @@ class HealthCarePostForm extends StatelessWidget {
           chipDisplay: MultiSelectChipDisplay(
             chipColor: AppColors.transparent,
             onDelete: (value) {
-              context.read<HealthcarePostBloc>().add(HealthcarePostEvent.removeLanguageChips(value.toString()));
+              context.read<HealthcarePostBloc>().add(
+                  HealthcarePostEvent.removeLanguageChips(value.toString()));
             },
           ),
           buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
           buttonText: Text(
             StringConstant.languagesKnown,
-            style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+            style: TextStyle(
+                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
           ),
           initialValue: state.languageChipList.getValue(),
           otherInitialValue: state.languageOther,
           onConfirm: (selectedList, otherValues) {
             print("----> $selectedList");
             print("----> $otherValues");
-            context.read<HealthcarePostBloc>().add(HealthcarePostEvent.confirmLanguageList(
+            context
+                .read<HealthcarePostBloc>()
+                .add(HealthcarePostEvent.confirmLanguageList(
                   List<String>.from(selectedList),
                   List<String>.from(otherValues),
                 ));
           },
         ),
-        if (state.showErrorMessages && state.languageChipList.getValue().isEmpty && state.languageOther.isEmpty)
+        if (state.showErrorMessages &&
+            state.languageChipList.getValue().isEmpty &&
+            state.languageOther.isEmpty)
           commonErrorText(StringConstant.pleaseSelectAtLeastOneLanguage)
       ],
     );
@@ -1072,9 +626,11 @@ class HealthCarePostForm extends StatelessWidget {
       isPrefixValueShow: true,
       errorMaxLines: 2,
       maxLength: 5,
-      initialValue: (state.rateHour.isValid()) ? state.rateHour.getValue() : null,
+      initialValue:
+          (state.rateHour.isValid()) ? state.rateHour.getValue() : null,
       hintText: StringConstant.rateHour,
-      keyboardType: TextInputType.numberWithOptions(decimal: true, signed: true),
+      keyboardType:
+          TextInputType.numberWithOptions(decimal: true, signed: true),
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
       ],
@@ -1088,13 +644,23 @@ class HealthCarePostForm extends StatelessWidget {
             text: '\$ ',
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            textColor: (state.rateHour.isValid()) ? AppColors.black : AppColors.black.withOpacity(0.5),
+            textColor: (state.rateHour.isValid())
+                ? AppColors.black
+                : AppColors.black.withOpacity(0.5),
           )),
-      prefixIconConstraints: BoxConstraints(maxWidth: getSize(100), minHeight: 0),
+      prefixIconConstraints:
+          BoxConstraints(maxWidth: getSize(100), minHeight: 0),
       onChanged: (value) {
-        context.read<HealthcarePostBloc>().add(HealthcarePostEvent.rateHourChanged(value));
+        context
+            .read<HealthcarePostBloc>()
+            .add(HealthcarePostEvent.rateHourChanged(value));
       },
-      validator: (p0, p1) => context.read<HealthcarePostBloc>().state.rateHour.value.fold(
+      validator: (p0, p1) => context
+          .read<HealthcarePostBloc>()
+          .state
+          .rateHour
+          .value
+          .fold(
             (f) => f.maybeMap(
               empty: (value) => StringConstant.pleaseEnterRateHour,
               invalidRate: (value) => StringConstant.pleaseEnterValidRateHour,
@@ -1163,7 +729,9 @@ class HealthCarePostForm extends StatelessWidget {
           },
           hintText: StringConstant.location,
           childDroDwonHintText: StringConstant.selectUnitIfAny,
-          childDropDownValue: (state.selectedLocationUnit.isNotEmpty) ? state.selectedLocationUnit : null,
+          childDropDownValue: (state.selectedLocationUnit.isNotEmpty)
+              ? state.selectedLocationUnit
+              : null,
           // showDropDown:   state.location.isValid(),
           showDropDown: (state.unitList.isNotEmpty && state.location.isValid()),
           childDropDownItems: state.unitList.map((val) {
@@ -1184,7 +752,10 @@ class HealthCarePostForm extends StatelessWidget {
             }
           },
         ),
-        if (state.location.isValid() && state.unitList.isNotEmpty && state.showLocationError && state.selectedLocationUnit.isEmpty)
+        if (state.location.isValid() &&
+            state.unitList.isNotEmpty &&
+            state.showLocationError &&
+            state.selectedLocationUnit.isEmpty)
           commonErrorText(StringConstant.pleaseSelectLocationUnit),
       ],
     );

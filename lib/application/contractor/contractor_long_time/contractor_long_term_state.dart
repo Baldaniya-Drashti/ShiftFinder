@@ -16,6 +16,7 @@ class ContractorLongTermState with _$ContractorLongTermState {
     required List<ContractorLongTermDashboardDto> openPositionList,
     required List<ContractorLongTermDashboardDto> upComingPositionList,
     required List<ContractorLongTermDashboardDto> appliedPositionList,
+    required int selectedTab,
   }) = _EmployerLongTermPositionAddDetailState;
 
   factory ContractorLongTermState.initial() => ContractorLongTermState(
@@ -28,5 +29,6 @@ class ContractorLongTermState with _$ContractorLongTermState {
         appliedIsErrorInAPI: false,
         appliedLoading: false,
         appliedNoDataFound: false,
+        selectedTab: 0,
       );
 }

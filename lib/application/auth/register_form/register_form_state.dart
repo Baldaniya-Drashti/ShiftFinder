@@ -12,7 +12,6 @@ class RegisterFormState with _$RegisterFormState {
     required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
 
     /// >>>>>>>>>>>>>>>>>>> FOR REGISTER PROFILE PAGE <<<<<<<<<<<<<<<<<<<<
-
     required String selectImage,
     required InputEmptyOrNot companyName,
     required MobileNumber phoneNumber,

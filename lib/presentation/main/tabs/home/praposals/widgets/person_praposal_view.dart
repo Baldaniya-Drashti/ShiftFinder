@@ -12,6 +12,7 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -141,7 +142,9 @@ class PraposalPersonView extends StatelessWidget {
                     final latitude = location?.latitude;
                     final longitude = location?.longitude;
                     if (latitude != null && longitude != null) {
-                      context.router.push(
+                      LocationHelper.openDirections(context,
+                          endLat: latitude, endLng: longitude);
+                      /* context.router.push(
                         PageRouteInfo(
                           ShowGoogleMap.name,
                           args: ShowGoogleMapArgs(
@@ -149,7 +152,7 @@ class PraposalPersonView extends StatelessWidget {
                             longitude: longitude,
                           ),
                         ),
-                      );
+                      ); */
                     }
                   },
                   child: Row(
@@ -190,7 +193,7 @@ class PraposalPersonView extends StatelessWidget {
                     );
                   },
                   backgroundColor: AppColors.green.withOpacity(0.1),
-                  buttonText: 'View Profile',
+                  buttonText: StringConstant.viewProfile,
                   borderRadius: 7,
                   buttonFontSize: 11,
                   buttonTextColor: AppColors.black,

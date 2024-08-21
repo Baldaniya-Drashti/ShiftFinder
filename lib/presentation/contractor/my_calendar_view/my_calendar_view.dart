@@ -17,7 +17,9 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/buttons/chat_button.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_multi_date_picker.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -79,6 +81,7 @@ class MyCalendarView extends StatelessWidget {
                                     itemBuilder: (context, index) {
                                       return shiftDetail(
                                           context,
+                                          state,
                                           state.contractorDetail ??
                                               ContractorMyCalendarDTO(),
                                           index);
@@ -231,8 +234,8 @@ class MyCalendarView extends StatelessWidget {
     );
   }
 
-  Widget shiftDetail(
-      BuildContext context, ContractorMyCalendarDTO detail, int index) {
+  Widget shiftDetail(BuildContext context, MyCalendarViewState state,
+      ContractorMyCalendarDTO detail, int index) {
     return Container(
       padding: EdgeInsets.all(getSize(10)),
       margin: EdgeInsets.symmetric(vertical: getSize(10)),
@@ -242,7 +245,7 @@ class MyCalendarView extends StatelessWidget {
       ),
       child: Column(
         children: [
-          userDetail(context, detail.list![index]),
+          userDetail(context, state, detail, index),
           paddingBetweenFields(),
           dateAndTime(context, detail.list![index], detail.current_date),
           paddingBetweenFields(),
@@ -271,7 +274,13 @@ class MyCalendarView extends StatelessWidget {
     );
   }
 
-  Widget userDetail(BuildContext context, ContractorMyCalendarListDTO post) {
+  Widget userDetail(
+    BuildContext context,
+    MyCalendarViewState state,
+    ContractorMyCalendarDTO detail,
+    int index,
+  ) {
+    final post = detail.list![index];
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
@@ -318,21 +327,37 @@ class MyCalendarView extends StatelessWidget {
                 ),
               ],
             ),
-            trailing: GestureDetector(
-              onTap: () {
-                // showUnderDevelopment(context);
-                context.router.push(
+            trailing: ChatButton(
+              badgeCount: post.count ?? 0,
+              customWidget: SvgPicture.asset(
+                SvgImageConstant.chatWithBG,
+              ),
+              onPressed: () {
+                context.router
+                    .push(
                   PageRouteInfo(
                     Message.name,
                     args: MessageArgs(
                       receiverId: post.employer_user_id ?? 0,
                     ),
                   ),
-                );
+                )
+                    .then((value) {
+                  if (post.count != null && (post.count ?? 0) > 0) {
+                    String postIds = detail.list!
+                        .map((item) => item.id.toString())
+                        .join(',');
+
+                    context
+                        .read<MyCalendarViewBloc>()
+                        .add(MyCalendarViewEvent.removeChatCount(
+                          context,
+                          selectedDate: detail.current_date ?? -1,
+                          selectedId: postIds,
+                        ));
+                  }
+                });
               },
-              child: SvgPicture.asset(
-                SvgImageConstant.chatWithBG,
-              ),
             ),
             contentPadding: EdgeInsets.zero,
             visualDensity: VisualDensity.compact,
@@ -348,7 +373,9 @@ class MyCalendarView extends StatelessWidget {
               final latitude = location?.latitude;
               final longitude = location?.longitude;
               if (latitude != null && longitude != null) {
-                context.router.push(
+                LocationHelper.openDirections(context,
+                    endLat: latitude, endLng: longitude);
+                /* context.router.push(
                   PageRouteInfo(
                     ShowGoogleMap.name,
                     args: ShowGoogleMapArgs(
@@ -356,7 +383,7 @@ class MyCalendarView extends StatelessWidget {
                       longitude: longitude,
                     ),
                   ),
-                );
+                ); */
               }
             },
             child: Row(

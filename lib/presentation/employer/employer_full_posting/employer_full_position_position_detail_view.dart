@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/employer/employer_full_position_detail/employer_full_position_detail_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 import 'dart:math';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -37,7 +39,7 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
       child: Scaffold(
         appBar: CommonAppBar(
             onBackPressed: () => context.router.maybePop(),
-            title: "View Position Details"),
+            title: StringConstant.viewPositionDetails),
         body: BlocBuilder<EmployerFullPositionDetailBloc,
             EmployerFullPositionDetailState>(
           builder: (context, state) {
@@ -169,8 +171,19 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
             Gap(getSize(6)),
             Divider(),
             Gap(getSize(6)),
-            _buildLocationInfo(context,
-                employerFullPosting: employerFullPosting),
+            GestureDetector(
+              onTap: () {
+                final location = employerFullPosting.location;
+                final latitude = location?.latitude;
+                final longitude = location?.longitude;
+                if (latitude != null && longitude != null) {
+                  LocationHelper.openDirections(context,
+                      endLat: latitude, endLng: longitude);
+                }
+              },
+              child: _buildLocationInfo(context,
+                  employerFullPosting: employerFullPosting),
+            ),
           ],
         ),
       ),
@@ -502,19 +515,8 @@ class EmployerFullPositionPositionDetailView extends StatelessWidget {
             Gap(4),
             BaseText(text: location?.location ?? "", fontSize: 13),
             Gap(10),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                BaseText(
-                    text: "Unit - ",
-                    fontSize: 12,
-                    textColor: AppColors.primaryColor),
-                BaseText(
-                    text: "Unit Name",
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500),
-              ],
-            ),
+            BaseText(
+                text: "Unit", fontSize: 12, textColor: AppColors.primaryColor),
             Gap(4),
             BaseText(
                 text: employerFullPosting.location_unit ?? "", fontSize: 13),

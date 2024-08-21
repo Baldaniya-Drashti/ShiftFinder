@@ -66,7 +66,7 @@ class CommonDocumentView extends StatelessWidget {
           expiryDate(document),
 
         /// Front page
-        if (backPage.isNotEmpty)
+        if (frontPage.isNotEmpty)
           Padding(
             padding: EdgeInsets.only(left: getSize(15), top: getSize(10)),
             child: BaseText(
@@ -80,7 +80,7 @@ class CommonDocumentView extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: getSize(20)),
             child: Center(
                 child: CachedNetworkImage(
-              imageUrl: frontPage,
+              imageUrl: document.file ?? frontPage,
             )),
           ),
         ] else if (frontPage.contains("pdf")) ...[
@@ -128,7 +128,7 @@ class CommonDocumentView extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: getSize(20)),
               child: Center(
                   child: CachedNetworkImage(
-                imageUrl: backPage,
+                imageUrl: document.back_file ?? backPage,
               )),
             ),
           ] else if (backPage.contains("pdf")) ...[
@@ -242,7 +242,9 @@ class CommonDocumentView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               BaseText(
-                text: document.document_title ?? title,
+                text: document.document_title ??
+                    document.name_of_vaccinations ??
+                    title,
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
                 lineHeight: getSize(3),

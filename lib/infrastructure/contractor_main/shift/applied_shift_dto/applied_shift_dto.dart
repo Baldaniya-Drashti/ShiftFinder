@@ -41,6 +41,15 @@ class AppliedShiftDTO with _$AppliedShiftDTO {
     int? date,
     int? start_time,
     int? end_time,
+    int? start_date,
+    int? end_date,
+    int? posted_start_time,
+    int? posted_end_time,
+    int? agreed_start_time,
+    int? agreed_end_time,
+    String? date_list,
+    List<ProposalShiftDetailDTO>? shift_details,
+    int? is_delete,
   }) = _AppliedShiftDTO;
 
   factory AppliedShiftDTO.fromJson(Map<String, dynamic> json) =>
@@ -65,4 +74,18 @@ class ProposalReceivedDTO with _$ProposalReceivedDTO {
 
   factory ProposalReceivedDTO.fromJson(Map<String, dynamic> json) =>
       _$ProposalReceivedDTOFromJson(json);
+}
+
+@freezed
+class ProposalShiftDetailDTO with _$ProposalShiftDetailDTO {
+  const factory ProposalShiftDetailDTO({
+    int? start_date,
+    int? posted_start_time,
+    int? posted_end_time,
+    int? proposed_start_time,
+    int? proposed_end_time,
+  }) = _ProposalShiftDetailDTO;
+
+  factory ProposalShiftDetailDTO.fromJson(Map<String, dynamic> json) =>
+      _$ProposalShiftDetailDTOFromJson(json);
 }

@@ -546,6 +546,47 @@ class AccountRepository extends IAccountRepository {
   }
 
   @override
+  Future<Either<AccountFailure, List<DocumentDTO>>> getStripeDocumentApi({
+    required int? documentType,
+  }) async {
+    try {
+      print("Sending Params:---> $documentType");
+
+      final response = await apiService.getMethod(
+        (documentType != null)
+            ? "${ApiConstants.getStripeDocument}?document_type=$documentType"
+            : ApiConstants.getStripeDocument,
+      );
+
+      if (response != null && response.data != null) {
+        print(
+            "Response of Get Stripe Document---> ${jsonEncode(response.data)}");
+
+        var account = response.data as List<dynamic>;
+        var list = account.map((e) => DocumentDTO.fromJson(e)).toList();
+        return right(list);
+      } else {
+        return left(const AccountFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+      return left(const AccountFailure.serverError());
+    } catch (e) {
+      print("ERRORRRRRR----->  $e");
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
   Future<Either<AccountFailure, String>> addDocumentApi({
     required int documentType,
     int? subType,
@@ -635,11 +676,8 @@ class AccountRepository extends IAccountRepository {
     bool? expiryDateNotApplicable,
     String? lastPage,
   }) async {
+    print("expiryDate---> ${expiryDate}");
     try {
-      print("expiry dat---> $expiryDate");
-      print(
-          "expiry date after timestamp---> ${DateTime.now().millisecondsSinceEpoch}");
-
       var formData = FormData.fromMap({
         "document_type": documentType,
         "sub_type": subType,
@@ -659,9 +697,7 @@ class AccountRepository extends IAccountRepository {
       if (documentBackFile != null &&
           documentBackFile.isNotEmpty &&
           !documentBackFile.contains('http')) {
-        var multipartFile = await MultipartFile.fromFile(
-          documentBackFile,
-        );
+        var multipartFile = await MultipartFile.fromFile(documentBackFile);
         formData.files.add(MapEntry('back_file', multipartFile));
       }
 

@@ -14,6 +14,7 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/helper/helper_function.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -47,7 +48,7 @@ class OpenPositionTabView extends StatelessWidget {
           refreshController:
               context.read<EmployerLongTermBloc>().openPositionController,
           isNoDataFound: state.isNoDataFound,
-          child: state.isLoading
+          child: state.openPostionLoading
               ? CenterLoadingIndicator(isOnlyLoader: true)
               : state.isErrorInAPI
                   ? Center(
@@ -99,13 +100,21 @@ class OpenPositionTabView extends StatelessWidget {
                                     if (state.openPositionList[index]
                                             .total_application_counts ==
                                         0) return;
-                                    context.router.push(
+                                    context.router
+                                        .push(
                                       PageRouteInfo(
                                         EmployerLongTermApplicantView.name,
                                         args: EmployerLongTermApplicantViewArgs(
                                             id: data.id ?? -1),
                                       ),
-                                    );
+                                    )
+                                        .then((value) {
+                                      context.read<EmployerLongTermBloc>().add(
+                                          EmployerLongTermEvent
+                                              .getEmployerLongTermOpenPosition(
+                                                  refresh: true,
+                                                  context: context));
+                                    });
                                   },
                                 )
                               ],
@@ -188,13 +197,25 @@ class OpenPositionTabView extends StatelessWidget {
                     Gap(getSize(12)),
                     GestureDetector(
                       onTap: () {
-                        context.router.push(
+                        context.router
+                            .push(
                           PageRouteInfo(
                             EmployerLongTermPositionAddView.name,
                             args: EmployerLongTermPositionAddViewArgs(
-                                postId: employer.id),
+                              postId: employer.id,
+                              isCreate: false,
+                            ),
                           ),
-                        );
+                        )
+                            .then((value) {
+                          final bloc = context.read<EmployerLongTermBloc>();
+                          bloc.add(EmployerLongTermEvent
+                              .getEmployerLongTermOpenPosition(
+                                  context: context, refresh: true));
+                          bloc.add(
+                              EmployerLongTermEvent.getEmployerFilledPosition(
+                                  context: context, refresh: true));
+                        });
                       },
                       child: SvgPicture.asset(SvgImageConstant.edit),
                     )
@@ -207,7 +228,17 @@ class OpenPositionTabView extends StatelessWidget {
             ),
             Divider(color: AppColors.white.withOpacity(0.2)),
             Gap(getSize(4)),
-            _buildLocationInfo(context, employer: employer),
+            GestureDetector(
+                onTap: () {
+                  final location = employer.location;
+                  final latitude = location?.latitude;
+                  final longitude = location?.longitude;
+                  if (latitude != null && longitude != null) {
+                    LocationHelper.openDirections(context,
+                        endLat: latitude, endLng: longitude);
+                  }
+                },
+                child: _buildLocationInfo(context, employer: employer)),
             Gap(getSize(4)),
           ],
         ),
@@ -246,7 +277,7 @@ class OpenPositionTabView extends StatelessWidget {
       height: 45,
       backgroundColor: AppColors.primaryColor.withOpacity(0.2),
       onPressed: onPressed,
-      buttonText: 'View Position Details',
+      buttonText: StringConstant.viewPositionDetails,
       buttonFontSize: 12,
       buttonFontWeight: FontWeight.w600,
       buttonTextColor: AppColors.black,

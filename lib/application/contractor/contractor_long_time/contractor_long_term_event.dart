@@ -2,6 +2,8 @@ part of 'contractor_long_term_bloc.dart';
 
 @freezed
 class ContractorLongTermEvent with _$ContractorLongTermEvent {
+  const factory ContractorLongTermEvent.changeTab(
+      BuildContext context, int tabIndex) = ChangeTab;
   factory ContractorLongTermEvent.fetchOpenPositionList({
     required bool refresh,
   }) = FetchOpenPositionList;
@@ -14,14 +16,11 @@ class ContractorLongTermEvent with _$ContractorLongTermEvent {
     required bool refresh,
   }) = FetchAppliedPositionList;
 
-  factory ContractorLongTermEvent.applyOpenPosition({
-    required BuildContext context,
-    required int id
-  }) = ApplyOpenPosition;
+  factory ContractorLongTermEvent.applyOpenPosition(
+      {required BuildContext context, required int id}) = ApplyOpenPosition;
 
-  factory ContractorLongTermEvent.confirmRejectOffer({
-    required BuildContext context,
-    required int id,
-    required int urgent_action
-  }) = ConfirmRejectOffer;
+  factory ContractorLongTermEvent.confirmRejectOffer(
+      {required BuildContext context,
+      required int id,
+      required int urgent_action}) = ConfirmRejectOffer;
 }

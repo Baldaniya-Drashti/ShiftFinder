@@ -1,6 +1,5 @@
 // ignore_for_file: deprecated_member_use
 
-import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +18,7 @@ import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
-import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_search_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: "SaveTemplateView")
@@ -35,11 +34,11 @@ class _SaveTemplateViewState extends State<SaveTemplateView> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<SaveTemplateBloc>()
-        ..add(SaveTemplateEvent.getSavedTemplateList(refresh: true)),
+        ..add(SaveTemplateEvent.getSavedTemplateList(context, refresh: true)),
       child: Scaffold(
         appBar: CommonAppBar(
           onBackPressed: () => context.router.maybePop(),
-          title: 'Saved Templates',
+          title: StringConstant.savedTemplates,
         ),
         body: BlocBuilder<SaveTemplateBloc, SaveTemplateState>(
           builder: (context, state) {
@@ -56,38 +55,37 @@ class _SaveTemplateViewState extends State<SaveTemplateView> {
                             color: Color(0xFFEDEDED),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          padding:
-                              EdgeInsets.all(12).copyWith(left: 16, right: 16),
+                          padding: EdgeInsets.all(getSize(12))
+                              .copyWith(left: getSize(16), right: getSize(16)),
                           child: Row(
                             children: [
                               SvgPicture.asset(
                                 SvgImageConstant.saveTemplate2,
-                                height: 45,
-                                width: 45,
+                                height: getSize(45),
+                                width: getSize(45),
                                 colorFilter: ColorFilter.mode(
                                     AppColors.green, BlendMode.srcIn),
                               ),
-                              Gap(12),
+                              Gap(getSize(12)),
                               Image.asset(
                                 PngImageConstants.line,
                                 height: getSize(80),
                               ),
-                              Gap(16),
+                              Gap(getSize(16)),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     BaseText(
-                                      text: "Templates",
+                                      text: StringConstant.templates,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
                                     ),
-                                    Gap(2),
+                                    Gap(getSize(2)),
                                     BaseText(
-                                      text:
-                                          "Search and customize your saved shif templates by job role and shift type for quick and easy posting",
+                                      text: StringConstant.saveTemplatesDesc,
                                       maxLines: 3,
                                       overflow: TextOverflow.ellipsis,
                                       fontSize: 11,
@@ -96,7 +94,7 @@ class _SaveTemplateViewState extends State<SaveTemplateView> {
                                   ],
                                 ),
                               ),
-                              Gap(12),
+                              Gap(getSize(12)),
                             ],
                           ),
                         )),
@@ -105,7 +103,7 @@ class _SaveTemplateViewState extends State<SaveTemplateView> {
                           child: DebouncingTextField(
                             onSearch: (query) {
                               context.read<SaveTemplateBloc>().add(
-                                  SaveTemplateEvent.onSearchJobRole(
+                                  SaveTemplateEvent.onSearchJobRole(context,
                                       query: query));
                             },
                           ),
@@ -117,18 +115,24 @@ class _SaveTemplateViewState extends State<SaveTemplateView> {
                             selector: (state) => state.selectedFilterType,
                             builder: (context, state) {
                               return CustomDropdownField<CommonDropdownModel>(
-                                label: "Filter",
-                                hintText: "Filter",
+                                label: StringConstant.filter,
+                                hintText: StringConstant.filter,
                                 value: state,
                                 radius: 10,
                                 hintTextStyle: TextStyle(
-                                  fontSize: 15,
+                                  fontSize: getFontSize(15),
                                   fontWeight: FontWeight.w400,
                                   color: AppColors.black.withOpacity(0.5),
                                 ),
                                 items: [
-                                  CommonDropdownModel(id: 1, label: "Single"),
-                                  CommonDropdownModel(id: 2, label: "Multi"),
+                                  CommonDropdownModel(
+                                      id: 1, label: StringConstant.single),
+                                  CommonDropdownModel(
+                                      id: 2, label: StringConstant.multi),
+                                  CommonDropdownModel(
+                                      id: 3, label: StringConstant.longTerm),
+                                  CommonDropdownModel(
+                                      id: 4, label: StringConstant.fullTime),
                                 ].map(
                                   (e) {
                                     return DropdownMenuItem<
@@ -145,8 +149,11 @@ class _SaveTemplateViewState extends State<SaveTemplateView> {
                                 onChanged: (value) {
                                   if (value != null) {
                                     context.read<SaveTemplateBloc>().add(
-                                        SaveTemplateEvent.onFilterChanged(
-                                            value as CommonDropdownModel));
+                                          SaveTemplateEvent.onFilterChanged(
+                                            context,
+                                            value as CommonDropdownModel,
+                                          ),
+                                        );
                                   }
                                 },
                               );
@@ -160,8 +167,9 @@ class _SaveTemplateViewState extends State<SaveTemplateView> {
                               borderRadius: BorderRadius.circular(10),
                               color: AppColors.surfaceColor,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 16, horizontal: 22),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: getSize(16),
+                                    horizontal: getSize(22)),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
@@ -170,10 +178,10 @@ class _SaveTemplateViewState extends State<SaveTemplateView> {
                                       onChanged: (value) {
                                         context.read<SaveTemplateBloc>().add(
                                             SaveTemplateEvent
-                                                .onSelectMultiShift(
+                                                .onSelectMultiShift(context,
                                                     type: value));
                                       },
-                                      label: "Same Time For All Dates",
+                                      label: StringConstant.sameTimeForAllDates,
                                       groupValue: state.selectedMultiShift,
                                       value: 1,
                                     ),
@@ -183,10 +191,11 @@ class _SaveTemplateViewState extends State<SaveTemplateView> {
                                       onChanged: (value) {
                                         context.read<SaveTemplateBloc>().add(
                                             SaveTemplateEvent
-                                                .onSelectMultiShift(
+                                                .onSelectMultiShift(context,
                                                     type: value));
                                       },
-                                      label: "Different Time For Each Date",
+                                      label: StringConstant
+                                          .differentTimeForEachDate,
                                       groupValue: state.selectedMultiShift,
                                       value: 2,
                                     ),
@@ -202,26 +211,23 @@ class _SaveTemplateViewState extends State<SaveTemplateView> {
                     body: PaginatedListView(
                       onRefresh: () {
                         context.read<SaveTemplateBloc>().add(
-                            SaveTemplateEvent.getSavedTemplateList(
+                            SaveTemplateEvent.getSavedTemplateList(context,
                                 refresh: true));
                       },
                       onLoading: () {
                         context.read<SaveTemplateBloc>().add(
-                            SaveTemplateEvent.getSavedTemplateList(
+                            SaveTemplateEvent.getSavedTemplateList(context,
                                 refresh: false));
                       },
                       refreshController:
                           context.read<SaveTemplateBloc>().refreshController,
                       isNoDataFound: state.noDataFound,
                       child: state.loading
-                          ? CenterLoadingIndicator(
-                              isOnlyLoader: true,
-                            )
+                          ? CenterLoadingIndicator(isOnlyLoader: true)
                           : state.error
                               ? Center(
                                   child: BaseText(
-                                      text: StringConstant.somethindWentWrong),
-                                )
+                                      text: StringConstant.somethindWentWrong))
                               : ListView.separated(
                                   physics: NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
@@ -232,18 +238,55 @@ class _SaveTemplateViewState extends State<SaveTemplateView> {
                                         color: Color(0xFFEDEDED),
                                         borderRadius: BorderRadius.circular(10),
                                       ),
-                                      padding: EdgeInsets.all(12)
-                                          .copyWith(left: 16, right: 16),
+                                      padding: EdgeInsets.all(getSize(12))
+                                          .copyWith(
+                                              left: getSize(16),
+                                              right: getSize(16)),
                                       child: InkWell(
                                         onTap: () {
-                                          context.router.push(
-                                            PageRouteInfo(
-                                              HealthCarePostForm.name,
-                                              args: HealthCarePostFormArgs(
+                                          print(
+                                              "state.selectedFilterType?.id---> ${state.selectedFilterType?.id}");
+                                          if (state.selectedFilterType?.id ==
+                                              3) {
+                                            context.router.push(
+                                              PageRouteInfo(
+                                                EmployerLongTermPositionAddView
+                                                    .name,
+                                                args:
+                                                    EmployerLongTermPositionAddViewArgs(
+                                                  postId: data.id,
+                                                  isCreate: false,
+                                                  fromTemplate: true,
+                                                ),
+                                              ),
+                                            );
+                                          } else if (state
+                                                  .selectedFilterType?.id ==
+                                              4) {
+                                            context.router.push(
+                                              PageRouteInfo(
+                                                EmployerFullPositionAddView
+                                                    .name,
+                                                args:
+                                                    EmployerFullPositionAddViewArgs(
                                                   postId: data.id ?? -1,
-                                                  fromSaveTemplate: true),
-                                            ),
-                                          );
+                                                  isCreate: false,
+                                                  fromTemplate: true,
+                                                ),
+                                              ),
+                                            );
+                                          } else {
+                                            context.router.push(
+                                              PageRouteInfo(
+                                                HealthCarePostForm.name,
+                                                args: HealthCarePostFormArgs(
+                                                  postId: data.id ?? -1,
+                                                  fromSaveTemplate: true,
+                                                  isCreate: false,
+                                                ),
+                                              ),
+                                            );
+                                          }
                                         },
                                         child: Row(
                                           children: [
@@ -253,26 +296,35 @@ class _SaveTemplateViewState extends State<SaveTemplateView> {
                                               width: 45,
                                               color: AppColors.green,
                                             ),
-                                            Gap(12),
+                                            Gap(getSize(12)),
                                             Image.asset(
                                               PngImageConstants.line,
                                               height: getSize(80),
                                             ),
-                                            Gap(16),
+                                            Gap(getSize(16)),
                                             Expanded(
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   BaseText(
-                                                    text: data.roles ?? "",
+                                                    text: (data.post_type == 2)
+                                                        ? (data.job_type == 1)
+                                                            ? StringConstant
+                                                                .fullTime
+                                                            : StringConstant
+                                                                .partTime
+                                                        : (data.post_type == 1)
+                                                            ? data.roles_list_name ??
+                                                                ""
+                                                            : data.roles ?? "",
                                                     maxLines: 1,
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w600,
                                                   ),
-                                                  Gap(2),
+                                                  Gap(getSize(2)),
                                                   BaseText(
                                                     text: data.location
                                                             ?.location ??
@@ -283,11 +335,28 @@ class _SaveTemplateViewState extends State<SaveTemplateView> {
                                                     fontSize: 11,
                                                     fontWeight: FontWeight.w500,
                                                   ),
-                                                  Gap(4),
+                                                  Gap(getSize(4)),
                                                   BaseText(
-                                                    text: data.shift == 1
-                                                        ? "Single Shift"
-                                                        : "Multi Shift",
+                                                    text: (state.selectedFilterType
+                                                                    ?.id ==
+                                                                3 &&
+                                                            data.post_type == 1)
+                                                        ? StringConstant
+                                                            .longTerm
+                                                        : (state.selectedFilterType
+                                                                        ?.id ==
+                                                                    2 &&
+                                                                data.shift == 2)
+                                                            ? StringConstant
+                                                                .multiShift
+                                                            : (state.selectedFilterType
+                                                                            ?.id ==
+                                                                        1 &&
+                                                                    data.shift ==
+                                                                        1)
+                                                                ? StringConstant
+                                                                    .singleShift
+                                                                : "",
                                                     maxLines: 1,
                                                     overflow:
                                                         TextOverflow.ellipsis,
@@ -298,17 +367,22 @@ class _SaveTemplateViewState extends State<SaveTemplateView> {
                                                 ],
                                               ),
                                             ),
-                                            Gap(16),
+                                            Gap(getSize(16)),
                                             GestureDetector(
                                               onTap: () {
                                                 context
                                                     .read<SaveTemplateBloc>()
-                                                    .add(
-                                                      SaveTemplateEvent
-                                                          .onDeleteCodeSavedTemplate(
-                                                              id: data.id ?? -1,
-                                                              context: context),
-                                                    );
+                                                    .add(SaveTemplateEvent
+                                                        .onDeleteCodeSavedTemplate(
+                                                      id: data.id ?? -1,
+                                                      shiftType: (data.post_type ==
+                                                                  1 ||
+                                                              data.post_type ==
+                                                                  2)
+                                                          ? 2
+                                                          : 1,
+                                                      context: context,
+                                                    ));
                                               },
                                               child: SvgPicture.asset(
                                                   SvgImageConstant.bin),
@@ -318,7 +392,8 @@ class _SaveTemplateViewState extends State<SaveTemplateView> {
                                       ),
                                     );
                                   },
-                                  separatorBuilder: (context, index) => Gap(16),
+                                  separatorBuilder: (context, index) =>
+                                      Gap(getSize(16)),
                                   itemCount: state.savedTemplateList.length,
                                 ),
                     ),
@@ -364,63 +439,12 @@ class _SaveTemplateViewState extends State<SaveTemplateView> {
               onChanged(value);
             },
           ),
-          Gap(8),
+          Gap(getSize(8)),
           Expanded(
               child: BaseText(
                   text: label, fontSize: 13, fontWeight: FontWeight.w500)),
         ],
       ),
-    );
-  }
-}
-
-class DebouncingTextField extends StatefulWidget {
-  const DebouncingTextField({
-    super.key,
-    this.delay = const Duration(milliseconds: 500),
-    required this.onSearch,
-  });
-
-  final Duration delay;
-  final Function(String query) onSearch;
-
-  @override
-  State<DebouncingTextField> createState() => _DebouncingTextFieldState();
-}
-
-class _DebouncingTextFieldState extends State<DebouncingTextField> {
-  Timer? _debounce;
-
-  @override
-  void dispose() {
-    _debounce?.cancel();
-    super.dispose();
-  }
-
-  void _onSearchChanged(String query) {
-    if (_debounce?.isActive ?? false) _debounce?.cancel();
-    _debounce = Timer(widget.delay, () {
-      FocusManager.instance.primaryFocus?.unfocus();
-      widget.onSearch(query);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomTextField(
-      prefixIcon: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: getSize(14), vertical: getSize(14)),
-        child: SvgPicture.asset(
-          SvgImageConstant.search,
-          height: getSize(24),
-          width: getSize(24),
-          color: AppColors.primaryColor,
-        ),
-      ),
-      onChanged: _onSearchChanged,
-      hintText: "Job Role",
-      labelText: "Search by Job Role ",
     );
   }
 }

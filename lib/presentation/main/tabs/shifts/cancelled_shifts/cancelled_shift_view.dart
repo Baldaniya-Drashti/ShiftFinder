@@ -19,6 +19,7 @@ import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/enum.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
@@ -90,23 +91,23 @@ class CancelledShiftView extends StatelessWidget {
                         ),
 
                         /*if (state.currentCancelFilter.id == 1) ...[] else ...[
-                          Expanded(
-                            child: PaginatedListView(
-                              onRefresh: () {},
-                              onLoading: () {},
-                              refreshController: RefreshController(),
-                              child: ListView.separated(
-                                shrinkWrap: true,
-                                itemCount: 5,
-                                separatorBuilder: (context, index) => SizedBox(
-                                  height: getSize(12),
+                            Expanded(
+                              child: PaginatedListView(
+                                onRefresh: () {},
+                                onLoading: () {},
+                                refreshController: RefreshController(),
+                                child: ListView.separated(
+                                  shrinkWrap: true,
+                                  itemCount: 5,
+                                  separatorBuilder: (context, index) => SizedBox(
+                                    height: getSize(12),
+                                  ),
+                                  itemBuilder: (context, index) =>
+                                      _WithdrawnByContractorTile(),
                                 ),
-                                itemBuilder: (context, index) =>
-                                    _WithdrawnByContractorTile(),
                               ),
-                            ),
-                          )
-                        ]*/
+                            )
+                          ]*/
                       ],
                     ),
                   );
@@ -293,16 +294,12 @@ class CancelledShiftView extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
+                        Spacer(),
                         Icon(
                           Icons.arrow_forward_ios_rounded,
                           size: getSize(14),
                         ),
-                        Spacer(),
-                        CommonButton(
-                          height: getSize(35),
-                          width: getSize(85),
-                          borderRadius: 5,
-                          onPressed: () {
+                        /* ChatButton(  onPressed: () {
                             // showUnderDevelopment(context);
                             context.router.push(
                               PageRouteInfo(
@@ -312,29 +309,7 @@ class CancelledShiftView extends StatelessWidget {
                                 ),
                               ),
                             );
-                          },
-                          backgroundColor:
-                              AppColors.primaryColor.withOpacity(0.15),
-                          buttonText: "",
-                          customWidget: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                SvgImageConstant.chat,
-                                color: AppColors.black,
-                                height: getSize(15),
-                                width: getSize(15),
-                              ),
-                              SizedBox(width: getSize(5)),
-                              BaseText(
-                                text: StringConstant.chat,
-                                fontWeight: FontWeight.w600,
-                                fontSize: getFontSize(12),
-                              )
-                            ],
-                          ),
-                        )
+                          }, ), */
                       ],
                     ),
                   ),
@@ -450,7 +425,9 @@ class CancelledShiftView extends StatelessWidget {
               final latitude = location?.latitude;
               final longitude = location?.longitude;
               if (latitude != null && longitude != null) {
-                context.router.push(
+                LocationHelper.openDirections(context,
+                    endLat: latitude, endLng: longitude);
+                /*  context.router.push(
                   PageRouteInfo(
                     ShowGoogleMap.name,
                     args: ShowGoogleMapArgs(
@@ -458,7 +435,7 @@ class CancelledShiftView extends StatelessWidget {
                       longitude: longitude,
                     ),
                   ),
-                );
+                ); */
               }
             },
             child: Row(

@@ -5,6 +5,8 @@ import 'package:shift/application/employer/employer_long_term/employer_long_term
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/filled_tab_bar.dart';
@@ -20,13 +22,14 @@ class EmployerLongTermView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<EmployerLongTermBloc>()
-        ..add(EmployerLongTermEvent.getEmployerLongTermOpenPosition(
-            context: context, refresh: true))
-        ..add(EmployerLongTermEvent.getEmployerFilledPosition(
-            context: context, refresh: true)),
-      child: BlocSelector<EmployerLongTermBloc, EmployerLongTermState, bool>(
-        selector: (state) => state.postDataLoading,
-        builder: (context, postDataLoading) {
+        ..add(EmployerLongTermEvent.changeTab(context, 0)),
+      // ..add(EmployerLongTermEvent.getEmployerLongTermOpenPosition(
+      //     context: context, refresh: true))
+      // ..add(EmployerLongTermEvent.getEmployerFilledPosition(
+      //     context: context, refresh: true)),
+      child: BlocBuilder<EmployerLongTermBloc, EmployerLongTermState>(
+        // selector: (state) => state.postDataLoading,
+        builder: (context, state) {
           return Scaffold(
             appBar: CommonAppBar(
                 onBackPressed: context.maybePop,
@@ -49,28 +52,40 @@ class EmployerLongTermView extends StatelessWidget {
                 buttonText: StringConstant.postALongTermPosition,
               ),
             ),
-            body: DefaultTabController(
-              length: 2,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: getSize(28)),
-                    child: FilledTabBar(tabs: [
-                      Tab(text: StringConstant.openPositions),
-                      Tab(text: StringConstant.filledPositions),
-                    ]),
-                  ),
-                  Expanded(
-                    child: TabBarView(
+            body: (state.isLoading)
+                ? CenterLoadingIndicator(isOnlyLoader: true)
+                : DefaultTabController(
+                    length: 2,
+                    initialIndex: state.selectedTab,
+                    child: Column(
                       children: [
-                        OpenPositionTabView(),
-                        FilledPositionTabView(),
+                        Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: getSize(28)),
+                          child: FilledTabBar(
+                            onTap: (value) {
+                              setNotificationTab(null);
+                              context.read<EmployerLongTermBloc>().add(
+                                  EmployerLongTermEvent.changeTab(
+                                      context, value));
+                            },
+                            tabs: [
+                              Tab(text: StringConstant.openPositions),
+                              Tab(text: StringConstant.filledPositions),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: TabBarView(
+                            children: [
+                              OpenPositionTabView(),
+                              FilledPositionTabView(),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                ],
-              ),
-            ),
           );
         },
       ),

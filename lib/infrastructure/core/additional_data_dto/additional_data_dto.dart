@@ -21,6 +21,7 @@ class AdditionalDataDto with _$AdditionalDataDto {
     int? complete_shift,
     int? total_shift,
     bool? status,
+    String? service_roles,
   }) = _AdditionalDataDto;
 
   factory AdditionalDataDto.fromJson(Map<String, dynamic> json) =>

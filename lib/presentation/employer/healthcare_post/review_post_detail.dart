@@ -2,8 +2,10 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:shift/application/review_post_bloc/review_post_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
@@ -11,10 +13,12 @@ import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
@@ -23,145 +27,162 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'reviewPostShiftDetail')
 class ReviewPostShiftDetail extends StatelessWidget {
   HealthcarePostDTO post;
-  PostShiftDTO? updatedPost;
+  PostShiftDTO? postRequest;
   bool isUpdate;
   final bool fromSaveTemplate;
+  final bool fromReview;
+  final bool isCreate;
 
-  ReviewPostShiftDetail(
-      {super.key,
-      required this.post,
-      this.isUpdate = false,
-      this.updatedPost,
-      this.fromSaveTemplate = false});
+  ReviewPostShiftDetail({
+    super.key,
+    required this.post,
+    this.isUpdate = false,
+    this.postRequest,
+    this.fromSaveTemplate = false,
+    this.fromReview = false,
+    this.isCreate = true,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      child: Scaffold(
-        backgroundColor: AppColors.scaffoldColor,
-        appBar: CommonAppBar(
-          onBackPressed: () {
-            Navigator.pop(context);
-          },
-          title: StringConstant.reviewDetails,
-        ),
-        body: LayoutBuilder(builder: (context, constraint) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: constraint.maxHeight),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: getSize(10)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(getSize(10)),
-                      decoration: BoxDecoration(
-                        color: AppColors.white,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          userDataBox(context),
-                          (post.shift_detail?.shift_type == 1)
-                              ? singleShiftDateTimeBreakUI(context)
-                              : multiShiftDateTimeBreakUI(
-                                  context, post.shift_detail),
-                          if (post.specialties_detail != null &&
-                              post.specialties_detail!.isNotEmpty)
-                            requiredSkillBox(
-                              svgPrefixIcon: SvgImageConstant.female,
-                              title: StringConstant.specialtiesRequired,
-                              value: post.specialties_detail ?? "",
-                            ),
-                          if (post.software_skill != null &&
-                              post.software_skill!.isNotEmpty)
-                            requiredSkillBox(
-                              svgPrefixIcon: SvgImageConstant.mouse,
-                              title: StringConstant.softwareSkills,
-                              value: post.software_skill ?? "",
-                            ),
-                          rateHoursBox(),
-                          languageBox(
-                            title: StringConstant.languageRequirements,
-                            value: languageList(),
-                          ),
-                          locationDetailBox(
-                              title: StringConstant.locationDetails,
-                              locationValue: post.location?.location ?? "",
-                              // "2464 Royal Ln. Mesa, New Jersey 45463",
-                              units: post.location_unit ?? ""),
-                          if (post.shift_detail != null &&
-                              post.shift_detail?.shift_note != null &&
-                              post.shift_detail!.shift_note!.isNotEmpty)
-                            notesBox(
-                              title: StringConstant.shiftNote,
-                              value: post.shift_detail?.shift_note ?? "",
-                            ),
-                          // "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?"),
-                          if (post.shift_detail != null &&
-                              post.shift_detail!.shift_type == 1 &&
-                              post.shift_detail!.recurring_status == 1 &&
-                              post.shift_detail!.recurrence_mode != null)
-                            recurrence(),
-                          if (post.shift_detail != null &&
-                              post.shift_detail!.disclaimer != null &&
-                              post.shift_detail!.disclaimer!.isNotEmpty)
-                            notesBox(
-                                title: StringConstant.disclaimer,
-                                value: post.shift_detail?.disclaimer ?? ""),
-                          if (post.shift_detail != null &&
-                              post.shift_detail!.number_of_vacancie != null)
-                            numberOfVacancy(
-                                value: (post.shift_detail!.number_of_vacancie
-                                            .toString()
-                                            .length ==
-                                        1)
-                                    ? "0${post.shift_detail!.number_of_vacancie}"
-                                    : "${post.shift_detail!.number_of_vacancie}"),
-                          SizedBox(height: getSize(5)),
-                          if (post.shift_detail != null &&
-                              post.shift_detail!.teams != null &&
-                              post.shift_detail!.teams!.isNotEmpty)
-                            chipListBox(
-                              chipList: post.shift_detail!.teams!
-                                  .where((item) => item.name != null)
-                                  .map((item) => item.name ?? "")
-                                  .toList(),
-                              title: StringConstant.selectedTeams,
-                              value: (post.shift_detail!.teams!.length < 10)
-                                  ? "0${post.shift_detail!.teams!.length}"
-                                  : "${post.shift_detail!.teams!.length}",
-                            ),
-                          if (post.shift_detail != null &&
-                              post.shift_detail!.save_template_status != null &&
-                              post.shift_detail!.save_template_status == 1)
-                            templateCheckBox(),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: getSize(20)),
-                      child: CommonButton(
-                        onPressed: () {
-                          context.router.push(PageRouteInfo(PayableDetail.name,
-                              args: PayableDetailArgs(
-                                  post: post,
-                                  updatedPost: updatedPost,
-                                  isUpdate: isUpdate,
-                                  fromSaveTemplate: fromSaveTemplate)));
-                        },
-                        buttonText: StringConstant.txtContinue,
-                      ),
-                    ),
-                  ],
+    return BlocProvider(
+      create: (context) => getIt<ReviewPostBloc>()
+        ..add(ReviewPostEvent.getShiftData(post: post)),
+      child: PopScope(
+        canPop: false,
+        child: BlocBuilder<ReviewPostBloc, ReviewPostState>(
+          builder: (context, state) {
+            return Scaffold(
+              backgroundColor: AppColors.scaffoldColor,
+              appBar: CommonAppBar(
+                onBackPressed: () {
+                  Navigator.pop(context);
+                },
+                isShowBackBtn: false,
+                title: StringConstant.reviewDetails,
+              ),
+              bottomSheet: Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: getSize(10), horizontal: getSize(10)),
+                child: CommonButton(
+                  onPressed: () {
+                    context.router.push(PageRouteInfo(PayableDetail.name,
+                        args: PayableDetailArgs(
+                          post: post,
+                          updatedPost: postRequest,
+                          isUpdate: isUpdate,
+                          fromSaveTemplate: fromSaveTemplate,
+                          fromReview: fromReview,
+                          isCreate: isCreate,
+                        )));
+                  },
+                  buttonText: StringConstant.txtContinue,
                 ),
               ),
-            ),
-          );
-        }),
+              body: LayoutBuilder(builder: (context, constraint) {
+                return SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints:
+                        BoxConstraints(minHeight: constraint.maxHeight),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: getSize(10))
+                          .copyWith(bottom: getSize(80)),
+                      child: Container(
+                        padding: EdgeInsets.all(getSize(10)),
+                        decoration: BoxDecoration(
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            userDataBox(context),
+                            (post.shift_detail?.shift_type == 1)
+                                ? singleShiftDateTimeBreakUI(context)
+                                : multiShiftDateTimeBreakUI(
+                                    context, post.shift_detail),
+                            if (post.specialties_detail != null &&
+                                post.specialties_detail!.isNotEmpty)
+                              requiredSkillBox(
+                                svgPrefixIcon: SvgImageConstant.female,
+                                title: StringConstant.specialtiesRequired,
+                                value: post.specialties_detail ?? "",
+                              ),
+                            if (post.software_skill != null &&
+                                post.software_skill!.isNotEmpty)
+                              requiredSkillBox(
+                                svgPrefixIcon: SvgImageConstant.mouse,
+                                title: StringConstant.softwareSkills,
+                                value: post.software_skill ?? "",
+                              ),
+                            rateHoursBox(),
+                            languageBox(
+                              context,
+                              title: StringConstant.languageRequirements,
+                              value: languageList(),
+                            ),
+                            locationDetailBox(context,
+                                title: StringConstant.locationDetails,
+                                locationValue: post.location?.location ?? "",
+                                // "2464 Royal Ln. Mesa, New Jersey 45463",
+                                units: post.location_unit ?? ""),
+                            if (post.shift_detail != null &&
+                                post.shift_detail?.shift_note != null &&
+                                post.shift_detail!.shift_note!.isNotEmpty)
+                              notesBox(
+                                title: StringConstant.shiftNote,
+                                value: post.shift_detail?.shift_note ?? "",
+                              ),
+                            // "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?"),
+                            if (post.shift_detail != null &&
+                                post.shift_detail!.shift_type == 1 &&
+                                post.shift_detail!.recurring_status == 1 &&
+                                post.shift_detail!.recurrence_mode != null)
+                              recurrence(),
+                            if (post.shift_detail != null &&
+                                post.shift_detail!.disclaimer != null &&
+                                post.shift_detail!.disclaimer!.isNotEmpty)
+                              notesBox(
+                                  title: StringConstant.disclaimer,
+                                  value: post.shift_detail?.disclaimer ?? ""),
+                            if (post.shift_detail != null &&
+                                post.shift_detail!.number_of_vacancie != null)
+                              numberOfVacancy(
+                                  value: (post.shift_detail!.number_of_vacancie
+                                              .toString()
+                                              .length ==
+                                          1)
+                                      ? "0${post.shift_detail!.number_of_vacancie}"
+                                      : "${post.shift_detail!.number_of_vacancie}"),
+                            SizedBox(height: getSize(5)),
+                            if (post.shift_detail != null &&
+                                post.shift_detail!.teams != null &&
+                                post.shift_detail!.teams!.isNotEmpty)
+                              chipListBox(
+                                chipList: post.shift_detail!.teams!
+                                    .where((item) => item.name != null)
+                                    .map((item) => item.name ?? "")
+                                    .toList(),
+                                title: StringConstant.selectedTeams,
+                                value: (post.shift_detail!.teams!.length < 10)
+                                    ? "0${post.shift_detail!.teams!.length}"
+                                    : "${post.shift_detail!.teams!.length}",
+                              ),
+                            if (post.shift_detail != null &&
+                                post.shift_detail!.save_template_status !=
+                                    null &&
+                                post.shift_detail!.save_template_status == 1)
+                              templateCheckBox(),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }),
+            );
+          },
+        ),
       ),
     );
   }
@@ -248,7 +269,8 @@ class ReviewPostShiftDetail extends StatelessWidget {
     );
   }
 
-  Widget languageBox({
+  Widget languageBox(
+    BuildContext context, {
     required String title,
     required String value,
   }) {
@@ -277,6 +299,13 @@ class ReviewPostShiftDetail extends StatelessWidget {
           fontWeight: FontWeight.w400,
           lineHeight: getSize(3),
         ),
+        // trailing: Padding(
+        //   padding: EdgeInsets.all(getSize(15)),
+        //   child: commonEditButton(
+        //     context,
+        //     type: 1,
+        //   ),
+        // ),
       ),
     );
   }
@@ -454,6 +483,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
               fontWeight: FontWeight.w600,
               textColor: AppColors.black.withOpacity(0.70),
             ),
+            trailing: commonEditButton(context, type: 1),
             // trailing: BaseText(
             //   text: post.last_ago ?? "",
             //   fontSize: 10,
@@ -469,7 +499,9 @@ class ReviewPostShiftDetail extends StatelessWidget {
               final latitude = location?.latitude;
               final longitude = location?.longitude;
               if (latitude != null && longitude != null) {
-                context.router.push(
+                LocationHelper.openDirections(context,
+                    endLat: latitude, endLng: longitude);
+                /* context.router.push(
                   PageRouteInfo(
                     ShowGoogleMap.name,
                     args: ShowGoogleMapArgs(
@@ -477,7 +509,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
                       longitude: longitude,
                     ),
                   ),
-                );
+                ); */
               }
             },
             child: Row(
@@ -519,36 +551,49 @@ class ReviewPostShiftDetail extends StatelessWidget {
         horizontal: getSize(12),
         vertical: getSize(10),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.end,
+      child: Stack(
+        alignment: Alignment.bottomRight,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Column(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              displayDateBreak(
-                context,
-                boldValue: convertTimeStampToDate(
-                    post.shift_detail?.detail?[0].date ?? -1),
-                timidValue: "",
-                title: StringConstant.shiftDate,
-                svgPrefixIcon: SvgImageConstant.calendar,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  displayDateBreak(
+                    context,
+                    boldValue: convertTimeStampToDate(
+                        post.shift_detail?.detail?[0].date ?? -1),
+                    timidValue: "",
+                    title: StringConstant.shiftDate,
+                    svgPrefixIcon: SvgImageConstant.calendar,
+                  ),
+                  displayTime(
+                    title: StringConstant.time,
+                    startDate: convertTimeStampToDate(
+                        post.shift_detail?.detail?[0].start_time ?? -1,
+                        isTime: true),
+                    endDate: convertTimeStampToDate(
+                        post.shift_detail?.detail?[0].end_time ?? -1,
+                        isTime: true),
+                    svgPrefixIcon: SvgImageConstant.clock,
+                  ),
+                  displayDateBreak(
+                    context,
+                    boldValue: post.shift_detail?.unpaid_break?.name ?? "",
+                    timidValue: "",
+                    title: StringConstant.unpaidBreak,
+                    svgPrefixIcon: SvgImageConstant.clock,
+                  ),
+                ],
               ),
-              displayTime(
-                title: StringConstant.time,
-                startDate: convertTimeStampToDate(
-                    post.shift_detail?.detail?[0].start_time ?? -1,
-                    isTime: true),
-                endDate: convertTimeStampToDate(
-                    post.shift_detail?.detail?[0].end_time ?? -1,
-                    isTime: true),
-                svgPrefixIcon: SvgImageConstant.clock,
-              ),
-              displayDateBreak(context,
-                  boldValue: post.shift_detail?.unpaid_break?.name ?? "",
-                  timidValue: "",
-                  title: StringConstant.unpaidBreak,
-                  svgPrefixIcon: SvgImageConstant.clock),
+              // commonEditButton(
+              //   context,
+              //   type: 1,
+              // ),
             ],
           ),
           Padding(
@@ -561,6 +606,49 @@ class ReviewPostShiftDetail extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget commonEditButton(BuildContext context, {required int type}) {
+    return GestureDetector(
+      onTap: () {
+        /* context.router
+            .push(PageRouteInfo(
+          EditReviewPostDetail.name,
+          args: EditReviewPostDetailArgs(
+            type: type,
+            post: postRequest,
+            updatedPost: post,
+          ),
+        ))
+            .then((value) {
+          print("On Back to review detail---> $value");
+          if (value == true) {
+            context
+                .read<ReviewPostBloc>()
+                .add(ReviewPostEvent.getShiftData(post: post));
+          }
+        }); */
+        context.router.push(PageRouteInfo(HealthCarePostForm.name,
+            args: HealthCarePostFormArgs(
+              postId: post.id,
+              fromReview: true,
+              isCreate: isCreate,
+              fromSaveTemplate: fromSaveTemplate,
+            )));
+      },
+      child: Container(
+        padding: EdgeInsets.all(getSize(5)),
+        decoration: BoxDecoration(
+          color: AppColors.primaryColor,
+          shape: BoxShape.circle,
+        ),
+        child: SvgPicture.asset(
+          SvgImageConstant.edit,
+          height: getSize(16),
+          width: getSize(16),
+        ),
       ),
     );
   }
@@ -607,8 +695,9 @@ class ReviewPostShiftDetail extends StatelessWidget {
                 title: StringConstant.shiftDates,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
-              (post.shift_detail?.shift_type == 2 &&
-                      post.shift_detail?.same_or_different_time == 2)
+              (post.shift_detail?.shift_type == 2
+                  // && post.shift_detail?.same_or_different_time == 2
+                  )
                   ? displayDateBreak(context,
                       boldValue: (post.shift_detail?.detail != null &&
                               post.shift_detail!.detail!.isNotEmpty)
@@ -792,9 +881,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
               fontWeight: FontWeight.w500,
               textColor: AppColors.black.withOpacity(0.7),
             ),
-            SizedBox(
-              height: getSize(5),
-            ),
+            SizedBox(height: getSize(5)),
             BaseText(
               text: value,
               fontSize: 20,
@@ -812,12 +899,13 @@ class ReviewPostShiftDetail extends StatelessWidget {
             width: getSize(35),
             color: AppColors.primaryColor.withOpacity(0.2),
           ),
-        )
+        ),
       ],
     );
   }
 
-  Widget locationDetailBox({
+  Widget locationDetailBox(
+    BuildContext context, {
     required String title,
     required String locationValue,
     required String units,
@@ -839,11 +927,17 @@ class ReviewPostShiftDetail extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            BaseText(
-              text: title,
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              textColor: AppColors.black.withOpacity(0.7),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                BaseText(
+                  text: title,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  textColor: AppColors.black.withOpacity(0.7),
+                ),
+                // commonEditButton(context, type: 2),
+              ],
             ),
             commonDivider(),
             BaseText(

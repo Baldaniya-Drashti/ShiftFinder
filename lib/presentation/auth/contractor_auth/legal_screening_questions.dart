@@ -87,7 +87,6 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              print("IS SUBMITTING--->  ${state.isSubmitting}");
                               LegalScreeningDTO currentQuestion =
                                   state.questionList[index];
                               return questionBox(

@@ -31,26 +31,31 @@ class AddMultiDateTime extends StatelessWidget {
   PostShiftDTO post;
   HealthcarePostDTO? updateShift;
   final bool fromSaveTemplate;
+  final bool fromReview;
+  final bool isCreate;
 
   MultiShiftDTO selectedObj;
 
   AddMultiDateTime(
       {super.key,
       this.fromSaveTemplate = false,
+      this.fromReview = false,
+      this.isCreate = true,
       required this.selectedObj,
       this.updateShift,
       required this.post});
 
   @override
   Widget build(BuildContext context) {
-    Log.debug(selectedObj.multi_date);
     return BlocProvider(
       create: (context) => getIt<PostShiftBloc>()
         ..add(PostShiftEvent.initMultiDifferentDateEvent(
-            selectedObj.multi_date ?? [],
-            updateShift: updateShift,
-            post: post,
-            fromSaveTemplate: fromSaveTemplate)),
+          selectedObj.multi_date ?? [],
+          updateShift: updateShift,
+          post: post,
+          fromSaveTemplate: fromSaveTemplate,
+          fromReview: fromReview,
+        )),
       child: BlocConsumer<PostShiftBloc, PostShiftState>(
         listener: (context, state) {
           state.singleShiftFailureOrSuccessOption.fold(
@@ -133,13 +138,15 @@ class AddMultiDateTime extends StatelessWidget {
                                       vertical: getSize(30)),
                                   child: CommonButton(
                                     onPressed: () {
-                                      ///TTTTT
                                       context.read<PostShiftBloc>().add(
-                                          PostShiftEvent
-                                              .differentTimeShiftSubmitted(
-                                                  selectedObj,
-                                                  context,
-                                                  fromSaveTemplate));
+                                              PostShiftEvent
+                                                  .differentTimeShiftSubmitted(
+                                            selectedObj,
+                                            context,
+                                            fromSaveTemplate,
+                                            fromReview: fromReview,
+                                            isCreate: isCreate,
+                                          ));
                                     },
                                     buttonText: StringConstant.txtContinue,
                                   ),
@@ -197,9 +204,14 @@ class AddMultiDateTime extends StatelessWidget {
       hintText: StringConstant.unpaidBreak,
       showTextfield: false,
       isLabelPadding: false,
-      dropDownReadOnly:
-          (updateShift?.id != null && fromSaveTemplate == false) ? true : false,
-      dropDownIcon: (state.updateShift.id != null && fromSaveTemplate == false)
+      dropDownReadOnly: (updateShift?.id != null &&
+              fromSaveTemplate == false &&
+              (fromReview == false || isCreate == false))
+          ? true
+          : false,
+      dropDownIcon: (state.updateShift.id != null &&
+              fromSaveTemplate == false &&
+              (fromReview == false || isCreate == false))
           ? Container()
           : null,
       value: (breakTime != null && breakTime.isNotEmpty) ? breakTime : null,
@@ -297,7 +309,8 @@ class AddMultiDateTime extends StatelessWidget {
                 multiDate: currentObj,
               ))
                   ? commonErrorText(
-                      StringConstant.shiftStartTimeMustBeAFutureTime,
+                      StringConstant
+                          .shiftStartTimeMustBeAFutureTimeAndAtLeastTwoHoursAfterTheCurrentTime,
                       padding: EdgeInsets.only(top: getSize(10)))
                   : Container(),
             ],
@@ -312,13 +325,16 @@ class AddMultiDateTime extends StatelessWidget {
     final minute = state.multiDateTimeList[index].startMinute;
     return CustomTimePickerDropdown(
       labelText: StringConstant.startTime,
-      dropDownIcon: (state.updateShift.id != null && fromSaveTemplate == false)
+      dropDownIcon: (state.updateShift.id != null &&
+              fromSaveTemplate == false &&
+              (fromReview == false || isCreate == false))
           ? Container()
           : null,
-      dropDownReadOnly:
-          (state.updateShift.id != null && fromSaveTemplate == false)
-              ? true
-              : false,
+      dropDownReadOnly: (state.updateShift.id != null &&
+              fromSaveTemplate == false &&
+              (fromReview == false || isCreate == false))
+          ? true
+          : false,
       isLabelPadding: false,
       hourValue: (hour != null && hour.isNotEmpty) ? hour : null,
       minuteValue: (minute != null && minute.isNotEmpty) ? minute : null,
@@ -344,13 +360,16 @@ class AddMultiDateTime extends StatelessWidget {
     return CustomTimePickerDropdown(
       labelText: StringConstant.endTime,
       isLabelPadding: false,
-      dropDownIcon: (state.updateShift.id != null && fromSaveTemplate == false)
+      dropDownIcon: (state.updateShift.id != null &&
+              fromSaveTemplate == false &&
+              (fromReview == false || isCreate == false))
           ? Container()
           : null,
-      dropDownReadOnly:
-          (state.updateShift.id != null && fromSaveTemplate == false)
-              ? true
-              : false,
+      dropDownReadOnly: (state.updateShift.id != null &&
+              fromSaveTemplate == false &&
+              (fromReview == false || isCreate == false))
+          ? true
+          : false,
       hourValue: (hour != null && hour.isNotEmpty) ? hour : null,
       minuteValue: (minute != null && minute.isNotEmpty) ? minute : null,
       hourOnChanged: (value) {

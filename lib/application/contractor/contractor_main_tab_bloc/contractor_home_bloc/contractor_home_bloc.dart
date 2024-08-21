@@ -30,6 +30,11 @@ class ContractorHomeBloc
   ContractorHomeBloc(this.mainFacade) : super(ContractorHomeState.initial()) {
     on<ContractorHomeEvent>((event, emit) async {
       await event.map(
+        onSearchJobRole: (e) {
+          //  emit(state.copyWith(searchQuery: value.query));
+          add(ContractorHomeEvent.getContractorDashboardList(true,
+              search: e.query));
+        },
         getShiftDetailEvent: (e) async {
           Either<MainFailure, HealthcarePostDTO>? failureOrSuccess;
           emit(
@@ -91,10 +96,11 @@ class ContractorHomeBloc
           }
 
           var res = await mainFacade.getContractorDashboardListAPI(
-              page: page, filterType: state.filterType);
-
+            page: page,
+            filterType: state.filterType,
+            search: state.searchText,
+          );
           page++;
-
           res.fold(
             (l) => emit(
               state.copyWith(
@@ -116,7 +122,7 @@ class ContractorHomeBloc
                       .map((e) => ContactorDashboardDTO.fromJson(e))
                       .toList()
                       .isEmpty,
-                  //  getProductList: []
+                  //  getProductList: [],
                   contractorDashboardList:
                       List.from(state.contractorDashboardList)
                         ..addAll((r.data as List<dynamic>)
@@ -135,13 +141,11 @@ class ContractorHomeBloc
                   : 0;
 
           if (type != state.filterType) {
-            emit(
-              state.copyWith(filterType: type),
-            );
+            emit(state.copyWith(filterType: type));
             add(ContractorHomeEvent.getContractorDashboardList(true));
             /* emit(
               state.copyWith(
-                isLoading: true,
+                isLoading: true
               ),
             );
             await Future.delayed(Duration(seconds: 3));
@@ -155,7 +159,7 @@ class ContractorHomeBloc
         },
         applyShiftSubmittedEvent: (e) async {
           Either<MainFailure, String>? failureOrSuccess;
-
+          emit(state.copyWith(isLoading: true));
           failureOrSuccess = await mainFacade.contractorApplyOrSendProposal(
             mapData: {
               'post_id': e.postId ?? -1,
@@ -165,6 +169,7 @@ class ContractorHomeBloc
 
           failureOrSuccess.fold(
             (l) {
+              emit(state.copyWith(isLoading: false));
               e.context.router.maybePop();
               showError(
                 message: l.maybeMap(
@@ -176,12 +181,15 @@ class ContractorHomeBloc
               ).show(e.context);
             },
             (r) {
-              e.context.router.maybePop();
+              emit(state.copyWith(isLoading: false));
               showSuccess(message: r).show(e.context).then((value) {
                 add(ContractorHomeEvent.getContractorDashboardList(true));
               });
             },
           );
+        },
+        getSearchText: (GetSearchText value) {
+          emit(state.copyWith(searchText: value.val));
         },
       );
     });

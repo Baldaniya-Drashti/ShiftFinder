@@ -17,6 +17,7 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/custom_year_picker/custom_date_picker_dropdown.dart';
 import 'package:shift/presentation/core/widgets/custom_year_picker/order_format.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 import '../../common/widgets/center_loading_indicator.dart';
@@ -25,97 +26,112 @@ import '../../common/widgets/center_loading_indicator.dart';
 class AddExperienceDetail extends StatelessWidget {
   bool isFromSplash = false;
   bool isUpdate;
-  AddExperienceDetail(
-      {super.key, this.isFromSplash = false, this.isUpdate = false});
+  bool isRoleForceUpdate;
+  bool isSpecialityForceUpdate;
+  AddExperienceDetail({
+    super.key,
+    this.isFromSplash = false,
+    this.isUpdate = false,
+    this.isRoleForceUpdate = false,
+    this.isSpecialityForceUpdate = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<ExperienceBloc>()
-        ..add(ExperienceEvent.getExperinceDataEvent(isUpdate)),
-      child: Scaffold(
-        appBar: CommonAppBar(
-          isShowBackBtn: !isFromSplash,
-          onBackPressed: () {
-            context.router.maybePop();
-          },
-          title: StringConstant.roleExperience,
-        ),
-        body: BlocConsumer<ExperienceBloc, ExperienceState>(
-          listener: (context, state) {
-            state.authFailureOrSuccessOption.fold(
-              () {},
-              (either) => either.fold(
-                (failure) {
-                  print("fjgdg");
-                  showError(
-                    message: failure.maybeMap(
-                      showAPIResponseMessage: (value) => value.message,
-                      networkError: (value) =>
-                          'Please check your internet connectivity',
-                      orElse: () => "Server Error. Try again later.",
-                    ),
-                  ).show(context);
-                },
-                (r) {
-                  // context.router
-                  //     .push(const PageRouteInfo(EducationListScreen.name));
-                  context.router
-                      .push(PageRouteInfo(
-                    AddSpecialityExperience.name,
-                    args: AddSpecialityExperienceArgs(
-                      isUpdate: isUpdate,
-                    ),
-                  ))
-                      .then((value) {
-                    if (value == true) {
-                      Navigator.pop(context, value);
-                    }
-                  });
-                },
-              ),
-            );
-          },
-          builder: (context, state) {
-            return Form(
-              autovalidateMode: (state.showErrorMessages)
-                  ? AutovalidateMode.always
-                  : AutovalidateMode.disabled,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    experinceDesc(),
-                    SizedBox(height: getSize(20)),
-                    Expanded(
-                      child: (state.isLoading)
-                          ? CenterLoadingIndicator(isOnlyLoader: true)
-                          : SingleChildScrollView(
-                              child: mainListView(context, state),
-                            ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        bottom: getSize(40),
+    return PopScope(
+      canPop: (isUpdate && !isRoleForceUpdate && !isSpecialityForceUpdate),
+      child: BlocProvider(
+        create: (context) => getIt<ExperienceBloc>()
+          ..add(ExperienceEvent.getExperinceDataEvent()),
+        child: Scaffold(
+          appBar: CommonAppBar(
+            isShowBackBtn: !isFromSplash,
+            // isShowBackBtn: (isUpdate) ? false : !isFromSplash,
+            onBackPressed: () {
+              if (isUpdate && isRoleForceUpdate) {
+                AppDialog.showInfo(context, StringConstant.forceRoleUpdateDesc);
+              } else {
+                Navigator.pop(context);
+              }
+            },
+            title: StringConstant.roleExperience,
+          ),
+          body: BlocConsumer<ExperienceBloc, ExperienceState>(
+            listener: (context, state) {
+              state.authFailureOrSuccessOption.fold(
+                () {},
+                (either) => either.fold(
+                  (failure) {
+                    showError(
+                      message: failure.maybeMap(
+                        showAPIResponseMessage: (value) => value.message,
+                        networkError: (value) =>
+                            'Please check your internet connectivity',
+                        orElse: () => "Server Error. Try again later.",
                       ),
-                      child: CommonButton(
-                        isSubmitting: state.isSubmitting,
-                        onPressed: () {
-                          context.read<ExperienceBloc>().add(
-                              ExperienceEvent.continueBtnPressedEvent(
-                                  isUpdate));
-                        },
-                        buttonText: (isUpdate)
-                            ? StringConstant.update
-                            : StringConstant.txtContinue,
+                    ).show(context);
+                  },
+                  (r) {
+                    // context.router
+                    //     .push(const PageRouteInfo(EducationListScreen.naisUpdate && me));
+                    context.router
+                        .push(PageRouteInfo(
+                      AddSpecialityExperience.name,
+                      args: AddSpecialityExperienceArgs(
+                        isUpdate: isUpdate,
+                        isSpecialityForceUpdate: isSpecialityForceUpdate,
                       ),
-                    ),
-                  ],
+                    ))
+                        .then((value) {
+                      if (value == true) {
+                        Navigator.pop(context, value);
+                      }
+                    });
+                  },
                 ),
-              ),
-            );
-          },
+              );
+            },
+            builder: (context, state) {
+              return Form(
+                autovalidateMode: (state.showErrorMessages)
+                    ? AutovalidateMode.always
+                    : AutovalidateMode.disabled,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      experinceDesc(),
+                      SizedBox(height: getSize(20)),
+                      Expanded(
+                        child: (state.isLoading)
+                            ? CenterLoadingIndicator(isOnlyLoader: true)
+                            : SingleChildScrollView(
+                                child: mainListView(context, state),
+                              ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          bottom: getSize(40),
+                        ),
+                        child: CommonButton(
+                          isSubmitting: state.isSubmitting,
+                          onPressed: () {
+                            context.read<ExperienceBloc>().add(
+                                ExperienceEvent.continueBtnPressedEvent(
+                                    isUpdate));
+                          },
+                          buttonText: (isUpdate)
+                              ? StringConstant.update
+                              : StringConstant.txtContinue,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
@@ -199,7 +215,8 @@ class AddExperienceDetail extends StatelessWidget {
               ),
               child: BaseText(
                 text:
-                    "${index + 1}. ${(isUpdate) ? currentObj.role?.name ?? "" : currentObj.name}",
+                    // "${index + 1}. ${(isUpdate) ? currentObj.role?.name ?? "" : currentObj.name}",
+                    "${index + 1}. ${currentObj.role?.name}",
                 textAlign: TextAlign.center,
                 fontSize: 14,
                 fontWeight: FontWeight.w500,

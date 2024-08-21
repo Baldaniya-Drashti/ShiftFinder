@@ -10,6 +10,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/applied_shift/applied_shift.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/current_shift.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/upcoming_shift.dart';
@@ -23,33 +24,36 @@ class ContractorShiftView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<ContractorShiftBloc>()
-        ..add(ContractorShiftEvent.getCurrentShiftDetailAPI(true))
-        ..add(ContractorShiftEvent.getUpcomingShiftAPI(true))
-        ..add(ContractorShiftEvent.getAppliedTypeList(true))
-        ..add(ContractorShiftEvent.getCounterProposalList(true)),
+        ..add(ContractorShiftEvent.changeNotificationTab()),
+      // ..add(ContractorShiftEvent.getCurrentShiftDetailAPI(true))
+      // ..add(ContractorShiftEvent.getUpcomingShiftAPI(true))
+      // ..add(ContractorShiftEvent.getAppliedTypeList(true))
+      // ..add(ContractorShiftEvent.getCounterProposalList(true)),
       child: BlocConsumer<ContractorShiftBloc, ContractorShiftState>(
         listener: (context, state) {},
         builder: (context, state) {
           return Scaffold(
-            body: DefaultTabController(
-              length: 3,
-              initialIndex: state.selectedTab - 1,
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  tabbar(context),
-                  paddingBetweenFields(),
-                  Expanded(
-                    child: (state.selectedTab == 1)
-                        ? CurrentShift()
-                        : (state.selectedTab == 2)
-                            ? UpcomingShift()
-                            : AppliedShift(),
+            body: (state.isLoading)
+                ? CenterLoadingIndicator(isOnlyLoader: true)
+                : DefaultTabController(
+                    length: 3,
+                    initialIndex: state.selectedTab - 1,
+                    child: Column(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        tabbar(context),
+                        paddingBetweenFields(),
+                        Expanded(
+                          child: (state.selectedTab == 1)
+                              ? CurrentShift()
+                              : (state.selectedTab == 2)
+                                  ? UpcomingShift()
+                                  : AppliedShift(),
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
-            ),
           );
         },
       ),
@@ -65,7 +69,9 @@ class ContractorShiftView extends StatelessWidget {
   Widget tabbar(BuildContext context) {
     return TabBar(
       onTap: (value) {
-        context.read<ContractorShiftBloc>().add(ContractorShiftEvent.changeShiftTab(value + 1));
+        context
+            .read<ContractorShiftBloc>()
+            .add(ContractorShiftEvent.changeShiftTab(value + 1));
       },
       padding: EdgeInsets.zero,
       labelStyle: TextStyle(
@@ -73,7 +79,8 @@ class ContractorShiftView extends StatelessWidget {
         color: AppColors.primaryColor,
         fontWeight: FontWeight.w500,
       ),
-      overlayColor: WidgetStateProperty.all(AppColors.primaryColor.withOpacity(0.01)),
+      overlayColor:
+          WidgetStateProperty.all(AppColors.primaryColor.withOpacity(0.01)),
       unselectedLabelStyle: TextStyle(
         fontSize: getFontSize(14),
         color: Colors.black.withOpacity(0.5),

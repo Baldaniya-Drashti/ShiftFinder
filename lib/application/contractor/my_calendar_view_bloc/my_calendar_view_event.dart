@@ -7,4 +7,10 @@ class MyCalendarViewEvent with _$MyCalendarViewEvent {
       {DateTime? selectedMonthFirstDate}) = SelectDateEvent;
   const factory MyCalendarViewEvent.getMyCalendarList(BuildContext context) =
       GetMyCalendarList;
+
+  const factory MyCalendarViewEvent.removeChatCount(
+    BuildContext context, {
+    required int selectedDate,
+    required String selectedId,
+  }) = RemoveChatCount;
 }

@@ -11,7 +11,7 @@ _$CurrentShiftDTOImpl _$$CurrentShiftDTOImplFromJson(
     _$CurrentShiftDTOImpl(
       id: (json['id'] as num?)?.toInt(),
       post_id: (json['post_id'] as num?)?.toInt(),
-      employer_post_user_id: (json['employer_post_user_id'] as num?)?.toInt(),
+      employer_user_id: (json['employer_user_id'] as num?)?.toInt(),
       listing_id: json['listing_id'] as String?,
       last_ago: json['last_ago'] as String?,
       industry_id: (json['industry_id'] as num?)?.toInt(),
@@ -50,6 +50,7 @@ _$CurrentShiftDTOImpl _$$CurrentShiftDTOImplFromJson(
       clock_out: (json['clock_out'] as num?)?.toInt(),
       selectedClockInTime: (json['selectedClockInTime'] as num?)?.toInt(),
       selectedClockOutTime: (json['selectedClockOutTime'] as num?)?.toInt(),
+      count: (json['count'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$CurrentShiftDTOImplToJson(
@@ -57,7 +58,7 @@ Map<String, dynamic> _$$CurrentShiftDTOImplToJson(
     <String, dynamic>{
       'id': instance.id,
       'post_id': instance.post_id,
-      'employer_post_user_id': instance.employer_post_user_id,
+      'employer_user_id': instance.employer_user_id,
       'listing_id': instance.listing_id,
       'last_ago': instance.last_ago,
       'industry_id': instance.industry_id,
@@ -82,4 +83,5 @@ Map<String, dynamic> _$$CurrentShiftDTOImplToJson(
       'clock_out': instance.clock_out,
       'selectedClockInTime': instance.selectedClockInTime,
       'selectedClockOutTime': instance.selectedClockOutTime,
+      'count': instance.count,
     };

@@ -2,7 +2,7 @@ part of 'experience_bloc.dart';
 
 @freezed
 class ExperienceEvent with _$ExperienceEvent {
-  const factory ExperienceEvent.getExperinceDataEvent(bool isUpdate) =
+  const factory ExperienceEvent.getExperinceDataEvent() =
       _GetExperinceDataEvent;
   // const factory ExperienceEvent.getExperienceListEvent() =
   //     _GetExperienceListEvent;

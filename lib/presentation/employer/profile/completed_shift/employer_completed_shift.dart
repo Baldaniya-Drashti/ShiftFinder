@@ -17,6 +17,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -220,7 +221,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                         id: userId ?? -1, postId: postId ?? -1)),
               );
             },
-            label: "View Profile",
+            label: StringConstant.viewProfile,
             radius: 7.0,
             textStyle:
                 TextStyle(fontSize: getSize(12.0), fontWeight: FontWeight.w600),
@@ -239,78 +240,9 @@ class _PreviousShiftListTile extends StatelessWidget {
       url: data.profile ?? "",
       title: "${data.first_name ?? ""} ${data.last_name ?? ""}",
       subTitle: "${data.role_lists_name}",
-      trailing: RatingStar(rating: data.rating?.toDouble() ?? 0.0),
+      trailing: RatingStar(rating: data.all_over_rating?.toDouble() ?? 0.0),
     );
   }
-
-  /* Widget _buildAdditionalInfo(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: CommonInfoTile(
-                key: ValueKey("last_worked_date"),
-                leading: SvgPicture.asset(
-                  SvgImageConstant.calendar,
-                  height: 15,
-                  width: 15,
-                  colorFilter: ColorFilter.mode(
-                      AppColors.black.withOpacity(0.6), BlendMode.srcIn),
-                ),
-                title: BaseText(
-                  text: "Last Worked Date",
-                  fontSize: getSize(10),
-                  textColor: AppColors.black.withOpacity(0.6),
-                  fontWeight: FontWeight.w400,
-                ),
-                subtitle: Text.rich(
-                  style: TextStyle(fontSize: 12),
-                  TextSpan(
-                    text: '',
-                    // "${convertUnixTimeToLocalString(data.last_worked_date ?? 0)}, ",
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                    children: [
-                      TextSpan(
-                          text:
-                              "${DateTime.fromMillisecondsSinceEpoch((data.last_worked_date ?? 0) * 1000).year}",
-                          style: TextStyle(
-                              color: AppColors.black.withOpacity(0.5))),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: CommonInfoTile(
-                key: ValueKey("time"),
-                leading: SvgPicture.asset(
-                  SvgImageConstant.clock,
-                  height: 15,
-                  width: 15,
-                  colorFilter: ColorFilter.mode(
-                      AppColors.black.withOpacity(0.6), BlendMode.srcIn),
-                ),
-                title: BaseText(
-                  text: "Time",
-                  fontSize: getSize(10),
-                  textColor: AppColors.black.withOpacity(0.6),
-                  fontWeight: FontWeight.w400,
-                ),
-                subtitle: BaseText(
-                  text: '',
-                  // '${formatUnixTimestamp(data.last_worked_start_time ?? 0)} to ${formatUnixTimestamp(data.last_worked_end_time ?? 0)}',
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  } */
 
   Widget _buildLocationInfo(BuildContext context) {
     return GestureDetector(
@@ -318,7 +250,9 @@ class _PreviousShiftListTile extends StatelessWidget {
         final latitude = data.latitude;
         final longitude = data.longitude;
         if (latitude != null && longitude != null) {
-          context.router.push(
+          LocationHelper.openDirections(context,
+              endLat: latitude, endLng: longitude);
+          /* context.router.push(
             PageRouteInfo(
               ShowGoogleMap.name,
               args: ShowGoogleMapArgs(
@@ -326,7 +260,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                 longitude: longitude,
               ),
             ),
-          );
+          ); */
         }
       },
       child: CommonInfoTile(
@@ -379,10 +313,10 @@ class _PreviousShiftListTile extends StatelessWidget {
                             if (data.isFavourite ?? false) {
                               final result = await AppDialog.showCommonDialog(
                                 context: context,
-                                title: "Unfavorite",
+                                title: StringConstant.unfavorite,
                                 content:
                                     "Removing ${data.first_name ?? ""} ${data.last_name ?? ""} from your favorites list will no longer highlight their profile. Are you sure you want to proceed?",
-                                successLabel: "Unfavorite",
+                                successLabel: StringConstant.unfavorite,
                               );
                               if (result ?? false) {
                                 context.read<EmployerCompletedShiftBloc>().add(
@@ -408,7 +342,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                         ? SvgImageConstant.heartChecked
                         : SvgImageConstant.heart1,
                     label:
-                        "${(data.isFavourite ?? false) ? "Added" : "Add"} to favorite",
+                        "${(data.isFavourite ?? false) ? StringConstant.added : StringConstant.add} to favorite",
                     textColor:
                         isBlock ? AppColors.black.withOpacity(0.5) : null,
                   ),
@@ -445,7 +379,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                             data.rating != null &&
                             data.rating != 0)
                         ? "${data.rating!.toDouble()}"
-                        : "Leave a Rating",
+                        : StringConstant.leaveARating,
                   ),
                 ),
               ],
@@ -469,7 +403,9 @@ class _PreviousShiftListTile extends StatelessWidget {
                             );
                           }
                         : null,
-                    label: data.isRemark == true ? "Remark Added" : "Remark",
+                    label: data.isRemark == true
+                        ? StringConstant.remarkAdded
+                        : StringConstant.remark,
                     icon: data.isRemark == true
                         ? SvgImageConstant.remarkAdded
                         : SvgImageConstant.medalStar,
@@ -528,9 +464,13 @@ class _PreviousShiftListTile extends StatelessWidget {
             children: [
               displayDateBreak(
                 context,
-                boldValue: convertTimeStampToDate(shift.last_worked_date ?? -1),
-                timidValue: convertTimeStampToDate(shift.last_worked_date ?? -1,
-                    isYear: true),
+                boldValue: (shift.last_worked_date != null)
+                    ? convertTimeStampToDate(shift.last_worked_date ?? -1)
+                    : "",
+                timidValue: (shift.last_worked_date != null)
+                    ? convertTimeStampToDate(shift.last_worked_date ?? -1,
+                        isYear: true)
+                    : "",
                 title: StringConstant.shiftDate,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
@@ -876,10 +816,3 @@ String convertTimeStampToDate(int timestamp,
     }
   }
 }
-
-// String formatUnixTimestamp(int timestamp) {
-//   DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-//   String formattedTime = DateFormat('hh:mm a').format(date);
-
-//   return formattedTime;
-// }

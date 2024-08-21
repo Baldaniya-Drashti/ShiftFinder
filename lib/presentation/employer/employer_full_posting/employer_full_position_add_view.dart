@@ -34,9 +34,18 @@ final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 @RoutePage(name: "EmployerFullPositionAddView")
 class EmployerFullPositionAddView extends StatelessWidget {
-  const EmployerFullPositionAddView({super.key, this.postId});
+  const EmployerFullPositionAddView({
+    super.key,
+    this.postId,
+    this.fromReview = false,
+    this.fromTemplate = false,
+    this.isCreate = true,
+  });
 
   final int? postId;
+  final bool fromReview;
+  final bool fromTemplate;
+  final bool isCreate;
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +56,12 @@ class EmployerFullPositionAddView extends StatelessWidget {
         return Scaffold(
           appBar: CommonAppBar(
               onBackPressed: () => context.router.maybePop(),
-              title: CommonList.industryList
-                      .firstWhere((item) => item.id == getCurrentIndustry())
-                      .title ??
-                  ""),
+              title: (fromTemplate)
+                  ? StringConstant.editTemplate
+                  : CommonList.industryList
+                          .firstWhere((item) => item.id == getCurrentIndustry())
+                          .title ??
+                      ""),
           body: BlocBuilder<AddFullPositionBloc, AddFullPositionState>(
             builder: (context, state) {
               if (state.loading) return CenterLoadingIndicator();
@@ -61,7 +72,12 @@ class EmployerFullPositionAddView extends StatelessWidget {
                     Image.asset(PngImageConstants.fullPosition),
                     Gap(getSize(24)),
                     Visibility(
-                      child: _PositionForm(state.employerLongTermDto),
+                      child: _PositionForm(
+                        state.employerLongTermDto,
+                        fromReview: fromReview,
+                        isCreate: isCreate,
+                        fromTemplate: fromTemplate,
+                      ),
                     ),
                   ],
                 ),
@@ -75,9 +91,18 @@ class EmployerFullPositionAddView extends StatelessWidget {
 }
 
 class _PositionForm extends StatefulWidget {
-  const _PositionForm(this.data);
+  const _PositionForm(
+    this.data, {
+    this.fromReview = false,
+    this.fromTemplate = false,
+    this.isCreate = true,
+  });
 
   final EmployerLongTermSuccessDto data;
+
+  final bool fromReview;
+  final bool fromTemplate;
+  final bool isCreate;
 
   @override
   State<_PositionForm> createState() => _PositionFormState();
@@ -89,7 +114,6 @@ class _PositionFormState extends State<_PositionForm> {
   @override
   void initState() {
     super.initState();
-    print("initData => ${widget.data.position}");
     controller = UpdateFullTimeJobPositionController(widget.data);
   }
 
@@ -455,15 +479,18 @@ class _PositionFormState extends State<_PositionForm> {
                           externalInternalRelationship:
                               controller.externalInternalRelationship,
                           requiredQualification: controller.qualification,
-                          requiredExperience: controller.qualification,
+                          requiredExperience: controller.experience,
                           licenseCertification: controller.license,
                           requiredSkill: controller.skill,
                           others: controller.other,
                           position: controller.position,
+                          fromReview: widget.fromReview,
+                          isCreate: widget.isCreate,
+                          fromTemplate: widget.fromTemplate,
                         ),
                       );
                 },
-                buttonText: "Continue",
+                buttonText: StringConstant.txtContinue,
               ),
             ],
           );

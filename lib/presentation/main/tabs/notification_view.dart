@@ -12,6 +12,7 @@ import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
+import 'package:shift/presentation/core/helper/notification_naviagtion.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 
 @RoutePage(name: 'NotificationView')
@@ -81,75 +82,98 @@ class _NotificationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: AppColors.white,
-      child: Padding(
-        padding: EdgeInsets.all(getSize(18)),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Image.asset(PngImageConstants.homeAppBarLogo,
-                    height: getSize(35), width: getSize(35)),
-                Gap(getSize(10)),
-                Flexible(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: BaseText(
-                              text: obj.roles_list_name ?? "",
-                              fontWeight: FontWeight.w600,
-                              fontSize: 10,
-                              textColor: AppColors.black.withOpacity(0.7),
+    return GestureDetector(
+      onTap: () {
+        setNotificationTab(null);
+        setNotificationSubTab(null);
+        print("onTapNotification navigation---> $obj");
+        if (getCurrentRole() == 1) {
+          NotificationNaviagtion.contractorNavigateToRespectivePage(context,
+              type: obj.type ?? 0);
+        } else {
+          NotificationNaviagtion.employerNavigateToRespectivePage(context,
+              type: obj.type ?? 0, obj: obj);
+        }
+      },
+      child: Material(
+        color: AppColors.white,
+        child: Padding(
+          padding: EdgeInsets.all(getSize(18)),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Image.asset(PngImageConstants.homeAppBarLogo,
+                      height: getSize(35), width: getSize(35)),
+                  Gap(getSize(10)),
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: BaseText(
+                                text: (obj.roles_list_name != null)
+                                    ? obj.roles_list_name!
+                                    : (obj.full_term_shift_type == 2)
+                                        ? (obj.job_type == "1")
+                                            ? StringConstant.fullTime
+                                            : StringConstant.partTime
+                                        : "",
+                                fontWeight: FontWeight.w600,
+                                fontSize: 10,
+                                textColor: AppColors.black.withOpacity(0.7),
+                              ),
                             ),
-                          ),
+                            BaseText(
+                              text: obj.last_ago ?? "",
+                              /* (getCurrentRole() == 2)
+                                  ? obj.last_ago ?? ""
+                                  : DateFormat('dd MMM yyyy').format(
+                                      DateTime.fromMillisecondsSinceEpoch(
+                                          -1 * 1000)) */
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
+                            )
+                          ],
+                        ),
+                        if (obj.company_name != null) ...[
+                          Gap(getSize(4)),
                           BaseText(
-                            text: obj.last_ago ?? "",
-                            /* (getCurrentRole() == 2)
-                                ? obj.last_ago ?? ""
-                                : DateFormat('dd MMM yyyy').format(
-                                    DateTime.fromMillisecondsSinceEpoch(
-                                        -1 * 1000)) */
-                            fontSize: 10,
+                            text: /* (obj.type == 3 && getCurrentRole() == 2)
+                              ? "${StringConstant.distance}: ${obj.distance ?? ""}"
+                              : */
+                                obj.company_name ?? "",
                             fontWeight: FontWeight.w600,
-                          )
+                            fontSize: 10,
+                            textColor: AppColors.green,
+                          ),
                         ],
-                      ),
-                      Gap(getSize(4)),
-                      BaseText(
-                        text: (obj.type == 3 && getCurrentRole() == 2)
-                            ? "${StringConstant.distance}: ${obj.distance ?? ""}"
-                            : obj.company_name ?? "",
-                        fontWeight: FontWeight.w600,
-                        fontSize: 10,
-                        textColor: AppColors.green,
-                      ),
-                    ],
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Gap(getSize(10)),
+              Container(
+                alignment: Alignment.centerLeft,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: AppColors.scaffoldColor,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(getSize(12)),
+                  child: BaseText(
+                    text: obj.message ?? "",
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-              ],
-            ),
-            Gap(getSize(10)),
-            Container(
-              alignment: Alignment.centerLeft,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: AppColors.scaffoldColor,
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(getSize(12)),
-                child: BaseText(
-                  text: obj.message ?? "",
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

@@ -25,6 +25,7 @@ _$AdditionalDataDtoImpl _$$AdditionalDataDtoImplFromJson(
       complete_shift: (json['complete_shift'] as num?)?.toInt(),
       total_shift: (json['total_shift'] as num?)?.toInt(),
       status: json['status'] as bool?,
+      service_roles: json['service_roles'] as String?,
     );
 
 Map<String, dynamic> _$$AdditionalDataDtoImplToJson(
@@ -46,4 +47,5 @@ Map<String, dynamic> _$$AdditionalDataDtoImplToJson(
       'complete_shift': instance.complete_shift,
       'total_shift': instance.total_shift,
       'status': instance.status,
+      'service_roles': instance.service_roles,
     };

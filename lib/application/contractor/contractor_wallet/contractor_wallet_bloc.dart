@@ -97,7 +97,7 @@ class ContractorWalletBloc
         getWalletList: (e) async {
           String? startDate;
           String? endDate;
-          DateTime now = DateTime.now();
+          // DateTime now = DateTime.now();
           if (state.selectedDateTime.isNotEmpty) {
             startDate =
                 (state.selectedDateTime.first.toUtc().millisecondsSinceEpoch /
@@ -107,66 +107,68 @@ class ContractorWalletBloc
                 (state.selectedDateTime.last.toUtc().millisecondsSinceEpoch /
                         1000)
                     .toString();
-          } else {
+          } /* else {
             startDate = (DateTime(now.year, now.month, 1)
                         .toUtc()
                         .millisecondsSinceEpoch /
                     1000)
                 .toString();
             endDate = (now.toUtc().millisecondsSinceEpoch / 1000).toString();
-          }
+          } */
 
-          if (e.isRefresh) {
-            currentPage = 1;
-            emit(state.copyWith(
-              walletList: [],
-              isLoading: e.isRefresh,
-            ));
-            refreshController.resetNoData();
-          } else {
-            if (currentPage > lastPage) {
-              refreshController.loadNoData();
-              return;
-            }
-          }
-
-          var res = await mainFacade.getWalletListAPI(
-            page: currentPage,
-            filterType: state.initialWalletFilter.id,
-            startDate: startDate.toString(),
-            endDate: endDate.toString(),
-          );
-          currentPage++;
-          res.fold(
-            (l) => emit(
-              state.copyWith(
-                isErrorInApi: true,
-                isLoading: false,
+          if (startDate != null && endDate != null) {
+            if (e.isRefresh) {
+              currentPage = 1;
+              emit(state.copyWith(
                 walletList: [],
-              ),
-            ),
-            (r) {
-              lastPage = r.meta?.lastPage ?? 1;
-              if (e.isRefresh) {
-                List.from(state.walletList).clear();
+                isLoading: e.isRefresh,
+              ));
+              refreshController.resetNoData();
+            } else {
+              if (currentPage > lastPage) {
+                refreshController.loadNoData();
+                return;
               }
+            }
 
-              emit(
+            var res = await mainFacade.getWalletListAPI(
+              page: currentPage,
+              filterType: state.initialWalletFilter.id,
+              startDate: startDate.toString(),
+              endDate: endDate.toString(),
+            );
+            currentPage++;
+            res.fold(
+              (l) => emit(
                 state.copyWith(
+                  isErrorInApi: true,
                   isLoading: false,
-                  isErrorInApi: false,
-                  noDataFound: (r.data as List<dynamic>)
-                      .map((e) => ContractorWalletDTO.fromJson(e))
-                      .toList()
-                      .isEmpty,
-                  walletList: List.from(state.walletList)
-                    ..addAll((r.data as List<dynamic>)
-                        .map((e) => ContractorWalletDTO.fromJson(e))
-                        .toList()),
+                  walletList: [],
                 ),
-              );
-            },
-          );
+              ),
+              (r) {
+                lastPage = r.meta?.lastPage ?? 1;
+                if (e.isRefresh) {
+                  List.from(state.walletList).clear();
+                }
+
+                emit(
+                  state.copyWith(
+                    isLoading: false,
+                    isErrorInApi: false,
+                    noDataFound: (r.data as List<dynamic>)
+                        .map((e) => ContractorWalletDTO.fromJson(e))
+                        .toList()
+                        .isEmpty,
+                    walletList: List.from(state.walletList)
+                      ..addAll((r.data as List<dynamic>)
+                          .map((e) => ContractorWalletDTO.fromJson(e))
+                          .toList()),
+                  ),
+                );
+              },
+            );
+          }
         },
         getAvailableBalance: (e) async {
           Either<MainFailure, GetBalanceDTO>? failureOrSuccess;

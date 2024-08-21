@@ -10,7 +10,7 @@ import 'package:shift/infrastructure/core/employer_previous_shift/employer_previ
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -46,7 +46,7 @@ class ShiftActionsView extends StatelessWidget {
               // context.router.popUntil((route) => route.isFirst);
               Navigator.pop(context, true);
             },
-            title: "Shift Approved",
+            title: StringConstant.shiftApproved,
           ),
           body: BlocBuilder<ShiftActionBloc, ShiftActionState>(
             builder: (context, state) {
@@ -142,7 +142,7 @@ class ShiftActionsView extends StatelessWidget {
                                   ? AppColors.black.withOpacity(0.5)
                                   : null,
                             ),
-                            Gap(16),
+                            Gap(getSize(16)),
                             _ActionButton(
                               backgroundColor: isBlock
                                   ? AppColors.white.withOpacity(0.5)
@@ -174,9 +174,9 @@ class ShiftActionsView extends StatelessWidget {
                                       data?.rating != null &&
                                       data?.rating != 0)
                                   ? "${data?.rating!.toDouble()}"
-                                  : "Leave a Rating",
+                                  : StringConstant.leaveARating,
                             ),
-                            Gap(16),
+                            Gap(getSize(16)),
                             _ActionButton(
                               backgroundColor: isBlock
                                   ? AppColors.white.withOpacity(0.5)
@@ -191,8 +191,8 @@ class ShiftActionsView extends StatelessWidget {
                                     }
                                   : null,
                               label: data?.isRemark == true
-                                  ? "Remark Added"
-                                  : "Remark",
+                                  ? StringConstant.remarkAdded
+                                  : StringConstant.remark,
                               icon: data?.isRemark == true
                                   ? SvgImageConstant.remarkAdded
                                   : SvgImageConstant.medalStar,
@@ -241,8 +241,7 @@ class ShiftActionsView extends StatelessWidget {
                           textAlign: TextAlign.center,
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
-                          text:
-                              "Shift has been approved you give rating, add to favorite, remark and block the user.",
+                          text: StringConstant.shiftApprovedDesc,
                         ),
                       )
                     ],
@@ -351,7 +350,7 @@ class ShiftActionsView extends StatelessWidget {
       url: data?.profile ?? "",
       title: "${data?.first_name ?? ""} ${data?.last_name ?? ""}",
       subTitle: data?.role_lists_name ?? "",
-      trailing: RatingStar(rating: (data?.rating ?? 0).toDouble()),
+      trailing: RatingStar(rating: (data?.all_over_rating ?? 0).toDouble()),
     );
   }
 
@@ -364,7 +363,9 @@ class ShiftActionsView extends StatelessWidget {
         final latitude = data?.latitude;
         final longitude = data?.longitude;
         if (latitude != null && longitude != null) {
-          context.router.push(
+          LocationHelper.openDirections(context,
+              endLat: latitude, endLng: longitude);
+          /*  context.router.push(
             PageRouteInfo(
               ShowGoogleMap.name,
               args: ShowGoogleMapArgs(
@@ -372,7 +373,7 @@ class ShiftActionsView extends StatelessWidget {
                 longitude: longitude,
               ),
             ),
-          );
+          ); */
         }
       },
       child: CommonInfoTile(

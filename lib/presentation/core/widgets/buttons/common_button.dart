@@ -80,15 +80,18 @@ class _CommonButtonState extends State<CommonButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: widget.isSubmitting || isButtonDisabled ? null : _handleButtonTap,
+      onPressed:
+          widget.isSubmitting || isButtonDisabled ? null : _handleButtonTap,
       style: ButtonStyle(
-        side: WidgetStatePropertyAll(BorderSide(color: widget.borderColor ?? Colors.transparent)),
+        side: WidgetStatePropertyAll(
+            BorderSide(color: widget.borderColor ?? Colors.transparent)),
         elevation: WidgetStatePropertyAll(0),
         // shadowColor: WidgetStatePropertyAll(Colors.transparent),
         // splashFactory: NoSplash.splashFactory,
         overlayColor: WidgetStatePropertyAll(AppColors.grey04),
 
-        backgroundColor: WidgetStatePropertyAll(widget.backgroundColor ?? AppColors.primaryColor),
+        backgroundColor: WidgetStatePropertyAll(
+            widget.backgroundColor ?? AppColors.primaryColor),
         // disabledBackgroundColor:widget.backgroundColor ?? AppColors.primaryColor,
         padding: WidgetStatePropertyAll(EdgeInsets.zero),
         fixedSize: WidgetStatePropertyAll(Size(
@@ -130,7 +133,8 @@ class _CommonButtonState extends State<CommonButton> {
   }
 }
 
-Widget documentSkipButton(BuildContext context, {required VoidCallback onPressed}) {
+Widget documentSkipButton(BuildContext context,
+    {required VoidCallback onPressed}) {
   return Align(
     alignment: Alignment.center,
     child: CommonButton(
@@ -190,8 +194,10 @@ class CommonMaterialButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget child;
-    final baseTextStyle = TextStyle(fontSize: getSize(12), fontWeight: FontWeight.w600);
-    final Widget title = BaseText(text: label, style: textStyle ?? baseTextStyle);
+    final baseTextStyle =
+        TextStyle(fontSize: getSize(12), fontWeight: FontWeight.w600);
+    final Widget title =
+        BaseText(text: label, style: textStyle ?? baseTextStyle);
 
     if (_icon != null) {
       child = Row(

@@ -47,6 +47,7 @@ _$ContactorDashboardDTOImpl _$$ContactorDashboardDTOImplFromJson(
           ?.map((e) => ApplicationProfile.fromJson(e as Map<String, dynamic>))
           .toList(),
       specialties_list: json['specialties_list'] as String?,
+      specialties_details: json['specialties_details'] as String?,
       rate_hour: json['rate_hour'] as num?,
       total_payable_hour: json['total_payable_hour'] as String?,
       total_vacancy: (json['total_vacancy'] as num?)?.toInt(),
@@ -56,6 +57,8 @@ _$ContactorDashboardDTOImpl _$$ContactorDashboardDTOImplFromJson(
       total_wage: json['total_wage'] as String?,
       total_allowance: json['total_allowance'] as String?,
       isHighlightShift: json['isHighlightShift'] as bool?,
+      total_amount_payable_contractor:
+          json['total_amount_payable_contractor'] as String?,
     );
 
 Map<String, dynamic> _$$ContactorDashboardDTOImplToJson(
@@ -84,6 +87,7 @@ Map<String, dynamic> _$$ContactorDashboardDTOImplToJson(
       'total_proposal_counts': instance.total_proposal_counts,
       'total_proposal_profiles': instance.total_proposal_profiles,
       'specialties_list': instance.specialties_list,
+      'specialties_details': instance.specialties_details,
       'rate_hour': instance.rate_hour,
       'total_payable_hour': instance.total_payable_hour,
       'total_vacancy': instance.total_vacancy,
@@ -93,6 +97,8 @@ Map<String, dynamic> _$$ContactorDashboardDTOImplToJson(
       'total_wage': instance.total_wage,
       'total_allowance': instance.total_allowance,
       'isHighlightShift': instance.isHighlightShift,
+      'total_amount_payable_contractor':
+          instance.total_amount_payable_contractor,
     };
 
 _$RolesListImpl _$$RolesListImplFromJson(Map<String, dynamic> json) =>

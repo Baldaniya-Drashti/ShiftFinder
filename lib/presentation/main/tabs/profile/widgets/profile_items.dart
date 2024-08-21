@@ -25,14 +25,14 @@ class ProfileItems extends StatelessWidget {
   Widget build(BuildContext context) {
     var profileItems = <ProfileItemModel>[
       ProfileItemModel(
-        title: 'Completed Shifts',
+        title: StringConstant.completedShifts,
         image: SvgImageConstant.completedShifts,
         onTap: () {
           context.router.push(PageRouteInfo(EmployerCompletedShiftView.name));
         },
       ),
       ProfileItemModel(
-        title: 'Previous ShiftPros',
+        title: StringConstant.previousShiftPros,
         image: SvgImageConstant.previousShifts,
         onTap: () {
           context.router.push(PageRouteInfo(PreviousShiftView.name));
@@ -53,14 +53,14 @@ class ProfileItems extends StatelessWidget {
         },
       ),
       ProfileItemModel(
-        title: 'Chat',
+        title: StringConstant.chat,
         image: SvgImageConstant.chat,
         onTap: () {
           context.router.push(PageRouteInfo(Chat.name));
         },
       ),
       ProfileItemModel(
-        title: 'Locations',
+        title: StringConstant.locations,
         image: SvgImageConstant.locationIcon,
         onTap: () {
           context.router.push(PageRouteInfo(EmployerLocationView.name));
@@ -68,21 +68,21 @@ class ProfileItems extends StatelessWidget {
         },
       ),
       ProfileItemModel(
-        title: 'Teams',
+        title: StringConstant.teams,
         image: SvgImageConstant.teams,
         onTap: () {
           context.router.push(PageRouteInfo(TeamsView.name));
         },
       ),
       ProfileItemModel(
-        title: 'Saved Templates',
+        title: StringConstant.savedTemplates,
         image: SvgImageConstant.savedTemplates,
         onTap: () {
           context.router.push(PageRouteInfo(SaveTemplateView.name));
         },
       ),
       ProfileItemModel(
-        title: 'Billing',
+        title: StringConstant.billing,
         image: SvgImageConstant.billing,
         onTap: () {
           context.router.push(PageRouteInfo(BillingView.name));
@@ -109,26 +109,26 @@ Download now: ${StringConstant.shiftFinderWebsite}
           Share.shareXFiles(
             [XFile(file.path)],
             text: message,
-            subject: 'Join ShiftFinder',
+            subject: StringConstant.joinShiftFinder,
           );
         },
       ),
       ProfileItemModel(
-        title: 'Account Management',
+        title: StringConstant.accountManagement,
         image: SvgImageConstant.setting,
         onTap: () {
           context.router.push(PageRouteInfo(AccountManagementView.name));
         },
       ),
       ProfileItemModel(
-        title: 'About ShiftFinder',
+        title: StringConstant.aboutShiftFinder,
         image: SvgImageConstant.aboutShiftFinder,
         onTap: () {
           context.router.push(PageRouteInfo(AboutView.name));
         },
       ),
       ProfileItemModel(
-        title: 'Customer Support',
+        title: StringConstant.customerSupport,
         image: SvgImageConstant.customerSupport,
         onTap: () {
           context.router.push(
@@ -137,12 +137,12 @@ Download now: ${StringConstant.shiftFinderWebsite}
         },
       ),
       ProfileItemModel(
-        title: 'Log Out',
+        title: StringConstant.logOut,
         image: SvgImageConstant.logout,
         onTap: () {
           AcceptRejectDialog(
-            title: 'Logout',
-            description: 'Are you sure you want to log out?',
+            title: StringConstant.logoutJoin,
+            description: StringConstant.logoutAlertDesc,
             onPressedAccept: () {
               context.router.maybePop().then(
                     (value) => context
@@ -153,7 +153,7 @@ Download now: ${StringConstant.shiftFinderWebsite}
             onPressedReject: () {
               context.router.maybePop();
             },
-            acceptButtonText: 'Logout',
+            acceptButtonText: StringConstant.logoutJoin,
           ).acceptRejectDialog(context);
         },
       ),
@@ -299,7 +299,7 @@ Download now: ${StringConstant.shiftFinderWebsite}
           Share.shareXFiles(
             [XFile(file.path)],
             text: message,
-            subject: 'Join ShiftFinder',
+            subject: StringConstant.joinShiftFinder,
           );
         },
       ),
@@ -329,8 +329,8 @@ Download now: ${StringConstant.shiftFinderWebsite}
         image: SvgImageConstant.logout,
         onTap: () {
           AcceptRejectDialog(
-            title: 'Logout',
-            description: 'Are you sure you want to log out?',
+            title: StringConstant.logoutJoin,
+            description: StringConstant.logoutAlertDesc,
             onPressedAccept: () {
               context.router.maybePop().then(
                     (value) => context
@@ -341,7 +341,7 @@ Download now: ${StringConstant.shiftFinderWebsite}
             onPressedReject: () {
               context.router.maybePop();
             },
-            acceptButtonText: 'Logout',
+            acceptButtonText: StringConstant.logoutJoin,
           ).acceptRejectDialog(context);
         },
       ),

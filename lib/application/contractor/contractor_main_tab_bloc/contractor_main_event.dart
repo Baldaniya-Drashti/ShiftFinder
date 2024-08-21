@@ -4,9 +4,8 @@ part of 'contractor_main_bloc.dart';
 class ContractorMainTabEvent with _$ContractorMainTabEvent {
   factory ContractorMainTabEvent.tabChange(int tabIndex) = TabChange;
 
-  /* factory ContractorMainTabEvent.registerForPush(String fcmToken) =
-      RegisterForPush;
-  factory ContractorMainTabEvent.pushNotificationInitialize(
+  factory ContractorMainTabEvent.registerForPush() = RegisterForPush;
+  /* factory ContractorMainTabEvent.pushNotificationInitialize(
       BuildContext context) = PushNotificationInitialize;
   factory ContractorMainTabEvent.initDynamicLink(BuildContext context) =
       InitDynamicLink; */

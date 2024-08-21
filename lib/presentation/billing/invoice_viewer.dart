@@ -179,7 +179,8 @@ class InvoiceGenerator {
     return pdf.save();
   }
 
-  Future<Uint8List> generateBillingInvoice(EmployerInvoiceDTO invoice) async {
+  Future<Uint8List> generateBillingInvoice(
+      EmployerInvoiceDTO invoice, bool isContractor) async {
     final pdf = pw.Document();
 
     // Load the custom font
@@ -240,15 +241,15 @@ class InvoiceGenerator {
                         ),
                         paddingBetweenFilled(),
                         pw.Text(
-                          '(${industry.title ?? ""} - ${invoice.listing_id ?? ""})',
+                          invoice.location?.location ?? "",
                           style: pw.TextStyle(
                               font: regularFont, fontSize: getFontSize(10)),
                         ),
                         paddingBetweenFilled(),
                         pw.Text(
-                          invoice.location?.location ?? "",
+                          "${StringConstant.invoice} - ${invoice.invoice_no ?? ""}",
                           style: pw.TextStyle(
-                              font: regularFont, fontSize: getFontSize(10)),
+                              font: regularFont, fontSize: getFontSize(12)),
                         ),
                       ]),
                 ],
@@ -276,6 +277,11 @@ class InvoiceGenerator {
                       ? StringConstant.multi
                       : StringConstant.single),
               detailWidget(
+                title: "${StringConstant.shiftId} :",
+                value:
+                    '(${industry.title ?? ""} - ${invoice.listing_id ?? ""})',
+              ),
+              detailWidget(
                   title: "${StringConstant.role} :",
                   value: invoice.roles_list_name ?? ""),
               detailWidget(
@@ -285,7 +291,327 @@ class InvoiceGenerator {
                           DateTime.fromMillisecondsSinceEpoch(
                               (invoice.date!) * 1000))
                       : ""),
+              detailWidget(
+                  title: "${StringConstant.shiftTime} :",
+                  value: (invoice.clock_in_clock_out?.clock_in != null &&
+                          invoice.clock_in_clock_out?.clock_out != null)
+                      ? "${DateFormat("hh:mm a").format(DateTime.fromMillisecondsSinceEpoch((invoice.clock_in_clock_out!.clock_in!) * 1000))} to ${DateFormat("hh:mm a").format(DateTime.fromMillisecondsSinceEpoch((invoice.clock_in_clock_out!.clock_out!) * 1000))}"
+                      : ""),
+              if (invoice.clock_in_clock_out?.unpaid_break != null)
+                detailWidget(
+                    title: "${StringConstant.unpaidBreak} :",
+                    value:
+                        invoice.clock_in_clock_out?.unpaid_break?.name ?? ""),
+              detailWidget(
+                  title: "${StringConstant.totalShiftHours} :",
+                  value: invoice.clock_in_clock_out?.total_shift_hours ?? ""),
               paddingBetweenFilled(height: getSize(30)),
+              titleWidget(StringConstant.paymentsDetails),
+              detailWidget(
+                  title: "${StringConstant.totalPayableHours} :",
+                  value: invoice.total_payable_hours ?? ""),
+              detailWidget(
+                  title: "${StringConstant.hourlyRate} :",
+                  value: "\$${invoice.hourly_rate ?? 00}"),
+              detailWidget(
+                  title: "${StringConstant.totalWage} :",
+                  value: "\$${invoice.total_wage ?? 00}"),
+              detailWidget(
+                  title: "${StringConstant.totalAllowance} :",
+                  value: "\$${invoice.total_allowance ?? 00}"),
+              if (!isContractor) ...[
+                detailWidget(
+                    title: StringConstant.totalAmountPayableToContractor,
+                    value:
+                        "\$${invoice.total_amount_payable_contractor?.toStringAsFixed(2) ?? 00}"),
+                detailWidget(
+                    title: "${StringConstant.shiftFinderServiceFee} :",
+                    value: "\$${invoice.shiftfinder_service_fee ?? 00}"),
+                detailWidget(
+                    title: "${StringConstant.thirdPartyProcessingFee} :",
+                    value: "\$${invoice.third_party_fee ?? 00}"),
+                detailWidget(
+                    title: "${StringConstant.tax} :",
+                    value: "\$${invoice.third_party_tax_fee ?? 00}"),
+                detailWidget(
+                    title:
+                        "${StringConstant.totalAmountPayableToShiftFinder} :",
+                    value: "\$${invoice.shiftfinder_service_fee ?? 00}"),
+              ],
+              pw.Container(
+                padding: pw.EdgeInsets.symmetric(
+                    vertical: getSize(10), horizontal: getSize(16)),
+                margin: pw.EdgeInsets.symmetric(vertical: getSize(15)),
+                decoration: pw.BoxDecoration(
+                  borderRadius: pw.BorderRadius.circular(10),
+                  color: PdfColors.green100,
+                ),
+                child: pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Text("${StringConstant.totalAmountPayable} :",
+                        style: pw.TextStyle(
+                          fontSize: 12,
+                          fontWeight: pw.FontWeight.bold,
+                        )),
+                    pw.Text("\$${invoice.total_amount_payble ?? "00"}",
+                        style: pw.TextStyle(
+                          fontSize: 16,
+                          fontWeight: pw.FontWeight.bold,
+                        )),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+    return pdf.save();
+  }
+
+  Future<Uint8List> generateBillingInvoice2(EmployerInvoiceDTO invoice) async {
+    final pdf = pw.Document();
+
+    // Load the custom font
+    final regularFont = pw.Font.ttf(
+      await rootBundle.load('assets/fonts/RobotoFlex-Regular.ttf'),
+    );
+
+    pw.SizedBox paddingBetweenFilled({double? height, double? width}) {
+      return (width != null)
+          ? pw.SizedBox(width: getSize(width))
+          : pw.SizedBox(height: getSize(height ?? 10));
+    }
+
+    final industry = CommonList.industryList
+        .firstWhere((element) => element.id == invoice.industry);
+
+    final logoImage =
+        // await rootBundle.loadString('assets/svg/contact_support.svg');
+        await rootBundle.load('assets/png/splash_logo.png');
+
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) => pw.Container(
+          padding: pw.EdgeInsets.all(getSize(0)),
+          decoration: pw.BoxDecoration(
+            borderRadius: pw.BorderRadius.all(pw.Radius.circular(getSize(8))),
+          ),
+          child: pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              pw.Container(
+                  width: getSize(60),
+                  height: getSize(60),
+                  decoration: pw.BoxDecoration(
+                    shape: pw.BoxShape.circle,
+                    border: pw.Border.all(
+                      width: 2.0,
+                      color: PdfColor.fromInt(0xFF0FB62A),
+                    ),
+                  ),
+                  child: pw.Image(
+                    pw.MemoryImage(logoImage.buffer.asUint8List()),
+                  )),
+              paddingBetweenFilled(height: getSize(20)),
+              //// For Header
+              pw.Row(
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Row(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      mainAxisSize: pw.MainAxisSize.min,
+                      children: [
+                        pw.SizedBox(
+                          width: getSize(40),
+                          child: pw.Text(
+                            "From:",
+                            style: pw.TextStyle(
+                              fontBold: regularFont,
+                              fontSize: getFontSize(10),
+                              fontWeight: pw.FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        paddingBetweenFilled(width: getSize(10)),
+                        pw.Column(
+                            crossAxisAlignment: pw.CrossAxisAlignment.start,
+                            children: [
+                              pw.Text(
+                                invoice.employer_company_name ?? "",
+                                style: pw.TextStyle(
+                                  fontBold: regularFont,
+                                  fontSize: getFontSize(10),
+                                  fontWeight: pw.FontWeight.bold,
+                                ),
+                              ),
+                              // paddingBetweenFilled(),
+                              pw.Text(
+                                '(${industry.title ?? ""} - ${invoice.listing_id ?? ""})',
+                                style: pw.TextStyle(
+                                    font: regularFont,
+                                    fontSize: getFontSize(10)),
+                              ),
+                              /*  pw.Text(
+                        "${StringConstant.invoice} 74523456",
+                        style: pw.TextStyle(
+                            font: regularFont, fontSize: getFontSize(12)),
+                      ), */
+                              // paddingBetweenFilled(),
+                              pw.Text(
+                                invoice.location?.location ?? "",
+                                style: pw.TextStyle(
+                                    font: regularFont,
+                                    fontSize: getFontSize(10)),
+                              ),
+                            ]),
+                      ],
+                    ),
+                    pw.Column(
+                        mainAxisAlignment: pw.MainAxisAlignment.start,
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Row(
+                            mainAxisSize: pw.MainAxisSize.min,
+                            children: [
+                              pw.Text(
+                                "${StringConstant.invoice} :",
+                                style: pw.TextStyle(
+                                    font: regularFont,
+                                    fontSize: getFontSize(10)),
+                              ),
+                              pw.Text(
+                                "${invoice.id ?? ""}",
+                                style: pw.TextStyle(
+                                    font: regularFont,
+                                    fontSize: getFontSize(10)),
+                              ),
+                            ],
+                          ),
+                          pw.Row(
+                            mainAxisSize: pw.MainAxisSize.min,
+                            children: [
+                              pw.Text(
+                                "${StringConstant.date} :",
+                                style: pw.TextStyle(
+                                    font: regularFont,
+                                    fontSize: getFontSize(10)),
+                              ),
+                              pw.Text(
+                                DateFormat("dd MMM, yyyy")
+                                    .format(DateTime.now()),
+                                style: pw.TextStyle(
+                                    font: regularFont,
+                                    fontSize: getFontSize(10)),
+                              ),
+                            ],
+                          ),
+                          /* detailWidget(
+                              title: "${StringConstant.invoice} :",
+                              value: "${invoice.id ?? ""}"),
+                          detailWidget(
+                              title: "${StringConstant.date} :",
+                              value: (invoice.date != null)
+                                  ? DateFormat("dd MMM, yyyy")
+                                      .format(DateTime.now())
+                                  : ""), */
+                        ]),
+                  ]),
+              paddingBetweenFilled(height: getSize(20)),
+              pw.Row(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                mainAxisSize: pw.MainAxisSize.min,
+                children: [
+                  pw.SizedBox(
+                    width: getSize(40),
+                    child: pw.Text(
+                      "Bill To:",
+                      style: pw.TextStyle(
+                        fontBold: regularFont,
+                        fontSize: getFontSize(10),
+                        fontWeight: pw.FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  paddingBetweenFilled(width: getSize(10)),
+                  pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text(
+                          "${invoice.contractor_first_name ?? ""} ${invoice.contractor_last_name ?? ""}",
+                          style: pw.TextStyle(
+                            fontBold: regularFont,
+                            fontSize: getFontSize(10),
+                            fontWeight: pw.FontWeight.bold,
+                          ),
+                        ),
+                        // paddingBetweenFilled(),
+                        pw.Text(
+                          invoice.contractor_email ?? "",
+                          style: pw.TextStyle(
+                              font: regularFont, fontSize: getFontSize(10)),
+                        ),
+
+                        pw.Text(
+                          invoice.contractor_location?.location ?? "",
+                          style: pw.TextStyle(
+                              font: regularFont, fontSize: getFontSize(10)),
+                        ),
+                      ]),
+                ],
+              ),
+
+              pw.Padding(
+                padding: pw.EdgeInsets.symmetric(vertical: getSize(10)),
+                child: pw.Divider(),
+              ),
+              /* titleWidget(StringConstant.contractorsDetails),
+              detailWidget(
+                  title: "${StringConstant.name} :",
+                  value:
+                      "${invoice.contractor_first_name ?? ""} ${invoice.contractor_last_name ?? ""}"),
+              detailWidget(
+                  title: "${StringConstant.email} :",
+                  value: invoice.contractor_email ?? ""),
+              detailWidget(
+                  title: "${StringConstant.address} :",
+                  value: invoice.location?.location ?? ""),
+              paddingBetweenFilled(height: getSize(30)), */
+              titleWidget(StringConstant.shiftsDetails),
+              horizontalDetailWidget(
+                  title: "${StringConstant.role} :",
+                  value: invoice.roles_list_name ?? "",
+                  title2: "${StringConstant.shiftDate} :",
+                  value2: (invoice.date != null)
+                      ? DateFormat("dd MMM, yyyy").format(
+                          DateTime.fromMillisecondsSinceEpoch(
+                              (invoice.date!) * 1000))
+                      : "",
+                  regularFont: regularFont),
+              horizontalDetailWidget(
+                  title: "${StringConstant.shiftType} :",
+                  value: invoice.shift_type ?? "",
+                  title2: "${StringConstant.shiftType} :",
+                  value2: invoice.shift_type ?? "",
+                  regularFont: regularFont),
+              /*  detailWidget(
+                  title: "${StringConstant.shiftType} :",
+                  value: (invoice.shift_type == "2")
+                      ? StringConstant.multi
+                      : StringConstant.single),
+              detailWidget(
+                  title: "${StringConstant.role} :",
+                  value: invoice.roles_list_name ?? ""),
+              detailWidget(
+                  title: "${StringConstant.date} :",
+                  value: (invoice.date != null)
+                      ? DateFormat("dd MMM, yyyy").format(
+                          DateTime.fromMillisecondsSinceEpoch(
+                              (invoice.date!) * 1000))
+                      : ""),
+              paddingBetweenFilled(height: getSize(30)), */
               titleWidget(StringConstant.paymentsDetails),
               detailWidget(
                   title: "${StringConstant.totalPayableHours} :",
@@ -404,6 +730,13 @@ class InvoiceGenerator {
                                   fontSize: getFontSize(10),
                                 ),
                               ),
+                              /* pw.Text(
+                                "${StringConstant.invoice} 74523456",
+                                style: pw.TextStyle(
+                                  fontNormal: regularFont,
+                                  fontSize: getFontSize(10),
+                                ),
+                              ), */
                             ]),
                       ],
                     ),
@@ -697,6 +1030,68 @@ class InvoiceGenerator {
         ],
       ),
     );
+  }
+
+  pw.Row horizontalDetailWidget({
+    required String title,
+    required String value,
+    required String title2,
+    required String value2,
+    required pw.Font regularFont,
+  }) {
+    return pw
+        .Row(mainAxisAlignment: pw.MainAxisAlignment.spaceAround, children: [
+      pw.SizedBox(
+        width: getSize(300),
+        child: pw.Row(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          mainAxisSize: pw.MainAxisSize.min,
+          children: [
+            pw.SizedBox(
+              width: getSize(40),
+              child: pw.Text(
+                title,
+                style: pw.TextStyle(
+                  fontBold: regularFont,
+                  fontSize: getFontSize(10),
+                  fontWeight: pw.FontWeight.bold,
+                ),
+              ),
+            ),
+            pw.SizedBox(width: getSize(10)),
+            pw.Text(
+              value,
+              style: pw.TextStyle(font: regularFont, fontSize: getFontSize(10)),
+            ),
+          ],
+        ),
+      ),
+      pw.SizedBox(
+        width: getSize(350),
+        child: pw.Row(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          mainAxisSize: pw.MainAxisSize.min,
+          children: [
+            pw.SizedBox(
+              width: getSize(40),
+              child: pw.Text(
+                title2,
+                style: pw.TextStyle(
+                  fontBold: regularFont,
+                  fontSize: getFontSize(10),
+                  fontWeight: pw.FontWeight.bold,
+                ),
+              ),
+            ),
+            pw.SizedBox(width: getSize(10)),
+            pw.Text(
+              value2,
+              style: pw.TextStyle(font: regularFont, fontSize: getFontSize(10)),
+            ),
+          ],
+        ),
+      ),
+    ]);
   }
 
   pw.Padding detailWidget({

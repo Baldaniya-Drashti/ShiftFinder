@@ -10,6 +10,7 @@ class ContractorMainTabState with _$ContractorMainTabState {
     required String notificationPage,
     required String profilePage,
     required Widget currentPage,
+    required bool isLoading,
   }) = _ContractorMainTabState;
   factory ContractorMainTabState.initial() => ContractorMainTabState(
         selectedTab: 0,
@@ -19,5 +20,6 @@ class ContractorMainTabState with _$ContractorMainTabState {
         notificationPage: route.NotificationView.name,
         profilePage: route.ProfileView.name,
         currentPage: ContractorHomeView(),
+        isLoading: false,
       );
 }

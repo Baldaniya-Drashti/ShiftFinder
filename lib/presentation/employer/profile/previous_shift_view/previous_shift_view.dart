@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/employer/profile/previous_shift/previous_shift_bloc.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/core/widgets/underlined_tab_bar.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
@@ -18,23 +19,15 @@ class PreviousShiftView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => getIt<PreviousShiftBloc>()
-        ..add(
-          PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: 1),
-        )
-        ..add(
-          PreviousShiftEvent.fetchFavoriteList(refresh: true),
-        )
-        ..add(
-          PreviousShiftEvent.fetchBlockedList(refresh: true),
-        )
-        ..add(
-          PreviousShiftEvent.fetchRemarkedList(refresh: true),
-        ),
+        ..add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: 1))
+        ..add(PreviousShiftEvent.fetchFavoriteList(refresh: true))
+        ..add(PreviousShiftEvent.fetchBlockedList(refresh: true))
+        ..add(PreviousShiftEvent.fetchRemarkedList(refresh: true)),
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: CommonAppBar(
             onBackPressed: () => Navigator.pop(context),
-            title: "All ShiftPros",
+            title: StringConstant.allShiftPros,
           ),
           body: DefaultTabController(
             length: 4,
@@ -42,16 +35,14 @@ class PreviousShiftView extends StatelessWidget {
               children: [
                 UnderlinedTabBar(
                   tabs: [
-                    Tab(text: "All"),
-                    Tab(text: "Favorites"),
-                    Tab(text: "Blocked"),
-                    Tab(text: "Remarked"),
+                    Tab(text: StringConstant.all),
+                    Tab(text: StringConstant.favorites),
+                    Tab(text: StringConstant.blocked),
+                    Tab(text: StringConstant.remarked),
                   ],
                   onTap: (value) {
                     context.read<PreviousShiftBloc>().add(
-                          PreviousShiftEvent.tabChangeEvent(
-                              tabIndex: value + 1),
-                        );
+                        PreviousShiftEvent.tabChangeEvent(tabIndex: value + 1));
                   },
                 ),
                 BlocBuilder<PreviousShiftBloc, PreviousShiftState>(

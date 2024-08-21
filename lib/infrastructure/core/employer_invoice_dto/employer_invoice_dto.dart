@@ -22,13 +22,44 @@ class EmployerInvoiceDTO with _$EmployerInvoiceDTO {
     String? roles_list_name,
     int? date,
     String? total_payable_hours,
-    int? hourly_rate,
+    double? hourly_rate,
     String? total_wage,
     String? shiftfinder_service_fee,
     String? total_allowance,
     String? total_amount_payble,
+    int? invoice_no,
+    double? total_amount_payable_contractor,
+    String? third_party_fee,
+    String? third_party_tax_fee,
+    InvoiceClockInOutDTO? clock_in_clock_out,
   }) = _EmployerInvoiceDTO;
 
   factory EmployerInvoiceDTO.fromJson(Map<String, dynamic> json) =>
       _$EmployerInvoiceDTOFromJson(json);
+}
+
+@freezed
+class InvoiceClockInOutDTO with _$InvoiceClockInOutDTO {
+  const factory InvoiceClockInOutDTO({
+    int? clock_in,
+    int? clock_out,
+    String? total_shift_hours,
+    InvoiceUnpaidBreakDTO? unpaid_break,
+  }) = _InvoiceClockInOutDTO;
+
+  factory InvoiceClockInOutDTO.fromJson(Map<String, dynamic> json) =>
+      _$InvoiceClockInOutDTOFromJson(json);
+}
+
+@freezed
+class InvoiceUnpaidBreakDTO with _$InvoiceUnpaidBreakDTO {
+  const factory InvoiceUnpaidBreakDTO({
+    int? id,
+    String? name,
+    String? short_name,
+    int? minute,
+  }) = _InvoiceUnpaidBreakDTO;
+
+  factory InvoiceUnpaidBreakDTO.fromJson(Map<String, dynamic> json) =>
+      _$InvoiceUnpaidBreakDTOFromJson(json);
 }

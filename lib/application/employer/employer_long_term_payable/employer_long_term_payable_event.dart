@@ -9,5 +9,8 @@ class EmployerLongTermPayableEvent with _$EmployerLongTermPayableEvent {
     int? postId,
     required EmployerLongTermSuccessDto employer,
     required PostShiftDTO postShift,
+    required bool fromReview,
+    required bool fromTemplate,
+    required bool isCreate,
   }) = _OnPostShift;
 }

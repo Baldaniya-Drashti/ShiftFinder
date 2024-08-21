@@ -29,7 +29,7 @@ class EmployerProposalDto with _$EmployerProposalDto {
     int? same_or_different_time,
     int? total_shift,
     int? start_date,
-    int? counter_proposal_hourly_rate,
+    double? counter_proposal_hourly_rate,
     int? counter_proposal_commute_allowance,
     int? counter_proposal_accommodation_allowance,
     int? end_date,
@@ -37,7 +37,7 @@ class EmployerProposalDto with _$EmployerProposalDto {
     int? posted_end_time,
     int? agreed_start_time,
     int? agreed_end_time,
-    int? posted_hourly_rate,
+    double? posted_hourly_rate,
     double? proposed_hourly_rate,
     int? commute_allowance_type,
     double? posted_commute_allowance_rate,
@@ -56,6 +56,14 @@ class EmployerProposalDto with _$EmployerProposalDto {
     List<EmployerProposalShiftDetailDto>? shift_details,
     bool? isCardAdded,
     bool? occupied,
+    EmployerAgreedProposalDto? agreed,
+    double? counter_commute_allowance_rate,
+    int? counter_commute_allowance_hour_id,
+    double? counter_accommodation_allowance_rate,
+    int? counter_accommodation_allowance_hour_id,
+    String? counter_commute_allowance_hour_name,
+    String? counter_accommodation_allowance_hour_name,
+    EmployerAgreedShiftDetail? shift_detail,
   }) = _EmployerProposalDto;
 
   factory EmployerProposalDto.fromJson(Map<String, dynamic> json) =>
@@ -97,4 +105,57 @@ class EmployerProposalShiftDetailDto with _$EmployerProposalShiftDetailDto {
 
   factory EmployerProposalShiftDetailDto.fromJson(Map<String, dynamic> json) =>
       _$EmployerProposalShiftDetailDtoFromJson(json);
+}
+
+@freezed
+class EmployerAgreedProposalDto with _$EmployerAgreedProposalDto {
+  const factory EmployerAgreedProposalDto({
+    double? agreed_hourly_rate,
+    double? agreed_commute_allowance_rate,
+    int? agreed_commute_allowance_hour_id,
+    String? agreed_commute_allowance_hour_name,
+    double? agreed_accommodation_allowance_rate,
+    int? agreed_accommodation_allowance_hour_id,
+    String? agreed_accommodation_allowance_hour_name,
+  }) = _EmployerAgreedProposalDto;
+
+  factory EmployerAgreedProposalDto.fromJson(Map<String, dynamic> json) =>
+      _$EmployerAgreedProposalDtoFromJson(json);
+}
+
+@freezed
+class EmployerAgreedShiftDetail with _$EmployerAgreedShiftDetail {
+  const factory EmployerAgreedShiftDetail({
+    EmployerAgreedProposalEmployerAgreedShiftDetail? payables,
+  }) = _EmployerAgreedShiftDetail;
+
+  factory EmployerAgreedShiftDetail.fromJson(Map<String, dynamic> json) =>
+      _$EmployerAgreedShiftDetailFromJson(json);
+}
+
+@freezed
+class EmployerAgreedProposalEmployerAgreedShiftDetail
+    with _$EmployerAgreedProposalEmployerAgreedShiftDetail {
+  const factory EmployerAgreedProposalEmployerAgreedShiftDetail({
+    String? total_payable_hour,
+    String? rate_hour,
+    String? total_wage,
+    String? commute_allowance,
+    String? accommodation_allowance,
+    String? total_allowance,
+    String? service_fee,
+    String? total_one_shift,
+    int? number_of_vacancie,
+    String? total_amount_payable,
+    String? total_one_allowance,
+    int? number_of_shift,
+    String? service_one_fee,
+    String? third_party_fee,
+    String? third_party_tax_fee,
+    String? total_amount_payable_contractor,
+  }) = _EmployerAgreedProposalEmployerAgreedShiftDetail;
+
+  factory EmployerAgreedProposalEmployerAgreedShiftDetail.fromJson(
+          Map<String, dynamic> json) =>
+      _$EmployerAgreedProposalEmployerAgreedShiftDetailFromJson(json);
 }

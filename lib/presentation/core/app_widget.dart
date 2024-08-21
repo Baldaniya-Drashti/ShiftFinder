@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:shift/application/auth/auth_status/auth_status_bloc.dart';
+import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_main_bloc.dart';
+import 'package:shift/application/main_tab/main_tab_bloc.dart';
 import 'package:shift/application/splash/splash_bloc.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/core/app_router.dart';
@@ -23,6 +25,14 @@ class AppWidget extends StatelessWidget {
             ..add(
               const AuthStatusEvent.authCheckRequested(),
             ),
+        ),
+        bloc.BlocProvider(
+          create: (context) => getIt<ContractorMainTabBloc>()
+            ..add(ContractorMainTabEvent.tabChange(0)),
+        ),
+        bloc.BlocProvider(
+          create: (context) =>
+              getIt<MainTabBloc>()..add(MainTabEvent.tabChange(0)),
         ),
         bloc.BlocProvider(
           create: (context) => getIt<SplashBloc>()

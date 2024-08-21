@@ -2,25 +2,34 @@ part of 'add_full_position_bloc.dart';
 
 @freezed
 class AddFullPositionEvent with _$AddFullPositionEvent {
-  const factory AddFullPositionEvent.onCreate(BuildContext context,int? postId) = onCreate;
+  const factory AddFullPositionEvent.onCreate(
+      BuildContext context, int? postId) = onCreate;
 
-  const factory AddFullPositionEvent.fetchLocationList({required BuildContext context}) = FetchLocationList;
+  const factory AddFullPositionEvent.fetchLocationList(
+      {required BuildContext context}) = FetchLocationList;
 
-  const factory AddFullPositionEvent.onJobTypeChanged(CommonDropdownModel value) = OnJobTypeChanged;
+  const factory AddFullPositionEvent.onJobTypeChanged(
+      CommonDropdownModel value) = OnJobTypeChanged;
 
-  const factory AddFullPositionEvent.onShiftScheduleChanged(CommonDropdownModel value) = OnShiftScheduleChanged;
+  const factory AddFullPositionEvent.onShiftScheduleChanged(
+      CommonDropdownModel value) = OnShiftScheduleChanged;
 
-  const factory AddFullPositionEvent.onLocationChanged({required LocationDTO selectedLocation}) = OnLocationChanged;
+  const factory AddFullPositionEvent.onLocationChanged(
+      {required LocationDTO selectedLocation}) = OnLocationChanged;
 
-  const factory AddFullPositionEvent.onCompensationTypeChanged({required int type}) = OnCompensationTypeChanged;
+  const factory AddFullPositionEvent.onCompensationTypeChanged(
+      {required int type}) = OnCompensationTypeChanged;
 
-  const factory AddFullPositionEvent.onEstimatedDateChanged({required TimeOfDay value}) = OnEstimatedDateChanged;
+  const factory AddFullPositionEvent.onEstimatedDateChanged(
+      {required TimeOfDay value}) = OnEstimatedDateChanged;
 
-  const factory AddFullPositionEvent.removeShiftSchedule(String selectedValue) = RemoveShiftSchedule;
+  const factory AddFullPositionEvent.removeShiftSchedule(String selectedValue) =
+      RemoveShiftSchedule;
 
-  const factory AddFullPositionEvent.confirmShiftSchedule(List<String> shiftSchedule) = ConfirmSoftwareSkill;
-  const factory AddFullPositionEvent.getEmployerFullPostingData(BuildContext context,int id) = GetEmployerFullPostingData;
-
+  const factory AddFullPositionEvent.confirmShiftSchedule(
+      List<String> shiftSchedule) = ConfirmSoftwareSkill;
+  const factory AddFullPositionEvent.getEmployerFullPostingData(
+      BuildContext context, int id) = GetEmployerFullPostingData;
 
   const factory AddFullPositionEvent.onContinue({
     required BuildContext context,
@@ -37,18 +46,24 @@ class AddFullPositionEvent with _$AddFullPositionEvent {
     required String requiredSkill,
     required String others,
     required String position,
+    required bool fromReview,
+    required bool fromTemplate,
+    required bool isCreate,
   }) = OnContinue;
 
-  const factory AddFullPositionEvent.locationChanged(String selectedValue) = LocationChanged;
+  const factory AddFullPositionEvent.locationChanged(String selectedValue) =
+      LocationChanged;
 
-  const factory AddFullPositionEvent.locationUnitSelectionChanged(String selectedUnit) = LocationUnitSelectionChanged;
-  const factory AddFullPositionEvent.selectEstimatedHour({required TimeOfDay estimatedHour}) = SelectEstimatedHour;
+  const factory AddFullPositionEvent.locationUnitSelectionChanged(
+      String selectedUnit) = LocationUnitSelectionChanged;
+  const factory AddFullPositionEvent.selectEstimatedHour(
+      {required TimeOfDay estimatedHour}) = SelectEstimatedHour;
 
-  const factory AddFullPositionEvent.confirmLanguageList(List<String> languageList, List<String> otherLanguageList) = ConfirmLanguageList;
-  const factory AddFullPositionEvent.removeLanguageChips(String selectedLanguage) = RemoveLanguageChips;
-  const factory AddFullPositionEvent.addLanguageChips(String selectedLanguage, {bool? isOtherValue}) = AddLanguageChips;
-
-
-
-
+  const factory AddFullPositionEvent.confirmLanguageList(
+          List<String> languageList, List<String> otherLanguageList) =
+      ConfirmLanguageList;
+  const factory AddFullPositionEvent.removeLanguageChips(
+      String selectedLanguage) = RemoveLanguageChips;
+  const factory AddFullPositionEvent.addLanguageChips(String selectedLanguage,
+      {bool? isOtherValue}) = AddLanguageChips;
 }

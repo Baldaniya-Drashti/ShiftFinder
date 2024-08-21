@@ -14,7 +14,8 @@ class ProofOfLegalStatusEvent with _$ProofOfLegalStatusEvent {
   const factory ProofOfLegalStatusEvent.deleteBackDoc(String backDoc) =
       DeleteBackDoc;
   const factory ProofOfLegalStatusEvent.proofLegalDocSubmit(
-      BuildContext context) = ProofLegalDocSubmit;
+      BuildContext context,
+      {required bool isUpdate}) = ProofLegalDocSubmit;
   const factory ProofOfLegalStatusEvent.expiryDateChanged(String expiryDate) =
       ExpiryDateChanged;
 }

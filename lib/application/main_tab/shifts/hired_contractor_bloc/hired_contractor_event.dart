@@ -25,6 +25,7 @@ class HiredContractorEvent with _$HiredContractorEvent {
     BuildContext context, {
     required int postId,
     required int userId,
+    required bool isEdit,
     int? clockIn,
     int? clockOut,
   }) = SubmitClockInOutTime;

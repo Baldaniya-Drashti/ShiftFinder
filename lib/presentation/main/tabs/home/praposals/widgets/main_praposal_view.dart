@@ -10,6 +10,7 @@ import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposa
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
@@ -120,7 +121,9 @@ class MainPraposalView extends StatelessWidget {
                     final latitude = location?.latitude;
                     final longitude = location?.longitude;
                     if (latitude != null && longitude != null) {
-                      context.router.push(
+                      LocationHelper.openDirections(context,
+                          endLat: latitude, endLng: longitude);
+                      /* context.router.push(
                         PageRouteInfo(
                           ShowGoogleMap.name,
                           args: ShowGoogleMapArgs(
@@ -128,7 +131,7 @@ class MainPraposalView extends StatelessWidget {
                             longitude: longitude,
                           ),
                         ),
-                      );
+                      ); */
                     }
                   },
                   child: Row(

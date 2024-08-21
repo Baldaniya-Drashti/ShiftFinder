@@ -138,8 +138,6 @@ class LocationDetailForm extends StatelessWidget {
                                   child: CommonButton(
                                     isSubmitting: state.isSubmitting,
                                     onPressed: () {
-                                      print(
-                                          "Address---> ${state.address.getValue()}");
                                       context.read<LocationDetailsBloc>().add(
                                           LocationDetailsEvent
                                               .continueBtnPressed(context));
@@ -410,9 +408,11 @@ class LocationDetailForm extends StatelessWidget {
               .bodyMedium!
               .copyWith(color: AppColors.black),
           onTap: () {
-            LocationDialog.showLocationDialog(context,
-                    predictions: state.selectedLocationPrediction)
-                .then((value) {
+            LocationDialog.showLocationDialog(
+              context,
+              predictions: state.selectedLocationPrediction,
+              location: LocationDetailsBloc.locationCtrl.text,
+            ).then((value) {
               if (value != null) {
                 print("selected location ---> $value");
                 context.read<LocationDetailsBloc>().add(

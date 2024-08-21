@@ -16,6 +16,7 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/dialogs.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_chip_display.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_item.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_selectable_dropdown.dart';
@@ -61,56 +62,77 @@ class AddContractorSkillsForm extends StatelessWidget {
       create: (context) => getIt<AddContractorSkillFormBloc>()
         ..add(
             AddContractorSkillFormEvent.getAllDropDownList(isUpdate: isUpdate)),
-      child: GestureDetector(
-        onTap: () {
-          AppFocus.unfocus(context);
-        },
-        child: Scaffold(
-            appBar: CommonAppBar(
-              isShowBackBtn: !isFromSplash,
-              onBackPressed: () {
-                context.router.maybePop();
-              },
-              title: StringConstant.completeProfile,
-            ),
-            body: BlocConsumer<AddContractorSkillFormBloc,
-                AddContractorSkillFormState>(
-              listener: (context, state) {
-                state.authFailureOrSuccessOption.fold(
-                  () {},
-                  (either) => either.fold(
-                    (failure) {
-                      showError(
-                        message: failure.maybeMap(
-                          showAPIResponseMessage: (value) => value.message,
-                          networkError: (value) =>
-                              'Please check your internet connectivity',
-                          orElse: () => "Server Error. Try again later.",
-                        ),
-                      ).show(context);
-                    },
-                    (r) {
-                      context.router
-                          .push(PageRouteInfo(AddExperienceDetailScreen.name,
-                              args: AddExperienceDetailScreenArgs(
-                                  isUpdate: isUpdate)))
-                          .then((value) {
-                        if (value == true) {
-                          Navigator.pop(context, true);
-                        }
-                      });
-                      /*  context.router.push(PageRouteInfo(
-                        AddSpecialityExperience.name,
-                        args: AddSpecialityExperienceArgs(
-                          isUpdate: isUpdate,
-                        ),
-                      )); */
-                    },
+      child:
+          BlocConsumer<AddContractorSkillFormBloc, AddContractorSkillFormState>(
+        listener: (context, state) {
+          state.authFailureOrSuccessOption.fold(
+            () {},
+            (either) => either.fold(
+              (failure) {
+                showError(
+                  message: failure.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
                   ),
-                );
+                ).show(context);
               },
-              builder: (context, state) {
-                return (state.isLoading)
+              (r) {
+                context.router
+                    .push(PageRouteInfo(AddExperienceDetailScreen.name,
+                        args: AddExperienceDetailScreenArgs(
+                          isUpdate: isUpdate,
+                          isRoleForceUpdate: state.isRoleListUpdated,
+                          isSpecialityForceUpdate:
+                              state.isSpecialityListUpdated,
+                        )))
+                    .then((value) {
+                  if (value == true) {
+                    Navigator.pop(context, true);
+                  }
+                });
+                /*  context.router.push(PageRouteInfo(
+                              AddSpecialityExperience.name,
+                              args: AddSpecialityExperienceArgs(
+                                isUpdate: isUpdate,
+                              ),
+                            )); */
+              },
+            ),
+          );
+        },
+        builder: (context, state) {
+          return PopScope(
+            canPop: (isUpdate &&
+                !state.isRoleListUpdated &&
+                !state.isSpecialityListUpdated),
+            child: GestureDetector(
+              onTap: () {
+                AppFocus.unfocus(context);
+              },
+              child: Scaffold(
+                appBar: CommonAppBar(
+                  isShowBackBtn: !isFromSplash,
+                  onBackPressed: () {
+                    if (isUpdate && state.isRoleListUpdated) {
+                      AppDialog.showInfo(
+                          context,
+                          // "You have added a new role. Please update your experience for this role before proceeding. \nTap 'Update' to continue.",
+                          StringConstant.forceRoleUpdateDesc);
+                    } else if (isUpdate && state.isSpecialityListUpdated) {
+                      AppDialog.showInfo(
+                          context,
+                          // "You have added a new speciality. Please update your experience for this speciality before proceeding. \nTap 'Update' to continue.",
+                          StringConstant.forceSpecialityUpdateDesc);
+                    } else {
+                      Navigator.pop(context);
+                      // context.router.maybePop();
+                    }
+                  },
+                  title: StringConstant.completeProfile,
+                ),
+                body: (state.isLoading)
                     ? CenterLoadingIndicator()
                     : Padding(
                         padding: EdgeInsets.symmetric(horizontal: getSize(20)),
@@ -136,7 +158,7 @@ class AddContractorSkillsForm extends StatelessWidget {
                                 specialityDropDown(context, state),
                                 paddingBetweenFields(),
                                 /*requiredSpecialityDropDownChipset(
-                                    context, state),*/
+                                            context, state),*/
                                 preferredSoftwareSkillsDropDownChipSet(
                                     context, state),
                                 paddingBetweenFields(),
@@ -161,9 +183,11 @@ class AddContractorSkillsForm extends StatelessWidget {
                             ),
                           ),
                         ),
-                      );
-              },
-            )),
+                      ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

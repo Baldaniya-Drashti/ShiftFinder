@@ -149,8 +149,6 @@ class MyCalendarViewBloc
               if (!isSelected) {
                 currentDateId = item.employer_post_id;
                 currentDate = item.date;
-                print("currentDateId---> $currentDateId");
-                print("currentDate---> $currentDate");
 
                 return item.copyWith(
                   isUnAvailable: !item.isUnAvailable,
@@ -202,7 +200,6 @@ class MyCalendarViewBloc
                 ).show(e.context);
               },
               (r) {
-                print("post--> $r");
                 emit(state.copyWith(
                   isGetting: false,
                   contractorDetail: r,
@@ -216,7 +213,33 @@ class MyCalendarViewBloc
             ));
           }
         },
+        removeChatCount: (e) async {
+          Either<MainFailure, ContractorMyCalendarDTO>? failureOrSuccess;
+          failureOrSuccess = await _mainFacade.getContractorMyCalendarDetailApi(
+            e.selectedId,
+            e.selectedDate,
+          );
 
+          failureOrSuccess.fold(
+            (l) {
+              emit(state.copyWith(isGetting: false));
+              showError(
+                message: l.maybeMap(
+                  showAPIResponseMessage: (value) => value.message,
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
+                  orElse: () => "Server Error. Try again later.",
+                ),
+              ).show(e.context);
+            },
+            (r) {
+              emit(state.copyWith(
+                isGetting: false,
+                contractorDetail: r,
+              ));
+            },
+          );
+        },
         /* selectDateEvent: (e) async {
           String? currentDateId;
           int? currentDate;

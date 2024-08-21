@@ -7,7 +7,9 @@ class EmployerFullPostingReviewEvent with _$EmployerFullPostingReviewEvent {
     required EmployerLongTermSuccessDto employer,
     required EmployerLongTermSuccessDto data,
     required int id,
-
+    required bool fromReview,
+    required bool fromTemplate,
+    required bool isCreate,
     int? postId,
   }) = OnSubmit;
 }

@@ -6,8 +6,12 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_main_bloc.dart';
+import 'package:shift/application/main_tab/main_tab_bloc.dart';
 import 'package:shift/domain/auth/i_auth_facade.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 
 late final IAuthFacade authFacade;
 @pragma('vm:entry-point')
@@ -41,13 +45,13 @@ class PushNotificationService {
     await firebaseMessaging.getInitialMessage().then((RemoteMessage? message) {
       log('getInitialMessage : ${message?.data}');
       if (message != null) {
-        onTapNotification(message);
+        onTapNotification(message, context: context);
       }
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
       log('onMessageOpenedApp : ${message.data}');
-      onTapNotification(message);
+      onTapNotification(message, context: context);
     });
     _isAndroidPermissionGranted();
     _requestPermissions();
@@ -118,14 +122,15 @@ class PushNotificationService {
             // RemoteMessage(data: jsonDecode(details.payload ?? ""));
             onTapNotification(
               RemoteMessage(data: jsonDecode(details.payload ?? "")),
+              context: context,
             );
-
             break;
 
           case NotificationResponseType.selectedNotificationAction:
             log('NotificationResponseType.selectedNotificationAction : ${details.payload}');
             onTapNotification(
               RemoteMessage(data: jsonDecode(details.payload ?? "")),
+              context: context,
             );
 
             break;
@@ -182,11 +187,159 @@ class PushNotificationService {
       );
 }
 
-onTapNotification(RemoteMessage message) async {
+onTapNotification(RemoteMessage message, {BuildContext? context}) async {
+  setNotificationTab(null);
+  setNotificationSubTab(null);
+  final currentRole = getCurrentRole();
   log('onTapNotification : ${message.data}');
+
+  // getIt<ContractorMainTabBloc>().add(ContractorMainTabEvent.tabChange(1));
+
+  /*if (message.data['type'] == '1') {
+    await getIt<AppRouter>().push(
+      PageRouteInfo(
+        route.Message.name,
+        args: route.MessageArgs(
+          receiverId: message.data['data_id'],
+        ),
+      ),
+    );
+  } else */
+
+  /// >>>>> LATEST NOTIFICATION <<<<< ///
+  /* if (message.data['type'] == '2') {
+    if (currentRole == 2) {
+      await getIt<AppRouter>().push(
+        PageRouteInfo(route.ViewHomeShiftDetails.name,
+            args: route.ViewHomeShiftDetailsArgs(
+              postId: int.parse(message.data['post_id'] ?? "0"),
+            )),
+      );
+    } else {
+      getIt<AppRouter>().push(
+        PageRouteInfo(
+          ViewContractorShift.name,
+          args: ViewContractorShiftArgs(
+            postId: int.parse(message.data['post_id'] ?? "0"),
+            isTotalApplicants: false,
+            isUpcoming: false,
+          ),
+        ),
+      );
+    }
+  } else if (message.data['type'] == '6') {
+    if (currentRole == 2) {
+      /// FOR APPLICATIONS
+      await getIt<AppRouter>().push(PageRouteInfo(
+          route.ViewSingleApplicants.name,
+          args: route.ViewSingleApplicantsArgs(
+              postId: int.parse(message.data['post_id'] ?? "0"))));
+    } else {
+      if (context != null) {
+        context
+            .read<ContractorMainTabBloc>()
+            .add(ContractorMainTabEvent.tabChange(2));
+      }
+      /*  await getIt<AppRouter>().push(
+        PageRouteInfo(route.ViewHomeShiftDetails.name,
+            args: route.ViewHomeShiftDetailsArgs(
+              postId: int.parse(message.data['post_id'] ?? "0"),
+            )),
+      ); */
+    }
+  } else if (message.data['type'] == '7') {
+    if (currentRole == 2) {
+      /// FOR PROPOSAL
+      getIt<AppRouter>().push(
+        PageRouteInfo(route.TotalPraposalView.name,
+            args: route.TotalPraposalViewArgs(
+                postId: int.parse(message.data['post_id'] ?? "0"))),
+      );
+    } else {
+      getIt<AppRouter>().push(
+        PageRouteInfo(
+          ViewContractorShift.name,
+          args: ViewContractorShiftArgs(
+            postId: int.parse(message.data['post_id'] ?? "0"),
+            isTotalApplicants: false,
+            isUpcoming: false,
+          ),
+        ),
+      );
+    }
+  } else if (message.data['type'] == '4') {
+    /// FOR APPLICATIONS
+    if (currentRole == 2) {
+      await getIt<AppRouter>().push(PageRouteInfo(
+          route.ViewSingleApplicants.name,
+          args: route.ViewSingleApplicantsArgs(
+              postId: int.parse(message.data['post_id'] ?? "0"))));
+    } else {
+      if (context != null) {
+        context
+            .read<ContractorMainTabBloc>()
+            .add(ContractorMainTabEvent.tabChange(2));
+      }
+
+      /* getIt<AppRouter>().push(
+        PageRouteInfo(
+          ViewContractorShift.name,
+          args: ViewContractorShiftArgs(
+            postId: int.parse(message.data['post_id'] ?? "0"),
+            isTotalApplicants: false,
+            isUpcoming: false,
+          ),
+        ),
+      ); */
+    }
+  } else if (message.data['type'] == '5') {
+    if (currentRole == 2) {
+      getIt<AppRouter>().push(
+        PageRouteInfo(route.TotalPraposalView.name,
+            args: route.TotalPraposalViewArgs(
+                postId: int.parse(message.data['post_id'] ?? "0"))),
+      );
+    } else {
+      if (context != null) {
+        context
+            .read<ContractorMainTabBloc>()
+            .add(ContractorMainTabEvent.tabChange(2));
+      }
+      /* getIt<AppRouter>().push(
+        PageRouteInfo(
+          ViewContractorShift.name,
+          args: ViewContractorShiftArgs(
+            postId: int.parse(message.data['post_id'] ?? "0"),
+            isTotalApplicants: false,
+            isUpcoming: false,
+          ),
+        ),
+      ); */
+    }
+  } else {
+    if (context != null) {
+      if (currentRole == 2) {
+        context.read<MainTabBloc>().add(MainTabEvent.tabChange(2));
+      } else {
+        context
+            .read<ContractorMainTabBloc>()
+            .add(ContractorMainTabEvent.tabChange(2));
+      }
+    }
+  } */
+
+  if (context != null) {
+    if (currentRole == 2) {
+      context.read<MainTabBloc>().add(MainTabEvent.tabChange(2));
+    } else {
+      context
+          .read<ContractorMainTabBloc>()
+          .add(ContractorMainTabEvent.tabChange(2));
+    }
+  }
   // getIt<MainTabBloc>().add(MainTabEvent.tabChange(2));
-  if (message.data['type'] == '2') {
-    /*   await getIt<AppRouter>().push(
+  // if (message.data['type'] == '2') {
+  /*   await getIt<AppRouter>().push(
         PageRouteInfo(
           NotificationView.name,
           /*        Chat.name,
@@ -196,7 +349,7 @@ onTapNotification(RemoteMessage message) async {
         ),
       ); */
 // context.read<MainTabBloc>().add(MainTabEvent.tabChange(3));
-    /* await getIt<AppRouter>().push(
+  /* await getIt<AppRouter>().push(
       PageRouteInfo(
         ChatView.name,
         args: ChatViewArgs(
@@ -204,10 +357,10 @@ onTapNotification(RemoteMessage message) async {
         ),
       ),
     ); */
-    // if (res != null && res == true) {
-    //   context
-    //       .read<NotificationsBloc>()
-    //       .add(NotificationsEvent.getMessageList(true));
-    // }
-  }
+  // if (res != null && res == true) {
+  //   context
+  //       .read<NotificationsBloc>()
+  //       .add(NotificationsEvent.getMessageList(true));
+  // }
+  // }
 }

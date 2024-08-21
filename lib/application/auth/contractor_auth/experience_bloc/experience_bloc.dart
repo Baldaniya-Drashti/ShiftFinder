@@ -32,8 +32,9 @@ class ExperienceBloc extends Bloc<ExperienceEvent, ExperienceState> {
               authFailureOrSuccessOption: none(),
             ),
           );
-          if (e.isUpdate) {
-            await getExistingRoleDetail(emit);
+          await getExistingRoleDetail(emit);
+          /* if (e.isUpdate) {
+            // await getExistingRoleDetail(emit);
           } else {
             final roleList = await _repository.getExperienceRoleList();
             roleList.fold(
@@ -54,7 +55,7 @@ class ExperienceBloc extends Bloc<ExperienceEvent, ExperienceState> {
                 );
               },
             );
-          }
+          } */
         },
         updateRecordEvent: (e) {
           List<ExperienceDTO> updatedRecords = List.from(state.records);
@@ -98,9 +99,8 @@ class ExperienceBloc extends Bloc<ExperienceEvent, ExperienceState> {
             );
 
             failureOrSuccess = await _repository.addExperienceApi(
-              experienceDetail: jsonEncode(mapExperienceDTOToApiFormat(
-                  state.records,
-                  isUpdate: e.isUpdate)),
+              experienceDetail:
+                  jsonEncode(mapExperienceDTOToApiFormat(state.records)),
             );
           }
           print("failureOrSuccess--> $failureOrSuccess");
@@ -189,11 +189,10 @@ class ExperienceBloc extends Bloc<ExperienceEvent, ExperienceState> {
   }
 
   List<Map<String, dynamic>> mapExperienceDTOToApiFormat(
-      List<ExperienceDTO?> experienceRoleList,
-      {bool isUpdate = false}) {
+      List<ExperienceDTO?> experienceRoleList) {
     return experienceRoleList.map((role) {
       return {
-        'role_id': (isUpdate) ? role?.role?.id : role?.id,
+        'role_id': role?.role?.id,
         'experience_year': role?.experience_year,
         'experience_month': role?.experience_month,
       };

@@ -24,6 +24,7 @@ _$ContractorLongTermDashboardDtoImpl
           shift_schedule_type: json['shift_schedule_type'] as String?,
           position: json['position'] as String?,
           specialties_list: json['specialties_list'] as String?,
+          specialties_detail: json['specialties_detail'] as String?,
           industry_id: (json['industry_id'] as num?)?.toInt(),
           request: (json['request'] as num?)?.toInt(),
           urgent_action: (json['urgent_action'] as num?)?.toInt(),
@@ -34,7 +35,7 @@ _$ContractorLongTermDashboardDtoImpl
           end_date: const DateTimeConverter()
               .fromJson((json['end_date'] as num?)?.toInt()),
           total_vacancy: (json['total_vacancy'] as num?)?.toInt(),
-          rate_hour: (json['rate_hour'] as num?)?.toInt(),
+          rate_hour: (json['rate_hour'] as num?)?.toDouble(),
           total_payable_hour: (json['total_payable_hour'] as num?)?.toInt(),
           number_of_vacancie: (json['number_of_vacancie'] as num?)?.toInt(),
           application_deadline: const DateTimeConverter()
@@ -75,6 +76,7 @@ Map<String, dynamic> _$$ContractorLongTermDashboardDtoImplToJson(
       'shift_schedule_type': instance.shift_schedule_type,
       'position': instance.position,
       'specialties_list': instance.specialties_list,
+      'specialties_detail': instance.specialties_detail,
       'industry_id': instance.industry_id,
       'request': instance.request,
       'urgent_action': instance.urgent_action,

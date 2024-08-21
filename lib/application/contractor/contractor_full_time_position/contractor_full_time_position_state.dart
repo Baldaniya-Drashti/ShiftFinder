@@ -6,18 +6,19 @@ class ContractorFullTimePositionState with _$ContractorFullTimePositionState {
     @Default(false) bool isLoading,
     @Default(false) bool isNoDataFound,
     @Default(false) bool isErrorInAPI,
-
     @Default(false) bool appliedLoading,
     @Default(false) bool appliedNoDataFound,
     @Default(false) bool appliedIsErrorInAPI,
-
     @Default(false) bool postDataLoading,
     required List<ContractorLongTermDashboardDto> openPositionList,
     required List<ContractorLongTermDashboardDto> appliedPositionList,
+    required int selectedTab,
   }) = _EmployerLongTermPositionAddDetailState;
 
-  factory ContractorFullTimePositionState.initial() => ContractorFullTimePositionState(
-    openPositionList: [],
-    appliedPositionList: [],
-  );
+  factory ContractorFullTimePositionState.initial() =>
+      ContractorFullTimePositionState(
+        openPositionList: [],
+        appliedPositionList: [],
+        selectedTab: 0,
+      );
 }

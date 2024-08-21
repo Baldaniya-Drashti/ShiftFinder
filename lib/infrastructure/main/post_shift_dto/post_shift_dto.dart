@@ -35,6 +35,7 @@ class PostShiftDTO with _$PostShiftDTO {
     String? save_template_status,
 
     /// New Params
+    int? dateUpdate,
     int? shift_type,
     String? date,
     int? same_or_different_time,

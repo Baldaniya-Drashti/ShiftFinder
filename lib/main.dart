@@ -58,7 +58,6 @@ Future<void> main() async {
         );
         EnvironmentCongig().initConfig(environment);
         await setupHive();
-
         Stripe.publishableKey = dotenv.get("STRIPE_TEST_PUBLISH_KEY");
         print("Stripe publish key after---> ${Stripe.publishableKey}");
         runApp(const RestartWidget(child: AppWidget()));

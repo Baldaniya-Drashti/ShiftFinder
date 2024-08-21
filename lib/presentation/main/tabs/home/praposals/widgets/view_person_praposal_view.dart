@@ -86,24 +86,110 @@ class ViewPersonPraposalView extends StatelessWidget {
                           children: [
                             getTitleAndDescription(
                               context,
-                              title: 'Posted Time',
+                              title: StringConstant.postedTime,
                               description:
                                   '${formatUnixTimestamp(data.posted_start_time ?? 0)} to ${formatUnixTimestamp(data.posted_end_time ?? 0)}',
                             ),
                             SizedBox(height: getSize(20)),
                             getTitleAndDescription(
                               context,
-                              title: 'Proposed Time',
+                              title: StringConstant.proposedTime,
                               description:
                                   '${formatUnixTimestamp(data.agreed_start_time ?? 0)} to ${formatUnixTimestamp(data.agreed_end_time ?? 0)}',
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: getSize(20)),
                     ],
-                    BaseText(
-                      text: 'Hourly Rate',
+                    proposedBox(
+                      title: StringConstant.hourlyRate,
+                      postedValue: allowncValue(
+                        "${data.posted_hourly_rate ?? 00}",
+                        isRate: true,
+                      ),
+                      proposedValue: allowncValue(
+                        "${data.proposed_hourly_rate ?? 00}",
+                        isRate: true,
+                      ),
+                      counterProposalValue: allowncValue(
+                        "${data.counter_proposal_hourly_rate ?? ""}",
+                        isRate: true,
+                      ),
+                    ),
+                    if (data.commute_allowance_type != 0) ...[
+                      SizedBox(height: getSize(10)),
+                      Builder(builder: (context) {
+                        final hourly = data.commute_allowance_type == 2;
+                        String postedDescription,
+                            proposedDescription,
+                            counterProposedDescription;
+                        if (hourly) {
+                          postedDescription =
+                              data.posted_commute_allowance_hour_name ?? "";
+                          proposedDescription =
+                              data.proposed_commute_allowance_hour_name ?? "";
+                          counterProposedDescription =
+                              data.counter_commute_allowance_hour_name ?? "";
+                        } else {
+                          postedDescription =
+                              "\$${data.posted_commute_allowance_rate ?? ""}";
+                          proposedDescription =
+                              "\$${data.proposed_commute_allowance_rate ?? ""}";
+                          counterProposedDescription = (data
+                                      .counter_commute_allowance_rate !=
+                                  null)
+                              ? "\$${data.counter_commute_allowance_rate ?? ""}"
+                              : "";
+                        }
+                        return proposedBox(
+                          title: StringConstant.commuteAllowance,
+                          postedValue: postedDescription,
+                          proposedValue: proposedDescription,
+                          counterProposalValue: counterProposedDescription,
+                        );
+                      }),
+                    ],
+                    if (data.accommodation_allowance_type != 0) ...[
+                      SizedBox(height: getSize(10)),
+                      Builder(builder: (context) {
+                        final isCommuteAllowanceHourly =
+                            data.accommodation_allowance_type == 2;
+                        String postedDescription,
+                            proposedDescription,
+                            counterProposedDescription;
+
+                        if (isCommuteAllowanceHourly) {
+                          postedDescription =
+                              data.posted_accommodation_allowance_hour_name ??
+                                  "";
+                          proposedDescription =
+                              data.proposed_accommodation_allowance_hour_name ??
+                                  "";
+                          counterProposedDescription =
+                              data.counter_accommodation_allowance_hour_name ??
+                                  "";
+                        } else {
+                          postedDescription =
+                              "\$${data.posted_accommodation_allowance_rate ?? ""}";
+                          proposedDescription =
+                              "\$${data.proposed_accommodation_allowance_rate ?? ""}";
+                          counterProposedDescription = (data
+                                      .counter_accommodation_allowance_rate !=
+                                  null)
+                              ? "\$${data.counter_accommodation_allowance_rate ?? ""}"
+                              : "";
+                        }
+                        return proposedBox(
+                          title: StringConstant.accommodationAllowance,
+                          postedValue: postedDescription,
+                          proposedValue: proposedDescription,
+                          counterProposalValue: counterProposedDescription,
+                        );
+                      }),
+                    ],
+                    /* 
+                     BaseText(
+                      text: StringConstant.hourlyRate,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
@@ -118,15 +204,24 @@ class ViewPersonPraposalView extends StatelessWidget {
                         children: [
                           getTitleAndDescription(
                             context,
-                            title: 'Posted',
+                            title: StringConstant.posted,
                             description: '\$${data.posted_hourly_rate ?? ""}',
                           ),
                           SizedBox(height: getSize(20)),
                           getTitleAndDescription(
                             context,
-                            title: 'Proposed',
+                            title: StringConstant.proposed,
                             description: '\$${data.proposed_hourly_rate ?? ""}',
                           ),
+                          if (data.counter_proposal_hourly_rate != null) ...[
+                            SizedBox(height: getSize(20)),
+                            getTitleAndDescription(
+                              context,
+                              title: StringConstant.counterProposed,
+                              description:
+                                  '\$${data.counter_proposal_hourly_rate ?? ""}',
+                            ),
+                          ],
                         ],
                       ),
                     ),
@@ -146,32 +241,48 @@ class ViewPersonPraposalView extends StatelessWidget {
                         ),
                         child: Builder(builder: (context) {
                           final hourly = data.commute_allowance_type == 2;
-                          String postedDescription, proposedDescription;
+                          String postedDescription,
+                              proposedDescription,
+                              counterProposedDescription;
                           if (hourly) {
                             postedDescription =
                                 data.posted_commute_allowance_hour_name ?? "";
                             proposedDescription =
                                 data.proposed_commute_allowance_hour_name ?? "";
+                            counterProposedDescription = data
+                                    .counter_commute_allowance_hour_id
+                                    .toString() ??
+                                "";
                           } else {
                             postedDescription =
                                 "\$${data.posted_commute_allowance_rate ?? ""}";
                             proposedDescription =
                                 "\$${data.proposed_commute_allowance_rate ?? ""}";
+                            counterProposedDescription =
+                                "\$${data.counter_commute_allowance_rate ?? ""}";
                           }
 
                           return Column(
                             children: [
                               getTitleAndDescription(
                                 context,
-                                title: 'Posted',
+                                title: StringConstant.posted,
                                 description: postedDescription,
                               ),
                               SizedBox(height: getSize(20)),
                               getTitleAndDescription(
                                 context,
-                                title: 'Proposed',
+                                title: StringConstant.proposed,
                                 description: proposedDescription,
                               ),
+                              if (counterProposedDescription.isNotEmpty) ...[
+                                SizedBox(height: getSize(20)),
+                                getTitleAndDescription(
+                                  context,
+                                  title: StringConstant.counterProposed,
+                                  description: counterProposedDescription,
+                                ),
+                              ],
                             ],
                           );
                         }),
@@ -194,7 +305,9 @@ class ViewPersonPraposalView extends StatelessWidget {
                         child: Builder(builder: (context) {
                           final isCommuteAllowanceHourly =
                               data.accommodation_allowance_type == 2;
-                          String postedDescription, proposedDescription;
+                          String postedDescription,
+                              proposedDescription,
+                              counterProposedDescription;
 
                           if (isCommuteAllowanceHourly) {
                             postedDescription =
@@ -203,30 +316,44 @@ class ViewPersonPraposalView extends StatelessWidget {
                             proposedDescription =
                                 data.proposed_accommodation_allowance_hour_name ??
                                     "";
+                            counterProposedDescription = data
+                                    .counter_accommodation_allowance_hour_id
+                                    .toString() ??
+                                "";
                           } else {
                             postedDescription =
                                 "\$${data.posted_accommodation_allowance_rate ?? ""}";
                             proposedDescription =
                                 "\$${data.proposed_accommodation_allowance_rate ?? ""}";
+                            counterProposedDescription =
+                                "\$${data.counter_accommodation_allowance_rate ?? ""}";
                           }
                           return Column(
                             children: [
                               getTitleAndDescription(
                                 context,
-                                title: 'Posted',
+                                title: StringConstant.posted,
                                 description: postedDescription,
                               ),
                               SizedBox(height: getSize(20)),
                               getTitleAndDescription(
                                 context,
-                                title: 'Proposed',
+                                title: StringConstant.proposed,
                                 description: proposedDescription,
                               ),
+                              if (counterProposedDescription.isNotEmpty) ...[
+                                SizedBox(height: getSize(20)),
+                                getTitleAndDescription(
+                                  context,
+                                  title: StringConstant.counterProposed,
+                                  description: counterProposedDescription,
+                                ),
+                              ],
                             ],
                           );
                         }),
                       ),
-                    ],
+                    ], */
                     SizedBox(height: getSize(40)),
                     if (user.sent_received_status != 2) ...[
                       Row(
@@ -463,7 +590,7 @@ class ViewPersonPraposalView extends StatelessWidget {
       children: [
         BaseText(
           text: title,
-          fontSize: 14,
+          fontSize: 12,
           fontWeight: FontWeight.w500,
         ),
         SizedBox(height: getSize(8)),
@@ -480,6 +607,113 @@ class ViewPersonPraposalView extends StatelessWidget {
             fontSize: 14,
             fontWeight: FontWeight.w500,
           ),
+        ),
+      ],
+    );
+  }
+
+  String allowncValue(String value,
+      {bool isRate = false, bool isHour = false}) {
+    String formatedValue = value;
+
+    if (formatedValue.isNotEmpty) {
+      if (value.length < 2) {
+        formatedValue = "0$value";
+      } else {
+        formatedValue = value;
+      }
+      if (isRate) {
+        return "\$$formatedValue";
+      } else {
+        return (isHour) ? formatedValue : "\$$formatedValue";
+      }
+    } else {
+      return "";
+    }
+  }
+
+  Widget proposedBox(
+      {required String title,
+      required String postedValue,
+      required String proposedValue,
+      String? counterProposalValue}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: getSize(15), vertical: getSize(10)),
+          child: BaseText(
+            text: title,
+            textColor: AppColors.black.withOpacity(0.7),
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(
+              horizontal: getSize(20), vertical: getSize(10)),
+          decoration: BoxDecoration(
+            color: AppColors.grey04,
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: IntrinsicHeight(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                rateBox(
+                  title: StringConstant.posted,
+                  value: postedValue,
+                ),
+                verticalDivider(),
+                rateBox(
+                  title: StringConstant.proposed,
+                  value: proposedValue,
+                ),
+                if (counterProposalValue != null &&
+                    counterProposalValue.isNotEmpty) ...[
+                  verticalDivider(),
+                  rateBox(
+                    title: StringConstant.counterProposal,
+                    value: counterProposalValue,
+                    valueColor: AppColors.primaryColor,
+                  ),
+                ],
+              ],
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget verticalDivider() {
+    return VerticalDivider(
+      color: AppColors.black.withOpacity(0.30),
+      thickness: getSize(2),
+      indent: getSize(5),
+      endIndent: getSize(5),
+    );
+  }
+
+  Widget rateBox(
+      {required String title, required String value, Color? valueColor}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        BaseText(
+          text: title,
+          fontSize: 10,
+          fontWeight: FontWeight.w400,
+          textColor: AppColors.black.withOpacity(0.7),
+        ),
+        SizedBox(height: getSize(2)),
+        BaseText(
+          text: value,
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          textColor: valueColor,
         ),
       ],
     );

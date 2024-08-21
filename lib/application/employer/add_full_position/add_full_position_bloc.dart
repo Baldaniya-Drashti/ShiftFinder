@@ -163,6 +163,8 @@ class AddFullPositionBloc
             ));
           },
           onContinue: (OnContinue value) {
+            print("state.location---> ${state.selectedLocation}");
+            print("state.locationUnit---> ${state.selectedLocationUnit}");
             final position = state.employerLongTermDto.copyWith(
               benefits: value.benefits,
               position: value.position,
@@ -185,18 +187,20 @@ class AddFullPositionBloc
               language_other: state.languageOther.join(','),
               languages_list_id: getSelectedLanguageId(),
               post_type: 2,
-              location_id: state.employerLongTermDto.location?.id.toString() ??
-                  state.selectedLocation?.id.toString(),
+              location_id: state.selectedLocation?.id.toString() ??
+                  state.employerLongTermDto.location?.id.toString(),
             );
-
-            print("==>yyy ${position.toJson()}");
-            print("==>yyy ${state.selectedLocation?.id}");
             //
             value.context.router.push(
               PageRouteInfo(
                 EmployerFullPostingConfirmView.name,
                 args: EmployerFullPostingConfirmViewArgs(
-                    employerFullPosting: position, postId: state.postId),
+                  employerFullPosting: position,
+                  postId: state.postId,
+                  fromReview: value.fromReview,
+                  isCreate: value.isCreate,
+                  fromTemplate: value.fromTemplate,
+                ),
               ),
             );
           },

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/infrastructure/core/employer_long_term_applicant/employer_long_term_applicant_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
@@ -86,7 +87,8 @@ class EmployerLongTermViewApplicantBloc extends Bloc<
               ).show(value.context);
             },
             (r) {
-              showSuccess(message: "Applicant reject successfully")
+              showSuccess(
+                      message: StringConstant.applicationRejectedSuccessfully)
                   .show(value.context)
                   .then(
                 (_) {

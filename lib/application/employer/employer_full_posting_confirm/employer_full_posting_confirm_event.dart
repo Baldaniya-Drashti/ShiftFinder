@@ -24,8 +24,12 @@ class EmployerFullPostingConfirmEvent with _$EmployerFullPostingConfirmEvent {
       {required EmployerLongTermSuccessDto employerLongTermSuccessDto,
       int? post}) = OnCreate;
 
-  const factory EmployerFullPostingConfirmEvent.onContinue(
-      {required BuildContext context}) = OnContinue;
+  const factory EmployerFullPostingConfirmEvent.onContinue({
+    required BuildContext context,
+    required bool fromReview,
+    required bool fromTemplate,
+    required bool isCreate,
+  }) = OnContinue;
 
   const factory EmployerFullPostingConfirmEvent.addVacancyChanged(
       String vacancy) = AddVacancyChanged;

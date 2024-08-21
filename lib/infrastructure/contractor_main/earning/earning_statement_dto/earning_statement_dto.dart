@@ -31,6 +31,7 @@ class CompletedShiftsEarningDTO with _$CompletedShiftsEarningDTO {
   const factory CompletedShiftsEarningDTO({
     int? id,
     int? post_id,
+    int? invoice_no,
     int? date,
     String? company_name,
     LocationDTO? location,

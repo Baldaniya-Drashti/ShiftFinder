@@ -23,7 +23,11 @@ class AddContractorSkillFormState with _$AddContractorSkillFormState {
     /// ROLE TYPE
     required List<SkillDTO> roleList,
     required ListInputEmptyOrNot roleTypeChipList,
+    required ListInputEmptyOrNot initialRoleTypeChipList,
+    required ListInputEmptyOrNot initialSpecialityTypeChipList,
     required String roleTypeChip,
+    required bool isRoleListUpdated,
+    required bool isSpecialityListUpdated,
 
     /// SOFTWARE SKILL
     required List<SkillDTO> softwareList,
@@ -76,5 +80,9 @@ class AddContractorSkillFormState with _$AddContractorSkillFormState {
         showLanguageError: false,
         showSpeExperienceError: false,
         authFailureOrSuccessOption: none(),
+        isRoleListUpdated: false,
+        isSpecialityListUpdated: false,
+        initialRoleTypeChipList: ListInputEmptyOrNot([]),
+        initialSpecialityTypeChipList: ListInputEmptyOrNot([]),
       );
 }

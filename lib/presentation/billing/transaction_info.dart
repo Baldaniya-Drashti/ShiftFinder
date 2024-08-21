@@ -7,12 +7,14 @@ class TransactionInfo extends StatelessWidget {
     super.key,
     required this.label,
     required this.value,
+    this.value2,
     this.valueColor,
     this.valueFontSize,
   });
 
   final String label;
   final String value;
+  final String? value2;
   final Color? valueColor;
   final double? valueFontSize;
 
@@ -34,13 +36,32 @@ class TransactionInfo extends StatelessWidget {
           SizedBox(width: getSize(10)),
           Expanded(
             flex: 13,
-            child: BaseText(
-              text: value,
-              fontSize: valueFontSize ?? 10,
-              fontWeight: FontWeight.w600,
-              textColor: valueColor,
-              // maxLines: 1,overflow: TextOverflow.ellipsis,
-            ),
+            child: (value2 != null)
+                ? Row(
+                    children: [
+                      BaseText(
+                        text: value,
+                        fontSize: valueFontSize ?? 10,
+                        fontWeight: FontWeight.w600,
+                        textColor: valueColor,
+                        // maxLines: 1,overflow: TextOverflow.ellipsis,
+                      ),
+                      BaseText(
+                        text: value2 ?? "",
+                        fontSize: valueFontSize ?? 10,
+                        fontWeight: FontWeight.w600,
+                        textColor: valueColor,
+                        // maxLines: 1,overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  )
+                : BaseText(
+                    text: value,
+                    fontSize: valueFontSize ?? 10,
+                    fontWeight: FontWeight.w600,
+                    textColor: valueColor,
+                    // maxLines: 1,overflow: TextOverflow.ellipsis,
+                  ),
           ),
         ],
       ),

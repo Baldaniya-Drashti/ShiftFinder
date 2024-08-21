@@ -23,3 +23,19 @@ Map<String, dynamic> _$$LegalScreeningDTOImplToJson(
       'isNa': instance.isNa,
       'answer': instance.answer,
     };
+
+_$LegalScreeningAnswerDTOImpl _$$LegalScreeningAnswerDTOImplFromJson(
+        Map<String, dynamic> json) =>
+    _$LegalScreeningAnswerDTOImpl(
+      user_id: (json['user_id'] as num?)?.toInt(),
+      answer: (json['answer'] as num?)?.toInt(),
+      question_list_id: (json['question_list_id'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$$LegalScreeningAnswerDTOImplToJson(
+        _$LegalScreeningAnswerDTOImpl instance) =>
+    <String, dynamic>{
+      'user_id': instance.user_id,
+      'answer': instance.answer,
+      'question_list_id': instance.question_list_id,
+    };

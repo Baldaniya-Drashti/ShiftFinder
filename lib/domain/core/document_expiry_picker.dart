@@ -15,14 +15,17 @@ class DocumentExpiryDatePicker {
     BuildContext context, {
     required String selectedDate,
     DateTime? lastDate,
+    DateTime? firstDate,
     required void Function(DateTime) onPickedDate,
     required void Function() onCancelClick,
     bool isDisabled = false,
     String? labelText,
     String? hintText,
     TextStyle? labelStyle,
+    bool? isOptional,
   }) {
     return CustomTextField(
+      isOptional: isOptional,
       labelText: labelText ?? StringConstant.expiryDate,
       labelStyle: (!isDisabled)
           ? TextStyle(
@@ -41,7 +44,7 @@ class DocumentExpiryDatePicker {
           : () {
               customDatePicker(
                 context,
-                firstDate: DateTime.now(),
+                firstDate: firstDate ?? DateTime.now(),
                 lastDate: lastDate,
                 onPickedDate: onPickedDate,
                 onCancelClick: onCancelClick,
@@ -72,11 +75,19 @@ class DocumentExpiryDatePicker {
     DateTime? firstDate,
     DateTime? lastDate,
   }) async {
+    DateTime today = DateTime.now();
+
+    DateTime effectiveFirstDate =
+        firstDate ?? DateTime(today.year, today.month, today.day);
+
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       firstDate: firstDate ?? DateTime(1950, 1),
       lastDate: lastDate ?? DateTime(2100, 1),
-      initialDate: selectedDate,
+      initialDate:
+          (selectedDate != null && selectedDate.isAfter(effectiveFirstDate))
+              ? selectedDate
+              : effectiveFirstDate,
       initialEntryMode: DatePickerEntryMode.calendarOnly,
       builder: (context, child) {
         return Theme(

@@ -56,13 +56,6 @@ class LegalScreeningBloc
     on<LegalScreeningEvent>((event, emit) async {
       await event.map(
         getLegalScreeningQuestionList: (e) async {
-          // emit(
-          //   state.copyWith(
-          //     questionList: LegalScreeningBloc.questionList,
-          //     authFailureOrSuccessOption: none(),
-          //   ),
-          // );
-
           Either<AccountFailure, List<LegalScreeningDTO>>? failureOrSuccess;
           emit(
             state.copyWith(
@@ -70,12 +63,11 @@ class LegalScreeningBloc
               authFailureOrSuccessOption: none(),
             ),
           );
+
           failureOrSuccess = await _repository.getLegalScreeningListApi();
           failureOrSuccess.fold(
             (l) => emit(
-              state.copyWith(
-                isSubmitting: false,
-              ),
+              state.copyWith(isSubmitting: false),
             ),
             (r) {
               if (r.isNotEmpty) {
@@ -95,6 +87,28 @@ class LegalScreeningBloc
             },
           );
 
+          final currentUser = await _repository.getCurrentUserApi();
+          currentUser.fold(
+            (l) {},
+            (r) {
+              final answerList = r.legal_screening_question_answer ?? [];
+
+              List<LegalScreeningDTO> updatedQuestionList =
+                  state.questionList.map((question) {
+                var matchingAnswer = answerList.firstWhere(
+                  (answer) => answer.question_list_id == question.id,
+                  orElse: () => LegalScreeningAnswerDTO(),
+                );
+
+                return question.copyWith(answer: matchingAnswer.answer);
+              }).toList();
+
+              return emit(state.copyWith(
+                questionList: updatedQuestionList,
+                authFailureOrSuccessOption: none(),
+              ));
+            },
+          );
           emit(
             state.copyWith(
               isSubmitting: false,

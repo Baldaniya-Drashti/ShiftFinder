@@ -23,15 +23,22 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: "EmployerLongTermPostConfirmationView")
 class EmployerLongTermPostConfirmationView extends StatelessWidget {
-  const EmployerLongTermPostConfirmationView(
-      {super.key,
-      required this.postShiftDTO,
-      required this.employerAddDetailDto,
-      this.postId});
+  const EmployerLongTermPostConfirmationView({
+    super.key,
+    required this.postShiftDTO,
+    required this.employerAddDetailDto,
+    this.postId,
+    this.fromReview = false,
+    this.isCreate = true,
+    this.fromTemplate = false,
+  });
 
   final PostShiftDTO postShiftDTO;
   final EmployerLongTermSuccessDto employerAddDetailDto;
   final int? postId;
+  final bool fromReview;
+  final bool fromTemplate;
+  final bool isCreate;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +57,12 @@ class EmployerLongTermPostConfirmationView extends StatelessWidget {
               child: CommonButton(
                 onPressed: () {
                   context.read<EmployerLongTermConfirmationBloc>().add(
-                        EmployerLongTermConfirmationEvent.onContinue(context),
+                        EmployerLongTermConfirmationEvent.onContinue(
+                          context,
+                          fromReview: fromReview,
+                          isCreate: isCreate,
+                          fromTemplate: fromTemplate,
+                        ),
                       );
                 },
                 buttonText: StringConstant.txtContinue,
@@ -58,10 +70,13 @@ class EmployerLongTermPostConfirmationView extends StatelessWidget {
             ),
             appBar: CommonAppBar(
                 onBackPressed: () => context.router.maybePop(),
-                title: CommonList.industryList
-                        .firstWhere((item) => item.id == getCurrentIndustry())
-                        .title ??
-                    ""),
+                title: (fromTemplate)
+                    ? StringConstant.editTemplate
+                    : CommonList.industryList
+                            .firstWhere(
+                                (item) => item.id == getCurrentIndustry())
+                            .title ??
+                        ""),
             body: BlocBuilder<EmployerLongTermConfirmationBloc,
                 EmployerLongTermConfirmationState>(
               builder: (context, state) {
@@ -118,31 +133,33 @@ class EmployerLongTermPostConfirmationView extends StatelessWidget {
                                 );
                               },
                             ),
-                            Gap(getSize(18)),
-                            BlocSelector<EmployerLongTermConfirmationBloc,
-                                EmployerLongTermConfirmationState, bool>(
-                              selector: (state) {
-                                return state.employerAddDetailDto
-                                        .save_template_status ==
-                                    1;
-                              },
-                              builder: (context, saveTemplateStatus) {
-                                return _buildCheckListTile(
-                                  context,
-                                  value: saveTemplateStatus,
-                                  onChanged: (value) {
-                                    context
-                                        .read<
-                                            EmployerLongTermConfirmationBloc>()
-                                        .add(EmployerLongTermConfirmationEvent
-                                            .selectFuturePosting(
-                                                saveTemplateStatus ? 0 : 1));
-                                  },
-                                  label: StringConstant
-                                      .saveThisAsATemplateForFuturePosting,
-                                );
-                              },
-                            ),
+                            if (!fromTemplate) ...[
+                              Gap(getSize(18)),
+                              BlocSelector<EmployerLongTermConfirmationBloc,
+                                  EmployerLongTermConfirmationState, bool>(
+                                selector: (state) {
+                                  return state.employerAddDetailDto
+                                          .save_template_status ==
+                                      1;
+                                },
+                                builder: (context, saveTemplateStatus) {
+                                  return _buildCheckListTile(
+                                    context,
+                                    value: saveTemplateStatus,
+                                    onChanged: (value) {
+                                      context
+                                          .read<
+                                              EmployerLongTermConfirmationBloc>()
+                                          .add(EmployerLongTermConfirmationEvent
+                                              .selectFuturePosting(
+                                                  saveTemplateStatus ? 0 : 1));
+                                    },
+                                    label: StringConstant
+                                        .saveThisAsATemplateForFuturePosting,
+                                  );
+                                },
+                              ),
+                            ],
                             Gap(getSize(18)),
                             isTermsCheck(context, state),
                             if (state.showErrorMessage && !state.isTermsCheck)
@@ -170,41 +187,49 @@ class EmployerLongTermPostConfirmationView extends StatelessWidget {
       ),
       decoration: BoxDecoration(
           color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: getSize(20),
-            width: getSize(16.67),
-            child: Checkbox(
-              value: state.isTermsCheck,
-              activeColor: AppColors.primaryColor,
-              side: BorderSide(
-                width: getSize(1.5),
-                color: AppColors.black.withOpacity(0.5),
+      child: GestureDetector(
+        onTap: () {
+          bool value = state.isTermsCheck;
+          value = !value;
+          context.read<EmployerLongTermConfirmationBloc>().add(
+              EmployerLongTermConfirmationEvent.selectTermsAndCondition(value));
+        },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: getSize(20),
+              width: getSize(16.67),
+              child: Checkbox(
+                value: state.isTermsCheck,
+                activeColor: AppColors.primaryColor,
+                side: BorderSide(
+                  width: getSize(1.5),
+                  color: AppColors.black.withOpacity(0.5),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                onChanged: (value) {
+                  if (value != null) {
+                    context.read<EmployerLongTermConfirmationBloc>().add(
+                        EmployerLongTermConfirmationEvent
+                            .selectTermsAndCondition(value));
+                  }
+                },
               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
+            ),
+            SizedBox(width: getSize(15)),
+            Expanded(
+              child: BaseText(
+                text: StringConstant.longTermsDesc,
+                fontSize: 12,
+                maxLines: 10,
+                fontWeight: FontWeight.w500,
               ),
-              onChanged: (value) {
-                if (value != null) {
-                  context.read<EmployerLongTermConfirmationBloc>().add(
-                      EmployerLongTermConfirmationEvent.selectTermsAndCondition(
-                          value));
-                }
-              },
             ),
-          ),
-          SizedBox(width: getSize(15)),
-          Expanded(
-            child: BaseText(
-              text: StringConstant.longTermsDesc,
-              fontSize: 12,
-              maxLines: 7,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -250,9 +275,7 @@ class EmployerLongTermPostConfirmationView extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(
-              width: getSize(15),
-            ),
+            SizedBox(width: getSize(15)),
             Expanded(
               child: BaseText(
                 text: label,
@@ -261,7 +284,7 @@ class EmployerLongTermPostConfirmationView extends StatelessWidget {
                 maxLines: 15,
               ),
             ),
-            if (trailing != null) trailing
+            if (trailing != null) trailing,
           ],
         ),
       ),

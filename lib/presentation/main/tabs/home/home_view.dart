@@ -14,7 +14,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -126,7 +126,7 @@ class HomeView extends StatelessWidget {
     //     .toList();
 
     return BlocBuilder<HomeBloc, HomeState>(
-      builder: (context, state) {
+      builder: (_, state) {
         return Container(
           padding: EdgeInsets.all(getSize(10)),
           margin: EdgeInsets.symmetric(vertical: getSize(12)),
@@ -244,17 +244,19 @@ class HomeView extends StatelessWidget {
                           0)
                       .toString(),
                   onTap: () {
-                    //showUnderDevelopment(context);
-                    Log.debug(state.employerDashboardList[index].id);
                     final id = state.employerDashboardList[index].id;
-                    context.router.push(PageRouteInfo(ViewSingleApplicants.name,
-                        args: ViewSingleApplicantsArgs(postId: id ?? 0)));
+                    context.router
+                        .push(PageRouteInfo(ViewSingleApplicants.name,
+                            args: ViewSingleApplicantsArgs(postId: id ?? 0)))
+                        .then((value) {
+                      context
+                          .read<HomeBloc>()
+                          .add(HomeEvent.getEmployerDashboardList(true));
+                    });
                   },
                   index: index,
                   isTotalApplicants: true),
-              SizedBox(
-                height: getSize(10),
-              ),
+              SizedBox(height: getSize(10)),
               proposalBox(
                 title: StringConstant.totalProposals,
                 value:
@@ -262,14 +264,18 @@ class HomeView extends StatelessWidget {
                             0)
                         .toString(),
                 onTap: () {
-                  //showUnderDevelopment(context);
-                  Log.debug(state.employerDashboardList[index]);
                   final id = state.employerDashboardList[index].id ?? 0;
 
-                  context.router.push(
+                  context.router
+                      .push(
                     PageRouteInfo(TotalPraposalView.name,
                         args: TotalPraposalViewArgs(postId: id)),
-                  );
+                  )
+                      .then((value) {
+                    context
+                        .read<HomeBloc>()
+                        .add(HomeEvent.getEmployerDashboardList(true));
+                  });
                 },
                 index: index,
               ),
@@ -344,6 +350,7 @@ class HomeView extends StatelessWidget {
                           onDeleteClick: () {
                             context.router.maybePop();
                             context.read<HomeBloc>().add(HomeEvent.deletePost(
+                                context,
                                 state.employerDashboardList[index].id ?? -1));
                           },
                         );
@@ -364,8 +371,10 @@ class HomeView extends StatelessWidget {
                           context.router
                               .push(PageRouteInfo(HealthCarePostForm.name,
                                   args: HealthCarePostFormArgs(
-                                      postId: state
-                                          .employerDashboardList[index].id)))
+                                    postId:
+                                        state.employerDashboardList[index].id,
+                                    isCreate: false,
+                                  )))
                               .then((value) {
                             context
                                 .read<HomeBloc>()
@@ -410,7 +419,9 @@ class HomeView extends StatelessWidget {
                   final latitude = location?.latitude;
                   final longitude = location?.longitude;
                   if (latitude != null && longitude != null) {
-                    context.router.push(
+                    LocationHelper.openDirections(context,
+                        endLat: latitude, endLng: longitude);
+                    /* context.router.push(
                       PageRouteInfo(
                         ShowGoogleMap.name,
                         args: ShowGoogleMapArgs(
@@ -418,7 +429,7 @@ class HomeView extends StatelessWidget {
                           longitude: longitude,
                         ),
                       ),
-                    );
+                    ); */
                   }
                 },
                 child: Row(

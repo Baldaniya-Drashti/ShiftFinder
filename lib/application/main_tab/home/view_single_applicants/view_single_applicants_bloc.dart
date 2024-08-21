@@ -10,6 +10,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
@@ -249,7 +250,8 @@ class ViewSingleApplicantsBloc
               },
               (r) {
                 value.context.router.maybePop();
-                showSuccess(message: "Applicant Removed Successfully")
+                showSuccess(
+                        message: StringConstant.applicationRejectedSuccessfully)
                     .show(value.context)
                     .then((value) {
                   add(ViewSingleApplicantsEvent.getApplicantsList(

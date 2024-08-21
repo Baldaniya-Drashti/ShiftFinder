@@ -31,6 +31,7 @@ class ContactorDashboardDTO with _$ContactorDashboardDTO {
     int? total_proposal_counts,
     List<ApplicationProfile>? total_proposal_profiles,
     String? specialties_list,
+    String? specialties_details,
     num? rate_hour,
     String? total_payable_hour,
     int? total_vacancy,
@@ -40,6 +41,7 @@ class ContactorDashboardDTO with _$ContactorDashboardDTO {
     String? total_wage,
     String? total_allowance,
     bool? isHighlightShift,
+    String? total_amount_payable_contractor,
   }) = _ContactorDashboardDTO;
 
   factory ContactorDashboardDTO.fromJson(Map<String, dynamic> json) =>

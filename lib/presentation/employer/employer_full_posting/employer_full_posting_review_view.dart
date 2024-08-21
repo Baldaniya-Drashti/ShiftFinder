@@ -15,6 +15,7 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/employer_long_term_success/employer_long_term_success_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/helper/helper_function.dart';
 import 'package:shift/presentation/core/helper/time_extension.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -24,117 +25,136 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: "EmployerFullPostingReviewView")
 class EmployerFullPostingReviewView extends StatelessWidget {
-  const EmployerFullPostingReviewView(
-      {super.key, required this.response, required this.data, this.postId});
+  const EmployerFullPostingReviewView({
+    super.key,
+    required this.response,
+    required this.data,
+    this.postId,
+    this.fromReview = false,
+    this.fromTemplate = false,
+    this.isCreate = true,
+  });
 
   final EmployerLongTermSuccessDto response;
   final EmployerLongTermSuccessDto data;
   final int? postId;
+  final bool fromReview;
+  final bool fromTemplate;
+  final bool isCreate;
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<EmployerFullPostingReviewBloc>(),
-      child: Builder(builder: (context) {
-        return Scaffold(
-          appBar: CommonAppBar(
-              onBackPressed: () => context.router.maybePop(),
-              title: StringConstant.reviewDetails),
-          body: SingleChildScrollView(
-            padding: EdgeInsets.all(getSize(12)),
-            child: Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.white,
-                    borderRadius: BorderRadius.circular(getSize(20)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.lightGrey.withOpacity(0.2),
-                        blurRadius: getSize(20),
-                      ),
-                    ],
-                  ),
-                  padding: EdgeInsets.all(getSize(12)),
-                  child: OverflowBar(
-                    overflowSpacing: getSize(12),
-                    children: [
-                      _buildPositionTile(context),
-                      _buildPositionDescription(context),
-                      _buildSalaryInformation(context),
-                      _buildEstimatedHours(context),
-                      _buildShiftSchedule(context),
-                      _buildLanguageRequirement(context),
-                      _buildLocationDetail(context),
-                      _buildBargainingUnit(context),
-                      _buildOnCall(context),
-                      if (response.benefits != null)
-                        _buildBulletPointsList(context,
-                            title: "Benefits Provided",
-                            content: response.benefits),
-                      if (response.compensation_package != null)
-                        _buildBulletPointsList(
-                          context,
-                          title: "Compensation Package",
-                          content: response.compensation_package,
-                        ),
-                      if (response.job_summary != null)
-                        _buildBulletPointsList(context,
-                            title: "Job Summary",
-                            content: response.job_summary),
-                      if (response.external_internal_relationships != null)
-                        _buildBulletPointsList(
-                          context,
-                          title: "External and Internal Relationships",
-                          content: response.external_internal_relationships,
-                        ),
-                      if (response.employer_payment_confirmation != null)
-                        _buildBulletPointsList(context,
-                            title: "Required Qualifications",
-                            content: response.qualifications),
-                      if (response.experience != null)
-                        _buildBulletPointsList(
-                          context,
-                          title: "Required Experience",
-                          content: response.experience,
-                        ),
-                      if (response.licenses_certifications != null)
-                        _buildBulletPointsList(
-                          context,
-                          title: "Required Licenses/Certifications",
-                          content: response.licenses_certifications,
-                        ),
-                      if (response.skills != null)
-                        _buildBulletPointsList(
-                          context,
-                          title: "Required Skills",
-                          content: response.skills,
-                        ),
-                      if (response.other != null)
-                        _buildBulletPointsList(
-                          context,
-                          title: "Other",
-                          content: response.other,
-                        ),
-                      _buildNumberOfVacancy(
-                          context, response.number_of_vacancie ?? 00),
-                      if (response.on_call_included == 1)
-                        _buildCheckListTile(
-                          context,
-                          value: response.on_call_included == 1,
-                          onChanged: (value) {},
-                          label: StringConstant.thisPositionMayIncludeOnCall,
-                        ),
-                    ],
-                  ),
-                ),
-                Gap(getSize(22)),
-                _buildSubmitButton(context)
-              ],
+    return PopScope(
+      canPop: false,
+      child: BlocProvider(
+        create: (context) => getIt<EmployerFullPostingReviewBloc>(),
+        child: Builder(builder: (context) {
+          return Scaffold(
+            appBar: CommonAppBar(
+                onBackPressed: () => context.router.maybePop(),
+                isShowBackBtn: false,
+                title: StringConstant.reviewDetails),
+            bottomSheet: Padding(
+              padding: EdgeInsets.all(getSize(10)),
+              child: _buildSubmitButton(context),
             ),
-          ),
-        );
-      }),
+            body: SingleChildScrollView(
+              padding: EdgeInsets.all(getSize(12)),
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(getSize(20)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.lightGrey.withOpacity(0.2),
+                          blurRadius: getSize(20),
+                        ),
+                      ],
+                    ),
+                    padding: EdgeInsets.all(getSize(12)),
+                    child: OverflowBar(
+                      overflowSpacing: getSize(12),
+                      children: [
+                        _buildPositionTile(context),
+                        _buildPositionDescription(context),
+                        _buildSalaryInformation(context),
+                        _buildEstimatedHours(context),
+                        _buildShiftSchedule(context),
+                        _buildLanguageRequirement(context),
+                        _buildLocationDetail(context),
+                        _buildBargainingUnit(context),
+                        _buildOnCall(context),
+                        if (response.benefits != null)
+                          _buildBulletPointsList(context,
+                              title: StringConstant.benefitsProvided,
+                              content: response.benefits),
+                        if (response.compensation_package != null)
+                          _buildBulletPointsList(
+                            context,
+                            title: StringConstant.compensationPackage,
+                            content: response.compensation_package,
+                          ),
+                        if (response.job_summary != null)
+                          _buildBulletPointsList(context,
+                              title: StringConstant.jobSummary,
+                              content: response.job_summary),
+                        if (response.external_internal_relationships != null)
+                          _buildBulletPointsList(
+                            context,
+                            title:
+                                StringConstant.externalAndInternalRelationships,
+                            content: response.external_internal_relationships,
+                          ),
+                        if (response.employer_payment_confirmation != null)
+                          _buildBulletPointsList(context,
+                              title: StringConstant.requiredQualifications,
+                              content: response.qualifications),
+                        if (response.experience != null)
+                          _buildBulletPointsList(
+                            context,
+                            title: StringConstant.requiredExperience,
+                            content: response.experience,
+                          ),
+                        if (response.licenses_certifications != null)
+                          _buildBulletPointsList(
+                            context,
+                            title:
+                                StringConstant.requiredLicensesCertifications,
+                            content: response.licenses_certifications,
+                          ),
+                        if (response.skills != null)
+                          _buildBulletPointsList(
+                            context,
+                            title: StringConstant.requiredSkills,
+                            content: response.skills,
+                          ),
+                        if (response.other != null)
+                          _buildBulletPointsList(
+                            context,
+                            title: StringConstant.other,
+                            content: response.other,
+                          ),
+                        _buildNumberOfVacancy(
+                            context, response.number_of_vacancie ?? 00),
+                        if (response.on_call_included == 1)
+                          _buildCheckListTile(
+                            context,
+                            value: response.on_call_included == 1,
+                            onChanged: (value) {},
+                            label: StringConstant.thisPositionMayIncludeOnCall,
+                          ),
+                      ],
+                    ),
+                  ),
+                  Gap(getSize(80)),
+                ],
+              ),
+            ),
+          );
+        }),
+      ),
     );
   }
 
@@ -148,10 +168,13 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                 postId: postId,
                 employer: response,
                 data: data,
+                fromReview: fromReview,
+                fromTemplate: fromTemplate,
+                isCreate: isCreate,
               ),
             );
       },
-      buttonText: "Submit",
+      buttonText: StringConstant.submit,
     );
   }
 
@@ -176,10 +199,13 @@ class EmployerFullPostingReviewView extends StatelessWidget {
   }
 
   Widget _buildPositionInfo(BuildContext context) {
-    final jobType = response.job_type == 1 ? "Full Time" : "Part Time";
+    final jobType = response.job_type == 1
+        ? StringConstant.fullTime
+        : StringConstant.partTime;
     return Material(
       color: AppColors.scaffoldColor,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.asset(
             PngImageConstants.nurse2,
@@ -187,25 +213,58 @@ class EmployerFullPostingReviewView extends StatelessWidget {
             color: AppColors.black.withOpacity(0.8),
           ),
           Gap(getSize(16)),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              BaseText(
-                text: jobType,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-              BaseText(
-                text:
-                    "(${getIndustryText(response.industry ?? 0)} - ${response.listing_id})",
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                textColor: AppColors.black.withOpacity(0.8),
-              ),
-            ],
-          )
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                BaseText(
+                  text: jobType,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  maxLines: 1,
+                ),
+                BaseText(
+                  text:
+                      "(${getIndustryText(response.industry ?? 0)} - ${response.listing_id})",
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  textColor: AppColors.black.withOpacity(0.8),
+                  maxLines: 1,
+                ),
+              ],
+            ),
+          ),
+          commonEditButton(context),
         ],
+      ),
+    );
+  }
+
+  Widget commonEditButton(
+    BuildContext context,
+  ) {
+    return GestureDetector(
+      onTap: () {
+        context.router.push(PageRouteInfo(EmployerFullPositionAddView.name,
+            args: EmployerFullPositionAddViewArgs(
+              postId: response.id,
+              fromReview: true,
+              isCreate: isCreate,
+              fromTemplate: fromTemplate,
+            )));
+      },
+      child: Container(
+        padding: EdgeInsets.all(getSize(5)),
+        decoration: BoxDecoration(
+          color: AppColors.primaryColor,
+          shape: BoxShape.circle,
+        ),
+        child: SvgPicture.asset(
+          SvgImageConstant.edit,
+          height: getSize(16),
+          width: getSize(16),
+        ),
       ),
     );
   }
@@ -363,10 +422,10 @@ class EmployerFullPostingReviewView extends StatelessWidget {
               children: [
                 Expanded(
                     child: BaseText(
-                        text:
-                            "${response.estimated_weekly_hours?.formatTimeOfDay}",
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600)),
+                  text: "${response.estimated_weekly_hours?.formatTimeOfDay}",
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                )),
                 SvgPicture.asset(
                   SvgImageConstant.clockWithOuterLine,
                   height: getSize(40),
@@ -406,7 +465,7 @@ class EmployerFullPostingReviewView extends StatelessWidget {
                   list.length,
                   (index) {
                     return Container(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(getSize(8)),
                       decoration: BoxDecoration(
                           border: Border.all(color: AppColors.grey),
                           borderRadius: BorderRadius.circular(10)),
@@ -474,19 +533,8 @@ class EmployerFullPostingReviewView extends StatelessWidget {
             Gap(4),
             BaseText(text: location?.location ?? "", fontSize: 13),
             Gap(10),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                BaseText(
-                    text: "Unit - ",
-                    fontSize: 12,
-                    textColor: AppColors.primaryColor),
-                BaseText(
-                    text: "Unit Name",
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500),
-              ],
-            ),
+            BaseText(
+                text: "Unit", fontSize: 12, textColor: AppColors.primaryColor),
             Gap(4),
             BaseText(text: response.location_unit ?? "", fontSize: 13),
           ],

@@ -14,8 +14,8 @@ class AddressProofEvent with _$AddressProofEvent {
       String govermentFrontDoc) = DeleteAddressFrontDoc;
   const factory AddressProofEvent.deleteAddressBackDoc(
       String govermentBackDoc) = DeleteAddressBackDoc;
-  const factory AddressProofEvent.addressProofSubmit(BuildContext context) =
-      AddressProofSubmit;
+  const factory AddressProofEvent.addressProofSubmit(BuildContext context,
+      {required bool isUpdate}) = AddressProofSubmit;
   const factory AddressProofEvent.expiryDateChanged(String expiryDate) =
       ExpiryDateChanged;
 }

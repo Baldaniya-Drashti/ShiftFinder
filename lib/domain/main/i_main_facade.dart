@@ -53,6 +53,7 @@ abstract class IMainFacade {
   Future<Either<MainFailure, CommonResponse>> getContractorDashboardListAPI({
     required int page,
     int? filterType,
+    String? search,
   });
 
   Future<Either<MainFailure, CommonResponse>> getViewApplicantsAPI({
@@ -126,6 +127,7 @@ abstract class IMainFacade {
     required String countryNameCode,
     required EmailAddress email,
     required MobileNumber phoneNumber,
+    required String teamId,
   });
   Future<Either<MainFailure, String>> deleteTeamMemberApi({
     required String teamMemberId,
@@ -339,7 +341,7 @@ abstract class IMainFacade {
   Future<Either<MainFailure, String>> deletePaymentCardAPI({required int id});
 
   Future<Either<MainFailure, PerformanceInsightDTO>>
-      getPerformanceInsightListAPI({required double date});
+      getPerformanceInsightListAPI({required int date});
 
   Future<Either<MainFailure, HealthcarePostDTO>> getSendProposalDetailApi({
     required int? id,
@@ -359,6 +361,7 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, CommonResponse>> deleteEmployerSavedTemplate({
     required int id,
+    required int shiftType,
   });
 
   Future<Either<MainFailure, ApplicantDto>> getReferrealContractorInfoApi({

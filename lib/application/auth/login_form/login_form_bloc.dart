@@ -62,7 +62,7 @@ class LoginFormBloc extends Bloc<LoginFormEvent, LoginFormState> {
             final isMobileNumberValid = state.emailId.isValid();
             final isPasswordValid = state.password.isValid();
             if (isMobileNumberValid && isPasswordValid) {
-              print("Email is validdddddd! ");
+              print("Email is validdddddd!");
               emit(
                 state.copyWith(
                   isSubmitting: true,
@@ -82,7 +82,8 @@ class LoginFormBloc extends Bloc<LoginFormEvent, LoginFormState> {
                 state.copyWith(
                   isSubmitting: false,
                   showErrorMessages: true,
-                  verificationFailureOrSuccessOption: optionOf(failureOrSuccess),
+                  verificationFailureOrSuccessOption:
+                      optionOf(failureOrSuccess),
                   authFailureOrSuccessOption: none(),
                 ),
               );

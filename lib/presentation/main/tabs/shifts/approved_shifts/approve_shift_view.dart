@@ -9,6 +9,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -132,12 +133,12 @@ class ApproveShiftView extends StatelessWidget {
                                                                 .id ??
                                                             -1)))
                                                 .then((value) {
-                                              if (value == true) {
-                                                context.read<ShiftsBloc>().add(
-                                                    ShiftsBlocEvent
-                                                        .fetchApprovedShiftList(
-                                                            refresh: true));
-                                              }
+                                              // if (value == true) {
+                                              context.read<ShiftsBloc>().add(
+                                                  ShiftsBlocEvent
+                                                      .fetchApprovedShiftList(
+                                                          refresh: true));
+                                              // }
                                             });
                                           },
                                           child: Row(
@@ -294,7 +295,9 @@ class ApproveShiftView extends StatelessWidget {
               final latitude = location?.latitude;
               final longitude = location?.longitude;
               if (latitude != null && longitude != null) {
-                context.router.push(
+                LocationHelper.openDirections(context,
+                    endLat: latitude, endLng: longitude);
+                /* context.router.push(
                   PageRouteInfo(
                     ShowGoogleMap.name,
                     args: ShowGoogleMapArgs(
@@ -302,7 +305,7 @@ class ApproveShiftView extends StatelessWidget {
                       longitude: longitude,
                     ),
                   ),
-                );
+                ); */
               }
             },
             child: Row(

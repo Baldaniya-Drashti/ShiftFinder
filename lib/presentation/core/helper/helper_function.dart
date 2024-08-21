@@ -20,7 +20,7 @@ String getIndustryText(int type) {
 String formatTimeOfDay(TimeOfDay timeOfDay) {
   String hours = timeOfDay.hour.toString().padLeft(2, '0');
   String minutes = timeOfDay.minute.toString().padLeft(2, '0');
-  return '$hours h $minutes min';
+  return '${hours}h ${minutes}min';
 }
 
 String getShiftScheduleId(List<dynamic> list) {
@@ -45,4 +45,3 @@ List<String> getShiftScheduleFromId(String string) {
   if (list.contains("5")) newList.add("Weekdays");
   return newList;
 }
-

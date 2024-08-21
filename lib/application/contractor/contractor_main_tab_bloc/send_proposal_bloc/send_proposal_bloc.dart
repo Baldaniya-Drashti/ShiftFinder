@@ -47,6 +47,60 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
     return false;
   }
 
+  static bool timeIsPast(SendProposalState state, InputEmptyOrNot selectedHour,
+      InputEmptyOrNot selectedMin,
+      {int shiftType = 0}) {
+    DateTime currentDate = DateTime.now();
+    DateTime selectedDate = (state.shift.shift_detail?.detail?[0].date != null)
+        ? DateTime.fromMillisecondsSinceEpoch(
+            (state.shift.shift_detail?.detail?[0].date ?? -1) * 1000)
+        : DateTime.now();
+
+    print(
+        "selected Date Time ---> ${state.shift.shift_detail?.detail?[0].date}");
+    bool isSameDate = (shiftType == 1)
+        ? isCurrentDateInList(state.multiDates)
+        : (selectedDate.year == currentDate.year &&
+            selectedDate.month == currentDate.month &&
+            selectedDate.day == currentDate.day);
+
+    print("isSameDateee---> $isSameDate");
+
+    if (selectedHour.isValid() && selectedMin.isValid()) {
+      final selectedTime = CustomDateTimeFormat.parseTime(
+          selectedHour.getValue()!, selectedMin.getValue()!);
+      if (isSameDate) {
+        // final isBefore = selectedTime.isBefore(currentDate);
+        // return isBefore;
+
+        /// Used when shift is today and time is after 2 hours from current time
+        final twoHoursLater = currentDate.add(Duration(hours: 2));
+        final isBefore = selectedTime.isBefore(twoHoursLater);
+
+        return isBefore;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  static bool isCurrentDateInList(List<DateTimeDTO> selectedMultiDates) {
+    DateTime today = DateTime.now();
+
+    final bool isBeforeTime = selectedMultiDates.any((dto) {
+      if (dto.date == null) return false;
+      final selectedDate = DateTime.parse(dto.date ?? "");
+      print("selected Date Time same ---> ${dto.date}");
+      print("selected Date Time same --->111  $selectedDate");
+      return (selectedDate.year == today.year &&
+          selectedDate.month == today.month &&
+          selectedDate.day == today.day);
+    });
+    return isBeforeTime;
+  }
+
   SendProposalBloc(this._mainFacade) : super(SendProposalState.initial()) {
     on<SendProposalEvent>(
       (event, emit) async {
@@ -173,7 +227,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
             // } else {
             //   failureOrSuccess = await _mainFacade.getPostApi(postId: e.postID);
             // }
-            // failureOrSuccess =await _mainFacade.getPostApi(postId: e.postID );
+            // failureOrSuccess =await _mainFacade.getPostApi(postId: e.postID);
             failureOrSuccess = await _mainFacade.getSendProposalDetailApi(
                 id: e.id, postId: e.postID);
 
@@ -184,7 +238,6 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                 failureOrSuccessOption: optionOf(failureOrSuccess),
               )),
               (r) {
-                print("post--> $r");
                 setShiftDataToUpdate(emit, r);
                 emit(state.copyWith(
                   isLoading: false,
@@ -367,6 +420,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
             final isMoreThanTwoHours =
                 CustomDateTimeFormat.parseTotalPayableHours(
                     state.totalPaybleHours);
+
             if (isRateValid &&
                 isCommuteAllownceValid &&
                 isAccomdationAllownceValid &&
@@ -374,7 +428,15 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                 isStartMinuteValid &&
                 isEndHourValid &&
                 isEndMinuteValid) {
-              if (isMoreThanTwoHours < Duration(hours: 2)) {
+              final isTimePast =
+                  timeIsPast(state, state.startHour, state.startMinute);
+
+              if (isTimePast) {
+                showError(
+                        message: StringConstant
+                            .shiftStartTimeMustBeAFutureTimeAndAtLeastTwoHoursAfterTheCurrentTime)
+                    .show(e.context);
+              } else if (isMoreThanTwoHours < Duration(hours: 2)) {
                 print("show errorrrr on submit");
                 showError(
                         message:
@@ -464,7 +526,19 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                 isStartMinuteValid &&
                 isEndHourValid &&
                 isEndMinuteValid) {
-              if (isMoreThanTwoHours < Duration(hours: 2)) {
+              final isTimePast = timeIsPast(
+                state,
+                state.startHour,
+                state.startMinute,
+                shiftType: 1,
+              );
+
+              if (isTimePast) {
+                showError(
+                        message: StringConstant
+                            .shiftStartTimeMustBeAFutureTimeAndAtLeastTwoHoursAfterTheCurrentTime)
+                    .show(e.context);
+              } else if (isMoreThanTwoHours < Duration(hours: 2)) {
                 showError(
                         message:
                             StringConstant.theTotalPayableHourMustBeAtLeastTwo)
@@ -894,9 +968,8 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
   setShiftDataToUpdate(
       Emitter<SendProposalState> emit, HealthcarePostDTO updatedShift) async {
     final r = updatedShift.shift_detail;
-    // final proposal = updatedShift.proposal_received;
+    final proposal = r?.proposal_received;
     if (r != null) {
-      print("Update r---> ${jsonEncode(r.recurrence_mode)}");
       emit(
         state.copyWith(
           isLoading: true,
@@ -910,7 +983,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
               CustomDateTimeFormat.getMinute(timestamp: r.end_time ?? 0)),
           unpaidBreak: InputEmptyOrNot(r.unpaid_break?.name ?? ""),
           totalPaybleHours: r.total_payable_hour ?? "",
-          rateHour: Rate((updatedShift.rate_hour != null)
+          /* rateHour: Rate((updatedShift.rate_hour != null)
               ? "${updatedShift.rate_hour ?? ""}"
               : ""),
           commuteHour: InputEmptyOrNot((r.commute_allowance_type == 2)
@@ -925,6 +998,24 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
               : ""),
           accomdationRate: Rate((r.accommodation_allowance_type == 1)
               ? "${r.accommodation_allowance_type_details ?? 0}"
+              : ""), */
+          rateHour: Rate((proposal?.proposed_hourly_rate != null)
+              ? "${proposal?.proposed_hourly_rate ?? ""}"
+              : ""),
+          commuteHour: InputEmptyOrNot((proposal?.commute_allowance_type == 2)
+              ? getAccomdationHourName(
+                  proposal?.proposed_commute_allowance_hour_id ?? 0)
+              : ""),
+          commuteRate: Rate((proposal?.commute_allowance_type == 1)
+              ? "${proposal?.proposed_commute_allowance_rate ?? ""}"
+              : ""),
+          accomdationHour: InputEmptyOrNot(
+              (proposal?.accommodation_allowance_type == 2)
+                  ? getAccomdationHourName(
+                      proposal?.proposed_accommodation_allowance_hour_id ?? 0)
+                  : ""),
+          accomdationRate: Rate((proposal?.accommodation_allowance_type == 1)
+              ? "${proposal?.proposed_accommodation_allowance_rate ?? ""}"
               : ""),
           /* rateHour: Rate((updatedShift
                       .proposal_received?.proposed_hourly_rate !=
@@ -1016,7 +1107,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
     return list;
   }
 
-  String getAccomdationHourName(double id) {
+  String getAccomdationHourName(int id) {
     print("id of hour--> ${state.accomdationHoursList}");
     final hour = state.accomdationHoursList
         .firstWhere((hour) => hour.id == id, orElse: () => SkillDTO());

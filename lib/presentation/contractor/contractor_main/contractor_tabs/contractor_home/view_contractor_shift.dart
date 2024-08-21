@@ -20,6 +20,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
@@ -30,11 +31,13 @@ class ViewContractorShift extends StatelessWidget {
   final int postId;
   final bool isTotalApplicants;
   final bool fromDashboard;
+  final bool isUpcoming;
   const ViewContractorShift({
     super.key,
     required this.postId,
     this.isTotalApplicants = false,
     this.fromDashboard = false,
+    this.isUpcoming = false,
   });
 
   @override
@@ -212,7 +215,7 @@ class ViewContractorShift extends StatelessWidget {
           commonDivider(),
           paybaleTitleRate(
             title: StringConstant.estimatedEarningsForShift,
-            value: "\$${payable.total_amount_payable ?? 00}",
+            value: "\$${payable.total_amount_payable_contractor ?? 00}",
             isLast: true,
           ),
         ],
@@ -547,7 +550,9 @@ class ViewContractorShift extends StatelessWidget {
               final latitude = location?.latitude;
               final longitude = location?.longitude;
               if (latitude != null && longitude != null) {
-                context.router.push(
+                LocationHelper.openDirections(context,
+                    endLat: latitude, endLng: longitude);
+                /* context.router.push(
                   PageRouteInfo(
                     ShowGoogleMap.name,
                     args: ShowGoogleMapArgs(
@@ -555,7 +560,7 @@ class ViewContractorShift extends StatelessWidget {
                       longitude: longitude,
                     ),
                   ),
-                );
+                ); */
               }
             },
             child: Row(
@@ -700,8 +705,9 @@ class ViewContractorShift extends StatelessWidget {
                 title: StringConstant.shiftDates,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
-              (post.shift_detail?.shift_type == 2 &&
-                      post.shift_detail?.same_or_different_time == 2)
+              (post.shift_detail?.shift_type == 2
+                  // && post.shift_detail?.same_or_different_time == 2
+                  )
                   ? displayDateBreak(context, post,
                       boldValue: (post.shift_detail?.detail != null &&
                               post.shift_detail!.detail!.isNotEmpty)
@@ -774,7 +780,9 @@ class ViewContractorShift extends StatelessWidget {
                         if (post.shift_detail != null) {
                           context.router.push(PageRouteInfo(ViewDates.name,
                               args: ViewDatesArgs(
-                                  shiftDetail: post.shift_detail!)));
+                                shiftDetail: post.shift_detail!,
+                                isUpcoming: isUpcoming,
+                              )));
                         }
                       },
                       width: 100,

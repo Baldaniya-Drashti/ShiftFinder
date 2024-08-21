@@ -18,7 +18,6 @@ import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -34,6 +33,8 @@ class SinglePostShift extends StatelessWidget {
 
   PostShiftDTO post;
   final bool fromSaveTemplate;
+  final bool fromReview;
+  final bool isCreate;
 
   SinglePostShift({
     super.key,
@@ -42,11 +43,12 @@ class SinglePostShift extends StatelessWidget {
     required this.postId,
     required this.post,
     this.fromSaveTemplate = false,
+    this.fromReview = false,
+    this.isCreate = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    Log.debug("===>SinglePostShift");
     return BlocProvider(
       create: (context) => getIt<PostShiftBloc>()
         ..add(PostShiftEvent.changeShiftType("Single",
@@ -164,12 +166,17 @@ class SinglePostShift extends StatelessWidget {
                             top: getSize(50), bottom: getSize(30)),
                         child: CommonButton(
                           onPressed: () {
-                            context.read<PostShiftBloc>().add(
-                                PostShiftEvent.singleShiftSubmitted(
-                                    context, fromSaveTemplate));
+                            context
+                                .read<PostShiftBloc>()
+                                .add(PostShiftEvent.singleShiftSubmitted(
+                                  context,
+                                  fromSaveTemplate,
+                                  fromReview: fromReview,
+                                  isCreate: isCreate,
+                                ));
                           },
                           buttonText: fromSaveTemplate
-                              ? "Save and Next"
+                              ? StringConstant.saveAndNext
                               : StringConstant.txtContinue,
                         ),
                       ),
@@ -182,6 +189,7 @@ class SinglePostShift extends StatelessWidget {
   }
 
   Widget dateField(BuildContext context, PostShiftState state) {
+    print("isCreate---> ${fromReview}");
     return CustomTextField(
       labelText: StringConstant.date,
       hintText: (state.signleShiftDate.isValid())
@@ -205,12 +213,15 @@ class SinglePostShift extends StatelessWidget {
           width: getSize(24),
         ),
       ),
-      onTap: (state.updateShift.id != null && fromSaveTemplate == false)
+      onTap: (state.updateShift.id != null &&
+              fromSaveTemplate == false &&
+              (fromReview == false || isCreate == false))
           ? null
           : () {
               DocumentExpiryDatePicker.customDatePicker(
                 context,
-                firstDate: DateTime.now().add(Duration(days: 1)),
+                // firstDate: DateTime.now().add(Duration(days: 1)),
+                firstDate: DateTime.now(),
                 onPickedDate: (pickedDate) {
                   context
                       .read<PostShiftBloc>()
@@ -221,7 +232,8 @@ class SinglePostShift extends StatelessWidget {
                 onCancelClick: () {},
                 selectedDate: (state.signleShiftDate.isValid())
                     ? DateTime.parse(state.signleShiftDate.getValue() ?? "")
-                    : DateTime.now().add(Duration(days: 1)),
+                    // : DateTime.now().add(Duration(days: 1)),
+                    : DateTime.now(),
               );
             },
       validator: (_, context) =>
@@ -248,14 +260,16 @@ class SinglePostShift extends StatelessWidget {
       children: [
         CustomTimePickerDropdown(
           labelText: StringConstant.startTime,
-          dropDownIcon:
-              (state.updateShift.id != null && fromSaveTemplate == false)
-                  ? Container()
-                  : null,
-          dropDownReadOnly:
-              (state.updateShift.id != null && fromSaveTemplate == false)
-                  ? true
-                  : false,
+          dropDownIcon: (state.updateShift.id != null &&
+                  fromSaveTemplate == false &&
+                  (fromReview == false || isCreate == false))
+              ? Container()
+              : null,
+          dropDownReadOnly: (state.updateShift.id != null &&
+                  fromSaveTemplate == false &&
+                  (fromReview == false || isCreate == false))
+              ? true
+              : false,
           disableDropDownColor: AppColors.grey04,
           hourValue:
               (state.startHour.isValid()) ? state.startHour.getValue() : null,
@@ -290,8 +304,8 @@ class SinglePostShift extends StatelessWidget {
                     : (state.singleShiftErrorMessages &&
                             PostShiftBloc.timeIsPast(
                                 state, state.startHour, state.startMinute))
-                        ? commonErrorText(
-                            StringConstant.shiftStartTimeMustBeAFutureTime)
+                        ? commonErrorText(StringConstant
+                            .shiftStartTimeMustBeAFutureTimeAndAtLeastTwoHoursAfterTheCurrentTime)
                         : Container(),
       ],
     );
@@ -320,14 +334,16 @@ class SinglePostShift extends StatelessWidget {
       children: [
         CustomTimePickerDropdown(
           labelText: StringConstant.endTime,
-          dropDownIcon:
-              (state.updateShift.id != null && fromSaveTemplate == false)
-                  ? Container()
-                  : null,
-          dropDownReadOnly:
-              (state.updateShift.id != null && fromSaveTemplate == false)
-                  ? true
-                  : false,
+          dropDownIcon: (state.updateShift.id != null &&
+                  fromSaveTemplate == false &&
+                  (fromReview == false || isCreate == false))
+              ? Container()
+              : null,
+          dropDownReadOnly: (state.updateShift.id != null &&
+                  fromSaveTemplate == false &&
+                  (fromReview == false || isCreate == false))
+              ? true
+              : false,
           disableDropDownColor: AppColors.grey04,
           hourValue:
               (state.endHour.isValid()) ? state.endHour.getValue() : null,
@@ -374,13 +390,16 @@ class SinglePostShift extends StatelessWidget {
       hintText: StringConstant.unpaidBreak,
       showTextfield: false,
       isLabelPadding: true,
-      dropDownIcon: (state.updateShift.id != null && fromSaveTemplate == false)
+      dropDownIcon: (state.updateShift.id != null &&
+              fromSaveTemplate == false &&
+              (fromReview == false || isCreate == false))
           ? Container()
           : null,
-      dropDownReadOnly:
-          (state.updateShift.id != null && fromSaveTemplate == false)
-              ? true
-              : false,
+      dropDownReadOnly: (state.updateShift.id != null &&
+              fromSaveTemplate == false &&
+              (fromReview == false || isCreate == false))
+          ? true
+          : false,
       value:
           (state.unpaidBreak.isValid()) ? state.unpaidBreak.getValue() : null,
       items: state.breakList.map((val) {

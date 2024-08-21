@@ -30,11 +30,20 @@ _$EmployerInvoiceDTOImpl _$$EmployerInvoiceDTOImplFromJson(
       roles_list_name: json['roles_list_name'] as String?,
       date: (json['date'] as num?)?.toInt(),
       total_payable_hours: json['total_payable_hours'] as String?,
-      hourly_rate: (json['hourly_rate'] as num?)?.toInt(),
+      hourly_rate: (json['hourly_rate'] as num?)?.toDouble(),
       total_wage: json['total_wage'] as String?,
       shiftfinder_service_fee: json['shiftfinder_service_fee'] as String?,
       total_allowance: json['total_allowance'] as String?,
       total_amount_payble: json['total_amount_payble'] as String?,
+      invoice_no: (json['invoice_no'] as num?)?.toInt(),
+      total_amount_payable_contractor:
+          (json['total_amount_payable_contractor'] as num?)?.toDouble(),
+      third_party_fee: json['third_party_fee'] as String?,
+      third_party_tax_fee: json['third_party_tax_fee'] as String?,
+      clock_in_clock_out: json['clock_in_clock_out'] == null
+          ? null
+          : InvoiceClockInOutDTO.fromJson(
+              json['clock_in_clock_out'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$EmployerInvoiceDTOImplToJson(
@@ -61,4 +70,49 @@ Map<String, dynamic> _$$EmployerInvoiceDTOImplToJson(
       'shiftfinder_service_fee': instance.shiftfinder_service_fee,
       'total_allowance': instance.total_allowance,
       'total_amount_payble': instance.total_amount_payble,
+      'invoice_no': instance.invoice_no,
+      'total_amount_payable_contractor':
+          instance.total_amount_payable_contractor,
+      'third_party_fee': instance.third_party_fee,
+      'third_party_tax_fee': instance.third_party_tax_fee,
+      'clock_in_clock_out': instance.clock_in_clock_out,
+    };
+
+_$InvoiceClockInOutDTOImpl _$$InvoiceClockInOutDTOImplFromJson(
+        Map<String, dynamic> json) =>
+    _$InvoiceClockInOutDTOImpl(
+      clock_in: (json['clock_in'] as num?)?.toInt(),
+      clock_out: (json['clock_out'] as num?)?.toInt(),
+      total_shift_hours: json['total_shift_hours'] as String?,
+      unpaid_break: json['unpaid_break'] == null
+          ? null
+          : InvoiceUnpaidBreakDTO.fromJson(
+              json['unpaid_break'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$InvoiceClockInOutDTOImplToJson(
+        _$InvoiceClockInOutDTOImpl instance) =>
+    <String, dynamic>{
+      'clock_in': instance.clock_in,
+      'clock_out': instance.clock_out,
+      'total_shift_hours': instance.total_shift_hours,
+      'unpaid_break': instance.unpaid_break,
+    };
+
+_$InvoiceUnpaidBreakDTOImpl _$$InvoiceUnpaidBreakDTOImplFromJson(
+        Map<String, dynamic> json) =>
+    _$InvoiceUnpaidBreakDTOImpl(
+      id: (json['id'] as num?)?.toInt(),
+      name: json['name'] as String?,
+      short_name: json['short_name'] as String?,
+      minute: (json['minute'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$$InvoiceUnpaidBreakDTOImplToJson(
+        _$InvoiceUnpaidBreakDTOImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'short_name': instance.short_name,
+      'minute': instance.minute,
     };

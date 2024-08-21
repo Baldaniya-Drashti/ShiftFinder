@@ -147,7 +147,7 @@ class GenerateContractorStatement extends StatelessWidget {
         titleWidget(
           StringConstant.netEarnings,
           otherValue:
-              "\$${statement.additional_data?.completed_total_earnings ?? 0.0}",
+              "\$${statement.additional_data?.completed_total_earnings?.toStringAsFixed(2) ?? 0.0}",
           bgColor: PdfColors.green100,
         ),
       ],
@@ -195,7 +195,7 @@ class GenerateContractorStatement extends StatelessWidget {
         titleWidget(
           StringConstant.totalCancellationFee,
           otherValue:
-              "\$${statement.additional_data?.total_cancellation_fee ?? 0.0}",
+              "\$${statement.additional_data?.total_cancellation_fee?.toStringAsFixed(2) ?? 0.0}",
           bgColor: PdfColors.green100,
         ),
       ],
@@ -323,16 +323,16 @@ class GenerateContractorStatement extends StatelessWidget {
               value: earning.hours_worked ?? ""),
           detailWidget(
               title: "${StringConstant.hourlyRate} :",
-              value: "\$${earning.hourly_rate ?? 0.0}"),
+              value: "\$${earning.hourly_rate?.toStringAsFixed(2) ?? 0.0}"),
           detailWidget(
               title: "${StringConstant.wages} :",
-              value: "\$${earning.total_wage ?? 0.0}"),
+              value: "\$${earning.total_wage?.toStringAsFixed(2) ?? 0.0}"),
           detailWidget(
               title: "${StringConstant.allowances} :",
-              value: "\$${earning.total_allowance ?? 0.0}"),
+              value: "\$${earning.total_allowance?.toStringAsFixed(2) ?? 0.0}"),
           detailWidget(
             title: "${StringConstant.earnings} :",
-            value: "\$${earning.total_earnings ?? 0.0}",
+            value: "\$${earning.total_earnings?.toStringAsFixed(2) ?? 0.0}",
             valueColor: PdfColors.green,
           ),
         ],
@@ -357,7 +357,7 @@ class GenerateContractorStatement extends StatelessWidget {
               value: earning.location?.location ?? ""),
           detailWidget(
             title: "${StringConstant.compensationFee} :",
-            value: "\$${earning.amount ?? 0.0}",
+            value: "\$${earning.amount?.toStringAsFixed(2) ?? 0.0}",
             valueColor: PdfColors.green,
           ),
         ],
@@ -379,7 +379,7 @@ class GenerateContractorStatement extends StatelessWidget {
               value: earning.referred_contractor_name ?? ""),
           detailWidget(
             title: "${StringConstant.bonusAmount} :",
-            value: "\$${earning.amount ?? 0.0}",
+            value: "\$${earning.amount?.toStringAsFixed(2) ?? 0.0}",
             valueColor: PdfColors.green,
           ),
         ],
@@ -398,7 +398,7 @@ class GenerateContractorStatement extends StatelessWidget {
                   DateTime.fromMillisecondsSinceEpoch(earning.date! * 1000))),
           detailWidget(
             title: "${StringConstant.depositAmount} :",
-            value: "\$${earning.amount ?? 0.0}",
+            value: "\$${earning.amount?.toStringAsFixed(2) ?? 0.0}",
             valueColor: PdfColors.green,
           ),
         ],

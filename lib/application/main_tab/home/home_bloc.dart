@@ -35,15 +35,26 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeEvent>((event, emit) async {
       await event.map(
         deletePost: (e) async {
+          emit(state.copyWith(isLoading: true));
           final res = await mainFacade.deletePostApi(postId: e.postId);
           res.fold(
-            (l) => emit(
-              state.copyWith(
-                isErrorInAPI: true,
-                isLoading: false,
-                teamStatusFailureOrSuccessOption: none(),
-              ),
-            ),
+            (l) {
+              showError(
+                message: l.maybeMap(
+                  showAPIResponseMessage: (value) => value.message,
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
+                  orElse: () => "Server Error. Try again later.",
+                ),
+              ).show(e.context);
+              emit(
+                state.copyWith(
+                  // isErrorInAPI: true,
+                  isLoading: false,
+                  teamStatusFailureOrSuccessOption: none(),
+                ),
+              );
+            },
             (r) {
               emit(
                 state.copyWith(
@@ -84,6 +95,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             ),
             (r) {
               lastPage = r.meta?.lastPage ?? 1;
+
               if (e.isRefresh) {
                 List.from(state.employerDashboardList).clear();
               }

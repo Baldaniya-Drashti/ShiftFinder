@@ -38,7 +38,7 @@ class PreviousShiftFavView extends StatelessWidget {
               ),
               Expanded(
                 child: (state.postDataLoading)
-                    ? CenterLoadingIndicator()
+                    ? CenterLoadingIndicator(isOnlyLoader: true)
                     : PaginatedListView(
                         onRefresh: () {
                           context.read<PreviousShiftBloc>().add(

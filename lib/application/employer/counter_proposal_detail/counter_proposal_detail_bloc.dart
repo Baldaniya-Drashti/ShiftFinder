@@ -395,8 +395,29 @@ class CounterProposalDetailBloc
             },
           );
         },
-        addProposalData: (AddProposalData value) {
-          emit(state.copyWith(data: value.data));
+        addProposalData: (AddProposalData value) async {
+          final data = value.data;
+          emit(state.copyWith(postDataLoading: true));
+          await Future.delayed(Duration(milliseconds: 500));
+          emit(state.copyWith(
+            data: data,
+            rateHour: Rate(data.counter_proposal_hourly_rate.toString()),
+            commuteRate: (data.commute_allowance_type == 1)
+                ? Rate(data.counter_commute_allowance_rate.toString())
+                : Rate(""),
+            accomdationRate: (data.accommodation_allowance_type == 1)
+                ? Rate(data.counter_accommodation_allowance_rate.toString())
+                : Rate(""),
+            accomdationHour: (data.accommodation_allowance_type == 2)
+                ? InputEmptyOrNot(getAllownceHourName(
+                    data.counter_accommodation_allowance_hour_id, state))
+                : InputEmptyOrNot(""),
+            commuteHour: (data.commute_allowance_type == 2)
+                ? InputEmptyOrNot(getAllownceHourName(
+                    data.counter_commute_allowance_hour_id, state))
+                : InputEmptyOrNot(""),
+            postDataLoading: false,
+          ));
         },
         accomdationHourChanged: (AccomdationHourChanged value) {
           emit(state.copyWith(
@@ -424,5 +445,15 @@ class CounterProposalDetailBloc
         orElse: () => SkillDTO());
     print("Hour ID --> $hourId");
     return hourId.id ?? -1;
+  }
+
+  String getAllownceHourName(int? id, CounterProposalDetailState state) {
+    if (id != null) {
+      final hour = state.accomdationHoursList
+          .firstWhere((hour) => hour.id == id, orElse: () => SkillDTO());
+      return hour.name ?? "";
+    } else {
+      return "";
+    }
   }
 }

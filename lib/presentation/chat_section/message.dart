@@ -41,97 +41,112 @@ class Message extends StatelessWidget {
       child: BlocConsumer<MessageBloc, MessageState>(
         listener: (context, state) {},
         builder: (context, state) {
-          return GestureDetector(
-            onTap: () => FocusScope.of(context).unfocus(),
-            child: Scaffold(
-              appBar: MessageAppbar(
-                additionalData: state.additional_data,
-              ),
-              body: state.isLoading
-                  ? CenterLoadingIndicator(isOnlyLoader: true)
-                  : PaginatedListView(
-                      enablePullDown: false,
-                      reverse: true,
-                      onRefresh: () {
-                        context
-                            .read<MessageBloc>()
-                            .add(MessageEvent.getMessageList(true));
-                      },
-                      onLoading: () {
-                        context
-                            .read<MessageBloc>()
-                            .add(MessageEvent.getMessageList(false));
-                      },
-                      refreshController:
-                          context.read<MessageBloc>().refreshController,
-                      isNoDataFound: state.messageList.isEmpty,
-                      child: ListView.separated(
-                        shrinkWrap: true,
+          return PopScope(
+            canPop: true,
+            onPopInvokedWithResult: (canPop, _) {
+              context
+                  .read<MessageBloc>()
+                  .add(MessageEvent.getMessageList(true));
+              context.router.maybePop();
+            },
+            child: GestureDetector(
+              onTap: () => FocusScope.of(context).unfocus(),
+              child: Scaffold(
+                appBar: MessageAppbar(
+                  additionalData: state.additional_data,
+                  onBackPressed: () {
+                    context
+                        .read<MessageBloc>()
+                        .add(MessageEvent.getMessageList(true));
+                    context.router.maybePop();
+                  },
+                ),
+                body: state.isLoading
+                    ? CenterLoadingIndicator(isOnlyLoader: true)
+                    : PaginatedListView(
+                        enablePullDown: false,
                         reverse: true,
-                        physics: BouncingScrollPhysics(),
-                        separatorBuilder: (context, index) =>
-                            SizedBox(height: getSize(15)),
-                        padding: EdgeInsets.only(
-                          left: getSize(20),
-                          right: getSize(20),
-                          top: getSize(30),
-                          bottom: getSize(100),
-                        ),
-                        itemBuilder: (context, index) {
-                          return StickyHeader(
-                            header: (index != (state.messageList.length - 1)
-                                    ? !(ChatDateMethod().isSameDay(
-                                        DateTime.fromMillisecondsSinceEpoch(
-                                            state.messageList[index]
-                                                    .createdAt ??
-                                                0),
-                                        DateTime.fromMillisecondsSinceEpoch(
-                                          state.messageList[index + 1]
-                                                  .createdAt ??
-                                              0,
-                                        )))
-                                    : true)
-                                ? ShowDateWidget(
-                                    date:
-                                        state.messageList[index].createdAt ?? 0,
-                                  )
-                                : SizedBox.shrink(),
-                            content: MessageTile(
-                              message: state.messageList[index],
-                              // isSender: false,
-                              isSender: state.messageList[index].receiverId ==
-                                  receiverId,
-                            ),
-                          );
+                        onRefresh: () {
+                          context
+                              .read<MessageBloc>()
+                              .add(MessageEvent.getMessageList(true));
                         },
-                        itemCount: state.messageList.length,
-                      ),
-                    ),
-              bottomSheet: SafeArea(
-                child: state.additional_data.status == true
-                    ? textFiled(
-                        context: context,
-                        state: state,
-                      )
-                    : Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: getSize(44),
-                              horizontal: getSize(20),
-                            ),
-                            child: Center(
-                              child: BaseText(
-                                text: StringConstant.youCanT,
-                                textAlign: TextAlign.center,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
+                        onLoading: () {
+                          context
+                              .read<MessageBloc>()
+                              .add(MessageEvent.getMessageList(false));
+                        },
+                        refreshController:
+                            context.read<MessageBloc>().refreshController,
+                        isNoDataFound: state.messageList.isEmpty,
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          reverse: true,
+                          physics: BouncingScrollPhysics(),
+                          separatorBuilder: (context, index) =>
+                              SizedBox(height: getSize(15)),
+                          padding: EdgeInsets.only(
+                            left: getSize(20),
+                            right: getSize(20),
+                            top: getSize(30),
+                            bottom: getSize(100),
                           ),
-                        ],
+                          itemBuilder: (context, index) {
+                            return StickyHeader(
+                              header: (index != (state.messageList.length - 1)
+                                      ? !(ChatDateMethod().isSameDay(
+                                          DateTime.fromMillisecondsSinceEpoch(
+                                              state.messageList[index]
+                                                      .createdAt ??
+                                                  0),
+                                          DateTime.fromMillisecondsSinceEpoch(
+                                            state.messageList[index + 1]
+                                                    .createdAt ??
+                                                0,
+                                          )))
+                                      : true)
+                                  ? ShowDateWidget(
+                                      date:
+                                          state.messageList[index].createdAt ??
+                                              0,
+                                    )
+                                  : SizedBox.shrink(),
+                              content: MessageTile(
+                                message: state.messageList[index],
+                                // isSender: false,
+                                isSender: state.messageList[index].receiverId ==
+                                    receiverId,
+                              ),
+                            );
+                          },
+                          itemCount: state.messageList.length,
+                        ),
                       ),
+                bottomSheet: SafeArea(
+                  child: state.isLoading
+                      ? Text("")
+                      : state.additional_data.status == true
+                          ? textFiled(context: context, state: state)
+                          : Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: getSize(20),
+                                    horizontal: getSize(20),
+                                  ),
+                                  child: Center(
+                                    child: BaseText(
+                                      text: StringConstant.youCanT,
+                                      textAlign: TextAlign.center,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                ),
               ),
             ),
           );

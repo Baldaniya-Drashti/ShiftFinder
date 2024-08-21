@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_shift_bloc/contractor_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
@@ -16,6 +17,7 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -59,24 +61,19 @@ class ProposalReceived extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     userDetail(context),
-                    /* if (post.shift_type == 1) ...[
+                    if (post.shift_type == 2) ...[
+                      Gap(getSize(10)),
                       CommonButton(
                         height: 34,
-                        onPressed: () async {
-                          /*         await context.router
-                            .push(
-                          PageRouteInfo(
-                            ContractorProposedAvailability.name,
-                            args: ContractorProposedAvailabilityArgs(
-                                list: data.shift_details ?? [],
-                                confirmDialog: confirmDialog),
-                          ),
-                        )
-                            .then((result) {
-                          context.read<ProposalDetailBloc>().add(
-                              ProposalDetailEvent.addConfirmDialogFlag(
-                                  result as bool));
-                        }); */
+                        onPressed: () {
+                          context.router.push(
+                            PageRouteInfo(
+                              ContractorProposedAvailability.name,
+                              args: ContractorProposedAvailabilityArgs(
+                                list: post.shift_details ?? [],
+                              ),
+                            ),
+                          );
                         },
                         backgroundColor: AppColors.green.withOpacity(0.1),
                         buttonText: StringConstant.viewAvailability,
@@ -85,17 +82,23 @@ class ProposalReceived extends StatelessWidget {
                         buttonTextColor: AppColors.black,
                       ),
                     ] else ...[
-                      BaseText(
-                        text: DateFormat("dd MMM, yyyy").format(
-                            DateTime.fromMillisecondsSinceEpoch(
-                                (post.date ?? 0) * 1000)),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        textColor: AppColors.primaryColor,
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: getSize(10),
+                            bottom: getSize(5),
+                            left: getSize(15)),
+                        child: BaseText(
+                          text: DateFormat("dd MMM, yyyy").format(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                  (post.date ?? 0) * 1000)),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          textColor: AppColors.primaryColor,
+                        ),
                       ),
-                      SizedBox(height: getSize(10)),
                       Container(
-                        padding: EdgeInsets.all(getSize(20)),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: getSize(15), vertical: getSize(10)),
                         decoration: BoxDecoration(
                           color: Color(0xFFEDEDED),
                           borderRadius: BorderRadius.circular(getSize(20)),
@@ -108,20 +111,19 @@ class ProposalReceived extends StatelessWidget {
                               context,
                               title: StringConstant.postedTime,
                               description:
-                                  '${formatUnixTimestamp(post.start_time ?? 0)} to ${formatUnixTimestamp(post.end_time ?? 0)}',
+                                  '${formatUnixTimestamp(post.posted_start_time ?? 0)} to ${formatUnixTimestamp(post.posted_end_time ?? 0)}',
                             ),
-                            SizedBox(height: getSize(20)),
+                            Gap(getSize(20)),
                             getTitleAndDescription(
                               context,
                               title: StringConstant.proposedTime,
                               description:
-                                  '${formatUnixTimestamp(post.start_time ?? 0)} to ${formatUnixTimestamp(post.end_time ?? 0)}',
+                                  '${formatUnixTimestamp(post.agreed_start_time ?? 0)} to ${formatUnixTimestamp(post.agreed_end_time ?? 0)}',
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: getSize(20)),
-                    ], */
+                    ],
                     proposedBox(
                       title: StringConstant.hourlyRate,
                       postedValue: allowncValue(
@@ -271,8 +273,9 @@ class ProposalReceived extends StatelessWidget {
       children: [
         BaseText(
           text: title,
-          fontSize: 14,
+          fontSize: 12,
           fontWeight: FontWeight.w500,
+          textColor: AppColors.black.withOpacity(0.7),
         ),
         SizedBox(height: getSize(8)),
         Container(
@@ -385,7 +388,9 @@ class ProposalReceived extends StatelessWidget {
               final latitude = post.latitude;
               final longitude = post.longitude;
               if (latitude != null && longitude != null) {
-                context.router.push(
+                LocationHelper.openDirections(context,
+                    endLat: latitude, endLng: longitude);
+                /*  context.router.push(
                   PageRouteInfo(
                     ShowGoogleMap.name,
                     args: ShowGoogleMapArgs(
@@ -393,7 +398,7 @@ class ProposalReceived extends StatelessWidget {
                       longitude: longitude,
                     ),
                   ),
-                );
+                ); */
               }
             },
             child: Row(

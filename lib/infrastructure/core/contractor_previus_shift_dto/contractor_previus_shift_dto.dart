@@ -26,6 +26,7 @@ class ContractorPreviousShiftDTO with _$ContractorPreviousShiftDTO {
     int? shift_type,
     int? total_shifts,
     List<PreviousShiftDetailDTO>? shift_date,
+    int? is_payment,
   }) = _ContractorPreviousShiftDTO;
 
   factory ContractorPreviousShiftDTO.fromJson(Map<String, dynamic> json) =>

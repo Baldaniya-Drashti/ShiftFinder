@@ -245,4 +245,8 @@ abstract class IAccountRepository {
     required String companyDesc,
     required String lastPage,
   });
+
+  Future<Either<AccountFailure, List<DocumentDTO>>> getStripeDocumentApi({
+    required int? documentType,
+  });
 }

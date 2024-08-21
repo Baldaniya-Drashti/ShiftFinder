@@ -175,6 +175,8 @@ import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart'
 import 'package:shift/application/profile/account/account_cubit.dart' as _i911;
 import 'package:shift/application/profile/applicant_profile/applicant_profile_bloc.dart'
     as _i828;
+import 'package:shift/application/review_post_bloc/review_post_bloc.dart'
+    as _i765;
 import 'package:shift/application/shift_action/shift_action_bloc.dart' as _i464;
 import 'package:shift/application/splash/splash_bloc.dart' as _i117;
 import 'package:shift/domain/account/i_account_repository.dart' as _i253;
@@ -407,6 +409,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1020.EmployerInvoiceBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i319.MonthlyStatementBloc>(
         () => _i319.MonthlyStatementBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i765.ReviewPostBloc>(
+        () => _i765.ReviewPostBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i790.ChatBloc>(() => _i790.ChatBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i901.HomeBloc>(() => _i901.HomeBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i946.AddNewMemberBloc>(

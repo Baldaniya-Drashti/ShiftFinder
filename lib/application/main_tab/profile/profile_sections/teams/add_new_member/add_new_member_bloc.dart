@@ -146,6 +146,7 @@ class AddNewMemberBloc extends Bloc<AddNewMemberEvent, AddNewMemberState> {
                   failureOrSuccessOption: none(),
                 ),
               );
+              print("team Id111---> ${state.teamID}");
               failureOrSuccess = await mainFacade.updateTeamMemberApi(
                 teamMemberId: value.updateTeamID,
                 teamMemberName: state.teamNameTextField,
@@ -154,6 +155,7 @@ class AddNewMemberBloc extends Bloc<AddNewMemberEvent, AddNewMemberState> {
                 countryNameCode: state.selectedCountryFlag,
                 email: state.emailAddress,
                 phoneNumber: state.mobileNumber,
+                teamId: state.teamID,
               );
             }
 

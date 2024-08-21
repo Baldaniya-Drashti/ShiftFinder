@@ -1,7 +1,12 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/place_detail_dto.dart';
+import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LocationHelper {
   /// TO GET GOOGLE PLACES
@@ -90,5 +95,178 @@ class LocationHelper {
       );
     }
     return null;
+  }
+
+  /*  Future<void> openDirections(
+        double startLat, double startLng, double endLat, double endLng) async {
+      final Uri googleMapsUrl = Uri.parse(
+          'https://www.google.com/maps/dir/?api=1&origin=$startLat,$startLng&destination=$endLat,$endLng&travelmode=driving');
+
+      final Uri appleMapsUrl = Uri.parse(
+          'http://maps.apple.com/?saddr=$startLat,$startLng&daddr=$endLat,$endLng');
+
+      if (await canLaunchUrl(googleMapsUrl)) {
+        await launchUrl(googleMapsUrl, mode: LaunchMode.platformDefault);
+      } else if (await canLaunchUrl(appleMapsUrl)) {
+        await launchUrl(appleMapsUrl, mode: LaunchMode.externalApplication);
+      } else {
+        throw 'Could not launch map application.';
+      }
+    } */
+
+  static Future<(Position?, double?, double?)> getCurrentLocation(
+      BuildContext context) async {
+    Position? currentPosition;
+    // ignore: unused_local_variable
+    bool locationDontAllow = false;
+    double? currentLat;
+    double? currentLng;
+    LocationPermission askedPermission;
+    askedPermission = await Geolocator.requestPermission();
+    if (askedPermission == LocationPermission.always ||
+        askedPermission == LocationPermission.whileInUse) {
+      currentPosition = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.best);
+
+      currentLat = currentPosition.latitude;
+      currentLng = currentPosition.longitude;
+
+      return (currentPosition, currentLat, currentLng);
+    } else if (askedPermission == LocationPermission.denied) {
+      askedPermission = await Geolocator.requestPermission();
+    } else if (askedPermission == LocationPermission.deniedForever) {
+      locationDontAllow = true;
+      showPermissionAlertDialog(context);
+    }
+    return (currentPosition, currentLat, currentLng);
+  }
+
+  static Future<void> openDirections(BuildContext context,
+      {required double endLat, required double endLng}) async {
+    try {
+      var (position, lat, lng) = await getCurrentLocation(context);
+
+      const String googleMapsBaseUrl = 'https://www.google.com/maps/dir/?api=1';
+      const String appleMapsBaseUrl = 'http://maps.apple.com/';
+
+      // /// FOR DEMO
+      /* endLat = 21.25002048372512;
+      endLng = 72.7859071371221;
+
+      lat = 49.90233907611407;
+      lng = -97.03402648956586; */
+
+      // Define current location as the origin
+      // const String origin = "origin=My+Location";
+
+      /* final Uri googleMapsUrl = Uri.parse(
+          '$googleMapsBaseUrl&$origin&destination=$endLat,$endLng&travelmode=driving');
+
+      final Uri appleMapsUrl = Uri.parse(
+          '$appleMapsBaseUrl?&saddr=My+Location&daddr=$endLat,$endLng'); */
+
+      final Uri googleMapsUrl = Uri.parse(
+          '$googleMapsBaseUrl&origin=$lat,$lng&destination=$endLat,$endLng&travelmode=driving');
+
+      final Uri appleMapsUrl =
+          Uri.parse('$appleMapsBaseUrl?saddr=$lat,$lng&daddr=$endLat,$endLng');
+
+      if (await canLaunchUrl(googleMapsUrl)) {
+        await launchUrl(googleMapsUrl, mode: LaunchMode.externalApplication);
+      } else if (await canLaunchUrl(appleMapsUrl)) {
+        await launchUrl(appleMapsUrl, mode: LaunchMode.externalApplication);
+      } else {
+        throw 'Could not launch map application.';
+      }
+    } catch (e) {
+      print("Catch Error: $e");
+    }
+  }
+
+  /* Future<void> launchMapWithDirections(double startLat, double startLng,
+      double destinationLatitude, double destinationLongitude) async {
+    final availableMaps = await MapLauncher.showDirections(
+      mapType: MapType.google,
+      destination: Coords(
+        destinationLatitude,
+        destinationLongitude,
+      ),
+
+      origin: Coords(startLat, startLng),
+      directionsMode: DirectionsMode.driving,
+      // title: "",
+    );
+    print(availableMaps);
+  } */
+
+  static showPermissionAlertDialog(BuildContext context) async {
+    //  return Container();
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          // shape: SmoothRectangleBorder(
+          //   borderRadius: SmoothBorderRadius.all(
+          //     SmoothRadius(
+          //       cornerRadius: getSize(20),
+          //       cornerSmoothing: 1,
+          //     ),
+          //   ),
+          // ),
+          title: BaseText(
+            text: 'Permission Denied!',
+            fontWeight: FontWeight.w600,
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BaseText(
+                  text:
+                      'Unable to get location. Go to Settings > Permissions, then allow following permissions and try again:'),
+              SizedBox(
+                height: getSize(20),
+              ),
+              Row(
+                children: [
+                  Icon(Icons.location_disabled),
+                  SizedBox(
+                    width: getSize(10),
+                  ),
+                  BaseText(
+                    text: 'Location',
+                    fontWeight: FontWeight.w500,
+                  ),
+                ],
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: BaseText(
+                text: 'Cancel',
+                fontWeight: FontWeight.w600,
+                textColor: Colors.blueAccent,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: BaseText(
+                text: 'Open Settings',
+                fontWeight: FontWeight.w600,
+                textColor: Colors.blueAccent,
+              ),
+              onPressed: () {
+                Geolocator.openLocationSettings();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

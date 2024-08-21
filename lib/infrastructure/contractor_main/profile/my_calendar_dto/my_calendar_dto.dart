@@ -35,6 +35,7 @@ class ContractorMyCalendarListDTO with _$ContractorMyCalendarListDTO {
     int? start_time,
     int? end_time,
     int? total_shift,
+    int? count,
   }) = _ContractorMyCalendarListDTO;
 
   factory ContractorMyCalendarListDTO.fromJson(Map<String, dynamic> json) =>

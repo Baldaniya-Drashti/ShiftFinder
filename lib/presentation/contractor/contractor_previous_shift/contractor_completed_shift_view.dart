@@ -17,6 +17,7 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 
@@ -83,7 +84,7 @@ class ContractorCompletedShiftView extends StatelessWidget {
                                                     .id ??
                                                 -1)));
                                   },
-                                  buttonText: StringConstant.viewInvoice,
+                                  buttonText: StringConstant.viewReceipt,
                                   backgroundColor:
                                       AppColors.green.withOpacity(0.1),
                                   buttonFontSize: 12,
@@ -92,6 +93,23 @@ class ContractorCompletedShiftView extends StatelessWidget {
                                   buttonFontWeight: FontWeight.w600,
                                   borderRadius: 7,
                                 ),
+                                Padding(
+                                  padding: EdgeInsets.only(top: getSize(10)),
+                                  child: BaseText(
+                                    text: (state.completedDataList[index]
+                                                .is_payment ==
+                                            1)
+                                        ? StringConstant.paymentCompleted
+                                        : StringConstant.paymentPending,
+                                    textColor: (state.completedDataList[index]
+                                                .is_payment ==
+                                            1)
+                                        ? AppColors.primaryColor
+                                        : AppColors.yellowColor,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )
                               ],
                             ),
                           );
@@ -168,7 +186,9 @@ class ContractorCompletedShiftView extends StatelessWidget {
               final latitude = location?.latitude;
               final longitude = location?.longitude;
               if (latitude != null && longitude != null) {
-                context.router.push(
+                LocationHelper.openDirections(context,
+                    endLat: latitude, endLng: longitude);
+                /* context.router.push(
                   PageRouteInfo(
                     ShowGoogleMap.name,
                     args: ShowGoogleMapArgs(
@@ -176,7 +196,7 @@ class ContractorCompletedShiftView extends StatelessWidget {
                       longitude: longitude,
                     ),
                   ),
-                );
+                ); */
               }
             },
             child: Row(

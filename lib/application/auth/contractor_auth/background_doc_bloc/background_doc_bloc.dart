@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-
 import 'package:shift/domain/account/account_failure.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
@@ -43,7 +42,8 @@ class BackgroundDocBloc extends Bloc<BackgroundDocEvent, BackgroundDocState> {
               bgDocFailureOrSuccessOption: none(),
             ),
           );
-          failureOrSuccess = await _repository.getDocumentApi(documentType: 1);
+          failureOrSuccess =
+              await _repository.getStripeDocumentApi(documentType: 3);
           failureOrSuccess.fold(
             (l) => emit(
               state.copyWith(
@@ -149,7 +149,7 @@ class BackgroundDocBloc extends Bloc<BackgroundDocEvent, BackgroundDocState> {
               ),
             );
 
-            if (state.bgDocId != -1) {
+            /* if (state.bgDocId != -1) {
               /* failureOrSuccess = await _repository.updateDocumentApi(
                 id: state.bgDocId,
                 documentType: 1,
@@ -160,17 +160,18 @@ class BackgroundDocBloc extends Bloc<BackgroundDocEvent, BackgroundDocState> {
                 expiryDate: state.bgDocIssueDate,
               ); */
             } else {
-              failureOrSuccess = await _repository.addAddressProofApi(
-                documentType: 3,
-                // subType: state.currentBgDocType.id,
-                documentFile: state.bgDocFrontDoc.getValue() ?? "",
-                documentBackFile: state.bgDocBackDoc.getValue() ?? "",
-                expiryDate: state.bgDocIssueDate,
-                lastPage: "ProofOfLegalStatus",
-              );
-            }
+             
+            } */
+            failureOrSuccess = await _repository.addAddressProofApi(
+              documentType: 3,
+              // subType: state.currentBgDocType.id,
+              documentFile: state.bgDocFrontDoc.getValue() ?? "",
+              documentBackFile: state.bgDocBackDoc.getValue() ?? "",
+              expiryDate: state.bgDocIssueDate,
+              lastPage: "ProofOfLegalStatus",
+            );
 
-            failureOrSuccess?.fold(
+            failureOrSuccess.fold(
               (failure) {
                 showError(
                   message: failure.maybeMap(
@@ -187,7 +188,10 @@ class BackgroundDocBloc extends Bloc<BackgroundDocEvent, BackgroundDocState> {
                 );
               },
               (success) {
-                e.context.router.push(PageRouteInfo(ProofOfLegalStatus.name));
+                e.context.router.push(PageRouteInfo(ProofOfLegalStatus.name,
+                    args: ProofOfLegalStatusArgs(
+                      isUpdate: e.isUpdate,
+                    )));
               },
             );
 

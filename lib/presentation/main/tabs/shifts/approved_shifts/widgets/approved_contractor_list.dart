@@ -17,6 +17,7 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/buttons/chat_button.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
@@ -44,7 +45,7 @@ class ApprovedHiredList extends StatelessWidget {
                 },
                 title: StringConstant.allHiredContractors,
               ),
-              body: state.isLoading
+              body: (state.isLoading)
                   ? CenterLoadingIndicator(isOnlyLoader: true)
                   : state.errorApi
                       ? Center(
@@ -74,6 +75,7 @@ class ApprovedHiredList extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return contractorDetail(
                                   context,
+                                  state,
                                   state.hiredApproveContractorList[index],
                                 );
                               }),
@@ -83,8 +85,8 @@ class ApprovedHiredList extends StatelessWidget {
     );
   }
 
-  Widget contractorDetail(
-      BuildContext context, HiredContractorListDTO contractor) {
+  Widget contractorDetail(BuildContext context, HiredContractorState state,
+      HiredContractorListDTO contractor) {
     return Container(
       margin:
           EdgeInsets.symmetric(vertical: getSize(8), horizontal: getSize(20)),
@@ -149,99 +151,128 @@ class ApprovedHiredList extends StatelessWidget {
                     ),
                   ),
                   Spacer(),
-                  CommonButton(
-                    height: getSize(35),
-                    width: getSize(80),
-                    borderRadius: 5,
-                    onPressed: () {
-                      // showUnderDevelopment(context);
-                      context.router.push(
-                        PageRouteInfo(
-                          Message.name,
-                          args: MessageArgs(
-                            receiverId: contractor.user_id ?? 0,
+                  ChatButton(
+                      badgeCount: contractor.count ?? 0,
+                      onPressed: () {
+                        // showUnderDevelopment(context);
+                        context.router
+                            .push(
+                          PageRouteInfo(
+                            Message.name,
+                            args: MessageArgs(
+                              receiverId: contractor.user_id ?? 0,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    backgroundColor: AppColors.primaryColor.withOpacity(0.15),
-                    buttonText: "",
-                    customWidget: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          SvgImageConstant.chat,
-                          color: AppColors.black,
-                          height: getSize(15),
-                          width: getSize(15),
-                        ),
-                        SizedBox(width: getSize(5)),
-                        BaseText(
-                          text: StringConstant.chat,
-                          fontWeight: FontWeight.w600,
-                          fontSize: getFontSize(12),
                         )
-                      ],
-                    ),
-                  )
+                            .then((value) {
+                          if (contractor.count != null &&
+                              (contractor.count ?? 0) > 0) {
+                            context.read<HiredContractorBloc>().add(
+                                HiredContractorEvent
+                                    .getHiredApproveContractorList(
+                                        refresh: true, postId: postId));
+                          }
+                        });
+                      }),
                 ],
               ),
             ),
           ),
+          if (contractor.contractor_shift_type == 2)
+            GestureDetector(
+              onTap: () {
+                context.router.push(PageRouteInfo(AgreedProposal.name,
+                    args: AgreedProposalArgs(
+                        // post: contractor,
+                        shiftType: contractor.shift_type ?? -1,
+                        postId: postId,
+                        userId: contractor.user_id ?? -1)));
+              },
+              child: Container(
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: AppColors.primaryColor.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(getSize(5)),
+                ),
+                padding: EdgeInsets.symmetric(
+                    vertical: getSize(8), horizontal: getSize(10)),
+                child: BaseText(
+                  text: StringConstant.viewAgreedProposal,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  textColor: AppColors.primaryColor,
+                ),
+              ),
+            ),
           SizedBox(height: getSize(10)),
           dateTime(contractor),
           SizedBox(height: getSize(10)),
           if (contractor.clock_in_out_status == 1) ...[
             clocInOut(context, contractor),
             SizedBox(height: getSize(10)),
-            if (contractor.shift_complete != true)
-              Row(
-                children: [
-                  Expanded(
-                    child: CommonButton(
-                      height: 40,
-                      onPressed: (contractor.clock_in_time != null &&
-                              contractor.clock_out_time != null)
-                          ? () {
-                              approveDialog(context, contractor);
-                            }
-                          : () {},
-                      borderRadius: 7,
-                      buttonFontSize: 12,
-                      buttonText: StringConstant.approve,
-                      backgroundColor: (contractor.clock_in_time != null &&
-                              contractor.clock_out_time != null)
-                          ? AppColors.primaryColor
-                          : AppColors.primaryColor.withOpacity(0.3),
-                    ),
+            (contractor.shift_complete == true)
+                ? BaseText(
+                    text: StringConstant.shiftApproved,
+                    textColor: AppColors.primaryColor,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  )
+                : Row(
+                    children: [
+                      Expanded(
+                        child: CommonButton(
+                          isSubmitting: contractor.isLoading == true,
+                          height: 40,
+                          onPressed: (contractor.clock_in_time != null &&
+                                  contractor.clock_out_time != null)
+                              ? () {
+                                  approveDialog(context, contractor);
+                                }
+                              : () {},
+                          borderRadius: 7,
+                          buttonFontSize: 12,
+                          buttonText: StringConstant.approve,
+                          backgroundColor: (contractor.clock_in_time != null &&
+                                  contractor.clock_out_time != null)
+                              ? AppColors.primaryColor
+                              : AppColors.primaryColor.withOpacity(0.3),
+                        ),
+                      ),
+                      SizedBox(width: getSize(10)),
+                      Expanded(
+                        child: CommonButton(
+                          height: 40,
+                          backgroundColor: AppColors.scaffoldColor,
+                          borderColor: AppColors.scaffoldColor,
+                          // buttonTextColor: AppColors.black,
+                          buttonTextColor: (contractor.clock_in_time != null &&
+                                  contractor.clock_out_time != null)
+                              ? AppColors.black
+                              : AppColors.black.withOpacity(0.3),
+                          onPressed: (contractor.clock_in_time != null &&
+                                  contractor.clock_out_time != null)
+                              ? () {
+                                  EditClockTimeDialog().editClockTimeDialog(
+                                    context,
+                                    contractor,
+                                    callBack: () {
+                                      context.read<HiredContractorBloc>().add(
+                                          HiredContractorEvent
+                                              .getHiredApproveContractorList(
+                                                  refresh: true,
+                                                  postId: postId));
+                                    },
+                                  );
+                                  // showUnderDevelopment(context);
+                                }
+                              : () {},
+                          buttonFontSize: 12,
+                          borderRadius: 7,
+                          buttonText: StringConstant.edit,
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(width: getSize(10)),
-                  Expanded(
-                    child: CommonButton(
-                      height: 40,
-                      backgroundColor: AppColors.scaffoldColor,
-                      borderColor: AppColors.scaffoldColor,
-                      // buttonTextColor: AppColors.black,
-                      buttonTextColor: (contractor.clock_in_time != null &&
-                              contractor.clock_out_time != null)
-                          ? AppColors.black
-                          : AppColors.black.withOpacity(0.3),
-                      onPressed: (contractor.clock_in_time != null &&
-                              contractor.clock_out_time != null)
-                          ? () {
-                              EditClockTimeDialog()
-                                  .editClockTimeDialog(context, contractor);
-                              // showUnderDevelopment(context);
-                            }
-                          : () {},
-                      buttonFontSize: 12,
-                      borderRadius: 7,
-                      buttonText: StringConstant.edit,
-                    ),
-                  ),
-                ],
-              ),
           ] else
             Container(
               alignment: Alignment.center,
@@ -423,6 +454,7 @@ class ApprovedHiredList extends StatelessWidget {
                 .read<HiredContractorBloc>()
                 .add(HiredContractorEvent.submitClockInOutTime(
                   context,
+                  isEdit: false,
                   postId: contractor.post_id ?? -1,
                   userId: contractor.user_id ?? -1,
                   clockIn: contractor.clock_in_time,

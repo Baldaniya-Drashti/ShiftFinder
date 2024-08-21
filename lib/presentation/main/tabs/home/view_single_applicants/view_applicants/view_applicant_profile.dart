@@ -30,7 +30,10 @@ class ViewApplicantProfile extends StatelessWidget {
       create: (context) => getIt<ApplicantProfileBloc>()
         ..add(
           ApplicantProfileEvent.fetchApplicantProfile(
-              id: id, context: context, postId: postId,isLongOrFull: isLongOrFull),
+              id: id,
+              context: context,
+              postId: postId,
+              isLongOrFull: isLongOrFull),
         ),
       child: Scaffold(
         appBar: CommonAppBar(

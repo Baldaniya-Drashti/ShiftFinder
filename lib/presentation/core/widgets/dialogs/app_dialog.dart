@@ -683,7 +683,18 @@ Future<void> pickMultiDateDialog(
             selectedDateColors: {},
             onValueChanged: (value) {
               if (value.length == 2) {
-                onDateSelected(value);
+                // If both dates are the same, adjust Its time First with start time and second with end time of the day
+                if (value[0].isAtSameMomentAs(value[1])) {
+                  value[1] = DateTime(
+                      value[1].year, value[1].month, value[1].day, 23, 59, 59);
+                  onDateSelected(value);
+                } else {
+                  DateTime startDate = value[0];
+                  DateTime endDate = DateTime(
+                      value[1].year, value[1].month, value[1].day, 23, 59, 59);
+
+                  onDateSelected([startDate, endDate]);
+                }
                 context.maybePop();
               }
             },
@@ -748,6 +759,7 @@ Future<void> pickMonthDialog(
   return showMonthPicker(
       context: context,
       initialDate: selectedMonth,
+      lastDate: DateTime(DateTime.now().year, DateTime.now().month),
       cancelWidget: BaseText(
         text: StringConstant.cancle,
         fontSize: 14,
@@ -768,6 +780,7 @@ Future<void> pickMonthDialog(
             monthTextStyle: TextStyle(fontSize: getFontSize(14)),
             unselectedMonthsTextColor: AppColors.black,
             selectedDateRadius: getSize(5),
+            currentMonthTextColor: AppColors.black,
           ),
           headerSettings: PickerHeaderSettings(
             headerBackgroundColor: AppColors.primaryColor,

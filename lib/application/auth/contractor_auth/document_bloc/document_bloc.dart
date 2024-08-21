@@ -559,6 +559,8 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
           print("EXPIRY DATE--> ${state.governmentExpiryDate}");
 
           if (isGovernmentFrontDocValid && isGovernmentBackDocValid) {
+            emit(state.copyWith(isGovermentDocSubmitting: true));
+
             final isExpiryDateMandatory =
                 state.currentGovermentDocType.id != 3 &&
                     state.currentGovermentDocType.id != 4;
@@ -580,6 +582,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
 
             emit(
               state.copyWith(
+                isGovermentDocSubmitting: true,
                 isSubmitting: true,
                 governmentDocAuthFailureOrSuccessOption: none(),
               ),
@@ -624,6 +627,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                 ).show(e.context);
                 emit(
                   state.copyWith(
+                    isGovermentDocSubmitting: false,
                     isSubmitting: false,
                   ),
                 );
@@ -639,6 +643,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
             emit(
               state.copyWith(
                 isLoading: false,
+                isGovermentDocSubmitting: false,
                 governmentDocAuthFailureOrSuccessOption:
                     optionOf(failureOrSuccess),
               ),
@@ -797,6 +802,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                   state.copyWith(
                     isLoading: false,
                     covidVaccinationDoc: InputEmptyOrNot(""),
+                    covidDocId: -1,
                     isCovidDocSubmitting: false,
                     coviDocAuthFailureOrSuccessOption: none(),
                   ),

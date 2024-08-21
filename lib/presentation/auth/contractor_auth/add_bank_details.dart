@@ -46,7 +46,7 @@ class AddBankDetailsScreen extends StatelessWidget {
       },
       child: BlocProvider(
         create: (context) => getIt<BankDetailsBloc>()
-          ..add(BankDetailsEvent.getCurrentBank(
+          ..add(BankDetailsEvent.getCurrentBank(context,
               currentBank: bankDetail, isUpdate: isUpdate)),
         child: BlocConsumer<BankDetailsBloc, BankDetailsState>(
           listener: (context, state) {
@@ -81,7 +81,9 @@ class AddBankDetailsScreen extends StatelessWidget {
                 onBackPressed: () {
                   context.router.maybePop();
                 },
-                title: StringConstant.addBankDetails,
+                title: (isUpdate)
+                    ? StringConstant.editBankDetails
+                    : StringConstant.addBankDetails,
               ),
               body: (state.isLoading)
                   ? CenterLoadingIndicator()
@@ -367,6 +369,8 @@ class AddBankDetailsScreen extends StatelessWidget {
           context.read<BankDetailsBloc>().state.firstName.value.fold(
                 (f) => f.maybeMap(
                   empty: (value) => StringConstant.pleaseAddFirstName,
+                  invalidUsername: (value) =>
+                      StringConstant.pleaseEnterYourValidFirstName,
                   orElse: () => null,
                 ),
                 (_) => null,
@@ -511,9 +515,11 @@ class AddBankDetailsScreen extends StatelessWidget {
           .bodyMedium!
           .copyWith(color: AppColors.black),
       onTap: () {
-        LocationDialog.showLocationDialog(context,
-                predictions: state.selectedLocationPrediction)
-            .then((value) {
+        LocationDialog.showLocationDialog(
+          context,
+          predictions: state.selectedLocationPrediction,
+          location: BankDetailsBloc.locationCtrl.text,
+        ).then((value) {
           if (value != null) {
             print("selected location ---> $value");
             context

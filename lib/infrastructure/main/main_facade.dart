@@ -142,7 +142,7 @@ class MainFacade implements IMainFacade {
           data.remove("terms_document");
         }
       }
-      print("newDaa${data}");
+
       final formData = FormData.fromMap(data);
 
       if (data["terms_document"] != null) {
@@ -150,7 +150,7 @@ class MainFacade implements IMainFacade {
             await MultipartFile.fromFile(data["terms_document"]);
         formData.files.add(MapEntry("terms_document", multipartFile));
       }
-      print("====>formData${formData.fields.map((e) => e.key).toList()}");
+
       final res = await apiService.postMethod(
         ApiConstants.updateLongFullTermPost,
         {},
@@ -169,7 +169,6 @@ class MainFacade implements IMainFacade {
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const MainFailure.networkError());
       }
-
       return left(const MainFailure.serverError());
     }
   }
@@ -1012,14 +1011,16 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, String>> updateTeamMemberApi(
-      {required String teamMemberId,
-      required InputEmptyOrNot teamMemberName,
-      required InputEmptyOrNot position,
-      required String countryCode,
-      required String countryNameCode,
-      required EmailAddress email,
-      required MobileNumber phoneNumber}) async {
+  Future<Either<MainFailure, String>> updateTeamMemberApi({
+    required String teamMemberId,
+    required InputEmptyOrNot teamMemberName,
+    required InputEmptyOrNot position,
+    required String countryCode,
+    required String countryNameCode,
+    required EmailAddress email,
+    required MobileNumber phoneNumber,
+    required String teamId,
+  }) async {
     try {
       Map<String, dynamic> mapData = {
         "name": teamMemberName.getValue(),
@@ -1028,6 +1029,7 @@ class MainFacade implements IMainFacade {
         "country_name_code": countryNameCode,
         "phone": phoneNumber.getValue(),
         "email": email.getValue(),
+        "team_id": teamId,
       };
 
       final res = await apiService.putMethod(
@@ -1136,8 +1138,11 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, CommonResponse>> getContractorDashboardListAPI(
-      {required int page, int? filterType}) async {
+  Future<Either<MainFailure, CommonResponse>> getContractorDashboardListAPI({
+    required int page,
+    int? filterType,
+    String? search,
+  }) async {
     try {
       DateTime now = DateTime.now();
       Map<String, dynamic> mapData = {
@@ -1152,6 +1157,7 @@ class MainFacade implements IMainFacade {
                 .toUtc()
                 .millisecondsSinceEpoch /
             1000,
+        if (search != null && search.isNotEmpty) "search": search,
       };
 
       final res = await apiService.getMethod(ApiConstants.contractorDashboard,
@@ -1396,7 +1402,7 @@ class MainFacade implements IMainFacade {
         'reason': reason,
       };
 
-      print("Sending Data->  ${id}");
+      print("Sending Data->  ${mapData}");
 
       final res = await apiService.deleteMethod(
         "${ApiConstants.deleteUpcomingShift}/$id",
@@ -1580,6 +1586,7 @@ class MainFacade implements IMainFacade {
           queryParameters: {
             "id": id,
             "request": 1,
+            'type': 1,
           });
 
       if (res != null) {
@@ -1608,10 +1615,7 @@ class MainFacade implements IMainFacade {
     try {
       final res = await apiService.getMethod(
           ApiConstants.employerApplicantsAcceptReject,
-          queryParameters: {
-            "id": id,
-            "request": 2,
-          });
+          queryParameters: {"id": id, "request": 2, 'type': 1});
 
       if (res != null) {
         return right(res);
@@ -2006,7 +2010,7 @@ class MainFacade implements IMainFacade {
     try {
       final res = await apiService.getMethod(
         ApiConstants.employerApplicantsAcceptReject,
-        queryParameters: {"id": id, "request": request},
+        queryParameters: {"id": id, "request": request, 'type': 2},
       );
       if (res != null) {
         // final data = TotalProposalDto.fromJson(res.data);
@@ -2270,10 +2274,8 @@ class MainFacade implements IMainFacade {
         'clock_out': clockOutTime,
       };
 
-      final res = await apiService.postMethod(
-        ApiConstants.employerClockInOut,
-        mapData,
-      );
+      final res =
+          await apiService.postMethod(ApiConstants.employerClockInOut, mapData);
 
       return right(res);
     } on DioException catch (err) {
@@ -2601,11 +2603,16 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, CommonResponse>> deleteEmployerSavedTemplate(
-      {required int id}) async {
+  Future<Either<MainFailure, CommonResponse>> deleteEmployerSavedTemplate({
+    required int id,
+    required int shiftType,
+  }) async {
     try {
       final response = await apiService.deleteMethod(
         "${ApiConstants.destroyEmployerSavedTemplates}/$id",
+        queryParameters: {
+          'shift_type': shiftType,
+        },
       );
       if (response != null) {
         return right(response);
@@ -2718,7 +2725,7 @@ class MainFacade implements IMainFacade {
 
   @override
   Future<Either<MainFailure, PerformanceInsightDTO>>
-      getPerformanceInsightListAPI({required double date}) async {
+      getPerformanceInsightListAPI({required int date}) async {
     try {
       Map<String, dynamic> mapData = {
         "period": date,
@@ -3103,13 +3110,36 @@ class MainFacade implements IMainFacade {
   Future<Either<MainFailure, CommonResponse>> createLongFullTermPost(
       {required Map<String, dynamic> data}) async {
     try {
-      print("Sending Data---> ${data}");
       final formData = FormData.fromMap(data);
-      if (data["terms_document"] != null) {
+      if (data["terms_document"] != null &&
+          data["terms_document"].isNotEmpty &&
+          !data["terms_document"].contains('http')) {
+        print("id from template----> ${data['terms_document']}");
+
         var multipartFile =
             await MultipartFile.fromFile(data['terms_document']);
         formData.files.add(MapEntry('terms_document', multipartFile));
+      } else if (data["terms_document"] != null &&
+          data["terms_document"].isNotEmpty &&
+          data["terms_document"].contains('http')) {
+        print("id from template---->111 ${data['terms_document']}");
+
+        formData.fields.add(MapEntry('terms_document', data["terms_document"]));
       }
+
+      print("====>formData${formData.fields.map((e) {
+        if (e.key == 'save_template_status') {
+          print("File Key of terms: ${e.key}, File Value: ${e.value}");
+        }
+        return e;
+      }).toList()}");
+
+      /*  if (documentFile.isNotEmpty && !documentFile.contains('http')) {
+        var multipartFile = await MultipartFile.fromFile(
+          documentFile,
+        );
+        formData.files.add(MapEntry('file', multipartFile));
+      } */
       final res = await apiService.postMethod(
         ApiConstants.createLongFullTermPost,
         {},

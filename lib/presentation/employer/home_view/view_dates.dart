@@ -15,7 +15,12 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'ViewDates')
 class ViewDates extends StatelessWidget {
   ShiftDetailDTO shiftDetail;
-  ViewDates({super.key, required this.shiftDetail});
+  final bool isUpcoming;
+  ViewDates({
+    super.key,
+    required this.shiftDetail,
+    this.isUpcoming = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +42,7 @@ class ViewDates extends StatelessWidget {
               numberOfShift(
                 svgPrefixIcon: SvgImageConstant.clockWithOuterLine,
                 title:
-                    "${StringConstant.totalNumberOfShifts} - ${(shift.length < 10) ? "0${shift.length}" : shift.length}",
+                    "${(isUpcoming) ? StringConstant.remainingShifts : StringConstant.totalNumberOfShifts} - ${(shift.length < 10) ? "0${shift.length}" : shift.length}",
               ),
               ListView.builder(
                   itemCount: shift.length,
@@ -239,8 +244,9 @@ class ViewDates extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (shiftDetail.shift_type == 2 &&
-                    shiftDetail.same_or_different_time == 2) ...[
+                if (shiftDetail.shift_type == 2
+                    //  &&    shiftDetail.same_or_different_time == 2
+                    ) ...[
                   SizedBox(height: getSize(10)),
                   BaseText(
                     text: StringConstant.unpaidBreak,
@@ -256,7 +262,9 @@ class ViewDates extends StatelessWidget {
                     child: ListTile(
                       dense: true,
                       title: BaseText(
-                        text: unpaidBreak,
+                        text: (shiftDetail.same_or_different_time == 1)
+                            ? shiftDetail.unpaid_break?.name ?? ""
+                            : unpaidBreak,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         textColor: AppColors.black,

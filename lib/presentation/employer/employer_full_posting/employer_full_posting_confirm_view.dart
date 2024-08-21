@@ -28,10 +28,16 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
     super.key,
     required this.employerFullPosting,
     this.postId,
+    this.fromReview = false,
+    this.fromTemplate = false,
+    this.isCreate = true,
   });
 
   final EmployerLongTermSuccessDto employerFullPosting;
   final int? postId;
+  final bool fromReview;
+  final bool fromTemplate;
+  final bool isCreate;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +57,11 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
                 onPressed: () {
                   context.read<EmployerFullPostingConfirmBloc>().add(
                         EmployerFullPostingConfirmEvent.onContinue(
-                            context: context),
+                          context: context,
+                          fromReview: fromReview,
+                          isCreate: isCreate,
+                          fromTemplate: fromTemplate,
+                        ),
                       );
                 },
                 buttonText: StringConstant.txtContinue,
@@ -59,10 +69,13 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
             ),
             appBar: CommonAppBar(
                 onBackPressed: () => context.router.maybePop(),
-                title: CommonList.industryList
-                        .firstWhere((item) => item.id == getCurrentIndustry())
-                        .title ??
-                    ""),
+                title: (fromTemplate)
+                    ? StringConstant.editTemplate
+                    : CommonList.industryList
+                            .firstWhere(
+                                (item) => item.id == getCurrentIndustry())
+                            .title ??
+                        ""),
             body: (state.postDataLoading)
                 ? CenterLoadingIndicator(isOnlyLoader: true)
                 : SingleChildScrollView(
@@ -77,8 +90,10 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
                           appDeadLineField(context, state),
                           Gap(getSize(16)),
                           isIncludeOnCall(context, state),
-                          Gap(getSize(16)),
-                          templateCheckBox(context, state),
+                          if (!fromTemplate) ...[
+                            Gap(getSize(16)),
+                            templateCheckBox(context, state),
+                          ],
                           Gap(getSize(16)),
                           vacancyCheckBox(context, state),
                           if (state.isMoreVacancy) ...[
@@ -171,7 +186,7 @@ class EmployerFullPostingConfirmView extends StatelessWidget {
       decoration: BoxDecoration(
           color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             height: getSize(20),

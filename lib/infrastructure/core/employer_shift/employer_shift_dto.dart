@@ -32,6 +32,8 @@ class EmployerShiftDto with _$EmployerShiftDto {
     int? total_contractor,
     bool? isCad,
     String? reason,
+    int? contractor_shift_type,
+    int? count,
   }) = _EmployerShiftDto;
 
   factory EmployerShiftDto.fromJson(Map<String, dynamic> json) =>

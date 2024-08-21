@@ -18,7 +18,9 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/buttons/chat_button.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
 import 'package:shift/presentation/main/tabs/shifts/filled_shifts/widgets/delete_shift_dialog.dart';
@@ -146,6 +148,61 @@ class FilledShiftsView extends StatelessWidget {
                               : null,
                         ),
                         Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: getSize(10)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  BaseText(
+                                    text:
+                                        '${shift.user?.first_name ?? ""} ${shift.user?.last_name ?? ""}',
+                                    fontSize: 14,
+                                  ),
+                                  SizedBox(width: getSize(5)),
+                                  Icon(
+                                    Icons.arrow_forward_ios_rounded,
+                                    size: getSize(14),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: getSize(5)),
+                              if (shift.contractor_shift_type == 2)
+                                GestureDetector(
+                                  onTap: () {
+                                    context.router.push(PageRouteInfo(
+                                        AgreedProposal.name,
+                                        args: AgreedProposalArgs(
+                                            shiftType: shift.shift_type ?? -1,
+                                            postId: shift.id ?? -1,
+                                            userId:
+                                                shift.user?.user_id ?? -1)));
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.primaryColor
+                                          .withOpacity(0.15),
+                                      borderRadius:
+                                          BorderRadius.circular(getSize(5)),
+                                    ),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: getSize(5),
+                                        horizontal: getSize(10)),
+                                    child: BaseText(
+                                      text: StringConstant.viewAgreedProposal,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w600,
+                                      textColor: AppColors.primaryColor,
+                                    ),
+                                  ),
+                                )
+                            ],
+                          ),
+                        ),
+                        /* Padding(
                           padding: EdgeInsets.only(
                               left: getSize(10), right: getSize(5)),
                           child: BaseText(
@@ -159,45 +216,31 @@ class FilledShiftsView extends StatelessWidget {
                         Icon(
                           Icons.arrow_forward_ios_rounded,
                           size: getSize(14),
-                        ),
+                        ), */
                         Spacer(),
-                        CommonButton(
-                          height: getSize(35),
-                          width: getSize(80),
-                          borderRadius: 5,
+                        ChatButton(
+                          badgeCount: shift.count ?? 0,
                           onPressed: () {
                             // showUnderDevelopment(context);
-                            context.router.push(
+                            context.router
+                                .push(
                               PageRouteInfo(
                                 Message.name,
                                 args: MessageArgs(
                                   receiverId: shift.user?.user_id ?? 0,
                                 ),
                               ),
-                            );
+                            )
+                                .then((value) {
+                              if (shift.count != null &&
+                                  (shift.count ?? 0) > 0) {
+                                context.read<ShiftsBloc>().add(
+                                    ShiftsBlocEvent.fetchFilledShiftList(
+                                        refresh: true));
+                              }
+                            });
                           },
-                          backgroundColor:
-                              AppColors.primaryColor.withOpacity(0.15),
-                          buttonText: "",
-                          customWidget: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                SvgImageConstant.chat,
-                                color: AppColors.black,
-                                height: getSize(15),
-                                width: getSize(15),
-                              ),
-                              SizedBox(width: getSize(5)),
-                              BaseText(
-                                text: StringConstant.chat,
-                                fontWeight: FontWeight.w600,
-                                fontSize: getFontSize(12),
-                              )
-                            ],
-                          ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -338,7 +381,9 @@ class FilledShiftsView extends StatelessWidget {
               final latitude = location?.latitude;
               final longitude = location?.longitude;
               if (latitude != null && longitude != null) {
-                context.router.push(
+                LocationHelper.openDirections(context,
+                    endLat: latitude, endLng: longitude);
+                /* context.router.push(
                   PageRouteInfo(
                     ShowGoogleMap.name,
                     args: ShowGoogleMapArgs(
@@ -346,7 +391,7 @@ class FilledShiftsView extends StatelessWidget {
                       longitude: longitude,
                     ),
                   ),
-                );
+                ); */
               }
             },
             child: Row(

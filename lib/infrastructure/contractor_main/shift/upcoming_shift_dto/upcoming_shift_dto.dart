@@ -34,6 +34,7 @@ class UpComingShiftDTO with _$UpComingShiftDTO {
     int? shift_type,
     int? total_shift,
     bool? isCad,
+    int? count,
   }) = _UpComingShiftDTO;
 
   factory UpComingShiftDTO.fromJson(Map<String, dynamic> json) =>

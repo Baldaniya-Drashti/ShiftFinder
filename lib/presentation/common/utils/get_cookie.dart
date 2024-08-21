@@ -31,6 +31,25 @@ int? getCurrentRole() {
   return Hive.box(BoxNames.settingsBox).get(BoxKeys.currentRole);
 }
 
+/// CUREENT USER
+Future<void> setNotificationTab(int? currentNotificationTab) async {
+  return await Hive.box(BoxNames.settingsBox)
+      .put(BoxKeys.currentNotificationTab, currentNotificationTab);
+}
+
+Future<void> setNotificationSubTab(int? notificationSubTab) async {
+  return await Hive.box(BoxNames.settingsBox)
+      .put(BoxKeys.currentNotificationSubTab, notificationSubTab);
+}
+
+int? getNotificationTab() {
+  return Hive.box(BoxNames.settingsBox).get(BoxKeys.currentNotificationTab);
+}
+
+int? getNotificationSubTab() {
+  return Hive.box(BoxNames.settingsBox).get(BoxKeys.currentNotificationSubTab);
+}
+
 Future<void> setShowTeamDialog(bool isShow) async {
   print("Show team dialog---> $isShow");
   return await Hive.box(BoxNames.settingsBox)

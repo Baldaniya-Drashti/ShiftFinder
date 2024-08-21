@@ -20,6 +20,8 @@ class MultiPostShift extends StatelessWidget {
   PostShiftDTO post;
   HealthcarePostDTO? updateShift;
   final bool fromSaveTemplate;
+  final bool fromReview;
+  final bool isCreate;
 
   MultiPostShift({
     super.key,
@@ -28,17 +30,22 @@ class MultiPostShift extends StatelessWidget {
     required this.postId,
     required this.post,
     this.fromSaveTemplate = false,
+    this.fromReview = false,
+    this.isCreate = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<PostShiftBloc>()
-        ..add(PostShiftEvent.changeShiftType("Multi",
-            postId: postId,
-            post: post,
-            updateShift: updateShift,
-            fromSaveTemplate: fromSaveTemplate)),
+        ..add(PostShiftEvent.changeShiftType(
+          "Multi",
+          postId: postId,
+          post: post,
+          updateShift: updateShift,
+          fromSaveTemplate: fromSaveTemplate,
+          fromReview: fromReview,
+        )),
       child: BlocConsumer<PostShiftBloc, PostShiftState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -52,16 +59,21 @@ class MultiPostShift extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Visibility(
-                          visible: state.updateShift.id == null,
+                          visible: state.updateShift.id == null ||
+                              (fromReview == false && isCreate == true),
                           child: sameOrDifferentRadio(context, state)),
                       paddingBetweenFields(),
                       (state.selectedMultiShiftType == 1)
                           ? SameTimeForMultiDate(
                               fromSaveTemplate: fromSaveTemplate,
+                              fromReview: fromReview,
+                              isCreate: isCreate,
                             )
                           : DifferentTimeForEachDate(
                               post: post,
                               fromSaveTemplate: fromSaveTemplate,
+                              fromReview: fromReview,
+                              isCreate: isCreate,
                             ),
                     ],
                   ),

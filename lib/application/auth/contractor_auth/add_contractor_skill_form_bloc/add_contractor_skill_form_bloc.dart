@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -51,6 +52,13 @@ class AddContractorSkillFormBloc
                               .map((element) => element.name ?? "")
                               .toList()
                           : []),
+                  initialRoleTypeChipList: ListInputEmptyOrNot(
+                      (r.complete_profile != null &&
+                              r.complete_profile!.roles_list != null)
+                          ? r.complete_profile!.roles_list!
+                              .map((element) => element.name ?? "")
+                              .toList()
+                          : []),
 
                   // roleType: InputEmptyOrNot(r.roles_list_name ?? ""),
                   requiredSoftwareSkillChipList: ListInputEmptyOrNot(
@@ -64,6 +72,13 @@ class AddContractorSkillFormBloc
                       r.complete_profile?.software_skill_other?.split(',') ??
                           [],
                   requiredSpecialityChipList: ListInputEmptyOrNot(
+                      (r.complete_profile != null &&
+                              r.complete_profile!.specialties_detail != null)
+                          ? r.complete_profile!.specialties_detail!
+                              .map((element) => element.name ?? "")
+                              .toList()
+                          : []),
+                  initialSpecialityTypeChipList: ListInputEmptyOrNot(
                       (r.complete_profile != null &&
                               r.complete_profile!.specialties_detail != null)
                           ? r.complete_profile!.specialties_detail!
@@ -99,19 +114,34 @@ class AddContractorSkillFormBloc
           );
         },
         confirmSpecialityList: (e) {
+          bool isChanged = !listEquals(
+            List.from(state.initialSpecialityTypeChipList.getValue())..sort(),
+            List.from(e.specialityList)..sort(),
+          );
+
           emit(state.copyWith(
             requiredSpecialityChipList: ListInputEmptyOrNot(e.specialityList),
             specialityOther: e.otherSpecialityList,
+            isSpecialityListUpdated: isChanged,
             authFailureOrSuccessOption: none(),
           ));
         },
         confirmRoleList: (e) {
+          /*  bool isChanged =
+              !listEquals(state.initialRoleTypeChipList.getValue(), e.roleList); */
+
+          bool isChanged = !listEquals(
+            List.from(state.initialRoleTypeChipList.getValue())..sort(),
+            List.from(e.roleList)..sort(),
+          );
+
           emit(state.copyWith(
             roleTypeChipList: ListInputEmptyOrNot(e.roleList),
+
+            /// Check role is updated or not
+            isRoleListUpdated: isChanged,
             authFailureOrSuccessOption: none(),
           ));
-
-          print("selected role list---> ${state.roleTypeChipList}");
         },
         confirmSoftwareSkill: (e) {
           emit(state.copyWith(
@@ -119,9 +149,6 @@ class AddContractorSkillFormBloc
             softwareSkillOther: e.otherSkillList,
             authFailureOrSuccessOption: none(),
           ));
-
-          print(
-              "selected skill list---> ${state.requiredSoftwareSkillChipList} \n other skills ${state.softwareSkillOther}");
         },
         confirmLanguageList: (e) {
           emit(state.copyWith(
@@ -129,14 +156,10 @@ class AddContractorSkillFormBloc
             languageOther: e.otherLanguageList,
             authFailureOrSuccessOption: none(),
           ));
-
-          print(
-              "selected language list---> ${state.languageChipList} \n other languages ${state.languageOther}");
         },
 
         /// GET ALL DROPDOWN LIST FROM API
         getAllDropDownList: (e) async {
-          // Either<AuthFailure, SkillListDTO>? res;
           emit(
             state.copyWith(
               isLoading: true,
@@ -144,7 +167,6 @@ class AddContractorSkillFormBloc
             ),
           );
 
-          // add(AddContractorSkillFormEvent.getProfileDetail());
           await getRoleListApi(emit);
           await getSpecialityListApi(emit);
           await getExperienceListApi(emit);
@@ -153,32 +175,11 @@ class AddContractorSkillFormBloc
           if (e.isUpdate == true) {
             await getContractorSkillAPI(emit);
           }
-
-          // final roleList = await _authFacade.getRoleList();
-          // print("Role List ---> ${roleList}");
-          // roleList.fold(
-          //   (l) => emit(
-          //     state.copyWith(
-          //       isLoading: false,
-          //       roleList: [],
-          //     ),
-          //   ),
-          //   (r) {
-          //     return emit(
-          //       state.copyWith(
-          //         isLoading: false,
-          //         roleList: List.from(state.roleList)..addAll(r),
-          //       ),
-          //     );
-          //   },
-          // );
-
-          // final softwareList = await _authFacade.getSoftwareSkillList();
         },
 
         /// ROLE TYPE
         addRoleTypeChips: (e) {
-          if ((state.roleTypeChipList.getValue().isEmpty ||
+          /* if ((state.roleTypeChipList.getValue().isEmpty ||
               !state.roleTypeChipList.getValue().contains(e.roleType))) {
             emit(
               state.copyWith(
@@ -199,69 +200,25 @@ class AddContractorSkillFormBloc
                 authFailureOrSuccessOption: none(),
               ),
             );
-          }
-
-          /*if (e.roleType.isNotEmpty &&
-              !e.roleType.toLowerCase().contains("other") &&
-              (state.roleTypeChipList.getValue().isEmpty ||
-                  !state.roleTypeChipList.getValue().contains(e.roleType))) {
-            emit(
-              state.copyWith(
-                roleTypeChipList: ListInputEmptyOrNot(List.from(
-                    state.roleTypeChipList.getValue()..add(e.roleType))),
-                roleTypeChip: (e.isOtherValue == true) ? "" : e.roleType,
-                roleOther: (e.isOtherValue == true) ? e.roleType : "",
-                showRoleTypeError: false,
-                authFailureOrSuccessOption: none(),
-              ),
-            );
-          }
-
-          /// when click on add button
-          else if ((state.roleTypeChip.toLowerCase() == "other" &&
-              e.isOtherValue == true &&
-              e.roleType.isEmpty)) {
-            emit(
-              state.copyWith(
-                showRoleTypeError: true,
-                authFailureOrSuccessOption: none(),
-              ),
-            );
-          }
-
-          /// when select "other" value
-          else {
-            emit(
-              state.copyWith(
-                roleTypeChipList: ListInputEmptyOrNot(
-                    List.from(state.roleTypeChipList.getValue())),
-                roleTypeChip: (e.isOtherValue == true) ? "" : e.roleType,
-                showRoleTypeError: true,
-                authFailureOrSuccessOption: none(),
-              ),
-            );
-          }*/
+          } */
         },
         removeRoleTypeChips: (e) {
-          /*emit(
-            state.copyWith(
-              roleTypeChipList: ListInputEmptyOrNot(List.from(
-                  state.roleTypeChipList.getOrCrash()..remove(e.roleType))),
-              roleTypeChip: "",
-              showRoleTypeError:
-                  (state.roleTypeChipList.getValue().isNotEmpty) ? false : true,
-              authFailureOrSuccessOption: none(),
-            ),
-          );*/
+          final updatedList = List.of(state.roleTypeChipList.getValue())
+            ..remove(e.roleType);
 
+          bool isChanged = !listEquals(
+            List.from(state.initialRoleTypeChipList.getValue())..sort(),
+            List.from(updatedList)..sort(),
+          );
           emit(
             state.copyWith(
               roleTypeChipList: ListInputEmptyOrNot(
-                List.from(
-                  List.of(state.roleTypeChipList.getValue())
-                    ..remove(e.roleType),
-                ),
+                List.from(updatedList
+                    /* List.of(state.roleTypeChipList.getValue())
+                    ..remove(e.roleType), */
+                    ),
               ),
+              isRoleListUpdated: isChanged,
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -317,29 +274,30 @@ class AddContractorSkillFormBloc
           }
         },
         removeRequiredSpecialitichips: (e) {
-          /*emit(
-            state.copyWith(
-              requiredSpecialityChipList: ListInputEmptyOrNot(
-                  List.from(state.requiredSpecialityChipList.getValue())
-                    ..removeAt(e.currentIndex)),
-              requiredSpecialityChip: "",
-              showSpecialityError:
-                  (state.requiredSpecialityChipList.getValue().isNotEmpty)
-                      ? false
-                      : true,
-              authFailureOrSuccessOption: none(),
-            ),
-          );*/
+          final updatedList =
+              List.of(state.requiredSpecialityChipList.getValue())
+                ..remove(e.selectedValue);
+
+          bool isChanged = !listEquals(
+            List.from(state.initialSpecialityTypeChipList.getValue())..sort(),
+            List.from(updatedList)..sort(),
+          );
+
+          print("isSpeciality change----> ${isChanged}");
+          print(
+              "isSpeciality change---->111 ${state.initialSpecialityTypeChipList.getValue()}");
+          print("isSpeciality change---->222 ${updatedList}");
 
           /// For multi speciality
           emit(
             state.copyWith(
               requiredSpecialityChipList: ListInputEmptyOrNot(
-                List.from(
-                  List.of(state.requiredSpecialityChipList.getValue())
-                    ..remove(e.selectedValue),
-                ),
+                List.from(updatedList
+                    /*  List.of(state.requiredSpecialityChipList.getValue())
+                    ..remove(e.selectedValue), */
+                    ),
               ),
+              isSpecialityListUpdated: isChanged,
               specialityOther: List.of(state.specialityOther)
                 ..remove(e.selectedValue),
               authFailureOrSuccessOption: none(),
@@ -814,6 +772,13 @@ class AddContractorSkillFormBloc
                           .map((element) => element.name ?? "")
                           .toList()
                       : []),
+              initialRoleTypeChipList: ListInputEmptyOrNot(
+                  (r.complete_profile != null &&
+                          r.complete_profile!.roles_list != null)
+                      ? r.complete_profile!.roles_list!
+                          .map((element) => element.name ?? "")
+                          .toList()
+                      : []),
               requiredSoftwareSkillChipList: ListInputEmptyOrNot(
                   (r.complete_profile != null &&
                           r.complete_profile?.softwares_skill_list != null)
@@ -824,6 +789,14 @@ class AddContractorSkillFormBloc
               softwareSkillOther:
                   r.complete_profile?.software_skill_other?.split(',') ?? [],
               requiredSpecialityChipList: ListInputEmptyOrNot(
+                  (r.complete_profile != null &&
+                          r.complete_profile!.specialties_detail != null)
+                      ? r.complete_profile!.specialties_detail!
+                          .where((element) => element.role != null)
+                          .map((element) => element.role?.name ?? "")
+                          .toList()
+                      : []),
+              initialSpecialityTypeChipList: ListInputEmptyOrNot(
                   (r.complete_profile != null &&
                           r.complete_profile!.specialties_detail != null)
                       ? r.complete_profile!.specialties_detail!

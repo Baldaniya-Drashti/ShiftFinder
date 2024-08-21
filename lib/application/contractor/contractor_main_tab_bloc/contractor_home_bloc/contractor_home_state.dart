@@ -16,6 +16,7 @@ class ContractorHomeState with _$ContractorHomeState {
     required HealthcarePostDTO shift,
     required Option<Either<MainFailure, String>> applyShiftSuccessOption,
     required bool applyShiftErrorMessages,
+    required String searchText,
   }) = _ContractorHomeState;
   factory ContractorHomeState.initial() => ContractorHomeState(
         showErrorMessages: false,
@@ -32,5 +33,6 @@ class ContractorHomeState with _$ContractorHomeState {
         /// ON CLICK APPLY BTN
         applyShiftErrorMessages: false,
         applyShiftSuccessOption: none(),
+        searchText: '',
       );
 }

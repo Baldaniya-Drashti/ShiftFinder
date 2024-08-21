@@ -30,23 +30,35 @@ class HealthcarePostDTO with _$HealthcarePostDTO {
     ShiftDetailDTO? shift_detail,
     String? software_skill,
     String? specialties_detail,
-    ProposalReceivedDTO? proposal_received,
+    // ProposalReceivedDTO? proposal_received,
   }) = _HealthcarePostDTO;
 
   factory HealthcarePostDTO.fromJson(Map<String, dynamic> json) =>
       _$HealthcarePostDTOFromJson(json);
 }
 
-@freezed
+/* @freezed
 class ProposalReceivedDTO with _$ProposalReceivedDTO {
   const factory ProposalReceivedDTO({
+    double? posted_hourly_rate,
     double? proposed_hourly_rate,
+    double? counter_proposal_hourly_rate,
     int? commute_allowance_type,
-    double? proposed_commute_allowance,
+    // double? proposed_commute_allowance,
+    double? posted_commute_allowance_rate,
+    double? posted_commute_allowance_hour_id,
+    double? proposed_commute_allowance_rate,
+    double? proposed_commute_allowance_hour_id,
     int? accommodation_allowance_type,
-    double? proposed_accommodation_allowance,
+    // double? proposed_accommodation_allowance,
+    double? posted_accommodation_allowance_rate,
+    double? posted_accommodation_allowance_hour_id,
+    double? proposed_accommodation_allowance_rate,
+    double? proposed_accommodation_allowance_hour_id,
+    double? counter_proposal_commute_allowance,
+    double? counter_proposal_accommodation_allowance,
   }) = _ProposalReceivedDTO;
 
   factory ProposalReceivedDTO.fromJson(Map<String, dynamic> json) =>
       _$ProposalReceivedDTOFromJson(json);
-}
+} */

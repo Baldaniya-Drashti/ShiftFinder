@@ -23,14 +23,16 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'BackgroundDocument')
 class BackgroundDocument extends StatelessWidget {
   final bool isFromSplash;
+  final bool isUpdate;
 
-  const BackgroundDocument({super.key, this.isFromSplash = false});
+  const BackgroundDocument(
+      {super.key, this.isFromSplash = false, this.isUpdate = false});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<BackgroundDocBloc>(),
-      // ..add(BackgroundDocEvent.getAddressProof()),
+      create: (context) =>
+          getIt<BackgroundDocBloc>()..add(BackgroundDocEvent.getBGProofDoc()),
       child: BlocConsumer<BackgroundDocBloc, BackgroundDocState>(
         listener: (context, state) {
           state.bgDocFailureOrSuccessOption.fold(
@@ -93,8 +95,9 @@ class BackgroundDocument extends StatelessWidget {
                                     context,
                                     labelText: StringConstant.issueDate,
                                     hintText: StringConstant.issueDate,
-                                    lastDate: DateTime.now()
-                                        .add(Duration(days: 25 * 365)),
+                                    lastDate: DateTime.now(),
+                                    // .add(Duration(days: 25 * 365)),
+                                    firstDate: DateTime(1950, 1),
                                     onPickedDate: (pickedDate) {
                                       context.read<BackgroundDocBloc>().add(
                                           BackgroundDocEvent
@@ -136,8 +139,12 @@ class BackgroundDocument extends StatelessWidget {
                             child: CommonButton(
                               isSubmitting: state.isSubmitting,
                               onPressed: () {
-                                context.read<BackgroundDocBloc>().add(
-                                    BackgroundDocEvent.bgProofSubmit(context));
+                                context
+                                    .read<BackgroundDocBloc>()
+                                    .add(BackgroundDocEvent.bgProofSubmit(
+                                      context,
+                                      isUpdate: isUpdate,
+                                    ));
                                 /* context.router.push(
                                     PageRouteInfo(ProofOfLegalStatus.name)); */
                               },

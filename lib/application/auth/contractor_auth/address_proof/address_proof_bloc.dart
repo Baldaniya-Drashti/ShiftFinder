@@ -40,7 +40,7 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
             emit(
               state.copyWith(
                 docExpiryDate: "",
-                isExpiryInValid: true,
+                isExpiryInValid: (e.expiryDate.isEmpty) ? false : true,
                 addressProofFailureOrSuccessOption: none(),
               ),
             );
@@ -56,7 +56,8 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
               addressProofFailureOrSuccessOption: none(),
             ),
           );
-          failureOrSuccess = await _repository.getDocumentApi(documentType: 1);
+          failureOrSuccess =
+              await _repository.getStripeDocumentApi(documentType: 2);
           failureOrSuccess.fold(
             (l) => emit(
               state.copyWith(
@@ -64,7 +65,8 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
                 currentAddressProofType: SkillDTO(),
                 addressproofFrontDoc: InputEmptyOrNot(""),
                 addressProofBackDoc: InputEmptyOrNot(""),
-                // governmentExpiryDate: "",
+                docExpiryDate: "",
+                existingAddressProof: DocumentDTO(),
                 // isGovernemtExpiryCheck: false,
               ),
             ),
@@ -82,9 +84,12 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
                     addressProofDocId: (r[0].id != null) ? r[0].id! : -1,
                     addressproofFrontDoc: InputEmptyOrNot(r[0].file ?? ""),
                     addressProofBackDoc: InputEmptyOrNot(r[0].back_file ?? ""),
-
-                    /* governmentExpiryDate: (r[0].expiry_date != null)? DateTime.fromMillisecondsSinceEpoch((r[0].expiry_date ?? -1) * 1000,).toIso8601String(): "",
-                    isGovernemtExpiryCheck:(r[0].expiry_date_not_applicable == 0) ? false : true, */
+                    docExpiryDate: (r[0].expiry_date != null)
+                        ? DateTime.fromMillisecondsSinceEpoch(
+                            (r[0].expiry_date ?? -1) * 1000,
+                          ).toIso8601String()
+                        : "",
+                    // isGovernemtExpiryCheck:(r[0].expiry_date_not_applicable == 0) ? false : true,
                   ),
                 );
               } else {
@@ -170,21 +175,17 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
           final isFrontDocValid = state.addressproofFrontDoc.isValid();
           final isBackDocValid = state.addressProofBackDoc.isValid();
 
-          print("DOC IS VALID--> ${state.addressProofBackDoc}");
-          print("DOC ID--> ${state.addressProofDocId}");
-
           if (isFrontDocValid && isBackDocValid) {
+            // final isExpiryDateMandatory = (state.currentAddressProofType.yearLimit != null);
             final isExpiryDateMandatory =
-                (state.currentAddressProofType.yearLimit != null);
+                (state.currentAddressProofType.isMandatory == true);
 
             if (isExpiryDateMandatory && state.docExpiryDate.isEmpty) {
-              emit(
-                state.copyWith(
-                  isSubmitting: false,
-                  showErrorMesages: true,
-                  addressProofFailureOrSuccessOption: none(),
-                ),
-              );
+              emit(state.copyWith(
+                isSubmitting: false,
+                showErrorMesages: true,
+                addressProofFailureOrSuccessOption: none(),
+              ));
               return;
             }
             print("All Details are valid!");
@@ -196,7 +197,7 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
               ),
             );
 
-            if (state.addressProofDocId != -1) {
+            /* if (state.addressProofDocId != -1) {
               /* failureOrSuccess = await _repository.updateDocumentApi(
                 id: state.addressProofDocId,
                 documentType: 1,
@@ -216,9 +217,18 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
                 expiryDate: state.docExpiryDate,
                 lastPage: "BackgroundCheckDocument",
               );
-            }
+            } */
+            failureOrSuccess = await _repository.addAddressProofApi(
+              documentType: 2,
+              subType: state.currentAddressProofType.id,
+              documentFile: state.addressproofFrontDoc.getValue() ?? "",
+              documentBackFile: state.addressProofBackDoc.getValue() ?? "",
+              expiryDate:
+                  (state.docExpiryDate.isNotEmpty) ? state.docExpiryDate : null,
+              lastPage: "BackgroundCheckDocument",
+            );
 
-            failureOrSuccess?.fold(
+            failureOrSuccess.fold(
               (failure) {
                 showError(
                   message: failure.maybeMap(
@@ -229,13 +239,16 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
                   ),
                 ).show(e.context);
                 emit(
-                  state.copyWith(
-                    isSubmitting: false,
-                  ),
+                  state.copyWith(isSubmitting: false),
                 );
               },
               (success) {
-                e.context.router.push(PageRouteInfo(BackgroundDocument.name));
+                e.context.router.push(PageRouteInfo(
+                  BackgroundDocument.name,
+                  args: BackgroundDocumentArgs(
+                    isUpdate: e.isUpdate,
+                  ),
+                ));
               },
             );
 
@@ -309,23 +322,6 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
     });
   }
 
-  /* bool validateExpiryDate(
-      {required String yearLimit, required String expiryDate}) {
-    final date = DateTime.parse(expiryDate);
-    if (yearLimit.isEmpty) return true;
-
-    List<int> yearLimits =
-        yearLimit.split(',').map((e) => int.tryParse(e) ?? 0).toList();
-
-    int minYearLimit =
-        yearLimits.isNotEmpty ? yearLimits.reduce((a, b) => a < b ? a : b) : 0;
-
-    DateTime maxAllowedDate =
-        DateTime.now().add(Duration(days: minYearLimit * 365));
-
-    return date.isBefore(maxAllowedDate) ||
-        date.isAtSameMomentAs(maxAllowedDate);
-  } */
   bool validateExpiryDate(
       {required String yearLimit, required String expiryDate}) {
     if (expiryDate.isNotEmpty) {
@@ -340,7 +336,6 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
           : 0;
 
       Duration duration;
-      print("minYearLimit----> $minYearLimit");
       if (minYearLimit < 1) {
         // Treat as months if less than 1
         duration = Duration(days: (minYearLimit * 10 * 30).toInt());
@@ -348,11 +343,8 @@ class AddressProofBloc extends Bloc<AddressProofEvent, AddressProofState> {
         // Treat as years if 1 or greater
         duration = Duration(days: (minYearLimit * 365).toInt());
       }
-      print("duration----> $duration");
 
       DateTime maxAllowedDate = DateTime.now().add(duration);
-
-      print("maxAllowedDate----> $maxAllowedDate");
 
       return date.isBefore(maxAllowedDate) ||
           date.isAtSameMomentAs(maxAllowedDate);

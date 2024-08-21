@@ -2,8 +2,11 @@ part of 'contractor_shift_bloc.dart';
 
 @freezed
 class ContractorShiftEvent with _$ContractorShiftEvent {
-  const factory ContractorShiftEvent.changeShiftTab(int tabIndex) =
-      ChangeShiftTab;
+  const factory ContractorShiftEvent.changeShiftTab(int tabIndex,
+      {int? notificationTabIndex}) = ChangeShiftTab;
+
+  const factory ContractorShiftEvent.changeNotificationTab() =
+      ChangeNotificationTab;
 
   const factory ContractorShiftEvent.getCurrentShiftDetailAPI(bool isRefresh,
       {int? filterType}) = GetCurrentShiftDetailAPI;
