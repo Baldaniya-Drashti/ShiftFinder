@@ -13,7 +13,8 @@ class EmployerDashboardDTO with _$EmployerDashboardDTO {
     String? last_ago,
     int? industry,
     Location? location,
-    ShiftDate? shift_date,
+
+    ///List<ShiftDate>? shift_date,
     int? total_application_counts,
     List<dynamic>? total_application_profiles,
     int? total_proposal_counts,

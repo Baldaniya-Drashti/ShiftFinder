@@ -94,4 +94,5 @@ class SvgImageConstant {
   static const aboutShiftFinder = "assets/svg/about_shiftfinder.svg";
   static const customerSupport = "assets/svg/contact_support.svg";
   static const logout = "assets/svg/logout.svg";
+  static const teamIcon = "assets/svg/team_icon.svg";
 }

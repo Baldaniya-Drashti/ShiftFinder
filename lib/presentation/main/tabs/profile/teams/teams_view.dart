@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -103,6 +104,7 @@ class TeamsView extends StatelessWidget {
                       ],
                     ),
                   );
+            
                 },
               ),
             ),
@@ -112,14 +114,23 @@ class TeamsView extends StatelessWidget {
             CommonButton(
               height: 28,
               width: 135,
-              onPressed: () {},
+              onPressed: () {
+                context.router.push(
+                  PageRouteInfo(
+                    AddNewTeamView.name,
+                  ),
+                );
+              },
               backgroundColor: AppColors.green.withOpacity(0.15),
               buttonText: '+ Add New Team',
               buttonTextColor: AppColors.green,
               buttonFontSize: 12,
               borderRadius: 7,
               buttonFontWeight: FontWeight.w600,
-            )
+            ),
+            SizedBox(
+              height: getSize(isFullScreenDevice(context) ? 0 : 20),
+            ),
           ],
         ),
       ),

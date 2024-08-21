@@ -113,7 +113,7 @@ class MainFacade implements IMainFacade {
   @override
   Future<Either<MainFailure, CommonResponse>> getViewApplicantsAPI(
       {required String postId, required bool isTotalApplicants}) {
-    // TODO: implement getViewApplicantsAPI
+
     throw UnimplementedError();
   }
 }

@@ -4,7 +4,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
 import 'package:shift/application/main_tab/home/home_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -133,23 +132,23 @@ class HomeView extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      verticalLabelValue(
-                        label: "${StringConstant.shiftDate}:-",
-                        value: DateFormat('MMM dd,yyyy').format(
-                          DateTime.fromMillisecondsSinceEpoch((state
-                                      .employerDashboardList[index]
-                                      .shift_date
-                                      ?.start_date ??
-                                  0) *
-                              1000),
-                        ),
-                      ),
-                      verticalDivider(),
-                      verticalLabelValue(
-                        label: "${StringConstant.startAndEndTime}:-",
-                        value:
-                            "${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((state.employerDashboardList[index].shift_date?.start_time ?? 0) * 1000))} to ${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((state.employerDashboardList[index].shift_date?.end_time ?? 0) * 1000))}",
-                      ),
+                      // verticalLabelValue(
+                      //   label: "${StringConstant.shiftDate}:-",
+                      //   value: DateFormat('MMM dd,yyyy').format(
+                      //     DateTime.fromMillisecondsSinceEpoch((state
+                      //                 .employerDashboardList[index]
+                      //                 .shift_date
+                      //                 ?.start_date ??
+                      //             0) *
+                      //         1000),
+                      //   ),
+                      // ),
+                      // verticalDivider(),
+                      // verticalLabelValue(
+                      //   label: "${StringConstant.startAndEndTime}:-",
+                      //   value:
+                      //       "${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((state.employerDashboardList[index].shift_date?.start_time ?? 0) * 1000))} to ${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((state.employerDashboardList[index].shift_date?.end_time ?? 0) * 1000))}",
+                      // ),
                       // verticalDivider(),
                       // verticalLabelValue(
                       //   label: "${StringConstant.totalShifts}:-",

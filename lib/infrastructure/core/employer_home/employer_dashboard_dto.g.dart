@@ -20,9 +20,6 @@ _$EmployerDashboardDTOImpl _$$EmployerDashboardDTOImplFromJson(
       location: json['location'] == null
           ? null
           : Location.fromJson(json['location'] as Map<String, dynamic>),
-      shift_date: json['shift_date'] == null
-          ? null
-          : ShiftDate.fromJson(json['shift_date'] as Map<String, dynamic>),
       total_application_counts:
           (json['total_application_counts'] as num?)?.toInt(),
       total_application_profiles:
@@ -42,7 +39,6 @@ Map<String, dynamic> _$$EmployerDashboardDTOImplToJson(
       'last_ago': instance.last_ago,
       'industry': instance.industry,
       'location': instance.location,
-      'shift_date': instance.shift_date,
       'total_application_counts': instance.total_application_counts,
       'total_application_profiles': instance.total_application_profiles,
       'total_proposal_counts': instance.total_proposal_counts,

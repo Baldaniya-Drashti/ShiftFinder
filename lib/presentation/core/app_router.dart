@@ -44,6 +44,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: CounterPurposeView.page),
         AutoRoute(page: AwaitingConfirmationView.page),
         AutoRoute(page: TeamsView.page),
+        AutoRoute(page: AddNewTeamView.page),
         AutoRoute(
           page: MainTabView.page,
           children: [
