@@ -3,8 +3,11 @@ part of 'post_shift_bloc.dart';
 @freezed
 class PostShiftEvent with _$PostShiftEvent {
   /// change shift type
-  const factory PostShiftEvent.changeShiftType(String shiftType,
-      {required int postId}) = ChangeShiftType;
+  const factory PostShiftEvent.changeShiftType(
+    String shiftType, {
+    required int postId,
+    required PostShiftDTO? post,
+  }) = ChangeShiftType;
 
   /// Single Shift
   const factory PostShiftEvent.getBreakAllownceListApi() =
@@ -45,10 +48,13 @@ class PostShiftEvent with _$PostShiftEvent {
   const factory PostShiftEvent.addVacancyChanged(String vacancy) =
       AddVacancyChanged;
 
-  const factory PostShiftEvent.singleShiftSubmitted() = SingleShiftSubmitted;
+  const factory PostShiftEvent.singleShiftSubmitted(BuildContext context) =
+      SingleShiftSubmitted;
 
   /// For recurring, template,share with teams
-  const factory PostShiftEvent.getTeamsListEvent() = GetTeamsList;
+
+  const factory PostShiftEvent.getTeamsListEvent({required PostShiftDTO post}) =
+      GetTeamsList;
   const factory PostShiftEvent.recurringCheck(bool isCheck) = RecurringCheck;
   const factory PostShiftEvent.shareWithTeamsCheck(bool isCheck) =
       ShareWithTeamsCheck;
@@ -66,8 +72,8 @@ class PostShiftEvent with _$PostShiftEvent {
       RecurringEndDateChanged;
 
   const factory PostShiftEvent.selectTeamEvent(TeamDTO team) = SelectTeamEvent;
-  const factory PostShiftEvent.recurringButtonEvent(int postShiftId) =
-      RecurringButtonEvent;
+  const factory PostShiftEvent.recurringButtonEvent(
+      BuildContext context, int postShiftId) = RecurringButtonEvent;
 
   /// Multi Shift
   const factory PostShiftEvent.checkIsIndividualPost(bool isIndividualPost) =
@@ -88,12 +94,13 @@ class PostShiftEvent with _$PostShiftEvent {
   const factory PostShiftEvent.endMinuteListChanged(
       String minute, int index, String date) = EndMinuteListChanged;
   const factory PostShiftEvent.differentTimeShiftSubmitted(
-      MultiShiftDTO shiftDetail) = DifferentTimeShiftSubmitted;
+          MultiShiftDTO shiftDetail, BuildContext context) =
+      DifferentTimeShiftSubmitted;
 
   const factory PostShiftEvent.initMultiDifferentDateEvent(
       List<DateTimeDTO> list) = InitMultiDifferentDateEvent;
   const factory PostShiftEvent.backEvent() = BackEvent;
-  const factory PostShiftEvent.sameTimeShiftSubmitted() =
+  const factory PostShiftEvent.sameTimeShiftSubmitted(BuildContext context) =
       SameTimeShiftSubmitted;
 
   /// Post the Shift

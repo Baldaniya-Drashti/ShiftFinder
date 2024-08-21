@@ -13,6 +13,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
+import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
@@ -31,20 +32,23 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 class PostShiftRecurring extends StatelessWidget {
   int shiftType;
   HealthcarePostDTO healthcarePost;
+  PostShiftDTO post;
+
   PostShiftRecurring(
-      {super.key, required this.shiftType, required this.healthcarePost});
+      {super.key,
+      required this.shiftType,
+      required this.healthcarePost,
+      required this.post});
 
   @override
   Widget build(BuildContext context) {
-    print(
-        "Healthcare post---> ${jsonEncode(healthcarePost.shift_detail!.teams)}");
     return GestureDetector(
       onTap: () {
         AppFocus.unfocus(context);
       },
       child: BlocProvider(
-        create: (context) =>
-            getIt<PostShiftBloc>()..add(PostShiftEvent.getTeamsListEvent()),
+        create: (context) => getIt<PostShiftBloc>()
+          ..add(PostShiftEvent.getTeamsListEvent(post: post)),
         child: BlocConsumer<PostShiftBloc, PostShiftState>(
           listener: (context, state) {
             state.recurringFailureOrSuccessOption.fold(
@@ -61,8 +65,8 @@ class PostShiftRecurring extends StatelessWidget {
                   ).show(context);
                 },
                 (r) {
-                  context.router.push(PageRouteInfo(ReviewPostShiftDetail.name,
-                      args: ReviewPostShiftDetailArgs(post: r)));
+                  // context.router.push(PageRouteInfo(ReviewPostShiftDetail.name,
+                  //     args: ReviewPostShiftDetailArgs(post: r)));
                 },
               ),
             );
@@ -161,6 +165,7 @@ class PostShiftRecurring extends StatelessWidget {
                                       onPressed: () {
                                         context.read<PostShiftBloc>().add(
                                             PostShiftEvent.recurringButtonEvent(
+                                                context,
                                                 healthcarePost
                                                         .shift_detail?.id ??
                                                     -1));

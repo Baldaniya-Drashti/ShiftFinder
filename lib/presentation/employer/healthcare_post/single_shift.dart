@@ -11,6 +11,7 @@ import 'package:shift/domain/core/document_expiry_picker.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -26,13 +27,20 @@ import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 class SinglePostShift extends StatelessWidget {
   int shiftType;
   int postId;
-  SinglePostShift({super.key, required this.shiftType, required this.postId});
+  PostShiftDTO post;
+
+  SinglePostShift(
+      {super.key,
+      required this.shiftType,
+      required this.postId,
+      required this.post});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<PostShiftBloc>()
-        ..add(PostShiftEvent.changeShiftType("Single", postId: postId)),
+        ..add(PostShiftEvent.changeShiftType("Single",
+            postId: postId, post: post)),
       child: BlocConsumer<PostShiftBloc, PostShiftState>(
         listener: (context, state) {
           state.singleShiftFailureOrSuccessOption.fold(
@@ -49,11 +57,14 @@ class SinglePostShift extends StatelessWidget {
                 ).show(context);
               },
               (r) {
-                context.router.push(PageRouteInfo(
-                  PostShiftRecurring.name,
-                  args: PostShiftRecurringArgs(
-                      shiftType: shiftType, healthcarePost: r),
-                ));
+                // context.router.push(PageRouteInfo(
+                //   PostShiftRecurring.name,
+                //   args: PostShiftRecurringArgs(
+                //     shiftType: shiftType,
+                //     healthcarePost: r,
+                //     post: post,
+                //   ),
+                // ));
               },
             ),
           );
@@ -121,7 +132,7 @@ class SinglePostShift extends StatelessWidget {
                     onPressed: () {
                       context
                           .read<PostShiftBloc>()
-                          .add(PostShiftEvent.singleShiftSubmitted());
+                          .add(PostShiftEvent.singleShiftSubmitted(context));
                     },
                     buttonText: StringConstant.txtContinue,
                   ),

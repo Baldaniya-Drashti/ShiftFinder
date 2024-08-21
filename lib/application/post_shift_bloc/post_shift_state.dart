@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 part of 'post_shift_bloc.dart';
 
@@ -9,6 +9,7 @@ class PostShiftState with _$PostShiftState {
     required int shiftType,
     required int postId,
     required bool isLoading,
+    required PostShiftDTO post,
 
     /// Single Shift
     required InputEmptyOrNot signleShiftDate,
@@ -68,6 +69,7 @@ class PostShiftState with _$PostShiftState {
 
   factory PostShiftState.initial() => PostShiftState(
         /// Change shift Type(Single, Multi,Long-Term)
+        post: PostShiftDTO(),
         shiftType: -1,
         postId: -1,
         isLoading: false,

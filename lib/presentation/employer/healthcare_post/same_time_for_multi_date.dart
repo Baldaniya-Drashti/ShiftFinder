@@ -1,15 +1,14 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_brace_in_string_interps, avoid_print
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_brace_in_string_interps, avoid_print, must_be_immutable, prefer_const_constructors_in_immutables
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -20,7 +19,7 @@ import 'package:shift/presentation/core/widgets/inputs/custom_time_picker_dropdo
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 
 class SameTimeForMultiDate extends StatelessWidget {
-  const SameTimeForMultiDate({super.key});
+  SameTimeForMultiDate({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +39,11 @@ class SameTimeForMultiDate extends StatelessWidget {
               ).show(context);
             },
             (r) {
-              context.router.push(PageRouteInfo(
+              /*context.router.push(PageRouteInfo(
                 PostShiftRecurring.name,
                 args: PostShiftRecurringArgs(
-                    shiftType: state.shiftType, healthcarePost: r),
-              ));
+                    shiftType: state.shiftType, healthcarePost: r, post: post),
+              ));*/
             },
           ),
         );
@@ -117,7 +116,7 @@ class SameTimeForMultiDate extends StatelessWidget {
                   onPressed: () {
                     context
                         .read<PostShiftBloc>()
-                        .add(PostShiftEvent.sameTimeShiftSubmitted());
+                        .add(PostShiftEvent.sameTimeShiftSubmitted(context));
                   },
                   buttonText: StringConstant.txtContinue,
                 ),

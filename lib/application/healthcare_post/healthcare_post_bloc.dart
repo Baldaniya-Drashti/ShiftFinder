@@ -164,7 +164,9 @@
 
 // ignore_for_file: avoid_print, unnecessary_brace_in_string_interps, prefer_const_constructors
 
+import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -177,6 +179,8 @@ import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/core/speciality/speciality_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
+import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 part 'healthcare_post_event.dart';
 part 'healthcare_post_state.dart';
 part 'healthcare_post_bloc.freezed.dart';
@@ -478,7 +482,24 @@ class HealthcarePostBloc
               !state.showLocationError &&
               isRateHourValid) {
             print("ALL DETAILS ARE VALID!---->  ");
-            emit(
+            PostShiftDTO post = PostShiftDTO(
+              roles_list_id: getSelectedRoleIds(),
+              specialties_detail_id: getSelectedSpecialtiyIds(),
+              specialties_detail_other: state.specialityOther.join(','),
+              softwares_skill_list_id: getSelectedSoftwareIds(),
+              software_skill_other: state.softwareSkillOther.join(','),
+              languages_list_id: getSelectedLanguageId(),
+              language_other: state.languageOther.join(','),
+              location_id: getSelectedLocationIds(),
+              location_unit: state.selectedLocationUnit,
+              rate_hour: double.parse(state.rateHour.getValue() ?? "0.0"),
+            );
+
+            e.context.router.push(PageRouteInfo(
+              HealthcarePostShift.name,
+              args: HealthcarePostShiftArgs(postId: -1, post: post),
+            ));
+            /*emit(
               state.copyWith(
                 isLoading: true,
                 authFailureOrSuccessOption: none(),
@@ -495,35 +516,17 @@ class HealthcarePostBloc
               locationId: getSelectedLocationIds(),
               locationUnit: state.selectedLocationUnit,
               rateHour: double.parse(state.rateHour.getValue() ?? "0.0"),
-            );
+            );*/
           } else {
-            print("Some DETAILS ARE INVALID!");
+            print("SOME DETAILS ARE INVALID!");
           }
-          print("Failure or success--> ${failureOrSuccess}");
-          // failureOrSuccess!.fold(
-          //   (l) => emit(
-          //     state.copyWith(
-          //       showErrorMessages: true,
-          //       isLoading: false,
-          //       authFailureOrSuccessOption: optionOf(failureOrSuccess),
-          //     ),
-          //   ),
-          //   (r) {
-          //     return emit(
-          //       state.copyWith(
-          //         isLoading: false,
-          //         showErrorMessages: false,
-          //         authFailureOrSuccessOption: optionOf(failureOrSuccess),
-          //       ),
-          //     );
-          //   },
-          // );
+          // print("Failure or success--> ${failureOrSuccess}");
           emit(
             state.copyWith(
               isSubmitting: false,
               isLoading: false,
               showErrorMessages: true,
-              authFailureOrSuccessOption: optionOf(failureOrSuccess),
+              // authFailureOrSuccessOption: optionOf(failureOrSuccess),
             ),
           );
         },

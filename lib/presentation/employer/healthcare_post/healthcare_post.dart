@@ -555,7 +555,7 @@ class HealthCarePostForm extends StatelessWidget {
             ),
             body: BlocConsumer<HealthcarePostBloc, HealthcarePostState>(
               listener: (context, state) {
-                state.authFailureOrSuccessOption.fold(
+                /* state.authFailureOrSuccessOption.fold(
                   () {},
                   (either) => either.fold(
                     (failure) {
@@ -575,7 +575,7 @@ class HealthCarePostForm extends StatelessWidget {
                       ));
                     },
                   ),
-                );
+                );*/
               },
               builder: (context, state) {
                 return (state.isLoading)
@@ -613,8 +613,8 @@ class HealthCarePostForm extends StatelessWidget {
                                     isSubmitting: state.isSubmitting,
                                     onPressed: () {
                                       context.read<HealthcarePostBloc>().add(
-                                          const HealthcarePostEvent
-                                              .continueBtnPressed());
+                                          HealthcarePostEvent
+                                              .continueBtnPressed(context));
                                     },
                                     buttonText: StringConstant.txtContinue,
                                   ),

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print, unnecessary_brace_in_string_interps
+// ignore_for_file: prefer_const_constructors, avoid_print, unnecessary_brace_in_string_interps, must_be_immutable
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +9,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
+import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
@@ -20,7 +21,8 @@ import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 
 class DifferentTimeForEachDate extends StatelessWidget {
-  const DifferentTimeForEachDate({super.key});
+  PostShiftDTO post;
+  DifferentTimeForEachDate({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +74,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
             AddMultiDateTime.name,
             args: AddMultiDateTimeArgs(
               selectedObj: data,
+              post: post,
             ),
           ))
               .then((value) {

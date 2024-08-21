@@ -13,11 +13,13 @@ import 'package:flutter/material.dart' as _i37;
 import 'package:shift/application/auth/contractor_auth/location_example.dart'
     as _i18;
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart'
-    as _i39;
+    as _i40;
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart'
     as _i38;
+import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart'
+    as _i39;
 import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart'
-    as _i40;
+    as _i41;
 import 'package:shift/presentation/auth/contractor_auth/add_bank_details.dart'
     as _i1;
 import 'package:shift/presentation/auth/contractor_auth/add_contractor_skills.dart'
@@ -141,6 +143,7 @@ abstract class $AppRouter extends _i36.RootStackRouter {
         child: _i6.AddMultiDateTime(
           key: args.key,
           selectedObj: args.selectedObj,
+          post: args.post,
         ),
       );
     },
@@ -195,6 +198,7 @@ abstract class $AppRouter extends _i36.RootStackRouter {
         child: _i11.HealthcarePostShift(
           key: args.key,
           postId: args.postId,
+          post: args.post,
         ),
       );
     },
@@ -310,6 +314,7 @@ abstract class $AppRouter extends _i36.RootStackRouter {
           key: args.key,
           shiftType: args.shiftType,
           healthcarePost: args.healthcarePost,
+          post: args.post,
         ),
       );
     },
@@ -594,12 +599,14 @@ class AddMultiDateTime extends _i36.PageRouteInfo<AddMultiDateTimeArgs> {
   AddMultiDateTime({
     _i37.Key? key,
     required _i38.MultiShiftDTO selectedObj,
+    required _i39.PostShiftDTO post,
     List<_i36.PageRouteInfo>? children,
   }) : super(
           AddMultiDateTime.name,
           args: AddMultiDateTimeArgs(
             key: key,
             selectedObj: selectedObj,
+            post: post,
           ),
           initialChildren: children,
         );
@@ -614,15 +621,18 @@ class AddMultiDateTimeArgs {
   const AddMultiDateTimeArgs({
     this.key,
     required this.selectedObj,
+    required this.post,
   });
 
   final _i37.Key? key;
 
   final _i38.MultiShiftDTO selectedObj;
 
+  final _i39.PostShiftDTO post;
+
   @override
   String toString() {
-    return 'AddMultiDateTimeArgs{key: $key, selectedObj: $selectedObj}';
+    return 'AddMultiDateTimeArgs{key: $key, selectedObj: $selectedObj, post: $post}';
   }
 }
 
@@ -785,12 +795,14 @@ class HealthcarePostShift extends _i36.PageRouteInfo<HealthcarePostShiftArgs> {
   HealthcarePostShift({
     _i37.Key? key,
     required int postId,
+    required _i39.PostShiftDTO post,
     List<_i36.PageRouteInfo>? children,
   }) : super(
           HealthcarePostShift.name,
           args: HealthcarePostShiftArgs(
             key: key,
             postId: postId,
+            post: post,
           ),
           initialChildren: children,
         );
@@ -805,15 +817,18 @@ class HealthcarePostShiftArgs {
   const HealthcarePostShiftArgs({
     this.key,
     required this.postId,
+    required this.post,
   });
 
   final _i37.Key? key;
 
   final int postId;
 
+  final _i39.PostShiftDTO post;
+
   @override
   String toString() {
-    return 'HealthcarePostShiftArgs{key: $key, postId: $postId}';
+    return 'HealthcarePostShiftArgs{key: $key, postId: $postId, post: $post}';
   }
 }
 
@@ -1098,7 +1113,7 @@ class OnBoarding3Args {
 class PayableDetail extends _i36.PageRouteInfo<PayableDetailArgs> {
   PayableDetail({
     _i37.Key? key,
-    required _i39.HealthcarePostDTO post,
+    required _i40.HealthcarePostDTO post,
     List<_i36.PageRouteInfo>? children,
   }) : super(
           PayableDetail.name,
@@ -1123,7 +1138,7 @@ class PayableDetailArgs {
 
   final _i37.Key? key;
 
-  final _i39.HealthcarePostDTO post;
+  final _i40.HealthcarePostDTO post;
 
   @override
   String toString() {
@@ -1137,7 +1152,8 @@ class PostShiftRecurring extends _i36.PageRouteInfo<PostShiftRecurringArgs> {
   PostShiftRecurring({
     _i37.Key? key,
     required int shiftType,
-    required _i39.HealthcarePostDTO healthcarePost,
+    required _i40.HealthcarePostDTO healthcarePost,
+    required _i39.PostShiftDTO post,
     List<_i36.PageRouteInfo>? children,
   }) : super(
           PostShiftRecurring.name,
@@ -1145,6 +1161,7 @@ class PostShiftRecurring extends _i36.PageRouteInfo<PostShiftRecurringArgs> {
             key: key,
             shiftType: shiftType,
             healthcarePost: healthcarePost,
+            post: post,
           ),
           initialChildren: children,
         );
@@ -1160,17 +1177,20 @@ class PostShiftRecurringArgs {
     this.key,
     required this.shiftType,
     required this.healthcarePost,
+    required this.post,
   });
 
   final _i37.Key? key;
 
   final int shiftType;
 
-  final _i39.HealthcarePostDTO healthcarePost;
+  final _i40.HealthcarePostDTO healthcarePost;
+
+  final _i39.PostShiftDTO post;
 
   @override
   String toString() {
-    return 'PostShiftRecurringArgs{key: $key, shiftType: $shiftType, healthcarePost: $healthcarePost}';
+    return 'PostShiftRecurringArgs{key: $key, shiftType: $shiftType, healthcarePost: $healthcarePost, post: $post}';
   }
 }
 
@@ -1294,7 +1314,7 @@ class ReviewPostShiftDetail
     extends _i36.PageRouteInfo<ReviewPostShiftDetailArgs> {
   ReviewPostShiftDetail({
     _i37.Key? key,
-    required _i39.HealthcarePostDTO post,
+    required _i40.HealthcarePostDTO post,
     List<_i36.PageRouteInfo>? children,
   }) : super(
           ReviewPostShiftDetail.name,
@@ -1319,7 +1339,7 @@ class ReviewPostShiftDetailArgs {
 
   final _i37.Key? key;
 
-  final _i39.HealthcarePostDTO post;
+  final _i40.HealthcarePostDTO post;
 
   @override
   String toString() {
@@ -1385,7 +1405,7 @@ class TermsAndConditionsScreenArgs {
 class ViewDates extends _i36.PageRouteInfo<ViewDatesArgs> {
   ViewDates({
     _i37.Key? key,
-    required _i40.ShiftDetailDTO shiftDetail,
+    required _i41.ShiftDetailDTO shiftDetail,
     List<_i36.PageRouteInfo>? children,
   }) : super(
           ViewDates.name,
@@ -1410,7 +1430,7 @@ class ViewDatesArgs {
 
   final _i37.Key? key;
 
-  final _i40.ShiftDetailDTO shiftDetail;
+  final _i41.ShiftDetailDTO shiftDetail;
 
   @override
   String toString() {

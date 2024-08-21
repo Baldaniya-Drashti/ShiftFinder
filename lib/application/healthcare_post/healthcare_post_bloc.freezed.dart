@@ -34,7 +34,7 @@ mixin _$HealthcarePostEvent {
     required TResult Function(String location) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
-    required TResult Function() continueBtnPressed,
+    required TResult Function(BuildContext context) continueBtnPressed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -53,7 +53,7 @@ mixin _$HealthcarePostEvent {
     TResult? Function(String location)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
-    TResult? Function()? continueBtnPressed,
+    TResult? Function(BuildContext context)? continueBtnPressed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -72,7 +72,7 @@ mixin _$HealthcarePostEvent {
     TResult Function(String location)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
-    TResult Function()? continueBtnPressed,
+    TResult Function(BuildContext context)? continueBtnPressed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -214,7 +214,7 @@ class _$GetAllDropDownListImpl implements GetAllDropDownList {
     required TResult Function(String location) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
-    required TResult Function() continueBtnPressed,
+    required TResult Function(BuildContext context) continueBtnPressed,
   }) {
     return getAllDropDownList();
   }
@@ -236,7 +236,7 @@ class _$GetAllDropDownListImpl implements GetAllDropDownList {
     TResult? Function(String location)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
-    TResult? Function()? continueBtnPressed,
+    TResult? Function(BuildContext context)? continueBtnPressed,
   }) {
     return getAllDropDownList?.call();
   }
@@ -258,7 +258,7 @@ class _$GetAllDropDownListImpl implements GetAllDropDownList {
     TResult Function(String location)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
-    TResult Function()? continueBtnPressed,
+    TResult Function(BuildContext context)? continueBtnPressed,
     required TResult orElse(),
   }) {
     if (getAllDropDownList != null) {
@@ -430,7 +430,7 @@ class _$RoleTypeChangedImpl implements RoleTypeChanged {
     required TResult Function(String location) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
-    required TResult Function() continueBtnPressed,
+    required TResult Function(BuildContext context) continueBtnPressed,
   }) {
     return roleTypeChanged(roleType);
   }
@@ -452,7 +452,7 @@ class _$RoleTypeChangedImpl implements RoleTypeChanged {
     TResult? Function(String location)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
-    TResult? Function()? continueBtnPressed,
+    TResult? Function(BuildContext context)? continueBtnPressed,
   }) {
     return roleTypeChanged?.call(roleType);
   }
@@ -474,7 +474,7 @@ class _$RoleTypeChangedImpl implements RoleTypeChanged {
     TResult Function(String location)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
-    TResult Function()? continueBtnPressed,
+    TResult Function(BuildContext context)? continueBtnPressed,
     required TResult orElse(),
   }) {
     if (roleTypeChanged != null) {
@@ -660,7 +660,7 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
     required TResult Function(String location) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
-    required TResult Function() continueBtnPressed,
+    required TResult Function(BuildContext context) continueBtnPressed,
   }) {
     return addLanguageChips(selectedLanguage, isOtherValue);
   }
@@ -682,7 +682,7 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
     TResult? Function(String location)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
-    TResult? Function()? continueBtnPressed,
+    TResult? Function(BuildContext context)? continueBtnPressed,
   }) {
     return addLanguageChips?.call(selectedLanguage, isOtherValue);
   }
@@ -704,7 +704,7 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
     TResult Function(String location)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
-    TResult Function()? continueBtnPressed,
+    TResult Function(BuildContext context)? continueBtnPressed,
     required TResult orElse(),
   }) {
     if (addLanguageChips != null) {
@@ -883,7 +883,7 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
     required TResult Function(String location) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
-    required TResult Function() continueBtnPressed,
+    required TResult Function(BuildContext context) continueBtnPressed,
   }) {
     return removeLanguageChips(selectedLanguage);
   }
@@ -905,7 +905,7 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
     TResult? Function(String location)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
-    TResult? Function()? continueBtnPressed,
+    TResult? Function(BuildContext context)? continueBtnPressed,
   }) {
     return removeLanguageChips?.call(selectedLanguage);
   }
@@ -927,7 +927,7 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
     TResult Function(String location)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
-    TResult Function()? continueBtnPressed,
+    TResult Function(BuildContext context)? continueBtnPressed,
     required TResult orElse(),
   }) {
     if (removeLanguageChips != null) {
@@ -1118,7 +1118,7 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
     required TResult Function(String location) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
-    required TResult Function() continueBtnPressed,
+    required TResult Function(BuildContext context) continueBtnPressed,
   }) {
     return addRequiredSpecialitichips(selectedValue, isOtherValue);
   }
@@ -1140,7 +1140,7 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
     TResult? Function(String location)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
-    TResult? Function()? continueBtnPressed,
+    TResult? Function(BuildContext context)? continueBtnPressed,
   }) {
     return addRequiredSpecialitichips?.call(selectedValue, isOtherValue);
   }
@@ -1162,7 +1162,7 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
     TResult Function(String location)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
-    TResult Function()? continueBtnPressed,
+    TResult Function(BuildContext context)? continueBtnPressed,
     required TResult orElse(),
   }) {
     if (addRequiredSpecialitichips != null) {
@@ -1346,7 +1346,7 @@ class _$RemoveRequiredSpecialitichipsImpl
     required TResult Function(String location) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
-    required TResult Function() continueBtnPressed,
+    required TResult Function(BuildContext context) continueBtnPressed,
   }) {
     return removeRequiredSpecialitichips(selectedValue);
   }
@@ -1368,7 +1368,7 @@ class _$RemoveRequiredSpecialitichipsImpl
     TResult? Function(String location)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
-    TResult? Function()? continueBtnPressed,
+    TResult? Function(BuildContext context)? continueBtnPressed,
   }) {
     return removeRequiredSpecialitichips?.call(selectedValue);
   }
@@ -1390,7 +1390,7 @@ class _$RemoveRequiredSpecialitichipsImpl
     TResult Function(String location)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
-    TResult Function()? continueBtnPressed,
+    TResult Function(BuildContext context)? continueBtnPressed,
     required TResult orElse(),
   }) {
     if (removeRequiredSpecialitichips != null) {
@@ -1584,7 +1584,7 @@ class _$AddPreferedSoftwareSkillchipsImpl
     required TResult Function(String location) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
-    required TResult Function() continueBtnPressed,
+    required TResult Function(BuildContext context) continueBtnPressed,
   }) {
     return addPreferedSoftwareSkillchips(selectedValue, isOtherValue);
   }
@@ -1606,7 +1606,7 @@ class _$AddPreferedSoftwareSkillchipsImpl
     TResult? Function(String location)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
-    TResult? Function()? continueBtnPressed,
+    TResult? Function(BuildContext context)? continueBtnPressed,
   }) {
     return addPreferedSoftwareSkillchips?.call(selectedValue, isOtherValue);
   }
@@ -1628,7 +1628,7 @@ class _$AddPreferedSoftwareSkillchipsImpl
     TResult Function(String location)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
-    TResult Function()? continueBtnPressed,
+    TResult Function(BuildContext context)? continueBtnPressed,
     required TResult orElse(),
   }) {
     if (addPreferedSoftwareSkillchips != null) {
@@ -1813,7 +1813,7 @@ class _$RemovePreferedSoftwareSkillchipsImpl
     required TResult Function(String location) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
-    required TResult Function() continueBtnPressed,
+    required TResult Function(BuildContext context) continueBtnPressed,
   }) {
     return removePreferedSoftwareSkillchips(selectedValue);
   }
@@ -1835,7 +1835,7 @@ class _$RemovePreferedSoftwareSkillchipsImpl
     TResult? Function(String location)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
-    TResult? Function()? continueBtnPressed,
+    TResult? Function(BuildContext context)? continueBtnPressed,
   }) {
     return removePreferedSoftwareSkillchips?.call(selectedValue);
   }
@@ -1857,7 +1857,7 @@ class _$RemovePreferedSoftwareSkillchipsImpl
     TResult Function(String location)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
-    TResult Function()? continueBtnPressed,
+    TResult Function(BuildContext context)? continueBtnPressed,
     required TResult orElse(),
   }) {
     if (removePreferedSoftwareSkillchips != null) {
@@ -2036,7 +2036,7 @@ class _$LocationChangedImpl implements LocationChanged {
     required TResult Function(String location) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
-    required TResult Function() continueBtnPressed,
+    required TResult Function(BuildContext context) continueBtnPressed,
   }) {
     return locationChanged(location);
   }
@@ -2058,7 +2058,7 @@ class _$LocationChangedImpl implements LocationChanged {
     TResult? Function(String location)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
-    TResult? Function()? continueBtnPressed,
+    TResult? Function(BuildContext context)? continueBtnPressed,
   }) {
     return locationChanged?.call(location);
   }
@@ -2080,7 +2080,7 @@ class _$LocationChangedImpl implements LocationChanged {
     TResult Function(String location)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
-    TResult Function()? continueBtnPressed,
+    TResult Function(BuildContext context)? continueBtnPressed,
     required TResult orElse(),
   }) {
     if (locationChanged != null) {
@@ -2262,7 +2262,7 @@ class _$LocationUnitSelectionChangedImpl
     required TResult Function(String location) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
-    required TResult Function() continueBtnPressed,
+    required TResult Function(BuildContext context) continueBtnPressed,
   }) {
     return locationUnitSelectionChanged(selectedUnit);
   }
@@ -2284,7 +2284,7 @@ class _$LocationUnitSelectionChangedImpl
     TResult? Function(String location)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
-    TResult? Function()? continueBtnPressed,
+    TResult? Function(BuildContext context)? continueBtnPressed,
   }) {
     return locationUnitSelectionChanged?.call(selectedUnit);
   }
@@ -2306,7 +2306,7 @@ class _$LocationUnitSelectionChangedImpl
     TResult Function(String location)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
-    TResult Function()? continueBtnPressed,
+    TResult Function(BuildContext context)? continueBtnPressed,
     required TResult orElse(),
   }) {
     if (locationUnitSelectionChanged != null) {
@@ -2485,7 +2485,7 @@ class _$RateHourChangedImpl implements RateHourChanged {
     required TResult Function(String location) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
-    required TResult Function() continueBtnPressed,
+    required TResult Function(BuildContext context) continueBtnPressed,
   }) {
     return rateHourChanged(rateHour);
   }
@@ -2507,7 +2507,7 @@ class _$RateHourChangedImpl implements RateHourChanged {
     TResult? Function(String location)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
-    TResult? Function()? continueBtnPressed,
+    TResult? Function(BuildContext context)? continueBtnPressed,
   }) {
     return rateHourChanged?.call(rateHour);
   }
@@ -2529,7 +2529,7 @@ class _$RateHourChangedImpl implements RateHourChanged {
     TResult Function(String location)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
-    TResult Function()? continueBtnPressed,
+    TResult Function(BuildContext context)? continueBtnPressed,
     required TResult orElse(),
   }) {
     if (rateHourChanged != null) {
@@ -2629,6 +2629,8 @@ abstract class _$$ContinueBtnPressedImplCopyWith<$Res> {
   factory _$$ContinueBtnPressedImplCopyWith(_$ContinueBtnPressedImpl value,
           $Res Function(_$ContinueBtnPressedImpl) then) =
       __$$ContinueBtnPressedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({BuildContext context});
 }
 
 /// @nodoc
@@ -2638,26 +2640,51 @@ class __$$ContinueBtnPressedImplCopyWithImpl<$Res>
   __$$ContinueBtnPressedImplCopyWithImpl(_$ContinueBtnPressedImpl _value,
       $Res Function(_$ContinueBtnPressedImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? context = null,
+  }) {
+    return _then(_$ContinueBtnPressedImpl(
+      null == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
-  const _$ContinueBtnPressedImpl();
+  const _$ContinueBtnPressedImpl(this.context);
+
+  @override
+  final BuildContext context;
 
   @override
   String toString() {
-    return 'HealthcarePostEvent.continueBtnPressed()';
+    return 'HealthcarePostEvent.continueBtnPressed(context: $context)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ContinueBtnPressedImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$ContinueBtnPressedImpl &&
+            (identical(other.context, context) || other.context == context));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, context);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ContinueBtnPressedImplCopyWith<_$ContinueBtnPressedImpl> get copyWith =>
+      __$$ContinueBtnPressedImplCopyWithImpl<_$ContinueBtnPressedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2678,9 +2705,9 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     required TResult Function(String location) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
-    required TResult Function() continueBtnPressed,
+    required TResult Function(BuildContext context) continueBtnPressed,
   }) {
-    return continueBtnPressed();
+    return continueBtnPressed(context);
   }
 
   @override
@@ -2700,9 +2727,9 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     TResult? Function(String location)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
-    TResult? Function()? continueBtnPressed,
+    TResult? Function(BuildContext context)? continueBtnPressed,
   }) {
-    return continueBtnPressed?.call();
+    return continueBtnPressed?.call(context);
   }
 
   @override
@@ -2722,11 +2749,11 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     TResult Function(String location)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
-    TResult Function()? continueBtnPressed,
+    TResult Function(BuildContext context)? continueBtnPressed,
     required TResult orElse(),
   }) {
     if (continueBtnPressed != null) {
-      return continueBtnPressed();
+      return continueBtnPressed(context);
     }
     return orElse();
   }
@@ -2809,7 +2836,13 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
 }
 
 abstract class ContinueBtnPressed implements HealthcarePostEvent {
-  const factory ContinueBtnPressed() = _$ContinueBtnPressedImpl;
+  const factory ContinueBtnPressed(final BuildContext context) =
+      _$ContinueBtnPressedImpl;
+
+  BuildContext get context;
+  @JsonKey(ignore: true)
+  _$$ContinueBtnPressedImplCopyWith<_$ContinueBtnPressedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

@@ -11,6 +11,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
+import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -26,8 +27,10 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'addMultiDateTime')
 class AddMultiDateTime extends StatelessWidget {
+  PostShiftDTO post;
+
   MultiShiftDTO selectedObj;
-  AddMultiDateTime({super.key, required this.selectedObj});
+  AddMultiDateTime({super.key, required this.selectedObj, required this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +55,13 @@ class AddMultiDateTime extends StatelessWidget {
                 ).show(context);
               },
               (r) {
-                context.router.push(PageRouteInfo(
+                /*context.router.push(PageRouteInfo(
                   PostShiftRecurring.name,
                   args: PostShiftRecurringArgs(
-                      shiftType: state.shiftType, healthcarePost: r),
-                ));
+                      shiftType: state.shiftType,
+                      healthcarePost: r,
+                      post: post),
+                ));*/
               },
             ),
           );
@@ -117,7 +122,7 @@ class AddMultiDateTime extends StatelessWidget {
                                       context.read<PostShiftBloc>().add(
                                           PostShiftEvent
                                               .differentTimeShiftSubmitted(
-                                                  selectedObj));
+                                                  selectedObj, context));
                                     },
                                     buttonText: StringConstant.txtContinue,
                                   ),

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
@@ -15,13 +16,20 @@ import 'package:shift/presentation/employer/healthcare_post/same_time_for_multi_
 class MultiPostShift extends StatelessWidget {
   int shiftType;
   int postId;
-  MultiPostShift({super.key, required this.shiftType, required this.postId});
+  PostShiftDTO post;
+
+  MultiPostShift(
+      {super.key,
+      required this.shiftType,
+      required this.postId,
+      required this.post});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<PostShiftBloc>()
-        ..add(PostShiftEvent.changeShiftType("Multi", postId: postId)),
+        ..add(PostShiftEvent.changeShiftType("Multi",
+            postId: postId, post: post)),
       child: BlocConsumer<PostShiftBloc, PostShiftState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -41,7 +49,9 @@ class MultiPostShift extends StatelessWidget {
                       paddingBetweenFields(),
                       (state.selectedMultiShiftType == 1)
                           ? SameTimeForMultiDate()
-                          : DifferentTimeForEachDate(),
+                          : DifferentTimeForEachDate(
+                              post: post,
+                            ),
                     ],
                   ),
                 );

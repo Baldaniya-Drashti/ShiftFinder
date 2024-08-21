@@ -59,5 +59,6 @@ class HealthcarePostEvent with _$HealthcarePostEvent {
   const factory HealthcarePostEvent.rateHourChanged(String rateHour) =
       RateHourChanged;
 
-  const factory HealthcarePostEvent.continueBtnPressed() = ContinueBtnPressed;
+  const factory HealthcarePostEvent.continueBtnPressed(BuildContext context) =
+      ContinueBtnPressed;
 }
