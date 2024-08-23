@@ -1,10 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
 
 class CommonTeamContainer extends StatelessWidget {
   final bool isFromTeamDetail;
@@ -98,43 +101,68 @@ class CommonTeamContainer extends StatelessWidget {
               ],
             ),
           ),
-          isFromTeamDetail
-              ? Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(getSize(5)),
-                      decoration: BoxDecoration(
-                        color: Color(0xFF2512FF).withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(getSize(6)),
+          if (isFromTeamDetail)
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    context.router.push(
+                      PageRouteInfo(
+                        AddNewMemberView.name,
+                        args: AddNewMemberViewArgs(isUpdateMember: true),
                       ),
-                      child: SvgPicture.asset(
-                        SvgImageConstant.edit,
-                        colorFilter: ColorFilter.mode(
-                          Color(0xFF2512FF),
-                          BlendMode.srcATop,
-                        ),
+                    );
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(getSize(5)),
+                    decoration: BoxDecoration(
+                      color: Color(0xFF2512FF).withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(getSize(6)),
+                    ),
+                    child: SvgPicture.asset(
+                      SvgImageConstant.edit,
+                      colorFilter: ColorFilter.mode(
+                        Color(0xFF2512FF),
+                        BlendMode.srcATop,
                       ),
                     ),
-                    SizedBox(
-                      width: getSize(10),
+                  ),
+                ),
+                SizedBox(
+                  width: getSize(10),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    AcceptRejectDialog(
+                      title: 'Delete Team',
+                      description:
+                          'Deleting this team will prevent you from sharing the shift posting summary with its members. Are you sure you want to proceed?',
+                      onPressedAccept: () {},
+                      onPressedReject: () {
+                        context.router.maybePop();
+                      },
+                      acceptButtonText: 'Delete',
+                    ).acceptRejectDialog(context);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(getSize(5)),
+                    decoration: BoxDecoration(
+                      color: Color(0xFFEB0000).withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(getSize(6)),
                     ),
-                    Container(
-                      padding: EdgeInsets.all(getSize(5)),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFEB0000).withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(getSize(6)),
-                      ),
-                      child: SvgPicture.asset(
-                        SvgImageConstant.delete,
-                        colorFilter: ColorFilter.mode(
-                          Color(0xFFEB0000),
-                          BlendMode.srcATop,
-                        ),
+                    child: SvgPicture.asset(
+                      SvgImageConstant.delete,
+                      colorFilter: ColorFilter.mode(
+                        Color(0xFFEB0000),
+                        BlendMode.srcATop,
                       ),
                     ),
-                  ],
-                )
-              : Icon(Icons.arrow_forward_ios_rounded)
+                  ),
+                ),
+              ],
+            )
+          else
+            Icon(Icons.arrow_forward_ios_rounded)
         ],
       ),
     );

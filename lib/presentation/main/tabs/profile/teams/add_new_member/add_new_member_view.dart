@@ -6,13 +6,16 @@ import 'package:shift/application/main_tab/profile/profile_sections/teams/add_ne
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
+import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'AddNewMemberView')
 class AddNewMemberView extends StatelessWidget {
-  const AddNewMemberView({super.key});
+  final bool isUpdateMember;
+  const AddNewMemberView({super.key, this.isUpdateMember = false});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,9 @@ class AddNewMemberView extends StatelessWidget {
           return Scaffold(
             appBar: CommonAppBar(
               onBackPressed: () => context.router.maybePop(),
-              title: 'Add New Team Member',
+              title: isUpdateMember
+                  ? 'Edit Member’s Details'
+                  : 'Add New Team Member',
             ),
             body: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
@@ -123,13 +128,56 @@ class AddNewMemberView extends StatelessWidget {
                   top: getSize(20),
                   bottom: !isFullScreenDevice(context) ? getSize(20) : 0,
                 ),
-                child: CommonButton(
-                    onPressed: () {
-                      context.read<AddNewMemberBloc>().add(
-                            AddNewMemberEvent.addNewMember(),
-                          );
-                    },
-                    buttonText: 'Add'),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CommonButton(
+                      onPressed: () {
+                        context.read<AddNewMemberBloc>().add(
+                              AddNewMemberEvent.addNewMember(),
+                            );
+                      },
+                      buttonText: isUpdateMember ? 'Update' : 'Add',
+                    ),
+                    SizedBox(height: getSize(isUpdateMember ? 20 : 0)),
+                    Visibility(
+                      visible: isUpdateMember,
+                      child: GestureDetector(
+                        onTap: () {
+                          AcceptRejectDialog(
+                            title: 'Delete Team Member',
+                            description:
+                                'Are you sure you want to delete the team memeber?',
+                            onPressedAccept: () {},
+                            onPressedReject: () {
+                              context.router.maybePop();
+                            },
+                            acceptButtonText: 'Delete',
+                          ).acceptRejectDialog(context);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              SvgImageConstant.delete,
+                              colorFilter: ColorFilter.mode(
+                                AppColors.redAccent,
+                                BlendMode.srcATop,
+                              ),
+                            ),
+                            SizedBox(width: getSize(5)),
+                            BaseText(
+                              text: 'Delete Team Member',
+                              fontSize: 12,
+                              textColor: AppColors.redAccent,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           );

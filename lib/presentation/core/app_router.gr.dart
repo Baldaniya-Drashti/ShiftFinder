@@ -155,9 +155,14 @@ abstract class $AppRouter extends _i46.RootStackRouter {
       );
     },
     AddNewMemberView.name: (routeData) {
+      final args = routeData.argsAs<AddNewMemberViewArgs>(
+          orElse: () => const AddNewMemberViewArgs());
       return _i46.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i7.AddNewMemberView(),
+        child: _i7.AddNewMemberView(
+          key: args.key,
+          isUpdateMember: args.isUpdateMember,
+        ),
       );
     },
     AddNewTeamView.name: (routeData) {
@@ -671,16 +676,40 @@ class AddExperienceDetailScreenArgs {
 
 /// generated route for
 /// [_i7.AddNewMemberView]
-class AddNewMemberView extends _i46.PageRouteInfo<void> {
-  const AddNewMemberView({List<_i46.PageRouteInfo>? children})
-      : super(
+class AddNewMemberView extends _i46.PageRouteInfo<AddNewMemberViewArgs> {
+  AddNewMemberView({
+    _i47.Key? key,
+    bool isUpdateMember = false,
+    List<_i46.PageRouteInfo>? children,
+  }) : super(
           AddNewMemberView.name,
+          args: AddNewMemberViewArgs(
+            key: key,
+            isUpdateMember: isUpdateMember,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'AddNewMemberView';
 
-  static const _i46.PageInfo<void> page = _i46.PageInfo<void>(name);
+  static const _i46.PageInfo<AddNewMemberViewArgs> page =
+      _i46.PageInfo<AddNewMemberViewArgs>(name);
+}
+
+class AddNewMemberViewArgs {
+  const AddNewMemberViewArgs({
+    this.key,
+    this.isUpdateMember = false,
+  });
+
+  final _i47.Key? key;
+
+  final bool isUpdateMember;
+
+  @override
+  String toString() {
+    return 'AddNewMemberViewArgs{key: $key, isUpdateMember: $isUpdateMember}';
+  }
 }
 
 /// generated route for
