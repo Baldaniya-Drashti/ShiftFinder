@@ -73,7 +73,6 @@ class ProfessionalReferenceDetail extends StatelessWidget {
           SizedBox(height: getSize(20)),
         ],
       ),
-   
     );
   }
 

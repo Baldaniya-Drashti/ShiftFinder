@@ -90,39 +90,42 @@ class ViewDates extends StatelessWidget {
     required String title,
   }) {
     return Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: getSize(12),
-          vertical: getSize(10),
-        ),
-        margin: EdgeInsets.symmetric(vertical: getSize(5)),
-        width: double.infinity,
-        decoration: BoxDecoration(
-            color: AppColors.white, borderRadius: BorderRadius.circular(10)),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: getSize(43),
-              width: getSize(35),
-              child: SvgPicture.asset(
-                svgPrefixIcon,
-                color: AppColors.primaryColor,
-              ),
+      padding: EdgeInsets.symmetric(
+        horizontal: getSize(12),
+        vertical: getSize(10),
+      ),
+      margin: EdgeInsets.symmetric(vertical: getSize(5)),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            height: getSize(43),
+            width: getSize(35),
+            child: SvgPicture.asset(
+              svgPrefixIcon,
+              color: AppColors.primaryColor,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-              child: SvgPicture.asset(
-                SvgImageConstant.verticalLine,
-                height: getSize(50),
-              ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+            child: SvgPicture.asset(
+              SvgImageConstant.verticalLine,
+              height: getSize(50),
             ),
-            BaseText(
-              text: title,
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
-          ],
-        ));
+          ),
+          BaseText(
+            text: title,
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
+        ],
+      ),
+    );
   }
 
   Widget startEndDate(

@@ -36,7 +36,7 @@ class AddNewTeamView extends StatelessWidget {
                     ? AutovalidateMode.always
                     : AutovalidateMode.disabled,
                 child: ListView(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                   children: [
                     SizedBox(height: getSize(63)),
                     Center(
