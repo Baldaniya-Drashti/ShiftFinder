@@ -1,8 +1,8 @@
-import 'dart:io';
+// ignore_for_file: depend_on_referenced_packages, must_be_immutable, avoid_print
 
+import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';

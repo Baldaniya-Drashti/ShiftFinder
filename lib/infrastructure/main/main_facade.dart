@@ -12,6 +12,7 @@ import 'package:shift/infrastructure/core/network/injectable_module.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
+import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
 
 @LazySingleton(as: IMainFacade)
@@ -72,20 +73,18 @@ class MainFacade implements IMainFacade {
       return left(const MainFailure.serverError());
     }
   }*/
-
-  @override
-  Future<Either<MainFailure, HealthcarePostDTO>> createPostApi({
-    required String roleListId,
-    required String specialityDetailId,
-    required String specialityDetailOther,
-    required String softwareSkillId,
-    required String softwareSkillOther,
-    required String languageListId,
-    required String languageOther,
-    required String locationId,
-    required String locationUnit,
-    required double rateHour,
-  }) async {
+  /*@override
+  Future<Either<MainFailure, HealthcarePostDTO>> createPostApi(
+      {required String roleListId,
+      required String specialityDetailId,
+      required String specialityDetailOther,
+      required String softwareSkillId,
+      required String softwareSkillOther,
+      required String languageListId,
+      required String languageOther,
+      required String locationId,
+      required String locationUnit,
+      required double rateHour}) async {
     try {
       Map<String, dynamic> mapData = {
         'roles_list_id': roleListId,
@@ -99,17 +98,10 @@ class MainFacade implements IMainFacade {
         'location_unit': locationUnit,
         'rate_hour': rateHour,
       };
-
       print("Sending Data->  ${jsonEncode(mapData)}");
-
-      final res = await apiService.postMethod(
-        ApiConstants.createPost,
-        mapData,
-      );
-
+      final res = await apiService.postMethod(ApiConstants.createPost, mapData);
       final data = HealthcarePostDTO.fromJson(res.data);
       print("Healthercare Post Response->  ${data}");
-
       return right(data);
     } on DioException catch (err) {
       if (err.response != null) {
@@ -122,11 +114,10 @@ class MainFacade implements IMainFacade {
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const MainFailure.networkError());
       }
-
       return left(const MainFailure.serverError());
     }
   }
-
+*/
   @override
   Future<Either<MainFailure, List<SkillDTO>>> getUnpaidBreakListApi() async {
     try {
@@ -440,14 +431,8 @@ class MainFacade implements IMainFacade {
     required int postId,
   }) async {
     try {
-      Map<String, dynamic> mapData = {
-        'post_id': postId,
-      };
-
-      print("Sending Data->  ${jsonEncode(mapData)}");
-      final res = await apiService.putMethod(
-        ApiConstants.putPostTheShift,
-        data: mapData,
+      final res = await apiService.getMethod(
+        "${ApiConstants.updatePostStatus}/$postId",
       );
 
       if (res != null) {
@@ -467,6 +452,33 @@ class MainFacade implements IMainFacade {
         return left(const MainFailure.networkError());
       }
 
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, HealthcarePostDTO>> createPostApi({
+    required PostShiftDTO postShiftDetail,
+  }) async {
+    try {
+      Map<String, dynamic> mapData = postShiftDetail.toJson();
+
+      print("Sending Data->  ${jsonEncode(mapData)}");
+      final res = await apiService.postMethod(ApiConstants.createPost, mapData);
+      final data = HealthcarePostDTO.fromJson(res.data);
+      print("Healthercare Post Response->  ${data}");
+      return right(data);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
       return left(const MainFailure.serverError());
     }
   }

@@ -229,7 +229,7 @@ class LoginForm extends StatelessWidget {
           CustomTextField(
             hintText: StringConstant.password,
             labelText: StringConstant.password,
-            errorMaxLines: 2,
+            errorMaxLines: 3,
             prefixIcon: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: getSize(14),
@@ -266,6 +266,8 @@ class LoginForm extends StatelessWidget {
                         empty: (value) => StringConstant.pleaseEnterPassword,
                         shortPassword: (_) =>
                             StringConstant.passwordShouldBeMinimum8Digit,
+                        invalidPassword: (value) =>
+                            StringConstant.invalidPasswordErrorText,
                         orElse: () => null,
                       ),
                       (_) => null,

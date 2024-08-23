@@ -124,6 +124,7 @@ class _LocationExampleState extends State<LocationExample> {
       {
         "input": query,
         "key": "AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE",
+        "components": "country:ca",
       },
     );
 

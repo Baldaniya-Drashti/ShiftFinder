@@ -46,6 +46,7 @@ class PersonalReferenceWidget extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(vertical: getSize(40)),
               child: CommonButton(
+                isSubmitting: state.isPersonalSubmitting,
                 onPressed: () {
                   context
                       .read<ReferenceBloc>()

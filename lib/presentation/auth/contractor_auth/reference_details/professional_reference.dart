@@ -47,6 +47,7 @@ class ProfessionalReferenceWidget extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: getSize(40)),
                   child: CommonButton(
+                    isSubmitting: state.isProfessionalSubmitting,
                     onPressed: () {
                       context
                           .read<ReferenceBloc>()

@@ -510,8 +510,7 @@ class FilterBottomSheet extends StatelessWidget {
             labelText: StringConstant.newPassword,
             hintText: StringConstant.newPassword,
             controller: newPasswordController,
-            errorMaxLines: 2,
-            maxLength: 10,
+            errorMaxLines: 3,
             onChanged: (value) => context.read<ForgotPasswordBloc>().add(
                   ForgotPasswordEvent.newPasswordChanged(value),
                 ),
@@ -521,6 +520,8 @@ class FilterBottomSheet extends StatelessWidget {
                         empty: (value) => StringConstant.pleaseEnterNewPassword,
                         shortPassword: (_) =>
                             StringConstant.passwordShouldBeMinimum8Digit,
+                        invalidPassword: (value) =>
+                            StringConstant.invalidPasswordErrorText,
                         orElse: () => null,
                       ),
                       (_) => null,
@@ -558,8 +559,7 @@ class FilterBottomSheet extends StatelessWidget {
           CustomTextField(
             labelText: StringConstant.confirmPassword,
             hintText: StringConstant.confirmPassword,
-            errorMaxLines: 2,
-            maxLength: 10,
+            errorMaxLines: 3,
             onChanged: (value) => context.read<ForgotPasswordBloc>().add(
                   ForgotPasswordEvent.confirmPasswordChanged(
                     value,
@@ -578,6 +578,8 @@ class FilterBottomSheet extends StatelessWidget {
                         StringConstant.passwordShouldBeMinimum8Digit,
                     passwordsDontMatch: (_) =>
                         StringConstant.bothPasswordsAreDoesNotMatch,
+                    invalidPassword: (value) =>
+                        StringConstant.invalidPasswordErrorText,
                     orElse: () => null,
                   ),
                   (_) => null,

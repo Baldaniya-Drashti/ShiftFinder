@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
@@ -40,7 +41,8 @@ class DifferentTimeForEachDate extends StatelessWidget {
                 (state.selectedCommuteAllownce.getValue() == "Flat Rate")
                     ? state.commuteRate.getValue()
                     : (state.selectedCommuteAllownce.getValue() == "Hours")
-                        ? state.commuteHour.getValue()
+                        ? getAccomdationHourId(
+                            state, state.commuteHour.getValue() ?? "")
                         : "",
             accommodation_allowance_type:
                 (state.selectedAccomdationAllownce.getValue() == "Flat Rate")
@@ -52,7 +54,8 @@ class DifferentTimeForEachDate extends StatelessWidget {
                 (state.selectedAccomdationAllownce.getValue() == "Flat Rate")
                     ? state.accomdationRate.getValue()
                     : (state.selectedAccomdationAllownce.getValue() == "Hours")
-                        ? state.accomdationHour.getValue()
+                        ? getAccomdationHourId(
+                            state, state.accomdationHour.getValue() ?? "")
                         : "",
             individual_shift: (state.isIndividualPost) ? 1 : 0,
             shift_note: state.singleShiftNote,
@@ -448,5 +451,13 @@ class DifferentTimeForEachDate extends StatelessWidget {
             .add(PostShiftEvent.addVacancyChanged(value));
       },
     );
+  }
+
+  String getAccomdationHourId(PostShiftState state, String selectedHour) {
+    final hourId = state.accomdationHoursList.firstWhere(
+        (hour) => hour.name == selectedHour,
+        orElse: () => SkillDTO());
+    print("Hour ID --> $hourId");
+    return "${hourId.id ?? -1}";
   }
 }

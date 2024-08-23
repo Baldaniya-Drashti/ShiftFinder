@@ -19,7 +19,8 @@ mixin _$AddContractorSkillFormEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllDropDownList,
-    required TResult Function(String roleType, bool? isOtherValue)
+    required TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)
         addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
@@ -41,7 +42,9 @@ mixin _$AddContractorSkillFormEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAllDropDownList,
-    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult? Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -61,7 +64,9 @@ mixin _$AddContractorSkillFormEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllDropDownList,
-    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -203,7 +208,8 @@ class _$GetAllDropDownListImpl implements GetAllDropDownList {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllDropDownList,
-    required TResult Function(String roleType, bool? isOtherValue)
+    required TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)
         addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
@@ -228,7 +234,9 @@ class _$GetAllDropDownListImpl implements GetAllDropDownList {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAllDropDownList,
-    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult? Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -251,7 +259,9 @@ class _$GetAllDropDownListImpl implements GetAllDropDownList {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllDropDownList,
-    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -358,7 +368,7 @@ abstract class _$$AddRoleTypeChipsImplCopyWith<$Res> {
           $Res Function(_$AddRoleTypeChipsImpl) then) =
       __$$AddRoleTypeChipsImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String roleType, bool? isOtherValue});
+  $Res call({String roleType, List<String> roleList, bool? isOtherValue});
 }
 
 /// @nodoc
@@ -374,6 +384,7 @@ class __$$AddRoleTypeChipsImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? roleType = null,
+    Object? roleList = null,
     Object? isOtherValue = freezed,
   }) {
     return _then(_$AddRoleTypeChipsImpl(
@@ -381,6 +392,10 @@ class __$$AddRoleTypeChipsImplCopyWithImpl<$Res>
           ? _value.roleType
           : roleType // ignore: cast_nullable_to_non_nullable
               as String,
+      null == roleList
+          ? _value._roleList
+          : roleList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       isOtherValue: freezed == isOtherValue
           ? _value.isOtherValue
           : isOtherValue // ignore: cast_nullable_to_non_nullable
@@ -392,16 +407,26 @@ class __$$AddRoleTypeChipsImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddRoleTypeChipsImpl implements AddRoleTypeChips {
-  const _$AddRoleTypeChipsImpl(this.roleType, {this.isOtherValue});
+  const _$AddRoleTypeChipsImpl(this.roleType, final List<String> roleList,
+      {this.isOtherValue})
+      : _roleList = roleList;
 
   @override
   final String roleType;
+  final List<String> _roleList;
+  @override
+  List<String> get roleList {
+    if (_roleList is EqualUnmodifiableListView) return _roleList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_roleList);
+  }
+
   @override
   final bool? isOtherValue;
 
   @override
   String toString() {
-    return 'AddContractorSkillFormEvent.addRoleTypeChips(roleType: $roleType, isOtherValue: $isOtherValue)';
+    return 'AddContractorSkillFormEvent.addRoleTypeChips(roleType: $roleType, roleList: $roleList, isOtherValue: $isOtherValue)';
   }
 
   @override
@@ -411,12 +436,14 @@ class _$AddRoleTypeChipsImpl implements AddRoleTypeChips {
             other is _$AddRoleTypeChipsImpl &&
             (identical(other.roleType, roleType) ||
                 other.roleType == roleType) &&
+            const DeepCollectionEquality().equals(other._roleList, _roleList) &&
             (identical(other.isOtherValue, isOtherValue) ||
                 other.isOtherValue == isOtherValue));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, roleType, isOtherValue);
+  int get hashCode => Object.hash(runtimeType, roleType,
+      const DeepCollectionEquality().hash(_roleList), isOtherValue);
 
   @JsonKey(ignore: true)
   @override
@@ -429,7 +456,8 @@ class _$AddRoleTypeChipsImpl implements AddRoleTypeChips {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllDropDownList,
-    required TResult Function(String roleType, bool? isOtherValue)
+    required TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)
         addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
@@ -447,14 +475,16 @@ class _$AddRoleTypeChipsImpl implements AddRoleTypeChips {
         removePreferedSoftwareSkillchips,
     required TResult Function() continueBtnPressed,
   }) {
-    return addRoleTypeChips(roleType, isOtherValue);
+    return addRoleTypeChips(roleType, roleList, isOtherValue);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAllDropDownList,
-    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult? Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -470,14 +500,16 @@ class _$AddRoleTypeChipsImpl implements AddRoleTypeChips {
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
     TResult? Function()? continueBtnPressed,
   }) {
-    return addRoleTypeChips?.call(roleType, isOtherValue);
+    return addRoleTypeChips?.call(roleType, roleList, isOtherValue);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllDropDownList,
-    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -495,7 +527,7 @@ class _$AddRoleTypeChipsImpl implements AddRoleTypeChips {
     required TResult orElse(),
   }) {
     if (addRoleTypeChips != null) {
-      return addRoleTypeChips(roleType, isOtherValue);
+      return addRoleTypeChips(roleType, roleList, isOtherValue);
     }
     return orElse();
   }
@@ -575,10 +607,12 @@ class _$AddRoleTypeChipsImpl implements AddRoleTypeChips {
 }
 
 abstract class AddRoleTypeChips implements AddContractorSkillFormEvent {
-  const factory AddRoleTypeChips(final String roleType,
+  const factory AddRoleTypeChips(
+      final String roleType, final List<String> roleList,
       {final bool? isOtherValue}) = _$AddRoleTypeChipsImpl;
 
   String get roleType;
+  List<String> get roleList;
   bool? get isOtherValue;
   @JsonKey(ignore: true)
   _$$AddRoleTypeChipsImplCopyWith<_$AddRoleTypeChipsImpl> get copyWith =>
@@ -653,7 +687,8 @@ class _$RemoveRoleTypeChipsImpl implements RemoveRoleTypeChips {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllDropDownList,
-    required TResult Function(String roleType, bool? isOtherValue)
+    required TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)
         addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
@@ -678,7 +713,9 @@ class _$RemoveRoleTypeChipsImpl implements RemoveRoleTypeChips {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAllDropDownList,
-    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult? Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -701,7 +738,9 @@ class _$RemoveRoleTypeChipsImpl implements RemoveRoleTypeChips {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllDropDownList,
-    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -885,7 +924,8 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllDropDownList,
-    required TResult Function(String roleType, bool? isOtherValue)
+    required TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)
         addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
@@ -910,7 +950,9 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAllDropDownList,
-    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult? Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -933,7 +975,9 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllDropDownList,
-    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1109,7 +1153,8 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllDropDownList,
-    required TResult Function(String roleType, bool? isOtherValue)
+    required TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)
         addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
@@ -1134,7 +1179,9 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAllDropDownList,
-    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult? Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1157,7 +1204,9 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllDropDownList,
-    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1344,7 +1393,8 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllDropDownList,
-    required TResult Function(String roleType, bool? isOtherValue)
+    required TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)
         addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
@@ -1369,7 +1419,9 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAllDropDownList,
-    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult? Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1392,7 +1444,9 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllDropDownList,
-    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1591,7 +1645,8 @@ class _$AddSpecialityExperienceListImpl implements AddSpecialityExperienceList {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllDropDownList,
-    required TResult Function(String roleType, bool? isOtherValue)
+    required TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)
         addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
@@ -1617,7 +1672,9 @@ class _$AddSpecialityExperienceListImpl implements AddSpecialityExperienceList {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAllDropDownList,
-    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult? Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1641,7 +1698,9 @@ class _$AddSpecialityExperienceListImpl implements AddSpecialityExperienceList {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllDropDownList,
-    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1825,7 +1884,8 @@ class _$RemoveRequiredSpecialitichipsImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllDropDownList,
-    required TResult Function(String roleType, bool? isOtherValue)
+    required TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)
         addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
@@ -1850,7 +1910,9 @@ class _$RemoveRequiredSpecialitichipsImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAllDropDownList,
-    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult? Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1873,7 +1935,9 @@ class _$RemoveRequiredSpecialitichipsImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllDropDownList,
-    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -2064,7 +2128,8 @@ class _$AddPreferedSoftwareSkillchipsImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllDropDownList,
-    required TResult Function(String roleType, bool? isOtherValue)
+    required TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)
         addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
@@ -2089,7 +2154,9 @@ class _$AddPreferedSoftwareSkillchipsImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAllDropDownList,
-    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult? Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -2112,7 +2179,9 @@ class _$AddPreferedSoftwareSkillchipsImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllDropDownList,
-    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -2294,7 +2363,8 @@ class _$RemovePreferedSoftwareSkillchipsImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllDropDownList,
-    required TResult Function(String roleType, bool? isOtherValue)
+    required TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)
         addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
@@ -2319,7 +2389,9 @@ class _$RemovePreferedSoftwareSkillchipsImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAllDropDownList,
-    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult? Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -2342,7 +2414,9 @@ class _$RemovePreferedSoftwareSkillchipsImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllDropDownList,
-    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -2491,7 +2565,8 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllDropDownList,
-    required TResult Function(String roleType, bool? isOtherValue)
+    required TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)
         addRoleTypeChips,
     required TResult Function(String roleType) removeRoleTypeChips,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
@@ -2516,7 +2591,9 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getAllDropDownList,
-    TResult? Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult? Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult? Function(String roleType)? removeRoleTypeChips,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -2539,7 +2616,9 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllDropDownList,
-    TResult Function(String roleType, bool? isOtherValue)? addRoleTypeChips,
+    TResult Function(
+            String roleType, List<String> roleList, bool? isOtherValue)?
+        addRoleTypeChips,
     TResult Function(String roleType)? removeRoleTypeChips,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,

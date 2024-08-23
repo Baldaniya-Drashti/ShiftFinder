@@ -128,7 +128,7 @@ class FilePickerUtils {
               children: [
                 BaseText(
                   text: Platform.isIOS
-                      ? 'Unable to access Photos. Grant access by going to Settings > Shift Finder > Photos, then select the access level and try again:'
+                      ? 'Unable to access Photos. Grant access by going to Settings > ShiftFinder > Photos, then select the access level and try again:'
                       : 'Unable to access Files. Grant access by going to Settings > Apps > Shift Finder > Permissions, then allow access to Storage and try again:',
                   textAlign: TextAlign.center,
                 ),

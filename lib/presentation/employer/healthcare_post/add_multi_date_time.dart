@@ -38,7 +38,8 @@ class AddMultiDateTime extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<PostShiftBloc>()
         ..add(PostShiftEvent.initMultiDifferentDateEvent(
-            selectedObj.multi_date ?? [])),
+            selectedObj.multi_date ?? [],
+            post: post)),
       child: BlocConsumer<PostShiftBloc, PostShiftState>(
         listener: (context, state) {
           state.singleShiftFailureOrSuccessOption.fold(

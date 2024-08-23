@@ -5,7 +5,7 @@ class AddContractorSkillFormEvent with _$AddContractorSkillFormEvent {
   const factory AddContractorSkillFormEvent.getAllDropDownList() =
       GetAllDropDownList;
 
-  const factory AddContractorSkillFormEvent.addRoleTypeChips(String roleType,
+  const factory AddContractorSkillFormEvent.addRoleTypeChips(String roleType,List<String> roleList,
       {bool? isOtherValue}) = AddRoleTypeChips;
   const factory AddContractorSkillFormEvent.removeRoleTypeChips(
       String roleType) = RemoveRoleTypeChips;

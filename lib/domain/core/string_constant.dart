@@ -219,12 +219,12 @@ class StringConstant {
   static const String cardNumber = "Card Number";
   static const String expDate = "Exp Date";
   static const String expiryDate = "Expiry Date";
-  static const String cvv = "Cvv";
+  static const String cvv = "CVV";
   static const String addYourCard = "Add Your Card";
   static const String expiryDateIsNotApplicable =
       "Expiry date is not applicable";
   static const String termsScreenImageDesc =
-      "Before you start work with us please read carefully our term and conditions";
+      "Before you start work with us please read carefully our terms and conditions";
   static const String summary = "Summary";
   static const String summaryDesc =
       "Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi.";
@@ -321,11 +321,15 @@ class StringConstant {
   static const String differentTimeForEachDate = "Different Time For Each Date";
   static const String totalNumberOfDays = "Total Number of Days";
   static const String totalCommuteAllowance = "Total Commute Allowance";
-  static const String totalAccommodationAllowance = "Total Accommodation Allowance";
+  static const String totalAccommodationAllowance =
+      "Total Accommodation Allowance";
   static const String sumOfAmounts = "Sum Of Amounts";
   static const String totalAmount = "Total Amount";
   static const String shiftTime = "Shift Time";
-
+  static const String
+      pleaseUploadTheDocumentsListedBelowGovtIssuedIdIsCompulsory =
+      "Please upload the documents listed\nbelow, Govt issued Id is compulsory.";
+  static const String mmYY = "MM/YY";
 
   ///
 
@@ -375,6 +379,8 @@ class StringConstant {
   static const String pleaseEnterPassword = "Please enter password";
   static const String passwordShouldBeMinimum8Digit =
       "Password should be minimum 8 digit";
+  static const String invalidPasswordErrorText =
+      "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special symbol";
   static const String pleaseEnterConfirmPassword =
       "Please enter confirm password";
   static const String bothPasswordsAreDoesNotMatch =
@@ -401,10 +407,10 @@ class StringConstant {
   static const String pleaseAddContactPerson = "Please add contact person";
   static const String pleaseAddProfessionOfTheReferrer =
       "Please add profession of the referrer";
-  static const String pleaseSelectGovernmentIssuedId =
-      "Please select government issued id";
+  static const String pleaseUnploadGovernmentIssuedId =
+      "Please upload a government issued id";
   static const String pleaseAddGovernmentIssuedId =
-      "Please add Government Issued Id";
+      "Please add Government issued id";
   static const String pleaseSelectExpiryDateIfApplicable =
       "Please add expiry date if applicable";
   static const String pleaseSelectCovidVaccinationDoc =
@@ -437,8 +443,8 @@ class StringConstant {
       "Please add valid card number.";
   static const String cardNumberIsInValid = "Card number is invalid!";
   static const String pleaseAddCvvNumber =
-      "Please add last 3 digit cvv number.";
-  static const String cvvNumberIsInValid = "Cvv number is invalid!";
+      "Please add last 4 digit CVV number.";
+  static const String cvvNumberIsInValid = "CVV number is invalid!";
   static const String enterValidExpiryDate = "Enter valid expiry date.";
   static const String pleaseAddTransitNumber = "Please add transit number";
   static const String pleaseSelectBankName = "Please select bank name";
@@ -473,4 +479,6 @@ class StringConstant {
       "Please select at least one date";
   static const String pleaseSelectStartAndEndTimeForEachDate =
       "Please select start and end time for each date";
+
+  static const String underDevelopment = "Under Development";
 }

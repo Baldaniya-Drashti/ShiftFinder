@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, avoid_print
+// ignore_for_file: prefer_const_constructors_in_immutables, avoid_print, must_be_immutable
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,6 @@ import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
-import 'package:shift/presentation/splash/splash_page.dart';
 
 @RoutePage(name: 'addReferenceDetailScreen')
 class AddReferenceDetail extends StatelessWidget {

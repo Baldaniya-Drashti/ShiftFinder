@@ -103,6 +103,48 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
   DocumentBloc(this._repository) : super(DocumentState.initial()) {
     on<DocumentEvent>((event, emit) async {
       await event.map(
+        submitDocumentsEvent: (e) async {
+          Either<AccountFailure, Account>? failureOrSuccess;
+
+          emit(
+            state.copyWith(
+              isSubmitting: true,
+              continueFailureOrSuccessOption: none(),
+            ),
+          );
+
+          failureOrSuccess = await _repository.addMultiDocumentApi(
+            documentType: 8,
+            documentFile: "",
+            documentTitle: "",
+            lastPage: "BankDetail",
+          );
+
+          failureOrSuccess.fold(
+            (l) => emit(
+              state.copyWith(
+                isSubmitting: false,
+              ),
+            ),
+            (r) {
+              emit(
+                state.copyWith(
+                  isSubmitting: false,
+                  showErrorMessages: false,
+                  continueFailureOrSuccessOption: none(),
+                ),
+              );
+            },
+          );
+
+          emit(
+            state.copyWith(
+              isSubmitting: false,
+              continueFailureOrSuccessOption: optionOf(failureOrSuccess),
+            ),
+          );
+        },
+
         /// GO TO NEXT PAGE
         nextPage: (e) {
           emit(state.copyWith(currentPage: e.page));
@@ -110,10 +152,13 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
 
         getAllDocumentStatus: (e) async {
           Either<AccountFailure, List<DocumentDTO>>? failureOrSuccess;
+
           emit(
             state.copyWith(
               allListLoading: true,
+              isSubmitting: false,
               authFailureOrSuccessOption: none(),
+              continueFailureOrSuccessOption: none(),
             ),
           );
           failureOrSuccess = await _repository.getDocumentApi(
@@ -137,6 +182,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                 return emit(
                   state.copyWith(
                     allListLoading: false,
+                    allDocumentList: [],
                   ),
                 );
               }
@@ -157,6 +203,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
           emit(
             state.copyWith(
               isLoading: true,
+              showGovernmentIdErrorMessages: false,
               governmentDocAuthFailureOrSuccessOption: none(),
             ),
           );
@@ -167,6 +214,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                 isLoading: false,
                 govermentDoc: InputEmptyOrNot(""),
                 governmentExpiryDate: "",
+                govmentDocTitle: InputEmptyOrNot(""),
                 isGovernemtExpiryCheck: false,
               ),
             ),
@@ -178,6 +226,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                     isLoading: false,
                     govermentDocId: (r[0].id != null) ? r[0].id! : -1,
                     govermentDoc: InputEmptyOrNot(r[0].file ?? ""),
+                    govmentDocTitle: InputEmptyOrNot(r[0].document_title ?? ""),
                     governmentExpiryDate: (r[0].expiry_date != null)
                         ? DateTime.fromMillisecondsSinceEpoch(
                             (r[0].expiry_date ?? -1) * 1000,
@@ -191,7 +240,9 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
                 return emit(
                   state.copyWith(
                     isLoading: false,
+                    govermentDocId: -1,
                     govermentDoc: InputEmptyOrNot(""),
+                    govmentDocTitle: InputEmptyOrNot(""),
                     governmentExpiryDate: "",
                     isGovernemtExpiryCheck: false,
                   ),
@@ -199,12 +250,21 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
               }
             },
           );
-
           emit(
             state.copyWith(
               isLoading: false,
               // governmentDocAuthFailureOrSuccessOption:
               //     optionOf(failureOrSuccess),
+            ),
+          );
+        },
+        govtDocumentTitleChanged: (e) {
+          emit(
+            state.copyWith(
+              govmentDocTitle: InputEmptyOrNot(e.documentTitle),
+              isGovermentDocSubmitting: false,
+              showGovernmentIdErrorMessages: false,
+              governmentDocAuthFailureOrSuccessOption: none(),
             ),
           );
         },
@@ -249,6 +309,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
           Either<AccountFailure, String>? failureOrSuccess;
 
           final isGovernmentDocValid = state.govermentDoc.isValid();
+          final isGovernemntDocTitle = state.govmentDocTitle.isValid();
 
           print("DOC IS VALID--> ${state.govermentDoc}");
           print("DOC IS VALID--> ${state.govermentDocId}");
@@ -256,7 +317,8 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
           print("DOC IS VALID222--> ${state.governmentExpiryDate}");
           if ((state.isGovernemtExpiryCheck ||
                   state.governmentExpiryDate.isNotEmpty) &&
-              isGovernmentDocValid) {
+              isGovernmentDocValid &&
+              isGovernemntDocTitle) {
             emit(
               state.copyWith(
                 isSubmitting: true,
@@ -268,6 +330,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
               failureOrSuccess = await _repository.updateDocumentApi(
                 id: state.govermentDocId,
                 documentType: 1,
+                documentTitle: state.govmentDocTitle.getValue(),
                 documentFile: state.govermentDoc.getValue() ?? "",
                 expiryDate: state.governmentExpiryDate,
                 expiryDateNotApplicable: state.isGovernemtExpiryCheck,
@@ -275,6 +338,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
             } else {
               failureOrSuccess = await _repository.addDocumentApi(
                 documentType: 1,
+                documentTitle: state.govmentDocTitle.getValue(),
                 documentFile: state.govermentDoc.getValue() ?? "",
                 expiryDate: state.governmentExpiryDate,
                 expiryDateNotApplicable: state.isGovernemtExpiryCheck,

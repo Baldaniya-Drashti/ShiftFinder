@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, must_be_immutable, prefer_const_literals_to_create_immutables
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +13,9 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_card_number_formatter.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -50,6 +50,7 @@ class AddCardDetailPage extends StatelessWidget {
                   ).show(context);
                 },
                 (r) {
+                  AppDialog.showInfo(context, StringConstant.underDevelopment);
                   // context.router.replace(const PageRouteInfo(MainTabView.name));
                 },
               ),
@@ -65,7 +66,9 @@ class AddCardDetailPage extends StatelessWidget {
                 },
                 title: StringConstant.addCard,
                 showSkipBtn: true,
-                onSkipped: () {},
+                onSkipped: () {
+                  AppDialog.showInfo(context, StringConstant.underDevelopment);
+                },
               ),
               body: Padding(
                 padding: EdgeInsets.symmetric(horizontal: getSize(20)),
@@ -169,6 +172,10 @@ class AddCardDetailPage extends StatelessWidget {
       labelText: StringConstant.cardHoldersName,
       hintText: StringConstant.cardHoldersName,
       textCapitalization: TextCapitalization.words,
+      keyboardType: TextInputType.text,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+      ],
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -199,12 +206,12 @@ class AddCardDetailPage extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.cardNumber,
       hintText: StringConstant.cardNumber,
-      maxLength: 19,
+      // maxLength: 19,
       keyboardType: TextInputType.number,
       inputFormatters: [
-        FilteringTextInputFormatter.digitsOnly,
-        LengthLimitingTextInputFormatter(19),
-        CardNumberInputFormatter(),
+        // FilteringTextInputFormatter.digitsOnly,
+        // LengthLimitingTextInputFormatter(19),
+        // CardNumberInputFormatter(),
       ],
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
@@ -241,7 +248,7 @@ class AddCardDetailPage extends StatelessWidget {
       child: CustomTextField(
         errorMaxLines: 2,
         labelText: StringConstant.expDate,
-        hintText: StringConstant.expDate,
+        hintText: StringConstant.mmYY,
         keyboardType: TextInputType.number,
         inputFormatters: [
           FilteringTextInputFormatter.digitsOnly,
@@ -274,9 +281,12 @@ class AddCardDetailPage extends StatelessWidget {
       child: CustomTextField(
         labelText: StringConstant.cvv,
         hintText: StringConstant.cvv,
-        maxLength: 3,
+        maxLength: 4,
         errorMaxLines: 2,
         keyboardType: TextInputType.number,
+        inputFormatters: [
+          FilteringTextInputFormatter.digitsOnly,
+        ],
         onChanged: (value) =>
             context.read<CardBloc>().add(CardEvent.cvvNoChanged(value)),
         validator: (p0, p1) => context.read<CardBloc>().state.cvvNo.value.fold(

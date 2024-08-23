@@ -3,6 +3,7 @@ part of 'document_bloc.dart';
 @freezed
 class DocumentEvent with _$DocumentEvent {
   const factory DocumentEvent.nextPage(int page) = _NextPage;
+  const factory DocumentEvent.submitDocumentsEvent() = _SubmitDocumentsEvent;
   const factory DocumentEvent.getAllDocumentStatus() = _GetAllDocumentStatus;
   // FOR GOVERNMENT DOCUMENT
   const factory DocumentEvent.selectGovermentDoc(String govermentDoc) =
@@ -23,6 +24,8 @@ class DocumentEvent with _$DocumentEvent {
   const factory DocumentEvent.getCovidDoc() = _GetCovidDoc;
 
   const factory DocumentEvent.covidDocSubmit() = _CovidDocSubmit;
+  const factory DocumentEvent.govtDocumentTitleChanged(String documentTitle) =
+      GovtDocumentTitleChanged;
 
   // /// FOR CREDENTIALS-REGISTRATION DOCUMENT
   // const factory DocumentEvent.registrationNumberChanegd(String registrationNo) =

@@ -1,9 +1,10 @@
-// ignore_for_file: use_build_context_synchronously, avoid_print, deprecated_member_use, prefer_const_constructors_in_immutables, non_constant_identifier_names
+// ignore_for_file: use_build_context_synchronously, avoid_print, deprecated_member_use, prefer_const_constructors_in_immutables, non_constant_identifier_names, prefer_const_literals_to_create_immutables
 
 import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -334,17 +335,44 @@ class RegisterProfileScreen extends StatelessWidget {
     );
   }
 
+  /*String processPhoneNumber(String phoneNumber) {
+    // Remove any leading or trailing spaces
+    String trimmedPhoneNumber = phoneNumber.trim();
+    print("trimmedPhoneNumber: $trimmedPhoneNumber");
+
+    // Find the index of the first space
+    int spaceIndex = trimmedPhoneNumber.indexOf(' ');
+    print("spaceIndex: $spaceIndex");
+
+    // If a space is found and the length of the phone number after the space is greater than 10
+    if (spaceIndex != -1 && trimmedPhoneNumber.length - spaceIndex > 10) {
+      print(
+          "trimmedPhoneNumber222: ${trimmedPhoneNumber.substring(spaceIndex + 1).replaceAll(' ', '')}");
+
+      // Return the part of the string after the first space, removing all characters before it
+      return trimmedPhoneNumber.substring(spaceIndex + 1).replaceAll(' ', '');
+    }
+
+    // If no space is found or the length is not greater than 10, return the original number
+    return trimmedPhoneNumber.replaceAll(' ', '');
+  }*/
+
   Widget phoneNumberTextField(BuildContext context, RegisterFormState state) {
     return CustomTextField(
       labelText: StringConstant.phoneNumber,
       hintText: StringConstant.phoneNumber,
       keyboardType: TextInputType.phone,
       isLabelPadding: true,
-      maxLength: 10,
+      maxLength: 12,
       errorMaxLines: 2,
-      onChanged: (value) => context.read<RegisterFormBloc>().add(
-            RegisterFormEvent.phoneNumberChanged(value),
-          ),
+      inputFormatters: [
+        // FilteringTextInputFormatter.digitsOnly,
+      ],
+      onChanged: (value) {
+        context.read<RegisterFormBloc>().add(
+              RegisterFormEvent.phoneNumberChanged(value),
+            );
+      },
       validator: (_, context) =>
           context.read<RegisterFormBloc>().state.phoneNumber.value.fold(
                 (f) => f.maybeMap(
@@ -408,6 +436,7 @@ class RegisterProfileScreen extends StatelessWidget {
       labelText: StringConstant.password,
       isLabelPadding: true,
       hintText: StringConstant.password,
+      errorMaxLines: 3,
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -444,6 +473,8 @@ class RegisterProfileScreen extends StatelessWidget {
                   empty: (value) => StringConstant.pleaseEnterPassword,
                   shortPassword: (_) =>
                       StringConstant.passwordShouldBeMinimum8Digit,
+                  invalidPassword: (value) =>
+                      StringConstant.invalidPasswordErrorText,
                   orElse: () => null,
                 ),
                 (_) => null,
@@ -457,6 +488,7 @@ class RegisterProfileScreen extends StatelessWidget {
       labelText: StringConstant.confirmPassword,
       isLabelPadding: true,
       hintText: StringConstant.confirmPassword,
+      errorMaxLines: 3,
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -498,6 +530,8 @@ class RegisterProfileScreen extends StatelessWidget {
                       StringConstant.passwordShouldBeMinimum8Digit,
                   passwordsDontMatch: (_) =>
                       StringConstant.bothPasswordsAreDoesNotMatch,
+                  invalidPassword: (value) =>
+                      StringConstant.invalidPasswordErrorText,
                   orElse: () => null,
                 ),
                 (_) => null,

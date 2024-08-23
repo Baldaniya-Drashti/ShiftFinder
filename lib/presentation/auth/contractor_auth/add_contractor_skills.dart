@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, avoid_print
+// ignore_for_file: must_be_immutable, avoid_print, prefer_const_constructors
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +18,9 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_speciality_box.dart';
+import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_chip_display.dart';
+import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_item.dart';
+import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_selectable_dropdown.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
@@ -108,6 +111,42 @@ class AddContractorSkillsForm extends StatelessWidget {
                                   PngImageConstants.healthcare_post_contractor,
                                 ),
                                 paddingBetweenFields(),
+                                MultiSelectDialogField(
+                                  items: state.roleList
+                                      .map((item) => MultiSelectItem<String>(
+                                          item.name ?? "", item.name ?? ""))
+                                      .toList(),
+                                  title: Text("Select Items"),
+                                  selectedColor: AppColors.black,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  chipDisplay: MultiSelectChipDisplay(
+                                    chipColor: AppColors.transparent,
+                                  ),
+                                  buttonIcon: Icon(
+                                    Icons.arrow_drop_down,
+                                  ),
+                                  buttonText: Text(
+                                    "Select Items",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  onSelectionChanged: (value) {
+                                    print("onSelectionChanged called!");
+                                  },
+                                  onConfirm: (results) {
+                                    print(results);
+                                    context
+                                        .read<AddContractorSkillFormBloc>()
+                                        .add(AddContractorSkillFormEvent
+                                            .addRoleTypeChips(
+                                                results[0] as String, []));
+                                  },
+                                ),
+                                paddingBetweenFields(),
                                 roleDropDown(context, state),
                                 paddingBetweenFields(),
                                 requiredSpecialityDropDownChipset(
@@ -183,7 +222,7 @@ class AddContractorSkillsForm extends StatelessWidget {
             if (value != null) {
               context
                   .read<AddContractorSkillFormBloc>()
-                  .add(AddContractorSkillFormEvent.addRoleTypeChips(value));
+                  .add(AddContractorSkillFormEvent.addRoleTypeChips(value, []));
             }
           },
           hintText: StringConstant.selectRoles,

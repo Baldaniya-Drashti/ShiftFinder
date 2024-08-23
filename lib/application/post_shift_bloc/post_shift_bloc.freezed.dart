@@ -65,7 +65,7 @@ mixin _$PostShiftEvent {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -119,7 +119,8 @@ mixin _$PostShiftEvent {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -171,7 +172,8 @@ mixin _$PostShiftEvent {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -519,7 +521,7 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -576,7 +578,8 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -631,7 +634,8 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -934,7 +938,7 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -991,7 +995,8 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -1046,7 +1051,8 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -1368,7 +1374,7 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -1425,7 +1431,8 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -1480,7 +1487,8 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -1804,7 +1812,7 @@ class _$StartHourChangedImpl implements StartHourChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -1861,7 +1869,8 @@ class _$StartHourChangedImpl implements StartHourChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -1916,7 +1925,8 @@ class _$StartHourChangedImpl implements StartHourChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -2239,7 +2249,7 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -2296,7 +2306,8 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -2351,7 +2362,8 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -2675,7 +2687,7 @@ class _$EndHourChangedImpl implements EndHourChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -2732,7 +2744,8 @@ class _$EndHourChangedImpl implements EndHourChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -2787,7 +2800,8 @@ class _$EndHourChangedImpl implements EndHourChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -3110,7 +3124,7 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -3167,7 +3181,8 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -3222,7 +3237,8 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -3546,7 +3562,7 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -3603,7 +3619,8 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -3658,7 +3675,8 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -3958,7 +3976,7 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -4015,7 +4033,8 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -4070,7 +4089,8 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -4391,7 +4411,7 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -4448,7 +4468,8 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -4503,7 +4524,8 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -4828,7 +4850,7 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -4885,7 +4907,8 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -4940,7 +4963,8 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -5265,7 +5289,7 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -5322,7 +5346,8 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -5377,7 +5402,8 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -5704,7 +5730,7 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -5761,7 +5787,8 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -5816,7 +5843,8 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -6143,7 +6171,7 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -6200,7 +6228,8 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -6255,7 +6284,8 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -6582,7 +6612,7 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -6639,7 +6669,8 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -6694,7 +6725,8 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -7018,7 +7050,7 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -7075,7 +7107,8 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -7130,7 +7163,8 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -7454,7 +7488,7 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -7511,7 +7545,8 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -7566,7 +7601,8 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -7890,7 +7926,7 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -7947,7 +7983,8 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -8002,7 +8039,8 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -8327,7 +8365,7 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -8384,7 +8422,8 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -8439,7 +8478,8 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -8772,7 +8812,7 @@ class _$GetTeamsListImpl implements GetTeamsList {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -8829,7 +8869,8 @@ class _$GetTeamsListImpl implements GetTeamsList {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -8884,7 +8925,8 @@ class _$GetTeamsListImpl implements GetTeamsList {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -9208,7 +9250,7 @@ class _$RecurringCheckImpl implements RecurringCheck {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -9265,7 +9307,8 @@ class _$RecurringCheckImpl implements RecurringCheck {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -9320,7 +9363,8 @@ class _$RecurringCheckImpl implements RecurringCheck {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -9643,7 +9687,7 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -9700,7 +9744,8 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -9755,7 +9800,8 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -10079,7 +10125,7 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -10136,7 +10182,8 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -10191,7 +10238,8 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -10515,7 +10563,7 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -10572,7 +10620,8 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -10627,7 +10676,8 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -10953,7 +11003,7 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -11010,7 +11060,8 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -11065,7 +11116,8 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -11390,7 +11442,7 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -11447,7 +11499,8 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -11502,7 +11555,8 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -11838,7 +11892,7 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -11895,7 +11949,8 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -11950,7 +12005,8 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -12277,7 +12333,7 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -12334,7 +12390,8 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -12389,7 +12446,8 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -12723,7 +12781,7 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -12780,7 +12838,8 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -12835,7 +12894,8 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -13168,7 +13228,7 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -13225,7 +13285,8 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -13280,7 +13341,8 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -13608,7 +13670,7 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -13665,7 +13727,8 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -13720,7 +13783,8 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -14054,7 +14118,7 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -14111,7 +14175,8 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -14166,7 +14231,8 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -14468,7 +14534,7 @@ class _$MultidateContinueButtonPressedImpl
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -14525,7 +14591,8 @@ class _$MultidateContinueButtonPressedImpl
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -14580,7 +14647,8 @@ class _$MultidateContinueButtonPressedImpl
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -14905,7 +14973,7 @@ class _$MultiDateSameDiffTypeChangedImpl
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -14962,7 +15030,8 @@ class _$MultiDateSameDiffTypeChangedImpl
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -15017,7 +15086,8 @@ class _$MultiDateSameDiffTypeChangedImpl
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -15359,7 +15429,7 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -15416,7 +15486,8 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -15471,7 +15542,8 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -15816,7 +15888,7 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -15873,7 +15945,8 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -15928,7 +16001,8 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -16271,7 +16345,7 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -16328,7 +16402,8 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -16383,7 +16458,8 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -16727,7 +16803,7 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -16784,7 +16860,8 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -16839,7 +16916,8 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -17188,7 +17266,7 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -17245,7 +17323,8 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -17300,7 +17379,8 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -17521,7 +17601,9 @@ abstract class _$$InitMultiDifferentDateEventImplCopyWith<$Res> {
           $Res Function(_$InitMultiDifferentDateEventImpl) then) =
       __$$InitMultiDifferentDateEventImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<DateTimeDTO> list});
+  $Res call({List<DateTimeDTO> list, PostShiftDTO post});
+
+  $PostShiftDTOCopyWith<$Res> get post;
 }
 
 /// @nodoc
@@ -17538,20 +17620,34 @@ class __$$InitMultiDifferentDateEventImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? list = null,
+    Object? post = null,
   }) {
     return _then(_$InitMultiDifferentDateEventImpl(
       null == list
           ? _value._list
           : list // ignore: cast_nullable_to_non_nullable
               as List<DateTimeDTO>,
+      post: null == post
+          ? _value.post
+          : post // ignore: cast_nullable_to_non_nullable
+              as PostShiftDTO,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PostShiftDTOCopyWith<$Res> get post {
+    return $PostShiftDTOCopyWith<$Res>(_value.post, (value) {
+      return _then(_value.copyWith(post: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
-  const _$InitMultiDifferentDateEventImpl(final List<DateTimeDTO> list)
+  const _$InitMultiDifferentDateEventImpl(final List<DateTimeDTO> list,
+      {required this.post})
       : _list = list;
 
   final List<DateTimeDTO> _list;
@@ -17563,8 +17659,11 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
   }
 
   @override
+  final PostShiftDTO post;
+
+  @override
   String toString() {
-    return 'PostShiftEvent.initMultiDifferentDateEvent(list: $list)';
+    return 'PostShiftEvent.initMultiDifferentDateEvent(list: $list, post: $post)';
   }
 
   @override
@@ -17572,12 +17671,13 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InitMultiDifferentDateEventImpl &&
-            const DeepCollectionEquality().equals(other._list, _list));
+            const DeepCollectionEquality().equals(other._list, _list) &&
+            (identical(other.post, post) || other.post == post));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_list));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_list), post);
 
   @JsonKey(ignore: true)
   @override
@@ -17636,13 +17736,13 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
     required TResult Function(int postId) postTheShiftEvent,
   }) {
-    return initMultiDifferentDateEvent(list);
+    return initMultiDifferentDateEvent(list, post);
   }
 
   @override
@@ -17693,12 +17793,13 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
   }) {
-    return initMultiDifferentDateEvent?.call(list);
+    return initMultiDifferentDateEvent?.call(list, post);
   }
 
   @override
@@ -17748,14 +17849,15 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (initMultiDifferentDateEvent != null) {
-      return initMultiDifferentDateEvent(list);
+      return initMultiDifferentDateEvent(list, post);
     }
     return orElse();
   }
@@ -17951,10 +18053,11 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
 }
 
 abstract class InitMultiDifferentDateEvent implements PostShiftEvent {
-  const factory InitMultiDifferentDateEvent(final List<DateTimeDTO> list) =
-      _$InitMultiDifferentDateEventImpl;
+  const factory InitMultiDifferentDateEvent(final List<DateTimeDTO> list,
+      {required final PostShiftDTO post}) = _$InitMultiDifferentDateEventImpl;
 
   List<DateTimeDTO> get list;
+  PostShiftDTO get post;
   @JsonKey(ignore: true)
   _$$InitMultiDifferentDateEventImplCopyWith<_$InitMultiDifferentDateEventImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -18045,7 +18148,7 @@ class _$BackEventImpl implements BackEvent {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -18102,7 +18205,8 @@ class _$BackEventImpl implements BackEvent {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -18157,7 +18261,8 @@ class _$BackEventImpl implements BackEvent {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -18477,7 +18582,7 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -18534,7 +18639,8 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -18589,7 +18695,8 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,
@@ -18913,7 +19020,7 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -18970,7 +19077,8 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
@@ -19025,7 +19133,8 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list)? initMultiDifferentDateEvent,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+        initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult Function(int postId)? postTheShiftEvent,

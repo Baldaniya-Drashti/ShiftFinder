@@ -191,8 +191,8 @@ class ImagePickerUtils {
                     children: [
                       BaseText(
                         text: Platform.isIOS
-                            ? 'Unable to access Photos. Grant access by going to Settings > Shift Finder > Photos, then select the access level and try again:'
-                            : 'Unable to access Gallery. Grant access by going to Settings > Apps > Shift Finder > Permissions, then allow access to Storage and try again:',
+                            ? 'Unable to access Photos. Grant access by going to Settings > ShiftFinder > Photos, then select the access level and try again:'
+                            : 'Unable to access Gallery. Grant access by going to Settings > Apps > ShiftFinder > Permissions, then allow access to Storage and try again:',
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(
@@ -218,8 +218,8 @@ class ImagePickerUtils {
                     children: [
                       BaseText(
                         text: Platform.isIOS
-                            ? 'Unable to access Camera. Grant access by going to Settings > Shift Finder> Camera, then allow access to Camera and try again: '
-                            : 'Unable to access Camera. Grant access by going to Settings > Apps > Shift Finder> Permissions, then allow access to Camera and try again:',
+                            ? 'Unable to access Camera. Grant access by going to Settings > ShiftFinder> Camera, then allow access to Camera and try again: '
+                            : 'Unable to access Camera. Grant access by going to Settings > Apps > ShiftFinder> Permissions, then allow access to Camera and try again:',
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(

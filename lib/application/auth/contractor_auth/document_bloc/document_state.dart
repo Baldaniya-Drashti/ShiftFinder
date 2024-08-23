@@ -12,6 +12,7 @@ class DocumentState with _$DocumentState {
     /// FOR GOVERNMENT DOCUMENT
     required bool isLoading,
     required int govermentDocId,
+    required InputEmptyOrNot govmentDocTitle,
     required InputEmptyOrNot govermentDoc,
     required bool isGovernemtExpiryCheck,
     required String governmentExpiryDate,
@@ -30,6 +31,9 @@ class DocumentState with _$DocumentState {
 
     /// SUBMIT
     required bool isSubmitting,
+    required bool showErrorMessages,
+    required Option<Either<AccountFailure, Account>>
+        continueFailureOrSuccessOption,
     required Option<Either<AccountFailure, List<DocumentDTO>>>
         authFailureOrSuccessOption,
   }) = _DocumentState;
@@ -41,6 +45,7 @@ class DocumentState with _$DocumentState {
 
         /// FOR GOVERNMENT DOCUMENT
         govermentDoc: InputEmptyOrNot(""),
+        govmentDocTitle: InputEmptyOrNot(""),
         showGovernmentIdErrorMessages: false,
         isGovermentDocSubmitting: false,
         isGovernemtExpiryCheck: false,
@@ -58,7 +63,9 @@ class DocumentState with _$DocumentState {
 
         ///
         isSubmitting: false,
+        showErrorMessages: false,
         authFailureOrSuccessOption: none(),
+        continueFailureOrSuccessOption: none(),
       );
 }
 

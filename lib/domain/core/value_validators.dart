@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 
 import 'package:shift/domain/core/failures.dart';
@@ -62,7 +64,7 @@ Either<ValueFailure<String>, String> validateCardNumber(String input) {
 
 Either<ValueFailure<String>, String> validateCvv(String input) {
   if (validateStringNotEmpty(input).isRight()) {
-    if (input.length < 3 || input.length > 4) {
+    if (input.length < 4 || input.length > 4) {
       return left(ValueFailure.invalidCvv(failedValue: input));
     } else {
       return right(input);
@@ -105,10 +107,13 @@ Either<ValueFailure<String>, String> validatePassword(String input) {
   if (input.isEmpty) {
     return left(ValueFailure.empty(failedValue: input));
   } else {
-    if (input.length >= 8) {
-      return right(input);
-    } else {
+    if (!RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).+$')
+        .hasMatch(input)) {
+      return left(ValueFailure.invalidPassword(failedValue: input));
+    } else if (input.length < 8) {
       return left(ValueFailure.shortPassword(failedValue: input));
+    } else {
+      return right(input);
     }
   }
 }
@@ -119,11 +124,14 @@ Either<ValueFailure<String>, String> validateConfirmPassword(
     return left(ValueFailure.empty(failedValue: confirmPassword));
   } else {
     if (confirmPassword.length >= 8) {
-      print("new Password:  ${newPassword}");
-      print("confirm Password:  ${confirmPassword}");
+      print("new Password:  $newPassword");
+      print("confirm Password:  $confirmPassword");
       if (confirmPassword != newPassword) {
         return left(
             ValueFailure.passwordsDontMatch(failedValue: confirmPassword));
+      } else if (!RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).+$')
+          .hasMatch(confirmPassword)) {
+        return left(ValueFailure.invalidPassword(failedValue: confirmPassword));
       } else {
         return right(confirmPassword);
       }

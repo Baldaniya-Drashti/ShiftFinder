@@ -36,6 +36,10 @@ class ValueFailure<T> with _$ValueFailure<T> {
     required T failedValue,
   }) = ShortPassword<T>;
 
+  const factory ValueFailure.invalidPassword({
+    required T failedValue,
+  }) = InvalidPassword<T>;
+
   const factory ValueFailure.passwordsDontMatch({
     required T failedValue,
   }) = PasswordsDontMatch<T>;

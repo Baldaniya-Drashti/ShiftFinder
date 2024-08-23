@@ -1,12 +1,20 @@
+// ignore_for_file: avoid_print
+
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shift/application/auth/contractor_auth/document_bloc/document_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 
 class DocumentList extends StatefulWidget {
   const DocumentList({super.key});
@@ -18,17 +26,49 @@ class DocumentList extends StatefulWidget {
 class _DocumentListState extends State<DocumentList> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DocumentBloc, DocumentState>(
+    return BlocConsumer<DocumentBloc, DocumentState>(
+      listener: (context, state) {
+        state.continueFailureOrSuccessOption.fold(
+          () {},
+          (either) => either.fold(
+            (failure) {
+              showError(
+                message: failure.maybeMap(
+                  showAPIResponseMessage: (value) => value.message,
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
+                  orElse: () => "Server Error. Try again later.",
+                ),
+              ).show(context);
+            },
+            (r) {
+              context.router
+                  .push(
+                const PageRouteInfo(AddBankDetailsScreen.name),
+              )
+                  .then((value) {
+                if (context.mounted) {
+                  context
+                      .read<DocumentBloc>()
+                      .add(const DocumentEvent.getAllDocumentStatus());
+                }
+              });
+            },
+          ),
+        );
+      },
       builder: (context, state) {
-        return Padding(
-          padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-          child: Column(
-            children: [
-              documentImage(),
-              Expanded(
-                child: ListView.builder(
+        return SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+            child: Column(
+              children: [
+                documentImage(),
+                ListView.builder(
                     itemCount: DocumentBloc.documentList.length,
                     padding: EdgeInsets.symmetric(vertical: getSize(20)),
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
                     itemBuilder: (context, index) {
                       final list = DocumentBloc.documentList;
                       return Padding(
@@ -57,7 +97,6 @@ class _DocumentListState extends State<DocumentList> {
                             //         StringConstant.pleaseAddGovernmentIssuedId,
                             //   ).show(context);
                             // }
-
                             DocumentBloc.pageController.animateToPage(
                               (index + 1),
                               duration: const Duration(milliseconds: 1),
@@ -83,8 +122,21 @@ class _DocumentListState extends State<DocumentList> {
                         ),
                       );
                     }),
-              ),
-            ],
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: getSize(10), bottom: getSize(50)),
+                  child: CommonButton(
+                    isSubmitting: state.isSubmitting,
+                    onPressed: () {
+                      context
+                          .read<DocumentBloc>()
+                          .add(const DocumentEvent.submitDocumentsEvent());
+                    },
+                    buttonText: StringConstant.txtContinue,
+                  ),
+                )
+              ],
+            ),
           ),
         );
       },
@@ -118,8 +170,8 @@ class _DocumentListState extends State<DocumentList> {
                 lineHeight: 1.5,
               ),
               const BaseText(
-                text:
-                    "Please upload the documents listed\nbelow, Govt issue Id is compulsory. ",
+                text: StringConstant
+                    .pleaseUploadTheDocumentsListedBelowGovtIssuedIdIsCompulsory,
                 fontSize: 10,
                 fontWeight: FontWeight.w400,
                 maxLines: 2,

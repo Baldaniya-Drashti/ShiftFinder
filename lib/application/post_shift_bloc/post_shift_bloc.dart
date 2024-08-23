@@ -302,10 +302,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             print("All details are valid!");
             /*failureOrSuccess = await _mainFacade.createPostShiftApi(
                 shift: passShiftData(state));*/
-
-            PostShiftDTO post = state.post.copyWith(
-              shiftDetail: passShiftData(state),
-            );
+            final post = continueWithPostDetail(state, passShiftData(state));
 
             e.context.router.push(PageRouteInfo(
               PostShiftRecurring.name,
@@ -431,6 +428,11 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
         },
         recurringButtonEvent: (e) async {
           Either<MainFailure, HealthcarePostDTO>? failureOrSuccess;
+          emit(
+            state.copyWith(
+              isLoading: true,
+            ),
+          );
           if (isRecurringValid(state) && isTeamsValid(state)) {
             /*failureOrSuccess = await _mainFacade.createPostShiftRecurringApi(
                 postShiftId: e.postShiftId,
@@ -448,7 +450,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                 saveTemplateStatus: (state.isSaveAsTemplate) ? 1 : 0);*/
 
             final postObj = state.post.copyWith(
-              post_shift_id: e.postShiftId,
+              // post_shift_id: e.postShiftId,
               recurring_status: (state.isToBeRecurring) ? 1 : 0,
               start_date: state.recurringStartDate.getValue() ?? "",
               recurrence_mode:
@@ -462,6 +464,9 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                   getSelectedRecurringDayIds(state.selectedTeamList.getValue()),
               save_template_status: (state.isSaveAsTemplate) ? 1 : 0,
             );
+            failureOrSuccess = await _mainFacade.createPostApi(
+              postShiftDetail: postObj,
+            );
             print("All details are valid!--->  ${jsonEncode(postObj)}");
           } else {
             print("Some details are invalid!");
@@ -469,6 +474,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
 
           emit(
             state.copyWith(
+              isLoading: false,
               recurringErrorMessage: true,
               recurringFailureOrSuccessOption: optionOf(failureOrSuccess),
             ),
@@ -491,6 +497,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           emit(
             state.copyWith(
               isLoading: false,
+              post: e.post,
               multiDateTimeList: e.list,
               singleShiftFailureOrSuccessOption: none(),
             ),
@@ -645,9 +652,13 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               state,
               shiftDetail: e.shiftDetail,
             ));*/
-            PostShiftDTO post = state.post.copyWith(
+
+            final post = continueWithPostDetail(
+                state, passShiftData(state, shiftDetail: e.shiftDetail));
+
+            /*PostShiftDTO post = state.post.copyWith(
               shiftDetail: passShiftData(state, shiftDetail: e.shiftDetail),
-            );
+            );*/
 
             print("Post from push222:--> ${jsonEncode(post)}");
 
@@ -701,9 +712,11 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             /*failureOrSuccess = await _mainFacade.createPostShiftApi(
                 shift: passShiftData(state));*/
 
-            PostShiftDTO post = state.post.copyWith(
+            final post = continueWithPostDetail(state, passShiftData(state));
+
+            /*PostShiftDTO post = state.post.copyWith(
               shiftDetail: passShiftData(state),
-            );
+            );*/
             print("Post from push111:--> ${jsonEncode(post)}");
 
             e.context.router.push(PageRouteInfo(
@@ -745,6 +758,73 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
         },
       );
     });
+  }
+
+  PostShiftDTO continueWithPostDetail(
+      PostShiftState state, MultiShiftDTO shift) {
+    String mapMultiDateToApiFormat() {
+      if (shift.multi_date != null && shift.multi_date!.isNotEmpty) {
+        final list = shift.multi_date!.map((multiDate) {
+          return {
+            'date': DateTime.parse(multiDate.date ?? "")
+                    .toUtc()
+                    .millisecondsSinceEpoch /
+                1000,
+            'start_time': DateTime.parse((shift.same_or_different_time == 1)
+                        ? shift.start_time ?? ""
+                        : multiDate.start_time ?? "")
+                    .toUtc()
+                    .millisecondsSinceEpoch /
+                1000,
+            'end_time': DateTime.parse((shift.same_or_different_time == 1)
+                        ? shift.end_time ?? ""
+                        : multiDate.end_time ?? "")
+                    .toUtc()
+                    .millisecondsSinceEpoch /
+                1000
+          };
+        }).toList();
+        return jsonEncode(list);
+      } else {
+        return "";
+      }
+    }
+
+    PostShiftDTO mapData = state.post.copyWith(
+      shift_type: shift.shift_type,
+      unpaid_break_id: shift.unpaid_break_id,
+      total_payable_hour: shift.total_payable_hour,
+      commute_allowance_type: shift.commute_allowance_type,
+      accommodation_allowance_type: shift.accommodation_allowance_type,
+      vacancie_type: shift.vacancie_type,
+      date: (shift.date != null && shift.date!.isNotEmpty)
+          ? (DateTime.parse(shift.date ?? "").toUtc().millisecondsSinceEpoch /
+                  1000)
+              .toString()
+          : null,
+      start_time: (shift.start_time != null && shift.start_time!.isNotEmpty)
+          ? (DateTime.parse(shift.start_time ?? "")
+                      .toUtc()
+                      .millisecondsSinceEpoch /
+                  1000)
+              .toString()
+          : null,
+      end_time: (shift.end_time != null && shift.end_time!.isNotEmpty)
+          ? (DateTime.parse(shift.end_time ?? "")
+                      .toUtc()
+                      .millisecondsSinceEpoch /
+                  1000)
+              .toString()
+          : null,
+      same_or_different_time: shift.same_or_different_time,
+      multi_date: mapMultiDateToApiFormat(),
+      individual_shift: shift.individual_shift,
+      commute_allowance: shift.commute_allowance,
+      accommodation_allowance: shift.accommodation_allowance,
+      shift_note: shift.shift_note,
+      number_of_vacancie: shift.number_of_vacancie,
+    );
+    return mapData;
   }
 
   getUnpaidBreakListApi(Emitter<PostShiftState> emit) async {

@@ -51,7 +51,7 @@ class ApiConstants {
   static String createPost = 'create_post';
   static String createPostShift = 'create_post_shift';
   static String createPostShiftAddMore = 'create_post_shift_add_more';
-  static String putPostTheShift = 'put_post_the_shift';
+  static String updatePostStatus = 'update_post_status';
 
   /// Teams
   static String getTeam = 'get_team';

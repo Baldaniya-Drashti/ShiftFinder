@@ -4,18 +4,18 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 
 class CenterLoadingIndicator extends StatelessWidget {
   bool isOnlyLoader;
-   CenterLoadingIndicator({this.isOnlyLoader = false,super.key});
+  CenterLoadingIndicator({this.isOnlyLoader = false, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: AppColors.black.withOpacity((isOnlyLoader) ? 0 :0.2),
+      color: AppColors.black.withOpacity((isOnlyLoader) ? 0 : 0.2),
       child: Center(
         child: Container(
           height: getSize(100),
           width: getSize(100),
           decoration: BoxDecoration(
-            color: (isOnlyLoader) ? AppColors.transparent: AppColors.white,
+            color: (isOnlyLoader) ? AppColors.transparent : AppColors.white,
             borderRadius: BorderRadius.circular(10),
           ),
           alignment: Alignment.center,

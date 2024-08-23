@@ -19,6 +19,7 @@ mixin _$DocumentEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int page) nextPage,
+    required TResult Function() submitDocumentsEvent,
     required TResult Function() getAllDocumentStatus,
     required TResult Function(String govermentDoc) selectGovermentDoc,
     required TResult Function() getGovermentDoc,
@@ -30,11 +31,13 @@ mixin _$DocumentEvent {
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
+    required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int page)? nextPage,
+    TResult? Function()? submitDocumentsEvent,
     TResult? Function()? getAllDocumentStatus,
     TResult? Function(String govermentDoc)? selectGovermentDoc,
     TResult? Function()? getGovermentDoc,
@@ -46,11 +49,13 @@ mixin _$DocumentEvent {
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
+    TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int page)? nextPage,
+    TResult Function()? submitDocumentsEvent,
     TResult Function()? getAllDocumentStatus,
     TResult Function(String govermentDoc)? selectGovermentDoc,
     TResult Function()? getGovermentDoc,
@@ -62,12 +67,14 @@ mixin _$DocumentEvent {
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
+    TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_NextPage value) nextPage,
+    required TResult Function(_SubmitDocumentsEvent value) submitDocumentsEvent,
     required TResult Function(_GetAllDocumentStatus value) getAllDocumentStatus,
     required TResult Function(_SelectGovermentDoc value) selectGovermentDoc,
     required TResult Function(_GetGovermentDoc value) getGovermentDoc,
@@ -82,11 +89,14 @@ mixin _$DocumentEvent {
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
     required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
+    required TResult Function(GovtDocumentTitleChanged value)
+        govtDocumentTitleChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_NextPage value)? nextPage,
+    TResult? Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult? Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult? Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult? Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -101,11 +111,13 @@ mixin _$DocumentEvent {
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult? Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_NextPage value)? nextPage,
+    TResult Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -120,6 +132,7 @@ mixin _$DocumentEvent {
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -208,6 +221,7 @@ class _$NextPageImpl implements _NextPage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int page) nextPage,
+    required TResult Function() submitDocumentsEvent,
     required TResult Function() getAllDocumentStatus,
     required TResult Function(String govermentDoc) selectGovermentDoc,
     required TResult Function() getGovermentDoc,
@@ -219,6 +233,7 @@ class _$NextPageImpl implements _NextPage {
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
+    required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return nextPage(page);
   }
@@ -227,6 +242,7 @@ class _$NextPageImpl implements _NextPage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int page)? nextPage,
+    TResult? Function()? submitDocumentsEvent,
     TResult? Function()? getAllDocumentStatus,
     TResult? Function(String govermentDoc)? selectGovermentDoc,
     TResult? Function()? getGovermentDoc,
@@ -238,6 +254,7 @@ class _$NextPageImpl implements _NextPage {
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
+    TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return nextPage?.call(page);
   }
@@ -246,6 +263,7 @@ class _$NextPageImpl implements _NextPage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int page)? nextPage,
+    TResult Function()? submitDocumentsEvent,
     TResult Function()? getAllDocumentStatus,
     TResult Function(String govermentDoc)? selectGovermentDoc,
     TResult Function()? getGovermentDoc,
@@ -257,6 +275,7 @@ class _$NextPageImpl implements _NextPage {
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
+    TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (nextPage != null) {
@@ -269,6 +288,7 @@ class _$NextPageImpl implements _NextPage {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_NextPage value) nextPage,
+    required TResult Function(_SubmitDocumentsEvent value) submitDocumentsEvent,
     required TResult Function(_GetAllDocumentStatus value) getAllDocumentStatus,
     required TResult Function(_SelectGovermentDoc value) selectGovermentDoc,
     required TResult Function(_GetGovermentDoc value) getGovermentDoc,
@@ -283,6 +303,8 @@ class _$NextPageImpl implements _NextPage {
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
     required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
+    required TResult Function(GovtDocumentTitleChanged value)
+        govtDocumentTitleChanged,
   }) {
     return nextPage(this);
   }
@@ -291,6 +313,7 @@ class _$NextPageImpl implements _NextPage {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_NextPage value)? nextPage,
+    TResult? Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult? Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult? Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult? Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -305,6 +328,7 @@ class _$NextPageImpl implements _NextPage {
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult? Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
   }) {
     return nextPage?.call(this);
   }
@@ -313,6 +337,7 @@ class _$NextPageImpl implements _NextPage {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_NextPage value)? nextPage,
+    TResult Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -327,6 +352,7 @@ class _$NextPageImpl implements _NextPage {
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (nextPage != null) {
@@ -343,6 +369,191 @@ abstract class _NextPage implements DocumentEvent {
   @JsonKey(ignore: true)
   _$$NextPageImplCopyWith<_$NextPageImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SubmitDocumentsEventImplCopyWith<$Res> {
+  factory _$$SubmitDocumentsEventImplCopyWith(_$SubmitDocumentsEventImpl value,
+          $Res Function(_$SubmitDocumentsEventImpl) then) =
+      __$$SubmitDocumentsEventImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SubmitDocumentsEventImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$SubmitDocumentsEventImpl>
+    implements _$$SubmitDocumentsEventImplCopyWith<$Res> {
+  __$$SubmitDocumentsEventImplCopyWithImpl(_$SubmitDocumentsEventImpl _value,
+      $Res Function(_$SubmitDocumentsEventImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SubmitDocumentsEventImpl implements _SubmitDocumentsEvent {
+  const _$SubmitDocumentsEventImpl();
+
+  @override
+  String toString() {
+    return 'DocumentEvent.submitDocumentsEvent()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SubmitDocumentsEventImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int page) nextPage,
+    required TResult Function() submitDocumentsEvent,
+    required TResult Function() getAllDocumentStatus,
+    required TResult Function(String govermentDoc) selectGovermentDoc,
+    required TResult Function() getGovermentDoc,
+    required TResult Function(bool isCheck) checkNAGovermentExpiryDate,
+    required TResult Function(String expiryDate) govermentExpiryDateChanged,
+    required TResult Function(String govermentDoc) deleteGovermentDoc,
+    required TResult Function() govermentDocSubmit,
+    required TResult Function(String covidDoc) selectCovidVaccinationDoc,
+    required TResult Function(String covidDoc) deleteCovidDoc,
+    required TResult Function() getCovidDoc,
+    required TResult Function() covidDocSubmit,
+    required TResult Function(String documentTitle) govtDocumentTitleChanged,
+  }) {
+    return submitDocumentsEvent();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int page)? nextPage,
+    TResult? Function()? submitDocumentsEvent,
+    TResult? Function()? getAllDocumentStatus,
+    TResult? Function(String govermentDoc)? selectGovermentDoc,
+    TResult? Function()? getGovermentDoc,
+    TResult? Function(bool isCheck)? checkNAGovermentExpiryDate,
+    TResult? Function(String expiryDate)? govermentExpiryDateChanged,
+    TResult? Function(String govermentDoc)? deleteGovermentDoc,
+    TResult? Function()? govermentDocSubmit,
+    TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
+    TResult? Function(String covidDoc)? deleteCovidDoc,
+    TResult? Function()? getCovidDoc,
+    TResult? Function()? covidDocSubmit,
+    TResult? Function(String documentTitle)? govtDocumentTitleChanged,
+  }) {
+    return submitDocumentsEvent?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int page)? nextPage,
+    TResult Function()? submitDocumentsEvent,
+    TResult Function()? getAllDocumentStatus,
+    TResult Function(String govermentDoc)? selectGovermentDoc,
+    TResult Function()? getGovermentDoc,
+    TResult Function(bool isCheck)? checkNAGovermentExpiryDate,
+    TResult Function(String expiryDate)? govermentExpiryDateChanged,
+    TResult Function(String govermentDoc)? deleteGovermentDoc,
+    TResult Function()? govermentDocSubmit,
+    TResult Function(String covidDoc)? selectCovidVaccinationDoc,
+    TResult Function(String covidDoc)? deleteCovidDoc,
+    TResult Function()? getCovidDoc,
+    TResult Function()? covidDocSubmit,
+    TResult Function(String documentTitle)? govtDocumentTitleChanged,
+    required TResult orElse(),
+  }) {
+    if (submitDocumentsEvent != null) {
+      return submitDocumentsEvent();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_NextPage value) nextPage,
+    required TResult Function(_SubmitDocumentsEvent value) submitDocumentsEvent,
+    required TResult Function(_GetAllDocumentStatus value) getAllDocumentStatus,
+    required TResult Function(_SelectGovermentDoc value) selectGovermentDoc,
+    required TResult Function(_GetGovermentDoc value) getGovermentDoc,
+    required TResult Function(CheckNAGovermentExpiryDate value)
+        checkNAGovermentExpiryDate,
+    required TResult Function(_GovermentExpiryDateChanged value)
+        govermentExpiryDateChanged,
+    required TResult Function(_DeleteGovermentDoc value) deleteGovermentDoc,
+    required TResult Function(_GovermentDocSubmit value) govermentDocSubmit,
+    required TResult Function(_SelectCovidVaccinationDoc value)
+        selectCovidVaccinationDoc,
+    required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
+    required TResult Function(_GetCovidDoc value) getCovidDoc,
+    required TResult Function(_CovidDocSubmit value) covidDocSubmit,
+    required TResult Function(GovtDocumentTitleChanged value)
+        govtDocumentTitleChanged,
+  }) {
+    return submitDocumentsEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_NextPage value)? nextPage,
+    TResult? Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
+    TResult? Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
+    TResult? Function(_SelectGovermentDoc value)? selectGovermentDoc,
+    TResult? Function(_GetGovermentDoc value)? getGovermentDoc,
+    TResult? Function(CheckNAGovermentExpiryDate value)?
+        checkNAGovermentExpiryDate,
+    TResult? Function(_GovermentExpiryDateChanged value)?
+        govermentExpiryDateChanged,
+    TResult? Function(_DeleteGovermentDoc value)? deleteGovermentDoc,
+    TResult? Function(_GovermentDocSubmit value)? govermentDocSubmit,
+    TResult? Function(_SelectCovidVaccinationDoc value)?
+        selectCovidVaccinationDoc,
+    TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult? Function(_GetCovidDoc value)? getCovidDoc,
+    TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult? Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
+  }) {
+    return submitDocumentsEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_NextPage value)? nextPage,
+    TResult Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
+    TResult Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
+    TResult Function(_SelectGovermentDoc value)? selectGovermentDoc,
+    TResult Function(_GetGovermentDoc value)? getGovermentDoc,
+    TResult Function(CheckNAGovermentExpiryDate value)?
+        checkNAGovermentExpiryDate,
+    TResult Function(_GovermentExpiryDateChanged value)?
+        govermentExpiryDateChanged,
+    TResult Function(_DeleteGovermentDoc value)? deleteGovermentDoc,
+    TResult Function(_GovermentDocSubmit value)? govermentDocSubmit,
+    TResult Function(_SelectCovidVaccinationDoc value)?
+        selectCovidVaccinationDoc,
+    TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult Function(_GetCovidDoc value)? getCovidDoc,
+    TResult Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
+    required TResult orElse(),
+  }) {
+    if (submitDocumentsEvent != null) {
+      return submitDocumentsEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SubmitDocumentsEvent implements DocumentEvent {
+  const factory _SubmitDocumentsEvent() = _$SubmitDocumentsEventImpl;
 }
 
 /// @nodoc
@@ -385,6 +596,7 @@ class _$GetAllDocumentStatusImpl implements _GetAllDocumentStatus {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int page) nextPage,
+    required TResult Function() submitDocumentsEvent,
     required TResult Function() getAllDocumentStatus,
     required TResult Function(String govermentDoc) selectGovermentDoc,
     required TResult Function() getGovermentDoc,
@@ -396,6 +608,7 @@ class _$GetAllDocumentStatusImpl implements _GetAllDocumentStatus {
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
+    required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return getAllDocumentStatus();
   }
@@ -404,6 +617,7 @@ class _$GetAllDocumentStatusImpl implements _GetAllDocumentStatus {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int page)? nextPage,
+    TResult? Function()? submitDocumentsEvent,
     TResult? Function()? getAllDocumentStatus,
     TResult? Function(String govermentDoc)? selectGovermentDoc,
     TResult? Function()? getGovermentDoc,
@@ -415,6 +629,7 @@ class _$GetAllDocumentStatusImpl implements _GetAllDocumentStatus {
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
+    TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return getAllDocumentStatus?.call();
   }
@@ -423,6 +638,7 @@ class _$GetAllDocumentStatusImpl implements _GetAllDocumentStatus {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int page)? nextPage,
+    TResult Function()? submitDocumentsEvent,
     TResult Function()? getAllDocumentStatus,
     TResult Function(String govermentDoc)? selectGovermentDoc,
     TResult Function()? getGovermentDoc,
@@ -434,6 +650,7 @@ class _$GetAllDocumentStatusImpl implements _GetAllDocumentStatus {
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
+    TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (getAllDocumentStatus != null) {
@@ -446,6 +663,7 @@ class _$GetAllDocumentStatusImpl implements _GetAllDocumentStatus {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_NextPage value) nextPage,
+    required TResult Function(_SubmitDocumentsEvent value) submitDocumentsEvent,
     required TResult Function(_GetAllDocumentStatus value) getAllDocumentStatus,
     required TResult Function(_SelectGovermentDoc value) selectGovermentDoc,
     required TResult Function(_GetGovermentDoc value) getGovermentDoc,
@@ -460,6 +678,8 @@ class _$GetAllDocumentStatusImpl implements _GetAllDocumentStatus {
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
     required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
+    required TResult Function(GovtDocumentTitleChanged value)
+        govtDocumentTitleChanged,
   }) {
     return getAllDocumentStatus(this);
   }
@@ -468,6 +688,7 @@ class _$GetAllDocumentStatusImpl implements _GetAllDocumentStatus {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_NextPage value)? nextPage,
+    TResult? Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult? Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult? Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult? Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -482,6 +703,7 @@ class _$GetAllDocumentStatusImpl implements _GetAllDocumentStatus {
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult? Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
   }) {
     return getAllDocumentStatus?.call(this);
   }
@@ -490,6 +712,7 @@ class _$GetAllDocumentStatusImpl implements _GetAllDocumentStatus {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_NextPage value)? nextPage,
+    TResult Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -504,6 +727,7 @@ class _$GetAllDocumentStatusImpl implements _GetAllDocumentStatus {
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (getAllDocumentStatus != null) {
@@ -584,6 +808,7 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int page) nextPage,
+    required TResult Function() submitDocumentsEvent,
     required TResult Function() getAllDocumentStatus,
     required TResult Function(String govermentDoc) selectGovermentDoc,
     required TResult Function() getGovermentDoc,
@@ -595,6 +820,7 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
+    required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return selectGovermentDoc(govermentDoc);
   }
@@ -603,6 +829,7 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int page)? nextPage,
+    TResult? Function()? submitDocumentsEvent,
     TResult? Function()? getAllDocumentStatus,
     TResult? Function(String govermentDoc)? selectGovermentDoc,
     TResult? Function()? getGovermentDoc,
@@ -614,6 +841,7 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
+    TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return selectGovermentDoc?.call(govermentDoc);
   }
@@ -622,6 +850,7 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int page)? nextPage,
+    TResult Function()? submitDocumentsEvent,
     TResult Function()? getAllDocumentStatus,
     TResult Function(String govermentDoc)? selectGovermentDoc,
     TResult Function()? getGovermentDoc,
@@ -633,6 +862,7 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
+    TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (selectGovermentDoc != null) {
@@ -645,6 +875,7 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_NextPage value) nextPage,
+    required TResult Function(_SubmitDocumentsEvent value) submitDocumentsEvent,
     required TResult Function(_GetAllDocumentStatus value) getAllDocumentStatus,
     required TResult Function(_SelectGovermentDoc value) selectGovermentDoc,
     required TResult Function(_GetGovermentDoc value) getGovermentDoc,
@@ -659,6 +890,8 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
     required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
+    required TResult Function(GovtDocumentTitleChanged value)
+        govtDocumentTitleChanged,
   }) {
     return selectGovermentDoc(this);
   }
@@ -667,6 +900,7 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_NextPage value)? nextPage,
+    TResult? Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult? Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult? Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult? Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -681,6 +915,7 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult? Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
   }) {
     return selectGovermentDoc?.call(this);
   }
@@ -689,6 +924,7 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_NextPage value)? nextPage,
+    TResult Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -703,6 +939,7 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (selectGovermentDoc != null) {
@@ -761,6 +998,7 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int page) nextPage,
+    required TResult Function() submitDocumentsEvent,
     required TResult Function() getAllDocumentStatus,
     required TResult Function(String govermentDoc) selectGovermentDoc,
     required TResult Function() getGovermentDoc,
@@ -772,6 +1010,7 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
+    required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return getGovermentDoc();
   }
@@ -780,6 +1019,7 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int page)? nextPage,
+    TResult? Function()? submitDocumentsEvent,
     TResult? Function()? getAllDocumentStatus,
     TResult? Function(String govermentDoc)? selectGovermentDoc,
     TResult? Function()? getGovermentDoc,
@@ -791,6 +1031,7 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
+    TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return getGovermentDoc?.call();
   }
@@ -799,6 +1040,7 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int page)? nextPage,
+    TResult Function()? submitDocumentsEvent,
     TResult Function()? getAllDocumentStatus,
     TResult Function(String govermentDoc)? selectGovermentDoc,
     TResult Function()? getGovermentDoc,
@@ -810,6 +1052,7 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
+    TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (getGovermentDoc != null) {
@@ -822,6 +1065,7 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_NextPage value) nextPage,
+    required TResult Function(_SubmitDocumentsEvent value) submitDocumentsEvent,
     required TResult Function(_GetAllDocumentStatus value) getAllDocumentStatus,
     required TResult Function(_SelectGovermentDoc value) selectGovermentDoc,
     required TResult Function(_GetGovermentDoc value) getGovermentDoc,
@@ -836,6 +1080,8 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
     required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
+    required TResult Function(GovtDocumentTitleChanged value)
+        govtDocumentTitleChanged,
   }) {
     return getGovermentDoc(this);
   }
@@ -844,6 +1090,7 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_NextPage value)? nextPage,
+    TResult? Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult? Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult? Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult? Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -858,6 +1105,7 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult? Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
   }) {
     return getGovermentDoc?.call(this);
   }
@@ -866,6 +1114,7 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_NextPage value)? nextPage,
+    TResult Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -880,6 +1129,7 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (getGovermentDoc != null) {
@@ -961,6 +1211,7 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int page) nextPage,
+    required TResult Function() submitDocumentsEvent,
     required TResult Function() getAllDocumentStatus,
     required TResult Function(String govermentDoc) selectGovermentDoc,
     required TResult Function() getGovermentDoc,
@@ -972,6 +1223,7 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
+    required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return checkNAGovermentExpiryDate(isCheck);
   }
@@ -980,6 +1232,7 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int page)? nextPage,
+    TResult? Function()? submitDocumentsEvent,
     TResult? Function()? getAllDocumentStatus,
     TResult? Function(String govermentDoc)? selectGovermentDoc,
     TResult? Function()? getGovermentDoc,
@@ -991,6 +1244,7 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
+    TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return checkNAGovermentExpiryDate?.call(isCheck);
   }
@@ -999,6 +1253,7 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int page)? nextPage,
+    TResult Function()? submitDocumentsEvent,
     TResult Function()? getAllDocumentStatus,
     TResult Function(String govermentDoc)? selectGovermentDoc,
     TResult Function()? getGovermentDoc,
@@ -1010,6 +1265,7 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
+    TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (checkNAGovermentExpiryDate != null) {
@@ -1022,6 +1278,7 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_NextPage value) nextPage,
+    required TResult Function(_SubmitDocumentsEvent value) submitDocumentsEvent,
     required TResult Function(_GetAllDocumentStatus value) getAllDocumentStatus,
     required TResult Function(_SelectGovermentDoc value) selectGovermentDoc,
     required TResult Function(_GetGovermentDoc value) getGovermentDoc,
@@ -1036,6 +1293,8 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
     required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
+    required TResult Function(GovtDocumentTitleChanged value)
+        govtDocumentTitleChanged,
   }) {
     return checkNAGovermentExpiryDate(this);
   }
@@ -1044,6 +1303,7 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_NextPage value)? nextPage,
+    TResult? Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult? Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult? Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult? Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -1058,6 +1318,7 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult? Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
   }) {
     return checkNAGovermentExpiryDate?.call(this);
   }
@@ -1066,6 +1327,7 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_NextPage value)? nextPage,
+    TResult Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -1080,6 +1342,7 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (checkNAGovermentExpiryDate != null) {
@@ -1168,6 +1431,7 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int page) nextPage,
+    required TResult Function() submitDocumentsEvent,
     required TResult Function() getAllDocumentStatus,
     required TResult Function(String govermentDoc) selectGovermentDoc,
     required TResult Function() getGovermentDoc,
@@ -1179,6 +1443,7 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
+    required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return govermentExpiryDateChanged(expiryDate);
   }
@@ -1187,6 +1452,7 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int page)? nextPage,
+    TResult? Function()? submitDocumentsEvent,
     TResult? Function()? getAllDocumentStatus,
     TResult? Function(String govermentDoc)? selectGovermentDoc,
     TResult? Function()? getGovermentDoc,
@@ -1198,6 +1464,7 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
+    TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return govermentExpiryDateChanged?.call(expiryDate);
   }
@@ -1206,6 +1473,7 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int page)? nextPage,
+    TResult Function()? submitDocumentsEvent,
     TResult Function()? getAllDocumentStatus,
     TResult Function(String govermentDoc)? selectGovermentDoc,
     TResult Function()? getGovermentDoc,
@@ -1217,6 +1485,7 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
+    TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (govermentExpiryDateChanged != null) {
@@ -1229,6 +1498,7 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_NextPage value) nextPage,
+    required TResult Function(_SubmitDocumentsEvent value) submitDocumentsEvent,
     required TResult Function(_GetAllDocumentStatus value) getAllDocumentStatus,
     required TResult Function(_SelectGovermentDoc value) selectGovermentDoc,
     required TResult Function(_GetGovermentDoc value) getGovermentDoc,
@@ -1243,6 +1513,8 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
     required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
+    required TResult Function(GovtDocumentTitleChanged value)
+        govtDocumentTitleChanged,
   }) {
     return govermentExpiryDateChanged(this);
   }
@@ -1251,6 +1523,7 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_NextPage value)? nextPage,
+    TResult? Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult? Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult? Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult? Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -1265,6 +1538,7 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult? Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
   }) {
     return govermentExpiryDateChanged?.call(this);
   }
@@ -1273,6 +1547,7 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_NextPage value)? nextPage,
+    TResult Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -1287,6 +1562,7 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (govermentExpiryDateChanged != null) {
@@ -1373,6 +1649,7 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int page) nextPage,
+    required TResult Function() submitDocumentsEvent,
     required TResult Function() getAllDocumentStatus,
     required TResult Function(String govermentDoc) selectGovermentDoc,
     required TResult Function() getGovermentDoc,
@@ -1384,6 +1661,7 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
+    required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return deleteGovermentDoc(govermentDoc);
   }
@@ -1392,6 +1670,7 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int page)? nextPage,
+    TResult? Function()? submitDocumentsEvent,
     TResult? Function()? getAllDocumentStatus,
     TResult? Function(String govermentDoc)? selectGovermentDoc,
     TResult? Function()? getGovermentDoc,
@@ -1403,6 +1682,7 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
+    TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return deleteGovermentDoc?.call(govermentDoc);
   }
@@ -1411,6 +1691,7 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int page)? nextPage,
+    TResult Function()? submitDocumentsEvent,
     TResult Function()? getAllDocumentStatus,
     TResult Function(String govermentDoc)? selectGovermentDoc,
     TResult Function()? getGovermentDoc,
@@ -1422,6 +1703,7 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
+    TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (deleteGovermentDoc != null) {
@@ -1434,6 +1716,7 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_NextPage value) nextPage,
+    required TResult Function(_SubmitDocumentsEvent value) submitDocumentsEvent,
     required TResult Function(_GetAllDocumentStatus value) getAllDocumentStatus,
     required TResult Function(_SelectGovermentDoc value) selectGovermentDoc,
     required TResult Function(_GetGovermentDoc value) getGovermentDoc,
@@ -1448,6 +1731,8 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
     required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
+    required TResult Function(GovtDocumentTitleChanged value)
+        govtDocumentTitleChanged,
   }) {
     return deleteGovermentDoc(this);
   }
@@ -1456,6 +1741,7 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_NextPage value)? nextPage,
+    TResult? Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult? Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult? Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult? Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -1470,6 +1756,7 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult? Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
   }) {
     return deleteGovermentDoc?.call(this);
   }
@@ -1478,6 +1765,7 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_NextPage value)? nextPage,
+    TResult Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -1492,6 +1780,7 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (deleteGovermentDoc != null) {
@@ -1550,6 +1839,7 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int page) nextPage,
+    required TResult Function() submitDocumentsEvent,
     required TResult Function() getAllDocumentStatus,
     required TResult Function(String govermentDoc) selectGovermentDoc,
     required TResult Function() getGovermentDoc,
@@ -1561,6 +1851,7 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
+    required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return govermentDocSubmit();
   }
@@ -1569,6 +1860,7 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int page)? nextPage,
+    TResult? Function()? submitDocumentsEvent,
     TResult? Function()? getAllDocumentStatus,
     TResult? Function(String govermentDoc)? selectGovermentDoc,
     TResult? Function()? getGovermentDoc,
@@ -1580,6 +1872,7 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
+    TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return govermentDocSubmit?.call();
   }
@@ -1588,6 +1881,7 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int page)? nextPage,
+    TResult Function()? submitDocumentsEvent,
     TResult Function()? getAllDocumentStatus,
     TResult Function(String govermentDoc)? selectGovermentDoc,
     TResult Function()? getGovermentDoc,
@@ -1599,6 +1893,7 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
+    TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (govermentDocSubmit != null) {
@@ -1611,6 +1906,7 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_NextPage value) nextPage,
+    required TResult Function(_SubmitDocumentsEvent value) submitDocumentsEvent,
     required TResult Function(_GetAllDocumentStatus value) getAllDocumentStatus,
     required TResult Function(_SelectGovermentDoc value) selectGovermentDoc,
     required TResult Function(_GetGovermentDoc value) getGovermentDoc,
@@ -1625,6 +1921,8 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
     required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
+    required TResult Function(GovtDocumentTitleChanged value)
+        govtDocumentTitleChanged,
   }) {
     return govermentDocSubmit(this);
   }
@@ -1633,6 +1931,7 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_NextPage value)? nextPage,
+    TResult? Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult? Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult? Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult? Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -1647,6 +1946,7 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult? Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
   }) {
     return govermentDocSubmit?.call(this);
   }
@@ -1655,6 +1955,7 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_NextPage value)? nextPage,
+    TResult Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -1669,6 +1970,7 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (govermentDocSubmit != null) {
@@ -1751,6 +2053,7 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int page) nextPage,
+    required TResult Function() submitDocumentsEvent,
     required TResult Function() getAllDocumentStatus,
     required TResult Function(String govermentDoc) selectGovermentDoc,
     required TResult Function() getGovermentDoc,
@@ -1762,6 +2065,7 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
+    required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return selectCovidVaccinationDoc(covidDoc);
   }
@@ -1770,6 +2074,7 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int page)? nextPage,
+    TResult? Function()? submitDocumentsEvent,
     TResult? Function()? getAllDocumentStatus,
     TResult? Function(String govermentDoc)? selectGovermentDoc,
     TResult? Function()? getGovermentDoc,
@@ -1781,6 +2086,7 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
+    TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return selectCovidVaccinationDoc?.call(covidDoc);
   }
@@ -1789,6 +2095,7 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int page)? nextPage,
+    TResult Function()? submitDocumentsEvent,
     TResult Function()? getAllDocumentStatus,
     TResult Function(String govermentDoc)? selectGovermentDoc,
     TResult Function()? getGovermentDoc,
@@ -1800,6 +2107,7 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
+    TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (selectCovidVaccinationDoc != null) {
@@ -1812,6 +2120,7 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_NextPage value) nextPage,
+    required TResult Function(_SubmitDocumentsEvent value) submitDocumentsEvent,
     required TResult Function(_GetAllDocumentStatus value) getAllDocumentStatus,
     required TResult Function(_SelectGovermentDoc value) selectGovermentDoc,
     required TResult Function(_GetGovermentDoc value) getGovermentDoc,
@@ -1826,6 +2135,8 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
     required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
+    required TResult Function(GovtDocumentTitleChanged value)
+        govtDocumentTitleChanged,
   }) {
     return selectCovidVaccinationDoc(this);
   }
@@ -1834,6 +2145,7 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_NextPage value)? nextPage,
+    TResult? Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult? Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult? Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult? Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -1848,6 +2160,7 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult? Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
   }) {
     return selectCovidVaccinationDoc?.call(this);
   }
@@ -1856,6 +2169,7 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_NextPage value)? nextPage,
+    TResult Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -1870,6 +2184,7 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (selectCovidVaccinationDoc != null) {
@@ -1956,6 +2271,7 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int page) nextPage,
+    required TResult Function() submitDocumentsEvent,
     required TResult Function() getAllDocumentStatus,
     required TResult Function(String govermentDoc) selectGovermentDoc,
     required TResult Function() getGovermentDoc,
@@ -1967,6 +2283,7 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
+    required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return deleteCovidDoc(covidDoc);
   }
@@ -1975,6 +2292,7 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int page)? nextPage,
+    TResult? Function()? submitDocumentsEvent,
     TResult? Function()? getAllDocumentStatus,
     TResult? Function(String govermentDoc)? selectGovermentDoc,
     TResult? Function()? getGovermentDoc,
@@ -1986,6 +2304,7 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
+    TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return deleteCovidDoc?.call(covidDoc);
   }
@@ -1994,6 +2313,7 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int page)? nextPage,
+    TResult Function()? submitDocumentsEvent,
     TResult Function()? getAllDocumentStatus,
     TResult Function(String govermentDoc)? selectGovermentDoc,
     TResult Function()? getGovermentDoc,
@@ -2005,6 +2325,7 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
+    TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (deleteCovidDoc != null) {
@@ -2017,6 +2338,7 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_NextPage value) nextPage,
+    required TResult Function(_SubmitDocumentsEvent value) submitDocumentsEvent,
     required TResult Function(_GetAllDocumentStatus value) getAllDocumentStatus,
     required TResult Function(_SelectGovermentDoc value) selectGovermentDoc,
     required TResult Function(_GetGovermentDoc value) getGovermentDoc,
@@ -2031,6 +2353,8 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
     required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
+    required TResult Function(GovtDocumentTitleChanged value)
+        govtDocumentTitleChanged,
   }) {
     return deleteCovidDoc(this);
   }
@@ -2039,6 +2363,7 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_NextPage value)? nextPage,
+    TResult? Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult? Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult? Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult? Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -2053,6 +2378,7 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult? Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
   }) {
     return deleteCovidDoc?.call(this);
   }
@@ -2061,6 +2387,7 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_NextPage value)? nextPage,
+    TResult Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -2075,6 +2402,7 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (deleteCovidDoc != null) {
@@ -2132,6 +2460,7 @@ class _$GetCovidDocImpl implements _GetCovidDoc {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int page) nextPage,
+    required TResult Function() submitDocumentsEvent,
     required TResult Function() getAllDocumentStatus,
     required TResult Function(String govermentDoc) selectGovermentDoc,
     required TResult Function() getGovermentDoc,
@@ -2143,6 +2472,7 @@ class _$GetCovidDocImpl implements _GetCovidDoc {
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
+    required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return getCovidDoc();
   }
@@ -2151,6 +2481,7 @@ class _$GetCovidDocImpl implements _GetCovidDoc {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int page)? nextPage,
+    TResult? Function()? submitDocumentsEvent,
     TResult? Function()? getAllDocumentStatus,
     TResult? Function(String govermentDoc)? selectGovermentDoc,
     TResult? Function()? getGovermentDoc,
@@ -2162,6 +2493,7 @@ class _$GetCovidDocImpl implements _GetCovidDoc {
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
+    TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return getCovidDoc?.call();
   }
@@ -2170,6 +2502,7 @@ class _$GetCovidDocImpl implements _GetCovidDoc {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int page)? nextPage,
+    TResult Function()? submitDocumentsEvent,
     TResult Function()? getAllDocumentStatus,
     TResult Function(String govermentDoc)? selectGovermentDoc,
     TResult Function()? getGovermentDoc,
@@ -2181,6 +2514,7 @@ class _$GetCovidDocImpl implements _GetCovidDoc {
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
+    TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (getCovidDoc != null) {
@@ -2193,6 +2527,7 @@ class _$GetCovidDocImpl implements _GetCovidDoc {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_NextPage value) nextPage,
+    required TResult Function(_SubmitDocumentsEvent value) submitDocumentsEvent,
     required TResult Function(_GetAllDocumentStatus value) getAllDocumentStatus,
     required TResult Function(_SelectGovermentDoc value) selectGovermentDoc,
     required TResult Function(_GetGovermentDoc value) getGovermentDoc,
@@ -2207,6 +2542,8 @@ class _$GetCovidDocImpl implements _GetCovidDoc {
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
     required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
+    required TResult Function(GovtDocumentTitleChanged value)
+        govtDocumentTitleChanged,
   }) {
     return getCovidDoc(this);
   }
@@ -2215,6 +2552,7 @@ class _$GetCovidDocImpl implements _GetCovidDoc {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_NextPage value)? nextPage,
+    TResult? Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult? Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult? Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult? Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -2229,6 +2567,7 @@ class _$GetCovidDocImpl implements _GetCovidDoc {
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult? Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
   }) {
     return getCovidDoc?.call(this);
   }
@@ -2237,6 +2576,7 @@ class _$GetCovidDocImpl implements _GetCovidDoc {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_NextPage value)? nextPage,
+    TResult Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -2251,6 +2591,7 @@ class _$GetCovidDocImpl implements _GetCovidDoc {
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (getCovidDoc != null) {
@@ -2303,6 +2644,7 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int page) nextPage,
+    required TResult Function() submitDocumentsEvent,
     required TResult Function() getAllDocumentStatus,
     required TResult Function(String govermentDoc) selectGovermentDoc,
     required TResult Function() getGovermentDoc,
@@ -2314,6 +2656,7 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
     required TResult Function() covidDocSubmit,
+    required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return covidDocSubmit();
   }
@@ -2322,6 +2665,7 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int page)? nextPage,
+    TResult? Function()? submitDocumentsEvent,
     TResult? Function()? getAllDocumentStatus,
     TResult? Function(String govermentDoc)? selectGovermentDoc,
     TResult? Function()? getGovermentDoc,
@@ -2333,6 +2677,7 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
     TResult? Function()? covidDocSubmit,
+    TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return covidDocSubmit?.call();
   }
@@ -2341,6 +2686,7 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int page)? nextPage,
+    TResult Function()? submitDocumentsEvent,
     TResult Function()? getAllDocumentStatus,
     TResult Function(String govermentDoc)? selectGovermentDoc,
     TResult Function()? getGovermentDoc,
@@ -2352,6 +2698,7 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
     TResult Function()? covidDocSubmit,
+    TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (covidDocSubmit != null) {
@@ -2364,6 +2711,7 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_NextPage value) nextPage,
+    required TResult Function(_SubmitDocumentsEvent value) submitDocumentsEvent,
     required TResult Function(_GetAllDocumentStatus value) getAllDocumentStatus,
     required TResult Function(_SelectGovermentDoc value) selectGovermentDoc,
     required TResult Function(_GetGovermentDoc value) getGovermentDoc,
@@ -2378,6 +2726,8 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
     required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
     required TResult Function(_GetCovidDoc value) getCovidDoc,
     required TResult Function(_CovidDocSubmit value) covidDocSubmit,
+    required TResult Function(GovtDocumentTitleChanged value)
+        govtDocumentTitleChanged,
   }) {
     return covidDocSubmit(this);
   }
@@ -2386,6 +2736,7 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_NextPage value)? nextPage,
+    TResult? Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult? Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult? Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult? Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -2400,6 +2751,7 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
     TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult? Function(_GetCovidDoc value)? getCovidDoc,
     TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult? Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
   }) {
     return covidDocSubmit?.call(this);
   }
@@ -2408,6 +2760,7 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_NextPage value)? nextPage,
+    TResult Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
     TResult Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
     TResult Function(_SelectGovermentDoc value)? selectGovermentDoc,
     TResult Function(_GetGovermentDoc value)? getGovermentDoc,
@@ -2422,6 +2775,7 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
     TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
     TResult Function(_GetCovidDoc value)? getCovidDoc,
     TResult Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (covidDocSubmit != null) {
@@ -2433,6 +2787,226 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
 
 abstract class _CovidDocSubmit implements DocumentEvent {
   const factory _CovidDocSubmit() = _$CovidDocSubmitImpl;
+}
+
+/// @nodoc
+abstract class _$$GovtDocumentTitleChangedImplCopyWith<$Res> {
+  factory _$$GovtDocumentTitleChangedImplCopyWith(
+          _$GovtDocumentTitleChangedImpl value,
+          $Res Function(_$GovtDocumentTitleChangedImpl) then) =
+      __$$GovtDocumentTitleChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String documentTitle});
+}
+
+/// @nodoc
+class __$$GovtDocumentTitleChangedImplCopyWithImpl<$Res>
+    extends _$DocumentEventCopyWithImpl<$Res, _$GovtDocumentTitleChangedImpl>
+    implements _$$GovtDocumentTitleChangedImplCopyWith<$Res> {
+  __$$GovtDocumentTitleChangedImplCopyWithImpl(
+      _$GovtDocumentTitleChangedImpl _value,
+      $Res Function(_$GovtDocumentTitleChangedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? documentTitle = null,
+  }) {
+    return _then(_$GovtDocumentTitleChangedImpl(
+      null == documentTitle
+          ? _value.documentTitle
+          : documentTitle // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GovtDocumentTitleChangedImpl implements GovtDocumentTitleChanged {
+  const _$GovtDocumentTitleChangedImpl(this.documentTitle);
+
+  @override
+  final String documentTitle;
+
+  @override
+  String toString() {
+    return 'DocumentEvent.govtDocumentTitleChanged(documentTitle: $documentTitle)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GovtDocumentTitleChangedImpl &&
+            (identical(other.documentTitle, documentTitle) ||
+                other.documentTitle == documentTitle));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, documentTitle);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GovtDocumentTitleChangedImplCopyWith<_$GovtDocumentTitleChangedImpl>
+      get copyWith => __$$GovtDocumentTitleChangedImplCopyWithImpl<
+          _$GovtDocumentTitleChangedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int page) nextPage,
+    required TResult Function() submitDocumentsEvent,
+    required TResult Function() getAllDocumentStatus,
+    required TResult Function(String govermentDoc) selectGovermentDoc,
+    required TResult Function() getGovermentDoc,
+    required TResult Function(bool isCheck) checkNAGovermentExpiryDate,
+    required TResult Function(String expiryDate) govermentExpiryDateChanged,
+    required TResult Function(String govermentDoc) deleteGovermentDoc,
+    required TResult Function() govermentDocSubmit,
+    required TResult Function(String covidDoc) selectCovidVaccinationDoc,
+    required TResult Function(String covidDoc) deleteCovidDoc,
+    required TResult Function() getCovidDoc,
+    required TResult Function() covidDocSubmit,
+    required TResult Function(String documentTitle) govtDocumentTitleChanged,
+  }) {
+    return govtDocumentTitleChanged(documentTitle);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int page)? nextPage,
+    TResult? Function()? submitDocumentsEvent,
+    TResult? Function()? getAllDocumentStatus,
+    TResult? Function(String govermentDoc)? selectGovermentDoc,
+    TResult? Function()? getGovermentDoc,
+    TResult? Function(bool isCheck)? checkNAGovermentExpiryDate,
+    TResult? Function(String expiryDate)? govermentExpiryDateChanged,
+    TResult? Function(String govermentDoc)? deleteGovermentDoc,
+    TResult? Function()? govermentDocSubmit,
+    TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
+    TResult? Function(String covidDoc)? deleteCovidDoc,
+    TResult? Function()? getCovidDoc,
+    TResult? Function()? covidDocSubmit,
+    TResult? Function(String documentTitle)? govtDocumentTitleChanged,
+  }) {
+    return govtDocumentTitleChanged?.call(documentTitle);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int page)? nextPage,
+    TResult Function()? submitDocumentsEvent,
+    TResult Function()? getAllDocumentStatus,
+    TResult Function(String govermentDoc)? selectGovermentDoc,
+    TResult Function()? getGovermentDoc,
+    TResult Function(bool isCheck)? checkNAGovermentExpiryDate,
+    TResult Function(String expiryDate)? govermentExpiryDateChanged,
+    TResult Function(String govermentDoc)? deleteGovermentDoc,
+    TResult Function()? govermentDocSubmit,
+    TResult Function(String covidDoc)? selectCovidVaccinationDoc,
+    TResult Function(String covidDoc)? deleteCovidDoc,
+    TResult Function()? getCovidDoc,
+    TResult Function()? covidDocSubmit,
+    TResult Function(String documentTitle)? govtDocumentTitleChanged,
+    required TResult orElse(),
+  }) {
+    if (govtDocumentTitleChanged != null) {
+      return govtDocumentTitleChanged(documentTitle);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_NextPage value) nextPage,
+    required TResult Function(_SubmitDocumentsEvent value) submitDocumentsEvent,
+    required TResult Function(_GetAllDocumentStatus value) getAllDocumentStatus,
+    required TResult Function(_SelectGovermentDoc value) selectGovermentDoc,
+    required TResult Function(_GetGovermentDoc value) getGovermentDoc,
+    required TResult Function(CheckNAGovermentExpiryDate value)
+        checkNAGovermentExpiryDate,
+    required TResult Function(_GovermentExpiryDateChanged value)
+        govermentExpiryDateChanged,
+    required TResult Function(_DeleteGovermentDoc value) deleteGovermentDoc,
+    required TResult Function(_GovermentDocSubmit value) govermentDocSubmit,
+    required TResult Function(_SelectCovidVaccinationDoc value)
+        selectCovidVaccinationDoc,
+    required TResult Function(_DeleteCovidDoc value) deleteCovidDoc,
+    required TResult Function(_GetCovidDoc value) getCovidDoc,
+    required TResult Function(_CovidDocSubmit value) covidDocSubmit,
+    required TResult Function(GovtDocumentTitleChanged value)
+        govtDocumentTitleChanged,
+  }) {
+    return govtDocumentTitleChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_NextPage value)? nextPage,
+    TResult? Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
+    TResult? Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
+    TResult? Function(_SelectGovermentDoc value)? selectGovermentDoc,
+    TResult? Function(_GetGovermentDoc value)? getGovermentDoc,
+    TResult? Function(CheckNAGovermentExpiryDate value)?
+        checkNAGovermentExpiryDate,
+    TResult? Function(_GovermentExpiryDateChanged value)?
+        govermentExpiryDateChanged,
+    TResult? Function(_DeleteGovermentDoc value)? deleteGovermentDoc,
+    TResult? Function(_GovermentDocSubmit value)? govermentDocSubmit,
+    TResult? Function(_SelectCovidVaccinationDoc value)?
+        selectCovidVaccinationDoc,
+    TResult? Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult? Function(_GetCovidDoc value)? getCovidDoc,
+    TResult? Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult? Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
+  }) {
+    return govtDocumentTitleChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_NextPage value)? nextPage,
+    TResult Function(_SubmitDocumentsEvent value)? submitDocumentsEvent,
+    TResult Function(_GetAllDocumentStatus value)? getAllDocumentStatus,
+    TResult Function(_SelectGovermentDoc value)? selectGovermentDoc,
+    TResult Function(_GetGovermentDoc value)? getGovermentDoc,
+    TResult Function(CheckNAGovermentExpiryDate value)?
+        checkNAGovermentExpiryDate,
+    TResult Function(_GovermentExpiryDateChanged value)?
+        govermentExpiryDateChanged,
+    TResult Function(_DeleteGovermentDoc value)? deleteGovermentDoc,
+    TResult Function(_GovermentDocSubmit value)? govermentDocSubmit,
+    TResult Function(_SelectCovidVaccinationDoc value)?
+        selectCovidVaccinationDoc,
+    TResult Function(_DeleteCovidDoc value)? deleteCovidDoc,
+    TResult Function(_GetCovidDoc value)? getCovidDoc,
+    TResult Function(_CovidDocSubmit value)? covidDocSubmit,
+    TResult Function(GovtDocumentTitleChanged value)? govtDocumentTitleChanged,
+    required TResult orElse(),
+  }) {
+    if (govtDocumentTitleChanged != null) {
+      return govtDocumentTitleChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GovtDocumentTitleChanged implements DocumentEvent {
+  const factory GovtDocumentTitleChanged(final String documentTitle) =
+      _$GovtDocumentTitleChangedImpl;
+
+  String get documentTitle;
+  @JsonKey(ignore: true)
+  _$$GovtDocumentTitleChangedImplCopyWith<_$GovtDocumentTitleChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -12263,6 +12837,7 @@ mixin _$DocumentState {
   /// FOR GOVERNMENT DOCUMENT
   bool get isLoading => throw _privateConstructorUsedError;
   int get govermentDocId => throw _privateConstructorUsedError;
+  InputEmptyOrNot get govmentDocTitle => throw _privateConstructorUsedError;
   InputEmptyOrNot get govermentDoc => throw _privateConstructorUsedError;
   bool get isGovernemtExpiryCheck => throw _privateConstructorUsedError;
   String get governmentExpiryDate => throw _privateConstructorUsedError;
@@ -12283,6 +12858,9 @@ mixin _$DocumentState {
 
   /// SUBMIT
   bool get isSubmitting => throw _privateConstructorUsedError;
+  bool get showErrorMessages => throw _privateConstructorUsedError;
+  Option<Either<AccountFailure, Account>> get continueFailureOrSuccessOption =>
+      throw _privateConstructorUsedError;
   Option<Either<AccountFailure, List<DocumentDTO>>>
       get authFailureOrSuccessOption => throw _privateConstructorUsedError;
 
@@ -12303,6 +12881,7 @@ abstract class $DocumentStateCopyWith<$Res> {
       bool allListLoading,
       bool isLoading,
       int govermentDocId,
+      InputEmptyOrNot govmentDocTitle,
       InputEmptyOrNot govermentDoc,
       bool isGovernemtExpiryCheck,
       String governmentExpiryDate,
@@ -12316,6 +12895,8 @@ abstract class $DocumentStateCopyWith<$Res> {
       bool isCovidDocSubmitting,
       Option<Either<AccountFailure, String>> coviDocAuthFailureOrSuccessOption,
       bool isSubmitting,
+      bool showErrorMessages,
+      Option<Either<AccountFailure, Account>> continueFailureOrSuccessOption,
       Option<Either<AccountFailure, List<DocumentDTO>>>
           authFailureOrSuccessOption});
 }
@@ -12338,6 +12919,7 @@ class _$DocumentStateCopyWithImpl<$Res, $Val extends DocumentState>
     Object? allListLoading = null,
     Object? isLoading = null,
     Object? govermentDocId = null,
+    Object? govmentDocTitle = null,
     Object? govermentDoc = null,
     Object? isGovernemtExpiryCheck = null,
     Object? governmentExpiryDate = null,
@@ -12350,6 +12932,8 @@ class _$DocumentStateCopyWithImpl<$Res, $Val extends DocumentState>
     Object? isCovidDocSubmitting = null,
     Object? coviDocAuthFailureOrSuccessOption = null,
     Object? isSubmitting = null,
+    Object? showErrorMessages = null,
+    Object? continueFailureOrSuccessOption = null,
     Object? authFailureOrSuccessOption = null,
   }) {
     return _then(_value.copyWith(
@@ -12373,6 +12957,10 @@ class _$DocumentStateCopyWithImpl<$Res, $Val extends DocumentState>
           ? _value.govermentDocId
           : govermentDocId // ignore: cast_nullable_to_non_nullable
               as int,
+      govmentDocTitle: null == govmentDocTitle
+          ? _value.govmentDocTitle
+          : govmentDocTitle // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
       govermentDoc: null == govermentDoc
           ? _value.govermentDoc
           : govermentDoc // ignore: cast_nullable_to_non_nullable
@@ -12423,6 +13011,14 @@ class _$DocumentStateCopyWithImpl<$Res, $Val extends DocumentState>
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
               as bool,
+      showErrorMessages: null == showErrorMessages
+          ? _value.showErrorMessages
+          : showErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool,
+      continueFailureOrSuccessOption: null == continueFailureOrSuccessOption
+          ? _value.continueFailureOrSuccessOption
+          : continueFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AccountFailure, Account>>,
       authFailureOrSuccessOption: null == authFailureOrSuccessOption
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
@@ -12445,6 +13041,7 @@ abstract class _$$DocumentStateImplCopyWith<$Res>
       bool allListLoading,
       bool isLoading,
       int govermentDocId,
+      InputEmptyOrNot govmentDocTitle,
       InputEmptyOrNot govermentDoc,
       bool isGovernemtExpiryCheck,
       String governmentExpiryDate,
@@ -12458,6 +13055,8 @@ abstract class _$$DocumentStateImplCopyWith<$Res>
       bool isCovidDocSubmitting,
       Option<Either<AccountFailure, String>> coviDocAuthFailureOrSuccessOption,
       bool isSubmitting,
+      bool showErrorMessages,
+      Option<Either<AccountFailure, Account>> continueFailureOrSuccessOption,
       Option<Either<AccountFailure, List<DocumentDTO>>>
           authFailureOrSuccessOption});
 }
@@ -12478,6 +13077,7 @@ class __$$DocumentStateImplCopyWithImpl<$Res>
     Object? allListLoading = null,
     Object? isLoading = null,
     Object? govermentDocId = null,
+    Object? govmentDocTitle = null,
     Object? govermentDoc = null,
     Object? isGovernemtExpiryCheck = null,
     Object? governmentExpiryDate = null,
@@ -12490,6 +13090,8 @@ class __$$DocumentStateImplCopyWithImpl<$Res>
     Object? isCovidDocSubmitting = null,
     Object? coviDocAuthFailureOrSuccessOption = null,
     Object? isSubmitting = null,
+    Object? showErrorMessages = null,
+    Object? continueFailureOrSuccessOption = null,
     Object? authFailureOrSuccessOption = null,
   }) {
     return _then(_$DocumentStateImpl(
@@ -12513,6 +13115,10 @@ class __$$DocumentStateImplCopyWithImpl<$Res>
           ? _value.govermentDocId
           : govermentDocId // ignore: cast_nullable_to_non_nullable
               as int,
+      govmentDocTitle: null == govmentDocTitle
+          ? _value.govmentDocTitle
+          : govmentDocTitle // ignore: cast_nullable_to_non_nullable
+              as InputEmptyOrNot,
       govermentDoc: null == govermentDoc
           ? _value.govermentDoc
           : govermentDoc // ignore: cast_nullable_to_non_nullable
@@ -12563,6 +13169,14 @@ class __$$DocumentStateImplCopyWithImpl<$Res>
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
               as bool,
+      showErrorMessages: null == showErrorMessages
+          ? _value.showErrorMessages
+          : showErrorMessages // ignore: cast_nullable_to_non_nullable
+              as bool,
+      continueFailureOrSuccessOption: null == continueFailureOrSuccessOption
+          ? _value.continueFailureOrSuccessOption
+          : continueFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AccountFailure, Account>>,
       authFailureOrSuccessOption: null == authFailureOrSuccessOption
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
@@ -12580,6 +13194,7 @@ class _$DocumentStateImpl implements _DocumentState {
       required this.allListLoading,
       required this.isLoading,
       required this.govermentDocId,
+      required this.govmentDocTitle,
       required this.govermentDoc,
       required this.isGovernemtExpiryCheck,
       required this.governmentExpiryDate,
@@ -12592,6 +13207,8 @@ class _$DocumentStateImpl implements _DocumentState {
       required this.isCovidDocSubmitting,
       required this.coviDocAuthFailureOrSuccessOption,
       required this.isSubmitting,
+      required this.showErrorMessages,
+      required this.continueFailureOrSuccessOption,
       required this.authFailureOrSuccessOption})
       : _allDocumentList = allDocumentList;
 
@@ -12613,6 +13230,8 @@ class _$DocumentStateImpl implements _DocumentState {
   final bool isLoading;
   @override
   final int govermentDocId;
+  @override
+  final InputEmptyOrNot govmentDocTitle;
   @override
   final InputEmptyOrNot govermentDoc;
   @override
@@ -12644,12 +13263,16 @@ class _$DocumentStateImpl implements _DocumentState {
   @override
   final bool isSubmitting;
   @override
+  final bool showErrorMessages;
+  @override
+  final Option<Either<AccountFailure, Account>> continueFailureOrSuccessOption;
+  @override
   final Option<Either<AccountFailure, List<DocumentDTO>>>
       authFailureOrSuccessOption;
 
   @override
   String toString() {
-    return 'DocumentState(currentPage: $currentPage, allDocumentList: $allDocumentList, allListLoading: $allListLoading, isLoading: $isLoading, govermentDocId: $govermentDocId, govermentDoc: $govermentDoc, isGovernemtExpiryCheck: $isGovernemtExpiryCheck, governmentExpiryDate: $governmentExpiryDate, showGovernmentIdErrorMessages: $showGovernmentIdErrorMessages, isGovermentDocSubmitting: $isGovermentDocSubmitting, governmentDocAuthFailureOrSuccessOption: $governmentDocAuthFailureOrSuccessOption, covidVaccinationDoc: $covidVaccinationDoc, showCovidErrorMessages: $showCovidErrorMessages, covidDocId: $covidDocId, isCovidDocSubmitting: $isCovidDocSubmitting, coviDocAuthFailureOrSuccessOption: $coviDocAuthFailureOrSuccessOption, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'DocumentState(currentPage: $currentPage, allDocumentList: $allDocumentList, allListLoading: $allListLoading, isLoading: $isLoading, govermentDocId: $govermentDocId, govmentDocTitle: $govmentDocTitle, govermentDoc: $govermentDoc, isGovernemtExpiryCheck: $isGovernemtExpiryCheck, governmentExpiryDate: $governmentExpiryDate, showGovernmentIdErrorMessages: $showGovernmentIdErrorMessages, isGovermentDocSubmitting: $isGovermentDocSubmitting, governmentDocAuthFailureOrSuccessOption: $governmentDocAuthFailureOrSuccessOption, covidVaccinationDoc: $covidVaccinationDoc, showCovidErrorMessages: $showCovidErrorMessages, covidDocId: $covidDocId, isCovidDocSubmitting: $isCovidDocSubmitting, coviDocAuthFailureOrSuccessOption: $coviDocAuthFailureOrSuccessOption, isSubmitting: $isSubmitting, showErrorMessages: $showErrorMessages, continueFailureOrSuccessOption: $continueFailureOrSuccessOption, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
@@ -12667,6 +13290,8 @@ class _$DocumentStateImpl implements _DocumentState {
                 other.isLoading == isLoading) &&
             (identical(other.govermentDocId, govermentDocId) ||
                 other.govermentDocId == govermentDocId) &&
+            (identical(other.govmentDocTitle, govmentDocTitle) ||
+                other.govmentDocTitle == govmentDocTitle) &&
             (identical(other.govermentDoc, govermentDoc) ||
                 other.govermentDoc == govermentDoc) &&
             (identical(other.isGovernemtExpiryCheck, isGovernemtExpiryCheck) ||
@@ -12690,38 +13315,46 @@ class _$DocumentStateImpl implements _DocumentState {
                 other.covidDocId == covidDocId) &&
             (identical(other.isCovidDocSubmitting, isCovidDocSubmitting) ||
                 other.isCovidDocSubmitting == isCovidDocSubmitting) &&
-            (identical(other.coviDocAuthFailureOrSuccessOption,
-                    coviDocAuthFailureOrSuccessOption) ||
+            (identical(other.coviDocAuthFailureOrSuccessOption, coviDocAuthFailureOrSuccessOption) ||
                 other.coviDocAuthFailureOrSuccessOption ==
                     coviDocAuthFailureOrSuccessOption) &&
             (identical(other.isSubmitting, isSubmitting) ||
                 other.isSubmitting == isSubmitting) &&
-            (identical(
-                    other.authFailureOrSuccessOption, authFailureOrSuccessOption) ||
-                other.authFailureOrSuccessOption == authFailureOrSuccessOption));
+            (identical(other.showErrorMessages, showErrorMessages) ||
+                other.showErrorMessages == showErrorMessages) &&
+            (identical(other.continueFailureOrSuccessOption, continueFailureOrSuccessOption) ||
+                other.continueFailureOrSuccessOption ==
+                    continueFailureOrSuccessOption) &&
+            (identical(other.authFailureOrSuccessOption, authFailureOrSuccessOption) ||
+                other.authFailureOrSuccessOption ==
+                    authFailureOrSuccessOption));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      currentPage,
-      const DeepCollectionEquality().hash(_allDocumentList),
-      allListLoading,
-      isLoading,
-      govermentDocId,
-      govermentDoc,
-      isGovernemtExpiryCheck,
-      governmentExpiryDate,
-      showGovernmentIdErrorMessages,
-      isGovermentDocSubmitting,
-      governmentDocAuthFailureOrSuccessOption,
-      covidVaccinationDoc,
-      showCovidErrorMessages,
-      covidDocId,
-      isCovidDocSubmitting,
-      coviDocAuthFailureOrSuccessOption,
-      isSubmitting,
-      authFailureOrSuccessOption);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        currentPage,
+        const DeepCollectionEquality().hash(_allDocumentList),
+        allListLoading,
+        isLoading,
+        govermentDocId,
+        govmentDocTitle,
+        govermentDoc,
+        isGovernemtExpiryCheck,
+        governmentExpiryDate,
+        showGovernmentIdErrorMessages,
+        isGovermentDocSubmitting,
+        governmentDocAuthFailureOrSuccessOption,
+        covidVaccinationDoc,
+        showCovidErrorMessages,
+        covidDocId,
+        isCovidDocSubmitting,
+        coviDocAuthFailureOrSuccessOption,
+        isSubmitting,
+        showErrorMessages,
+        continueFailureOrSuccessOption,
+        authFailureOrSuccessOption
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -12737,6 +13370,7 @@ abstract class _DocumentState implements DocumentState {
       required final bool allListLoading,
       required final bool isLoading,
       required final int govermentDocId,
+      required final InputEmptyOrNot govmentDocTitle,
       required final InputEmptyOrNot govermentDoc,
       required final bool isGovernemtExpiryCheck,
       required final String governmentExpiryDate,
@@ -12751,6 +13385,9 @@ abstract class _DocumentState implements DocumentState {
       required final Option<Either<AccountFailure, String>>
           coviDocAuthFailureOrSuccessOption,
       required final bool isSubmitting,
+      required final bool showErrorMessages,
+      required final Option<Either<AccountFailure, Account>>
+          continueFailureOrSuccessOption,
       required final Option<Either<AccountFailure, List<DocumentDTO>>>
           authFailureOrSuccessOption}) = _$DocumentStateImpl;
 
@@ -12766,6 +13403,8 @@ abstract class _DocumentState implements DocumentState {
   bool get isLoading;
   @override
   int get govermentDocId;
+  @override
+  InputEmptyOrNot get govmentDocTitle;
   @override
   InputEmptyOrNot get govermentDoc;
   @override
@@ -12795,6 +13434,10 @@ abstract class _DocumentState implements DocumentState {
 
   /// SUBMIT
   bool get isSubmitting;
+  @override
+  bool get showErrorMessages;
+  @override
+  Option<Either<AccountFailure, Account>> get continueFailureOrSuccessOption;
   @override
   Option<Either<AccountFailure, List<DocumentDTO>>>
       get authFailureOrSuccessOption;

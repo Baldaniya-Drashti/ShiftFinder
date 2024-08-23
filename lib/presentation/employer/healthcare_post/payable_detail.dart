@@ -98,6 +98,7 @@ class PayableDetail extends StatelessWidget {
                                       },
                                       onDeleteClick: () {
                                         Navigator.pop(context);
+
                                         context.read<PostShiftBloc>().add(
                                             PostShiftEvent.postTheShiftEvent(
                                                 post.id ?? -1));

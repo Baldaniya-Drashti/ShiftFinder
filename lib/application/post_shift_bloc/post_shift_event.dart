@@ -98,7 +98,8 @@ class PostShiftEvent with _$PostShiftEvent {
       DifferentTimeShiftSubmitted;
 
   const factory PostShiftEvent.initMultiDifferentDateEvent(
-      List<DateTimeDTO> list) = InitMultiDifferentDateEvent;
+      List<DateTimeDTO> list,
+      {required PostShiftDTO post}) = InitMultiDifferentDateEvent;
   const factory PostShiftEvent.backEvent() = BackEvent;
   const factory PostShiftEvent.sameTimeShiftSubmitted(BuildContext context) =
       SameTimeShiftSubmitted;

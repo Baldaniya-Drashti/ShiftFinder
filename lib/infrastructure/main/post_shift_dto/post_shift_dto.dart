@@ -18,8 +18,8 @@ class PostShiftDTO with _$PostShiftDTO {
     String? location_id,
     String? location_unit,
     double? rate_hour,
-    MultiShiftDTO? shiftDetail,
-    int? post_shift_id,
+    // MultiShiftDTO? shiftDetail,
+    // int? post_shift_id,
     int? recurring_status,
     String? start_date,
     int? recurrence_mode,
@@ -29,6 +29,26 @@ class PostShiftDTO with _$PostShiftDTO {
     int? share_team_status,
     String? team_id,
     int? save_template_status,
+
+    /// New Params
+    int? shift_type,
+    String? date,
+    int? same_or_different_time,
+    String? multi_date,
+    String? start_time,
+    String? end_time,
+    int? unpaid_break_id,
+    String? total_payable_hour,
+    int? commute_allowance_type,
+    String? commute_allowance,
+    int? accommodation_allowance_type,
+    String? accommodation_allowance,
+    int? individual_shift,
+    String? shift_note,
+    int? vacancie_type,
+    int? number_of_vacancie,
+    String? recurring_start_date,
+    String? recurring_end_date,
   }) = _PostShiftDTO;
 
   factory PostShiftDTO.fromJson(Map<String, dynamic> json) =>

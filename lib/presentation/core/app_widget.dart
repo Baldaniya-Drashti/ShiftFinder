@@ -49,7 +49,7 @@ class _AppState extends State<_App> {
       child: ScreenUtilInit(
         ensureScreenSize: true,
         child: MaterialApp.router(
-          title: 'Shift Finder',
+          title: 'ShiftFinder',
           debugShowCheckedModeBanner: false,
           theme: ThemeConfig.lightTheme,
           routerConfig: appRouter.config(),
