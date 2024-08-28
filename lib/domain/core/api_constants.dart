@@ -109,4 +109,7 @@ class ApiConstants {
 
   //employer dashboard
   static String employerDashboard = 'employer_dashboard';
+
+  //team
+  static String getTeamList = 'get_team';
 }

@@ -12,6 +12,8 @@ import 'package:auto_route/auto_route.dart' as _i46;
 import 'package:flutter/material.dart' as _i47;
 import 'package:shift/application/auth/contractor_auth/location_example.dart'
     as _i23;
+import 'package:shift/infrastructure/main/employer_team/get_teams_dto.dart'
+    as _i48;
 import 'package:shift/presentation/auth/contractor_auth/add_bank_details.dart'
     as _i1;
 import 'package:shift/presentation/auth/contractor_auth/add_contractor_skills.dart'
@@ -401,7 +403,7 @@ abstract class $AppRouter extends _i46.RootStackRouter {
         routeData: routeData,
         child: _i37.TeamDetailView(
           key: args.key,
-          teamName: args.teamName,
+          getTeamsListDTO: args.getTeamsListDTO,
         ),
       );
     },
@@ -1425,13 +1427,13 @@ class SplashPage extends _i46.PageRouteInfo<void> {
 class TeamDetailView extends _i46.PageRouteInfo<TeamDetailViewArgs> {
   TeamDetailView({
     _i47.Key? key,
-    required String teamName,
+    required _i48.GetTeamsListDTO getTeamsListDTO,
     List<_i46.PageRouteInfo>? children,
   }) : super(
           TeamDetailView.name,
           args: TeamDetailViewArgs(
             key: key,
-            teamName: teamName,
+            getTeamsListDTO: getTeamsListDTO,
           ),
           initialChildren: children,
         );
@@ -1445,16 +1447,16 @@ class TeamDetailView extends _i46.PageRouteInfo<TeamDetailViewArgs> {
 class TeamDetailViewArgs {
   const TeamDetailViewArgs({
     this.key,
-    required this.teamName,
+    required this.getTeamsListDTO,
   });
 
   final _i47.Key? key;
 
-  final String teamName;
+  final _i48.GetTeamsListDTO getTeamsListDTO;
 
   @override
   String toString() {
-    return 'TeamDetailViewArgs{key: $key, teamName: $teamName}';
+    return 'TeamDetailViewArgs{key: $key, getTeamsListDTO: $getTeamsListDTO}';
   }
 }
 

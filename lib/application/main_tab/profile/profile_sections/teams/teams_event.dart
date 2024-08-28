@@ -7,4 +7,5 @@ class TeamsEvent with _$TeamsEvent {
 
   const factory TeamsEvent.changeTeamName(String teamName) = ChangeTeamName;
   const factory TeamsEvent.createTeam() = CreateTeam;
+  const factory TeamsEvent.getTeamList(bool isRefresh) = GetTeamList;
 }

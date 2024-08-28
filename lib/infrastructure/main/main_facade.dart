@@ -113,7 +113,39 @@ class MainFacade implements IMainFacade {
   @override
   Future<Either<MainFailure, CommonResponse>> getViewApplicantsAPI(
       {required String postId, required bool isTotalApplicants}) {
-
     throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> getEmployerTeamsListAPI(
+      {required int page}) async {
+    try {
+      Map<String, dynamic> mapData = {
+        'page': page,
+        'perPage': _perPage,
+      };
+
+      final res = await apiService.getMethod(ApiConstants.getTeamList,
+          queryParameters: mapData);
+
+      if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
   }
 }

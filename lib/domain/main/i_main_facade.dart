@@ -24,4 +24,8 @@ abstract class IMainFacade {
     required String postId,
     required bool isTotalApplicants,
   });
+
+  Future<Either<MainFailure, CommonResponse>> getEmployerTeamsListAPI({
+    required int page,
+  });
 }
