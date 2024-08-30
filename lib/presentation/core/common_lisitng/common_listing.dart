@@ -1,5 +1,8 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
 
 class CommonList {
@@ -126,19 +129,43 @@ class CommonList {
     "12"
   ];
 
-  // static List<ListDTO> languageList = [
-  //   ListDTO(id: 1, title: "English"),
-  //   ListDTO(id: 2, title: "Hindi"),
-  //   ListDTO(id: 3, title: "Gujrati"),
-  //   ListDTO(id: 4, title: "Punjabi"),
-  //   ListDTO(id: 5, title: "Marathi"),
-  //   ListDTO(id: 6, title: "Italian"),
-  //   ListDTO(id: 7, title: "Japanese"),
-  //   ListDTO(id: 8, title: "Kannada"),
-  //   ListDTO(id: 9, title: "Mandarin"),
-  //   ListDTO(id: 10, title: "Persian"),
-  //   ListDTO(id: 11, title: "Spanish"),
-  //   ListDTO(id: 12, title: "Tamil"),
-  //   ListDTO(id: 13, title: "Other"),
-  // ];
+  static List<String> hourList = [
+    '01 AM',
+    '02 AM',
+    '03 AM',
+    '04 AM',
+    '05 AM',
+    '06 AM',
+    '07 AM',
+    '08 AM',
+    '09 AM',
+    '10 AM',
+    '11 AM',
+    '12 AM',
+    '01 PM',
+    '02 PM',
+    '03 PM',
+    '04 PM',
+    '05 PM',
+    '06 PM',
+    '07 PM',
+    '08 PM',
+    '09 PM',
+    '10 PM',
+    '11 PM',
+    '12 PM',
+  ];
+
+  static List<String> minutesList = ['00 Min', '15 Min', '30 Min', '45 Min'];
+  static List<String> commuteAllownceList = ['None', 'Flat Rate', 'Hours'];
+  static List<String> recurrenceModeList = ['Daily', 'Weekly'];
+  static List<SkillDTO> weekList = [
+    SkillDTO(id: 0, name: "Monday"),
+    SkillDTO(id: 1, name: "Tuesday"),
+    SkillDTO(id: 2, name: "Wednesday"),
+    SkillDTO(id: 3, name: "Thursday"),
+    SkillDTO(id: 4, name: "Friday"),
+    SkillDTO(id: 5, name: "Saturday"),
+    SkillDTO(id: 6, name: "Sunday"),
+  ];
 }

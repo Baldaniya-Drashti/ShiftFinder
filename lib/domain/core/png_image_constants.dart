@@ -34,6 +34,7 @@ class PngImageConstants {
   static const person = "assets/png/person.png";
   static const emptyProfileImage = "assets/png/empty_profile_image.png";
   static const teamImage = "assets/png/team_image.png";
+  static const thumbsUp = "assets/png/thumbs_up.png";
 
   static const List<String> allImages = [
     iroid_logo,
@@ -59,5 +60,6 @@ class PngImageConstants {
     document_img,
     upload,
     intro__video_image,
+    thumbsUp,
   ];
 }

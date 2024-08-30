@@ -277,6 +277,55 @@ class StringConstant {
   static const String endTime = "End Time";
   static const String startTime = "Start Time";
   static const String shiftType = "Shift Type";
+  static const String single = "Single";
+  static const String multi = "Multi";
+  static const String longTerm = "Long-Term";
+  static const String date = "Date";
+  static const String hour = "Hour";
+  static const String min = "Min";
+  static const String totalPayableHours = "Total Payable Hours";
+  static const String addShiftNotes = "Add Shift Notes";
+  static const String singleShiftVacancyDesc =
+      "We are looking to fill more than one vacancies with the same requirements.";
+  static const String numberOfVacancies = "Number of vacancies";
+  static const String selectHours = "Select Hours";
+  static const String idLikeThisShiftToBeRecurring =
+      "I’d like this shift to be recurring";
+  static const String shareThisPostingWithTheTeam =
+      "Share this posting with the Team";
+  static const String saveThisAsATemplateForFuturePosting =
+      "Save this as a template for future posting";
+  static const String startDateForRecurrence = "Start Date For Recurrence";
+  static const String recurrenceMode = "Recurrence Mode";
+  static const String selectTheDaysForRecurring =
+      "Select The Days For Recurring";
+  static const String endDateForRecurrence = "End Date For Recurrence";
+  static const String never = "Never";
+  static const String selectTeams = "Select Teams";
+  static const String reviewDetails = "Review Details";
+  static const String payables = "Payables";
+  static const String totalWage = "Total Wage";
+  static const String totalAllowance = "Total Allowance";
+  static const String totalPayableForOneShift = "Total payable for one shift";
+  static const String totalAmountPayable = "Total Amount Payable";
+  static const String postTheShift = "Post The Shift";
+  static const String postShiftDesc =
+      "Once posted, the shift date and time cannot be changed";
+  static const String post = "Post";
+  static const String allSet = "All Set!";
+  static const String shiftSuccessDesc =
+      "Your healthcare shift has been successfully posted, with a total of 5 vacancy.";
+  static const String postAsIndividualShifts = "Post as individual shifts";
+  static const String addTime = "Add Time";
+  static const String sameTimeForAllDates = "Same Time For All Dates";
+  static const String differentTimeForEachDate = "Different Time For Each Date";
+  static const String totalNumberOfDays = "Total Number of Days";
+  static const String totalCommuteAllowance = "Total Commute Allowance";
+  static const String totalAccommodationAllowance = "Total Accommodation Allowance";
+  static const String sumOfAmounts = "Sum Of Amounts";
+  static const String totalAmount = "Total Amount";
+  static const String shiftTime = "Shift Time";
+
 
   ///
 
@@ -404,4 +453,26 @@ class StringConstant {
   static const String pleaseSelectLocationUnit = "Please select location unit";
   static const String somethindWentWrong =
       "Something wrong. Please try again!!";
+  static const String pleaseSelectHourAndMinutesOfStartTime =
+      "Please select hour and minutes of start time";
+  static const String pleaseSelectHourAndMinutesOfEndTime =
+      "Please select hour and minutes of end time";
+  static const String pleaseSelectUnpaidBreakTime =
+      "Please select unpaid break time";
+  static const String pleaseSelectDate = "Please select date";
+  static const String pleaseSelectCommuteAllownceValue =
+      "Please add commute allowance value";
+  static const String pleaseSelectAccomdationAllownceValue =
+      "Please add accomdation allowance value";
+  static const String pleaseAddNumberOfVacancies =
+      "Please add number of vacancies";
+  static const String pleaseSelectRecurrenceMode =
+      "Please select recurrence mode";
+  static const String pleaseSelectAtLeastOneTeam =
+      "Please select at least one team";
+
+  static const String pleaseSelectAtLeastOneDate =
+      "Please select at least one date";
+  static const String pleaseSelectStartAndEndTimeForEachDate =
+      "Please select start and end time for each date";
 }

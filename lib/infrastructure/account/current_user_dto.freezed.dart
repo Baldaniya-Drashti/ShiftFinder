@@ -40,7 +40,7 @@ mixin _$CurrentUserDto {
   int? get isProfileComplete => throw _privateConstructorUsedError;
   @JsonKey(name: 'company_name')
   String? get companyName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'countryCode')
+  @JsonKey(name: 'country_code')
   String? get countryCode => throw _privateConstructorUsedError;
   @JsonKey(name: 'country_name_code')
   String? get countryNameCode => throw _privateConstructorUsedError;
@@ -88,7 +88,7 @@ abstract class $CurrentUserDtoCopyWith<$Res> {
       @JsonKey(name: 'profile') String? profileImage,
       @JsonKey(name: 'isProfileComplete') int? isProfileComplete,
       @JsonKey(name: 'company_name') String? companyName,
-      @JsonKey(name: 'countryCode') String? countryCode,
+      @JsonKey(name: 'country_code') String? countryCode,
       @JsonKey(name: 'country_name_code') String? countryNameCode,
       @JsonKey(name: 'phone') int? phone,
       @JsonKey(name: 'association_you_belong_to') String? association,
@@ -264,7 +264,7 @@ abstract class _$$CurrentUserDtoImplCopyWith<$Res>
       @JsonKey(name: 'profile') String? profileImage,
       @JsonKey(name: 'isProfileComplete') int? isProfileComplete,
       @JsonKey(name: 'company_name') String? companyName,
-      @JsonKey(name: 'countryCode') String? countryCode,
+      @JsonKey(name: 'country_code') String? countryCode,
       @JsonKey(name: 'country_name_code') String? countryNameCode,
       @JsonKey(name: 'phone') int? phone,
       @JsonKey(name: 'association_you_belong_to') String? association,
@@ -422,7 +422,7 @@ class _$CurrentUserDtoImpl extends _CurrentUserDto {
       @JsonKey(name: 'profile') this.profileImage,
       @JsonKey(name: 'isProfileComplete') this.isProfileComplete,
       @JsonKey(name: 'company_name') this.companyName,
-      @JsonKey(name: 'countryCode') this.countryCode,
+      @JsonKey(name: 'country_code') this.countryCode,
       @JsonKey(name: 'country_name_code') this.countryNameCode,
       @JsonKey(name: 'phone') this.phone,
       @JsonKey(name: 'association_you_belong_to') this.association,
@@ -473,7 +473,7 @@ class _$CurrentUserDtoImpl extends _CurrentUserDto {
   @JsonKey(name: 'company_name')
   final String? companyName;
   @override
-  @JsonKey(name: 'countryCode')
+  @JsonKey(name: 'country_code')
   final String? countryCode;
   @override
   @JsonKey(name: 'country_name_code')
@@ -639,7 +639,7 @@ abstract class _CurrentUserDto extends CurrentUserDto {
       @JsonKey(name: 'profile') final String? profileImage,
       @JsonKey(name: 'isProfileComplete') final int? isProfileComplete,
       @JsonKey(name: 'company_name') final String? companyName,
-      @JsonKey(name: 'countryCode') final String? countryCode,
+      @JsonKey(name: 'country_code') final String? countryCode,
       @JsonKey(name: 'country_name_code') final String? countryNameCode,
       @JsonKey(name: 'phone') final int? phone,
       @JsonKey(name: 'association_you_belong_to') final String? association,
@@ -687,7 +687,7 @@ abstract class _CurrentUserDto extends CurrentUserDto {
   @JsonKey(name: 'company_name')
   String? get companyName;
   @override
-  @JsonKey(name: 'countryCode')
+  @JsonKey(name: 'country_code')
   String? get countryCode;
   @override
   @JsonKey(name: 'country_name_code')

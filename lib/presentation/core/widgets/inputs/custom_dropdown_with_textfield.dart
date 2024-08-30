@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
@@ -16,7 +17,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
     this.value,
     required this.items,
     required this.onChanged,
-    this.isLabelPadding = false,
+    this.isLabelPadding = true,
     this.showTextfield = true,
     this.showDropDown = false,
     this.showPrefixIcon = false,
@@ -35,6 +36,11 @@ class CustomDropdwonWithTextField extends StatelessWidget {
     this.showChildDropDownPrefixIcon = false,
     this.childDropDownItems,
     this.ddPrefixIcon,
+    this.fieldPrefixIcon,
+    this.fieldPrefixIconConstraints,
+    this.fieldInputFormatters,
+    this.fieldKeyboardType,
+    this.fieldInitialValue,
   });
   final String? labelText;
   final Widget? ddPrefixIcon;
@@ -61,6 +67,11 @@ class CustomDropdwonWithTextField extends StatelessWidget {
   final bool showChildDropDownPrefixIcon;
   final String? childDropDownValue;
   final List<DropdownMenuItem<String>>? childDropDownItems;
+  final BoxConstraints? fieldPrefixIconConstraints;
+  final Widget? fieldPrefixIcon;
+  final List<TextInputFormatter>? fieldInputFormatters;
+  final TextInputType? fieldKeyboardType;
+  final String? fieldInitialValue;
 
   @override
   Widget build(BuildContext context) {
@@ -213,7 +224,12 @@ class CustomDropdwonWithTextField extends StatelessWidget {
       errorMaxLines: 2,
       onChanged: fieldOnChanged,
       validator: fieldValidator,
+      prefixIcon: fieldPrefixIcon,
+      prefixIconConstraints: fieldPrefixIconConstraints,
+      inputFormatters: fieldInputFormatters,
+      keyboardType: fieldKeyboardType,
       controller: fieldController,
+      initialValue: fieldInitialValue,
     );
   }
 

@@ -95,4 +95,5 @@ class SvgImageConstant {
   static const customerSupport = "assets/svg/contact_support.svg";
   static const logout = "assets/svg/logout.svg";
   static const teamIcon = "assets/svg/team_icon.svg";
+  static const threePersonWithPlus = "assets/svg/three_person_with_plus.svg";
 }

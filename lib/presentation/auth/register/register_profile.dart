@@ -82,11 +82,10 @@ class RegisterProfileScreen extends StatelessWidget {
                   },
                   (r) {
                     AppFocus.unfocus(context);
-
                     const VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
                       context,
                       (getCurrentRole() == 1)
-                          ? "${state.selectedCountrycode} ${state.enteredPhoneNo}"
+                          ? "+${state.selectedCountrycode} ${state.enteredPhoneNo}"
                           : state.email.getValue(),
                       state.password.getValue(),
                     );
@@ -604,9 +603,13 @@ class RegisterProfileScreen extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         CustomTextField(
-          labelText: StringConstant.locationAddress,
+          labelText: (getCurrentRole() == 1)
+              ? StringConstant.address
+              : StringConstant.locationAddress,
           isLabelPadding: true,
-          hintText: StringConstant.locationAddress,
+          hintText: (getCurrentRole() == 1)
+              ? StringConstant.address
+              : StringConstant.locationAddress,
           // controller: TextEditingController()
           //   ..text = state.locationAddress.getValue() ?? "",
           controller: RegisterFormBloc.locationCtrl,
@@ -628,7 +631,9 @@ class RegisterProfileScreen extends StatelessWidget {
           validator: (p0, p1) =>
               context.read<RegisterFormBloc>().state.locationAddress.value.fold(
                     (f) => f.maybeMap(
-                      empty: (value) => StringConstant.pleaseEnterLocationName,
+                      empty: (value) => (getCurrentRole() == 1)
+                          ? StringConstant.pleaseEnterAddress
+                          : StringConstant.pleaseEnterLocationName,
                       orElse: () => null,
                     ),
                     (_) => null,

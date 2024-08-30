@@ -24,6 +24,7 @@ mixin _$SkillDTO {
   String? get name => throw _privateConstructorUsedError;
   String? get shortName => throw _privateConstructorUsedError;
   int? get answer => throw _privateConstructorUsedError;
+  int? get minute => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +37,8 @@ abstract class $SkillDTOCopyWith<$Res> {
   factory $SkillDTOCopyWith(SkillDTO value, $Res Function(SkillDTO) then) =
       _$SkillDTOCopyWithImpl<$Res, SkillDTO>;
   @useResult
-  $Res call({int? id, String? name, String? shortName, int? answer});
+  $Res call(
+      {int? id, String? name, String? shortName, int? answer, int? minute});
 }
 
 /// @nodoc
@@ -56,6 +58,7 @@ class _$SkillDTOCopyWithImpl<$Res, $Val extends SkillDTO>
     Object? name = freezed,
     Object? shortName = freezed,
     Object? answer = freezed,
+    Object? minute = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -74,6 +77,10 @@ class _$SkillDTOCopyWithImpl<$Res, $Val extends SkillDTO>
           ? _value.answer
           : answer // ignore: cast_nullable_to_non_nullable
               as int?,
+      minute: freezed == minute
+          ? _value.minute
+          : minute // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -86,7 +93,8 @@ abstract class _$$SkillDTOImplCopyWith<$Res>
       __$$SkillDTOImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int? id, String? name, String? shortName, int? answer});
+  $Res call(
+      {int? id, String? name, String? shortName, int? answer, int? minute});
 }
 
 /// @nodoc
@@ -104,6 +112,7 @@ class __$$SkillDTOImplCopyWithImpl<$Res>
     Object? name = freezed,
     Object? shortName = freezed,
     Object? answer = freezed,
+    Object? minute = freezed,
   }) {
     return _then(_$SkillDTOImpl(
       id: freezed == id
@@ -122,6 +131,10 @@ class __$$SkillDTOImplCopyWithImpl<$Res>
           ? _value.answer
           : answer // ignore: cast_nullable_to_non_nullable
               as int?,
+      minute: freezed == minute
+          ? _value.minute
+          : minute // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -129,7 +142,8 @@ class __$$SkillDTOImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$SkillDTOImpl implements _SkillDTO {
-  const _$SkillDTOImpl({this.id, this.name, this.shortName, this.answer});
+  const _$SkillDTOImpl(
+      {this.id, this.name, this.shortName, this.answer, this.minute});
 
   factory _$SkillDTOImpl.fromJson(Map<String, dynamic> json) =>
       _$$SkillDTOImplFromJson(json);
@@ -142,10 +156,12 @@ class _$SkillDTOImpl implements _SkillDTO {
   final String? shortName;
   @override
   final int? answer;
+  @override
+  final int? minute;
 
   @override
   String toString() {
-    return 'SkillDTO(id: $id, name: $name, shortName: $shortName, answer: $answer)';
+    return 'SkillDTO(id: $id, name: $name, shortName: $shortName, answer: $answer, minute: $minute)';
   }
 
   @override
@@ -157,12 +173,14 @@ class _$SkillDTOImpl implements _SkillDTO {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.shortName, shortName) ||
                 other.shortName == shortName) &&
-            (identical(other.answer, answer) || other.answer == answer));
+            (identical(other.answer, answer) || other.answer == answer) &&
+            (identical(other.minute, minute) || other.minute == minute));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, shortName, answer);
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, shortName, answer, minute);
 
   @JsonKey(ignore: true)
   @override
@@ -183,7 +201,8 @@ abstract class _SkillDTO implements SkillDTO {
       {final int? id,
       final String? name,
       final String? shortName,
-      final int? answer}) = _$SkillDTOImpl;
+      final int? answer,
+      final int? minute}) = _$SkillDTOImpl;
 
   factory _SkillDTO.fromJson(Map<String, dynamic> json) =
       _$SkillDTOImpl.fromJson;
@@ -196,6 +215,8 @@ abstract class _SkillDTO implements SkillDTO {
   String? get shortName;
   @override
   int? get answer;
+  @override
+  int? get minute;
   @override
   @JsonKey(ignore: true)
   _$$SkillDTOImplCopyWith<_$SkillDTOImpl> get copyWith =>

@@ -578,54 +578,52 @@ class HealthCarePostForm extends StatelessWidget {
                 );
               },
               builder: (context, state) {
-                return Stack(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                      child: Form(
-                        autovalidateMode: state.showErrorMessages
-                            ? AutovalidateMode.always
-                            : AutovalidateMode.disabled,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                PngImageConstants.healthcare_post_employer,
-                              ),
-                              paddingBetweenFields(),
-                              roleDropDown(context, state),
-                              paddingBetweenFields(),
-                              requiredSpecialityDropDownChipset(context, state),
-                              paddingBetweenFields(),
-                              preferredSoftwareSkillsDropDownChipSet(
-                                  context, state),
-                              paddingBetweenFields(),
-                              languageDropDownChipSet(context, state),
-                              paddingBetweenFields(),
-                              locationDropDown(context, state),
-                              paddingBetweenFields(),
-                              rateHourDropDown(context, state),
-                              Padding(
-                                padding:
-                                    EdgeInsets.symmetric(vertical: getSize(50)),
-                                child: CommonButton(
-                                  isSubmitting: state.isSubmitting,
-                                  onPressed: () {
-                                    context.read<HealthcarePostBloc>().add(
-                                        const HealthcarePostEvent
-                                            .continueBtnPressed());
-                                  },
-                                  buttonText: StringConstant.txtContinue,
+                return (state.isLoading)
+                    ? CenterLoadingIndicator()
+                    : Padding(
+                        padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                        child: Form(
+                          autovalidateMode: state.showErrorMessages
+                              ? AutovalidateMode.always
+                              : AutovalidateMode.disabled,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  PngImageConstants.healthcare_post_employer,
                                 ),
-                              ),
-                            ],
+                                paddingBetweenFields(),
+                                roleDropDown(context, state),
+                                paddingBetweenFields(),
+                                requiredSpecialityDropDownChipset(
+                                    context, state),
+                                paddingBetweenFields(),
+                                preferredSoftwareSkillsDropDownChipSet(
+                                    context, state),
+                                paddingBetweenFields(),
+                                languageDropDownChipSet(context, state),
+                                paddingBetweenFields(),
+                                locationDropDown(context, state),
+                                paddingBetweenFields(),
+                                rateHourDropDown(context, state),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(50)),
+                                  child: CommonButton(
+                                    isSubmitting: state.isSubmitting,
+                                    onPressed: () {
+                                      context.read<HealthcarePostBloc>().add(
+                                          const HealthcarePostEvent
+                                              .continueBtnPressed());
+                                    },
+                                    buttonText: StringConstant.txtContinue,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                    if (state.isLoading) CenterLoadingIndicator(),
-                  ],
-                );
+                      );
               },
             )),
       ),
@@ -732,6 +730,7 @@ class HealthCarePostForm extends StatelessWidget {
             buttonText: StringConstant.add,
             buttonFontSize: 10,
             onPressed: () {
+              print("Other skill--> ${otherPreferredSkillsController.text}");
               context
                   .read<HealthcarePostBloc>()
                   .add(HealthcarePostEvent.addPreferedSoftwareSkillchips(

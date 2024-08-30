@@ -15,6 +15,7 @@ _$HealthcarePostDTOImpl _$$HealthcarePostDTOImplFromJson(
       roles_list: (json['roles_list'] as List<dynamic>?)
           ?.map((e) => SkillDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
+      roles_list_name: json['roles_list_name'] as String?,
       specialties_detail_list:
           (json['specialties_detail_list'] as List<dynamic>?)
               ?.map((e) => SpecialityDTO.fromJson(e as Map<String, dynamic>))
@@ -32,6 +33,12 @@ _$HealthcarePostDTOImpl _$$HealthcarePostDTOImplFromJson(
           : LocationDTO.fromJson(json['location'] as Map<String, dynamic>),
       location_unit: json['location_unit'] as String?,
       rate_hour: (json['rate_hour'] as num?)?.toDouble(),
+      shift_detail: json['shift_detail'] == null
+          ? null
+          : ShiftDetailDTO.fromJson(
+              json['shift_detail'] as Map<String, dynamic>),
+      software_skill: json['software_skill'] as String?,
+      specialties_detail: json['specialties_detail'] as String?,
     );
 
 Map<String, dynamic> _$$HealthcarePostDTOImplToJson(
@@ -41,6 +48,7 @@ Map<String, dynamic> _$$HealthcarePostDTOImplToJson(
       'listing_id': instance.listing_id,
       'last_ago': instance.last_ago,
       'roles_list': instance.roles_list,
+      'roles_list_name': instance.roles_list_name,
       'specialties_detail_list': instance.specialties_detail_list,
       'softwares_skill_list': instance.softwares_skill_list,
       'software_skill_other': instance.software_skill_other,
@@ -49,4 +57,7 @@ Map<String, dynamic> _$$HealthcarePostDTOImplToJson(
       'location': instance.location,
       'location_unit': instance.location_unit,
       'rate_hour': instance.rate_hour,
+      'shift_detail': instance.shift_detail,
+      'software_skill': instance.software_skill,
+      'specialties_detail': instance.specialties_detail,
     };

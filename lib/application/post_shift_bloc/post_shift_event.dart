@@ -3,6 +3,100 @@ part of 'post_shift_bloc.dart';
 @freezed
 class PostShiftEvent with _$PostShiftEvent {
   /// change shift type
-  const factory PostShiftEvent.changeShiftType(String shiftType) =
-      ChangeShiftType;
+  const factory PostShiftEvent.changeShiftType(String shiftType,
+      {required int postId}) = ChangeShiftType;
+
+  /// Single Shift
+  const factory PostShiftEvent.getBreakAllownceListApi() =
+      GetBreakAllownceListApi;
+  const factory PostShiftEvent.singleShiftDateChangedEvent(
+      String selectedDate) = SingleShiftDateChangedEvent;
+  const factory PostShiftEvent.startHourChanged(String hour) = StartHourChanged;
+  const factory PostShiftEvent.startMinuteChanged(String minute) =
+      StartMinuteChanged;
+  const factory PostShiftEvent.endHourChanged(String hour) = EndHourChanged;
+  const factory PostShiftEvent.endMinuteChanged(String minute) =
+      EndMinuteChanged;
+  const factory PostShiftEvent.unpaidBreakChanged(String breakTime) =
+      UnpaidBreakChanged;
+  const factory PostShiftEvent.totalPayableHoursChanged() =
+      TotalPayableHoursChanged;
+
+  const factory PostShiftEvent.commuteAllownceChanged(String selectedValue) =
+      CommuteAllownceChanged;
+  const factory PostShiftEvent.commuteHoursChanged(String selectedValue) =
+      CommuteHoursChanged;
+  const factory PostShiftEvent.commuteRateChanged(String selectedValue) =
+      CommuteRateChanged;
+
+  const factory PostShiftEvent.accomdationAllownceChanged(
+      String selectedValue) = AccomdationAllownceChanged;
+  const factory PostShiftEvent.accomdationHoursChanged(String selectedValue) =
+      AccomdationHoursChanged;
+  const factory PostShiftEvent.accomdationRateChanged(String selectedValue) =
+      AccomdationRateChanged;
+
+  const factory PostShiftEvent.singleShiftNotesChanged(String note) =
+      SingleShiftNotes;
+
+  const factory PostShiftEvent.checkIsMoreVancancy(bool isMoreVacancy) =
+      CheckIsMoreVancancy;
+
+  const factory PostShiftEvent.addVacancyChanged(String vacancy) =
+      AddVacancyChanged;
+
+  const factory PostShiftEvent.singleShiftSubmitted() = SingleShiftSubmitted;
+
+  /// For recurring, template,share with teams
+  const factory PostShiftEvent.getTeamsListEvent() = GetTeamsList;
+  const factory PostShiftEvent.recurringCheck(bool isCheck) = RecurringCheck;
+  const factory PostShiftEvent.shareWithTeamsCheck(bool isCheck) =
+      ShareWithTeamsCheck;
+  const factory PostShiftEvent.saveAsTemplateCheck(bool isCheck) =
+      SaveAsTemplateCheck;
+  const factory PostShiftEvent.disclaimerChanged(String note) =
+      DisclaimerChanged;
+  const factory PostShiftEvent.recurringStartDateChanged(String selectedDate) =
+      RecurringStartDateChanged;
+  const factory PostShiftEvent.recurrenceModeChanged(String mode) =
+      RecurrenceModeChanged;
+  const factory PostShiftEvent.recurrenceWeeksChanged(SkillDTO day) =
+      RecurrenceWeeksChanged;
+  const factory PostShiftEvent.recurringEndDateChanged(String selectedDate) =
+      RecurringEndDateChanged;
+
+  const factory PostShiftEvent.selectTeamEvent(TeamDTO team) = SelectTeamEvent;
+  const factory PostShiftEvent.recurringButtonEvent(int postShiftId) =
+      RecurringButtonEvent;
+
+  /// Multi Shift
+  const factory PostShiftEvent.checkIsIndividualPost(bool isIndividualPost) =
+      CheckIsIndividualPost;
+  const factory PostShiftEvent.multiDateSelectionChanged(
+      List<DateTime> selectedDates) = multiDateSelectionChanged;
+  const factory PostShiftEvent.multidateContinueButtonPressed() =
+      MultidateContinueButtonPressed;
+  const factory PostShiftEvent.multiDateSameDiffTypeChanged(int selectedType) =
+      MultiDateSameDiffTypeChanged;
+
+  const factory PostShiftEvent.startHourListChanged(
+      String hour, int index, String date) = StartHourListChanged;
+  const factory PostShiftEvent.startMinuteListChanged(
+      String minute, int index, String date) = StartMinuteListChanged;
+  const factory PostShiftEvent.endHourListChanged(
+      String hour, int index, String date) = EndHourListChanged;
+  const factory PostShiftEvent.endMinuteListChanged(
+      String minute, int index, String date) = EndMinuteListChanged;
+  const factory PostShiftEvent.differentTimeShiftSubmitted(
+      MultiShiftDTO shiftDetail) = DifferentTimeShiftSubmitted;
+
+  const factory PostShiftEvent.initMultiDifferentDateEvent(
+      List<DateTimeDTO> list) = InitMultiDifferentDateEvent;
+  const factory PostShiftEvent.backEvent() = BackEvent;
+  const factory PostShiftEvent.sameTimeShiftSubmitted() =
+      SameTimeShiftSubmitted;
+
+  /// Post the Shift
+  const factory PostShiftEvent.postTheShiftEvent(int postId) =
+      postTheShiftEvent;
 }

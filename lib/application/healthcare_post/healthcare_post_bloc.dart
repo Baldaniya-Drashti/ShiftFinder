@@ -219,7 +219,7 @@ class HealthcarePostBloc
 
         addRequiredSpecialitichips: (e) {
           if (e.selectedValue.trim().isNotEmpty &&
-              !e.selectedValue.toLowerCase().contains("other") &&
+              !(e.selectedValue.toLowerCase() == "other") &&
               (state.requiredSpecialityChipList.getValue().isEmpty ||
                   !state.requiredSpecialityChipList
                       .getValue()
@@ -287,7 +287,7 @@ class HealthcarePostBloc
         /// Select Software skills
         addPreferedSoftwareSkillchips: (e) {
           if (e.selectedValue.trim().isNotEmpty &&
-              !e.selectedValue.toLowerCase().contains("other") &&
+              !(e.selectedValue.toLowerCase() == "other") &&
               (state.requiredSoftwareSkillChipList.getValue().isEmpty ||
                   !state.requiredSoftwareSkillChipList
                       .getValue()
