@@ -182,7 +182,7 @@ class PayableDetail extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             paybaleTitleRate(
-              title: title1 ?? "",
+              title: title1,
               value: value1,
             ),
             if (title2 != null) ...[

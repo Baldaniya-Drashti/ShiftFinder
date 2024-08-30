@@ -23,9 +23,7 @@ class TeamsView extends StatelessWidget {
       create: (context) =>
           getIt<TeamsBloc>()..add(TeamsEvent.getTeamList(true)),
       child: BlocConsumer<TeamsBloc, TeamsState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           return Scaffold(
             appBar: CommonAppBar(

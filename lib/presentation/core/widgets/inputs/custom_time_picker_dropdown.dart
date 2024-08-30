@@ -9,17 +9,17 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 
 class CustomTimePickerDropdown extends StatelessWidget {
-  String labelText;
-  String? hourHintText;
-  String? minHintText;
-  String? hourValue;
-  String? minuteValue;
-  bool isLabelPadding;
-  dynamic Function(String?)? minOnChanged;
-  dynamic Function(String?)? hourOnChanged;
-  List<DropdownMenuItem<String>>? hourItems;
-  List<DropdownMenuItem<String>>? minItems;
-  CustomTimePickerDropdown({
+  final String labelText;
+  final String? hourHintText;
+  final String? minHintText;
+  final String? hourValue;
+  final String? minuteValue;
+  final bool isLabelPadding;
+  final dynamic Function(String?)? minOnChanged;
+  final dynamic Function(String?)? hourOnChanged;
+  final List<DropdownMenuItem<String>>? hourItems;
+  final List<DropdownMenuItem<String>>? minItems;
+  const CustomTimePickerDropdown({
     super.key,
     required this.labelText,
     this.hourHintText,
