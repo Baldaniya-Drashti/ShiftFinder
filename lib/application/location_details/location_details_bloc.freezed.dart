@@ -27,8 +27,9 @@ mixin _$LocationDetailsEvent {
         accreditationNumberChanged,
     required TResult Function(String locationNote) locationNoteChanged,
     required TResult Function(String unitNumber) unitNumberChanged,
-    required TResult Function(String unitNumber) addUnitNumberChipList,
-    required TResult Function(String unitNumber) removeUnitNumberChip,
+    required TResult Function(String unitNumber, String unitNote)
+        addUnitNumberChipList,
+    required TResult Function(int index) removeUnitNumberChip,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String faciltyType) facilityTypeChanged,
     required TResult Function(String faciltyType) addOtherfaciltyType,
@@ -44,8 +45,9 @@ mixin _$LocationDetailsEvent {
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
     TResult? Function(String locationNote)? locationNoteChanged,
     TResult? Function(String unitNumber)? unitNumberChanged,
-    TResult? Function(String unitNumber)? addUnitNumberChipList,
-    TResult? Function(String unitNumber)? removeUnitNumberChip,
+    TResult? Function(String unitNumber, String unitNote)?
+        addUnitNumberChipList,
+    TResult? Function(int index)? removeUnitNumberChip,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String faciltyType)? facilityTypeChanged,
     TResult? Function(String faciltyType)? addOtherfaciltyType,
@@ -61,8 +63,8 @@ mixin _$LocationDetailsEvent {
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
     TResult Function(String locationNote)? locationNoteChanged,
     TResult Function(String unitNumber)? unitNumberChanged,
-    TResult Function(String unitNumber)? addUnitNumberChipList,
-    TResult Function(String unitNumber)? removeUnitNumberChip,
+    TResult Function(String unitNumber, String unitNote)? addUnitNumberChipList,
+    TResult Function(int index)? removeUnitNumberChip,
     TResult Function(String notes)? notesChanged,
     TResult Function(String faciltyType)? facilityTypeChanged,
     TResult Function(String faciltyType)? addOtherfaciltyType,
@@ -224,8 +226,9 @@ class _$AddressChangedImpl implements AddressChanged {
         accreditationNumberChanged,
     required TResult Function(String locationNote) locationNoteChanged,
     required TResult Function(String unitNumber) unitNumberChanged,
-    required TResult Function(String unitNumber) addUnitNumberChipList,
-    required TResult Function(String unitNumber) removeUnitNumberChip,
+    required TResult Function(String unitNumber, String unitNote)
+        addUnitNumberChipList,
+    required TResult Function(int index) removeUnitNumberChip,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String faciltyType) facilityTypeChanged,
     required TResult Function(String faciltyType) addOtherfaciltyType,
@@ -244,8 +247,9 @@ class _$AddressChangedImpl implements AddressChanged {
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
     TResult? Function(String locationNote)? locationNoteChanged,
     TResult? Function(String unitNumber)? unitNumberChanged,
-    TResult? Function(String unitNumber)? addUnitNumberChipList,
-    TResult? Function(String unitNumber)? removeUnitNumberChip,
+    TResult? Function(String unitNumber, String unitNote)?
+        addUnitNumberChipList,
+    TResult? Function(int index)? removeUnitNumberChip,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String faciltyType)? facilityTypeChanged,
     TResult? Function(String faciltyType)? addOtherfaciltyType,
@@ -264,8 +268,8 @@ class _$AddressChangedImpl implements AddressChanged {
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
     TResult Function(String locationNote)? locationNoteChanged,
     TResult Function(String unitNumber)? unitNumberChanged,
-    TResult Function(String unitNumber)? addUnitNumberChipList,
-    TResult Function(String unitNumber)? removeUnitNumberChip,
+    TResult Function(String unitNumber, String unitNote)? addUnitNumberChipList,
+    TResult Function(int index)? removeUnitNumberChip,
     TResult Function(String notes)? notesChanged,
     TResult Function(String faciltyType)? facilityTypeChanged,
     TResult Function(String faciltyType)? addOtherfaciltyType,
@@ -407,8 +411,9 @@ class _$GetFacilityTypeListImpl implements GetFacilityTypeList {
         accreditationNumberChanged,
     required TResult Function(String locationNote) locationNoteChanged,
     required TResult Function(String unitNumber) unitNumberChanged,
-    required TResult Function(String unitNumber) addUnitNumberChipList,
-    required TResult Function(String unitNumber) removeUnitNumberChip,
+    required TResult Function(String unitNumber, String unitNote)
+        addUnitNumberChipList,
+    required TResult Function(int index) removeUnitNumberChip,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String faciltyType) facilityTypeChanged,
     required TResult Function(String faciltyType) addOtherfaciltyType,
@@ -427,8 +432,9 @@ class _$GetFacilityTypeListImpl implements GetFacilityTypeList {
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
     TResult? Function(String locationNote)? locationNoteChanged,
     TResult? Function(String unitNumber)? unitNumberChanged,
-    TResult? Function(String unitNumber)? addUnitNumberChipList,
-    TResult? Function(String unitNumber)? removeUnitNumberChip,
+    TResult? Function(String unitNumber, String unitNote)?
+        addUnitNumberChipList,
+    TResult? Function(int index)? removeUnitNumberChip,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String faciltyType)? facilityTypeChanged,
     TResult? Function(String faciltyType)? addOtherfaciltyType,
@@ -447,8 +453,8 @@ class _$GetFacilityTypeListImpl implements GetFacilityTypeList {
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
     TResult Function(String locationNote)? locationNoteChanged,
     TResult Function(String unitNumber)? unitNumberChanged,
-    TResult Function(String unitNumber)? addUnitNumberChipList,
-    TResult Function(String unitNumber)? removeUnitNumberChip,
+    TResult Function(String unitNumber, String unitNote)? addUnitNumberChipList,
+    TResult Function(int index)? removeUnitNumberChip,
     TResult Function(String notes)? notesChanged,
     TResult Function(String faciltyType)? facilityTypeChanged,
     TResult Function(String faciltyType)? addOtherfaciltyType,
@@ -617,8 +623,9 @@ class _$LocationSelectedFromSearchListImpl
         accreditationNumberChanged,
     required TResult Function(String locationNote) locationNoteChanged,
     required TResult Function(String unitNumber) unitNumberChanged,
-    required TResult Function(String unitNumber) addUnitNumberChipList,
-    required TResult Function(String unitNumber) removeUnitNumberChip,
+    required TResult Function(String unitNumber, String unitNote)
+        addUnitNumberChipList,
+    required TResult Function(int index) removeUnitNumberChip,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String faciltyType) facilityTypeChanged,
     required TResult Function(String faciltyType) addOtherfaciltyType,
@@ -637,8 +644,9 @@ class _$LocationSelectedFromSearchListImpl
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
     TResult? Function(String locationNote)? locationNoteChanged,
     TResult? Function(String unitNumber)? unitNumberChanged,
-    TResult? Function(String unitNumber)? addUnitNumberChipList,
-    TResult? Function(String unitNumber)? removeUnitNumberChip,
+    TResult? Function(String unitNumber, String unitNote)?
+        addUnitNumberChipList,
+    TResult? Function(int index)? removeUnitNumberChip,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String faciltyType)? facilityTypeChanged,
     TResult? Function(String faciltyType)? addOtherfaciltyType,
@@ -657,8 +665,8 @@ class _$LocationSelectedFromSearchListImpl
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
     TResult Function(String locationNote)? locationNoteChanged,
     TResult Function(String unitNumber)? unitNumberChanged,
-    TResult Function(String unitNumber)? addUnitNumberChipList,
-    TResult Function(String unitNumber)? removeUnitNumberChip,
+    TResult Function(String unitNumber, String unitNote)? addUnitNumberChipList,
+    TResult Function(int index)? removeUnitNumberChip,
     TResult Function(String notes)? notesChanged,
     TResult Function(String faciltyType)? facilityTypeChanged,
     TResult Function(String faciltyType)? addOtherfaciltyType,
@@ -829,8 +837,9 @@ class _$LocationIdChangedImpl implements LocationIdChanged {
         accreditationNumberChanged,
     required TResult Function(String locationNote) locationNoteChanged,
     required TResult Function(String unitNumber) unitNumberChanged,
-    required TResult Function(String unitNumber) addUnitNumberChipList,
-    required TResult Function(String unitNumber) removeUnitNumberChip,
+    required TResult Function(String unitNumber, String unitNote)
+        addUnitNumberChipList,
+    required TResult Function(int index) removeUnitNumberChip,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String faciltyType) facilityTypeChanged,
     required TResult Function(String faciltyType) addOtherfaciltyType,
@@ -849,8 +858,9 @@ class _$LocationIdChangedImpl implements LocationIdChanged {
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
     TResult? Function(String locationNote)? locationNoteChanged,
     TResult? Function(String unitNumber)? unitNumberChanged,
-    TResult? Function(String unitNumber)? addUnitNumberChipList,
-    TResult? Function(String unitNumber)? removeUnitNumberChip,
+    TResult? Function(String unitNumber, String unitNote)?
+        addUnitNumberChipList,
+    TResult? Function(int index)? removeUnitNumberChip,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String faciltyType)? facilityTypeChanged,
     TResult? Function(String faciltyType)? addOtherfaciltyType,
@@ -869,8 +879,8 @@ class _$LocationIdChangedImpl implements LocationIdChanged {
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
     TResult Function(String locationNote)? locationNoteChanged,
     TResult Function(String unitNumber)? unitNumberChanged,
-    TResult Function(String unitNumber)? addUnitNumberChipList,
-    TResult Function(String unitNumber)? removeUnitNumberChip,
+    TResult Function(String unitNumber, String unitNote)? addUnitNumberChipList,
+    TResult Function(int index)? removeUnitNumberChip,
     TResult Function(String notes)? notesChanged,
     TResult Function(String faciltyType)? facilityTypeChanged,
     TResult Function(String faciltyType)? addOtherfaciltyType,
@@ -1043,8 +1053,9 @@ class _$AccreditationNumberChangedImpl implements AccreditationNumberChanged {
         accreditationNumberChanged,
     required TResult Function(String locationNote) locationNoteChanged,
     required TResult Function(String unitNumber) unitNumberChanged,
-    required TResult Function(String unitNumber) addUnitNumberChipList,
-    required TResult Function(String unitNumber) removeUnitNumberChip,
+    required TResult Function(String unitNumber, String unitNote)
+        addUnitNumberChipList,
+    required TResult Function(int index) removeUnitNumberChip,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String faciltyType) facilityTypeChanged,
     required TResult Function(String faciltyType) addOtherfaciltyType,
@@ -1063,8 +1074,9 @@ class _$AccreditationNumberChangedImpl implements AccreditationNumberChanged {
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
     TResult? Function(String locationNote)? locationNoteChanged,
     TResult? Function(String unitNumber)? unitNumberChanged,
-    TResult? Function(String unitNumber)? addUnitNumberChipList,
-    TResult? Function(String unitNumber)? removeUnitNumberChip,
+    TResult? Function(String unitNumber, String unitNote)?
+        addUnitNumberChipList,
+    TResult? Function(int index)? removeUnitNumberChip,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String faciltyType)? facilityTypeChanged,
     TResult? Function(String faciltyType)? addOtherfaciltyType,
@@ -1083,8 +1095,8 @@ class _$AccreditationNumberChangedImpl implements AccreditationNumberChanged {
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
     TResult Function(String locationNote)? locationNoteChanged,
     TResult Function(String unitNumber)? unitNumberChanged,
-    TResult Function(String unitNumber)? addUnitNumberChipList,
-    TResult Function(String unitNumber)? removeUnitNumberChip,
+    TResult Function(String unitNumber, String unitNote)? addUnitNumberChipList,
+    TResult Function(int index)? removeUnitNumberChip,
     TResult Function(String notes)? notesChanged,
     TResult Function(String faciltyType)? facilityTypeChanged,
     TResult Function(String faciltyType)? addOtherfaciltyType,
@@ -1254,8 +1266,9 @@ class _$LocationNoteChangedImpl implements LocationNoteChanged {
         accreditationNumberChanged,
     required TResult Function(String locationNote) locationNoteChanged,
     required TResult Function(String unitNumber) unitNumberChanged,
-    required TResult Function(String unitNumber) addUnitNumberChipList,
-    required TResult Function(String unitNumber) removeUnitNumberChip,
+    required TResult Function(String unitNumber, String unitNote)
+        addUnitNumberChipList,
+    required TResult Function(int index) removeUnitNumberChip,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String faciltyType) facilityTypeChanged,
     required TResult Function(String faciltyType) addOtherfaciltyType,
@@ -1274,8 +1287,9 @@ class _$LocationNoteChangedImpl implements LocationNoteChanged {
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
     TResult? Function(String locationNote)? locationNoteChanged,
     TResult? Function(String unitNumber)? unitNumberChanged,
-    TResult? Function(String unitNumber)? addUnitNumberChipList,
-    TResult? Function(String unitNumber)? removeUnitNumberChip,
+    TResult? Function(String unitNumber, String unitNote)?
+        addUnitNumberChipList,
+    TResult? Function(int index)? removeUnitNumberChip,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String faciltyType)? facilityTypeChanged,
     TResult? Function(String faciltyType)? addOtherfaciltyType,
@@ -1294,8 +1308,8 @@ class _$LocationNoteChangedImpl implements LocationNoteChanged {
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
     TResult Function(String locationNote)? locationNoteChanged,
     TResult Function(String unitNumber)? unitNumberChanged,
-    TResult Function(String unitNumber)? addUnitNumberChipList,
-    TResult Function(String unitNumber)? removeUnitNumberChip,
+    TResult Function(String unitNumber, String unitNote)? addUnitNumberChipList,
+    TResult Function(int index)? removeUnitNumberChip,
     TResult Function(String notes)? notesChanged,
     TResult Function(String faciltyType)? facilityTypeChanged,
     TResult Function(String faciltyType)? addOtherfaciltyType,
@@ -1465,8 +1479,9 @@ class _$UnitNumberChangedImpl implements UnitNumberChanged {
         accreditationNumberChanged,
     required TResult Function(String locationNote) locationNoteChanged,
     required TResult Function(String unitNumber) unitNumberChanged,
-    required TResult Function(String unitNumber) addUnitNumberChipList,
-    required TResult Function(String unitNumber) removeUnitNumberChip,
+    required TResult Function(String unitNumber, String unitNote)
+        addUnitNumberChipList,
+    required TResult Function(int index) removeUnitNumberChip,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String faciltyType) facilityTypeChanged,
     required TResult Function(String faciltyType) addOtherfaciltyType,
@@ -1485,8 +1500,9 @@ class _$UnitNumberChangedImpl implements UnitNumberChanged {
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
     TResult? Function(String locationNote)? locationNoteChanged,
     TResult? Function(String unitNumber)? unitNumberChanged,
-    TResult? Function(String unitNumber)? addUnitNumberChipList,
-    TResult? Function(String unitNumber)? removeUnitNumberChip,
+    TResult? Function(String unitNumber, String unitNote)?
+        addUnitNumberChipList,
+    TResult? Function(int index)? removeUnitNumberChip,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String faciltyType)? facilityTypeChanged,
     TResult? Function(String faciltyType)? addOtherfaciltyType,
@@ -1505,8 +1521,8 @@ class _$UnitNumberChangedImpl implements UnitNumberChanged {
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
     TResult Function(String locationNote)? locationNoteChanged,
     TResult Function(String unitNumber)? unitNumberChanged,
-    TResult Function(String unitNumber)? addUnitNumberChipList,
-    TResult Function(String unitNumber)? removeUnitNumberChip,
+    TResult Function(String unitNumber, String unitNote)? addUnitNumberChipList,
+    TResult Function(int index)? removeUnitNumberChip,
     TResult Function(String notes)? notesChanged,
     TResult Function(String faciltyType)? facilityTypeChanged,
     TResult Function(String faciltyType)? addOtherfaciltyType,
@@ -1608,7 +1624,7 @@ abstract class _$$AddUnitNumberChipListImplCopyWith<$Res> {
           $Res Function(_$AddUnitNumberChipListImpl) then) =
       __$$AddUnitNumberChipListImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String unitNumber});
+  $Res call({String unitNumber, String unitNote});
 }
 
 /// @nodoc
@@ -1624,11 +1640,16 @@ class __$$AddUnitNumberChipListImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? unitNumber = null,
+    Object? unitNote = null,
   }) {
     return _then(_$AddUnitNumberChipListImpl(
       null == unitNumber
           ? _value.unitNumber
           : unitNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == unitNote
+          ? _value.unitNote
+          : unitNote // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -1637,14 +1658,16 @@ class __$$AddUnitNumberChipListImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddUnitNumberChipListImpl implements AddUnitNumberChipList {
-  const _$AddUnitNumberChipListImpl(this.unitNumber);
+  const _$AddUnitNumberChipListImpl(this.unitNumber, this.unitNote);
 
   @override
   final String unitNumber;
+  @override
+  final String unitNote;
 
   @override
   String toString() {
-    return 'LocationDetailsEvent.addUnitNumberChipList(unitNumber: $unitNumber)';
+    return 'LocationDetailsEvent.addUnitNumberChipList(unitNumber: $unitNumber, unitNote: $unitNote)';
   }
 
   @override
@@ -1653,11 +1676,13 @@ class _$AddUnitNumberChipListImpl implements AddUnitNumberChipList {
         (other.runtimeType == runtimeType &&
             other is _$AddUnitNumberChipListImpl &&
             (identical(other.unitNumber, unitNumber) ||
-                other.unitNumber == unitNumber));
+                other.unitNumber == unitNumber) &&
+            (identical(other.unitNote, unitNote) ||
+                other.unitNote == unitNote));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, unitNumber);
+  int get hashCode => Object.hash(runtimeType, unitNumber, unitNote);
 
   @JsonKey(ignore: true)
   @override
@@ -1678,14 +1703,15 @@ class _$AddUnitNumberChipListImpl implements AddUnitNumberChipList {
         accreditationNumberChanged,
     required TResult Function(String locationNote) locationNoteChanged,
     required TResult Function(String unitNumber) unitNumberChanged,
-    required TResult Function(String unitNumber) addUnitNumberChipList,
-    required TResult Function(String unitNumber) removeUnitNumberChip,
+    required TResult Function(String unitNumber, String unitNote)
+        addUnitNumberChipList,
+    required TResult Function(int index) removeUnitNumberChip,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String faciltyType) facilityTypeChanged,
     required TResult Function(String faciltyType) addOtherfaciltyType,
     required TResult Function() continueBtnPressed,
   }) {
-    return addUnitNumberChipList(unitNumber);
+    return addUnitNumberChipList(unitNumber, unitNote);
   }
 
   @override
@@ -1698,14 +1724,15 @@ class _$AddUnitNumberChipListImpl implements AddUnitNumberChipList {
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
     TResult? Function(String locationNote)? locationNoteChanged,
     TResult? Function(String unitNumber)? unitNumberChanged,
-    TResult? Function(String unitNumber)? addUnitNumberChipList,
-    TResult? Function(String unitNumber)? removeUnitNumberChip,
+    TResult? Function(String unitNumber, String unitNote)?
+        addUnitNumberChipList,
+    TResult? Function(int index)? removeUnitNumberChip,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String faciltyType)? facilityTypeChanged,
     TResult? Function(String faciltyType)? addOtherfaciltyType,
     TResult? Function()? continueBtnPressed,
   }) {
-    return addUnitNumberChipList?.call(unitNumber);
+    return addUnitNumberChipList?.call(unitNumber, unitNote);
   }
 
   @override
@@ -1718,8 +1745,8 @@ class _$AddUnitNumberChipListImpl implements AddUnitNumberChipList {
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
     TResult Function(String locationNote)? locationNoteChanged,
     TResult Function(String unitNumber)? unitNumberChanged,
-    TResult Function(String unitNumber)? addUnitNumberChipList,
-    TResult Function(String unitNumber)? removeUnitNumberChip,
+    TResult Function(String unitNumber, String unitNote)? addUnitNumberChipList,
+    TResult Function(int index)? removeUnitNumberChip,
     TResult Function(String notes)? notesChanged,
     TResult Function(String faciltyType)? facilityTypeChanged,
     TResult Function(String faciltyType)? addOtherfaciltyType,
@@ -1727,7 +1754,7 @@ class _$AddUnitNumberChipListImpl implements AddUnitNumberChipList {
     required TResult orElse(),
   }) {
     if (addUnitNumberChipList != null) {
-      return addUnitNumberChipList(unitNumber);
+      return addUnitNumberChipList(unitNumber, unitNote);
     }
     return orElse();
   }
@@ -1805,10 +1832,12 @@ class _$AddUnitNumberChipListImpl implements AddUnitNumberChipList {
 }
 
 abstract class AddUnitNumberChipList implements LocationDetailsEvent {
-  const factory AddUnitNumberChipList(final String unitNumber) =
+  const factory AddUnitNumberChipList(
+          final String unitNumber, final String unitNote) =
       _$AddUnitNumberChipListImpl;
 
   String get unitNumber;
+  String get unitNote;
   @JsonKey(ignore: true)
   _$$AddUnitNumberChipListImplCopyWith<_$AddUnitNumberChipListImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -1820,7 +1849,7 @@ abstract class _$$RemoveUnitNumberChipImplCopyWith<$Res> {
           $Res Function(_$RemoveUnitNumberChipImpl) then) =
       __$$RemoveUnitNumberChipImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String unitNumber});
+  $Res call({int index});
 }
 
 /// @nodoc
@@ -1834,13 +1863,13 @@ class __$$RemoveUnitNumberChipImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? unitNumber = null,
+    Object? index = null,
   }) {
     return _then(_$RemoveUnitNumberChipImpl(
-      null == unitNumber
-          ? _value.unitNumber
-          : unitNumber // ignore: cast_nullable_to_non_nullable
-              as String,
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -1848,14 +1877,14 @@ class __$$RemoveUnitNumberChipImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RemoveUnitNumberChipImpl implements RemoveUnitNumberChip {
-  const _$RemoveUnitNumberChipImpl(this.unitNumber);
+  const _$RemoveUnitNumberChipImpl(this.index);
 
   @override
-  final String unitNumber;
+  final int index;
 
   @override
   String toString() {
-    return 'LocationDetailsEvent.removeUnitNumberChip(unitNumber: $unitNumber)';
+    return 'LocationDetailsEvent.removeUnitNumberChip(index: $index)';
   }
 
   @override
@@ -1863,12 +1892,11 @@ class _$RemoveUnitNumberChipImpl implements RemoveUnitNumberChip {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RemoveUnitNumberChipImpl &&
-            (identical(other.unitNumber, unitNumber) ||
-                other.unitNumber == unitNumber));
+            (identical(other.index, index) || other.index == index));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, unitNumber);
+  int get hashCode => Object.hash(runtimeType, index);
 
   @JsonKey(ignore: true)
   @override
@@ -1890,14 +1918,15 @@ class _$RemoveUnitNumberChipImpl implements RemoveUnitNumberChip {
         accreditationNumberChanged,
     required TResult Function(String locationNote) locationNoteChanged,
     required TResult Function(String unitNumber) unitNumberChanged,
-    required TResult Function(String unitNumber) addUnitNumberChipList,
-    required TResult Function(String unitNumber) removeUnitNumberChip,
+    required TResult Function(String unitNumber, String unitNote)
+        addUnitNumberChipList,
+    required TResult Function(int index) removeUnitNumberChip,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String faciltyType) facilityTypeChanged,
     required TResult Function(String faciltyType) addOtherfaciltyType,
     required TResult Function() continueBtnPressed,
   }) {
-    return removeUnitNumberChip(unitNumber);
+    return removeUnitNumberChip(index);
   }
 
   @override
@@ -1910,14 +1939,15 @@ class _$RemoveUnitNumberChipImpl implements RemoveUnitNumberChip {
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
     TResult? Function(String locationNote)? locationNoteChanged,
     TResult? Function(String unitNumber)? unitNumberChanged,
-    TResult? Function(String unitNumber)? addUnitNumberChipList,
-    TResult? Function(String unitNumber)? removeUnitNumberChip,
+    TResult? Function(String unitNumber, String unitNote)?
+        addUnitNumberChipList,
+    TResult? Function(int index)? removeUnitNumberChip,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String faciltyType)? facilityTypeChanged,
     TResult? Function(String faciltyType)? addOtherfaciltyType,
     TResult? Function()? continueBtnPressed,
   }) {
-    return removeUnitNumberChip?.call(unitNumber);
+    return removeUnitNumberChip?.call(index);
   }
 
   @override
@@ -1930,8 +1960,8 @@ class _$RemoveUnitNumberChipImpl implements RemoveUnitNumberChip {
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
     TResult Function(String locationNote)? locationNoteChanged,
     TResult Function(String unitNumber)? unitNumberChanged,
-    TResult Function(String unitNumber)? addUnitNumberChipList,
-    TResult Function(String unitNumber)? removeUnitNumberChip,
+    TResult Function(String unitNumber, String unitNote)? addUnitNumberChipList,
+    TResult Function(int index)? removeUnitNumberChip,
     TResult Function(String notes)? notesChanged,
     TResult Function(String faciltyType)? facilityTypeChanged,
     TResult Function(String faciltyType)? addOtherfaciltyType,
@@ -1939,7 +1969,7 @@ class _$RemoveUnitNumberChipImpl implements RemoveUnitNumberChip {
     required TResult orElse(),
   }) {
     if (removeUnitNumberChip != null) {
-      return removeUnitNumberChip(unitNumber);
+      return removeUnitNumberChip(index);
     }
     return orElse();
   }
@@ -2017,10 +2047,10 @@ class _$RemoveUnitNumberChipImpl implements RemoveUnitNumberChip {
 }
 
 abstract class RemoveUnitNumberChip implements LocationDetailsEvent {
-  const factory RemoveUnitNumberChip(final String unitNumber) =
+  const factory RemoveUnitNumberChip(final int index) =
       _$RemoveUnitNumberChipImpl;
 
-  String get unitNumber;
+  int get index;
   @JsonKey(ignore: true)
   _$$RemoveUnitNumberChipImplCopyWith<_$RemoveUnitNumberChipImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -2099,8 +2129,9 @@ class _$NotesChangedImpl implements NotesChanged {
         accreditationNumberChanged,
     required TResult Function(String locationNote) locationNoteChanged,
     required TResult Function(String unitNumber) unitNumberChanged,
-    required TResult Function(String unitNumber) addUnitNumberChipList,
-    required TResult Function(String unitNumber) removeUnitNumberChip,
+    required TResult Function(String unitNumber, String unitNote)
+        addUnitNumberChipList,
+    required TResult Function(int index) removeUnitNumberChip,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String faciltyType) facilityTypeChanged,
     required TResult Function(String faciltyType) addOtherfaciltyType,
@@ -2119,8 +2150,9 @@ class _$NotesChangedImpl implements NotesChanged {
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
     TResult? Function(String locationNote)? locationNoteChanged,
     TResult? Function(String unitNumber)? unitNumberChanged,
-    TResult? Function(String unitNumber)? addUnitNumberChipList,
-    TResult? Function(String unitNumber)? removeUnitNumberChip,
+    TResult? Function(String unitNumber, String unitNote)?
+        addUnitNumberChipList,
+    TResult? Function(int index)? removeUnitNumberChip,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String faciltyType)? facilityTypeChanged,
     TResult? Function(String faciltyType)? addOtherfaciltyType,
@@ -2139,8 +2171,8 @@ class _$NotesChangedImpl implements NotesChanged {
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
     TResult Function(String locationNote)? locationNoteChanged,
     TResult Function(String unitNumber)? unitNumberChanged,
-    TResult Function(String unitNumber)? addUnitNumberChipList,
-    TResult Function(String unitNumber)? removeUnitNumberChip,
+    TResult Function(String unitNumber, String unitNote)? addUnitNumberChipList,
+    TResult Function(int index)? removeUnitNumberChip,
     TResult Function(String notes)? notesChanged,
     TResult Function(String faciltyType)? facilityTypeChanged,
     TResult Function(String faciltyType)? addOtherfaciltyType,
@@ -2309,8 +2341,9 @@ class _$FacilityTypeChangedImpl implements FacilityTypeChanged {
         accreditationNumberChanged,
     required TResult Function(String locationNote) locationNoteChanged,
     required TResult Function(String unitNumber) unitNumberChanged,
-    required TResult Function(String unitNumber) addUnitNumberChipList,
-    required TResult Function(String unitNumber) removeUnitNumberChip,
+    required TResult Function(String unitNumber, String unitNote)
+        addUnitNumberChipList,
+    required TResult Function(int index) removeUnitNumberChip,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String faciltyType) facilityTypeChanged,
     required TResult Function(String faciltyType) addOtherfaciltyType,
@@ -2329,8 +2362,9 @@ class _$FacilityTypeChangedImpl implements FacilityTypeChanged {
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
     TResult? Function(String locationNote)? locationNoteChanged,
     TResult? Function(String unitNumber)? unitNumberChanged,
-    TResult? Function(String unitNumber)? addUnitNumberChipList,
-    TResult? Function(String unitNumber)? removeUnitNumberChip,
+    TResult? Function(String unitNumber, String unitNote)?
+        addUnitNumberChipList,
+    TResult? Function(int index)? removeUnitNumberChip,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String faciltyType)? facilityTypeChanged,
     TResult? Function(String faciltyType)? addOtherfaciltyType,
@@ -2349,8 +2383,8 @@ class _$FacilityTypeChangedImpl implements FacilityTypeChanged {
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
     TResult Function(String locationNote)? locationNoteChanged,
     TResult Function(String unitNumber)? unitNumberChanged,
-    TResult Function(String unitNumber)? addUnitNumberChipList,
-    TResult Function(String unitNumber)? removeUnitNumberChip,
+    TResult Function(String unitNumber, String unitNote)? addUnitNumberChipList,
+    TResult Function(int index)? removeUnitNumberChip,
     TResult Function(String notes)? notesChanged,
     TResult Function(String faciltyType)? facilityTypeChanged,
     TResult Function(String faciltyType)? addOtherfaciltyType,
@@ -2520,8 +2554,9 @@ class _$AddOtherfaciltyTypeImpl implements AddOtherfaciltyType {
         accreditationNumberChanged,
     required TResult Function(String locationNote) locationNoteChanged,
     required TResult Function(String unitNumber) unitNumberChanged,
-    required TResult Function(String unitNumber) addUnitNumberChipList,
-    required TResult Function(String unitNumber) removeUnitNumberChip,
+    required TResult Function(String unitNumber, String unitNote)
+        addUnitNumberChipList,
+    required TResult Function(int index) removeUnitNumberChip,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String faciltyType) facilityTypeChanged,
     required TResult Function(String faciltyType) addOtherfaciltyType,
@@ -2540,8 +2575,9 @@ class _$AddOtherfaciltyTypeImpl implements AddOtherfaciltyType {
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
     TResult? Function(String locationNote)? locationNoteChanged,
     TResult? Function(String unitNumber)? unitNumberChanged,
-    TResult? Function(String unitNumber)? addUnitNumberChipList,
-    TResult? Function(String unitNumber)? removeUnitNumberChip,
+    TResult? Function(String unitNumber, String unitNote)?
+        addUnitNumberChipList,
+    TResult? Function(int index)? removeUnitNumberChip,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String faciltyType)? facilityTypeChanged,
     TResult? Function(String faciltyType)? addOtherfaciltyType,
@@ -2560,8 +2596,8 @@ class _$AddOtherfaciltyTypeImpl implements AddOtherfaciltyType {
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
     TResult Function(String locationNote)? locationNoteChanged,
     TResult Function(String unitNumber)? unitNumberChanged,
-    TResult Function(String unitNumber)? addUnitNumberChipList,
-    TResult Function(String unitNumber)? removeUnitNumberChip,
+    TResult Function(String unitNumber, String unitNote)? addUnitNumberChipList,
+    TResult Function(int index)? removeUnitNumberChip,
     TResult Function(String notes)? notesChanged,
     TResult Function(String faciltyType)? facilityTypeChanged,
     TResult Function(String faciltyType)? addOtherfaciltyType,
@@ -2703,8 +2739,9 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
         accreditationNumberChanged,
     required TResult Function(String locationNote) locationNoteChanged,
     required TResult Function(String unitNumber) unitNumberChanged,
-    required TResult Function(String unitNumber) addUnitNumberChipList,
-    required TResult Function(String unitNumber) removeUnitNumberChip,
+    required TResult Function(String unitNumber, String unitNote)
+        addUnitNumberChipList,
+    required TResult Function(int index) removeUnitNumberChip,
     required TResult Function(String notes) notesChanged,
     required TResult Function(String faciltyType) facilityTypeChanged,
     required TResult Function(String faciltyType) addOtherfaciltyType,
@@ -2723,8 +2760,9 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     TResult? Function(String accreditationNumber)? accreditationNumberChanged,
     TResult? Function(String locationNote)? locationNoteChanged,
     TResult? Function(String unitNumber)? unitNumberChanged,
-    TResult? Function(String unitNumber)? addUnitNumberChipList,
-    TResult? Function(String unitNumber)? removeUnitNumberChip,
+    TResult? Function(String unitNumber, String unitNote)?
+        addUnitNumberChipList,
+    TResult? Function(int index)? removeUnitNumberChip,
     TResult? Function(String notes)? notesChanged,
     TResult? Function(String faciltyType)? facilityTypeChanged,
     TResult? Function(String faciltyType)? addOtherfaciltyType,
@@ -2743,8 +2781,8 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     TResult Function(String accreditationNumber)? accreditationNumberChanged,
     TResult Function(String locationNote)? locationNoteChanged,
     TResult Function(String unitNumber)? unitNumberChanged,
-    TResult Function(String unitNumber)? addUnitNumberChipList,
-    TResult Function(String unitNumber)? removeUnitNumberChip,
+    TResult Function(String unitNumber, String unitNote)? addUnitNumberChipList,
+    TResult Function(int index)? removeUnitNumberChip,
     TResult Function(String notes)? notesChanged,
     TResult Function(String faciltyType)? facilityTypeChanged,
     TResult Function(String faciltyType)? addOtherfaciltyType,
@@ -2848,6 +2886,7 @@ mixin _$LocationDetailsState {
   String get faciltyTypeDDValue => throw _privateConstructorUsedError;
   String get otherFaciltyTypeValue => throw _privateConstructorUsedError;
   List<String> get unitNoNameChipList => throw _privateConstructorUsedError;
+  List<UnitDTO> get listOfUnit => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
@@ -2879,6 +2918,7 @@ abstract class $LocationDetailsStateCopyWith<$Res> {
       String faciltyTypeDDValue,
       String otherFaciltyTypeValue,
       List<String> unitNoNameChipList,
+      List<UnitDTO> listOfUnit,
       bool isSubmitting,
       bool isLoading,
       bool showErrorMessages,
@@ -2912,6 +2952,7 @@ class _$LocationDetailsStateCopyWithImpl<$Res,
     Object? faciltyTypeDDValue = null,
     Object? otherFaciltyTypeValue = null,
     Object? unitNoNameChipList = null,
+    Object? listOfUnit = null,
     Object? isSubmitting = null,
     Object? isLoading = null,
     Object? showErrorMessages = null,
@@ -2970,6 +3011,10 @@ class _$LocationDetailsStateCopyWithImpl<$Res,
           ? _value.unitNoNameChipList
           : unitNoNameChipList // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      listOfUnit: null == listOfUnit
+          ? _value.listOfUnit
+          : listOfUnit // ignore: cast_nullable_to_non_nullable
+              as List<UnitDTO>,
       isSubmitting: null == isSubmitting
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -3012,6 +3057,7 @@ abstract class _$$LocationDetailsStateImplCopyWith<$Res>
       String faciltyTypeDDValue,
       String otherFaciltyTypeValue,
       List<String> unitNoNameChipList,
+      List<UnitDTO> listOfUnit,
       bool isSubmitting,
       bool isLoading,
       bool showErrorMessages,
@@ -3042,6 +3088,7 @@ class __$$LocationDetailsStateImplCopyWithImpl<$Res>
     Object? faciltyTypeDDValue = null,
     Object? otherFaciltyTypeValue = null,
     Object? unitNoNameChipList = null,
+    Object? listOfUnit = null,
     Object? isSubmitting = null,
     Object? isLoading = null,
     Object? showErrorMessages = null,
@@ -3100,6 +3147,10 @@ class __$$LocationDetailsStateImplCopyWithImpl<$Res>
           ? _value._unitNoNameChipList
           : unitNoNameChipList // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      listOfUnit: null == listOfUnit
+          ? _value._listOfUnit
+          : listOfUnit // ignore: cast_nullable_to_non_nullable
+              as List<UnitDTO>,
       isSubmitting: null == isSubmitting
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -3137,13 +3188,15 @@ class _$LocationDetailsStateImpl implements _LocationDetailsState {
       required this.faciltyTypeDDValue,
       required this.otherFaciltyTypeValue,
       required final List<String> unitNoNameChipList,
+      required final List<UnitDTO> listOfUnit,
       required this.isSubmitting,
       required this.isLoading,
       required this.showErrorMessages,
       required this.authFailureOrSuccessOption})
       : _searchLocationList = searchLocationList,
         _facilityTypeList = facilityTypeList,
-        _unitNoNameChipList = unitNoNameChipList;
+        _unitNoNameChipList = unitNoNameChipList,
+        _listOfUnit = listOfUnit;
 
   @override
   final InputEmptyOrNot address;
@@ -3192,6 +3245,14 @@ class _$LocationDetailsStateImpl implements _LocationDetailsState {
     return EqualUnmodifiableListView(_unitNoNameChipList);
   }
 
+  final List<UnitDTO> _listOfUnit;
+  @override
+  List<UnitDTO> get listOfUnit {
+    if (_listOfUnit is EqualUnmodifiableListView) return _listOfUnit;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_listOfUnit);
+  }
+
   @override
   final bool isSubmitting;
   @override
@@ -3203,7 +3264,7 @@ class _$LocationDetailsStateImpl implements _LocationDetailsState {
 
   @override
   String toString() {
-    return 'LocationDetailsState(address: $address, searchLocationList: $searchLocationList, facilityTypeList: $facilityTypeList, faciltyType: $faciltyType, otherFaciltyType: $otherFaciltyType, locationId: $locationId, accreditationNumber: $accreditationNumber, locationNote: $locationNote, unitNumber: $unitNumber, notes: $notes, faciltyTypeDDValue: $faciltyTypeDDValue, otherFaciltyTypeValue: $otherFaciltyTypeValue, unitNoNameChipList: $unitNoNameChipList, isSubmitting: $isSubmitting, isLoading: $isLoading, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'LocationDetailsState(address: $address, searchLocationList: $searchLocationList, facilityTypeList: $facilityTypeList, faciltyType: $faciltyType, otherFaciltyType: $otherFaciltyType, locationId: $locationId, accreditationNumber: $accreditationNumber, locationNote: $locationNote, unitNumber: $unitNumber, notes: $notes, faciltyTypeDDValue: $faciltyTypeDDValue, otherFaciltyTypeValue: $otherFaciltyTypeValue, unitNoNameChipList: $unitNoNameChipList, listOfUnit: $listOfUnit, isSubmitting: $isSubmitting, isLoading: $isLoading, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
@@ -3235,6 +3296,8 @@ class _$LocationDetailsStateImpl implements _LocationDetailsState {
                 other.otherFaciltyTypeValue == otherFaciltyTypeValue) &&
             const DeepCollectionEquality()
                 .equals(other._unitNoNameChipList, _unitNoNameChipList) &&
+            const DeepCollectionEquality()
+                .equals(other._listOfUnit, _listOfUnit) &&
             (identical(other.isSubmitting, isSubmitting) ||
                 other.isSubmitting == isSubmitting) &&
             (identical(other.isLoading, isLoading) ||
@@ -3263,6 +3326,7 @@ class _$LocationDetailsStateImpl implements _LocationDetailsState {
       faciltyTypeDDValue,
       otherFaciltyTypeValue,
       const DeepCollectionEquality().hash(_unitNoNameChipList),
+      const DeepCollectionEquality().hash(_listOfUnit),
       isSubmitting,
       isLoading,
       showErrorMessages,
@@ -3292,6 +3356,7 @@ abstract class _LocationDetailsState implements LocationDetailsState {
       required final String faciltyTypeDDValue,
       required final String otherFaciltyTypeValue,
       required final List<String> unitNoNameChipList,
+      required final List<UnitDTO> listOfUnit,
       required final bool isSubmitting,
       required final bool isLoading,
       required final bool showErrorMessages,
@@ -3324,6 +3389,8 @@ abstract class _LocationDetailsState implements LocationDetailsState {
   String get otherFaciltyTypeValue;
   @override
   List<String> get unitNoNameChipList;
+  @override
+  List<UnitDTO> get listOfUnit;
   @override
   bool get isSubmitting;
   @override

@@ -1,7 +1,9 @@
-// ignore_for_file: prefer_null_aware_operators, prefer_if_null_operators
+// ignore_for_file: prefer_null_aware_operators, prefer_if_null_operators, prefer_const_constructors, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/horizontal_scrollbar.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_item.dart';
 
@@ -12,7 +14,7 @@ class MultiSelectChipDisplay<V> extends StatelessWidget {
   final List<MultiSelectItem<V>?>? items;
 
   /// Fires when a chip is tapped.
-  final Function(V)? onTap;
+  final Function(V)? onDelete;
 
   /// Set the chip color.
   final Color? chipColor;
@@ -53,7 +55,7 @@ class MultiSelectChipDisplay<V> extends StatelessWidget {
 
   MultiSelectChipDisplay({
     this.items,
-    this.onTap,
+    this.onDelete,
     this.chipColor,
     this.alignment,
     this.decoration,
@@ -72,7 +74,7 @@ class MultiSelectChipDisplay<V> extends StatelessWidget {
   MultiSelectChipDisplay.none({
     this.items = const [],
     this.disabled = true,
-    this.onTap,
+    this.onDelete,
     this.chipColor,
     this.alignment,
     this.decoration,
@@ -92,9 +94,9 @@ class MultiSelectChipDisplay<V> extends StatelessWidget {
     return Container(
       decoration: decoration,
       alignment: alignment ?? Alignment.centerLeft,
-      padding: EdgeInsets.symmetric(horizontal: scroll ? 0 : 10),
+      padding: EdgeInsets.symmetric(horizontal: scroll ? 0 : 00),
       child: scroll
-          ? Container(
+          ? SizedBox(
               width: MediaQuery.of(context).size.width,
               height: height ?? MediaQuery.of(context).size.height * 0.08,
               child: scrollBar != null
@@ -131,47 +133,85 @@ class MultiSelectChipDisplay<V> extends StatelessWidget {
 
   Widget _buildItem(MultiSelectItem<V> item, BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(2.0),
-      child: ChoiceChip(
-        shape: shape as OutlinedBorder?,
-        color: WidgetStateProperty.all(AppColors.scaffoldColor),
-        avatar: icon != null
-            ? Icon(
-                icon!.icon,
-                color: colorator != null && colorator!(item.value) != null
-                    ? colorator!(item.value)!.withOpacity(1)
-                    : icon!.color ?? Theme.of(context).primaryColor,
-              )
-            : null,
-        label: SizedBox(
-          width: chipWidth,
-          child: Text(
-            item.label,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              color: colorator != null && colorator!(item.value) != null
-                  ? textStyle != null
-                      ? textStyle!.color ?? colorator!(item.value)
-                      : colorator!(item.value)
-                  : textStyle != null && textStyle!.color != null
-                      ? textStyle!.color
-                      : chipColor != null
-                          ? chipColor!.withOpacity(1)
-                          : null,
-              fontSize: textStyle != null ? textStyle!.fontSize : null,
-            ),
-          ),
-        ),
-        selected: false,
-        selectedColor: colorator != null && colorator!(item.value) != null
-            ? colorator!(item.value)
-            : chipColor != null
-                ? chipColor
-                : Theme.of(context).primaryColor.withOpacity(0.33),
-        onSelected: (_) {
-          if (onTap != null) onTap!(item.value);
+      padding: EdgeInsets.only(right: getSize(10)),
+      child: CustomChipSet(
+        // chipList: items!.map((item) => item!.label).toList(),
+        chipList: [],
+        chipLabel: item.label,
+        spacing: 10,
+        onDelete: (value) {
+          if (onDelete != null) {
+            onDelete!(item.value);
+          }
         },
       ),
     );
+
+    /*return ChoiceChip(
+      shape: shape as OutlinedBorder?,
+      color: WidgetStateProperty.all(AppColors.scaffoldColor),
+      avatar: icon != null
+          ? Icon(
+              icon!.icon,
+              color: colorator != null && colorator!(item.value) != null
+                  ? colorator!(item.value)!.withOpacity(1)
+                  : icon!.color ?? Theme.of(context).primaryColor,
+            )
+          : null,
+      label: SizedBox(
+        width: chipWidth,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              item.label,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: colorator != null && colorator!(item.value) != null
+                    ? textStyle != null
+                        ? textStyle!.color ?? colorator!(item.value)
+                        : colorator!(item.value)
+                    : textStyle != null && textStyle!.color != null
+                        ? textStyle!.color
+                        : chipColor != null
+                            ? chipColor!.withOpacity(1)
+                            : null,
+                fontSize: textStyle != null ? textStyle!.fontSize : null,
+              ),
+            ),
+            SizedBox(
+              width: getSize(10),
+            ),
+            GestureDetector(
+              onTap: () {
+                print("Only ondelete clicked!!!");
+                if (onTap != null) onTap!(item.value);
+              },
+              child: AbsorbPointer(
+                absorbing: true,
+                child: Icon(
+                  Icons.close,
+                  size: getSize(18),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      selected: false,
+      selectedColor: colorator != null && colorator!(item.value) != null
+          ? colorator!(item.value)
+          : chipColor != null
+              ? chipColor
+              : Theme.of(context).primaryColor.withOpacity(0.33),
+      clipBehavior: Clip.none,
+      disabledColor: AppColors.black,
+      surfaceTintColor: AppColors.black,
+      onSelected: (_) {
+        print("onSelected clicked!!!");
+      },
+    );
+  
+  */
   }
 }

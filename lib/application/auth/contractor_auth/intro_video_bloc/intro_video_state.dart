@@ -7,6 +7,7 @@ class IntroVideoState with _$IntroVideoState {
     required bool isPlaying,
     required bool showErrorMessages,
     required bool isSubmitting,
+    required bool isVideoComplete,
     required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
 
     /// FOR INTRO QUIZ
@@ -17,7 +18,8 @@ class IntroVideoState with _$IntroVideoState {
     required List<QuizDTO> updatedQuestions,
     required bool showQuizErrorMessages,
     required bool isQuizSubmitting,
-    required Option<Either<AccountFailure, Account>> quizAuthFailureOrSuccessOption,
+    required Option<Either<AccountFailure, Account>>
+        quizAuthFailureOrSuccessOption,
     required Option<Either<AccountFailure, List<QuizDTO>>>
         quizQuestionFailureOrSuccessOption,
   }) = _IntroVideoState;
@@ -26,6 +28,7 @@ class IntroVideoState with _$IntroVideoState {
         isPlaying: false,
         showErrorMessages: false,
         isSubmitting: false,
+        isVideoComplete: false,
         authFailureOrSuccessOption: none(),
 
         /// FOR INTRO QUIZ

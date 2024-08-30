@@ -224,6 +224,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           final isNewPassValid = state.password.isValid();
           final isConfirmPassValid = state.confirmPassword.isValid();
           final isLocationAddressValid = state.locationAddress.isValid();
+          final isProfilePicValid = (state.selectImage.isNotEmpty);
 
           print(
               "Phone number NEW-->  ${state.selectedCountrycode}  && ${state.phoneNumber}");
@@ -233,7 +234,9 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
                 isEmailValid &&
                 isNewPassValid &&
                 isConfirmPassValid &&
-                isLocationAddressValid) {
+                isLocationAddressValid &&
+                isProfilePicValid) {
+              print("All details are valid");
               emit(
                 state.copyWith(
                   isSubmitting: true,
@@ -256,14 +259,14 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
                 referralCode: state.referralCode,
                 locationAddress: state.locationAddress.getValue() ?? "",
               );
-              // failureOrSuccess = right("sucess");
             }
           } else {
             if (isCompanyNameValid &&
                 isPhoneNumberValid &&
                 isEmailValid &&
                 isNewPassValid &&
-                isConfirmPassValid) {
+                isConfirmPassValid &&
+                isProfilePicValid) {
               emit(
                 state.copyWith(
                   isSubmitting: true,
@@ -430,7 +433,6 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
               phoneNumber: (getCurrentRole() == 1)
                   ? "${getCurrentUser().phone ?? ""}"
                   : "",
-              // password: e.password,
               otp: state.enteredOTP,
             );
 
@@ -441,6 +443,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
             state.copyWith(
               isSubmitting: false,
               showOtpErrorMessages: true,
+              enteredOTP: OTPText(""),
               verifyOtpFailureOrSuccessOption: optionOf(failureOrSuccess),
             ),
           );

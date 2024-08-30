@@ -2,6 +2,7 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/auth/forgot_password/forgot_password_bloc.dart';
@@ -17,6 +18,7 @@ import 'package:shift/presentation/common/widgets/common_country_code_picker.dar
 import 'package:shift/presentation/core/inputs/custom_pin_field.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_country_code_removing_formatter.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
 // ignore: must_be_immutable
@@ -212,7 +214,10 @@ class FilterBottomSheet extends StatelessWidget {
                   keyboardType: TextInputType.phone,
                   errorMaxLines: 2,
                   maxLength: 10,
-                  // focusNode: state.mobileNumberFocusNode,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                    CountryCodeRemovingFormatter(),
+                  ],
                   onChanged: (value) => context.read<ForgotPasswordBloc>().add(
                         ForgotPasswordEvent.mobileNumberChanged(value),
                       ),

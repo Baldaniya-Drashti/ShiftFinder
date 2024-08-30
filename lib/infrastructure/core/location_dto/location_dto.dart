@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'location_dto.freezed.dart';
 part 'location_dto.g.dart';
@@ -18,7 +20,7 @@ class LocationDTO with _$LocationDTO {
 class UnitDTO with _$UnitDTO {
   const factory UnitDTO({
     String? number_or_name,
-    String? note,
+    String? units_note,
   }) = _UnitDTO;
 
   factory UnitDTO.fromJson(Map<String, dynamic> json) =>

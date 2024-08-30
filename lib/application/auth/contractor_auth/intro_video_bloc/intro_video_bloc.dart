@@ -37,6 +37,7 @@ class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
           emit(state.copyWith(
             controller: controller,
             isPlaying: false,
+            isVideoComplete: false,
           ));
         },
         playVideo: (e) async {
@@ -56,7 +57,7 @@ class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
         videoCompleted: (e) async {
           emit(state.copyWith(
             isPlaying: false,
-            isSubmitting: true,
+            isVideoComplete: true,
           ));
         },
 
@@ -118,7 +119,10 @@ class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
           );
           updatedQuestionList[e.questionIndex] = updatedQuestion;
           print("Updated question list---> $updatedQuestionList");
-          emit(state.copyWith(questions: updatedQuestionList));
+          emit(state.copyWith(
+            questions: updatedQuestionList,
+            quizAuthFailureOrSuccessOption: none(),
+          ));
         },
         submitQuiz: (e) async {
           Either<AccountFailure, Account>? failureOrSuccess;
@@ -138,7 +142,8 @@ class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
                     .join(','),
               };
             }).toList();
-            print("selected answers -->  $formattedData");
+            print("selected answers -->  ${jsonEncode(formattedData)}");
+            print("selected answers1111 -->  ${formattedData}");
 
             // emit(state.copyWith(
             //   questions: state.questions
@@ -163,6 +168,7 @@ class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
               (l) => emit(
                 state.copyWith(
                   isSubmitting: false,
+                  quizAuthFailureOrSuccessOption: none(),
                 ),
               ),
               (r) {

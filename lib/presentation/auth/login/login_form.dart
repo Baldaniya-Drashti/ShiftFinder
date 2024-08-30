@@ -50,7 +50,11 @@ class LoginForm extends StatelessWidget {
             (r) {
               // context.router.push(const PageRouteInfo(MainTabView.name));
               if (r.isProfileComplete == 1) {
-                context.router.replace(const PageRouteInfo(MainTabView.name));
+                print("profile complete");
+                // context.router.replace(const PageRouteInfo(MainTabView.name));
+                showSuccess(
+                        message: "Success! Next Process is under development!!")
+                    .show(context);
               } else {
                 context.router.replace(
                     getCurrentPage(r.lastPage ?? '', fromSplash: true));
@@ -74,7 +78,7 @@ class LoginForm extends StatelessWidget {
             },
             (r) {
               AppFocus.unfocus(context);
-              const VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
+              VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
                 context,
                 // state.emailId.getValue(),
                 (getCurrentRole() == 1)
@@ -267,7 +271,7 @@ class LoginForm extends StatelessWidget {
                         shortPassword: (_) =>
                             StringConstant.passwordShouldBeMinimum8Digit,
                         invalidPassword: (value) =>
-                            StringConstant.invalidPasswordErrorText,
+                            StringConstant.pleaseEnterCorrectPasswordFormat,
                         orElse: () => null,
                       ),
                       (_) => null,

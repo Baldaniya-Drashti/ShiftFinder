@@ -124,6 +124,8 @@ class BankDetailsBloc extends Bloc<BankDetailsEvent, BankDetailsState> {
             //   countryCode: '+${state.selectedCountrycode}',
             // );
             failureOrSuccess = right("success");
+          } else {
+            print("Some Details are invalid! ");
           }
           emit(
             state.copyWith(

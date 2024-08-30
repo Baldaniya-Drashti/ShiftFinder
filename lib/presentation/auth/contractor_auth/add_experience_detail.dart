@@ -58,8 +58,9 @@ class AddExperienceDetail extends StatelessWidget {
                   ).show(context);
                 },
                 (r) {
+                  // context.router.push(const PageRouteInfo(ReferenceListScreen.name));
                   context.router
-                      .push(const PageRouteInfo(ReferenceListScreen.name));
+                      .push(const PageRouteInfo(EducationListScreen.name));
                 },
               ),
             );
@@ -372,7 +373,7 @@ class AddExperienceDetail extends StatelessWidget {
         ),
         DropdownButtonFormField<String>(
           validator: validator,
-          menuMaxHeight: getSize(400),
+          menuMaxHeight: getSize(300),
           dropdownColor: AppColors.white,
           decoration: InputDecoration(
             filled: true,

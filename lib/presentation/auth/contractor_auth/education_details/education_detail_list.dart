@@ -64,8 +64,9 @@ class EducationListScreen extends StatelessWidget {
                 ).show(context);
               },
               (r) {
+                // context.router.push(PageRouteInfo(AddExperienceDetailScreen.name));
                 context.router
-                    .push(PageRouteInfo(AddExperienceDetailScreen.name));
+                    .push(const PageRouteInfo(ReferenceListScreen.name));
               },
             ),
           );
@@ -73,6 +74,7 @@ class EducationListScreen extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: CommonAppBar(
+              forceMaterialTransparency: false,
               isShowBackBtn: !isFromSplash,
               onBackPressed: () {
                 context.router.maybePop();
@@ -108,34 +110,38 @@ class EducationListScreen extends StatelessWidget {
                                     image: SvgImageConstant.graduationCap,
                                   ),
                                 ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              bottom: getSize(20),
-                            ),
-                            child: CommonButton(
-                              onPressed: () {
-                                if (state.educationList.isNotEmpty) {
-                                  context.router.push(PageRouteInfo(
-                                      AddExperienceDetailScreen.name));
-                                } else {
-                                  context.router
-                                      .push(PageRouteInfo(
-                                          AddEducationDetailScreen.name))
-                                      .then((value) {
-                                    print("Value when back ---> ${value}");
-                                    if (value != null && value == true) {
-                                      context.read<EducationDetailBloc>().add(
-                                          EducationDetailEvent
-                                              .getEducationList());
+                          Container(
+                            color: AppColors.scaffoldColor,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                bottom: getSize(20),
+                              ),
+                              child: CommonButton(
+                                onPressed: () {
+                                  if (state.educationList.isNotEmpty) {
+                                    // context.router.push(PageRouteInfo(AddExperienceDetailScreen.name));
+                                    context.router.push(const PageRouteInfo(
+                                        ReferenceListScreen.name));
+                                  } else {
+                                    context.router
+                                        .push(PageRouteInfo(
+                                            AddEducationDetailScreen.name))
+                                        .then((value) {
+                                      print("Value when back ---> ${value}");
+                                      if (value != null && value == true) {
+                                        context.read<EducationDetailBloc>().add(
+                                            EducationDetailEvent
+                                                .getEducationList());
 
-                                      /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
-                                    }
-                                  });
-                                }
-                              },
-                              buttonText: (state.educationList.isNotEmpty)
-                                  ? StringConstant.txtContinue
-                                  : StringConstant.addYourEducation,
+                                        /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
+                                      }
+                                    });
+                                  }
+                                },
+                                buttonText: (state.educationList.isNotEmpty)
+                                    ? StringConstant.txtContinue
+                                    : StringConstant.addYourEducation,
+                              ),
                             ),
                           ),
                         ],
@@ -149,8 +155,7 @@ class EducationListScreen extends StatelessWidget {
   }
 
   Widget educationListUI(BuildContext context, EducationDetailState state) {
-    return SizedBox(
-      height: getSize(660),
+    return Expanded(
       child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -175,24 +180,51 @@ class EducationListScreen extends StatelessWidget {
                       fit: BoxFit.fitHeight,
                     ),
                     title: boxTitleUI(state.educationList[index]),
-                    trailing: GestureDetector(
-                      onTap: () {
-                        AppDialog.showDelete(
-                          context,
-                          title: StringConstant.delete,
-                          infoMessage: StringConstant.deleteEducationDesc,
-                          onCancelClick: () {
-                            Navigator.pop(context);
+                    contentPadding:
+                        EdgeInsets.only(left: getSize(15), right: getSize(10)),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            context.router
+                                .push(PageRouteInfo(
+                                    AddEducationDetailScreen.name,
+                                    args: AddEducationDetailScreenArgs(
+                                        educationObj:
+                                            state.educationList[index])))
+                                .then((value) {
+                              if (value != null && value == true) {
+                                context.read<EducationDetailBloc>().add(
+                                    EducationDetailEvent.getEducationList());
+                              }
+                            });
                           },
-                          onDeleteClick: () {
-                            Navigator.pop(context);
-                            context.read<EducationDetailBloc>().add(
-                                EducationDetailEvent.deleteEducation(
-                                    state.educationList[index].id ?? -1));
+                          child: SvgPicture.asset(
+                            SvgImageConstant.editWithBg,
+                          ),
+                        ),
+                        SizedBox(width: getSize(15)),
+                        GestureDetector(
+                          onTap: () {
+                            AppDialog.showDelete(
+                              context,
+                              title: StringConstant.delete,
+                              infoMessage: StringConstant.deleteEducationDesc,
+                              onCancelClick: () {
+                                Navigator.pop(context);
+                              },
+                              onDeleteClick: () {
+                                Navigator.pop(context);
+                                context.read<EducationDetailBloc>().add(
+                                    EducationDetailEvent.deleteEducation(
+                                        state.educationList[index].id ?? -1));
+                              },
+                            );
                           },
-                        );
-                      },
-                      child: SvgPicture.asset(SvgImageConstant.bin),
+                          child: SvgPicture.asset(SvgImageConstant.bin),
+                        ),
+                      ],
                     ),
                   ),
                 );

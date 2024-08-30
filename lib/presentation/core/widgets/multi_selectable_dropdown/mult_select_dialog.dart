@@ -1,6 +1,13 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_field, prefer_final_fields, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_actions.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_item.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_list_type.dart';
@@ -12,15 +19,16 @@ class MultiSelectDialog<T> extends StatefulWidget with MultiSelectActions<T> {
 
   /// The list of selected values before interaction.
   final List<T> initialValue;
+  final List<T> otherInitialValue;
 
   /// The text at the top of the dialog.
-  final Widget? title;
+  final String? title;
 
   /// Fires when the an item is selected / unselected.
   final void Function(List<T>)? onSelectionChanged;
 
   /// Fires when confirm is tapped.
-  final void Function(List<T>)? onConfirm;
+  final void Function(List<T>, List<T>)? onConfirm;
 
   /// Toggles search functionality. Default is false.
   final bool searchable;
@@ -80,9 +88,12 @@ class MultiSelectDialog<T> extends StatefulWidget with MultiSelectActions<T> {
   /// Set the color of the check in the checkbox
   final Color? checkColor;
 
+  final bool isShowOtherValue;
+
   MultiSelectDialog({
     required this.items,
     required this.initialValue,
+    required this.otherInitialValue,
     this.title,
     this.onSelectionChanged,
     this.onConfirm,
@@ -105,6 +116,7 @@ class MultiSelectDialog<T> extends StatefulWidget with MultiSelectActions<T> {
     this.selectedItemsTextStyle,
     this.separateSelectedItems = false,
     this.checkColor,
+    this.isShowOtherValue = true,
   });
 
   @override
@@ -113,6 +125,7 @@ class MultiSelectDialog<T> extends StatefulWidget with MultiSelectActions<T> {
 
 class _MultiSelectDialogState<T> extends State<MultiSelectDialog<T>> {
   List<T> _selectedValues = [];
+  List<T> _selectedOtherList = [];
   bool _showSearch = false;
   List<MultiSelectItem<T>> _items;
 
@@ -122,6 +135,7 @@ class _MultiSelectDialogState<T> extends State<MultiSelectDialog<T>> {
   void initState() {
     super.initState();
     _selectedValues.addAll(widget.initialValue);
+    _selectedOtherList.addAll(widget.otherInitialValue);
 
     for (int i = 0; i < _items.length; i++) {
       _items[i].selected = false;
@@ -144,14 +158,17 @@ class _MultiSelectDialogState<T> extends State<MultiSelectDialog<T>> {
       child: CheckboxListTile(
         checkColor: widget.checkColor,
         value: item.selected,
+        visualDensity: VisualDensity.compact,
+        dense: true,
         activeColor: widget.colorator != null
             ? widget.colorator!(item.value) ?? widget.selectedColor
-            : widget.selectedColor,
-        title: Text(
-          item.label,
-          style: item.selected
-              ? widget.selectedItemsTextStyle
-              : widget.itemsTextStyle,
+            : AppColors.primaryColor,
+        title: BaseText(
+          text: item.label,
+          fontSize: 14,
+          // style: item.selected
+          //     ? widget.selectedItemsTextStyle
+          //     : widget.itemsTextStyle,
         ),
         controlAffinity: ListTileControlAffinity.leading,
         onChanged: (checked) {
@@ -216,12 +233,62 @@ class _MultiSelectDialogState<T> extends State<MultiSelectDialog<T>> {
     );
   }
 
+  TextEditingController otherController = TextEditingController();
+  // List<MultiSelectItem> otherList = [];
+
+  /*List<T> addOtherValue() {
+    String newSkill = otherController.text.trim();
+    if (newSkill.isNotEmpty &&
+        !otherList.any((item) => item.label == newSkill)) {
+      setState(() {
+        otherList.add(MultiSelectItem(-1, newSkill, isOther: true));
+        otherController.clear();
+      });
+    }
+    _selectedOtherList = [];
+    _selectedOtherList.addAll(otherList.map((item) => item.label as T));
+    return _selectedOtherList;
+  }*/
+
+  List<T> addOtherValue() {
+    String newSkill = otherController.text.trim();
+    if (newSkill.isNotEmpty &&
+        !_selectedOtherList.any((item) {
+          item as String;
+          return item == newSkill;
+        })) {
+      _selectedOtherList.addAll([newSkill as T]);
+    }
+    return _selectedOtherList;
+  }
+
+  /*List<T> deleteOtherValue(String value) {
+    setState(() {
+      otherList.removeWhere((item) => item.label == value);
+      otherController.clear();
+    });
+    _selectedOtherList = [];
+    _selectedOtherList.addAll(otherList.map((item) => item.label as T));
+    return _selectedOtherList;
+  }*/
+
+  List<T> deleteOtherValue(String value) {
+    _selectedOtherList.remove(value);
+
+    return _selectedOtherList;
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: widget.backgroundColor,
+      backgroundColor: widget.backgroundColor ?? AppColors.scaffoldColor,
       title: widget.searchable == false
-          ? widget.title ?? const Text("Select")
+          ? BaseText(
+              text: widget.title ?? "Select",
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+              textColor: AppColors.black,
+            )
           : Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -257,7 +324,9 @@ class _MultiSelectDialogState<T> extends State<MultiSelectDialog<T>> {
                           ),
                         ),
                       )
-                    : widget.title ?? Text("Select"),
+                    : BaseText(
+                        text: widget.title ?? "Select",
+                      ),
                 IconButton(
                   icon: _showSearch
                       ? widget.closeSearchIcon ?? Icon(Icons.close)
@@ -279,56 +348,100 @@ class _MultiSelectDialogState<T> extends State<MultiSelectDialog<T>> {
             ),
       contentPadding:
           widget.listType == null || widget.listType == MultiSelectListType.LIST
-              ? EdgeInsets.only(top: 12.0)
-              : EdgeInsets.all(20),
+              ? EdgeInsets.only(top: getSize(12))
+              : EdgeInsets.all(getSize(20)),
       content: SizedBox(
-        height: widget.height,
+        height: widget.height ?? getSize(300),
         width: widget.width ?? MediaQuery.of(context).size.width * 0.73,
-        child: widget.listType == null ||
-                widget.listType == MultiSelectListType.LIST
-            ? ListView.builder(
-                itemCount: _items.length,
-                itemBuilder: (context, index) {
-                  return _buildListItem(_items[index]);
-                },
-              )
-            : SingleChildScrollView(
-                child: Wrap(
-                  children: _items.map(_buildChipItem).toList(),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              (widget.listType == null ||
+                      widget.listType == MultiSelectListType.LIST)
+                  ? ListView.builder(
+                      itemCount: _items.length,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return _buildListItem(_items[index]);
+                      },
+                    )
+                  : Wrap(
+                      children: _items.map(_buildChipItem).toList(),
+                    ),
+              if (widget.isShowOtherValue) ...[
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: getSize(20), vertical: getSize(18)),
+                  child: CustomTextField(
+                    labelText: "Add Other ${widget.title}",
+                    hintText: widget.title,
+                    controller: otherController,
+                    suffixIcon: CommonButton(
+                      height: getSize(27),
+                      width: getSize(59),
+                      borderRadius: getSize(10),
+                      buttonText: StringConstant.add,
+                      buttonFontSize: 10,
+                      onPressed: () {
+                        setState(() {
+                          _selectedOtherList = addOtherValue();
+                          otherController.clear();
+                        });
+                      },
+                    ),
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                  child: CustomChipSet(
+                    // chipList: otherList.map((item) => item.label).toList(),
+                    chipList: _selectedOtherList
+                        .map((item) => item as String)
+                        .toList(),
+                    spacing: 10,
+                    onDelete: (value) {
+                      setState(() {
+                        deleteOtherValue(value);
+                        otherController.clear();
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
       ),
+      actionsAlignment: MainAxisAlignment.spaceBetween,
+      actionsPadding: EdgeInsets.fromLTRB(
+          getSize(20), getSize(10), getSize(20), getSize(20)),
       actions: <Widget>[
-        TextButton(
-          child: widget.cancelText ??
-              Text(
-                "CANCEL",
-                style: TextStyle(
-                  color: (widget.selectedColor != null &&
-                          widget.selectedColor != Colors.transparent)
-                      ? widget.selectedColor!.withOpacity(1)
-                      : Theme.of(context).primaryColor,
-                ),
-              ),
+        CommonButton(
+          width: getSize(140),
           onPressed: () {
             widget.onCancelTap(context, widget.initialValue);
           },
+          buttonText: StringConstant.cancle,
+          backgroundColor: AppColors.scaffoldColor,
+          borderColor: AppColors.primaryColor,
+          buttonTextColor: AppColors.primaryColor,
         ),
-        TextButton(
-          child: widget.confirmText ??
-              Text(
-                'OK',
-                style: TextStyle(
-                  color: (widget.selectedColor != null &&
-                          widget.selectedColor != Colors.transparent)
-                      ? widget.selectedColor!.withOpacity(1)
-                      : Theme.of(context).primaryColor,
-                ),
-              ),
+        CommonButton(
+          width: getSize(140),
           onPressed: () {
-            widget.onConfirmTap(context, _selectedValues, widget.onConfirm);
+            // if (selectedOtherList.isNotEmpty) {
+            //   _selectedValues
+            //       .addAll(selectedOtherList.map((item) => item.label as T));
+            // }
+            print("Selected Other list ---> $_selectedOtherList");
+            widget.onConfirmTap(
+                context, _selectedValues, _selectedOtherList, widget.onConfirm);
           },
-        )
+          buttonText: StringConstant.ok,
+        ),
       ],
     );
   }

@@ -24,7 +24,9 @@ import 'package:shift/presentation/common/widgets/common_country_code_picker.dar
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_country_code_removing_formatter.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
+import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 import 'package:badges/badges.dart' as badges;
 
@@ -83,7 +85,7 @@ class RegisterProfileScreen extends StatelessWidget {
                   },
                   (r) {
                     AppFocus.unfocus(context);
-                    const VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
+                    VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
                       context,
                       (getCurrentRole() == 1)
                           ? "+${state.selectedCountrycode} ${state.enteredPhoneNo}"
@@ -163,104 +165,104 @@ class RegisterProfileScreen extends StatelessWidget {
       alignment: AlignmentDirectional.center,
       clipBehavior: Clip.none,
       children: [
-        SizedBox(
-          height: getSize(130),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  ImageChooserDialog().showImageChooserDialog(
-                    takePhotoCallback: () async {
-                      String path = await ImagePickerUtils().pickImage(
-                              imageSource: ImageSource.camera,
-                              context: context) ??
-                          '';
-                      if (path.isNotEmpty) {
-                        print("CAMERA IMAGE PATH: $path");
-                        context.read<RegisterFormBloc>().add(
-                              RegisterFormEvent.changeProfilePic(path),
-                            );
-                      }
-                    },
-                    selectPhotoCallback: () async {
-                      String path = await ImagePickerUtils().pickImage(
-                              imageSource: ImageSource.gallery,
-                              context: context) ??
-                          '';
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GestureDetector(
+              onTap: () {
+                ImageChooserDialog().showImageChooserDialog(
+                  takePhotoCallback: () async {
+                    String path = await ImagePickerUtils().pickImage(
+                            imageSource: ImageSource.camera,
+                            context: context) ??
+                        '';
+                    if (path.isNotEmpty) {
+                      print("CAMERA IMAGE PATH: $path");
+                      context.read<RegisterFormBloc>().add(
+                            RegisterFormEvent.changeProfilePic(path),
+                          );
+                    }
+                  },
+                  selectPhotoCallback: () async {
+                    String path = await ImagePickerUtils().pickImage(
+                            imageSource: ImageSource.gallery,
+                            context: context) ??
+                        '';
 
-                      if (path.isNotEmpty) {
-                        print("GALLERY IMAGE PATH: $path");
-                        context.read<RegisterFormBloc>().add(
-                              RegisterFormEvent.changeProfilePic(path),
-                            );
-                      }
-                    },
-                    context: context,
-                  );
-                },
-                child: Center(
-                  child: badges.Badge(
-                    position: badges.BadgePosition.bottomEnd(
-                      bottom: getSize(2),
-                      end: getSize(5),
-                    ),
-                    badgeContent: SvgPicture.asset(
-                      SvgImageConstant.camera,
-                      height: getSize(15),
-                      width: getSize(15),
-                    ),
-                    badgeStyle: badges.BadgeStyle(
-                        badgeColor: AppColors.white,
-                        borderSide: BorderSide(
-                            color: AppColors.primaryColor, width: 0.4)),
-                    child: Container(
-                      height: getSize(100),
-                      width: getSize(100),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: AppColors.white,
-                        shape: BoxShape.circle,
-                        image: state.selectImage.isNotEmpty
-                            ? state.selectImage.contains('https')
-                                ? DecorationImage(
-                                    image: CachedNetworkImageProvider(
-                                        state.selectImage),
-                                    fit: BoxFit.cover,
-                                  )
-                                : DecorationImage(
-                                    image: FileImage(
-                                      File(state.selectImage),
-                                    ),
-                                    fit: BoxFit.cover,
-                                  )
-                            : DecorationImage(
-                                image: AssetImage(
-                                  (getCurrentRole() == 1)
-                                      ? PngImageConstants.contractor_employer
-                                      : PngImageConstants.profile_employer,
-                                ),
+                    if (path.isNotEmpty) {
+                      print("GALLERY IMAGE PATH: $path");
+                      context.read<RegisterFormBloc>().add(
+                            RegisterFormEvent.changeProfilePic(path),
+                          );
+                    }
+                  },
+                  context: context,
+                );
+              },
+              child: Center(
+                child: badges.Badge(
+                  position: badges.BadgePosition.bottomEnd(
+                    bottom: getSize(2),
+                    end: getSize(5),
+                  ),
+                  badgeContent: SvgPicture.asset(
+                    SvgImageConstant.camera,
+                    height: getSize(15),
+                    width: getSize(15),
+                  ),
+                  badgeStyle: badges.BadgeStyle(
+                      badgeColor: AppColors.white,
+                      borderSide: BorderSide(
+                          color: AppColors.primaryColor, width: 0.4)),
+                  child: Container(
+                    height: getSize(100),
+                    width: getSize(100),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      shape: BoxShape.circle,
+                      image: state.selectImage.isNotEmpty
+                          ? state.selectImage.contains('https')
+                              ? DecorationImage(
+                                  image: CachedNetworkImageProvider(
+                                      state.selectImage),
+                                  fit: BoxFit.cover,
+                                )
+                              : DecorationImage(
+                                  image: FileImage(
+                                    File(state.selectImage),
+                                  ),
+                                  fit: BoxFit.cover,
+                                )
+                          : DecorationImage(
+                              image: AssetImage(
+                                (getCurrentRole() == 1)
+                                    ? PngImageConstants.contractor_employer
+                                    : PngImageConstants.profile_employer,
                               ),
-                        border: Border.all(
-                          color: AppColors.darkGreen,
-                          width: getSize(2),
-                        ),
+                            ),
+                      border: Border.all(
+                        color: AppColors.darkGreen,
+                        width: getSize(2),
                       ),
                     ),
                   ),
                 ),
               ),
-              BaseText(
-                text: (getCurrentRole() == 1)
-                    ? StringConstant.profilePhoto
-                    : StringConstant.companyLogo,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                textColor: AppColors.black.withOpacity(0.7),
-              ),
-            ],
-          ),
+            ),
+            paddingBetweenFields(height: getSize(8)),
+            BaseText(
+              text: (getCurrentRole() == 1)
+                  ? StringConstant.profilePhoto
+                  : StringConstant.companyLogo,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              textColor: AppColors.black.withOpacity(0.7),
+            ),
+            if (state.showErrorMessages && state.selectImage.isEmpty)
+              commonErrorText("* Please select profile photo"),
+          ],
         ),
         // Positioned(
         //   top: getSize(75),
@@ -297,9 +299,9 @@ class RegisterProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget paddingBetweenFields() {
+  Widget paddingBetweenFields({double? height}) {
     return SizedBox(
-      height: getSize(15),
+      height: height ?? getSize(15),
     );
   }
 
@@ -335,40 +337,20 @@ class RegisterProfileScreen extends StatelessWidget {
     );
   }
 
-  /*String processPhoneNumber(String phoneNumber) {
-    // Remove any leading or trailing spaces
-    String trimmedPhoneNumber = phoneNumber.trim();
-    print("trimmedPhoneNumber: $trimmedPhoneNumber");
-
-    // Find the index of the first space
-    int spaceIndex = trimmedPhoneNumber.indexOf(' ');
-    print("spaceIndex: $spaceIndex");
-
-    // If a space is found and the length of the phone number after the space is greater than 10
-    if (spaceIndex != -1 && trimmedPhoneNumber.length - spaceIndex > 10) {
-      print(
-          "trimmedPhoneNumber222: ${trimmedPhoneNumber.substring(spaceIndex + 1).replaceAll(' ', '')}");
-
-      // Return the part of the string after the first space, removing all characters before it
-      return trimmedPhoneNumber.substring(spaceIndex + 1).replaceAll(' ', '');
-    }
-
-    // If no space is found or the length is not greater than 10, return the original number
-    return trimmedPhoneNumber.replaceAll(' ', '');
-  }*/
-
   Widget phoneNumberTextField(BuildContext context, RegisterFormState state) {
     return CustomTextField(
       labelText: StringConstant.phoneNumber,
       hintText: StringConstant.phoneNumber,
       keyboardType: TextInputType.phone,
       isLabelPadding: true,
-      maxLength: 12,
+      maxLength: 10,
       errorMaxLines: 2,
       inputFormatters: [
-        // FilteringTextInputFormatter.digitsOnly,
+        FilteringTextInputFormatter.digitsOnly,
+        CountryCodeRemovingFormatter(),
       ],
       onChanged: (value) {
+        print("Filter Phone number --> $value");
         context.read<RegisterFormBloc>().add(
               RegisterFormEvent.phoneNumberChanged(value),
             );

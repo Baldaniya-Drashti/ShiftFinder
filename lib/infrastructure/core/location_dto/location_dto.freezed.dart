@@ -204,7 +204,7 @@ UnitDTO _$UnitDTOFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UnitDTO {
   String? get number_or_name => throw _privateConstructorUsedError;
-  String? get note => throw _privateConstructorUsedError;
+  String? get units_note => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -216,7 +216,7 @@ abstract class $UnitDTOCopyWith<$Res> {
   factory $UnitDTOCopyWith(UnitDTO value, $Res Function(UnitDTO) then) =
       _$UnitDTOCopyWithImpl<$Res, UnitDTO>;
   @useResult
-  $Res call({String? number_or_name, String? note});
+  $Res call({String? number_or_name, String? units_note});
 }
 
 /// @nodoc
@@ -233,16 +233,16 @@ class _$UnitDTOCopyWithImpl<$Res, $Val extends UnitDTO>
   @override
   $Res call({
     Object? number_or_name = freezed,
-    Object? note = freezed,
+    Object? units_note = freezed,
   }) {
     return _then(_value.copyWith(
       number_or_name: freezed == number_or_name
           ? _value.number_or_name
           : number_or_name // ignore: cast_nullable_to_non_nullable
               as String?,
-      note: freezed == note
-          ? _value.note
-          : note // ignore: cast_nullable_to_non_nullable
+      units_note: freezed == units_note
+          ? _value.units_note
+          : units_note // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -255,7 +255,7 @@ abstract class _$$UnitDTOImplCopyWith<$Res> implements $UnitDTOCopyWith<$Res> {
       __$$UnitDTOImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? number_or_name, String? note});
+  $Res call({String? number_or_name, String? units_note});
 }
 
 /// @nodoc
@@ -270,16 +270,16 @@ class __$$UnitDTOImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? number_or_name = freezed,
-    Object? note = freezed,
+    Object? units_note = freezed,
   }) {
     return _then(_$UnitDTOImpl(
       number_or_name: freezed == number_or_name
           ? _value.number_or_name
           : number_or_name // ignore: cast_nullable_to_non_nullable
               as String?,
-      note: freezed == note
-          ? _value.note
-          : note // ignore: cast_nullable_to_non_nullable
+      units_note: freezed == units_note
+          ? _value.units_note
+          : units_note // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -288,7 +288,7 @@ class __$$UnitDTOImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$UnitDTOImpl implements _UnitDTO {
-  const _$UnitDTOImpl({this.number_or_name, this.note});
+  const _$UnitDTOImpl({this.number_or_name, this.units_note});
 
   factory _$UnitDTOImpl.fromJson(Map<String, dynamic> json) =>
       _$$UnitDTOImplFromJson(json);
@@ -296,11 +296,11 @@ class _$UnitDTOImpl implements _UnitDTO {
   @override
   final String? number_or_name;
   @override
-  final String? note;
+  final String? units_note;
 
   @override
   String toString() {
-    return 'UnitDTO(number_or_name: $number_or_name, note: $note)';
+    return 'UnitDTO(number_or_name: $number_or_name, units_note: $units_note)';
   }
 
   @override
@@ -310,12 +310,13 @@ class _$UnitDTOImpl implements _UnitDTO {
             other is _$UnitDTOImpl &&
             (identical(other.number_or_name, number_or_name) ||
                 other.number_or_name == number_or_name) &&
-            (identical(other.note, note) || other.note == note));
+            (identical(other.units_note, units_note) ||
+                other.units_note == units_note));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, number_or_name, note);
+  int get hashCode => Object.hash(runtimeType, number_or_name, units_note);
 
   @JsonKey(ignore: true)
   @override
@@ -332,15 +333,15 @@ class _$UnitDTOImpl implements _UnitDTO {
 }
 
 abstract class _UnitDTO implements UnitDTO {
-  const factory _UnitDTO({final String? number_or_name, final String? note}) =
-      _$UnitDTOImpl;
+  const factory _UnitDTO(
+      {final String? number_or_name, final String? units_note}) = _$UnitDTOImpl;
 
   factory _UnitDTO.fromJson(Map<String, dynamic> json) = _$UnitDTOImpl.fromJson;
 
   @override
   String? get number_or_name;
   @override
-  String? get note;
+  String? get units_note;
   @override
   @JsonKey(ignore: true)
   _$$UnitDTOImplCopyWith<_$UnitDTOImpl> get copyWith =>

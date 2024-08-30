@@ -23,6 +23,42 @@ class AddContractorSkillFormBloc
       : super(AddContractorSkillFormState.initial()) {
     on<AddContractorSkillFormEvent>((event, emit) async {
       await event.map(
+        confirmSpecialityList: (e) {
+          // emit(state.copyWith(
+          //   requiredSpecialityChipList: ListInputEmptyOrNot(e.specialityList),
+          //   softwareSkillOther: e.otherSpecialityList,
+          //   authFailureOrSuccessOption: none(),
+          // ));
+        },
+        confirmRoleList: (e) {
+          emit(state.copyWith(
+            roleTypeChipList: ListInputEmptyOrNot(e.roleList),
+            authFailureOrSuccessOption: none(),
+          ));
+
+          print("selected role list---> ${state.roleTypeChipList}");
+        },
+        confirmSoftwareSkill: (e) {
+          emit(state.copyWith(
+            requiredSoftwareSkillChipList: ListInputEmptyOrNot(e.skillList),
+            softwareSkillOther: e.otherSkillList,
+            authFailureOrSuccessOption: none(),
+          ));
+
+          print(
+              "selected skill list---> ${state.requiredSoftwareSkillChipList} \n other skills ${state.softwareSkillOther}");
+        },
+        confirmLanguageList: (e) {
+          emit(state.copyWith(
+            languageChipList: ListInputEmptyOrNot(e.languageList),
+            languageOther: e.otherLanguageList,
+            authFailureOrSuccessOption: none(),
+          ));
+
+          print(
+              "selected language list---> ${state.languageChipList} \n other languages ${state.languageOther}");
+        },
+
         /// GET ALL DROPDOWN LIST FROM API
         getAllDropDownList: (e) async {
           // Either<AuthFailure, SkillListDTO>? res;
@@ -126,7 +162,7 @@ class AddContractorSkillFormBloc
           }*/
         },
         removeRoleTypeChips: (e) {
-          emit(
+          /*emit(
             state.copyWith(
               roleTypeChipList: ListInputEmptyOrNot(List.from(
                   state.roleTypeChipList.getOrCrash()..remove(e.roleType))),
@@ -135,19 +171,19 @@ class AddContractorSkillFormBloc
                   (state.roleTypeChipList.getValue().isNotEmpty) ? false : true,
               authFailureOrSuccessOption: none(),
             ),
-          );
+          );*/
 
-          // emit(
-          //   state.copyWith(
-          //     roleTypeChipList: ListInputEmptyOrNot(List.from(
-          //         state.roleTypeChipList.getOrCrash()..remove(e.roleType))),
-          //     roleTypeChip: "",
-          //     roleOther: (e.roleType == state.roleOther) ? "" : state.roleOther,
-          //     showRoleTypeError:
-          //         (state.roleTypeChipList.getValue().isNotEmpty) ? false : true,
-          //     authFailureOrSuccessOption: none(),
-          //   ),
-          // );
+          emit(
+            state.copyWith(
+              roleTypeChipList: ListInputEmptyOrNot(
+                List.from(
+                  List.of(state.languageChipList.getValue())
+                    ..remove(e.roleType),
+                ),
+              ),
+              authFailureOrSuccessOption: none(),
+            ),
+          );
         },
 
         /// Select Specialities
@@ -156,7 +192,7 @@ class AddContractorSkillFormBloc
           //     state.requiredSpecialityChipList.getValue());
           print("SELECT VALUEEEEE-->  ${e.selectedValue}");
 
-          if (e.selectedValue.isNotEmpty &&
+          if (e.selectedValue.trim().isNotEmpty &&
               !(e.selectedValue.toLowerCase() == "other") &&
               (state.requiredSpecialityChipList.getValue().isEmpty ||
                   !state.requiredSpecialityChipList.getValue().any(
@@ -213,6 +249,21 @@ class AddContractorSkillFormBloc
               authFailureOrSuccessOption: none(),
             ),
           );
+
+          /// For multi speciality
+          // emit(
+          //   state.copyWith(
+          //     requiredSpecialityChipList: ListInputEmptyOrNot(
+          //       List.from(
+          //         List.of(state.requiredSoftwareSkillChipList.getValue())
+          //           ..remove(e.selectedValue),
+          //       ),
+          //     ),
+          //     specialityOther: List.of(state.softwareSkillOther)
+          //       ..remove(e.selectedValue),
+          //     authFailureOrSuccessOption: none(),
+          //   ),
+          // );
         },
 
         /// Selected Speciality's Experience
@@ -236,7 +287,6 @@ class AddContractorSkillFormBloc
             // );
 
             int selectedExperienceId = getExperienceIdFromName(e.selectedValue);
-
             for (int i = 0; i < updatedList.length; i++) {
               if (i == e.currentIndex) {
                 SpecialityDTO obj = SpecialityDTO(
@@ -284,7 +334,7 @@ class AddContractorSkillFormBloc
 
         /// Select Software skills
         addPreferedSoftwareSkillchips: (e) {
-          if (e.selectedValue.isNotEmpty &&
+          if (e.selectedValue.trim().isNotEmpty &&
               !e.selectedValue.toLowerCase().contains("other") &&
               (state.requiredSoftwareSkillChipList.getValue().isEmpty ||
                   !state.requiredSoftwareSkillChipList
@@ -334,7 +384,7 @@ class AddContractorSkillFormBloc
           }
         },
         removePreferedSoftwareSkillchips: (e) {
-          emit(
+          /*emit(
             state.copyWith(
               requiredSoftwareSkillChipList: ListInputEmptyOrNot(List.from(
                   state.requiredSoftwareSkillChipList.getOrCrash()
@@ -351,12 +401,26 @@ class AddContractorSkillFormBloc
                       : true,
               authFailureOrSuccessOption: none(),
             ),
+          );*/
+
+          emit(
+            state.copyWith(
+              requiredSoftwareSkillChipList: ListInputEmptyOrNot(
+                List.from(
+                  List.of(state.requiredSoftwareSkillChipList.getValue())
+                    ..remove(e.selectedValue),
+                ),
+              ),
+              softwareSkillOther: List.of(state.softwareSkillOther)
+                ..remove(e.selectedValue),
+              authFailureOrSuccessOption: none(),
+            ),
           );
         },
 
         /// Select Language
         addLanguageChips: (e) {
-          if (e.selectedLanguage.isNotEmpty &&
+          if (e.selectedLanguage.trim().isNotEmpty &&
               !e.selectedLanguage.toLowerCase().contains("other") &&
               (state.languageChipList.getValue().isEmpty ||
                   !state.languageChipList
@@ -400,7 +464,7 @@ class AddContractorSkillFormBloc
           }
         },
         removeLanguageChips: (e) {
-          emit(
+          /*emit(
             state.copyWith(
               languageChipList: ListInputEmptyOrNot(List.from(
                   state.languageChipList.getOrCrash()
@@ -412,6 +476,20 @@ class AddContractorSkillFormBloc
                   : state.languageOther,
               showLanguageError:
                   (state.languageChipList.getValue().isNotEmpty) ? false : true,
+              authFailureOrSuccessOption: none(),
+            ),
+          );*/
+
+          emit(
+            state.copyWith(
+              languageChipList: ListInputEmptyOrNot(
+                List.from(
+                  List.of(state.languageChipList.getValue())
+                    ..remove(e.selectedLanguage),
+                ),
+              ),
+              languageOther: List.of(state.languageOther)
+                ..remove(e.selectedLanguage),
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -446,12 +524,11 @@ class AddContractorSkillFormBloc
               languageListValid &&
               softwareSkillListValid &&
               specialityListValid &&
-              !state.showRoleTypeError &&
+              // !state.showRoleTypeError &&
               !state.showSpecialityError &&
-              !state.showSoftwareSkillError &&
-              !state.showLanguageError &&
+              // !state.showSoftwareSkillError &&
+              // !state.showLanguageError &&
               !state.showSpeExperienceError) {
-            print("ALL DETAILS ARE VALID!---->  ");
             emit(
               state.copyWith(
                 isSubmitting: true,
@@ -467,7 +544,12 @@ class AddContractorSkillFormBloc
               languageListId: getSelectedLanguageId(),
               languageOther: state.languageOther.join(','),
             );
-            // failureOrSuccess = right("sucess");
+            // print("ALL DETAILS ARE VALID!----> ");
+            // print("Role id--> ${getSelectedRoleIds()} ");
+            // print("Skill id--> ${getSelectedSoftwareIds()}");
+            // print("Skill other--> ${state.softwareSkillOther.join(',')}");
+            // print("language id--> ${getSelectedLanguageId()} ");
+            // print("language other--> ${state.languageOther.join(',')} ");
           } else {
             print("Some DETAILS ARE INVALID!");
           }

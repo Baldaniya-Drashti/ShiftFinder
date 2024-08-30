@@ -57,7 +57,8 @@ class CommonCountryCodePicker extends StatelessWidget {
     showCountryPicker(
       context: context,
       exclude: <String>['KN', 'MF'],
-      favorite: <String>['SE'],
+      favorite: <String>['CA'],
+
       //Optional. Shows phone code before the country name.
       showPhoneCode: true,
       onSelect: onChanged,
@@ -81,4 +82,13 @@ class CommonCountryCodePicker extends StatelessWidget {
       ),
     );
   }
+
+  // Country? getCountryByCode(String code) {
+  //   try {
+  //     return countryCodes.firstWhere(
+  //         (country) => country.phoneCode == code.replaceAll('+', ''));
+  //   } catch (e) {
+  //     return null;
+  //   }
+  // }
 }

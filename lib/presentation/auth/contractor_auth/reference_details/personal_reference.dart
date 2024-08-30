@@ -1,62 +1,72 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shift/application/auth/contractor_auth/reference_bloc/reference_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/common_country_code_picker.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_country_code_removing_formatter.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
 class PersonalReferenceWidget extends StatelessWidget {
-  const PersonalReferenceWidget({super.key});
+  ReferenceDTO? referenceObj;
+  PersonalReferenceWidget({super.key, this.referenceObj});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ReferenceBloc, ReferenceState>(
       builder: (context, state) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Form(
-              autovalidateMode: (state.showPersonalErrorMessage)
-                  ? AutovalidateMode.always
-                  : AutovalidateMode.disabled,
-              child: Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      contactPersonTextField(context, state),
-                      paddingBetweenFields(),
-                      emailTextField(context, state),
-                      paddingBetweenFields(),
-                      phoneNumberTextField(context, state),
-                      paddingBetweenFields(),
-                      professionReferrerTextField(context, state),
-                    ],
+        return (state.isLoading)
+            ? CenterLoadingIndicator(isOnlyLoader: true)
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Form(
+                    autovalidateMode: (state.showPersonalErrorMessage)
+                        ? AutovalidateMode.always
+                        : AutovalidateMode.disabled,
+                    child: Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            contactPersonTextField(context, state),
+                            paddingBetweenFields(),
+                            emailTextField(context, state),
+                            paddingBetweenFields(),
+                            phoneNumberTextField(context, state),
+                            paddingBetweenFields(),
+                            professionReferrerTextField(context, state),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: getSize(40)),
-              child: CommonButton(
-                isSubmitting: state.isPersonalSubmitting,
-                onPressed: () {
-                  context
-                      .read<ReferenceBloc>()
-                      .add(const ReferenceEvent.personalBtnPressed());
-                },
-                buttonText: StringConstant.txtContinue,
-              ),
-            ),
-          ],
-        );
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: getSize(40)),
+                    child: CommonButton(
+                      isSubmitting: state.isPersonalSubmitting,
+                      onPressed: () {
+                        context.read<ReferenceBloc>().add(
+                            ReferenceEvent.personalBtnPressed(
+                                referenceObj != null,
+                                id: referenceObj?.id));
+                      },
+                      buttonText: (referenceObj != null)
+                          ? StringConstant.update
+                          : StringConstant.txtContinue,
+                    ),
+                  ),
+                ],
+              );
       },
     );
   }
@@ -73,6 +83,7 @@ class PersonalReferenceWidget extends StatelessWidget {
       isLabelPadding: true,
       hintText: StringConstant.contactPerson,
       textCapitalization: TextCapitalization.words,
+      initialValue: state.contactPerson.getValue(),
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -106,6 +117,7 @@ class PersonalReferenceWidget extends StatelessWidget {
       isLabelPadding: true,
       hintText: StringConstant.e_mail,
       keyboardType: TextInputType.emailAddress,
+      initialValue: state.personalEmail.getValue(),
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -141,6 +153,7 @@ class PersonalReferenceWidget extends StatelessWidget {
       labelText: StringConstant.professionOfTheReferrer,
       isLabelPadding: true,
       hintText: StringConstant.professionOfTheReferrer,
+      initialValue: state.profession.getValue(),
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -176,10 +189,15 @@ class PersonalReferenceWidget extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.phoneNumber,
       hintText: StringConstant.phoneNumber,
+      initialValue: state.personalPhoneNo.getValue(),
       keyboardType: TextInputType.phone,
       isLabelPadding: true,
       errorMaxLines: 2,
       maxLength: 10,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+        CountryCodeRemovingFormatter(),
+      ],
       onChanged: (value) {
         context
             .read<ReferenceBloc>()

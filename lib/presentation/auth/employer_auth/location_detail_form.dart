@@ -399,8 +399,10 @@ class LocationDetailForm extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          unitNumberField(context, state),
+          listOfUnit(context, state),
           paddingBetweenFields(height: getSize(10)),
+          unitNumberField(context, state),
+          /*paddingBetweenFields(height: getSize(10)),
           CustomChipSet(
             chipList: state.unitNoNameChipList,
             backgroundColor: AppColors.grey04,
@@ -410,15 +412,44 @@ class LocationDetailForm extends StatelessWidget {
                   .read<LocationDetailsBloc>()
                   .add(LocationDetailsEvent.removeUnitNumberChip(value));
             },
-          ),
+          ),*/
           paddingBetweenFields(height: getSize(10)),
           notesField(context, state),
+          paddingBetweenFields(),
+          Align(
+            alignment: Alignment.center,
+            child: CommonButton(
+              onPressed: (state.unitNumber.isNotEmpty)
+                  ? () {
+                      context.read<LocationDetailsBloc>().add(
+                            LocationDetailsEvent.addUnitNumberChipList(
+                                state.unitNumber, state.notes),
+                          );
+                      unitNoNamecontroller.clear();
+                      unitNotecontroller.clear();
+                    }
+                  : () {},
+              buttonText: "+ ${StringConstant.addMore}",
+              width: 105,
+              borderRadius: 10,
+              buttonFontSize: 12,
+              buttonFontWeight: FontWeight.w600,
+              height: 35,
+              backgroundColor: (state.unitNumber.isNotEmpty)
+                  ? AppColors.primaryColor.withOpacity(0.15)
+                  : AppColors.primaryColor.withOpacity(0.05),
+              buttonTextColor: (state.unitNumber.isNotEmpty)
+                  ? AppColors.primaryColor
+                  : AppColors.primaryColor.withOpacity(0.3),
+            ),
+          )
         ],
       ),
     );
   }
 
   TextEditingController unitNoNamecontroller = TextEditingController();
+  TextEditingController unitNotecontroller = TextEditingController();
   Widget unitNumberField(
     BuildContext context,
     LocationDetailsState state,
@@ -434,7 +465,7 @@ class LocationDetailForm extends StatelessWidget {
             .read<LocationDetailsBloc>()
             .add(LocationDetailsEvent.unitNumberChanged(value));
       },
-      suffixIcon: CommonButton(
+      /*suffixIcon: CommonButton(
         height: getSize(27),
         width: getSize(59),
         borderRadius: getSize(10),
@@ -442,11 +473,14 @@ class LocationDetailForm extends StatelessWidget {
         buttonFontSize: 10,
         onPressed: () {
           context.read<LocationDetailsBloc>().add(
-                LocationDetailsEvent.addUnitNumberChipList(state.unitNumber),
+                LocationDetailsEvent.addUnitNumberChipList(
+                  state.unitNumber,
+                  state.notes,
+                ),
               );
           unitNoNamecontroller.clear();
         },
-      ),
+      ),*/
       validator: null,
     );
   }
@@ -461,6 +495,7 @@ class LocationDetailForm extends StatelessWidget {
       isLabelPadding: false,
       maxLines: 3,
       errorMaxLines: 2,
+      controller: unitNotecontroller,
       onChanged: (value) {
         context
             .read<LocationDetailsBloc>()
@@ -468,5 +503,48 @@ class LocationDetailForm extends StatelessWidget {
       },
       validator: null,
     );
+  }
+
+  Widget listOfUnit(BuildContext context, LocationDetailsState state) {
+    return ListView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: state.listOfUnit.length,
+        itemBuilder: (_, index) {
+          final unit = state.listOfUnit[index];
+          return Container(
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            margin: EdgeInsets.symmetric(vertical: getSize(5)),
+            child: ListTile(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              dense: true,
+              visualDensity: VisualDensity.compact,
+              title: BaseText(
+                text: unit.number_or_name ?? "",
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
+              ),
+              subtitle: (unit.units_note != null && unit.units_note!.isNotEmpty)
+                  ? BaseText(
+                      text: unit.units_note ?? "",
+                      fontSize: 10,
+                    )
+                  : null,
+              trailing: GestureDetector(
+                onTap: () {
+                  context
+                      .read<LocationDetailsBloc>()
+                      .add(LocationDetailsEvent.removeUnitNumberChip(index));
+                },
+                child: SvgPicture.asset(SvgImageConstant.bin),
+              ),
+            ),
+          );
+        });
   }
 }

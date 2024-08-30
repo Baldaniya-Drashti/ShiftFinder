@@ -10,6 +10,7 @@ class SvgImageConstant {
   static const location = "assets/svg/location.svg";
   static const threePerson = "assets/svg/three_person.svg";
   static const delete = "assets/svg/delete.svg";
+  static const editWithBg = "assets/svg/edit_with_bg.svg";
   static const edit = "assets/svg/edit.svg";
   static const person = "assets/svg/person.svg";
   static const back = "assets/svg/ic_back.svg";

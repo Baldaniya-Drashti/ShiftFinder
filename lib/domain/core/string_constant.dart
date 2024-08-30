@@ -34,7 +34,7 @@ class StringConstant {
       'Please check the box to confirm that you have reviewed ';
   static const String andAgreeToOur = 'and agree to our';
   static const String termsOfService = "Terms of Service ";
-  static const String privacyPolicy = "Privacy Policy.";
+  static const String privacyPolicy = "Privacy Policy";
   static const String txtContinue = "Continue";
   static const String alreadyHaveAnAccount = "Already have an account?";
   static const String fogotPasswordDesc =
@@ -47,7 +47,7 @@ class StringConstant {
   static const String verifyYourPhoneNumber = "Verify Your Phone Number";
   static const String verifyYourEmail = "Verify Your Email";
   static const String verificationDesc =
-      "Please enter the verification code that sent to your phone number";
+      "Please enter the verification code sent to your registered phone number to proceed.";
   static const String emailVerificationDesc =
       "Please enter the verification code that sent to your email.";
   static const String resendCode = "Resend Code";
@@ -91,12 +91,14 @@ class StringConstant {
   static const String rateHour = "Rate/Hour";
   static const String location = "Location";
   static const String add = "Add";
+  static const String update = "Update";
   static const String letsGetStarted = "Let's Get Started!";
   static const String locationAddress = "Location Address";
   static const String profilePhoto = "Profile Photo";
   static const String mutltiplelocationInfoDesc =
-      "If you have multiple locations, you can add them later through your edit profile.";
+      "If you have multiple locations, you can add them later through your profile.";
   static const String ok = "Ok";
+  static const String select = "Select";
   static const String completeProfile = "Complete Profile";
   static const String missingLocationInfoDesc =
       "If a location is missing, please ensure it has been added to your profile.";
@@ -132,6 +134,9 @@ class StringConstant {
   static const String noReferenceAdded = "No Reference Added";
   static const String professional = "Professional";
   static const String personal = "Personal";
+  static const String professionalReference = "Professional Reference";
+  static const String personalReference = "Personal Reference";
+
   static const String e_mail = "E-mail";
 
   static const String noReferenceDesc =
@@ -185,17 +190,17 @@ class StringConstant {
       "Name of Immunizations / Vaccinations";
 
   static const String deleteCredentialRegistrationDesc =
-      "Are you sure you want to delete the credentials/registration document?";
+      "Deleting this Credentials/Registrations will remove it permanently from your profile. Are you sure you want to proceed?";
   static const String deleteCredentialImageDesc =
       "Are you sure you want to remove selected document?";
   static const String deleteProfessionalLicenseDesc =
-      "Are you sure you want to delete the professional license?";
+      "Deleting this Professional License will remove it permanently from your profile. Are you sure you want to proceed?";
   static const String deleteImmunizationDesc =
-      "Are you sure you want to delete the immunizations/vaccinations document?";
+      "Deleting this Immunizations/Vaccinations will remove it permanently from your profile. Are you sure you want to proceed?";
   static const String deleteLiabilityDesc =
-      "Are you sure you want to delete the professional liability protection document?";
+      "Are you sure you want to delete the Professional Liability Protection record?";
   static const String deleteEquipmentDesc =
-      "Are you sure you want to delete the apparel/equipment document?";
+      "Deleting this Apparel/Equipment will remove it permanently from your profile. Are you sure you want to proceed?";
   static const String title = "Title";
   static const String legalScreening = "Legal Screening";
   static const String yes = "Yes";
@@ -225,9 +230,15 @@ class StringConstant {
       "Expiry date is not applicable";
   static const String termsScreenImageDesc =
       "Before you start work with us please read carefully our terms and conditions";
+  static const String privacyPolicyImageDesc =
+      "Please take a moment to read our Privacy Policy to understand how we protect and use your information.";
+  static const String termsScreenImageDesc1 =
+      "Take a moment to check out our Terms and Conditions to see how everything works and what you can expect on the platform.";
   static const String summary = "Summary";
   static const String summaryDesc =
       "Aliqua id fugiat nostrud irure ex duis ea quis id quis ad et. Sunt qui esse pariatur duis deserunt mollit dolore cillum minim tempor enim. Elit aute irure tempor cupidatat incididunt sint deserunt ut voluptate aute id deserunt nisi.";
+  static const String privacyPolicyDesc =
+      "Aliqua id fugiat nostrud irure ex duis ea fdsquis id quis ad et. Sunt qui esse pariatur duis deserunt mollit fdsfdolore cillum minim tempor enim. Elit aute irure tempofdsfd or cupidatat incididunt sint deserunt ut voluptate aute deid dfsd deserunt nisi.Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation dfsincididunt aliquip deserunnaekea maeti ormer rt reprehenderit elit labor Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Volupta exercitationdr incididunt  lake aliquip deserunt reprehenderit elit makeit morefble. Aliqua id fugiat nostrud irure ex duis ea fdsquis id quis ad et. Sunt qui esse pariatur duis deserunt mollit fdsfdolore cillum minim tempor enim. Elit aute irure tempofdsfd or cupidatat incididunt sint deserunt ut voluptate aute deid dfsd deserunt nisi.Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation dfsincididunt aliquip deserunnaekea maeti ormer rt reprehenderit elit labor Aliqua id fugiat nostrud irure ex duis ea quissdre id quis ad et. Sunt qui esse pariatur duis deserunt mollit dsf dfdolore cillum minim tempor enim. Elit aute irure tempordffasf fsd  cupidatat incididunt sint deserunt ut voluptate aute id deserun i. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Volupta exercitationdr incididunt  lake aliquip deserunt reprehenderit elit laborumghit to mae.Nulla Lorem mollit cupidatat irure. manborum magna nulla duis ullamco cillum dolor. Volupta exercitationdr incididunt  lake aliquip deserunt reprehenderit elit laborum houee mena. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Volupta exercitationdr incididunt  lake aliquip deserunt reprehenderit elit laborum to fotifhte. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Volupta exercitationdr incididunt  lake aliquip deserunt reprehenderit elit laborum. Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Volupta exercitationdr incididunt  lake aliquip deserunt reprehenderit elit has send wnan to men. ";
   static const String terms = "Terms";
   static const String termsDesc1 =
       "Aliqua id fugiat nostrud irure ex duis ea fdsquis id quis ad et. Sunt qui esse pariatur duis deserunt mollit fdsfdolore cillum minim tempor enim. Elit aute irure tempofdsfd or cupidatat incididunt sint deserunt ut voluptate aute deid dfsd deserunt nisi.Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation dfsincididunt aliquip deserunnaekea maeti ormer rt reprehenderit elit labor";
@@ -377,6 +388,10 @@ class StringConstant {
   static const String otpShouldBe4Digit = "Otp should be 4 digit";
   static const String pleaseEnterNewPassword = "Please enter new password";
   static const String pleaseEnterPassword = "Please enter password";
+  static const String pleaseEnterCorrectPassword =
+      "Please enter correct password";
+  static const String pleaseEnterCorrectPasswordFormat =
+      "Please enter correct password format";
   static const String passwordShouldBeMinimum8Digit =
       "Password should be minimum 8 digit";
   static const String invalidPasswordErrorText =
@@ -443,7 +458,7 @@ class StringConstant {
       "Please add valid card number.";
   static const String cardNumberIsInValid = "Card number is invalid!";
   static const String pleaseAddCvvNumber =
-      "Please add last 4 digit CVV number.";
+      "Please add last 3 or 4 digit CVV number.";
   static const String cvvNumberIsInValid = "CVV number is invalid!";
   static const String enterValidExpiryDate = "Enter valid expiry date.";
   static const String pleaseAddTransitNumber = "Please add transit number";

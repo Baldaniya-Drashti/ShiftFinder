@@ -10,7 +10,7 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
 class CustomDropdwonWithTextField extends StatelessWidget {
-  CustomDropdwonWithTextField({
+  const CustomDropdwonWithTextField({
     super.key,
     this.labelText,
     required this.hintText,
@@ -41,6 +41,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
     this.fieldInputFormatters,
     this.fieldKeyboardType,
     this.fieldInitialValue,
+    this.removeErrorBorder = false,
   });
   final String? labelText;
   final Widget? ddPrefixIcon;
@@ -57,7 +58,6 @@ class CustomDropdwonWithTextField extends StatelessWidget {
   final bool showPrefixIcon;
   final bool? isOptional;
   final Widget? optionalWidget;
-
   final Widget? suffixIcon;
   final Function(String)? fieldOnChanged;
   final String? Function(String?, BuildContext)? fieldValidator;
@@ -72,6 +72,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
   final List<TextInputFormatter>? fieldInputFormatters;
   final TextInputType? fieldKeyboardType;
   final String? fieldInitialValue;
+  final bool removeErrorBorder;
 
   @override
   Widget build(BuildContext context) {
@@ -83,10 +84,12 @@ class CustomDropdwonWithTextField extends StatelessWidget {
       borderSide: const BorderSide(color: AppColors.white),
       borderRadius: BorderRadius.circular(10),
     );
-    final errorBorder = OutlineInputBorder(
-      borderSide: const BorderSide(color: AppColors.red),
-      borderRadius: BorderRadius.circular(10),
-    );
+    final errorBorder = (removeErrorBorder)
+        ? InputBorder.none
+        : OutlineInputBorder(
+            borderSide: const BorderSide(color: AppColors.red),
+            borderRadius: BorderRadius.circular(10),
+          );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -143,6 +146,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
               DropdownButtonFormField<String>(
                 validator: validator,
                 dropdownColor: AppColors.white,
+                menuMaxHeight: getSize(300),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: AppColors.white,
@@ -249,6 +253,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
     return DropdownButtonFormField<String>(
       validator: childDropDownValidator,
       dropdownColor: AppColors.white,
+      menuMaxHeight: getSize(300),
       decoration: InputDecoration(
         filled: true,
         fillColor: AppColors.white,

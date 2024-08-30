@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, avoid_print, must_be_immutable
+// ignore_for_file: prefer_const_constructors_in_immutables, avoid_print, must_be_immutable, prefer_const_constructors
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -6,24 +6,29 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/auth/contractor_auth/reference_bloc/reference_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/auth/contractor_auth/reference_details/personal_reference.dart';
 import 'package:shift/presentation/auth/contractor_auth/reference_details/professional_reference.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'addReferenceDetailScreen')
 class AddReferenceDetail extends StatelessWidget {
   bool isFromSplash = false;
+  ReferenceDTO? referenceObj;
 
-  AddReferenceDetail({super.key, this.isFromSplash = false});
+  AddReferenceDetail({super.key, this.isFromSplash = false, this.referenceObj});
 
   @override
   Widget build(BuildContext context) {
+    print("referenceObj--->  $referenceObj");
     return BlocProvider(
-      create: (context) => getIt<ReferenceBloc>(),
+      create: (context) => getIt<ReferenceBloc>()
+        ..add(ReferenceEvent.referenceObjEvent(referenceObj)),
       child: GestureDetector(
         onTap: () {
           AppFocus.unfocus(context);
@@ -31,7 +36,11 @@ class AddReferenceDetail extends StatelessWidget {
         child: Scaffold(
           appBar: CommonAppBar(
             isShowBackBtn: !isFromSplash,
-            title: StringConstant.reference,
+            title: (referenceObj != null)
+                ? (referenceObj!.type == 1)
+                    ? StringConstant.professionalReference
+                    : StringConstant.personalReference
+                : StringConstant.reference,
             onBackPressed: () {
               context.router.maybePop();
             },
@@ -84,14 +93,20 @@ class AddReferenceDetail extends StatelessWidget {
                   initialIndex: state.selectedTab,
                   child: Column(
                     children: [
-                      tabbar(context, state),
-                      SizedBox(
-                        height: getSize(20),
-                      ),
+                      if (referenceObj == null) ...[
+                        tabbar(context, state),
+                        SizedBox(
+                          height: getSize(20),
+                        ),
+                      ],
                       Expanded(
                         child: (state.selectedTab == 0)
-                            ? const ProfessionalReferenceWidget()
-                            : const PersonalReferenceWidget(),
+                            ? ProfessionalReferenceWidget(
+                                referenceObj: referenceObj,
+                              )
+                            : PersonalReferenceWidget(
+                                referenceObj: referenceObj,
+                              ),
                       ),
                     ],
                   ),

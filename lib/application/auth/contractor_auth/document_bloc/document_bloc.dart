@@ -1304,10 +1304,10 @@ class ImmunizationBloc extends Bloc<ImmunizationEvent, ImmunizationState> {
           final isImmunizationDocValid = state.immunizationDoc.isValid();
           final isImmunizationNameValid = state.immunizationName.isValid();
 
-          if (isImmunizationDocValid &&
-              isImmunizationNameValid &&
-              (state.isImmunizationExpiryCheck ||
-                  state.immunizationExpiryDate.isNotEmpty)) {
+          if (isImmunizationDocValid && isImmunizationNameValid
+              /* &&(state.isImmunizationExpiryCheck ||
+                  state.immunizationExpiryDate.isNotEmpty)*/
+              ) {
             /// FROMMMMMM
             emit(
               state.copyWith(
@@ -1320,8 +1320,8 @@ class ImmunizationBloc extends Bloc<ImmunizationEvent, ImmunizationState> {
               documentType: 5,
               nameOfVaccinations: state.immunizationName.getValue(),
               documentFile: state.immunizationDoc.getValue() ?? "",
-              expiryDate: state.immunizationExpiryDate,
-              expiryDateNotApplicable: state.isImmunizationExpiryCheck,
+              // expiryDate: state.immunizationExpiryDate,
+              // expiryDateNotApplicable: state.isImmunizationExpiryCheck,
             );
 
             failureOrSuccess.fold(
@@ -1436,8 +1436,8 @@ class ImmunizationBloc extends Bloc<ImmunizationEvent, ImmunizationState> {
               documentType: 5,
               nameOfVaccinations: state.immunizationName.getValue(),
               documentFile: state.immunizationDoc.getValue() ?? "",
-              expiryDate: state.immunizationExpiryDate,
-              expiryDateNotApplicable: state.isImmunizationExpiryCheck,
+              // expiryDate: state.immunizationExpiryDate,
+              // expiryDateNotApplicable: state.isImmunizationExpiryCheck,
             );
 
             failureOrSuccess.fold(
@@ -1822,8 +1822,10 @@ class ResumeBloc extends Bloc<ResumeEvent, ResumeState> {
                 return emit(
                   state.copyWith(
                     isResumeDocSubmitting: false,
-                    resume:
-                        r.firstWhere((document) => document.document_type == 7),
+                    resume: r.firstWhere(
+                      (document) => document.document_type == 7,
+                      orElse: () => DocumentDTO(),
+                    ),
                   ),
                 );
               } else {
@@ -1942,8 +1944,10 @@ class ResumeBloc extends Bloc<ResumeEvent, ResumeState> {
               if (r.document != null) {
                 emit(
                   state.copyWith(
-                    resume: r.document!
-                        .firstWhere((document) => document.document_type == 7),
+                    resume: r.document!.firstWhere(
+                      (document) => document.document_type == 7,
+                      orElse: () => DocumentDTO(),
+                    ),
                     isResumeDocSubmitting: false,
                     showResumeErrorMessages: false,
                     resumeDocAuthFailureOrSuccessOption: none(),

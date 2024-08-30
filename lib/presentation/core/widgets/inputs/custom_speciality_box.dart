@@ -108,7 +108,7 @@ class CustomeSpecialityBox extends StatelessWidget {
                   BaseText(
                     text: selectedValue,
                     fontWeight: FontWeight.w500,
-                    fontSize: 14,
+                    fontSize: 12,
                   ),
                   GestureDetector(
                     onTap: onDelete,
@@ -126,6 +126,7 @@ class CustomeSpecialityBox extends StatelessWidget {
               ),
               DropdownButtonFormField<String>(
                 validator: validator,
+                menuMaxHeight: getSize(300),
                 dropdownColor: AppColors.white,
                 decoration: InputDecoration(
                   filled: true,
@@ -154,7 +155,7 @@ class CustomeSpecialityBox extends StatelessWidget {
                 hint: BaseText(
                   text: hintText!,
                   textColor: AppColors.black.withOpacity(0.50),
-                  fontSize: 14,
+                  fontSize: 12,
                   fontWeight: FontWeight.w500,
                 ),
                 value: value,

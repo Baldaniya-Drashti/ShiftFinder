@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, must_be_immutable
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -31,8 +31,12 @@ class IntroVideoScreenState extends State<IntroVideoScreen> {
           getIt<IntroVideoBloc>()..add(const IntroVideoEvent.setupVideo()),
       child: BlocConsumer<IntroVideoBloc, IntroVideoState>(
         listener: (context, state) {
-          if (state.isSubmitting) {
-            context.router.push(PageRouteInfo(IntroQuizScreen.name));
+          if (state.isVideoComplete) {
+            context.router
+                .push(PageRouteInfo(IntroQuizScreen.name))
+                .then((value) {
+              context.read<IntroVideoBloc>().add(IntroVideoEvent.setupVideo());
+            });
           }
         },
         builder: (context, state) {

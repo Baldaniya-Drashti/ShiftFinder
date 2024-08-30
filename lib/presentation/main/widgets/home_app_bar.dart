@@ -85,14 +85,19 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       forceMaterialTransparency: forceMaterialTransparency,
+      scrolledUnderElevation: 0,
       leading: (isShowBackBtn != null && isShowBackBtn == true)
-          ? Padding(
-              padding: EdgeInsets.only(left: getSize(20)),
-              child: GestureDetector(
-                onTap: onBackPressed,
-                child: SvgPicture.asset(
-                  SvgImageConstant.back,
-                  color: iconColor ?? AppColors.black,
+          ? GestureDetector(
+              onTap: onBackPressed,
+              child: Container(
+                color: AppColors.transparent,
+                padding: EdgeInsets.only(left: getSize(20)),
+                child: GestureDetector(
+                  onTap: null,
+                  child: SvgPicture.asset(
+                    SvgImageConstant.back,
+                    color: iconColor ?? AppColors.black,
+                  ),
                 ),
               ),
             )
@@ -110,12 +115,18 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
         textColor: textStyle?.color ?? AppColors.black,
         fontFamily: textStyle?.fontFamily ?? "Aclonica",
       ),
+      elevation: 0,
       actions: (showSkipBtn)
           ? [
               GestureDetector(
                 onTap: onSkipped,
-                child: Padding(
-                  padding: EdgeInsets.only(right: getSize(10)),
+                child: Container(
+                  color: AppColors.transparent,
+                  padding: EdgeInsets.only(
+                      right: getSize(20),
+                      left: getSize(10),
+                      top: getSize(10),
+                      bottom: getSize(10)),
                   child: BaseText(
                     text: StringConstant.skip,
                     fontSize: 12,

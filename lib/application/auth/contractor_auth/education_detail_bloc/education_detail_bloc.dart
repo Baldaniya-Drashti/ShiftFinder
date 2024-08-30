@@ -26,6 +26,25 @@ class EducationDetailBloc
       : super(EducationDetailState.initial()) {
     on<EducationDetailEvent>((event, emit) async {
       await event.map(
+        educationObjEvent: (e) async {
+          if (e.educationObj != null) {
+            emit(state.copyWith(
+              isSubmitting: true,
+            ));
+            await Future.delayed(const Duration(seconds: 3));
+            print("educationObj called --> ${e.educationObj}");
+            final obj = e.educationObj!;
+            emit(
+              state.copyWith(
+                isSubmitting: false,
+                selectedProgram: InputEmptyOrNot(obj.program_completed ?? ""),
+                selectedGraduation:
+                    InputEmptyOrNot(obj.graduating_institution ?? ""),
+                yearOfCompletion: InputEmptyOrNot(obj.year_of_completion ?? ""),
+              ),
+            );
+          }
+        },
         getEducationList: (e) async {
           emit(
             state.copyWith(
@@ -132,13 +151,23 @@ class EducationDetailBloc
               state.copyWith(
                 isSubmitting: true,
                 authFailureOrSuccessOption: none(),
+                failureOrSuccessOption: none(),
               ),
             );
-            failureOrSuccess = await _repository.addEducationApi(
-              programCompleted: state.selectedProgram,
-              yearOfCompletion: state.yearOfCompletion,
-              graduatingInstitution: state.selectedGraduation,
-            );
+            if (e.isUpdate) {
+              failureOrSuccess = await _repository.updateEducationApi(
+                id: e.id ?? -1,
+                programCompleted: state.selectedProgram,
+                yearOfCompletion: state.yearOfCompletion,
+                graduatingInstitution: state.selectedGraduation,
+              );
+            } else {
+              failureOrSuccess = await _repository.addEducationApi(
+                programCompleted: state.selectedProgram,
+                yearOfCompletion: state.yearOfCompletion,
+                graduatingInstitution: state.selectedGraduation,
+              );
+            }
           }
           emit(
             state.copyWith(

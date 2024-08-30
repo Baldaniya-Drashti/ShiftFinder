@@ -25,11 +25,11 @@ Map<String, dynamic> _$$LocationDTOImplToJson(_$LocationDTOImpl instance) =>
 _$UnitDTOImpl _$$UnitDTOImplFromJson(Map<String, dynamic> json) =>
     _$UnitDTOImpl(
       number_or_name: json['number_or_name'] as String?,
-      note: json['note'] as String?,
+      units_note: json['units_note'] as String?,
     );
 
 Map<String, dynamic> _$$UnitDTOImplToJson(_$UnitDTOImpl instance) =>
     <String, dynamic>{
       'number_or_name': instance.number_or_name,
-      'note': instance.note,
+      'units_note': instance.units_note,
     };

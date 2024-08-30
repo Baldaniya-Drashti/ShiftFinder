@@ -10,15 +10,15 @@ Flushbar showError({
   return Flushbar(
     title: title,
     message: message,
+    messageColor: AppColors.redAccent,
     icon: const Icon(
       Icons.warning,
       size: 28.0,
-      color: Colors.white,
+      color: Colors.redAccent,
     ),
-    leftBarIndicatorColor: Colors.red[300],
-    backgroundColor: AppColors.red,
+    backgroundColor: AppColors.backgroundRed,
     duration: duration,
-    flushbarPosition: FlushbarPosition.TOP,
+    flushbarPosition: FlushbarPosition.BOTTOM,
   );
 }
 
@@ -36,7 +36,13 @@ Flushbar showSuccess({
     ),
     leftBarIndicatorColor: AppColors.green,
     backgroundColor: AppColors.green,
-    flushbarPosition: FlushbarPosition.TOP,
+    flushbarPosition: FlushbarPosition.BOTTOM,
     duration: duration,
   );
+}
+
+Future<dynamic> showunderDevelopment(BuildContext context) {
+  return showSuccess(
+    message: "Next Process is under development!!",
+  ).show(context);
 }

@@ -20,8 +20,10 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'termsAndConditionsScreen')
 class TermsAndConditionsScreen extends StatelessWidget {
-  bool isFromSplash = false;
-  TermsAndConditionsScreen({super.key, this.isFromSplash = false});
+  bool isFromSplash;
+  bool isFromRegister;
+  TermsAndConditionsScreen(
+      {super.key, this.isFromSplash = false, this.isFromRegister = false});
 
   @override
   Widget build(BuildContext context) {
@@ -73,16 +75,17 @@ class TermsAndConditionsScreen extends StatelessWidget {
                             SizedBox(
                               height: getSize(30),
                             ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: CommonButton(
-                                onPressed: () {
-                                  context.read<TermsAndConditionBloc>().add(
-                                      TermsAndConditionEvent.submitTerms());
-                                },
-                                buttonText: StringConstant.txtContinue,
+                            if (!isFromRegister)
+                              Align(
+                                alignment: Alignment.center,
+                                child: CommonButton(
+                                  onPressed: () {
+                                    context.read<TermsAndConditionBloc>().add(
+                                        TermsAndConditionEvent.submitTerms());
+                                  },
+                                  buttonText: StringConstant.txtContinue,
+                                ),
                               ),
-                            ),
                           ],
                         ),
                       ),
@@ -123,10 +126,12 @@ class TermsAndConditionsScreen extends StatelessWidget {
               SizedBox(
                 width: getHorizontalSize(200),
                 child: BaseText(
-                  text: StringConstant.termsScreenImageDesc,
+                  text: (isFromRegister)
+                      ? StringConstant.termsScreenImageDesc1
+                      : StringConstant.termsScreenImageDesc,
                   fontSize: 10,
                   fontWeight: FontWeight.w400,
-                  maxLines: 2,
+                  maxLines: 4,
                 ),
               ),
             ],

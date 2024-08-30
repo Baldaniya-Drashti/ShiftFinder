@@ -56,6 +56,7 @@ class ReferenceListScreen extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: CommonAppBar(
+              forceMaterialTransparency: false,
               isShowBackBtn: !isFromSplash,
               onBackPressed: () {
                 context.router.maybePop();
@@ -88,32 +89,35 @@ class ReferenceListScreen extends StatelessWidget {
                                     image: SvgImageConstant.referencePerson,
                                   ),
                                 ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              bottom: getSize(40),
-                            ),
-                            child: CommonButton(
-                              onPressed: () {
-                                if (state.referenceList.isNotEmpty) {
-                                  context.router.push(
-                                      PageRouteInfo(DocumentPageScreen.name));
-                                } else {
-                                  context.router
-                                      .push(PageRouteInfo(
-                                          AddReferenceDetailScreen.name))
-                                      .then((value) {
-                                    print("Value when back ---> $value");
-                                    if (value != null && value == true) {
-                                      /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
-                                      context.read<ReferenceBloc>().add(
-                                          ReferenceEvent.getReferenceList());
-                                    }
-                                  });
-                                }
-                              },
-                              buttonText: (state.referenceList.isNotEmpty)
-                                  ? StringConstant.txtContinue
-                                  : StringConstant.addYourReference,
+                          Container(
+                            color: AppColors.scaffoldColor,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                bottom: getSize(40),
+                              ),
+                              child: CommonButton(
+                                onPressed: () {
+                                  if (state.referenceList.isNotEmpty) {
+                                    context.router.push(
+                                        PageRouteInfo(DocumentPageScreen.name));
+                                  } else {
+                                    context.router
+                                        .push(PageRouteInfo(
+                                            AddReferenceDetailScreen.name))
+                                        .then((value) {
+                                      print("Value when back ---> $value");
+                                      if (value != null && value == true) {
+                                        /// REFRESH THE API AFTER ADD NEW EDUCATION DATA
+                                        context.read<ReferenceBloc>().add(
+                                            ReferenceEvent.getReferenceList());
+                                      }
+                                    });
+                                  }
+                                },
+                                buttonText: (state.referenceList.isNotEmpty)
+                                    ? StringConstant.txtContinue
+                                    : StringConstant.addYourReference,
+                              ),
                             ),
                           ),
                         ],
@@ -127,76 +131,109 @@ class ReferenceListScreen extends StatelessWidget {
   }
 
   Widget referenceListUI(BuildContext context, ReferenceState state) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ListView.builder(
-          itemCount: state.referenceList.length,
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.symmetric(vertical: getSize(10)),
-              child: ListTile(
-                tileColor: AppColors.grey04,
-                minTileHeight: getSize(103),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                leading: SvgPicture.asset(
-                  SvgImageConstant.personWithVerticalLine,
-                  width: getSize(59.56),
-                  height: getSize(63),
-                  fit: BoxFit.fitHeight,
-                ),
-                title: boxTitleUI(state.referenceList[index]),
-                trailing: GestureDetector(
-                  onTap: () {
-                    AppDialog.showDelete(
-                      context,
-                      title: StringConstant.delete,
-                      infoMessage: StringConstant.deleteReferenceDesc,
-                      onCancelClick: () {
-                        Navigator.pop(context);
-                      },
-                      onDeleteClick: () {
-                        Navigator.pop(context);
-                        context.read<ReferenceBloc>().add(
-                            ReferenceEvent.deleteReference(
-                                state.referenceList[index].id ?? -1));
-                      },
-                    );
-                  },
-                  child: SvgPicture.asset(SvgImageConstant.bin),
-                ),
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListView.builder(
+              itemCount: state.referenceList.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(vertical: getSize(10)),
+                  child: ListTile(
+                    tileColor: AppColors.grey04,
+                    minTileHeight: getSize(103),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    leading: SvgPicture.asset(
+                      SvgImageConstant.personWithVerticalLine,
+                      width: getSize(59.56),
+                      height: getSize(63),
+                      fit: BoxFit.fitHeight,
+                    ),
+                    title: boxTitleUI(state.referenceList[index]),
+                    contentPadding:
+                        EdgeInsets.only(left: getSize(15), right: getSize(10)),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            context.router
+                                .push(PageRouteInfo(
+                                    AddReferenceDetailScreen.name,
+                                    args: AddReferenceDetailScreenArgs(
+                                        referenceObj:
+                                            state.referenceList[index])))
+                                .then((value) {
+                              if (value != null && value == true) {
+                                context
+                                    .read<ReferenceBloc>()
+                                    .add(ReferenceEvent.getReferenceList());
+                              }
+                            });
+                          },
+                          child: SvgPicture.asset(
+                            SvgImageConstant.editWithBg,
+                          ),
+                        ),
+                        SizedBox(width: getSize(15)),
+                        GestureDetector(
+                          onTap: () {
+                            AppDialog.showDelete(
+                              context,
+                              title: StringConstant.delete,
+                              infoMessage: StringConstant.deleteReferenceDesc,
+                              onCancelClick: () {
+                                Navigator.pop(context);
+                              },
+                              onDeleteClick: () {
+                                Navigator.pop(context);
+                                context.read<ReferenceBloc>().add(
+                                    ReferenceEvent.deleteReference(
+                                        state.referenceList[index].id ?? -1));
+                              },
+                            );
+                          },
+                          child: SvgPicture.asset(SvgImageConstant.bin),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: getSize(20)),
+              child: CommonButton(
+                onPressed: () {
+                  context.router
+                      .push(const PageRouteInfo(AddReferenceDetailScreen.name))
+                      .then((value) {
+                    if (value != null && value == true) {
+                      context
+                          .read<ReferenceBloc>()
+                          .add(ReferenceEvent.getReferenceList());
+                    }
+                  });
+                },
+                buttonText: "+ ${StringConstant.addMoreReference}",
+                width: 175,
+                borderRadius: 10,
+                buttonFontSize: 12,
+                buttonFontWeight: FontWeight.w600,
+                height: 35,
+                backgroundColor: AppColors.primaryColor.withOpacity(0.15),
+                buttonTextColor: AppColors.primaryColor,
               ),
-            );
-          },
+            ),
+          ],
         ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: getSize(20)),
-          child: CommonButton(
-            onPressed: () {
-              context.router
-                  .push(const PageRouteInfo(AddReferenceDetailScreen.name))
-                  .then((value) {
-                if (value != null && value == true) {
-                  context
-                      .read<ReferenceBloc>()
-                      .add(ReferenceEvent.getReferenceList());
-                }
-              });
-            },
-            buttonText: "+ ${StringConstant.addMoreReference}",
-            width: 175,
-            borderRadius: 10,
-            buttonFontSize: 12,
-            buttonFontWeight: FontWeight.w600,
-            height: 35,
-            backgroundColor: AppColors.primaryColor.withOpacity(0.15),
-            buttonTextColor: AppColors.primaryColor,
-          ),
-        ),
-      ],
+      ),
     );
   }
 

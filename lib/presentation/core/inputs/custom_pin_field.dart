@@ -15,6 +15,7 @@ class CustomPinField extends StatelessWidget {
     this.validator,
     this.onChanged,
     this.onCompleted,
+    this.controller,
   }) : super(key: key);
 
   final Function(String)? onDone;
@@ -24,6 +25,7 @@ class CustomPinField extends StatelessWidget {
   final Function(String)? onChanged;
   final String? Function(String?, BuildContext)? validator;
   final Function(String)? onCompleted;
+  final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -39,7 +41,6 @@ class CustomPinField extends StatelessWidget {
           hintCharacter: '0',
           errorTextMargin: EdgeInsets.only(top: getSize(10)),
           cursorHeight: getSize(20),
-
           textStyle: TextStyle(
             fontFamily: 'Sarabun',
             letterSpacing: 0.5,
@@ -52,7 +53,6 @@ class CustomPinField extends StatelessWidget {
           validator: (inputString) {
             return validator?.call(inputString, context);
           },
-
           pinTheme: PinTheme(
             shape: PinCodeFieldShape.box,
             borderRadius: BorderRadius.circular(getSize(10)),
@@ -74,11 +74,9 @@ class CustomPinField extends StatelessWidget {
             errorBorderColor: AppColors.red,
           ),
           cursorColor: AppColors.primaryColor,
-
-          //controller: controller.codeController,
+          controller: controller,
           keyboardType: TextInputType.number,
           onCompleted: onCompleted,
-
           onChanged: onChanged,
           beforeTextPaste: (text) {
             debugPrint("Allowing to paste ");

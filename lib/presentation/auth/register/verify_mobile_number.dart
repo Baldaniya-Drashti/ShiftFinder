@@ -18,7 +18,7 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 
 // ignore: must_be_immutable
 class VerifyPhoneNumber extends StatelessWidget {
-  const VerifyPhoneNumber({super.key});
+  TextEditingController codeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -62,16 +62,21 @@ class VerifyPhoneNumber extends StatelessWidget {
                         orElse: () => "Server Error. Try again later.",
                       ),
                     ).show(context);
+                    codeController.clear();
                     AppFocus.unfocus(context);
                   },
                   (r) {
                     if (getCurrentRole() == 1) {
-                      context.router
-                          .push(PageRouteInfo(AddContractorSkillsForm.name));
+                      context.router.replace(PageRouteInfo(
+                          AddContractorSkillsForm.name,
+                          args:
+                              AddContractorSkillsFormArgs(isFromSplash: true)));
                     } else {
-                      context.router
-                          .push(PageRouteInfo(LocationDetailForm.name));
+                      context.router.replace(PageRouteInfo(
+                          LocationDetailForm.name,
+                          args: LocationDetailFormArgs(isFromSplash: true)));
                     }
+
                     context.router.maybePop();
                   },
                 ),
@@ -159,7 +164,7 @@ class VerifyPhoneNumber extends StatelessWidget {
             alignment: Alignment.center,
             child: BaseText(
               textAlign: TextAlign.center,
-              maxLines: 2,
+              maxLines: 3,
               text: (getCurrentRole() == 1)
                   ? StringConstant.verificationDesc
                   : StringConstant.emailVerificationDesc,
@@ -205,6 +210,7 @@ class VerifyPhoneNumber extends StatelessWidget {
                   ),
                 ],
               ),
+              controller: codeController,
               onChanged: (value) => context.read<RegisterFormBloc>().add(
                     RegisterFormEvent.changeOTP(value),
                   ),

@@ -219,10 +219,12 @@ class IntroQuizScreen extends StatelessWidget {
                 (r) {},
               ),
             );
-            state.authFailureOrSuccessOption.fold(
+            state.quizAuthFailureOrSuccessOption.fold(
               () {},
               (either) => either.fold(
                 (failure) {
+                  print("showAPIResponseMessage---> ${failure}");
+
                   showError(
                     message: failure.maybeMap(
                       showAPIResponseMessage: (value) => value.message,
@@ -234,6 +236,7 @@ class IntroQuizScreen extends StatelessWidget {
                 },
                 (r) {
                   print("GO TO NEXT SCREEN!");
+                  showunderDevelopment(context);
                   // context.router.push(const PageRouteInfo(MainTabView.name));
                 },
               ),
@@ -296,42 +299,54 @@ class IntroQuizScreen extends StatelessWidget {
                                   ),
                                   if (question.answers != null)
                                     ...question.answers!.map((option) {
-                                      return Row(
-                                        children: [
-                                          Checkbox(
-                                            value: (question.selectedAnswers !=
-                                                    null)
-                                                ? question.selectedAnswers!
-                                                    .contains(option)
-                                                : false,
-                                            onChanged: (isSelected) {
-                                              context
-                                                  .read<IntroVideoBloc>()
-                                                  .add(
-                                                    IntroVideoEvent
-                                                        .optionSelected(
-                                                      questionIndex: index,
-                                                      selectedOption: option,
-                                                    ),
-                                                  );
-                                            },
-                                            activeColor: AppColors.primaryColor,
-                                            side: BorderSide(
-                                              width: getSize(1.5),
-                                              color: AppColors.black
-                                                  .withOpacity(0.5),
+                                      return GestureDetector(
+                                        onTap: () {
+                                          context.read<IntroVideoBloc>().add(
+                                                IntroVideoEvent.optionSelected(
+                                                  questionIndex: index,
+                                                  selectedOption: option,
+                                                ),
+                                              );
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Checkbox(
+                                              value: (question
+                                                          .selectedAnswers !=
+                                                      null)
+                                                  ? question.selectedAnswers!
+                                                      .contains(option)
+                                                  : false,
+                                              onChanged: (isSelected) {
+                                                context
+                                                    .read<IntroVideoBloc>()
+                                                    .add(
+                                                      IntroVideoEvent
+                                                          .optionSelected(
+                                                        questionIndex: index,
+                                                        selectedOption: option,
+                                                      ),
+                                                    );
+                                              },
+                                              activeColor:
+                                                  AppColors.primaryColor,
+                                              side: BorderSide(
+                                                width: getSize(1.5),
+                                                color: AppColors.black
+                                                    .withOpacity(0.5),
+                                              ),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
                                             ),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5),
+                                            BaseText(
+                                              text: option.answer ?? "",
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500,
                                             ),
-                                          ),
-                                          BaseText(
-                                            text: option.answer ?? "",
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       );
                                     }),
                                 ],
@@ -339,7 +354,11 @@ class IntroQuizScreen extends StatelessWidget {
                             );
                           },
                         ),
-                        if (state.showQuizErrorMessages)
+                        if (state.showQuizErrorMessages &&
+                            !(state.questions.every((element) {
+                              return (element.selectedAnswers != null &&
+                                  element.selectedAnswers!.isNotEmpty);
+                            })))
                           commonErrorText(
                               "* ${StringConstant.pleaseCompleteAllQuestionOfQuiz}"),
                         Align(

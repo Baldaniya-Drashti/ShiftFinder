@@ -24,47 +24,53 @@ class UploadDocumentBox extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       alignment: Alignment.center,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(
-            height: getSize(66),
-            width: getSize(58),
-            child: Image.asset(
-              PngImageConstants.upload,
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          CommonButton(
-            onPressed: onUploadBtnPressed,
-            width: 140,
-            height: 28,
-            backgroundColor: AppColors.primaryColor.withOpacity(0.15),
-            borderRadius: 5,
-            buttonText: StringConstant.upload,
-            customWidget: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  SvgImageConstant.upload,
+      child: GestureDetector(
+        onTap: onUploadBtnPressed,
+        child: Container(
+          color: AppColors.transparent,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: getSize(66),
+                width: getSize(58),
+                child: Image.asset(
+                  PngImageConstants.upload,
                 ),
-                SizedBox(
-                  width: getSize(10),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CommonButton(
+                onPressed: () {},
+                width: 140,
+                height: 28,
+                backgroundColor: AppColors.primaryColor.withOpacity(0.15),
+                borderRadius: 5,
+                buttonText: StringConstant.upload,
+                customWidget: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      SvgImageConstant.upload,
+                    ),
+                    SizedBox(
+                      width: getSize(10),
+                    ),
+                    BaseText(
+                      text: StringConstant.upload,
+                      fontSize: 12,
+                      textAlign: TextAlign.center,
+                      //maxLines: 1,
+                      fontWeight: FontWeight.w600,
+                      textColor: AppColors.primaryColor,
+                    ),
+                  ],
                 ),
-                BaseText(
-                  text: StringConstant.upload,
-                  fontSize: 12,
-                  textAlign: TextAlign.center,
-                  //maxLines: 1,
-                  fontWeight: FontWeight.w600,
-                  textColor: AppColors.primaryColor,
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

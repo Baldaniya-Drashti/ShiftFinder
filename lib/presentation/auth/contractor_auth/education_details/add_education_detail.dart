@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, deprecated_member_use, avoid_print
+// ignore_for_file: prefer_const_constructors_in_immutables, deprecated_member_use, avoid_print, must_be_immutable
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -8,26 +8,29 @@ import 'package:shift/application/auth/contractor_auth/education_detail_bloc/edu
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/education_dto/education_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
-import 'package:shift/presentation/splash/splash_page.dart';
 
 @RoutePage(name: 'addEducationDetailScreen')
 class AddEducationDetail extends StatelessWidget {
   bool isFromSplash = false;
+  EducationDTO? educationObj;
 
-  AddEducationDetail({super.key, this.isFromSplash = false});
+  AddEducationDetail({super.key, this.isFromSplash = false, this.educationObj});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<EducationDetailBloc>(),
+      create: (context) => getIt<EducationDetailBloc>()
+        ..add(EducationDetailEvent.educationObjEvent(educationObj)),
       child: GestureDetector(
         onTap: () {
           AppFocus.unfocus(context);
@@ -62,46 +65,54 @@ class AddEducationDetail extends StatelessWidget {
               );
             },
             builder: (context, state) {
-              return Padding(
-                padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Form(
-                      autovalidateMode: state.showAddEducationErrorMessages
-                          ? AutovalidateMode.always
-                          : AutovalidateMode.disabled,
-                      child: Expanded(
-                        child: SingleChildScrollView(
-                          physics: const BouncingScrollPhysics(),
-                          child: Column(
-                            // mainAxisSize: MainAxisSize.min,
-                            children: [
-                              programField(context, state),
-                              paddingBetweenFields(),
-                              completionYearField(context, state),
-                              paddingBetweenFields(),
-                              graduatingField(context, state),
-                            ],
+              return (state.isSubmitting)
+                  ? CenterLoadingIndicator(isOnlyLoader: true)
+                  : Padding(
+                      padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Form(
+                            autovalidateMode:
+                                state.showAddEducationErrorMessages
+                                    ? AutovalidateMode.always
+                                    : AutovalidateMode.disabled,
+                            child: Expanded(
+                              child: SingleChildScrollView(
+                                physics: const BouncingScrollPhysics(),
+                                child: Column(
+                                  children: [
+                                    programField(context, state),
+                                    paddingBetweenFields(),
+                                    completionYearField(context, state),
+                                    paddingBetweenFields(),
+                                    graduatingField(context, state),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                bottom: getSize(40), top: getSize(10)),
+                            child: CommonButton(
+                              isSubmitting: state.isSubmitting,
+                              onPressed: () {
+                                context
+                                    .read<EducationDetailBloc>()
+                                    .add(EducationDetailEvent.onAddBtnPressed(
+                                      educationObj != null,
+                                      id: educationObj?.id,
+                                    ));
+                              },
+                              buttonText: (educationObj != null)
+                                  ? StringConstant.update
+                                  : StringConstant.add,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          bottom: getSize(40), top: getSize(10)),
-                      child: CommonButton(
-                        isSubmitting: state.isSubmitting,
-                        onPressed: () {
-                          context.read<EducationDetailBloc>().add(
-                              const EducationDetailEvent.onAddBtnPressed());
-                        },
-                        buttonText: StringConstant.add,
-                      ),
-                    ),
-                  ],
-                ),
-              );
+                    );
             },
           ),
         ),
@@ -121,6 +132,7 @@ class AddEducationDetail extends StatelessWidget {
       isLabelPadding: true,
       hintText: StringConstant.programCompleted,
       textCapitalization: TextCapitalization.words,
+      initialValue: state.selectedProgram.getValue(),
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -186,6 +198,7 @@ class AddEducationDetail extends StatelessWidget {
       labelText: StringConstant.graduatingInstitution,
       isLabelPadding: true,
       hintText: StringConstant.graduatingInstitution,
+      initialValue: state.selectedGraduation.getValue(),
       textCapitalization: TextCapitalization.words,
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(

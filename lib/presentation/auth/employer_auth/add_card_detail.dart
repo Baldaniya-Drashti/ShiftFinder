@@ -209,9 +209,9 @@ class AddCardDetailPage extends StatelessWidget {
       // maxLength: 19,
       keyboardType: TextInputType.number,
       inputFormatters: [
-        // FilteringTextInputFormatter.digitsOnly,
-        // LengthLimitingTextInputFormatter(19),
-        // CardNumberInputFormatter(),
+        FilteringTextInputFormatter.digitsOnly,
+        LengthLimitingTextInputFormatter(16),
+        CardNumberInputFormatter(),
       ],
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(

@@ -1,7 +1,10 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, avoid_print, prefer_final_fields, unnecessary_brace_in_string_interps, prefer_const_constructors
 
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
+import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/mult_select_dialog.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_chip_display.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_item.dart';
@@ -20,10 +23,10 @@ class MultiSelectDialogField<V> extends FormField<List<V>> {
   final Text? buttonText;
 
   /// Specify the button icon.
-  final Icon? buttonIcon;
+  final Widget? buttonIcon;
 
   /// The text at the top of the dialog.
-  final Widget? title;
+  final String? title;
 
   /// List of items to select from.
   final List<MultiSelectItem<V>> items;
@@ -37,9 +40,10 @@ class MultiSelectDialogField<V> extends FormField<List<V>> {
 
   /// The list of selected values before interaction.
   final List<V> initialValue;
+  final List<V> otherInitialValue;
 
   /// Fires when confirm is tapped.
-  final void Function(List<V>) onConfirm;
+  final void Function(List<V>, List<V>) onConfirm;
 
   /// Toggles search functionality.
   final bool searchable;
@@ -107,6 +111,12 @@ class MultiSelectDialogField<V> extends FormField<List<V>> {
   final FormFieldSetter<List<V>>? onSaved;
   final GlobalKey<FormFieldState>? key;
   FormFieldState<List<V>>? state;
+  final String? labelText;
+  final TextStyle? labelStyle;
+  final bool? isLabelPadding;
+  final bool? isOptional;
+  final Widget? optionalWidget;
+  final bool isShowOtherValue;
 
   MultiSelectDialogField({
     required this.items,
@@ -137,12 +147,19 @@ class MultiSelectDialogField<V> extends FormField<List<V>> {
     this.selectedItemsTextStyle,
     this.separateSelectedItems = false,
     this.checkColor,
-    this.isDismissible = true,
+    this.isDismissible = false,
     this.onSaved,
     this.validator,
     this.initialValue = const [],
+    this.otherInitialValue = const [],
     this.autovalidateMode = AutovalidateMode.disabled,
     this.key,
+    this.labelText,
+    this.labelStyle,
+    this.isLabelPadding = true,
+    this.isOptional = false,
+    this.optionalWidget,
+    this.isShowOtherValue = true,
   }) : super(
             key: key,
             onSaved: onSaved,
@@ -152,37 +169,43 @@ class MultiSelectDialogField<V> extends FormField<List<V>> {
             builder: (FormFieldState<List<V>> state) {
               _MultiSelectDialogFieldView<V> field =
                   _MultiSelectDialogFieldView<V>(
-                title: title,
-                items: items,
-                buttonText: buttonText,
-                buttonIcon: buttonIcon,
-                chipDisplay: chipDisplay,
-                decoration: decoration,
-                listType: listType,
-                onConfirm: onConfirm,
-                onSelectionChanged: onSelectionChanged,
-                initialValue: initialValue,
-                searchable: searchable,
-                confirmText: confirmText,
-                cancelText: cancelText,
-                barrierColor: barrierColor,
-                selectedColor: selectedColor,
-                searchHint: searchHint,
-                dialogHeight: dialogHeight,
-                dialogWidth: dialogWidth,
-                colorator: colorator,
-                backgroundColor: backgroundColor,
-                unselectedColor: unselectedColor,
-                searchIcon: searchIcon,
-                closeSearchIcon: closeSearchIcon,
-                itemsTextStyle: itemsTextStyle,
-                searchTextStyle: searchTextStyle,
-                searchHintStyle: searchHintStyle,
-                selectedItemsTextStyle: selectedItemsTextStyle,
-                separateSelectedItems: separateSelectedItems,
-                checkColor: checkColor,
-                isDismissible: isDismissible,
-              );
+                      title: title,
+                      items: items,
+                      buttonText: buttonText,
+                      buttonIcon: buttonIcon,
+                      chipDisplay: chipDisplay,
+                      decoration: decoration,
+                      listType: listType,
+                      onConfirm: onConfirm,
+                      onSelectionChanged: onSelectionChanged,
+                      initialValue: initialValue,
+                      otherInitialValue: otherInitialValue,
+                      searchable: searchable,
+                      confirmText: confirmText,
+                      cancelText: cancelText,
+                      barrierColor: barrierColor,
+                      selectedColor: selectedColor,
+                      searchHint: searchHint,
+                      dialogHeight: dialogHeight,
+                      dialogWidth: dialogWidth,
+                      colorator: colorator,
+                      backgroundColor: backgroundColor,
+                      unselectedColor: unselectedColor,
+                      searchIcon: searchIcon,
+                      closeSearchIcon: closeSearchIcon,
+                      itemsTextStyle: itemsTextStyle,
+                      searchTextStyle: searchTextStyle,
+                      searchHintStyle: searchHintStyle,
+                      selectedItemsTextStyle: selectedItemsTextStyle,
+                      separateSelectedItems: separateSelectedItems,
+                      checkColor: checkColor,
+                      isDismissible: isDismissible,
+                      labelText: labelText,
+                      labelStyle: labelStyle,
+                      isLabelPadding: isLabelPadding,
+                      isOptional: isOptional,
+                      optionalWidget: optionalWidget,
+                      isShowOtherValue: isShowOtherValue);
               return _MultiSelectDialogFieldView<V>._withState(field, state);
             });
 }
@@ -192,13 +215,14 @@ class _MultiSelectDialogFieldView<V> extends StatefulWidget {
   final MultiSelectListType? listType;
   final BoxDecoration? decoration;
   final Text? buttonText;
-  final Icon? buttonIcon;
-  final Widget? title;
+  final Widget? buttonIcon;
+  final String? title;
   final List<MultiSelectItem<V>> items;
   final void Function(List<V>)? onSelectionChanged;
   final MultiSelectChipDisplay<V>? chipDisplay;
   final List<V> initialValue;
-  final void Function(List<V>)? onConfirm;
+  final List<V> otherInitialValue;
+  final void Function(List<V>, List<V>)? onConfirm;
   final bool? searchable;
   final Text? confirmText;
   final Text? cancelText;
@@ -220,6 +244,12 @@ class _MultiSelectDialogFieldView<V> extends StatefulWidget {
   final Color? checkColor;
   final bool isDismissible;
   FormFieldState<List<V>>? state;
+  final String? labelText;
+  final TextStyle? labelStyle;
+  final bool? isLabelPadding;
+  final bool? isOptional;
+  final Widget? optionalWidget;
+  final bool isShowOtherValue;
 
   _MultiSelectDialogFieldView({
     required this.items,
@@ -232,6 +262,7 @@ class _MultiSelectDialogFieldView<V> extends StatefulWidget {
     this.onConfirm,
     this.chipDisplay,
     this.initialValue = const [],
+    this.otherInitialValue = const [],
     this.searchable,
     this.confirmText,
     this.cancelText,
@@ -252,6 +283,12 @@ class _MultiSelectDialogFieldView<V> extends StatefulWidget {
     this.separateSelectedItems = false,
     this.checkColor,
     required this.isDismissible,
+    this.labelText,
+    this.labelStyle,
+    this.isLabelPadding = true,
+    this.isOptional = false,
+    this.optionalWidget,
+    this.isShowOtherValue = true,
   });
 
   /// This constructor allows a FormFieldState to be passed in. Called by MultiSelectDialogField.
@@ -267,6 +304,7 @@ class _MultiSelectDialogFieldView<V> extends StatefulWidget {
         onConfirm = field.onConfirm,
         chipDisplay = field.chipDisplay,
         initialValue = field.initialValue,
+        otherInitialValue = field.otherInitialValue,
         searchable = field.searchable,
         confirmText = field.confirmText,
         cancelText = field.cancelText,
@@ -287,6 +325,12 @@ class _MultiSelectDialogFieldView<V> extends StatefulWidget {
         separateSelectedItems = field.separateSelectedItems,
         checkColor = field.checkColor,
         isDismissible = field.isDismissible,
+        labelText = field.labelText,
+        labelStyle = field.labelStyle,
+        isLabelPadding = field.isLabelPadding,
+        isOptional = field.isOptional,
+        optionalWidget = field.optionalWidget,
+        isShowOtherValue = field.isShowOtherValue,
         state = state;
 
   @override
@@ -297,11 +341,13 @@ class _MultiSelectDialogFieldView<V> extends StatefulWidget {
 class __MultiSelectDialogFieldViewState<V>
     extends State<_MultiSelectDialogFieldView<V>> {
   List<V> _selectedItems = [];
+  List<V> _selectedOtherItems = [];
 
   @override
   void initState() {
     super.initState();
     _selectedItems.addAll(widget.initialValue);
+    _selectedOtherItems.addAll(widget.otherInitialValue);
   }
 
   @override
@@ -311,6 +357,9 @@ class __MultiSelectDialogFieldViewState<V>
     if (oldWidget.initialValue != widget.initialValue) {
       _selectedItems = [];
       _selectedItems.addAll(widget.initialValue);
+
+      // _selectedOtherItems = [];
+      // _selectedOtherItems.addAll(widget.initialValue);
 
       WidgetsBinding.instance.addPostFrameCallback((_) {
         widget.state!.didChange(_selectedItems);
@@ -324,6 +373,13 @@ class __MultiSelectDialogFieldViewState<V>
         .map((e) =>
             widget.items.firstWhereOrNull((element) => e == element.value))
         .toList();
+
+    if (_selectedOtherItems.isNotEmpty) {
+      chipDisplayItems.addAll(_selectedOtherItems
+          .map((item) => MultiSelectItem(item, item as String)));
+      print("chipDisplayItems after --> ${chipDisplayItems}");
+    }
+
     chipDisplayItems.removeWhere((element) => element == null);
     if (widget.chipDisplay != null) {
       // if user has specified a chipDisplay, use its params
@@ -333,8 +389,8 @@ class __MultiSelectDialogFieldViewState<V>
         return MultiSelectChipDisplay<V>(
           items: chipDisplayItems,
           colorator: widget.chipDisplay!.colorator ?? widget.colorator,
-          onTap: (item) {
-            List<V>? newValues;
+          onDelete: (item) {
+            /*List<V>? newValues;
             if (widget.chipDisplay!.onTap != null) {
               dynamic result = widget.chipDisplay!.onTap!(item);
               if (result is List<V>) newValues = result;
@@ -343,6 +399,20 @@ class __MultiSelectDialogFieldViewState<V>
               _selectedItems = newValues;
               if (widget.state != null) {
                 widget.state!.didChange(_selectedItems);
+              }
+            }*/
+            /// Remove selected Items
+            if (item != null) {
+              print("_selectedItems---> $_selectedItems");
+              _selectedItems.removeWhere((element) => element == item);
+              _selectedOtherItems.removeWhere((element) => element == item);
+
+              print("_selectedItems111---> $_selectedItems");
+              if (widget.state != null) {
+                widget.state!.didChange(_selectedItems);
+              }
+              if (widget.chipDisplay!.onDelete != null) {
+                widget.chipDisplay!.onDelete!(item);
               }
             }
           },
@@ -400,18 +470,22 @@ class __MultiSelectDialogFieldViewState<V>
           width: widget.dialogWidth,
           listType: widget.listType,
           items: widget.items,
-          title: widget.title ?? const Text("Select"),
+          title: widget.title ?? "Select",
           initialValue: _selectedItems,
+          otherInitialValue: _selectedOtherItems,
           searchable: widget.searchable ?? false,
           confirmText: widget.confirmText,
           cancelText: widget.cancelText,
           separateSelectedItems: widget.separateSelectedItems,
-          onConfirm: (selected) {
+          isShowOtherValue: widget.isShowOtherValue,
+          onConfirm: (selected, others) {
             _selectedItems = selected;
+            _selectedOtherItems = others;
             if (widget.state != null) {
               widget.state!.didChange(_selectedItems);
             }
-            if (widget.onConfirm != null) widget.onConfirm!(_selectedItems);
+            if (widget.onConfirm != null)
+              widget.onConfirm!(_selectedItems, _selectedOtherItems);
           },
         );
       },
@@ -422,40 +496,67 @@ class __MultiSelectDialogFieldViewState<V>
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
+        if (widget.labelText != null) ...[
+          Padding(
+            padding: EdgeInsets.only(
+                left: getSize((widget.isLabelPadding == true) ? 18 : 0)),
+            child: Row(
+              children: [
+                BaseText(
+                  text: widget.labelText ?? "",
+                  fontSize: widget.labelStyle?.fontSize ?? 14,
+                  fontWeight: FontWeight.w500,
+                  textColor: widget.labelStyle?.color ?? AppColors.black,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: getSize(5),
+                  ),
+                  child: (widget.isOptional == true &&
+                          widget.optionalWidget == null)
+                      ? BaseText(
+                          text: "(Optional)",
+                          style: TextStyle(
+                            fontSize: getFontSize(10),
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.black.withOpacity(0.8),
+                            fontFamily: "Roboto Flex",
+                          ),
+                        )
+                      : widget.optionalWidget ?? Container(),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: getSize(8)),
+        ],
         InkWell(
           onTap: () {
             _showDialog(context);
           },
           child: Container(
-            decoration: widget.state != null
-                ? widget.decoration ??
-                    BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          color: widget.state != null && widget.state!.hasError
-                              ? Colors.red.shade800.withOpacity(0.6)
-                              : _selectedItems.isNotEmpty
-                                  ? (widget.selectedColor != null &&
-                                          widget.selectedColor !=
-                                              Colors.transparent)
-                                      ? widget.selectedColor!
-                                      : Theme.of(context).primaryColor
-                                  : Colors.black45,
-                          width: _selectedItems.isNotEmpty
-                              ? (widget.state != null && widget.state!.hasError)
-                                  ? 1.4
-                                  : 1.8
-                              : 1.2,
-                        ),
-                      ),
-                    )
+            decoration: (widget.state != null && widget.state!.hasError)
+                ? BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(getSize(10)),
+                    border: Border.all(
+                      color: AppColors.red,
+                    ),
+                  )
                 : widget.decoration,
-            padding: const EdgeInsets.all(10),
+            padding: EdgeInsets.symmetric(
+                horizontal: getSize(10), vertical: getSize(16)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                widget.buttonText ?? const Text("Select"),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: getSize(7),
+                  ),
+                  child: widget.buttonText ?? const Text("Select"),
+                ),
                 widget.buttonIcon ?? const Icon(Icons.arrow_downward),
               ],
             ),
@@ -469,13 +570,12 @@ class __MultiSelectDialogFieldViewState<V>
             ? Row(
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(left: 4),
-                    child: Text(
-                      widget.state!.errorText!,
-                      style: TextStyle(
-                        color: Colors.red[800],
-                        fontSize: 12.5,
-                      ),
+                    padding: EdgeInsets.only(left: getSize(18)),
+                    child: BaseText(
+                      text: widget.state!.errorText!,
+                      textColor: AppColors.red,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],

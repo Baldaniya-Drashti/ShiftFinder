@@ -1115,6 +1115,7 @@ mixin _$IntroVideoState {
   bool get isPlaying => throw _privateConstructorUsedError;
   bool get showErrorMessages => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
+  bool get isVideoComplete => throw _privateConstructorUsedError;
   Option<Either<AuthFailure, String>> get authFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
 
@@ -1148,6 +1149,7 @@ abstract class $IntroVideoStateCopyWith<$Res> {
       bool isPlaying,
       bool showErrorMessages,
       bool isSubmitting,
+      bool isVideoComplete,
       Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
       List<QuizDTO> questions,
       List<QuizDTO> updatedQuestions,
@@ -1175,6 +1177,7 @@ class _$IntroVideoStateCopyWithImpl<$Res, $Val extends IntroVideoState>
     Object? isPlaying = null,
     Object? showErrorMessages = null,
     Object? isSubmitting = null,
+    Object? isVideoComplete = null,
     Object? authFailureOrSuccessOption = null,
     Object? questions = null,
     Object? updatedQuestions = null,
@@ -1199,6 +1202,10 @@ class _$IntroVideoStateCopyWithImpl<$Res, $Val extends IntroVideoState>
       isSubmitting: null == isSubmitting
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isVideoComplete: null == isVideoComplete
+          ? _value.isVideoComplete
+          : isVideoComplete // ignore: cast_nullable_to_non_nullable
               as bool,
       authFailureOrSuccessOption: null == authFailureOrSuccessOption
           ? _value.authFailureOrSuccessOption
@@ -1246,6 +1253,7 @@ abstract class _$$IntroVideoStateImplCopyWith<$Res>
       bool isPlaying,
       bool showErrorMessages,
       bool isSubmitting,
+      bool isVideoComplete,
       Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
       List<QuizDTO> questions,
       List<QuizDTO> updatedQuestions,
@@ -1271,6 +1279,7 @@ class __$$IntroVideoStateImplCopyWithImpl<$Res>
     Object? isPlaying = null,
     Object? showErrorMessages = null,
     Object? isSubmitting = null,
+    Object? isVideoComplete = null,
     Object? authFailureOrSuccessOption = null,
     Object? questions = null,
     Object? updatedQuestions = null,
@@ -1295,6 +1304,10 @@ class __$$IntroVideoStateImplCopyWithImpl<$Res>
       isSubmitting: null == isSubmitting
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isVideoComplete: null == isVideoComplete
+          ? _value.isVideoComplete
+          : isVideoComplete // ignore: cast_nullable_to_non_nullable
               as bool,
       authFailureOrSuccessOption: null == authFailureOrSuccessOption
           ? _value.authFailureOrSuccessOption
@@ -1337,6 +1350,7 @@ class _$IntroVideoStateImpl implements _IntroVideoState {
       required this.isPlaying,
       required this.showErrorMessages,
       required this.isSubmitting,
+      required this.isVideoComplete,
       required this.authFailureOrSuccessOption,
       required final List<QuizDTO> questions,
       required final List<QuizDTO> updatedQuestions,
@@ -1355,6 +1369,8 @@ class _$IntroVideoStateImpl implements _IntroVideoState {
   final bool showErrorMessages;
   @override
   final bool isSubmitting;
+  @override
+  final bool isVideoComplete;
   @override
   final Option<Either<AuthFailure, String>> authFailureOrSuccessOption;
 
@@ -1396,7 +1412,7 @@ class _$IntroVideoStateImpl implements _IntroVideoState {
 
   @override
   String toString() {
-    return 'IntroVideoState(controller: $controller, isPlaying: $isPlaying, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, authFailureOrSuccessOption: $authFailureOrSuccessOption, questions: $questions, updatedQuestions: $updatedQuestions, showQuizErrorMessages: $showQuizErrorMessages, isQuizSubmitting: $isQuizSubmitting, quizAuthFailureOrSuccessOption: $quizAuthFailureOrSuccessOption, quizQuestionFailureOrSuccessOption: $quizQuestionFailureOrSuccessOption)';
+    return 'IntroVideoState(controller: $controller, isPlaying: $isPlaying, showErrorMessages: $showErrorMessages, isSubmitting: $isSubmitting, isVideoComplete: $isVideoComplete, authFailureOrSuccessOption: $authFailureOrSuccessOption, questions: $questions, updatedQuestions: $updatedQuestions, showQuizErrorMessages: $showQuizErrorMessages, isQuizSubmitting: $isQuizSubmitting, quizAuthFailureOrSuccessOption: $quizAuthFailureOrSuccessOption, quizQuestionFailureOrSuccessOption: $quizQuestionFailureOrSuccessOption)';
   }
 
   @override
@@ -1412,6 +1428,8 @@ class _$IntroVideoStateImpl implements _IntroVideoState {
                 other.showErrorMessages == showErrorMessages) &&
             (identical(other.isSubmitting, isSubmitting) ||
                 other.isSubmitting == isSubmitting) &&
+            (identical(other.isVideoComplete, isVideoComplete) ||
+                other.isVideoComplete == isVideoComplete) &&
             (identical(other.authFailureOrSuccessOption,
                     authFailureOrSuccessOption) ||
                 other.authFailureOrSuccessOption ==
@@ -1441,6 +1459,7 @@ class _$IntroVideoStateImpl implements _IntroVideoState {
       isPlaying,
       showErrorMessages,
       isSubmitting,
+      isVideoComplete,
       authFailureOrSuccessOption,
       const DeepCollectionEquality().hash(_questions),
       const DeepCollectionEquality().hash(_updatedQuestions),
@@ -1463,6 +1482,7 @@ abstract class _IntroVideoState implements IntroVideoState {
       required final bool isPlaying,
       required final bool showErrorMessages,
       required final bool isSubmitting,
+      required final bool isVideoComplete,
       required final Option<Either<AuthFailure, String>>
           authFailureOrSuccessOption,
       required final List<QuizDTO> questions,
@@ -1482,6 +1502,8 @@ abstract class _IntroVideoState implements IntroVideoState {
   bool get showErrorMessages;
   @override
   bool get isSubmitting;
+  @override
+  bool get isVideoComplete;
   @override
   Option<Either<AuthFailure, String>> get authFailureOrSuccessOption;
   @override

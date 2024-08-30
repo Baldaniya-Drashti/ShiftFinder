@@ -33,12 +33,17 @@ class SplashPage extends StatelessWidget {
           authenticated: (value) async {
             await Future.delayed(
               const Duration(seconds: 1),
-              () => (value.isProfileComplete == 1)
-                  ? context.router.replace(PageRouteInfo(MainTabView.name))
-                  : context.router.replace(getCurrentPage(
-                      value.lastPage,
-                      fromSplash: true,
-                    )),
+              () =>
+                  // (value.isProfileComplete == 1)
+                  //     ? context.router.replace(PageRouteInfo(MainTabView.name))
+                  //     : context.router.replace(getCurrentPage(
+                  //         value.lastPage,
+                  //         fromSplash: true,
+                  //       )),
+                  context.router.replace(getCurrentPage(
+                value.lastPage,
+                fromSplash: true,
+              )),
             );
           },
           unAuthenticated: (value) async {

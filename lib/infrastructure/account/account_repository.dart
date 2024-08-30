@@ -162,6 +162,48 @@ class AccountRepository extends IAccountRepository {
   }
 
   @override
+  Future<Either<AccountFailure, String>> updateEducationApi({
+    required int id,
+    required InputEmptyOrNot programCompleted,
+    required InputEmptyOrNot yearOfCompletion,
+    required InputEmptyOrNot graduatingInstitution,
+  }) async {
+    try {
+      final mapData = {
+        "program_completed": programCompleted.getOrCrash(),
+        "year_of_completion": yearOfCompletion.getOrCrash(),
+        "graduating_institution": graduatingInstitution.getOrCrash(),
+        "last_page": "Education",
+      };
+
+      print("Sending Params:---> ${jsonEncode(mapData)}");
+      final response = await apiService.putMethod(
+        '${ApiConstants.updateEducation}/$id',
+        data: mapData,
+      );
+      if (response != null) {
+        print("Response of Update Education---> ${jsonEncode(response.data)}");
+        return right(response.dioMessage ?? "");
+      } else {
+        return left(const AccountFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
   Future<Either<AccountFailure, Account>> deleteEducationApi({
     required int educationId,
   }) async {
@@ -205,6 +247,7 @@ class AccountRepository extends IAccountRepository {
     required String? referrer,
     required String email,
     required String countryCode,
+    required String countryFlag,
     required String phone,
     String? jobLatitude,
     String? jobLongitude,
@@ -220,8 +263,9 @@ class AccountRepository extends IAccountRepository {
         "type": type,
         "email": email,
         "country_code": countryCode,
+        "country_name_code": countryFlag,
         "phone": phone,
-        "last_page": "Document",
+        "last_page": "Reference",
       };
 
       if (type == 1) {
@@ -231,8 +275,15 @@ class AccountRepository extends IAccountRepository {
           "referrer": referrer ?? "",
           "job_location": jobLocation ?? "",
           "unit": unit ?? "",
-          "start_date": startDate ?? "",
-          "end_date": endDate ?? "",
+          "start_date": (startDate != null && startDate.isNotEmpty)
+              ? (DateTime.parse(startDate).toUtc().millisecondsSinceEpoch /
+                      1000)
+                  .toString()
+              : "",
+          "end_date": (endDate != null && endDate.isNotEmpty)
+              ? (DateTime.parse(endDate).toUtc().millisecondsSinceEpoch / 1000)
+                  .toString()
+              : "",
         });
       }
       if (type == 2) {
@@ -249,6 +300,92 @@ class AccountRepository extends IAccountRepository {
 
       final account = CurrentUserDto.fromJson(response.data).toDomain();
       return right(account);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+      return left(const AccountFailure.serverError());
+    } catch (e) {
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AccountFailure, Account>> updateReferenceApi({
+    required int id,
+    required int type,
+    required String? jobPosition,
+    required String? organization,
+    required String? referrer,
+    required String email,
+    required String countryCode,
+    required String countryFlag,
+    required String phone,
+    String? jobLatitude,
+    String? jobLongitude,
+    required String? jobLocation,
+    required String? unit,
+    required String? startDate,
+    required String? endDate,
+    required String? contactPerson,
+    required String? professionReferrer,
+  }) async {
+    try {
+      final mapData = {
+        "type": type,
+        "email": email,
+        "country_code": countryCode,
+        "country_name_code": countryFlag,
+        "phone": phone,
+        "last_page": "Reference",
+      };
+
+      if (type == 1) {
+        mapData.addAll({
+          "job_position": jobPosition ?? "",
+          "organization": organization ?? "",
+          "referrer": referrer ?? "",
+          "job_location": jobLocation ?? "",
+          "unit": unit ?? "",
+          "start_date": (startDate != null && startDate.isNotEmpty)
+              ? (DateTime.parse(startDate).toUtc().millisecondsSinceEpoch /
+                      1000)
+                  .toString()
+              : "",
+          "end_date": (endDate != null && endDate.isNotEmpty)
+              ? (DateTime.parse(endDate).toUtc().millisecondsSinceEpoch / 1000)
+                  .toString()
+              : "",
+        });
+      }
+      if (type == 2) {
+        mapData.addAll({
+          "contact_person": contactPerson ?? "",
+          "profession_referrer": professionReferrer ?? "",
+        });
+      }
+
+      print("Sending Params:---> ${jsonEncode(mapData)}");
+      final response = await apiService.putMethod(
+        '${ApiConstants.updateReference}/$id',
+        data: mapData,
+      );
+
+      if (response != null) {
+        print("Response of Update Reference---> ${jsonEncode(response.data)}");
+
+        final account = CurrentUserDto.fromJson(response.data).toDomain();
+        return right(account);
+      } else {
+        return left(const AccountFailure.serverError());
+      }
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
@@ -778,12 +915,12 @@ class AccountRepository extends IAccountRepository {
   }) async {
     try {
       var mapData = {
-        "quiz_details ": quizDetails,
-        "last_page": "MainTab",
-        "isProfileComplete": 1,
+        'quiz_details': quizDetails,
+        'last_page': "MainTab",
+        'isProfileComplete': "1",
       };
 
-      print('Sending Data: $mapData');
+      print('Sending Data: ${jsonEncode(quizDetails)}');
 
       final response = await apiService.postMethod(
         ApiConstants.quiz,
@@ -858,6 +995,7 @@ class AccountRepository extends IAccountRepository {
     required String locationNotes,
     required String unitNumber,
     required String unitNotes,
+    required List<UnitDTO> units,
   }) async {
     try {
       var mapData = {
@@ -867,11 +1005,17 @@ class AccountRepository extends IAccountRepository {
         "location_id": locationId,
         "accreditation_number": accreditationNumber,
         "location_note": locationNotes,
-        "units_number_or_name": unitNumber,
-        "units_note": unitNotes,
-        "last_page": "Main",
+        // "units_number_or_name": unitNumber,
+        // "units_note": unitNotes,
+        "last_page": "MainTab",
         "isProfileComplete": 1,
       };
+
+      if (units.isNotEmpty) {
+        mapData.addAll({
+          "units": jsonEncode(units),
+        });
+      }
 
       print('Sending Data: ${jsonEncode(mapData)}');
 

@@ -13,6 +13,7 @@ class AddContractorSkillFormState with _$AddContractorSkillFormState {
     required ListInputEmptyOrNot<SpecialityDTO> requiredSpecialityChipList,
     required List<SpecialityDTO> specialityList,
     required String requiredSpecialityChip,
+    required List<String> specialityOther,
 
     /// Add EXPERIENCE OF SELECTED SPECIALITY
     required ListInputEmptyOrNot selectedSpecialityExperienceList,
@@ -61,6 +62,7 @@ class AddContractorSkillFormState with _$AddContractorSkillFormState {
         languageList: [],
         languageOther: [],
         softwareSkillOther: [],
+        specialityOther: [],
         roleTypeChip: "",
         roleTypeChipList: ListInputEmptyOrNot([]),
         requiredSoftwareSkillChipList: ListInputEmptyOrNot([]),

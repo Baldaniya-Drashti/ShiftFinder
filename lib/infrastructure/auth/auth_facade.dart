@@ -500,7 +500,7 @@ class AuthFacade implements IAuthFacade {
         "software_skill_other": softwareSkillOther,
         "languages_list_id": languageListId,
         "language_other": languageOther,
-        "last_page": "Education",
+        "last_page": "Experience",
       };
 
       print("Sending Params:---> ${jsonEncode(mapData)}");

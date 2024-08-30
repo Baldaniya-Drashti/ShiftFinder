@@ -2,7 +2,8 @@
 class MultiSelectItem<T> {
   final T value;
   final String label;
+  bool isOther;
   bool selected = false;
 
-  MultiSelectItem(this.value, this.label);
+  MultiSelectItem(this.value, this.label, {this.isOther = false});
 }

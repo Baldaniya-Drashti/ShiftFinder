@@ -18,9 +18,11 @@ class ApiConstants {
   static String getUserInfo = 'get_user_info';
   static String completeProfile = 'complete_profile';
   static String education = 'education';
+  static String updateEducation = 'update_education';
   static String destroyEducation = 'destroy_education';
   static String experience = 'experience';
   static String reference = 'reference';
+  static String updateReference = 'update_reference';
   static String destroyReference = 'destroy_reference';
   static String getDocument = 'get_document';
   static String document = 'document';

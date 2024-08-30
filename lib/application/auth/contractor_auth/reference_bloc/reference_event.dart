@@ -3,6 +3,8 @@ part of 'reference_bloc.dart';
 @freezed
 class ReferenceEvent with _$ReferenceEvent {
   const factory ReferenceEvent.getReferenceList() = GetReferenceList;
+  const factory ReferenceEvent.referenceObjEvent(ReferenceDTO? referenceObj) =
+      ReferenceObjEvent;
   const factory ReferenceEvent.skipReference() = SkipReference;
 
   const factory ReferenceEvent.deleteReference(int referenceId) =
@@ -29,7 +31,8 @@ class ReferenceEvent with _$ReferenceEvent {
   const factory ReferenceEvent.endDateChanged(String endDate) = _EndDateChanged;
   const factory ReferenceEvent.selectCountryCode(
       String phoneCode, String flag) = SelectCountryCode;
-  const factory ReferenceEvent.professinalBtnPressed() = _ProfessinalBtnPressed;
+  const factory ReferenceEvent.professinalBtnPressed(bool isUpdate, {int? id}) =
+      _ProfessinalBtnPressed;
 
   // FOR PERSONAL
   const factory ReferenceEvent.personalEmailChanged(String personalEmail) =
@@ -42,5 +45,6 @@ class ReferenceEvent with _$ReferenceEvent {
       _ProfessionChanged;
   const factory ReferenceEvent.personalCountryCode(
       String phoneCode, String flag) = _PersonalCountryCode;
-  const factory ReferenceEvent.personalBtnPressed() = _PersonalBtnPressed;
+  const factory ReferenceEvent.personalBtnPressed(bool isUpdate, {int? id}) =
+      _PersonalBtnPressed;
 }

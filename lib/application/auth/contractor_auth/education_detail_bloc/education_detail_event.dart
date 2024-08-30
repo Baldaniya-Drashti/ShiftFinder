@@ -2,6 +2,8 @@ part of 'education_detail_bloc.dart';
 
 @freezed
 class EducationDetailEvent with _$EducationDetailEvent {
+  const factory EducationDetailEvent.educationObjEvent(
+      EducationDTO? educationObj) = EducationObjEvent;
   const factory EducationDetailEvent.getEducationList() = GetEducationList;
   const factory EducationDetailEvent.deleteEducation(int educationId) =
       DeleteEducation;
@@ -13,5 +15,6 @@ class EducationDetailEvent with _$EducationDetailEvent {
       AddCompletionYearChanged;
   const factory EducationDetailEvent.addInstituteChanged(String institute) =
       AddInstituteChanged;
-  const factory EducationDetailEvent.onAddBtnPressed() = OnAddBtnPressed;
+  const factory EducationDetailEvent.onAddBtnPressed(bool isUpdate, {int? id}) =
+      OnAddBtnPressed;
 }

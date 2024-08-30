@@ -177,7 +177,7 @@ class RegisterForm extends StatelessWidget {
             text: ' and ',
           ),
           TextSpan(
-            text: priacyPolicy,
+            text: "$priacyPolicy.",
             style: TextStyle(
               fontSize: getFontSize(11),
               color: AppColors.primaryColor,
@@ -361,14 +361,22 @@ class RegisterForm extends StatelessWidget {
           width: getSize(20),
         ),
         Flexible(
-          // color: Colors.red,
-          // margin: EdgeInsets.only(left: getSize(10)),
-          // width: getFontSize(280),
           child: termsAndCondition(
             title: StringConstant.pleaseCheckTheBoxToConfirmThatYouHaveReviewed,
             title1: StringConstant.andAgreeToOur,
             terms: StringConstant.termsOfService,
             priacyPolicy: StringConstant.privacyPolicy,
+            onTermsClick: () {
+              context.router
+                  .push(const PageRouteInfo(TermsAndConditionsScreen.name,
+                      args: TermsAndConditionsScreenArgs(
+                        isFromRegister: true,
+                      )));
+            },
+            onPrivacyPolicyClick: () {
+              context.router
+                  .push(const PageRouteInfo(PrivacyPolicyScreen.name));
+            },
           ),
         ),
       ],

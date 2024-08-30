@@ -13,6 +13,7 @@ import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 part 'location_details_event.dart';
 part 'location_details_state.dart';
@@ -136,17 +137,28 @@ class LocationDetailsBloc
           );
         },
         removeUnitNumberChip: (e) {
-          emit(
+          /*emit(
             state.copyWith(
               unitNoNameChipList: List.from(state.unitNoNameChipList)
                 ..remove(e.unitNumber),
               unitNumber: "",
               authFailureOrSuccessOption: none(),
             ),
+          );*/
+
+          /// for unit list
+          emit(
+            state.copyWith(
+              // unitNoNameChipList: List.from(state.unitNoNameChipList)
+              //   ..remove(e.unitNumber),
+              // unitNumber: "",
+              listOfUnit: List.from(state.listOfUnit)..removeAt(e.index),
+              authFailureOrSuccessOption: none(),
+            ),
           );
         },
         addUnitNumberChipList: (e) {
-          if (e.unitNumber.trim().isNotEmpty &&
+          /*if (e.unitNumber.trim().isNotEmpty &&
               (!state.unitNoNameChipList.contains(e.unitNumber) ||
                   state.unitNoNameChipList.isEmpty)) {
             emit(
@@ -162,6 +174,32 @@ class LocationDetailsBloc
               state.copyWith(
                 unitNoNameChipList: List.from(state.unitNoNameChipList),
                 unitNumber: e.unitNumber,
+                authFailureOrSuccessOption: none(),
+              ),
+            );
+          }*/
+
+          /// for unit list
+          if (e.unitNumber.trim().isNotEmpty &&
+              (!state.listOfUnit
+                      .every((unit) => unit.number_or_name == e.unitNumber) ||
+                  state.listOfUnit.isEmpty)) {
+            emit(
+              state.copyWith(
+                listOfUnit: List.from(state.listOfUnit)
+                  ..add(UnitDTO(
+                    number_or_name: e.unitNumber,
+                    units_note: e.unitNote.trim(),
+                  )),
+                unitNumber: "",
+                notes: "",
+                authFailureOrSuccessOption: none(),
+              ),
+            );
+          } else {
+            emit(
+              state.copyWith(
+                listOfUnit: List.from(state.listOfUnit),
                 authFailureOrSuccessOption: none(),
               ),
             );
@@ -216,6 +254,7 @@ class LocationDetailsBloc
               locationNotes: state.locationNote,
               unitNotes: state.unitNumber,
               unitNumber: state.unitNoNameChipList.join(','),
+              units: state.listOfUnit,
             );
           }
           emit(

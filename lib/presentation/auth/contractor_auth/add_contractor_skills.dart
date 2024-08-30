@@ -3,10 +3,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shift/application/auth/contractor_auth/add_contractor_skill_form_bloc/add_contractor_skill_form_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
@@ -15,7 +17,6 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
-import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_speciality_box.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_chip_display.dart';
@@ -89,8 +90,9 @@ class AddContractorSkillsForm extends StatelessWidget {
                       ).show(context);
                     },
                     (r) {
+                      // context.router.push(const PageRouteInfo(EducationListScreen.name));
                       context.router
-                          .push(const PageRouteInfo(EducationListScreen.name));
+                          .push(PageRouteInfo(AddExperienceDetailScreen.name));
                     },
                   ),
                 );
@@ -111,44 +113,10 @@ class AddContractorSkillsForm extends StatelessWidget {
                                   PngImageConstants.healthcare_post_contractor,
                                 ),
                                 paddingBetweenFields(),
-                                MultiSelectDialogField(
-                                  items: state.roleList
-                                      .map((item) => MultiSelectItem<String>(
-                                          item.name ?? "", item.name ?? ""))
-                                      .toList(),
-                                  title: Text("Select Items"),
-                                  selectedColor: AppColors.black,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  chipDisplay: MultiSelectChipDisplay(
-                                    chipColor: AppColors.transparent,
-                                  ),
-                                  buttonIcon: Icon(
-                                    Icons.arrow_drop_down,
-                                  ),
-                                  buttonText: Text(
-                                    "Select Items",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  onSelectionChanged: (value) {
-                                    print("onSelectionChanged called!");
-                                  },
-                                  onConfirm: (results) {
-                                    print(results);
-                                    context
-                                        .read<AddContractorSkillFormBloc>()
-                                        .add(AddContractorSkillFormEvent
-                                            .addRoleTypeChips(
-                                                results[0] as String, []));
-                                  },
-                                ),
-                                paddingBetweenFields(),
                                 roleDropDown(context, state),
                                 paddingBetweenFields(),
+                                // specialityDropDown(context, state),
+                                // paddingBetweenFields(),
                                 requiredSpecialityDropDownChipset(
                                     context, state),
                                 preferredSoftwareSkillsDropDownChipSet(
@@ -187,7 +155,7 @@ class AddContractorSkillsForm extends StatelessWidget {
   }
 
   Widget roleDropDown(BuildContext context, AddContractorSkillFormState state) {
-    return Column(
+    /* return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -313,11 +281,109 @@ class AddContractorSkillsForm extends StatelessWidget {
     */
       ],
     );
+ */
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        MultiSelectDialogField(
+          items: state.roleList
+              .map((item) =>
+                  MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
+              .toList(),
+          title: StringConstant.role,
+          labelText: StringConstant.role,
+          selectedColor: AppColors.black,
+          isShowOtherValue: false,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          chipDisplay: MultiSelectChipDisplay(
+            chipColor: AppColors.transparent,
+            onDelete: (value) {
+              context.read<AddContractorSkillFormBloc>().add(
+                  AddContractorSkillFormEvent.removeRoleTypeChips(
+                      value.toString()));
+            },
+          ),
+          buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
+          buttonText: Text(
+            StringConstant.selectRoles,
+            style: TextStyle(
+                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+          ),
+          onConfirm: (selectedList, otherValues) {
+            context
+                .read<AddContractorSkillFormBloc>()
+                .add(AddContractorSkillFormEvent.confirmRoleList(
+                  List<String>.from(selectedList),
+                  List<String>.from(otherValues),
+                ));
+          },
+        ),
+        if (state.showErrorMessages &&
+            state.roleTypeChipList.getValue().isEmpty)
+          commonErrorText(StringConstant.pleaseSelectAtLeastOneRole)
+      ],
+    );
+  }
+
+  Widget specialityDropDown(
+      BuildContext context, AddContractorSkillFormState state) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        MultiSelectDialogField(
+          items: state.specialityList
+              .map((item) =>
+                  MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
+              .toList(),
+          title: StringConstant.specialties,
+          labelText: StringConstant.specialties,
+          selectedColor: AppColors.black,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          chipDisplay: MultiSelectChipDisplay(
+            chipColor: AppColors.transparent,
+            onDelete: (value) {
+              print("On delete called!");
+              context.read<AddContractorSkillFormBloc>().add(
+                  AddContractorSkillFormEvent.removePreferedSoftwareSkillchips(
+                      value.toString()));
+            },
+          ),
+          buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
+          buttonText: Text(
+            StringConstant.specialties,
+            style: TextStyle(
+                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+          ),
+          onConfirm: (selectedList, otherValues) {
+            print("----> $selectedList");
+            print("----> $otherValues");
+            context
+                .read<AddContractorSkillFormBloc>()
+                .add(AddContractorSkillFormEvent.confirmSpecialityList(
+                  List<String>.from(selectedList),
+                  List<String>.from(otherValues),
+                ));
+          },
+        ),
+        if (state.showErrorMessages &&
+            state.requiredSpecialityChipList.getValue().isEmpty &&
+            state.specialityOther.isEmpty)
+          commonErrorText(StringConstant.pleaseSelectAtLeastOneSpeciality)
+      ],
+    );
   }
 
   Widget preferredSoftwareSkillsDropDownChipSet(
       BuildContext context, AddContractorSkillFormState state) {
-    return Column(
+    /* return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -399,6 +465,55 @@ class AddContractorSkillsForm extends StatelessWidget {
         ),
       ],
     );
+  */
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        MultiSelectDialogField(
+          items: state.softwareList
+              .map((item) =>
+                  MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
+              .toList(),
+          title: StringConstant.softwareSkillSet,
+          labelText: StringConstant.softwareSkillSet,
+          selectedColor: AppColors.black,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          chipDisplay: MultiSelectChipDisplay(
+            chipColor: AppColors.transparent,
+            onDelete: (value) {
+              print("On delete called!");
+              context.read<AddContractorSkillFormBloc>().add(
+                  AddContractorSkillFormEvent.removePreferedSoftwareSkillchips(
+                      value.toString()));
+            },
+          ),
+          buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
+          buttonText: Text(
+            StringConstant.softwareSkillSet,
+            style: TextStyle(
+                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+          ),
+          onConfirm: (selectedList, otherValues) {
+            print("----> $selectedList");
+            print("----> $otherValues");
+            context
+                .read<AddContractorSkillFormBloc>()
+                .add(AddContractorSkillFormEvent.confirmSoftwareSkill(
+                  List<String>.from(selectedList),
+                  List<String>.from(otherValues),
+                ));
+          },
+        ),
+        if (state.showErrorMessages &&
+            state.requiredSoftwareSkillChipList.getValue().isEmpty &&
+            state.softwareSkillOther.isEmpty)
+          commonErrorText(StringConstant.pleaseSelectAtLeastOneSkillSet)
+      ],
+    );
   }
 
   Widget requiredSpecialityDropDownChipset(
@@ -409,8 +524,8 @@ class AddContractorSkillsForm extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         CustomDropdwonWithTextField(
-          isLabelPadding: true,
           fieldController: otherSpecialitiesController,
+          removeErrorBorder: true,
           labelText: StringConstant.specialties,
           hintText: StringConstant.specialties,
           showTextfield: state.requiredSpecialityChip.toLowerCase() == "other",
@@ -481,7 +596,7 @@ class AddContractorSkillsForm extends StatelessWidget {
 
   Widget languageDropDownChipSet(
       BuildContext context, AddContractorSkillFormState state) {
-    return Column(
+    /*return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -570,6 +685,55 @@ class AddContractorSkillsForm extends StatelessWidget {
           },
         ),
       ],
+    );*/
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        MultiSelectDialogField(
+          items: state.languageList
+              .map((item) =>
+                  MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
+              .toList(),
+          title: StringConstant.languagesKnown,
+          labelText: StringConstant.languagesKnown,
+          selectedColor: AppColors.black,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          chipDisplay: MultiSelectChipDisplay(
+            chipColor: AppColors.transparent,
+            onDelete: (value) {
+              context.read<AddContractorSkillFormBloc>().add(
+                  AddContractorSkillFormEvent.removeLanguageChips(
+                      value.toString()));
+            },
+          ),
+          buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
+          buttonText: Text(
+            StringConstant.languagesKnown,
+            style: TextStyle(
+                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+          ),
+          initialValue: state.languageChipList.getValue(),
+          otherInitialValue: state.languageOther,
+          onConfirm: (selectedList, otherValues) {
+            print("----> $selectedList");
+            print("----> $otherValues");
+            context
+                .read<AddContractorSkillFormBloc>()
+                .add(AddContractorSkillFormEvent.confirmLanguageList(
+                  List<String>.from(selectedList),
+                  List<String>.from(otherValues),
+                ));
+          },
+        ),
+        if (state.showErrorMessages &&
+            state.languageChipList.getValue().isEmpty &&
+            state.languageOther.isEmpty)
+          commonErrorText(StringConstant.pleaseSelectAtLeastOneLanguage)
+      ],
     );
   }
 
@@ -617,7 +781,7 @@ class AddContractorSkillsForm extends StatelessWidget {
                 value: val.name,
                 child: BaseText(
                   text: val.name ?? "",
-                  fontSize: 14,
+                  fontSize: 12,
                   textColor: AppColors.black,
                 ),
               );

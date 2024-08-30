@@ -21,6 +21,26 @@ abstract class IAccountRepository {
     required String? referrer,
     required String email,
     required String countryCode,
+    required String countryFlag,
+    required String phone,
+    String? jobLatitude,
+    String? jobLongitude,
+    required String? jobLocation,
+    required String? unit,
+    required String? startDate,
+    required String? endDate,
+    required String? contactPerson,
+    required String? professionReferrer,
+  });
+  Future<Either<AccountFailure, Account>> updateReferenceApi({
+    required int id,
+    required int type,
+    required String? jobPosition,
+    required String? organization,
+    required String? referrer,
+    required String email,
+    required String countryCode,
+    required String countryFlag,
     required String phone,
     String? jobLatitude,
     String? jobLongitude,
@@ -35,6 +55,12 @@ abstract class IAccountRepository {
     required String experienceDetail,
   });
   Future<Either<AccountFailure, String>> addEducationApi({
+    required InputEmptyOrNot programCompleted,
+    required InputEmptyOrNot yearOfCompletion,
+    required InputEmptyOrNot graduatingInstitution,
+  });
+  Future<Either<AccountFailure, String>> updateEducationApi({
+    required int id,
     required InputEmptyOrNot programCompleted,
     required InputEmptyOrNot yearOfCompletion,
     required InputEmptyOrNot graduatingInstitution,
@@ -125,5 +151,6 @@ abstract class IAccountRepository {
     required String locationNotes,
     required String unitNumber,
     required String unitNotes,
+    required List<UnitDTO> units,
   });
 }

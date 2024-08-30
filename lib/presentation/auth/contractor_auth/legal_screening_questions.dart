@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors, prefer_const_constructors_in_immutables, avoid_print
 
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -204,7 +206,7 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              (questionModel.answer == 0)
+              /*(questionModel.answer == 0)
                   ? SvgPicture.asset(
                       SvgImageConstant.notApplicable,
                       height: getSize(16),
@@ -218,36 +220,39 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
                           height: getSize(24),
                           width: getSize(24),
                         )
-                      : Container(),
+                      : Container(),*/
             ],
           ),
-          if (questionModel.answer == null) ...[
-            SizedBox(
-              height: getSize(10),
-            ),
-            Row(
-              children: [
+          // if (questionModel.answer == null) ...[
+          SizedBox(
+            height: getSize(10),
+          ),
+          Row(
+            children: [
+              answerButton(
+                onPressed: yesOnPressed,
+                buttonText: StringConstant.yes,
+                buttonColor: AppColors.primaryColor,
+                isAnswer: questionModel.answer == 1,
+              ),
+              SizedBox(width: getSize(20)),
+              answerButton(
+                onPressed: noOnPressed,
+                buttonText: StringConstant.no,
+                buttonColor: AppColors.redAccent,
+                isAnswer: questionModel.answer == 2,
+              ),
+              SizedBox(width: getSize(20)),
+              if (showNAButton == 1)
                 answerButton(
-                  onPressed: yesOnPressed,
-                  buttonText: StringConstant.yes,
-                  buttonColor: AppColors.primaryColor,
+                  onPressed: notApplicableOnPressed,
+                  buttonText: StringConstant.notApplicable,
+                  buttonColor: AppColors.purple,
+                  isAnswer: questionModel.answer == 0,
                 ),
-                SizedBox(width: getSize(20)),
-                answerButton(
-                  onPressed: noOnPressed,
-                  buttonText: StringConstant.no,
-                  buttonColor: AppColors.redAccent,
-                ),
-                SizedBox(width: getSize(20)),
-                if (showNAButton == 1)
-                  answerButton(
-                    onPressed: notApplicableOnPressed,
-                    buttonText: StringConstant.notApplicable,
-                    buttonColor: AppColors.purple,
-                  ),
-              ],
-            ),
-          ],
+            ],
+          ),
+          // ],
         ],
       ),
     );
@@ -305,6 +310,7 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
     required VoidCallback onPressed,
     required Color buttonColor,
     required String buttonText,
+    required bool isAnswer,
   }) {
     return CommonButton(
       onPressed: onPressed,
@@ -313,8 +319,8 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
       width: getSize(60),
       height: getSize(26),
       borderRadius: 7,
-      backgroundColor: buttonColor.withOpacity(0.15),
-      buttonTextColor: buttonColor,
+      backgroundColor: (isAnswer) ? buttonColor : buttonColor.withOpacity(0.15),
+      buttonTextColor: (isAnswer) ? AppColors.white : buttonColor,
     );
   }
 }

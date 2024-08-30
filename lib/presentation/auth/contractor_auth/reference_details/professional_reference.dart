@@ -1,6 +1,7 @@
-// ignore_for_file: use_build_context_synchronously, deprecated_member_use, avoid_print, unnecessary_brace_in_string_interps
+// ignore_for_file: use_build_context_synchronously, deprecated_member_use, avoid_print, unnecessary_brace_in_string_interps, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
@@ -8,58 +9,70 @@ import 'package:shift/application/auth/contractor_auth/reference_bloc/reference_
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/common_country_code_picker.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_country_code_removing_formatter.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
 class ProfessionalReferenceWidget extends StatelessWidget {
-  const ProfessionalReferenceWidget({super.key});
+  ReferenceDTO? referenceObj;
+
+  ProfessionalReferenceWidget({super.key, this.referenceObj});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ReferenceBloc, ReferenceState>(
       builder: (context, state) {
-        return Form(
-          autovalidateMode: (state.showProfessionalErrorMessage)
-              ? AutovalidateMode.always
-              : AutovalidateMode.disabled,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                jobPositionTextField(context, state),
-                paddingBetweenFields(),
-                organizationTextField(context, state),
-                paddingBetweenFields(),
-                referrerTextField(context, state),
-                paddingBetweenFields(),
-                referrerEmailTextField(context, state),
-                paddingBetweenFields(),
-                referrerPhoneNumberTextField(context, state),
-                paddingBetweenFields(),
-                jobLocationFacilityTextField(context, state),
-                paddingBetweenFields(),
-                unitDepartmentTextField(context, state),
-                paddingBetweenFields(),
-                startDateTextField(context, state),
-                paddingBetweenFields(),
-                endDateTextField(context, state),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: getSize(40)),
-                  child: CommonButton(
-                    isSubmitting: state.isProfessionalSubmitting,
-                    onPressed: () {
-                      context
-                          .read<ReferenceBloc>()
-                          .add(const ReferenceEvent.professinalBtnPressed());
-                    },
-                    buttonText: StringConstant.txtContinue,
+        return (state.isLoading)
+            ? CenterLoadingIndicator(isOnlyLoader: true)
+            : Form(
+                autovalidateMode: (state.showProfessionalErrorMessage)
+                    ? AutovalidateMode.always
+                    : AutovalidateMode.disabled,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      jobPositionTextField(context, state),
+                      paddingBetweenFields(),
+                      organizationTextField(context, state),
+                      paddingBetweenFields(),
+                      referrerTextField(context, state),
+                      paddingBetweenFields(),
+                      referrerEmailTextField(context, state),
+                      paddingBetweenFields(),
+                      referrerPhoneNumberTextField(context, state),
+                      paddingBetweenFields(),
+                      jobLocationFacilityTextField(context, state),
+                      paddingBetweenFields(),
+                      unitDepartmentTextField(context, state),
+                      paddingBetweenFields(),
+                      startDateTextField(context, state),
+                      paddingBetweenFields(),
+                      endDateTextField(context, state),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: getSize(40)),
+                        child: CommonButton(
+                          isSubmitting: state.isProfessionalSubmitting,
+                          onPressed: () {
+                            context
+                                .read<ReferenceBloc>()
+                                .add(ReferenceEvent.professinalBtnPressed(
+                                  referenceObj != null,
+                                  id: referenceObj?.id,
+                                ));
+                          },
+                          buttonText: (referenceObj != null)
+                              ? StringConstant.update
+                              : StringConstant.txtContinue,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ),
-        );
+              );
       },
     );
   }
@@ -75,6 +88,7 @@ class ProfessionalReferenceWidget extends StatelessWidget {
       labelText: StringConstant.jobPosition,
       isLabelPadding: true,
       hintText: StringConstant.jobPosition,
+      initialValue: state.jobPosition.getValue(),
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -108,6 +122,7 @@ class ProfessionalReferenceWidget extends StatelessWidget {
       isLabelPadding: true,
       hintText: StringConstant.organization,
       textCapitalization: TextCapitalization.words,
+      initialValue: state.organization.getValue(),
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -140,6 +155,7 @@ class ProfessionalReferenceWidget extends StatelessWidget {
       labelText: StringConstant.referrer,
       isLabelPadding: true,
       hintText: StringConstant.referrer,
+      initialValue: state.referrer.getValue(),
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -173,6 +189,7 @@ class ProfessionalReferenceWidget extends StatelessWidget {
       isLabelPadding: true,
       hintText: StringConstant.referrerEmail,
       keyboardType: TextInputType.emailAddress,
+      initialValue: state.referrerEmail.getValue(),
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -208,6 +225,7 @@ class ProfessionalReferenceWidget extends StatelessWidget {
       labelText: StringConstant.jobLocationFacility,
       isLabelPadding: true,
       hintText: StringConstant.jobLocationFacility,
+      initialValue: state.jobLocation.getValue(),
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -240,6 +258,7 @@ class ProfessionalReferenceWidget extends StatelessWidget {
       labelText: StringConstant.unitDepartment,
       isLabelPadding: true,
       hintText: StringConstant.unitDepartment,
+      initialValue: state.unitDepartment.getValue(),
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -365,9 +384,14 @@ class ProfessionalReferenceWidget extends StatelessWidget {
       labelText: StringConstant.referrerPhoneNumber,
       hintText: StringConstant.referrerPhoneNumber,
       keyboardType: TextInputType.phone,
+      initialValue: state.referrerPhoneNo.getValue(),
       isLabelPadding: true,
       maxLength: 10,
       errorMaxLines: 2,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+        CountryCodeRemovingFormatter(),
+      ],
       onChanged: (value) {
         context
             .read<ReferenceBloc>()
