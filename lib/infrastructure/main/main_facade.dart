@@ -143,26 +143,7 @@ class MainFacade implements IMainFacade {
 
   @override
   Future<Either<MainFailure, HealthcarePostDTO>> createPostShiftApi(
-      {
-      // required int postId,
-      // required int shiftType,
-      // required String date,
-      // required int sameOrDifferentTime,
-      // required String multiDate,
-      // required String startTime,
-      // required String endTime,
-      // required int unpaidBreakId,
-      // required String totalPayableHour,
-      // required int commuteAllowanceType,
-      // required String commuteAllowance,
-      // required int accommodationAllowanceType,
-      // required String accommodationAllowance,
-      // required int individualShift,
-      // required String shiftNote,
-      // required int vacancieType,
-      // required int numberOfVacancie,
-
-      required MultiShiftDTO shift}) async {
+      {required MultiShiftDTO shift}) async {
     List<Map<String, dynamic>> mapMultiDateToApiFormat() {
       print("passShiftData111---> ${shift.multi_date}");
 
@@ -554,6 +535,72 @@ class MainFacade implements IMainFacade {
       );
 
       return right(res.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, String>> updateTeamMemberApi(
+      {required String teamMemberId,
+      required InputEmptyOrNot teamMemberName,
+      required InputEmptyOrNot position,
+      required String countryCode,
+      required String countryNameCode,
+      required EmailAddress email,
+      required MobileNumber phoneNumber}) async {
+    try {
+      Map<String, dynamic> mapData = {
+        "name": teamMemberName.getValue(),
+        "position": position.getValue(),
+        "country_code": countryCode,
+        "country_name_code": countryNameCode,
+        "phone": phoneNumber.getValue(),
+        "email": email.getValue(),
+      };
+
+      final res = await apiService.putMethod(
+        "${ApiConstants.updateTeamMember}/$teamMemberId",
+        data: mapData,
+      );
+
+      return right(res?.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, String>> deleteTeamMemberApi(
+      {required String teamMemberId}) async {
+    try {
+      final res = await apiService.deleteMethod(
+        "${ApiConstants.deleteTeamMember}/$teamMemberId",
+      );
+
+      return right(res?.dioMessage ?? "");
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);

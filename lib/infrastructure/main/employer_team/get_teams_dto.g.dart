@@ -54,7 +54,7 @@ _$MembersImpl _$$MembersImplFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String?,
       position: json['position'] as String?,
       country_code: json['country_code'] as String?,
-      country_name_code: json['country_name_code'] as String?,
+      country_name_code: json['country_name_code'] as String? ?? '🇨🇦',
       phone: json['phone'] as String?,
       email: json['email'] as String?,
     );

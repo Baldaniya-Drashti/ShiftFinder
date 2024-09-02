@@ -73,4 +73,17 @@ abstract class IMainFacade {
     required EmailAddress email,
     required MobileNumber phoneNumber,
   });
+
+  Future<Either<MainFailure, String>> updateTeamMemberApi({
+    required String teamMemberId,
+    required InputEmptyOrNot teamMemberName,
+    required InputEmptyOrNot position,
+    required String countryCode,
+    required String countryNameCode,
+    required EmailAddress email,
+    required MobileNumber phoneNumber,
+  });
+  Future<Either<MainFailure, String>> deleteTeamMemberApi({
+    required String teamMemberId,
+  });
 }

@@ -5,6 +5,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/main_tab/profile/profile_sections/teams/add_new_member/add_new_member_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/main/employer_team/get_teams_dto.dart';
+import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/common_country_code_picker.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -16,15 +19,60 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'AddNewMemberView')
 class AddNewMemberView extends StatelessWidget {
   final bool isUpdateMember;
-  const AddNewMemberView({super.key, this.isUpdateMember = false});
+  final String teamID;
+  final Members? getTeamsListDTO;
+  const AddNewMemberView(
+      {super.key,
+      this.isUpdateMember = false,
+      required this.getTeamsListDTO,
+      required this.teamID});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AddNewMemberBloc(),
+      create: (context) => getIt<AddNewMemberBloc>()
+        ..add(AddNewMemberEvent.setTeamID(teamID))
+        ..add(
+          AddNewMemberEvent.prefillDataForUpdateTeamMember(
+            getTeamsListDTO ?? Members(),
+            isUpdateMember,
+          ),
+        ),
       child: BlocConsumer<AddNewMemberBloc, AddNewMemberState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          state.failureOrSuccessOption.fold(
+            () {},
+            (either) => either.fold(
+              (failure) {
+                showError(
+                  message: failure.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(context);
+              },
+              (r) {
+                if (r.isNotEmpty) {
+                  showSuccess(message: r).show(context).then(
+                        (value) => context.router.popUntil(
+                          (route) => route.isFirst,
+                        ),
+                      );
+                } else {
+                  context.router.popUntil(
+                    (route) => route.isFirst,
+                  );
+                }
+
+                // Navigator.pop(context, true);
+              },
+            ),
+          );
+        },
         builder: (context, state) {
+          // log(state.teamNameTextField.getValue() ?? "");
           return Scaffold(
             appBar: CommonAppBar(
               onBackPressed: () => context.router.maybePop(),
@@ -46,6 +94,7 @@ class AddNewMemberView extends StatelessWidget {
                     memberDetail(
                       title: 'Member Name',
                       image: SvgImageConstant.person,
+                      prefillValue: state.teamNameTextField.getValue() ?? "",
                       textCapitalization: TextCapitalization.words,
                       value: 'Member Name',
                       onChanged: (value) {
@@ -64,13 +113,15 @@ class AddNewMemberView extends StatelessWidget {
                     memberDetail(
                       title: 'Job Location',
                       image: SvgImageConstant.locationIcon,
+                      prefillValue: state.jobPositionTextField.getValue(),
                       value: 'Job Location',
                       onChanged: (value) {
                         context.read<AddNewMemberBloc>().add(
                               AddNewMemberEvent.jobLocationChange(value),
                             );
                       },
-                      validator: (p0, p1) => state.locationTextField.value.fold(
+                      validator: (p0, p1) =>
+                          state.jobPositionTextField.value.fold(
                         (l) => l.maybeMap(
                           empty: (value) => 'Please enter job location',
                           orElse: () => null,
@@ -81,6 +132,9 @@ class AddNewMemberView extends StatelessWidget {
                     memberDetail(
                       title: 'Phone Number',
                       image: SvgImageConstant.call,
+                      prefillValue: state.mobileNumber.getValue(),
+                      //prefillValue: getTeamsListDTO?. ?? "",
+
                       value: 'Phone Number',
                       keyboardType: TextInputType.phone,
                       onChanged: (value) {
@@ -102,6 +156,8 @@ class AddNewMemberView extends StatelessWidget {
                       title: 'E-mail',
                       image: SvgImageConstant.email,
                       value: 'E-mail',
+                      prefillValue: state.emailAddress.getValue(),
+                      // prefillValue: getTeamsListDTO?. ?? "",
                       keyboardType: TextInputType.emailAddress,
                       onChanged: (value) {
                         context.read<AddNewMemberBloc>().add(
@@ -133,10 +189,19 @@ class AddNewMemberView extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     CommonButton(
+                      isSubmitting: state.isSubmitting,
                       onPressed: () {
-                        context.read<AddNewMemberBloc>().add(
-                              AddNewMemberEvent.addNewMember(),
-                            );
+                        if (state.isEdit) {
+                          context.read<AddNewMemberBloc>().add(
+                                AddNewMemberEvent.updateTeamMember(
+                                  getTeamsListDTO?.id?.toString() ?? "",
+                                ),
+                              );
+                        } else {
+                          context.read<AddNewMemberBloc>().add(
+                                AddNewMemberEvent.addNewMember(),
+                              );
+                        }
                       },
                       buttonText: isUpdateMember ? 'Update' : 'Add',
                     ),
@@ -149,7 +214,18 @@ class AddNewMemberView extends StatelessWidget {
                             title: 'Delete Team Member',
                             description:
                                 'Are you sure you want to delete the team memeber?',
-                            onPressedAccept: () {},
+                            onPressedAccept: () {
+                              context.router.maybePop().then(
+                                    (value) => context
+                                        .read<AddNewMemberBloc>()
+                                        .add(
+                                          AddNewMemberEvent.deleteTeamMember(
+                                            getTeamsListDTO?.id?.toString() ??
+                                                "",
+                                          ),
+                                        ),
+                                  );
+                            },
                             onPressedReject: () {
                               context.router.maybePop();
                             },
@@ -195,7 +271,9 @@ class AddNewMemberView extends StatelessWidget {
     required String? Function(String?, BuildContext)? validator,
     TextInputType? keyboardType,
     TextCapitalization? textCapitalization,
+    String? prefillValue,
   }) {
+    //  log('=====>$title ${prefillValue ?? ""}');
     return BlocBuilder<AddNewMemberBloc, AddNewMemberState>(
       builder: (context, state) {
         return Column(
@@ -209,6 +287,8 @@ class AddNewMemberView extends StatelessWidget {
             ),
             SizedBox(height: getSize(8)),
             CustomTextField(
+              key: state.isEdit ? Key(title) : null,
+              initialValue: state.isEdit ? prefillValue : null,
               prefixIcon: title == 'Phone Number'
                   ? CommonCountryCodePicker(
                       initialSelection: state.selectedCountryFlag,

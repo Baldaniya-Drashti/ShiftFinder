@@ -3,18 +3,20 @@ part of 'add_new_member_bloc.dart';
 @freezed
 class AddNewMemberState with _$AddNewMemberState {
   factory AddNewMemberState({
-    required InputEmptyOrNot locationTextField,
+    required InputEmptyOrNot jobPositionTextField,
     required InputEmptyOrNot teamNameTextField,
     required MobileNumber mobileNumber,
     required EmailAddress emailAddress,
     required bool showErrorMessages,
     required String selectedCountryCode,
     required String selectedCountryFlag,
+    required String teamID,
     required bool isSubmitting,
-    required Option<Either<AuthFailure, String>> failureOrSuccessOption,
+    required bool isEdit,
+    required Option<Either<MainFailure, String>> failureOrSuccessOption,
   }) = _AddNewMemberState;
   factory AddNewMemberState.initial() => AddNewMemberState(
-        locationTextField: InputEmptyOrNot(''),
+        jobPositionTextField: InputEmptyOrNot(''),
         teamNameTextField: InputEmptyOrNot(''),
         showErrorMessages: false,
         isSubmitting: false,
@@ -22,6 +24,8 @@ class AddNewMemberState with _$AddNewMemberState {
         selectedCountryFlag: "🇨🇦",
         mobileNumber: MobileNumber(''),
         emailAddress: EmailAddress(''),
-        selectedCountryCode: '1',
+        selectedCountryCode: '+1',
+        isEdit: false,
+        teamID: '',
       );
 }

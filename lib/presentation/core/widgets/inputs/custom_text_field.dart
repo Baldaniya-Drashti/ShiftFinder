@@ -147,33 +147,6 @@ class CustomTextField extends StatelessWidget {
                 ),
               ],
             ),
-            // (isOptional == true && optionalWidget == null)
-            //     ? RichText(
-            //         text: TextSpan(
-            //             text: labelText ?? "",
-            //             style: TextStyle(
-            //                 fontSize: getFontSize(14),
-            //                 fontWeight: FontWeight.w500,
-            //                 color: AppColors.black,
-            //                 fontFamily: "Roboto Flex"),
-            //             children: [
-            //               TextSpan(
-            //                 text: "  (Optional)",
-            //                 style: TextStyle(
-            //                   fontSize: getFontSize(10),
-            //                   fontWeight: FontWeight.w500,
-            //                   color: AppColors.black.withOpacity(0.8),
-            //                   fontFamily: "Roboto Flex",
-            //                 ),
-            //               )
-            //             ]),
-            //       )
-            //     : BaseText(
-            //         text: labelText ?? "",
-            //         fontSize: 14,
-            //         fontWeight: FontWeight.w500,
-            //         textColor: AppColors.black,
-            //       ),
           ),
           SizedBox(height: getSize(8)),
         ],

@@ -37,7 +37,7 @@ class Members with _$Members {
     String? name,
     String? position,
     String? country_code,
-    String? country_name_code,
+    @Default('🇨🇦') String? country_name_code,
     String? phone,
     String? email,
   }) = _Members;

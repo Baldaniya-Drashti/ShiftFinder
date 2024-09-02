@@ -41,6 +41,8 @@ import 'package:shift/application/location_details/location_details_bloc.dart'
     as _i26;
 import 'package:shift/application/main_tab/home/home_bloc.dart' as _i30;
 import 'package:shift/application/main_tab/main_tab_bloc.dart' as _i15;
+import 'package:shift/application/main_tab/profile/profile_sections/teams/add_new_member/add_new_member_bloc.dart'
+    as _i31;
 import 'package:shift/application/main_tab/profile/profile_sections/teams/teams_bloc.dart'
     as _i13;
 import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart' as _i16;
@@ -132,6 +134,8 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i6.IAuthFacade>(),
         ));
     gh.factory<_i30.HomeBloc>(() => _i30.HomeBloc(gh<_i10.IMainFacade>()));
+    gh.factory<_i31.AddNewMemberBloc>(
+        () => _i31.AddNewMemberBloc(gh<_i10.IMainFacade>()));
     return this;
   }
 }

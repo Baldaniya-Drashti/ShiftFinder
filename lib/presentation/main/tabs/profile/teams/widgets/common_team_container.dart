@@ -1,25 +1,26 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
-import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
 
 class CommonTeamContainer extends StatelessWidget {
   final bool isFromTeamDetail;
   final String teamName;
   final num totalMembers;
   final String address;
+  final Function()? onPressedEdit;
+  final Function()? onPressedDelete;
   const CommonTeamContainer({
     super.key,
     this.isFromTeamDetail = false,
     required this.teamName,
     this.totalMembers = 0,
     required this.address,
+    this.onPressedEdit,
+    this.onPressedDelete,
   });
 
   @override
@@ -105,14 +106,7 @@ class CommonTeamContainer extends StatelessWidget {
             Row(
               children: [
                 GestureDetector(
-                  onTap: () {
-                    context.router.push(
-                      PageRouteInfo(
-                        AddNewMemberView.name,
-                        args: AddNewMemberViewArgs(isUpdateMember: true),
-                      ),
-                    );
-                  },
+                  onTap: onPressedEdit,
                   child: Container(
                     padding: EdgeInsets.all(getSize(5)),
                     decoration: BoxDecoration(
@@ -132,18 +126,7 @@ class CommonTeamContainer extends StatelessWidget {
                   width: getSize(10),
                 ),
                 GestureDetector(
-                  onTap: () {
-                    AcceptRejectDialog(
-                      title: 'Delete Team',
-                      description:
-                          'Deleting this team will prevent you from sharing the shift posting summary with its members. Are you sure you want to proceed?',
-                      onPressedAccept: () {},
-                      onPressedReject: () {
-                        context.router.maybePop();
-                      },
-                      acceptButtonText: 'Delete',
-                    ).acceptRejectDialog(context);
-                  },
+                  onTap: onPressedDelete,
                   child: Container(
                     padding: EdgeInsets.all(getSize(5)),
                     decoration: BoxDecoration(

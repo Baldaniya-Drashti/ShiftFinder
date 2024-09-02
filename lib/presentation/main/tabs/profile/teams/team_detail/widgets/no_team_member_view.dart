@@ -1,12 +1,15 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 
 class NoTeamMemberView extends StatelessWidget {
-  const NoTeamMemberView({super.key});
+  final String teamID;
+  const NoTeamMemberView({super.key, required this.teamID});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +48,18 @@ class NoTeamMemberView extends StatelessWidget {
         CommonButton(
           height: 28,
           width: 156,
-          onPressed: () {},
+          onPressed: () {
+            context.router.push(
+              PageRouteInfo(
+                AddNewMemberView.name,
+                args: AddNewMemberViewArgs(
+                  isUpdateMember: false,
+                  getTeamsListDTO: null,
+                  teamID: teamID,
+                ),
+              ),
+            );
+          },
           backgroundColor: AppColors.green.withOpacity(0.15),
           buttonText: '+ Add Team Member',
           buttonTextColor: AppColors.green,

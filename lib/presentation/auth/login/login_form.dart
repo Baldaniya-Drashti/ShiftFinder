@@ -23,7 +23,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
-import 'package:shift/presentation/splash/splash_page.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -31,7 +30,7 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(
-        "CURRENT USER INFORMATION FROM STORAGE---->  ${getCurrentUser().userId}");
+        "CURRENT USER INFORMATION FROM STORAGE---->  ${getCurrentUser().userId}"); 
     return BlocConsumer<LoginFormBloc, LoginFormState>(
       listener: (context, state) {
         state.authFailureOrSuccessOption.fold(
@@ -48,13 +47,13 @@ class LoginForm extends StatelessWidget {
               ).show(context);
             },
             (r) {
-              // context.router.push(const PageRouteInfo(MainTabView.name));
-              if (r.isProfileComplete == 1) {
-                context.router.replace(const PageRouteInfo(MainTabView.name));
-              } else {
-                context.router.replace(
-                    getCurrentPage(r.lastPage ?? '', fromSplash: true));
-              }
+              context.router.replace(const PageRouteInfo(MainTabView.name));
+              // if (r.isProfileComplete == 1) {
+              //   context.router.replace(const PageRouteInfo(MainTabView.name));
+              // } else {
+              //   context.router.replace(
+              //       getCurrentPage(r.lastPage ?? '', fromSplash: true));
+              // }
             },
           ),
         );

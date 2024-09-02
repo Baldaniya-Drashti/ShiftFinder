@@ -13,9 +13,9 @@ import 'package:flutter/material.dart' as _i51;
 import 'package:shift/application/auth/contractor_auth/location_example.dart'
     as _i24;
 import 'package:shift/infrastructure/main/employer_team/get_teams_dto.dart'
-    as _i54;
-import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart'
     as _i53;
+import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart'
+    as _i54;
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart'
     as _i52;
 import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart'
@@ -181,13 +181,14 @@ abstract class $AppRouter extends _i50.RootStackRouter {
       );
     },
     AddNewMemberView.name: (routeData) {
-      final args = routeData.argsAs<AddNewMemberViewArgs>(
-          orElse: () => const AddNewMemberViewArgs());
+      final args = routeData.argsAs<AddNewMemberViewArgs>();
       return _i50.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i8.AddNewMemberView(
           key: args.key,
           isUpdateMember: args.isUpdateMember,
+          getTeamsListDTO: args.getTeamsListDTO,
+          teamID: args.teamID,
         ),
       );
     },
@@ -779,12 +780,16 @@ class AddNewMemberView extends _i50.PageRouteInfo<AddNewMemberViewArgs> {
   AddNewMemberView({
     _i51.Key? key,
     bool isUpdateMember = false,
+    required _i53.Members? getTeamsListDTO,
+    required String teamID,
     List<_i50.PageRouteInfo>? children,
   }) : super(
           AddNewMemberView.name,
           args: AddNewMemberViewArgs(
             key: key,
             isUpdateMember: isUpdateMember,
+            getTeamsListDTO: getTeamsListDTO,
+            teamID: teamID,
           ),
           initialChildren: children,
         );
@@ -799,15 +804,21 @@ class AddNewMemberViewArgs {
   const AddNewMemberViewArgs({
     this.key,
     this.isUpdateMember = false,
+    required this.getTeamsListDTO,
+    required this.teamID,
   });
 
   final _i51.Key? key;
 
   final bool isUpdateMember;
 
+  final _i53.Members? getTeamsListDTO;
+
+  final String teamID;
+
   @override
   String toString() {
-    return 'AddNewMemberViewArgs{key: $key, isUpdateMember: $isUpdateMember}';
+    return 'AddNewMemberViewArgs{key: $key, isUpdateMember: $isUpdateMember, getTeamsListDTO: $getTeamsListDTO, teamID: $teamID}';
   }
 }
 
@@ -1368,7 +1379,7 @@ class OnBoarding3Args {
 class PayableDetail extends _i50.PageRouteInfo<PayableDetailArgs> {
   PayableDetail({
     _i51.Key? key,
-    required _i53.HealthcarePostDTO post,
+    required _i54.HealthcarePostDTO post,
     List<_i50.PageRouteInfo>? children,
   }) : super(
           PayableDetail.name,
@@ -1393,7 +1404,7 @@ class PayableDetailArgs {
 
   final _i51.Key? key;
 
-  final _i53.HealthcarePostDTO post;
+  final _i54.HealthcarePostDTO post;
 
   @override
   String toString() {
@@ -1421,7 +1432,7 @@ class PostShiftRecurring extends _i50.PageRouteInfo<PostShiftRecurringArgs> {
   PostShiftRecurring({
     _i51.Key? key,
     required int shiftType,
-    required _i53.HealthcarePostDTO healthcarePost,
+    required _i54.HealthcarePostDTO healthcarePost,
     List<_i50.PageRouteInfo>? children,
   }) : super(
           PostShiftRecurring.name,
@@ -1450,7 +1461,7 @@ class PostShiftRecurringArgs {
 
   final int shiftType;
 
-  final _i53.HealthcarePostDTO healthcarePost;
+  final _i54.HealthcarePostDTO healthcarePost;
 
   @override
   String toString() {
@@ -1592,7 +1603,7 @@ class ReviewPostShiftDetail
     extends _i50.PageRouteInfo<ReviewPostShiftDetailArgs> {
   ReviewPostShiftDetail({
     _i51.Key? key,
-    required _i53.HealthcarePostDTO post,
+    required _i54.HealthcarePostDTO post,
     List<_i50.PageRouteInfo>? children,
   }) : super(
           ReviewPostShiftDetail.name,
@@ -1617,7 +1628,7 @@ class ReviewPostShiftDetailArgs {
 
   final _i51.Key? key;
 
-  final _i53.HealthcarePostDTO post;
+  final _i54.HealthcarePostDTO post;
 
   @override
   String toString() {
@@ -1644,7 +1655,7 @@ class SplashPage extends _i50.PageRouteInfo<void> {
 class TeamDetailView extends _i50.PageRouteInfo<TeamDetailViewArgs> {
   TeamDetailView({
     _i51.Key? key,
-    required _i54.GetTeamsListDTO getTeamsListDTO,
+    required _i53.GetTeamsListDTO getTeamsListDTO,
     List<_i50.PageRouteInfo>? children,
   }) : super(
           TeamDetailView.name,
@@ -1669,7 +1680,7 @@ class TeamDetailViewArgs {
 
   final _i51.Key? key;
 
-  final _i54.GetTeamsListDTO getTeamsListDTO;
+  final _i53.GetTeamsListDTO getTeamsListDTO;
 
   @override
   String toString() {
