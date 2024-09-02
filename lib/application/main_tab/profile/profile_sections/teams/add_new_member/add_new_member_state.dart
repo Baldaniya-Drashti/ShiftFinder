@@ -8,6 +8,8 @@ class AddNewMemberState with _$AddNewMemberState {
     required MobileNumber mobileNumber,
     required EmailAddress emailAddress,
     required bool showErrorMessages,
+    required String selectedCountryCode,
+    required String selectedCountryFlag,
     required bool isSubmitting,
     required Option<Either<AuthFailure, String>> failureOrSuccessOption,
   }) = _AddNewMemberState;
@@ -17,7 +19,9 @@ class AddNewMemberState with _$AddNewMemberState {
         showErrorMessages: false,
         isSubmitting: false,
         failureOrSuccessOption: none(),
+        selectedCountryFlag: "🇨🇦",
         mobileNumber: MobileNumber(''),
         emailAddress: EmailAddress(''),
+        selectedCountryCode: '1',
       );
 }

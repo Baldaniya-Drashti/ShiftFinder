@@ -121,4 +121,6 @@ class ApiConstants {
 
   //team
   static String getTeamList = 'get_team';
+  static String createTeam = 'create_team';
+  static String createTeamMember = 'create_team_member';
 }

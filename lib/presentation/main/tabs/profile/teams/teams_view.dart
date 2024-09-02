@@ -99,12 +99,17 @@ class TeamsView extends StatelessWidget {
                   CommonButton(
                     height: 28,
                     width: 135,
-                    onPressed: () {
-                      context.router.push(
+                    onPressed: () async {
+                      var res = await context.router.push(
                         PageRouteInfo(
                           AddNewTeamView.name,
                         ),
                       );
+                      if (res != null && res == true) {
+                        context
+                            .read<TeamsBloc>()
+                            .add(TeamsEvent.getTeamList(true));
+                      }
                     },
                     backgroundColor: AppColors.green.withOpacity(0.15),
                     buttonText: '+ Add New Team',

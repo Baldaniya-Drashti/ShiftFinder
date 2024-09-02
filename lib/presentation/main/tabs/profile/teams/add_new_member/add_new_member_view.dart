@@ -6,6 +6,7 @@ import 'package:shift/application/main_tab/profile/profile_sections/teams/add_ne
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/common_country_code_picker.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
@@ -195,34 +196,50 @@ class AddNewMemberView extends StatelessWidget {
     TextInputType? keyboardType,
     TextCapitalization? textCapitalization,
   }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: getSize(20)),
-        BaseText(
-          text: title,
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-        ),
-        SizedBox(height: getSize(8)),
-        CustomTextField(
-          prefixIcon: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: getSize(10),
-              vertical: getSize(14),
+    return BlocBuilder<AddNewMemberBloc, AddNewMemberState>(
+      builder: (context, state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: getSize(20)),
+            BaseText(
+              text: title,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
             ),
-            child: SvgPicture.asset(
-              image,
-              //   color: AppColors.black.withOpacity(0.5),
+            SizedBox(height: getSize(8)),
+            CustomTextField(
+              prefixIcon: title == 'Phone Number'
+                  ? CommonCountryCodePicker(
+                      initialSelection: state.selectedCountryFlag,
+                      onChanged: (countryCode) {
+                        context.read<AddNewMemberBloc>().add(
+                              AddNewMemberEvent.changeCountryCode(
+                                countryCode.phoneCode,
+                                countryCode.flagEmoji,
+                              ),
+                            );
+                      },
+                    )
+                  : Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: getSize(10),
+                        vertical: getSize(14),
+                      ),
+                      child: SvgPicture.asset(
+                        image,
+                        //   color: AppColors.black.withOpacity(0.5),
+                      ),
+                    ),
+              onChanged: onChanged,
+              validator: validator,
+              keyboardType: keyboardType,
+              textCapitalization: textCapitalization ?? TextCapitalization.none,
+              hintText: value,
             ),
-          ),
-          onChanged: onChanged,
-          validator: validator,
-          keyboardType: keyboardType,
-          textCapitalization: textCapitalization ?? TextCapitalization.none,
-          hintText: value,
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 }

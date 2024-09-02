@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
@@ -57,5 +58,19 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, String>> postShiftApi({
     required int postId,
+  });
+  Future<Either<MainFailure, String>> createTeamApi({
+    required String locationId,
+    required InputEmptyOrNot teamName,
+  });
+
+  Future<Either<MainFailure, String>> createTeamMemberApi({
+    required String teamId,
+    required InputEmptyOrNot teamMemberName,
+    required InputEmptyOrNot position,
+    required String countryCode,
+    required String countryNameCode,
+    required EmailAddress email,
+    required MobileNumber phoneNumber,
   });
 }

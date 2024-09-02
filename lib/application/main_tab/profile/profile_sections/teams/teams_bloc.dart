@@ -6,9 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:shift/domain/auth/auth_failure.dart';
+import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
+import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/main/employer_team/get_teams_dto.dart';
 
 part 'teams_state.dart';
@@ -23,6 +24,8 @@ class TeamsBloc extends Bloc<TeamsEvent, TeamsState> {
   bool isFetching = false;
   final RefreshController refreshController = RefreshController();
   final IMainFacade mainFacade;
+  final IAccountRepository iAccountRepository;
+
   var locationList = [
     DropDownValueModel(name: 'Location 1', value: '1'),
     DropDownValueModel(name: 'Location 2', value: '2'),
@@ -30,7 +33,8 @@ class TeamsBloc extends Bloc<TeamsEvent, TeamsState> {
     DropDownValueModel(name: 'Location 4', value: '4'),
   ];
   var singleValueDropDownController = SingleValueDropDownController();
-  TeamsBloc(this.mainFacade) : super(TeamsState.initial()) {
+  TeamsBloc(this.mainFacade, this.iAccountRepository)
+      : super(TeamsState.initial()) {
     on<TeamsEvent>((event, emit) async {
       await event.map(
         initialEvent: (e) async {},
@@ -49,26 +53,33 @@ class TeamsBloc extends Bloc<TeamsEvent, TeamsState> {
           );
         },
         createTeam: (CreateTeam value) async {
-          var isLocationValid = state.locationTextField.isValid();
+          Either<MainFailure, String>? failureOrSuccess;
+          //  var isLocationValid = state.locationTextField.isValid();
           var isTeamNameValid = state.teamNameTextField.isValid();
-          if (isLocationValid && isTeamNameValid) {
-            print("Location: ${state.locationTextField.value}");
-            print("Team Name: ${state.teamNameTextField.value}");
+          if (singleValueDropDownController.dropDownValue?.name != null &&
+              isTeamNameValid) {
             emit(
               state.copyWith(
                 isSubmitting: true,
                 failureOrSuccessOption: none(),
               ),
             );
+            failureOrSuccess = await mainFacade.createTeamApi(
+              locationId: singleValueDropDownController.dropDownValue?.value
+                      .toString() ??
+                  "",
+              teamName: state.teamNameTextField,
+            );
           }
 
           emit(
             state.copyWith(
-              isSubmitting: false,
-              showErrorMessages: true,
-              // authFailureOrSuccessOption: optionOf(failureOrSuccess),
-              // verificationFailureOrSuccessOption: none(),
-            ),
+                isSubmitting: false,
+                showErrorMessages: true,
+                failureOrSuccessOption: optionOf(failureOrSuccess)
+                // authFailureOrSuccessOption: optionOf(failureOrSuccess),
+                // verificationFailureOrSuccessOption: none(),
+                ),
           );
         },
         getTeamList: (e) async {
@@ -113,6 +124,34 @@ class TeamsBloc extends Bloc<TeamsEvent, TeamsState> {
                     ..addAll((r.data as List<dynamic>)
                         .map((e) => GetTeamsListDTO.fromJson(e))
                         .toList()),
+                ),
+              );
+            },
+          );
+        },
+        getLocationListAPI: (GetLocationListAPI value) async {
+          final locationList = await iAccountRepository.getLocationListApi();
+
+          // print("Location List ---> ${locationList}");
+          locationList.fold(
+            (l) => emit(
+              state.copyWith(
+                isLoading: false,
+                locationList: [],
+              ),
+            ),
+            (r) {
+              var dropdownList = r
+                  .map(
+                    (e) =>
+                        DropDownValueModel(name: e.location ?? "", value: e.id),
+                  )
+                  .toList();
+              return emit(
+                state.copyWith(
+                  // isLoading: false,
+                  locationList: List.from(state.locationList)
+                    ..addAll(dropdownList),
                 ),
               );
             },

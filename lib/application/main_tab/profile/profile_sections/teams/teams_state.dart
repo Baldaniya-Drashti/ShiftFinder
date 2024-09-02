@@ -10,8 +10,9 @@ class TeamsState with _$TeamsState {
     required bool isLoading,
     required bool isNoDataFound,
     required bool isErrorInAPI,
-    required Option<Either<AuthFailure, String>> failureOrSuccessOption,
+    required Option<Either<MainFailure, String>> failureOrSuccessOption,
     required List<GetTeamsListDTO> getTeamList,
+    required List<DropDownValueModel> locationList,
   }) = _TeamsState;
   factory TeamsState.initial() => TeamsState(
         locationTextField: InputEmptyOrNot(''),
@@ -23,5 +24,6 @@ class TeamsState with _$TeamsState {
         isLoading: false,
         isNoDataFound: false,
         isErrorInAPI: false,
+        locationList: [],
       );
 }

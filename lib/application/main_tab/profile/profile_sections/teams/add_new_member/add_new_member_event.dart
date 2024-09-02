@@ -5,6 +5,8 @@ class AddNewMemberEvent with _$AddNewMemberEvent {
   const factory AddNewMemberEvent.initialEvent() = InitialEvent;
   const factory AddNewMemberEvent.changeTeamMemberName(String teamName) =
       ChangeTeamMemberName;
+  const factory AddNewMemberEvent.changeCountryCode(
+      String countryCode, String countryFlag) = ChangeCountryCode;
   const factory AddNewMemberEvent.jobLocationChange(String jobLocationChange) =
       JobLocationChange;
   const factory AddNewMemberEvent.phoneNumberChange(String phoneNumber) =

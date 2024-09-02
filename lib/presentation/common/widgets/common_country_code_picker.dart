@@ -57,7 +57,7 @@ class CommonCountryCodePicker extends StatelessWidget {
     showCountryPicker(
       context: context,
       exclude: <String>['KN', 'MF'],
-      favorite: <String>['SE'],
+      favorite: <String>['CA'],
       //Optional. Shows phone code before the country name.
       showPhoneCode: true,
       onSelect: onChanged,

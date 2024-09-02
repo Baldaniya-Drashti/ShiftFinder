@@ -321,11 +321,11 @@ class StringConstant {
   static const String differentTimeForEachDate = "Different Time For Each Date";
   static const String totalNumberOfDays = "Total Number of Days";
   static const String totalCommuteAllowance = "Total Commute Allowance";
-  static const String totalAccommodationAllowance = "Total Accommodation Allowance";
+  static const String totalAccommodationAllowance =
+      "Total Accommodation Allowance";
   static const String sumOfAmounts = "Sum Of Amounts";
   static const String totalAmount = "Total Amount";
   static const String shiftTime = "Shift Time";
-
 
   ///
 

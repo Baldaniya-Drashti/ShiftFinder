@@ -74,6 +74,15 @@ class AddNewMemberBloc extends Bloc<AddNewMemberEvent, AddNewMemberState> {
               ),
             );
           },
+          changeCountryCode: (value) async {
+            emit(
+              state.copyWith(
+                selectedCountryCode: value.countryCode,
+                selectedCountryFlag: value.countryFlag,
+                failureOrSuccessOption: none(),
+              ),
+            );
+          },
         );
       },
     );

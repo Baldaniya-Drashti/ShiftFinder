@@ -7,6 +7,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -22,7 +23,8 @@ class AddNewTeamView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<TeamsBloc>(),
+      create: (context) =>
+          getIt<TeamsBloc>()..add(TeamsEvent.getLocationListAPI()),
       child: BlocConsumer<TeamsBloc, TeamsState>(
         builder: (context, state) {
           return Scaffold(
@@ -86,7 +88,7 @@ class AddNewTeamView extends StatelessWidget {
                       valueController: context
                           .read<TeamsBloc>()
                           .singleValueDropDownController,
-                      list: context.read<TeamsBloc>().locationList,
+                      list: state.locationList,
                       hintText: 'Location',
                       // onChanged: (p0) => context
                       //     .read<TeamsBloc>()
@@ -159,6 +161,7 @@ class AddNewTeamView extends StatelessWidget {
                   bottom: getSize(isFullScreenDevice(context) ? 0 : 20),
                 ),
                 child: CommonButton(
+                  isSubmitting: state.isSubmitting,
                   onPressed: () {
                     context.read<TeamsBloc>().add(TeamsEvent.createTeam());
                   },
@@ -168,7 +171,30 @@ class AddNewTeamView extends StatelessWidget {
             ),
           );
         },
-        listener: (BuildContext context, TeamsState state) {},
+        listener: (BuildContext context, TeamsState state) {
+          state.failureOrSuccessOption.fold(
+            () {},
+            (either) => either.fold(
+              (failure) {
+                showError(
+                  message: failure.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(context);
+              },
+              (r) async {
+                context.router.maybePop(true);
+                // await showSuccess(message: r).show(context).then(
+                //       (value) => context.router.maybePop(true),
+                //     );
+                //context.router.push(const PageRouteInfo(MainTabView.name));
+              },
+            ),
+          );
+        },
       ),
     );
   }

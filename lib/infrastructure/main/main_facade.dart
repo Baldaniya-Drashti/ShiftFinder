@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/api_constants.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
@@ -480,6 +481,79 @@ class MainFacade implements IMainFacade {
       } else {
         return left(const MainFailure.serverError());
       }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, String>> createTeamApi(
+      {required String locationId, required InputEmptyOrNot teamName}) async {
+    try {
+      Map<String, dynamic> mapData = {
+        "location_id": locationId,
+        "team_name": teamName.getValue()?.trim()
+      };
+
+      final res = await apiService.postMethod(
+        ApiConstants.createTeam,
+        mapData,
+      );
+
+      return right(res.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, String>> createTeamMemberApi(
+      {required String teamId,
+      required InputEmptyOrNot teamMemberName,
+      required InputEmptyOrNot position,
+      required String countryCode,
+      required String countryNameCode,
+      required EmailAddress email,
+      required MobileNumber phoneNumber}) async {
+    try {
+      Map<String, dynamic> mapData = {
+        "team_id": teamId,
+        "name": teamMemberName.getValue(),
+        "position": position.getValue(),
+        "country_code": countryCode,
+        "country_name_code": countryNameCode,
+        "phone": phoneNumber.getValue(),
+        "email": email.getValue(),
+      };
+
+      final res = await apiService.postMethod(
+        ApiConstants.createTeamMember,
+        mapData,
+      );
+
+      return right(res.dioMessage ?? "");
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
