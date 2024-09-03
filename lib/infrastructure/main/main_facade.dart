@@ -616,4 +616,62 @@ class MainFacade implements IMainFacade {
       return left(const MainFailure.serverError());
     }
   }
+
+  @override
+  Future<Either<MainFailure, String>> updateTeamApi(
+      {required String locationId,
+      required String teamId,
+      required InputEmptyOrNot teamName}) async {
+    try {
+      Map<String, dynamic> mapData = {
+        "location_id": locationId,
+        "team_name": teamName.getValue()?.trim()
+      };
+
+      final res = await apiService.putMethod(
+        "${ApiConstants.updateTeam}/$teamId",
+        data: mapData,
+      );
+
+      return right(res?.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, String>> deleteTeamApi(
+      {required String teamId}) async {
+    try {
+      final res = await apiService.deleteMethod(
+        "${ApiConstants.deleteTeam}/$teamId",
+      );
+
+      return right(res?.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
 }

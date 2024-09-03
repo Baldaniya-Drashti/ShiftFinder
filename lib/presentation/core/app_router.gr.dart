@@ -193,9 +193,15 @@ abstract class $AppRouter extends _i50.RootStackRouter {
       );
     },
     AddNewTeamView.name: (routeData) {
+      final args = routeData.argsAs<AddNewTeamViewArgs>(
+          orElse: () => const AddNewTeamViewArgs());
       return _i50.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i9.AddNewTeamView(),
+        child: _i9.AddNewTeamView(
+          key: args.key,
+          isUpdateMember: args.isUpdateMember,
+          getTeamsListDTO: args.getTeamsListDTO,
+        ),
       );
     },
     AddReferenceDetailScreen.name: (routeData) {
@@ -824,16 +830,45 @@ class AddNewMemberViewArgs {
 
 /// generated route for
 /// [_i9.AddNewTeamView]
-class AddNewTeamView extends _i50.PageRouteInfo<void> {
-  const AddNewTeamView({List<_i50.PageRouteInfo>? children})
-      : super(
+class AddNewTeamView extends _i50.PageRouteInfo<AddNewTeamViewArgs> {
+  AddNewTeamView({
+    _i51.Key? key,
+    bool isUpdateMember = false,
+    _i53.GetTeamsListDTO? getTeamsListDTO,
+    List<_i50.PageRouteInfo>? children,
+  }) : super(
           AddNewTeamView.name,
+          args: AddNewTeamViewArgs(
+            key: key,
+            isUpdateMember: isUpdateMember,
+            getTeamsListDTO: getTeamsListDTO,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'AddNewTeamView';
 
-  static const _i50.PageInfo<void> page = _i50.PageInfo<void>(name);
+  static const _i50.PageInfo<AddNewTeamViewArgs> page =
+      _i50.PageInfo<AddNewTeamViewArgs>(name);
+}
+
+class AddNewTeamViewArgs {
+  const AddNewTeamViewArgs({
+    this.key,
+    this.isUpdateMember = false,
+    this.getTeamsListDTO,
+  });
+
+  final _i51.Key? key;
+
+  final bool isUpdateMember;
+
+  final _i53.GetTeamsListDTO? getTeamsListDTO;
+
+  @override
+  String toString() {
+    return 'AddNewTeamViewArgs{key: $key, isUpdateMember: $isUpdateMember, getTeamsListDTO: $getTeamsListDTO}';
+  }
 }
 
 /// generated route for

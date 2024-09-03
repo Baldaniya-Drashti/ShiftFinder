@@ -64,6 +64,15 @@ abstract class IMainFacade {
     required InputEmptyOrNot teamName,
   });
 
+  Future<Either<MainFailure, String>> updateTeamApi({
+    required String locationId,
+    required String teamId,
+    required InputEmptyOrNot teamName,
+  });
+
+  Future<Either<MainFailure, String>> deleteTeamApi({
+    required String teamId,
+  });
   Future<Either<MainFailure, String>> createTeamMemberApi({
     required String teamId,
     required InputEmptyOrNot teamMemberName,

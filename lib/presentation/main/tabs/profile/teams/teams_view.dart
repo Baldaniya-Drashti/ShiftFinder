@@ -103,6 +103,7 @@ class TeamsView extends StatelessWidget {
                       var res = await context.router.push(
                         PageRouteInfo(
                           AddNewTeamView.name,
+                          args: AddNewTeamViewArgs(),
                         ),
                       );
                       if (res != null && res == true) {
