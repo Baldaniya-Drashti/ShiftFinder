@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print
+// ignore_for_file: prefer_const_constructors, avoid_print, deprecated_member_use
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -277,6 +277,7 @@ class FilterBottomSheet extends StatelessWidget {
       isLabelPadding: true,
       hintText: StringConstant.email,
       keyboardType: TextInputType.emailAddress,
+      maxLength: 340,
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -515,6 +516,7 @@ class FilterBottomSheet extends StatelessWidget {
             labelText: StringConstant.newPassword,
             hintText: StringConstant.newPassword,
             controller: newPasswordController,
+            maxLength: 16,
             errorMaxLines: 3,
             onChanged: (value) => context.read<ForgotPasswordBloc>().add(
                   ForgotPasswordEvent.newPasswordChanged(value),
@@ -564,6 +566,7 @@ class FilterBottomSheet extends StatelessWidget {
           CustomTextField(
             labelText: StringConstant.confirmPassword,
             hintText: StringConstant.confirmPassword,
+            maxLength: 16,
             errorMaxLines: 3,
             onChanged: (value) => context.read<ForgotPasswordBloc>().add(
                   ForgotPasswordEvent.confirmPasswordChanged(

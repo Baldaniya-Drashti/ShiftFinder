@@ -24,11 +24,11 @@ class AddContractorSkillFormBloc
     on<AddContractorSkillFormEvent>((event, emit) async {
       await event.map(
         confirmSpecialityList: (e) {
-          // emit(state.copyWith(
-          //   requiredSpecialityChipList: ListInputEmptyOrNot(e.specialityList),
-          //   softwareSkillOther: e.otherSpecialityList,
-          //   authFailureOrSuccessOption: none(),
-          // ));
+          emit(state.copyWith(
+            requiredSpecialityChipList: ListInputEmptyOrNot(e.specialityList),
+            specialityOther: e.otherSpecialityList,
+            authFailureOrSuccessOption: none(),
+          ));
         },
         confirmRoleList: (e) {
           emit(state.copyWith(
@@ -177,7 +177,7 @@ class AddContractorSkillFormBloc
             state.copyWith(
               roleTypeChipList: ListInputEmptyOrNot(
                 List.from(
-                  List.of(state.languageChipList.getValue())
+                  List.of(state.roleTypeChipList.getValue())
                     ..remove(e.roleType),
                 ),
               ),
@@ -236,7 +236,7 @@ class AddContractorSkillFormBloc
           }
         },
         removeRequiredSpecialitichips: (e) {
-          emit(
+          /*emit(
             state.copyWith(
               requiredSpecialityChipList: ListInputEmptyOrNot(
                   List.from(state.requiredSpecialityChipList.getValue())
@@ -248,22 +248,22 @@ class AddContractorSkillFormBloc
                       : true,
               authFailureOrSuccessOption: none(),
             ),
-          );
+          );*/
 
           /// For multi speciality
-          // emit(
-          //   state.copyWith(
-          //     requiredSpecialityChipList: ListInputEmptyOrNot(
-          //       List.from(
-          //         List.of(state.requiredSoftwareSkillChipList.getValue())
-          //           ..remove(e.selectedValue),
-          //       ),
-          //     ),
-          //     specialityOther: List.of(state.softwareSkillOther)
-          //       ..remove(e.selectedValue),
-          //     authFailureOrSuccessOption: none(),
-          //   ),
-          // );
+          emit(
+            state.copyWith(
+              requiredSpecialityChipList: ListInputEmptyOrNot(
+                List.from(
+                  List.of(state.requiredSpecialityChipList.getValue())
+                    ..remove(e.selectedValue),
+                ),
+              ),
+              specialityOther: List.of(state.specialityOther)
+                ..remove(e.selectedValue),
+              authFailureOrSuccessOption: none(),
+            ),
+          );
         },
 
         /// Selected Speciality's Experience
@@ -521,14 +521,16 @@ class AddContractorSkillFormBloc
               "EXPERIENCE ALL !-------->  ${specialityListValid} ${state.showSpeExperienceError}");
 
           if (roleTypeListValid &&
-              languageListValid &&
-              softwareSkillListValid &&
-              specialityListValid &&
+                  (languageListValid || state.languageOther.isNotEmpty) &&
+                  (softwareSkillListValid ||
+                      state.softwareSkillOther.isNotEmpty) &&
+                  (specialityListValid || state.specialityOther.isNotEmpty)
               // !state.showRoleTypeError &&
-              !state.showSpecialityError &&
+              // !state.showSpecialityError &&
               // !state.showSoftwareSkillError &&
               // !state.showLanguageError &&
-              !state.showSpeExperienceError) {
+              // !state.showSpeExperienceError
+              ) {
             emit(
               state.copyWith(
                 isSubmitting: true,
@@ -538,7 +540,9 @@ class AddContractorSkillFormBloc
 
             failureOrSuccess = await _authFacade.completeProfileAPI(
               rolesListId: getSelectedRoleIds(),
-              specialtiesDetail: getSelectedSpecialityIdsAsJson(),
+              // specialtiesDetail: getSelectedSpecialityIdsAsJson(),
+              specialtiesDetail: getSelectedSpecialityIds(),
+              specialityOther: state.specialityOther.join(','),
               softwaresSkillListId: getSelectedSoftwareIds(),
               softwareSkillOther: state.softwareSkillOther.join(','),
               languageListId: getSelectedLanguageId(),
@@ -683,6 +687,23 @@ class AddContractorSkillFormBloc
         .toList();
     String commaSeparated = softwareIds.join(',');
     print('Software IDs: $commaSeparated');
+
+    return commaSeparated;
+  }
+
+  String getSelectedSpecialityIds() {
+    final specialityIds = state.requiredSpecialityChipList
+        .getValue()
+        .map((chipName) => state.specialityList.firstWhere(
+              (speciality) => speciality.name == chipName,
+              orElse: () =>
+                  SpecialityDTO(), // Handle cases where no match is found
+            ))
+        .where((speciality) => speciality.id != null) // Filter out null values
+        .map((speciality) => speciality.id) // Extract IDs
+        .toList();
+    String commaSeparated = specialityIds.join(',');
+    print('Speciality IDs: $commaSeparated');
 
     return commaSeparated;
   }

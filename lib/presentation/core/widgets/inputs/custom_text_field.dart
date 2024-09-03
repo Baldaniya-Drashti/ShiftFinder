@@ -193,7 +193,7 @@ class CustomTextField extends StatelessWidget {
             validator: (inputString) {
               return validator?.call(inputString, context);
             },
-            maxLength: maxLength,
+            maxLength: maxLength ?? 300,
             scrollPadding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewInsets.bottom +
                     getFontSize(14) * 4),

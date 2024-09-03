@@ -386,6 +386,7 @@ class RegisterProfileScreen extends StatelessWidget {
       isLabelPadding: true,
       hintText: StringConstant.email,
       keyboardType: TextInputType.emailAddress,
+      maxLength: 340,
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -418,6 +419,7 @@ class RegisterProfileScreen extends StatelessWidget {
       labelText: StringConstant.password,
       isLabelPadding: true,
       hintText: StringConstant.password,
+      maxLength: 16,
       errorMaxLines: 3,
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
@@ -470,6 +472,7 @@ class RegisterProfileScreen extends StatelessWidget {
       labelText: StringConstant.confirmPassword,
       isLabelPadding: true,
       hintText: StringConstant.confirmPassword,
+      maxLength: 16,
       errorMaxLines: 3,
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(

@@ -12,7 +12,6 @@ import 'package:shift/presentation/auth/contractor_auth/reference_details/person
 import 'package:shift/presentation/auth/contractor_auth/reference_details/professional_reference.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
-import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 

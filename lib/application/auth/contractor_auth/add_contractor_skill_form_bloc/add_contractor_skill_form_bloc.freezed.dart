@@ -31,7 +31,8 @@ mixin _$AddContractorSkillFormEvent {
     required TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)
         addSpecialityExperienceList,
-    required TResult Function(int currentIndex) removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue)
+        removeRequiredSpecialitichips,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
@@ -65,7 +66,7 @@ mixin _$AddContractorSkillFormEvent {
     TResult? Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult? Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -97,7 +98,7 @@ mixin _$AddContractorSkillFormEvent {
     TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -263,7 +264,8 @@ class _$GetAllDropDownListImpl implements GetAllDropDownList {
     required TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)
         addSpecialityExperienceList,
-    required TResult Function(int currentIndex) removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue)
+        removeRequiredSpecialitichips,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
@@ -300,7 +302,7 @@ class _$GetAllDropDownListImpl implements GetAllDropDownList {
     TResult? Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult? Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -335,7 +337,7 @@ class _$GetAllDropDownListImpl implements GetAllDropDownList {
     TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -554,7 +556,8 @@ class _$AddRoleTypeChipsImpl implements AddRoleTypeChips {
     required TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)
         addSpecialityExperienceList,
-    required TResult Function(int currentIndex) removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue)
+        removeRequiredSpecialitichips,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
@@ -591,7 +594,7 @@ class _$AddRoleTypeChipsImpl implements AddRoleTypeChips {
     TResult? Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult? Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -626,7 +629,7 @@ class _$AddRoleTypeChipsImpl implements AddRoleTypeChips {
     TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -828,7 +831,8 @@ class _$RemoveRoleTypeChipsImpl implements RemoveRoleTypeChips {
     required TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)
         addSpecialityExperienceList,
-    required TResult Function(int currentIndex) removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue)
+        removeRequiredSpecialitichips,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
@@ -865,7 +869,7 @@ class _$RemoveRoleTypeChipsImpl implements RemoveRoleTypeChips {
     TResult? Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult? Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -900,7 +904,7 @@ class _$RemoveRoleTypeChipsImpl implements RemoveRoleTypeChips {
     TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -1108,7 +1112,8 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
     required TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)
         addSpecialityExperienceList,
-    required TResult Function(int currentIndex) removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue)
+        removeRequiredSpecialitichips,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
@@ -1145,7 +1150,7 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
     TResult? Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult? Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -1180,7 +1185,7 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
     TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -1380,7 +1385,8 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
     required TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)
         addSpecialityExperienceList,
-    required TResult Function(int currentIndex) removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue)
+        removeRequiredSpecialitichips,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
@@ -1417,7 +1423,7 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
     TResult? Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult? Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -1452,7 +1458,7 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
     TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -1663,7 +1669,8 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
     required TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)
         addSpecialityExperienceList,
-    required TResult Function(int currentIndex) removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue)
+        removeRequiredSpecialitichips,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
@@ -1700,7 +1707,7 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
     TResult? Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult? Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -1735,7 +1742,7 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
     TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -1958,7 +1965,8 @@ class _$AddSpecialityExperienceListImpl implements AddSpecialityExperienceList {
     required TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)
         addSpecialityExperienceList,
-    required TResult Function(int currentIndex) removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue)
+        removeRequiredSpecialitichips,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
@@ -1996,7 +2004,7 @@ class _$AddSpecialityExperienceListImpl implements AddSpecialityExperienceList {
     TResult? Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult? Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -2032,7 +2040,7 @@ class _$AddSpecialityExperienceListImpl implements AddSpecialityExperienceList {
     TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -2163,7 +2171,7 @@ abstract class _$$RemoveRequiredSpecialitichipsImplCopyWith<$Res> {
           $Res Function(_$RemoveRequiredSpecialitichipsImpl) then) =
       __$$RemoveRequiredSpecialitichipsImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int currentIndex});
+  $Res call({String selectedValue});
 }
 
 /// @nodoc
@@ -2179,13 +2187,13 @@ class __$$RemoveRequiredSpecialitichipsImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? currentIndex = null,
+    Object? selectedValue = null,
   }) {
     return _then(_$RemoveRequiredSpecialitichipsImpl(
-      null == currentIndex
-          ? _value.currentIndex
-          : currentIndex // ignore: cast_nullable_to_non_nullable
-              as int,
+      null == selectedValue
+          ? _value.selectedValue
+          : selectedValue // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -2194,14 +2202,14 @@ class __$$RemoveRequiredSpecialitichipsImplCopyWithImpl<$Res>
 
 class _$RemoveRequiredSpecialitichipsImpl
     implements RemoveRequiredSpecialitichips {
-  const _$RemoveRequiredSpecialitichipsImpl(this.currentIndex);
+  const _$RemoveRequiredSpecialitichipsImpl(this.selectedValue);
 
   @override
-  final int currentIndex;
+  final String selectedValue;
 
   @override
   String toString() {
-    return 'AddContractorSkillFormEvent.removeRequiredSpecialitichips(currentIndex: $currentIndex)';
+    return 'AddContractorSkillFormEvent.removeRequiredSpecialitichips(selectedValue: $selectedValue)';
   }
 
   @override
@@ -2209,12 +2217,12 @@ class _$RemoveRequiredSpecialitichipsImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RemoveRequiredSpecialitichipsImpl &&
-            (identical(other.currentIndex, currentIndex) ||
-                other.currentIndex == currentIndex));
+            (identical(other.selectedValue, selectedValue) ||
+                other.selectedValue == selectedValue));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, currentIndex);
+  int get hashCode => Object.hash(runtimeType, selectedValue);
 
   @JsonKey(ignore: true)
   @override
@@ -2240,7 +2248,8 @@ class _$RemoveRequiredSpecialitichipsImpl
     required TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)
         addSpecialityExperienceList,
-    required TResult Function(int currentIndex) removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue)
+        removeRequiredSpecialitichips,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
@@ -2258,7 +2267,7 @@ class _$RemoveRequiredSpecialitichipsImpl
             List<String> languageList, List<String> otherLanguageList)
         confirmLanguageList,
   }) {
-    return removeRequiredSpecialitichips(currentIndex);
+    return removeRequiredSpecialitichips(selectedValue);
   }
 
   @override
@@ -2277,7 +2286,7 @@ class _$RemoveRequiredSpecialitichipsImpl
     TResult? Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult? Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -2293,7 +2302,7 @@ class _$RemoveRequiredSpecialitichipsImpl
             List<String> languageList, List<String> otherLanguageList)?
         confirmLanguageList,
   }) {
-    return removeRequiredSpecialitichips?.call(currentIndex);
+    return removeRequiredSpecialitichips?.call(selectedValue);
   }
 
   @override
@@ -2312,7 +2321,7 @@ class _$RemoveRequiredSpecialitichipsImpl
     TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -2329,7 +2338,7 @@ class _$RemoveRequiredSpecialitichipsImpl
     required TResult orElse(),
   }) {
     if (removeRequiredSpecialitichips != null) {
-      return removeRequiredSpecialitichips(currentIndex);
+      return removeRequiredSpecialitichips(selectedValue);
     }
     return orElse();
   }
@@ -2423,10 +2432,10 @@ class _$RemoveRequiredSpecialitichipsImpl
 
 abstract class RemoveRequiredSpecialitichips
     implements AddContractorSkillFormEvent {
-  const factory RemoveRequiredSpecialitichips(final int currentIndex) =
+  const factory RemoveRequiredSpecialitichips(final String selectedValue) =
       _$RemoveRequiredSpecialitichipsImpl;
 
-  int get currentIndex;
+  String get selectedValue;
   @JsonKey(ignore: true)
   _$$RemoveRequiredSpecialitichipsImplCopyWith<
           _$RemoveRequiredSpecialitichipsImpl>
@@ -2527,7 +2536,8 @@ class _$AddPreferedSoftwareSkillchipsImpl
     required TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)
         addSpecialityExperienceList,
-    required TResult Function(int currentIndex) removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue)
+        removeRequiredSpecialitichips,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
@@ -2564,7 +2574,7 @@ class _$AddPreferedSoftwareSkillchipsImpl
     TResult? Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult? Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -2599,7 +2609,7 @@ class _$AddPreferedSoftwareSkillchipsImpl
     TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -2805,7 +2815,8 @@ class _$RemovePreferedSoftwareSkillchipsImpl
     required TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)
         addSpecialityExperienceList,
-    required TResult Function(int currentIndex) removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue)
+        removeRequiredSpecialitichips,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
@@ -2842,7 +2853,7 @@ class _$RemovePreferedSoftwareSkillchipsImpl
     TResult? Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult? Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -2877,7 +2888,7 @@ class _$RemovePreferedSoftwareSkillchipsImpl
     TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -3050,7 +3061,8 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     required TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)
         addSpecialityExperienceList,
-    required TResult Function(int currentIndex) removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue)
+        removeRequiredSpecialitichips,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
@@ -3087,7 +3099,7 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     TResult? Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult? Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -3122,7 +3134,7 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -3339,7 +3351,8 @@ class _$ConfirmRoleListImpl implements ConfirmRoleList {
     required TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)
         addSpecialityExperienceList,
-    required TResult Function(int currentIndex) removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue)
+        removeRequiredSpecialitichips,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
@@ -3376,7 +3389,7 @@ class _$ConfirmRoleListImpl implements ConfirmRoleList {
     TResult? Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult? Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -3411,7 +3424,7 @@ class _$ConfirmRoleListImpl implements ConfirmRoleList {
     TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -3639,7 +3652,8 @@ class _$ConfirmSoftwareSkillImpl implements ConfirmSoftwareSkill {
     required TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)
         addSpecialityExperienceList,
-    required TResult Function(int currentIndex) removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue)
+        removeRequiredSpecialitichips,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
@@ -3676,7 +3690,7 @@ class _$ConfirmSoftwareSkillImpl implements ConfirmSoftwareSkill {
     TResult? Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult? Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -3711,7 +3725,7 @@ class _$ConfirmSoftwareSkillImpl implements ConfirmSoftwareSkill {
     TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -3940,7 +3954,8 @@ class _$ConfirmSpecialityListImpl implements ConfirmSpecialityList {
     required TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)
         addSpecialityExperienceList,
-    required TResult Function(int currentIndex) removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue)
+        removeRequiredSpecialitichips,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
@@ -3977,7 +3992,7 @@ class _$ConfirmSpecialityListImpl implements ConfirmSpecialityList {
     TResult? Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult? Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -4012,7 +4027,7 @@ class _$ConfirmSpecialityListImpl implements ConfirmSpecialityList {
     TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -4239,7 +4254,8 @@ class _$ConfirmLanguageListImpl implements ConfirmLanguageList {
     required TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)
         addSpecialityExperienceList,
-    required TResult Function(int currentIndex) removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue)
+        removeRequiredSpecialitichips,
     required TResult Function(String selectedValue, bool? isOtherValue)
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
@@ -4276,7 +4292,7 @@ class _$ConfirmLanguageListImpl implements ConfirmLanguageList {
     TResult? Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult? Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -4311,7 +4327,7 @@ class _$ConfirmLanguageListImpl implements ConfirmLanguageList {
     TResult Function(
             String selectedValue, int currentIndex, bool? isOtherValue)?
         addSpecialityExperienceList,
-    TResult Function(int currentIndex)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue)? removeRequiredSpecialitichips,
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
@@ -4434,13 +4450,14 @@ abstract class ConfirmLanguageList implements AddContractorSkillFormEvent {
 /// @nodoc
 mixin _$AddContractorSkillFormState {
   /// SPECIALITY
-// required ListInputEmptyOrNot requiredSpecialityChipList,
-// required String requiredSpecialityChip,
-  /// SPECIALITY
-  ListInputEmptyOrNot<SpecialityDTO> get requiredSpecialityChipList =>
+  ListInputEmptyOrNot<dynamic> get requiredSpecialityChipList =>
       throw _privateConstructorUsedError;
-  List<SpecialityDTO> get specialityList => throw _privateConstructorUsedError;
   String get requiredSpecialityChip => throw _privateConstructorUsedError;
+
+  /// SPECIALITY
+// required ListInputEmptyOrNot<SpecialityDTO> requiredSpecialityChipList,
+  List<SpecialityDTO> get specialityList =>
+      throw _privateConstructorUsedError; // required String requiredSpecialityChip,
   List<String> get specialityOther => throw _privateConstructorUsedError;
 
   /// Add EXPERIENCE OF SELECTED SPECIALITY
@@ -4495,9 +4512,9 @@ abstract class $AddContractorSkillFormStateCopyWith<$Res> {
           AddContractorSkillFormState>;
   @useResult
   $Res call(
-      {ListInputEmptyOrNot<SpecialityDTO> requiredSpecialityChipList,
-      List<SpecialityDTO> specialityList,
+      {ListInputEmptyOrNot<dynamic> requiredSpecialityChipList,
       String requiredSpecialityChip,
+      List<SpecialityDTO> specialityList,
       List<String> specialityOther,
       ListInputEmptyOrNot<dynamic> selectedSpecialityExperienceList,
       String selectedSpecialityExperience,
@@ -4539,8 +4556,8 @@ class _$AddContractorSkillFormStateCopyWithImpl<$Res,
   @override
   $Res call({
     Object? requiredSpecialityChipList = null,
-    Object? specialityList = null,
     Object? requiredSpecialityChip = null,
+    Object? specialityList = null,
     Object? specialityOther = null,
     Object? selectedSpecialityExperienceList = null,
     Object? selectedSpecialityExperience = null,
@@ -4570,15 +4587,15 @@ class _$AddContractorSkillFormStateCopyWithImpl<$Res,
       requiredSpecialityChipList: null == requiredSpecialityChipList
           ? _value.requiredSpecialityChipList
           : requiredSpecialityChipList // ignore: cast_nullable_to_non_nullable
-              as ListInputEmptyOrNot<SpecialityDTO>,
-      specialityList: null == specialityList
-          ? _value.specialityList
-          : specialityList // ignore: cast_nullable_to_non_nullable
-              as List<SpecialityDTO>,
+              as ListInputEmptyOrNot<dynamic>,
       requiredSpecialityChip: null == requiredSpecialityChip
           ? _value.requiredSpecialityChip
           : requiredSpecialityChip // ignore: cast_nullable_to_non_nullable
               as String,
+      specialityList: null == specialityList
+          ? _value.specialityList
+          : specialityList // ignore: cast_nullable_to_non_nullable
+              as List<SpecialityDTO>,
       specialityOther: null == specialityOther
           ? _value.specialityOther
           : specialityOther // ignore: cast_nullable_to_non_nullable
@@ -4689,9 +4706,9 @@ abstract class _$$AddContractorSkillFormStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {ListInputEmptyOrNot<SpecialityDTO> requiredSpecialityChipList,
-      List<SpecialityDTO> specialityList,
+      {ListInputEmptyOrNot<dynamic> requiredSpecialityChipList,
       String requiredSpecialityChip,
+      List<SpecialityDTO> specialityList,
       List<String> specialityOther,
       ListInputEmptyOrNot<dynamic> selectedSpecialityExperienceList,
       String selectedSpecialityExperience,
@@ -4732,8 +4749,8 @@ class __$$AddContractorSkillFormStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? requiredSpecialityChipList = null,
-    Object? specialityList = null,
     Object? requiredSpecialityChip = null,
+    Object? specialityList = null,
     Object? specialityOther = null,
     Object? selectedSpecialityExperienceList = null,
     Object? selectedSpecialityExperience = null,
@@ -4763,15 +4780,15 @@ class __$$AddContractorSkillFormStateImplCopyWithImpl<$Res>
       requiredSpecialityChipList: null == requiredSpecialityChipList
           ? _value.requiredSpecialityChipList
           : requiredSpecialityChipList // ignore: cast_nullable_to_non_nullable
-              as ListInputEmptyOrNot<SpecialityDTO>,
-      specialityList: null == specialityList
-          ? _value._specialityList
-          : specialityList // ignore: cast_nullable_to_non_nullable
-              as List<SpecialityDTO>,
+              as ListInputEmptyOrNot<dynamic>,
       requiredSpecialityChip: null == requiredSpecialityChip
           ? _value.requiredSpecialityChip
           : requiredSpecialityChip // ignore: cast_nullable_to_non_nullable
               as String,
+      specialityList: null == specialityList
+          ? _value._specialityList
+          : specialityList // ignore: cast_nullable_to_non_nullable
+              as List<SpecialityDTO>,
       specialityOther: null == specialityOther
           ? _value._specialityOther
           : specialityOther // ignore: cast_nullable_to_non_nullable
@@ -4878,8 +4895,8 @@ class _$AddContractorSkillFormStateImpl
     implements _AddContractorSkillFormState {
   const _$AddContractorSkillFormStateImpl(
       {required this.requiredSpecialityChipList,
-      required final List<SpecialityDTO> specialityList,
       required this.requiredSpecialityChip,
+      required final List<SpecialityDTO> specialityList,
       required final List<String> specialityOther,
       required this.selectedSpecialityExperienceList,
       required this.selectedSpecialityExperience,
@@ -4914,12 +4931,17 @@ class _$AddContractorSkillFormStateImpl
         _languageList = languageList;
 
   /// SPECIALITY
-// required ListInputEmptyOrNot requiredSpecialityChipList,
-// required String requiredSpecialityChip,
-  /// SPECIALITY
   @override
-  final ListInputEmptyOrNot<SpecialityDTO> requiredSpecialityChipList;
+  final ListInputEmptyOrNot<dynamic> requiredSpecialityChipList;
+  @override
+  final String requiredSpecialityChip;
+
+  /// SPECIALITY
+// required ListInputEmptyOrNot<SpecialityDTO> requiredSpecialityChipList,
   final List<SpecialityDTO> _specialityList;
+
+  /// SPECIALITY
+// required ListInputEmptyOrNot<SpecialityDTO> requiredSpecialityChipList,
   @override
   List<SpecialityDTO> get specialityList {
     if (_specialityList is EqualUnmodifiableListView) return _specialityList;
@@ -4927,9 +4949,9 @@ class _$AddContractorSkillFormStateImpl
     return EqualUnmodifiableListView(_specialityList);
   }
 
-  @override
-  final String requiredSpecialityChip;
+// required String requiredSpecialityChip,
   final List<String> _specialityOther;
+// required String requiredSpecialityChip,
   @override
   List<String> get specialityOther {
     if (_specialityOther is EqualUnmodifiableListView) return _specialityOther;
@@ -5034,7 +5056,7 @@ class _$AddContractorSkillFormStateImpl
 
   @override
   String toString() {
-    return 'AddContractorSkillFormState(requiredSpecialityChipList: $requiredSpecialityChipList, specialityList: $specialityList, requiredSpecialityChip: $requiredSpecialityChip, specialityOther: $specialityOther, selectedSpecialityExperienceList: $selectedSpecialityExperienceList, selectedSpecialityExperience: $selectedSpecialityExperience, experienceList: $experienceList, roleList: $roleList, roleTypeChipList: $roleTypeChipList, roleTypeChip: $roleTypeChip, softwareList: $softwareList, softwareSkillOther: $softwareSkillOther, requiredSoftwareSkillChip: $requiredSoftwareSkillChip, requiredSoftwareSkillChipList: $requiredSoftwareSkillChipList, languageChip: $languageChip, languageOther: $languageOther, languageChipList: $languageChipList, languageList: $languageList, isSubmitting: $isSubmitting, isLoading: $isLoading, showErrorMessages: $showErrorMessages, showLanguageError: $showLanguageError, showSoftwareSkillError: $showSoftwareSkillError, showSpecialityError: $showSpecialityError, showRoleTypeError: $showRoleTypeError, showSpeExperienceError: $showSpeExperienceError, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'AddContractorSkillFormState(requiredSpecialityChipList: $requiredSpecialityChipList, requiredSpecialityChip: $requiredSpecialityChip, specialityList: $specialityList, specialityOther: $specialityOther, selectedSpecialityExperienceList: $selectedSpecialityExperienceList, selectedSpecialityExperience: $selectedSpecialityExperience, experienceList: $experienceList, roleList: $roleList, roleTypeChipList: $roleTypeChipList, roleTypeChip: $roleTypeChip, softwareList: $softwareList, softwareSkillOther: $softwareSkillOther, requiredSoftwareSkillChip: $requiredSoftwareSkillChip, requiredSoftwareSkillChipList: $requiredSoftwareSkillChipList, languageChip: $languageChip, languageOther: $languageOther, languageChipList: $languageChipList, languageList: $languageList, isSubmitting: $isSubmitting, isLoading: $isLoading, showErrorMessages: $showErrorMessages, showLanguageError: $showLanguageError, showSoftwareSkillError: $showSoftwareSkillError, showSpecialityError: $showSpecialityError, showRoleTypeError: $showRoleTypeError, showSpeExperienceError: $showSpeExperienceError, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
@@ -5045,10 +5067,10 @@ class _$AddContractorSkillFormStateImpl
             (identical(other.requiredSpecialityChipList, requiredSpecialityChipList) ||
                 other.requiredSpecialityChipList ==
                     requiredSpecialityChipList) &&
-            const DeepCollectionEquality()
-                .equals(other._specialityList, _specialityList) &&
             (identical(other.requiredSpecialityChip, requiredSpecialityChip) ||
                 other.requiredSpecialityChip == requiredSpecialityChip) &&
+            const DeepCollectionEquality()
+                .equals(other._specialityList, _specialityList) &&
             const DeepCollectionEquality()
                 .equals(other._specialityOther, _specialityOther) &&
             (identical(other.selectedSpecialityExperienceList, selectedSpecialityExperienceList) ||
@@ -5099,8 +5121,8 @@ class _$AddContractorSkillFormStateImpl
   int get hashCode => Object.hashAll([
         runtimeType,
         requiredSpecialityChipList,
-        const DeepCollectionEquality().hash(_specialityList),
         requiredSpecialityChip,
+        const DeepCollectionEquality().hash(_specialityList),
         const DeepCollectionEquality().hash(_specialityOther),
         selectedSpecialityExperienceList,
         selectedSpecialityExperience,
@@ -5138,10 +5160,9 @@ class _$AddContractorSkillFormStateImpl
 abstract class _AddContractorSkillFormState
     implements AddContractorSkillFormState {
   const factory _AddContractorSkillFormState(
-      {required final ListInputEmptyOrNot<SpecialityDTO>
-          requiredSpecialityChipList,
-      required final List<SpecialityDTO> specialityList,
+      {required final ListInputEmptyOrNot<dynamic> requiredSpecialityChipList,
       required final String requiredSpecialityChip,
+      required final List<SpecialityDTO> specialityList,
       required final List<String> specialityOther,
       required final ListInputEmptyOrNot<dynamic>
           selectedSpecialityExperienceList,
@@ -5172,15 +5193,15 @@ abstract class _AddContractorSkillFormState
   @override
 
   /// SPECIALITY
-// required ListInputEmptyOrNot requiredSpecialityChipList,
-// required String requiredSpecialityChip,
-  /// SPECIALITY
-  ListInputEmptyOrNot<SpecialityDTO> get requiredSpecialityChipList;
-  @override
-  List<SpecialityDTO> get specialityList;
+  ListInputEmptyOrNot<dynamic> get requiredSpecialityChipList;
   @override
   String get requiredSpecialityChip;
   @override
+
+  /// SPECIALITY
+// required ListInputEmptyOrNot<SpecialityDTO> requiredSpecialityChipList,
+  List<SpecialityDTO> get specialityList;
+  @override // required String requiredSpecialityChip,
   List<String> get specialityOther;
   @override
 

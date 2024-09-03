@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_final_fields, prefer_const_literals_to_create_immutables, must_be_immutable
+// ignore_for_file: prefer_const_constructors, prefer_final_fields, prefer_const_literals_to_create_immutables, must_be_immutable, unused_field, avoid_print, deprecated_member_use
 
 import 'dart:convert';
 import 'package:auto_route/auto_route.dart';

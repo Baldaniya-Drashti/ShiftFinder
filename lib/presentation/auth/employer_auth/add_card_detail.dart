@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, must_be_immutable, prefer_const_literals_to_create_immutables
+// ignore_for_file: use_build_context_synchronously, must_be_immutable, prefer_const_literals_to_create_immutables, avoid_print
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -194,7 +194,7 @@ class AddCardDetailPage extends StatelessWidget {
                 (f) => f.maybeMap(
                   empty: (value) => StringConstant.pleaseAddCardHolderName,
                   invalidUsername: (value) =>
-                      StringConstant.pleaseAddValidCardNumber,
+                      StringConstant.pleaseAddValidCardHolderName,
                   orElse: () => null,
                 ),
                 (_) => null,
@@ -262,7 +262,7 @@ class AddCardDetailPage extends StatelessWidget {
             context.read<CardBloc>().state.expDate.value.fold(
                 (l) => l.maybeMap(
                       orElse: () => null,
-                      empty: (value) => StringConstant.enterValidExpiryDate,
+                      empty: (value) => StringConstant.pleaseAddExpiryDate,
                       invalidaCardMonth: (value) =>
                           StringConstant.enterValidExpiryDate,
                       invalidaCardYear: (value) =>
@@ -306,7 +306,7 @@ class AddCardDetailPage extends StatelessWidget {
     CardState state, {
     required DateTime? selectedDate,
   }) async {
-    print("selectedDate------->  ${selectedDate}");
+    print("selectedDate------->  $selectedDate");
 
     final DateTime? pickedDate = await showDatePicker(
       context: context,

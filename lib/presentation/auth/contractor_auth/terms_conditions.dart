@@ -118,7 +118,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
             children: [
               BaseText(
                 text:
-                    "Hello,✋ ${getCurrentUser().firstName} ${getCurrentUser().lastName}",
+                    "Hello,✋ ${getCurrentUser().firstName ?? ""} ${getCurrentUser().lastName ?? ""}",
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 lineHeight: 1.5,

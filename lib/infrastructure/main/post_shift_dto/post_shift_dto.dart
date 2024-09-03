@@ -1,7 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
 part 'post_shift_dto.freezed.dart';
 part 'post_shift_dto.g.dart';
 

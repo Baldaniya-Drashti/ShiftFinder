@@ -81,6 +81,7 @@ abstract class IAuthFacade {
     required String softwareSkillOther,
     required String softwaresSkillListId,
     required String specialtiesDetail,
+    required String specialityOther,
     required String rolesListId,
   });
 

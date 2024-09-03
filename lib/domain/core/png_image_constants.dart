@@ -24,10 +24,13 @@ class PngImageConstants {
   static const profile_employer = "assets/png/profile_employer.png";
   static const contractor_employer = "assets/png/profile_contractor.png";
   static const add_experience_desc = "assets/png/add_experience_desc.png";
+  static const add_speciality_experience_desc =
+      "assets/png/add_speciality_experience_desc.png";
   static const document_img = "assets/png/document_img.png";
   static const upload = "assets/png/upload.png";
   static const intro__video_image = "assets/png/intro__video_image.png";
   static const thumbsUp = "assets/png/thumbs_up.png";
+  static const result = "assets/png/result.png";
 
   static const List<String> allImages = [
     iroid_logo,

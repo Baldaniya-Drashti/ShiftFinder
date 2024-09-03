@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, prefer_const_constructors
+// ignore_for_file: avoid_print, prefer_const_constructors, must_be_immutable
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,6 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
-import 'package:shift/presentation/splash/splash_page.dart';
 
 @RoutePage(name: 'referenceListScreen')
 class ReferenceListScreen extends StatelessWidget {

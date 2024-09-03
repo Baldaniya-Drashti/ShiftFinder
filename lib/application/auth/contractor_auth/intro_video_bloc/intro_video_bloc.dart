@@ -143,7 +143,6 @@ class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
               };
             }).toList();
             print("selected answers -->  ${jsonEncode(formattedData)}");
-            print("selected answers1111 -->  ${formattedData}");
 
             // emit(state.copyWith(
             //   questions: state.questions
@@ -160,9 +159,10 @@ class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
               ),
             );
 
-            failureOrSuccess = await _repository.addQuizAnswerApi(
-              quizDetails: jsonEncode(formattedData),
-            );
+            // failureOrSuccess = await _repository.addQuizAnswerApi(
+            //   quizDetails: jsonEncode(formattedData),
+            // );
+            failureOrSuccess = right(Account());
 
             failureOrSuccess.fold(
               (l) => emit(

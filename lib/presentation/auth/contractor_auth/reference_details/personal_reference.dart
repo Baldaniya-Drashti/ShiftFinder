@@ -117,6 +117,7 @@ class PersonalReferenceWidget extends StatelessWidget {
       isLabelPadding: true,
       hintText: StringConstant.e_mail,
       keyboardType: TextInputType.emailAddress,
+      maxLength: 340,
       initialValue: state.personalEmail.getValue(),
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(

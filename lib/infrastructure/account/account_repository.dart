@@ -67,10 +67,6 @@ class AccountRepository extends IAccountRepository {
 
         print("Experience Role List Response---> $list");
         return right(list);
-        // final list = SkillListDTO.fromJson(response.data);
-
-        // logger.d("ROLE LIST RESPONSE---> ${account.data}");
-        // return right(account);
       } else {
         return left(const AccountFailure.serverError());
       }
@@ -97,13 +93,81 @@ class AccountRepository extends IAccountRepository {
     try {
       final mapData = {
         "experience_detail": experienceDetail,
-        "last_page": "Reference",
+        "last_page": "SpecialityExperience",
       };
 
       print("Sending Params:---> ${jsonEncode(mapData)}");
       final response =
-          await apiService.postMethod(ApiConstants.experience, mapData);
+          await apiService.postMethod(ApiConstants.addRoleExperience, mapData);
       print("Response of Add Experience---> ${jsonEncode(response.data)}");
+
+      final account = CurrentUserDto.fromJson(response.data).toDomain();
+      return right(account);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+      return left(const AccountFailure.serverError());
+    } catch (e) {
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AccountFailure, List<ExperienceDTO>>>
+      getExperienceSpecialityList() async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.getYourSpecialityList,
+      );
+
+      if (response != null) {
+        var account = response.data as List<dynamic>;
+        var list = account.map((e) => ExperienceDTO.fromJson(e)).toList();
+
+        print("Experience Speciality List Response---> $list");
+        return right(list);
+      } else {
+        return left(const AccountFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AccountFailure, Account>> addSpecialityExperienceApi({
+    required String experienceDetail,
+  }) async {
+    try {
+      final mapData = {
+        "experience_detail": experienceDetail,
+        "last_page": "Education",
+      };
+
+      print("Sending Params:---> ${jsonEncode(mapData)}");
+      final response = await apiService.postMethod(
+          ApiConstants.addSpecialityExperience, mapData);
+      print(
+          "Response of Add Speciality Experience---> ${jsonEncode(response.data)}");
 
       final account = CurrentUserDto.fromJson(response.data).toDomain();
       return right(account);
@@ -1007,7 +1071,8 @@ class AccountRepository extends IAccountRepository {
         "location_note": locationNotes,
         // "units_number_or_name": unitNumber,
         // "units_note": unitNotes,
-        "last_page": "MainTab",
+        // "last_page": "AddCardDetail",
+        "last_page": "AddCardDetail",
         "isProfileComplete": 1,
       };
 

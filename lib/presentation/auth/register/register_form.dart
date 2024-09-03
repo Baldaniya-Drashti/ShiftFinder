@@ -2,6 +2,7 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/services.dart';
 import 'package:shift/application/auth/register_form/register_form_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
@@ -227,6 +228,9 @@ class RegisterForm extends StatelessWidget {
             labelText: StringConstant.firstName,
             textCapitalization: TextCapitalization.words,
             errorMaxLines: 2,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+            ],
             prefixIcon: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: getSize(14),
@@ -265,6 +269,9 @@ class RegisterForm extends StatelessWidget {
             labelText: StringConstant.lastName,
             errorMaxLines: 2,
             textCapitalization: TextCapitalization.words,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+            ],
             prefixIcon: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: getSize(14),

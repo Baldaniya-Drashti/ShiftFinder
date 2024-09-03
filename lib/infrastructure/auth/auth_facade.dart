@@ -490,12 +490,14 @@ class AuthFacade implements IAuthFacade {
     required String softwareSkillOther,
     required String softwaresSkillListId,
     required String specialtiesDetail,
+    required String specialityOther,
     required String rolesListId,
   }) async {
     try {
       final mapData = {
         "roles_list_id": rolesListId,
-        "specialties_detail": specialtiesDetail,
+        "specialties_list_id": specialtiesDetail,
+        "specialties_other": specialityOther,
         "softwares_skill_list_id": softwaresSkillListId,
         "software_skill_other": softwareSkillOther,
         "languages_list_id": languageListId,

@@ -20,7 +20,8 @@ class ApiConstants {
   static String education = 'education';
   static String updateEducation = 'update_education';
   static String destroyEducation = 'destroy_education';
-  static String experience = 'experience';
+  static String addRoleExperience = 'experience';
+  static String addSpecialityExperience = 'your_specialtie_experience';
   static String reference = 'reference';
   static String updateReference = 'update_reference';
   static String destroyReference = 'destroy_reference';
@@ -45,6 +46,7 @@ class ApiConstants {
   static String softwaresSkillList = 'softwares_skill_list';
   static String languageList = 'language_list';
   static String getYourRolesList = 'get_your_roles_list';
+  static String getYourSpecialityList = 'get_your_specialtie_list';
   static String unpaidBreakList = 'unpaid_break_list';
   static String accomdationHourList = 'hour_list';
 

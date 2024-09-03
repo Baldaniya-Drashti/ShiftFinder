@@ -6,13 +6,13 @@ part of 'add_contractor_skill_form_bloc.dart';
 class AddContractorSkillFormState with _$AddContractorSkillFormState {
   const factory AddContractorSkillFormState({
     /// SPECIALITY
-    // required ListInputEmptyOrNot requiredSpecialityChipList,
-    // required String requiredSpecialityChip,
+    required ListInputEmptyOrNot requiredSpecialityChipList,
+    required String requiredSpecialityChip,
 
     /// SPECIALITY
-    required ListInputEmptyOrNot<SpecialityDTO> requiredSpecialityChipList,
+    // required ListInputEmptyOrNot<SpecialityDTO> requiredSpecialityChipList,
     required List<SpecialityDTO> specialityList,
-    required String requiredSpecialityChip,
+    // required String requiredSpecialityChip,
     required List<String> specialityOther,
 
     /// Add EXPERIENCE OF SELECTED SPECIALITY

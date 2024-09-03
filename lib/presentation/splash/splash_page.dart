@@ -156,6 +156,11 @@ PageRouteInfo getCurrentPage(String lastPage, {bool fromSplash = true}) {
         LocationDetailForm.name,
         args: LocationDetailFormArgs(isFromSplash: fromSplash),
       );
+    case "AddCardDetail":
+      return PageRouteInfo(
+        AddCardDetailPage.name,
+        args: AddCardDetailPageArgs(isFromSplash: fromSplash),
+      );
     case "ContractorSkill":
       return PageRouteInfo(
         AddContractorSkillsForm.name,
@@ -170,6 +175,11 @@ PageRouteInfo getCurrentPage(String lastPage, {bool fromSplash = true}) {
       return PageRouteInfo(
         AddExperienceDetailScreen.name,
         args: AddExperienceDetailScreenArgs(isFromSplash: fromSplash),
+      );
+    case "SpecialityExperience":
+      return PageRouteInfo(
+        AddSpecialityExperience.name,
+        args: AddSpecialityExperienceArgs(isFromSplash: fromSplash),
       );
     case "Reference":
       return PageRouteInfo(

@@ -12,13 +12,10 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
-import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
-import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
-import 'package:shift/presentation/core/widgets/inputs/custom_speciality_box.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_chip_display.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_item.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_selectable_dropdown.dart';
@@ -115,10 +112,10 @@ class AddContractorSkillsForm extends StatelessWidget {
                                 paddingBetweenFields(),
                                 roleDropDown(context, state),
                                 paddingBetweenFields(),
-                                // specialityDropDown(context, state),
-                                // paddingBetweenFields(),
-                                requiredSpecialityDropDownChipset(
-                                    context, state),
+                                specialityDropDown(context, state),
+                                paddingBetweenFields(),
+                                /*requiredSpecialityDropDownChipset(
+                                    context, state),*/
                                 preferredSoftwareSkillsDropDownChipSet(
                                     context, state),
                                 paddingBetweenFields(),
@@ -352,7 +349,7 @@ class AddContractorSkillsForm extends StatelessWidget {
             onDelete: (value) {
               print("On delete called!");
               context.read<AddContractorSkillFormBloc>().add(
-                  AddContractorSkillFormEvent.removePreferedSoftwareSkillchips(
+                  AddContractorSkillFormEvent.removeRequiredSpecialitichips(
                       value.toString()));
             },
           ),
@@ -516,7 +513,7 @@ class AddContractorSkillsForm extends StatelessWidget {
     );
   }
 
-  Widget requiredSpecialityDropDownChipset(
+  /*Widget requiredSpecialityDropDownChipset(
       BuildContext context, AddContractorSkillFormState state) {
     print("SPECIALITY LIST--> ${state.specialityList}");
     return Column(
@@ -593,6 +590,7 @@ class AddContractorSkillsForm extends StatelessWidget {
       ],
     );
   }
+*/
 
   Widget languageDropDownChipSet(
       BuildContext context, AddContractorSkillFormState state) {
@@ -737,7 +735,7 @@ class AddContractorSkillsForm extends StatelessWidget {
     );
   }
 
-  Widget specialityBox(AddContractorSkillFormState state) {
+/*  Widget specialityBox(AddContractorSkillFormState state) {
     return ListView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
@@ -789,4 +787,5 @@ class AddContractorSkillsForm extends StatelessWidget {
           );
         });
   }
+*/
 }

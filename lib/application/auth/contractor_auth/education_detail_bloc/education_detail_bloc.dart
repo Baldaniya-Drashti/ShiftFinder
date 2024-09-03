@@ -50,6 +50,7 @@ class EducationDetailBloc
             state.copyWith(
               isSubmitting: true,
               authFailureOrSuccessOption: none(),
+              skipFailureOrSuccessOption: none(),
             ),
           );
           final failureOrSuccess = await _repository.getCurrentUserApi();
@@ -88,7 +89,7 @@ class EducationDetailBloc
           );
 
           failureOrSuccess = await _authFacade.addLastPageApi(
-            lastPage: "Experience",
+            lastPage: "Reference",
           );
 
           failureOrSuccess.fold(

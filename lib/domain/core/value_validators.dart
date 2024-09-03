@@ -49,10 +49,8 @@ Either<ValueFailure<String>, String> validateMobileNumber(String input) {
 }
 
 Either<ValueFailure<String>, String> validateCardNumber(String input) {
-  print("INPUT OF CARD NUMBER--->  ${input}");
-
   if (validateStringNotEmpty(input).isRight()) {
-    if (input.length > 12) {
+    if (input.replaceAll(" ", "").length > 14) {
       return right(input);
     } else {
       return left(ValueFailure.invalidCardNumber(failedValue: input));
@@ -75,7 +73,7 @@ Either<ValueFailure<String>, String> validateCvv(String input) {
 }
 
 Either<ValueFailure<String>, String> validateCardDate(String input) {
-  print("INPUT OF CARD DATE--->  ${input}");
+  print("INPUT OF CARD DATE--->  $input");
   if (validateStringNotEmpty(input).isRight()) {
     int year;
     int month;

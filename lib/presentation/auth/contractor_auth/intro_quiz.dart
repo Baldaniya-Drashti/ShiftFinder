@@ -170,20 +170,24 @@
 //   QuizMcq({this.option1, this.option2, this.option3, this.option4});
 // }
 
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, avoid_print
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/auth/contractor_auth/intro_video_bloc/intro_video_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
@@ -223,7 +227,7 @@ class IntroQuizScreen extends StatelessWidget {
               () {},
               (either) => either.fold(
                 (failure) {
-                  print("showAPIResponseMessage---> ${failure}");
+                  print("showAPIResponseMessage---> $failure");
 
                   showError(
                     message: failure.maybeMap(
@@ -236,7 +240,8 @@ class IntroQuizScreen extends StatelessWidget {
                 },
                 (r) {
                   print("GO TO NEXT SCREEN!");
-                  showunderDevelopment(context);
+                  showResultDialog(context);
+                  // showunderDevelopment(context);
                   // context.router.push(const PageRouteInfo(MainTabView.name));
                 },
               ),
@@ -407,8 +412,77 @@ class IntroQuizScreen extends StatelessWidget {
             },
           ),
         ),
-        BaseText(text: mcqOption ?? "")
+        BaseText(text: mcqOption)
       ],
+    );
+  }
+
+  showResultDialog(BuildContext context) {
+    return AppDialog.showSuccess(
+      context,
+      title: StringConstant.result,
+      infoMessage: StringConstant.resultDesc,
+      image: Image.asset(PngImageConstants.result),
+      otherContent: Container(
+        alignment: Alignment.center,
+        padding:
+            EdgeInsets.symmetric(horizontal: getSize(10), vertical: getSize(5)),
+        margin: EdgeInsets.only(top: getSize(20)),
+        decoration: BoxDecoration(
+          color: AppColors.grey04,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              dense: true,
+              visualDensity: VisualDensity.compact,
+              horizontalTitleGap: getSize(10),
+              leading: SvgPicture.asset(
+                SvgImageConstant.checkedArrow,
+                height: getSize(20),
+                width: getSize(20),
+              ),
+              title: BaseText(
+                text: StringConstant.correctAnswers,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
+              trailing: BaseText(
+                text: "06",
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                fontFamily: "Aclonica",
+              ),
+            ),
+            ListTile(
+              dense: true,
+              visualDensity: VisualDensity.compact,
+              horizontalTitleGap: getSize(10),
+              leading: SvgPicture.asset(
+                SvgImageConstant.wrong,
+                height: getSize(20),
+                width: getSize(20),
+              ),
+              title: BaseText(
+                text: StringConstant.incorrectAnswers,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+              ),
+              trailing: BaseText(
+                text: "02",
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                fontFamily: "Aclonica",
+              ),
+            ),
+          ],
+        ),
+      ),
+      onOkClick: () {
+        Navigator.pop(context);
+      },
     );
   }
 }

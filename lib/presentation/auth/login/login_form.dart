@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
@@ -196,6 +196,7 @@ class LoginForm extends StatelessWidget {
             hintText: StringConstant.email,
             labelText: StringConstant.email,
             keyboardType: TextInputType.emailAddress,
+            maxLength: 340,
             errorMaxLines: 2,
             prefixIcon: Padding(
               padding: EdgeInsets.symmetric(
@@ -233,6 +234,7 @@ class LoginForm extends StatelessWidget {
           CustomTextField(
             hintText: StringConstant.password,
             labelText: StringConstant.password,
+            maxLength: 16,
             errorMaxLines: 3,
             prefixIcon: Padding(
               padding: EdgeInsets.symmetric(

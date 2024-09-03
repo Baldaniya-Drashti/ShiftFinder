@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 
 import 'package:shift/domain/account/account.dart';
@@ -61,7 +63,7 @@ Account getCurrentUser() {
   if (accountEntity != null) {
     return accountEntity.toDomain();
   }
-  return Account();
+  return const Account();
 }
 
 /// CUREENT INDUSTRY

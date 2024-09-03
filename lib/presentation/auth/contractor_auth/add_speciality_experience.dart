@@ -4,7 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shift/application/auth/contractor_auth/experience_bloc/experience_bloc.dart';
+import 'package:shift/application/auth/contractor_auth/speciality_experience/speciality_experience_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -22,25 +22,26 @@ import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 import '../../common/widgets/center_loading_indicator.dart';
 
-@RoutePage(name: 'addExperienceDetailScreen')
-class AddExperienceDetail extends StatelessWidget {
+@RoutePage(name: 'addSpecialityExperience')
+class AddSpecialityExperience extends StatelessWidget {
   bool isFromSplash = false;
-  AddExperienceDetail({super.key, this.isFromSplash = false});
+  AddSpecialityExperience({super.key, this.isFromSplash = false});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<ExperienceBloc>()
-        ..add(const ExperienceEvent.getExperinceDataEvent()),
+      create: (context) => getIt<SpecialityExperienceBloc>()
+        ..add(
+            const SpecialityExperienceEvent.getSpecialityExperinceDataEvent()),
       child: Scaffold(
         appBar: CommonAppBar(
           isShowBackBtn: !isFromSplash,
           onBackPressed: () {
             context.router.maybePop();
           },
-          title: StringConstant.roleExperience,
+          title: StringConstant.specialityExperience,
         ),
-        body: BlocConsumer<ExperienceBloc, ExperienceState>(
+        body: BlocConsumer<SpecialityExperienceBloc, SpecialityExperienceState>(
           listener: (context, state) {
             state.authFailureOrSuccessOption.fold(
               () {},
@@ -57,10 +58,9 @@ class AddExperienceDetail extends StatelessWidget {
                   ).show(context);
                 },
                 (r) {
-                  // context.router
-                  //     .push(const PageRouteInfo(EducationListScreen.name));
+                  // context.router.push(const PageRouteInfo(ReferenceListScreen.name));
                   context.router
-                      .push(const PageRouteInfo(AddSpecialityExperience.name));
+                      .push(const PageRouteInfo(EducationListScreen.name));
                 },
               ),
             );
@@ -75,9 +75,9 @@ class AddExperienceDetail extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                     child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Image.asset(PngImageConstants.add_experience_desc),
+                        Image.asset(
+                            PngImageConstants.add_speciality_experience_desc),
                         SizedBox(
                           height: getSize(20),
                         ),
@@ -93,8 +93,8 @@ class AddExperienceDetail extends StatelessWidget {
                           child: CommonButton(
                             isSubmitting: state.isSubmitting,
                             onPressed: () {
-                              context.read<ExperienceBloc>().add(
-                                  const ExperienceEvent
+                              context.read<SpecialityExperienceBloc>().add(
+                                  const SpecialityExperienceEvent
                                       .continueBtnPressedEvent());
                             },
                             buttonText: StringConstant.txtContinue,
@@ -114,7 +114,7 @@ class AddExperienceDetail extends StatelessWidget {
     );
   }
 
-  Widget mainListView(BuildContext context, ExperienceState state) {
+  Widget mainListView(BuildContext context, SpecialityExperienceState state) {
     return ListView.builder(
       itemCount: state.records.length,
       itemBuilder: (context, index) {
@@ -163,8 +163,8 @@ class AddExperienceDetail extends StatelessWidget {
                     }).toList(),
                     onChanged: (value) {
                       context
-                          .read<ExperienceBloc>()
-                          .add(ExperienceEvent.updateRecordEvent(
+                          .read<SpecialityExperienceBloc>()
+                          .add(SpecialityExperienceEvent.updateRecordEvent(
                             index: index,
                             year: value ?? "",
                             month: currentObj.experience_month ?? "",
@@ -196,8 +196,8 @@ class AddExperienceDetail extends StatelessWidget {
                     onChanged: (value) {
                       print("SELECTE MONTH $value");
                       context
-                          .read<ExperienceBloc>()
-                          .add(ExperienceEvent.updateRecordEvent(
+                          .read<SpecialityExperienceBloc>()
+                          .add(SpecialityExperienceEvent.updateRecordEvent(
                             index: index,
                             year: currentObj.experience_year ?? "",
                             month: value ?? "",
@@ -219,8 +219,8 @@ class AddExperienceDetail extends StatelessWidget {
                 //   showMonth: false,
                 //   onChangeyear: (value) {
                 //     context
-                //         .read<ExperienceBloc>()
-                //         .add(ExperienceEvent.updateRecordEvent(
+                //         .read<SpecialityExperienceBloc>()
+                //         .add(SpecialityExperienceEvent.updateRecordEvent(
                 //           index: index,
                 //           year: value ?? "",
                 //           month: currentObj.experience_month ?? "",
@@ -238,8 +238,8 @@ class AddExperienceDetail extends StatelessWidget {
                 //   onChangedMonth: (value) {
                 //     print("SELECTE MONTH $value");
                 //     context
-                //         .read<ExperienceBloc>()
-                //         .add(ExperienceEvent.updateRecordEvent(
+                //         .read<SpecialityExperienceBloc>()
+                //         .add(SpecialityExperienceEvent.updateRecordEvent(
                 //           index: index,
                 //           year: currentObj.experience_year ?? "",
                 //           month: value ?? "",

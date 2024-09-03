@@ -1,7 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:quickalert/models/quickalert_type.dart';
-import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -127,6 +125,8 @@ class AppDialog {
     String? title,
     required String infoMessage,
     EdgeInsets? insetPadding,
+    Widget? image,
+    Widget? otherContent,
     bool barrierDismissible = false,
     required VoidCallback? onOkClick,
   }) async {
@@ -138,8 +138,13 @@ class AppDialog {
             titlePadding: EdgeInsets.zero,
             title: Column(
               children: [
-                Image.asset(
-                  PngImageConstants.thumbsUp,
+                (image != null)
+                    ? image
+                    : Image.asset(
+                        PngImageConstants.thumbsUp,
+                      ),
+                SizedBox(
+                  height: getSize(20),
                 ),
                 BaseText(
                   text: title ?? "",
@@ -150,12 +155,18 @@ class AppDialog {
                 ),
               ],
             ),
-            content: BaseText(
-              text: infoMessage,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              textAlign: TextAlign.center,
-              textColor: AppColors.black.withOpacity(0.7),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                BaseText(
+                  text: infoMessage,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  textAlign: TextAlign.center,
+                  textColor: AppColors.black.withOpacity(0.7),
+                ),
+                otherContent ?? Container()
+              ],
             ),
             elevation: 80,
             backgroundColor: AppColors.white,

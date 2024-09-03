@@ -8,7 +8,7 @@ class AddContractorSkillFormEvent with _$AddContractorSkillFormEvent {
   const factory AddContractorSkillFormEvent.addRoleTypeChips(
           String roleType, List<String> roleList, {bool? isOtherValue}) =
       AddRoleTypeChips;
- 
+
   const factory AddContractorSkillFormEvent.removeRoleTypeChips(
       String roleType) = RemoveRoleTypeChips;
 
@@ -29,7 +29,7 @@ class AddContractorSkillFormEvent with _$AddContractorSkillFormEvent {
           String selectedValue, int currentIndex, {bool? isOtherValue}) =
       AddSpecialityExperienceList;
   const factory AddContractorSkillFormEvent.removeRequiredSpecialitichips(
-      int currentIndex) = RemoveRequiredSpecialitichips;
+      String selectedValue) = RemoveRequiredSpecialitichips;
   const factory AddContractorSkillFormEvent.addPreferedSoftwareSkillchips(
       String selectedValue,
       {bool? isOtherValue}) = AddPreferedSoftwareSkillchips;
@@ -38,14 +38,15 @@ class AddContractorSkillFormEvent with _$AddContractorSkillFormEvent {
   const factory AddContractorSkillFormEvent.continueBtnPressed() =
       ContinueBtnPressed;
 
-
- const factory AddContractorSkillFormEvent.confirmRoleList(
+  const factory AddContractorSkillFormEvent.confirmRoleList(
       List<String> roleList, List<String> otherRoleList) = ConfirmRoleList;
-       const factory AddContractorSkillFormEvent.confirmSoftwareSkill(
-      List<String> skillList, List<String> otherSkillList) = ConfirmSoftwareSkill;
-      const factory AddContractorSkillFormEvent.confirmSpecialityList(
-      List<String> specialityList, List<String> otherSpecialityList) = ConfirmSpecialityList;
-       const factory AddContractorSkillFormEvent.confirmLanguageList(
-      List<String> languageList, List<String> otherLanguageList) = ConfirmLanguageList;
-
+  const factory AddContractorSkillFormEvent.confirmSoftwareSkill(
+          List<String> skillList, List<String> otherSkillList) =
+      ConfirmSoftwareSkill;
+  const factory AddContractorSkillFormEvent.confirmSpecialityList(
+          List<String> specialityList, List<String> otherSpecialityList) =
+      ConfirmSpecialityList;
+  const factory AddContractorSkillFormEvent.confirmLanguageList(
+          List<String> languageList, List<String> otherLanguageList) =
+      ConfirmLanguageList;
 }

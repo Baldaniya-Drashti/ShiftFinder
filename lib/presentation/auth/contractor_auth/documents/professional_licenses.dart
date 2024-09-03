@@ -193,6 +193,7 @@ class ProfessionalLicenses extends StatelessWidget {
                                 textColor: AppColors.red,
                               ),
                             ),
+                          paddingBetweenFields(),
                           addMoreButton(
                             context,
                             state,

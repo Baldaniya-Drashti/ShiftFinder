@@ -289,7 +289,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
                 referralCode: null,
                 locationAddress: null,
               );
-              print("Failure Or successs---> ${failureOrSuccess}");
+              print("Failure Or successs---> $failureOrSuccess");
               // failureOrSuccess = right("sucess");
             }
           }

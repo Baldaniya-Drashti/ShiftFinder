@@ -256,7 +256,7 @@ class ReferenceBloc extends Bloc<ReferenceEvent, ReferenceState> {
               isUnitDepartmentValid &&
               isStartDateValid &&
               isEndDateValid) {
-            print("All details are valid! ");
+            print("All details are valid!");
 
             emit(
               state.copyWith(

@@ -189,6 +189,7 @@ class ProfessionalReferenceWidget extends StatelessWidget {
       isLabelPadding: true,
       hintText: StringConstant.referrerEmail,
       keyboardType: TextInputType.emailAddress,
+      maxLength: 340,
       initialValue: state.referrerEmail.getValue(),
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(

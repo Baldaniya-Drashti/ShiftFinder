@@ -38,6 +38,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: PayableDetail.page),
         AutoRoute(page: AddMultiDateTime.page),
         AutoRoute(page: PrivacyPolicyScreen.page),
+        AutoRoute(page: AddSpecialityExperience.page),
         AutoRoute(
           page: MainTabView.page,
           children: [

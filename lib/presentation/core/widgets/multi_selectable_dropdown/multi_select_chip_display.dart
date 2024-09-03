@@ -1,8 +1,7 @@
-// ignore_for_file: prefer_null_aware_operators, prefer_if_null_operators, prefer_const_constructors, avoid_print
+// ignore_for_file: prefer_null_aware_operators, prefer_if_null_operators, prefer_const_constructors, avoid_print, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
 import 'package:shift/domain/core/math_utils.dart';
-import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/horizontal_scrollbar.dart';
 import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_item.dart';
@@ -136,7 +135,7 @@ class MultiSelectChipDisplay<V> extends StatelessWidget {
       padding: EdgeInsets.only(right: getSize(10)),
       child: CustomChipSet(
         // chipList: items!.map((item) => item!.label).toList(),
-        chipList: [],
+        chipList: const [],
         chipLabel: item.label,
         spacing: 10,
         onDelete: (value) {

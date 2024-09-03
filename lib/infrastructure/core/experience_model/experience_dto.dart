@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'experience_dto.freezed.dart';
 part 'experience_dto.g.dart';

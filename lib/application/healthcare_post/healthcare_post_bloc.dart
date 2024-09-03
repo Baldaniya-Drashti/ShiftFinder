@@ -162,7 +162,7 @@
 //   }
 // }
 
-// ignore_for_file: avoid_print, unnecessary_brace_in_string_interps, prefer_const_constructors
+// ignore_for_file: avoid_print, unnecessary_brace_in_string_interps, prefer_const_constructors, unused_field, unused_local_variable
 
 import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';

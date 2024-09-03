@@ -8,7 +8,6 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'DocumentPageScreen')

@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages, avoid_print, prefer_final_fields, unnecessary_brace_in_string_interps, prefer_const_constructors
+// ignore_for_file: depend_on_referenced_packages, avoid_print, prefer_final_fields, unnecessary_brace_in_string_interps, prefer_const_constructors, annotate_overrides, overridden_fields, prefer_initializing_formals
 
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';

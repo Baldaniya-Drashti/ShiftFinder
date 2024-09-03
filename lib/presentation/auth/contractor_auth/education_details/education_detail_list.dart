@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, must_be_immutable
+// ignore_for_file: prefer_const_constructors, must_be_immutable, avoid_print
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -119,6 +119,8 @@ class EducationListScreen extends StatelessWidget {
                               child: CommonButton(
                                 onPressed: () {
                                   if (state.educationList.isNotEmpty) {
+                                    print("This Next is called!!!");
+
                                     // context.router.push(PageRouteInfo(AddExperienceDetailScreen.name));
                                     context.router.push(const PageRouteInfo(
                                         ReferenceListScreen.name));
@@ -127,7 +129,7 @@ class EducationListScreen extends StatelessWidget {
                                         .push(PageRouteInfo(
                                             AddEducationDetailScreen.name))
                                         .then((value) {
-                                      print("Value when back ---> ${value}");
+                                      print("Value when back ---> $value");
                                       if (value != null && value == true) {
                                         context.read<EducationDetailBloc>().add(
                                             EducationDetailEvent
@@ -239,7 +241,7 @@ class EducationListScreen extends StatelessWidget {
                     context.router
                         .push(PageRouteInfo(AddEducationDetailScreen.name))
                         .then((value) {
-                      print("Value when back ---> ${value}");
+                      print("Value when back ---> $value");
 
                       if (value != null && value == true) {
                         context

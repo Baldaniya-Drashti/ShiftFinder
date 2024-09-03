@@ -120,7 +120,8 @@ class StringConstant {
   static const String addMore = "Add More";
   static const String addMoreReference = "Add More Reference";
   static const String addMoreEducation = "Add More Education";
-  static const String experience = "Experience";
+  static const String roleExperience = "Role Experience";
+  static const String specialityExperience = "Specialties Experience";
   static const String deleteEducationDesc =
       "Are you sure you want to delete this education details?";
   static const String deleteReferenceDesc =
@@ -341,6 +342,11 @@ class StringConstant {
       pleaseUploadTheDocumentsListedBelowGovtIssuedIdIsCompulsory =
       "Please upload the documents listed\nbelow, Govt issued Id is compulsory.";
   static const String mmYY = "MM/YY";
+  static const String result = "Result";
+  static const String correctAnswers = "Correct Answers";
+  static const String incorrectAnswers = "Incorrect Answers";
+  static const String resultDesc =
+      "Here is the result of your quiz. To further deepen your understanding of our platform's policies and features, please refer to our available resources.";
 
   ///
 
@@ -452,15 +458,17 @@ class StringConstant {
       "You must answer all the questions.";
   static const String pleaseCompleteAllQuestionOfQuiz =
       "Please complete all question of quiz.";
-  static const String pleaseAddCardHolderName = "Please add card holder name.";
-  static const String pleaseAddCardNumber = "Please add card number.";
-  static const String pleaseAddValidCardNumber =
-      "Please add valid card number.";
+  static const String pleaseAddCardHolderName = "Please add card holder name";
+  static const String pleaseAddValidCardHolderName =
+      "Please add valid card holder name";
+  static const String pleaseAddCardNumber = "Please add card number";
+  static const String pleaseAddValidCardNumber = "Please add valid card number";
   static const String cardNumberIsInValid = "Card number is invalid!";
   static const String pleaseAddCvvNumber =
-      "Please add last 3 or 4 digit CVV number.";
+      "Please add last 3 or 4 digit CVV number";
   static const String cvvNumberIsInValid = "CVV number is invalid!";
-  static const String enterValidExpiryDate = "Enter valid expiry date.";
+  static const String enterValidExpiryDate = "Enter valid expiry date";
+  static const String pleaseAddExpiryDate = "Please add expiry date";
   static const String pleaseAddTransitNumber = "Please add transit number";
   static const String pleaseSelectBankName = "Please select bank name";
   static const String pleaseAddBankInstitutionNumber =

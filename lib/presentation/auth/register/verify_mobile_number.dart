@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print
+// ignore_for_file: prefer_const_constructors, avoid_print, use_key_in_widget_constructors
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -67,14 +67,28 @@ class VerifyPhoneNumber extends StatelessWidget {
                   },
                   (r) {
                     if (getCurrentRole() == 1) {
-                      context.router.replace(PageRouteInfo(
+                      /*context.router.replace(PageRouteInfo(
                           AddContractorSkillsForm.name,
                           args:
-                              AddContractorSkillsFormArgs(isFromSplash: true)));
+                              AddContractorSkillsFormArgs(isFromSplash: true)));*/
+                      context.router.pushAndPopUntil(
+                        PageRouteInfo(
+                          AddContractorSkillsForm.name,
+                          args: AddContractorSkillsFormArgs(isFromSplash: true),
+                        ),
+                        predicate: (route) => false,
+                      );
                     } else {
-                      context.router.replace(PageRouteInfo(
+                      /*context.router.replace(PageRouteInfo(
                           LocationDetailForm.name,
-                          args: LocationDetailFormArgs(isFromSplash: true)));
+                          args: LocationDetailFormArgs(isFromSplash: true)));*/
+                      context.router.pushAndPopUntil(
+                        PageRouteInfo(
+                          LocationDetailForm.name,
+                          args: LocationDetailFormArgs(isFromSplash: true),
+                        ),
+                        predicate: (route) => false,
+                      );
                     }
 
                     context.router.maybePop();

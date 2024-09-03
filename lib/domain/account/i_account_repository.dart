@@ -14,6 +14,8 @@ abstract class IAccountRepository {
   Future<Either<AccountFailure, Account>> getCurrentUserApi();
 
   Future<Either<AccountFailure, List<ExperienceDTO>>> getExperienceRoleList();
+  Future<Either<AccountFailure, List<ExperienceDTO>>>
+      getExperienceSpecialityList();
   Future<Either<AccountFailure, Account>> addReferenceApi({
     required int type,
     required String? jobPosition,
@@ -52,6 +54,9 @@ abstract class IAccountRepository {
     required String? professionReferrer,
   });
   Future<Either<AccountFailure, Account>> addExperienceApi({
+    required String experienceDetail,
+  });
+  Future<Either<AccountFailure, Account>> addSpecialityExperienceApi({
     required String experienceDetail,
   });
   Future<Either<AccountFailure, String>> addEducationApi({

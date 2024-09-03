@@ -19,7 +19,7 @@ import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart'
 import 'package:shift/application/auth/contractor_auth/document_bloc/document_bloc.dart'
     as _i24;
 import 'package:shift/application/auth/contractor_auth/education_detail_bloc/education_detail_bloc.dart'
-    as _i27;
+    as _i28;
 import 'package:shift/application/auth/contractor_auth/experience_bloc/experience_bloc.dart'
     as _i22;
 import 'package:shift/application/auth/contractor_auth/intro_video_bloc/intro_video_bloc.dart'
@@ -27,7 +27,9 @@ import 'package:shift/application/auth/contractor_auth/intro_video_bloc/intro_vi
 import 'package:shift/application/auth/contractor_auth/legal_screening_bloc/legal_screening_bloc.dart'
     as _i23;
 import 'package:shift/application/auth/contractor_auth/reference_bloc/reference_bloc.dart'
-    as _i28;
+    as _i29;
+import 'package:shift/application/auth/contractor_auth/speciality_experience/speciality_experience_bloc.dart'
+    as _i25;
 import 'package:shift/application/auth/contractor_auth/terms_and_condition_bloc/terms_and_condition_bloc.dart'
     as _i18;
 import 'package:shift/application/auth/forgot_password/forgot_password_bloc.dart'
@@ -38,10 +40,10 @@ import 'package:shift/application/auth/register_form/register_form_bloc.dart'
 import 'package:shift/application/healthcare_post/healthcare_post_bloc.dart'
     as _i13;
 import 'package:shift/application/location_details/location_details_bloc.dart'
-    as _i25;
+    as _i26;
 import 'package:shift/application/main_tab/main_tab_bloc.dart' as _i14;
 import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart' as _i15;
-import 'package:shift/application/profile/account/account_cubit.dart' as _i26;
+import 'package:shift/application/profile/account/account_cubit.dart' as _i27;
 import 'package:shift/application/splash/splash_bloc.dart' as _i12;
 import 'package:shift/domain/account/i_account_repository.dart' as _i8;
 import 'package:shift/domain/auth/i_auth_facade.dart' as _i6;
@@ -112,15 +114,17 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i24.ResumeBloc(gh<_i8.IAccountRepository>()));
     gh.factory<_i24.EquipmentBloc>(
         () => _i24.EquipmentBloc(gh<_i8.IAccountRepository>()));
-    gh.factory<_i25.LocationDetailsBloc>(
-        () => _i25.LocationDetailsBloc(gh<_i8.IAccountRepository>()));
-    gh.factory<_i26.AccountCubit>(
-        () => _i26.AccountCubit(gh<_i8.IAccountRepository>()));
-    gh.factory<_i27.EducationDetailBloc>(() => _i27.EducationDetailBloc(
+    gh.factory<_i25.SpecialityExperienceBloc>(
+        () => _i25.SpecialityExperienceBloc(gh<_i8.IAccountRepository>()));
+    gh.factory<_i26.LocationDetailsBloc>(
+        () => _i26.LocationDetailsBloc(gh<_i8.IAccountRepository>()));
+    gh.factory<_i27.AccountCubit>(
+        () => _i27.AccountCubit(gh<_i8.IAccountRepository>()));
+    gh.factory<_i28.EducationDetailBloc>(() => _i28.EducationDetailBloc(
           gh<_i8.IAccountRepository>(),
           gh<_i6.IAuthFacade>(),
         ));
-    gh.factory<_i28.ReferenceBloc>(() => _i28.ReferenceBloc(
+    gh.factory<_i29.ReferenceBloc>(() => _i29.ReferenceBloc(
           gh<_i8.IAccountRepository>(),
           gh<_i6.IAuthFacade>(),
         ));
