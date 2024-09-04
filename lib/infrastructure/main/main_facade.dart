@@ -447,12 +447,18 @@ class MainFacade implements IMainFacade {
 
   @override
   Future<Either<MainFailure, CommonResponse>> getEmployerTeamsListAPI(
-      {required int page}) async {
+      {required int page, String? id}) async {
     try {
       Map<String, dynamic> mapData = {
         'page': page,
         'perPage': _perPage,
       };
+
+      if (id != null) {
+        mapData.addAll({
+          'id': id,
+        });
+      }
 
       final res = await apiService.getMethod(ApiConstants.getTeamList,
           queryParameters: mapData);

@@ -13,6 +13,7 @@ class TeamsState with _$TeamsState {
     required Option<Either<MainFailure, String>> failureOrSuccessOption,
     required SingleValueDropDownController singleValueDropDownController,
     required List<GetTeamsListDTO> getTeamList,
+    required GetTeamsListDTO teamDetail,
     required bool isEdit,
     required List<DropDownValueModel> locationList,
   }) = _TeamsState;
@@ -29,5 +30,6 @@ class TeamsState with _$TeamsState {
         isEdit: false,
         singleValueDropDownController: SingleValueDropDownController(),
         teamIDForUpdate: '',
+        teamDetail: GetTeamsListDTO(),
       );
 }

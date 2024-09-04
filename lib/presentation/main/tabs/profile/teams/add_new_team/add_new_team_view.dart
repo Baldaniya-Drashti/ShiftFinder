@@ -10,7 +10,6 @@ import 'package:shift/infrastructure/main/employer_team/get_teams_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dropdown/custom_dropdown_textfield.dart';
@@ -216,7 +215,7 @@ class AddNewTeamView extends StatelessWidget {
               },
               (r) async {
                 if (state.isEdit) {
-                  context.router.popUntilRouteWithName(TeamsView.name);
+                  context.router.maybePop(true);
                 } else {
                   context.router.maybePop(true);
                 }

@@ -97,7 +97,8 @@ class TeamsBloc extends Bloc<TeamsEvent, TeamsState> {
               }
             }
 
-            var res = await mainFacade.getEmployerTeamsListAPI(page: page);
+            var res = await mainFacade.getEmployerTeamsListAPI(
+                page: page, id: e.teamID);
 
             page++;
 
@@ -111,24 +112,34 @@ class TeamsBloc extends Bloc<TeamsEvent, TeamsState> {
               ),
               (r) {
                 lastPage = r.meta?.lastPage ?? 1;
-                if (e.isRefresh) {
+                if (e.isRefresh && e.teamID == null) {
                   List.from(state.getTeamList).clear();
                 }
-                return emit(
-                  state.copyWith(
-                    isLoading: false,
-                    isErrorInAPI: false,
-                    isNoDataFound: (r.data as List<dynamic>)
-                        .map((e) => GetTeamsListDTO.fromJson(e))
-                        .toList()
-                        .isEmpty,
-                    //  getProductList: []
-                    getTeamList: List.from(state.getTeamList)
-                      ..addAll((r.data as List<dynamic>)
+                if (e.teamID == null) {
+                  return emit(
+                    state.copyWith(
+                      isLoading: false,
+                      isErrorInAPI: false,
+                      isNoDataFound: (r.data as List<dynamic>)
                           .map((e) => GetTeamsListDTO.fromJson(e))
-                          .toList()),
-                  ),
-                );
+                          .toList()
+                          .isEmpty,
+                      //  getProductList: []
+                      getTeamList: List.from(state.getTeamList)
+                        ..addAll((r.data as List<dynamic>)
+                            .map((e) => GetTeamsListDTO.fromJson(e))
+                            .toList()),
+                    ),
+                  );
+                } else {
+                  return emit(
+                    state.copyWith(
+                      isLoading: false,
+                      isErrorInAPI: false,
+                      teamDetail: GetTeamsListDTO.fromJson(r.data),
+                    ),
+                  );
+                }
               },
             );
           },
@@ -228,6 +239,9 @@ class TeamsBloc extends Bloc<TeamsEvent, TeamsState> {
                 failureOrSuccessOption: optionOf(failureOrSuccess),
               ),
             );
+          },
+          setTeamDetail: (SetTeamDetail value) async {
+            emit(state.copyWith(teamDetail: value.getTeamListDTO));
           },
         );
       },

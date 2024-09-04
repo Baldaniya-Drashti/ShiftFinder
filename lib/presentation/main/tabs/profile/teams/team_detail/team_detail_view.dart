@@ -22,73 +22,112 @@ class TeamDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<TeamsBloc>(),
+      create: (context) => getIt<TeamsBloc>()
+        ..add(
+          TeamsEvent.getTeamList(true, getTeamsListDTO.id?.toString() ?? ""),
+        )
+        ..add(TeamsEvent.setTeamDetail(getTeamsListDTO)),
       child: BlocConsumer<TeamsBloc, TeamsState>(
         builder: (context, state) {
-          return Scaffold(
-            appBar: CommonAppBar(
-              onBackPressed: () => context.router.maybePop(),
-              title: getTeamsListDTO.name ?? "",
-            ),
-            body: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                  child: CommonTeamContainer(
-                    teamName: getTeamsListDTO.name ?? "",
-                    address: getTeamsListDTO.location?.location ?? "",
-                    totalMembers: getTeamsListDTO.total_member ?? 0,
-                    isFromTeamDetail: true,
-                    onPressedDelete: () {
-                      AcceptRejectDialog(
-                        title: 'Delete Team',
-                        description:
-                            'Deleting this team will prevent you from sharing the shift posting summary with its members. Are you sure you want to proceed?',
-                        onPressedAccept: () {
-                          context.router.maybePop().then(
-                            (value) {
-                              context.read<TeamsBloc>().add(
-                                    TeamsEvent.deleteTeam(
-                                      getTeamsListDTO.id?.toString() ?? "",
-                                    ),
-                                  );
+          return WillPopScope(
+            onWillPop: () {
+              Navigator.pop(context, true);
+              return Future.value(true);
+            },
+            child: Scaffold(
+              appBar: CommonAppBar(
+                onBackPressed: () => context.router.maybePop(),
+                title: getTeamsListDTO.name ?? "",
+              ),
+              body: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                    child: CommonTeamContainer(
+                      teamName: state.teamDetail.name ?? "",
+                      address: state.teamDetail.location?.location ?? "",
+                      totalMembers: state.teamDetail.total_member ?? 0,
+                      isFromTeamDetail: true,
+                      onPressedDelete: () {
+                        AcceptRejectDialog(
+                          title: 'Delete Team',
+                          description:
+                              'Deleting this team will prevent you from sharing the shift posting summary with its members. Are you sure you want to proceed?',
+                          onPressedAccept: () {
+                            context.router.maybePop(true).then(
+                              (value) {
+                                context.read<TeamsBloc>().add(
+                                      TeamsEvent.deleteTeam(
+                                        getTeamsListDTO.id?.toString() ?? "",
+                                      ),
+                                    );
+                              },
+                            );
+                          },
+                          onPressedReject: () {
+                            context.router.maybePop();
+                          },
+                          acceptButtonText: 'Delete',
+                        ).acceptRejectDialog(context);
+                      },
+                      onPressedEdit: () async {
+                        var res = await context.router.push(
+                          PageRouteInfo(
+                            AddNewTeamView.name,
+                            args: AddNewTeamViewArgs(
+                              isUpdateMember: true,
+                              getTeamsListDTO: state.teamDetail,
+                            ),
+                          ),
+                        );
+                        if (res != null && res == true) {
+                          context.read<TeamsBloc>().add(
+                                TeamsEvent.getTeamList(
+                                  true,
+                                  state.teamDetail.id?.toString() ?? "",
+                                ),
+                              );
+                        }
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: getSize(30),
+                  ),
+                  state.teamDetail.members == null
+                      ? NoTeamMemberView(
+                          teamID: getTeamsListDTO.id?.toString() ?? "",
+                        )
+                      : Expanded(
+                          child: TeamMemberList(
+                            members: state.teamDetail.members ?? [],
+                            teamID: state.teamDetail.id?.toString() ?? "",
+                            onPressed: () async {
+                              var res = await context.router.push(
+                                PageRouteInfo(
+                                  AddNewMemberView.name,
+                                  args: AddNewMemberViewArgs(
+                                    isUpdateMember: false,
+                                    getTeamsListDTO: null,
+                                    teamID: state.teamDetail.id.toString(),
+                                  ),
+                                ),
+                              );
+
+                              if (res != null && res == true) {
+                                context.read<TeamsBloc>().add(
+                                      TeamsEvent.getTeamList(
+                                        true,
+                                        state.teamDetail.id.toString(),
+                                      ),
+                                    );
+                              }
                             },
-                          );
-                        },
-                        onPressedReject: () {
-                          context.router.maybePop();
-                        },
-                        acceptButtonText: 'Delete',
-                      ).acceptRejectDialog(context);
-                    },
-                    onPressedEdit: () {
-                      context.router.push(
-                        PageRouteInfo(
-                          AddNewTeamView.name,
-                          args: AddNewTeamViewArgs(
-                            isUpdateMember: true,
-                            getTeamsListDTO: getTeamsListDTO,
                           ),
                         ),
-                      );
-                    },
-                  ),
-                ),
-                SizedBox(
-                  height: getSize(30),
-                ),
-                getTeamsListDTO.members!.isEmpty
-                    ? NoTeamMemberView(
-                        teamID: getTeamsListDTO.id?.toString() ?? "",
-                      )
-                    : Expanded(
-                        child: TeamMemberList(
-                          members: getTeamsListDTO.members ?? [],
-                          teamID: getTeamsListDTO.id?.toString() ?? "",
-                        ),
-                      ),
-                // NoTeamMemberView(),
-              ],
+                  // NoTeamMemberView(),
+                ],
+              ),
             ),
           );
         },
@@ -108,8 +147,8 @@ class TeamDetailView extends StatelessWidget {
               },
               (r) async {
                 await showSuccess(message: r).show(context).then(
-                      (value) => context.router.popUntil(
-                        (route) => route.isFirst,
+                      (value) => context.router.maybePop(
+                        true,
                       ),
                     );
                 //context.router.push(const PageRouteInfo(MainTabView.name));

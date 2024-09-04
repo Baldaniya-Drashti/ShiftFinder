@@ -31,6 +31,7 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, CommonResponse>> getEmployerTeamsListAPI({
     required int page,
+    String? id,
   });
   Future<Either<MainFailure, List<SkillDTO>>> getUnpaidBreakListApi();
   Future<Either<MainFailure, List<SkillDTO>>> getAccomdationHoursListApi();
