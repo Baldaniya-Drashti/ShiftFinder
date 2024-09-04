@@ -41,7 +41,7 @@ Flushbar showSuccess({
   );
 }
 
-Future<dynamic> showunderDevelopment(BuildContext context) {
+Future<dynamic> showUnderDevelopment(BuildContext context) {
   return showSuccess(
     message: "Next Process is under development!!",
   ).show(context);

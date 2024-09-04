@@ -415,12 +415,12 @@ class _MultiSelectDialogState<T> extends State<MultiSelectDialog<T>> {
           ),
         ),
       ),
-      actionsAlignment: MainAxisAlignment.spaceBetween,
+      actionsAlignment: MainAxisAlignment.end,
       actionsPadding: EdgeInsets.fromLTRB(
           getSize(20), getSize(10), getSize(20), getSize(20)),
       actions: <Widget>[
         CommonButton(
-          width: getSize(140),
+          width: getSize(120),
           onPressed: () {
             widget.onCancelTap(context, widget.initialValue);
           },
@@ -430,7 +430,7 @@ class _MultiSelectDialogState<T> extends State<MultiSelectDialog<T>> {
           buttonTextColor: AppColors.primaryColor,
         ),
         CommonButton(
-          width: getSize(140),
+          width: getSize(120),
           onPressed: () {
             // if (selectedOtherList.isNotEmpty) {
             //   _selectedValues

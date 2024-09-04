@@ -345,97 +345,115 @@ class DifferentTimeForEachDate extends StatelessWidget {
   }
 
   Widget individualPostCheckBox(BuildContext context, PostShiftState state) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: getSize(20),
-        vertical: getSize(10),
-      ),
-      decoration: BoxDecoration(
-          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: getSize(20),
-            width: getSize(16.67),
-            child: Checkbox(
-              value: state.isIndividualPost,
-              activeColor: AppColors.primaryColor,
-              side: BorderSide(
-                width: getSize(1.5),
-                color: AppColors.black.withOpacity(0.5),
+    return GestureDetector(
+      onTap: () {
+        bool value = state.isIndividualPost;
+        value = !value;
+        context
+            .read<PostShiftBloc>()
+            .add(PostShiftEvent.checkIsIndividualPost(value));
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: getSize(20),
+          vertical: getSize(10),
+        ),
+        decoration: BoxDecoration(
+            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: getSize(20),
+              width: getSize(16.67),
+              child: Checkbox(
+                value: state.isIndividualPost,
+                activeColor: AppColors.primaryColor,
+                side: BorderSide(
+                  width: getSize(1.5),
+                  color: AppColors.black.withOpacity(0.5),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                onChanged: (value) {
+                  if (value != null) {
+                    context
+                        .read<PostShiftBloc>()
+                        .add(PostShiftEvent.checkIsIndividualPost(value));
+                  }
+                },
               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
+            ),
+            SizedBox(
+              width: getSize(15),
+            ),
+            Flexible(
+              child: BaseText(
+                text: StringConstant.postAsIndividualShifts,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
               ),
-              onChanged: (value) {
-                if (value != null) {
-                  context
-                      .read<PostShiftBloc>()
-                      .add(PostShiftEvent.checkIsIndividualPost(value));
-                }
-              },
             ),
-          ),
-          SizedBox(
-            width: getSize(15),
-          ),
-          Flexible(
-            child: BaseText(
-              text: StringConstant.postAsIndividualShifts,
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
   Widget vacancyCheckBox(BuildContext context, PostShiftState state) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: getSize(20),
-        vertical: getSize(10),
-      ),
-      decoration: BoxDecoration(
-          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: getSize(20),
-            width: getSize(16.67),
-            child: Checkbox(
-              value: state.isMoreVacancy,
-              activeColor: AppColors.primaryColor,
-              side: BorderSide(
-                width: getSize(1.5),
-                color: AppColors.black.withOpacity(0.5),
+    return GestureDetector(
+      onTap: () {
+        bool value = state.isMoreVacancy;
+        value = !value;
+        context
+            .read<PostShiftBloc>()
+            .add(PostShiftEvent.checkIsMoreVancancy(value));
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: getSize(20),
+          vertical: getSize(10),
+        ),
+        decoration: BoxDecoration(
+            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: getSize(20),
+              width: getSize(16.67),
+              child: Checkbox(
+                value: state.isMoreVacancy,
+                activeColor: AppColors.primaryColor,
+                side: BorderSide(
+                  width: getSize(1.5),
+                  color: AppColors.black.withOpacity(0.5),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                onChanged: (value) {
+                  if (value != null) {
+                    context
+                        .read<PostShiftBloc>()
+                        .add(PostShiftEvent.checkIsMoreVancancy(value));
+                  }
+                },
               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
+            ),
+            SizedBox(
+              width: getSize(15),
+            ),
+            Flexible(
+              child: BaseText(
+                text: StringConstant.singleShiftVacancyDesc,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
               ),
-              onChanged: (value) {
-                if (value != null) {
-                  context
-                      .read<PostShiftBloc>()
-                      .add(PostShiftEvent.checkIsMoreVancancy(value));
-                }
-              },
             ),
-          ),
-          SizedBox(
-            width: getSize(15),
-          ),
-          Flexible(
-            child: BaseText(
-              text: StringConstant.singleShiftVacancyDesc,
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

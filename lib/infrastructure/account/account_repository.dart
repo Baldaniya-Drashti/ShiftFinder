@@ -974,7 +974,7 @@ class AccountRepository extends IAccountRepository {
   }
 
   @override
-  Future<Either<AccountFailure, Account>> addQuizAnswerApi({
+  Future<Either<AccountFailure, QuizAnswerDTO>> addQuizAnswerApi({
     required String quizDetails,
   }) async {
     try {
@@ -992,13 +992,40 @@ class AccountRepository extends IAccountRepository {
       );
       print("Response of Add Quiz---> ${jsonEncode(response.data)}");
 
-      final account = CurrentUserDto.fromJson(response.data).toDomain();
+      final res = QuizAnswerDTO.fromJson(response.data);
+      return right(res);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
 
-      // return right(account);
-      // var account = response.data as List<dynamic>;
-      // var list = account.values.map((e) => DocumentDTO.fromJson(e)).toList();
-      // var list = account.map((e) => DocumentDTO.fromJson(e)).toList();
-      return right(account);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+      return left(const AccountFailure.serverError());
+    } catch (e) {
+      print("CATCH ERROR---> ${e}");
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AccountFailure, QuizAnswerDTO>> getQuizResultApi() async {
+    try {
+      final response = await apiService.getMethod(
+        ApiConstants.quizResult,
+      );
+      if (response != null) {
+        print("Response of Quiz Result---> ${jsonEncode(response.data)}");
+
+        final res = QuizAnswerDTO.fromJson(response.data);
+        return right(res);
+      } else {
+        return left(const AccountFailure.serverError());
+      }
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
@@ -1073,7 +1100,7 @@ class AccountRepository extends IAccountRepository {
         // "units_note": unitNotes,
         // "last_page": "AddCardDetail",
         "last_page": "AddCardDetail",
-        "isProfileComplete": 1,
+        "isProfileComplete": "1",
       };
 
       if (units.isNotEmpty) {
@@ -1096,7 +1123,6 @@ class AccountRepository extends IAccountRepository {
       // return right(account);
       // var account = response.data as List<dynamic>;
       // var list = account.values.map((e) => DocumentDTO.fromJson(e)).toList();
-
       // var list = account.map((e) => DocumentDTO.fromJson(e)).toList();
       return right(account);
     } on DioException catch (err) {

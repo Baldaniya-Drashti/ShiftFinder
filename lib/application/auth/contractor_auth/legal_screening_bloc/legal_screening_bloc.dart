@@ -107,6 +107,7 @@ class LegalScreeningBloc
             state.copyWith(
               isCheck: e.isCheck,
               authFailureOrSuccessOption: none(),
+              submitFailureOrSuccessOption: none(),
             ),
           );
         },
@@ -128,6 +129,7 @@ class LegalScreeningBloc
             state.copyWith(
               questionList: List.from(updatedList),
               authFailureOrSuccessOption: none(),
+              submitFailureOrSuccessOption: none(),
             ),
           );
         },

@@ -25,6 +25,8 @@ mixin _$QuizDTO {
   List<QuizMcqDTO>? get answers => throw _privateConstructorUsedError;
   List<QuizMcqDTO>? get selectedAnswers => throw _privateConstructorUsedError;
   int? get answer => throw _privateConstructorUsedError;
+  int? get total_correct_question => throw _privateConstructorUsedError;
+  int? get total_wrong_question => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +43,9 @@ abstract class $QuizDTOCopyWith<$Res> {
       String? question,
       List<QuizMcqDTO>? answers,
       List<QuizMcqDTO>? selectedAnswers,
-      int? answer});
+      int? answer,
+      int? total_correct_question,
+      int? total_wrong_question});
 }
 
 /// @nodoc
@@ -62,6 +66,8 @@ class _$QuizDTOCopyWithImpl<$Res, $Val extends QuizDTO>
     Object? answers = freezed,
     Object? selectedAnswers = freezed,
     Object? answer = freezed,
+    Object? total_correct_question = freezed,
+    Object? total_wrong_question = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -84,6 +90,14 @@ class _$QuizDTOCopyWithImpl<$Res, $Val extends QuizDTO>
           ? _value.answer
           : answer // ignore: cast_nullable_to_non_nullable
               as int?,
+      total_correct_question: freezed == total_correct_question
+          ? _value.total_correct_question
+          : total_correct_question // ignore: cast_nullable_to_non_nullable
+              as int?,
+      total_wrong_question: freezed == total_wrong_question
+          ? _value.total_wrong_question
+          : total_wrong_question // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -100,7 +114,9 @@ abstract class _$$QuizDTOImplCopyWith<$Res> implements $QuizDTOCopyWith<$Res> {
       String? question,
       List<QuizMcqDTO>? answers,
       List<QuizMcqDTO>? selectedAnswers,
-      int? answer});
+      int? answer,
+      int? total_correct_question,
+      int? total_wrong_question});
 }
 
 /// @nodoc
@@ -119,6 +135,8 @@ class __$$QuizDTOImplCopyWithImpl<$Res>
     Object? answers = freezed,
     Object? selectedAnswers = freezed,
     Object? answer = freezed,
+    Object? total_correct_question = freezed,
+    Object? total_wrong_question = freezed,
   }) {
     return _then(_$QuizDTOImpl(
       id: freezed == id
@@ -141,6 +159,14 @@ class __$$QuizDTOImplCopyWithImpl<$Res>
           ? _value.answer
           : answer // ignore: cast_nullable_to_non_nullable
               as int?,
+      total_correct_question: freezed == total_correct_question
+          ? _value.total_correct_question
+          : total_correct_question // ignore: cast_nullable_to_non_nullable
+              as int?,
+      total_wrong_question: freezed == total_wrong_question
+          ? _value.total_wrong_question
+          : total_wrong_question // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -153,7 +179,9 @@ class _$QuizDTOImpl implements _QuizDTO {
       this.question,
       final List<QuizMcqDTO>? answers,
       final List<QuizMcqDTO>? selectedAnswers,
-      this.answer})
+      this.answer,
+      this.total_correct_question,
+      this.total_wrong_question})
       : _answers = answers,
         _selectedAnswers = selectedAnswers;
 
@@ -186,10 +214,14 @@ class _$QuizDTOImpl implements _QuizDTO {
 
   @override
   final int? answer;
+  @override
+  final int? total_correct_question;
+  @override
+  final int? total_wrong_question;
 
   @override
   String toString() {
-    return 'QuizDTO(id: $id, question: $question, answers: $answers, selectedAnswers: $selectedAnswers, answer: $answer)';
+    return 'QuizDTO(id: $id, question: $question, answers: $answers, selectedAnswers: $selectedAnswers, answer: $answer, total_correct_question: $total_correct_question, total_wrong_question: $total_wrong_question)';
   }
 
   @override
@@ -203,7 +235,11 @@ class _$QuizDTOImpl implements _QuizDTO {
             const DeepCollectionEquality().equals(other._answers, _answers) &&
             const DeepCollectionEquality()
                 .equals(other._selectedAnswers, _selectedAnswers) &&
-            (identical(other.answer, answer) || other.answer == answer));
+            (identical(other.answer, answer) || other.answer == answer) &&
+            (identical(other.total_correct_question, total_correct_question) ||
+                other.total_correct_question == total_correct_question) &&
+            (identical(other.total_wrong_question, total_wrong_question) ||
+                other.total_wrong_question == total_wrong_question));
   }
 
   @JsonKey(ignore: true)
@@ -214,7 +250,9 @@ class _$QuizDTOImpl implements _QuizDTO {
       question,
       const DeepCollectionEquality().hash(_answers),
       const DeepCollectionEquality().hash(_selectedAnswers),
-      answer);
+      answer,
+      total_correct_question,
+      total_wrong_question);
 
   @JsonKey(ignore: true)
   @override
@@ -236,7 +274,9 @@ abstract class _QuizDTO implements QuizDTO {
       final String? question,
       final List<QuizMcqDTO>? answers,
       final List<QuizMcqDTO>? selectedAnswers,
-      final int? answer}) = _$QuizDTOImpl;
+      final int? answer,
+      final int? total_correct_question,
+      final int? total_wrong_question}) = _$QuizDTOImpl;
 
   factory _QuizDTO.fromJson(Map<String, dynamic> json) = _$QuizDTOImpl.fromJson;
 
@@ -250,6 +290,10 @@ abstract class _QuizDTO implements QuizDTO {
   List<QuizMcqDTO>? get selectedAnswers;
   @override
   int? get answer;
+  @override
+  int? get total_correct_question;
+  @override
+  int? get total_wrong_question;
   @override
   @JsonKey(ignore: true)
   _$$QuizDTOImplCopyWith<_$QuizDTOImpl> get copyWith =>
@@ -425,5 +469,200 @@ abstract class _QuizMcqDTO implements QuizMcqDTO {
   @override
   @JsonKey(ignore: true)
   _$$QuizMcqDTOImplCopyWith<_$QuizMcqDTOImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+QuizAnswerDTO _$QuizAnswerDTOFromJson(Map<String, dynamic> json) {
+  return _QuizAnswerDTO.fromJson(json);
+}
+
+/// @nodoc
+mixin _$QuizAnswerDTO {
+  List<QuizDTO>? get list => throw _privateConstructorUsedError;
+  int? get total_correct_question => throw _privateConstructorUsedError;
+  int? get total_wrong_question => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $QuizAnswerDTOCopyWith<QuizAnswerDTO> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $QuizAnswerDTOCopyWith<$Res> {
+  factory $QuizAnswerDTOCopyWith(
+          QuizAnswerDTO value, $Res Function(QuizAnswerDTO) then) =
+      _$QuizAnswerDTOCopyWithImpl<$Res, QuizAnswerDTO>;
+  @useResult
+  $Res call(
+      {List<QuizDTO>? list,
+      int? total_correct_question,
+      int? total_wrong_question});
+}
+
+/// @nodoc
+class _$QuizAnswerDTOCopyWithImpl<$Res, $Val extends QuizAnswerDTO>
+    implements $QuizAnswerDTOCopyWith<$Res> {
+  _$QuizAnswerDTOCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? list = freezed,
+    Object? total_correct_question = freezed,
+    Object? total_wrong_question = freezed,
+  }) {
+    return _then(_value.copyWith(
+      list: freezed == list
+          ? _value.list
+          : list // ignore: cast_nullable_to_non_nullable
+              as List<QuizDTO>?,
+      total_correct_question: freezed == total_correct_question
+          ? _value.total_correct_question
+          : total_correct_question // ignore: cast_nullable_to_non_nullable
+              as int?,
+      total_wrong_question: freezed == total_wrong_question
+          ? _value.total_wrong_question
+          : total_wrong_question // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$QuizAnswerDTOImplCopyWith<$Res>
+    implements $QuizAnswerDTOCopyWith<$Res> {
+  factory _$$QuizAnswerDTOImplCopyWith(
+          _$QuizAnswerDTOImpl value, $Res Function(_$QuizAnswerDTOImpl) then) =
+      __$$QuizAnswerDTOImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {List<QuizDTO>? list,
+      int? total_correct_question,
+      int? total_wrong_question});
+}
+
+/// @nodoc
+class __$$QuizAnswerDTOImplCopyWithImpl<$Res>
+    extends _$QuizAnswerDTOCopyWithImpl<$Res, _$QuizAnswerDTOImpl>
+    implements _$$QuizAnswerDTOImplCopyWith<$Res> {
+  __$$QuizAnswerDTOImplCopyWithImpl(
+      _$QuizAnswerDTOImpl _value, $Res Function(_$QuizAnswerDTOImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? list = freezed,
+    Object? total_correct_question = freezed,
+    Object? total_wrong_question = freezed,
+  }) {
+    return _then(_$QuizAnswerDTOImpl(
+      list: freezed == list
+          ? _value._list
+          : list // ignore: cast_nullable_to_non_nullable
+              as List<QuizDTO>?,
+      total_correct_question: freezed == total_correct_question
+          ? _value.total_correct_question
+          : total_correct_question // ignore: cast_nullable_to_non_nullable
+              as int?,
+      total_wrong_question: freezed == total_wrong_question
+          ? _value.total_wrong_question
+          : total_wrong_question // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$QuizAnswerDTOImpl implements _QuizAnswerDTO {
+  const _$QuizAnswerDTOImpl(
+      {final List<QuizDTO>? list,
+      this.total_correct_question,
+      this.total_wrong_question})
+      : _list = list;
+
+  factory _$QuizAnswerDTOImpl.fromJson(Map<String, dynamic> json) =>
+      _$$QuizAnswerDTOImplFromJson(json);
+
+  final List<QuizDTO>? _list;
+  @override
+  List<QuizDTO>? get list {
+    final value = _list;
+    if (value == null) return null;
+    if (_list is EqualUnmodifiableListView) return _list;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final int? total_correct_question;
+  @override
+  final int? total_wrong_question;
+
+  @override
+  String toString() {
+    return 'QuizAnswerDTO(list: $list, total_correct_question: $total_correct_question, total_wrong_question: $total_wrong_question)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$QuizAnswerDTOImpl &&
+            const DeepCollectionEquality().equals(other._list, _list) &&
+            (identical(other.total_correct_question, total_correct_question) ||
+                other.total_correct_question == total_correct_question) &&
+            (identical(other.total_wrong_question, total_wrong_question) ||
+                other.total_wrong_question == total_wrong_question));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_list),
+      total_correct_question,
+      total_wrong_question);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$QuizAnswerDTOImplCopyWith<_$QuizAnswerDTOImpl> get copyWith =>
+      __$$QuizAnswerDTOImplCopyWithImpl<_$QuizAnswerDTOImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$QuizAnswerDTOImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _QuizAnswerDTO implements QuizAnswerDTO {
+  const factory _QuizAnswerDTO(
+      {final List<QuizDTO>? list,
+      final int? total_correct_question,
+      final int? total_wrong_question}) = _$QuizAnswerDTOImpl;
+
+  factory _QuizAnswerDTO.fromJson(Map<String, dynamic> json) =
+      _$QuizAnswerDTOImpl.fromJson;
+
+  @override
+  List<QuizDTO>? get list;
+  @override
+  int? get total_correct_question;
+  @override
+  int? get total_wrong_question;
+  @override
+  @JsonKey(ignore: true)
+  _$$QuizAnswerDTOImplCopyWith<_$QuizAnswerDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

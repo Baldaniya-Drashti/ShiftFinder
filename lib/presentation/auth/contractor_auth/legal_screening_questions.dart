@@ -60,7 +60,8 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
               },
               (r) {
                 context.router
-                    .push(const PageRouteInfo(TermsAndConditionsScreen.name));
+                    .push(const PageRouteInfo(TermsAndConditionsScreen.name))
+                    .then((value) {});
               },
             ),
           );

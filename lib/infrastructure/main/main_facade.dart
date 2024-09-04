@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/api_constants.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
@@ -18,7 +19,7 @@ import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
 @LazySingleton(as: IMainFacade)
 class MainFacade implements IMainFacade {
   final ApiService apiService;
-  // static const int _perPage = 25;
+  static const int _perPage = 25;
 
   MainFacade({required this.apiService});
 
@@ -185,26 +186,7 @@ class MainFacade implements IMainFacade {
 
   @override
   Future<Either<MainFailure, HealthcarePostDTO>> createPostShiftApi(
-      {
-      // required int postId,
-      // required int shiftType,
-      // required String date,
-      // required int sameOrDifferentTime,
-      // required String multiDate,
-      // required String startTime,
-      // required String endTime,
-      // required int unpaidBreakId,
-      // required String totalPayableHour,
-      // required int commuteAllowanceType,
-      // required String commuteAllowance,
-      // required int accommodationAllowanceType,
-      // required String accommodationAllowance,
-      // required int individualShift,
-      // required String shiftNote,
-      // required int vacancieType,
-      // required int numberOfVacancie,
-
-      required MultiShiftDTO shift}) async {
+      {required MultiShiftDTO shift}) async {
     List<Map<String, dynamic>> mapMultiDateToApiFormat() {
       print("passShiftData111---> ${shift.multi_date}");
 
@@ -380,7 +362,6 @@ class MainFacade implements IMainFacade {
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const MainFailure.networkError());
       }
-
       return left(const MainFailure.serverError());
     }
   }
@@ -479,6 +460,311 @@ class MainFacade implements IMainFacade {
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const MainFailure.networkError());
       }
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, HealthcarePostDTO>> updatePostApi({
+    required PostShiftDTO postShiftDetail,
+  }) async {
+    try {
+      Map<String, dynamic> mapData = postShiftDetail.toJson();
+
+      print("Sending Data->  ${jsonEncode(mapData)}");
+      final res = await apiService.postMethod(ApiConstants.updatePost, mapData);
+      final data = HealthcarePostDTO.fromJson(res.data);
+      print("Healthercare Post Response->  ${data}");
+      return right(data);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, HealthcarePostDTO>> getPostApi({
+    required int postId,
+  }) async {
+    try {
+      Map<String, dynamic> mapData = {'id': postId};
+
+      print("Sending Data->  ${jsonEncode(mapData)}");
+      final res = await apiService.getMethod(ApiConstants.getPost,
+          queryParameters: mapData);
+      if (res != null) {
+        final data = HealthcarePostDTO.fromJson(res.data);
+        print("Healthercare Post Response->  ${data}");
+        return right(data);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, String>> deletePostApi({
+    required int postId,
+  }) async {
+    try {
+      // Map<String, dynamic> mapData = {'id': postId};
+
+      print("Sending Data->  ${postId}");
+      final res =
+          await apiService.deleteMethod("${ApiConstants.deletePost}/$postId");
+      if (res != null) {
+        return right(res.dioMessage ?? "");
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> getEmployerDashboardListAPI(
+      {required int page}) async {
+    try {
+      Map<String, dynamic> mapData = {
+        'page': page,
+        'perPage': _perPage,
+      };
+      // if (productId != null) {
+      //   mapData.addAll({
+      //     'is_like_list': "1",
+      //     'product_id': productId,
+      //   });
+      // }
+      final res = await apiService.getMethod(ApiConstants.employerDashboard,
+          queryParameters: mapData);
+
+      if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> getViewApplicantsAPI(
+      {required String postId, required bool isTotalApplicants}) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> getEmployerTeamsListAPI(
+      {required int page}) async {
+    try {
+      Map<String, dynamic> mapData = {
+        'page': page,
+        'perPage': _perPage,
+      };
+
+      final res = await apiService.getMethod(ApiConstants.getTeamList,
+          queryParameters: mapData);
+
+      if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, String>> createTeamApi(
+      {required String locationId, required InputEmptyOrNot teamName}) async {
+    try {
+      Map<String, dynamic> mapData = {
+        "location_id": locationId,
+        "team_name": teamName.getValue()?.trim()
+      };
+
+      final res = await apiService.postMethod(
+        ApiConstants.createTeam,
+        mapData,
+      );
+
+      return right(res.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, String>> createTeamMemberApi(
+      {required String teamId,
+      required InputEmptyOrNot teamMemberName,
+      required InputEmptyOrNot position,
+      required String countryCode,
+      required String countryNameCode,
+      required EmailAddress email,
+      required MobileNumber phoneNumber}) async {
+    try {
+      Map<String, dynamic> mapData = {
+        "team_id": teamId,
+        "name": teamMemberName.getValue(),
+        "position": position.getValue(),
+        "country_code": countryCode,
+        "country_name_code": countryNameCode,
+        "phone": phoneNumber.getValue(),
+        "email": email.getValue(),
+      };
+
+      final res = await apiService.postMethod(
+        ApiConstants.createTeamMember,
+        mapData,
+      );
+
+      return right(res.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, String>> updateTeamMemberApi(
+      {required String teamMemberId,
+      required InputEmptyOrNot teamMemberName,
+      required InputEmptyOrNot position,
+      required String countryCode,
+      required String countryNameCode,
+      required EmailAddress email,
+      required MobileNumber phoneNumber}) async {
+    try {
+      Map<String, dynamic> mapData = {
+        "name": teamMemberName.getValue(),
+        "position": position.getValue(),
+        "country_code": countryCode,
+        "country_name_code": countryNameCode,
+        "phone": phoneNumber.getValue(),
+        "email": email.getValue(),
+      };
+
+      final res = await apiService.putMethod(
+        "${ApiConstants.updateTeamMember}/$teamMemberId",
+        data: mapData,
+      );
+
+      return right(res?.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, String>> deleteTeamMemberApi(
+      {required String teamMemberId}) async {
+    try {
+      final res = await apiService.deleteMethod(
+        "${ApiConstants.deleteTeamMember}/$teamMemberId",
+      );
+
+      return right(res?.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
       return left(const MainFailure.serverError());
     }
   }

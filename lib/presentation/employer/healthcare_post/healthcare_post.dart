@@ -495,7 +495,7 @@
 //   }
 // }
 
-// ignore_for_file: must_be_immutable, avoid_print, prefer_const_constructors
+// ignore_for_file: must_be_immutable, avoid_print, prefer_const_constructors, unnecessary_brace_in_string_interps
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -508,6 +508,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -518,14 +519,18 @@ import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
+import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_chip_display.dart';
+import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_select_item.dart';
+import 'package:shift/presentation/core/widgets/multi_selectable_dropdown/multi_selectable_dropdown.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'healthCarePostForm')
 class HealthCarePostForm extends StatelessWidget {
+  int? postId;
   bool isFromSplash = false;
 
-  HealthCarePostForm({super.key, this.isFromSplash = false});
+  HealthCarePostForm({super.key, this.postId, this.isFromSplash = false});
 
   TextEditingController otherSpecialitiesController = TextEditingController();
   TextEditingController otherRoleController = TextEditingController();
@@ -536,9 +541,10 @@ class HealthCarePostForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Post id--> $postId");
     return BlocProvider(
       create: (context) => getIt<HealthcarePostBloc>()
-        ..add(const HealthcarePostEvent.getAllDropDownList()),
+        ..add(HealthcarePostEvent.getAllDropDownList(postId ?? -1)),
       child: GestureDetector(
         onTap: () {
           AppFocus.unfocus(context);
@@ -639,6 +645,9 @@ class HealthCarePostForm extends StatelessWidget {
       labelText: StringConstant.role,
       isLabelPadding: true,
       showTextfield: false,
+      value: (state.roleType.getValue()!.isNotEmpty)
+          ? state.roleType.getValue()
+          : null,
       items: state.roleList.map((val) {
         return DropdownMenuItem<String>(
           value: val.name,
@@ -670,7 +679,9 @@ class HealthCarePostForm extends StatelessWidget {
 
   Widget preferredSoftwareSkillsDropDownChipSet(
       BuildContext context, HealthcarePostState state) {
-    return Column(
+    print(
+        "state.requiredSoftwareSkillChipList---> ${state.requiredSoftwareSkillChipList}");
+    /*return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -752,12 +763,61 @@ class HealthCarePostForm extends StatelessWidget {
           },
         ),
       ],
+    );*/
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        MultiSelectDialogField(
+          isOptional: true,
+          initialValue: state.requiredSoftwareSkillChipList.getValue(),
+          otherInitialValue: state.softwareSkillOther,
+          items: state.softwareList
+              .map((item) =>
+                  MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
+              .toList(),
+          title: StringConstant.softwareSkillSet,
+          labelText: StringConstant.softwareSkillSet,
+          selectedColor: AppColors.black,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          chipDisplay: MultiSelectChipDisplay(
+            chipColor: AppColors.transparent,
+            onDelete: (value) {
+              print("On delete called!");
+              context.read<HealthcarePostBloc>().add(
+                  HealthcarePostEvent.removePreferedSoftwareSkillchips(
+                      value.toString()));
+            },
+          ),
+          buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
+          buttonText: Text(
+            StringConstant.softwareSkillSet,
+            style: TextStyle(
+                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+          ),
+          onConfirm: (selectedList, otherValues) {
+            context
+                .read<HealthcarePostBloc>()
+                .add(HealthcarePostEvent.confirmSoftwareSkill(
+                  List<String>.from(selectedList),
+                  List<String>.from(otherValues),
+                ));
+          },
+        ),
+        /*if (state.showErrorMessages &&
+            state.requiredSoftwareSkillChipList.getValue().isEmpty &&
+            state.softwareSkillOther.isEmpty)
+          commonErrorText(StringConstant.pleaseSelectAtLeastOneSkillSet)*/
+      ],
     );
   }
 
   Widget requiredSpecialityDropDownChipset(
       BuildContext context, HealthcarePostState state) {
-    return Column(
+    /*return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -838,12 +898,61 @@ class HealthCarePostForm extends StatelessWidget {
           },
         ),
       ],
+    );*/
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        MultiSelectDialogField(
+          isOptional: true,
+          items: state.specialityList
+              .map((item) =>
+                  MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
+              .toList(),
+          title: StringConstant.specialties,
+          labelText: StringConstant.specialties,
+          selectedColor: AppColors.black,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          chipDisplay: MultiSelectChipDisplay(
+            chipColor: AppColors.transparent,
+            onDelete: (value) {
+              print("On delete called!");
+              context.read<HealthcarePostBloc>().add(
+                  HealthcarePostEvent.removeRequiredSpecialitichips(
+                      value.toString()));
+            },
+          ),
+          buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
+          buttonText: Text(
+            StringConstant.specialties,
+            style: TextStyle(
+                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+          ),
+          onConfirm: (selectedList, otherValues) {
+            print("----> $selectedList");
+            print("----> $otherValues");
+            context
+                .read<HealthcarePostBloc>()
+                .add(HealthcarePostEvent.confirmSpecialityList(
+                  List<String>.from(selectedList),
+                  List<String>.from(otherValues),
+                ));
+          },
+        ),
+        /* if (state.showErrorMessages &&
+            state.requiredSpecialityChipList.getValue().isEmpty &&
+            state.specialityOther.isEmpty)
+          commonErrorText(StringConstant.pleaseSelectAtLeastOneSpeciality)*/
+      ],
     );
   }
 
   Widget languageDropDownChipSet(
       BuildContext context, HealthcarePostState state) {
-    return Column(
+    /*return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -932,6 +1041,54 @@ class HealthCarePostForm extends StatelessWidget {
           },
         ),
       ],
+    );*/
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        MultiSelectDialogField(
+          items: state.languageList
+              .map((item) =>
+                  MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
+              .toList(),
+          title: StringConstant.languagesKnown,
+          labelText: StringConstant.languagesKnown,
+          selectedColor: AppColors.black,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          chipDisplay: MultiSelectChipDisplay(
+            chipColor: AppColors.transparent,
+            onDelete: (value) {
+              context.read<HealthcarePostBloc>().add(
+                  HealthcarePostEvent.removeLanguageChips(value.toString()));
+            },
+          ),
+          buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
+          buttonText: Text(
+            StringConstant.languagesKnown,
+            style: TextStyle(
+                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+          ),
+          initialValue: state.languageChipList.getValue(),
+          otherInitialValue: state.languageOther,
+          onConfirm: (selectedList, otherValues) {
+            print("----> $selectedList");
+            print("----> $otherValues");
+            context
+                .read<HealthcarePostBloc>()
+                .add(HealthcarePostEvent.confirmLanguageList(
+                  List<String>.from(selectedList),
+                  List<String>.from(otherValues),
+                ));
+          },
+        ),
+        if (state.showErrorMessages &&
+            state.languageChipList.getValue().isEmpty &&
+            state.languageOther.isEmpty)
+          commonErrorText(StringConstant.pleaseSelectAtLeastOneLanguage)
+      ],
     );
   }
 
@@ -941,6 +1098,9 @@ class HealthCarePostForm extends StatelessWidget {
       isLabelPadding: true,
       isPrefixValueShow: true,
       errorMaxLines: 2,
+      initialValue: (state.rateHour.getValue()!.isNotEmpty)
+          ? state.rateHour.getValue()
+          : null,
       hintText: StringConstant.rateHour,
       keyboardType:
           TextInputType.numberWithOptions(decimal: true, signed: true),
@@ -978,15 +1138,19 @@ class HealthCarePostForm extends StatelessWidget {
   }
 
   Widget locationDropDown(BuildContext context, HealthcarePostState state) {
+    print("state.location.getValue()--> ${state.location.getValue()}");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        CustomDropdwonWithTextField(
+        CustomLocationDropdDown(
           labelText: StringConstant.location,
           isLabelPadding: true,
           showTextfield: false,
           isOptional: true,
+          value: (state.location.getValue()!.isNotEmpty)
+              ? state.location.getValue()
+              : null,
           optionalWidget: GestureDetector(
             onTap: () {
               AppDialog.showInfo(
@@ -1022,9 +1186,11 @@ class HealthCarePostForm extends StatelessWidget {
                     (_) => null,
                   ),
           onChanged: (value) {
+            // print("SELECTED LOCATION----> ${value}");
+            // LocationDTO selectedValue = value;
             if (value != null) {
               context.read<HealthcarePostBloc>().add(
-                    HealthcarePostEvent.locationChanged(value),
+                    HealthcarePostEvent.locationChanged(value.toString()),
                   );
             }
           },

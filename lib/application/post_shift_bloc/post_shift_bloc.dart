@@ -70,7 +70,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               singleShiftFailureOrSuccessOption: none(),
             ),
           );
-          add(PostShiftEvent.getBreakAllownceListApi());
+          add(PostShiftEvent.getBreakAllownceListApi(e.updateShift));
           SkillDTO? selectedSkillDTO = shiftTypeList.firstWhere(
             (skill) => skill.name == e.shiftType,
             orElse: () => SkillDTO(),
@@ -79,7 +79,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             state.copyWith(
               shiftType: selectedSkillDTO.id ?? -1,
               postId: e.postId,
-              isLoading: false,
+              // isLoading: false,
               singleShiftFailureOrSuccessOption: none(),
             ),
           );
@@ -90,12 +90,21 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           // Either<AuthFailure, SkillListDTO>? res;
           emit(
             state.copyWith(
-              isLoading: true,
+              // isLoading: true,
               singleShiftFailureOrSuccessOption: none(),
             ),
           );
           await getUnpaidBreakListApi(emit);
           await getaAccomdationHoursListApi(emit);
+          if (e.updateShift != null) {
+            setShiftDataToUpdate(emit, e.updateShift!);
+          }
+          emit(
+            state.copyWith(
+              isLoading: false,
+              singleShiftFailureOrSuccessOption: none(),
+            ),
+          );
         },
 
         singleShiftDateChangedEvent: (e) {
@@ -431,6 +440,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           emit(
             state.copyWith(
               isLoading: true,
+              recurringFailureOrSuccessOption: none(),
             ),
           );
           if (isRecurringValid(state) && isTeamsValid(state)) {
@@ -452,12 +462,28 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             final postObj = state.post.copyWith(
               // post_shift_id: e.postShiftId,
               recurring_status: (state.isToBeRecurring) ? 1 : 0,
-              start_date: state.recurringStartDate.getValue() ?? "",
+
+              recurring_start_date:
+                  (state.recurringStartDate.getValue() != null &&
+                          state.recurringStartDate.getValue()!.isNotEmpty)
+                      ? (DateTime.parse(state.recurringStartDate.getValue()!)
+                                  .toUtc()
+                                  .millisecondsSinceEpoch /
+                              1000)
+                          .toString()
+                      : "",
               recurrence_mode:
                   (state.recurrenceMode.getValue() == "Weekly") ? 2 : 1,
               days: getSelectedRecurringDayIds(
                   state.recurrenceWeekList.getValue()),
-              end_date: state.recurringEndDate.getValue() ?? "",
+              recurring_end_date: (state.recurringEndDate.getValue() != null &&
+                      state.recurringEndDate.getValue()!.isNotEmpty)
+                  ? (DateTime.parse(state.recurringEndDate.getValue()!)
+                              .toUtc()
+                              .millisecondsSinceEpoch /
+                          1000)
+                      .toString()
+                  : "",
               disclaimer: state.disclaimerNote,
               share_team_status: (state.isShareWithTeams) ? 1 : 0,
               team_id:
@@ -759,6 +785,47 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
       );
     });
   }
+  setShiftDataToUpdate(
+      Emitter<PostShiftState> emit, HealthcarePostDTO updatedShift) async {
+    final r = updatedShift.shift_detail;
+    if (r != null) {
+      emit(
+        state.copyWith(
+          shiftType: r.shift_type ?? 1,
+          unpaidBreak: InputEmptyOrNot(r.unpaid_break?.name ?? ""),
+          totalPaybleHours: r.total_payable_hour ?? "",
+          selectedCommuteAllownce:
+              InputEmptyOrNot((r.commute_allowance_type == 1)
+                  ? "Flat Rate"
+                  : (r.commute_allowance_type == 2)
+                      ? "Hours"
+                      : "None"),
+          commuteHour: InputEmptyOrNot((r.commute_allowance_type == 2)
+              ? getAccomdationHourName(r.commute_allowance_type_details ?? 0)
+              : ""),
+          commuteRate: InputEmptyOrNot((r.commute_allowance_type == 1)
+              ? "${r.commute_allowance_type_details ?? 0}"
+              : ""),
+          selectedAccomdationAllownce:
+              InputEmptyOrNot((r.accommodation_allowance_type == 1)
+                  ? "Flat Rate"
+                  : (r.accommodation_allowance_type == 2)
+                      ? "Hours"
+                      : "None"),
+          accomdationHour: InputEmptyOrNot((r.accommodation_allowance_type == 2)
+              ? getAccomdationHourName(
+                  r.accommodation_allowance_type_details ?? 0)
+              : ""),
+          accomdationRate: InputEmptyOrNot((r.accommodation_allowance_type == 1)
+              ? "${r.accommodation_allowance_type_details ?? 0}"
+              : ""),
+          singleShiftNote: r.shift_note ?? "",
+          isMoreVacancy: (r.vacancie_type == 1) ? true : false,
+          selectedVacancy: InputEmptyOrNot("${r.number_of_vacancie ?? 0}"),
+        ),
+      );
+    }
+  }
 
   PostShiftDTO continueWithPostDetail(
       PostShiftState state, MultiShiftDTO shift) {
@@ -859,6 +926,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
       ),
       (r) {
         print("Hours List ---> $hoursList");
+
         return emit(
           state.copyWith(
             isLoading: false,
@@ -1051,6 +1119,14 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
         orElse: () => SkillDTO());
     print("Hour ID --> $hourId");
     return "${hourId.id ?? -1}";
+  }
+
+  String getAccomdationHourName(int id) {
+    print("id of hour--> ${state.accomdationHoursList}");
+    final hour = state.accomdationHoursList
+        .firstWhere((hour) => hour.id == id, orElse: () => SkillDTO());
+    print("Hour --> $hour");
+    return hour.name ?? "";
   }
 
   /*MultiShiftDTO passShiftData(PostShiftState state,

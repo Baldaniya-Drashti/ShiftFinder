@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
+import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/main_failure.dart';
+import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
@@ -21,6 +23,27 @@ abstract class IMainFacade {
   });*/
   Future<Either<MainFailure, HealthcarePostDTO>> createPostApi({
     required PostShiftDTO postShiftDetail,
+  });
+  Future<Either<MainFailure, HealthcarePostDTO>> updatePostApi({
+    required PostShiftDTO postShiftDetail,
+  });
+  Future<Either<MainFailure, HealthcarePostDTO>> getPostApi({
+    required int postId,
+  });
+  Future<Either<MainFailure, String>> deletePostApi({
+    required int postId,
+  });
+  Future<Either<MainFailure, CommonResponse>> getEmployerDashboardListAPI({
+    required int page,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> getViewApplicantsAPI({
+    required String postId,
+    required bool isTotalApplicants,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> getEmployerTeamsListAPI({
+    required int page,
   });
   Future<Either<MainFailure, List<SkillDTO>>> getUnpaidBreakListApi();
   Future<Either<MainFailure, List<SkillDTO>>> getAccomdationHoursListApi();
@@ -48,5 +71,32 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, String>> postShiftApi({
     required int postId,
+  });
+  Future<Either<MainFailure, String>> createTeamApi({
+    required String locationId,
+    required InputEmptyOrNot teamName,
+  });
+
+  Future<Either<MainFailure, String>> createTeamMemberApi({
+    required String teamId,
+    required InputEmptyOrNot teamMemberName,
+    required InputEmptyOrNot position,
+    required String countryCode,
+    required String countryNameCode,
+    required EmailAddress email,
+    required MobileNumber phoneNumber,
+  });
+
+  Future<Either<MainFailure, String>> updateTeamMemberApi({
+    required String teamMemberId,
+    required InputEmptyOrNot teamMemberName,
+    required InputEmptyOrNot position,
+    required String countryCode,
+    required String countryNameCode,
+    required EmailAddress email,
+    required MobileNumber phoneNumber,
+  });
+  Future<Either<MainFailure, String>> deleteTeamMemberApi({
+    required String teamMemberId,
   });
 }

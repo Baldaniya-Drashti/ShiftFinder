@@ -1406,10 +1406,11 @@ class ImmunizationBloc extends Bloc<ImmunizationEvent, ImmunizationState> {
           final isImmunizationNameValid = state.immunizationName.isValid();
 
           /// True When click on continue - add more btn and all details are valid
-          if (isImmunizationDocValid &&
-              isImmunizationNameValid &&
-              (state.isImmunizationExpiryCheck ||
-                  state.immunizationExpiryDate.isNotEmpty)) {
+          if (isImmunizationDocValid && isImmunizationNameValid
+              /*(state.isImmunizationExpiryCheck ||
+                  state.immunizationExpiryDate.isNotEmpty)*/
+
+              ) {
             /*emit(
               state.copyWith(
                 isImmunizationDocSubmitting: true,

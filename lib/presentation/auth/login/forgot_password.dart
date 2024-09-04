@@ -551,12 +551,16 @@ class FilterBottomSheet extends StatelessWidget {
                       const ForgotPasswordEvent.obscureText(1),
                     );
               },
-              child: SvgPicture.asset(
-                (state.isNewPassObscure)
-                    ? SvgImageConstant.closeEye
-                    : SvgImageConstant.openEye,
-                height: getSize(24),
-                width: getSize(24),
+              child: Container(
+                color: AppColors.transparent,
+                padding: EdgeInsets.all(8.0),
+                child: SvgPicture.asset(
+                  (state.isNewPassObscure)
+                      ? SvgImageConstant.closeEye
+                      : SvgImageConstant.openEye,
+                  height: getSize(24),
+                  width: getSize(24),
+                ),
               ),
             ),
           ),

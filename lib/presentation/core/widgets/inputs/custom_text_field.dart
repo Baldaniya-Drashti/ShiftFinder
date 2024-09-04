@@ -127,7 +127,7 @@ class CustomTextField extends StatelessWidget {
                   text: labelText ?? "",
                   fontSize: labelStyle?.fontSize ?? 14,
                   fontWeight: FontWeight.w500,
-                  textColor: labelStyle?.color ?? AppColors.black,
+                  textColor: labelStyle?.color ?? Color(0xff030202),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
@@ -147,33 +147,6 @@ class CustomTextField extends StatelessWidget {
                 ),
               ],
             ),
-            // (isOptional == true && optionalWidget == null)
-            //     ? RichText(
-            //         text: TextSpan(
-            //             text: labelText ?? "",
-            //             style: TextStyle(
-            //                 fontSize: getFontSize(14),
-            //                 fontWeight: FontWeight.w500,
-            //                 color: AppColors.black,
-            //                 fontFamily: "Roboto Flex"),
-            //             children: [
-            //               TextSpan(
-            //                 text: "  (Optional)",
-            //                 style: TextStyle(
-            //                   fontSize: getFontSize(10),
-            //                   fontWeight: FontWeight.w500,
-            //                   color: AppColors.black.withOpacity(0.8),
-            //                   fontFamily: "Roboto Flex",
-            //                 ),
-            //               )
-            //             ]),
-            //       )
-            //     : BaseText(
-            //         text: labelText ?? "",
-            //         fontSize: 14,
-            //         fontWeight: FontWeight.w500,
-            //         textColor: AppColors.black,
-            //       ),
           ),
           SizedBox(height: getSize(8)),
         ],
@@ -240,9 +213,9 @@ class CustomTextField extends StatelessWidget {
                   hintText: hintText,
                   contentPadding: EdgeInsets.symmetric(
                     vertical: getSize(12),
-                    horizontal: getSize(18),
+                    horizontal: getSize(20),
                   ),
-                  // isDense: true,
+                  isDense: true,
                   alignLabelWithHint: true,
                   border: border,
                   enabledBorder: border,

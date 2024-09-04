@@ -10,10 +10,12 @@ import 'package:shift/domain/core/document_expiry_picker.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -25,10 +27,13 @@ import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 class SinglePostShift extends StatelessWidget {
   int shiftType;
   int postId;
+  HealthcarePostDTO? updateShift;
+
   PostShiftDTO post;
 
   SinglePostShift(
       {super.key,
+      this.updateShift,
       required this.shiftType,
       required this.postId,
       required this.post});
@@ -38,7 +43,7 @@ class SinglePostShift extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<PostShiftBloc>()
         ..add(PostShiftEvent.changeShiftType("Single",
-            postId: postId, post: post)),
+            postId: postId, post: post, updateShift: updateShift)),
       child: BlocConsumer<PostShiftBloc, PostShiftState>(
         listener: (context, state) {
           state.singleShiftFailureOrSuccessOption.fold(
@@ -68,76 +73,77 @@ class SinglePostShift extends StatelessWidget {
           );
         },
         builder: (context, state) {
-          return Form(
-            autovalidateMode: (state.singleShiftErrorMessages)
-                ? AutovalidateMode.always
-                : AutovalidateMode.disabled,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                paddingBetweenFields(),
-                dateField(context, state),
-                paddingBetweenFields(),
-                startTime(context, state),
-                paddingBetweenFields(),
-                endTime(context, state),
-                paddingBetweenFields(),
-                unpaidBreakDropDown(context, state),
-                if (state.singleShiftErrorMessages &&
-                    (!state.unpaidBreak.isValid()))
-                  commonErrorText(
-                    StringConstant.pleaseSelectUnpaidBreakTime,
+          return (state.isLoading)
+              ? CenterLoadingIndicator(isOnlyLoader: true)
+              : Form(
+                  autovalidateMode: (state.singleShiftErrorMessages)
+                      ? AutovalidateMode.always
+                      : AutovalidateMode.disabled,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      paddingBetweenFields(),
+                      dateField(context, state),
+                      paddingBetweenFields(),
+                      startTime(context, state),
+                      paddingBetweenFields(),
+                      endTime(context, state),
+                      paddingBetweenFields(),
+                      unpaidBreakDropDown(context, state),
+                      if (state.singleShiftErrorMessages &&
+                          (!state.unpaidBreak.isValid()))
+                        commonErrorText(
+                          StringConstant.pleaseSelectUnpaidBreakTime,
+                        ),
+                      paddingBetweenFields(),
+                      totalPaybleHours(state),
+                      paddingBetweenFields(),
+                      commuteAllownceDropDown(context, state),
+                      if (state.singleShiftErrorMessages &&
+                          !(PostShiftBloc.isAllownceValid(
+                              selectedValue: state.selectedCommuteAllownce,
+                              hourValue: state.commuteHour,
+                              rateValue: state.commuteRate)))
+                        commonErrorText(
+                            StringConstant.pleaseSelectCommuteAllownceValue),
+                      paddingBetweenFields(),
+                      accommodationAllowanceDropDown(context, state),
+                      if (state.singleShiftErrorMessages &&
+                          !(PostShiftBloc.isAllownceValid(
+                              selectedValue: state.selectedAccomdationAllownce,
+                              hourValue: state.accomdationHour,
+                              rateValue: state.accomdationRate)))
+                        commonErrorText(StringConstant
+                            .pleaseSelectAccomdationAllownceValue),
+                      paddingBetweenFields(),
+                      shiftNotesField(context, state),
+                      paddingBetweenFields(),
+                      vacancyCheckBox(context, state),
+                      if (state.isMoreVacancy) ...[
+                        paddingBetweenFields(),
+                        numberOfVacancy(context, state),
+                        if (state.singleShiftErrorMessages &&
+                            !(PostShiftBloc.isMoreVacancyValid(
+                                isMoreVacancy: state.isMoreVacancy,
+                                vacancyValue: state.selectedVacancy)))
+                          commonErrorText(
+                            StringConstant.pleaseAddNumberOfVacancies,
+                          ),
+                      ],
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: getSize(50), bottom: getSize(30)),
+                        child: CommonButton(
+                          onPressed: () {
+                            context.read<PostShiftBloc>().add(
+                                PostShiftEvent.singleShiftSubmitted(context));
+                          },
+                          buttonText: StringConstant.txtContinue,
+                        ),
+                      ),
+                    ],
                   ),
-                paddingBetweenFields(),
-                totalPaybleHours(state),
-                paddingBetweenFields(),
-                commuteAllownceDropDown(context, state),
-                if (state.singleShiftErrorMessages &&
-                    !(PostShiftBloc.isAllownceValid(
-                        selectedValue: state.selectedCommuteAllownce,
-                        hourValue: state.commuteHour,
-                        rateValue: state.commuteRate)))
-                  commonErrorText(
-                      StringConstant.pleaseSelectCommuteAllownceValue),
-                paddingBetweenFields(),
-                accommodationAllowanceDropDown(context, state),
-                if (state.singleShiftErrorMessages &&
-                    !(PostShiftBloc.isAllownceValid(
-                        selectedValue: state.selectedAccomdationAllownce,
-                        hourValue: state.accomdationHour,
-                        rateValue: state.accomdationRate)))
-                  commonErrorText(
-                      StringConstant.pleaseSelectAccomdationAllownceValue),
-                paddingBetweenFields(),
-                shiftNotesField(context, state),
-                paddingBetweenFields(),
-                vacancyCheckBox(context, state),
-                if (state.isMoreVacancy) ...[
-                  paddingBetweenFields(),
-                  numberOfVacancy(context, state),
-                  if (state.singleShiftErrorMessages &&
-                      !(PostShiftBloc.isMoreVacancyValid(
-                          isMoreVacancy: state.isMoreVacancy,
-                          vacancyValue: state.selectedVacancy)))
-                    commonErrorText(
-                      StringConstant.pleaseAddNumberOfVacancies,
-                    ),
-                ],
-                Padding(
-                  padding:
-                      EdgeInsets.only(top: getSize(50), bottom: getSize(30)),
-                  child: CommonButton(
-                    onPressed: () {
-                      context
-                          .read<PostShiftBloc>()
-                          .add(PostShiftEvent.singleShiftSubmitted(context));
-                    },
-                    buttonText: StringConstant.txtContinue,
-                  ),
-                ),
-              ],
-            ),
-          );
+                );
         },
       ),
     );
@@ -299,7 +305,6 @@ class SinglePostShift extends StatelessWidget {
   }
 
   Widget totalPaybleHours(PostShiftState state) {
-    print("total Hours--> ${state.totalPaybleHours}");
     return CustomTextField(
       labelText: StringConstant.totalPayableHours,
       hintText: state.totalPaybleHours,
@@ -468,11 +473,14 @@ class SinglePostShift extends StatelessWidget {
   Widget shiftNotesField(BuildContext context, PostShiftState state) {
     return CustomTextField(
       labelText: StringConstant.addShiftNotes,
-      hintText: StringConstant.typeHere,
+      hintText: (state.singleShiftNote.isNotEmpty)
+          ? state.singleShiftNote
+          : StringConstant.typeHere,
+      hintAsValue: (state.singleShiftNote.isNotEmpty) ? true : false,
       isOptional: true,
       maxLines: 3,
       keyboardType: TextInputType.multiline,
-      initialValue: state.singleShiftNote,
+      // initialValue: state.singleShiftNote,
       onChanged: (value) {
         context
             .read<PostShiftBloc>()
@@ -482,49 +490,60 @@ class SinglePostShift extends StatelessWidget {
   }
 
   Widget vacancyCheckBox(BuildContext context, PostShiftState state) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: getSize(20),
-        vertical: getSize(10),
-      ),
-      decoration: BoxDecoration(
-          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: getSize(20),
-            width: getSize(16.67),
-            child: Checkbox(
-              value: state.isMoreVacancy,
-              activeColor: AppColors.primaryColor,
-              side: BorderSide(
-                width: getSize(1.5),
-                color: AppColors.black.withOpacity(0.5),
+    print("singleShiftNote -> ${state.isMoreVacancy}");
+
+    return GestureDetector(
+      onTap: () {
+        bool value = state.isMoreVacancy;
+        value = !value;
+        context
+            .read<PostShiftBloc>()
+            .add(PostShiftEvent.checkIsMoreVancancy(value));
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: getSize(20),
+          vertical: getSize(10),
+        ),
+        decoration: BoxDecoration(
+            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: getSize(20),
+              width: getSize(16.67),
+              child: Checkbox(
+                value: state.isMoreVacancy,
+                activeColor: AppColors.primaryColor,
+                side: BorderSide(
+                  width: getSize(1.5),
+                  color: AppColors.black.withOpacity(0.5),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                onChanged: (value) {
+                  if (value != null) {
+                    context
+                        .read<PostShiftBloc>()
+                        .add(PostShiftEvent.checkIsMoreVancancy(value));
+                  }
+                },
               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
+            ),
+            SizedBox(
+              width: getSize(15),
+            ),
+            Flexible(
+              child: BaseText(
+                text: StringConstant.singleShiftVacancyDesc,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
               ),
-              onChanged: (value) {
-                if (value != null) {
-                  context
-                      .read<PostShiftBloc>()
-                      .add(PostShiftEvent.checkIsMoreVancancy(value));
-                }
-              },
             ),
-          ),
-          SizedBox(
-            width: getSize(15),
-          ),
-          Flexible(
-            child: BaseText(
-              text: StringConstant.singleShiftVacancyDesc,
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -533,6 +552,7 @@ class SinglePostShift extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.numberOfVacancies,
       hintText: StringConstant.numberOfVacancies,
+      initialValue: state.selectedVacancy.getValue(),
       keyboardType: TextInputType.number,
       onChanged: (value) {
         context

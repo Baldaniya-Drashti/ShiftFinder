@@ -6,11 +6,14 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 
 class CustomMultiDatePicker extends StatelessWidget {
-  List<DateTime?> value;
-  void Function(List<DateTime>)? onValueChanged;
-  bool isDisabled;
-  CustomMultiDatePicker(
-      {required this.value, this.onValueChanged, this.isDisabled = false});
+  final List<DateTime?> value;
+  final void Function(List<DateTime>)? onValueChanged;
+  final bool isDisabled;
+  const CustomMultiDatePicker(
+      {super.key,
+      required this.value,
+      this.onValueChanged,
+      this.isDisabled = false});
 
   @override
   Widget build(BuildContext context) {

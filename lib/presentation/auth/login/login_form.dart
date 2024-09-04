@@ -51,10 +51,10 @@ class LoginForm extends StatelessWidget {
               // context.router.push(const PageRouteInfo(MainTabView.name));
               if (r.isProfileComplete == 1) {
                 print("profile complete");
-                // context.router.replace(const PageRouteInfo(MainTabView.name));
-                showSuccess(
-                        message: "Success! Next Process is under development!!")
-                    .show(context);
+                context.router.replace(const PageRouteInfo(MainTabView.name));
+                // showSuccess(
+                //         message: "Success! Next Process is under development!!")
+                //     .show(context);
               } else {
                 context.router.replace(
                     getCurrentPage(r.lastPage ?? '', fromSplash: true));
@@ -115,9 +115,10 @@ class LoginForm extends StatelessWidget {
                         child: createAccount(
                           onRegisterTap: () async {
                             print("create an account clicked!");
-
                             context.router.replace(
                                 const PageRouteInfo(RegisterPage.name));
+                            // context.router.replaceAll(
+                            //     [const PageRouteInfo(RegisterPage.name)]);
                           },
                           title: StringConstant.dontHaveAnAccount,
                           description: StringConstant.register,
@@ -255,12 +256,16 @@ class LoginForm extends StatelessWidget {
                       const LoginFormEvent.obscureText(),
                     );
               },
-              child: SvgPicture.asset(
-                (state.isObscure)
-                    ? SvgImageConstant.closeEye
-                    : SvgImageConstant.openEye,
-                height: getSize(24),
-                width: getSize(24),
+              child: Container(
+                color: AppColors.transparent,
+                padding: EdgeInsets.all(getSize(9)),
+                child: SvgPicture.asset(
+                  (state.isObscure)
+                      ? SvgImageConstant.closeEye
+                      : SvgImageConstant.openEye,
+                  height: getSize(24),
+                  width: getSize(24),
+                ),
               ),
             ),
             onChanged: (value) => context

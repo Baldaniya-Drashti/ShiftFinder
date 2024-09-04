@@ -440,12 +440,16 @@ class RegisterProfileScreen extends StatelessWidget {
                 const RegisterFormEvent.obscureText(1),
               );
         },
-        child: SvgPicture.asset(
-          (state.isNewPassObscure)
-              ? SvgImageConstant.closeEye
-              : SvgImageConstant.openEye,
-          height: getSize(24),
-          width: getSize(24),
+        child: Container(
+          color: AppColors.transparent,
+          padding: EdgeInsets.all(getSize(9)),
+          child: SvgPicture.asset(
+            (state.isNewPassObscure)
+                ? SvgImageConstant.closeEye
+                : SvgImageConstant.openEye,
+            height: getSize(24),
+            width: getSize(24),
+          ),
         ),
       ),
       onChanged: (value) => context
@@ -493,12 +497,16 @@ class RegisterProfileScreen extends StatelessWidget {
                 const RegisterFormEvent.obscureText(2),
               );
         },
-        child: SvgPicture.asset(
-          (state.isConfirmPassObscure)
-              ? SvgImageConstant.closeEye
-              : SvgImageConstant.openEye,
-          height: getSize(24),
-          width: getSize(24),
+        child: Container(
+          color: AppColors.transparent,
+          padding: EdgeInsets.all(getSize(9)),
+          child: SvgPicture.asset(
+            (state.isConfirmPassObscure)
+                ? SvgImageConstant.closeEye
+                : SvgImageConstant.openEye,
+            height: getSize(24),
+            width: getSize(24),
+          ),
         ),
       ),
       onChanged: (value) => context

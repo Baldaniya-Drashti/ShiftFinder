@@ -46,6 +46,8 @@ part of 'healthcare_post_bloc.dart';
 @freezed
 class HealthcarePostState with _$HealthcarePostState {
   const factory HealthcarePostState({
+    required HealthcarePostDTO updatePost,
+
     /// SPECIALITY
     // required ListInputEmptyOrNot requiredSpecialityChipList,
     // required String requiredSpecialityChip,
@@ -79,6 +81,7 @@ class HealthcarePostState with _$HealthcarePostState {
     required List<LocationDTO> locationList,
     required List<UnitDTO> unitList,
     required InputEmptyOrNot location,
+    required LocationDTO locationObj,
     required String selectedLocationUnit,
 
     /// RATE/ HOUR
@@ -98,8 +101,10 @@ class HealthcarePostState with _$HealthcarePostState {
         authFailureOrSuccessOption,
   }) = _HealthcarePostState;
   factory HealthcarePostState.initial() => HealthcarePostState(
+        updatePost: HealthcarePostDTO(),
         rateHour: InputEmptyOrNot(""),
         location: InputEmptyOrNot(""),
+        locationObj: LocationDTO(),
         locationList: [],
         unitList: [],
         selectedLocationUnit: "",

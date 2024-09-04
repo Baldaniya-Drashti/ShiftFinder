@@ -22,7 +22,7 @@ SkillDTO _$SkillDTOFromJson(Map<String, dynamic> json) {
 mixin _$SkillDTO {
   int? get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
-  String? get shortName => throw _privateConstructorUsedError;
+  String? get short_name => throw _privateConstructorUsedError;
   int? get answer => throw _privateConstructorUsedError;
   int? get minute => throw _privateConstructorUsedError;
 
@@ -38,7 +38,7 @@ abstract class $SkillDTOCopyWith<$Res> {
       _$SkillDTOCopyWithImpl<$Res, SkillDTO>;
   @useResult
   $Res call(
-      {int? id, String? name, String? shortName, int? answer, int? minute});
+      {int? id, String? name, String? short_name, int? answer, int? minute});
 }
 
 /// @nodoc
@@ -56,7 +56,7 @@ class _$SkillDTOCopyWithImpl<$Res, $Val extends SkillDTO>
   $Res call({
     Object? id = freezed,
     Object? name = freezed,
-    Object? shortName = freezed,
+    Object? short_name = freezed,
     Object? answer = freezed,
     Object? minute = freezed,
   }) {
@@ -69,9 +69,9 @@ class _$SkillDTOCopyWithImpl<$Res, $Val extends SkillDTO>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      shortName: freezed == shortName
-          ? _value.shortName
-          : shortName // ignore: cast_nullable_to_non_nullable
+      short_name: freezed == short_name
+          ? _value.short_name
+          : short_name // ignore: cast_nullable_to_non_nullable
               as String?,
       answer: freezed == answer
           ? _value.answer
@@ -94,7 +94,7 @@ abstract class _$$SkillDTOImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int? id, String? name, String? shortName, int? answer, int? minute});
+      {int? id, String? name, String? short_name, int? answer, int? minute});
 }
 
 /// @nodoc
@@ -110,7 +110,7 @@ class __$$SkillDTOImplCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? name = freezed,
-    Object? shortName = freezed,
+    Object? short_name = freezed,
     Object? answer = freezed,
     Object? minute = freezed,
   }) {
@@ -123,9 +123,9 @@ class __$$SkillDTOImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      shortName: freezed == shortName
-          ? _value.shortName
-          : shortName // ignore: cast_nullable_to_non_nullable
+      short_name: freezed == short_name
+          ? _value.short_name
+          : short_name // ignore: cast_nullable_to_non_nullable
               as String?,
       answer: freezed == answer
           ? _value.answer
@@ -143,7 +143,7 @@ class __$$SkillDTOImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$SkillDTOImpl implements _SkillDTO {
   const _$SkillDTOImpl(
-      {this.id, this.name, this.shortName, this.answer, this.minute});
+      {this.id, this.name, this.short_name, this.answer, this.minute});
 
   factory _$SkillDTOImpl.fromJson(Map<String, dynamic> json) =>
       _$$SkillDTOImplFromJson(json);
@@ -153,7 +153,7 @@ class _$SkillDTOImpl implements _SkillDTO {
   @override
   final String? name;
   @override
-  final String? shortName;
+  final String? short_name;
   @override
   final int? answer;
   @override
@@ -161,7 +161,7 @@ class _$SkillDTOImpl implements _SkillDTO {
 
   @override
   String toString() {
-    return 'SkillDTO(id: $id, name: $name, shortName: $shortName, answer: $answer, minute: $minute)';
+    return 'SkillDTO(id: $id, name: $name, short_name: $short_name, answer: $answer, minute: $minute)';
   }
 
   @override
@@ -171,8 +171,8 @@ class _$SkillDTOImpl implements _SkillDTO {
             other is _$SkillDTOImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.shortName, shortName) ||
-                other.shortName == shortName) &&
+            (identical(other.short_name, short_name) ||
+                other.short_name == short_name) &&
             (identical(other.answer, answer) || other.answer == answer) &&
             (identical(other.minute, minute) || other.minute == minute));
   }
@@ -180,7 +180,7 @@ class _$SkillDTOImpl implements _SkillDTO {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, name, shortName, answer, minute);
+      Object.hash(runtimeType, id, name, short_name, answer, minute);
 
   @JsonKey(ignore: true)
   @override
@@ -200,7 +200,7 @@ abstract class _SkillDTO implements SkillDTO {
   const factory _SkillDTO(
       {final int? id,
       final String? name,
-      final String? shortName,
+      final String? short_name,
       final int? answer,
       final int? minute}) = _$SkillDTOImpl;
 
@@ -212,7 +212,7 @@ abstract class _SkillDTO implements SkillDTO {
   @override
   String? get name;
   @override
-  String? get shortName;
+  String? get short_name;
   @override
   int? get answer;
   @override

@@ -22,9 +22,9 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'addCardDetailPage')
 class AddCardDetailPage extends StatelessWidget {
-  bool isFromSplash = false;
+  final bool isFromSplash;
 
-  AddCardDetailPage({super.key, this.isFromSplash = false});
+  const AddCardDetailPage({super.key, this.isFromSplash = false});
 
   @override
   Widget build(BuildContext context) {

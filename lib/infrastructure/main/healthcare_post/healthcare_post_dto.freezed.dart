@@ -25,11 +25,12 @@ mixin _$HealthcarePostDTO {
   String? get last_ago => throw _privateConstructorUsedError;
   List<SkillDTO>? get roles_list => throw _privateConstructorUsedError;
   String? get roles_list_name => throw _privateConstructorUsedError;
-  List<SpecialityDTO>? get specialties_detail_list =>
+  List<SkillDTO>? get specialties_detail_list =>
       throw _privateConstructorUsedError;
   List<SkillDTO>? get softwares_skill_list =>
       throw _privateConstructorUsedError;
   String? get software_skill_other => throw _privateConstructorUsedError;
+  String? get specialties_detail_other => throw _privateConstructorUsedError;
   List<SkillDTO>? get languages_list => throw _privateConstructorUsedError;
   String? get language_other => throw _privateConstructorUsedError;
   LocationDTO? get location => throw _privateConstructorUsedError;
@@ -57,9 +58,10 @@ abstract class $HealthcarePostDTOCopyWith<$Res> {
       String? last_ago,
       List<SkillDTO>? roles_list,
       String? roles_list_name,
-      List<SpecialityDTO>? specialties_detail_list,
+      List<SkillDTO>? specialties_detail_list,
       List<SkillDTO>? softwares_skill_list,
       String? software_skill_other,
+      String? specialties_detail_other,
       List<SkillDTO>? languages_list,
       String? language_other,
       LocationDTO? location,
@@ -94,6 +96,7 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
     Object? specialties_detail_list = freezed,
     Object? softwares_skill_list = freezed,
     Object? software_skill_other = freezed,
+    Object? specialties_detail_other = freezed,
     Object? languages_list = freezed,
     Object? language_other = freezed,
     Object? location = freezed,
@@ -127,7 +130,7 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
       specialties_detail_list: freezed == specialties_detail_list
           ? _value.specialties_detail_list
           : specialties_detail_list // ignore: cast_nullable_to_non_nullable
-              as List<SpecialityDTO>?,
+              as List<SkillDTO>?,
       softwares_skill_list: freezed == softwares_skill_list
           ? _value.softwares_skill_list
           : softwares_skill_list // ignore: cast_nullable_to_non_nullable
@@ -135,6 +138,10 @@ class _$HealthcarePostDTOCopyWithImpl<$Res, $Val extends HealthcarePostDTO>
       software_skill_other: freezed == software_skill_other
           ? _value.software_skill_other
           : software_skill_other // ignore: cast_nullable_to_non_nullable
+              as String?,
+      specialties_detail_other: freezed == specialties_detail_other
+          ? _value.specialties_detail_other
+          : specialties_detail_other // ignore: cast_nullable_to_non_nullable
               as String?,
       languages_list: freezed == languages_list
           ? _value.languages_list
@@ -210,9 +217,10 @@ abstract class _$$HealthcarePostDTOImplCopyWith<$Res>
       String? last_ago,
       List<SkillDTO>? roles_list,
       String? roles_list_name,
-      List<SpecialityDTO>? specialties_detail_list,
+      List<SkillDTO>? specialties_detail_list,
       List<SkillDTO>? softwares_skill_list,
       String? software_skill_other,
+      String? specialties_detail_other,
       List<SkillDTO>? languages_list,
       String? language_other,
       LocationDTO? location,
@@ -247,6 +255,7 @@ class __$$HealthcarePostDTOImplCopyWithImpl<$Res>
     Object? specialties_detail_list = freezed,
     Object? softwares_skill_list = freezed,
     Object? software_skill_other = freezed,
+    Object? specialties_detail_other = freezed,
     Object? languages_list = freezed,
     Object? language_other = freezed,
     Object? location = freezed,
@@ -280,7 +289,7 @@ class __$$HealthcarePostDTOImplCopyWithImpl<$Res>
       specialties_detail_list: freezed == specialties_detail_list
           ? _value._specialties_detail_list
           : specialties_detail_list // ignore: cast_nullable_to_non_nullable
-              as List<SpecialityDTO>?,
+              as List<SkillDTO>?,
       softwares_skill_list: freezed == softwares_skill_list
           ? _value._softwares_skill_list
           : softwares_skill_list // ignore: cast_nullable_to_non_nullable
@@ -288,6 +297,10 @@ class __$$HealthcarePostDTOImplCopyWithImpl<$Res>
       software_skill_other: freezed == software_skill_other
           ? _value.software_skill_other
           : software_skill_other // ignore: cast_nullable_to_non_nullable
+              as String?,
+      specialties_detail_other: freezed == specialties_detail_other
+          ? _value.specialties_detail_other
+          : specialties_detail_other // ignore: cast_nullable_to_non_nullable
               as String?,
       languages_list: freezed == languages_list
           ? _value._languages_list
@@ -334,9 +347,10 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
       this.last_ago,
       final List<SkillDTO>? roles_list,
       this.roles_list_name,
-      final List<SpecialityDTO>? specialties_detail_list,
+      final List<SkillDTO>? specialties_detail_list,
       final List<SkillDTO>? softwares_skill_list,
       this.software_skill_other,
+      this.specialties_detail_other,
       final List<SkillDTO>? languages_list,
       this.language_other,
       this.location,
@@ -371,9 +385,9 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
 
   @override
   final String? roles_list_name;
-  final List<SpecialityDTO>? _specialties_detail_list;
+  final List<SkillDTO>? _specialties_detail_list;
   @override
-  List<SpecialityDTO>? get specialties_detail_list {
+  List<SkillDTO>? get specialties_detail_list {
     final value = _specialties_detail_list;
     if (value == null) return null;
     if (_specialties_detail_list is EqualUnmodifiableListView)
@@ -395,6 +409,8 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
 
   @override
   final String? software_skill_other;
+  @override
+  final String? specialties_detail_other;
   final List<SkillDTO>? _languages_list;
   @override
   List<SkillDTO>? get languages_list {
@@ -422,7 +438,7 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
 
   @override
   String toString() {
-    return 'HealthcarePostDTO(id: $id, listing_id: $listing_id, last_ago: $last_ago, roles_list: $roles_list, roles_list_name: $roles_list_name, specialties_detail_list: $specialties_detail_list, softwares_skill_list: $softwares_skill_list, software_skill_other: $software_skill_other, languages_list: $languages_list, language_other: $language_other, location: $location, location_unit: $location_unit, rate_hour: $rate_hour, shift_detail: $shift_detail, software_skill: $software_skill, specialties_detail: $specialties_detail)';
+    return 'HealthcarePostDTO(id: $id, listing_id: $listing_id, last_ago: $last_ago, roles_list: $roles_list, roles_list_name: $roles_list_name, specialties_detail_list: $specialties_detail_list, softwares_skill_list: $softwares_skill_list, software_skill_other: $software_skill_other, specialties_detail_other: $specialties_detail_other, languages_list: $languages_list, language_other: $language_other, location: $location, location_unit: $location_unit, rate_hour: $rate_hour, shift_detail: $shift_detail, software_skill: $software_skill, specialties_detail: $specialties_detail)';
   }
 
   @override
@@ -445,6 +461,9 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
                 .equals(other._softwares_skill_list, _softwares_skill_list) &&
             (identical(other.software_skill_other, software_skill_other) ||
                 other.software_skill_other == software_skill_other) &&
+            (identical(
+                    other.specialties_detail_other, specialties_detail_other) ||
+                other.specialties_detail_other == specialties_detail_other) &&
             const DeepCollectionEquality()
                 .equals(other._languages_list, _languages_list) &&
             (identical(other.language_other, language_other) ||
@@ -475,6 +494,7 @@ class _$HealthcarePostDTOImpl implements _HealthcarePostDTO {
       const DeepCollectionEquality().hash(_specialties_detail_list),
       const DeepCollectionEquality().hash(_softwares_skill_list),
       software_skill_other,
+      specialties_detail_other,
       const DeepCollectionEquality().hash(_languages_list),
       language_other,
       location,
@@ -506,9 +526,10 @@ abstract class _HealthcarePostDTO implements HealthcarePostDTO {
       final String? last_ago,
       final List<SkillDTO>? roles_list,
       final String? roles_list_name,
-      final List<SpecialityDTO>? specialties_detail_list,
+      final List<SkillDTO>? specialties_detail_list,
       final List<SkillDTO>? softwares_skill_list,
       final String? software_skill_other,
+      final String? specialties_detail_other,
       final List<SkillDTO>? languages_list,
       final String? language_other,
       final LocationDTO? location,
@@ -532,11 +553,13 @@ abstract class _HealthcarePostDTO implements HealthcarePostDTO {
   @override
   String? get roles_list_name;
   @override
-  List<SpecialityDTO>? get specialties_detail_list;
+  List<SkillDTO>? get specialties_detail_list;
   @override
   List<SkillDTO>? get softwares_skill_list;
   @override
   String? get software_skill_other;
+  @override
+  String? get specialties_detail_other;
   @override
   List<SkillDTO>? get languages_list;
   @override

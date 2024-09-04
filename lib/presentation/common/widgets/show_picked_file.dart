@@ -13,16 +13,16 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:badges/badges.dart' as badges;
 
 class ShowPickedFile extends StatelessWidget {
-  String? selectedFile;
-  double? mainBoxHeight;
-  double? mainBoxWidth;
-  double? childBoxHeight;
-  double? childBoxWidth;
-  bool? isExpandedImage;
-  bool showBadge;
-  double? iconSize;
-  VoidCallback? onDelete;
-  ShowPickedFile(
+  final String? selectedFile;
+  final double? mainBoxHeight;
+  final double? mainBoxWidth;
+  final double? childBoxHeight;
+  final double? childBoxWidth;
+  final bool? isExpandedImage;
+  final bool showBadge;
+  final double? iconSize;
+  final VoidCallback? onDelete;
+  const ShowPickedFile(
       {required this.selectedFile,
       this.mainBoxHeight,
       this.childBoxHeight,

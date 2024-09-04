@@ -106,6 +106,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       centerTitle: true,
       backgroundColor: AppColors.scaffoldColor,
+      elevation: 0,
       systemOverlayStyle: systemOverlayStyle ?? SystemUiOverlayStyle.dark,
       title: BaseText(
         text: title,
@@ -115,7 +116,6 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
         textColor: textStyle?.color ?? AppColors.black,
         fontFamily: textStyle?.fontFamily ?? "Aclonica",
       ),
-      elevation: 0,
       actions: (showSkipBtn)
           ? [
               GestureDetector(

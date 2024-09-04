@@ -18,10 +18,12 @@ class IntroVideoState with _$IntroVideoState {
     required List<QuizDTO> updatedQuestions,
     required bool showQuizErrorMessages,
     required bool isQuizSubmitting,
-    required Option<Either<AccountFailure, Account>>
+    required Option<Either<AccountFailure, QuizAnswerDTO>>
         quizAuthFailureOrSuccessOption,
     required Option<Either<AccountFailure, List<QuizDTO>>>
         quizQuestionFailureOrSuccessOption,
+    required Option<Either<AccountFailure, QuizAnswerDTO>>
+        quizResultFailureOrSuccessOption,
   }) = _IntroVideoState;
   factory IntroVideoState.initial() => IntroVideoState(
         controller: null,
@@ -77,6 +79,7 @@ class IntroVideoState with _$IntroVideoState {
 
         quizAuthFailureOrSuccessOption: none(),
         quizQuestionFailureOrSuccessOption: none(),
+        quizResultFailureOrSuccessOption: none(),
       );
 }
 

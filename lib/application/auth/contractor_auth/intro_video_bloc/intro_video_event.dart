@@ -15,4 +15,6 @@ class IntroVideoEvent with _$IntroVideoEvent {
   }) = _OptionSelected;
 
   const factory IntroVideoEvent.submitQuiz() = _SubmitQuiz;
+
+  const factory IntroVideoEvent.getQuizResultlist() = _GetQuizResultlist;
 }

@@ -12,6 +12,8 @@ class QuizDTO with _$QuizDTO {
     List<QuizMcqDTO>? answers,
     List<QuizMcqDTO>? selectedAnswers,
     int? answer,
+    int? total_correct_question,
+    int? total_wrong_question,
   }) = _QuizDTO;
 
   factory QuizDTO.fromJson(Map<String, dynamic> json) =>
@@ -28,4 +30,16 @@ class QuizMcqDTO with _$QuizMcqDTO {
 
   factory QuizMcqDTO.fromJson(Map<String, dynamic> json) =>
       _$QuizMcqDTOFromJson(json);
+}
+
+@freezed
+class QuizAnswerDTO with _$QuizAnswerDTO {
+  const factory QuizAnswerDTO({
+    List<QuizDTO>? list,
+    int? total_correct_question,
+    int? total_wrong_question,
+  }) = _QuizAnswerDTO;
+
+  factory QuizAnswerDTO.fromJson(Map<String, dynamic> json) =>
+      _$QuizAnswerDTOFromJson(json);
 }

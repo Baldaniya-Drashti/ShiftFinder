@@ -69,7 +69,7 @@
 //       create: (context) => getIt<IntroVideoBloc>(),
 //       child: BlocConsumer<IntroVideoBloc, IntroVideoState>(
 //         listener: (context, state) {
-//           // TODO: implement listener
+//
 //         },
 //         builder: (context, state) {
 //           return Scaffold(
@@ -181,14 +181,17 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/quiz_dto/quiz_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
+import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/common_card_dialog.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'introQuizScreen')
@@ -240,7 +243,7 @@ class IntroQuizScreen extends StatelessWidget {
                 },
                 (r) {
                   print("GO TO NEXT SCREEN!");
-                  showResultDialog(context);
+                  showResultDialog(context, r);
                   // showunderDevelopment(context);
                   // context.router.push(const PageRouteInfo(MainTabView.name));
                 },
@@ -417,12 +420,55 @@ class IntroQuizScreen extends StatelessWidget {
     );
   }
 
-  showResultDialog(BuildContext context) {
-    return AppDialog.showSuccess(
-      context,
+  showResultDialog(BuildContext context, QuizAnswerDTO result) {
+    // return AppDialog.showSuccess(
+    //   context,
+    //   title: StringConstant.result,
+    //   infoMessage: StringConstant.resultDesc,
+    //   image: Image.asset(PngImageConstants.result),
+    //   otherContent: Container(
+    //     alignment: Alignment.center,
+    //     padding:
+    //         EdgeInsets.symmetric(horizontal: getSize(10), vertical: getSize(5)),
+    //     margin: EdgeInsets.only(top: getSize(20)),
+    //     decoration: BoxDecoration(
+    //       color: AppColors.grey04,
+    //       borderRadius: BorderRadius.circular(10),
+    //     ),
+    //     child: Column(
+    //       mainAxisSize: MainAxisSize.min,
+    //       children: [
+    //         answreTile(
+    //             title: StringConstant.correctAnswers,
+    //             image: SvgImageConstant.checkedArrow,
+    //             answer: "${result.total_correct_question ?? 0}"),
+    //         answreTile(
+    //             title: StringConstant.incorrectAnswers,
+    //             image: SvgImageConstant.wrong,
+    //             answer: "${result.total_wrong_question ?? 0}"),
+    //       ],
+    //     ),
+    //   ),
+    //   onOkClick: () {
+    //     Navigator.pop(context);
+    //   },
+    // );
+
+    return CommonCardDialog(
+      onPressed: () {
+        Navigator.pop(context, true);
+      },
+      onCallback: (value) {
+        if (value == true) {
+          print("callback value---> ${value}");
+          context.router.push(PageRouteInfo(QuizResultScreen.name));
+        }
+      },
       title: StringConstant.result,
-      infoMessage: StringConstant.resultDesc,
-      image: Image.asset(PngImageConstants.result),
+      description: StringConstant.resultDesc,
+      buttonText: StringConstant.ok,
+      image: SvgImageConstant.result,
+      barrierDismissible: false,
       otherContent: Container(
         alignment: Alignment.center,
         padding:
@@ -435,54 +481,45 @@ class IntroQuizScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ListTile(
-              dense: true,
-              visualDensity: VisualDensity.compact,
-              horizontalTitleGap: getSize(10),
-              leading: SvgPicture.asset(
-                SvgImageConstant.checkedArrow,
-                height: getSize(20),
-                width: getSize(20),
-              ),
-              title: BaseText(
-                text: StringConstant.correctAnswers,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              ),
-              trailing: BaseText(
-                text: "06",
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                fontFamily: "Aclonica",
-              ),
-            ),
-            ListTile(
-              dense: true,
-              visualDensity: VisualDensity.compact,
-              horizontalTitleGap: getSize(10),
-              leading: SvgPicture.asset(
-                SvgImageConstant.wrong,
-                height: getSize(20),
-                width: getSize(20),
-              ),
-              title: BaseText(
-                text: StringConstant.incorrectAnswers,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              ),
-              trailing: BaseText(
-                text: "02",
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                fontFamily: "Aclonica",
-              ),
-            ),
+            answerTile(
+                title: StringConstant.correctAnswers,
+                image: SvgImageConstant.checkedArrow,
+                answer: "${result.total_correct_question ?? 0}"),
+            answerTile(
+                title: StringConstant.incorrectAnswers,
+                image: SvgImageConstant.wrong,
+                answer: "${result.total_wrong_question ?? 0}"),
           ],
         ),
       ),
-      onOkClick: () {
-        Navigator.pop(context);
-      },
+    ).addCardDialog(context);
+  }
+
+  Widget answerTile({
+    required String title,
+    required String image,
+    required String answer,
+  }) {
+    return ListTile(
+      dense: true,
+      visualDensity: VisualDensity.compact,
+      horizontalTitleGap: getSize(10),
+      leading: SvgPicture.asset(
+        image,
+        height: getSize(20),
+        width: getSize(20),
+      ),
+      title: BaseText(
+        text: title,
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+      ),
+      trailing: BaseText(
+        text: (answer.length == 2) ? answer : "0$answer",
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        fontFamily: "Aclonica",
+      ),
     );
   }
 }

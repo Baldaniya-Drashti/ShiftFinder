@@ -62,7 +62,46 @@ class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
         },
 
         /// FOR QUIZ OF VIDEO
+        getQuizResultlist: (e) async {
+          Either<AccountFailure, QuizAnswerDTO>? failureOrSuccess;
+          emit(
+            state.copyWith(
+              isSubmitting: true,
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+          failureOrSuccess = await _repository.getQuizResultApi();
+          failureOrSuccess.fold(
+            (l) => emit(
+              state.copyWith(
+                isSubmitting: false,
+              ),
+            ),
+            (r) {
+              if (r.list != null && r.list!.isNotEmpty) {
+                return emit(
+                  state.copyWith(
+                    isSubmitting: false,
+                    questions: r.list!,
+                  ),
+                );
+              } else {
+                return emit(
+                  state.copyWith(
+                    isSubmitting: false,
+                  ),
+                );
+              }
+            },
+          );
 
+          emit(
+            state.copyWith(
+              isSubmitting: false,
+              quizResultFailureOrSuccessOption: optionOf(failureOrSuccess),
+            ),
+          );
+        },
         getQuizQuestionlist: (e) async {
           Either<AccountFailure, List<QuizDTO>>? failureOrSuccess;
           emit(
@@ -125,7 +164,7 @@ class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
           ));
         },
         submitQuiz: (e) async {
-          Either<AccountFailure, Account>? failureOrSuccess;
+          Either<AccountFailure, QuizAnswerDTO>? failureOrSuccess;
 
           var isAllValidated = state.questions.every((element) {
             return (element.selectedAnswers != null &&
@@ -159,10 +198,9 @@ class IntroVideoBloc extends Bloc<IntroVideoEvent, IntroVideoState> {
               ),
             );
 
-            // failureOrSuccess = await _repository.addQuizAnswerApi(
-            //   quizDetails: jsonEncode(formattedData),
-            // );
-            failureOrSuccess = right(Account());
+            failureOrSuccess = await _repository.addQuizAnswerApi(
+              quizDetails: jsonEncode(formattedData),
+            );
 
             failureOrSuccess.fold(
               (l) => emit(

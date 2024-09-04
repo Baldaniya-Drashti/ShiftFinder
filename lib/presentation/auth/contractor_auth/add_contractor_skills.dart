@@ -745,7 +745,7 @@ class AddContractorSkillsForm extends StatelessWidget {
         itemCount: state.requiredSpecialityChipList.getValue().length,
         itemBuilder: (context, index) {
           var selectedObj = state.requiredSpecialityChipList.getValue()[index];
-          print("PRINT SPECC--> ${selectedObj}");
+          print("PRINT SPECC--> $selectedObj");
 
           return CustomeSpecialityBox(
             selectedValue: selectedObj.name ?? "",

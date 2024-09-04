@@ -7,7 +7,7 @@ class SkillDTO with _$SkillDTO {
   const factory SkillDTO({
     int? id,
     String? name,
-    String? shortName,
+    String? short_name,
     int? answer,
     int? minute,
   }) = _SkillDTO;

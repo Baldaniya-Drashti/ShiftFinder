@@ -4,6 +4,8 @@ class CommonResponse<T> {
   bool? status;
   String? dioMessage;
   T? data;
+  int? total_correct_question;
+  int? total_wrong_question;
   List<T>? listData;
   Errors? errors;
   Meta? meta;

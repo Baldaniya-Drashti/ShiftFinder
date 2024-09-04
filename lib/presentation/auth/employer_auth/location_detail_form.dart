@@ -491,6 +491,7 @@ class LocationDetailForm extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.notes,
       hintText: StringConstant.typeHere,
+      isOptional: true,
       isLabelPadding: false,
       maxLines: 3,
       errorMaxLines: 2,

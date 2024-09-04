@@ -30,7 +30,8 @@ part of 'healthcare_post_bloc.dart';
 
 @freezed
 class HealthcarePostEvent with _$HealthcarePostEvent {
-  const factory HealthcarePostEvent.getAllDropDownList() = GetAllDropDownList;
+  const factory HealthcarePostEvent.getAllDropDownList(int postId) =
+      GetAllDropDownList;
 
   const factory HealthcarePostEvent.roleTypeChanged(String roleType) =
       RoleTypeChanged;
@@ -52,7 +53,7 @@ class HealthcarePostEvent with _$HealthcarePostEvent {
   const factory HealthcarePostEvent.removePreferedSoftwareSkillchips(
       String selectedValue) = RemovePreferedSoftwareSkillchips;
 
-  const factory HealthcarePostEvent.locationChanged(String location) =
+  const factory HealthcarePostEvent.locationChanged(String selectedValue) =
       LocationChanged;
   const factory HealthcarePostEvent.locationUnitSelectionChanged(
       String selectedUnit) = LocationUnitSelectionChanged;
@@ -61,4 +62,14 @@ class HealthcarePostEvent with _$HealthcarePostEvent {
 
   const factory HealthcarePostEvent.continueBtnPressed(BuildContext context) =
       ContinueBtnPressed;
+  const factory HealthcarePostEvent.confirmSoftwareSkill(
+          List<String> skillList, List<String> otherSkillList) =
+      ConfirmSoftwareSkill;
+
+  const factory HealthcarePostEvent.confirmSpecialityList(
+          List<String> specialityList, List<String> otherSpecialityList) =
+      ConfirmSpecialityList;
+  const factory HealthcarePostEvent.confirmLanguageList(
+          List<String> languageList, List<String> otherLanguageList) =
+      ConfirmLanguageList;
 }

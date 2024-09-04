@@ -261,6 +261,7 @@ class StringConstant {
   static const String notification = "Notification";
   static const String profile = "Profile";
   static const String viewDetails = "View Details";
+  static const String viewShiftDetails = "View shift Details";
   static const String totalApplications = "Total Applications";
   static const String totalProposals = "Total Proposals";
   static const String shiftDate = "Shift Date";
@@ -347,6 +348,7 @@ class StringConstant {
   static const String incorrectAnswers = "Incorrect Answers";
   static const String resultDesc =
       "Here is the result of your quiz. To further deepen your understanding of our platform's policies and features, please refer to our available resources.";
+  static const String yourScore = "Your Score";
 
   ///
 
@@ -405,7 +407,7 @@ class StringConstant {
   static const String pleaseEnterConfirmPassword =
       "Please enter confirm password";
   static const String bothPasswordsAreDoesNotMatch =
-      "Both Passwords are does not match.";
+      "Confirm Password does not match.";
   static const String pleaseEnterFacilityType = "Please enter facility type";
   static const String pleaseEnterOtherFacilityType =
       "Please enter other facility type";
@@ -480,6 +482,8 @@ class StringConstant {
   static const String bankTermsErrorText =
       "Please select the checkbox to confirm";
   static const String pleaseSelectLocationUnit = "Please select location unit";
+  static const String somethindWentWrong =
+      "Something wrong. Please try again!!";
   static const String pleaseSelectHourAndMinutesOfStartTime =
       "Please select hour and minutes of start time";
   static const String pleaseSelectHourAndMinutesOfEndTime =

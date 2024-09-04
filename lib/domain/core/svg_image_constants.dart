@@ -77,6 +77,26 @@ class SvgImageConstant {
   static const mouse = "assets/svg/mouse.svg";
   static const clockWithBag = "assets/svg/clock_with_bag.svg";
   static const clockWithOuterLine = "assets/svg/clock_with_outer_line.svg";
+  static const cardImage = "assets/svg/card_detail.svg";
+  static const expDate = "assets/svg/exp_date.svg";
+  static const awaitingConfirmation = "assets/svg/awaiting_confirmation.svg";
+  static const briefcase = "assets/svg/briefcase.svg";
+  static const organization = "assets/svg/organization.svg";
+  static const call = "assets/svg/call.svg";
+  static const unitDepartment = "assets/svg/unit_department.svg";
+
+  static const completedShifts = "assets/svg/completed_shifts.svg";
+  static const previousShifts = "assets/svg/previous_shift.svg";
+  static const chat = "assets/svg/chat.svg";
+  static const teams = "assets/svg/teams.svg";
+  static const savedTemplates = "assets/svg/saved_tamplates.svg";
+  static const billing = "assets/svg/wallet.svg";
+  static const setting = "assets/svg/setting.svg";
+  static const aboutShiftFinder = "assets/svg/about_shiftfinder.svg";
+  static const customerSupport = "assets/svg/contact_support.svg";
+  static const logout = "assets/svg/logout.svg";
+  static const teamIcon = "assets/svg/team_icon.svg";
   static const threePersonWithPlus = "assets/svg/three_person_with_plus.svg";
   static const wrong = "assets/svg/wrong.svg";
+  static const result = "assets/svg/result.svg";
 }

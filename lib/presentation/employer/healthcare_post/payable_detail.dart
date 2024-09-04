@@ -50,7 +50,11 @@ class PayableDetail extends StatelessWidget {
                   title: StringConstant.allSet,
                   infoMessage: r,
                   onOkClick: () {
-                    context.router.maybePop();
+                    // context.router.maybePop();
+
+                    context.router.popUntil(
+                      (route) => route.isFirst,
+                    );
                   },
                 );
               },

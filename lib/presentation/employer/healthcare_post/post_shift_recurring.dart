@@ -202,42 +202,51 @@ class PostShiftRecurring extends StatelessWidget {
       ),
       decoration: BoxDecoration(
           color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: getSize(20),
-            width: getSize(16.67),
-            child: Checkbox(
-              value: state.isToBeRecurring,
-              activeColor: AppColors.primaryColor,
-              side: BorderSide(
-                width: getSize(1.5),
-                color: AppColors.black.withOpacity(0.5),
+      child: GestureDetector(
+        onTap: () {
+          bool value = state.isToBeRecurring;
+          value = !value;
+          context
+              .read<PostShiftBloc>()
+              .add(PostShiftEvent.recurringCheck(value));
+        },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: getSize(20),
+              width: getSize(16.67),
+              child: Checkbox(
+                value: state.isToBeRecurring,
+                activeColor: AppColors.primaryColor,
+                side: BorderSide(
+                  width: getSize(1.5),
+                  color: AppColors.black.withOpacity(0.5),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                onChanged: (value) {
+                  if (value != null) {
+                    context
+                        .read<PostShiftBloc>()
+                        .add(PostShiftEvent.recurringCheck(value));
+                  }
+                },
               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
+            ),
+            SizedBox(
+              width: getSize(15),
+            ),
+            Flexible(
+              child: BaseText(
+                text: StringConstant.idLikeThisShiftToBeRecurring,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
               ),
-              onChanged: (value) {
-                if (value != null) {
-                  context
-                      .read<PostShiftBloc>()
-                      .add(PostShiftEvent.recurringCheck(value));
-                }
-              },
             ),
-          ),
-          SizedBox(
-            width: getSize(15),
-          ),
-          Flexible(
-            child: BaseText(
-              text: StringConstant.idLikeThisShiftToBeRecurring,
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -270,42 +279,51 @@ class PostShiftRecurring extends StatelessWidget {
       ),
       decoration: BoxDecoration(
           color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: getSize(20),
-            width: getSize(16.67),
-            child: Checkbox(
-              value: state.isShareWithTeams,
-              activeColor: AppColors.primaryColor,
-              side: BorderSide(
-                width: getSize(1.5),
-                color: AppColors.black.withOpacity(0.5),
+      child: GestureDetector(
+        onTap: () {
+          bool value = state.isShareWithTeams;
+          value = !value;
+          context
+              .read<PostShiftBloc>()
+              .add(PostShiftEvent.shareWithTeamsCheck(value));
+        },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: getSize(20),
+              width: getSize(16.67),
+              child: Checkbox(
+                value: state.isShareWithTeams,
+                activeColor: AppColors.primaryColor,
+                side: BorderSide(
+                  width: getSize(1.5),
+                  color: AppColors.black.withOpacity(0.5),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                onChanged: (value) {
+                  if (value != null) {
+                    context
+                        .read<PostShiftBloc>()
+                        .add(PostShiftEvent.shareWithTeamsCheck(value));
+                  }
+                },
               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
+            ),
+            SizedBox(
+              width: getSize(15),
+            ),
+            Flexible(
+              child: BaseText(
+                text: StringConstant.shareThisPostingWithTheTeam,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
               ),
-              onChanged: (value) {
-                if (value != null) {
-                  context
-                      .read<PostShiftBloc>()
-                      .add(PostShiftEvent.shareWithTeamsCheck(value));
-                }
-              },
             ),
-          ),
-          SizedBox(
-            width: getSize(15),
-          ),
-          Flexible(
-            child: BaseText(
-              text: StringConstant.shareThisPostingWithTheTeam,
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -321,42 +339,51 @@ class PostShiftRecurring extends StatelessWidget {
       ),
       decoration: BoxDecoration(
           color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: getSize(20),
-            width: getSize(16.67),
-            child: Checkbox(
-              value: state.isSaveAsTemplate,
-              activeColor: AppColors.primaryColor,
-              side: BorderSide(
-                width: getSize(1.5),
-                color: AppColors.black.withOpacity(0.5),
+      child: GestureDetector(
+        onTap: () {
+          bool value = state.isSaveAsTemplate;
+          value = !value;
+          context
+              .read<PostShiftBloc>()
+              .add(PostShiftEvent.saveAsTemplateCheck(value));
+        },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: getSize(20),
+              width: getSize(16.67),
+              child: Checkbox(
+                value: state.isSaveAsTemplate,
+                activeColor: AppColors.primaryColor,
+                side: BorderSide(
+                  width: getSize(1.5),
+                  color: AppColors.black.withOpacity(0.5),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                onChanged: (value) {
+                  if (value != null) {
+                    context
+                        .read<PostShiftBloc>()
+                        .add(PostShiftEvent.saveAsTemplateCheck(value));
+                  }
+                },
               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
+            ),
+            SizedBox(
+              width: getSize(15),
+            ),
+            Flexible(
+              child: BaseText(
+                text: StringConstant.saveThisAsATemplateForFuturePosting,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
               ),
-              onChanged: (value) {
-                if (value != null) {
-                  context
-                      .read<PostShiftBloc>()
-                      .add(PostShiftEvent.saveAsTemplateCheck(value));
-                }
-              },
             ),
-          ),
-          SizedBox(
-            width: getSize(15),
-          ),
-          Flexible(
-            child: BaseText(
-              text: StringConstant.saveThisAsATemplateForFuturePosting,
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -463,44 +490,53 @@ class PostShiftRecurring extends StatelessWidget {
                   .getValue()
                   .any((item) => item.id == index);
 
-              return Padding(
-                padding: EdgeInsets.symmetric(vertical: getSize(8)),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: getSize(20),
-                      width: getSize(16.67),
-                      child: Checkbox(
-                        value: isDayCheck,
-                        activeColor: AppColors.primaryColor,
-                        side: BorderSide(
-                          width: getSize(1.5),
-                          color: AppColors.black.withOpacity(0.5),
+              return GestureDetector(
+                onTap: () {
+                  context.read<PostShiftBloc>().add(
+                      PostShiftEvent.recurrenceWeeksChanged(weekList[index]));
+                },
+                child: Container(
+                  color: AppColors.transparent,
+                  padding: EdgeInsets.symmetric(vertical: getSize(5)),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        color: Colors.transparent,
+                        height: getSize(40),
+                        width: getSize(36.67),
+                        child: Checkbox(
+                          value: isDayCheck,
+                          visualDensity: VisualDensity.compact,
+                          activeColor: AppColors.primaryColor,
+                          side: BorderSide(
+                            width: getSize(1.5),
+                            color: AppColors.black.withOpacity(0.5),
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          onChanged: (value) {
+                            if (value != null) {
+                              context.read<PostShiftBloc>().add(
+                                  PostShiftEvent.recurrenceWeeksChanged(
+                                      weekList[index]));
+                            }
+                          },
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
+                      ),
+                      SizedBox(
+                        width: getSize(15),
+                      ),
+                      Flexible(
+                        child: BaseText(
+                          text: weekList[index].name ?? "",
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
                         ),
-                        onChanged: (value) {
-                          if (value != null) {
-                            context.read<PostShiftBloc>().add(
-                                PostShiftEvent.recurrenceWeeksChanged(
-                                    weekList[index]));
-                          }
-                        },
                       ),
-                    ),
-                    SizedBox(
-                      width: getSize(15),
-                    ),
-                    Flexible(
-                      child: BaseText(
-                        text: weekList[index].name ?? "",
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               );
             }));
@@ -593,44 +629,58 @@ class PostShiftRecurring extends StatelessWidget {
                 bool isTeamCheck = state.selectedTeamList
                     .getValue()
                     .any((item) => item.name == teamList[index].name);
-                return ListTile(
-                  titleAlignment: ListTileTitleAlignment.center,
-                  contentPadding: EdgeInsets.zero,
-                  minVerticalPadding: 0,
-                  leading: SvgPicture.asset(
-                    SvgImageConstant.threePersonWithPlus,
-                    height: getSize(24),
-                    width: getSize(24),
-                  ),
-                  dense: true,
+                return Padding(
+                  padding: EdgeInsets.symmetric(vertical: getSize(5)),
+                  child: GestureDetector(
+                    onTap: () {
+                      context
+                          .read<PostShiftBloc>()
+                          .add(PostShiftEvent.selectTeamEvent(teamList[index]));
+                    },
+                    child: ListTile(
+                      titleAlignment: ListTileTitleAlignment.center,
+                      contentPadding: EdgeInsets.zero,
+                      visualDensity: VisualDensity.compact,
+                      minVerticalPadding: 0,
+                      leading: SvgPicture.asset(
+                        SvgImageConstant.threePersonWithPlus,
+                        height: getSize(24),
+                        width: getSize(24),
+                      ),
+                      dense: true,
 
-                  title: BaseText(
-                    text: teamList[index].name ?? '',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  trailing: SizedBox(
-                    height: getSize(20),
-                    width: getSize(16.67),
-                    child: Checkbox(
-                      value: isTeamCheck,
-                      activeColor: AppColors.primaryColor,
-                      side: BorderSide(
-                        width: getSize(1.5),
-                        color: AppColors.black.withOpacity(0.5),
+                      title: BaseText(
+                        text: teamList[index].name ?? '',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
                       ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
+                      trailing: Container(
+                        color: Colors.transparent,
+                        // height: getSize(0),
+                        // width: getSize(26.67),
+                        // padding: EdgeInsets.all(getSize(10)),
+                        child: Checkbox(
+                          value: isTeamCheck,
+                          activeColor: AppColors.primaryColor,
+                          side: BorderSide(
+                            width: getSize(1.5),
+                            color: AppColors.black.withOpacity(0.5),
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          onChanged: (value) {
+                            if (value != null) {
+                              context.read<PostShiftBloc>().add(
+                                  PostShiftEvent.selectTeamEvent(
+                                      teamList[index]));
+                            }
+                          },
+                        ),
                       ),
-                      onChanged: (value) {
-                        if (value != null) {
-                          context.read<PostShiftBloc>().add(
-                              PostShiftEvent.selectTeamEvent(teamList[index]));
-                        }
-                      },
+                      // ],
                     ),
                   ),
-                  // ],
                 );
               }),
         ),

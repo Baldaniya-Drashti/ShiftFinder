@@ -1,84 +1,164 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use, must_be_immutable
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
+import 'package:shift/application/main_tab/home/view_single_applicants/view_single_applicants_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
+import 'package:shift/infrastructure/main/payable_dto.dart/payable_dto.dart';
+import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'ViewHomeShiftDetails')
 class ViewHomeShiftDetails extends StatelessWidget {
-  const ViewHomeShiftDetails({super.key});
+  final int postId;
+  final bool isTotalApplicants;
+  const ViewHomeShiftDetails(
+      {super.key, required this.postId, this.isTotalApplicants = false});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.scaffoldColor,
-      appBar: CommonAppBar(
-        onBackPressed: () {
-          Navigator.pop(context);
+    print("shift id--> $postId");
+    return BlocProvider(
+      create: (context) => getIt<ViewSingleApplicantsBloc>()
+        ..add(ViewSingleApplicantsEvent.getShiftDetailEvent(postId)),
+      child: BlocConsumer<ViewSingleApplicantsBloc, ViewSingleApplicantsState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          final shift = state.shift;
+          return Scaffold(
+            backgroundColor: AppColors.scaffoldColor,
+            appBar: CommonAppBar(
+              onBackPressed: () {
+                Navigator.pop(context);
+              },
+              title: StringConstant.viewShiftDetails,
+            ),
+            body: (state.isLoading)
+                ? CenterLoadingIndicator()
+                : Container(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: getSize(10),
+                    ),
+                    padding: EdgeInsets.all(getSize(10)),
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          userDataBox(context, shift),
+                          (shift.shift_detail?.shift_type == 1)
+                              ? singleShiftDateTimeBreakUI(context, shift)
+                              : multiShiftDateTimeBreakUI(context, shift),
+                          if (shift.specialties_detail != null &&
+                              shift.specialties_detail!.isNotEmpty)
+                            requiredSkillBox(
+                              svgPrefixIcon: SvgImageConstant.female,
+                              title: StringConstant.specialtiesRequired,
+                              value: shift.specialties_detail ?? "",
+                            ),
+                          if (shift.software_skill != null &&
+                              shift.software_skill!.isNotEmpty)
+                            requiredSkillBox(
+                              svgPrefixIcon: SvgImageConstant.mouse,
+                              title: StringConstant.softwareSkills,
+                              value: shift.software_skill ?? "",
+                            ),
+                          rateHoursBox(shift),
+                          languageBox(
+                            title: StringConstant.languageRequirements,
+                            value: languageList(shift),
+                          ),
+                          if (shift.shift_detail != null &&
+                              shift.shift_detail?.shift_note != null &&
+                              shift.shift_detail!.shift_note!.isNotEmpty)
+                            notesBox(
+                              title: StringConstant.shiftNote,
+                              value: shift.shift_detail?.shift_note ?? "",
+                            ),
+                          if (shift.shift_detail != null &&
+                              shift.shift_detail!.disclaimer != null &&
+                              shift.shift_detail!.disclaimer!.isNotEmpty)
+                            notesBox(
+                                title: StringConstant.disclaimer,
+                                value: shift.shift_detail?.disclaimer ?? ""),
+                          locationDetailBox(
+                              title: StringConstant.locationDetails,
+                              locationValue: shift.location?.location ?? "",
+                              // "2464 Royal Ln. Mesa, New Jersey 45463",
+                              units: shift.location_unit ?? ""),
+                          if (shift.shift_detail != null &&
+                              shift.shift_detail!.payables != null)
+                            payableBox(shift.shift_detail!.payables!),
+                        ],
+                      ),
+                    ),
+                  ),
+          );
         },
-        title: StringConstant.viewDetails,
       ),
-      body: Container(
-        margin: EdgeInsets.symmetric(
-          horizontal: getSize(20),
-        ),
-        padding: EdgeInsets.all(getSize(10)),
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              userDataBox(context),
-              singleShiftDateTimeBreakUI(context),
-              multiShiftDateTimeBreakUI(context),
-              requiredSkillBox(
-                  svgPrefixIcon: SvgImageConstant.female,
-                  title: StringConstant.specialtiesRequired,
-                  value:
-                      "Behavioral Health, Perinatal, Urology, Anesthesiology, NICU"),
-              requiredSkillBox(
-                svgPrefixIcon: SvgImageConstant.mouse,
-                title: StringConstant.softwareSkills,
-                value: "Solvo Portal, PointClickCare, Solvo Portal",
-              ),
-              rateHoursBox(),
-              languageBox(
-                title: StringConstant.languageRequirements,
-                value: "English, Hindi",
-              ),
-              notesBox(
-                  title: StringConstant.shiftNote,
-                  value:
-                      "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?"),
-              notesBox(
-                  title: StringConstant.disclaimer,
-                  value:
-                      "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?"),
-              locationDetailBox(
-                  title: StringConstant.locationDetails,
-                  locationValue: "2464 Royal Ln. Mesa, New Jersey 45463",
-                  units: "X-ray"),
-              payableBox(
-                vacancy: "08",
-                accommodationAllowance: "\$20",
-                commuteAllowance: "\$10",
-                serviceFee: "\$150",
-                totalPayable: "\$4675.00",
-              ),
-            ],
+    );
+  }
+
+  Widget payableBox(PayableDTO payable) {
+    return Container(
+      padding:
+          EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
+      margin: EdgeInsets.symmetric(vertical: getSize(5)),
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      child: Column(
+        children: [
+          paybaleTitleRate(
+            title: StringConstant.totalNumberOfVacancy,
+            value: "${payable.number_of_vacancie ?? 00}",
+            isFirst: true,
           ),
-        ),
+          commonDivider(),
+          paybaleTitleRate(
+            title: "${StringConstant.accommodationAllowance}:-",
+            value: "\$${payable.accommodation_allowance ?? 00}",
+          ),
+          paybaleTitleRate(
+            title: "${StringConstant.commuteAllowance}:-",
+            value: "\$${payable.commute_allowance ?? 00}",
+          ),
+          paybaleTitleRate(
+            title: "${StringConstant.shiftFinderServiceFee}:-",
+            value: "\$${payable.service_fee ?? 00}",
+          ),
+          commonDivider(),
+          paybaleTitleRate(
+            title: StringConstant.estimatedTotalPayable,
+            value: "\$${payable.total_amount_payable ?? 00}",
+            isLast: true,
+          ),
+        ],
       ),
+    );
+  }
+
+  Widget commonDivider() {
+    return Divider(
+      color: AppColors.black.withOpacity(0.2),
+      thickness: getSize(0.5),
     );
   }
 
@@ -217,16 +297,10 @@ class ViewHomeShiftDetails extends StatelessWidget {
     );
   }
 
-  Widget rateHoursBox(
-      //   {
-      //   required String svgPrefixIcon,
-      //   required String title,
-      //   required String value,
-      // }
-      ) {
+  Widget rateHoursBox(HealthcarePostDTO post) {
     return Container(
         padding: EdgeInsets.symmetric(
-          horizontal: getSize(12),
+          horizontal: getSize(20),
           vertical: getSize(10),
         ),
         margin: EdgeInsets.symmetric(vertical: getSize(5)),
@@ -239,24 +313,23 @@ class ViewHomeShiftDetails extends StatelessWidget {
             rateWithBGIcon(
               svgIcon: SvgImageConstant.clockWithBag,
               title: StringConstant.hourlyRate,
-              value: "\$27",
+              value: "\$${post.rate_hour}",
             ),
             Container(
               width: getSize(40),
-              // height: getSize(50),
               padding: EdgeInsets.symmetric(horizontal: getSize(10)),
               child: SvgPicture.asset(SvgImageConstant.verticalLine),
             ),
             rateWithBGIcon(
               svgIcon: SvgImageConstant.clockWithOuterLine,
               title: StringConstant.totalHours,
-              value: "9h 15min",
+              value: post.shift_detail?.total_payable_hour ?? "",
             ),
           ],
         ));
   }
 
-  Widget userDataBox(BuildContext context) {
+  Widget userDataBox(BuildContext context, HealthcarePostDTO post) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
@@ -275,20 +348,21 @@ class ViewHomeShiftDetails extends StatelessWidget {
               width: getSize(36.28),
               height: getSize(43.41),
             ),
-            title: const BaseText(
-              text: "CT Technologist",
+            title: BaseText(
+              text: post.roles_list_name ?? "",
               textColor: AppColors.black,
               fontSize: 16,
               fontWeight: FontWeight.w600,
             ),
             subtitle: BaseText(
-              text: "(Healthcare - 2DFG125)",
+              text:
+                  "(${CommonList.industryList.where((item) => item.id == getCurrentIndustry()).map((item) => item.title).join(', ')} - ${post.listing_id})",
               fontSize: 12,
               fontWeight: FontWeight.w600,
               textColor: AppColors.black.withOpacity(0.70),
             ),
             trailing: BaseText(
-              text: "2 Days Ago",
+              text: post.last_ago ?? "",
               fontSize: 10,
               fontWeight: FontWeight.w600,
             ),
@@ -297,6 +371,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
           ),
           commonDivider(),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SvgPicture.asset(
                 SvgImageConstant.location,
@@ -307,10 +382,13 @@ class ViewHomeShiftDetails extends StatelessWidget {
               SizedBox(
                 width: getSize(10),
               ),
-              const BaseText(
-                text: "4517, Washington Manchester, Kentucky 39495",
-                fontSize: 10,
-                fontWeight: FontWeight.w500,
+              Flexible(
+                child: BaseText(
+                  text: post.location?.location ?? "",
+                  fontSize: 10,
+                  maxLines: 5,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),
@@ -319,7 +397,8 @@ class ViewHomeShiftDetails extends StatelessWidget {
     );
   }
 
-  Widget singleShiftDateTimeBreakUI(BuildContext context) {
+  Widget singleShiftDateTimeBreakUI(
+      BuildContext context, HealthcarePostDTO post) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
@@ -339,19 +418,27 @@ class ViewHomeShiftDetails extends StatelessWidget {
             children: [
               displayDateBreak(
                 context,
-                boldValue: "12 May, ",
-                timidValue: "2024",
+                post,
+                boldValue: convertTimeStampToDate(
+                    post.shift_detail?.detail?[0].start_date ?? -1),
+                timidValue: convertTimeStampToDate(
+                    post.shift_detail?.detail?[0].start_date ?? -1,
+                    isYear: true),
                 title: StringConstant.shiftDate,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
               displayTime(
                 title: StringConstant.time,
-                startDate: "09:15 AM",
-                endDate: "07:30 PM",
+                startDate: convertTimeStampToDate(
+                    post.shift_detail?.detail?[0].start_time ?? -1,
+                    isTime: true),
+                endDate: convertTimeStampToDate(
+                    post.shift_detail?.detail?[0].end_time ?? -1,
+                    isTime: true),
                 svgPrefixIcon: SvgImageConstant.clock,
               ),
-              displayDateBreak(context,
-                  boldValue: "45 Min",
+              displayDateBreak(context, post,
+                  boldValue: post.shift_detail?.unpaid_break?.short_name ?? "",
                   timidValue: "",
                   title: StringConstant.unpaidBreak,
                   svgPrefixIcon: SvgImageConstant.clock),
@@ -371,7 +458,23 @@ class ViewHomeShiftDetails extends StatelessWidget {
     );
   }
 
-  Widget multiShiftDateTimeBreakUI(BuildContext context) {
+  String convertTimeStampToDate(int timestamp,
+      {bool isYear = false, bool isTime = false}) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+
+    if (isTime) {
+      return DateFormat('hh:mm a').format(dateTime);
+    } else {
+      if (isYear) {
+        return DateFormat('yyyy').format(dateTime);
+      } else {
+        return DateFormat('d MMMM, ').format(dateTime);
+      }
+    }
+  }
+
+  Widget multiShiftDateTimeBreakUI(
+      BuildContext context, HealthcarePostDTO post) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
@@ -391,14 +494,15 @@ class ViewHomeShiftDetails extends StatelessWidget {
             children: [
               displayDateBreak(
                 context,
+                post,
                 boldValue: "",
                 timidValue: "",
                 showBtn: true,
                 title: StringConstant.shiftDates,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
-              displayDateBreak(context,
-                  boldValue: "45 Min",
+              displayDateBreak(context, post,
+                  boldValue: post.shift_detail?.unpaid_break?.short_name ?? "",
                   timidValue: "",
                   title: StringConstant.unpaidBreak,
                   svgPrefixIcon: SvgImageConstant.clock),
@@ -419,7 +523,8 @@ class ViewHomeShiftDetails extends StatelessWidget {
   }
 
   Widget displayDateBreak(
-    BuildContext context, {
+    BuildContext context,
+    HealthcarePostDTO post, {
     required String title,
     required String boldValue,
     required String timidValue,
@@ -451,8 +556,11 @@ class ViewHomeShiftDetails extends StatelessWidget {
               (showBtn)
                   ? CommonButton(
                       onPressed: () {
-                        context.router
-                            .push(const PageRouteInfo(ViewDates.name));
+                        if (post.shift_detail != null) {
+                          context.router.push(PageRouteInfo(ViewDates.name,
+                              args: ViewDatesArgs(
+                                  shiftDetail: post.shift_detail!)));
+                        }
                       },
                       width: getSize(100),
                       height: getSize(23),
@@ -569,6 +677,9 @@ class ViewHomeShiftDetails extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 textColor: AppColors.black.withOpacity(0.7),
               ),
+              SizedBox(
+                height: getSize(5),
+              ),
               BaseText(
                 text: value,
                 fontSize: 20,
@@ -634,96 +745,26 @@ class ViewHomeShiftDetails extends StatelessWidget {
               fontWeight: FontWeight.w400,
               textColor: AppColors.black.withOpacity(0.9),
             ),
-            SizedBox(
-              height: getSize(10),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                BaseText(
-                  text: "${StringConstant.unit} - ",
-                  fontSize: 10,
-                  fontWeight: FontWeight.w400,
-                  textColor: AppColors.primaryColor,
-                ),
-                BaseText(
-                  text: StringConstant.unitName,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w500,
-                  textColor: AppColors.black,
-                ),
-              ],
-            ),
-            BaseText(
-              text: units,
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              textColor: AppColors.black.withOpacity(0.9),
-            ),
+            if (units.isNotEmpty) ...[
+              SizedBox(
+                height: getSize(10),
+              ),
+              BaseText(
+                text: StringConstant.unit,
+                fontSize: 10,
+                fontWeight: FontWeight.w400,
+                textColor: AppColors.primaryColor,
+              ),
+              BaseText(
+                text: units,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                textColor: AppColors.black.withOpacity(0.9),
+              ),
+            ],
           ],
         ),
       ),
-    );
-  }
-
-  Widget payableBox({
-    required String vacancy,
-    required String accommodationAllowance,
-    required String commuteAllowance,
-    required String serviceFee,
-    required String totalPayable,
-  }) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: getSize(12),
-        vertical: getSize(10),
-      ),
-      margin: EdgeInsets.symmetric(vertical: getSize(5)),
-      width: double.infinity,
-      decoration: BoxDecoration(
-          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
-      child: ListTile(
-        contentPadding: EdgeInsets.zero,
-        minVerticalPadding: 0,
-        horizontalTitleGap: getSize(0),
-        title: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            paybaleTitleRate(
-              title: StringConstant.totalNumberOfVacancy,
-              value: vacancy,
-              isFirst: true,
-            ),
-            commonDivider(),
-            paybaleTitleRate(
-              title: "${StringConstant.accommodationAllowance}:-",
-              value: accommodationAllowance,
-            ),
-            paybaleTitleRate(
-              title: "${StringConstant.commuteAllowance}:-",
-              value: commuteAllowance,
-            ),
-            paybaleTitleRate(
-              title: "${StringConstant.shiftFinderServiceFee}:-",
-              value: serviceFee,
-            ),
-            commonDivider(),
-            paybaleTitleRate(
-              title: "${StringConstant.estimatedTotalPayable}:-",
-              value: totalPayable,
-              isLast: true,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget commonDivider() {
-    return Divider(
-      color: AppColors.black.withOpacity(0.2),
-      thickness: getSize(0.5),
     );
   }
 
@@ -749,5 +790,113 @@ class ViewHomeShiftDetails extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget chipListBox({
+    required List<String> chipList,
+    required String title,
+    required String value,
+  }) {
+    return Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: getSize(12),
+          vertical: getSize(10),
+        ),
+        margin: EdgeInsets.symmetric(vertical: getSize(5)),
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BaseText(
+              text: title,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              textColor: AppColors.black,
+            ),
+            Container(
+              margin: EdgeInsets.only(top: getSize(5)),
+              decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(10)),
+              child: ListTile(
+                dense: true,
+                title: BaseText(
+                  text: value,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  textColor: AppColors.black,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: getSize(10),
+            ),
+            CustomChipSet(
+              onDelete: (v) {},
+              chipList: chipList,
+              deleteIcon: Container(),
+              deleteIconBoxConstraints:
+                  BoxConstraints(minWidth: 0, minHeight: 0),
+            ),
+          ],
+        ));
+  }
+
+  Widget templateCheckBox() {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: getSize(20),
+        vertical: getSize(10),
+      ),
+      margin: EdgeInsets.symmetric(vertical: getSize(5)),
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: getSize(20),
+            width: getSize(16.67),
+            child: Checkbox(
+              value: true,
+              activeColor: AppColors.primaryColor,
+              side: BorderSide(
+                width: getSize(1.5),
+                color: AppColors.black.withOpacity(0.5),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+              onChanged: (value) {},
+            ),
+          ),
+          SizedBox(
+            width: getSize(15),
+          ),
+          Flexible(
+            child: BaseText(
+              text: StringConstant.saveThisAsATemplateForFuturePosting,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String languageList(HealthcarePostDTO post) {
+    List<SkillDTO> list = List<SkillDTO>.from(post.languages_list ?? []);
+    if (post.language_other != null && post.language_other!.isNotEmpty) {
+      list.add(SkillDTO(name: post.language_other));
+    }
+
+    // Return the list of language names as a comma-separated string
+    return list
+        .where((item) => item.name != null)
+        .map((item) => item.name)
+        .join(', ');
   }
 }

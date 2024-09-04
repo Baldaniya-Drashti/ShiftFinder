@@ -13,7 +13,7 @@ class ShiftDateDetailDTO with _$ShiftDateDetailDTO {
     int? start_time,
     int? end_date,
     int? end_time,
-    int? days,
+    String? days,
   }) = _ShiftDateDetailDTO;
 
   factory ShiftDateDetailDTO.fromJson(Map<String, dynamic> json) =>

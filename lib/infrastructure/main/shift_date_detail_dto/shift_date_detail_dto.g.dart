@@ -15,7 +15,7 @@ _$ShiftDateDetailDTOImpl _$$ShiftDateDetailDTOImplFromJson(
       start_time: (json['start_time'] as num?)?.toInt(),
       end_date: (json['end_date'] as num?)?.toInt(),
       end_time: (json['end_time'] as num?)?.toInt(),
-      days: (json['days'] as num?)?.toInt(),
+      days: json['days'] as String?,
     );
 
 Map<String, dynamic> _$$ShiftDateDetailDTOImplToJson(

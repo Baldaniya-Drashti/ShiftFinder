@@ -80,9 +80,11 @@ class RegisterForm extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         print("Already account clicked!");
-                        context.router.pushAndPopUntil(
-                            const PageRouteInfo(LoginPage.name),
-                            predicate: (route) => false);
+                        context.router
+                            .replace(const PageRouteInfo(LoginPage.name));
+                        // context.router.pushAndPopUntil(
+                        //     const PageRouteInfo(LoginPage.name),
+                        //     predicate: (route) => false);
                         // context.router.popUntil(
                         //     (route) => route.settings.name == LoginPage.name);
                       },

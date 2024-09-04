@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$HealthcarePostEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getAllDropDownList,
+    required TResult Function(int postId) getAllDropDownList,
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -31,15 +31,24 @@ mixin _$HealthcarePostEvent {
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
         removePreferedSoftwareSkillchips,
-    required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedValue) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(BuildContext context) continueBtnPressed,
+    required TResult Function(
+            List<String> skillList, List<String> otherSkillList)
+        confirmSoftwareSkill,
+    required TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)
+        confirmSpecialityList,
+    required TResult Function(
+            List<String> languageList, List<String> otherLanguageList)
+        confirmLanguageList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getAllDropDownList,
+    TResult? Function(int postId)? getAllDropDownList,
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -50,15 +59,23 @@ mixin _$HealthcarePostEvent {
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedValue)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(BuildContext context)? continueBtnPressed,
+    TResult? Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult? Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult? Function(
+            List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getAllDropDownList,
+    TResult Function(int postId)? getAllDropDownList,
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -69,10 +86,17 @@ mixin _$HealthcarePostEvent {
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult Function(String location)? locationChanged,
+    TResult Function(String selectedValue)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(BuildContext context)? continueBtnPressed,
+    TResult Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult Function(List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -95,6 +119,10 @@ mixin _$HealthcarePostEvent {
         locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(ConfirmSoftwareSkill value) confirmSoftwareSkill,
+    required TResult Function(ConfirmSpecialityList value)
+        confirmSpecialityList,
+    required TResult Function(ConfirmLanguageList value) confirmLanguageList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -116,6 +144,9 @@ mixin _$HealthcarePostEvent {
         locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult? Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult? Function(ConfirmLanguageList value)? confirmLanguageList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -137,6 +168,9 @@ mixin _$HealthcarePostEvent {
         locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult Function(ConfirmLanguageList value)? confirmLanguageList,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -165,6 +199,8 @@ abstract class _$$GetAllDropDownListImplCopyWith<$Res> {
   factory _$$GetAllDropDownListImplCopyWith(_$GetAllDropDownListImpl value,
           $Res Function(_$GetAllDropDownListImpl) then) =
       __$$GetAllDropDownListImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int postId});
 }
 
 /// @nodoc
@@ -174,31 +210,56 @@ class __$$GetAllDropDownListImplCopyWithImpl<$Res>
   __$$GetAllDropDownListImplCopyWithImpl(_$GetAllDropDownListImpl _value,
       $Res Function(_$GetAllDropDownListImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? postId = null,
+  }) {
+    return _then(_$GetAllDropDownListImpl(
+      null == postId
+          ? _value.postId
+          : postId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$GetAllDropDownListImpl implements GetAllDropDownList {
-  const _$GetAllDropDownListImpl();
+  const _$GetAllDropDownListImpl(this.postId);
+
+  @override
+  final int postId;
 
   @override
   String toString() {
-    return 'HealthcarePostEvent.getAllDropDownList()';
+    return 'HealthcarePostEvent.getAllDropDownList(postId: $postId)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetAllDropDownListImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$GetAllDropDownListImpl &&
+            (identical(other.postId, postId) || other.postId == postId));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, postId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetAllDropDownListImplCopyWith<_$GetAllDropDownListImpl> get copyWith =>
+      __$$GetAllDropDownListImplCopyWithImpl<_$GetAllDropDownListImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getAllDropDownList,
+    required TResult Function(int postId) getAllDropDownList,
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -211,18 +272,27 @@ class _$GetAllDropDownListImpl implements GetAllDropDownList {
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
         removePreferedSoftwareSkillchips,
-    required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedValue) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(BuildContext context) continueBtnPressed,
+    required TResult Function(
+            List<String> skillList, List<String> otherSkillList)
+        confirmSoftwareSkill,
+    required TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)
+        confirmSpecialityList,
+    required TResult Function(
+            List<String> languageList, List<String> otherLanguageList)
+        confirmLanguageList,
   }) {
-    return getAllDropDownList();
+    return getAllDropDownList(postId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getAllDropDownList,
+    TResult? Function(int postId)? getAllDropDownList,
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -233,18 +303,26 @@ class _$GetAllDropDownListImpl implements GetAllDropDownList {
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedValue)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(BuildContext context)? continueBtnPressed,
+    TResult? Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult? Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult? Function(
+            List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
   }) {
-    return getAllDropDownList?.call();
+    return getAllDropDownList?.call(postId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getAllDropDownList,
+    TResult Function(int postId)? getAllDropDownList,
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -255,14 +333,21 @@ class _$GetAllDropDownListImpl implements GetAllDropDownList {
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult Function(String location)? locationChanged,
+    TResult Function(String selectedValue)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(BuildContext context)? continueBtnPressed,
+    TResult Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult Function(List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
     required TResult orElse(),
   }) {
     if (getAllDropDownList != null) {
-      return getAllDropDownList();
+      return getAllDropDownList(postId);
     }
     return orElse();
   }
@@ -287,6 +372,10 @@ class _$GetAllDropDownListImpl implements GetAllDropDownList {
         locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(ConfirmSoftwareSkill value) confirmSoftwareSkill,
+    required TResult Function(ConfirmSpecialityList value)
+        confirmSpecialityList,
+    required TResult Function(ConfirmLanguageList value) confirmLanguageList,
   }) {
     return getAllDropDownList(this);
   }
@@ -311,6 +400,9 @@ class _$GetAllDropDownListImpl implements GetAllDropDownList {
         locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult? Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult? Function(ConfirmLanguageList value)? confirmLanguageList,
   }) {
     return getAllDropDownList?.call(this);
   }
@@ -335,6 +427,9 @@ class _$GetAllDropDownListImpl implements GetAllDropDownList {
         locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult Function(ConfirmLanguageList value)? confirmLanguageList,
     required TResult orElse(),
   }) {
     if (getAllDropDownList != null) {
@@ -345,7 +440,12 @@ class _$GetAllDropDownListImpl implements GetAllDropDownList {
 }
 
 abstract class GetAllDropDownList implements HealthcarePostEvent {
-  const factory GetAllDropDownList() = _$GetAllDropDownListImpl;
+  const factory GetAllDropDownList(final int postId) = _$GetAllDropDownListImpl;
+
+  int get postId;
+  @JsonKey(ignore: true)
+  _$$GetAllDropDownListImplCopyWith<_$GetAllDropDownListImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -414,7 +514,7 @@ class _$RoleTypeChangedImpl implements RoleTypeChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getAllDropDownList,
+    required TResult Function(int postId) getAllDropDownList,
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -427,10 +527,19 @@ class _$RoleTypeChangedImpl implements RoleTypeChanged {
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
         removePreferedSoftwareSkillchips,
-    required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedValue) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(BuildContext context) continueBtnPressed,
+    required TResult Function(
+            List<String> skillList, List<String> otherSkillList)
+        confirmSoftwareSkill,
+    required TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)
+        confirmSpecialityList,
+    required TResult Function(
+            List<String> languageList, List<String> otherLanguageList)
+        confirmLanguageList,
   }) {
     return roleTypeChanged(roleType);
   }
@@ -438,7 +547,7 @@ class _$RoleTypeChangedImpl implements RoleTypeChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getAllDropDownList,
+    TResult? Function(int postId)? getAllDropDownList,
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -449,10 +558,18 @@ class _$RoleTypeChangedImpl implements RoleTypeChanged {
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedValue)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(BuildContext context)? continueBtnPressed,
+    TResult? Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult? Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult? Function(
+            List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
   }) {
     return roleTypeChanged?.call(roleType);
   }
@@ -460,7 +577,7 @@ class _$RoleTypeChangedImpl implements RoleTypeChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getAllDropDownList,
+    TResult Function(int postId)? getAllDropDownList,
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -471,10 +588,17 @@ class _$RoleTypeChangedImpl implements RoleTypeChanged {
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult Function(String location)? locationChanged,
+    TResult Function(String selectedValue)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(BuildContext context)? continueBtnPressed,
+    TResult Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult Function(List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
     required TResult orElse(),
   }) {
     if (roleTypeChanged != null) {
@@ -503,6 +627,10 @@ class _$RoleTypeChangedImpl implements RoleTypeChanged {
         locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(ConfirmSoftwareSkill value) confirmSoftwareSkill,
+    required TResult Function(ConfirmSpecialityList value)
+        confirmSpecialityList,
+    required TResult Function(ConfirmLanguageList value) confirmLanguageList,
   }) {
     return roleTypeChanged(this);
   }
@@ -527,6 +655,9 @@ class _$RoleTypeChangedImpl implements RoleTypeChanged {
         locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult? Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult? Function(ConfirmLanguageList value)? confirmLanguageList,
   }) {
     return roleTypeChanged?.call(this);
   }
@@ -551,6 +682,9 @@ class _$RoleTypeChangedImpl implements RoleTypeChanged {
         locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult Function(ConfirmLanguageList value)? confirmLanguageList,
     required TResult orElse(),
   }) {
     if (roleTypeChanged != null) {
@@ -644,7 +778,7 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getAllDropDownList,
+    required TResult Function(int postId) getAllDropDownList,
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -657,10 +791,19 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
         removePreferedSoftwareSkillchips,
-    required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedValue) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(BuildContext context) continueBtnPressed,
+    required TResult Function(
+            List<String> skillList, List<String> otherSkillList)
+        confirmSoftwareSkill,
+    required TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)
+        confirmSpecialityList,
+    required TResult Function(
+            List<String> languageList, List<String> otherLanguageList)
+        confirmLanguageList,
   }) {
     return addLanguageChips(selectedLanguage, isOtherValue);
   }
@@ -668,7 +811,7 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getAllDropDownList,
+    TResult? Function(int postId)? getAllDropDownList,
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -679,10 +822,18 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedValue)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(BuildContext context)? continueBtnPressed,
+    TResult? Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult? Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult? Function(
+            List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
   }) {
     return addLanguageChips?.call(selectedLanguage, isOtherValue);
   }
@@ -690,7 +841,7 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getAllDropDownList,
+    TResult Function(int postId)? getAllDropDownList,
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -701,10 +852,17 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult Function(String location)? locationChanged,
+    TResult Function(String selectedValue)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(BuildContext context)? continueBtnPressed,
+    TResult Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult Function(List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
     required TResult orElse(),
   }) {
     if (addLanguageChips != null) {
@@ -733,6 +891,10 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
         locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(ConfirmSoftwareSkill value) confirmSoftwareSkill,
+    required TResult Function(ConfirmSpecialityList value)
+        confirmSpecialityList,
+    required TResult Function(ConfirmLanguageList value) confirmLanguageList,
   }) {
     return addLanguageChips(this);
   }
@@ -757,6 +919,9 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
         locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult? Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult? Function(ConfirmLanguageList value)? confirmLanguageList,
   }) {
     return addLanguageChips?.call(this);
   }
@@ -781,6 +946,9 @@ class _$AddLanguageChipsImpl implements AddLanguageChips {
         locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult Function(ConfirmLanguageList value)? confirmLanguageList,
     required TResult orElse(),
   }) {
     if (addLanguageChips != null) {
@@ -867,7 +1035,7 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getAllDropDownList,
+    required TResult Function(int postId) getAllDropDownList,
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -880,10 +1048,19 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
         removePreferedSoftwareSkillchips,
-    required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedValue) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(BuildContext context) continueBtnPressed,
+    required TResult Function(
+            List<String> skillList, List<String> otherSkillList)
+        confirmSoftwareSkill,
+    required TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)
+        confirmSpecialityList,
+    required TResult Function(
+            List<String> languageList, List<String> otherLanguageList)
+        confirmLanguageList,
   }) {
     return removeLanguageChips(selectedLanguage);
   }
@@ -891,7 +1068,7 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getAllDropDownList,
+    TResult? Function(int postId)? getAllDropDownList,
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -902,10 +1079,18 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedValue)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(BuildContext context)? continueBtnPressed,
+    TResult? Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult? Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult? Function(
+            List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
   }) {
     return removeLanguageChips?.call(selectedLanguage);
   }
@@ -913,7 +1098,7 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getAllDropDownList,
+    TResult Function(int postId)? getAllDropDownList,
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -924,10 +1109,17 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult Function(String location)? locationChanged,
+    TResult Function(String selectedValue)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(BuildContext context)? continueBtnPressed,
+    TResult Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult Function(List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
     required TResult orElse(),
   }) {
     if (removeLanguageChips != null) {
@@ -956,6 +1148,10 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
         locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(ConfirmSoftwareSkill value) confirmSoftwareSkill,
+    required TResult Function(ConfirmSpecialityList value)
+        confirmSpecialityList,
+    required TResult Function(ConfirmLanguageList value) confirmLanguageList,
   }) {
     return removeLanguageChips(this);
   }
@@ -980,6 +1176,9 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
         locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult? Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult? Function(ConfirmLanguageList value)? confirmLanguageList,
   }) {
     return removeLanguageChips?.call(this);
   }
@@ -1004,6 +1203,9 @@ class _$RemoveLanguageChipsImpl implements RemoveLanguageChips {
         locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult Function(ConfirmLanguageList value)? confirmLanguageList,
     required TResult orElse(),
   }) {
     if (removeLanguageChips != null) {
@@ -1102,7 +1304,7 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getAllDropDownList,
+    required TResult Function(int postId) getAllDropDownList,
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -1115,10 +1317,19 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
         removePreferedSoftwareSkillchips,
-    required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedValue) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(BuildContext context) continueBtnPressed,
+    required TResult Function(
+            List<String> skillList, List<String> otherSkillList)
+        confirmSoftwareSkill,
+    required TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)
+        confirmSpecialityList,
+    required TResult Function(
+            List<String> languageList, List<String> otherLanguageList)
+        confirmLanguageList,
   }) {
     return addRequiredSpecialitichips(selectedValue, isOtherValue);
   }
@@ -1126,7 +1337,7 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getAllDropDownList,
+    TResult? Function(int postId)? getAllDropDownList,
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1137,10 +1348,18 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedValue)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(BuildContext context)? continueBtnPressed,
+    TResult? Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult? Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult? Function(
+            List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
   }) {
     return addRequiredSpecialitichips?.call(selectedValue, isOtherValue);
   }
@@ -1148,7 +1367,7 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getAllDropDownList,
+    TResult Function(int postId)? getAllDropDownList,
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1159,10 +1378,17 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult Function(String location)? locationChanged,
+    TResult Function(String selectedValue)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(BuildContext context)? continueBtnPressed,
+    TResult Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult Function(List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
     required TResult orElse(),
   }) {
     if (addRequiredSpecialitichips != null) {
@@ -1191,6 +1417,10 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
         locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(ConfirmSoftwareSkill value) confirmSoftwareSkill,
+    required TResult Function(ConfirmSpecialityList value)
+        confirmSpecialityList,
+    required TResult Function(ConfirmLanguageList value) confirmLanguageList,
   }) {
     return addRequiredSpecialitichips(this);
   }
@@ -1215,6 +1445,9 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
         locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult? Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult? Function(ConfirmLanguageList value)? confirmLanguageList,
   }) {
     return addRequiredSpecialitichips?.call(this);
   }
@@ -1239,6 +1472,9 @@ class _$AddRequiredSpecialitichipsImpl implements AddRequiredSpecialitichips {
         locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult Function(ConfirmLanguageList value)? confirmLanguageList,
     required TResult orElse(),
   }) {
     if (addRequiredSpecialitichips != null) {
@@ -1330,7 +1566,7 @@ class _$RemoveRequiredSpecialitichipsImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getAllDropDownList,
+    required TResult Function(int postId) getAllDropDownList,
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -1343,10 +1579,19 @@ class _$RemoveRequiredSpecialitichipsImpl
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
         removePreferedSoftwareSkillchips,
-    required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedValue) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(BuildContext context) continueBtnPressed,
+    required TResult Function(
+            List<String> skillList, List<String> otherSkillList)
+        confirmSoftwareSkill,
+    required TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)
+        confirmSpecialityList,
+    required TResult Function(
+            List<String> languageList, List<String> otherLanguageList)
+        confirmLanguageList,
   }) {
     return removeRequiredSpecialitichips(selectedValue);
   }
@@ -1354,7 +1599,7 @@ class _$RemoveRequiredSpecialitichipsImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getAllDropDownList,
+    TResult? Function(int postId)? getAllDropDownList,
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1365,10 +1610,18 @@ class _$RemoveRequiredSpecialitichipsImpl
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedValue)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(BuildContext context)? continueBtnPressed,
+    TResult? Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult? Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult? Function(
+            List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
   }) {
     return removeRequiredSpecialitichips?.call(selectedValue);
   }
@@ -1376,7 +1629,7 @@ class _$RemoveRequiredSpecialitichipsImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getAllDropDownList,
+    TResult Function(int postId)? getAllDropDownList,
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1387,10 +1640,17 @@ class _$RemoveRequiredSpecialitichipsImpl
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult Function(String location)? locationChanged,
+    TResult Function(String selectedValue)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(BuildContext context)? continueBtnPressed,
+    TResult Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult Function(List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
     required TResult orElse(),
   }) {
     if (removeRequiredSpecialitichips != null) {
@@ -1419,6 +1679,10 @@ class _$RemoveRequiredSpecialitichipsImpl
         locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(ConfirmSoftwareSkill value) confirmSoftwareSkill,
+    required TResult Function(ConfirmSpecialityList value)
+        confirmSpecialityList,
+    required TResult Function(ConfirmLanguageList value) confirmLanguageList,
   }) {
     return removeRequiredSpecialitichips(this);
   }
@@ -1443,6 +1707,9 @@ class _$RemoveRequiredSpecialitichipsImpl
         locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult? Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult? Function(ConfirmLanguageList value)? confirmLanguageList,
   }) {
     return removeRequiredSpecialitichips?.call(this);
   }
@@ -1467,6 +1734,9 @@ class _$RemoveRequiredSpecialitichipsImpl
         locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult Function(ConfirmLanguageList value)? confirmLanguageList,
     required TResult orElse(),
   }) {
     if (removeRequiredSpecialitichips != null) {
@@ -1568,7 +1838,7 @@ class _$AddPreferedSoftwareSkillchipsImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getAllDropDownList,
+    required TResult Function(int postId) getAllDropDownList,
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -1581,10 +1851,19 @@ class _$AddPreferedSoftwareSkillchipsImpl
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
         removePreferedSoftwareSkillchips,
-    required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedValue) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(BuildContext context) continueBtnPressed,
+    required TResult Function(
+            List<String> skillList, List<String> otherSkillList)
+        confirmSoftwareSkill,
+    required TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)
+        confirmSpecialityList,
+    required TResult Function(
+            List<String> languageList, List<String> otherLanguageList)
+        confirmLanguageList,
   }) {
     return addPreferedSoftwareSkillchips(selectedValue, isOtherValue);
   }
@@ -1592,7 +1871,7 @@ class _$AddPreferedSoftwareSkillchipsImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getAllDropDownList,
+    TResult? Function(int postId)? getAllDropDownList,
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1603,10 +1882,18 @@ class _$AddPreferedSoftwareSkillchipsImpl
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedValue)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(BuildContext context)? continueBtnPressed,
+    TResult? Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult? Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult? Function(
+            List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
   }) {
     return addPreferedSoftwareSkillchips?.call(selectedValue, isOtherValue);
   }
@@ -1614,7 +1901,7 @@ class _$AddPreferedSoftwareSkillchipsImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getAllDropDownList,
+    TResult Function(int postId)? getAllDropDownList,
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1625,10 +1912,17 @@ class _$AddPreferedSoftwareSkillchipsImpl
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult Function(String location)? locationChanged,
+    TResult Function(String selectedValue)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(BuildContext context)? continueBtnPressed,
+    TResult Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult Function(List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
     required TResult orElse(),
   }) {
     if (addPreferedSoftwareSkillchips != null) {
@@ -1657,6 +1951,10 @@ class _$AddPreferedSoftwareSkillchipsImpl
         locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(ConfirmSoftwareSkill value) confirmSoftwareSkill,
+    required TResult Function(ConfirmSpecialityList value)
+        confirmSpecialityList,
+    required TResult Function(ConfirmLanguageList value) confirmLanguageList,
   }) {
     return addPreferedSoftwareSkillchips(this);
   }
@@ -1681,6 +1979,9 @@ class _$AddPreferedSoftwareSkillchipsImpl
         locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult? Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult? Function(ConfirmLanguageList value)? confirmLanguageList,
   }) {
     return addPreferedSoftwareSkillchips?.call(this);
   }
@@ -1705,6 +2006,9 @@ class _$AddPreferedSoftwareSkillchipsImpl
         locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult Function(ConfirmLanguageList value)? confirmLanguageList,
     required TResult orElse(),
   }) {
     if (addPreferedSoftwareSkillchips != null) {
@@ -1797,7 +2101,7 @@ class _$RemovePreferedSoftwareSkillchipsImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getAllDropDownList,
+    required TResult Function(int postId) getAllDropDownList,
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -1810,10 +2114,19 @@ class _$RemovePreferedSoftwareSkillchipsImpl
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
         removePreferedSoftwareSkillchips,
-    required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedValue) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(BuildContext context) continueBtnPressed,
+    required TResult Function(
+            List<String> skillList, List<String> otherSkillList)
+        confirmSoftwareSkill,
+    required TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)
+        confirmSpecialityList,
+    required TResult Function(
+            List<String> languageList, List<String> otherLanguageList)
+        confirmLanguageList,
   }) {
     return removePreferedSoftwareSkillchips(selectedValue);
   }
@@ -1821,7 +2134,7 @@ class _$RemovePreferedSoftwareSkillchipsImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getAllDropDownList,
+    TResult? Function(int postId)? getAllDropDownList,
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1832,10 +2145,18 @@ class _$RemovePreferedSoftwareSkillchipsImpl
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedValue)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(BuildContext context)? continueBtnPressed,
+    TResult? Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult? Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult? Function(
+            List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
   }) {
     return removePreferedSoftwareSkillchips?.call(selectedValue);
   }
@@ -1843,7 +2164,7 @@ class _$RemovePreferedSoftwareSkillchipsImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getAllDropDownList,
+    TResult Function(int postId)? getAllDropDownList,
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -1854,10 +2175,17 @@ class _$RemovePreferedSoftwareSkillchipsImpl
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult Function(String location)? locationChanged,
+    TResult Function(String selectedValue)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(BuildContext context)? continueBtnPressed,
+    TResult Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult Function(List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
     required TResult orElse(),
   }) {
     if (removePreferedSoftwareSkillchips != null) {
@@ -1886,6 +2214,10 @@ class _$RemovePreferedSoftwareSkillchipsImpl
         locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(ConfirmSoftwareSkill value) confirmSoftwareSkill,
+    required TResult Function(ConfirmSpecialityList value)
+        confirmSpecialityList,
+    required TResult Function(ConfirmLanguageList value) confirmLanguageList,
   }) {
     return removePreferedSoftwareSkillchips(this);
   }
@@ -1910,6 +2242,9 @@ class _$RemovePreferedSoftwareSkillchipsImpl
         locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult? Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult? Function(ConfirmLanguageList value)? confirmLanguageList,
   }) {
     return removePreferedSoftwareSkillchips?.call(this);
   }
@@ -1934,6 +2269,9 @@ class _$RemovePreferedSoftwareSkillchipsImpl
         locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult Function(ConfirmLanguageList value)? confirmLanguageList,
     required TResult orElse(),
   }) {
     if (removePreferedSoftwareSkillchips != null) {
@@ -1960,7 +2298,7 @@ abstract class _$$LocationChangedImplCopyWith<$Res> {
           $Res Function(_$LocationChangedImpl) then) =
       __$$LocationChangedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String location});
+  $Res call({String selectedValue});
 }
 
 /// @nodoc
@@ -1974,12 +2312,12 @@ class __$$LocationChangedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? location = null,
+    Object? selectedValue = null,
   }) {
     return _then(_$LocationChangedImpl(
-      null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
+      null == selectedValue
+          ? _value.selectedValue
+          : selectedValue // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -1988,14 +2326,14 @@ class __$$LocationChangedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LocationChangedImpl implements LocationChanged {
-  const _$LocationChangedImpl(this.location);
+  const _$LocationChangedImpl(this.selectedValue);
 
   @override
-  final String location;
+  final String selectedValue;
 
   @override
   String toString() {
-    return 'HealthcarePostEvent.locationChanged(location: $location)';
+    return 'HealthcarePostEvent.locationChanged(selectedValue: $selectedValue)';
   }
 
   @override
@@ -2003,12 +2341,12 @@ class _$LocationChangedImpl implements LocationChanged {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LocationChangedImpl &&
-            (identical(other.location, location) ||
-                other.location == location));
+            (identical(other.selectedValue, selectedValue) ||
+                other.selectedValue == selectedValue));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, location);
+  int get hashCode => Object.hash(runtimeType, selectedValue);
 
   @JsonKey(ignore: true)
   @override
@@ -2020,7 +2358,7 @@ class _$LocationChangedImpl implements LocationChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getAllDropDownList,
+    required TResult Function(int postId) getAllDropDownList,
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -2033,18 +2371,27 @@ class _$LocationChangedImpl implements LocationChanged {
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
         removePreferedSoftwareSkillchips,
-    required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedValue) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(BuildContext context) continueBtnPressed,
+    required TResult Function(
+            List<String> skillList, List<String> otherSkillList)
+        confirmSoftwareSkill,
+    required TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)
+        confirmSpecialityList,
+    required TResult Function(
+            List<String> languageList, List<String> otherLanguageList)
+        confirmLanguageList,
   }) {
-    return locationChanged(location);
+    return locationChanged(selectedValue);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getAllDropDownList,
+    TResult? Function(int postId)? getAllDropDownList,
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -2055,18 +2402,26 @@ class _$LocationChangedImpl implements LocationChanged {
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedValue)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(BuildContext context)? continueBtnPressed,
+    TResult? Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult? Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult? Function(
+            List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
   }) {
-    return locationChanged?.call(location);
+    return locationChanged?.call(selectedValue);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getAllDropDownList,
+    TResult Function(int postId)? getAllDropDownList,
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -2077,14 +2432,21 @@ class _$LocationChangedImpl implements LocationChanged {
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult Function(String location)? locationChanged,
+    TResult Function(String selectedValue)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(BuildContext context)? continueBtnPressed,
+    TResult Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult Function(List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
     required TResult orElse(),
   }) {
     if (locationChanged != null) {
-      return locationChanged(location);
+      return locationChanged(selectedValue);
     }
     return orElse();
   }
@@ -2109,6 +2471,10 @@ class _$LocationChangedImpl implements LocationChanged {
         locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(ConfirmSoftwareSkill value) confirmSoftwareSkill,
+    required TResult Function(ConfirmSpecialityList value)
+        confirmSpecialityList,
+    required TResult Function(ConfirmLanguageList value) confirmLanguageList,
   }) {
     return locationChanged(this);
   }
@@ -2133,6 +2499,9 @@ class _$LocationChangedImpl implements LocationChanged {
         locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult? Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult? Function(ConfirmLanguageList value)? confirmLanguageList,
   }) {
     return locationChanged?.call(this);
   }
@@ -2157,6 +2526,9 @@ class _$LocationChangedImpl implements LocationChanged {
         locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult Function(ConfirmLanguageList value)? confirmLanguageList,
     required TResult orElse(),
   }) {
     if (locationChanged != null) {
@@ -2167,9 +2539,10 @@ class _$LocationChangedImpl implements LocationChanged {
 }
 
 abstract class LocationChanged implements HealthcarePostEvent {
-  const factory LocationChanged(final String location) = _$LocationChangedImpl;
+  const factory LocationChanged(final String selectedValue) =
+      _$LocationChangedImpl;
 
-  String get location;
+  String get selectedValue;
   @JsonKey(ignore: true)
   _$$LocationChangedImplCopyWith<_$LocationChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2246,7 +2619,7 @@ class _$LocationUnitSelectionChangedImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getAllDropDownList,
+    required TResult Function(int postId) getAllDropDownList,
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -2259,10 +2632,19 @@ class _$LocationUnitSelectionChangedImpl
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
         removePreferedSoftwareSkillchips,
-    required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedValue) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(BuildContext context) continueBtnPressed,
+    required TResult Function(
+            List<String> skillList, List<String> otherSkillList)
+        confirmSoftwareSkill,
+    required TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)
+        confirmSpecialityList,
+    required TResult Function(
+            List<String> languageList, List<String> otherLanguageList)
+        confirmLanguageList,
   }) {
     return locationUnitSelectionChanged(selectedUnit);
   }
@@ -2270,7 +2652,7 @@ class _$LocationUnitSelectionChangedImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getAllDropDownList,
+    TResult? Function(int postId)? getAllDropDownList,
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -2281,10 +2663,18 @@ class _$LocationUnitSelectionChangedImpl
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedValue)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(BuildContext context)? continueBtnPressed,
+    TResult? Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult? Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult? Function(
+            List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
   }) {
     return locationUnitSelectionChanged?.call(selectedUnit);
   }
@@ -2292,7 +2682,7 @@ class _$LocationUnitSelectionChangedImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getAllDropDownList,
+    TResult Function(int postId)? getAllDropDownList,
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -2303,10 +2693,17 @@ class _$LocationUnitSelectionChangedImpl
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult Function(String location)? locationChanged,
+    TResult Function(String selectedValue)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(BuildContext context)? continueBtnPressed,
+    TResult Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult Function(List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
     required TResult orElse(),
   }) {
     if (locationUnitSelectionChanged != null) {
@@ -2335,6 +2732,10 @@ class _$LocationUnitSelectionChangedImpl
         locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(ConfirmSoftwareSkill value) confirmSoftwareSkill,
+    required TResult Function(ConfirmSpecialityList value)
+        confirmSpecialityList,
+    required TResult Function(ConfirmLanguageList value) confirmLanguageList,
   }) {
     return locationUnitSelectionChanged(this);
   }
@@ -2359,6 +2760,9 @@ class _$LocationUnitSelectionChangedImpl
         locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult? Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult? Function(ConfirmLanguageList value)? confirmLanguageList,
   }) {
     return locationUnitSelectionChanged?.call(this);
   }
@@ -2383,6 +2787,9 @@ class _$LocationUnitSelectionChangedImpl
         locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult Function(ConfirmLanguageList value)? confirmLanguageList,
     required TResult orElse(),
   }) {
     if (locationUnitSelectionChanged != null) {
@@ -2469,7 +2876,7 @@ class _$RateHourChangedImpl implements RateHourChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getAllDropDownList,
+    required TResult Function(int postId) getAllDropDownList,
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -2482,10 +2889,19 @@ class _$RateHourChangedImpl implements RateHourChanged {
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
         removePreferedSoftwareSkillchips,
-    required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedValue) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(BuildContext context) continueBtnPressed,
+    required TResult Function(
+            List<String> skillList, List<String> otherSkillList)
+        confirmSoftwareSkill,
+    required TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)
+        confirmSpecialityList,
+    required TResult Function(
+            List<String> languageList, List<String> otherLanguageList)
+        confirmLanguageList,
   }) {
     return rateHourChanged(rateHour);
   }
@@ -2493,7 +2909,7 @@ class _$RateHourChangedImpl implements RateHourChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getAllDropDownList,
+    TResult? Function(int postId)? getAllDropDownList,
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -2504,10 +2920,18 @@ class _$RateHourChangedImpl implements RateHourChanged {
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedValue)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(BuildContext context)? continueBtnPressed,
+    TResult? Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult? Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult? Function(
+            List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
   }) {
     return rateHourChanged?.call(rateHour);
   }
@@ -2515,7 +2939,7 @@ class _$RateHourChangedImpl implements RateHourChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getAllDropDownList,
+    TResult Function(int postId)? getAllDropDownList,
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -2526,10 +2950,17 @@ class _$RateHourChangedImpl implements RateHourChanged {
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult Function(String location)? locationChanged,
+    TResult Function(String selectedValue)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(BuildContext context)? continueBtnPressed,
+    TResult Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult Function(List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
     required TResult orElse(),
   }) {
     if (rateHourChanged != null) {
@@ -2558,6 +2989,10 @@ class _$RateHourChangedImpl implements RateHourChanged {
         locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(ConfirmSoftwareSkill value) confirmSoftwareSkill,
+    required TResult Function(ConfirmSpecialityList value)
+        confirmSpecialityList,
+    required TResult Function(ConfirmLanguageList value) confirmLanguageList,
   }) {
     return rateHourChanged(this);
   }
@@ -2582,6 +3017,9 @@ class _$RateHourChangedImpl implements RateHourChanged {
         locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult? Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult? Function(ConfirmLanguageList value)? confirmLanguageList,
   }) {
     return rateHourChanged?.call(this);
   }
@@ -2606,6 +3044,9 @@ class _$RateHourChangedImpl implements RateHourChanged {
         locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult Function(ConfirmLanguageList value)? confirmLanguageList,
     required TResult orElse(),
   }) {
     if (rateHourChanged != null) {
@@ -2689,7 +3130,7 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getAllDropDownList,
+    required TResult Function(int postId) getAllDropDownList,
     required TResult Function(String roleType) roleTypeChanged,
     required TResult Function(String selectedLanguage, bool? isOtherValue)
         addLanguageChips,
@@ -2702,10 +3143,19 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
         addPreferedSoftwareSkillchips,
     required TResult Function(String selectedValue)
         removePreferedSoftwareSkillchips,
-    required TResult Function(String location) locationChanged,
+    required TResult Function(String selectedValue) locationChanged,
     required TResult Function(String selectedUnit) locationUnitSelectionChanged,
     required TResult Function(String rateHour) rateHourChanged,
     required TResult Function(BuildContext context) continueBtnPressed,
+    required TResult Function(
+            List<String> skillList, List<String> otherSkillList)
+        confirmSoftwareSkill,
+    required TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)
+        confirmSpecialityList,
+    required TResult Function(
+            List<String> languageList, List<String> otherLanguageList)
+        confirmLanguageList,
   }) {
     return continueBtnPressed(context);
   }
@@ -2713,7 +3163,7 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getAllDropDownList,
+    TResult? Function(int postId)? getAllDropDownList,
     TResult? Function(String roleType)? roleTypeChanged,
     TResult? Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -2724,10 +3174,18 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     TResult? Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult? Function(String location)? locationChanged,
+    TResult? Function(String selectedValue)? locationChanged,
     TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult? Function(String rateHour)? rateHourChanged,
     TResult? Function(BuildContext context)? continueBtnPressed,
+    TResult? Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult? Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult? Function(
+            List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
   }) {
     return continueBtnPressed?.call(context);
   }
@@ -2735,7 +3193,7 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getAllDropDownList,
+    TResult Function(int postId)? getAllDropDownList,
     TResult Function(String roleType)? roleTypeChanged,
     TResult Function(String selectedLanguage, bool? isOtherValue)?
         addLanguageChips,
@@ -2746,10 +3204,17 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
     TResult Function(String selectedValue, bool? isOtherValue)?
         addPreferedSoftwareSkillchips,
     TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
-    TResult Function(String location)? locationChanged,
+    TResult Function(String selectedValue)? locationChanged,
     TResult Function(String selectedUnit)? locationUnitSelectionChanged,
     TResult Function(String rateHour)? rateHourChanged,
     TResult Function(BuildContext context)? continueBtnPressed,
+    TResult Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult Function(List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
     required TResult orElse(),
   }) {
     if (continueBtnPressed != null) {
@@ -2778,6 +3243,10 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
         locationUnitSelectionChanged,
     required TResult Function(RateHourChanged value) rateHourChanged,
     required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(ConfirmSoftwareSkill value) confirmSoftwareSkill,
+    required TResult Function(ConfirmSpecialityList value)
+        confirmSpecialityList,
+    required TResult Function(ConfirmLanguageList value) confirmLanguageList,
   }) {
     return continueBtnPressed(this);
   }
@@ -2802,6 +3271,9 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
         locationUnitSelectionChanged,
     TResult? Function(RateHourChanged value)? rateHourChanged,
     TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult? Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult? Function(ConfirmLanguageList value)? confirmLanguageList,
   }) {
     return continueBtnPressed?.call(this);
   }
@@ -2826,6 +3298,9 @@ class _$ContinueBtnPressedImpl implements ContinueBtnPressed {
         locationUnitSelectionChanged,
     TResult Function(RateHourChanged value)? rateHourChanged,
     TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult Function(ConfirmLanguageList value)? confirmLanguageList,
     required TResult orElse(),
   }) {
     if (continueBtnPressed != null) {
@@ -2846,7 +3321,863 @@ abstract class ContinueBtnPressed implements HealthcarePostEvent {
 }
 
 /// @nodoc
+abstract class _$$ConfirmSoftwareSkillImplCopyWith<$Res> {
+  factory _$$ConfirmSoftwareSkillImplCopyWith(_$ConfirmSoftwareSkillImpl value,
+          $Res Function(_$ConfirmSoftwareSkillImpl) then) =
+      __$$ConfirmSoftwareSkillImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<String> skillList, List<String> otherSkillList});
+}
+
+/// @nodoc
+class __$$ConfirmSoftwareSkillImplCopyWithImpl<$Res>
+    extends _$HealthcarePostEventCopyWithImpl<$Res, _$ConfirmSoftwareSkillImpl>
+    implements _$$ConfirmSoftwareSkillImplCopyWith<$Res> {
+  __$$ConfirmSoftwareSkillImplCopyWithImpl(_$ConfirmSoftwareSkillImpl _value,
+      $Res Function(_$ConfirmSoftwareSkillImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? skillList = null,
+    Object? otherSkillList = null,
+  }) {
+    return _then(_$ConfirmSoftwareSkillImpl(
+      null == skillList
+          ? _value._skillList
+          : skillList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      null == otherSkillList
+          ? _value._otherSkillList
+          : otherSkillList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ConfirmSoftwareSkillImpl implements ConfirmSoftwareSkill {
+  const _$ConfirmSoftwareSkillImpl(
+      final List<String> skillList, final List<String> otherSkillList)
+      : _skillList = skillList,
+        _otherSkillList = otherSkillList;
+
+  final List<String> _skillList;
+  @override
+  List<String> get skillList {
+    if (_skillList is EqualUnmodifiableListView) return _skillList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_skillList);
+  }
+
+  final List<String> _otherSkillList;
+  @override
+  List<String> get otherSkillList {
+    if (_otherSkillList is EqualUnmodifiableListView) return _otherSkillList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_otherSkillList);
+  }
+
+  @override
+  String toString() {
+    return 'HealthcarePostEvent.confirmSoftwareSkill(skillList: $skillList, otherSkillList: $otherSkillList)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ConfirmSoftwareSkillImpl &&
+            const DeepCollectionEquality()
+                .equals(other._skillList, _skillList) &&
+            const DeepCollectionEquality()
+                .equals(other._otherSkillList, _otherSkillList));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_skillList),
+      const DeepCollectionEquality().hash(_otherSkillList));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ConfirmSoftwareSkillImplCopyWith<_$ConfirmSoftwareSkillImpl>
+      get copyWith =>
+          __$$ConfirmSoftwareSkillImplCopyWithImpl<_$ConfirmSoftwareSkillImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int postId) getAllDropDownList,
+    required TResult Function(String roleType) roleTypeChanged,
+    required TResult Function(String selectedLanguage, bool? isOtherValue)
+        addLanguageChips,
+    required TResult Function(String selectedLanguage) removeLanguageChips,
+    required TResult Function(String selectedValue, bool? isOtherValue)
+        addRequiredSpecialitichips,
+    required TResult Function(String selectedValue)
+        removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue, bool? isOtherValue)
+        addPreferedSoftwareSkillchips,
+    required TResult Function(String selectedValue)
+        removePreferedSoftwareSkillchips,
+    required TResult Function(String selectedValue) locationChanged,
+    required TResult Function(String selectedUnit) locationUnitSelectionChanged,
+    required TResult Function(String rateHour) rateHourChanged,
+    required TResult Function(BuildContext context) continueBtnPressed,
+    required TResult Function(
+            List<String> skillList, List<String> otherSkillList)
+        confirmSoftwareSkill,
+    required TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)
+        confirmSpecialityList,
+    required TResult Function(
+            List<String> languageList, List<String> otherLanguageList)
+        confirmLanguageList,
+  }) {
+    return confirmSoftwareSkill(skillList, otherSkillList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int postId)? getAllDropDownList,
+    TResult? Function(String roleType)? roleTypeChanged,
+    TResult? Function(String selectedLanguage, bool? isOtherValue)?
+        addLanguageChips,
+    TResult? Function(String selectedLanguage)? removeLanguageChips,
+    TResult? Function(String selectedValue, bool? isOtherValue)?
+        addRequiredSpecialitichips,
+    TResult? Function(String selectedValue)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue, bool? isOtherValue)?
+        addPreferedSoftwareSkillchips,
+    TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
+    TResult? Function(String selectedValue)? locationChanged,
+    TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
+    TResult? Function(String rateHour)? rateHourChanged,
+    TResult? Function(BuildContext context)? continueBtnPressed,
+    TResult? Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult? Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult? Function(
+            List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
+  }) {
+    return confirmSoftwareSkill?.call(skillList, otherSkillList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int postId)? getAllDropDownList,
+    TResult Function(String roleType)? roleTypeChanged,
+    TResult Function(String selectedLanguage, bool? isOtherValue)?
+        addLanguageChips,
+    TResult Function(String selectedLanguage)? removeLanguageChips,
+    TResult Function(String selectedValue, bool? isOtherValue)?
+        addRequiredSpecialitichips,
+    TResult Function(String selectedValue)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue, bool? isOtherValue)?
+        addPreferedSoftwareSkillchips,
+    TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
+    TResult Function(String selectedValue)? locationChanged,
+    TResult Function(String selectedUnit)? locationUnitSelectionChanged,
+    TResult Function(String rateHour)? rateHourChanged,
+    TResult Function(BuildContext context)? continueBtnPressed,
+    TResult Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult Function(List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
+    required TResult orElse(),
+  }) {
+    if (confirmSoftwareSkill != null) {
+      return confirmSoftwareSkill(skillList, otherSkillList);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetAllDropDownList value) getAllDropDownList,
+    required TResult Function(RoleTypeChanged value) roleTypeChanged,
+    required TResult Function(AddLanguageChips value) addLanguageChips,
+    required TResult Function(RemoveLanguageChips value) removeLanguageChips,
+    required TResult Function(AddRequiredSpecialitichips value)
+        addRequiredSpecialitichips,
+    required TResult Function(RemoveRequiredSpecialitichips value)
+        removeRequiredSpecialitichips,
+    required TResult Function(AddPreferedSoftwareSkillchips value)
+        addPreferedSoftwareSkillchips,
+    required TResult Function(RemovePreferedSoftwareSkillchips value)
+        removePreferedSoftwareSkillchips,
+    required TResult Function(LocationChanged value) locationChanged,
+    required TResult Function(LocationUnitSelectionChanged value)
+        locationUnitSelectionChanged,
+    required TResult Function(RateHourChanged value) rateHourChanged,
+    required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(ConfirmSoftwareSkill value) confirmSoftwareSkill,
+    required TResult Function(ConfirmSpecialityList value)
+        confirmSpecialityList,
+    required TResult Function(ConfirmLanguageList value) confirmLanguageList,
+  }) {
+    return confirmSoftwareSkill(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetAllDropDownList value)? getAllDropDownList,
+    TResult? Function(RoleTypeChanged value)? roleTypeChanged,
+    TResult? Function(AddLanguageChips value)? addLanguageChips,
+    TResult? Function(RemoveLanguageChips value)? removeLanguageChips,
+    TResult? Function(AddRequiredSpecialitichips value)?
+        addRequiredSpecialitichips,
+    TResult? Function(RemoveRequiredSpecialitichips value)?
+        removeRequiredSpecialitichips,
+    TResult? Function(AddPreferedSoftwareSkillchips value)?
+        addPreferedSoftwareSkillchips,
+    TResult? Function(RemovePreferedSoftwareSkillchips value)?
+        removePreferedSoftwareSkillchips,
+    TResult? Function(LocationChanged value)? locationChanged,
+    TResult? Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
+    TResult? Function(RateHourChanged value)? rateHourChanged,
+    TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult? Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult? Function(ConfirmLanguageList value)? confirmLanguageList,
+  }) {
+    return confirmSoftwareSkill?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetAllDropDownList value)? getAllDropDownList,
+    TResult Function(RoleTypeChanged value)? roleTypeChanged,
+    TResult Function(AddLanguageChips value)? addLanguageChips,
+    TResult Function(RemoveLanguageChips value)? removeLanguageChips,
+    TResult Function(AddRequiredSpecialitichips value)?
+        addRequiredSpecialitichips,
+    TResult Function(RemoveRequiredSpecialitichips value)?
+        removeRequiredSpecialitichips,
+    TResult Function(AddPreferedSoftwareSkillchips value)?
+        addPreferedSoftwareSkillchips,
+    TResult Function(RemovePreferedSoftwareSkillchips value)?
+        removePreferedSoftwareSkillchips,
+    TResult Function(LocationChanged value)? locationChanged,
+    TResult Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
+    TResult Function(RateHourChanged value)? rateHourChanged,
+    TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult Function(ConfirmLanguageList value)? confirmLanguageList,
+    required TResult orElse(),
+  }) {
+    if (confirmSoftwareSkill != null) {
+      return confirmSoftwareSkill(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ConfirmSoftwareSkill implements HealthcarePostEvent {
+  const factory ConfirmSoftwareSkill(
+          final List<String> skillList, final List<String> otherSkillList) =
+      _$ConfirmSoftwareSkillImpl;
+
+  List<String> get skillList;
+  List<String> get otherSkillList;
+  @JsonKey(ignore: true)
+  _$$ConfirmSoftwareSkillImplCopyWith<_$ConfirmSoftwareSkillImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ConfirmSpecialityListImplCopyWith<$Res> {
+  factory _$$ConfirmSpecialityListImplCopyWith(
+          _$ConfirmSpecialityListImpl value,
+          $Res Function(_$ConfirmSpecialityListImpl) then) =
+      __$$ConfirmSpecialityListImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<String> specialityList, List<String> otherSpecialityList});
+}
+
+/// @nodoc
+class __$$ConfirmSpecialityListImplCopyWithImpl<$Res>
+    extends _$HealthcarePostEventCopyWithImpl<$Res, _$ConfirmSpecialityListImpl>
+    implements _$$ConfirmSpecialityListImplCopyWith<$Res> {
+  __$$ConfirmSpecialityListImplCopyWithImpl(_$ConfirmSpecialityListImpl _value,
+      $Res Function(_$ConfirmSpecialityListImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? specialityList = null,
+    Object? otherSpecialityList = null,
+  }) {
+    return _then(_$ConfirmSpecialityListImpl(
+      null == specialityList
+          ? _value._specialityList
+          : specialityList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      null == otherSpecialityList
+          ? _value._otherSpecialityList
+          : otherSpecialityList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ConfirmSpecialityListImpl implements ConfirmSpecialityList {
+  const _$ConfirmSpecialityListImpl(
+      final List<String> specialityList, final List<String> otherSpecialityList)
+      : _specialityList = specialityList,
+        _otherSpecialityList = otherSpecialityList;
+
+  final List<String> _specialityList;
+  @override
+  List<String> get specialityList {
+    if (_specialityList is EqualUnmodifiableListView) return _specialityList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_specialityList);
+  }
+
+  final List<String> _otherSpecialityList;
+  @override
+  List<String> get otherSpecialityList {
+    if (_otherSpecialityList is EqualUnmodifiableListView)
+      return _otherSpecialityList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_otherSpecialityList);
+  }
+
+  @override
+  String toString() {
+    return 'HealthcarePostEvent.confirmSpecialityList(specialityList: $specialityList, otherSpecialityList: $otherSpecialityList)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ConfirmSpecialityListImpl &&
+            const DeepCollectionEquality()
+                .equals(other._specialityList, _specialityList) &&
+            const DeepCollectionEquality()
+                .equals(other._otherSpecialityList, _otherSpecialityList));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_specialityList),
+      const DeepCollectionEquality().hash(_otherSpecialityList));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ConfirmSpecialityListImplCopyWith<_$ConfirmSpecialityListImpl>
+      get copyWith => __$$ConfirmSpecialityListImplCopyWithImpl<
+          _$ConfirmSpecialityListImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int postId) getAllDropDownList,
+    required TResult Function(String roleType) roleTypeChanged,
+    required TResult Function(String selectedLanguage, bool? isOtherValue)
+        addLanguageChips,
+    required TResult Function(String selectedLanguage) removeLanguageChips,
+    required TResult Function(String selectedValue, bool? isOtherValue)
+        addRequiredSpecialitichips,
+    required TResult Function(String selectedValue)
+        removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue, bool? isOtherValue)
+        addPreferedSoftwareSkillchips,
+    required TResult Function(String selectedValue)
+        removePreferedSoftwareSkillchips,
+    required TResult Function(String selectedValue) locationChanged,
+    required TResult Function(String selectedUnit) locationUnitSelectionChanged,
+    required TResult Function(String rateHour) rateHourChanged,
+    required TResult Function(BuildContext context) continueBtnPressed,
+    required TResult Function(
+            List<String> skillList, List<String> otherSkillList)
+        confirmSoftwareSkill,
+    required TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)
+        confirmSpecialityList,
+    required TResult Function(
+            List<String> languageList, List<String> otherLanguageList)
+        confirmLanguageList,
+  }) {
+    return confirmSpecialityList(specialityList, otherSpecialityList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int postId)? getAllDropDownList,
+    TResult? Function(String roleType)? roleTypeChanged,
+    TResult? Function(String selectedLanguage, bool? isOtherValue)?
+        addLanguageChips,
+    TResult? Function(String selectedLanguage)? removeLanguageChips,
+    TResult? Function(String selectedValue, bool? isOtherValue)?
+        addRequiredSpecialitichips,
+    TResult? Function(String selectedValue)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue, bool? isOtherValue)?
+        addPreferedSoftwareSkillchips,
+    TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
+    TResult? Function(String selectedValue)? locationChanged,
+    TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
+    TResult? Function(String rateHour)? rateHourChanged,
+    TResult? Function(BuildContext context)? continueBtnPressed,
+    TResult? Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult? Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult? Function(
+            List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
+  }) {
+    return confirmSpecialityList?.call(specialityList, otherSpecialityList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int postId)? getAllDropDownList,
+    TResult Function(String roleType)? roleTypeChanged,
+    TResult Function(String selectedLanguage, bool? isOtherValue)?
+        addLanguageChips,
+    TResult Function(String selectedLanguage)? removeLanguageChips,
+    TResult Function(String selectedValue, bool? isOtherValue)?
+        addRequiredSpecialitichips,
+    TResult Function(String selectedValue)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue, bool? isOtherValue)?
+        addPreferedSoftwareSkillchips,
+    TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
+    TResult Function(String selectedValue)? locationChanged,
+    TResult Function(String selectedUnit)? locationUnitSelectionChanged,
+    TResult Function(String rateHour)? rateHourChanged,
+    TResult Function(BuildContext context)? continueBtnPressed,
+    TResult Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult Function(List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
+    required TResult orElse(),
+  }) {
+    if (confirmSpecialityList != null) {
+      return confirmSpecialityList(specialityList, otherSpecialityList);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetAllDropDownList value) getAllDropDownList,
+    required TResult Function(RoleTypeChanged value) roleTypeChanged,
+    required TResult Function(AddLanguageChips value) addLanguageChips,
+    required TResult Function(RemoveLanguageChips value) removeLanguageChips,
+    required TResult Function(AddRequiredSpecialitichips value)
+        addRequiredSpecialitichips,
+    required TResult Function(RemoveRequiredSpecialitichips value)
+        removeRequiredSpecialitichips,
+    required TResult Function(AddPreferedSoftwareSkillchips value)
+        addPreferedSoftwareSkillchips,
+    required TResult Function(RemovePreferedSoftwareSkillchips value)
+        removePreferedSoftwareSkillchips,
+    required TResult Function(LocationChanged value) locationChanged,
+    required TResult Function(LocationUnitSelectionChanged value)
+        locationUnitSelectionChanged,
+    required TResult Function(RateHourChanged value) rateHourChanged,
+    required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(ConfirmSoftwareSkill value) confirmSoftwareSkill,
+    required TResult Function(ConfirmSpecialityList value)
+        confirmSpecialityList,
+    required TResult Function(ConfirmLanguageList value) confirmLanguageList,
+  }) {
+    return confirmSpecialityList(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetAllDropDownList value)? getAllDropDownList,
+    TResult? Function(RoleTypeChanged value)? roleTypeChanged,
+    TResult? Function(AddLanguageChips value)? addLanguageChips,
+    TResult? Function(RemoveLanguageChips value)? removeLanguageChips,
+    TResult? Function(AddRequiredSpecialitichips value)?
+        addRequiredSpecialitichips,
+    TResult? Function(RemoveRequiredSpecialitichips value)?
+        removeRequiredSpecialitichips,
+    TResult? Function(AddPreferedSoftwareSkillchips value)?
+        addPreferedSoftwareSkillchips,
+    TResult? Function(RemovePreferedSoftwareSkillchips value)?
+        removePreferedSoftwareSkillchips,
+    TResult? Function(LocationChanged value)? locationChanged,
+    TResult? Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
+    TResult? Function(RateHourChanged value)? rateHourChanged,
+    TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult? Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult? Function(ConfirmLanguageList value)? confirmLanguageList,
+  }) {
+    return confirmSpecialityList?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetAllDropDownList value)? getAllDropDownList,
+    TResult Function(RoleTypeChanged value)? roleTypeChanged,
+    TResult Function(AddLanguageChips value)? addLanguageChips,
+    TResult Function(RemoveLanguageChips value)? removeLanguageChips,
+    TResult Function(AddRequiredSpecialitichips value)?
+        addRequiredSpecialitichips,
+    TResult Function(RemoveRequiredSpecialitichips value)?
+        removeRequiredSpecialitichips,
+    TResult Function(AddPreferedSoftwareSkillchips value)?
+        addPreferedSoftwareSkillchips,
+    TResult Function(RemovePreferedSoftwareSkillchips value)?
+        removePreferedSoftwareSkillchips,
+    TResult Function(LocationChanged value)? locationChanged,
+    TResult Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
+    TResult Function(RateHourChanged value)? rateHourChanged,
+    TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult Function(ConfirmLanguageList value)? confirmLanguageList,
+    required TResult orElse(),
+  }) {
+    if (confirmSpecialityList != null) {
+      return confirmSpecialityList(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ConfirmSpecialityList implements HealthcarePostEvent {
+  const factory ConfirmSpecialityList(final List<String> specialityList,
+      final List<String> otherSpecialityList) = _$ConfirmSpecialityListImpl;
+
+  List<String> get specialityList;
+  List<String> get otherSpecialityList;
+  @JsonKey(ignore: true)
+  _$$ConfirmSpecialityListImplCopyWith<_$ConfirmSpecialityListImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ConfirmLanguageListImplCopyWith<$Res> {
+  factory _$$ConfirmLanguageListImplCopyWith(_$ConfirmLanguageListImpl value,
+          $Res Function(_$ConfirmLanguageListImpl) then) =
+      __$$ConfirmLanguageListImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<String> languageList, List<String> otherLanguageList});
+}
+
+/// @nodoc
+class __$$ConfirmLanguageListImplCopyWithImpl<$Res>
+    extends _$HealthcarePostEventCopyWithImpl<$Res, _$ConfirmLanguageListImpl>
+    implements _$$ConfirmLanguageListImplCopyWith<$Res> {
+  __$$ConfirmLanguageListImplCopyWithImpl(_$ConfirmLanguageListImpl _value,
+      $Res Function(_$ConfirmLanguageListImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? languageList = null,
+    Object? otherLanguageList = null,
+  }) {
+    return _then(_$ConfirmLanguageListImpl(
+      null == languageList
+          ? _value._languageList
+          : languageList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      null == otherLanguageList
+          ? _value._otherLanguageList
+          : otherLanguageList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ConfirmLanguageListImpl implements ConfirmLanguageList {
+  const _$ConfirmLanguageListImpl(
+      final List<String> languageList, final List<String> otherLanguageList)
+      : _languageList = languageList,
+        _otherLanguageList = otherLanguageList;
+
+  final List<String> _languageList;
+  @override
+  List<String> get languageList {
+    if (_languageList is EqualUnmodifiableListView) return _languageList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_languageList);
+  }
+
+  final List<String> _otherLanguageList;
+  @override
+  List<String> get otherLanguageList {
+    if (_otherLanguageList is EqualUnmodifiableListView)
+      return _otherLanguageList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_otherLanguageList);
+  }
+
+  @override
+  String toString() {
+    return 'HealthcarePostEvent.confirmLanguageList(languageList: $languageList, otherLanguageList: $otherLanguageList)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ConfirmLanguageListImpl &&
+            const DeepCollectionEquality()
+                .equals(other._languageList, _languageList) &&
+            const DeepCollectionEquality()
+                .equals(other._otherLanguageList, _otherLanguageList));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_languageList),
+      const DeepCollectionEquality().hash(_otherLanguageList));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ConfirmLanguageListImplCopyWith<_$ConfirmLanguageListImpl> get copyWith =>
+      __$$ConfirmLanguageListImplCopyWithImpl<_$ConfirmLanguageListImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int postId) getAllDropDownList,
+    required TResult Function(String roleType) roleTypeChanged,
+    required TResult Function(String selectedLanguage, bool? isOtherValue)
+        addLanguageChips,
+    required TResult Function(String selectedLanguage) removeLanguageChips,
+    required TResult Function(String selectedValue, bool? isOtherValue)
+        addRequiredSpecialitichips,
+    required TResult Function(String selectedValue)
+        removeRequiredSpecialitichips,
+    required TResult Function(String selectedValue, bool? isOtherValue)
+        addPreferedSoftwareSkillchips,
+    required TResult Function(String selectedValue)
+        removePreferedSoftwareSkillchips,
+    required TResult Function(String selectedValue) locationChanged,
+    required TResult Function(String selectedUnit) locationUnitSelectionChanged,
+    required TResult Function(String rateHour) rateHourChanged,
+    required TResult Function(BuildContext context) continueBtnPressed,
+    required TResult Function(
+            List<String> skillList, List<String> otherSkillList)
+        confirmSoftwareSkill,
+    required TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)
+        confirmSpecialityList,
+    required TResult Function(
+            List<String> languageList, List<String> otherLanguageList)
+        confirmLanguageList,
+  }) {
+    return confirmLanguageList(languageList, otherLanguageList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int postId)? getAllDropDownList,
+    TResult? Function(String roleType)? roleTypeChanged,
+    TResult? Function(String selectedLanguage, bool? isOtherValue)?
+        addLanguageChips,
+    TResult? Function(String selectedLanguage)? removeLanguageChips,
+    TResult? Function(String selectedValue, bool? isOtherValue)?
+        addRequiredSpecialitichips,
+    TResult? Function(String selectedValue)? removeRequiredSpecialitichips,
+    TResult? Function(String selectedValue, bool? isOtherValue)?
+        addPreferedSoftwareSkillchips,
+    TResult? Function(String selectedValue)? removePreferedSoftwareSkillchips,
+    TResult? Function(String selectedValue)? locationChanged,
+    TResult? Function(String selectedUnit)? locationUnitSelectionChanged,
+    TResult? Function(String rateHour)? rateHourChanged,
+    TResult? Function(BuildContext context)? continueBtnPressed,
+    TResult? Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult? Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult? Function(
+            List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
+  }) {
+    return confirmLanguageList?.call(languageList, otherLanguageList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int postId)? getAllDropDownList,
+    TResult Function(String roleType)? roleTypeChanged,
+    TResult Function(String selectedLanguage, bool? isOtherValue)?
+        addLanguageChips,
+    TResult Function(String selectedLanguage)? removeLanguageChips,
+    TResult Function(String selectedValue, bool? isOtherValue)?
+        addRequiredSpecialitichips,
+    TResult Function(String selectedValue)? removeRequiredSpecialitichips,
+    TResult Function(String selectedValue, bool? isOtherValue)?
+        addPreferedSoftwareSkillchips,
+    TResult Function(String selectedValue)? removePreferedSoftwareSkillchips,
+    TResult Function(String selectedValue)? locationChanged,
+    TResult Function(String selectedUnit)? locationUnitSelectionChanged,
+    TResult Function(String rateHour)? rateHourChanged,
+    TResult Function(BuildContext context)? continueBtnPressed,
+    TResult Function(List<String> skillList, List<String> otherSkillList)?
+        confirmSoftwareSkill,
+    TResult Function(
+            List<String> specialityList, List<String> otherSpecialityList)?
+        confirmSpecialityList,
+    TResult Function(List<String> languageList, List<String> otherLanguageList)?
+        confirmLanguageList,
+    required TResult orElse(),
+  }) {
+    if (confirmLanguageList != null) {
+      return confirmLanguageList(languageList, otherLanguageList);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetAllDropDownList value) getAllDropDownList,
+    required TResult Function(RoleTypeChanged value) roleTypeChanged,
+    required TResult Function(AddLanguageChips value) addLanguageChips,
+    required TResult Function(RemoveLanguageChips value) removeLanguageChips,
+    required TResult Function(AddRequiredSpecialitichips value)
+        addRequiredSpecialitichips,
+    required TResult Function(RemoveRequiredSpecialitichips value)
+        removeRequiredSpecialitichips,
+    required TResult Function(AddPreferedSoftwareSkillchips value)
+        addPreferedSoftwareSkillchips,
+    required TResult Function(RemovePreferedSoftwareSkillchips value)
+        removePreferedSoftwareSkillchips,
+    required TResult Function(LocationChanged value) locationChanged,
+    required TResult Function(LocationUnitSelectionChanged value)
+        locationUnitSelectionChanged,
+    required TResult Function(RateHourChanged value) rateHourChanged,
+    required TResult Function(ContinueBtnPressed value) continueBtnPressed,
+    required TResult Function(ConfirmSoftwareSkill value) confirmSoftwareSkill,
+    required TResult Function(ConfirmSpecialityList value)
+        confirmSpecialityList,
+    required TResult Function(ConfirmLanguageList value) confirmLanguageList,
+  }) {
+    return confirmLanguageList(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetAllDropDownList value)? getAllDropDownList,
+    TResult? Function(RoleTypeChanged value)? roleTypeChanged,
+    TResult? Function(AddLanguageChips value)? addLanguageChips,
+    TResult? Function(RemoveLanguageChips value)? removeLanguageChips,
+    TResult? Function(AddRequiredSpecialitichips value)?
+        addRequiredSpecialitichips,
+    TResult? Function(RemoveRequiredSpecialitichips value)?
+        removeRequiredSpecialitichips,
+    TResult? Function(AddPreferedSoftwareSkillchips value)?
+        addPreferedSoftwareSkillchips,
+    TResult? Function(RemovePreferedSoftwareSkillchips value)?
+        removePreferedSoftwareSkillchips,
+    TResult? Function(LocationChanged value)? locationChanged,
+    TResult? Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
+    TResult? Function(RateHourChanged value)? rateHourChanged,
+    TResult? Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult? Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult? Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult? Function(ConfirmLanguageList value)? confirmLanguageList,
+  }) {
+    return confirmLanguageList?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetAllDropDownList value)? getAllDropDownList,
+    TResult Function(RoleTypeChanged value)? roleTypeChanged,
+    TResult Function(AddLanguageChips value)? addLanguageChips,
+    TResult Function(RemoveLanguageChips value)? removeLanguageChips,
+    TResult Function(AddRequiredSpecialitichips value)?
+        addRequiredSpecialitichips,
+    TResult Function(RemoveRequiredSpecialitichips value)?
+        removeRequiredSpecialitichips,
+    TResult Function(AddPreferedSoftwareSkillchips value)?
+        addPreferedSoftwareSkillchips,
+    TResult Function(RemovePreferedSoftwareSkillchips value)?
+        removePreferedSoftwareSkillchips,
+    TResult Function(LocationChanged value)? locationChanged,
+    TResult Function(LocationUnitSelectionChanged value)?
+        locationUnitSelectionChanged,
+    TResult Function(RateHourChanged value)? rateHourChanged,
+    TResult Function(ContinueBtnPressed value)? continueBtnPressed,
+    TResult Function(ConfirmSoftwareSkill value)? confirmSoftwareSkill,
+    TResult Function(ConfirmSpecialityList value)? confirmSpecialityList,
+    TResult Function(ConfirmLanguageList value)? confirmLanguageList,
+    required TResult orElse(),
+  }) {
+    if (confirmLanguageList != null) {
+      return confirmLanguageList(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ConfirmLanguageList implements HealthcarePostEvent {
+  const factory ConfirmLanguageList(final List<String> languageList,
+      final List<String> otherLanguageList) = _$ConfirmLanguageListImpl;
+
+  List<String> get languageList;
+  List<String> get otherLanguageList;
+  @JsonKey(ignore: true)
+  _$$ConfirmLanguageListImplCopyWith<_$ConfirmLanguageListImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$HealthcarePostState {
+  HealthcarePostDTO get updatePost => throw _privateConstructorUsedError;
+
   /// SPECIALITY
 // required ListInputEmptyOrNot requiredSpecialityChipList,
 // required String requiredSpecialityChip,
@@ -2881,6 +4212,7 @@ mixin _$HealthcarePostState {
   List<LocationDTO> get locationList => throw _privateConstructorUsedError;
   List<UnitDTO> get unitList => throw _privateConstructorUsedError;
   InputEmptyOrNot get location => throw _privateConstructorUsedError;
+  LocationDTO get locationObj => throw _privateConstructorUsedError;
   String get selectedLocationUnit => throw _privateConstructorUsedError;
 
   /// RATE/ HOUR
@@ -2911,7 +4243,8 @@ abstract class $HealthcarePostStateCopyWith<$Res> {
       _$HealthcarePostStateCopyWithImpl<$Res, HealthcarePostState>;
   @useResult
   $Res call(
-      {List<SpecialityDTO> specialityList,
+      {HealthcarePostDTO updatePost,
+      List<SpecialityDTO> specialityList,
       List<String> specialityOther,
       String requiredSpecialityChip,
       ListInputEmptyOrNot<dynamic> requiredSpecialityChipList,
@@ -2928,6 +4261,7 @@ abstract class $HealthcarePostStateCopyWith<$Res> {
       List<LocationDTO> locationList,
       List<UnitDTO> unitList,
       InputEmptyOrNot location,
+      LocationDTO locationObj,
       String selectedLocationUnit,
       InputEmptyOrNot rateHour,
       bool isSubmitting,
@@ -2941,6 +4275,9 @@ abstract class $HealthcarePostStateCopyWith<$Res> {
       bool showLocationError,
       Option<Either<MainFailure, HealthcarePostDTO>>
           authFailureOrSuccessOption});
+
+  $HealthcarePostDTOCopyWith<$Res> get updatePost;
+  $LocationDTOCopyWith<$Res> get locationObj;
 }
 
 /// @nodoc
@@ -2956,6 +4293,7 @@ class _$HealthcarePostStateCopyWithImpl<$Res, $Val extends HealthcarePostState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? updatePost = null,
     Object? specialityList = null,
     Object? specialityOther = null,
     Object? requiredSpecialityChip = null,
@@ -2973,6 +4311,7 @@ class _$HealthcarePostStateCopyWithImpl<$Res, $Val extends HealthcarePostState>
     Object? locationList = null,
     Object? unitList = null,
     Object? location = null,
+    Object? locationObj = null,
     Object? selectedLocationUnit = null,
     Object? rateHour = null,
     Object? isSubmitting = null,
@@ -2987,6 +4326,10 @@ class _$HealthcarePostStateCopyWithImpl<$Res, $Val extends HealthcarePostState>
     Object? authFailureOrSuccessOption = null,
   }) {
     return _then(_value.copyWith(
+      updatePost: null == updatePost
+          ? _value.updatePost
+          : updatePost // ignore: cast_nullable_to_non_nullable
+              as HealthcarePostDTO,
       specialityList: null == specialityList
           ? _value.specialityList
           : specialityList // ignore: cast_nullable_to_non_nullable
@@ -3055,6 +4398,10 @@ class _$HealthcarePostStateCopyWithImpl<$Res, $Val extends HealthcarePostState>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as InputEmptyOrNot,
+      locationObj: null == locationObj
+          ? _value.locationObj
+          : locationObj // ignore: cast_nullable_to_non_nullable
+              as LocationDTO,
       selectedLocationUnit: null == selectedLocationUnit
           ? _value.selectedLocationUnit
           : selectedLocationUnit // ignore: cast_nullable_to_non_nullable
@@ -3105,6 +4452,22 @@ class _$HealthcarePostStateCopyWithImpl<$Res, $Val extends HealthcarePostState>
               as Option<Either<MainFailure, HealthcarePostDTO>>,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $HealthcarePostDTOCopyWith<$Res> get updatePost {
+    return $HealthcarePostDTOCopyWith<$Res>(_value.updatePost, (value) {
+      return _then(_value.copyWith(updatePost: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LocationDTOCopyWith<$Res> get locationObj {
+    return $LocationDTOCopyWith<$Res>(_value.locationObj, (value) {
+      return _then(_value.copyWith(locationObj: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -3116,7 +4479,8 @@ abstract class _$$HealthcarePostStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<SpecialityDTO> specialityList,
+      {HealthcarePostDTO updatePost,
+      List<SpecialityDTO> specialityList,
       List<String> specialityOther,
       String requiredSpecialityChip,
       ListInputEmptyOrNot<dynamic> requiredSpecialityChipList,
@@ -3133,6 +4497,7 @@ abstract class _$$HealthcarePostStateImplCopyWith<$Res>
       List<LocationDTO> locationList,
       List<UnitDTO> unitList,
       InputEmptyOrNot location,
+      LocationDTO locationObj,
       String selectedLocationUnit,
       InputEmptyOrNot rateHour,
       bool isSubmitting,
@@ -3146,6 +4511,11 @@ abstract class _$$HealthcarePostStateImplCopyWith<$Res>
       bool showLocationError,
       Option<Either<MainFailure, HealthcarePostDTO>>
           authFailureOrSuccessOption});
+
+  @override
+  $HealthcarePostDTOCopyWith<$Res> get updatePost;
+  @override
+  $LocationDTOCopyWith<$Res> get locationObj;
 }
 
 /// @nodoc
@@ -3159,6 +4529,7 @@ class __$$HealthcarePostStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? updatePost = null,
     Object? specialityList = null,
     Object? specialityOther = null,
     Object? requiredSpecialityChip = null,
@@ -3176,6 +4547,7 @@ class __$$HealthcarePostStateImplCopyWithImpl<$Res>
     Object? locationList = null,
     Object? unitList = null,
     Object? location = null,
+    Object? locationObj = null,
     Object? selectedLocationUnit = null,
     Object? rateHour = null,
     Object? isSubmitting = null,
@@ -3190,6 +4562,10 @@ class __$$HealthcarePostStateImplCopyWithImpl<$Res>
     Object? authFailureOrSuccessOption = null,
   }) {
     return _then(_$HealthcarePostStateImpl(
+      updatePost: null == updatePost
+          ? _value.updatePost
+          : updatePost // ignore: cast_nullable_to_non_nullable
+              as HealthcarePostDTO,
       specialityList: null == specialityList
           ? _value._specialityList
           : specialityList // ignore: cast_nullable_to_non_nullable
@@ -3258,6 +4634,10 @@ class __$$HealthcarePostStateImplCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as InputEmptyOrNot,
+      locationObj: null == locationObj
+          ? _value.locationObj
+          : locationObj // ignore: cast_nullable_to_non_nullable
+              as LocationDTO,
       selectedLocationUnit: null == selectedLocationUnit
           ? _value.selectedLocationUnit
           : selectedLocationUnit // ignore: cast_nullable_to_non_nullable
@@ -3314,7 +4694,8 @@ class __$$HealthcarePostStateImplCopyWithImpl<$Res>
 
 class _$HealthcarePostStateImpl implements _HealthcarePostState {
   const _$HealthcarePostStateImpl(
-      {required final List<SpecialityDTO> specialityList,
+      {required this.updatePost,
+      required final List<SpecialityDTO> specialityList,
       required final List<String> specialityOther,
       required this.requiredSpecialityChip,
       required this.requiredSpecialityChipList,
@@ -3331,6 +4712,7 @@ class _$HealthcarePostStateImpl implements _HealthcarePostState {
       required final List<LocationDTO> locationList,
       required final List<UnitDTO> unitList,
       required this.location,
+      required this.locationObj,
       required this.selectedLocationUnit,
       required this.rateHour,
       required this.isSubmitting,
@@ -3352,6 +4734,9 @@ class _$HealthcarePostStateImpl implements _HealthcarePostState {
         _languageList = languageList,
         _locationList = locationList,
         _unitList = unitList;
+
+  @override
+  final HealthcarePostDTO updatePost;
 
   /// SPECIALITY
 // required ListInputEmptyOrNot requiredSpecialityChipList,
@@ -3467,6 +4852,8 @@ class _$HealthcarePostStateImpl implements _HealthcarePostState {
   @override
   final InputEmptyOrNot location;
   @override
+  final LocationDTO locationObj;
+  @override
   final String selectedLocationUnit;
 
   /// RATE/ HOUR
@@ -3498,7 +4885,7 @@ class _$HealthcarePostStateImpl implements _HealthcarePostState {
 
   @override
   String toString() {
-    return 'HealthcarePostState(specialityList: $specialityList, specialityOther: $specialityOther, requiredSpecialityChip: $requiredSpecialityChip, requiredSpecialityChipList: $requiredSpecialityChipList, roleList: $roleList, roleType: $roleType, softwareList: $softwareList, softwareSkillOther: $softwareSkillOther, requiredSoftwareSkillChip: $requiredSoftwareSkillChip, requiredSoftwareSkillChipList: $requiredSoftwareSkillChipList, languageChip: $languageChip, languageOther: $languageOther, languageChipList: $languageChipList, languageList: $languageList, locationList: $locationList, unitList: $unitList, location: $location, selectedLocationUnit: $selectedLocationUnit, rateHour: $rateHour, isSubmitting: $isSubmitting, isLoading: $isLoading, showErrorMessages: $showErrorMessages, showLanguageError: $showLanguageError, showSoftwareSkillError: $showSoftwareSkillError, showSpecialityError: $showSpecialityError, showRoleTypeError: $showRoleTypeError, showSpeExperienceError: $showSpeExperienceError, showLocationError: $showLocationError, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
+    return 'HealthcarePostState(updatePost: $updatePost, specialityList: $specialityList, specialityOther: $specialityOther, requiredSpecialityChip: $requiredSpecialityChip, requiredSpecialityChipList: $requiredSpecialityChipList, roleList: $roleList, roleType: $roleType, softwareList: $softwareList, softwareSkillOther: $softwareSkillOther, requiredSoftwareSkillChip: $requiredSoftwareSkillChip, requiredSoftwareSkillChipList: $requiredSoftwareSkillChipList, languageChip: $languageChip, languageOther: $languageOther, languageChipList: $languageChipList, languageList: $languageList, locationList: $locationList, unitList: $unitList, location: $location, locationObj: $locationObj, selectedLocationUnit: $selectedLocationUnit, rateHour: $rateHour, isSubmitting: $isSubmitting, isLoading: $isLoading, showErrorMessages: $showErrorMessages, showLanguageError: $showLanguageError, showSoftwareSkillError: $showSoftwareSkillError, showSpecialityError: $showSpecialityError, showRoleTypeError: $showRoleTypeError, showSpeExperienceError: $showSpeExperienceError, showLocationError: $showLocationError, authFailureOrSuccessOption: $authFailureOrSuccessOption)';
   }
 
   @override
@@ -3506,6 +4893,8 @@ class _$HealthcarePostStateImpl implements _HealthcarePostState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HealthcarePostStateImpl &&
+            (identical(other.updatePost, updatePost) ||
+                other.updatePost == updatePost) &&
             const DeepCollectionEquality()
                 .equals(other._specialityList, _specialityList) &&
             const DeepCollectionEquality()
@@ -3540,6 +4929,8 @@ class _$HealthcarePostStateImpl implements _HealthcarePostState {
             const DeepCollectionEquality().equals(other._unitList, _unitList) &&
             (identical(other.location, location) ||
                 other.location == location) &&
+            (identical(other.locationObj, locationObj) ||
+                other.locationObj == locationObj) &&
             (identical(other.selectedLocationUnit, selectedLocationUnit) ||
                 other.selectedLocationUnit == selectedLocationUnit) &&
             (identical(other.rateHour, rateHour) ||
@@ -3556,8 +4947,7 @@ class _$HealthcarePostStateImpl implements _HealthcarePostState {
                 other.showSoftwareSkillError == showSoftwareSkillError) &&
             (identical(other.showSpecialityError, showSpecialityError) ||
                 other.showSpecialityError == showSpecialityError) &&
-            (identical(other.showRoleTypeError, showRoleTypeError) ||
-                other.showRoleTypeError == showRoleTypeError) &&
+            (identical(other.showRoleTypeError, showRoleTypeError) || other.showRoleTypeError == showRoleTypeError) &&
             (identical(other.showSpeExperienceError, showSpeExperienceError) || other.showSpeExperienceError == showSpeExperienceError) &&
             (identical(other.showLocationError, showLocationError) || other.showLocationError == showLocationError) &&
             (identical(other.authFailureOrSuccessOption, authFailureOrSuccessOption) || other.authFailureOrSuccessOption == authFailureOrSuccessOption));
@@ -3566,6 +4956,7 @@ class _$HealthcarePostStateImpl implements _HealthcarePostState {
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
+        updatePost,
         const DeepCollectionEquality().hash(_specialityList),
         const DeepCollectionEquality().hash(_specialityOther),
         requiredSpecialityChip,
@@ -3583,6 +4974,7 @@ class _$HealthcarePostStateImpl implements _HealthcarePostState {
         const DeepCollectionEquality().hash(_locationList),
         const DeepCollectionEquality().hash(_unitList),
         location,
+        locationObj,
         selectedLocationUnit,
         rateHour,
         isSubmitting,
@@ -3607,7 +4999,8 @@ class _$HealthcarePostStateImpl implements _HealthcarePostState {
 
 abstract class _HealthcarePostState implements HealthcarePostState {
   const factory _HealthcarePostState(
-      {required final List<SpecialityDTO> specialityList,
+      {required final HealthcarePostDTO updatePost,
+      required final List<SpecialityDTO> specialityList,
       required final List<String> specialityOther,
       required final String requiredSpecialityChip,
       required final ListInputEmptyOrNot<dynamic> requiredSpecialityChipList,
@@ -3624,6 +5017,7 @@ abstract class _HealthcarePostState implements HealthcarePostState {
       required final List<LocationDTO> locationList,
       required final List<UnitDTO> unitList,
       required final InputEmptyOrNot location,
+      required final LocationDTO locationObj,
       required final String selectedLocationUnit,
       required final InputEmptyOrNot rateHour,
       required final bool isSubmitting,
@@ -3638,6 +5032,8 @@ abstract class _HealthcarePostState implements HealthcarePostState {
       required final Option<Either<MainFailure, HealthcarePostDTO>>
           authFailureOrSuccessOption}) = _$HealthcarePostStateImpl;
 
+  @override
+  HealthcarePostDTO get updatePost;
   @override
 
   /// SPECIALITY
@@ -3686,6 +5082,8 @@ abstract class _HealthcarePostState implements HealthcarePostState {
   List<UnitDTO> get unitList;
   @override
   InputEmptyOrNot get location;
+  @override
+  LocationDTO get locationObj;
   @override
   String get selectedLocationUnit;
   @override

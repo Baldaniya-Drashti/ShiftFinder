@@ -7,11 +7,12 @@ class PostShiftEvent with _$PostShiftEvent {
     String shiftType, {
     required int postId,
     required PostShiftDTO? post,
+    required HealthcarePostDTO? updateShift,
   }) = ChangeShiftType;
 
   /// Single Shift
-  const factory PostShiftEvent.getBreakAllownceListApi() =
-      GetBreakAllownceListApi;
+  const factory PostShiftEvent.getBreakAllownceListApi(
+      HealthcarePostDTO? updateShift) = GetBreakAllownceListApi;
   const factory PostShiftEvent.singleShiftDateChangedEvent(
       String selectedDate) = SingleShiftDateChangedEvent;
   const factory PostShiftEvent.startHourChanged(String hour) = StartHourChanged;

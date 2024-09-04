@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -17,9 +18,11 @@ class MultiPostShift extends StatelessWidget {
   int shiftType;
   int postId;
   PostShiftDTO post;
+  HealthcarePostDTO? updateShift;
 
   MultiPostShift(
       {super.key,
+      this.updateShift,
       required this.shiftType,
       required this.postId,
       required this.post});
@@ -29,7 +32,7 @@ class MultiPostShift extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<PostShiftBloc>()
         ..add(PostShiftEvent.changeShiftType("Multi",
-            postId: postId, post: post)),
+            postId: postId, post: post, updateShift: updateShift)),
       child: BlocConsumer<PostShiftBloc, PostShiftState>(
         listener: (context, state) {},
         builder: (context, state) {

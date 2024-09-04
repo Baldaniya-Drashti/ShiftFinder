@@ -31,6 +31,7 @@ class ApiConstants {
   static String destroyDocument = 'destroy_document';
   static String quizList = 'quiz_list';
   static String quiz = 'quiz';
+  static String quizResult = 'quiz_result';
   static String location = 'location';
   static String getLocation = 'get_location';
   static String facilityTypeList = 'facility_type_list';
@@ -52,7 +53,9 @@ class ApiConstants {
 
   /// Healthcare Post
   static String getPost = 'get_post';
+  static String deletePost = 'delete_post';
   static String createPost = 'create_post';
+  static String updatePost = 'update_post';
   static String createPostShift = 'create_post_shift';
   static String createPostShiftAddMore = 'create_post_shift_add_more';
   static String updatePostStatus = 'update_post_status';
@@ -119,4 +122,14 @@ class ApiConstants {
   //review
   static String getReviews = 'reviews';
   static String giveReviews = 'review';
+
+  //employer dashboard
+  static String employerDashboard = 'employer_dashboard';
+
+  //team
+  static String getTeamList = 'get_team';
+  static String createTeam = 'create_team';
+  static String createTeamMember = 'create_team_member';
+  static String updateTeamMember = 'update_team_member';
+  static String deleteTeamMember = 'delete_team_member';
 }

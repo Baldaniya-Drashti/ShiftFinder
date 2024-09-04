@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shift/application/main_tab/home/home_bloc.dart';
 import 'package:shift/application/main_tab/main_tab_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
@@ -16,9 +17,9 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart' as autoroute;
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/tabs/history_view.dart';
-import 'package:shift/presentation/main/tabs/home_view.dart';
+import 'package:shift/presentation/main/tabs/home/home_view.dart';
 import 'package:shift/presentation/main/tabs/notification_view.dart';
-import 'package:shift/presentation/main/tabs/profile_view.dart';
+import 'package:shift/presentation/main/tabs/profile/profile_view.dart';
 import 'package:shift/presentation/main/widgets/custom_bottom_navigation.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
@@ -32,6 +33,10 @@ class MainTabView extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => getIt<MainTabBloc>()..add(TabChange(0)),
+        ),
+        BlocProvider(
+          create: (context) =>
+              getIt<HomeBloc>()..add(HomeEvent.getEmployerDashboardList(true)),
         ),
         // BlocProvider<AccountCubit>(
         //   create: (context) => getIt<AccountCubit>()..getAccount(),
@@ -81,7 +86,12 @@ class MainTabView extends StatelessWidget {
               floatingActionButton: FloatingActionButton(
                 onPressed: () {
                   context.router
-                      .push(PageRouteInfo(autoroute.HealthCarePostForm.name));
+                      .push(PageRouteInfo(autoroute.HealthCarePostForm.name))
+                      .then((value) {
+                    context
+                        .read<HomeBloc>()
+                        .add(HomeEvent.getEmployerDashboardList(true));
+                  });
 
                   // context.router.push(PageRouteInfo(
                   //   autoroute.HealthcarePostShift.name,

@@ -22,9 +22,9 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'referenceListScreen')
 class ReferenceListScreen extends StatelessWidget {
-  bool isFromSplash = false;
+  final bool isFromSplash;
 
-  ReferenceListScreen({super.key, this.isFromSplash = false});
+  const ReferenceListScreen({super.key, this.isFromSplash = false});
 
   @override
   Widget build(BuildContext context) {

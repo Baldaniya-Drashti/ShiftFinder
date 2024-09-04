@@ -11,6 +11,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
+import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -57,17 +58,22 @@ class ReviewPostShiftDetail extends StatelessWidget {
                         userDataBox(context),
                         (post.shift_detail?.shift_type == 1)
                             ? singleShiftDateTimeBreakUI(context)
-                            : multiShiftDateTimeBreakUI(context),
-                        requiredSkillBox(
-                          svgPrefixIcon: SvgImageConstant.female,
-                          title: StringConstant.specialtiesRequired,
-                          value: post.specialties_detail ?? "",
-                        ),
-                        requiredSkillBox(
-                          svgPrefixIcon: SvgImageConstant.mouse,
-                          title: StringConstant.softwareSkills,
-                          value: post.software_skill ?? "",
-                        ),
+                            : multiShiftDateTimeBreakUI(
+                                context, post.shift_detail),
+                        if (post.specialties_detail != null &&
+                            post.specialties_detail!.isNotEmpty)
+                          requiredSkillBox(
+                            svgPrefixIcon: SvgImageConstant.female,
+                            title: StringConstant.specialtiesRequired,
+                            value: post.specialties_detail ?? "",
+                          ),
+                        if (post.software_skill != null &&
+                            post.software_skill!.isNotEmpty)
+                          requiredSkillBox(
+                            svgPrefixIcon: SvgImageConstant.mouse,
+                            title: StringConstant.softwareSkills,
+                            value: post.software_skill ?? "",
+                          ),
                         rateHoursBox(),
                         languageBox(
                           title: StringConstant.languageRequirements,
@@ -470,7 +476,8 @@ class ReviewPostShiftDetail extends StatelessWidget {
     }
   }
 
-  Widget multiShiftDateTimeBreakUI(BuildContext context) {
+  Widget multiShiftDateTimeBreakUI(
+      BuildContext context, ShiftDetailDTO? shiftDetail) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
@@ -497,7 +504,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
               displayDateBreak(context,
-                  boldValue: "45 Min",
+                  boldValue: "${shiftDetail?.unpaid_break?.short_name ?? ""}",
                   timidValue: "",
                   title: StringConstant.unpaidBreak,
                   svgPrefixIcon: SvgImageConstant.clock),

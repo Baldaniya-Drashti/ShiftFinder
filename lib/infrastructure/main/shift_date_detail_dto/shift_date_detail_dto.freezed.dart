@@ -26,7 +26,7 @@ mixin _$ShiftDateDetailDTO {
   int? get start_time => throw _privateConstructorUsedError;
   int? get end_date => throw _privateConstructorUsedError;
   int? get end_time => throw _privateConstructorUsedError;
-  int? get days => throw _privateConstructorUsedError;
+  String? get days => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,7 +47,7 @@ abstract class $ShiftDateDetailDTOCopyWith<$Res> {
       int? start_time,
       int? end_date,
       int? end_time,
-      int? days});
+      String? days});
 }
 
 /// @nodoc
@@ -99,7 +99,7 @@ class _$ShiftDateDetailDTOCopyWithImpl<$Res, $Val extends ShiftDateDetailDTO>
       days: freezed == days
           ? _value.days
           : days // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ) as $Val);
   }
 }
@@ -119,7 +119,7 @@ abstract class _$$ShiftDateDetailDTOImplCopyWith<$Res>
       int? start_time,
       int? end_date,
       int? end_time,
-      int? days});
+      String? days});
 }
 
 /// @nodoc
@@ -169,7 +169,7 @@ class __$$ShiftDateDetailDTOImplCopyWithImpl<$Res>
       days: freezed == days
           ? _value.days
           : days // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
     ));
   }
 }
@@ -202,7 +202,7 @@ class _$ShiftDateDetailDTOImpl implements _ShiftDateDetailDTO {
   @override
   final int? end_time;
   @override
-  final int? days;
+  final String? days;
 
   @override
   String toString() {
@@ -256,7 +256,7 @@ abstract class _ShiftDateDetailDTO implements ShiftDateDetailDTO {
       final int? start_time,
       final int? end_date,
       final int? end_time,
-      final int? days}) = _$ShiftDateDetailDTOImpl;
+      final String? days}) = _$ShiftDateDetailDTOImpl;
 
   factory _ShiftDateDetailDTO.fromJson(Map<String, dynamic> json) =
       _$ShiftDateDetailDTOImpl.fromJson;
@@ -274,7 +274,7 @@ abstract class _ShiftDateDetailDTO implements ShiftDateDetailDTO {
   @override
   int? get end_time;
   @override
-  int? get days;
+  String? get days;
   @override
   @JsonKey(ignore: true)
   _$$ShiftDateDetailDTOImplCopyWith<_$ShiftDateDetailDTOImpl> get copyWith =>

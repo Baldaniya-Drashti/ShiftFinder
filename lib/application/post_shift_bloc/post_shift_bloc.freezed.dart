@@ -18,9 +18,11 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PostShiftEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -74,9 +76,10 @@ mixin _$PostShiftEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -128,9 +131,10 @@ mixin _$PostShiftEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -383,9 +387,14 @@ abstract class _$$ChangeShiftTypeImplCopyWith<$Res> {
           $Res Function(_$ChangeShiftTypeImpl) then) =
       __$$ChangeShiftTypeImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String shiftType, int postId, PostShiftDTO? post});
+  $Res call(
+      {String shiftType,
+      int postId,
+      PostShiftDTO? post,
+      HealthcarePostDTO? updateShift});
 
   $PostShiftDTOCopyWith<$Res>? get post;
+  $HealthcarePostDTOCopyWith<$Res>? get updateShift;
 }
 
 /// @nodoc
@@ -402,6 +411,7 @@ class __$$ChangeShiftTypeImplCopyWithImpl<$Res>
     Object? shiftType = null,
     Object? postId = null,
     Object? post = freezed,
+    Object? updateShift = freezed,
   }) {
     return _then(_$ChangeShiftTypeImpl(
       null == shiftType
@@ -416,6 +426,10 @@ class __$$ChangeShiftTypeImplCopyWithImpl<$Res>
           ? _value.post
           : post // ignore: cast_nullable_to_non_nullable
               as PostShiftDTO?,
+      updateShift: freezed == updateShift
+          ? _value.updateShift
+          : updateShift // ignore: cast_nullable_to_non_nullable
+              as HealthcarePostDTO?,
     ));
   }
 
@@ -430,13 +444,25 @@ class __$$ChangeShiftTypeImplCopyWithImpl<$Res>
       return _then(_value.copyWith(post: value));
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $HealthcarePostDTOCopyWith<$Res>? get updateShift {
+    if (_value.updateShift == null) {
+      return null;
+    }
+
+    return $HealthcarePostDTOCopyWith<$Res>(_value.updateShift!, (value) {
+      return _then(_value.copyWith(updateShift: value));
+    });
+  }
 }
 
 /// @nodoc
 
 class _$ChangeShiftTypeImpl implements ChangeShiftType {
   const _$ChangeShiftTypeImpl(this.shiftType,
-      {required this.postId, required this.post});
+      {required this.postId, required this.post, required this.updateShift});
 
   @override
   final String shiftType;
@@ -444,10 +470,12 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
   final int postId;
   @override
   final PostShiftDTO? post;
+  @override
+  final HealthcarePostDTO? updateShift;
 
   @override
   String toString() {
-    return 'PostShiftEvent.changeShiftType(shiftType: $shiftType, postId: $postId, post: $post)';
+    return 'PostShiftEvent.changeShiftType(shiftType: $shiftType, postId: $postId, post: $post, updateShift: $updateShift)';
   }
 
   @override
@@ -458,11 +486,14 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
             (identical(other.shiftType, shiftType) ||
                 other.shiftType == shiftType) &&
             (identical(other.postId, postId) || other.postId == postId) &&
-            (identical(other.post, post) || other.post == post));
+            (identical(other.post, post) || other.post == post) &&
+            (identical(other.updateShift, updateShift) ||
+                other.updateShift == updateShift));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, shiftType, postId, post);
+  int get hashCode =>
+      Object.hash(runtimeType, shiftType, postId, post, updateShift);
 
   @JsonKey(ignore: true)
   @override
@@ -474,9 +505,11 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -527,15 +560,16 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
     required TResult Function(int postId) postTheShiftEvent,
   }) {
-    return changeShiftType(shiftType, postId, post);
+    return changeShiftType(shiftType, postId, post, updateShift);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -584,15 +618,16 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
   }) {
-    return changeShiftType?.call(shiftType, postId, post);
+    return changeShiftType?.call(shiftType, postId, post, updateShift);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -642,7 +677,7 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     required TResult orElse(),
   }) {
     if (changeShiftType != null) {
-      return changeShiftType(shiftType, postId, post);
+      return changeShiftType(shiftType, postId, post, updateShift);
     }
     return orElse();
   }
@@ -840,11 +875,13 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
 abstract class ChangeShiftType implements PostShiftEvent {
   const factory ChangeShiftType(final String shiftType,
       {required final int postId,
-      required final PostShiftDTO? post}) = _$ChangeShiftTypeImpl;
+      required final PostShiftDTO? post,
+      required final HealthcarePostDTO? updateShift}) = _$ChangeShiftTypeImpl;
 
   String get shiftType;
   int get postId;
   PostShiftDTO? get post;
+  HealthcarePostDTO? get updateShift;
   @JsonKey(ignore: true)
   _$$ChangeShiftTypeImplCopyWith<_$ChangeShiftTypeImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -856,6 +893,10 @@ abstract class _$$GetBreakAllownceListApiImplCopyWith<$Res> {
           _$GetBreakAllownceListApiImpl value,
           $Res Function(_$GetBreakAllownceListApiImpl) then) =
       __$$GetBreakAllownceListApiImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({HealthcarePostDTO? updateShift});
+
+  $HealthcarePostDTOCopyWith<$Res>? get updateShift;
 }
 
 /// @nodoc
@@ -866,34 +907,73 @@ class __$$GetBreakAllownceListApiImplCopyWithImpl<$Res>
       _$GetBreakAllownceListApiImpl _value,
       $Res Function(_$GetBreakAllownceListApiImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? updateShift = freezed,
+  }) {
+    return _then(_$GetBreakAllownceListApiImpl(
+      freezed == updateShift
+          ? _value.updateShift
+          : updateShift // ignore: cast_nullable_to_non_nullable
+              as HealthcarePostDTO?,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $HealthcarePostDTOCopyWith<$Res>? get updateShift {
+    if (_value.updateShift == null) {
+      return null;
+    }
+
+    return $HealthcarePostDTOCopyWith<$Res>(_value.updateShift!, (value) {
+      return _then(_value.copyWith(updateShift: value));
+    });
+  }
 }
 
 /// @nodoc
 
 class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
-  const _$GetBreakAllownceListApiImpl();
+  const _$GetBreakAllownceListApiImpl(this.updateShift);
+
+  @override
+  final HealthcarePostDTO? updateShift;
 
   @override
   String toString() {
-    return 'PostShiftEvent.getBreakAllownceListApi()';
+    return 'PostShiftEvent.getBreakAllownceListApi(updateShift: $updateShift)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GetBreakAllownceListApiImpl);
+            other is _$GetBreakAllownceListApiImpl &&
+            (identical(other.updateShift, updateShift) ||
+                other.updateShift == updateShift));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, updateShift);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetBreakAllownceListApiImplCopyWith<_$GetBreakAllownceListApiImpl>
+      get copyWith => __$$GetBreakAllownceListApiImplCopyWithImpl<
+          _$GetBreakAllownceListApiImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -944,15 +1024,16 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
     required TResult Function(int postId) postTheShiftEvent,
   }) {
-    return getBreakAllownceListApi();
+    return getBreakAllownceListApi(updateShift);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -1001,15 +1082,16 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
   }) {
-    return getBreakAllownceListApi?.call();
+    return getBreakAllownceListApi?.call(updateShift);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -1059,7 +1141,7 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     required TResult orElse(),
   }) {
     if (getBreakAllownceListApi != null) {
-      return getBreakAllownceListApi();
+      return getBreakAllownceListApi(updateShift);
     }
     return orElse();
   }
@@ -1255,7 +1337,13 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
 }
 
 abstract class GetBreakAllownceListApi implements PostShiftEvent {
-  const factory GetBreakAllownceListApi() = _$GetBreakAllownceListApiImpl;
+  const factory GetBreakAllownceListApi(final HealthcarePostDTO? updateShift) =
+      _$GetBreakAllownceListApiImpl;
+
+  HealthcarePostDTO? get updateShift;
+  @JsonKey(ignore: true)
+  _$$GetBreakAllownceListApiImplCopyWith<_$GetBreakAllownceListApiImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1327,9 +1415,11 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -1386,9 +1476,10 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -1443,9 +1534,10 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -1765,9 +1857,11 @@ class _$StartHourChangedImpl implements StartHourChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -1824,9 +1918,10 @@ class _$StartHourChangedImpl implements StartHourChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -1881,9 +1976,10 @@ class _$StartHourChangedImpl implements StartHourChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -2202,9 +2298,11 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -2261,9 +2359,10 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -2318,9 +2417,10 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -2640,9 +2740,11 @@ class _$EndHourChangedImpl implements EndHourChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -2699,9 +2801,10 @@ class _$EndHourChangedImpl implements EndHourChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -2756,9 +2859,10 @@ class _$EndHourChangedImpl implements EndHourChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -3077,9 +3181,11 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -3136,9 +3242,10 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -3193,9 +3300,10 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -3515,9 +3623,11 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -3574,9 +3684,10 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -3631,9 +3742,10 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -3929,9 +4041,11 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -3988,9 +4102,10 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -4045,9 +4160,10 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -4364,9 +4480,11 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -4423,9 +4541,10 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -4480,9 +4599,10 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -4803,9 +4923,11 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -4862,9 +4984,10 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -4919,9 +5042,10 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -5242,9 +5366,11 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -5301,9 +5427,10 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -5358,9 +5485,10 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -5683,9 +5811,11 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -5742,9 +5872,10 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -5799,9 +5930,10 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -6124,9 +6256,11 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -6183,9 +6317,10 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -6240,9 +6375,10 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -6565,9 +6701,11 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -6624,9 +6762,10 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -6681,9 +6820,10 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -7003,9 +7143,11 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -7062,9 +7204,10 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -7119,9 +7262,10 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -7441,9 +7585,11 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -7500,9 +7646,10 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -7557,9 +7704,10 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -7879,9 +8027,11 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -7938,9 +8088,10 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -7995,9 +8146,10 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -8318,9 +8470,11 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -8377,9 +8531,10 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -8434,9 +8589,10 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -8765,9 +8921,11 @@ class _$GetTeamsListImpl implements GetTeamsList {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -8824,9 +8982,10 @@ class _$GetTeamsListImpl implements GetTeamsList {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -8881,9 +9040,10 @@ class _$GetTeamsListImpl implements GetTeamsList {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -9203,9 +9363,11 @@ class _$RecurringCheckImpl implements RecurringCheck {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -9262,9 +9424,10 @@ class _$RecurringCheckImpl implements RecurringCheck {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -9319,9 +9482,10 @@ class _$RecurringCheckImpl implements RecurringCheck {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -9640,9 +9804,11 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -9699,9 +9865,10 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -9756,9 +9923,10 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -10078,9 +10246,11 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -10137,9 +10307,10 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -10194,9 +10365,10 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -10516,9 +10688,11 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -10575,9 +10749,10 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -10632,9 +10807,10 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -10956,9 +11132,11 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -11015,9 +11193,10 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -11072,9 +11251,10 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -11395,9 +11575,11 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -11454,9 +11636,10 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -11511,9 +11694,10 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -11845,9 +12029,11 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -11904,9 +12090,10 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -11961,9 +12148,10 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -12286,9 +12474,11 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -12345,9 +12535,10 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -12402,9 +12593,10 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -12734,9 +12926,11 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -12793,9 +12987,10 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -12850,9 +13045,10 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -13181,9 +13377,11 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -13240,9 +13438,10 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -13297,9 +13496,10 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -13623,9 +13823,11 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -13682,9 +13884,10 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -13739,9 +13942,10 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -14071,9 +14275,11 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -14130,9 +14336,10 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -14187,9 +14394,10 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -14487,9 +14695,11 @@ class _$MultidateContinueButtonPressedImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -14546,9 +14756,10 @@ class _$MultidateContinueButtonPressedImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -14603,9 +14814,10 @@ class _$MultidateContinueButtonPressedImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -14926,9 +15138,11 @@ class _$MultiDateSameDiffTypeChangedImpl
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -14985,9 +15199,10 @@ class _$MultiDateSameDiffTypeChangedImpl
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -15042,9 +15257,10 @@ class _$MultiDateSameDiffTypeChangedImpl
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -15382,9 +15598,11 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -15441,9 +15659,10 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -15498,9 +15717,10 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -15841,9 +16061,11 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -15900,9 +16122,10 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -15957,9 +16180,10 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -16298,9 +16522,11 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -16357,9 +16583,10 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -16414,9 +16641,10 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -16756,9 +16984,11 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -16815,9 +17045,10 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -16872,9 +17103,10 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -17219,9 +17451,11 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -17278,9 +17512,10 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -17335,9 +17570,10 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -17689,9 +17925,11 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -17748,9 +17986,10 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -17805,9 +18044,10 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -18101,9 +18341,11 @@ class _$BackEventImpl implements BackEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -18160,9 +18402,10 @@ class _$BackEventImpl implements BackEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -18217,9 +18460,10 @@ class _$BackEventImpl implements BackEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -18535,9 +18779,11 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -18594,9 +18840,10 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -18651,9 +18898,10 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,
@@ -18973,9 +19221,11 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String shiftType, int postId, PostShiftDTO? post)
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
         changeShiftType,
-    required TResult Function() getBreakAllownceListApi,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
     required TResult Function(String selectedDate) singleShiftDateChangedEvent,
     required TResult Function(String hour) startHourChanged,
     required TResult Function(String minute) startMinuteChanged,
@@ -19032,9 +19282,10 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult? Function()? getBreakAllownceListApi,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult? Function(String hour)? startHourChanged,
     TResult? Function(String minute)? startMinuteChanged,
@@ -19089,9 +19340,10 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String shiftType, int postId, PostShiftDTO? post)?
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
         changeShiftType,
-    TResult Function()? getBreakAllownceListApi,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
     TResult Function(String selectedDate)? singleShiftDateChangedEvent,
     TResult Function(String hour)? startHourChanged,
     TResult Function(String minute)? startMinuteChanged,

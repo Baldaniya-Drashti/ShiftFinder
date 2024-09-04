@@ -9,6 +9,7 @@ import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
@@ -23,8 +24,10 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'healthcarePostShift')
 class HealthcarePostShift extends StatelessWidget {
   int postId;
+  HealthcarePostDTO? updateShift;
   PostShiftDTO post;
-  HealthcarePostShift({super.key, required this.postId, required this.post});
+  HealthcarePostShift(
+      {super.key, required this.postId, this.updateShift, required this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,7 @@ class HealthcarePostShift extends StatelessWidget {
       child: BlocProvider(
         create: (context) => getIt<PostShiftBloc>()
           ..add(PostShiftEvent.changeShiftType("Single",
-              postId: postId, post: post)),
+              postId: postId, post: post, updateShift: updateShift)),
         child: BlocConsumer<PostShiftBloc, PostShiftState>(
           listener: (context, state) {},
           builder: (context, state) {
@@ -84,7 +87,9 @@ class HealthcarePostShift extends StatelessWidget {
                                   if (value != null) {
                                     context.read<PostShiftBloc>().add(
                                         PostShiftEvent.changeShiftType(value,
-                                            postId: postId, post: null));
+                                            postId: postId,
+                                            post: null,
+                                            updateShift: null));
                                   }
                                 },
                               ),
@@ -103,11 +108,13 @@ class HealthcarePostShift extends StatelessWidget {
                                             shiftType: state.shiftType,
                                             postId: postId,
                                             post: post,
+                                            updateShift: updateShift,
                                           )
                                         : SinglePostShift(
                                             shiftType: state.shiftType,
                                             postId: postId,
                                             post: post,
+                                            updateShift: updateShift,
                                           ),
                               ),
                             ],

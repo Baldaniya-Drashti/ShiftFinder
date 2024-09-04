@@ -17,6 +17,8 @@ _$QuizDTOImpl _$$QuizDTOImplFromJson(Map<String, dynamic> json) =>
           ?.map((e) => QuizMcqDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
       answer: (json['answer'] as num?)?.toInt(),
+      total_correct_question: (json['total_correct_question'] as num?)?.toInt(),
+      total_wrong_question: (json['total_wrong_question'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$QuizDTOImplToJson(_$QuizDTOImpl instance) =>
@@ -26,6 +28,8 @@ Map<String, dynamic> _$$QuizDTOImplToJson(_$QuizDTOImpl instance) =>
       'answers': instance.answers,
       'selectedAnswers': instance.selectedAnswers,
       'answer': instance.answer,
+      'total_correct_question': instance.total_correct_question,
+      'total_wrong_question': instance.total_wrong_question,
     };
 
 _$QuizMcqDTOImpl _$$QuizMcqDTOImplFromJson(Map<String, dynamic> json) =>
@@ -40,4 +44,20 @@ Map<String, dynamic> _$$QuizMcqDTOImplToJson(_$QuizMcqDTOImpl instance) =>
       'id': instance.id,
       'answer': instance.answer,
       'correct_answer': instance.correct_answer,
+    };
+
+_$QuizAnswerDTOImpl _$$QuizAnswerDTOImplFromJson(Map<String, dynamic> json) =>
+    _$QuizAnswerDTOImpl(
+      list: (json['list'] as List<dynamic>?)
+          ?.map((e) => QuizDTO.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      total_correct_question: (json['total_correct_question'] as num?)?.toInt(),
+      total_wrong_question: (json['total_wrong_question'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$$QuizAnswerDTOImplToJson(_$QuizAnswerDTOImpl instance) =>
+    <String, dynamic>{
+      'list': instance.list,
+      'total_correct_question': instance.total_correct_question,
+      'total_wrong_question': instance.total_wrong_question,
     };
