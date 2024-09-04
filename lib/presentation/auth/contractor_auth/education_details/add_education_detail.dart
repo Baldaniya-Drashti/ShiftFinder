@@ -2,6 +2,7 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/auth/contractor_auth/education_detail_bloc/education_detail_bloc.dart';
@@ -132,6 +133,9 @@ class AddEducationDetail extends StatelessWidget {
       isLabelPadding: true,
       hintText: StringConstant.programCompleted,
       textCapitalization: TextCapitalization.words,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+      ],
       initialValue: state.selectedProgram.getValue(),
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
@@ -198,6 +202,9 @@ class AddEducationDetail extends StatelessWidget {
       labelText: StringConstant.graduatingInstitution,
       isLabelPadding: true,
       hintText: StringConstant.graduatingInstitution,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+      ],
       initialValue: state.selectedGraduation.getValue(),
       textCapitalization: TextCapitalization.words,
       prefixIcon: Padding(

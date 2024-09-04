@@ -67,11 +67,17 @@ class ApparelEquipment extends StatelessWidget {
                 context.router.push(
                   const PageRouteInfo(AddBankDetailsScreen.name),
                 );
-                DocumentBloc.pageController.animateToPage(
+                DocumentBloc.pageController
+                    .animateToPage(
                   0,
                   duration: const Duration(milliseconds: 1),
                   curve: Curves.easeInOut,
-                );
+                )
+                    .then((value) {
+                  context
+                      .read<DocumentBloc>()
+                      .add(const DocumentEvent.getAllDocumentStatus());
+                });
               },
             ),
           );

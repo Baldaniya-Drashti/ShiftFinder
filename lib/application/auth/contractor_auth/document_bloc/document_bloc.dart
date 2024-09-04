@@ -442,14 +442,46 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
             ),
           );
         },
-        deleteCovidDoc: (e) {
+        deleteCovidDoc: (e) async {
+          Either<AccountFailure, Account>? failureOrSuccess;
+
           emit(
+            state.copyWith(
+              isLoading: true,
+              isCovidDocSubmitting: true,
+              coviDocAuthFailureOrSuccessOption: none(),
+            ),
+          );
+          print("Covid document delete id ---> ${state.covidDocId}");
+          failureOrSuccess = await _repository.deleteDocumentApi(
+              credId: state.covidDocId ?? -1);
+
+          failureOrSuccess.fold(
+            (l) => emit(
+              state.copyWith(
+                isLoading: false,
+                isCovidDocSubmitting: false,
+                coviDocAuthFailureOrSuccessOption: none(),
+              ),
+            ),
+            (r) {
+              return emit(
+                state.copyWith(
+                  isLoading: false,
+                  covidVaccinationDoc: InputEmptyOrNot(""),
+                  isCovidDocSubmitting: false,
+                  coviDocAuthFailureOrSuccessOption: none(),
+                ),
+              );
+            },
+          );
+          /*emit(
             state.copyWith(
               covidVaccinationDoc: InputEmptyOrNot(""),
               isCovidDocSubmitting: false,
               coviDocAuthFailureOrSuccessOption: none(),
             ),
-          );
+          );*/
         },
         covidDocSubmit: (e) async {
           Either<AccountFailure, String>? failureOrSuccess;

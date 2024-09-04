@@ -176,11 +176,16 @@ class ReferenceListScreen extends StatelessWidget {
                               }
                             });
                           },
-                          child: SvgPicture.asset(
-                            SvgImageConstant.editWithBg,
+                          child: Container(
+                            color: Colors.transparent,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: getSize(5), vertical: getSize(10)),
+                            child: SvgPicture.asset(
+                              SvgImageConstant.editWithBg,
+                            ),
                           ),
                         ),
-                        SizedBox(width: getSize(15)),
+                        SizedBox(width: getSize(5)),
                         GestureDetector(
                           onTap: () {
                             AppDialog.showDelete(
@@ -198,7 +203,12 @@ class ReferenceListScreen extends StatelessWidget {
                               },
                             );
                           },
-                          child: SvgPicture.asset(SvgImageConstant.bin),
+                          child: Container(
+                              color: Colors.transparent,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: getSize(5),
+                                  vertical: getSize(10)),
+                              child: SvgPicture.asset(SvgImageConstant.bin)),
                         ),
                       ],
                     ),
@@ -255,12 +265,14 @@ class ReferenceListScreen extends StatelessWidget {
           fontSize: 12,
           fontWeight: FontWeight.w500,
           textColor: AppColors.black.withOpacity(0.8),
+          maxLines: 2,
         ),
         BaseText(
           text: reference.email ?? "",
           fontSize: 10,
           fontWeight: FontWeight.w400,
           textColor: AppColors.black.withOpacity(0.8),
+          maxLines: 2,
         ),
       ],
     );

@@ -255,7 +255,7 @@ class AddExperienceDetail extends StatelessWidget {
                     state.records[index].experience_month!.isNotEmpty) &&
                 state.showErrorMessages)
               commonErrorText(
-                "* Please select year and month",
+                StringConstant.yearAndMonthMustbeSelected,
                 padding: EdgeInsets.symmetric(
                     vertical: getSize(10), horizontal: getSize(20)),
               ),

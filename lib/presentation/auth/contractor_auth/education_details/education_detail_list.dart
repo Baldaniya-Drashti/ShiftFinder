@@ -202,11 +202,16 @@ class EducationListScreen extends StatelessWidget {
                               }
                             });
                           },
-                          child: SvgPicture.asset(
-                            SvgImageConstant.editWithBg,
+                          child: Container(
+                            color: Colors.transparent,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: getSize(5), vertical: getSize(10)),
+                            child: SvgPicture.asset(
+                              SvgImageConstant.editWithBg,
+                            ),
                           ),
                         ),
-                        SizedBox(width: getSize(15)),
+                        SizedBox(width: getSize(5)),
                         GestureDetector(
                           onTap: () {
                             AppDialog.showDelete(
@@ -224,7 +229,12 @@ class EducationListScreen extends StatelessWidget {
                               },
                             );
                           },
-                          child: SvgPicture.asset(SvgImageConstant.bin),
+                          child: Container(
+                              color: Colors.transparent,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: getSize(5),
+                                  vertical: getSize(10)),
+                              child: SvgPicture.asset(SvgImageConstant.bin)),
                         ),
                       ],
                     ),
@@ -278,13 +288,14 @@ class EducationListScreen extends StatelessWidget {
           text: education.program_completed ?? "",
           fontWeight: FontWeight.w600,
           fontSize: 14,
+          maxLines: 2,
         ),
         SizedBox(height: getSize(2)),
         RichText(
           text: TextSpan(
             style: TextStyle(
               color: AppColors.black.withOpacity(0.8),
-              fontSize: getFontSize(8),
+              fontSize: getFontSize(10),
               fontWeight: FontWeight.w500,
             ),
             children: [

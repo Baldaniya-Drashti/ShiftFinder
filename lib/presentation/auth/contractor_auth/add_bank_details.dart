@@ -2,6 +2,7 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/auth/contractor_auth/bank_details_bloc/bank_details_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
@@ -176,6 +177,9 @@ class AddBankDetailsScreen extends StatelessWidget {
       labelText: StringConstant.transitNumber,
       hintText: StringConstant.transitNumber,
       keyboardType: TextInputType.number,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+      ],
       onChanged: (value) => context
           .read<BankDetailsBloc>()
           .add(BankDetailsEvent.transitNumberChanged(value)),
@@ -196,6 +200,9 @@ class AddBankDetailsScreen extends StatelessWidget {
       labelText: StringConstant.bankInstitutionNumber,
       hintText: StringConstant.bankInstitutionNumber,
       keyboardType: TextInputType.number,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+      ],
       onChanged: (value) => context
           .read<BankDetailsBloc>()
           .add(BankDetailsEvent.instituteNumberChanged(value)),
@@ -220,6 +227,10 @@ class AddBankDetailsScreen extends StatelessWidget {
       hintText: StringConstant.accountNumber,
       textCapitalization: TextCapitalization.characters,
       keyboardType: TextInputType.number,
+      inputFormatters: [
+        // FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9]')),
+        FilteringTextInputFormatter.digitsOnly,
+      ],
       onChanged: (value) => context
           .read<BankDetailsBloc>()
           .add(BankDetailsEvent.accountNumberChanged(value)),
@@ -239,6 +250,9 @@ class AddBankDetailsScreen extends StatelessWidget {
       labelText: StringConstant.accountHolderName,
       hintText: StringConstant.accountHolderName,
       textCapitalization: TextCapitalization.words,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+      ],
       onChanged: (value) => context
           .read<BankDetailsBloc>()
           .add(BankDetailsEvent.accountHolderNameChanged(value)),
@@ -272,49 +286,58 @@ class AddBankDetailsScreen extends StatelessWidget {
   }
 
   Widget termsCheckBox(BankDetailsState state, BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: getSize(20),
-        vertical: getSize(10),
-      ),
-      decoration: BoxDecoration(
-          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: getSize(20),
-            width: getSize(16.67),
-            child: Checkbox(
-              value: state.isCheck,
-              activeColor: AppColors.primaryColor,
-              side: BorderSide(
-                width: getSize(1.5),
-                color: AppColors.black.withOpacity(0.5),
+    return GestureDetector(
+      onTap: () {
+        bool value = state.isCheck;
+        value = !value;
+        context
+            .read<BankDetailsBloc>()
+            .add(BankDetailsEvent.checkTermsCondition(value));
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: getSize(20),
+          vertical: getSize(10),
+        ),
+        decoration: BoxDecoration(
+            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: getSize(20),
+              width: getSize(16.67),
+              child: Checkbox(
+                value: state.isCheck,
+                activeColor: AppColors.primaryColor,
+                side: BorderSide(
+                  width: getSize(1.5),
+                  color: AppColors.black.withOpacity(0.5),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                onChanged: (value) {
+                  if (value != null) {
+                    context
+                        .read<BankDetailsBloc>()
+                        .add(BankDetailsEvent.checkTermsCondition(value));
+                  }
+                },
               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
+            ),
+            SizedBox(
+              width: getSize(15),
+            ),
+            Flexible(
+              child: BaseText(
+                text: StringConstant.bankDetailsTerms,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
               ),
-              onChanged: (value) {
-                if (value != null) {
-                  context
-                      .read<BankDetailsBloc>()
-                      .add(BankDetailsEvent.checkTermsCondition(value));
-                }
-              },
             ),
-          ),
-          SizedBox(
-            width: getSize(15),
-          ),
-          Flexible(
-            child: BaseText(
-              text: StringConstant.bankDetailsTerms,
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

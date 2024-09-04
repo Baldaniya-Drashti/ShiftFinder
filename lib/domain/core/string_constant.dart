@@ -349,6 +349,8 @@ class StringConstant {
   static const String resultDesc =
       "Here is the result of your quiz. To further deepen your understanding of our platform's policies and features, please refer to our available resources.";
   static const String yourScore = "Your Score";
+  static const String yearAndMonthMustbeSelected =
+      "* Year and Month must be selected!";
 
   ///
 

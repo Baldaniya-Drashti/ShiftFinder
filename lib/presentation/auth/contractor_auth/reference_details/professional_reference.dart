@@ -88,6 +88,9 @@ class ProfessionalReferenceWidget extends StatelessWidget {
       labelText: StringConstant.jobPosition,
       isLabelPadding: true,
       hintText: StringConstant.jobPosition,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+      ],
       initialValue: state.jobPosition.getValue(),
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
@@ -122,6 +125,9 @@ class ProfessionalReferenceWidget extends StatelessWidget {
       isLabelPadding: true,
       hintText: StringConstant.organization,
       textCapitalization: TextCapitalization.words,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+      ],
       initialValue: state.organization.getValue(),
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
@@ -155,6 +161,9 @@ class ProfessionalReferenceWidget extends StatelessWidget {
       labelText: StringConstant.referrer,
       isLabelPadding: true,
       hintText: StringConstant.referrer,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+      ],
       initialValue: state.referrer.getValue(),
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(

@@ -83,6 +83,9 @@ class PersonalReferenceWidget extends StatelessWidget {
       isLabelPadding: true,
       hintText: StringConstant.contactPerson,
       textCapitalization: TextCapitalization.words,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+      ],
       initialValue: state.contactPerson.getValue(),
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
@@ -152,6 +155,9 @@ class PersonalReferenceWidget extends StatelessWidget {
       BuildContext context, ReferenceState state) {
     return CustomTextField(
       labelText: StringConstant.professionOfTheReferrer,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+      ],
       isLabelPadding: true,
       hintText: StringConstant.professionOfTheReferrer,
       initialValue: state.profession.getValue(),
