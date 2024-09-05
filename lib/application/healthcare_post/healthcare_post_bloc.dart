@@ -705,7 +705,7 @@ class HealthcarePostBloc
         ),
       ),
       (r) {
-        print("r.location--> ${r.location_unit}");
+        print("r.location--> ${r.specialties_detail_list}");
         return emit(
           state.copyWith(
             updatePost: r,

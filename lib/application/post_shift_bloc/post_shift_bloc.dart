@@ -99,17 +99,17 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
         /// Single Shift
         getBreakAllownceListApi: (e) async {
           // Either<AuthFailure, SkillListDTO>? res;
-          emit(
-            state.copyWith(
-              // isLoading: true,
-              singleShiftFailureOrSuccessOption: none(),
-            ),
-          );
-          await getUnpaidBreakListApi(emit);
-          await getaAccomdationHoursListApi(emit);
+          // emit(
+          //   state.copyWith(
+          //     // isLoading: true,
+          //     singleShiftFailureOrSuccessOption: none(),
+          //   ),
+          // );
           if (e.updateShift != null) {
             setShiftDataToUpdate(emit, e.updateShift!);
           }
+          await getUnpaidBreakListApi(emit);
+          await getaAccomdationHoursListApi(emit);
           emit(
             state.copyWith(
               isLoading: false,

@@ -905,6 +905,8 @@ class HealthCarePostForm extends StatelessWidget {
       children: [
         MultiSelectDialogField(
           isOptional: true,
+          initialValue: state.requiredSpecialityChipList.getValue(),
+          otherInitialValue: state.specialityOther,
           items: state.specialityList
               .map((item) =>
                   MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
