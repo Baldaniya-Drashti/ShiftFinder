@@ -73,7 +73,7 @@ class ViewDates extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return chipListBox(
                       date: convertTimeStampToDate(
-                        shift[index].start_date ?? -1,
+                        shift[index].date ?? -1,
                         isDate: true,
                       ),
                       title: StringConstant.shiftTime,

@@ -6,6 +6,7 @@ part of 'post_shift_bloc.dart';
 class PostShiftState with _$PostShiftState {
   const factory PostShiftState({
     /// Change hift Type(Single, Multi,Long-Term)
+    required HealthcarePostDTO updateShift,
     required int shiftType,
     required int postId,
     required bool isLoading,
@@ -69,6 +70,7 @@ class PostShiftState with _$PostShiftState {
 
   factory PostShiftState.initial() => PostShiftState(
         /// Change shift Type(Single, Multi,Long-Term)
+        updateShift: HealthcarePostDTO(),
         post: PostShiftDTO(),
         shiftType: -1,
         postId: -1,

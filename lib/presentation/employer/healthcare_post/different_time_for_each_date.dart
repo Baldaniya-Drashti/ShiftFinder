@@ -176,6 +176,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
     return CustomDropdwonWithTextField(
       labelText: StringConstant.commuteAllowance,
       hintText: StringConstant.commuteAllowance,
+      fieldMaxLength: 5,
       isLabelPadding: true,
       showTextfield: (state.selectedCommuteAllownce.getValue() == "Flat Rate"),
       showDropDown: (state.selectedCommuteAllownce.getValue() == "Hours"),
@@ -254,6 +255,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
       labelText: StringConstant.accommodationAllowance,
       hintText: StringConstant.accommodationAllowance,
       isLabelPadding: true,
+      fieldMaxLength: 5,
       showTextfield:
           (state.selectedAccomdationAllownce.getValue() == "Flat Rate"),
       showDropDown: (state.selectedAccomdationAllownce.getValue() == "Hours"),
@@ -463,6 +465,10 @@ class DifferentTimeForEachDate extends StatelessWidget {
       labelText: StringConstant.numberOfVacancies,
       hintText: StringConstant.numberOfVacancies,
       keyboardType: TextInputType.number,
+      maxLength: 3,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+      ],
       onChanged: (value) {
         context
             .read<PostShiftBloc>()

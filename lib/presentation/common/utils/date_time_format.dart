@@ -56,4 +56,20 @@ class CustomDateTimeFormat {
     final match = RegExp(r'(\d+) Minutes').firstMatch(timeStr);
     return match != null ? int.parse(match.group(1)!) : 0;
   }
+
+  static getHour({required int timestamp}) {
+    final dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    String formattedHour = DateFormat('hh a').format(dateTime);
+    print("Formatted Hour: $formattedHour");
+
+    return formattedHour;
+  }
+
+  static getMinute({required int timestamp}) {
+    final dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    String formattedMinute = DateFormat('mm').format(dateTime);
+    print("Formatted Minute: $formattedMinute");
+
+    return "$formattedMinute Min";
+  }
 }

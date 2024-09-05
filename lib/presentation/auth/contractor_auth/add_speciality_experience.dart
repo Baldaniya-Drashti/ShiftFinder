@@ -66,47 +66,42 @@ class AddSpecialityExperience extends StatelessWidget {
             );
           },
           builder: (context, state) {
-            return Stack(
-              children: [
-                Form(
-                  autovalidateMode: (state.showErrorMessages)
-                      ? AutovalidateMode.always
-                      : AutovalidateMode.disabled,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                            PngImageConstants.add_speciality_experience_desc),
-                        SizedBox(
-                          height: getSize(20),
-                        ),
-                        Expanded(
-                          child: (state.isLoading)
-                              ? CenterLoadingIndicator(isOnlyLoader: true)
-                              : mainListView(context, state),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                            bottom: getSize(40),
-                          ),
-                          child: CommonButton(
-                            isSubmitting: state.isSubmitting,
-                            onPressed: () {
-                              context.read<SpecialityExperienceBloc>().add(
-                                  const SpecialityExperienceEvent
-                                      .continueBtnPressedEvent());
-                            },
-                            buttonText: StringConstant.txtContinue,
-                          ),
-                        ),
-                      ],
+            return Form(
+              autovalidateMode: (state.showErrorMessages)
+                  ? AutovalidateMode.always
+                  : AutovalidateMode.disabled,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                child: Column(
+                  children: [
+                    Image.asset(
+                        PngImageConstants.add_speciality_experience_desc),
+                    SizedBox(
+                      height: getSize(20),
                     ),
-                  ),
+                    Expanded(
+                      child: (state.isLoading)
+                          ? CenterLoadingIndicator(isOnlyLoader: true)
+                          : SingleChildScrollView(
+                              child: mainListView(context, state)),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        bottom: getSize(40),
+                      ),
+                      child: CommonButton(
+                        isSubmitting: state.isSubmitting,
+                        onPressed: () {
+                          context.read<SpecialityExperienceBloc>().add(
+                              const SpecialityExperienceEvent
+                                  .continueBtnPressedEvent());
+                        },
+                        buttonText: StringConstant.txtContinue,
+                      ),
+                    ),
+                  ],
                 ),
-                // if(state.isLoading)
-                //   const CenterLoadingIndicator(),
-              ],
+              ),
             );
           },
         ),
@@ -117,6 +112,8 @@ class AddSpecialityExperience extends StatelessWidget {
   Widget mainListView(BuildContext context, SpecialityExperienceState state) {
     return ListView.builder(
       itemCount: state.records.length,
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         var currentObj = state.records[index];
         return Column(

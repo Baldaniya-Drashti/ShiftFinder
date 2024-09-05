@@ -256,49 +256,58 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
   }
 
   Widget confirmationCheckBox(BuildContext context, LegalScreeningState state) {
-    return Container(
-      padding:
-          EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(12)),
-      // margin: EdgeInsets.symmetric(vertical: getSize(10)),
-      decoration: BoxDecoration(
-          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: getSize(20),
-            width: getSize(16.67),
-            // color: Colors.green,
-            child: Checkbox(
-              value: state.isCheck,
-              activeColor: AppColors.primaryColor,
-              side: BorderSide(
-                width: getSize(1.5),
-                color: AppColors.black.withOpacity(0.5),
+    return GestureDetector(
+      onTap: () {
+        bool value = state.isCheck;
+        value = !value;
+        context
+            .read<LegalScreeningBloc>()
+            .add(LegalScreeningEvent.checkTermsConfirmation(value));
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(
+            horizontal: getSize(12), vertical: getSize(12)),
+        // margin: EdgeInsets.symmetric(vertical: getSize(10)),
+        decoration: BoxDecoration(
+            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: getSize(20),
+              width: getSize(16.67),
+              // color: Colors.green,
+              child: Checkbox(
+                value: state.isCheck,
+                activeColor: AppColors.primaryColor,
+                side: BorderSide(
+                  width: getSize(1.5),
+                  color: AppColors.black.withOpacity(0.5),
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                onChanged: (value) {
+                  if (value != null) {
+                    context
+                        .read<LegalScreeningBloc>()
+                        .add(LegalScreeningEvent.checkTermsConfirmation(value));
+                  }
+                },
               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
+            ),
+            SizedBox(
+              width: getSize(10),
+            ),
+            Flexible(
+              child: BaseText(
+                text: StringConstant.legalScreeningConfirmationDesc,
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
               ),
-              onChanged: (value) {
-                if (value != null) {
-                  context
-                      .read<LegalScreeningBloc>()
-                      .add(LegalScreeningEvent.checkTermsConfirmation(value));
-                }
-              },
             ),
-          ),
-          SizedBox(
-            width: getSize(10),
-          ),
-          Flexible(
-            child: BaseText(
-              text: StringConstant.legalScreeningConfirmationDesc,
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

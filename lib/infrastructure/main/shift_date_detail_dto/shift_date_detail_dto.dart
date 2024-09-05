@@ -9,9 +9,8 @@ class ShiftDateDetailDTO with _$ShiftDateDetailDTO {
   const factory ShiftDateDetailDTO({
     int? id,
     int? recurrence_mode,
-    int? start_date,
     int? start_time,
-    int? end_date,
+    int? date,
     int? end_time,
     String? days,
   }) = _ShiftDateDetailDTO;

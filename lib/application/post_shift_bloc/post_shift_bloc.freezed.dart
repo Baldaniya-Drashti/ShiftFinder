@@ -40,7 +40,8 @@ mixin _$PostShiftEvent {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -97,7 +98,8 @@ mixin _$PostShiftEvent {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -152,7 +154,8 @@ mixin _$PostShiftEvent {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -527,7 +530,8 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -587,7 +591,8 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -645,7 +650,8 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -991,7 +997,8 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -1051,7 +1058,8 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -1109,7 +1117,8 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -1437,7 +1446,8 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -1497,7 +1507,8 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -1555,7 +1566,8 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -1879,7 +1891,8 @@ class _$StartHourChangedImpl implements StartHourChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -1939,7 +1952,8 @@ class _$StartHourChangedImpl implements StartHourChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -1997,7 +2011,8 @@ class _$StartHourChangedImpl implements StartHourChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -2320,7 +2335,8 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -2380,7 +2396,8 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -2438,7 +2455,8 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -2762,7 +2780,8 @@ class _$EndHourChangedImpl implements EndHourChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -2822,7 +2841,8 @@ class _$EndHourChangedImpl implements EndHourChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -2880,7 +2900,8 @@ class _$EndHourChangedImpl implements EndHourChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -3203,7 +3224,8 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -3263,7 +3285,8 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -3321,7 +3344,8 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -3645,7 +3669,8 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -3705,7 +3730,8 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -3763,7 +3789,8 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -4063,7 +4090,8 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -4123,7 +4151,8 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -4181,7 +4210,8 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -4502,7 +4532,8 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -4562,7 +4593,8 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -4620,7 +4652,8 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -4945,7 +4978,8 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -5005,7 +5039,8 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -5063,7 +5098,8 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -5388,7 +5424,8 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -5448,7 +5485,8 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -5506,7 +5544,8 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -5833,7 +5872,8 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -5893,7 +5933,8 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -5951,7 +5992,8 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -6278,7 +6320,8 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -6338,7 +6381,8 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -6396,7 +6440,8 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -6723,7 +6768,8 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -6783,7 +6829,8 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -6841,7 +6888,8 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -7165,7 +7213,8 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -7225,7 +7274,8 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -7283,7 +7333,8 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -7607,7 +7658,8 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -7667,7 +7719,8 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -7725,7 +7778,8 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -8049,7 +8103,8 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -8109,7 +8164,8 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -8167,7 +8223,8 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -8492,7 +8549,8 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -8552,7 +8610,8 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -8610,7 +8669,8 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -8853,9 +8913,10 @@ abstract class _$$GetTeamsListImplCopyWith<$Res> {
           _$GetTeamsListImpl value, $Res Function(_$GetTeamsListImpl) then) =
       __$$GetTeamsListImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({PostShiftDTO post});
+  $Res call({PostShiftDTO post, HealthcarePostDTO updateShift});
 
   $PostShiftDTOCopyWith<$Res> get post;
+  $HealthcarePostDTOCopyWith<$Res> get updateShift;
 }
 
 /// @nodoc
@@ -8870,12 +8931,17 @@ class __$$GetTeamsListImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? post = null,
+    Object? updateShift = null,
   }) {
     return _then(_$GetTeamsListImpl(
       post: null == post
           ? _value.post
           : post // ignore: cast_nullable_to_non_nullable
               as PostShiftDTO,
+      updateShift: null == updateShift
+          ? _value.updateShift
+          : updateShift // ignore: cast_nullable_to_non_nullable
+              as HealthcarePostDTO,
     ));
   }
 
@@ -8886,19 +8952,29 @@ class __$$GetTeamsListImplCopyWithImpl<$Res>
       return _then(_value.copyWith(post: value));
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $HealthcarePostDTOCopyWith<$Res> get updateShift {
+    return $HealthcarePostDTOCopyWith<$Res>(_value.updateShift, (value) {
+      return _then(_value.copyWith(updateShift: value));
+    });
+  }
 }
 
 /// @nodoc
 
 class _$GetTeamsListImpl implements GetTeamsList {
-  const _$GetTeamsListImpl({required this.post});
+  const _$GetTeamsListImpl({required this.post, required this.updateShift});
 
   @override
   final PostShiftDTO post;
+  @override
+  final HealthcarePostDTO updateShift;
 
   @override
   String toString() {
-    return 'PostShiftEvent.getTeamsListEvent(post: $post)';
+    return 'PostShiftEvent.getTeamsListEvent(post: $post, updateShift: $updateShift)';
   }
 
   @override
@@ -8906,11 +8982,13 @@ class _$GetTeamsListImpl implements GetTeamsList {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GetTeamsListImpl &&
-            (identical(other.post, post) || other.post == post));
+            (identical(other.post, post) || other.post == post) &&
+            (identical(other.updateShift, updateShift) ||
+                other.updateShift == updateShift));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, post);
+  int get hashCode => Object.hash(runtimeType, post, updateShift);
 
   @JsonKey(ignore: true)
   @override
@@ -8943,7 +9021,8 @@ class _$GetTeamsListImpl implements GetTeamsList {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -8976,7 +9055,7 @@ class _$GetTeamsListImpl implements GetTeamsList {
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
     required TResult Function(int postId) postTheShiftEvent,
   }) {
-    return getTeamsListEvent(post);
+    return getTeamsListEvent(post, updateShift);
   }
 
   @override
@@ -9003,7 +9082,8 @@ class _$GetTeamsListImpl implements GetTeamsList {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -9034,7 +9114,7 @@ class _$GetTeamsListImpl implements GetTeamsList {
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
   }) {
-    return getTeamsListEvent?.call(post);
+    return getTeamsListEvent?.call(post, updateShift);
   }
 
   @override
@@ -9061,7 +9141,8 @@ class _$GetTeamsListImpl implements GetTeamsList {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -9093,7 +9174,7 @@ class _$GetTeamsListImpl implements GetTeamsList {
     required TResult orElse(),
   }) {
     if (getTeamsListEvent != null) {
-      return getTeamsListEvent(post);
+      return getTeamsListEvent(post, updateShift);
     }
     return orElse();
   }
@@ -9289,10 +9370,12 @@ class _$GetTeamsListImpl implements GetTeamsList {
 }
 
 abstract class GetTeamsList implements PostShiftEvent {
-  const factory GetTeamsList({required final PostShiftDTO post}) =
-      _$GetTeamsListImpl;
+  const factory GetTeamsList(
+      {required final PostShiftDTO post,
+      required final HealthcarePostDTO updateShift}) = _$GetTeamsListImpl;
 
   PostShiftDTO get post;
+  HealthcarePostDTO get updateShift;
   @JsonKey(ignore: true)
   _$$GetTeamsListImplCopyWith<_$GetTeamsListImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -9385,7 +9468,8 @@ class _$RecurringCheckImpl implements RecurringCheck {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -9445,7 +9529,8 @@ class _$RecurringCheckImpl implements RecurringCheck {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -9503,7 +9588,8 @@ class _$RecurringCheckImpl implements RecurringCheck {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -9826,7 +9912,8 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -9886,7 +9973,8 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -9944,7 +10032,8 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -10268,7 +10357,8 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -10328,7 +10418,8 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -10386,7 +10477,8 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -10710,7 +10802,8 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -10770,7 +10863,8 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -10828,7 +10922,8 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -11154,7 +11249,8 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -11214,7 +11310,8 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -11272,7 +11369,8 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -11597,7 +11695,8 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -11657,7 +11756,8 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -11715,7 +11815,8 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -12051,7 +12152,8 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -12111,7 +12213,8 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -12169,7 +12272,8 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -12496,7 +12600,8 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -12556,7 +12661,8 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -12614,7 +12720,8 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -12948,7 +13055,8 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -13008,7 +13116,8 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -13066,7 +13175,8 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -13399,7 +13509,8 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -13459,7 +13570,8 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -13517,7 +13629,8 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -13845,7 +13958,8 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -13905,7 +14019,8 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -13963,7 +14078,8 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -14297,7 +14413,8 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -14357,7 +14474,8 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -14415,7 +14533,8 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -14717,7 +14836,8 @@ class _$MultidateContinueButtonPressedImpl
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -14777,7 +14897,8 @@ class _$MultidateContinueButtonPressedImpl
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -14835,7 +14956,8 @@ class _$MultidateContinueButtonPressedImpl
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -15160,7 +15282,8 @@ class _$MultiDateSameDiffTypeChangedImpl
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -15220,7 +15343,8 @@ class _$MultiDateSameDiffTypeChangedImpl
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -15278,7 +15402,8 @@ class _$MultiDateSameDiffTypeChangedImpl
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -15620,7 +15745,8 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -15680,7 +15806,8 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -15738,7 +15865,8 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -16083,7 +16211,8 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -16143,7 +16272,8 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -16201,7 +16331,8 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -16544,7 +16675,8 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -16604,7 +16736,8 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -16662,7 +16795,8 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -17006,7 +17140,8 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -17066,7 +17201,8 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -17124,7 +17260,8 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -17473,7 +17610,8 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -17533,7 +17671,8 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -17591,7 +17730,8 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -17947,7 +18087,8 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -18007,7 +18148,8 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -18065,7 +18207,8 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -18363,7 +18506,8 @@ class _$BackEventImpl implements BackEvent {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -18423,7 +18567,8 @@ class _$BackEventImpl implements BackEvent {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -18481,7 +18626,8 @@ class _$BackEventImpl implements BackEvent {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -18801,7 +18947,8 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -18861,7 +19008,8 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -18919,7 +19067,8 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -19243,7 +19392,8 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post) getTeamsListEvent,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+        getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
     required TResult Function(bool isCheck) saveAsTemplateCheck,
@@ -19303,7 +19453,8 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
@@ -19361,7 +19512,8 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post)? getTeamsListEvent,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+        getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
     TResult Function(bool isCheck)? saveAsTemplateCheck,
@@ -19600,6 +19752,7 @@ abstract class postTheShiftEvent implements PostShiftEvent {
 /// @nodoc
 mixin _$PostShiftState {
   /// Change hift Type(Single, Multi,Long-Term)
+  HealthcarePostDTO get updateShift => throw _privateConstructorUsedError;
   int get shiftType => throw _privateConstructorUsedError;
   int get postId => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
@@ -19679,7 +19832,8 @@ abstract class $PostShiftStateCopyWith<$Res> {
       _$PostShiftStateCopyWithImpl<$Res, PostShiftState>;
   @useResult
   $Res call(
-      {int shiftType,
+      {HealthcarePostDTO updateShift,
+      int shiftType,
       int postId,
       bool isLoading,
       PostShiftDTO post,
@@ -19730,6 +19884,7 @@ abstract class $PostShiftStateCopyWith<$Res> {
           differentDateFailureOrSuccessOption,
       Option<Either<MainFailure, String>> postShiftFailureOrSuccessOption});
 
+  $HealthcarePostDTOCopyWith<$Res> get updateShift;
   $PostShiftDTOCopyWith<$Res> get post;
 }
 
@@ -19746,6 +19901,7 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? updateShift = null,
     Object? shiftType = null,
     Object? postId = null,
     Object? isLoading = null,
@@ -19795,6 +19951,10 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
     Object? postShiftFailureOrSuccessOption = null,
   }) {
     return _then(_value.copyWith(
+      updateShift: null == updateShift
+          ? _value.updateShift
+          : updateShift // ignore: cast_nullable_to_non_nullable
+              as HealthcarePostDTO,
       shiftType: null == shiftType
           ? _value.shiftType
           : shiftType // ignore: cast_nullable_to_non_nullable
@@ -19990,6 +20150,14 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
 
   @override
   @pragma('vm:prefer-inline')
+  $HealthcarePostDTOCopyWith<$Res> get updateShift {
+    return $HealthcarePostDTOCopyWith<$Res>(_value.updateShift, (value) {
+      return _then(_value.copyWith(updateShift: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $PostShiftDTOCopyWith<$Res> get post {
     return $PostShiftDTOCopyWith<$Res>(_value.post, (value) {
       return _then(_value.copyWith(post: value) as $Val);
@@ -20006,7 +20174,8 @@ abstract class _$$PostShiftStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int shiftType,
+      {HealthcarePostDTO updateShift,
+      int shiftType,
       int postId,
       bool isLoading,
       PostShiftDTO post,
@@ -20058,6 +20227,8 @@ abstract class _$$PostShiftStateImplCopyWith<$Res>
       Option<Either<MainFailure, String>> postShiftFailureOrSuccessOption});
 
   @override
+  $HealthcarePostDTOCopyWith<$Res> get updateShift;
+  @override
   $PostShiftDTOCopyWith<$Res> get post;
 }
 
@@ -20072,6 +20243,7 @@ class __$$PostShiftStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? updateShift = null,
     Object? shiftType = null,
     Object? postId = null,
     Object? isLoading = null,
@@ -20121,6 +20293,10 @@ class __$$PostShiftStateImplCopyWithImpl<$Res>
     Object? postShiftFailureOrSuccessOption = null,
   }) {
     return _then(_$PostShiftStateImpl(
+      updateShift: null == updateShift
+          ? _value.updateShift
+          : updateShift // ignore: cast_nullable_to_non_nullable
+              as HealthcarePostDTO,
       shiftType: null == shiftType
           ? _value.shiftType
           : shiftType // ignore: cast_nullable_to_non_nullable
@@ -20319,7 +20495,8 @@ class __$$PostShiftStateImplCopyWithImpl<$Res>
 
 class _$PostShiftStateImpl implements _PostShiftState {
   const _$PostShiftStateImpl(
-      {required this.shiftType,
+      {required this.updateShift,
+      required this.shiftType,
       required this.postId,
       required this.isLoading,
       required this.post,
@@ -20376,6 +20553,8 @@ class _$PostShiftStateImpl implements _PostShiftState {
         _multiDateTimeList = multiDateTimeList;
 
   /// Change hift Type(Single, Multi,Long-Term)
+  @override
+  final HealthcarePostDTO updateShift;
   @override
   final int shiftType;
   @override
@@ -20536,7 +20715,7 @@ class _$PostShiftStateImpl implements _PostShiftState {
 
   @override
   String toString() {
-    return 'PostShiftState(shiftType: $shiftType, postId: $postId, isLoading: $isLoading, post: $post, signleShiftDate: $signleShiftDate, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, breakList: $breakList, accomdationHoursList: $accomdationHoursList, unpaidBreak: $unpaidBreak, totalPaybleHours: $totalPaybleHours, selectedCommuteAllownce: $selectedCommuteAllownce, commuteHour: $commuteHour, commuteRate: $commuteRate, selectedAccomdationAllownce: $selectedAccomdationAllownce, accomdationHour: $accomdationHour, accomdationRate: $accomdationRate, singleShiftNote: $singleShiftNote, isMoreVacancy: $isMoreVacancy, selectedVacancy: $selectedVacancy, singleShiftErrorMessages: $singleShiftErrorMessages, singleShiftFailureOrSuccessOption: $singleShiftFailureOrSuccessOption, teamList: $teamList, isToBeRecurring: $isToBeRecurring, isShareWithTeams: $isShareWithTeams, isSaveAsTemplate: $isSaveAsTemplate, disclaimerNote: $disclaimerNote, recurringStartDate: $recurringStartDate, recurringEndDate: $recurringEndDate, recurrenceWeekList: $recurrenceWeekList, selectedTeamList: $selectedTeamList, recurrenceMode: $recurrenceMode, recurringErrorMessage: $recurringErrorMessage, recurringFailureOrSuccessOption: $recurringFailureOrSuccessOption, isIndividualPost: $isIndividualPost, selectedMultiShiftType: $selectedMultiShiftType, selectedMultiDates: $selectedMultiDates, startHourList: $startHourList, startMinuteList: $startMinuteList, endHourList: $endHourList, endMinuteList: $endMinuteList, multiDateTimeList: $multiDateTimeList, isDifferentDateDataValid: $isDifferentDateDataValid, differentDateFailureOrSuccessOption: $differentDateFailureOrSuccessOption, postShiftFailureOrSuccessOption: $postShiftFailureOrSuccessOption)';
+    return 'PostShiftState(updateShift: $updateShift, shiftType: $shiftType, postId: $postId, isLoading: $isLoading, post: $post, signleShiftDate: $signleShiftDate, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, breakList: $breakList, accomdationHoursList: $accomdationHoursList, unpaidBreak: $unpaidBreak, totalPaybleHours: $totalPaybleHours, selectedCommuteAllownce: $selectedCommuteAllownce, commuteHour: $commuteHour, commuteRate: $commuteRate, selectedAccomdationAllownce: $selectedAccomdationAllownce, accomdationHour: $accomdationHour, accomdationRate: $accomdationRate, singleShiftNote: $singleShiftNote, isMoreVacancy: $isMoreVacancy, selectedVacancy: $selectedVacancy, singleShiftErrorMessages: $singleShiftErrorMessages, singleShiftFailureOrSuccessOption: $singleShiftFailureOrSuccessOption, teamList: $teamList, isToBeRecurring: $isToBeRecurring, isShareWithTeams: $isShareWithTeams, isSaveAsTemplate: $isSaveAsTemplate, disclaimerNote: $disclaimerNote, recurringStartDate: $recurringStartDate, recurringEndDate: $recurringEndDate, recurrenceWeekList: $recurrenceWeekList, selectedTeamList: $selectedTeamList, recurrenceMode: $recurrenceMode, recurringErrorMessage: $recurringErrorMessage, recurringFailureOrSuccessOption: $recurringFailureOrSuccessOption, isIndividualPost: $isIndividualPost, selectedMultiShiftType: $selectedMultiShiftType, selectedMultiDates: $selectedMultiDates, startHourList: $startHourList, startMinuteList: $startMinuteList, endHourList: $endHourList, endMinuteList: $endMinuteList, multiDateTimeList: $multiDateTimeList, isDifferentDateDataValid: $isDifferentDateDataValid, differentDateFailureOrSuccessOption: $differentDateFailureOrSuccessOption, postShiftFailureOrSuccessOption: $postShiftFailureOrSuccessOption)';
   }
 
   @override
@@ -20544,6 +20723,8 @@ class _$PostShiftStateImpl implements _PostShiftState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PostShiftStateImpl &&
+            (identical(other.updateShift, updateShift) ||
+                other.updateShift == updateShift) &&
             (identical(other.shiftType, shiftType) ||
                 other.shiftType == shiftType) &&
             (identical(other.postId, postId) || other.postId == postId) &&
@@ -20627,6 +20808,7 @@ class _$PostShiftStateImpl implements _PostShiftState {
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
+        updateShift,
         shiftType,
         postId,
         isLoading,
@@ -20686,7 +20868,8 @@ class _$PostShiftStateImpl implements _PostShiftState {
 
 abstract class _PostShiftState implements PostShiftState {
   const factory _PostShiftState(
-      {required final int shiftType,
+      {required final HealthcarePostDTO updateShift,
+      required final int shiftType,
       required final int postId,
       required final bool isLoading,
       required final PostShiftDTO post,
@@ -20741,6 +20924,8 @@ abstract class _PostShiftState implements PostShiftState {
   @override
 
   /// Change hift Type(Single, Multi,Long-Term)
+  HealthcarePostDTO get updateShift;
+  @override
   int get shiftType;
   @override
   int get postId;

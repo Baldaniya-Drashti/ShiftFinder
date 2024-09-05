@@ -415,7 +415,6 @@ class MainFacade implements IMainFacade {
       final res = await apiService.getMethod(
         "${ApiConstants.updatePostStatus}/$postId",
       );
-
       if (res != null) {
         return right(res.dioMessage ?? "");
       } else {

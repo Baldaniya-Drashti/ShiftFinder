@@ -81,21 +81,29 @@ class LocationDetailsBloc
         addressChanged: (e) async {
           /// To get google place with serched result
           List<dynamic> placeList = [];
-          String? response = await fetchUrl(e.address);
-          if (response != null) {
-            print("API RESPONSE----> $response");
-            placeList = json.decode(response)['predictions'];
+          if (locationCtrl.text.isNotEmpty) {
+            String? response = await fetchUrl(locationCtrl.text);
+            if (response != null) {
+              placeList = json.decode(response)['predictions'];
+            }
+          } else {
+            placeList = [];
           }
+
           emit(
             state.copyWith(
-              address: InputEmptyOrNot(e.address),
-              searchLocationList: placeList,
+              address: (locationCtrl.text.isNotEmpty)
+                  ? InputEmptyOrNot(locationCtrl.text)
+                  : InputEmptyOrNot(""),
+              searchLocationList:
+                  (locationCtrl.text.isNotEmpty) ? placeList : [],
               authFailureOrSuccessOption: none(),
             ),
           );
         },
         locationSelectedFromSearchList: (e) {
           locationCtrl.text = e.selectedLocation;
+
           emit(
             state.copyWith(
               address: InputEmptyOrNot(e.selectedLocation),

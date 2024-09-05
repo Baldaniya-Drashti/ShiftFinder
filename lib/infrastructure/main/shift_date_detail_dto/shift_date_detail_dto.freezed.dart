@@ -22,9 +22,8 @@ ShiftDateDetailDTO _$ShiftDateDetailDTOFromJson(Map<String, dynamic> json) {
 mixin _$ShiftDateDetailDTO {
   int? get id => throw _privateConstructorUsedError;
   int? get recurrence_mode => throw _privateConstructorUsedError;
-  int? get start_date => throw _privateConstructorUsedError;
   int? get start_time => throw _privateConstructorUsedError;
-  int? get end_date => throw _privateConstructorUsedError;
+  int? get date => throw _privateConstructorUsedError;
   int? get end_time => throw _privateConstructorUsedError;
   String? get days => throw _privateConstructorUsedError;
 
@@ -43,9 +42,8 @@ abstract class $ShiftDateDetailDTOCopyWith<$Res> {
   $Res call(
       {int? id,
       int? recurrence_mode,
-      int? start_date,
       int? start_time,
-      int? end_date,
+      int? date,
       int? end_time,
       String? days});
 }
@@ -65,9 +63,8 @@ class _$ShiftDateDetailDTOCopyWithImpl<$Res, $Val extends ShiftDateDetailDTO>
   $Res call({
     Object? id = freezed,
     Object? recurrence_mode = freezed,
-    Object? start_date = freezed,
     Object? start_time = freezed,
-    Object? end_date = freezed,
+    Object? date = freezed,
     Object? end_time = freezed,
     Object? days = freezed,
   }) {
@@ -80,17 +77,13 @@ class _$ShiftDateDetailDTOCopyWithImpl<$Res, $Val extends ShiftDateDetailDTO>
           ? _value.recurrence_mode
           : recurrence_mode // ignore: cast_nullable_to_non_nullable
               as int?,
-      start_date: freezed == start_date
-          ? _value.start_date
-          : start_date // ignore: cast_nullable_to_non_nullable
-              as int?,
       start_time: freezed == start_time
           ? _value.start_time
           : start_time // ignore: cast_nullable_to_non_nullable
               as int?,
-      end_date: freezed == end_date
-          ? _value.end_date
-          : end_date // ignore: cast_nullable_to_non_nullable
+      date: freezed == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
               as int?,
       end_time: freezed == end_time
           ? _value.end_time
@@ -115,9 +108,8 @@ abstract class _$$ShiftDateDetailDTOImplCopyWith<$Res>
   $Res call(
       {int? id,
       int? recurrence_mode,
-      int? start_date,
       int? start_time,
-      int? end_date,
+      int? date,
       int? end_time,
       String? days});
 }
@@ -135,9 +127,8 @@ class __$$ShiftDateDetailDTOImplCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? recurrence_mode = freezed,
-    Object? start_date = freezed,
     Object? start_time = freezed,
-    Object? end_date = freezed,
+    Object? date = freezed,
     Object? end_time = freezed,
     Object? days = freezed,
   }) {
@@ -150,17 +141,13 @@ class __$$ShiftDateDetailDTOImplCopyWithImpl<$Res>
           ? _value.recurrence_mode
           : recurrence_mode // ignore: cast_nullable_to_non_nullable
               as int?,
-      start_date: freezed == start_date
-          ? _value.start_date
-          : start_date // ignore: cast_nullable_to_non_nullable
-              as int?,
       start_time: freezed == start_time
           ? _value.start_time
           : start_time // ignore: cast_nullable_to_non_nullable
               as int?,
-      end_date: freezed == end_date
-          ? _value.end_date
-          : end_date // ignore: cast_nullable_to_non_nullable
+      date: freezed == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
               as int?,
       end_time: freezed == end_time
           ? _value.end_time
@@ -180,9 +167,8 @@ class _$ShiftDateDetailDTOImpl implements _ShiftDateDetailDTO {
   const _$ShiftDateDetailDTOImpl(
       {this.id,
       this.recurrence_mode,
-      this.start_date,
       this.start_time,
-      this.end_date,
+      this.date,
       this.end_time,
       this.days});
 
@@ -194,11 +180,9 @@ class _$ShiftDateDetailDTOImpl implements _ShiftDateDetailDTO {
   @override
   final int? recurrence_mode;
   @override
-  final int? start_date;
-  @override
   final int? start_time;
   @override
-  final int? end_date;
+  final int? date;
   @override
   final int? end_time;
   @override
@@ -206,7 +190,7 @@ class _$ShiftDateDetailDTOImpl implements _ShiftDateDetailDTO {
 
   @override
   String toString() {
-    return 'ShiftDateDetailDTO(id: $id, recurrence_mode: $recurrence_mode, start_date: $start_date, start_time: $start_time, end_date: $end_date, end_time: $end_time, days: $days)';
+    return 'ShiftDateDetailDTO(id: $id, recurrence_mode: $recurrence_mode, start_time: $start_time, date: $date, end_time: $end_time, days: $days)';
   }
 
   @override
@@ -217,12 +201,9 @@ class _$ShiftDateDetailDTOImpl implements _ShiftDateDetailDTO {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.recurrence_mode, recurrence_mode) ||
                 other.recurrence_mode == recurrence_mode) &&
-            (identical(other.start_date, start_date) ||
-                other.start_date == start_date) &&
             (identical(other.start_time, start_time) ||
                 other.start_time == start_time) &&
-            (identical(other.end_date, end_date) ||
-                other.end_date == end_date) &&
+            (identical(other.date, date) || other.date == date) &&
             (identical(other.end_time, end_time) ||
                 other.end_time == end_time) &&
             (identical(other.days, days) || other.days == days));
@@ -230,8 +211,8 @@ class _$ShiftDateDetailDTOImpl implements _ShiftDateDetailDTO {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, recurrence_mode, start_date,
-      start_time, end_date, end_time, days);
+  int get hashCode => Object.hash(
+      runtimeType, id, recurrence_mode, start_time, date, end_time, days);
 
   @JsonKey(ignore: true)
   @override
@@ -252,9 +233,8 @@ abstract class _ShiftDateDetailDTO implements ShiftDateDetailDTO {
   const factory _ShiftDateDetailDTO(
       {final int? id,
       final int? recurrence_mode,
-      final int? start_date,
       final int? start_time,
-      final int? end_date,
+      final int? date,
       final int? end_time,
       final String? days}) = _$ShiftDateDetailDTOImpl;
 
@@ -266,11 +246,9 @@ abstract class _ShiftDateDetailDTO implements ShiftDateDetailDTO {
   @override
   int? get recurrence_mode;
   @override
-  int? get start_date;
-  @override
   int? get start_time;
   @override
-  int? get end_date;
+  int? get date;
   @override
   int? get end_time;
   @override

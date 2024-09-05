@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable, avoid_print
 
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,24 +31,26 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'postShiftRecurring')
 class PostShiftRecurring extends StatelessWidget {
   int shiftType;
-  HealthcarePostDTO healthcarePost;
+  HealthcarePostDTO updateShift;
   PostShiftDTO post;
 
   PostShiftRecurring(
       {super.key,
       required this.shiftType,
-      required this.healthcarePost,
+      required this.updateShift,
       required this.post});
 
   @override
   Widget build(BuildContext context) {
+    print("updatedShift--->  ${jsonEncode(updateShift)}");
     return GestureDetector(
       onTap: () {
         AppFocus.unfocus(context);
       },
       child: BlocProvider(
         create: (context) => getIt<PostShiftBloc>()
-          ..add(PostShiftEvent.getTeamsListEvent(post: post)),
+          ..add(PostShiftEvent.getTeamsListEvent(
+              post: post, updateShift: updateShift)),
         child: BlocConsumer<PostShiftBloc, PostShiftState>(
           listener: (context, state) {
             state.recurringFailureOrSuccessOption.fold(
@@ -104,55 +108,71 @@ class PostShiftRecurring extends StatelessWidget {
                                       if (shiftType == 1) ...[
                                         recurringCheckBox(context, state),
                                         paddingBetweenFields(),
-                                        if (state.isToBeRecurring) ...[
-                                          recurringStartDateField(
-                                              context, state),
-                                          paddingBetweenFields(),
-                                          recurrenceModeDropDown(
-                                              context, state),
-                                          if (state.recurringErrorMessage &&
-                                              !state.recurrenceMode.isValid())
-                                            commonErrorText(StringConstant
-                                                .pleaseSelectRecurrenceMode),
-                                          paddingBetweenFields(),
-                                          if (state.recurrenceMode.getValue() ==
-                                              "Weekly") ...[
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: getSize(18),
-                                                  bottom: getSize(5)),
-                                              child: BaseText(
-                                                text: StringConstant
-                                                    .selectTheDaysForRecurring,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                            weeklyRecurringCheckBox(
-                                                context, state),
-                                            if (state.recurringErrorMessage &&
-                                                !state.recurrenceWeekList
-                                                    .isValid())
-                                              commonErrorText(StringConstant
-                                                  .pleaseSelectRecurrenceMode),
-                                            paddingBetweenFields(),
-                                          ],
-                                          recurringEndDateField(context, state),
-                                          paddingBetweenFields(),
-                                        ],
+                                        Visibility(
+                                            visible: state.isToBeRecurring,
+                                            child: Column(
+                                              children: [
+                                                recurringStartDateField(
+                                                    context, state),
+                                                paddingBetweenFields(),
+                                                recurrenceModeDropDown(
+                                                    context, state),
+                                                if (state
+                                                        .recurringErrorMessage &&
+                                                    !state.recurrenceMode
+                                                        .isValid())
+                                                  commonErrorText(StringConstant
+                                                      .pleaseSelectRecurrenceMode),
+                                                paddingBetweenFields(),
+                                                if (state.recurrenceMode
+                                                        .getValue() ==
+                                                    "Weekly") ...[
+                                                  Padding(
+                                                    padding: EdgeInsets.only(
+                                                        left: getSize(18),
+                                                        bottom: getSize(5)),
+                                                    child: BaseText(
+                                                      text: StringConstant
+                                                          .selectTheDaysForRecurring,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  ),
+                                                  weeklyRecurringCheckBox(
+                                                      context, state),
+                                                  if (state
+                                                          .recurringErrorMessage &&
+                                                      !state.recurrenceWeekList
+                                                          .isValid())
+                                                    commonErrorText(StringConstant
+                                                        .pleaseSelectRecurrenceMode),
+                                                  paddingBetweenFields(),
+                                                ],
+                                                recurringEndDateField(
+                                                    context, state),
+                                                paddingBetweenFields(),
+                                              ],
+                                            )),
                                       ],
                                       disclaimer(context, state),
                                       paddingBetweenFields(),
                                       sharePostCheckBox(context, state),
                                       paddingBetweenFields(),
-                                      if (state.isShareWithTeams) ...[
-                                        selectTeamsList(context, state),
-                                        if (state.recurringErrorMessage &&
-                                            !state.selectedTeamList.isValid())
-                                          commonErrorText(StringConstant
-                                              .pleaseSelectAtLeastOneTeam),
-                                        paddingBetweenFields(),
-                                      ],
+                                      Visibility(
+                                          visible: state.isShareWithTeams,
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              selectTeamsList(context, state),
+                                              if (state.recurringErrorMessage &&
+                                                  !state.selectedTeamList
+                                                      .isValid())
+                                                commonErrorText(StringConstant
+                                                    .pleaseSelectAtLeastOneTeam),
+                                              paddingBetweenFields(),
+                                            ],
+                                          )),
                                       templateCheckBox(context, state),
                                     ],
                                   ),
@@ -164,8 +184,7 @@ class PostShiftRecurring extends StatelessWidget {
                                         context.read<PostShiftBloc>().add(
                                             PostShiftEvent.recurringButtonEvent(
                                                 context,
-                                                healthcarePost
-                                                        .shift_detail?.id ??
+                                                updateShift.shift_detail?.id ??
                                                     -1));
                                       },
                                       buttonText: StringConstant.txtContinue,

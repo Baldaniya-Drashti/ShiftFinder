@@ -420,7 +420,7 @@ abstract class $AppRouter extends _i53.RootStackRouter {
         child: _i34.PostShiftRecurring(
           key: args.key,
           shiftType: args.shiftType,
-          healthcarePost: args.healthcarePost,
+          updateShift: args.updateShift,
           post: args.post,
         ),
       );
@@ -1545,7 +1545,7 @@ class PostShiftRecurring extends _i53.PageRouteInfo<PostShiftRecurringArgs> {
   PostShiftRecurring({
     _i54.Key? key,
     required int shiftType,
-    required _i60.HealthcarePostDTO healthcarePost,
+    required _i60.HealthcarePostDTO updateShift,
     required _i57.PostShiftDTO post,
     List<_i53.PageRouteInfo>? children,
   }) : super(
@@ -1553,7 +1553,7 @@ class PostShiftRecurring extends _i53.PageRouteInfo<PostShiftRecurringArgs> {
           args: PostShiftRecurringArgs(
             key: key,
             shiftType: shiftType,
-            healthcarePost: healthcarePost,
+            updateShift: updateShift,
             post: post,
           ),
           initialChildren: children,
@@ -1569,7 +1569,7 @@ class PostShiftRecurringArgs {
   const PostShiftRecurringArgs({
     this.key,
     required this.shiftType,
-    required this.healthcarePost,
+    required this.updateShift,
     required this.post,
   });
 
@@ -1577,13 +1577,13 @@ class PostShiftRecurringArgs {
 
   final int shiftType;
 
-  final _i60.HealthcarePostDTO healthcarePost;
+  final _i60.HealthcarePostDTO updateShift;
 
   final _i57.PostShiftDTO post;
 
   @override
   String toString() {
-    return 'PostShiftRecurringArgs{key: $key, shiftType: $shiftType, healthcarePost: $healthcarePost, post: $post}';
+    return 'PostShiftRecurringArgs{key: $key, shiftType: $shiftType, updateShift: $updateShift, post: $post}';
   }
 }
 

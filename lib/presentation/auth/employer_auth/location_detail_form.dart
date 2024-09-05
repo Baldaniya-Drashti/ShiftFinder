@@ -28,7 +28,6 @@ class LocationDetailForm extends StatelessWidget {
 
   LocationDetailForm({super.key, this.isFromSplash = false});
 
-  TextEditingController addressController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -132,6 +131,8 @@ class LocationDetailForm extends StatelessWidget {
                                   child: CommonButton(
                                     isSubmitting: state.isSubmitting,
                                     onPressed: () {
+                                      print(
+                                          "Address---> ${state.address.getValue()}");
                                       context.read<LocationDetailsBloc>().add(
                                           const LocationDetailsEvent
                                               .continueBtnPressed());
@@ -256,9 +257,9 @@ class LocationDetailForm extends StatelessWidget {
           // controller: addressController..text = state.address.getValue() ?? "",
           controller: LocationDetailsBloc.locationCtrl,
           onChanged: (value) {
-            context
-                .read<LocationDetailsBloc>()
-                .add(LocationDetailsEvent.addressChanged(value));
+            context.read<LocationDetailsBloc>().add(
+                LocationDetailsEvent.addressChanged(
+                    LocationDetailsBloc.locationCtrl.text));
           },
           validator: (p0, p1) =>
               context.read<LocationDetailsBloc>().state.address.value.fold(
@@ -269,7 +270,7 @@ class LocationDetailForm extends StatelessWidget {
                     (_) => null,
                   ),
         ),
-        if (state.searchLocationList.isNotEmpty)
+        if (state.searchLocationList.isNotEmpty && !state.showErrorMessages)
           Container(
             height: getSize(200),
             color: AppColors.white,

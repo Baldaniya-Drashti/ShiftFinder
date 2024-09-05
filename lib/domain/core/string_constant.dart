@@ -385,7 +385,7 @@ class StringConstant {
   static const String pleaseAddReferrer = "Please add referrer";
   static const String pleaseAddReferrersEmail = "Please add referrer's email";
   static const String pleaseAddJobLocationFacility =
-      "Please add job loction/facility";
+      "Please add job location/facility";
   static const String pleaseAddUnitDepartment = "Please add unit/department";
   static const String pleaseSelectStartDate = "Please select start date";
   static const String pleaseSelectEndDate = "Please select end date";

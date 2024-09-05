@@ -1098,6 +1098,7 @@ class HealthCarePostForm extends StatelessWidget {
       isLabelPadding: true,
       isPrefixValueShow: true,
       errorMaxLines: 2,
+      maxLength: 5,
       initialValue: (state.rateHour.getValue()!.isNotEmpty)
           ? state.rateHour.getValue()
           : null,
@@ -1196,6 +1197,9 @@ class HealthCarePostForm extends StatelessWidget {
           },
           hintText: StringConstant.location,
           childDroDwonHintText: StringConstant.selectUnitIfAny,
+          childDropDownValue: (state.selectedLocationUnit.isNotEmpty)
+              ? state.selectedLocationUnit
+              : null,
           // showDropDown:   state.location.isValid(),
           showDropDown: (state.unitList.isNotEmpty && state.location.isValid()),
           childDropDownItems: state.unitList.map((val) {

@@ -38,10 +38,9 @@ class ViewSingleApplicantsBloc
               )),
               (r) {
                 print("post--> ${r}");
-
                 emit(state.copyWith(
                   isLoading: false,
-                  showErrorMessages: true,
+                  showErrorMessages: false,
                   shift: r,
                   shiftFailureOrSuccessOption: optionOf(failureOrSuccess),
                 ));

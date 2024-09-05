@@ -31,6 +31,9 @@ class ShiftDetailDTO with _$ShiftDetailDTO {
     List<SkillDTO>? teams,
     List<ShiftDateDetailDTO>? detail,
     PayableDTO? payables,
+    int? date,
+    int? start_time,
+    int? end_time,
   }) = _ShiftDetailDTO;
 
   factory ShiftDetailDTO.fromJson(Map<String, dynamic> json) =>

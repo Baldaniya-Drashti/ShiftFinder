@@ -42,6 +42,9 @@ mixin _$ShiftDetailDTO {
   List<SkillDTO>? get teams => throw _privateConstructorUsedError;
   List<ShiftDateDetailDTO>? get detail => throw _privateConstructorUsedError;
   PayableDTO? get payables => throw _privateConstructorUsedError;
+  int? get date => throw _privateConstructorUsedError;
+  int? get start_time => throw _privateConstructorUsedError;
+  int? get end_time => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -76,7 +79,10 @@ abstract class $ShiftDetailDTOCopyWith<$Res> {
       String? disclaimer,
       List<SkillDTO>? teams,
       List<ShiftDateDetailDTO>? detail,
-      PayableDTO? payables});
+      PayableDTO? payables,
+      int? date,
+      int? start_time,
+      int? end_time});
 
   $SkillDTOCopyWith<$Res>? get unpaid_break;
   $PayableDTOCopyWith<$Res>? get payables;
@@ -116,6 +122,9 @@ class _$ShiftDetailDTOCopyWithImpl<$Res, $Val extends ShiftDetailDTO>
     Object? teams = freezed,
     Object? detail = freezed,
     Object? payables = freezed,
+    Object? date = freezed,
+    Object? start_time = freezed,
+    Object? end_time = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -203,6 +212,18 @@ class _$ShiftDetailDTOCopyWithImpl<$Res, $Val extends ShiftDetailDTO>
           ? _value.payables
           : payables // ignore: cast_nullable_to_non_nullable
               as PayableDTO?,
+      date: freezed == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as int?,
+      start_time: freezed == start_time
+          ? _value.start_time
+          : start_time // ignore: cast_nullable_to_non_nullable
+              as int?,
+      end_time: freezed == end_time
+          ? _value.end_time
+          : end_time // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 
@@ -260,7 +281,10 @@ abstract class _$$ShiftDetailDTOImplCopyWith<$Res>
       String? disclaimer,
       List<SkillDTO>? teams,
       List<ShiftDateDetailDTO>? detail,
-      PayableDTO? payables});
+      PayableDTO? payables,
+      int? date,
+      int? start_time,
+      int? end_time});
 
   @override
   $SkillDTOCopyWith<$Res>? get unpaid_break;
@@ -300,6 +324,9 @@ class __$$ShiftDetailDTOImplCopyWithImpl<$Res>
     Object? teams = freezed,
     Object? detail = freezed,
     Object? payables = freezed,
+    Object? date = freezed,
+    Object? start_time = freezed,
+    Object? end_time = freezed,
   }) {
     return _then(_$ShiftDetailDTOImpl(
       id: freezed == id
@@ -387,6 +414,18 @@ class __$$ShiftDetailDTOImplCopyWithImpl<$Res>
           ? _value.payables
           : payables // ignore: cast_nullable_to_non_nullable
               as PayableDTO?,
+      date: freezed == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as int?,
+      start_time: freezed == start_time
+          ? _value.start_time
+          : start_time // ignore: cast_nullable_to_non_nullable
+              as int?,
+      end_time: freezed == end_time
+          ? _value.end_time
+          : end_time // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -415,7 +454,10 @@ class _$ShiftDetailDTOImpl implements _ShiftDetailDTO {
       this.disclaimer,
       final List<SkillDTO>? teams,
       final List<ShiftDateDetailDTO>? detail,
-      this.payables})
+      this.payables,
+      this.date,
+      this.start_time,
+      this.end_time})
       : _teams = teams,
         _detail = detail;
 
@@ -480,10 +522,16 @@ class _$ShiftDetailDTOImpl implements _ShiftDetailDTO {
 
   @override
   final PayableDTO? payables;
+  @override
+  final int? date;
+  @override
+  final int? start_time;
+  @override
+  final int? end_time;
 
   @override
   String toString() {
-    return 'ShiftDetailDTO(id: $id, shift_type: $shift_type, same_or_different_time: $same_or_different_time, unpaid_break: $unpaid_break, total_payable_hour: $total_payable_hour, commute_allowance_type: $commute_allowance_type, commute_allowance_type_details: $commute_allowance_type_details, accommodation_allowance_type: $accommodation_allowance_type, accommodation_allowance_type_details: $accommodation_allowance_type_details, individual_shift: $individual_shift, shift_note: $shift_note, vacancie_type: $vacancie_type, number_of_vacancie: $number_of_vacancie, pending_vacancie: $pending_vacancie, recurring_status: $recurring_status, share_team_status: $share_team_status, save_template_status: $save_template_status, disclaimer: $disclaimer, teams: $teams, detail: $detail, payables: $payables)';
+    return 'ShiftDetailDTO(id: $id, shift_type: $shift_type, same_or_different_time: $same_or_different_time, unpaid_break: $unpaid_break, total_payable_hour: $total_payable_hour, commute_allowance_type: $commute_allowance_type, commute_allowance_type_details: $commute_allowance_type_details, accommodation_allowance_type: $accommodation_allowance_type, accommodation_allowance_type_details: $accommodation_allowance_type_details, individual_shift: $individual_shift, shift_note: $shift_note, vacancie_type: $vacancie_type, number_of_vacancie: $number_of_vacancie, pending_vacancie: $pending_vacancie, recurring_status: $recurring_status, share_team_status: $share_team_status, save_template_status: $save_template_status, disclaimer: $disclaimer, teams: $teams, detail: $detail, payables: $payables, date: $date, start_time: $start_time, end_time: $end_time)';
   }
 
   @override
@@ -506,8 +554,7 @@ class _$ShiftDetailDTOImpl implements _ShiftDetailDTO {
                     commute_allowance_type_details) ||
                 other.commute_allowance_type_details ==
                     commute_allowance_type_details) &&
-            (identical(other.accommodation_allowance_type,
-                    accommodation_allowance_type) ||
+            (identical(other.accommodation_allowance_type, accommodation_allowance_type) ||
                 other.accommodation_allowance_type ==
                     accommodation_allowance_type) &&
             (identical(other.accommodation_allowance_type_details,
@@ -534,7 +581,12 @@ class _$ShiftDetailDTOImpl implements _ShiftDetailDTO {
                 other.disclaimer == disclaimer) &&
             const DeepCollectionEquality().equals(other._teams, _teams) &&
             const DeepCollectionEquality().equals(other._detail, _detail) &&
-            (identical(other.payables, payables) || other.payables == payables));
+            (identical(other.payables, payables) ||
+                other.payables == payables) &&
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.start_time, start_time) ||
+                other.start_time == start_time) &&
+            (identical(other.end_time, end_time) || other.end_time == end_time));
   }
 
   @JsonKey(ignore: true)
@@ -561,7 +613,10 @@ class _$ShiftDetailDTOImpl implements _ShiftDetailDTO {
         disclaimer,
         const DeepCollectionEquality().hash(_teams),
         const DeepCollectionEquality().hash(_detail),
-        payables
+        payables,
+        date,
+        start_time,
+        end_time
       ]);
 
   @JsonKey(ignore: true)
@@ -601,7 +656,10 @@ abstract class _ShiftDetailDTO implements ShiftDetailDTO {
       final String? disclaimer,
       final List<SkillDTO>? teams,
       final List<ShiftDateDetailDTO>? detail,
-      final PayableDTO? payables}) = _$ShiftDetailDTOImpl;
+      final PayableDTO? payables,
+      final int? date,
+      final int? start_time,
+      final int? end_time}) = _$ShiftDetailDTOImpl;
 
   factory _ShiftDetailDTO.fromJson(Map<String, dynamic> json) =
       _$ShiftDetailDTOImpl.fromJson;
@@ -648,6 +706,12 @@ abstract class _ShiftDetailDTO implements ShiftDetailDTO {
   List<ShiftDateDetailDTO>? get detail;
   @override
   PayableDTO? get payables;
+  @override
+  int? get date;
+  @override
+  int? get start_time;
+  @override
+  int? get end_time;
   @override
   @JsonKey(ignore: true)
   _$$ShiftDetailDTOImplCopyWith<_$ShiftDetailDTOImpl> get copyWith =>

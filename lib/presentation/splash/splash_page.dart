@@ -39,7 +39,7 @@ class SplashPage extends StatelessWidget {
                       value.lastPage,
                       fromSplash: true,
                     )),
-              // context.router.replace(getCurrentPage(
+              //     context.router.replace(getCurrentPage(
               //   value.lastPage,
               //   fromSplash: true,
               // )),

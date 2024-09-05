@@ -423,9 +423,9 @@ class ReviewPostShiftDetail extends StatelessWidget {
               displayDateBreak(
                 context,
                 boldValue: convertTimeStampToDate(
-                    post.shift_detail?.detail?[0].start_date ?? -1),
+                    post.shift_detail?.detail?[0].date ?? -1),
                 timidValue: convertTimeStampToDate(
-                    post.shift_detail?.detail?[0].start_date ?? -1,
+                    post.shift_detail?.detail?[0].date ?? -1,
                     isYear: true),
                 title: StringConstant.shiftDate,
                 svgPrefixIcon: SvgImageConstant.calendar,

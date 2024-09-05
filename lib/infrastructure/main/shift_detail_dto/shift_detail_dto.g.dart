@@ -40,6 +40,9 @@ _$ShiftDetailDTOImpl _$$ShiftDetailDTOImplFromJson(Map<String, dynamic> json) =>
       payables: json['payables'] == null
           ? null
           : PayableDTO.fromJson(json['payables'] as Map<String, dynamic>),
+      date: (json['date'] as num?)?.toInt(),
+      start_time: (json['start_time'] as num?)?.toInt(),
+      end_time: (json['end_time'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$ShiftDetailDTOImplToJson(
@@ -67,4 +70,7 @@ Map<String, dynamic> _$$ShiftDetailDTOImplToJson(
       'teams': instance.teams,
       'detail': instance.detail,
       'payables': instance.payables,
+      'date': instance.date,
+      'start_time': instance.start_time,
+      'end_time': instance.end_time,
     };

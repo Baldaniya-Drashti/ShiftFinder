@@ -13,6 +13,7 @@ import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/payable_dto.dart/payable_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
@@ -37,7 +38,24 @@ class ViewHomeShiftDetails extends StatelessWidget {
       create: (context) => getIt<ViewSingleApplicantsBloc>()
         ..add(ViewSingleApplicantsEvent.getShiftDetailEvent(postId)),
       child: BlocConsumer<ViewSingleApplicantsBloc, ViewSingleApplicantsState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          state.shiftFailureOrSuccessOption.fold(
+            () {},
+            (either) => either.fold(
+              (failure) {
+                showError(
+                  message: failure.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(context);
+              },
+              (r) {},
+            ),
+          );
+        },
         builder: (context, state) {
           final shift = state.shift;
           return Scaffold(
@@ -50,66 +68,71 @@ class ViewHomeShiftDetails extends StatelessWidget {
             ),
             body: (state.isLoading)
                 ? CenterLoadingIndicator()
-                : Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: getSize(10),
-                    ),
-                    padding: EdgeInsets.all(getSize(10)),
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          userDataBox(context, shift),
-                          (shift.shift_detail?.shift_type == 1)
-                              ? singleShiftDateTimeBreakUI(context, shift)
-                              : multiShiftDateTimeBreakUI(context, shift),
-                          if (shift.specialties_detail != null &&
-                              shift.specialties_detail!.isNotEmpty)
-                            requiredSkillBox(
-                              svgPrefixIcon: SvgImageConstant.female,
-                              title: StringConstant.specialtiesRequired,
-                              value: shift.specialties_detail ?? "",
-                            ),
-                          if (shift.software_skill != null &&
-                              shift.software_skill!.isNotEmpty)
-                            requiredSkillBox(
-                              svgPrefixIcon: SvgImageConstant.mouse,
-                              title: StringConstant.softwareSkills,
-                              value: shift.software_skill ?? "",
-                            ),
-                          rateHoursBox(shift),
-                          languageBox(
-                            title: StringConstant.languageRequirements,
-                            value: languageList(shift),
+                : (state.showErrorMessages)
+                    ? Center(
+                        child: BaseText(text: "No data found!"),
+                      )
+                    : Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: getSize(10),
+                        ),
+                        padding: EdgeInsets.all(getSize(10)),
+                        decoration: BoxDecoration(
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              userDataBox(context, shift),
+                              (shift.shift_detail?.shift_type == 1)
+                                  ? singleShiftDateTimeBreakUI(context, shift)
+                                  : multiShiftDateTimeBreakUI(context, shift),
+                              if (shift.specialties_detail != null &&
+                                  shift.specialties_detail!.isNotEmpty)
+                                requiredSkillBox(
+                                  svgPrefixIcon: SvgImageConstant.female,
+                                  title: StringConstant.specialtiesRequired,
+                                  value: shift.specialties_detail ?? "",
+                                ),
+                              if (shift.software_skill != null &&
+                                  shift.software_skill!.isNotEmpty)
+                                requiredSkillBox(
+                                  svgPrefixIcon: SvgImageConstant.mouse,
+                                  title: StringConstant.softwareSkills,
+                                  value: shift.software_skill ?? "",
+                                ),
+                              rateHoursBox(shift),
+                              languageBox(
+                                title: StringConstant.languageRequirements,
+                                value: languageList(shift),
+                              ),
+                              if (shift.shift_detail != null &&
+                                  shift.shift_detail?.shift_note != null &&
+                                  shift.shift_detail!.shift_note!.isNotEmpty)
+                                notesBox(
+                                  title: StringConstant.shiftNote,
+                                  value: shift.shift_detail?.shift_note ?? "",
+                                ),
+                              if (shift.shift_detail != null &&
+                                  shift.shift_detail!.disclaimer != null &&
+                                  shift.shift_detail!.disclaimer!.isNotEmpty)
+                                notesBox(
+                                    title: StringConstant.disclaimer,
+                                    value:
+                                        shift.shift_detail?.disclaimer ?? ""),
+                              locationDetailBox(
+                                  title: StringConstant.locationDetails,
+                                  locationValue: shift.location?.location ?? "",
+                                  // "2464 Royal Ln. Mesa, New Jersey 45463",
+                                  units: shift.location_unit ?? ""),
+                              if (shift.shift_detail != null &&
+                                  shift.shift_detail!.payables != null)
+                                payableBox(shift.shift_detail!.payables!),
+                            ],
                           ),
-                          if (shift.shift_detail != null &&
-                              shift.shift_detail?.shift_note != null &&
-                              shift.shift_detail!.shift_note!.isNotEmpty)
-                            notesBox(
-                              title: StringConstant.shiftNote,
-                              value: shift.shift_detail?.shift_note ?? "",
-                            ),
-                          if (shift.shift_detail != null &&
-                              shift.shift_detail!.disclaimer != null &&
-                              shift.shift_detail!.disclaimer!.isNotEmpty)
-                            notesBox(
-                                title: StringConstant.disclaimer,
-                                value: shift.shift_detail?.disclaimer ?? ""),
-                          locationDetailBox(
-                              title: StringConstant.locationDetails,
-                              locationValue: shift.location?.location ?? "",
-                              // "2464 Royal Ln. Mesa, New Jersey 45463",
-                              units: shift.location_unit ?? ""),
-                          if (shift.shift_detail != null &&
-                              shift.shift_detail!.payables != null)
-                            payableBox(shift.shift_detail!.payables!),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
           );
         },
       ),
@@ -420,9 +443,9 @@ class ViewHomeShiftDetails extends StatelessWidget {
                 context,
                 post,
                 boldValue: convertTimeStampToDate(
-                    post.shift_detail?.detail?[0].start_date ?? -1),
+                    post.shift_detail?.detail?[0].date ?? -1),
                 timidValue: convertTimeStampToDate(
-                    post.shift_detail?.detail?[0].start_date ?? -1,
+                    post.shift_detail?.detail?[0].date ?? -1,
                     isYear: true),
                 title: StringConstant.shiftDate,
                 svgPrefixIcon: SvgImageConstant.calendar,

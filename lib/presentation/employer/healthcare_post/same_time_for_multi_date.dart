@@ -259,6 +259,7 @@ class SameTimeForMultiDate extends StatelessWidget {
     return CustomDropdwonWithTextField(
       labelText: StringConstant.commuteAllowance,
       hintText: StringConstant.commuteAllowance,
+      fieldMaxLength: 5,
       isLabelPadding: true,
       showTextfield: (state.selectedCommuteAllownce.getValue() == "Flat Rate"),
       showDropDown: (state.selectedCommuteAllownce.getValue() == "Hours"),
@@ -337,6 +338,7 @@ class SameTimeForMultiDate extends StatelessWidget {
       labelText: StringConstant.accommodationAllowance,
       hintText: StringConstant.accommodationAllowance,
       isLabelPadding: true,
+      fieldMaxLength: 5,
       showTextfield:
           (state.selectedAccomdationAllownce.getValue() == "Flat Rate"),
       showDropDown: (state.selectedAccomdationAllownce.getValue() == "Hours"),
@@ -414,7 +416,11 @@ class SameTimeForMultiDate extends StatelessWidget {
   Widget shiftNotesField(BuildContext context, PostShiftState state) {
     return CustomTextField(
       labelText: StringConstant.addShiftNotes,
-      hintText: StringConstant.typeHere,
+      // hintText: StringConstant.typeHere,
+      hintText: (state.singleShiftNote.isNotEmpty)
+          ? state.singleShiftNote
+          : StringConstant.typeHere,
+      hintAsValue: (state.singleShiftNote.isNotEmpty) ? true : false,
       isOptional: true,
       maxLines: 3,
       keyboardType: TextInputType.multiline,
@@ -489,6 +495,11 @@ class SameTimeForMultiDate extends StatelessWidget {
       labelText: StringConstant.numberOfVacancies,
       hintText: StringConstant.numberOfVacancies,
       keyboardType: TextInputType.number,
+      initialValue: state.selectedVacancy.getValue(),
+      maxLength: 3,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+      ],
       onChanged: (value) {
         context
             .read<PostShiftBloc>()

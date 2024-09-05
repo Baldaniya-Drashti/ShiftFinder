@@ -56,7 +56,7 @@ class HealthcarePostShift extends StatelessWidget {
                       return SingleChildScrollView(
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                            horizontal: getSize(10),
+                            horizontal: getSize(20),
                           ),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,

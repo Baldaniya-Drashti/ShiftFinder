@@ -251,6 +251,7 @@ class AddCardView extends StatelessWidget {
       labelText: 'Card Number',
       hintText: 'Card Number',
       keyboardType: TextInputType.number,
+
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -290,6 +291,9 @@ class AddCardView extends StatelessWidget {
     return CustomTextField(
       labelText: 'Card Holder’s Name',
       hintText: 'Card Holder’s Name',
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+      ],
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),

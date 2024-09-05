@@ -9,7 +9,7 @@ class ViewSingleApplicantsState with _$ViewSingleApplicantsState {
     required bool showErrorMessages,
     required CVV cvv,
     required Option<Either<MainFailure, String>> failureOrSuccessOption,
-    required Option<Either<MainFailure, HealthcarePostDTO>>?
+    required Option<Either<MainFailure, HealthcarePostDTO>>
         shiftFailureOrSuccessOption,
     required bool isSubmitting,
     required bool isLoading,

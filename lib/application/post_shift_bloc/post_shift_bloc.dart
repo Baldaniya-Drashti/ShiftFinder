@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
@@ -16,6 +17,7 @@ import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
+import 'package:shift/infrastructure/main/shift_date_detail_dto/shift_date_detail_dto.dart';
 import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
 import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -63,26 +65,35 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
       await event.map(
         /// Change Shift (Single, Multi, Long-Term)
         changeShiftType: (e) async {
-          emit(
-            state.copyWith(
-              post: (e.post != null) ? e.post! : state.post,
-              isLoading: true,
-              singleShiftFailureOrSuccessOption: none(),
-            ),
-          );
-          add(PostShiftEvent.getBreakAllownceListApi(e.updateShift));
           SkillDTO? selectedSkillDTO = shiftTypeList.firstWhere(
             (skill) => skill.name == e.shiftType,
             orElse: () => SkillDTO(),
           );
-          emit(
-            state.copyWith(
-              shiftType: selectedSkillDTO.id ?? -1,
-              postId: e.postId,
-              // isLoading: false,
-              singleShiftFailureOrSuccessOption: none(),
-            ),
+
+          final getShiftName = shiftTypeList.firstWhere(
+            (skill) => skill.id == state.shiftType,
+            orElse: () => SkillDTO(),
           );
+          if (e.shiftType != getShiftName.name) {
+            emit(
+              state.copyWith(
+                updateShift: e.updateShift ?? HealthcarePostDTO(),
+                post: (e.post != null) ? e.post! : state.post,
+                isLoading: true,
+                singleShiftFailureOrSuccessOption: none(),
+              ),
+            );
+            add(PostShiftEvent.getBreakAllownceListApi(e.updateShift));
+
+            emit(
+              state.copyWith(
+                shiftType: selectedSkillDTO.id ?? -1,
+                postId: e.postId,
+                // isLoading: false,
+                singleShiftFailureOrSuccessOption: none(),
+              ),
+            );
+          }
         },
 
         /// Single Shift
@@ -179,8 +190,13 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               isUnpaidBreakValid) {
             final startTime = CustomDateTimeFormat.parseTime(
                 state.startHour.getValue()!, state.startMinute.getValue()!);
-            final endTime = CustomDateTimeFormat.parseTime(
+            DateTime endTime = CustomDateTimeFormat.parseTime(
                 state.endHour.getValue()!, state.endMinute.getValue()!);
+
+            if (!endTime.isAfter(startTime)) {
+              endTime = endTime.add(Duration(days: 1));
+            }
+
             final unpaidBreak = CustomDateTimeFormat.extractUnpaidBreak(
                 state.unpaidBreak.getValue()!);
             var timeDiffBetweenEndStartTime = endTime.difference(startTime);
@@ -195,11 +211,16 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               isStartMinuteValid &&
               isEndHourValid &&
               isEndMinuteValid) {
-            final startTime = CustomDateTimeFormat.parseTime(
+            DateTime startTime = CustomDateTimeFormat.parseTime(
                 state.startHour.getValue()!, state.startMinute.getValue()!);
-            final endTime = CustomDateTimeFormat.parseTime(
+            DateTime endTime = CustomDateTimeFormat.parseTime(
                 state.endHour.getValue()!, state.endMinute.getValue()!);
+
+            if (!endTime.isAfter(startTime)) {
+              endTime = endTime.add(Duration(days: 1));
+            }
             var timeDifference = endTime.difference(startTime);
+
             emit(state.copyWith(
               totalPaybleHours:
                   CustomDateTimeFormat.formatDuration(timeDifference),
@@ -317,7 +338,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               PostShiftRecurring.name,
               args: PostShiftRecurringArgs(
                 shiftType: state.shiftType,
-                healthcarePost: HealthcarePostDTO(),
+                updateShift: state.updateShift,
                 post: post,
               ),
             ));
@@ -429,11 +450,19 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           emit(
             state.copyWith(
               post: e.post,
+              updateShift: e.updateShift,
               isLoading: true,
               recurringFailureOrSuccessOption: none(),
             ),
           );
           await getTeamsListApi(emit);
+          setShiftDataToUpdate(emit, e.updateShift);
+          emit(
+            state.copyWith(
+              isLoading: false,
+              singleShiftFailureOrSuccessOption: none(),
+            ),
+          );
         },
         recurringButtonEvent: (e) async {
           Either<MainFailure, HealthcarePostDTO>? failureOrSuccess;
@@ -692,7 +721,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               PostShiftRecurring.name,
               args: PostShiftRecurringArgs(
                 shiftType: state.shiftType,
-                healthcarePost: HealthcarePostDTO(),
+                updateShift: HealthcarePostDTO(),
                 post: post,
               ),
             ));
@@ -749,7 +778,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               PostShiftRecurring.name,
               args: PostShiftRecurringArgs(
                 shiftType: state.shiftType,
-                healthcarePost: HealthcarePostDTO(),
+                updateShift: HealthcarePostDTO(),
                 post: post,
               ),
             ));
@@ -791,6 +820,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
     if (r != null) {
       emit(
         state.copyWith(
+          isLoading: true,
           shiftType: r.shift_type ?? 1,
           unpaidBreak: InputEmptyOrNot(r.unpaid_break?.name ?? ""),
           totalPaybleHours: r.total_payable_hour ?? "",
@@ -822,6 +852,28 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           singleShiftNote: r.shift_note ?? "",
           isMoreVacancy: (r.vacancie_type == 1) ? true : false,
           selectedVacancy: InputEmptyOrNot("${r.number_of_vacancie ?? 0}"),
+
+          /// Set for Same time for all date data
+          isIndividualPost: (r.individual_shift == 1) ? true : false,
+          selectedMultiDates: (r.shift_type == 1)
+              ? ListInputEmptyOrNot([])
+              : convertMultiDate(r.detail ?? []),
+          startHour: InputEmptyOrNot(
+              CustomDateTimeFormat.getHour(timestamp: r.start_time ?? 0)),
+          startMinute: InputEmptyOrNot(
+              CustomDateTimeFormat.getMinute(timestamp: r.start_time ?? 0)),
+          endHour: InputEmptyOrNot(
+              CustomDateTimeFormat.getHour(timestamp: r.end_time ?? 0)),
+          endMinute: InputEmptyOrNot(
+              CustomDateTimeFormat.getMinute(timestamp: r.end_time ?? 0)),
+          signleShiftDate: InputEmptyOrNot((r.date != null)
+              ? DateTime.fromMillisecondsSinceEpoch(r.date! * 1000).toString()
+              : ""),
+
+          /// Set for recurring Screening data
+          isToBeRecurring: (r.recurring_status == 1) ? true : false,
+          isShareWithTeams: (r.share_team_status == 1) ? true : false,
+          isSaveAsTemplate: (r.save_template_status == 1) ? true : false,
         ),
       );
     }
@@ -950,7 +1002,6 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
       (r) {
         return emit(
           state.copyWith(
-            isLoading: false,
             teamList: r,
           ),
         );
@@ -1297,6 +1348,20 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
         date: multiDate.toString(),
       );
     }).toList();
+  }
+
+  ListInputEmptyOrNot<DateTime> convertMultiDate(
+      List<ShiftDateDetailDTO> detail) {
+    print("detail is empty--> ${detail}");
+    final list = ListInputEmptyOrNot(detail.map((multiDate) {
+      final timestamp = multiDate.date;
+      return (timestamp != null)
+          ? DateTime.fromMillisecondsSinceEpoch(timestamp * 1000)
+          : DateTime.now();
+    }).toList());
+    print("get selected date list--> ${list}");
+
+    return list;
   }
 
   String getSelectedRecurringDayIds(List<dynamic> list) {

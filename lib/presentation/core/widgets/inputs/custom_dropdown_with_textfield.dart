@@ -43,6 +43,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
     this.fieldKeyboardType,
     this.fieldInitialValue,
     this.removeErrorBorder = false,
+    this.fieldMaxLength,
   });
   final String? labelText;
   final Widget? ddPrefixIcon;
@@ -74,6 +75,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
   final TextInputType? fieldKeyboardType;
   final String? fieldInitialValue;
   final bool removeErrorBorder;
+  final int? fieldMaxLength;
 
   @override
   Widget build(BuildContext context) {
@@ -226,6 +228,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(getSize(10)),
       ),
+      maxLength: fieldMaxLength,
       errorMaxLines: 2,
       onChanged: fieldOnChanged,
       validator: fieldValidator,

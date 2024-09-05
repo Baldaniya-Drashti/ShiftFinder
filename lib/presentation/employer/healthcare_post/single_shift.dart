@@ -319,6 +319,7 @@ class SinglePostShift extends StatelessWidget {
       labelText: StringConstant.commuteAllowance,
       hintText: StringConstant.commuteAllowance,
       isLabelPadding: true,
+      fieldMaxLength: 5,
       showTextfield: (state.selectedCommuteAllownce.getValue() == "Flat Rate"),
       showDropDown: (state.selectedCommuteAllownce.getValue() == "Hours"),
       childDroDwonHintText: StringConstant.selectHours,
@@ -396,6 +397,7 @@ class SinglePostShift extends StatelessWidget {
       labelText: StringConstant.accommodationAllowance,
       hintText: StringConstant.accommodationAllowance,
       isLabelPadding: true,
+      fieldMaxLength: 5,
       showTextfield:
           (state.selectedAccomdationAllownce.getValue() == "Flat Rate"),
       showDropDown: (state.selectedAccomdationAllownce.getValue() == "Hours"),
@@ -554,6 +556,10 @@ class SinglePostShift extends StatelessWidget {
       hintText: StringConstant.numberOfVacancies,
       initialValue: state.selectedVacancy.getValue(),
       keyboardType: TextInputType.number,
+      maxLength: 3,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+      ],
       onChanged: (value) {
         context
             .read<PostShiftBloc>()

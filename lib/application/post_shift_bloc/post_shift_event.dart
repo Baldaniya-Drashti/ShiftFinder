@@ -54,8 +54,9 @@ class PostShiftEvent with _$PostShiftEvent {
 
   /// For recurring, template,share with teams
 
-  const factory PostShiftEvent.getTeamsListEvent({required PostShiftDTO post}) =
-      GetTeamsList;
+  const factory PostShiftEvent.getTeamsListEvent(
+      {required PostShiftDTO post,
+      required HealthcarePostDTO updateShift}) = GetTeamsList;
   const factory PostShiftEvent.recurringCheck(bool isCheck) = RecurringCheck;
   const factory PostShiftEvent.shareWithTeamsCheck(bool isCheck) =
       ShareWithTeamsCheck;
