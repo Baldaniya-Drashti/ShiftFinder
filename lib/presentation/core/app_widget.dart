@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:shift/application/auth/auth_status/auth_status_bloc.dart';
 import 'package:shift/application/splash/splash_bloc.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/core/app_router.dart';
@@ -17,12 +18,12 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return bloc.MultiBlocProvider(
       providers: [
-        // bloc.BlocProvider(
-        //   create: (context) => getIt<AuthStatusBloc>()
-        //     ..add(
-        //       const AuthStatusEvent.authCheckRequested(),
-        //     ),
-        // ),
+        bloc.BlocProvider(
+          create: (context) => getIt<AuthStatusBloc>()
+            ..add(
+              const AuthStatusEvent.authCheckRequested(),
+            ),
+        ),
         bloc.BlocProvider(
           create: (context) => getIt<SplashBloc>()..add(SplashEvent.started()),
         ),
