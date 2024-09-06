@@ -73,6 +73,7 @@ dependencies:
   calendar_date_picker2: ^1.1.5
   syncfusion_flutter_pdfviewer: 
   dropdown_textfield: ^1.2.0
+  google_maps_flutter: ^2.9.0
   # datepicker_dropdown: ^0.1.4
   
 
