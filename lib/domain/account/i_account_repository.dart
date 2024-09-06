@@ -125,5 +125,7 @@ abstract class IAccountRepository {
     required String locationNotes,
     required String unitNumber,
     required String unitNotes,
+    required String latitude,
+    required String longitude,
   });
 }

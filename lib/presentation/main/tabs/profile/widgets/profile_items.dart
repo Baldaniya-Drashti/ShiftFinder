@@ -35,7 +35,9 @@ class ProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: 'Locations',
         image: SvgImageConstant.locationIcon,
-        onTap: () {},
+        onTap: () {
+          //   context.router.push(PageRouteInfo(LocationDetailForm.name));
+        },
       ),
       ProfileItemModel(
         title: 'Teams',
@@ -77,9 +79,11 @@ class ProfileItems extends StatelessWidget {
             title: 'Logout',
             description: 'Are you sure you want to log out?',
             onPressedAccept: () {
-              context.router.maybePop().then((value) =>  context
-                      .read<AuthStatusBloc>()
-                      .add(AuthStatusEvent.signedOut()),);
+              context.router.maybePop().then(
+                    (value) => context
+                        .read<AuthStatusBloc>()
+                        .add(AuthStatusEvent.signedOut()),
+                  );
             },
             onPressedReject: () {
               context.router.maybePop();

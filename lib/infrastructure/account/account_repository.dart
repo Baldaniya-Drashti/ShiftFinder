@@ -858,6 +858,8 @@ class AccountRepository extends IAccountRepository {
     required String locationNotes,
     required String unitNumber,
     required String unitNotes,
+    required String latitude,
+    required String longitude,
   }) async {
     try {
       var mapData = {
@@ -871,6 +873,8 @@ class AccountRepository extends IAccountRepository {
         "units_note": unitNotes,
         "last_page": "Main",
         "isProfileComplete": 1,
+        "latitude": latitude,
+        "longitude": longitude,
       };
 
       print('Sending Data: ${jsonEncode(mapData)}');
