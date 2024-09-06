@@ -292,11 +292,14 @@ class StringConstant {
   static const String shiftType = "Shift Type";
   static const String single = "Single";
   static const String multi = "Multi";
+  static const String singleShift = "Single shift";
+
   static const String longTerm = "Long-Term";
   static const String date = "Date";
   static const String hour = "Hour";
   static const String min = "Min";
   static const String totalPayableHours = "Total Payable Hours";
+  static const String payableHours = "Payable Hours";
   static const String addShiftNotes = "Add Shift Notes";
   static const String singleShiftVacancyDesc =
       "We are looking to fill more than one vacancies with the same requirements.";
@@ -351,6 +354,8 @@ class StringConstant {
   static const String yourScore = "Your Score";
   static const String yearAndMonthMustbeSelected =
       "* Year and Month must be selected!";
+  static const String yearMustbeSelected = "* Year must be selected!";
+  static const String monthMustbeSelected = "* Month must be selected!";
 
   ///
 
@@ -507,7 +512,7 @@ class StringConstant {
   static const String pleaseSelectAtLeastOneDate =
       "Please select at least one date";
   static const String pleaseSelectStartAndEndTimeForEachDate =
-      "Please select start and end time for each date";
+      "You must select Start time, End time and Unpaid break for each date";
 
   static const String underDevelopment = "Under Development";
 }

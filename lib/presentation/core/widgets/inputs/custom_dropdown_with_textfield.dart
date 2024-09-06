@@ -44,6 +44,9 @@ class CustomDropdwonWithTextField extends StatelessWidget {
     this.fieldInitialValue,
     this.removeErrorBorder = false,
     this.fieldMaxLength,
+    this.dropDownReadOnly = false,
+    this.disableDropDownColor,
+    this.dropDownIcon,
   });
   final String? labelText;
   final Widget? ddPrefixIcon;
@@ -76,15 +79,18 @@ class CustomDropdwonWithTextField extends StatelessWidget {
   final String? fieldInitialValue;
   final bool removeErrorBorder;
   final int? fieldMaxLength;
+  final bool dropDownReadOnly;
+  final Color? disableDropDownColor;
+  final Widget? dropDownIcon;
 
   @override
   Widget build(BuildContext context) {
     final border = OutlineInputBorder(
-      borderSide: const BorderSide(color: AppColors.white),
+      borderSide: const BorderSide(color: AppColors.transparent),
       borderRadius: BorderRadius.circular(10),
     );
     final focusedBorder = OutlineInputBorder(
-      borderSide: const BorderSide(color: AppColors.white),
+      borderSide: const BorderSide(color: AppColors.transparent),
       borderRadius: BorderRadius.circular(10),
     );
     final errorBorder = (removeErrorBorder)
@@ -146,49 +152,55 @@ class CustomDropdwonWithTextField extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              DropdownButtonFormField<String>(
-                validator: validator,
-                dropdownColor: AppColors.white,
-                menuMaxHeight: getSize(300),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: AppColors.white,
-                  prefixIcon: (showPrefixIcon)
-                      ? Padding(
-                          padding: EdgeInsets.symmetric(
-                            vertical: getSize(14),
-                          ),
-                          child: ddPrefixIcon ??
-                              SvgPicture.asset(
-                                SvgImageConstant.association,
-                                height: getSize(24),
-                                width: getSize(24),
-                              ),
-                        )
-                      : null,
-                  enabledBorder: border,
-                  border: border,
-                  focusedErrorBorder: errorBorder,
-                  focusedBorder: focusedBorder,
-                  errorBorder: errorBorder,
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: getSize(18),
+              IgnorePointer(
+                ignoring: dropDownReadOnly,
+                child: DropdownButtonFormField<String>(
+                  validator: validator,
+                  dropdownColor: AppColors.white,
+                  menuMaxHeight: getSize(300),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: (dropDownReadOnly)
+                        ? disableDropDownColor ?? AppColors.grey04
+                        : AppColors.white,
+                    prefixIcon: (showPrefixIcon)
+                        ? Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: getSize(14),
+                            ),
+                            child: ddPrefixIcon ??
+                                SvgPicture.asset(
+                                  SvgImageConstant.association,
+                                  height: getSize(24),
+                                  width: getSize(24),
+                                ),
+                          )
+                        : null,
+                    enabledBorder: border,
+                    border: border,
+                    focusedErrorBorder: errorBorder,
+                    focusedBorder: focusedBorder,
+                    errorBorder: errorBorder,
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: getSize(18),
+                    ),
                   ),
+                  alignment: Alignment.centerLeft,
+                  hint: BaseText(
+                    text: hintText!,
+                    textColor: AppColors.black.withOpacity(0.50),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  value: value,
+                  icon: dropDownIcon ??
+                      SvgPicture.asset(
+                        SvgImageConstant.downArrow,
+                      ),
+                  isExpanded: true,
+                  items: items,
+                  onChanged: onChanged,
                 ),
-                alignment: Alignment.centerLeft,
-                hint: BaseText(
-                  text: hintText!,
-                  textColor: AppColors.black.withOpacity(0.50),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-                value: value,
-                icon: SvgPicture.asset(
-                  SvgImageConstant.downArrow,
-                ),
-                isExpanded: true,
-                items: items,
-                onChanged: onChanged,
               ),
               if (showTextfield) ...[
                 Divider(

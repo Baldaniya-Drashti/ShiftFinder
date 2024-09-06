@@ -31,7 +31,7 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'postShiftRecurring')
 class PostShiftRecurring extends StatelessWidget {
   int shiftType;
-  HealthcarePostDTO updateShift;
+  HealthcarePostDTO? updateShift;
   PostShiftDTO post;
 
   PostShiftRecurring(
@@ -42,7 +42,7 @@ class PostShiftRecurring extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("updatedShift--->  ${jsonEncode(updateShift)}");
+    print("updatedShift--->  ${jsonEncode(updateShift?.shift_detail?.teams)}");
     return GestureDetector(
       onTap: () {
         AppFocus.unfocus(context);
@@ -111,6 +111,9 @@ class PostShiftRecurring extends StatelessWidget {
                                         Visibility(
                                             visible: state.isToBeRecurring,
                                             child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisSize: MainAxisSize.min,
                                               children: [
                                                 recurringStartDateField(
                                                     context, state),
@@ -162,6 +165,8 @@ class PostShiftRecurring extends StatelessWidget {
                                       Visibility(
                                           visible: state.isShareWithTeams,
                                           child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
                                               selectTeamsList(context, state),
@@ -184,7 +189,7 @@ class PostShiftRecurring extends StatelessWidget {
                                         context.read<PostShiftBloc>().add(
                                             PostShiftEvent.recurringButtonEvent(
                                                 context,
-                                                updateShift.shift_detail?.id ??
+                                                updateShift?.shift_detail?.id ??
                                                     -1));
                                       },
                                       buttonText: StringConstant.txtContinue,
@@ -645,9 +650,15 @@ class PostShiftRecurring extends StatelessWidget {
               itemCount: state.teamList.length,
               itemBuilder: (context, index) {
                 final teamList = state.teamList;
-                bool isTeamCheck = state.selectedTeamList
-                    .getValue()
-                    .any((item) => item.name == teamList[index].name);
+
+                bool isTeamCheck =
+                    state.selectedTeamList.getValue().any((item) {
+                  print(
+                      "is team check---> ${item.name == teamList[index].name}");
+
+                  return item.name == teamList[index].name;
+                });
+                // print("is team check---> ${state.selectedTeamList}}");
                 return Padding(
                   padding: EdgeInsets.symmetric(vertical: getSize(5)),
                   child: GestureDetector(

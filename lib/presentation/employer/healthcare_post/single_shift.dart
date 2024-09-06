@@ -173,21 +173,23 @@ class SinglePostShift extends StatelessWidget {
           width: getSize(24),
         ),
       ),
-      onTap: () {
-        DocumentExpiryDatePicker.customDatePicker(
-          context,
-          firstDate: DateTime.now(),
-          onPickedDate: (pickedDate) {
-            context
-                .read<PostShiftBloc>()
-                .add(PostShiftEvent.singleShiftDateChangedEvent(
-                  pickedDate.toString(),
-                ));
-          },
-          onCancelClick: () {},
-          selectedDate: DateTime.now(),
-        );
-      },
+      onTap: (state.updateShift.id != null)
+          ? null
+          : () {
+              DocumentExpiryDatePicker.customDatePicker(
+                context,
+                firstDate: DateTime.now(),
+                onPickedDate: (pickedDate) {
+                  context
+                      .read<PostShiftBloc>()
+                      .add(PostShiftEvent.singleShiftDateChangedEvent(
+                        pickedDate.toString(),
+                      ));
+                },
+                onCancelClick: () {},
+                selectedDate: DateTime.now(),
+              );
+            },
       validator: (_, context) =>
           context.read<PostShiftBloc>().state.signleShiftDate.value.fold(
                 (f) => f.maybeMap(
@@ -212,6 +214,8 @@ class SinglePostShift extends StatelessWidget {
       children: [
         CustomTimePickerDropdown(
           labelText: StringConstant.startTime,
+          dropDownReadOnly: (state.updateShift.id != null) ? true : false,
+          disableDropDownColor: AppColors.grey04,
           hourValue:
               (state.startHour.isValid()) ? state.startHour.getValue() : null,
           minuteValue: (state.startMinute.isValid())
@@ -248,6 +252,8 @@ class SinglePostShift extends StatelessWidget {
       children: [
         CustomTimePickerDropdown(
           labelText: StringConstant.endTime,
+          dropDownReadOnly: (state.updateShift.id != null) ? true : false,
+          disableDropDownColor: AppColors.grey04,
           hourValue:
               (state.endHour.isValid()) ? state.endHour.getValue() : null,
           minuteValue:
@@ -282,6 +288,7 @@ class SinglePostShift extends StatelessWidget {
       hintText: StringConstant.unpaidBreak,
       showTextfield: false,
       isLabelPadding: true,
+      dropDownReadOnly: (state.updateShift.id != null) ? true : false,
       value:
           (state.unpaidBreak.isValid()) ? state.unpaidBreak.getValue() : null,
       items: state.breakList.map((val) {

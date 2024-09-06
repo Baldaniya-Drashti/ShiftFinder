@@ -32,7 +32,7 @@ _$ShiftDetailDTOImpl _$$ShiftDetailDTOImplFromJson(Map<String, dynamic> json) =>
       save_template_status: (json['save_template_status'] as num?)?.toInt(),
       disclaimer: json['disclaimer'] as String?,
       teams: (json['teams'] as List<dynamic>?)
-          ?.map((e) => SkillDTO.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => TeamDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
       detail: (json['detail'] as List<dynamic>?)
           ?.map((e) => ShiftDateDetailDTO.fromJson(e as Map<String, dynamic>))
@@ -43,6 +43,10 @@ _$ShiftDetailDTOImpl _$$ShiftDetailDTOImplFromJson(Map<String, dynamic> json) =>
       date: (json['date'] as num?)?.toInt(),
       start_time: (json['start_time'] as num?)?.toInt(),
       end_time: (json['end_time'] as num?)?.toInt(),
+      recurring_start_date: (json['recurring_start_date'] as num?)?.toInt(),
+      recurring_end_date: (json['recurring_end_date'] as num?)?.toInt(),
+      recurrence_mode: json['recurrence_mode'] as String?,
+      days: json['days'] as String?,
     );
 
 Map<String, dynamic> _$$ShiftDetailDTOImplToJson(
@@ -73,4 +77,8 @@ Map<String, dynamic> _$$ShiftDetailDTOImplToJson(
       'date': instance.date,
       'start_time': instance.start_time,
       'end_time': instance.end_time,
+      'recurring_start_date': instance.recurring_start_date,
+      'recurring_end_date': instance.recurring_end_date,
+      'recurrence_mode': instance.recurrence_mode,
+      'days': instance.days,
     };

@@ -125,10 +125,12 @@ class LegalScreeningBloc
               updatedList.insert(i, obj);
             }
           }
+          print("isAllAnsdsdd-> ${allAnswered(state)}");
           emit(
             state.copyWith(
               questionList: List.from(updatedList),
               authFailureOrSuccessOption: none(),
+              isAllAnswered: allAnswered(state),
               submitFailureOrSuccessOption: none(),
             ),
           );
@@ -136,8 +138,7 @@ class LegalScreeningBloc
         continueBtnPressed: (e) async {
           Either<AccountFailure, Account>? failureOrSuccess;
           final isCheckTerms = state.isCheck;
-          final allAnswersFilled =
-              state.questionList.every((question) => (question.answer != null));
+          final allAnswersFilled = allAnswered(state);
 
           if (isCheckTerms && allAnswersFilled) {
             var list = mapLegalScreeningDTOToApiFormat(state.questionList);
@@ -194,5 +195,11 @@ class LegalScreeningBloc
         'answer': speciality.answer,
       };
     }).toList();
+  }
+
+  static bool allAnswered(LegalScreeningState state) {
+    final allAnswersFilled =
+        state.questionList.every((question) => (question.answer != null));
+    return allAnswersFilled;
   }
 }

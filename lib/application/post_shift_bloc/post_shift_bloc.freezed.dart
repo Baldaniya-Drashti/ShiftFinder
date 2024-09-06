@@ -40,7 +40,7 @@ mixin _$PostShiftEvent {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -58,6 +58,9 @@ mixin _$PostShiftEvent {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -68,7 +71,8 @@ mixin _$PostShiftEvent {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -98,7 +102,7 @@ mixin _$PostShiftEvent {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -115,6 +119,9 @@ mixin _$PostShiftEvent {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -124,7 +131,8 @@ mixin _$PostShiftEvent {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -154,7 +162,7 @@ mixin _$PostShiftEvent {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -171,6 +179,9 @@ mixin _$PostShiftEvent {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -179,7 +190,8 @@ mixin _$PostShiftEvent {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -238,6 +250,10 @@ mixin _$PostShiftEvent {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -295,6 +311,8 @@ mixin _$PostShiftEvent {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -350,6 +368,8 @@ mixin _$PostShiftEvent {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -530,7 +550,7 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -548,6 +568,9 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -558,7 +581,8 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -591,7 +615,7 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -608,6 +632,9 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -617,7 +644,8 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -650,7 +678,7 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -667,6 +695,9 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -675,7 +706,8 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -740,6 +772,10 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -800,6 +836,8 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -858,6 +896,8 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -997,7 +1037,7 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -1015,6 +1055,9 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -1025,7 +1068,8 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -1058,7 +1102,7 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -1075,6 +1119,9 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -1084,7 +1131,8 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -1117,7 +1165,7 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -1134,6 +1182,9 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -1142,7 +1193,8 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -1207,6 +1259,10 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -1267,6 +1323,8 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -1325,6 +1383,8 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -1446,7 +1506,7 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -1464,6 +1524,9 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -1474,7 +1537,8 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -1507,7 +1571,7 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -1524,6 +1588,9 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -1533,7 +1600,8 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -1566,7 +1634,7 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -1583,6 +1651,9 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -1591,7 +1662,8 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -1656,6 +1728,10 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -1716,6 +1792,8 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -1774,6 +1852,8 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -1891,7 +1971,7 @@ class _$StartHourChangedImpl implements StartHourChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -1909,6 +1989,9 @@ class _$StartHourChangedImpl implements StartHourChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -1919,7 +2002,8 @@ class _$StartHourChangedImpl implements StartHourChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -1952,7 +2036,7 @@ class _$StartHourChangedImpl implements StartHourChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -1969,6 +2053,9 @@ class _$StartHourChangedImpl implements StartHourChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -1978,7 +2065,8 @@ class _$StartHourChangedImpl implements StartHourChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -2011,7 +2099,7 @@ class _$StartHourChangedImpl implements StartHourChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -2028,6 +2116,9 @@ class _$StartHourChangedImpl implements StartHourChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -2036,7 +2127,8 @@ class _$StartHourChangedImpl implements StartHourChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -2101,6 +2193,10 @@ class _$StartHourChangedImpl implements StartHourChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -2161,6 +2257,8 @@ class _$StartHourChangedImpl implements StartHourChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -2219,6 +2317,8 @@ class _$StartHourChangedImpl implements StartHourChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -2335,7 +2435,7 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -2353,6 +2453,9 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -2363,7 +2466,8 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -2396,7 +2500,7 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -2413,6 +2517,9 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -2422,7 +2529,8 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -2455,7 +2563,7 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -2472,6 +2580,9 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -2480,7 +2591,8 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -2545,6 +2657,10 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -2605,6 +2721,8 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -2663,6 +2781,8 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -2780,7 +2900,7 @@ class _$EndHourChangedImpl implements EndHourChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -2798,6 +2918,9 @@ class _$EndHourChangedImpl implements EndHourChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -2808,7 +2931,8 @@ class _$EndHourChangedImpl implements EndHourChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -2841,7 +2965,7 @@ class _$EndHourChangedImpl implements EndHourChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -2858,6 +2982,9 @@ class _$EndHourChangedImpl implements EndHourChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -2867,7 +2994,8 @@ class _$EndHourChangedImpl implements EndHourChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -2900,7 +3028,7 @@ class _$EndHourChangedImpl implements EndHourChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -2917,6 +3045,9 @@ class _$EndHourChangedImpl implements EndHourChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -2925,7 +3056,8 @@ class _$EndHourChangedImpl implements EndHourChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -2990,6 +3122,10 @@ class _$EndHourChangedImpl implements EndHourChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -3050,6 +3186,8 @@ class _$EndHourChangedImpl implements EndHourChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -3108,6 +3246,8 @@ class _$EndHourChangedImpl implements EndHourChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -3224,7 +3364,7 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -3242,6 +3382,9 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -3252,7 +3395,8 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -3285,7 +3429,7 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -3302,6 +3446,9 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -3311,7 +3458,8 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -3344,7 +3492,7 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -3361,6 +3509,9 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -3369,7 +3520,8 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -3434,6 +3586,10 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -3494,6 +3650,8 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -3552,6 +3710,8 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -3669,7 +3829,7 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -3687,6 +3847,9 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -3697,7 +3860,8 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -3730,7 +3894,7 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -3747,6 +3911,9 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -3756,7 +3923,8 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -3789,7 +3957,7 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -3806,6 +3974,9 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -3814,7 +3985,8 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -3879,6 +4051,10 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -3939,6 +4115,8 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -3997,6 +4175,8 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -4090,7 +4270,7 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -4108,6 +4288,9 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -4118,7 +4301,8 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -4151,7 +4335,7 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -4168,6 +4352,9 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -4177,7 +4364,8 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -4210,7 +4398,7 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -4227,6 +4415,9 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -4235,7 +4426,8 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -4300,6 +4492,10 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -4360,6 +4556,8 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -4418,6 +4616,8 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -4532,7 +4732,7 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -4550,6 +4750,9 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -4560,7 +4763,8 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -4593,7 +4797,7 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -4610,6 +4814,9 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -4619,7 +4826,8 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -4652,7 +4860,7 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -4669,6 +4877,9 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -4677,7 +4888,8 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -4742,6 +4954,10 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -4802,6 +5018,8 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -4860,6 +5078,8 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -4978,7 +5198,7 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -4996,6 +5216,9 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -5006,7 +5229,8 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -5039,7 +5263,7 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -5056,6 +5280,9 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -5065,7 +5292,8 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -5098,7 +5326,7 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -5115,6 +5343,9 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -5123,7 +5354,8 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -5188,6 +5420,10 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -5248,6 +5484,8 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -5306,6 +5544,8 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -5424,7 +5664,7 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -5442,6 +5682,9 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -5452,7 +5695,8 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -5485,7 +5729,7 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -5502,6 +5746,9 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -5511,7 +5758,8 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -5544,7 +5792,7 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -5561,6 +5809,9 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -5569,7 +5820,8 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -5634,6 +5886,10 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -5694,6 +5950,8 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -5752,6 +6010,8 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -5872,7 +6132,7 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -5890,6 +6150,9 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -5900,7 +6163,8 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -5933,7 +6197,7 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -5950,6 +6214,9 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -5959,7 +6226,8 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -5992,7 +6260,7 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -6009,6 +6277,9 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -6017,7 +6288,8 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -6082,6 +6354,10 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -6142,6 +6418,8 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -6200,6 +6478,8 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -6320,7 +6600,7 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -6338,6 +6618,9 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -6348,7 +6631,8 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -6381,7 +6665,7 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -6398,6 +6682,9 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -6407,7 +6694,8 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -6440,7 +6728,7 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -6457,6 +6745,9 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -6465,7 +6756,8 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -6530,6 +6822,10 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -6590,6 +6886,8 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -6648,6 +6946,8 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -6768,7 +7068,7 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -6786,6 +7086,9 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -6796,7 +7099,8 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -6829,7 +7133,7 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -6846,6 +7150,9 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -6855,7 +7162,8 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -6888,7 +7196,7 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -6905,6 +7213,9 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -6913,7 +7224,8 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -6978,6 +7290,10 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -7038,6 +7354,8 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -7096,6 +7414,8 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -7213,7 +7533,7 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -7231,6 +7551,9 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -7241,7 +7564,8 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -7274,7 +7598,7 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -7291,6 +7615,9 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -7300,7 +7627,8 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -7333,7 +7661,7 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -7350,6 +7678,9 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -7358,7 +7689,8 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -7423,6 +7755,10 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -7483,6 +7819,8 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -7541,6 +7879,8 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -7658,7 +7998,7 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -7676,6 +8016,9 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -7686,7 +8029,8 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -7719,7 +8063,7 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -7736,6 +8080,9 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -7745,7 +8092,8 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -7778,7 +8126,7 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -7795,6 +8143,9 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -7803,7 +8154,8 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -7868,6 +8220,10 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -7928,6 +8284,8 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -7986,6 +8344,8 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -8103,7 +8463,7 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -8121,6 +8481,9 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -8131,7 +8494,8 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -8164,7 +8528,7 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -8181,6 +8545,9 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -8190,7 +8557,8 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -8223,7 +8591,7 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -8240,6 +8608,9 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -8248,7 +8619,8 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -8313,6 +8685,10 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -8373,6 +8749,8 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -8431,6 +8809,8 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -8549,7 +8929,7 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -8567,6 +8947,9 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -8577,7 +8960,8 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -8610,7 +8994,7 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -8627,6 +9011,9 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -8636,7 +9023,8 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -8669,7 +9057,7 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -8686,6 +9074,9 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -8694,7 +9085,8 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -8759,6 +9151,10 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -8819,6 +9215,8 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -8877,6 +9275,8 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -8913,10 +9313,10 @@ abstract class _$$GetTeamsListImplCopyWith<$Res> {
           _$GetTeamsListImpl value, $Res Function(_$GetTeamsListImpl) then) =
       __$$GetTeamsListImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({PostShiftDTO post, HealthcarePostDTO updateShift});
+  $Res call({PostShiftDTO post, HealthcarePostDTO? updateShift});
 
   $PostShiftDTOCopyWith<$Res> get post;
-  $HealthcarePostDTOCopyWith<$Res> get updateShift;
+  $HealthcarePostDTOCopyWith<$Res>? get updateShift;
 }
 
 /// @nodoc
@@ -8931,17 +9331,17 @@ class __$$GetTeamsListImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? post = null,
-    Object? updateShift = null,
+    Object? updateShift = freezed,
   }) {
     return _then(_$GetTeamsListImpl(
       post: null == post
           ? _value.post
           : post // ignore: cast_nullable_to_non_nullable
               as PostShiftDTO,
-      updateShift: null == updateShift
+      updateShift: freezed == updateShift
           ? _value.updateShift
           : updateShift // ignore: cast_nullable_to_non_nullable
-              as HealthcarePostDTO,
+              as HealthcarePostDTO?,
     ));
   }
 
@@ -8955,8 +9355,12 @@ class __$$GetTeamsListImplCopyWithImpl<$Res>
 
   @override
   @pragma('vm:prefer-inline')
-  $HealthcarePostDTOCopyWith<$Res> get updateShift {
-    return $HealthcarePostDTOCopyWith<$Res>(_value.updateShift, (value) {
+  $HealthcarePostDTOCopyWith<$Res>? get updateShift {
+    if (_value.updateShift == null) {
+      return null;
+    }
+
+    return $HealthcarePostDTOCopyWith<$Res>(_value.updateShift!, (value) {
       return _then(_value.copyWith(updateShift: value));
     });
   }
@@ -8970,7 +9374,7 @@ class _$GetTeamsListImpl implements GetTeamsList {
   @override
   final PostShiftDTO post;
   @override
-  final HealthcarePostDTO updateShift;
+  final HealthcarePostDTO? updateShift;
 
   @override
   String toString() {
@@ -9021,7 +9425,7 @@ class _$GetTeamsListImpl implements GetTeamsList {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -9039,6 +9443,9 @@ class _$GetTeamsListImpl implements GetTeamsList {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -9049,7 +9456,8 @@ class _$GetTeamsListImpl implements GetTeamsList {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -9082,7 +9490,7 @@ class _$GetTeamsListImpl implements GetTeamsList {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -9099,6 +9507,9 @@ class _$GetTeamsListImpl implements GetTeamsList {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -9108,7 +9519,8 @@ class _$GetTeamsListImpl implements GetTeamsList {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -9141,7 +9553,7 @@ class _$GetTeamsListImpl implements GetTeamsList {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -9158,6 +9570,9 @@ class _$GetTeamsListImpl implements GetTeamsList {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -9166,7 +9581,8 @@ class _$GetTeamsListImpl implements GetTeamsList {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -9231,6 +9647,10 @@ class _$GetTeamsListImpl implements GetTeamsList {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -9291,6 +9711,8 @@ class _$GetTeamsListImpl implements GetTeamsList {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -9349,6 +9771,8 @@ class _$GetTeamsListImpl implements GetTeamsList {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -9372,10 +9796,10 @@ class _$GetTeamsListImpl implements GetTeamsList {
 abstract class GetTeamsList implements PostShiftEvent {
   const factory GetTeamsList(
       {required final PostShiftDTO post,
-      required final HealthcarePostDTO updateShift}) = _$GetTeamsListImpl;
+      required final HealthcarePostDTO? updateShift}) = _$GetTeamsListImpl;
 
   PostShiftDTO get post;
-  HealthcarePostDTO get updateShift;
+  HealthcarePostDTO? get updateShift;
   @JsonKey(ignore: true)
   _$$GetTeamsListImplCopyWith<_$GetTeamsListImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -9468,7 +9892,7 @@ class _$RecurringCheckImpl implements RecurringCheck {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -9486,6 +9910,9 @@ class _$RecurringCheckImpl implements RecurringCheck {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -9496,7 +9923,8 @@ class _$RecurringCheckImpl implements RecurringCheck {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -9529,7 +9957,7 @@ class _$RecurringCheckImpl implements RecurringCheck {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -9546,6 +9974,9 @@ class _$RecurringCheckImpl implements RecurringCheck {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -9555,7 +9986,8 @@ class _$RecurringCheckImpl implements RecurringCheck {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -9588,7 +10020,7 @@ class _$RecurringCheckImpl implements RecurringCheck {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -9605,6 +10037,9 @@ class _$RecurringCheckImpl implements RecurringCheck {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -9613,7 +10048,8 @@ class _$RecurringCheckImpl implements RecurringCheck {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -9678,6 +10114,10 @@ class _$RecurringCheckImpl implements RecurringCheck {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -9738,6 +10178,8 @@ class _$RecurringCheckImpl implements RecurringCheck {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -9796,6 +10238,8 @@ class _$RecurringCheckImpl implements RecurringCheck {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -9912,7 +10356,7 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -9930,6 +10374,9 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -9940,7 +10387,8 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -9973,7 +10421,7 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -9990,6 +10438,9 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -9999,7 +10450,8 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -10032,7 +10484,7 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -10049,6 +10501,9 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -10057,7 +10512,8 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -10122,6 +10578,10 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -10182,6 +10642,8 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -10240,6 +10702,8 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -10357,7 +10821,7 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -10375,6 +10839,9 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -10385,7 +10852,8 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -10418,7 +10886,7 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -10435,6 +10903,9 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -10444,7 +10915,8 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -10477,7 +10949,7 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -10494,6 +10966,9 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -10502,7 +10977,8 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -10567,6 +11043,10 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -10627,6 +11107,8 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -10685,6 +11167,8 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -10802,7 +11286,7 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -10820,6 +11304,9 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -10830,7 +11317,8 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -10863,7 +11351,7 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -10880,6 +11368,9 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -10889,7 +11380,8 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -10922,7 +11414,7 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -10939,6 +11431,9 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -10947,7 +11442,8 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -11012,6 +11508,10 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -11072,6 +11572,8 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -11130,6 +11632,8 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -11249,7 +11753,7 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -11267,6 +11771,9 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -11277,7 +11784,8 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -11310,7 +11818,7 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -11327,6 +11835,9 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -11336,7 +11847,8 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -11369,7 +11881,7 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -11386,6 +11898,9 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -11394,7 +11909,8 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -11459,6 +11975,10 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -11519,6 +12039,8 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -11577,6 +12099,8 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -11695,7 +12219,7 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -11713,6 +12237,9 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -11723,7 +12250,8 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -11756,7 +12284,7 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -11773,6 +12301,9 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -11782,7 +12313,8 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -11815,7 +12347,7 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -11832,6 +12364,9 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -11840,7 +12375,8 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -11905,6 +12441,10 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -11965,6 +12505,8 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -12023,6 +12565,8 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -12152,7 +12696,7 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -12170,6 +12714,9 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -12180,7 +12727,8 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -12213,7 +12761,7 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -12230,6 +12778,9 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -12239,7 +12790,8 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -12272,7 +12824,7 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -12289,6 +12841,9 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -12297,7 +12852,8 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -12362,6 +12918,10 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -12422,6 +12982,8 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -12480,6 +13042,8 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -12600,7 +13164,7 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -12618,6 +13182,9 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -12628,7 +13195,8 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -12661,7 +13229,7 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -12678,6 +13246,9 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -12687,7 +13258,8 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -12720,7 +13292,7 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -12737,6 +13309,9 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -12745,7 +13320,8 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -12810,6 +13386,10 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -12870,6 +13450,8 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -12928,6 +13510,8 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -13055,7 +13639,7 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -13073,6 +13657,9 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -13083,7 +13670,8 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -13116,7 +13704,7 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -13133,6 +13721,9 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -13142,7 +13733,8 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -13175,7 +13767,7 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -13192,6 +13784,9 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -13200,7 +13795,8 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -13265,6 +13861,10 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -13325,6 +13925,8 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -13383,6 +13985,8 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -13509,7 +14113,7 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -13527,6 +14131,9 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -13537,7 +14144,8 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -13570,7 +14178,7 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -13587,6 +14195,9 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -13596,7 +14207,8 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -13629,7 +14241,7 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -13646,6 +14258,9 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -13654,7 +14269,8 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -13719,6 +14335,10 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -13779,6 +14399,8 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -13837,6 +14459,8 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -13958,7 +14582,7 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -13976,6 +14600,9 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -13986,7 +14613,8 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -14019,7 +14647,7 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -14036,6 +14664,9 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -14045,7 +14676,8 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -14078,7 +14710,7 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -14095,6 +14727,9 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -14103,7 +14738,8 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -14168,6 +14804,10 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -14228,6 +14868,8 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -14286,6 +14928,8 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -14413,7 +15057,7 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -14431,6 +15075,9 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -14441,7 +15088,8 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -14474,7 +15122,7 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -14491,6 +15139,9 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -14500,7 +15151,8 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -14533,7 +15185,7 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -14550,6 +15202,9 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -14558,7 +15213,8 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -14623,6 +15279,10 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -14683,6 +15343,8 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -14741,6 +15403,8 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -14836,7 +15500,7 @@ class _$MultidateContinueButtonPressedImpl
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -14854,6 +15518,9 @@ class _$MultidateContinueButtonPressedImpl
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -14864,7 +15531,8 @@ class _$MultidateContinueButtonPressedImpl
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -14897,7 +15565,7 @@ class _$MultidateContinueButtonPressedImpl
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -14914,6 +15582,9 @@ class _$MultidateContinueButtonPressedImpl
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -14923,7 +15594,8 @@ class _$MultidateContinueButtonPressedImpl
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -14956,7 +15628,7 @@ class _$MultidateContinueButtonPressedImpl
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -14973,6 +15645,9 @@ class _$MultidateContinueButtonPressedImpl
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -14981,7 +15656,8 @@ class _$MultidateContinueButtonPressedImpl
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -15046,6 +15722,10 @@ class _$MultidateContinueButtonPressedImpl
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -15106,6 +15786,8 @@ class _$MultidateContinueButtonPressedImpl
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -15164,6 +15846,8 @@ class _$MultidateContinueButtonPressedImpl
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -15282,7 +15966,7 @@ class _$MultiDateSameDiffTypeChangedImpl
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -15300,6 +15984,9 @@ class _$MultiDateSameDiffTypeChangedImpl
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -15310,7 +15997,8 @@ class _$MultiDateSameDiffTypeChangedImpl
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -15343,7 +16031,7 @@ class _$MultiDateSameDiffTypeChangedImpl
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -15360,6 +16048,9 @@ class _$MultiDateSameDiffTypeChangedImpl
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -15369,7 +16060,8 @@ class _$MultiDateSameDiffTypeChangedImpl
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -15402,7 +16094,7 @@ class _$MultiDateSameDiffTypeChangedImpl
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -15419,6 +16111,9 @@ class _$MultiDateSameDiffTypeChangedImpl
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -15427,7 +16122,8 @@ class _$MultiDateSameDiffTypeChangedImpl
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -15492,6 +16188,10 @@ class _$MultiDateSameDiffTypeChangedImpl
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -15552,6 +16252,8 @@ class _$MultiDateSameDiffTypeChangedImpl
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -15610,6 +16312,8 @@ class _$MultiDateSameDiffTypeChangedImpl
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -15639,6 +16343,928 @@ abstract class MultiDateSameDiffTypeChanged implements PostShiftEvent {
   _$$MultiDateSameDiffTypeChangedImplCopyWith<
           _$MultiDateSameDiffTypeChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UnpaidBreakListChangedImplCopyWith<$Res> {
+  factory _$$UnpaidBreakListChangedImplCopyWith(
+          _$UnpaidBreakListChangedImpl value,
+          $Res Function(_$UnpaidBreakListChangedImpl) then) =
+      __$$UnpaidBreakListChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String breakTime, int index, String date});
+}
+
+/// @nodoc
+class __$$UnpaidBreakListChangedImplCopyWithImpl<$Res>
+    extends _$PostShiftEventCopyWithImpl<$Res, _$UnpaidBreakListChangedImpl>
+    implements _$$UnpaidBreakListChangedImplCopyWith<$Res> {
+  __$$UnpaidBreakListChangedImplCopyWithImpl(
+      _$UnpaidBreakListChangedImpl _value,
+      $Res Function(_$UnpaidBreakListChangedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? breakTime = null,
+    Object? index = null,
+    Object? date = null,
+  }) {
+    return _then(_$UnpaidBreakListChangedImpl(
+      null == breakTime
+          ? _value.breakTime
+          : breakTime // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+      null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
+  const _$UnpaidBreakListChangedImpl(this.breakTime, this.index, this.date);
+
+  @override
+  final String breakTime;
+  @override
+  final int index;
+  @override
+  final String date;
+
+  @override
+  String toString() {
+    return 'PostShiftEvent.unpaidBreakListChanged(breakTime: $breakTime, index: $index, date: $date)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UnpaidBreakListChangedImpl &&
+            (identical(other.breakTime, breakTime) ||
+                other.breakTime == breakTime) &&
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.date, date) || other.date == date));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, breakTime, index, date);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UnpaidBreakListChangedImplCopyWith<_$UnpaidBreakListChangedImpl>
+      get copyWith => __$$UnpaidBreakListChangedImplCopyWithImpl<
+          _$UnpaidBreakListChangedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
+        changeShiftType,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
+    required TResult Function(String selectedDate) singleShiftDateChangedEvent,
+    required TResult Function(String hour) startHourChanged,
+    required TResult Function(String minute) startMinuteChanged,
+    required TResult Function(String hour) endHourChanged,
+    required TResult Function(String minute) endMinuteChanged,
+    required TResult Function(String breakTime) unpaidBreakChanged,
+    required TResult Function() totalPayableHoursChanged,
+    required TResult Function(String selectedValue) commuteAllownceChanged,
+    required TResult Function(String selectedValue) commuteHoursChanged,
+    required TResult Function(String selectedValue) commuteRateChanged,
+    required TResult Function(String selectedValue) accomdationAllownceChanged,
+    required TResult Function(String selectedValue) accomdationHoursChanged,
+    required TResult Function(String selectedValue) accomdationRateChanged,
+    required TResult Function(String note) singleShiftNotesChanged,
+    required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
+    required TResult Function(String vacancy) addVacancyChanged,
+    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
+        getTeamsListEvent,
+    required TResult Function(bool isCheck) recurringCheck,
+    required TResult Function(bool isCheck) shareWithTeamsCheck,
+    required TResult Function(bool isCheck) saveAsTemplateCheck,
+    required TResult Function(String note) disclaimerChanged,
+    required TResult Function(String selectedDate) recurringStartDateChanged,
+    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(SkillDTO day) recurrenceWeeksChanged,
+    required TResult Function(String selectedDate) recurringEndDateChanged,
+    required TResult Function(TeamDTO team) selectTeamEvent,
+    required TResult Function(BuildContext context, int postShiftId)
+        recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+        differentTimeShiftSubmitted,
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
+        initMultiDifferentDateEvent,
+    required TResult Function() backEvent,
+    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(int postId) postTheShiftEvent,
+  }) {
+    return unpaidBreakListChanged(breakTime, index, date);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
+        changeShiftType,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult? Function(String hour)? startHourChanged,
+    TResult? Function(String minute)? startMinuteChanged,
+    TResult? Function(String hour)? endHourChanged,
+    TResult? Function(String minute)? endMinuteChanged,
+    TResult? Function(String breakTime)? unpaidBreakChanged,
+    TResult? Function()? totalPayableHoursChanged,
+    TResult? Function(String selectedValue)? commuteAllownceChanged,
+    TResult? Function(String selectedValue)? commuteHoursChanged,
+    TResult? Function(String selectedValue)? commuteRateChanged,
+    TResult? Function(String selectedValue)? accomdationAllownceChanged,
+    TResult? Function(String selectedValue)? accomdationHoursChanged,
+    TResult? Function(String selectedValue)? accomdationRateChanged,
+    TResult? Function(String note)? singleShiftNotesChanged,
+    TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult? Function(String vacancy)? addVacancyChanged,
+    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
+        getTeamsListEvent,
+    TResult? Function(bool isCheck)? recurringCheck,
+    TResult? Function(bool isCheck)? shareWithTeamsCheck,
+    TResult? Function(bool isCheck)? saveAsTemplateCheck,
+    TResult? Function(String note)? disclaimerChanged,
+    TResult? Function(String selectedDate)? recurringStartDateChanged,
+    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult? Function(String selectedDate)? recurringEndDateChanged,
+    TResult? Function(TeamDTO team)? selectTeamEvent,
+    TResult? Function(BuildContext context, int postShiftId)?
+        recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+        differentTimeShiftSubmitted,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
+        initMultiDifferentDateEvent,
+    TResult? Function()? backEvent,
+    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(int postId)? postTheShiftEvent,
+  }) {
+    return unpaidBreakListChanged?.call(breakTime, index, date);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
+        changeShiftType,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult Function(String hour)? startHourChanged,
+    TResult Function(String minute)? startMinuteChanged,
+    TResult Function(String hour)? endHourChanged,
+    TResult Function(String minute)? endMinuteChanged,
+    TResult Function(String breakTime)? unpaidBreakChanged,
+    TResult Function()? totalPayableHoursChanged,
+    TResult Function(String selectedValue)? commuteAllownceChanged,
+    TResult Function(String selectedValue)? commuteHoursChanged,
+    TResult Function(String selectedValue)? commuteRateChanged,
+    TResult Function(String selectedValue)? accomdationAllownceChanged,
+    TResult Function(String selectedValue)? accomdationHoursChanged,
+    TResult Function(String selectedValue)? accomdationRateChanged,
+    TResult Function(String note)? singleShiftNotesChanged,
+    TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult Function(String vacancy)? addVacancyChanged,
+    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
+        getTeamsListEvent,
+    TResult Function(bool isCheck)? recurringCheck,
+    TResult Function(bool isCheck)? shareWithTeamsCheck,
+    TResult Function(bool isCheck)? saveAsTemplateCheck,
+    TResult Function(String note)? disclaimerChanged,
+    TResult Function(String selectedDate)? recurringStartDateChanged,
+    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult Function(String selectedDate)? recurringEndDateChanged,
+    TResult Function(TeamDTO team)? selectTeamEvent,
+    TResult Function(BuildContext context, int postShiftId)?
+        recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+        differentTimeShiftSubmitted,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
+        initMultiDifferentDateEvent,
+    TResult Function()? backEvent,
+    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(int postId)? postTheShiftEvent,
+    required TResult orElse(),
+  }) {
+    if (unpaidBreakListChanged != null) {
+      return unpaidBreakListChanged(breakTime, index, date);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChangeShiftType value) changeShiftType,
+    required TResult Function(GetBreakAllownceListApi value)
+        getBreakAllownceListApi,
+    required TResult Function(SingleShiftDateChangedEvent value)
+        singleShiftDateChangedEvent,
+    required TResult Function(StartHourChanged value) startHourChanged,
+    required TResult Function(StartMinuteChanged value) startMinuteChanged,
+    required TResult Function(EndHourChanged value) endHourChanged,
+    required TResult Function(EndMinuteChanged value) endMinuteChanged,
+    required TResult Function(UnpaidBreakChanged value) unpaidBreakChanged,
+    required TResult Function(TotalPayableHoursChanged value)
+        totalPayableHoursChanged,
+    required TResult Function(CommuteAllownceChanged value)
+        commuteAllownceChanged,
+    required TResult Function(CommuteHoursChanged value) commuteHoursChanged,
+    required TResult Function(CommuteRateChanged value) commuteRateChanged,
+    required TResult Function(AccomdationAllownceChanged value)
+        accomdationAllownceChanged,
+    required TResult Function(AccomdationHoursChanged value)
+        accomdationHoursChanged,
+    required TResult Function(AccomdationRateChanged value)
+        accomdationRateChanged,
+    required TResult Function(SingleShiftNotes value) singleShiftNotesChanged,
+    required TResult Function(CheckIsMoreVancancy value) checkIsMoreVancancy,
+    required TResult Function(AddVacancyChanged value) addVacancyChanged,
+    required TResult Function(SingleShiftSubmitted value) singleShiftSubmitted,
+    required TResult Function(GetTeamsList value) getTeamsListEvent,
+    required TResult Function(RecurringCheck value) recurringCheck,
+    required TResult Function(ShareWithTeamsCheck value) shareWithTeamsCheck,
+    required TResult Function(SaveAsTemplateCheck value) saveAsTemplateCheck,
+    required TResult Function(DisclaimerChanged value) disclaimerChanged,
+    required TResult Function(RecurringStartDateChanged value)
+        recurringStartDateChanged,
+    required TResult Function(RecurrenceModeChanged value)
+        recurrenceModeChanged,
+    required TResult Function(RecurrenceWeeksChanged value)
+        recurrenceWeeksChanged,
+    required TResult Function(RecurringEndDateChanged value)
+        recurringEndDateChanged,
+    required TResult Function(SelectTeamEvent value) selectTeamEvent,
+    required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(DifferentTimeShiftSubmitted value)
+        differentTimeShiftSubmitted,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
+    required TResult Function(BackEvent value) backEvent,
+    required TResult Function(SameTimeShiftSubmitted value)
+        sameTimeShiftSubmitted,
+    required TResult Function(postTheShiftEvent value) postTheShiftEvent,
+  }) {
+    return unpaidBreakListChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChangeShiftType value)? changeShiftType,
+    TResult? Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult? Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult? Function(StartHourChanged value)? startHourChanged,
+    TResult? Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult? Function(EndHourChanged value)? endHourChanged,
+    TResult? Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult? Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult? Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult? Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult? Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult? Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult? Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult? Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult? Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult? Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult? Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult? Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult? Function(SingleShiftSubmitted value)? singleShiftSubmitted,
+    TResult? Function(GetTeamsList value)? getTeamsListEvent,
+    TResult? Function(RecurringCheck value)? recurringCheck,
+    TResult? Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult? Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult? Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult? Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult? Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(DifferentTimeShiftSubmitted value)?
+        differentTimeShiftSubmitted,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+    TResult? Function(BackEvent value)? backEvent,
+    TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(postTheShiftEvent value)? postTheShiftEvent,
+  }) {
+    return unpaidBreakListChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChangeShiftType value)? changeShiftType,
+    TResult Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult Function(StartHourChanged value)? startHourChanged,
+    TResult Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult Function(EndHourChanged value)? endHourChanged,
+    TResult Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult Function(SingleShiftSubmitted value)? singleShiftSubmitted,
+    TResult Function(GetTeamsList value)? getTeamsListEvent,
+    TResult Function(RecurringCheck value)? recurringCheck,
+    TResult Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(DifferentTimeShiftSubmitted value)?
+        differentTimeShiftSubmitted,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+    TResult Function(BackEvent value)? backEvent,
+    TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(postTheShiftEvent value)? postTheShiftEvent,
+    required TResult orElse(),
+  }) {
+    if (unpaidBreakListChanged != null) {
+      return unpaidBreakListChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UnpaidBreakListChanged implements PostShiftEvent {
+  const factory UnpaidBreakListChanged(
+          final String breakTime, final int index, final String date) =
+      _$UnpaidBreakListChangedImpl;
+
+  String get breakTime;
+  int get index;
+  String get date;
+  @JsonKey(ignore: true)
+  _$$UnpaidBreakListChangedImplCopyWith<_$UnpaidBreakListChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PayableHourListChangedImplCopyWith<$Res> {
+  factory _$$PayableHourListChangedImplCopyWith(
+          _$PayableHourListChangedImpl value,
+          $Res Function(_$PayableHourListChangedImpl) then) =
+      __$$PayableHourListChangedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$PayableHourListChangedImplCopyWithImpl<$Res>
+    extends _$PostShiftEventCopyWithImpl<$Res, _$PayableHourListChangedImpl>
+    implements _$$PayableHourListChangedImplCopyWith<$Res> {
+  __$$PayableHourListChangedImplCopyWithImpl(
+      _$PayableHourListChangedImpl _value,
+      $Res Function(_$PayableHourListChangedImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$PayableHourListChangedImpl implements PayableHourListChanged {
+  const _$PayableHourListChangedImpl();
+
+  @override
+  String toString() {
+    return 'PostShiftEvent.payableHourListChanged()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PayableHourListChangedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)
+        changeShiftType,
+    required TResult Function(HealthcarePostDTO? updateShift)
+        getBreakAllownceListApi,
+    required TResult Function(String selectedDate) singleShiftDateChangedEvent,
+    required TResult Function(String hour) startHourChanged,
+    required TResult Function(String minute) startMinuteChanged,
+    required TResult Function(String hour) endHourChanged,
+    required TResult Function(String minute) endMinuteChanged,
+    required TResult Function(String breakTime) unpaidBreakChanged,
+    required TResult Function() totalPayableHoursChanged,
+    required TResult Function(String selectedValue) commuteAllownceChanged,
+    required TResult Function(String selectedValue) commuteHoursChanged,
+    required TResult Function(String selectedValue) commuteRateChanged,
+    required TResult Function(String selectedValue) accomdationAllownceChanged,
+    required TResult Function(String selectedValue) accomdationHoursChanged,
+    required TResult Function(String selectedValue) accomdationRateChanged,
+    required TResult Function(String note) singleShiftNotesChanged,
+    required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
+    required TResult Function(String vacancy) addVacancyChanged,
+    required TResult Function(BuildContext context) singleShiftSubmitted,
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
+        getTeamsListEvent,
+    required TResult Function(bool isCheck) recurringCheck,
+    required TResult Function(bool isCheck) shareWithTeamsCheck,
+    required TResult Function(bool isCheck) saveAsTemplateCheck,
+    required TResult Function(String note) disclaimerChanged,
+    required TResult Function(String selectedDate) recurringStartDateChanged,
+    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(SkillDTO day) recurrenceWeeksChanged,
+    required TResult Function(String selectedDate) recurringEndDateChanged,
+    required TResult Function(TeamDTO team) selectTeamEvent,
+    required TResult Function(BuildContext context, int postShiftId)
+        recurringButtonEvent,
+    required TResult Function(bool isIndividualPost) checkIsIndividualPost,
+    required TResult Function(List<DateTime> selectedDates)
+        multiDateSelectionChanged,
+    required TResult Function() multidateContinueButtonPressed,
+    required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
+    required TResult Function(String hour, int index, String date)
+        startHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        startMinuteListChanged,
+    required TResult Function(String hour, int index, String date)
+        endHourListChanged,
+    required TResult Function(String minute, int index, String date)
+        endMinuteListChanged,
+    required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
+        differentTimeShiftSubmitted,
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
+        initMultiDifferentDateEvent,
+    required TResult Function() backEvent,
+    required TResult Function(BuildContext context) sameTimeShiftSubmitted,
+    required TResult Function(int postId) postTheShiftEvent,
+  }) {
+    return payableHourListChanged();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
+        changeShiftType,
+    TResult? Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult? Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult? Function(String hour)? startHourChanged,
+    TResult? Function(String minute)? startMinuteChanged,
+    TResult? Function(String hour)? endHourChanged,
+    TResult? Function(String minute)? endMinuteChanged,
+    TResult? Function(String breakTime)? unpaidBreakChanged,
+    TResult? Function()? totalPayableHoursChanged,
+    TResult? Function(String selectedValue)? commuteAllownceChanged,
+    TResult? Function(String selectedValue)? commuteHoursChanged,
+    TResult? Function(String selectedValue)? commuteRateChanged,
+    TResult? Function(String selectedValue)? accomdationAllownceChanged,
+    TResult? Function(String selectedValue)? accomdationHoursChanged,
+    TResult? Function(String selectedValue)? accomdationRateChanged,
+    TResult? Function(String note)? singleShiftNotesChanged,
+    TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult? Function(String vacancy)? addVacancyChanged,
+    TResult? Function(BuildContext context)? singleShiftSubmitted,
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
+        getTeamsListEvent,
+    TResult? Function(bool isCheck)? recurringCheck,
+    TResult? Function(bool isCheck)? shareWithTeamsCheck,
+    TResult? Function(bool isCheck)? saveAsTemplateCheck,
+    TResult? Function(String note)? disclaimerChanged,
+    TResult? Function(String selectedDate)? recurringStartDateChanged,
+    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult? Function(String selectedDate)? recurringEndDateChanged,
+    TResult? Function(TeamDTO team)? selectTeamEvent,
+    TResult? Function(BuildContext context, int postShiftId)?
+        recurringButtonEvent,
+    TResult? Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult? Function()? multidateContinueButtonPressed,
+    TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
+    TResult? Function(String hour, int index, String date)?
+        startHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult? Function(String hour, int index, String date)? endHourListChanged,
+    TResult? Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
+        differentTimeShiftSubmitted,
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
+        initMultiDifferentDateEvent,
+    TResult? Function()? backEvent,
+    TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult? Function(int postId)? postTheShiftEvent,
+  }) {
+    return payableHourListChanged?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String shiftType, int postId, PostShiftDTO? post,
+            HealthcarePostDTO? updateShift)?
+        changeShiftType,
+    TResult Function(HealthcarePostDTO? updateShift)? getBreakAllownceListApi,
+    TResult Function(String selectedDate)? singleShiftDateChangedEvent,
+    TResult Function(String hour)? startHourChanged,
+    TResult Function(String minute)? startMinuteChanged,
+    TResult Function(String hour)? endHourChanged,
+    TResult Function(String minute)? endMinuteChanged,
+    TResult Function(String breakTime)? unpaidBreakChanged,
+    TResult Function()? totalPayableHoursChanged,
+    TResult Function(String selectedValue)? commuteAllownceChanged,
+    TResult Function(String selectedValue)? commuteHoursChanged,
+    TResult Function(String selectedValue)? commuteRateChanged,
+    TResult Function(String selectedValue)? accomdationAllownceChanged,
+    TResult Function(String selectedValue)? accomdationHoursChanged,
+    TResult Function(String selectedValue)? accomdationRateChanged,
+    TResult Function(String note)? singleShiftNotesChanged,
+    TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
+    TResult Function(String vacancy)? addVacancyChanged,
+    TResult Function(BuildContext context)? singleShiftSubmitted,
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
+        getTeamsListEvent,
+    TResult Function(bool isCheck)? recurringCheck,
+    TResult Function(bool isCheck)? shareWithTeamsCheck,
+    TResult Function(bool isCheck)? saveAsTemplateCheck,
+    TResult Function(String note)? disclaimerChanged,
+    TResult Function(String selectedDate)? recurringStartDateChanged,
+    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(SkillDTO day)? recurrenceWeeksChanged,
+    TResult Function(String selectedDate)? recurringEndDateChanged,
+    TResult Function(TeamDTO team)? selectTeamEvent,
+    TResult Function(BuildContext context, int postShiftId)?
+        recurringButtonEvent,
+    TResult Function(bool isIndividualPost)? checkIsIndividualPost,
+    TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
+    TResult Function()? multidateContinueButtonPressed,
+    TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
+    TResult Function(String hour, int index, String date)? startHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        startMinuteListChanged,
+    TResult Function(String hour, int index, String date)? endHourListChanged,
+    TResult Function(String minute, int index, String date)?
+        endMinuteListChanged,
+    TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
+        differentTimeShiftSubmitted,
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
+        initMultiDifferentDateEvent,
+    TResult Function()? backEvent,
+    TResult Function(BuildContext context)? sameTimeShiftSubmitted,
+    TResult Function(int postId)? postTheShiftEvent,
+    required TResult orElse(),
+  }) {
+    if (payableHourListChanged != null) {
+      return payableHourListChanged();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChangeShiftType value) changeShiftType,
+    required TResult Function(GetBreakAllownceListApi value)
+        getBreakAllownceListApi,
+    required TResult Function(SingleShiftDateChangedEvent value)
+        singleShiftDateChangedEvent,
+    required TResult Function(StartHourChanged value) startHourChanged,
+    required TResult Function(StartMinuteChanged value) startMinuteChanged,
+    required TResult Function(EndHourChanged value) endHourChanged,
+    required TResult Function(EndMinuteChanged value) endMinuteChanged,
+    required TResult Function(UnpaidBreakChanged value) unpaidBreakChanged,
+    required TResult Function(TotalPayableHoursChanged value)
+        totalPayableHoursChanged,
+    required TResult Function(CommuteAllownceChanged value)
+        commuteAllownceChanged,
+    required TResult Function(CommuteHoursChanged value) commuteHoursChanged,
+    required TResult Function(CommuteRateChanged value) commuteRateChanged,
+    required TResult Function(AccomdationAllownceChanged value)
+        accomdationAllownceChanged,
+    required TResult Function(AccomdationHoursChanged value)
+        accomdationHoursChanged,
+    required TResult Function(AccomdationRateChanged value)
+        accomdationRateChanged,
+    required TResult Function(SingleShiftNotes value) singleShiftNotesChanged,
+    required TResult Function(CheckIsMoreVancancy value) checkIsMoreVancancy,
+    required TResult Function(AddVacancyChanged value) addVacancyChanged,
+    required TResult Function(SingleShiftSubmitted value) singleShiftSubmitted,
+    required TResult Function(GetTeamsList value) getTeamsListEvent,
+    required TResult Function(RecurringCheck value) recurringCheck,
+    required TResult Function(ShareWithTeamsCheck value) shareWithTeamsCheck,
+    required TResult Function(SaveAsTemplateCheck value) saveAsTemplateCheck,
+    required TResult Function(DisclaimerChanged value) disclaimerChanged,
+    required TResult Function(RecurringStartDateChanged value)
+        recurringStartDateChanged,
+    required TResult Function(RecurrenceModeChanged value)
+        recurrenceModeChanged,
+    required TResult Function(RecurrenceWeeksChanged value)
+        recurrenceWeeksChanged,
+    required TResult Function(RecurringEndDateChanged value)
+        recurringEndDateChanged,
+    required TResult Function(SelectTeamEvent value) selectTeamEvent,
+    required TResult Function(RecurringButtonEvent value) recurringButtonEvent,
+    required TResult Function(CheckIsIndividualPost value)
+        checkIsIndividualPost,
+    required TResult Function(multiDateSelectionChanged value)
+        multiDateSelectionChanged,
+    required TResult Function(MultidateContinueButtonPressed value)
+        multidateContinueButtonPressed,
+    required TResult Function(MultiDateSameDiffTypeChanged value)
+        multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
+    required TResult Function(StartHourListChanged value) startHourListChanged,
+    required TResult Function(StartMinuteListChanged value)
+        startMinuteListChanged,
+    required TResult Function(EndHourListChanged value) endHourListChanged,
+    required TResult Function(EndMinuteListChanged value) endMinuteListChanged,
+    required TResult Function(DifferentTimeShiftSubmitted value)
+        differentTimeShiftSubmitted,
+    required TResult Function(InitMultiDifferentDateEvent value)
+        initMultiDifferentDateEvent,
+    required TResult Function(BackEvent value) backEvent,
+    required TResult Function(SameTimeShiftSubmitted value)
+        sameTimeShiftSubmitted,
+    required TResult Function(postTheShiftEvent value) postTheShiftEvent,
+  }) {
+    return payableHourListChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChangeShiftType value)? changeShiftType,
+    TResult? Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult? Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult? Function(StartHourChanged value)? startHourChanged,
+    TResult? Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult? Function(EndHourChanged value)? endHourChanged,
+    TResult? Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult? Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult? Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult? Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult? Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult? Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult? Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult? Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult? Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult? Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult? Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult? Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult? Function(SingleShiftSubmitted value)? singleShiftSubmitted,
+    TResult? Function(GetTeamsList value)? getTeamsListEvent,
+    TResult? Function(RecurringCheck value)? recurringCheck,
+    TResult? Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult? Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult? Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult? Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult? Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult? Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult? Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult? Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult? Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult? Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult? Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult? Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult? Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
+    TResult? Function(StartHourListChanged value)? startHourListChanged,
+    TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult? Function(EndHourListChanged value)? endHourListChanged,
+    TResult? Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult? Function(DifferentTimeShiftSubmitted value)?
+        differentTimeShiftSubmitted,
+    TResult? Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+    TResult? Function(BackEvent value)? backEvent,
+    TResult? Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult? Function(postTheShiftEvent value)? postTheShiftEvent,
+  }) {
+    return payableHourListChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChangeShiftType value)? changeShiftType,
+    TResult Function(GetBreakAllownceListApi value)? getBreakAllownceListApi,
+    TResult Function(SingleShiftDateChangedEvent value)?
+        singleShiftDateChangedEvent,
+    TResult Function(StartHourChanged value)? startHourChanged,
+    TResult Function(StartMinuteChanged value)? startMinuteChanged,
+    TResult Function(EndHourChanged value)? endHourChanged,
+    TResult Function(EndMinuteChanged value)? endMinuteChanged,
+    TResult Function(UnpaidBreakChanged value)? unpaidBreakChanged,
+    TResult Function(TotalPayableHoursChanged value)? totalPayableHoursChanged,
+    TResult Function(CommuteAllownceChanged value)? commuteAllownceChanged,
+    TResult Function(CommuteHoursChanged value)? commuteHoursChanged,
+    TResult Function(CommuteRateChanged value)? commuteRateChanged,
+    TResult Function(AccomdationAllownceChanged value)?
+        accomdationAllownceChanged,
+    TResult Function(AccomdationHoursChanged value)? accomdationHoursChanged,
+    TResult Function(AccomdationRateChanged value)? accomdationRateChanged,
+    TResult Function(SingleShiftNotes value)? singleShiftNotesChanged,
+    TResult Function(CheckIsMoreVancancy value)? checkIsMoreVancancy,
+    TResult Function(AddVacancyChanged value)? addVacancyChanged,
+    TResult Function(SingleShiftSubmitted value)? singleShiftSubmitted,
+    TResult Function(GetTeamsList value)? getTeamsListEvent,
+    TResult Function(RecurringCheck value)? recurringCheck,
+    TResult Function(ShareWithTeamsCheck value)? shareWithTeamsCheck,
+    TResult Function(SaveAsTemplateCheck value)? saveAsTemplateCheck,
+    TResult Function(DisclaimerChanged value)? disclaimerChanged,
+    TResult Function(RecurringStartDateChanged value)?
+        recurringStartDateChanged,
+    TResult Function(RecurrenceModeChanged value)? recurrenceModeChanged,
+    TResult Function(RecurrenceWeeksChanged value)? recurrenceWeeksChanged,
+    TResult Function(RecurringEndDateChanged value)? recurringEndDateChanged,
+    TResult Function(SelectTeamEvent value)? selectTeamEvent,
+    TResult Function(RecurringButtonEvent value)? recurringButtonEvent,
+    TResult Function(CheckIsIndividualPost value)? checkIsIndividualPost,
+    TResult Function(multiDateSelectionChanged value)?
+        multiDateSelectionChanged,
+    TResult Function(MultidateContinueButtonPressed value)?
+        multidateContinueButtonPressed,
+    TResult Function(MultiDateSameDiffTypeChanged value)?
+        multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
+    TResult Function(StartHourListChanged value)? startHourListChanged,
+    TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
+    TResult Function(EndHourListChanged value)? endHourListChanged,
+    TResult Function(EndMinuteListChanged value)? endMinuteListChanged,
+    TResult Function(DifferentTimeShiftSubmitted value)?
+        differentTimeShiftSubmitted,
+    TResult Function(InitMultiDifferentDateEvent value)?
+        initMultiDifferentDateEvent,
+    TResult Function(BackEvent value)? backEvent,
+    TResult Function(SameTimeShiftSubmitted value)? sameTimeShiftSubmitted,
+    TResult Function(postTheShiftEvent value)? postTheShiftEvent,
+    required TResult orElse(),
+  }) {
+    if (payableHourListChanged != null) {
+      return payableHourListChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PayableHourListChanged implements PostShiftEvent {
+  const factory PayableHourListChanged() = _$PayableHourListChangedImpl;
 }
 
 /// @nodoc
@@ -15745,7 +17371,7 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -15763,6 +17389,9 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -15773,7 +17402,8 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -15806,7 +17436,7 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -15823,6 +17453,9 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -15832,7 +17465,8 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -15865,7 +17499,7 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -15882,6 +17516,9 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -15890,7 +17527,8 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -15955,6 +17593,10 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -16015,6 +17657,8 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -16073,6 +17717,8 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -16211,7 +17857,7 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -16229,6 +17875,9 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -16239,7 +17888,8 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -16272,7 +17922,7 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -16289,6 +17939,9 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -16298,7 +17951,8 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -16331,7 +17985,7 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -16348,6 +18002,9 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -16356,7 +18013,8 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -16421,6 +18079,10 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -16481,6 +18143,8 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -16539,6 +18203,8 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -16675,7 +18341,7 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -16693,6 +18359,9 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -16703,7 +18372,8 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -16736,7 +18406,7 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -16753,6 +18423,9 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -16762,7 +18435,8 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -16795,7 +18469,7 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -16812,6 +18486,9 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -16820,7 +18497,8 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -16885,6 +18563,10 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -16945,6 +18627,8 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -17003,6 +18687,8 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -17140,7 +18826,7 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -17158,6 +18844,9 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -17168,7 +18857,8 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -17201,7 +18891,7 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -17218,6 +18908,9 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -17227,7 +18920,8 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -17260,7 +18954,7 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -17277,6 +18971,9 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -17285,7 +18982,8 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -17350,6 +19048,10 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -17410,6 +19112,8 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -17468,6 +19172,8 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -17610,7 +19316,7 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -17628,6 +19334,9 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -17638,7 +19347,8 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -17671,7 +19381,7 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -17688,6 +19398,9 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -17697,7 +19410,8 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -17730,7 +19444,7 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -17747,6 +19461,9 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -17755,7 +19472,8 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -17820,6 +19538,10 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -17880,6 +19602,8 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -17938,6 +19662,8 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -17977,9 +19703,13 @@ abstract class _$$InitMultiDifferentDateEventImplCopyWith<$Res> {
           $Res Function(_$InitMultiDifferentDateEventImpl) then) =
       __$$InitMultiDifferentDateEventImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<DateTimeDTO> list, PostShiftDTO post});
+  $Res call(
+      {List<DateTimeDTO> list,
+      PostShiftDTO post,
+      HealthcarePostDTO? updateShift});
 
   $PostShiftDTOCopyWith<$Res> get post;
+  $HealthcarePostDTOCopyWith<$Res>? get updateShift;
 }
 
 /// @nodoc
@@ -17997,6 +19727,7 @@ class __$$InitMultiDifferentDateEventImplCopyWithImpl<$Res>
   $Res call({
     Object? list = null,
     Object? post = null,
+    Object? updateShift = freezed,
   }) {
     return _then(_$InitMultiDifferentDateEventImpl(
       null == list
@@ -18007,6 +19738,10 @@ class __$$InitMultiDifferentDateEventImplCopyWithImpl<$Res>
           ? _value.post
           : post // ignore: cast_nullable_to_non_nullable
               as PostShiftDTO,
+      updateShift: freezed == updateShift
+          ? _value.updateShift
+          : updateShift // ignore: cast_nullable_to_non_nullable
+              as HealthcarePostDTO?,
     ));
   }
 
@@ -18017,13 +19752,25 @@ class __$$InitMultiDifferentDateEventImplCopyWithImpl<$Res>
       return _then(_value.copyWith(post: value));
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $HealthcarePostDTOCopyWith<$Res>? get updateShift {
+    if (_value.updateShift == null) {
+      return null;
+    }
+
+    return $HealthcarePostDTOCopyWith<$Res>(_value.updateShift!, (value) {
+      return _then(_value.copyWith(updateShift: value));
+    });
+  }
 }
 
 /// @nodoc
 
 class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
   const _$InitMultiDifferentDateEventImpl(final List<DateTimeDTO> list,
-      {required this.post})
+      {required this.post, required this.updateShift})
       : _list = list;
 
   final List<DateTimeDTO> _list;
@@ -18036,10 +19783,12 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
 
   @override
   final PostShiftDTO post;
+  @override
+  final HealthcarePostDTO? updateShift;
 
   @override
   String toString() {
-    return 'PostShiftEvent.initMultiDifferentDateEvent(list: $list, post: $post)';
+    return 'PostShiftEvent.initMultiDifferentDateEvent(list: $list, post: $post, updateShift: $updateShift)';
   }
 
   @override
@@ -18048,12 +19797,14 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
         (other.runtimeType == runtimeType &&
             other is _$InitMultiDifferentDateEventImpl &&
             const DeepCollectionEquality().equals(other._list, _list) &&
-            (identical(other.post, post) || other.post == post));
+            (identical(other.post, post) || other.post == post) &&
+            (identical(other.updateShift, updateShift) ||
+                other.updateShift == updateShift));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_list), post);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_list), post, updateShift);
 
   @JsonKey(ignore: true)
   @override
@@ -18087,7 +19838,7 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -18105,6 +19856,9 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -18115,13 +19869,14 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
     required TResult Function(int postId) postTheShiftEvent,
   }) {
-    return initMultiDifferentDateEvent(list, post);
+    return initMultiDifferentDateEvent(list, post, updateShift);
   }
 
   @override
@@ -18148,7 +19903,7 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -18165,6 +19920,9 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -18174,13 +19932,14 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId)? postTheShiftEvent,
   }) {
-    return initMultiDifferentDateEvent?.call(list, post);
+    return initMultiDifferentDateEvent?.call(list, post, updateShift);
   }
 
   @override
@@ -18207,7 +19966,7 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -18224,6 +19983,9 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -18232,7 +19994,8 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -18240,7 +20003,7 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     required TResult orElse(),
   }) {
     if (initMultiDifferentDateEvent != null) {
-      return initMultiDifferentDateEvent(list, post);
+      return initMultiDifferentDateEvent(list, post, updateShift);
     }
     return orElse();
   }
@@ -18297,6 +20060,10 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -18357,6 +20124,8 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -18415,6 +20184,8 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -18437,10 +20208,13 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
 
 abstract class InitMultiDifferentDateEvent implements PostShiftEvent {
   const factory InitMultiDifferentDateEvent(final List<DateTimeDTO> list,
-      {required final PostShiftDTO post}) = _$InitMultiDifferentDateEventImpl;
+          {required final PostShiftDTO post,
+          required final HealthcarePostDTO? updateShift}) =
+      _$InitMultiDifferentDateEventImpl;
 
   List<DateTimeDTO> get list;
   PostShiftDTO get post;
+  HealthcarePostDTO? get updateShift;
   @JsonKey(ignore: true)
   _$$InitMultiDifferentDateEventImplCopyWith<_$InitMultiDifferentDateEventImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -18506,7 +20280,7 @@ class _$BackEventImpl implements BackEvent {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -18524,6 +20298,9 @@ class _$BackEventImpl implements BackEvent {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -18534,7 +20311,8 @@ class _$BackEventImpl implements BackEvent {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -18567,7 +20345,7 @@ class _$BackEventImpl implements BackEvent {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -18584,6 +20362,9 @@ class _$BackEventImpl implements BackEvent {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -18593,7 +20374,8 @@ class _$BackEventImpl implements BackEvent {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -18626,7 +20408,7 @@ class _$BackEventImpl implements BackEvent {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -18643,6 +20425,9 @@ class _$BackEventImpl implements BackEvent {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -18651,7 +20436,8 @@ class _$BackEventImpl implements BackEvent {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -18716,6 +20502,10 @@ class _$BackEventImpl implements BackEvent {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -18776,6 +20566,8 @@ class _$BackEventImpl implements BackEvent {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -18834,6 +20626,8 @@ class _$BackEventImpl implements BackEvent {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -18947,7 +20741,7 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -18965,6 +20759,9 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -18975,7 +20772,8 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -19008,7 +20806,7 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -19025,6 +20823,9 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -19034,7 +20835,8 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -19067,7 +20869,7 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -19084,6 +20886,9 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -19092,7 +20897,8 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -19157,6 +20963,10 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -19217,6 +21027,8 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -19275,6 +21087,8 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,
@@ -19392,7 +21206,7 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
     required TResult Function(bool isMoreVacancy) checkIsMoreVancancy,
     required TResult Function(String vacancy) addVacancyChanged,
     required TResult Function(BuildContext context) singleShiftSubmitted,
-    required TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)
+    required TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)
         getTeamsListEvent,
     required TResult Function(bool isCheck) recurringCheck,
     required TResult Function(bool isCheck) shareWithTeamsCheck,
@@ -19410,6 +21224,9 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
         multiDateSelectionChanged,
     required TResult Function() multidateContinueButtonPressed,
     required TResult Function(int selectedType) multiDateSameDiffTypeChanged,
+    required TResult Function(String breakTime, int index, String date)
+        unpaidBreakListChanged,
+    required TResult Function() payableHourListChanged,
     required TResult Function(String hour, int index, String date)
         startHourListChanged,
     required TResult Function(String minute, int index, String date)
@@ -19420,7 +21237,8 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
         endMinuteListChanged,
     required TResult Function(MultiShiftDTO shiftDetail, BuildContext context)
         differentTimeShiftSubmitted,
-    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post)
+    required TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
@@ -19453,7 +21271,7 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
     TResult? Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult? Function(String vacancy)? addVacancyChanged,
     TResult? Function(BuildContext context)? singleShiftSubmitted,
-    TResult? Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult? Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult? Function(bool isCheck)? recurringCheck,
     TResult? Function(bool isCheck)? shareWithTeamsCheck,
@@ -19470,6 +21288,9 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
     TResult? Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult? Function()? multidateContinueButtonPressed,
     TResult? Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult? Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult? Function()? payableHourListChanged,
     TResult? Function(String hour, int index, String date)?
         startHourListChanged,
     TResult? Function(String minute, int index, String date)?
@@ -19479,7 +21300,8 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
         endMinuteListChanged,
     TResult? Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult? Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -19512,7 +21334,7 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
     TResult Function(bool isMoreVacancy)? checkIsMoreVancancy,
     TResult Function(String vacancy)? addVacancyChanged,
     TResult Function(BuildContext context)? singleShiftSubmitted,
-    TResult Function(PostShiftDTO post, HealthcarePostDTO updateShift)?
+    TResult Function(PostShiftDTO post, HealthcarePostDTO? updateShift)?
         getTeamsListEvent,
     TResult Function(bool isCheck)? recurringCheck,
     TResult Function(bool isCheck)? shareWithTeamsCheck,
@@ -19529,6 +21351,9 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
     TResult Function(List<DateTime> selectedDates)? multiDateSelectionChanged,
     TResult Function()? multidateContinueButtonPressed,
     TResult Function(int selectedType)? multiDateSameDiffTypeChanged,
+    TResult Function(String breakTime, int index, String date)?
+        unpaidBreakListChanged,
+    TResult Function()? payableHourListChanged,
     TResult Function(String hour, int index, String date)? startHourListChanged,
     TResult Function(String minute, int index, String date)?
         startMinuteListChanged,
@@ -19537,7 +21362,8 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
         endMinuteListChanged,
     TResult Function(MultiShiftDTO shiftDetail, BuildContext context)?
         differentTimeShiftSubmitted,
-    TResult Function(List<DateTimeDTO> list, PostShiftDTO post)?
+    TResult Function(List<DateTimeDTO> list, PostShiftDTO post,
+            HealthcarePostDTO? updateShift)?
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
@@ -19602,6 +21428,10 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
         multidateContinueButtonPressed,
     required TResult Function(MultiDateSameDiffTypeChanged value)
         multiDateSameDiffTypeChanged,
+    required TResult Function(UnpaidBreakListChanged value)
+        unpaidBreakListChanged,
+    required TResult Function(PayableHourListChanged value)
+        payableHourListChanged,
     required TResult Function(StartHourListChanged value) startHourListChanged,
     required TResult Function(StartMinuteListChanged value)
         startMinuteListChanged,
@@ -19662,6 +21492,8 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
         multidateContinueButtonPressed,
     TResult? Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult? Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult? Function(PayableHourListChanged value)? payableHourListChanged,
     TResult? Function(StartHourListChanged value)? startHourListChanged,
     TResult? Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult? Function(EndHourListChanged value)? endHourListChanged,
@@ -19720,6 +21552,8 @@ class _$postTheShiftEventImpl implements postTheShiftEvent {
         multidateContinueButtonPressed,
     TResult Function(MultiDateSameDiffTypeChanged value)?
         multiDateSameDiffTypeChanged,
+    TResult Function(UnpaidBreakListChanged value)? unpaidBreakListChanged,
+    TResult Function(PayableHourListChanged value)? payableHourListChanged,
     TResult Function(StartHourListChanged value)? startHourListChanged,
     TResult Function(StartMinuteListChanged value)? startMinuteListChanged,
     TResult Function(EndHourListChanged value)? endHourListChanged,

@@ -246,16 +246,35 @@ class AddExperienceDetail extends StatelessWidget {
                 // ),
               ],
             ),
-            if (!(state.records[index].experience_year != null &&
-                    state.records[index].experience_year!.isNotEmpty &&
-                    state.records[index].experience_month != null &&
-                    state.records[index].experience_month!.isNotEmpty) &&
-                state.showErrorMessages)
-              commonErrorText(
-                StringConstant.yearAndMonthMustbeSelected,
-                padding: EdgeInsets.symmetric(
-                    vertical: getSize(10), horizontal: getSize(20)),
-              ),
+            (!(state.records[index].experience_year != null &&
+                            state.records[index].experience_year!.isNotEmpty ||
+                        state.records[index].experience_month != null &&
+                            state
+                                .records[index].experience_month!.isNotEmpty) &&
+                    state.showErrorMessages)
+                ? commonErrorText(
+                    StringConstant.yearAndMonthMustbeSelected,
+                    padding: EdgeInsets.symmetric(
+                        vertical: getSize(10), horizontal: getSize(20)),
+                  )
+                : (!(state.records[index].experience_year != null &&
+                            state.records[index].experience_year!.isNotEmpty) &&
+                        state.showErrorMessages)
+                    ? commonErrorText(
+                        StringConstant.yearMustbeSelected,
+                        padding: EdgeInsets.symmetric(
+                            vertical: getSize(10), horizontal: getSize(20)),
+                      )
+                    : (!(state.records[index].experience_month != null &&
+                                state.records[index].experience_month!
+                                    .isNotEmpty) &&
+                            state.showErrorMessages)
+                        ? commonErrorText(
+                            StringConstant.monthMustbeSelected,
+                            padding: EdgeInsets.symmetric(
+                                vertical: getSize(10), horizontal: getSize(20)),
+                          )
+                        : Container(),
             if (index == (state.records.length - 1))
               SizedBox(
                 height: getSize(20),

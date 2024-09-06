@@ -31,7 +31,7 @@ class HealthcarePostShift extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Post getting from previous---> ${jsonEncode(post)}");
+    print("Post getting from previous---> ${jsonEncode(updateShift)}");
     return GestureDetector(
       onTap: () {
         AppFocus.unfocus(context);
@@ -48,7 +48,16 @@ class HealthcarePostShift extends StatelessWidget {
                 onBackPressed: () {
                   Navigator.pop(context);
                 },
-                title: StringConstant.healthcare,
+                title: (state.updateShift.id != null &&
+                        state.updateShift.shift_detail != null)
+                    ? (state.updateShift.shift_detail!.shift_type == 1)
+                        ? StringConstant.singleShift
+                        : (state.updateShift.shift_detail!
+                                    .same_or_different_time ==
+                                1)
+                            ? StringConstant.sameTimeForAllDates
+                            : StringConstant.differentTimeForEachDate
+                    : StringConstant.healthcare,
               ),
               body: (state.isLoading)
                   ? CenterLoadingIndicator()
@@ -61,37 +70,40 @@ class HealthcarePostShift extends StatelessWidget {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              CustomDropdwonWithTextField(
-                                hintText: "",
-                                isLabelPadding: true,
-                                showTextfield: false,
-                                labelText: StringConstant.shiftType,
-                                value: PostShiftBloc.shiftTypeList
-                                    .firstWhere(
-                                      (shift) => shift.id == state.shiftType,
-                                      orElse: () =>
-                                          SkillDTO(id: 1, name: "Single"),
-                                    )
-                                    .name,
-                                items: PostShiftBloc.shiftTypeList.map((val) {
-                                  return DropdownMenuItem<String>(
-                                    value: val.name,
-                                    child: BaseText(
-                                      text: val.name ?? "",
-                                      fontSize: 14,
-                                      textColor: AppColors.black,
-                                    ),
-                                  );
-                                }).toList(),
-                                onChanged: (value) {
-                                  if (value != null) {
-                                    context.read<PostShiftBloc>().add(
-                                        PostShiftEvent.changeShiftType(value,
-                                            postId: postId,
-                                            post: null,
-                                            updateShift: null));
-                                  }
-                                },
+                              Visibility(
+                                visible: state.updateShift.id == null,
+                                child: CustomDropdwonWithTextField(
+                                  hintText: "",
+                                  isLabelPadding: true,
+                                  showTextfield: false,
+                                  labelText: StringConstant.shiftType,
+                                  value: PostShiftBloc.shiftTypeList
+                                      .firstWhere(
+                                        (shift) => shift.id == state.shiftType,
+                                        orElse: () =>
+                                            SkillDTO(id: 1, name: "Single"),
+                                      )
+                                      .name,
+                                  items: PostShiftBloc.shiftTypeList.map((val) {
+                                    return DropdownMenuItem<String>(
+                                      value: val.name,
+                                      child: BaseText(
+                                        text: val.name ?? "",
+                                        fontSize: 14,
+                                        textColor: AppColors.black,
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (value) {
+                                    if (value != null) {
+                                      context.read<PostShiftBloc>().add(
+                                          PostShiftEvent.changeShiftType(value,
+                                              postId: postId,
+                                              post: null,
+                                              updateShift: null));
+                                    }
+                                  },
+                                ),
                               ),
                               ConstrainedBox(
                                 constraints: BoxConstraints(

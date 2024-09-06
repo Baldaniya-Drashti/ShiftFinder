@@ -52,9 +52,9 @@ class LoginForm extends StatelessWidget {
               if (r.isProfileComplete == 1) {
                 print("profile complete");
                 context.router.replace(const PageRouteInfo(MainTabView.name));
-                // showSuccess(
-                //         message: "Success! Next Process is under development!!")
-                //     .show(context);
+                showSuccess(
+                        message: "Success! Next Process is under development!!")
+                    .show(context);
               } else {
                 context.router.replace(
                     getCurrentPage(r.lastPage ?? '', fromSplash: true));

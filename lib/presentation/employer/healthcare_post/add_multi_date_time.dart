@@ -7,12 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart';
+import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
+import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
@@ -27,9 +30,14 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'addMultiDateTime')
 class AddMultiDateTime extends StatelessWidget {
   PostShiftDTO post;
+  HealthcarePostDTO? updateShift;
 
   MultiShiftDTO selectedObj;
-  AddMultiDateTime({super.key, required this.selectedObj, required this.post});
+  AddMultiDateTime(
+      {super.key,
+      required this.selectedObj,
+      this.updateShift,
+      required this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +46,7 @@ class AddMultiDateTime extends StatelessWidget {
       create: (context) => getIt<PostShiftBloc>()
         ..add(PostShiftEvent.initMultiDifferentDateEvent(
             selectedObj.multi_date ?? [],
+            updateShift: updateShift,
             post: post)),
       child: BlocConsumer<PostShiftBloc, PostShiftState>(
         listener: (context, state) {
@@ -82,13 +91,12 @@ class AddMultiDateTime extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        unpaidBreakDropDown(context, state),
-                        if (state.singleShiftErrorMessages &&
-                            !state.unpaidBreak.isValid())
-                          commonErrorText(
-                            StringConstant.pleaseSelectUnpaidBreakTime,
-                          ),
-                        paddingBetweenFields(),
+                        // unpaidBreakDropDown(context, state),
+                        // if (state.singleShiftErrorMessages &&
+                        //     !state.unpaidBreak.isValid())
+                        //   commonErrorText(
+                        //       StringConstant.pleaseSelectUnpaidBreakTime),
+                        // paddingBetweenFields(),
                         totalPaybleHours(state),
                         paddingBetweenFields(),
                         Expanded(
@@ -140,20 +148,49 @@ class AddMultiDateTime extends StatelessWidget {
     );
   }
 
+  Widget disableTime(PostShiftState state, int index) {
+    String shiftTime = CustomDateTimeFormat.getShiftTime(
+      InputEmptyOrNot(state.multiDateTimeList[index].startHour ?? ""),
+      InputEmptyOrNot(state.multiDateTimeList[index].startMinute ?? ""),
+      InputEmptyOrNot(state.multiDateTimeList[index].endHour ?? ""),
+      InputEmptyOrNot(state.multiDateTimeList[index].endMinute ?? ""),
+    );
+
+    return Container(
+      padding:
+          EdgeInsets.symmetric(vertical: getSize(20), horizontal: getSize(18)),
+      decoration: BoxDecoration(
+          color: AppColors.grey04,
+          borderRadius: BorderRadius.circular(getSize(10))),
+      child: CustomTextField(
+        isLabelPadding: false,
+        labelText: StringConstant.shiftTime,
+        labelStyle: TextStyle(color: AppColors.black.withOpacity(0.7)),
+        readOnly: true,
+        hintText: shiftTime,
+        hintAsValue: true,
+      ),
+    );
+  }
+
   Widget paddingBetweenFields({double? height}) {
     return SizedBox(
       height: getSize(height ?? 15),
     );
   }
 
-  Widget unpaidBreakDropDown(BuildContext context, PostShiftState state) {
+  Widget unpaidBreakDropDown(
+      BuildContext context, PostShiftState state, int index) {
+    final breakTime = state.multiDateTimeList[index].unpaidBreak;
+
     return CustomDropdwonWithTextField(
       labelText: StringConstant.unpaidBreak,
       hintText: StringConstant.unpaidBreak,
       showTextfield: false,
-      isLabelPadding: true,
-      value:
-          (state.unpaidBreak.isValid()) ? state.unpaidBreak.getValue() : null,
+      isLabelPadding: false,
+      dropDownReadOnly: (updateShift?.id != null) ? true : false,
+      dropDownIcon: (state.updateShift.id != null) ? Container() : null,
+      value: (breakTime != null && breakTime.isNotEmpty) ? breakTime : null,
       items: state.breakList.map((val) {
         return DropdownMenuItem<String>(
           value: val.name,
@@ -166,9 +203,10 @@ class AddMultiDateTime extends StatelessWidget {
       }).toList(),
       onChanged: (value) {
         if (value != null) {
-          context
-              .read<PostShiftBloc>()
-              .add(PostShiftEvent.unpaidBreakChanged(value));
+          // context.read<PostShiftBloc>().add(PostShiftEvent.unpaidBreakChanged(value));
+          context.read<PostShiftBloc>().add(
+              PostShiftEvent.unpaidBreakListChanged(
+                  value, index, selectedObj.multi_date![index].date ?? ""));
         }
       },
     );
@@ -179,6 +217,21 @@ class AddMultiDateTime extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.totalPayableHours,
       hintText: state.totalPaybleHours,
+      hintAsValue: true,
+      readOnly: true,
+      fillColor: AppColors.grey04,
+    );
+  }
+
+  Widget paybleHours(PostShiftState state, int index) {
+    final payableHours = state.multiDateTimeList[index].totalPaybleHours;
+
+    return CustomTextField(
+      labelText: StringConstant.payableHours,
+      hintText: (payableHours != null && payableHours.isNotEmpty)
+          ? payableHours
+          : "00h 00min",
+      isLabelPadding: false,
       hintAsValue: true,
       readOnly: true,
       fillColor: AppColors.grey04,
@@ -207,6 +260,9 @@ class AddMultiDateTime extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
+        // (state.updateShift.id != null)
+        //     ? disableTime(state, index)
+        //     :
         Container(
           padding: EdgeInsets.symmetric(
               horizontal: getSize(20), vertical: getSize(20)),
@@ -218,6 +274,10 @@ class AddMultiDateTime extends StatelessWidget {
               startTime(context, state, index),
               paddingBetweenFields(),
               endTime(context, state, index),
+              paddingBetweenFields(),
+              unpaidBreakDropDown(context, state, index),
+              paddingBetweenFields(),
+              paybleHours(state, index),
             ],
           ),
         ),
@@ -226,13 +286,13 @@ class AddMultiDateTime extends StatelessWidget {
   }
 
   Widget startTime(BuildContext context, PostShiftState state, int index) {
+    final hour = state.multiDateTimeList[index].startHour;
+    final minute = state.multiDateTimeList[index].startMinute;
     return CustomTimePickerDropdown(
       labelText: StringConstant.startTime,
       isLabelPadding: false,
-      hourValue:
-          (state.startHour.isValid()) ? state.startHour.getValue() : null,
-      minuteValue:
-          (state.startMinute.isValid()) ? state.startMinute.getValue() : null,
+      hourValue: (hour != null && hour.isNotEmpty) ? hour : null,
+      minuteValue: (minute != null && minute.isNotEmpty) ? minute : null,
       hourOnChanged: (value) {
         if (value != null) {
           context.read<PostShiftBloc>().add(PostShiftEvent.startHourListChanged(
@@ -250,12 +310,13 @@ class AddMultiDateTime extends StatelessWidget {
   }
 
   Widget endTime(BuildContext context, PostShiftState state, int index) {
+    final hour = state.multiDateTimeList[index].endHour;
+    final minute = state.multiDateTimeList[index].endMinute;
     return CustomTimePickerDropdown(
       labelText: StringConstant.endTime,
       isLabelPadding: false,
-      hourValue: (state.endHour.isValid()) ? state.endHour.getValue() : null,
-      minuteValue:
-          (state.endMinute.isValid()) ? state.endMinute.getValue() : null,
+      hourValue: (hour != null && hour.isNotEmpty) ? hour : null,
+      minuteValue: (minute != null && minute.isNotEmpty) ? minute : null,
       hourOnChanged: (value) {
         if (value != null) {
           context.read<PostShiftBloc>().add(PostShiftEvent.endHourListChanged(

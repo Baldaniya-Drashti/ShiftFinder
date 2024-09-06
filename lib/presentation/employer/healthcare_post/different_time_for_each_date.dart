@@ -78,6 +78,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
             args: AddMultiDateTimeArgs(
               selectedObj: data,
               post: post,
+              updateShift: state.updateShift,
             ),
           ))
               .then((value) {
@@ -163,6 +164,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
   Widget selectMultiDate(BuildContext context, PostShiftState state) {
     return CustomMultiDatePicker(
       value: state.selectedMultiDates.getValue(),
+      isDisabled: (state.updateShift.id != null) ? true : false,
       onValueChanged: (value) {
         print("selected dates--> $value");
         context
@@ -465,6 +467,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
       labelText: StringConstant.numberOfVacancies,
       hintText: StringConstant.numberOfVacancies,
       keyboardType: TextInputType.number,
+      initialValue: state.selectedVacancy.getValue(),
       maxLength: 3,
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,

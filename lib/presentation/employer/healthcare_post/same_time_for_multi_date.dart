@@ -3,9 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart';
+import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
@@ -62,9 +65,13 @@ class SameTimeForMultiDate extends StatelessWidget {
                   StringConstant.pleaseSelectAtLeastOneDate,
                 ),
               paddingBetweenFields(),
-              startTime(context, state),
-              paddingBetweenFields(),
-              endTime(context, state),
+              if (state.updateShift.id != null) ...[
+                disableTime(state),
+              ] else ...[
+                startTime(context, state),
+                paddingBetweenFields(),
+                endTime(context, state),
+              ],
               paddingBetweenFields(),
               unpaidBreakDropDown(context, state),
               if (state.singleShiftErrorMessages &&
@@ -127,9 +134,48 @@ class SameTimeForMultiDate extends StatelessWidget {
     );
   }
 
+  Widget disableTime(PostShiftState state) {
+    String shiftTime = CustomDateTimeFormat.getShiftTime(
+        state.startHour, state.startMinute, state.endHour, state.endMinute);
+
+    return Container(
+      padding:
+          EdgeInsets.symmetric(vertical: getSize(20), horizontal: getSize(18)),
+      decoration: BoxDecoration(
+          color: AppColors.grey04,
+          borderRadius: BorderRadius.circular(getSize(10))),
+      child: CustomTextField(
+        isLabelPadding: false,
+        labelText: StringConstant.shiftTime,
+        readOnly: true,
+        hintText: shiftTime,
+        hintAsValue: true,
+      ),
+    );
+  }
+
+  String formatShiftTime(InputEmptyOrNot startHour, InputEmptyOrNot startMin,
+      InputEmptyOrNot endHour, InputEmptyOrNot endMin) {
+    if (startHour.isValid() &&
+        startMin.isValid() &&
+        endHour.isValid() &&
+        endMin.isValid()) {
+      String formattedStartMin = startMin.getValue()!.replaceAll(' Min', '');
+      String formattedEndMin = endMin.getValue()!.replaceAll(' Min', '');
+
+      String formattedStartHour = startHour.getValue()!.split(" ")[0];
+      String formattedEndHour = endHour.getValue()!.split(" ")[0];
+
+      return "$formattedStartHour:$formattedStartMin to $formattedEndHour:$formattedEndMin";
+    } else {
+      return "";
+    }
+  }
+
   Widget selectMultiDate(BuildContext context, PostShiftState state) {
     return CustomMultiDatePicker(
       value: state.selectedMultiDates.getValue(),
+      isDisabled: (state.updateShift.id != null) ? true : false,
       onValueChanged: (value) {
         print("selected dates--> $value");
         context
@@ -152,6 +198,8 @@ class SameTimeForMultiDate extends StatelessWidget {
       children: [
         CustomTimePickerDropdown(
           labelText: StringConstant.startTime,
+          dropDownReadOnly: (state.updateShift.id != null) ? true : false,
+          disableDropDownColor: AppColors.grey04,
           hourValue:
               (state.startHour.isValid()) ? state.startHour.getValue() : null,
           minuteValue: (state.startMinute.isValid())
@@ -188,6 +236,8 @@ class SameTimeForMultiDate extends StatelessWidget {
       children: [
         CustomTimePickerDropdown(
           labelText: StringConstant.endTime,
+          dropDownReadOnly: (state.updateShift.id != null) ? true : false,
+          disableDropDownColor: AppColors.grey04,
           hourValue:
               (state.endHour.isValid()) ? state.endHour.getValue() : null,
           minuteValue:
@@ -222,6 +272,8 @@ class SameTimeForMultiDate extends StatelessWidget {
       hintText: StringConstant.unpaidBreak,
       showTextfield: false,
       isLabelPadding: true,
+      dropDownIcon: (state.updateShift.id != null) ? Container() : null,
+      dropDownReadOnly: (state.updateShift.id != null) ? true : false,
       value:
           (state.unpaidBreak.isValid()) ? state.unpaidBreak.getValue() : null,
       items: state.breakList.map((val) {
@@ -334,6 +386,8 @@ class SameTimeForMultiDate extends StatelessWidget {
 
   Widget accommodationAllowanceDropDown(
       BuildContext context, PostShiftState state) {
+    print(
+        "state.accomdationHour.getValue()---> ${state.accomdationHour.getValue()}");
     return CustomDropdwonWithTextField(
       labelText: StringConstant.accommodationAllowance,
       hintText: StringConstant.accommodationAllowance,

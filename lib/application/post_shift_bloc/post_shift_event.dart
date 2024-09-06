@@ -56,7 +56,7 @@ class PostShiftEvent with _$PostShiftEvent {
 
   const factory PostShiftEvent.getTeamsListEvent(
       {required PostShiftDTO post,
-      required HealthcarePostDTO updateShift}) = GetTeamsList;
+      required HealthcarePostDTO? updateShift}) = GetTeamsList;
   const factory PostShiftEvent.recurringCheck(bool isCheck) = RecurringCheck;
   const factory PostShiftEvent.shareWithTeamsCheck(bool isCheck) =
       ShareWithTeamsCheck;
@@ -87,6 +87,10 @@ class PostShiftEvent with _$PostShiftEvent {
   const factory PostShiftEvent.multiDateSameDiffTypeChanged(int selectedType) =
       MultiDateSameDiffTypeChanged;
 
+  const factory PostShiftEvent.unpaidBreakListChanged(String breakTime, int index, String date) =
+      UnpaidBreakListChanged;
+  const factory PostShiftEvent.payableHourListChanged() =
+      PayableHourListChanged;
   const factory PostShiftEvent.startHourListChanged(
       String hour, int index, String date) = StartHourListChanged;
   const factory PostShiftEvent.startMinuteListChanged(
@@ -100,8 +104,10 @@ class PostShiftEvent with _$PostShiftEvent {
       DifferentTimeShiftSubmitted;
 
   const factory PostShiftEvent.initMultiDifferentDateEvent(
-      List<DateTimeDTO> list,
-      {required PostShiftDTO post}) = InitMultiDifferentDateEvent;
+    List<DateTimeDTO> list, {
+    required PostShiftDTO post,
+    required HealthcarePostDTO? updateShift,
+  }) = InitMultiDifferentDateEvent;
   const factory PostShiftEvent.backEvent() = BackEvent;
   const factory PostShiftEvent.sameTimeShiftSubmitted(BuildContext context) =
       SameTimeShiftSubmitted;

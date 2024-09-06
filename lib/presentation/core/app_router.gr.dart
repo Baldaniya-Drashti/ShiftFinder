@@ -15,15 +15,15 @@ import 'package:shift/application/auth/contractor_auth/location_example.dart'
 import 'package:shift/infrastructure/core/education_dto/education_dto.dart'
     as _i55;
 import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart'
-    as _i59;
-import 'package:shift/infrastructure/main/employer_team/get_teams_dto.dart'
-    as _i58;
-import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart'
     as _i60;
+import 'package:shift/infrastructure/main/employer_team/get_teams_dto.dart'
+    as _i59;
+import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart'
+    as _i57;
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart'
     as _i56;
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart'
-    as _i57;
+    as _i58;
 import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart'
     as _i61;
 import 'package:shift/presentation/auth/contractor_auth/add_bank_details.dart'
@@ -189,6 +189,7 @@ abstract class $AppRouter extends _i53.RootStackRouter {
         child: _i7.AddMultiDateTime(
           key: args.key,
           selectedObj: args.selectedObj,
+          updateShift: args.updateShift,
           post: args.post,
         ),
       );
@@ -791,13 +792,15 @@ class AddMultiDateTime extends _i53.PageRouteInfo<AddMultiDateTimeArgs> {
   AddMultiDateTime({
     _i54.Key? key,
     required _i56.MultiShiftDTO selectedObj,
-    required _i57.PostShiftDTO post,
+    _i57.HealthcarePostDTO? updateShift,
+    required _i58.PostShiftDTO post,
     List<_i53.PageRouteInfo>? children,
   }) : super(
           AddMultiDateTime.name,
           args: AddMultiDateTimeArgs(
             key: key,
             selectedObj: selectedObj,
+            updateShift: updateShift,
             post: post,
           ),
           initialChildren: children,
@@ -813,6 +816,7 @@ class AddMultiDateTimeArgs {
   const AddMultiDateTimeArgs({
     this.key,
     required this.selectedObj,
+    this.updateShift,
     required this.post,
   });
 
@@ -820,11 +824,13 @@ class AddMultiDateTimeArgs {
 
   final _i56.MultiShiftDTO selectedObj;
 
-  final _i57.PostShiftDTO post;
+  final _i57.HealthcarePostDTO? updateShift;
+
+  final _i58.PostShiftDTO post;
 
   @override
   String toString() {
-    return 'AddMultiDateTimeArgs{key: $key, selectedObj: $selectedObj, post: $post}';
+    return 'AddMultiDateTimeArgs{key: $key, selectedObj: $selectedObj, updateShift: $updateShift, post: $post}';
   }
 }
 
@@ -834,7 +840,7 @@ class AddNewMemberView extends _i53.PageRouteInfo<AddNewMemberViewArgs> {
   AddNewMemberView({
     _i54.Key? key,
     bool isUpdateMember = false,
-    required _i58.Members? getTeamsListDTO,
+    required _i59.Members? getTeamsListDTO,
     required String teamID,
     List<_i53.PageRouteInfo>? children,
   }) : super(
@@ -866,7 +872,7 @@ class AddNewMemberViewArgs {
 
   final bool isUpdateMember;
 
-  final _i58.Members? getTeamsListDTO;
+  final _i59.Members? getTeamsListDTO;
 
   final String teamID;
 
@@ -897,7 +903,7 @@ class AddReferenceDetailScreen
   AddReferenceDetailScreen({
     _i54.Key? key,
     bool isFromSplash = false,
-    _i59.ReferenceDTO? referenceObj,
+    _i60.ReferenceDTO? referenceObj,
     List<_i53.PageRouteInfo>? children,
   }) : super(
           AddReferenceDetailScreen.name,
@@ -926,7 +932,7 @@ class AddReferenceDetailScreenArgs {
 
   final bool isFromSplash;
 
-  final _i59.ReferenceDTO? referenceObj;
+  final _i60.ReferenceDTO? referenceObj;
 
   @override
   String toString() {
@@ -1169,8 +1175,8 @@ class HealthcarePostShift extends _i53.PageRouteInfo<HealthcarePostShiftArgs> {
   HealthcarePostShift({
     _i54.Key? key,
     required int postId,
-    _i60.HealthcarePostDTO? updateShift,
-    required _i57.PostShiftDTO post,
+    _i57.HealthcarePostDTO? updateShift,
+    required _i58.PostShiftDTO post,
     List<_i53.PageRouteInfo>? children,
   }) : super(
           HealthcarePostShift.name,
@@ -1201,9 +1207,9 @@ class HealthcarePostShiftArgs {
 
   final int postId;
 
-  final _i60.HealthcarePostDTO? updateShift;
+  final _i57.HealthcarePostDTO? updateShift;
 
-  final _i57.PostShiftDTO post;
+  final _i58.PostShiftDTO post;
 
   @override
   String toString() {
@@ -1492,7 +1498,7 @@ class OnBoarding3Args {
 class PayableDetail extends _i53.PageRouteInfo<PayableDetailArgs> {
   PayableDetail({
     _i54.Key? key,
-    required _i60.HealthcarePostDTO post,
+    required _i57.HealthcarePostDTO post,
     List<_i53.PageRouteInfo>? children,
   }) : super(
           PayableDetail.name,
@@ -1517,7 +1523,7 @@ class PayableDetailArgs {
 
   final _i54.Key? key;
 
-  final _i60.HealthcarePostDTO post;
+  final _i57.HealthcarePostDTO post;
 
   @override
   String toString() {
@@ -1545,8 +1551,8 @@ class PostShiftRecurring extends _i53.PageRouteInfo<PostShiftRecurringArgs> {
   PostShiftRecurring({
     _i54.Key? key,
     required int shiftType,
-    required _i60.HealthcarePostDTO updateShift,
-    required _i57.PostShiftDTO post,
+    required _i57.HealthcarePostDTO? updateShift,
+    required _i58.PostShiftDTO post,
     List<_i53.PageRouteInfo>? children,
   }) : super(
           PostShiftRecurring.name,
@@ -1577,9 +1583,9 @@ class PostShiftRecurringArgs {
 
   final int shiftType;
 
-  final _i60.HealthcarePostDTO updateShift;
+  final _i57.HealthcarePostDTO? updateShift;
 
-  final _i57.PostShiftDTO post;
+  final _i58.PostShiftDTO post;
 
   @override
   String toString() {
@@ -1764,7 +1770,7 @@ class ReviewPostShiftDetail
     extends _i53.PageRouteInfo<ReviewPostShiftDetailArgs> {
   ReviewPostShiftDetail({
     _i54.Key? key,
-    required _i60.HealthcarePostDTO post,
+    required _i57.HealthcarePostDTO post,
     List<_i53.PageRouteInfo>? children,
   }) : super(
           ReviewPostShiftDetail.name,
@@ -1789,7 +1795,7 @@ class ReviewPostShiftDetailArgs {
 
   final _i54.Key? key;
 
-  final _i60.HealthcarePostDTO post;
+  final _i57.HealthcarePostDTO post;
 
   @override
   String toString() {
@@ -1816,7 +1822,7 @@ class SplashPage extends _i53.PageRouteInfo<void> {
 class TeamDetailView extends _i53.PageRouteInfo<TeamDetailViewArgs> {
   TeamDetailView({
     _i54.Key? key,
-    required _i58.GetTeamsListDTO getTeamsListDTO,
+    required _i59.GetTeamsListDTO getTeamsListDTO,
     List<_i53.PageRouteInfo>? children,
   }) : super(
           TeamDetailView.name,
@@ -1841,7 +1847,7 @@ class TeamDetailViewArgs {
 
   final _i54.Key? key;
 
-  final _i58.GetTeamsListDTO getTeamsListDTO;
+  final _i59.GetTeamsListDTO getTeamsListDTO;
 
   @override
   String toString() {

@@ -39,12 +39,16 @@ mixin _$ShiftDetailDTO {
   int? get share_team_status => throw _privateConstructorUsedError;
   int? get save_template_status => throw _privateConstructorUsedError;
   String? get disclaimer => throw _privateConstructorUsedError;
-  List<SkillDTO>? get teams => throw _privateConstructorUsedError;
+  List<TeamDTO>? get teams => throw _privateConstructorUsedError;
   List<ShiftDateDetailDTO>? get detail => throw _privateConstructorUsedError;
   PayableDTO? get payables => throw _privateConstructorUsedError;
   int? get date => throw _privateConstructorUsedError;
   int? get start_time => throw _privateConstructorUsedError;
   int? get end_time => throw _privateConstructorUsedError;
+  int? get recurring_start_date => throw _privateConstructorUsedError;
+  int? get recurring_end_date => throw _privateConstructorUsedError;
+  String? get recurrence_mode => throw _privateConstructorUsedError;
+  String? get days => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -77,12 +81,16 @@ abstract class $ShiftDetailDTOCopyWith<$Res> {
       int? share_team_status,
       int? save_template_status,
       String? disclaimer,
-      List<SkillDTO>? teams,
+      List<TeamDTO>? teams,
       List<ShiftDateDetailDTO>? detail,
       PayableDTO? payables,
       int? date,
       int? start_time,
-      int? end_time});
+      int? end_time,
+      int? recurring_start_date,
+      int? recurring_end_date,
+      String? recurrence_mode,
+      String? days});
 
   $SkillDTOCopyWith<$Res>? get unpaid_break;
   $PayableDTOCopyWith<$Res>? get payables;
@@ -125,6 +133,10 @@ class _$ShiftDetailDTOCopyWithImpl<$Res, $Val extends ShiftDetailDTO>
     Object? date = freezed,
     Object? start_time = freezed,
     Object? end_time = freezed,
+    Object? recurring_start_date = freezed,
+    Object? recurring_end_date = freezed,
+    Object? recurrence_mode = freezed,
+    Object? days = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -203,7 +215,7 @@ class _$ShiftDetailDTOCopyWithImpl<$Res, $Val extends ShiftDetailDTO>
       teams: freezed == teams
           ? _value.teams
           : teams // ignore: cast_nullable_to_non_nullable
-              as List<SkillDTO>?,
+              as List<TeamDTO>?,
       detail: freezed == detail
           ? _value.detail
           : detail // ignore: cast_nullable_to_non_nullable
@@ -224,6 +236,22 @@ class _$ShiftDetailDTOCopyWithImpl<$Res, $Val extends ShiftDetailDTO>
           ? _value.end_time
           : end_time // ignore: cast_nullable_to_non_nullable
               as int?,
+      recurring_start_date: freezed == recurring_start_date
+          ? _value.recurring_start_date
+          : recurring_start_date // ignore: cast_nullable_to_non_nullable
+              as int?,
+      recurring_end_date: freezed == recurring_end_date
+          ? _value.recurring_end_date
+          : recurring_end_date // ignore: cast_nullable_to_non_nullable
+              as int?,
+      recurrence_mode: freezed == recurrence_mode
+          ? _value.recurrence_mode
+          : recurrence_mode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      days: freezed == days
+          ? _value.days
+          : days // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -279,12 +307,16 @@ abstract class _$$ShiftDetailDTOImplCopyWith<$Res>
       int? share_team_status,
       int? save_template_status,
       String? disclaimer,
-      List<SkillDTO>? teams,
+      List<TeamDTO>? teams,
       List<ShiftDateDetailDTO>? detail,
       PayableDTO? payables,
       int? date,
       int? start_time,
-      int? end_time});
+      int? end_time,
+      int? recurring_start_date,
+      int? recurring_end_date,
+      String? recurrence_mode,
+      String? days});
 
   @override
   $SkillDTOCopyWith<$Res>? get unpaid_break;
@@ -327,6 +359,10 @@ class __$$ShiftDetailDTOImplCopyWithImpl<$Res>
     Object? date = freezed,
     Object? start_time = freezed,
     Object? end_time = freezed,
+    Object? recurring_start_date = freezed,
+    Object? recurring_end_date = freezed,
+    Object? recurrence_mode = freezed,
+    Object? days = freezed,
   }) {
     return _then(_$ShiftDetailDTOImpl(
       id: freezed == id
@@ -405,7 +441,7 @@ class __$$ShiftDetailDTOImplCopyWithImpl<$Res>
       teams: freezed == teams
           ? _value._teams
           : teams // ignore: cast_nullable_to_non_nullable
-              as List<SkillDTO>?,
+              as List<TeamDTO>?,
       detail: freezed == detail
           ? _value._detail
           : detail // ignore: cast_nullable_to_non_nullable
@@ -426,6 +462,22 @@ class __$$ShiftDetailDTOImplCopyWithImpl<$Res>
           ? _value.end_time
           : end_time // ignore: cast_nullable_to_non_nullable
               as int?,
+      recurring_start_date: freezed == recurring_start_date
+          ? _value.recurring_start_date
+          : recurring_start_date // ignore: cast_nullable_to_non_nullable
+              as int?,
+      recurring_end_date: freezed == recurring_end_date
+          ? _value.recurring_end_date
+          : recurring_end_date // ignore: cast_nullable_to_non_nullable
+              as int?,
+      recurrence_mode: freezed == recurrence_mode
+          ? _value.recurrence_mode
+          : recurrence_mode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      days: freezed == days
+          ? _value.days
+          : days // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -452,12 +504,16 @@ class _$ShiftDetailDTOImpl implements _ShiftDetailDTO {
       this.share_team_status,
       this.save_template_status,
       this.disclaimer,
-      final List<SkillDTO>? teams,
+      final List<TeamDTO>? teams,
       final List<ShiftDateDetailDTO>? detail,
       this.payables,
       this.date,
       this.start_time,
-      this.end_time})
+      this.end_time,
+      this.recurring_start_date,
+      this.recurring_end_date,
+      this.recurrence_mode,
+      this.days})
       : _teams = teams,
         _detail = detail;
 
@@ -500,9 +556,9 @@ class _$ShiftDetailDTOImpl implements _ShiftDetailDTO {
   final int? save_template_status;
   @override
   final String? disclaimer;
-  final List<SkillDTO>? _teams;
+  final List<TeamDTO>? _teams;
   @override
-  List<SkillDTO>? get teams {
+  List<TeamDTO>? get teams {
     final value = _teams;
     if (value == null) return null;
     if (_teams is EqualUnmodifiableListView) return _teams;
@@ -528,10 +584,18 @@ class _$ShiftDetailDTOImpl implements _ShiftDetailDTO {
   final int? start_time;
   @override
   final int? end_time;
+  @override
+  final int? recurring_start_date;
+  @override
+  final int? recurring_end_date;
+  @override
+  final String? recurrence_mode;
+  @override
+  final String? days;
 
   @override
   String toString() {
-    return 'ShiftDetailDTO(id: $id, shift_type: $shift_type, same_or_different_time: $same_or_different_time, unpaid_break: $unpaid_break, total_payable_hour: $total_payable_hour, commute_allowance_type: $commute_allowance_type, commute_allowance_type_details: $commute_allowance_type_details, accommodation_allowance_type: $accommodation_allowance_type, accommodation_allowance_type_details: $accommodation_allowance_type_details, individual_shift: $individual_shift, shift_note: $shift_note, vacancie_type: $vacancie_type, number_of_vacancie: $number_of_vacancie, pending_vacancie: $pending_vacancie, recurring_status: $recurring_status, share_team_status: $share_team_status, save_template_status: $save_template_status, disclaimer: $disclaimer, teams: $teams, detail: $detail, payables: $payables, date: $date, start_time: $start_time, end_time: $end_time)';
+    return 'ShiftDetailDTO(id: $id, shift_type: $shift_type, same_or_different_time: $same_or_different_time, unpaid_break: $unpaid_break, total_payable_hour: $total_payable_hour, commute_allowance_type: $commute_allowance_type, commute_allowance_type_details: $commute_allowance_type_details, accommodation_allowance_type: $accommodation_allowance_type, accommodation_allowance_type_details: $accommodation_allowance_type_details, individual_shift: $individual_shift, shift_note: $shift_note, vacancie_type: $vacancie_type, number_of_vacancie: $number_of_vacancie, pending_vacancie: $pending_vacancie, recurring_status: $recurring_status, share_team_status: $share_team_status, save_template_status: $save_template_status, disclaimer: $disclaimer, teams: $teams, detail: $detail, payables: $payables, date: $date, start_time: $start_time, end_time: $end_time, recurring_start_date: $recurring_start_date, recurring_end_date: $recurring_end_date, recurrence_mode: $recurrence_mode, days: $days)';
   }
 
   @override
@@ -550,15 +614,13 @@ class _$ShiftDetailDTOImpl implements _ShiftDetailDTO {
                 other.total_payable_hour == total_payable_hour) &&
             (identical(other.commute_allowance_type, commute_allowance_type) ||
                 other.commute_allowance_type == commute_allowance_type) &&
-            (identical(other.commute_allowance_type_details,
-                    commute_allowance_type_details) ||
+            (identical(other.commute_allowance_type_details, commute_allowance_type_details) ||
                 other.commute_allowance_type_details ==
                     commute_allowance_type_details) &&
             (identical(other.accommodation_allowance_type, accommodation_allowance_type) ||
                 other.accommodation_allowance_type ==
                     accommodation_allowance_type) &&
-            (identical(other.accommodation_allowance_type_details,
-                    accommodation_allowance_type_details) ||
+            (identical(other.accommodation_allowance_type_details, accommodation_allowance_type_details) ||
                 other.accommodation_allowance_type_details ==
                     accommodation_allowance_type_details) &&
             (identical(other.individual_shift, individual_shift) ||
@@ -586,7 +648,15 @@ class _$ShiftDetailDTOImpl implements _ShiftDetailDTO {
             (identical(other.date, date) || other.date == date) &&
             (identical(other.start_time, start_time) ||
                 other.start_time == start_time) &&
-            (identical(other.end_time, end_time) || other.end_time == end_time));
+            (identical(other.end_time, end_time) ||
+                other.end_time == end_time) &&
+            (identical(other.recurring_start_date, recurring_start_date) ||
+                other.recurring_start_date == recurring_start_date) &&
+            (identical(other.recurring_end_date, recurring_end_date) ||
+                other.recurring_end_date == recurring_end_date) &&
+            (identical(other.recurrence_mode, recurrence_mode) ||
+                other.recurrence_mode == recurrence_mode) &&
+            (identical(other.days, days) || other.days == days));
   }
 
   @JsonKey(ignore: true)
@@ -616,7 +686,11 @@ class _$ShiftDetailDTOImpl implements _ShiftDetailDTO {
         payables,
         date,
         start_time,
-        end_time
+        end_time,
+        recurring_start_date,
+        recurring_end_date,
+        recurrence_mode,
+        days
       ]);
 
   @JsonKey(ignore: true)
@@ -654,12 +728,16 @@ abstract class _ShiftDetailDTO implements ShiftDetailDTO {
       final int? share_team_status,
       final int? save_template_status,
       final String? disclaimer,
-      final List<SkillDTO>? teams,
+      final List<TeamDTO>? teams,
       final List<ShiftDateDetailDTO>? detail,
       final PayableDTO? payables,
       final int? date,
       final int? start_time,
-      final int? end_time}) = _$ShiftDetailDTOImpl;
+      final int? end_time,
+      final int? recurring_start_date,
+      final int? recurring_end_date,
+      final String? recurrence_mode,
+      final String? days}) = _$ShiftDetailDTOImpl;
 
   factory _ShiftDetailDTO.fromJson(Map<String, dynamic> json) =
       _$ShiftDetailDTOImpl.fromJson;
@@ -701,7 +779,7 @@ abstract class _ShiftDetailDTO implements ShiftDetailDTO {
   @override
   String? get disclaimer;
   @override
-  List<SkillDTO>? get teams;
+  List<TeamDTO>? get teams;
   @override
   List<ShiftDateDetailDTO>? get detail;
   @override
@@ -712,6 +790,14 @@ abstract class _ShiftDetailDTO implements ShiftDetailDTO {
   int? get start_time;
   @override
   int? get end_time;
+  @override
+  int? get recurring_start_date;
+  @override
+  int? get recurring_end_date;
+  @override
+  String? get recurrence_mode;
+  @override
+  String? get days;
   @override
   @JsonKey(ignore: true)
   _$$ShiftDetailDTOImplCopyWith<_$ShiftDetailDTOImpl> get copyWith =>

@@ -114,7 +114,8 @@ class LegalScreeningQuestionsPage extends StatelessWidget {
                               );
                             },
                           ),
-                          if (state.showErrorMessages && !state.isAllAnswered)
+                          if (state.showErrorMessages &&
+                              !LegalScreeningBloc.allAnswered(state))
                             Align(
                               alignment: Alignment.centerLeft,
                               child: BaseText(

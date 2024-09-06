@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/payable_dto.dart/payable_dto.dart';
 import 'package:shift/infrastructure/main/shift_date_detail_dto/shift_date_detail_dto.dart';
+import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
 part 'shift_detail_dto.freezed.dart';
 part 'shift_detail_dto.g.dart';
 
@@ -28,12 +29,16 @@ class ShiftDetailDTO with _$ShiftDetailDTO {
     int? share_team_status,
     int? save_template_status,
     String? disclaimer,
-    List<SkillDTO>? teams,
+    List<TeamDTO>? teams,
     List<ShiftDateDetailDTO>? detail,
     PayableDTO? payables,
     int? date,
     int? start_time,
     int? end_time,
+    int? recurring_start_date,
+    int? recurring_end_date,
+    String? recurrence_mode,
+    String? days,
   }) = _ShiftDetailDTO;
 
   factory ShiftDetailDTO.fromJson(Map<String, dynamic> json) =>

@@ -47,8 +47,9 @@ class MultiPostShift extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      paddingBetweenFields(),
-                      sameOrDifferentRadio(context, state),
+                      Visibility(
+                          // visible: state.updateShift.id == null,
+                          child: sameOrDifferentRadio(context, state)),
                       paddingBetweenFields(),
                       (state.selectedMultiShiftType == 1)
                           ? SameTimeForMultiDate()
@@ -74,6 +75,7 @@ class MultiPostShift extends StatelessWidget {
     return Container(
       padding:
           EdgeInsets.symmetric(horizontal: getSize(20), vertical: getSize(10)),
+      margin: EdgeInsets.only(top: getSize(15)),
       decoration: BoxDecoration(
           color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: Column(

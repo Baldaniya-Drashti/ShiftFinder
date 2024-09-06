@@ -21,6 +21,8 @@ class CustomTimePickerDropdown extends StatelessWidget {
   final dynamic Function(String?)? hourOnChanged;
   final List<DropdownMenuItem<String>>? hourItems;
   final List<DropdownMenuItem<String>>? minItems;
+  final bool dropDownReadOnly;
+  final Color? disableDropDownColor;
   const CustomTimePickerDropdown({
     super.key,
     required this.labelText,
@@ -33,6 +35,8 @@ class CustomTimePickerDropdown extends StatelessWidget {
     required this.hourOnChanged,
     required this.minOnChanged,
     this.isLabelPadding = true,
+    this.dropDownReadOnly = false,
+    this.disableDropDownColor,
   });
 
   @override
@@ -48,6 +52,8 @@ class CustomTimePickerDropdown extends StatelessWidget {
             value: hourValue,
             showTextfield: false,
             showPrefixIcon: true,
+            dropDownReadOnly: dropDownReadOnly,
+            disableDropDownColor: disableDropDownColor ?? AppColors.grey,
             ddPrefixIcon: SvgPicture.asset(
               SvgImageConstant.clock,
               height: getSize(24),
@@ -77,6 +83,8 @@ class CustomTimePickerDropdown extends StatelessWidget {
             value: minuteValue,
             showTextfield: false,
             showPrefixIcon: true,
+            dropDownReadOnly: dropDownReadOnly,
+            disableDropDownColor: disableDropDownColor ?? AppColors.grey,
             ddPrefixIcon: SvgPicture.asset(
               SvgImageConstant.clock,
               height: getSize(24),

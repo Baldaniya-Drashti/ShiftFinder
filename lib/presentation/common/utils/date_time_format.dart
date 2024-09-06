@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:intl/intl.dart';
+import 'package:shift/domain/auth/auth_value_objects.dart';
 
 class CustomDateTimeFormat {
   static String formatDuration(Duration duration) {
@@ -71,5 +72,26 @@ class CustomDateTimeFormat {
     print("Formatted Minute: $formattedMinute");
 
     return "$formattedMinute Min";
+  }
+
+  static getShiftTime(InputEmptyOrNot startHour, InputEmptyOrNot startMin,
+      InputEmptyOrNot endHour, InputEmptyOrNot endMin) {
+    if (startHour.isValid() &&
+        startMin.isValid() &&
+        endHour.isValid() &&
+        endMin.isValid()) {
+      DateTime formattedStartTime = CustomDateTimeFormat.parseTime(
+          startHour.getValue() ?? "", startMin.getValue() ?? "");
+      DateTime formattedEndTime = CustomDateTimeFormat.parseTime(
+          endHour.getValue() ?? "", endMin.getValue() ?? "");
+
+      final format = DateFormat('hh:mm a');
+      final startTime = format.format(formattedStartTime);
+      final endTime = format.format(formattedEndTime);
+
+      return "$startTime to $endTime";
+    } else {
+      return "";
+    }
   }
 }

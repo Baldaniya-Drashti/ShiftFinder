@@ -15,6 +15,15 @@ _$ShiftDateDetailDTOImpl _$$ShiftDateDetailDTOImplFromJson(
       date: (json['date'] as num?)?.toInt(),
       end_time: (json['end_time'] as num?)?.toInt(),
       days: json['days'] as String?,
+      objId: (json['objId'] as num?)?.toInt(),
+      startHour: json['startHour'] as String?,
+      startMinute: json['startMinute'] as String?,
+      endHour: json['endHour'] as String?,
+      endMinute: json['endMinute'] as String?,
+      totalPaybleHours: json['totalPaybleHours'] as String?,
+      unpaid_break: json['unpaid_break'] == null
+          ? null
+          : SkillDTO.fromJson(json['unpaid_break'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$ShiftDateDetailDTOImplToJson(
@@ -26,4 +35,11 @@ Map<String, dynamic> _$$ShiftDateDetailDTOImplToJson(
       'date': instance.date,
       'end_time': instance.end_time,
       'days': instance.days,
+      'objId': instance.objId,
+      'startHour': instance.startHour,
+      'startMinute': instance.startMinute,
+      'endHour': instance.endHour,
+      'endMinute': instance.endMinute,
+      'totalPaybleHours': instance.totalPaybleHours,
+      'unpaid_break': instance.unpaid_break,
     };
