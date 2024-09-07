@@ -473,7 +473,7 @@ class MainFacade implements IMainFacade {
       print("Sending Data->  ${jsonEncode(mapData)}");
       final res = await apiService.postMethod(ApiConstants.updatePost, mapData);
       final data = HealthcarePostDTO.fromJson(res.data);
-      print("Healthercare Post Response->  ${data}");
+      print("Healthercare Update Post Response->  ${data}");
       return right(data);
     } on DioException catch (err) {
       if (err.response != null) {

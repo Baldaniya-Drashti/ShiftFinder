@@ -21,7 +21,8 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'payableDetail')
 class PayableDetail extends StatelessWidget {
   HealthcarePostDTO post;
-  PayableDetail({super.key, required this.post});
+  bool isUpdate;
+  PayableDetail({super.key, required this.post, this.isUpdate = false});
 
   @override
   Widget build(BuildContext context) {
@@ -94,22 +95,25 @@ class PayableDetail extends StatelessWidget {
                                   onPressed: () {
                                     AppDialog.showDelete(
                                       context,
-                                      title: StringConstant.postTheShift,
+                                      title: (isUpdate)
+                                          ? StringConstant.updateTheShift
+                                          : StringConstant.postTheShift,
                                       infoMessage: StringConstant.postShiftDesc,
-                                      deleteBtnText: StringConstant.post,
+                                      deleteBtnText: isUpdate
+                                          ? StringConstant.update
+                                          : StringConstant.post,
                                       onCancelClick: () {
                                         Navigator.pop(context);
                                       },
                                       onDeleteClick: () {
                                         Navigator.pop(context);
-
                                         context.read<PostShiftBloc>().add(
                                             PostShiftEvent.postTheShiftEvent(
                                                 post.id ?? -1));
                                       },
                                     );
                                   },
-                                  buttonText: StringConstant.postTheShift,
+                                  buttonText: isUpdate ? StringConstant.updateTheShift: StringConstant.postTheShift,
                                 ),
                               ),
                             ],

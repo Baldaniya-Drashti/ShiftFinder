@@ -405,6 +405,7 @@ abstract class $AppRouter extends _i53.RootStackRouter {
         child: _i32.PayableDetail(
           key: args.key,
           post: args.post,
+          isUpdate: args.isUpdate,
         ),
       );
     },
@@ -488,6 +489,7 @@ abstract class $AppRouter extends _i53.RootStackRouter {
         child: _i42.ReviewPostShiftDetail(
           key: args.key,
           post: args.post,
+          isUpdate: args.isUpdate,
         ),
       );
     },
@@ -1499,12 +1501,14 @@ class PayableDetail extends _i53.PageRouteInfo<PayableDetailArgs> {
   PayableDetail({
     _i54.Key? key,
     required _i57.HealthcarePostDTO post,
+    bool isUpdate = false,
     List<_i53.PageRouteInfo>? children,
   }) : super(
           PayableDetail.name,
           args: PayableDetailArgs(
             key: key,
             post: post,
+            isUpdate: isUpdate,
           ),
           initialChildren: children,
         );
@@ -1519,15 +1523,18 @@ class PayableDetailArgs {
   const PayableDetailArgs({
     this.key,
     required this.post,
+    this.isUpdate = false,
   });
 
   final _i54.Key? key;
 
   final _i57.HealthcarePostDTO post;
 
+  final bool isUpdate;
+
   @override
   String toString() {
-    return 'PayableDetailArgs{key: $key, post: $post}';
+    return 'PayableDetailArgs{key: $key, post: $post, isUpdate: $isUpdate}';
   }
 }
 
@@ -1771,12 +1778,14 @@ class ReviewPostShiftDetail
   ReviewPostShiftDetail({
     _i54.Key? key,
     required _i57.HealthcarePostDTO post,
+    bool isUpdate = false,
     List<_i53.PageRouteInfo>? children,
   }) : super(
           ReviewPostShiftDetail.name,
           args: ReviewPostShiftDetailArgs(
             key: key,
             post: post,
+            isUpdate: isUpdate,
           ),
           initialChildren: children,
         );
@@ -1791,15 +1800,18 @@ class ReviewPostShiftDetailArgs {
   const ReviewPostShiftDetailArgs({
     this.key,
     required this.post,
+    this.isUpdate = false,
   });
 
   final _i54.Key? key;
 
   final _i57.HealthcarePostDTO post;
 
+  final bool isUpdate;
+
   @override
   String toString() {
-    return 'ReviewPostShiftDetailArgs{key: $key, post: $post}';
+    return 'ReviewPostShiftDetailArgs{key: $key, post: $post, isUpdate: $isUpdate}';
   }
 }
 

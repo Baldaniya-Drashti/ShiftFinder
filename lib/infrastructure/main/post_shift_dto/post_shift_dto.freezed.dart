@@ -20,6 +20,7 @@ PostShiftDTO _$PostShiftDTOFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PostShiftDTO {
+  int? get id => throw _privateConstructorUsedError;
   String? get roles_list_id => throw _privateConstructorUsedError;
   String? get specialties_detail_id => throw _privateConstructorUsedError;
   String? get specialties_detail_other => throw _privateConstructorUsedError;
@@ -75,7 +76,8 @@ abstract class $PostShiftDTOCopyWith<$Res> {
       _$PostShiftDTOCopyWithImpl<$Res, PostShiftDTO>;
   @useResult
   $Res call(
-      {String? roles_list_id,
+      {int? id,
+      String? roles_list_id,
       String? specialties_detail_id,
       String? specialties_detail_other,
       String? softwares_skill_list_id,
@@ -127,6 +129,7 @@ class _$PostShiftDTOCopyWithImpl<$Res, $Val extends PostShiftDTO>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? roles_list_id = freezed,
     Object? specialties_detail_id = freezed,
     Object? specialties_detail_other = freezed,
@@ -166,6 +169,10 @@ class _$PostShiftDTOCopyWithImpl<$Res, $Val extends PostShiftDTO>
     Object? recurring_end_date = freezed,
   }) {
     return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
       roles_list_id: freezed == roles_list_id
           ? _value.roles_list_id
           : roles_list_id // ignore: cast_nullable_to_non_nullable
@@ -327,7 +334,8 @@ abstract class _$$PostShiftDTOImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? roles_list_id,
+      {int? id,
+      String? roles_list_id,
       String? specialties_detail_id,
       String? specialties_detail_other,
       String? softwares_skill_list_id,
@@ -377,6 +385,7 @@ class __$$PostShiftDTOImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? roles_list_id = freezed,
     Object? specialties_detail_id = freezed,
     Object? specialties_detail_other = freezed,
@@ -416,6 +425,10 @@ class __$$PostShiftDTOImplCopyWithImpl<$Res>
     Object? recurring_end_date = freezed,
   }) {
     return _then(_$PostShiftDTOImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
       roles_list_id: freezed == roles_list_id
           ? _value.roles_list_id
           : roles_list_id // ignore: cast_nullable_to_non_nullable
@@ -572,7 +585,8 @@ class __$$PostShiftDTOImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$PostShiftDTOImpl implements _PostShiftDTO {
   const _$PostShiftDTOImpl(
-      {this.roles_list_id,
+      {this.id,
+      this.roles_list_id,
       this.specialties_detail_id,
       this.specialties_detail_other,
       this.softwares_skill_list_id,
@@ -613,6 +627,8 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
   factory _$PostShiftDTOImpl.fromJson(Map<String, dynamic> json) =>
       _$$PostShiftDTOImplFromJson(json);
 
+  @override
+  final int? id;
   @override
   final String? roles_list_id;
   @override
@@ -694,7 +710,7 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
 
   @override
   String toString() {
-    return 'PostShiftDTO(roles_list_id: $roles_list_id, specialties_detail_id: $specialties_detail_id, specialties_detail_other: $specialties_detail_other, softwares_skill_list_id: $softwares_skill_list_id, software_skill_other: $software_skill_other, languages_list_id: $languages_list_id, language_other: $language_other, location_id: $location_id, location_unit: $location_unit, rate_hour: $rate_hour, recurring_status: $recurring_status, start_date: $start_date, recurrence_mode: $recurrence_mode, days: $days, end_date: $end_date, disclaimer: $disclaimer, share_team_status: $share_team_status, team_id: $team_id, save_template_status: $save_template_status, shift_type: $shift_type, date: $date, same_or_different_time: $same_or_different_time, multi_date: $multi_date, start_time: $start_time, end_time: $end_time, unpaid_break_id: $unpaid_break_id, total_payable_hour: $total_payable_hour, commute_allowance_type: $commute_allowance_type, commute_allowance: $commute_allowance, accommodation_allowance_type: $accommodation_allowance_type, accommodation_allowance: $accommodation_allowance, individual_shift: $individual_shift, shift_note: $shift_note, vacancie_type: $vacancie_type, number_of_vacancie: $number_of_vacancie, recurring_start_date: $recurring_start_date, recurring_end_date: $recurring_end_date)';
+    return 'PostShiftDTO(id: $id, roles_list_id: $roles_list_id, specialties_detail_id: $specialties_detail_id, specialties_detail_other: $specialties_detail_other, softwares_skill_list_id: $softwares_skill_list_id, software_skill_other: $software_skill_other, languages_list_id: $languages_list_id, language_other: $language_other, location_id: $location_id, location_unit: $location_unit, rate_hour: $rate_hour, recurring_status: $recurring_status, start_date: $start_date, recurrence_mode: $recurrence_mode, days: $days, end_date: $end_date, disclaimer: $disclaimer, share_team_status: $share_team_status, team_id: $team_id, save_template_status: $save_template_status, shift_type: $shift_type, date: $date, same_or_different_time: $same_or_different_time, multi_date: $multi_date, start_time: $start_time, end_time: $end_time, unpaid_break_id: $unpaid_break_id, total_payable_hour: $total_payable_hour, commute_allowance_type: $commute_allowance_type, commute_allowance: $commute_allowance, accommodation_allowance_type: $accommodation_allowance_type, accommodation_allowance: $accommodation_allowance, individual_shift: $individual_shift, shift_note: $shift_note, vacancie_type: $vacancie_type, number_of_vacancie: $number_of_vacancie, recurring_start_date: $recurring_start_date, recurring_end_date: $recurring_end_date)';
   }
 
   @override
@@ -702,6 +718,7 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PostShiftDTOImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.roles_list_id, roles_list_id) ||
                 other.roles_list_id == roles_list_id) &&
             (identical(other.specialties_detail_id, specialties_detail_id) ||
@@ -770,6 +787,7 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
+        id,
         roles_list_id,
         specialties_detail_id,
         specialties_detail_other,
@@ -825,7 +843,8 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
 
 abstract class _PostShiftDTO implements PostShiftDTO {
   const factory _PostShiftDTO(
-      {final String? roles_list_id,
+      {final int? id,
+      final String? roles_list_id,
       final String? specialties_detail_id,
       final String? specialties_detail_other,
       final String? softwares_skill_list_id,
@@ -866,6 +885,8 @@ abstract class _PostShiftDTO implements PostShiftDTO {
   factory _PostShiftDTO.fromJson(Map<String, dynamic> json) =
       _$PostShiftDTOImpl.fromJson;
 
+  @override
+  int? get id;
   @override
   String? get roles_list_id;
   @override

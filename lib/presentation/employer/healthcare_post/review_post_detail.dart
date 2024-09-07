@@ -23,7 +23,8 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'reviewPostShiftDetail')
 class ReviewPostShiftDetail extends StatelessWidget {
   HealthcarePostDTO post;
-  ReviewPostShiftDetail({super.key, required this.post});
+  bool isUpdate;
+  ReviewPostShiftDetail({super.key, required this.post, this.isUpdate = false});
 
   @override
   Widget build(BuildContext context) {
@@ -146,6 +147,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
                         context.router.push(PageRouteInfo(PayableDetail.name,
                             args: PayableDetailArgs(
                               post: post,
+                              isUpdate: isUpdate,
                             )));
                       },
                       buttonText: StringConstant.txtContinue,

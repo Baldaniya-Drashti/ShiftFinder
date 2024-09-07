@@ -325,6 +325,7 @@ class StringConstant {
   static const String totalPayableForOneShift = "Total payable for one shift";
   static const String totalAmountPayable = "Total Amount Payable";
   static const String postTheShift = "Post The Shift";
+  static const String updateTheShift = "Update The Shift";
   static const String postShiftDesc =
       "Once posted, the shift date and time cannot be changed";
   static const String post = "Post";

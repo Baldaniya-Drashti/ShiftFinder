@@ -68,7 +68,12 @@ class PostShiftRecurring extends StatelessWidget {
                 },
                 (r) {
                   context.router.push(PageRouteInfo(ReviewPostShiftDetail.name,
-                      args: ReviewPostShiftDetailArgs(post: r)));
+                      args: ReviewPostShiftDetailArgs(
+                          post: r,
+                          isUpdate: (state.updateShift.id != null &&
+                                  state.updateShift.id != -1)
+                              ? true
+                              : false)));
                 },
               ),
             );

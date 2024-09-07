@@ -461,7 +461,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           await getTeamsListApi(emit);
           if (e.updateShift != null) {
             setShiftDataToUpdate(emit, e.updateShift!);
-            await Future.delayed(Duration(seconds: 5));
+            await Future.delayed(Duration(seconds: 2));
           }
 
           emit(
@@ -496,9 +496,11 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                 saveTemplateStatus: (state.isSaveAsTemplate) ? 1 : 0);*/
 
             final postObj = state.post.copyWith(
+              id: (state.updateShift.id != null && state.updateShift.id != -1)
+                  ? state.updateShift.id
+                  : null,
               // post_shift_id: e.postShiftId,
               recurring_status: (state.isToBeRecurring) ? "1" : "0",
-
               recurring_start_date:
                   (state.recurringStartDate.getValue() != null &&
                           state.recurringStartDate.getValue()!.isNotEmpty)
@@ -526,9 +528,15 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                   getSelectedRecurringDayIds(state.selectedTeamList.getValue()),
               save_template_status: (state.isSaveAsTemplate) ? "1" : "0",
             );
-            failureOrSuccess = await _mainFacade.createPostApi(
-              postShiftDetail: postObj,
-            );
+            if (state.updateShift.id != null && state.updateShift.id != -1) {
+              failureOrSuccess = await _mainFacade.updatePostApi(
+                postShiftDetail: postObj,
+              );
+            } else {
+              failureOrSuccess = await _mainFacade.createPostApi(
+                postShiftDetail: postObj,
+              );
+            }
             print("All details are valid!--->  ${jsonEncode(postObj)}");
           } else {
             print("Some details are invalid!");
@@ -556,7 +564,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           await getUnpaidBreakListApi(emit);
           if (e.updateShift != null) {
             setShiftDataToUpdate(emit, e.updateShift!);
-            await Future.delayed(Duration(seconds: 5));
+            await Future.delayed(Duration(seconds: 2));
           }
           // SkillDTO? selectedSkillDTO = shiftTypeList.firstWhere(
           //   (skill) => skill.name == e.shiftType,
@@ -915,7 +923,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           selectedTeamList: setTeamList(r.teams ?? []),
           recurrenceMode:
               InputEmptyOrNot((r.recurrence_mode == "2") ? "Weekly" : "Daily"),
-          // recurrenceWeekList: setWeekList(r.days.split(',')),
+          recurrenceWeekList: setWeekList(r.days ?? ""),
 
           recurringStartDate: InputEmptyOrNot((r.recurring_start_date != null)
               ? DateTime.fromMillisecondsSinceEpoch(
@@ -945,19 +953,14 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
     return ListInputEmptyOrNot(list);
   }
 
-  // ListInputEmptyOrNot<SkillDTO> setWeekList(String day) {
-
-  //   List<TeamDTO> list = state.selectedTeamList.getValue();
-  //   for (TeamDTO team in teamList) {
-  //     bool isAlreadyInList = list.any((item) => item.id == team.id);
-  //     if (isAlreadyInList) {
-  //       list = list.where((item) => item.id != team.id).toList();
-  //     } else {
-  //       list = List.from(list)..add(team);
-  //     }
-  //   }
-  //   return ListInputEmptyOrNot(list);
-  // }
+  ListInputEmptyOrNot<SkillDTO> setWeekList(String day) {
+    List<int> dayIndexes = day.split(',').map((e) => int.parse(e)).toList();
+    List<SkillDTO> recurrenceWeekList = CommonList.weekList
+        .where((day) => dayIndexes.contains(day.id))
+        .toList();
+    print("Get List of week --> ${jsonEncode(recurrenceWeekList)}");
+    return ListInputEmptyOrNot(recurrenceWeekList);
+  }
 
   PostShiftDTO continueWithPostDetail(
       PostShiftState state, MultiShiftDTO shift) {

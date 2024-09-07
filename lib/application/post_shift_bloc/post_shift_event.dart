@@ -87,8 +87,8 @@ class PostShiftEvent with _$PostShiftEvent {
   const factory PostShiftEvent.multiDateSameDiffTypeChanged(int selectedType) =
       MultiDateSameDiffTypeChanged;
 
-  const factory PostShiftEvent.unpaidBreakListChanged(String breakTime, int index, String date) =
-      UnpaidBreakListChanged;
+  const factory PostShiftEvent.unpaidBreakListChanged(
+      String breakTime, int index, String date) = UnpaidBreakListChanged;
   const factory PostShiftEvent.payableHourListChanged() =
       PayableHourListChanged;
   const factory PostShiftEvent.startHourListChanged(
@@ -114,5 +114,5 @@ class PostShiftEvent with _$PostShiftEvent {
 
   /// Post the Shift
   const factory PostShiftEvent.postTheShiftEvent(int postId) =
-      postTheShiftEvent;
+      PostTheShiftEvent;
 }
