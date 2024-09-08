@@ -42,6 +42,19 @@ class OTPText extends ValueObject<String> {
   const OTPText._(this.value);
 }
 
+class Rate extends ValueObject<String> {
+  @override
+  final Either<ValueFailure<String>, String> value;
+
+  factory Rate(String input) {
+    return Rate._(
+      validateRate(input),
+    );
+  }
+
+  const Rate._(this.value);
+}
+
 class Username extends ValueObject<String> {
   @override
   final Either<ValueFailure<String>, String> value;

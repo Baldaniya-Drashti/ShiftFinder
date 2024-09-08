@@ -1120,7 +1120,7 @@ class HealthCarePostForm extends StatelessWidget {
             text: '\$ ',
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            textColor: AppColors.black.withOpacity(0.7),
+            textColor: AppColors.black.withOpacity(0.5),
           )),
       prefixIconConstraints:
           BoxConstraints(maxWidth: getSize(100), minHeight: 0),
@@ -1129,14 +1129,19 @@ class HealthCarePostForm extends StatelessWidget {
             .read<HealthcarePostBloc>()
             .add(HealthcarePostEvent.rateHourChanged(value));
       },
-      validator: (p0, p1) =>
-          context.read<HealthcarePostBloc>().state.rateHour.value.fold(
-                (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseEnterRateHour,
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
+      validator: (p0, p1) => context
+          .read<HealthcarePostBloc>()
+          .state
+          .rateHour
+          .value
+          .fold(
+            (f) => f.maybeMap(
+              empty: (value) => StringConstant.pleaseEnterRateHour,
+              invalidRate: (value) => StringConstant.pleaseEnterValidRateHour,
+              orElse: () => null,
+            ),
+            (_) => null,
+          ),
     );
   }
 

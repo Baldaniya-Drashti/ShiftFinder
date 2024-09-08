@@ -434,6 +434,8 @@ class StringConstant {
   static const String pleaseSelectLanguageRequirement =
       "Please select language requirement";
   static const String pleaseEnterRateHour = "Please enter rate/hour";
+  static const String pleaseEnterValidRateHour = "The rate should not be 0";
+
   static const String pleaseEnterLocation = "Please enter location";
   static const String pleaseAddContactPerson = "Please add contact person";
   static const String pleaseAddProfessionOfTheReferrer =

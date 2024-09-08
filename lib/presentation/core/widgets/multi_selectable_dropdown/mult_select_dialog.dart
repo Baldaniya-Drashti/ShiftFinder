@@ -253,10 +253,14 @@ class _MultiSelectDialogState<T> extends State<MultiSelectDialog<T>> {
   List<T> addOtherValue() {
     String newSkill = otherController.text.trim();
     if (newSkill.isNotEmpty &&
-        !_selectedOtherList.any((item) {
+        !(_selectedOtherList.any((item) {
           item as String;
           return item == newSkill;
-        })) {
+        })) &&
+        !(_selectedValues.any((item) {
+          item as String;
+          return item.toLowerCase() == newSkill.toLowerCase();
+        }))) {
       _selectedOtherList.addAll([newSkill as T]);
     }
     return _selectedOtherList;

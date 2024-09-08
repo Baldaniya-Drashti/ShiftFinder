@@ -523,7 +523,7 @@ class HealthcarePostBloc
         rateHourChanged: (e) {
           emit(
             state.copyWith(
-              rateHour: InputEmptyOrNot(e.rateHour),
+              rateHour: Rate(e.rateHour),
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -735,8 +735,7 @@ class HealthcarePostBloc
             locationObj: r.location ?? LocationDTO(),
             unitList: (r.location != null) ? r.location?.add_units ?? [] : [],
             selectedLocationUnit: r.location_unit ?? "",
-            rateHour: InputEmptyOrNot(
-                (r.rate_hour != null) ? "${r.rate_hour ?? ""}" : ""),
+            rateHour: Rate((r.rate_hour != null) ? "${r.rate_hour ?? ""}" : ""),
           ),
         );
       },

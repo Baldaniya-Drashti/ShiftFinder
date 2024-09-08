@@ -59,81 +59,78 @@ class HealthcarePostShift extends StatelessWidget {
                             : StringConstant.differentTimeForEachDate
                     : StringConstant.healthcare,
               ),
-              body: (state.isLoading)
-                  ? CenterLoadingIndicator()
-                  : LayoutBuilder(builder: (context, constraint) {
-                      return SingleChildScrollView(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: getSize(20),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Visibility(
-                                visible: state.updateShift.id == null,
-                                child: CustomDropdwonWithTextField(
-                                  hintText: "",
-                                  isLabelPadding: true,
-                                  showTextfield: false,
-                                  labelText: StringConstant.shiftType,
-                                  value: PostShiftBloc.shiftTypeList
-                                      .firstWhere(
-                                        (shift) => shift.id == state.shiftType,
-                                        orElse: () =>
-                                            SkillDTO(id: 1, name: "Single"),
-                                      )
-                                      .name,
-                                  items: PostShiftBloc.shiftTypeList.map((val) {
-                                    return DropdownMenuItem<String>(
-                                      value: val.name,
-                                      child: BaseText(
-                                        text: val.name ?? "",
-                                        fontSize: 14,
-                                        textColor: AppColors.black,
-                                      ),
-                                    );
-                                  }).toList(),
-                                  onChanged: (value) {
-                                    if (value != null) {
-                                      context.read<PostShiftBloc>().add(
-                                          PostShiftEvent.changeShiftType(value,
-                                              postId: postId,
-                                              post: null,
-                                              updateShift: null));
-                                    }
-                                  },
+              body: LayoutBuilder(builder: (context, constraint) {
+                return SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: getSize(20),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Visibility(
+                          visible: state.updateShift.id == null,
+                          child: CustomDropdwonWithTextField(
+                            hintText: "",
+                            isLabelPadding: true,
+                            showTextfield: false,
+                            labelText: StringConstant.shiftType,
+                            value: PostShiftBloc.shiftTypeList
+                                .firstWhere(
+                                  (shift) => shift.id == state.shiftType,
+                                  orElse: () => SkillDTO(id: 1, name: "Single"),
+                                )
+                                .name,
+                            items: PostShiftBloc.shiftTypeList.map((val) {
+                              return DropdownMenuItem<String>(
+                                value: val.name,
+                                child: BaseText(
+                                  text: val.name ?? "",
+                                  fontSize: 14,
+                                  textColor: AppColors.black,
                                 ),
-                              ),
-                              ConstrainedBox(
-                                constraints: BoxConstraints(
-                                    minHeight: constraint.maxHeight),
-                                child: (state.shiftType == 3)
-                                    ? Center(
-                                        child: BaseText(
-                                          text: StringConstant.longTerm,
-                                          fontSize: 25,
-                                        ),
-                                      )
-                                    : (state.shiftType == 2)
-                                        ? MultiPostShift(
-                                            shiftType: state.shiftType,
-                                            postId: postId,
-                                            post: post,
-                                            updateShift: updateShift,
-                                          )
-                                        : SinglePostShift(
-                                            shiftType: state.shiftType,
-                                            postId: postId,
-                                            post: post,
-                                            updateShift: updateShift,
-                                          ),
-                              ),
-                            ],
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              if (value != null) {
+                                context.read<PostShiftBloc>().add(
+                                    PostShiftEvent.changeShiftType(value,
+                                        postId: postId,
+                                        post: null,
+                                        updateShift: null));
+                              }
+                            },
                           ),
                         ),
-                      );
-                    }),
+                        ConstrainedBox(
+                          constraints:
+                              BoxConstraints(minHeight: constraint.maxHeight),
+                          child: (state.shiftType == 3)
+                              ? Center(
+                                  child: BaseText(
+                                    text: StringConstant.longTerm,
+                                    fontSize: 25,
+                                  ),
+                                )
+                              : (state.shiftType == 2)
+                                  ? MultiPostShift(
+                                      shiftType: state.shiftType,
+                                      postId: postId,
+                                      post: post,
+                                      updateShift: updateShift,
+                                    )
+                                  : SinglePostShift(
+                                      shiftType: state.shiftType,
+                                      postId: postId,
+                                      post: post,
+                                      updateShift: updateShift,
+                                    ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }),
             );
           },
         ),

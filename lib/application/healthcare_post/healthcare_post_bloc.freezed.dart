@@ -4216,7 +4216,7 @@ mixin _$HealthcarePostState {
   String get selectedLocationUnit => throw _privateConstructorUsedError;
 
   /// RATE/ HOUR
-  InputEmptyOrNot get rateHour => throw _privateConstructorUsedError;
+  Rate get rateHour => throw _privateConstructorUsedError;
 
   /// SUBMIT
   bool get isSubmitting => throw _privateConstructorUsedError;
@@ -4263,7 +4263,7 @@ abstract class $HealthcarePostStateCopyWith<$Res> {
       InputEmptyOrNot location,
       LocationDTO locationObj,
       String selectedLocationUnit,
-      InputEmptyOrNot rateHour,
+      Rate rateHour,
       bool isSubmitting,
       bool isLoading,
       bool showErrorMessages,
@@ -4409,7 +4409,7 @@ class _$HealthcarePostStateCopyWithImpl<$Res, $Val extends HealthcarePostState>
       rateHour: null == rateHour
           ? _value.rateHour
           : rateHour // ignore: cast_nullable_to_non_nullable
-              as InputEmptyOrNot,
+              as Rate,
       isSubmitting: null == isSubmitting
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -4499,7 +4499,7 @@ abstract class _$$HealthcarePostStateImplCopyWith<$Res>
       InputEmptyOrNot location,
       LocationDTO locationObj,
       String selectedLocationUnit,
-      InputEmptyOrNot rateHour,
+      Rate rateHour,
       bool isSubmitting,
       bool isLoading,
       bool showErrorMessages,
@@ -4645,7 +4645,7 @@ class __$$HealthcarePostStateImplCopyWithImpl<$Res>
       rateHour: null == rateHour
           ? _value.rateHour
           : rateHour // ignore: cast_nullable_to_non_nullable
-              as InputEmptyOrNot,
+              as Rate,
       isSubmitting: null == isSubmitting
           ? _value.isSubmitting
           : isSubmitting // ignore: cast_nullable_to_non_nullable
@@ -4858,7 +4858,7 @@ class _$HealthcarePostStateImpl implements _HealthcarePostState {
 
   /// RATE/ HOUR
   @override
-  final InputEmptyOrNot rateHour;
+  final Rate rateHour;
 
   /// SUBMIT
   @override
@@ -5019,7 +5019,7 @@ abstract class _HealthcarePostState implements HealthcarePostState {
       required final InputEmptyOrNot location,
       required final LocationDTO locationObj,
       required final String selectedLocationUnit,
-      required final InputEmptyOrNot rateHour,
+      required final Rate rateHour,
       required final bool isSubmitting,
       required final bool isLoading,
       required final bool showErrorMessages,
@@ -5089,7 +5089,7 @@ abstract class _HealthcarePostState implements HealthcarePostState {
   @override
 
   /// RATE/ HOUR
-  InputEmptyOrNot get rateHour;
+  Rate get rateHour;
   @override
 
   /// SUBMIT

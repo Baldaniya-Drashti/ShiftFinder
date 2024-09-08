@@ -87,7 +87,7 @@ class PostShiftRecurring extends StatelessWidget {
                 },
               ),
               body: (state.isLoading)
-                  ? CenterLoadingIndicator()
+                  ? CenterLoadingIndicator(isOnlyLoader: true)
                   : LayoutBuilder(builder: (context, constraint) {
                       return SingleChildScrollView(
                         child: ConstrainedBox(

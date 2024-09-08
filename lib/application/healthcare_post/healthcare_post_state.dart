@@ -85,7 +85,7 @@ class HealthcarePostState with _$HealthcarePostState {
     required String selectedLocationUnit,
 
     /// RATE/ HOUR
-    required InputEmptyOrNot rateHour,
+    required Rate rateHour,
 
     /// SUBMIT
     required bool isSubmitting,
@@ -102,7 +102,7 @@ class HealthcarePostState with _$HealthcarePostState {
   }) = _HealthcarePostState;
   factory HealthcarePostState.initial() => HealthcarePostState(
         updatePost: HealthcarePostDTO(),
-        rateHour: InputEmptyOrNot(""),
+        rateHour: Rate(""),
         location: InputEmptyOrNot(""),
         locationObj: LocationDTO(),
         locationList: [],

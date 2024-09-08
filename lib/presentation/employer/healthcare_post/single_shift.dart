@@ -486,6 +486,7 @@ class SinglePostShift extends StatelessWidget {
       // hintAsValue: (state.singleShiftNote.isNotEmpty) ? true : false,
       isOptional: true,
       maxLines: 3,
+      maxLength: 500,
       keyboardType: TextInputType.multiline,
       initialValue: state.singleShiftNote,
       onChanged: (value) {

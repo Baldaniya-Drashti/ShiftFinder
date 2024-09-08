@@ -954,12 +954,17 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
   }
 
   ListInputEmptyOrNot<SkillDTO> setWeekList(String day) {
-    List<int> dayIndexes = day.split(',').map((e) => int.parse(e)).toList();
-    List<SkillDTO> recurrenceWeekList = CommonList.weekList
-        .where((day) => dayIndexes.contains(day.id))
-        .toList();
-    print("Get List of week --> ${jsonEncode(recurrenceWeekList)}");
-    return ListInputEmptyOrNot(recurrenceWeekList);
+    print("Get List day --> ${day}");
+    if (day.isNotEmpty) {
+      List<int> dayIndexes = day.split(',').map((e) => int.parse(e)).toList();
+      List<SkillDTO> recurrenceWeekList = CommonList.weekList
+          .where((day) => dayIndexes.contains(day.id))
+          .toList();
+      print("Get List of week --> ${jsonEncode(recurrenceWeekList)}");
+      return ListInputEmptyOrNot(recurrenceWeekList);
+    } else {
+      return ListInputEmptyOrNot([]);
+    }
   }
 
   PostShiftDTO continueWithPostDetail(

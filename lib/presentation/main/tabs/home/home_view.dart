@@ -9,6 +9,7 @@ import 'package:shift/application/main_tab/home/home_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -173,8 +174,10 @@ class HomeView extends StatelessWidget {
                           0)
                       .toString(),
                   onTap: () {
-                    context.router
-                        .push(PageRouteInfo(ViewSingleApplicants.name));
+                    showUnderDevelopment(context);
+
+                    // context.router
+                    //     .push(PageRouteInfo(ViewSingleApplicants.name));
                   },
                   index: index,
                   isTotalApplicants: true),
@@ -188,7 +191,9 @@ class HomeView extends StatelessWidget {
                             0)
                         .toString(),
                 onTap: () {
-                  context.router.push(PageRouteInfo(TotalPraposalView.name));
+                  showUnderDevelopment(context);
+
+                  // context.router.push(PageRouteInfo(TotalPraposalView.name));
                 },
                 index: index,
               ),

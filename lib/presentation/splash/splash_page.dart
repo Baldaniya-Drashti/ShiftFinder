@@ -5,6 +5,7 @@ import 'package:shift/application/splash/splash_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +35,9 @@ class SplashPage extends StatelessWidget {
             await Future.delayed(
               const Duration(seconds: 1),
               () => (value.isProfileComplete == 1)
-                  ? context.router.replace(PageRouteInfo(MainTabView.name))
+                  ? (getCurrentRole() == 2)
+                      ? context.router.replace(PageRouteInfo(MainTabView.name))
+                      : context.router.replace(PageRouteInfo(LoginPage.name))
                   : context.router.replace(getCurrentPage(
                       value.lastPage,
                       fromSplash: true,
