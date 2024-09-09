@@ -158,7 +158,7 @@ abstract class IAccountRepository {
     required String unitNumber,
     required String unitNotes,
     required List<UnitDTO> units,
-    required String latitude,
-    required String longitude,
+    // required String latitude,
+    // required String longitude,
   });
 }

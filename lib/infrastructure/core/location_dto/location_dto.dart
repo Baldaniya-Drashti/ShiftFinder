@@ -20,7 +20,7 @@ class LocationDTO with _$LocationDTO {
 class UnitDTO with _$UnitDTO {
   const factory UnitDTO({
     String? number_or_name,
-    String? units_note,
+    String? note,
   }) = _UnitDTO;
 
   factory UnitDTO.fromJson(Map<String, dynamic> json) =>

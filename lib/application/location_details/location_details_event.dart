@@ -8,7 +8,7 @@ class LocationDetailsEvent with _$LocationDetailsEvent {
       GetFacilityTypeList;
 
   const factory LocationDetailsEvent.locationSelectedFromSearchList(
-      Results selectedLocation) = _LocationSelectedFromSearchList;
+      String selectedLocation) = _LocationSelectedFromSearchList;
 
   const factory LocationDetailsEvent.locationIdChanged(String locationId) =
       LocationIdChanged;

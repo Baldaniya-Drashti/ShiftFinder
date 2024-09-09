@@ -305,7 +305,7 @@ class HomeView extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  context.router.push(
+                  /*context.router.push(
                     PageRouteInfo(
                       ShowGoogleMap.name,
                       args: ShowGoogleMapArgs(
@@ -313,7 +313,7 @@ class HomeView extends StatelessWidget {
                         longitude: 72.78582206137469,
                       ),
                     ),
-                  );
+                  );*/
                 },
                 child: Row(
                   children: [

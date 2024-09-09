@@ -157,7 +157,7 @@ class AddCardDetailPage extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: getSize(250),
+            width: getSize(220),
             child: const BaseText(
               text: StringConstant.cardDesc,
               fontSize: 12,
@@ -246,7 +246,7 @@ class AddCardDetailPage extends StatelessWidget {
 
   Widget expDateTextField(BuildContext context, CardState state) {
     return SizedBox(
-      width: getSize(175),
+      width: getSize(150),
       child: CustomTextField(
         errorMaxLines: 2,
         labelText: StringConstant.expDate,
@@ -279,7 +279,7 @@ class AddCardDetailPage extends StatelessWidget {
 
   cvvNoField(BuildContext context, CardState state) {
     return SizedBox(
-      width: getSize(175),
+      width: getSize(150),
       child: CustomTextField(
         labelText: StringConstant.cvv,
         hintText: StringConstant.cvv,

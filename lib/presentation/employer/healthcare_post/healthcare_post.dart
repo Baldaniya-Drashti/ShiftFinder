@@ -1147,7 +1147,7 @@ class HealthCarePostForm extends StatelessWidget {
   }
 
   Widget locationDropDown(BuildContext context, HealthcarePostState state) {
-    print("state.location.getValue()--> ${state.location.getValue()}");
+    print("state.location.getValue()--> ${state.selectedLocationUnit}");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -1157,9 +1157,7 @@ class HealthCarePostForm extends StatelessWidget {
           isLabelPadding: true,
           showTextfield: false,
           isOptional: true,
-          value: (state.location.getValue()!.isNotEmpty)
-              ? state.location.getValue()
-              : null,
+          value: (state.location.isValid()) ? state.location.getValue() : null,
           optionalWidget: GestureDetector(
             onTap: () {
               AppDialog.showInfo(

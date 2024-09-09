@@ -25,9 +25,10 @@ class LocationDetailsBloc
     extends Bloc<LocationDetailsEvent, LocationDetailsState> {
   final IAccountRepository _repository;
   static TextEditingController locationCtrl = TextEditingController();
+  List<dynamic> placeList = [];
 
   /// TO GET GOOGLE PLACES
-  Future<String?> fetchUrl(String query, {Map<String, String>? headers}) async {
+  /*Future<String?> fetchUrl(String query, {Map<String, String>? headers}) async {
     var uri = Uri.tryParse(
         'https://maps.googleapis.com/maps/api/place/autocomplete/json?query=$query&components=country:ca&key=AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE')!;
     // Uri uri = Uri.https(
@@ -43,6 +44,27 @@ class LocationDetailsBloc
         uri,
         headers: headers,
       );
+      if (response.statusCode == 200) {
+        return response.body;
+      }
+    } catch (e) {
+      print("LOCATION CATCH ERROR: $e");
+    }
+    return null;
+  }*/
+
+  Future<String?> fetchUrl(String query, {Map<String, String>? headers}) async {
+    Uri uri = Uri.https(
+      "maps.googleapis.com",
+      'maps/api/place/autocomplete/json',
+      {
+        "input": query,
+        "key": "AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE",
+        "components": "country:ca",
+      },
+    );
+    try {
+      final response = await http.get(uri, headers: headers);
       if (response.statusCode == 200) {
         return response.body;
       }
@@ -85,33 +107,46 @@ class LocationDetailsBloc
         },
         addressChanged: (e) async {
           /// To get google place with serched result
-          List<dynamic> placeList = [];
+          // List<dynamic> placeList = [];
+          // String? response = await fetchUrl(e.address);
+          // if (response != null) {
+          //   print("API RESPONSE----> $response");
+          //   placeList = json.decode(response)['results'];
+          // }
+
+          if (placeList.isNotEmpty) {
+            placeList.clear();
+          }
           String? response = await fetchUrl(e.address);
           if (response != null) {
             print("API RESPONSE----> $response");
-            placeList = json.decode(response)['results'];
+            placeList = json.decode(response)['predictions'];
           }
-
           emit(
             state.copyWith(
               address: InputEmptyOrNot(e.address),
-              searchLocationList: placeList
-                  .map(
-                    (e) => Results.fromJson(e),
-                  )
-                  .toList(),
+              // searchLocationList: placeList
+              //     .map(
+              //       (e) => Results.fromJson(e),
+              //     )
+              //     .toList(),
+              searchLocationList: placeList,
               authFailureOrSuccessOption: none(),
             ),
           );
         },
         locationSelectedFromSearchList: (e) {
-          locationCtrl.text = e.selectedLocation.formatted_address ?? "";
+          // locationCtrl.text = e.selectedLocation.formatted_address ?? "";
+          locationCtrl.text = e.selectedLocation;
+
           emit(
             state.copyWith(
-              address:
-                  InputEmptyOrNot(e.selectedLocation.formatted_address ?? ""),
+              // address:
+              //     InputEmptyOrNot(e.selectedLocation.formatted_address ?? ""),
+              address: InputEmptyOrNot(e.selectedLocation),
+
               searchLocationList: [],
-              selectedAddress: e.selectedLocation,
+              // selectedAddress: e.selectedLocation,
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -200,8 +235,8 @@ class LocationDetailsBloc
               state.copyWith(
                 listOfUnit: List.from(state.listOfUnit)
                   ..add(UnitDTO(
-                    number_or_name: e.unitNumber,
-                    units_note: e.unitNote.trim(),
+                    number_or_name: e.unitNumber.trim(),
+                    note: e.unitNote.trim(),
                   )),
                 unitNumber: "",
                 notes: "",
@@ -264,15 +299,15 @@ class LocationDetailsBloc
               accreditationNumber: state.accreditationNumber,
               locationId: state.locationId,
               locationNotes: state.locationNote,
-              unitNotes: state.unitNumber,
               unitNumber: state.unitNoNameChipList.join(','),
+              unitNotes: "Test unit",
               units: state.listOfUnit,
-              latitude:
-                  state.selectedAddress.geometry?.location?.lat.toString() ??
-                      '',
-              longitude:
-                  state.selectedAddress.geometry?.location?.lng.toString() ??
-                      '',
+              // latitude:
+              //     state.selectedAddress.geometry?.location?.lat.toString() ??
+              //         '',
+              // longitude:
+              //     state.selectedAddress.geometry?.location?.lng.toString() ??
+              //         '',
             );
           }
           emit(
