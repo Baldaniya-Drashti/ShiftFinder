@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:shift/domain/core/string_constant.dart';
 
 @RoutePage(name: 'HistoryView')
 class HistoryView extends StatelessWidget {
@@ -8,7 +9,8 @@ class HistoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text("HISTORY VIEW"),
+      // child: Text("HISTORY VIEW"),
+      child: Text(StringConstant.underDevelopment),
     );
   }
 }

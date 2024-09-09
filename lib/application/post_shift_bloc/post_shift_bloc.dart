@@ -461,7 +461,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           await getTeamsListApi(emit);
           if (e.updateShift != null) {
             setShiftDataToUpdate(emit, e.updateShift!);
-            await Future.delayed(Duration(seconds: 5));
+            await Future.delayed(Duration(seconds: 2));
           }
 
           emit(
@@ -497,6 +497,10 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                 saveTemplateStatus: (state.isSaveAsTemplate) ? 1 : 0);*/
 
             postObj = state.post.copyWith(
+              update_status:
+                  (state.updateShift.id != null && state.updateShift.id != -1)
+                      ? 0
+                      : null,
               id: (state.updateShift.id != null && state.updateShift.id != -1)
                   ? state.updateShift.id
                   : null,
@@ -842,9 +846,11 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           print("All details are valid! ");
           if (e.updatedPost != null) {
             Either<MainFailure, HealthcarePostDTO>? updateFailureOrSuccess;
-
+            PostShiftDTO postObj = e.updatedPost!.copyWith(
+              update_status: 1,
+            );
             updateFailureOrSuccess = await _mainFacade.updatePostApi(
-              postShiftDetail: e.updatedPost!,
+              postShiftDetail: postObj,
             );
             emit(
               state.copyWith(

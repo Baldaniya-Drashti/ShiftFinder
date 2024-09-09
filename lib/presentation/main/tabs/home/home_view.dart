@@ -303,27 +303,40 @@ class HomeView extends StatelessWidget {
                 color: AppColors.white.withOpacity(0.7),
                 thickness: getSize(0.5),
               ),
-              Row(
-                children: [
-                  SvgPicture.asset(
-                    SvgImageConstant.location,
-                    height: getSize(20),
-                    width: getSize(20),
-                  ),
-                  SizedBox(
-                    width: getSize(10),
-                  ),
-                  Expanded(
-                    child: BaseText(
-                      text: state.employerDashboardList[index].location
-                              ?.location ??
-                          "",
-                      fontSize: 10,
-                      fontWeight: FontWeight.w500,
-                      textColor: AppColors.white,
+              GestureDetector(
+                onTap: () {
+                  context.router.push(
+                    PageRouteInfo(
+                      ShowGoogleMap.name,
+                      args: ShowGoogleMapArgs(
+                        latitude: 21.191535534205194,
+                        longitude: 72.78582206137469,
+                      ),
                     ),
-                  ),
-                ],
+                  );
+                },
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      SvgImageConstant.location,
+                      height: getSize(20),
+                      width: getSize(20),
+                    ),
+                    SizedBox(
+                      width: getSize(10),
+                    ),
+                    Expanded(
+                      child: BaseText(
+                        text: state.employerDashboardList[index].location
+                                ?.location ??
+                            "",
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
+                        textColor: AppColors.white,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(
                 height: getSize(12),

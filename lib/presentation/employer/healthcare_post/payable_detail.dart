@@ -309,7 +309,9 @@ class PayableDetail extends StatelessWidget {
           title1: StringConstant.totalNumberOfDays,
           title2: StringConstant.totalPayableHours,
           title3: StringConstant.hourlyRate,
-          value1: "7",
+          // value1: "${post.shift_detail?.detail?.length} ?? 0",
+          value1:
+              "${(post.shift_detail?.detail?.length.toString().length == 2) ? post.shift_detail?.detail?.length ?? 0 : "0${post.shift_detail?.detail?.length}"}",
           value2: shift.total_payable_hour,
           value3: "\$${shift.rate_hour}",
           totalPayableTitle: StringConstant.totalWage,
@@ -371,7 +373,8 @@ class PayableDetail extends StatelessWidget {
           title1: StringConstant.totalPayableForOneShift,
           title2: StringConstant.numberOfVacancies,
           value1: "\$${shift.total_one_shift}",
-          value2: "${shift.number_of_vacancie}",
+          value2:
+              "${(shift.number_of_vacancie.toString().length == 2) ? shift.number_of_vacancie ?? 0 : "0${shift.number_of_vacancie}"}",
         ),
         totalPayableBox(
           totalPayableTitle: StringConstant.totalAmountPayable,

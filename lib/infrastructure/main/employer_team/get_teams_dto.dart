@@ -21,8 +21,8 @@ class GetTeamsListDTO with _$GetTeamsListDTO {
 class Location with _$Location {
   const factory Location({
     int? id,
-    double? latitude,
-    double? longitude,
+    String? latitude,
+    String? longitude,
     String? location,
   }) = _Location;
 
@@ -36,7 +36,7 @@ class Members with _$Members {
     int? id,
     String? name,
     String? position,
-    String? country_code,
+    @Default('1') String? country_code,
     @Default('🇨🇦') String? country_name_code,
     String? phone,
     String? email,

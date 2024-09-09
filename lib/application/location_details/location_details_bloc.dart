@@ -14,6 +14,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
+import 'package:shift/infrastructure/core/location_dto/search_location_dto/search_location_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 part 'location_details_event.dart';
 part 'location_details_state.dart';
@@ -27,17 +28,21 @@ class LocationDetailsBloc
 
   /// TO GET GOOGLE PLACES
   Future<String?> fetchUrl(String query, {Map<String, String>? headers}) async {
-    Uri uri = Uri.https(
-      "maps.googleapis.com",
-      'maps/api/place/autocomplete/json',
-      {
-        "input": query,
-        "key": "AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE",
-        "components": "country:ca",
-      },
-    );
+    var uri = Uri.tryParse(
+        'https://maps.googleapis.com/maps/api/place/autocomplete/json?query=$query&components=country:ca&key=AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE')!;
+    // Uri uri = Uri.https(
+    //   "maps.googleapis.com",
+    //   'maps/api/place/textsearch/json',
+    //   {
+    //     "input": query,
+    //     "key": "AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE",
+    //   },
+    // );
     try {
-      final response = await http.get(uri, headers: headers);
+      final response = await http.get(
+        uri,
+        headers: headers,
+      );
       if (response.statusCode == 200) {
         return response.body;
       }
@@ -81,33 +86,32 @@ class LocationDetailsBloc
         addressChanged: (e) async {
           /// To get google place with serched result
           List<dynamic> placeList = [];
-          if (locationCtrl.text.isNotEmpty) {
-            String? response = await fetchUrl(locationCtrl.text);
-            if (response != null) {
-              placeList = json.decode(response)['predictions'];
-            }
-          } else {
-            placeList = [];
+          String? response = await fetchUrl(e.address);
+          if (response != null) {
+            print("API RESPONSE----> $response");
+            placeList = json.decode(response)['results'];
           }
 
           emit(
             state.copyWith(
-              address: (locationCtrl.text.isNotEmpty)
-                  ? InputEmptyOrNot(locationCtrl.text)
-                  : InputEmptyOrNot(""),
-              searchLocationList:
-                  (locationCtrl.text.isNotEmpty) ? placeList : [],
+              address: InputEmptyOrNot(e.address),
+              searchLocationList: placeList
+                  .map(
+                    (e) => Results.fromJson(e),
+                  )
+                  .toList(),
               authFailureOrSuccessOption: none(),
             ),
           );
         },
         locationSelectedFromSearchList: (e) {
-          locationCtrl.text = e.selectedLocation;
-
+          locationCtrl.text = e.selectedLocation.formatted_address ?? "";
           emit(
             state.copyWith(
-              address: InputEmptyOrNot(e.selectedLocation),
+              address:
+                  InputEmptyOrNot(e.selectedLocation.formatted_address ?? ""),
               searchLocationList: [],
+              selectedAddress: e.selectedLocation,
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -263,6 +267,12 @@ class LocationDetailsBloc
               unitNotes: state.unitNumber,
               unitNumber: state.unitNoNameChipList.join(','),
               units: state.listOfUnit,
+              latitude:
+                  state.selectedAddress.geometry?.location?.lat.toString() ??
+                      '',
+              longitude:
+                  state.selectedAddress.geometry?.location?.lng.toString() ??
+                      '',
             );
           }
           emit(

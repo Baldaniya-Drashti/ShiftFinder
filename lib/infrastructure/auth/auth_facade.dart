@@ -4,14 +4,17 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:hive/hive.dart';
 import 'package:logger/web.dart';
 import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/auth/i_auth_facade.dart';
 import 'package:shift/domain/core/api_constants.dart';
+import 'package:shift/infrastructure/account/account_entity.dart';
 import 'package:shift/infrastructure/account/current_user_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
+import 'package:shift/infrastructure/core/network/hive_box_names.dart';
 import 'package:shift/infrastructure/core/network/injectable_module.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/core/speciality/speciality_dto.dart';
@@ -86,8 +89,34 @@ class AuthFacade implements IAuthFacade {
   }
 
   @override
-  Future<Either<AuthFailure, String>> logout() {
-    throw UnimplementedError();
+  Future<Either<AuthFailure, String>> logout() async {
+    try {
+      return apiService
+          .getMethod(
+        ApiConstants.logout,
+      )
+          .then((value) async {
+        Hive.box(BoxNames.settingsBox).clear();
+        Hive.box<AccountEntity>(BoxNames.currentUser).clear();
+        await Hive.box(BoxNames.settingsBox).put(BoxKeys.isUserShowIntro, true);
+        return right(value?.dioMessage ?? "");
+      });
+      // await Future.wait([
+
+      // ]);
+      //  return right('');
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      }
+
+      return left(const AuthFailure.serverError());
+    }
   }
 
   @override

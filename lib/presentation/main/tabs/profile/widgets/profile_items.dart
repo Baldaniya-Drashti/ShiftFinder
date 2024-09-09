@@ -1,12 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shift/application/auth/auth_status/auth_status_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/domain/profile/profile_item_model.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
 
 class ProfileItems extends StatelessWidget {
   const ProfileItems({super.key});
@@ -32,7 +35,9 @@ class ProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: 'Locations',
         image: SvgImageConstant.locationIcon,
-        onTap: () {},
+        onTap: () {
+          //   context.router.push(PageRouteInfo(LocationDetailForm.name));
+        },
       ),
       ProfileItemModel(
         title: 'Teams',
@@ -69,7 +74,23 @@ class ProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: 'Log Out',
         image: SvgImageConstant.logout,
-        onTap: () {},
+        onTap: () {
+          AcceptRejectDialog(
+            title: 'Logout',
+            description: 'Are you sure you want to log out?',
+            onPressedAccept: () {
+              context.router.maybePop().then(
+                    (value) => context
+                        .read<AuthStatusBloc>()
+                        .add(AuthStatusEvent.signedOut()),
+                  );
+            },
+            onPressedReject: () {
+              context.router.maybePop();
+            },
+            acceptButtonText: 'Logout',
+          ).acceptRejectDialog(context);
+        },
       ),
     ];
     return Container(

@@ -44,6 +44,7 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, CommonResponse>> getEmployerTeamsListAPI({
     required int page,
+    String? id,
   });
   Future<Either<MainFailure, List<SkillDTO>>> getUnpaidBreakListApi();
   Future<Either<MainFailure, List<SkillDTO>>> getAccomdationHoursListApi();
@@ -77,6 +78,15 @@ abstract class IMainFacade {
     required InputEmptyOrNot teamName,
   });
 
+  Future<Either<MainFailure, String>> updateTeamApi({
+    required String locationId,
+    required String teamId,
+    required InputEmptyOrNot teamName,
+  });
+
+  Future<Either<MainFailure, String>> deleteTeamApi({
+    required String teamId,
+  });
   Future<Either<MainFailure, String>> createTeamMemberApi({
     required String teamId,
     required InputEmptyOrNot teamMemberName,

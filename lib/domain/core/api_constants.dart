@@ -12,7 +12,7 @@ class ApiConstants {
   static String resendOtp = 'resend_otp';
   static String verifyOtp = 'verify_otp';
   static String forgotPassword = 'forgot_password';
-  static String logout = 'auth/logout';
+  static String logout = 'logout';
   static String editLastPage = 'edit_last_page';
 
   static String getUserInfo = 'get_user_info';
@@ -132,4 +132,6 @@ class ApiConstants {
   static String createTeamMember = 'create_team_member';
   static String updateTeamMember = 'update_team_member';
   static String deleteTeamMember = 'delete_team_member';
+  static String updateTeam = 'update_team';
+  static String deleteTeam = 'delete_team';
 }

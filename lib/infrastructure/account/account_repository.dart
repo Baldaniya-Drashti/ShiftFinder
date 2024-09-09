@@ -1087,6 +1087,8 @@ class AccountRepository extends IAccountRepository {
     required String unitNumber,
     required String unitNotes,
     required List<UnitDTO> units,
+    required String latitude,
+    required String longitude,
   }) async {
     try {
       var mapData = {
@@ -1101,6 +1103,10 @@ class AccountRepository extends IAccountRepository {
         // "last_page": "AddCardDetail",
         "last_page": "AddCardDetail",
         "isProfileComplete": "1",
+        "units_number_or_name": unitNumber,
+        "units_note": unitNotes,
+        "latitude": latitude,
+        "longitude": longitude,
       };
 
       if (units.isNotEmpty) {

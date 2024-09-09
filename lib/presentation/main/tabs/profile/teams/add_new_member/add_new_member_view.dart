@@ -61,9 +61,7 @@ class AddNewMemberView extends StatelessWidget {
                         ),
                       );
                 } else {
-                  context.router.popUntil(
-                    (route) => route.isFirst,
-                  );
+                  context.router.maybePop(true);
                 }
 
                 // Navigator.pop(context, true);
@@ -215,7 +213,7 @@ class AddNewMemberView extends StatelessWidget {
                             description:
                                 'Are you sure you want to delete the team memeber?',
                             onPressedAccept: () {
-                              context.router.maybePop().then(
+                              context.router.maybePop(true).then(
                                     (value) => context
                                         .read<AddNewMemberBloc>()
                                         .add(
@@ -227,7 +225,7 @@ class AddNewMemberView extends StatelessWidget {
                                   );
                             },
                             onPressedReject: () {
-                              context.router.maybePop();
+                              context.router.maybePop(true);
                             },
                             acceptButtonText: 'Delete',
                           ).acceptRejectDialog(context);

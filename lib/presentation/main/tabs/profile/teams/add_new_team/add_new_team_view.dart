@@ -6,6 +6,7 @@ import 'package:shift/application/main_tab/profile/profile_sections/teams/teams_
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/main/employer_team/get_teams_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -18,19 +19,30 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'AddNewTeamView')
 class AddNewTeamView extends StatelessWidget {
-  const AddNewTeamView({super.key});
+  final bool isUpdateMember;
+
+  final GetTeamsListDTO? getTeamsListDTO;
+  const AddNewTeamView(
+      {super.key, this.isUpdateMember = false, this.getTeamsListDTO});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          getIt<TeamsBloc>()..add(TeamsEvent.getLocationListAPI()),
+      create: (context) => getIt<TeamsBloc>()
+        ..add(TeamsEvent.getLocationListAPI())
+        ..add(
+          TeamsEvent.prefillDataForUpdateTeam(
+            getTeamsListDTO ?? GetTeamsListDTO(),
+            isUpdateMember,
+            getTeamsListDTO?.id.toString() ?? "",
+          ),
+        ),
       child: BlocConsumer<TeamsBloc, TeamsState>(
         builder: (context, state) {
           return Scaffold(
             appBar: CommonAppBar(
               onBackPressed: () => context.router.maybePop(),
-              title: 'Add New Team',
+              title: state.isEdit ? 'Update Team' : 'Add New Team',
             ),
             body: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
@@ -41,30 +53,37 @@ class AddNewTeamView extends StatelessWidget {
                 child: ListView(
                   padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                   children: [
-                    SizedBox(height: getSize(63)),
-                    Center(
-                      child: Image.asset(
-                        PngImageConstants.teamImage,
-                        height: getSize(85),
-                        width: getSize(104),
+                    Visibility(
+                      visible: !state.isEdit,
+                      child: Column(
+                        children: [
+                          SizedBox(height: getSize(63)),
+                          Center(
+                            child: Image.asset(
+                              PngImageConstants.teamImage,
+                              height: getSize(85),
+                              width: getSize(104),
+                            ),
+                          ),
+                          SizedBox(height: getSize(30)),
+                          BaseText(
+                            text: 'Create a Team',
+                            fontSize: 22,
+                            textAlign: TextAlign.center,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'Aclonica',
+                          ),
+                          SizedBox(height: getSize(10)),
+                          BaseText(
+                            text:
+                                'Organize and manage your internal teams for efficient shift notification. Select a team to notify all members via email when a shift is posted.',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            textAlign: TextAlign.center,
+                            textColor: AppColors.black.withOpacity(0.7),
+                          ),
+                        ],
                       ),
-                    ),
-                    SizedBox(height: getSize(30)),
-                    BaseText(
-                      text: 'Create a Team',
-                      fontSize: 22,
-                      textAlign: TextAlign.center,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'Aclonica',
-                    ),
-                    SizedBox(height: getSize(10)),
-                    BaseText(
-                      text:
-                          'Organize and manage your internal teams for efficient shift notification. Select a team to notify all members via email when a shift is posted.',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      textAlign: TextAlign.center,
-                      textColor: AppColors.black.withOpacity(0.7),
                     ),
                     SizedBox(height: getSize(30)),
                     Row(
@@ -85,9 +104,7 @@ class AddNewTeamView extends StatelessWidget {
                     ),
                     SizedBox(height: getSize(8)),
                     CustomDropdownTextfield(
-                      valueController: context
-                          .read<TeamsBloc>()
-                          .singleValueDropDownController,
+                      valueController: state.singleValueDropDownController,
                       list: state.locationList,
                       hintText: 'Location',
                       // onChanged: (p0) => context
@@ -125,7 +142,11 @@ class AddNewTeamView extends StatelessWidget {
                     ),
                     SizedBox(height: getSize(8)),
                     CustomTextField(
+                      key: state.isEdit ? Key('Team Name') : null,
                       hintText: 'Team Name',
+                      initialValue: state.isEdit
+                          ? state.teamNameTextField.getValue() ?? ""
+                          : null,
                       textCapitalization: TextCapitalization.words,
                       validator: (p0, p1) => state.teamNameTextField.value.fold(
                         (l) => l.maybeMap(
@@ -163,9 +184,16 @@ class AddNewTeamView extends StatelessWidget {
                 child: CommonButton(
                   isSubmitting: state.isSubmitting,
                   onPressed: () {
-                    context.read<TeamsBloc>().add(TeamsEvent.createTeam());
+                    if (state.isEdit) {
+                      context.read<TeamsBloc>().add(
+                            TeamsEvent.updateTeam(
+                                getTeamsListDTO?.id?.toString() ?? ""),
+                          );
+                    } else {
+                      context.read<TeamsBloc>().add(TeamsEvent.createTeam());
+                    }
                   },
-                  buttonText: 'Create',
+                  buttonText: state.isEdit ? 'Update' : 'Create',
                 ),
               ),
             ),
@@ -186,7 +214,12 @@ class AddNewTeamView extends StatelessWidget {
                 ).show(context);
               },
               (r) async {
-                context.router.maybePop(true);
+                if (state.isEdit) {
+                  context.router.maybePop(true);
+                } else {
+                  context.router.maybePop(true);
+                }
+
                 // await showSuccess(message: r).show(context).then(
                 //       (value) => context.router.maybePop(true),
                 //     );

@@ -472,6 +472,8 @@ class MainFacade implements IMainFacade {
 
       print("Sending Data->  ${jsonEncode(mapData)}");
       final res = await apiService.postMethod(ApiConstants.updatePost, mapData);
+      print("Posttt HEALTHCARE->  ${res}");
+
       final data = HealthcarePostDTO.fromJson(res.data);
       print("Healthercare Update Post Response->  ${data}");
       return right(data);
@@ -598,12 +600,18 @@ class MainFacade implements IMainFacade {
 
   @override
   Future<Either<MainFailure, CommonResponse>> getEmployerTeamsListAPI(
-      {required int page}) async {
+      {required int page, String? id}) async {
     try {
       Map<String, dynamic> mapData = {
         'page': page,
         'perPage': _perPage,
       };
+
+      if (id != null) {
+        mapData.addAll({
+          'id': id,
+        });
+      }
 
       final res = await apiService.getMethod(ApiConstants.getTeamList,
           queryParameters: mapData);
@@ -749,6 +757,64 @@ class MainFacade implements IMainFacade {
     try {
       final res = await apiService.deleteMethod(
         "${ApiConstants.deleteTeamMember}/$teamMemberId",
+      );
+
+      return right(res?.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, String>> updateTeamApi(
+      {required String locationId,
+      required String teamId,
+      required InputEmptyOrNot teamName}) async {
+    try {
+      Map<String, dynamic> mapData = {
+        "location_id": locationId,
+        "team_name": teamName.getValue()?.trim()
+      };
+
+      final res = await apiService.putMethod(
+        "${ApiConstants.updateTeam}/$teamId",
+        data: mapData,
+      );
+
+      return right(res?.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, String>> deleteTeamApi(
+      {required String teamId}) async {
+    try {
+      final res = await apiService.deleteMethod(
+        "${ApiConstants.deleteTeam}/$teamId",
       );
 
       return right(res?.dioMessage ?? "");

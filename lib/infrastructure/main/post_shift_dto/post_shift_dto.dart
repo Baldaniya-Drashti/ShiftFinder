@@ -7,6 +7,7 @@ part 'post_shift_dto.g.dart';
 @freezed
 class PostShiftDTO with _$PostShiftDTO {
   const factory PostShiftDTO({
+    int? update_status,
     int? id,
     String? roles_list_id,
     String? specialties_detail_id,

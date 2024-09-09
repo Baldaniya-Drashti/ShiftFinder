@@ -35,8 +35,8 @@ Map<String, dynamic> _$$GetTeamsListDTOImplToJson(
 _$LocationImpl _$$LocationImplFromJson(Map<String, dynamic> json) =>
     _$LocationImpl(
       id: (json['id'] as num?)?.toInt(),
-      latitude: (json['latitude'] as num?)?.toDouble(),
-      longitude: (json['longitude'] as num?)?.toDouble(),
+      latitude: json['latitude'] as String?,
+      longitude: json['longitude'] as String?,
       location: json['location'] as String?,
     );
 
@@ -53,7 +53,7 @@ _$MembersImpl _$$MembersImplFromJson(Map<String, dynamic> json) =>
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
       position: json['position'] as String?,
-      country_code: json['country_code'] as String?,
+      country_code: json['country_code'] as String? ?? '1',
       country_name_code: json['country_name_code'] as String? ?? '🇨🇦',
       phone: json['phone'] as String?,
       email: json['email'] as String?,

@@ -8,6 +8,7 @@ part of 'post_shift_dto.dart';
 
 _$PostShiftDTOImpl _$$PostShiftDTOImplFromJson(Map<String, dynamic> json) =>
     _$PostShiftDTOImpl(
+      update_status: (json['update_status'] as num?)?.toInt(),
       id: (json['id'] as num?)?.toInt(),
       roles_list_id: json['roles_list_id'] as String?,
       specialties_detail_id: json['specialties_detail_id'] as String?,
@@ -51,6 +52,7 @@ _$PostShiftDTOImpl _$$PostShiftDTOImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$PostShiftDTOImplToJson(_$PostShiftDTOImpl instance) =>
     <String, dynamic>{
+      'update_status': instance.update_status,
       'id': instance.id,
       'roles_list_id': instance.roles_list_id,
       'specialties_detail_id': instance.specialties_detail_id,

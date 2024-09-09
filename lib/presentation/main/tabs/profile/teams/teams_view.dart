@@ -22,7 +22,7 @@ class TeamsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          getIt<TeamsBloc>()..add(TeamsEvent.getTeamList(true)),
+          getIt<TeamsBloc>()..add(TeamsEvent.getTeamList(true, null)),
       child: BlocConsumer<TeamsBloc, TeamsState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -40,14 +40,14 @@ class TeamsView extends StatelessWidget {
                       onRefresh: () {
                         context
                             .read<TeamsBloc>()
-                            .add(TeamsEvent.getTeamList(true));
+                            .add(TeamsEvent.getTeamList(true, null));
                       },
                       refreshController:
                           context.read<TeamsBloc>().refreshController,
                       onLoading: () {
                         context
                             .read<TeamsBloc>()
-                            .add(TeamsEvent.getTeamList(false));
+                            .add(TeamsEvent.getTeamList(false, null));
                       },
                       isNoDataFound: state.isNoDataFound,
                       child: state.isLoading
@@ -66,8 +66,8 @@ class TeamsView extends StatelessWidget {
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return GestureDetector(
-                                      onTap: () {
-                                        context.router.push(
+                                      onTap: () async {
+                                        var res = await context.router.push(
                                           PageRouteInfo(
                                             TeamDetailView.name,
                                             args: TeamDetailViewArgs(
@@ -76,6 +76,11 @@ class TeamsView extends StatelessWidget {
                                             ),
                                           ),
                                         );
+                                        if (res != null && res == true) {
+                                          context.read<TeamsBloc>().add(
+                                              TeamsEvent.getTeamList(
+                                                  true, null));
+                                        }
                                       },
                                       child: CommonTeamContainer(
                                         teamName:
@@ -102,12 +107,13 @@ class TeamsView extends StatelessWidget {
                       var res = await context.router.push(
                         PageRouteInfo(
                           AddNewTeamView.name,
+                          args: AddNewTeamViewArgs(),
                         ),
                       );
                       if (res != null && res == true) {
                         context
                             .read<TeamsBloc>()
-                            .add(TeamsEvent.getTeamList(true));
+                            .add(TeamsEvent.getTeamList(true, null));
                       }
                     },
                     backgroundColor: AppColors.green.withOpacity(0.15),
