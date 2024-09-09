@@ -79,6 +79,7 @@ class ViewDates extends StatelessWidget {
                       title: StringConstant.shiftTime,
                       value:
                           "${convertTimeStampToDate(shift[index].start_time ?? -1)} to ${convertTimeStampToDate(shift[index].end_time ?? -1)}",
+                      unpaidBreak: "${shift[index].unpaid_break?.short_name}",
                     );
                   }),
               /*startEndDate(
@@ -215,6 +216,7 @@ class ViewDates extends StatelessWidget {
     required String date,
     required String title,
     required String value,
+    required String unpaidBreak,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -264,6 +266,31 @@ class ViewDates extends StatelessWidget {
                     ),
                   ),
                 ),
+                if (shiftDetail.shift_type == 2 &&
+                    shiftDetail.same_or_different_time == 2) ...[
+                  SizedBox(height: getSize(10)),
+                  BaseText(
+                    text: StringConstant.unpaidBreak,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    textColor: AppColors.black.withOpacity(0.7),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: getSize(5)),
+                    decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: ListTile(
+                      dense: true,
+                      title: BaseText(
+                        text: unpaidBreak,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        textColor: AppColors.black,
+                      ),
+                    ),
+                  ),
+                ],
               ],
             )),
       ],

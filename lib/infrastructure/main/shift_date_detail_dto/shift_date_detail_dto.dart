@@ -19,7 +19,8 @@ class ShiftDateDetailDTO with _$ShiftDateDetailDTO {
     String? startMinute,
     String? endHour,
     String? endMinute,
-    String? totalPaybleHours,
+    // String? totalPaybleHours,
+    String? payable_hour,
     SkillDTO? unpaid_break,
   }) = _ShiftDateDetailDTO;
 

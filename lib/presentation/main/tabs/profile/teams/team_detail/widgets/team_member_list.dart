@@ -77,7 +77,7 @@ class TeamMemberList extends StatelessWidget {
         ),
         CommonButton(
           height: 28,
-          width: 185,
+          width: 200,
           onPressed: () {
             context.router.push(
               PageRouteInfo(

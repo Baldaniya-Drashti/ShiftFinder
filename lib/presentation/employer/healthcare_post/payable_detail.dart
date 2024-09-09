@@ -9,6 +9,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/payable_dto.dart/payable_dto.dart';
+import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -21,12 +22,14 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'payableDetail')
 class PayableDetail extends StatelessWidget {
   HealthcarePostDTO post;
+  PostShiftDTO? updatedPost;
   bool isUpdate;
-  PayableDetail({super.key, required this.post, this.isUpdate = false});
+  PayableDetail(
+      {super.key, required this.post, this.isUpdate = false, this.updatedPost});
 
   @override
   Widget build(BuildContext context) {
-    print("Post111---->  ${jsonEncode(post)}");
+    print("Post111---->  ${jsonEncode(updatedPost)}");
 
     return BlocProvider(
       create: (context) => getIt<PostShiftBloc>(),
@@ -50,6 +53,36 @@ class PayableDetail extends StatelessWidget {
                   context,
                   title: StringConstant.allSet,
                   infoMessage: r,
+                  onOkClick: () {
+                    // context.router.maybePop();
+
+                    context.router.popUntil(
+                      (route) => route.isFirst,
+                    );
+                  },
+                );
+              },
+            ),
+          );
+          state.recurringFailureOrSuccessOption.fold(
+            () {},
+            (either) => either.fold(
+              (failure) {
+                showError(
+                  message: failure.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(context);
+              },
+              (r) {
+                AppDialog.showSuccess(
+                  context,
+                  title: StringConstant.allSet,
+                  infoMessage:
+                      "Your healthcare shift has been successfully updated!",
                   onOkClick: () {
                     // context.router.maybePop();
 
@@ -108,12 +141,17 @@ class PayableDetail extends StatelessWidget {
                                       onDeleteClick: () {
                                         Navigator.pop(context);
                                         context.read<PostShiftBloc>().add(
-                                            PostShiftEvent.postTheShiftEvent(
-                                                post.id ?? -1));
+                                                PostShiftEvent
+                                                    .postTheShiftEvent(
+                                              post.id ?? -1,
+                                              (isUpdate) ? updatedPost : null,
+                                            ));
                                       },
                                     );
                                   },
-                                  buttonText: isUpdate ? StringConstant.updateTheShift: StringConstant.postTheShift,
+                                  buttonText: isUpdate
+                                      ? StringConstant.updateTheShift
+                                      : StringConstant.postTheShift,
                                 ),
                               ),
                             ],
@@ -201,8 +239,8 @@ class PayableDetail extends StatelessWidget {
                 value: value2 ?? "",
               ),
             ],
-            paddingBetweenFields(),
             if (title3 != null) ...[
+              paddingBetweenFields(),
               paybaleTitleRate(
                 title: title3,
                 value: value3 ?? "",
@@ -293,7 +331,8 @@ class PayableDetail extends StatelessWidget {
           title1: StringConstant.sumOfAmounts,
           title2: StringConstant.numberOfVacancies,
           value1: "\$${shift.total_one_shift}",
-          value2: "${shift.number_of_vacancie ?? 0}",
+          value2:
+              "${(shift.number_of_vacancie.toString().length == 2) ? shift.number_of_vacancie ?? 0 : "0${shift.number_of_vacancie}"}",
         ),
         totalPayableBox(
           totalPayableTitle: StringConstant.totalAmount,
@@ -332,7 +371,7 @@ class PayableDetail extends StatelessWidget {
           title1: StringConstant.totalPayableForOneShift,
           title2: StringConstant.numberOfVacancies,
           value1: "\$${shift.total_one_shift}",
-          value2: "\$${shift.number_of_vacancie}",
+          value2: "${shift.number_of_vacancie}",
         ),
         totalPayableBox(
           totalPayableTitle: StringConstant.totalAmountPayable,

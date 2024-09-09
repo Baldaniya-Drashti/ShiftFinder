@@ -13,6 +13,7 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -50,8 +51,8 @@ class AddCardDetailPage extends StatelessWidget {
                   ).show(context);
                 },
                 (r) {
-                  AppDialog.showInfo(context, StringConstant.underDevelopment);
-                  // context.router.replace(const PageRouteInfo(MainTabView.name));
+                  // AppDialog.showInfo(context, StringConstant.underDevelopment);
+                  context.router.replace(const PageRouteInfo(MainTabView.name));
                 },
               ),
             );
@@ -67,7 +68,8 @@ class AddCardDetailPage extends StatelessWidget {
                 title: StringConstant.addCard,
                 showSkipBtn: true,
                 onSkipped: () {
-                  AppDialog.showInfo(context, StringConstant.underDevelopment);
+                  context.router.replace(const PageRouteInfo(MainTabView.name));
+                  // AppDialog.showInfo(context, StringConstant.underDevelopment);
                 },
               ),
               body: Padding(

@@ -47,7 +47,7 @@ class NoTeamMemberView extends StatelessWidget {
         ),
         CommonButton(
           height: 28,
-          width: 156,
+          width: 170,
           onPressed: () {
             context.router.push(
               PageRouteInfo(

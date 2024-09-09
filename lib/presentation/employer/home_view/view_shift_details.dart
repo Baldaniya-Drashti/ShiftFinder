@@ -151,7 +151,8 @@ class ViewHomeShiftDetails extends StatelessWidget {
         children: [
           paybaleTitleRate(
             title: StringConstant.totalNumberOfVacancy,
-            value: "${payable.number_of_vacancie ?? 00}",
+            value:
+                "${(payable.number_of_vacancie.toString().length == 2) ? payable.number_of_vacancie : "0${payable.number_of_vacancie}"}",
             isFirst: true,
           ),
           commonDivider(),
@@ -524,11 +525,27 @@ class ViewHomeShiftDetails extends StatelessWidget {
                 title: StringConstant.shiftDates,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
-              displayDateBreak(context, post,
-                  boldValue: post.shift_detail?.unpaid_break?.short_name ?? "",
-                  timidValue: "",
-                  title: StringConstant.unpaidBreak,
-                  svgPrefixIcon: SvgImageConstant.clock),
+              (post.shift_detail?.shift_type == 2 &&
+                      post.shift_detail?.same_or_different_time == 2)
+                  ? displayDateBreak(context, post,
+                      boldValue: (post.shift_detail?.detail != null &&
+                              post.shift_detail!.detail!.isNotEmpty)
+                          ? "${(post.shift_detail?.detail?.length.toString().length == 2) ? post.shift_detail?.detail?.length : "0${post.shift_detail?.detail?.length}"}"
+                          : "00",
+                      timidValue: "",
+                      title: StringConstant.totalNumberOfShifts,
+                      svgPrefixIcon: SvgImageConstant.clockWithOuterLine)
+                  : displayDateBreak(context, post,
+                      boldValue:
+                          post.shift_detail?.unpaid_break?.short_name ?? "",
+                      timidValue: "",
+                      title: StringConstant.unpaidBreak,
+                      svgPrefixIcon: SvgImageConstant.clock),
+              // displayDateBreak(context, post,
+              //     boldValue: post.shift_detail?.unpaid_break?.short_name ?? "",
+              //     timidValue: "",
+              //     title: StringConstant.unpaidBreak,
+              //     svgPrefixIcon: SvgImageConstant.clock),
             ],
           ),
           Padding(
@@ -585,8 +602,8 @@ class ViewHomeShiftDetails extends StatelessWidget {
                                   shiftDetail: post.shift_detail!)));
                         }
                       },
-                      width: getSize(100),
-                      height: getSize(23),
+                      width: 100,
+                      height: 23,
                       borderRadius: 5,
                       buttonFontSize: 12,
                       buttonFontWeight: FontWeight.w500,

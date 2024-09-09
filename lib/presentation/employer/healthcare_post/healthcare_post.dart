@@ -1101,9 +1101,8 @@ class HealthCarePostForm extends StatelessWidget {
       isPrefixValueShow: true,
       errorMaxLines: 2,
       maxLength: 5,
-      initialValue: (state.rateHour.getValue()!.isNotEmpty)
-          ? state.rateHour.getValue()
-          : null,
+      initialValue:
+          (state.rateHour.isValid()) ? state.rateHour.getValue() : null,
       hintText: StringConstant.rateHour,
       keyboardType:
           TextInputType.numberWithOptions(decimal: true, signed: true),
@@ -1120,7 +1119,9 @@ class HealthCarePostForm extends StatelessWidget {
             text: '\$ ',
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            textColor: AppColors.black.withOpacity(0.5),
+            textColor: (state.rateHour.isValid())
+                ? AppColors.black
+                : AppColors.black.withOpacity(0.5),
           )),
       prefixIconConstraints:
           BoxConstraints(maxWidth: getSize(100), minHeight: 0),

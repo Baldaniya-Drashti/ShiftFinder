@@ -69,11 +69,16 @@ class PostShiftRecurring extends StatelessWidget {
                 (r) {
                   context.router.push(PageRouteInfo(ReviewPostShiftDetail.name,
                       args: ReviewPostShiftDetailArgs(
-                          post: r,
-                          isUpdate: (state.updateShift.id != null &&
-                                  state.updateShift.id != -1)
-                              ? true
-                              : false)));
+                        post: r,
+                        updatedPost: (state.updateShift.id != null &&
+                                state.updateShift.id != -1)
+                            ? state.post
+                            : null,
+                        isUpdate: (state.updateShift.id != null &&
+                                state.updateShift.id != -1)
+                            ? true
+                            : false,
+                      )));
                 },
               ),
             );
@@ -442,9 +447,14 @@ class PostShiftRecurring extends StatelessWidget {
         ),
       ),
       onTap: () {
+        print(
+            "START FIRST DATE---> ${DateTime.fromMillisecondsSinceEpoch((double.parse(post.date!).toInt()) * 1000)}");
         DocumentExpiryDatePicker.customDatePicker(
           context,
-          firstDate: DateTime.now(),
+          firstDate: (post.date != null && post.date!.isNotEmpty)
+              ? DateTime.fromMillisecondsSinceEpoch(
+                  (double.parse(post.date!).toInt()) * 1000)
+              : DateTime.now(),
           onPickedDate: (pickedDate) {
             context
                 .read<PostShiftBloc>()
@@ -455,7 +465,8 @@ class PostShiftRecurring extends StatelessWidget {
           onCancelClick: () {},
           selectedDate: (state.recurringStartDate.isValid())
               ? DateTime.parse(state.recurringStartDate.getValue() ?? "")
-              : DateTime.now(),
+              : DateTime.fromMillisecondsSinceEpoch(
+                  (double.parse(post.date!).toInt()) * 1000),
         );
       },
       validator: (_, context) =>
@@ -601,7 +612,10 @@ class PostShiftRecurring extends StatelessWidget {
           // firstDate: DateTime.now(),
           firstDate: (state.recurringStartDate.isValid())
               ? DateTime.parse(state.recurringStartDate.getValue() ?? "")
-              : DateTime.now(),
+              : (post.date != null && post.date!.isNotEmpty)
+                  ? DateTime.fromMillisecondsSinceEpoch(
+                      (double.parse(post.date!).toInt()) * 1000)
+                  : DateTime.now(),
           onPickedDate: (pickedDate) {
             context
                 .read<PostShiftBloc>()
@@ -612,7 +626,10 @@ class PostShiftRecurring extends StatelessWidget {
           onCancelClick: () {},
           selectedDate: (state.recurringEndDate.isValid())
               ? DateTime.parse(state.recurringEndDate.getValue() ?? "")
-              : null,
+              : (state.recurringStartDate.isValid())
+                  ? DateTime.parse(state.recurringStartDate.getValue() ?? "")
+                  : DateTime.fromMillisecondsSinceEpoch(
+                      (double.parse(post.date!).toInt()) * 1000),
         );
       },
       validator: (_, context) =>
@@ -658,16 +675,16 @@ class PostShiftRecurring extends StatelessWidget {
 
                 bool isTeamCheck =
                     state.selectedTeamList.getValue().any((item) {
-                  print(
-                      "is team check---> ${item.name == teamList[index].name}");
+                  print("is team check---> ${item.id == teamList[index].id}");
 
-                  return item.name == teamList[index].name;
+                  return item.id == teamList[index].id;
                 });
                 // print("is team check---> ${state.selectedTeamList}}");
                 return Padding(
                   padding: EdgeInsets.symmetric(vertical: getSize(5)),
                   child: GestureDetector(
                     onTap: () {
+                      print("Teams selected index--> ${teamList[index].id}");
                       context
                           .read<PostShiftBloc>()
                           .add(PostShiftEvent.selectTeamEvent(teamList[index]));

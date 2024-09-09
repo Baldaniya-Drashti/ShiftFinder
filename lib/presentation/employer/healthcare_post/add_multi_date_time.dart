@@ -41,7 +41,7 @@ class AddMultiDateTime extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Selected Obj--> ${jsonEncode(selectedObj)}");
+    print("Selected Obj--> ${jsonEncode(selectedObj.multi_date)}");
     return BlocProvider(
       create: (context) => getIt<PostShiftBloc>()
         ..add(PostShiftEvent.initMultiDifferentDateEvent(
@@ -290,6 +290,8 @@ class AddMultiDateTime extends StatelessWidget {
     final minute = state.multiDateTimeList[index].startMinute;
     return CustomTimePickerDropdown(
       labelText: StringConstant.startTime,
+      dropDownIcon: (state.updateShift.id != null) ? Container() : null,
+      dropDownReadOnly: (state.updateShift.id != null) ? true : false,
       isLabelPadding: false,
       hourValue: (hour != null && hour.isNotEmpty) ? hour : null,
       minuteValue: (minute != null && minute.isNotEmpty) ? minute : null,
@@ -315,6 +317,8 @@ class AddMultiDateTime extends StatelessWidget {
     return CustomTimePickerDropdown(
       labelText: StringConstant.endTime,
       isLabelPadding: false,
+      dropDownIcon: (state.updateShift.id != null) ? Container() : null,
+      dropDownReadOnly: (state.updateShift.id != null) ? true : false,
       hourValue: (hour != null && hour.isNotEmpty) ? hour : null,
       minuteValue: (minute != null && minute.isNotEmpty) ? minute : null,
       hourOnChanged: (value) {

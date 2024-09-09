@@ -20,7 +20,7 @@ _$ShiftDateDetailDTOImpl _$$ShiftDateDetailDTOImplFromJson(
       startMinute: json['startMinute'] as String?,
       endHour: json['endHour'] as String?,
       endMinute: json['endMinute'] as String?,
-      totalPaybleHours: json['totalPaybleHours'] as String?,
+      payable_hour: json['payable_hour'] as String?,
       unpaid_break: json['unpaid_break'] == null
           ? null
           : SkillDTO.fromJson(json['unpaid_break'] as Map<String, dynamic>),
@@ -40,6 +40,6 @@ Map<String, dynamic> _$$ShiftDateDetailDTOImplToJson(
       'startMinute': instance.startMinute,
       'endHour': instance.endHour,
       'endMinute': instance.endMinute,
-      'totalPaybleHours': instance.totalPaybleHours,
+      'payable_hour': instance.payable_hour,
       'unpaid_break': instance.unpaid_break,
     };

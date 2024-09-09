@@ -47,6 +47,10 @@ class HomeView extends StatelessWidget {
                       child: BaseText(text: StringConstant.somethindWentWrong),
                     )
                   :
+                  // (state.employerDashboardList.isEmpty)
+                  // ? Center(
+                  //     child: BaseText(text: StringConstant.somethindWentWrong),
+                  //   ):
                   // state.isNoDataFound
                   //     ? Text(state.isNoDataFound):
                   ListView.builder(

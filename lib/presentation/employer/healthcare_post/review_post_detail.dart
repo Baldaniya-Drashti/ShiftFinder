@@ -10,6 +10,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
+import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -23,12 +24,14 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'reviewPostShiftDetail')
 class ReviewPostShiftDetail extends StatelessWidget {
   HealthcarePostDTO post;
+  PostShiftDTO? updatedPost;
   bool isUpdate;
-  ReviewPostShiftDetail({super.key, required this.post, this.isUpdate = false});
+  ReviewPostShiftDetail(
+      {super.key, required this.post, this.isUpdate = false, this.updatedPost});
 
   @override
   Widget build(BuildContext context) {
-    print("postpostpostpost---> ${jsonEncode(post.shift_detail!.teams)}");
+    print("postpostpostpost---> ${jsonEncode(updatedPost)}");
     return Scaffold(
       backgroundColor: AppColors.scaffoldColor,
       appBar: CommonAppBar(
@@ -147,6 +150,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
                         context.router.push(PageRouteInfo(PayableDetail.name,
                             args: PayableDetailArgs(
                               post: post,
+                              updatedPost: updatedPost,
                               isUpdate: isUpdate,
                             )));
                       },
@@ -367,11 +371,11 @@ class ReviewPostShiftDetail extends StatelessWidget {
               fontWeight: FontWeight.w600,
               textColor: AppColors.black.withOpacity(0.70),
             ),
-            trailing: BaseText(
-              text: post.last_ago ?? "",
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-            ),
+            // trailing: BaseText(
+            //   text: post.last_ago ?? "",
+            //   fontSize: 10,
+            //   fontWeight: FontWeight.w600,
+            // ),
             contentPadding: EdgeInsets.zero,
             visualDensity: VisualDensity.compact,
           ),
@@ -504,11 +508,22 @@ class ReviewPostShiftDetail extends StatelessWidget {
                 title: StringConstant.shiftDates,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
-              displayDateBreak(context,
-                  boldValue: "${shiftDetail?.unpaid_break?.short_name ?? ""}",
-                  timidValue: "",
-                  title: StringConstant.unpaidBreak,
-                  svgPrefixIcon: SvgImageConstant.clock),
+              (post.shift_detail?.shift_type == 2 &&
+                      post.shift_detail?.same_or_different_time == 2)
+                  ? displayDateBreak(context,
+                      boldValue: (post.shift_detail?.detail != null &&
+                              post.shift_detail!.detail!.isNotEmpty)
+                          ? "${(post.shift_detail?.detail?.length.toString().length == 2) ? post.shift_detail?.detail?.length : "0${post.shift_detail?.detail?.length}"}"
+                          : "00",
+                      timidValue: "",
+                      title: StringConstant.totalNumberOfShifts,
+                      svgPrefixIcon: SvgImageConstant.clockWithOuterLine)
+                  : displayDateBreak(context,
+                      boldValue:
+                          "${shiftDetail?.unpaid_break?.short_name ?? ""}",
+                      timidValue: "",
+                      title: StringConstant.unpaidBreak,
+                      svgPrefixIcon: SvgImageConstant.clock),
             ],
           ),
           Padding(
@@ -564,8 +579,8 @@ class ReviewPostShiftDetail extends StatelessWidget {
                                   shiftDetail: post.shift_detail!)));
                         }
                       },
-                      width: getSize(100),
-                      height: getSize(23),
+                      width: 100,
+                      height: 23,
                       borderRadius: 5,
                       buttonFontSize: 12,
                       buttonFontWeight: FontWeight.w500,

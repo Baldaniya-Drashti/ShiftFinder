@@ -152,8 +152,8 @@ getAppbar(MainTabState state, BuildContext context) {
               image: (getCurrentUser().profileImage != null &&
                       getCurrentUser().profileImage!.isNotEmpty)
                   ? CachedNetworkImageProvider(
-                      // getCurrentUser().profileImage!,
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBLrdd7MIMxvrcpH-P3EtMy2jhc5PL0tDNww&s",
+                      getCurrentUser().profileImage!,
+                      // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBLrdd7MIMxvrcpH-P3EtMy2jhc5PL0tDNww&s",
                     )
                   : AssetImage(
                       PngImageConstants.profile_employer,

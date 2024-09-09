@@ -30,8 +30,9 @@ mixin _$ShiftDateDetailDTO {
   String? get startHour => throw _privateConstructorUsedError;
   String? get startMinute => throw _privateConstructorUsedError;
   String? get endHour => throw _privateConstructorUsedError;
-  String? get endMinute => throw _privateConstructorUsedError;
-  String? get totalPaybleHours => throw _privateConstructorUsedError;
+  String? get endMinute =>
+      throw _privateConstructorUsedError; // String? totalPaybleHours,
+  String? get payable_hour => throw _privateConstructorUsedError;
   SkillDTO? get unpaid_break => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -58,7 +59,7 @@ abstract class $ShiftDateDetailDTOCopyWith<$Res> {
       String? startMinute,
       String? endHour,
       String? endMinute,
-      String? totalPaybleHours,
+      String? payable_hour,
       SkillDTO? unpaid_break});
 
   $SkillDTOCopyWith<$Res>? get unpaid_break;
@@ -88,7 +89,7 @@ class _$ShiftDateDetailDTOCopyWithImpl<$Res, $Val extends ShiftDateDetailDTO>
     Object? startMinute = freezed,
     Object? endHour = freezed,
     Object? endMinute = freezed,
-    Object? totalPaybleHours = freezed,
+    Object? payable_hour = freezed,
     Object? unpaid_break = freezed,
   }) {
     return _then(_value.copyWith(
@@ -136,9 +137,9 @@ class _$ShiftDateDetailDTOCopyWithImpl<$Res, $Val extends ShiftDateDetailDTO>
           ? _value.endMinute
           : endMinute // ignore: cast_nullable_to_non_nullable
               as String?,
-      totalPaybleHours: freezed == totalPaybleHours
-          ? _value.totalPaybleHours
-          : totalPaybleHours // ignore: cast_nullable_to_non_nullable
+      payable_hour: freezed == payable_hour
+          ? _value.payable_hour
+          : payable_hour // ignore: cast_nullable_to_non_nullable
               as String?,
       unpaid_break: freezed == unpaid_break
           ? _value.unpaid_break
@@ -180,7 +181,7 @@ abstract class _$$ShiftDateDetailDTOImplCopyWith<$Res>
       String? startMinute,
       String? endHour,
       String? endMinute,
-      String? totalPaybleHours,
+      String? payable_hour,
       SkillDTO? unpaid_break});
 
   @override
@@ -209,7 +210,7 @@ class __$$ShiftDateDetailDTOImplCopyWithImpl<$Res>
     Object? startMinute = freezed,
     Object? endHour = freezed,
     Object? endMinute = freezed,
-    Object? totalPaybleHours = freezed,
+    Object? payable_hour = freezed,
     Object? unpaid_break = freezed,
   }) {
     return _then(_$ShiftDateDetailDTOImpl(
@@ -257,9 +258,9 @@ class __$$ShiftDateDetailDTOImplCopyWithImpl<$Res>
           ? _value.endMinute
           : endMinute // ignore: cast_nullable_to_non_nullable
               as String?,
-      totalPaybleHours: freezed == totalPaybleHours
-          ? _value.totalPaybleHours
-          : totalPaybleHours // ignore: cast_nullable_to_non_nullable
+      payable_hour: freezed == payable_hour
+          ? _value.payable_hour
+          : payable_hour // ignore: cast_nullable_to_non_nullable
               as String?,
       unpaid_break: freezed == unpaid_break
           ? _value.unpaid_break
@@ -284,7 +285,7 @@ class _$ShiftDateDetailDTOImpl implements _ShiftDateDetailDTO {
       this.startMinute,
       this.endHour,
       this.endMinute,
-      this.totalPaybleHours,
+      this.payable_hour,
       this.unpaid_break});
 
   factory _$ShiftDateDetailDTOImpl.fromJson(Map<String, dynamic> json) =>
@@ -312,14 +313,15 @@ class _$ShiftDateDetailDTOImpl implements _ShiftDateDetailDTO {
   final String? endHour;
   @override
   final String? endMinute;
+// String? totalPaybleHours,
   @override
-  final String? totalPaybleHours;
+  final String? payable_hour;
   @override
   final SkillDTO? unpaid_break;
 
   @override
   String toString() {
-    return 'ShiftDateDetailDTO(id: $id, recurrence_mode: $recurrence_mode, start_time: $start_time, date: $date, end_time: $end_time, days: $days, objId: $objId, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, totalPaybleHours: $totalPaybleHours, unpaid_break: $unpaid_break)';
+    return 'ShiftDateDetailDTO(id: $id, recurrence_mode: $recurrence_mode, start_time: $start_time, date: $date, end_time: $end_time, days: $days, objId: $objId, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, payable_hour: $payable_hour, unpaid_break: $unpaid_break)';
   }
 
   @override
@@ -344,8 +346,8 @@ class _$ShiftDateDetailDTOImpl implements _ShiftDateDetailDTO {
             (identical(other.endHour, endHour) || other.endHour == endHour) &&
             (identical(other.endMinute, endMinute) ||
                 other.endMinute == endMinute) &&
-            (identical(other.totalPaybleHours, totalPaybleHours) ||
-                other.totalPaybleHours == totalPaybleHours) &&
+            (identical(other.payable_hour, payable_hour) ||
+                other.payable_hour == payable_hour) &&
             (identical(other.unpaid_break, unpaid_break) ||
                 other.unpaid_break == unpaid_break));
   }
@@ -365,7 +367,7 @@ class _$ShiftDateDetailDTOImpl implements _ShiftDateDetailDTO {
       startMinute,
       endHour,
       endMinute,
-      totalPaybleHours,
+      payable_hour,
       unpaid_break);
 
   @JsonKey(ignore: true)
@@ -396,7 +398,7 @@ abstract class _ShiftDateDetailDTO implements ShiftDateDetailDTO {
       final String? startMinute,
       final String? endHour,
       final String? endMinute,
-      final String? totalPaybleHours,
+      final String? payable_hour,
       final SkillDTO? unpaid_break}) = _$ShiftDateDetailDTOImpl;
 
   factory _ShiftDateDetailDTO.fromJson(Map<String, dynamic> json) =
@@ -424,8 +426,8 @@ abstract class _ShiftDateDetailDTO implements ShiftDateDetailDTO {
   String? get endHour;
   @override
   String? get endMinute;
-  @override
-  String? get totalPaybleHours;
+  @override // String? totalPaybleHours,
+  String? get payable_hour;
   @override
   SkillDTO? get unpaid_break;
   @override

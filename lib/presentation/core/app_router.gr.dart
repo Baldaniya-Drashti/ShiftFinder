@@ -406,6 +406,7 @@ abstract class $AppRouter extends _i53.RootStackRouter {
           key: args.key,
           post: args.post,
           isUpdate: args.isUpdate,
+          updatedPost: args.updatedPost,
         ),
       );
     },
@@ -490,6 +491,7 @@ abstract class $AppRouter extends _i53.RootStackRouter {
           key: args.key,
           post: args.post,
           isUpdate: args.isUpdate,
+          updatedPost: args.updatedPost,
         ),
       );
     },
@@ -1502,6 +1504,7 @@ class PayableDetail extends _i53.PageRouteInfo<PayableDetailArgs> {
     _i54.Key? key,
     required _i57.HealthcarePostDTO post,
     bool isUpdate = false,
+    _i58.PostShiftDTO? updatedPost,
     List<_i53.PageRouteInfo>? children,
   }) : super(
           PayableDetail.name,
@@ -1509,6 +1512,7 @@ class PayableDetail extends _i53.PageRouteInfo<PayableDetailArgs> {
             key: key,
             post: post,
             isUpdate: isUpdate,
+            updatedPost: updatedPost,
           ),
           initialChildren: children,
         );
@@ -1524,6 +1528,7 @@ class PayableDetailArgs {
     this.key,
     required this.post,
     this.isUpdate = false,
+    this.updatedPost,
   });
 
   final _i54.Key? key;
@@ -1532,9 +1537,11 @@ class PayableDetailArgs {
 
   final bool isUpdate;
 
+  final _i58.PostShiftDTO? updatedPost;
+
   @override
   String toString() {
-    return 'PayableDetailArgs{key: $key, post: $post, isUpdate: $isUpdate}';
+    return 'PayableDetailArgs{key: $key, post: $post, isUpdate: $isUpdate, updatedPost: $updatedPost}';
   }
 }
 
@@ -1779,6 +1786,7 @@ class ReviewPostShiftDetail
     _i54.Key? key,
     required _i57.HealthcarePostDTO post,
     bool isUpdate = false,
+    _i58.PostShiftDTO? updatedPost,
     List<_i53.PageRouteInfo>? children,
   }) : super(
           ReviewPostShiftDetail.name,
@@ -1786,6 +1794,7 @@ class ReviewPostShiftDetail
             key: key,
             post: post,
             isUpdate: isUpdate,
+            updatedPost: updatedPost,
           ),
           initialChildren: children,
         );
@@ -1801,6 +1810,7 @@ class ReviewPostShiftDetailArgs {
     this.key,
     required this.post,
     this.isUpdate = false,
+    this.updatedPost,
   });
 
   final _i54.Key? key;
@@ -1809,9 +1819,11 @@ class ReviewPostShiftDetailArgs {
 
   final bool isUpdate;
 
+  final _i58.PostShiftDTO? updatedPost;
+
   @override
   String toString() {
-    return 'ReviewPostShiftDetailArgs{key: $key, post: $post, isUpdate: $isUpdate}';
+    return 'ReviewPostShiftDetailArgs{key: $key, post: $post, isUpdate: $isUpdate, updatedPost: $updatedPost}';
   }
 }
 

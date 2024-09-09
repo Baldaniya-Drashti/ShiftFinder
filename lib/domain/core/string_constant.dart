@@ -496,6 +496,14 @@ class StringConstant {
       "Something wrong. Please try again!!";
   static const String pleaseSelectHourAndMinutesOfStartTime =
       "Please select hour and minutes of start time";
+        static const String pleaseSelectHourOfStartTime =
+      "Please select hour of start time";
+        static const String pleaseSelectMinutesOfStartTime =
+      "Please select minutes of start time";
+              static const String pleaseSelectHourOfEndTime =
+      "Please select hour of end time";
+        static const String pleaseSelectMinutesOfEndTime =
+      "Please select minutes of end time";
   static const String pleaseSelectHourAndMinutesOfEndTime =
       "Please select hour and minutes of end time";
   static const String pleaseSelectUnpaidBreakTime =

@@ -461,7 +461,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           await getTeamsListApi(emit);
           if (e.updateShift != null) {
             setShiftDataToUpdate(emit, e.updateShift!);
-            await Future.delayed(Duration(seconds: 2));
+            await Future.delayed(Duration(seconds: 5));
           }
 
           emit(
@@ -473,6 +473,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
         },
         recurringButtonEvent: (e) async {
           Either<MainFailure, HealthcarePostDTO>? failureOrSuccess;
+          PostShiftDTO postObj = state.post;
           emit(
             state.copyWith(
               isLoading: true,
@@ -495,7 +496,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                     state.selectedTeamList.getValue()),
                 saveTemplateStatus: (state.isSaveAsTemplate) ? 1 : 0);*/
 
-            final postObj = state.post.copyWith(
+            postObj = state.post.copyWith(
               id: (state.updateShift.id != null && state.updateShift.id != -1)
                   ? state.updateShift.id
                   : null,
@@ -546,6 +547,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             state.copyWith(
               isLoading: false,
               recurringErrorMessage: true,
+              post: postObj,
               recurringFailureOrSuccessOption: optionOf(failureOrSuccess),
             ),
           );
@@ -830,22 +832,42 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           );
         },
         postTheShiftEvent: (e) async {
-          Either<MainFailure, String>? failureOrSuccess;
           emit(
             state.copyWith(
               isLoading: true,
+              recurringFailureOrSuccessOption: none(),
               postShiftFailureOrSuccessOption: none(),
             ),
           );
           print("All details are valid! ");
-          failureOrSuccess = await _mainFacade.postShiftApi(postId: e.postId);
-          emit(
-            state.copyWith(
-              isLoading: false,
-              singleShiftErrorMessages: true,
-              postShiftFailureOrSuccessOption: optionOf(failureOrSuccess),
-            ),
-          );
+          if (e.updatedPost != null) {
+            Either<MainFailure, HealthcarePostDTO>? updateFailureOrSuccess;
+
+            updateFailureOrSuccess = await _mainFacade.updatePostApi(
+              postShiftDetail: e.updatedPost!,
+            );
+            emit(
+              state.copyWith(
+                isLoading: false,
+                singleShiftErrorMessages: true,
+                postShiftFailureOrSuccessOption: none(),
+                recurringFailureOrSuccessOption:
+                    optionOf(updateFailureOrSuccess),
+              ),
+            );
+          } else {
+            Either<MainFailure, String>? failureOrSuccess;
+
+            failureOrSuccess = await _mainFacade.postShiftApi(postId: e.postId);
+            emit(
+              state.copyWith(
+                isLoading: false,
+                singleShiftErrorMessages: true,
+                recurringFailureOrSuccessOption: none(),
+                postShiftFailureOrSuccessOption: optionOf(failureOrSuccess),
+              ),
+            );
+          }
         },
       );
     });
@@ -1505,7 +1527,16 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               CustomDateTimeFormat.getHour(timestamp: multiDate.end_time ?? 0),
           endMinute: CustomDateTimeFormat.getMinute(
               timestamp: multiDate.end_time ?? 0),
-          totalPaybleHours: multiDate.totalPaybleHours ?? "",
+          totalPaybleHours: multiDate.payable_hour ?? "",
+          start_time: (multiDate.start_time != null)
+              ? DateTime.fromMillisecondsSinceEpoch(
+                      multiDate.start_time! * 1000)
+                  .toString()
+              : DateTime.now().toString(),
+          end_time: (multiDate.end_time != null)
+              ? DateTime.fromMillisecondsSinceEpoch(multiDate.end_time! * 1000)
+                  .toString()
+              : DateTime.now().toString(),
           unpaidBreak: getUnpaidBreakName(multiDate.unpaid_break?.id ?? -1));
     }).toList();
     print("get selected date list--> ${list}");

@@ -214,6 +214,7 @@ class SinglePostShift extends StatelessWidget {
       children: [
         CustomTimePickerDropdown(
           labelText: StringConstant.startTime,
+          dropDownIcon: (state.updateShift.id != null) ? Container() : null,
           dropDownReadOnly: (state.updateShift.id != null) ? true : false,
           disableDropDownColor: AppColors.grey04,
           hourValue:
@@ -236,13 +237,34 @@ class SinglePostShift extends StatelessWidget {
             }
           },
         ),
-        if (state.singleShiftErrorMessages &&
-            (!state.startHour.isValid() || !state.startMinute.isValid()))
-          commonErrorText(
-            StringConstant.pleaseSelectHourAndMinutesOfStartTime,
-          ),
+        (state.singleShiftErrorMessages &&
+                (!isStartHourValid(state) && !isStartMinValid(state)))
+            ? commonErrorText(
+                StringConstant.pleaseSelectHourAndMinutesOfStartTime)
+            : (state.singleShiftErrorMessages && !isStartHourValid(state))
+                ? commonErrorText(StringConstant.pleaseSelectHourOfStartTime)
+                : (state.singleShiftErrorMessages && !isStartMinValid(state))
+                    ? commonErrorText(
+                        StringConstant.pleaseSelectMinutesOfStartTime)
+                    : Container(),
       ],
     );
+  }
+
+  bool isStartHourValid(PostShiftState state) {
+    return (state.startHour.isValid());
+  }
+
+  bool isStartMinValid(PostShiftState state) {
+    return (state.startMinute.isValid());
+  }
+
+  bool isEndHourValid(PostShiftState state) {
+    return (state.endHour.isValid());
+  }
+
+  bool isEndMinValid(PostShiftState state) {
+    return (state.endMinute.isValid());
   }
 
   Widget endTime(BuildContext context, PostShiftState state) {
@@ -252,6 +274,7 @@ class SinglePostShift extends StatelessWidget {
       children: [
         CustomTimePickerDropdown(
           labelText: StringConstant.endTime,
+          dropDownIcon: (state.updateShift.id != null) ? Container() : null,
           dropDownReadOnly: (state.updateShift.id != null) ? true : false,
           disableDropDownColor: AppColors.grey04,
           hourValue:
@@ -273,11 +296,21 @@ class SinglePostShift extends StatelessWidget {
             }
           },
         ),
-        if (state.singleShiftErrorMessages &&
-            (!state.endHour.isValid() || !state.endMinute.isValid()))
-          commonErrorText(
-            StringConstant.pleaseSelectHourAndMinutesOfEndTime,
-          ),
+        // if (state.singleShiftErrorMessages &&
+        //     (!state.endHour.isValid() || !state.endMinute.isValid()))
+        //   commonErrorText(
+        //     StringConstant.pleaseSelectHourAndMinutesOfEndTime,
+        //   ),
+        (state.singleShiftErrorMessages &&
+                (!isEndHourValid(state) && !isEndMinValid(state)))
+            ? commonErrorText(
+                StringConstant.pleaseSelectHourAndMinutesOfEndTime)
+            : (state.singleShiftErrorMessages && !isEndHourValid(state))
+                ? commonErrorText(StringConstant.pleaseSelectHourOfEndTime)
+                : (state.singleShiftErrorMessages && !isEndMinValid(state))
+                    ? commonErrorText(
+                        StringConstant.pleaseSelectMinutesOfEndTime)
+                    : Container(),
       ],
     );
   }
@@ -288,6 +321,7 @@ class SinglePostShift extends StatelessWidget {
       hintText: StringConstant.unpaidBreak,
       showTextfield: false,
       isLabelPadding: true,
+      dropDownIcon: (state.updateShift.id != null) ? Container() : null,
       dropDownReadOnly: (state.updateShift.id != null) ? true : false,
       value:
           (state.unpaidBreak.isValid()) ? state.unpaidBreak.getValue() : null,

@@ -6,6 +6,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -50,9 +51,7 @@ class TeamsView extends StatelessWidget {
                       },
                       isNoDataFound: state.isNoDataFound,
                       child: state.isLoading
-                          ? Center(
-                              child: CircularProgressIndicator(),
-                            )
+                          ? CenterLoadingIndicator(isOnlyLoader: true)
                           : state.isErrorInAPI
                               ? Center(
                                   child: BaseText(

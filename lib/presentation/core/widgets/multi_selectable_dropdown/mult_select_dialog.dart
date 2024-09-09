@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_field, prefer_final_fields, avoid_print, use_key_in_widget_constructors, no_logic_in_create_state
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -383,6 +384,11 @@ class _MultiSelectDialogState<T> extends State<MultiSelectDialog<T>> {
                     labelText: "Add Other ${widget.title}",
                     hintText: widget.title,
                     controller: otherController,
+                    inputFormatters: [
+                      // FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'[a-zA-Z0-9\s]')),
+                    ],
                     suffixIcon: CommonButton(
                       height: getSize(27),
                       width: getSize(59),

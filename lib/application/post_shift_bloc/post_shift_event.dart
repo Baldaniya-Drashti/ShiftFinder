@@ -113,6 +113,6 @@ class PostShiftEvent with _$PostShiftEvent {
       SameTimeShiftSubmitted;
 
   /// Post the Shift
-  const factory PostShiftEvent.postTheShiftEvent(int postId) =
+  const factory PostShiftEvent.postTheShiftEvent(int postId,PostShiftDTO? updatedPost) =
       PostTheShiftEvent;
 }

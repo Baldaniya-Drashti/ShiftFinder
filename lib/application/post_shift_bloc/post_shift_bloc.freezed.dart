@@ -76,7 +76,8 @@ mixin _$PostShiftEvent {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -136,7 +137,7 @@ mixin _$PostShiftEvent {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -195,7 +196,7 @@ mixin _$PostShiftEvent {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -586,7 +587,8 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return changeShiftType(shiftType, postId, post, updateShift);
   }
@@ -649,7 +651,7 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return changeShiftType?.call(shiftType, postId, post, updateShift);
   }
@@ -711,7 +713,7 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (changeShiftType != null) {
@@ -1073,7 +1075,8 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return getBreakAllownceListApi(updateShift);
   }
@@ -1136,7 +1139,7 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return getBreakAllownceListApi?.call(updateShift);
   }
@@ -1198,7 +1201,7 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (getBreakAllownceListApi != null) {
@@ -1542,7 +1545,8 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return singleShiftDateChangedEvent(selectedDate);
   }
@@ -1605,7 +1609,7 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return singleShiftDateChangedEvent?.call(selectedDate);
   }
@@ -1667,7 +1671,7 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (singleShiftDateChangedEvent != null) {
@@ -2007,7 +2011,8 @@ class _$StartHourChangedImpl implements StartHourChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return startHourChanged(hour);
   }
@@ -2070,7 +2075,7 @@ class _$StartHourChangedImpl implements StartHourChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return startHourChanged?.call(hour);
   }
@@ -2132,7 +2137,7 @@ class _$StartHourChangedImpl implements StartHourChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (startHourChanged != null) {
@@ -2471,7 +2476,8 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return startMinuteChanged(minute);
   }
@@ -2534,7 +2540,7 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return startMinuteChanged?.call(minute);
   }
@@ -2596,7 +2602,7 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (startMinuteChanged != null) {
@@ -2936,7 +2942,8 @@ class _$EndHourChangedImpl implements EndHourChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return endHourChanged(hour);
   }
@@ -2999,7 +3006,7 @@ class _$EndHourChangedImpl implements EndHourChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return endHourChanged?.call(hour);
   }
@@ -3061,7 +3068,7 @@ class _$EndHourChangedImpl implements EndHourChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (endHourChanged != null) {
@@ -3400,7 +3407,8 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return endMinuteChanged(minute);
   }
@@ -3463,7 +3471,7 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return endMinuteChanged?.call(minute);
   }
@@ -3525,7 +3533,7 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (endMinuteChanged != null) {
@@ -3865,7 +3873,8 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return unpaidBreakChanged(breakTime);
   }
@@ -3928,7 +3937,7 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return unpaidBreakChanged?.call(breakTime);
   }
@@ -3990,7 +3999,7 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (unpaidBreakChanged != null) {
@@ -4306,7 +4315,8 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return totalPayableHoursChanged();
   }
@@ -4369,7 +4379,7 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return totalPayableHoursChanged?.call();
   }
@@ -4431,7 +4441,7 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (totalPayableHoursChanged != null) {
@@ -4768,7 +4778,8 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return commuteAllownceChanged(selectedValue);
   }
@@ -4831,7 +4842,7 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return commuteAllownceChanged?.call(selectedValue);
   }
@@ -4893,7 +4904,7 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (commuteAllownceChanged != null) {
@@ -5234,7 +5245,8 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return commuteHoursChanged(selectedValue);
   }
@@ -5297,7 +5309,7 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return commuteHoursChanged?.call(selectedValue);
   }
@@ -5359,7 +5371,7 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (commuteHoursChanged != null) {
@@ -5700,7 +5712,8 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return commuteRateChanged(selectedValue);
   }
@@ -5763,7 +5776,7 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return commuteRateChanged?.call(selectedValue);
   }
@@ -5825,7 +5838,7 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (commuteRateChanged != null) {
@@ -6168,7 +6181,8 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return accomdationAllownceChanged(selectedValue);
   }
@@ -6231,7 +6245,7 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return accomdationAllownceChanged?.call(selectedValue);
   }
@@ -6293,7 +6307,7 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (accomdationAllownceChanged != null) {
@@ -6636,7 +6650,8 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return accomdationHoursChanged(selectedValue);
   }
@@ -6699,7 +6714,7 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return accomdationHoursChanged?.call(selectedValue);
   }
@@ -6761,7 +6776,7 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (accomdationHoursChanged != null) {
@@ -7104,7 +7119,8 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return accomdationRateChanged(selectedValue);
   }
@@ -7167,7 +7183,7 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return accomdationRateChanged?.call(selectedValue);
   }
@@ -7229,7 +7245,7 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (accomdationRateChanged != null) {
@@ -7569,7 +7585,8 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return singleShiftNotesChanged(note);
   }
@@ -7632,7 +7649,7 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return singleShiftNotesChanged?.call(note);
   }
@@ -7694,7 +7711,7 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (singleShiftNotesChanged != null) {
@@ -8034,7 +8051,8 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return checkIsMoreVancancy(isMoreVacancy);
   }
@@ -8097,7 +8115,7 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return checkIsMoreVancancy?.call(isMoreVacancy);
   }
@@ -8159,7 +8177,7 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (checkIsMoreVancancy != null) {
@@ -8499,7 +8517,8 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return addVacancyChanged(vacancy);
   }
@@ -8562,7 +8581,7 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return addVacancyChanged?.call(vacancy);
   }
@@ -8624,7 +8643,7 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (addVacancyChanged != null) {
@@ -8965,7 +8984,8 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return singleShiftSubmitted(context);
   }
@@ -9028,7 +9048,7 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return singleShiftSubmitted?.call(context);
   }
@@ -9090,7 +9110,7 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (singleShiftSubmitted != null) {
@@ -9461,7 +9481,8 @@ class _$GetTeamsListImpl implements GetTeamsList {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return getTeamsListEvent(post, updateShift);
   }
@@ -9524,7 +9545,7 @@ class _$GetTeamsListImpl implements GetTeamsList {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return getTeamsListEvent?.call(post, updateShift);
   }
@@ -9586,7 +9607,7 @@ class _$GetTeamsListImpl implements GetTeamsList {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (getTeamsListEvent != null) {
@@ -9928,7 +9949,8 @@ class _$RecurringCheckImpl implements RecurringCheck {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return recurringCheck(isCheck);
   }
@@ -9991,7 +10013,7 @@ class _$RecurringCheckImpl implements RecurringCheck {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return recurringCheck?.call(isCheck);
   }
@@ -10053,7 +10075,7 @@ class _$RecurringCheckImpl implements RecurringCheck {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (recurringCheck != null) {
@@ -10392,7 +10414,8 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return shareWithTeamsCheck(isCheck);
   }
@@ -10455,7 +10478,7 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return shareWithTeamsCheck?.call(isCheck);
   }
@@ -10517,7 +10540,7 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (shareWithTeamsCheck != null) {
@@ -10857,7 +10880,8 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return saveAsTemplateCheck(isCheck);
   }
@@ -10920,7 +10944,7 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return saveAsTemplateCheck?.call(isCheck);
   }
@@ -10982,7 +11006,7 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (saveAsTemplateCheck != null) {
@@ -11322,7 +11346,8 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return disclaimerChanged(note);
   }
@@ -11385,7 +11410,7 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return disclaimerChanged?.call(note);
   }
@@ -11447,7 +11472,7 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (disclaimerChanged != null) {
@@ -11789,7 +11814,8 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return recurringStartDateChanged(selectedDate);
   }
@@ -11852,7 +11878,7 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return recurringStartDateChanged?.call(selectedDate);
   }
@@ -11914,7 +11940,7 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (recurringStartDateChanged != null) {
@@ -12255,7 +12281,8 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return recurrenceModeChanged(mode);
   }
@@ -12318,7 +12345,7 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return recurrenceModeChanged?.call(mode);
   }
@@ -12380,7 +12407,7 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (recurrenceModeChanged != null) {
@@ -12732,7 +12759,8 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return recurrenceWeeksChanged(day);
   }
@@ -12795,7 +12823,7 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return recurrenceWeeksChanged?.call(day);
   }
@@ -12857,7 +12885,7 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (recurrenceWeeksChanged != null) {
@@ -13200,7 +13228,8 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return recurringEndDateChanged(selectedDate);
   }
@@ -13263,7 +13292,7 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return recurringEndDateChanged?.call(selectedDate);
   }
@@ -13325,7 +13354,7 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (recurringEndDateChanged != null) {
@@ -13675,7 +13704,8 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return selectTeamEvent(team);
   }
@@ -13738,7 +13768,7 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return selectTeamEvent?.call(team);
   }
@@ -13800,7 +13830,7 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (selectTeamEvent != null) {
@@ -14149,7 +14179,8 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return recurringButtonEvent(context, postShiftId);
   }
@@ -14212,7 +14243,7 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return recurringButtonEvent?.call(context, postShiftId);
   }
@@ -14274,7 +14305,7 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (recurringButtonEvent != null) {
@@ -14618,7 +14649,8 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return checkIsIndividualPost(isIndividualPost);
   }
@@ -14681,7 +14713,7 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return checkIsIndividualPost?.call(isIndividualPost);
   }
@@ -14743,7 +14775,7 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (checkIsIndividualPost != null) {
@@ -15093,7 +15125,8 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return multiDateSelectionChanged(selectedDates);
   }
@@ -15156,7 +15189,7 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return multiDateSelectionChanged?.call(selectedDates);
   }
@@ -15218,7 +15251,7 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (multiDateSelectionChanged != null) {
@@ -15536,7 +15569,8 @@ class _$MultidateContinueButtonPressedImpl
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return multidateContinueButtonPressed();
   }
@@ -15599,7 +15633,7 @@ class _$MultidateContinueButtonPressedImpl
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return multidateContinueButtonPressed?.call();
   }
@@ -15661,7 +15695,7 @@ class _$MultidateContinueButtonPressedImpl
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (multidateContinueButtonPressed != null) {
@@ -16002,7 +16036,8 @@ class _$MultiDateSameDiffTypeChangedImpl
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return multiDateSameDiffTypeChanged(selectedType);
   }
@@ -16065,7 +16100,7 @@ class _$MultiDateSameDiffTypeChangedImpl
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return multiDateSameDiffTypeChanged?.call(selectedType);
   }
@@ -16127,7 +16162,7 @@ class _$MultiDateSameDiffTypeChangedImpl
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (multiDateSameDiffTypeChanged != null) {
@@ -16487,7 +16522,8 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return unpaidBreakListChanged(breakTime, index, date);
   }
@@ -16550,7 +16586,7 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return unpaidBreakListChanged?.call(breakTime, index, date);
   }
@@ -16612,7 +16648,7 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (unpaidBreakListChanged != null) {
@@ -16931,7 +16967,8 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return payableHourListChanged();
   }
@@ -16994,7 +17031,7 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return payableHourListChanged?.call();
   }
@@ -17056,7 +17093,7 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (payableHourListChanged != null) {
@@ -17407,7 +17444,8 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return startHourListChanged(hour, index, date);
   }
@@ -17470,7 +17508,7 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return startHourListChanged?.call(hour, index, date);
   }
@@ -17532,7 +17570,7 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (startHourListChanged != null) {
@@ -17893,7 +17931,8 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return startMinuteListChanged(minute, index, date);
   }
@@ -17956,7 +17995,7 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return startMinuteListChanged?.call(minute, index, date);
   }
@@ -18018,7 +18057,7 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (startMinuteListChanged != null) {
@@ -18377,7 +18416,8 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return endHourListChanged(hour, index, date);
   }
@@ -18440,7 +18480,7 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return endHourListChanged?.call(hour, index, date);
   }
@@ -18502,7 +18542,7 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (endHourListChanged != null) {
@@ -18862,7 +18902,8 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return endMinuteListChanged(minute, index, date);
   }
@@ -18925,7 +18966,7 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return endMinuteListChanged?.call(minute, index, date);
   }
@@ -18987,7 +19028,7 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (endMinuteListChanged != null) {
@@ -19352,7 +19393,8 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return differentTimeShiftSubmitted(shiftDetail, context);
   }
@@ -19415,7 +19457,7 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return differentTimeShiftSubmitted?.call(shiftDetail, context);
   }
@@ -19477,7 +19519,7 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (differentTimeShiftSubmitted != null) {
@@ -19874,7 +19916,8 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return initMultiDifferentDateEvent(list, post, updateShift);
   }
@@ -19937,7 +19980,7 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return initMultiDifferentDateEvent?.call(list, post, updateShift);
   }
@@ -19999,7 +20042,7 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (initMultiDifferentDateEvent != null) {
@@ -20316,7 +20359,8 @@ class _$BackEventImpl implements BackEvent {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return backEvent();
   }
@@ -20379,7 +20423,7 @@ class _$BackEventImpl implements BackEvent {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return backEvent?.call();
   }
@@ -20441,7 +20485,7 @@ class _$BackEventImpl implements BackEvent {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (backEvent != null) {
@@ -20777,7 +20821,8 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
     return sameTimeShiftSubmitted(context);
   }
@@ -20840,7 +20885,7 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
     return sameTimeShiftSubmitted?.call(context);
   }
@@ -20902,7 +20947,7 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (sameTimeShiftSubmitted != null) {
@@ -21125,7 +21170,9 @@ abstract class _$$PostTheShiftEventImplCopyWith<$Res> {
           $Res Function(_$PostTheShiftEventImpl) then) =
       __$$PostTheShiftEventImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int postId});
+  $Res call({int postId, PostShiftDTO? updatedPost});
+
+  $PostShiftDTOCopyWith<$Res>? get updatedPost;
 }
 
 /// @nodoc
@@ -21140,27 +21187,46 @@ class __$$PostTheShiftEventImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? postId = null,
+    Object? updatedPost = freezed,
   }) {
     return _then(_$PostTheShiftEventImpl(
       null == postId
           ? _value.postId
           : postId // ignore: cast_nullable_to_non_nullable
               as int,
+      freezed == updatedPost
+          ? _value.updatedPost
+          : updatedPost // ignore: cast_nullable_to_non_nullable
+              as PostShiftDTO?,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $PostShiftDTOCopyWith<$Res>? get updatedPost {
+    if (_value.updatedPost == null) {
+      return null;
+    }
+
+    return $PostShiftDTOCopyWith<$Res>(_value.updatedPost!, (value) {
+      return _then(_value.copyWith(updatedPost: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$PostTheShiftEventImpl implements PostTheShiftEvent {
-  const _$PostTheShiftEventImpl(this.postId);
+  const _$PostTheShiftEventImpl(this.postId, this.updatedPost);
 
   @override
   final int postId;
+  @override
+  final PostShiftDTO? updatedPost;
 
   @override
   String toString() {
-    return 'PostShiftEvent.postTheShiftEvent(postId: $postId)';
+    return 'PostShiftEvent.postTheShiftEvent(postId: $postId, updatedPost: $updatedPost)';
   }
 
   @override
@@ -21168,11 +21234,13 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PostTheShiftEventImpl &&
-            (identical(other.postId, postId) || other.postId == postId));
+            (identical(other.postId, postId) || other.postId == postId) &&
+            (identical(other.updatedPost, updatedPost) ||
+                other.updatedPost == updatedPost));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, postId);
+  int get hashCode => Object.hash(runtimeType, postId, updatedPost);
 
   @JsonKey(ignore: true)
   @override
@@ -21242,9 +21310,10 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
         initMultiDifferentDateEvent,
     required TResult Function() backEvent,
     required TResult Function(BuildContext context) sameTimeShiftSubmitted,
-    required TResult Function(int postId) postTheShiftEvent,
+    required TResult Function(int postId, PostShiftDTO? updatedPost)
+        postTheShiftEvent,
   }) {
-    return postTheShiftEvent(postId);
+    return postTheShiftEvent(postId, updatedPost);
   }
 
   @override
@@ -21305,9 +21374,9 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
         initMultiDifferentDateEvent,
     TResult? Function()? backEvent,
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult? Function(int postId)? postTheShiftEvent,
+    TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
-    return postTheShiftEvent?.call(postId);
+    return postTheShiftEvent?.call(postId, updatedPost);
   }
 
   @override
@@ -21367,11 +21436,11 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
         initMultiDifferentDateEvent,
     TResult Function()? backEvent,
     TResult Function(BuildContext context)? sameTimeShiftSubmitted,
-    TResult Function(int postId)? postTheShiftEvent,
+    TResult Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
     required TResult orElse(),
   }) {
     if (postTheShiftEvent != null) {
-      return postTheShiftEvent(postId);
+      return postTheShiftEvent(postId, updatedPost);
     }
     return orElse();
   }
@@ -21575,9 +21644,12 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
 }
 
 abstract class PostTheShiftEvent implements PostShiftEvent {
-  const factory PostTheShiftEvent(final int postId) = _$PostTheShiftEventImpl;
+  const factory PostTheShiftEvent(
+          final int postId, final PostShiftDTO? updatedPost) =
+      _$PostTheShiftEventImpl;
 
   int get postId;
+  PostShiftDTO? get updatedPost;
   @JsonKey(ignore: true)
   _$$PostTheShiftEventImplCopyWith<_$PostTheShiftEventImpl> get copyWith =>
       throw _privateConstructorUsedError;

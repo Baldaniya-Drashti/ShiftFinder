@@ -97,10 +97,14 @@ class CommonTeamContainer extends StatelessWidget {
                 BaseText(
                   text: address,
                   fontSize: 10,
+                  maxLines: 3,
                   textColor: AppColors.black.withOpacity(0.8),
                 ),
               ],
             ),
+          ),
+          SizedBox(
+            width: getSize(10),
           ),
           if (isFromTeamDetail)
             Row(
