@@ -13,6 +13,7 @@ import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/infrastructure/core/location_dto/search_location_dto/place_detail_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/search_location_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 part 'location_details_event.dart';
@@ -28,13 +29,17 @@ class LocationDetailsBloc
   /// TO GET GOOGLE PLACES
   Future<String?> fetchUrl(String query, {Map<String, String>? headers}) async {
     var uri = Uri.tryParse(
-        'https://maps.googleapis.com/maps/api/place/textsearch/json?query=$query&key=AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE')!;
+        "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$query&types=address&language=en&components=country:ca&key=AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE"
+        //   "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$query&types=address&language=en&components=country:ca&key=AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE",
+        )!;
+    // 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=$query&key=AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE&region=ca')!;
     // Uri uri = Uri.https(
     //   "maps.googleapis.com",
     //   'maps/api/place/textsearch/json',
     //   {
     //     "input": query,
     //     "key": "AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE",
+
     //   },
     // );
     try {
@@ -44,6 +49,34 @@ class LocationDetailsBloc
       }
     } catch (e) {
       print("LOCATION CATCH ERROR: $e");
+    }
+    return null;
+  }
+
+  Future<PlaceDetailDTO?> getPlaceDetail(String placeId) async {
+    var uri = Uri.tryParse(
+        "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&fields=geometry&key=AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE"
+        //   "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$query&types=address&language=en&components=country:ca&key=AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE",
+        )!;
+    try {
+      final response = await http.get(uri);
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.body);
+
+        var placeDetail = PlaceDetailDTO.fromJson(data);
+
+        return placeDetail;
+        // setState(() {
+        //   placeName = result['name'];
+        //   rating = result['rating'];
+        //   phoneNumber = result['formatted_phone_number'];
+        // });
+      } else {
+        print('Failed to load place details: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error occurred: $e');
     }
     return null;
   }
@@ -85,28 +118,28 @@ class LocationDetailsBloc
           String? response = await fetchUrl(e.address);
           if (response != null) {
             print("API RESPONSE----> $response");
-            placeList = json.decode(response)['results'];
+            placeList = json.decode(response)['predictions'];
           }
           emit(
             state.copyWith(
               address: InputEmptyOrNot(e.address),
               searchLocationList: placeList
                   .map(
-                    (e) => Results.fromJson(e),
+                    (e) => Predictions.fromJson(e),
                   )
                   .toList(),
               authFailureOrSuccessOption: none(),
             ),
           );
         },
-        locationSelectedFromSearchList: (e) {
-          locationCtrl.text = e.selectedLocation.formatted_address ?? "";
+        locationSelectedFromSearchList: (e) async {
+          locationCtrl.text = e.selectedLocation.description ?? "";
+          var res = await getPlaceDetail(e.selectedLocation.place_id ?? "");
           emit(
             state.copyWith(
-              address:
-                  InputEmptyOrNot(e.selectedLocation.formatted_address ?? ""),
+              address: InputEmptyOrNot(e.selectedLocation.description ?? ""),
               searchLocationList: [],
-              selectedAddress: e.selectedLocation,
+              selectedAddress: res ?? PlaceDetailDTO(),
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -224,12 +257,14 @@ class LocationDetailsBloc
               locationNotes: state.locationNote,
               unitNotes: state.unitNumber,
               unitNumber: state.unitNoNameChipList.join(','),
-              latitude:
-                  state.selectedAddress.geometry?.location?.lat.toString() ??
-                      '',
-              longitude:
-                  state.selectedAddress.geometry?.location?.lng.toString() ??
-                      '',
+              // latitude: '',
+              // longitude: '',
+              latitude: state.selectedAddress.result?.geometry?.location?.lat
+                      .toString() ??
+                  '',
+              longitude: state.selectedAddress.result?.geometry?.location?.lng
+                      .toString() ??
+                  '',
             );
           }
           emit(
@@ -248,6 +283,9 @@ class LocationDetailsBloc
               authFailureOrSuccessOption: none(),
             ),
           );
+        },
+        getPlaceDetail: (GetPlaceDetail value) async {
+          await getPlaceDetail(value.placeId);
         },
       );
     });

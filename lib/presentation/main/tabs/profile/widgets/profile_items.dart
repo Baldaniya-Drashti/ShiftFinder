@@ -36,7 +36,7 @@ class ProfileItems extends StatelessWidget {
         title: 'Locations',
         image: SvgImageConstant.locationIcon,
         onTap: () {
-          //   context.router.push(PageRouteInfo(LocationDetailForm.name));
+          //context.router.push(PageRouteInfo(LocationDetailForm.name));
         },
       ),
       ProfileItemModel(

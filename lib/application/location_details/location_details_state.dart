@@ -4,8 +4,8 @@ part of 'location_details_bloc.dart';
 class LocationDetailsState with _$LocationDetailsState {
   const factory LocationDetailsState({
     required InputEmptyOrNot address,
-    required List<Results> searchLocationList,
-    required Results selectedAddress,
+    required List<Predictions> searchLocationList,
+    required PlaceDetailDTO selectedAddress,
     required List<SkillDTO> facilityTypeList,
     required InputEmptyOrNot faciltyType,
     required InputEmptyOrNot otherFaciltyType,
@@ -40,6 +40,6 @@ class LocationDetailsState with _$LocationDetailsState {
         isLoading: false,
         showErrorMessages: false,
         authFailureOrSuccessOption: none(),
-        selectedAddress: Results(),
+        selectedAddress: PlaceDetailDTO(),
       );
 }

@@ -290,8 +290,7 @@ class LocationDetailForm extends StatelessWidget {
                   titleAlignment: ListTileTitleAlignment.top,
                   leading: SvgPicture.asset(SvgImageConstant.locationIcon),
                   title: BaseText(
-                    text:
-                        state.searchLocationList[index].formatted_address ?? "",
+                    text: state.searchLocationList[index].description ?? "",
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                   ),
