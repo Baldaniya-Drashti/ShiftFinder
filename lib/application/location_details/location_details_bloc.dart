@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/account/account.dart';
@@ -28,20 +29,10 @@ class LocationDetailsBloc
 
   /// TO GET GOOGLE PLACES
   Future<String?> fetchUrl(String query, {Map<String, String>? headers}) async {
+    var apiKey = dotenv.env['GOOGLE_PLACE_API_KEY'];
     var uri = Uri.tryParse(
-        "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$query&types=address&language=en&components=country:ca&key=AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE"
-        //   "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$query&types=address&language=en&components=country:ca&key=AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE",
-        )!;
-    // 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=$query&key=AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE&region=ca')!;
-    // Uri uri = Uri.https(
-    //   "maps.googleapis.com",
-    //   'maps/api/place/textsearch/json',
-    //   {
-    //     "input": query,
-    //     "key": "AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE",
+        "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$query&types=address&language=en&components=country:ca&key=$apiKey")!;
 
-    //   },
-    // );
     try {
       final response = await http.get(uri, headers: headers);
       if (response.statusCode == 200) {
@@ -54,8 +45,9 @@ class LocationDetailsBloc
   }
 
   Future<PlaceDetailDTO?> getPlaceDetail(String placeId) async {
+    var apiKey = dotenv.env['GOOGLE_PLACE_API_KEY'];
     var uri = Uri.tryParse(
-        "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&fields=geometry&key=AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE"
+        "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&fields=geometry&key=$apiKey"
         //   "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$query&types=address&language=en&components=country:ca&key=AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE",
         )!;
     try {
