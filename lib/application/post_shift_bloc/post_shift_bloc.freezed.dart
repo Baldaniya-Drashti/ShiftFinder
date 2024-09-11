@@ -21677,11 +21677,11 @@ mixin _$PostShiftState {
   InputEmptyOrNot get selectedCommuteAllownce =>
       throw _privateConstructorUsedError;
   InputEmptyOrNot get commuteHour => throw _privateConstructorUsedError;
-  InputEmptyOrNot get commuteRate => throw _privateConstructorUsedError;
+  Rate get commuteRate => throw _privateConstructorUsedError;
   InputEmptyOrNot get selectedAccomdationAllownce =>
       throw _privateConstructorUsedError;
   InputEmptyOrNot get accomdationHour => throw _privateConstructorUsedError;
-  InputEmptyOrNot get accomdationRate => throw _privateConstructorUsedError;
+  Rate get accomdationRate => throw _privateConstructorUsedError;
   String get singleShiftNote => throw _privateConstructorUsedError;
   bool get isMoreVacancy => throw _privateConstructorUsedError;
   InputEmptyOrNot get selectedVacancy => throw _privateConstructorUsedError;
@@ -21754,10 +21754,10 @@ abstract class $PostShiftStateCopyWith<$Res> {
       String totalPaybleHours,
       InputEmptyOrNot selectedCommuteAllownce,
       InputEmptyOrNot commuteHour,
-      InputEmptyOrNot commuteRate,
+      Rate commuteRate,
       InputEmptyOrNot selectedAccomdationAllownce,
       InputEmptyOrNot accomdationHour,
-      InputEmptyOrNot accomdationRate,
+      Rate accomdationRate,
       String singleShiftNote,
       bool isMoreVacancy,
       InputEmptyOrNot selectedVacancy,
@@ -21924,7 +21924,7 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
       commuteRate: null == commuteRate
           ? _value.commuteRate
           : commuteRate // ignore: cast_nullable_to_non_nullable
-              as InputEmptyOrNot,
+              as Rate,
       selectedAccomdationAllownce: null == selectedAccomdationAllownce
           ? _value.selectedAccomdationAllownce
           : selectedAccomdationAllownce // ignore: cast_nullable_to_non_nullable
@@ -21936,7 +21936,7 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
       accomdationRate: null == accomdationRate
           ? _value.accomdationRate
           : accomdationRate // ignore: cast_nullable_to_non_nullable
-              as InputEmptyOrNot,
+              as Rate,
       singleShiftNote: null == singleShiftNote
           ? _value.singleShiftNote
           : singleShiftNote // ignore: cast_nullable_to_non_nullable
@@ -22096,10 +22096,10 @@ abstract class _$$PostShiftStateImplCopyWith<$Res>
       String totalPaybleHours,
       InputEmptyOrNot selectedCommuteAllownce,
       InputEmptyOrNot commuteHour,
-      InputEmptyOrNot commuteRate,
+      Rate commuteRate,
       InputEmptyOrNot selectedAccomdationAllownce,
       InputEmptyOrNot accomdationHour,
-      InputEmptyOrNot accomdationRate,
+      Rate accomdationRate,
       String singleShiftNote,
       bool isMoreVacancy,
       InputEmptyOrNot selectedVacancy,
@@ -22266,7 +22266,7 @@ class __$$PostShiftStateImplCopyWithImpl<$Res>
       commuteRate: null == commuteRate
           ? _value.commuteRate
           : commuteRate // ignore: cast_nullable_to_non_nullable
-              as InputEmptyOrNot,
+              as Rate,
       selectedAccomdationAllownce: null == selectedAccomdationAllownce
           ? _value.selectedAccomdationAllownce
           : selectedAccomdationAllownce // ignore: cast_nullable_to_non_nullable
@@ -22278,7 +22278,7 @@ class __$$PostShiftStateImplCopyWithImpl<$Res>
       accomdationRate: null == accomdationRate
           ? _value.accomdationRate
           : accomdationRate // ignore: cast_nullable_to_non_nullable
-              as InputEmptyOrNot,
+              as Rate,
       singleShiftNote: null == singleShiftNote
           ? _value.singleShiftNote
           : singleShiftNote // ignore: cast_nullable_to_non_nullable
@@ -22507,13 +22507,13 @@ class _$PostShiftStateImpl implements _PostShiftState {
   @override
   final InputEmptyOrNot commuteHour;
   @override
-  final InputEmptyOrNot commuteRate;
+  final Rate commuteRate;
   @override
   final InputEmptyOrNot selectedAccomdationAllownce;
   @override
   final InputEmptyOrNot accomdationHour;
   @override
-  final InputEmptyOrNot accomdationRate;
+  final Rate accomdationRate;
   @override
   final String singleShiftNote;
   @override
@@ -22790,10 +22790,10 @@ abstract class _PostShiftState implements PostShiftState {
       required final String totalPaybleHours,
       required final InputEmptyOrNot selectedCommuteAllownce,
       required final InputEmptyOrNot commuteHour,
-      required final InputEmptyOrNot commuteRate,
+      required final Rate commuteRate,
       required final InputEmptyOrNot selectedAccomdationAllownce,
       required final InputEmptyOrNot accomdationHour,
-      required final InputEmptyOrNot accomdationRate,
+      required final Rate accomdationRate,
       required final String singleShiftNote,
       required final bool isMoreVacancy,
       required final InputEmptyOrNot selectedVacancy,
@@ -22864,13 +22864,13 @@ abstract class _PostShiftState implements PostShiftState {
   @override
   InputEmptyOrNot get commuteHour;
   @override
-  InputEmptyOrNot get commuteRate;
+  Rate get commuteRate;
   @override
   InputEmptyOrNot get selectedAccomdationAllownce;
   @override
   InputEmptyOrNot get accomdationHour;
   @override
-  InputEmptyOrNot get accomdationRate;
+  Rate get accomdationRate;
   @override
   String get singleShiftNote;
   @override

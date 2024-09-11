@@ -29,6 +29,8 @@ class TeamDetailView extends StatelessWidget {
         ..add(TeamsEvent.setTeamDetail(getTeamsListDTO)),
       child: BlocConsumer<TeamsBloc, TeamsState>(
         builder: (context, state) {
+          print("printdfjsd--> ${state.teamDetail.members}");
+
           return WillPopScope(
             onWillPop: () {
               Navigator.pop(context, true);
@@ -94,12 +96,35 @@ class TeamDetailView extends StatelessWidget {
                   SizedBox(
                     height: getSize(30),
                   ),
-                  state.teamDetail.members == null
-                      ? NoTeamMemberView(
-                          teamID: getTeamsListDTO.id?.toString() ?? "",
-                        )
-                      : Expanded(
-                          child: TeamMemberList(
+                  Expanded(
+                    child: (state.teamDetail.members == null ||
+                            state.teamDetail.members!.isEmpty)
+                        ? Center(
+                            child: NoTeamMemberView(
+                              teamID: getTeamsListDTO.id?.toString() ?? "",
+                              addMemberPressed: () async {
+                                var res = await context.router.push(
+                                  PageRouteInfo(
+                                    AddNewMemberView.name,
+                                    args: AddNewMemberViewArgs(
+                                      isUpdateMember: false,
+                                      getTeamsListDTO: null,
+                                      teamID: state.teamDetail.id.toString(),
+                                    ),
+                                  ),
+                                );
+                                if (res != null && res == true) {
+                                  context.read<TeamsBloc>().add(
+                                        TeamsEvent.getTeamList(
+                                          true,
+                                          state.teamDetail.id.toString(),
+                                        ),
+                                      );
+                                }
+                              },
+                            ),
+                          )
+                        : TeamMemberList(
                             members: state.teamDetail.members ?? [],
                             teamID: state.teamDetail.id?.toString() ?? "",
                             onPressed: () async {
@@ -124,7 +149,7 @@ class TeamDetailView extends StatelessWidget {
                               }
                             },
                           ),
-                        ),
+                  ),
                   // NoTeamMemberView(),
                 ],
               ),

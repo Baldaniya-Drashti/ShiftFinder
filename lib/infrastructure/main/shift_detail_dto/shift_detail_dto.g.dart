@@ -46,6 +46,7 @@ _$ShiftDetailDTOImpl _$$ShiftDetailDTOImplFromJson(Map<String, dynamic> json) =>
       recurring_start_date: (json['recurring_start_date'] as num?)?.toInt(),
       recurring_end_date: (json['recurring_end_date'] as num?)?.toInt(),
       recurrence_mode: json['recurrence_mode'] as String?,
+      recurrence_id: (json['recurrence_id'] as num?)?.toInt(),
       days: json['days'] as String?,
     );
 
@@ -80,5 +81,6 @@ Map<String, dynamic> _$$ShiftDetailDTOImplToJson(
       'recurring_start_date': instance.recurring_start_date,
       'recurring_end_date': instance.recurring_end_date,
       'recurrence_mode': instance.recurrence_mode,
+      'recurrence_id': instance.recurrence_id,
       'days': instance.days,
     };

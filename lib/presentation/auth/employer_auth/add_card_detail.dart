@@ -52,7 +52,9 @@ class AddCardDetailPage extends StatelessWidget {
                 },
                 (r) {
                   // AppDialog.showInfo(context, StringConstant.underDevelopment);
-                  context.router.replace(const PageRouteInfo(MainTabView.name));
+                  // context.router.replace(const PageRouteInfo(MainTabView.name));
+                  context.router
+                      .replaceAll([const PageRouteInfo(MainTabView.name)]);
                 },
               ),
             );
@@ -68,7 +70,9 @@ class AddCardDetailPage extends StatelessWidget {
                 title: StringConstant.addCard,
                 showSkipBtn: true,
                 onSkipped: () {
-                  context.router.replace(const PageRouteInfo(MainTabView.name));
+                  // context.router.replace(const PageRouteInfo(MainTabView.name));
+                  context.router
+                      .replaceAll([const PageRouteInfo(MainTabView.name)]);
                   // AppDialog.showInfo(context, StringConstant.underDevelopment);
                 },
               ),

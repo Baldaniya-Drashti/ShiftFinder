@@ -38,11 +38,8 @@ Either<ValueFailure<String>, String> validateUsername(String input) {
 
 Either<ValueFailure<String>, String> validateRate(String input) {
   if (validateStringNotEmpty(input).isRight()) {
-    if (input != "00.00" &&
-        input != "0.00" &&
-        input != "0.0" &&
-        input != "0" &&
-        input != "00.0") {
+    final double? parsedValue = double.tryParse(input);
+    if (parsedValue != null && parsedValue > 0) {
       return right(input);
     } else {
       return left(ValueFailure.invalidRate(failedValue: input));

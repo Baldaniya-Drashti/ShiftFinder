@@ -131,7 +131,9 @@ class PayableDetail extends StatelessWidget {
                                       title: (isUpdate)
                                           ? StringConstant.updateTheShift
                                           : StringConstant.postTheShift,
-                                      infoMessage: StringConstant.postShiftDesc,
+                                      infoMessage: (isUpdate)
+                                          ? StringConstant.updateShiftDesc
+                                          : StringConstant.postShiftDesc,
                                       deleteBtnText: isUpdate
                                           ? StringConstant.update
                                           : StringConstant.post,
@@ -318,8 +320,8 @@ class PayableDetail extends StatelessWidget {
           totalPayable: "\$${shift.total_wage}",
         ),
         payableBox(
-          title1: StringConstant.commuteAllowance,
-          title2: StringConstant.accommodationAllowance,
+          title1: StringConstant.totalCommuteAllowance,
+          title2: StringConstant.totalAccommodationAllowance,
           value1: "\$${shift.commute_allowance}",
           value2: "\$${shift.accommodation_allowance}",
           totalPayableTitle: StringConstant.totalAllowance,

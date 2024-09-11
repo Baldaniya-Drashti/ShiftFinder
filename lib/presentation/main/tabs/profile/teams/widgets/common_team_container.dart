@@ -75,7 +75,9 @@ class CommonTeamContainer extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text: totalMembers.toString(),
+                              text: (totalMembers.toString().length == 2)
+                                  ? totalMembers.toString()
+                                  : "0$totalMembers",
                               style: TextStyle(
                                 fontSize: getFontSize(8),
                                 fontWeight: FontWeight.w600,

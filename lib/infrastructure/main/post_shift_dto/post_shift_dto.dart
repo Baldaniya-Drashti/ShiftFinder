@@ -35,7 +35,6 @@ class PostShiftDTO with _$PostShiftDTO {
     int? shift_type,
     String? date,
     int? same_or_different_time,
-    String? multi_date,
     String? start_time,
     String? end_time,
     int? unpaid_break_id,
@@ -48,8 +47,10 @@ class PostShiftDTO with _$PostShiftDTO {
     String? shift_note,
     String? vacancie_type,
     int? number_of_vacancie,
+    int? recurrence_id,
     String? recurring_start_date,
     String? recurring_end_date,
+    String? multi_date,
   }) = _PostShiftDTO;
 
   factory PostShiftDTO.fromJson(Map<String, dynamic> json) =>

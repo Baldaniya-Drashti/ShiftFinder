@@ -9,11 +9,14 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 
 class NoTeamMemberView extends StatelessWidget {
   final String teamID;
-  const NoTeamMemberView({super.key, required this.teamID});
+  void Function() addMemberPressed;
+  NoTeamMemberView(
+      {super.key, required this.teamID, required this.addMemberPressed});
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Opacity(
           opacity: 0.5,
@@ -48,18 +51,7 @@ class NoTeamMemberView extends StatelessWidget {
         CommonButton(
           height: 28,
           width: 170,
-          onPressed: () {
-            context.router.push(
-              PageRouteInfo(
-                AddNewMemberView.name,
-                args: AddNewMemberViewArgs(
-                  isUpdateMember: false,
-                  getTeamsListDTO: null,
-                  teamID: teamID,
-                ),
-              ),
-            );
-          },
+          onPressed: addMemberPressed,
           backgroundColor: AppColors.green.withOpacity(0.15),
           buttonText: '+ Add Team Member',
           buttonTextColor: AppColors.green,

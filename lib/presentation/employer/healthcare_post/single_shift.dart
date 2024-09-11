@@ -105,7 +105,13 @@ class SinglePostShift extends StatelessWidget {
                               hourValue: state.commuteHour,
                               rateValue: state.commuteRate)))
                         commonErrorText(
-                            StringConstant.pleaseSelectCommuteAllownceValue),
+                          (double.tryParse(state.commuteRate.getValue()) !=
+                                      null &&
+                                  double.parse(state.commuteRate.getValue()) <=
+                                      0)
+                              ? StringConstant.flatRateShouldNotBeZero
+                              : StringConstant.pleaseSelectCommuteAllownceValue,
+                        ),
                       paddingBetweenFields(),
                       accommodationAllowanceDropDown(context, state),
                       if (state.singleShiftErrorMessages &&
@@ -113,8 +119,16 @@ class SinglePostShift extends StatelessWidget {
                               selectedValue: state.selectedAccomdationAllownce,
                               hourValue: state.accomdationHour,
                               rateValue: state.accomdationRate)))
-                        commonErrorText(StringConstant
-                            .pleaseSelectAccomdationAllownceValue),
+                        commonErrorText(
+                          (double.tryParse(state.accomdationRate.getValue()) !=
+                                      null &&
+                                  double.parse(
+                                          state.accomdationRate.getValue()) <=
+                                      0)
+                              ? StringConstant.flatRateShouldNotBeZero
+                              : StringConstant
+                                  .pleaseSelectAccomdationAllownceValue,
+                        ),
                       paddingBetweenFields(),
                       shiftNotesField(context, state),
                       paddingBetweenFields(),

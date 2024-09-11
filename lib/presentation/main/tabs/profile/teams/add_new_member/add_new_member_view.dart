@@ -1,9 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/main_tab/profile/profile_sections/teams/add_new_member/add_new_member_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/main/employer_team/get_teams_dto.dart';
 import 'package:shift/injection.dart';
@@ -12,6 +14,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/common_country_code_picker.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_country_code_removing_formatter.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -94,6 +97,10 @@ class AddNewMemberView extends StatelessWidget {
                       image: SvgImageConstant.person,
                       prefillValue: state.teamNameTextField.getValue() ?? "",
                       textCapitalization: TextCapitalization.words,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'[a-zA-Z\s]')),
+                      ],
                       value: 'Member Name',
                       onChanged: (value) {
                         context.read<AddNewMemberBloc>().add(
@@ -109,10 +116,14 @@ class AddNewMemberView extends StatelessWidget {
                       ),
                     ),
                     memberDetail(
-                      title: 'Job Location',
-                      image: SvgImageConstant.locationIcon,
+                      title: StringConstant.jobPosition,
+                      image: SvgImageConstant.bag,
                       prefillValue: state.jobPositionTextField.getValue(),
-                      value: 'Job Location',
+                      value: StringConstant.jobPosition,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'[a-zA-Z\s]')),
+                      ],
                       onChanged: (value) {
                         context.read<AddNewMemberBloc>().add(
                               AddNewMemberEvent.jobLocationChange(value),
@@ -121,7 +132,7 @@ class AddNewMemberView extends StatelessWidget {
                       validator: (p0, p1) =>
                           state.jobPositionTextField.value.fold(
                         (l) => l.maybeMap(
-                          empty: (value) => 'Please enter job location',
+                          empty: (value) => 'Please enter job positon',
                           orElse: () => null,
                         ),
                         (r) => null,
@@ -132,7 +143,11 @@ class AddNewMemberView extends StatelessWidget {
                       image: SvgImageConstant.call,
                       prefillValue: state.mobileNumber.getValue(),
                       //prefillValue: getTeamsListDTO?. ?? "",
-
+                      maxLength: 10,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        CountryCodeRemovingFormatter(),
+                      ],
                       value: 'Phone Number',
                       keyboardType: TextInputType.phone,
                       onChanged: (value) {
@@ -270,6 +285,8 @@ class AddNewMemberView extends StatelessWidget {
     TextInputType? keyboardType,
     TextCapitalization? textCapitalization,
     String? prefillValue,
+    int? maxLength,
+    List<TextInputFormatter>? inputFormatters,
   }) {
     //  log('=====>$title ${prefillValue ?? ""}');
     return BlocBuilder<AddNewMemberBloc, AddNewMemberState>(
@@ -313,6 +330,8 @@ class AddNewMemberView extends StatelessWidget {
               validator: validator,
               keyboardType: keyboardType,
               textCapitalization: textCapitalization ?? TextCapitalization.none,
+              inputFormatters: inputFormatters,
+              maxLength: maxLength,
               hintText: value,
             ),
           ],

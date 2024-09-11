@@ -95,8 +95,8 @@ class TeamMemberList extends StatelessWidget {
             CommonButton(
               height: 28,
               width: 200,
-              onPressed: () {
-                context.router.push(
+              onPressed: () async {
+                var res = await context.router.push(
                   PageRouteInfo(
                     AddNewMemberView.name,
                     args: AddNewMemberViewArgs(
@@ -106,6 +106,14 @@ class TeamMemberList extends StatelessWidget {
                     ),
                   ),
                 );
+                if (res != null && res == true) {
+                  context.read<TeamsBloc>().add(
+                        TeamsEvent.getTeamList(
+                          true,
+                          state.teamDetail.id.toString(),
+                        ),
+                      );
+                }
               },
               backgroundColor: AppColors.green.withOpacity(0.15),
               buttonText: '+ Add New Team Member',

@@ -48,6 +48,7 @@ mixin _$ShiftDetailDTO {
   int? get recurring_start_date => throw _privateConstructorUsedError;
   int? get recurring_end_date => throw _privateConstructorUsedError;
   String? get recurrence_mode => throw _privateConstructorUsedError;
+  int? get recurrence_id => throw _privateConstructorUsedError;
   String? get days => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -90,6 +91,7 @@ abstract class $ShiftDetailDTOCopyWith<$Res> {
       int? recurring_start_date,
       int? recurring_end_date,
       String? recurrence_mode,
+      int? recurrence_id,
       String? days});
 
   $SkillDTOCopyWith<$Res>? get unpaid_break;
@@ -136,6 +138,7 @@ class _$ShiftDetailDTOCopyWithImpl<$Res, $Val extends ShiftDetailDTO>
     Object? recurring_start_date = freezed,
     Object? recurring_end_date = freezed,
     Object? recurrence_mode = freezed,
+    Object? recurrence_id = freezed,
     Object? days = freezed,
   }) {
     return _then(_value.copyWith(
@@ -248,6 +251,10 @@ class _$ShiftDetailDTOCopyWithImpl<$Res, $Val extends ShiftDetailDTO>
           ? _value.recurrence_mode
           : recurrence_mode // ignore: cast_nullable_to_non_nullable
               as String?,
+      recurrence_id: freezed == recurrence_id
+          ? _value.recurrence_id
+          : recurrence_id // ignore: cast_nullable_to_non_nullable
+              as int?,
       days: freezed == days
           ? _value.days
           : days // ignore: cast_nullable_to_non_nullable
@@ -316,6 +323,7 @@ abstract class _$$ShiftDetailDTOImplCopyWith<$Res>
       int? recurring_start_date,
       int? recurring_end_date,
       String? recurrence_mode,
+      int? recurrence_id,
       String? days});
 
   @override
@@ -362,6 +370,7 @@ class __$$ShiftDetailDTOImplCopyWithImpl<$Res>
     Object? recurring_start_date = freezed,
     Object? recurring_end_date = freezed,
     Object? recurrence_mode = freezed,
+    Object? recurrence_id = freezed,
     Object? days = freezed,
   }) {
     return _then(_$ShiftDetailDTOImpl(
@@ -474,6 +483,10 @@ class __$$ShiftDetailDTOImplCopyWithImpl<$Res>
           ? _value.recurrence_mode
           : recurrence_mode // ignore: cast_nullable_to_non_nullable
               as String?,
+      recurrence_id: freezed == recurrence_id
+          ? _value.recurrence_id
+          : recurrence_id // ignore: cast_nullable_to_non_nullable
+              as int?,
       days: freezed == days
           ? _value.days
           : days // ignore: cast_nullable_to_non_nullable
@@ -484,7 +497,9 @@ class __$$ShiftDetailDTOImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ShiftDetailDTOImpl implements _ShiftDetailDTO {
+class _$ShiftDetailDTOImpl
+    with DiagnosticableTreeMixin
+    implements _ShiftDetailDTO {
   const _$ShiftDetailDTOImpl(
       {this.id,
       this.shift_type,
@@ -513,6 +528,7 @@ class _$ShiftDetailDTOImpl implements _ShiftDetailDTO {
       this.recurring_start_date,
       this.recurring_end_date,
       this.recurrence_mode,
+      this.recurrence_id,
       this.days})
       : _teams = teams,
         _detail = detail;
@@ -591,11 +607,54 @@ class _$ShiftDetailDTOImpl implements _ShiftDetailDTO {
   @override
   final String? recurrence_mode;
   @override
+  final int? recurrence_id;
+  @override
   final String? days;
 
   @override
-  String toString() {
-    return 'ShiftDetailDTO(id: $id, shift_type: $shift_type, same_or_different_time: $same_or_different_time, unpaid_break: $unpaid_break, total_payable_hour: $total_payable_hour, commute_allowance_type: $commute_allowance_type, commute_allowance_type_details: $commute_allowance_type_details, accommodation_allowance_type: $accommodation_allowance_type, accommodation_allowance_type_details: $accommodation_allowance_type_details, individual_shift: $individual_shift, shift_note: $shift_note, vacancie_type: $vacancie_type, number_of_vacancie: $number_of_vacancie, pending_vacancie: $pending_vacancie, recurring_status: $recurring_status, share_team_status: $share_team_status, save_template_status: $save_template_status, disclaimer: $disclaimer, teams: $teams, detail: $detail, payables: $payables, date: $date, start_time: $start_time, end_time: $end_time, recurring_start_date: $recurring_start_date, recurring_end_date: $recurring_end_date, recurrence_mode: $recurrence_mode, days: $days)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'ShiftDetailDTO(id: $id, shift_type: $shift_type, same_or_different_time: $same_or_different_time, unpaid_break: $unpaid_break, total_payable_hour: $total_payable_hour, commute_allowance_type: $commute_allowance_type, commute_allowance_type_details: $commute_allowance_type_details, accommodation_allowance_type: $accommodation_allowance_type, accommodation_allowance_type_details: $accommodation_allowance_type_details, individual_shift: $individual_shift, shift_note: $shift_note, vacancie_type: $vacancie_type, number_of_vacancie: $number_of_vacancie, pending_vacancie: $pending_vacancie, recurring_status: $recurring_status, share_team_status: $share_team_status, save_template_status: $save_template_status, disclaimer: $disclaimer, teams: $teams, detail: $detail, payables: $payables, date: $date, start_time: $start_time, end_time: $end_time, recurring_start_date: $recurring_start_date, recurring_end_date: $recurring_end_date, recurrence_mode: $recurrence_mode, recurrence_id: $recurrence_id, days: $days)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'ShiftDetailDTO'))
+      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('shift_type', shift_type))
+      ..add(
+          DiagnosticsProperty('same_or_different_time', same_or_different_time))
+      ..add(DiagnosticsProperty('unpaid_break', unpaid_break))
+      ..add(DiagnosticsProperty('total_payable_hour', total_payable_hour))
+      ..add(
+          DiagnosticsProperty('commute_allowance_type', commute_allowance_type))
+      ..add(DiagnosticsProperty(
+          'commute_allowance_type_details', commute_allowance_type_details))
+      ..add(DiagnosticsProperty(
+          'accommodation_allowance_type', accommodation_allowance_type))
+      ..add(DiagnosticsProperty('accommodation_allowance_type_details',
+          accommodation_allowance_type_details))
+      ..add(DiagnosticsProperty('individual_shift', individual_shift))
+      ..add(DiagnosticsProperty('shift_note', shift_note))
+      ..add(DiagnosticsProperty('vacancie_type', vacancie_type))
+      ..add(DiagnosticsProperty('number_of_vacancie', number_of_vacancie))
+      ..add(DiagnosticsProperty('pending_vacancie', pending_vacancie))
+      ..add(DiagnosticsProperty('recurring_status', recurring_status))
+      ..add(DiagnosticsProperty('share_team_status', share_team_status))
+      ..add(DiagnosticsProperty('save_template_status', save_template_status))
+      ..add(DiagnosticsProperty('disclaimer', disclaimer))
+      ..add(DiagnosticsProperty('teams', teams))
+      ..add(DiagnosticsProperty('detail', detail))
+      ..add(DiagnosticsProperty('payables', payables))
+      ..add(DiagnosticsProperty('date', date))
+      ..add(DiagnosticsProperty('start_time', start_time))
+      ..add(DiagnosticsProperty('end_time', end_time))
+      ..add(DiagnosticsProperty('recurring_start_date', recurring_start_date))
+      ..add(DiagnosticsProperty('recurring_end_date', recurring_end_date))
+      ..add(DiagnosticsProperty('recurrence_mode', recurrence_mode))
+      ..add(DiagnosticsProperty('recurrence_id', recurrence_id))
+      ..add(DiagnosticsProperty('days', days));
   }
 
   @override
@@ -656,6 +715,8 @@ class _$ShiftDetailDTOImpl implements _ShiftDetailDTO {
                 other.recurring_end_date == recurring_end_date) &&
             (identical(other.recurrence_mode, recurrence_mode) ||
                 other.recurrence_mode == recurrence_mode) &&
+            (identical(other.recurrence_id, recurrence_id) ||
+                other.recurrence_id == recurrence_id) &&
             (identical(other.days, days) || other.days == days));
   }
 
@@ -690,6 +751,7 @@ class _$ShiftDetailDTOImpl implements _ShiftDetailDTO {
         recurring_start_date,
         recurring_end_date,
         recurrence_mode,
+        recurrence_id,
         days
       ]);
 
@@ -737,6 +799,7 @@ abstract class _ShiftDetailDTO implements ShiftDetailDTO {
       final int? recurring_start_date,
       final int? recurring_end_date,
       final String? recurrence_mode,
+      final int? recurrence_id,
       final String? days}) = _$ShiftDetailDTOImpl;
 
   factory _ShiftDetailDTO.fromJson(Map<String, dynamic> json) =
@@ -796,6 +859,8 @@ abstract class _ShiftDetailDTO implements ShiftDetailDTO {
   int? get recurring_end_date;
   @override
   String? get recurrence_mode;
+  @override
+  int? get recurrence_id;
   @override
   String? get days;
   @override

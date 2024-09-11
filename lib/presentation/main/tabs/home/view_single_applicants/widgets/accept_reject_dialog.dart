@@ -37,33 +37,33 @@ class AcceptRejectDialog extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(getSize(15)),
         ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: getSize(30),
-            ),
-            BaseText(
-              text: title,
-              fontSize: 22,
-              fontFamily: 'Aclonica',
-            ),
-            SizedBox(
-              height: getSize(10),
-            ),
-            BaseText(
-              text: description,
-              fontSize: 14,
-              textAlign: TextAlign.center,
-              fontWeight: FontWeight.w500,
-              textColor: AppColors.black.withOpacity(0.7),
-            ),
-            SizedBox(
-              height: getSize(30),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: getSize(25)),
-              child: Row(
+        content: Padding(
+          padding: EdgeInsets.symmetric(horizontal: getSize(25)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: getSize(30),
+              ),
+              BaseText(
+                text: title,
+                fontSize: 22,
+                fontFamily: 'Aclonica',
+              ),
+              SizedBox(
+                height: getSize(10),
+              ),
+              BaseText(
+                text: description,
+                fontSize: 14,
+                textAlign: TextAlign.center,
+                fontWeight: FontWeight.w500,
+                textColor: AppColors.black.withOpacity(0.7),
+              ),
+              SizedBox(
+                height: getSize(30),
+              ),
+              Row(
                 children: [
                   Expanded(
                     child: CommonButton(
@@ -85,11 +85,11 @@ class AcceptRejectDialog extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-            SizedBox(
-              height: getSize(25),
-            ),
-          ],
+              SizedBox(
+                height: getSize(25),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -28,7 +28,7 @@ class ViewDates extends StatelessWidget {
         onBackPressed: () {
           Navigator.pop(context);
         },
-        title: StringConstant.viewDates,
+        title: StringConstant.viewShiftDates,
       ),
       body: SingleChildScrollView(
         child: Padding(

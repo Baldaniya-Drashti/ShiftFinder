@@ -7,6 +7,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 
@@ -20,9 +21,7 @@ class MainProfileView extends StatelessWidget {
     return BlocBuilder<AccountCubit, AccountState>(
       builder: (context, state) {
         return state.maybeWhen(
-          loadInProgress: () => Center(
-            child: CircularProgressIndicator(),
-          ),
+          loadInProgress: () => CenterLoadingIndicator(isOnlyLoader: true),
           loadSuccess: (account) => Container(
             margin: EdgeInsets.symmetric(horizontal: getSize(20)),
             padding: EdgeInsets.symmetric(
@@ -89,7 +88,7 @@ class MainProfileView extends StatelessWidget {
                         height: 22,
                         width: 87,
                         buttonFontWeight: FontWeight.w600,
-                      )
+                      ),
                     ],
                   ),
                 ),

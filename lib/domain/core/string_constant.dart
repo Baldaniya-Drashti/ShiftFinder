@@ -262,6 +262,7 @@ class StringConstant {
   static const String profile = "Profile";
   static const String viewDetails = "View Details";
   static const String viewShiftDetails = "View shift Details";
+  static const String viewShiftDates = "View shift Dates";
   static const String totalApplications = "Total Applications";
   static const String totalProposals = "Total Proposals";
   static const String shiftDate = "Shift Date";
@@ -318,6 +319,7 @@ class StringConstant {
   static const String endDateForRecurrence = "End Date For Recurrence";
   static const String never = "Never";
   static const String selectTeams = "Select Teams";
+  static const String selectedTeams = "Selected Teams";
   static const String reviewDetails = "Review Details";
   static const String payables = "Payables";
   static const String totalWage = "Total Wage";
@@ -328,6 +330,8 @@ class StringConstant {
   static const String updateTheShift = "Update The Shift";
   static const String postShiftDesc =
       "Once posted, the shift date and time cannot be changed";
+  static const String updateShiftDesc =
+      "Are you sure you want to update this shift?";
   static const String post = "Post";
   static const String allSet = "All Set!";
   static const String shiftSuccessDesc =
@@ -357,6 +361,7 @@ class StringConstant {
       "* Year and Month must be selected!";
   static const String yearMustbeSelected = "* Year must be selected!";
   static const String monthMustbeSelected = "* Month must be selected!";
+  static const String noTeamsFound = "No Teams Found";
 
   ///
 
@@ -496,13 +501,13 @@ class StringConstant {
       "Something wrong. Please try again!!";
   static const String pleaseSelectHourAndMinutesOfStartTime =
       "Please select hour and minutes of start time";
-        static const String pleaseSelectHourOfStartTime =
+  static const String pleaseSelectHourOfStartTime =
       "Please select hour of start time";
-        static const String pleaseSelectMinutesOfStartTime =
+  static const String pleaseSelectMinutesOfStartTime =
       "Please select minutes of start time";
-              static const String pleaseSelectHourOfEndTime =
+  static const String pleaseSelectHourOfEndTime =
       "Please select hour of end time";
-        static const String pleaseSelectMinutesOfEndTime =
+  static const String pleaseSelectMinutesOfEndTime =
       "Please select minutes of end time";
   static const String pleaseSelectHourAndMinutesOfEndTime =
       "Please select hour and minutes of end time";
@@ -511,6 +516,7 @@ class StringConstant {
   static const String pleaseSelectDate = "Please select date";
   static const String pleaseSelectCommuteAllownceValue =
       "Please add commute allowance value";
+  static const String flatRateShouldNotBeZero = "Flat rate should not be 0";
   static const String pleaseSelectAccomdationAllownceValue =
       "Please add accomdation allowance value";
   static const String pleaseAddNumberOfVacancies =

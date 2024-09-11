@@ -8,6 +8,7 @@ part 'date_time_dto.g.dart';
 @freezed
 class DateTimeDTO with _$DateTimeDTO {
   const factory DateTimeDTO({
+    int? id,
     String? start_time,
     String? end_time,
     int? objId,

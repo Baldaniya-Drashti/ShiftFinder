@@ -31,7 +31,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("postpostpostpost---> ${jsonEncode(updatedPost)}");
+    print("postpostpostpost---> ${jsonEncode(post.shift_detail)}");
     return Scaffold(
       backgroundColor: AppColors.scaffoldColor,
       appBar: CommonAppBar(
@@ -97,16 +97,32 @@ class ReviewPostShiftDetail extends StatelessWidget {
                         // "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?"),
                         if (post.shift_detail != null &&
                             post.shift_detail!.shift_type == 1 &&
-                            post.shift_detail!.detail![0].recurrence_mode !=
-                                null)
+                            post.shift_detail!.recurrence_mode != null)
                           chipListBox(
-                            chipList: [],
+                            // chipList: post.shift_detail!.days!.split(',')
+                            //   .where((item) => item != )
+                            //   .map((item) => item.name ?? "")
+                            //   .toList(),
+                            chipList: (post.shift_detail!.days != null &&
+                                    post.shift_detail!.days!.isNotEmpty)
+                                ? post.shift_detail!.days!
+                                    .split(',')
+                                    .where((item) => item.isNotEmpty)
+                                    .map((item) {
+                                      int dayId = int.parse(item.trim());
+                                      SkillDTO? day = CommonList.weekList
+                                          .firstWhere(
+                                              (element) => element.id == dayId,
+                                              orElse: () => SkillDTO());
+                                      return day.name ?? "";
+                                    })
+                                    .where((dayName) => dayName.isNotEmpty)
+                                    .toList()
+                                : [],
                             title: StringConstant.recurrenceMode,
-                            value: (post.shift_detail?.detail![0]
-                                        .recurrence_mode ==
-                                    0)
-                                ? "Daily"
-                                : "Weekly",
+                            value: (post.shift_detail?.recurrence_mode == "2")
+                                ? "Weekly"
+                                : "Daily",
                           ),
                         if (post.shift_detail != null &&
                             post.shift_detail!.disclaimer != null &&
@@ -131,7 +147,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
                                 .where((item) => item.name != null)
                                 .map((item) => item.name ?? "")
                                 .toList(),
-                            title: StringConstant.selectTeams,
+                            title: StringConstant.selectedTeams,
                             value: (post.shift_detail!.teams!.length < 10)
                                 ? "0${post.shift_detail!.teams!.length}"
                                 : "${post.shift_detail!.teams!.length}",

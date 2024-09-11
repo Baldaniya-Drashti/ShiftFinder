@@ -36,12 +36,19 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
   static bool isAllownceValid(
       {required InputEmptyOrNot selectedValue,
       required InputEmptyOrNot hourValue,
-      required InputEmptyOrNot rateValue}) {
-    if (selectedValue.getValue() == "Flat Rate" && rateValue.isValid()) {
+      required Rate rateValue}) {
+    final parsedRate = double.tryParse(rateValue.getValue());
+    final rateValid = parsedRate != null && parsedRate > 0;
+
+    if (selectedValue.getValue() == "Flat Rate" &&
+        rateValue.isValid() &&
+        rateValid) {
       return true;
     } else if (selectedValue.getValue() == "Hours" && hourValue.isValid()) {
       return true;
     } else if (selectedValue.getValue() == "None") {
+      return true;
+    } else if (selectedValue.getValue() == "Flat Rate" && rateValue.isValid()) {
       return true;
     }
     return false;
@@ -236,7 +243,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           emit(state.copyWith(
             selectedCommuteAllownce: InputEmptyOrNot(e.selectedValue),
             commuteHour: InputEmptyOrNot(""),
-            commuteRate: InputEmptyOrNot(""),
+            commuteRate: Rate(""),
             singleShiftFailureOrSuccessOption: none(),
           ));
         },
@@ -248,7 +255,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
         },
         commuteRateChanged: (e) {
           emit(state.copyWith(
-            commuteRate: InputEmptyOrNot(e.selectedValue),
+            commuteRate: Rate(e.selectedValue),
             singleShiftFailureOrSuccessOption: none(),
           ));
         },
@@ -256,7 +263,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           emit(state.copyWith(
             selectedAccomdationAllownce: InputEmptyOrNot(e.selectedValue),
             accomdationHour: InputEmptyOrNot(""),
-            accomdationRate: InputEmptyOrNot(""),
+            accomdationRate: Rate(""),
             singleShiftFailureOrSuccessOption: none(),
           ));
         },
@@ -268,7 +275,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
         },
         accomdationRateChanged: (e) {
           emit(state.copyWith(
-            accomdationRate: InputEmptyOrNot(e.selectedValue),
+            accomdationRate: Rate(e.selectedValue),
             singleShiftFailureOrSuccessOption: none(),
           ));
         },
@@ -380,7 +387,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           emit(
             state.copyWith(
               isShareWithTeams: e.isCheck,
-              selectedTeamList: ListInputEmptyOrNot([]),
+              // selectedTeamList: ListInputEmptyOrNot([]),
               recurringErrorMessage: false,
               recurringFailureOrSuccessOption: none(),
             ),
@@ -406,7 +413,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
         recurrenceModeChanged: (e) {
           emit(state.copyWith(
             recurrenceMode: InputEmptyOrNot(e.mode),
-            recurrenceWeekList: ListInputEmptyOrNot([]),
+            // recurrenceWeekList: ListInputEmptyOrNot([]),
             recurringFailureOrSuccessOption: none(),
           ));
         },
@@ -481,6 +488,8 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             ),
           );
           if (isRecurringValid(state) && isTeamsValid(state)) {
+            print(
+                "Recurrence iD--->>  ${state.updateShift.shift_detail?.recurrence_id}");
             /*failureOrSuccess = await _mainFacade.createPostShiftRecurringApi(
                 postShiftId: e.postShiftId,
                 recurringStatus: (state.isToBeRecurring) ? 1 : 0,
@@ -501,6 +510,9 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                   (state.updateShift.id != null && state.updateShift.id != -1)
                       ? 0
                       : null,
+              recurrence_id: (state.post.shift_type == 1)
+                  ? state.updateShift.shift_detail?.recurrence_id
+                  : null,
               id: (state.updateShift.id != null && state.updateShift.id != -1)
                   ? state.updateShift.id
                   : null,
@@ -517,8 +529,11 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                       : "",
               recurrence_mode:
                   (state.recurrenceMode.getValue() == "Weekly") ? 2 : 1,
-              days: getSelectedRecurringDayIds(
-                  state.recurrenceWeekList.getValue()),
+              days: (state.isToBeRecurring &&
+                      state.recurrenceMode.getValue() == "Weekly")
+                  ? getSelectedRecurringDayIds(
+                      state.recurrenceWeekList.getValue())
+                  : "",
               recurring_end_date: (state.recurringEndDate.getValue() != null &&
                       state.recurringEndDate.getValue()!.isNotEmpty)
                   ? (DateTime.parse(state.recurringEndDate.getValue()!)
@@ -529,8 +544,10 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                   : "",
               disclaimer: state.disclaimerNote,
               share_team_status: (state.isShareWithTeams) ? "1" : "0",
-              team_id:
-                  getSelectedRecurringDayIds(state.selectedTeamList.getValue()),
+              team_id: (state.isShareWithTeams)
+                  ? getSelectedRecurringDayIds(
+                      state.selectedTeamList.getValue())
+                  : "",
               save_template_status: (state.isSaveAsTemplate) ? "1" : "0",
             );
             if (state.updateShift.id != null && state.updateShift.id != -1) {
@@ -899,7 +916,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           commuteHour: InputEmptyOrNot((r.commute_allowance_type == 2)
               ? getAccomdationHourName(r.commute_allowance_type_details ?? 0)
               : ""),
-          commuteRate: InputEmptyOrNot((r.commute_allowance_type == 1)
+          commuteRate: Rate((r.commute_allowance_type == 1)
               ? "${r.commute_allowance_type_details ?? 0}"
               : ""),
           selectedAccomdationAllownce:
@@ -912,7 +929,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               ? getAccomdationHourName(
                   r.accommodation_allowance_type_details ?? 0)
               : ""),
-          accomdationRate: InputEmptyOrNot((r.accommodation_allowance_type == 1)
+          accomdationRate: Rate((r.accommodation_allowance_type == 1)
               ? "${r.accommodation_allowance_type_details ?? 0}"
               : ""),
           singleShiftNote: r.shift_note ?? "",
@@ -950,7 +967,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           disclaimerNote: r.disclaimer ?? "",
           selectedTeamList: setTeamList(r.teams ?? []),
           recurrenceMode:
-              InputEmptyOrNot((r.recurrence_mode == "2") ? "Weekly" : "Daily"),
+              InputEmptyOrNot((r.recurrence_mode == '2') ? "Weekly" : "Daily"),
           recurrenceWeekList: setWeekList(r.days ?? ""),
 
           recurringStartDate: InputEmptyOrNot((r.recurring_start_date != null)
@@ -1000,27 +1017,34 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
     String mapMultiDateToApiFormat() {
       if (shift.multi_date != null && shift.multi_date!.isNotEmpty) {
         final list = shift.multi_date!.map((multiDate) {
-          return {
-            'date': DateTime.parse(multiDate.date ?? "")
-                    .toUtc()
-                    .millisecondsSinceEpoch /
-                1000,
-            'start_time': DateTime.parse((shift.same_or_different_time == 1)
-                        ? shift.start_time ?? ""
-                        : multiDate.start_time ?? "")
-                    .toUtc()
-                    .millisecondsSinceEpoch /
-                1000,
-            'end_time': DateTime.parse((shift.same_or_different_time == 1)
-                        ? shift.end_time ?? ""
-                        : multiDate.end_time ?? "")
-                    .toUtc()
-                    .millisecondsSinceEpoch /
-                1000,
-            'payable_hour': multiDate.totalPaybleHours,
-            'unpaid_break_id':
-                getSelectedUnPaidBreakId(breakTime: multiDate.unpaidBreak),
+          final map = {
+            if (state.updateShift.id == null) ...{
+              'date': DateTime.parse(multiDate.date ?? "")
+                      .toUtc()
+                      .millisecondsSinceEpoch /
+                  1000,
+              'start_time': DateTime.parse((shift.same_or_different_time == 1)
+                          ? shift.start_time ?? ""
+                          : multiDate.start_time ?? "")
+                      .toUtc()
+                      .millisecondsSinceEpoch /
+                  1000,
+              'end_time': DateTime.parse((shift.same_or_different_time == 1)
+                          ? shift.end_time ?? ""
+                          : multiDate.end_time ?? "")
+                      .toUtc()
+                      .millisecondsSinceEpoch /
+                  1000,
+              'payable_hour': multiDate.totalPaybleHours,
+              'unpaid_break_id':
+                  getSelectedUnPaidBreakId(breakTime: multiDate.unpaidBreak),
+            } else ...{
+              'id': multiDate.id,
+              'unpaid_break_id':
+                  getSelectedUnPaidBreakId(breakTime: multiDate.unpaidBreak),
+            }
           };
+          return map;
         }).toList();
         return jsonEncode(list);
       } else {
@@ -1522,6 +1546,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
       //     : DateTime.now();
 
       return DateTimeDTO(
+          id: multiDate.id,
           date: (timestamp != null)
               ? DateTime.fromMillisecondsSinceEpoch(timestamp * 1000).toString()
               : DateTime.now().toString(),

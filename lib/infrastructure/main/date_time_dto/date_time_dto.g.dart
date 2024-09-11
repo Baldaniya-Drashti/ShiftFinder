@@ -8,6 +8,7 @@ part of 'date_time_dto.dart';
 
 _$DateTimeDTOImpl _$$DateTimeDTOImplFromJson(Map<String, dynamic> json) =>
     _$DateTimeDTOImpl(
+      id: (json['id'] as num?)?.toInt(),
       start_time: json['start_time'] as String?,
       end_time: json['end_time'] as String?,
       objId: (json['objId'] as num?)?.toInt(),
@@ -22,6 +23,7 @@ _$DateTimeDTOImpl _$$DateTimeDTOImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$DateTimeDTOImplToJson(_$DateTimeDTOImpl instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'start_time': instance.start_time,
       'end_time': instance.end_time,
       'objId': instance.objId,

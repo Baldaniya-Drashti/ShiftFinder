@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, unnecessary_brace_in_string_interps
 
 import 'dart:convert';
+import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';

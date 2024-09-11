@@ -40,7 +40,7 @@ class ApiConstants {
   static String legalScreeningQuestionAnswer =
       'legal_screening_question_answer';
 
-// common
+// Common
   static String roleList = 'role_list';
   static String specialtieList = 'specialtie_list';
   static String experienceList = 'experience_list';

@@ -666,75 +666,76 @@ class PostShiftRecurring extends StatelessWidget {
           ),
           decoration: BoxDecoration(
               color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
-          child: ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: state.teamList.length,
-              itemBuilder: (context, index) {
-                final teamList = state.teamList;
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxHeight: getSize(250)),
+            child: ListView.builder(
+                shrinkWrap: true,
+                // physics: NeverScrollableScrollPhysics(),
+                itemCount: state.teamList.length,
+                itemBuilder: (context, index) {
+                  final teamList = state.teamList;
+                  bool isTeamCheck =
+                      state.selectedTeamList.getValue().any((item) {
+                    print("is team check---> ${item.id == teamList[index].id}");
 
-                bool isTeamCheck =
-                    state.selectedTeamList.getValue().any((item) {
-                  print("is team check---> ${item.id == teamList[index].id}");
-
-                  return item.id == teamList[index].id;
-                });
-                // print("is team check---> ${state.selectedTeamList}}");
-                return Padding(
-                  padding: EdgeInsets.symmetric(vertical: getSize(5)),
-                  child: GestureDetector(
-                    onTap: () {
-                      print("Teams selected index--> ${teamList[index].id}");
-                      context
-                          .read<PostShiftBloc>()
-                          .add(PostShiftEvent.selectTeamEvent(teamList[index]));
-                    },
-                    child: ListTile(
-                      titleAlignment: ListTileTitleAlignment.center,
-                      contentPadding: EdgeInsets.zero,
-                      visualDensity: VisualDensity.compact,
-                      minVerticalPadding: 0,
-                      leading: SvgPicture.asset(
-                        SvgImageConstant.threePersonWithPlus,
-                        height: getSize(24),
-                        width: getSize(24),
-                      ),
-                      dense: true,
-
-                      title: BaseText(
-                        text: teamList[index].name ?? '',
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      trailing: Container(
-                        color: Colors.transparent,
-                        // height: getSize(0),
-                        // width: getSize(26.67),
-                        // padding: EdgeInsets.all(getSize(10)),
-                        child: Checkbox(
-                          value: isTeamCheck,
-                          activeColor: AppColors.primaryColor,
-                          side: BorderSide(
-                            width: getSize(1.5),
-                            color: AppColors.black.withOpacity(0.5),
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          onChanged: (value) {
-                            if (value != null) {
-                              context.read<PostShiftBloc>().add(
-                                  PostShiftEvent.selectTeamEvent(
-                                      teamList[index]));
-                            }
-                          },
+                    return item.id == teamList[index].id;
+                  });
+                  // print("is team check---> ${state.selectedTeamList}}");
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: getSize(5)),
+                    child: GestureDetector(
+                      onTap: () {
+                        print("Teams selected index--> ${teamList[index].id}");
+                        context.read<PostShiftBloc>().add(
+                            PostShiftEvent.selectTeamEvent(teamList[index]));
+                      },
+                      child: ListTile(
+                        titleAlignment: ListTileTitleAlignment.center,
+                        contentPadding: EdgeInsets.zero,
+                        visualDensity: VisualDensity.compact,
+                        minVerticalPadding: 0,
+                        leading: SvgPicture.asset(
+                          SvgImageConstant.threePersonWithPlus,
+                          height: getSize(24),
+                          width: getSize(24),
                         ),
+                        dense: true,
+
+                        title: BaseText(
+                          text: teamList[index].name ?? '',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        trailing: Container(
+                          color: Colors.transparent,
+                          // height: getSize(0),
+                          // width: getSize(26.67),
+                          // padding: EdgeInsets.all(getSize(10)),
+                          child: Checkbox(
+                            value: isTeamCheck,
+                            activeColor: AppColors.primaryColor,
+                            side: BorderSide(
+                              width: getSize(1.5),
+                              color: AppColors.black.withOpacity(0.5),
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            onChanged: (value) {
+                              if (value != null) {
+                                context.read<PostShiftBloc>().add(
+                                    PostShiftEvent.selectTeamEvent(
+                                        teamList[index]));
+                              }
+                            },
+                          ),
+                        ),
+                        // ],
                       ),
-                      // ],
                     ),
-                  ),
-                );
-              }),
+                  );
+                }),
+          ),
         ),
       ],
     );

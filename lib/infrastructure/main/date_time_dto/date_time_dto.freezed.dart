@@ -20,6 +20,7 @@ DateTimeDTO _$DateTimeDTOFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$DateTimeDTO {
+  int? get id => throw _privateConstructorUsedError;
   String? get start_time => throw _privateConstructorUsedError;
   String? get end_time => throw _privateConstructorUsedError;
   int? get objId => throw _privateConstructorUsedError;
@@ -44,7 +45,8 @@ abstract class $DateTimeDTOCopyWith<$Res> {
       _$DateTimeDTOCopyWithImpl<$Res, DateTimeDTO>;
   @useResult
   $Res call(
-      {String? start_time,
+      {int? id,
+      String? start_time,
       String? end_time,
       int? objId,
       String? date,
@@ -69,6 +71,7 @@ class _$DateTimeDTOCopyWithImpl<$Res, $Val extends DateTimeDTO>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? start_time = freezed,
     Object? end_time = freezed,
     Object? objId = freezed,
@@ -81,6 +84,10 @@ class _$DateTimeDTOCopyWithImpl<$Res, $Val extends DateTimeDTO>
     Object? unpaidBreak = freezed,
   }) {
     return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
       start_time: freezed == start_time
           ? _value.start_time
           : start_time // ignore: cast_nullable_to_non_nullable
@@ -134,7 +141,8 @@ abstract class _$$DateTimeDTOImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? start_time,
+      {int? id,
+      String? start_time,
       String? end_time,
       int? objId,
       String? date,
@@ -157,6 +165,7 @@ class __$$DateTimeDTOImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? start_time = freezed,
     Object? end_time = freezed,
     Object? objId = freezed,
@@ -169,6 +178,10 @@ class __$$DateTimeDTOImplCopyWithImpl<$Res>
     Object? unpaidBreak = freezed,
   }) {
     return _then(_$DateTimeDTOImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
       start_time: freezed == start_time
           ? _value.start_time
           : start_time // ignore: cast_nullable_to_non_nullable
@@ -217,7 +230,8 @@ class __$$DateTimeDTOImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$DateTimeDTOImpl implements _DateTimeDTO {
   const _$DateTimeDTOImpl(
-      {this.start_time,
+      {this.id,
+      this.start_time,
       this.end_time,
       this.objId,
       this.date,
@@ -231,6 +245,8 @@ class _$DateTimeDTOImpl implements _DateTimeDTO {
   factory _$DateTimeDTOImpl.fromJson(Map<String, dynamic> json) =>
       _$$DateTimeDTOImplFromJson(json);
 
+  @override
+  final int? id;
   @override
   final String? start_time;
   @override
@@ -254,7 +270,7 @@ class _$DateTimeDTOImpl implements _DateTimeDTO {
 
   @override
   String toString() {
-    return 'DateTimeDTO(start_time: $start_time, end_time: $end_time, objId: $objId, date: $date, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, totalPaybleHours: $totalPaybleHours, unpaidBreak: $unpaidBreak)';
+    return 'DateTimeDTO(id: $id, start_time: $start_time, end_time: $end_time, objId: $objId, date: $date, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, totalPaybleHours: $totalPaybleHours, unpaidBreak: $unpaidBreak)';
   }
 
   @override
@@ -262,6 +278,7 @@ class _$DateTimeDTOImpl implements _DateTimeDTO {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DateTimeDTOImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.start_time, start_time) ||
                 other.start_time == start_time) &&
             (identical(other.end_time, end_time) ||
@@ -285,6 +302,7 @@ class _$DateTimeDTOImpl implements _DateTimeDTO {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      id,
       start_time,
       end_time,
       objId,
@@ -312,7 +330,8 @@ class _$DateTimeDTOImpl implements _DateTimeDTO {
 
 abstract class _DateTimeDTO implements DateTimeDTO {
   const factory _DateTimeDTO(
-      {final String? start_time,
+      {final int? id,
+      final String? start_time,
       final String? end_time,
       final int? objId,
       final String? date,
@@ -326,6 +345,8 @@ abstract class _DateTimeDTO implements DateTimeDTO {
   factory _DateTimeDTO.fromJson(Map<String, dynamic> json) =
       _$DateTimeDTOImpl.fromJson;
 
+  @override
+  int? get id;
   @override
   String? get start_time;
   @override

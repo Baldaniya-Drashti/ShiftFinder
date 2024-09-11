@@ -32,7 +32,6 @@ _$PostShiftDTOImpl _$$PostShiftDTOImplFromJson(Map<String, dynamic> json) =>
       shift_type: (json['shift_type'] as num?)?.toInt(),
       date: json['date'] as String?,
       same_or_different_time: (json['same_or_different_time'] as num?)?.toInt(),
-      multi_date: json['multi_date'] as String?,
       start_time: json['start_time'] as String?,
       end_time: json['end_time'] as String?,
       unpaid_break_id: (json['unpaid_break_id'] as num?)?.toInt(),
@@ -46,8 +45,10 @@ _$PostShiftDTOImpl _$$PostShiftDTOImplFromJson(Map<String, dynamic> json) =>
       shift_note: json['shift_note'] as String?,
       vacancie_type: json['vacancie_type'] as String?,
       number_of_vacancie: (json['number_of_vacancie'] as num?)?.toInt(),
+      recurrence_id: (json['recurrence_id'] as num?)?.toInt(),
       recurring_start_date: json['recurring_start_date'] as String?,
       recurring_end_date: json['recurring_end_date'] as String?,
+      multi_date: json['multi_date'] as String?,
     );
 
 Map<String, dynamic> _$$PostShiftDTOImplToJson(_$PostShiftDTOImpl instance) =>
@@ -76,7 +77,6 @@ Map<String, dynamic> _$$PostShiftDTOImplToJson(_$PostShiftDTOImpl instance) =>
       'shift_type': instance.shift_type,
       'date': instance.date,
       'same_or_different_time': instance.same_or_different_time,
-      'multi_date': instance.multi_date,
       'start_time': instance.start_time,
       'end_time': instance.end_time,
       'unpaid_break_id': instance.unpaid_break_id,
@@ -89,6 +89,8 @@ Map<String, dynamic> _$$PostShiftDTOImplToJson(_$PostShiftDTOImpl instance) =>
       'shift_note': instance.shift_note,
       'vacancie_type': instance.vacancie_type,
       'number_of_vacancie': instance.number_of_vacancie,
+      'recurrence_id': instance.recurrence_id,
       'recurring_start_date': instance.recurring_start_date,
       'recurring_end_date': instance.recurring_end_date,
+      'multi_date': instance.multi_date,
     };

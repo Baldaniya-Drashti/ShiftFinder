@@ -109,7 +109,10 @@ class DifferentTimeForEachDate extends StatelessWidget {
                       hourValue: state.commuteHour,
                       rateValue: state.commuteRate)))
                 commonErrorText(
-                    StringConstant.pleaseSelectCommuteAllownceValue),
+                    (double.tryParse(state.commuteRate.getValue()) != null &&
+                            double.parse(state.commuteRate.getValue()) <= 0)
+                        ? StringConstant.flatRateShouldNotBeZero
+                        : StringConstant.pleaseSelectCommuteAllownceValue),
               paddingBetweenFields(),
               accommodationAllowanceDropDown(context, state),
               if (state.singleShiftErrorMessages &&
@@ -118,7 +121,11 @@ class DifferentTimeForEachDate extends StatelessWidget {
                       hourValue: state.accomdationHour,
                       rateValue: state.accomdationRate)))
                 commonErrorText(
-                    StringConstant.pleaseSelectAccomdationAllownceValue),
+                    (double.tryParse(state.accomdationRate.getValue()) !=
+                                null &&
+                            double.parse(state.accomdationRate.getValue()) <= 0)
+                        ? StringConstant.flatRateShouldNotBeZero
+                        : StringConstant.pleaseSelectAccomdationAllownceValue),
               paddingBetweenFields(),
               individualPostCheckBox(context, state),
               paddingBetweenFields(),

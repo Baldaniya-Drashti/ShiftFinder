@@ -48,7 +48,6 @@ mixin _$PostShiftDTO {
   int? get shift_type => throw _privateConstructorUsedError;
   String? get date => throw _privateConstructorUsedError;
   int? get same_or_different_time => throw _privateConstructorUsedError;
-  String? get multi_date => throw _privateConstructorUsedError;
   String? get start_time => throw _privateConstructorUsedError;
   String? get end_time => throw _privateConstructorUsedError;
   int? get unpaid_break_id => throw _privateConstructorUsedError;
@@ -61,8 +60,10 @@ mixin _$PostShiftDTO {
   String? get shift_note => throw _privateConstructorUsedError;
   String? get vacancie_type => throw _privateConstructorUsedError;
   int? get number_of_vacancie => throw _privateConstructorUsedError;
+  int? get recurrence_id => throw _privateConstructorUsedError;
   String? get recurring_start_date => throw _privateConstructorUsedError;
   String? get recurring_end_date => throw _privateConstructorUsedError;
+  String? get multi_date => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -101,7 +102,6 @@ abstract class $PostShiftDTOCopyWith<$Res> {
       int? shift_type,
       String? date,
       int? same_or_different_time,
-      String? multi_date,
       String? start_time,
       String? end_time,
       int? unpaid_break_id,
@@ -114,8 +114,10 @@ abstract class $PostShiftDTOCopyWith<$Res> {
       String? shift_note,
       String? vacancie_type,
       int? number_of_vacancie,
+      int? recurrence_id,
       String? recurring_start_date,
-      String? recurring_end_date});
+      String? recurring_end_date,
+      String? multi_date});
 }
 
 /// @nodoc
@@ -155,7 +157,6 @@ class _$PostShiftDTOCopyWithImpl<$Res, $Val extends PostShiftDTO>
     Object? shift_type = freezed,
     Object? date = freezed,
     Object? same_or_different_time = freezed,
-    Object? multi_date = freezed,
     Object? start_time = freezed,
     Object? end_time = freezed,
     Object? unpaid_break_id = freezed,
@@ -168,8 +169,10 @@ class _$PostShiftDTOCopyWithImpl<$Res, $Val extends PostShiftDTO>
     Object? shift_note = freezed,
     Object? vacancie_type = freezed,
     Object? number_of_vacancie = freezed,
+    Object? recurrence_id = freezed,
     Object? recurring_start_date = freezed,
     Object? recurring_end_date = freezed,
+    Object? multi_date = freezed,
   }) {
     return _then(_value.copyWith(
       update_status: freezed == update_status
@@ -268,10 +271,6 @@ class _$PostShiftDTOCopyWithImpl<$Res, $Val extends PostShiftDTO>
           ? _value.same_or_different_time
           : same_or_different_time // ignore: cast_nullable_to_non_nullable
               as int?,
-      multi_date: freezed == multi_date
-          ? _value.multi_date
-          : multi_date // ignore: cast_nullable_to_non_nullable
-              as String?,
       start_time: freezed == start_time
           ? _value.start_time
           : start_time // ignore: cast_nullable_to_non_nullable
@@ -320,6 +319,10 @@ class _$PostShiftDTOCopyWithImpl<$Res, $Val extends PostShiftDTO>
           ? _value.number_of_vacancie
           : number_of_vacancie // ignore: cast_nullable_to_non_nullable
               as int?,
+      recurrence_id: freezed == recurrence_id
+          ? _value.recurrence_id
+          : recurrence_id // ignore: cast_nullable_to_non_nullable
+              as int?,
       recurring_start_date: freezed == recurring_start_date
           ? _value.recurring_start_date
           : recurring_start_date // ignore: cast_nullable_to_non_nullable
@@ -327,6 +330,10 @@ class _$PostShiftDTOCopyWithImpl<$Res, $Val extends PostShiftDTO>
       recurring_end_date: freezed == recurring_end_date
           ? _value.recurring_end_date
           : recurring_end_date // ignore: cast_nullable_to_non_nullable
+              as String?,
+      multi_date: freezed == multi_date
+          ? _value.multi_date
+          : multi_date // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -365,7 +372,6 @@ abstract class _$$PostShiftDTOImplCopyWith<$Res>
       int? shift_type,
       String? date,
       int? same_or_different_time,
-      String? multi_date,
       String? start_time,
       String? end_time,
       int? unpaid_break_id,
@@ -378,8 +384,10 @@ abstract class _$$PostShiftDTOImplCopyWith<$Res>
       String? shift_note,
       String? vacancie_type,
       int? number_of_vacancie,
+      int? recurrence_id,
       String? recurring_start_date,
-      String? recurring_end_date});
+      String? recurring_end_date,
+      String? multi_date});
 }
 
 /// @nodoc
@@ -417,7 +425,6 @@ class __$$PostShiftDTOImplCopyWithImpl<$Res>
     Object? shift_type = freezed,
     Object? date = freezed,
     Object? same_or_different_time = freezed,
-    Object? multi_date = freezed,
     Object? start_time = freezed,
     Object? end_time = freezed,
     Object? unpaid_break_id = freezed,
@@ -430,8 +437,10 @@ class __$$PostShiftDTOImplCopyWithImpl<$Res>
     Object? shift_note = freezed,
     Object? vacancie_type = freezed,
     Object? number_of_vacancie = freezed,
+    Object? recurrence_id = freezed,
     Object? recurring_start_date = freezed,
     Object? recurring_end_date = freezed,
+    Object? multi_date = freezed,
   }) {
     return _then(_$PostShiftDTOImpl(
       update_status: freezed == update_status
@@ -530,10 +539,6 @@ class __$$PostShiftDTOImplCopyWithImpl<$Res>
           ? _value.same_or_different_time
           : same_or_different_time // ignore: cast_nullable_to_non_nullable
               as int?,
-      multi_date: freezed == multi_date
-          ? _value.multi_date
-          : multi_date // ignore: cast_nullable_to_non_nullable
-              as String?,
       start_time: freezed == start_time
           ? _value.start_time
           : start_time // ignore: cast_nullable_to_non_nullable
@@ -582,6 +587,10 @@ class __$$PostShiftDTOImplCopyWithImpl<$Res>
           ? _value.number_of_vacancie
           : number_of_vacancie // ignore: cast_nullable_to_non_nullable
               as int?,
+      recurrence_id: freezed == recurrence_id
+          ? _value.recurrence_id
+          : recurrence_id // ignore: cast_nullable_to_non_nullable
+              as int?,
       recurring_start_date: freezed == recurring_start_date
           ? _value.recurring_start_date
           : recurring_start_date // ignore: cast_nullable_to_non_nullable
@@ -589,6 +598,10 @@ class __$$PostShiftDTOImplCopyWithImpl<$Res>
       recurring_end_date: freezed == recurring_end_date
           ? _value.recurring_end_date
           : recurring_end_date // ignore: cast_nullable_to_non_nullable
+              as String?,
+      multi_date: freezed == multi_date
+          ? _value.multi_date
+          : multi_date // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -622,7 +635,6 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
       this.shift_type,
       this.date,
       this.same_or_different_time,
-      this.multi_date,
       this.start_time,
       this.end_time,
       this.unpaid_break_id,
@@ -635,8 +647,10 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
       this.shift_note,
       this.vacancie_type,
       this.number_of_vacancie,
+      this.recurrence_id,
       this.recurring_start_date,
-      this.recurring_end_date});
+      this.recurring_end_date,
+      this.multi_date});
 
   factory _$PostShiftDTOImpl.fromJson(Map<String, dynamic> json) =>
       _$$PostShiftDTOImplFromJson(json);
@@ -694,8 +708,6 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
   @override
   final int? same_or_different_time;
   @override
-  final String? multi_date;
-  @override
   final String? start_time;
   @override
   final String? end_time;
@@ -720,13 +732,17 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
   @override
   final int? number_of_vacancie;
   @override
+  final int? recurrence_id;
+  @override
   final String? recurring_start_date;
   @override
   final String? recurring_end_date;
+  @override
+  final String? multi_date;
 
   @override
   String toString() {
-    return 'PostShiftDTO(update_status: $update_status, id: $id, roles_list_id: $roles_list_id, specialties_detail_id: $specialties_detail_id, specialties_detail_other: $specialties_detail_other, softwares_skill_list_id: $softwares_skill_list_id, software_skill_other: $software_skill_other, languages_list_id: $languages_list_id, language_other: $language_other, location_id: $location_id, location_unit: $location_unit, rate_hour: $rate_hour, recurring_status: $recurring_status, start_date: $start_date, recurrence_mode: $recurrence_mode, days: $days, end_date: $end_date, disclaimer: $disclaimer, share_team_status: $share_team_status, team_id: $team_id, save_template_status: $save_template_status, shift_type: $shift_type, date: $date, same_or_different_time: $same_or_different_time, multi_date: $multi_date, start_time: $start_time, end_time: $end_time, unpaid_break_id: $unpaid_break_id, total_payable_hour: $total_payable_hour, commute_allowance_type: $commute_allowance_type, commute_allowance: $commute_allowance, accommodation_allowance_type: $accommodation_allowance_type, accommodation_allowance: $accommodation_allowance, individual_shift: $individual_shift, shift_note: $shift_note, vacancie_type: $vacancie_type, number_of_vacancie: $number_of_vacancie, recurring_start_date: $recurring_start_date, recurring_end_date: $recurring_end_date)';
+    return 'PostShiftDTO(update_status: $update_status, id: $id, roles_list_id: $roles_list_id, specialties_detail_id: $specialties_detail_id, specialties_detail_other: $specialties_detail_other, softwares_skill_list_id: $softwares_skill_list_id, software_skill_other: $software_skill_other, languages_list_id: $languages_list_id, language_other: $language_other, location_id: $location_id, location_unit: $location_unit, rate_hour: $rate_hour, recurring_status: $recurring_status, start_date: $start_date, recurrence_mode: $recurrence_mode, days: $days, end_date: $end_date, disclaimer: $disclaimer, share_team_status: $share_team_status, team_id: $team_id, save_template_status: $save_template_status, shift_type: $shift_type, date: $date, same_or_different_time: $same_or_different_time, start_time: $start_time, end_time: $end_time, unpaid_break_id: $unpaid_break_id, total_payable_hour: $total_payable_hour, commute_allowance_type: $commute_allowance_type, commute_allowance: $commute_allowance, accommodation_allowance_type: $accommodation_allowance_type, accommodation_allowance: $accommodation_allowance, individual_shift: $individual_shift, shift_note: $shift_note, vacancie_type: $vacancie_type, number_of_vacancie: $number_of_vacancie, recurrence_id: $recurrence_id, recurring_start_date: $recurring_start_date, recurring_end_date: $recurring_end_date, multi_date: $multi_date)';
   }
 
   @override
@@ -778,8 +794,6 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
             (identical(other.date, date) || other.date == date) &&
             (identical(other.same_or_different_time, same_or_different_time) ||
                 other.same_or_different_time == same_or_different_time) &&
-            (identical(other.multi_date, multi_date) ||
-                other.multi_date == multi_date) &&
             (identical(other.start_time, start_time) ||
                 other.start_time == start_time) &&
             (identical(other.end_time, end_time) ||
@@ -790,15 +804,18 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
                 other.total_payable_hour == total_payable_hour) &&
             (identical(other.commute_allowance_type, commute_allowance_type) ||
                 other.commute_allowance_type == commute_allowance_type) &&
-            (identical(other.commute_allowance, commute_allowance) || other.commute_allowance == commute_allowance) &&
+            (identical(other.commute_allowance, commute_allowance) ||
+                other.commute_allowance == commute_allowance) &&
             (identical(other.accommodation_allowance_type, accommodation_allowance_type) || other.accommodation_allowance_type == accommodation_allowance_type) &&
             (identical(other.accommodation_allowance, accommodation_allowance) || other.accommodation_allowance == accommodation_allowance) &&
             (identical(other.individual_shift, individual_shift) || other.individual_shift == individual_shift) &&
             (identical(other.shift_note, shift_note) || other.shift_note == shift_note) &&
             (identical(other.vacancie_type, vacancie_type) || other.vacancie_type == vacancie_type) &&
             (identical(other.number_of_vacancie, number_of_vacancie) || other.number_of_vacancie == number_of_vacancie) &&
+            (identical(other.recurrence_id, recurrence_id) || other.recurrence_id == recurrence_id) &&
             (identical(other.recurring_start_date, recurring_start_date) || other.recurring_start_date == recurring_start_date) &&
-            (identical(other.recurring_end_date, recurring_end_date) || other.recurring_end_date == recurring_end_date));
+            (identical(other.recurring_end_date, recurring_end_date) || other.recurring_end_date == recurring_end_date) &&
+            (identical(other.multi_date, multi_date) || other.multi_date == multi_date));
   }
 
   @JsonKey(ignore: true)
@@ -829,7 +846,6 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
         shift_type,
         date,
         same_or_different_time,
-        multi_date,
         start_time,
         end_time,
         unpaid_break_id,
@@ -842,8 +858,10 @@ class _$PostShiftDTOImpl implements _PostShiftDTO {
         shift_note,
         vacancie_type,
         number_of_vacancie,
+        recurrence_id,
         recurring_start_date,
-        recurring_end_date
+        recurring_end_date,
+        multi_date
       ]);
 
   @JsonKey(ignore: true)
@@ -886,7 +904,6 @@ abstract class _PostShiftDTO implements PostShiftDTO {
       final int? shift_type,
       final String? date,
       final int? same_or_different_time,
-      final String? multi_date,
       final String? start_time,
       final String? end_time,
       final int? unpaid_break_id,
@@ -899,8 +916,10 @@ abstract class _PostShiftDTO implements PostShiftDTO {
       final String? shift_note,
       final String? vacancie_type,
       final int? number_of_vacancie,
+      final int? recurrence_id,
       final String? recurring_start_date,
-      final String? recurring_end_date}) = _$PostShiftDTOImpl;
+      final String? recurring_end_date,
+      final String? multi_date}) = _$PostShiftDTOImpl;
 
   factory _PostShiftDTO.fromJson(Map<String, dynamic> json) =
       _$PostShiftDTOImpl.fromJson;
@@ -957,8 +976,6 @@ abstract class _PostShiftDTO implements PostShiftDTO {
   @override
   int? get same_or_different_time;
   @override
-  String? get multi_date;
-  @override
   String? get start_time;
   @override
   String? get end_time;
@@ -983,9 +1000,13 @@ abstract class _PostShiftDTO implements PostShiftDTO {
   @override
   int? get number_of_vacancie;
   @override
+  int? get recurrence_id;
+  @override
   String? get recurring_start_date;
   @override
   String? get recurring_end_date;
+  @override
+  String? get multi_date;
   @override
   @JsonKey(ignore: true)
   _$$PostShiftDTOImplCopyWith<_$PostShiftDTOImpl> get copyWith =>

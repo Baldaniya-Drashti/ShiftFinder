@@ -9,6 +9,7 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 class PaginatedListView extends StatelessWidget {
   final Widget child;
   final bool isNoDataFound;
+  final Widget? noDataWidget;
   final bool? enablePullUp;
   final bool? enablePullDown;
   final String? dataStatus;
@@ -17,6 +18,7 @@ class PaginatedListView extends StatelessWidget {
   final RefreshController refreshController;
   final bool reverse;
   final Axis? scrollDirection;
+  final Widget? footer;
   const PaginatedListView({
     super.key,
     required this.onRefresh,
@@ -29,6 +31,8 @@ class PaginatedListView extends StatelessWidget {
     this.scrollDirection,
     this.enablePullUp,
     this.enablePullDown,
+    this.noDataWidget,
+    this.footer,
   });
 
   @override
@@ -37,6 +41,7 @@ class PaginatedListView extends StatelessWidget {
       header: MaterialClassicHeader(
         color: AppColors.primaryColor,
       ),
+      footer: footer,
       enablePullUp: true,
       enablePullDown: true,
       reverse: reverse,
@@ -50,17 +55,18 @@ class PaginatedListView extends StatelessWidget {
         onLoadMoreData();
       },
       child: isNoDataFound
-          ? Center(
-              child: SizedBox(
-                width: getSize(280),
-                child: BaseText(
-                  textColor: AppColors.black.withOpacity(0.65),
-                  text: dataStatus ?? 'No result found.',
-                  textAlign: TextAlign.center,
-                  lineHeight: 1.2,
+          ? noDataWidget ??
+              Center(
+                child: SizedBox(
+                  width: getSize(280),
+                  child: BaseText(
+                    textColor: AppColors.black.withOpacity(0.65),
+                    text: dataStatus ?? 'No result found.',
+                    textAlign: TextAlign.center,
+                    lineHeight: 1.2,
+                  ),
                 ),
-              ),
-            )
+              )
           : child,
     );
   }

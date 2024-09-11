@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/payable_dto.dart/payable_dto.dart';
@@ -38,6 +39,7 @@ class ShiftDetailDTO with _$ShiftDetailDTO {
     int? recurring_start_date,
     int? recurring_end_date,
     String? recurrence_mode,
+    int? recurrence_id,
     String? days,
   }) = _ShiftDetailDTO;
 
