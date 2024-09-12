@@ -42,6 +42,7 @@ class CustomTextField extends StatelessWidget {
     this.isPrefixValueShow = false,
     this.hintAsValue = false,
     this.prefixIconConstraints,
+    this.labelTextWidth,
   }) : super(key: key);
 
   final List<TextInputFormatter>? inputFormatters;
@@ -76,6 +77,7 @@ class CustomTextField extends StatelessWidget {
   final bool isPrefixValueShow;
   final bool hintAsValue;
   final BoxConstraints? prefixIconConstraints;
+  final double? labelTextWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -123,11 +125,16 @@ class CustomTextField extends StatelessWidget {
                 left: getSize((isLabelPadding == true) ? 18 : 0)),
             child: Row(
               children: [
-                BaseText(
-                  text: labelText ?? "",
-                  fontSize: labelStyle?.fontSize ?? 14,
-                  fontWeight: FontWeight.w500,
-                  textColor: labelStyle?.color ?? Color(0xff030202),
+                SizedBox(
+                  width: labelTextWidth,
+                  child: BaseText(
+                    text: labelText ?? "",
+                    fontSize: labelStyle?.fontSize ?? 14,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    fontWeight: FontWeight.w500,
+                    textColor: labelStyle?.color ?? Color(0xff030202),
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(

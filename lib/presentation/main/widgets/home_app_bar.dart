@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shift/application/contractor_main_tab_bloc/contractor_main_bloc.dart';
 import 'package:shift/application/main_tab/main_tab_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -27,6 +28,51 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MainTabBloc, MainTabState>(
+      builder: (context, state) {
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: getSize(19.5)),
+          child: AppBar(
+            scrolledUnderElevation: 0,
+            backgroundColor: AppColors.scaffoldColor,
+            elevation: 0,
+            leading: leading ?? Container(),
+            centerTitle: (titleText != null) ? true : false,
+            title: (titleText != null)
+                ? BaseText(
+                    text: titleText!,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Aclonica",
+                  )
+                : titleWidget ?? Container(),
+            actions: actions,
+          ),
+        );
+      },
+    );
+  }
+
+  @override
+  Size get preferredSize => Size.fromHeight(getSize(70));
+}
+
+class ContractorHomeAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
+  Widget? titleWidget;
+  List<Widget>? actions;
+  Widget? leading;
+  String? titleText;
+
+  ContractorHomeAppBar(
+      {super.key,
+      this.actions,
+      this.leading,
+      this.titleWidget,
+      this.titleText});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ContractorMainTabBloc, ContractorMainTabState>(
       builder: (context, state) {
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: getSize(19.5)),

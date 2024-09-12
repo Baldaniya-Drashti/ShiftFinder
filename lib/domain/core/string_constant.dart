@@ -284,6 +284,8 @@ class StringConstant {
   static const String commuteAllowance = "Commute Allowance";
   static const String shiftFinderServiceFee = "ShiftFinder Service Fee";
   static const String estimatedTotalPayable = "Estimated Total Payable";
+  static const String estimatedEarningsForShift =
+      "Estimated Earnings for shift";
   static const String totalNumberOfVacancy = "Total Number of Vacancy";
   static const String shiftDates = "Shift Dates";
   static const String viewDates = "View Dates";
@@ -362,6 +364,8 @@ class StringConstant {
   static const String yearMustbeSelected = "* Year must be selected!";
   static const String monthMustbeSelected = "* Month must be selected!";
   static const String noTeamsFound = "No Teams Found";
+  static const String apply = "Apply";
+  static const String sendProposal = "Send Proposal";
 
   ///
 

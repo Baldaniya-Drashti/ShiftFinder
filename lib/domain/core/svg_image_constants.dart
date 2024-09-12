@@ -99,4 +99,7 @@ class SvgImageConstant {
   static const threePersonWithPlus = "assets/svg/three_person_with_plus.svg";
   static const wrong = "assets/svg/wrong.svg";
   static const result = "assets/svg/result.svg";
+  static const filter = "assets/svg/filter.svg";
+  static const leaf = "assets/svg/leaf.svg";
+  static const greyVerticalLine = "assets/svg/grey_vertical_line.svg";
 }

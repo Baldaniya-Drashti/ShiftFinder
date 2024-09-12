@@ -503,9 +503,78 @@ class PostShiftRecurring extends StatelessWidget {
         if (value != null) {
           context
               .read<PostShiftBloc>()
-              .add(PostShiftEvent.recurrenceModeChanged(value));
+              .add(PostShiftEvent.recurrenceModeChanged(value, context));
         }
       },
+    );
+  }
+
+  Widget recurringEndDateField(BuildContext context, PostShiftState state) {
+    final firstDate = (state.recurringStartDate.isValid())
+        ? DateTime.parse(state.recurringStartDate.getValue() ?? "")
+            .add(Duration(days: 1))
+        : (post.date != null && post.date!.isNotEmpty)
+            ? DateTime.fromMillisecondsSinceEpoch(
+                    (double.parse(post.date!).toInt()) * 1000)
+                .add(Duration(days: 1))
+            : DateTime.now();
+
+    final initialDate = (state.recurringEndDate.isValid())
+        ? DateTime.parse(state.recurringEndDate.getValue() ?? "")
+        : (state.recurringStartDate.isValid())
+            ? DateTime.parse(state.recurringStartDate.getValue() ?? "")
+                .add(Duration(days: 1))
+            : DateTime.fromMillisecondsSinceEpoch(
+                    (double.parse(post.date!).toInt()) * 1000)
+                .add(Duration(days: 1));
+
+    return CustomTextField(
+      labelText: StringConstant.endDateForRecurrence,
+      hintText: (state.recurringEndDate.isValid())
+          ? DateFormat('d MMM, yyyy')
+              .format(DateTime.parse(state.recurringEndDate.getValue() ?? ""))
+          : StringConstant.endDateForRecurrence,
+      hintAsValue: (state.recurringEndDate.isValid()) ? true : false,
+      readOnly: true,
+      errorInputBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: AppColors.transparent),
+        borderRadius: BorderRadius.circular(getSize(10)),
+      ),
+      prefixIcon: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: getSize(14),
+          vertical: getSize(14),
+        ),
+        child: SvgPicture.asset(
+          SvgImageConstant.calendar,
+          height: getSize(24),
+          width: getSize(24),
+        ),
+      ),
+      onTap: () {
+        DocumentExpiryDatePicker.customDatePicker(
+          context,
+          // firstDate: DateTime.now(),
+          firstDate: firstDate,
+          onPickedDate: (pickedDate) {
+            context
+                .read<PostShiftBloc>()
+                .add(PostShiftEvent.recurringEndDateChanged(
+                  pickedDate.toString(),
+                ));
+          },
+          onCancelClick: () {},
+          selectedDate: initialDate,
+        );
+      },
+      validator: (_, context) =>
+          context.read<PostShiftBloc>().state.recurringEndDate.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseSelectEndDate,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
     );
   }
 
@@ -580,67 +649,6 @@ class PostShiftRecurring extends StatelessWidget {
                 ),
               );
             }));
-  }
-
-  Widget recurringEndDateField(BuildContext context, PostShiftState state) {
-    return CustomTextField(
-      labelText: StringConstant.endDateForRecurrence,
-      hintText: (state.recurringEndDate.isValid())
-          ? DateFormat('d MMM, yyyy')
-              .format(DateTime.parse(state.recurringEndDate.getValue() ?? ""))
-          : StringConstant.endDateForRecurrence,
-      hintAsValue: (state.recurringEndDate.isValid()) ? true : false,
-      readOnly: true,
-      errorInputBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: AppColors.transparent),
-        borderRadius: BorderRadius.circular(getSize(10)),
-      ),
-      prefixIcon: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: getSize(14),
-          vertical: getSize(14),
-        ),
-        child: SvgPicture.asset(
-          SvgImageConstant.calendar,
-          height: getSize(24),
-          width: getSize(24),
-        ),
-      ),
-      onTap: () {
-        DocumentExpiryDatePicker.customDatePicker(
-          context,
-          // firstDate: DateTime.now(),
-          firstDate: (state.recurringStartDate.isValid())
-              ? DateTime.parse(state.recurringStartDate.getValue() ?? "")
-              : (post.date != null && post.date!.isNotEmpty)
-                  ? DateTime.fromMillisecondsSinceEpoch(
-                      (double.parse(post.date!).toInt()) * 1000)
-                  : DateTime.now(),
-          onPickedDate: (pickedDate) {
-            context
-                .read<PostShiftBloc>()
-                .add(PostShiftEvent.recurringEndDateChanged(
-                  pickedDate.toString(),
-                ));
-          },
-          onCancelClick: () {},
-          selectedDate: (state.recurringEndDate.isValid())
-              ? DateTime.parse(state.recurringEndDate.getValue() ?? "")
-              : (state.recurringStartDate.isValid())
-                  ? DateTime.parse(state.recurringStartDate.getValue() ?? "")
-                  : DateTime.fromMillisecondsSinceEpoch(
-                      (double.parse(post.date!).toInt()) * 1000),
-        );
-      },
-      validator: (_, context) =>
-          context.read<PostShiftBloc>().state.recurringEndDate.value.fold(
-                (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseSelectEndDate,
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
-    );
   }
 
   Widget selectTeamsList(

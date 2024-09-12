@@ -55,6 +55,8 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: AddSpecialityExperience.page),
         AutoRoute(page: QuizResultScreen.page),
         AutoRoute(page: ShowGoogleMap.page),
+        AutoRoute(page: ContractorMainTabView.page),
+        AutoRoute(page: ContractorHomeView.page),
         AutoRoute(
           page: MainTabView.page,
           children: [

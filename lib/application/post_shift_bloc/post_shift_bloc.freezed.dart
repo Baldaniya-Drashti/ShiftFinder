@@ -47,7 +47,8 @@ mixin _$PostShiftEvent {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -110,7 +111,7 @@ mixin _$PostShiftEvent {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -170,7 +171,7 @@ mixin _$PostShiftEvent {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -558,7 +559,8 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -624,7 +626,7 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -687,7 +689,7 @@ class _$ChangeShiftTypeImpl implements ChangeShiftType {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -1046,7 +1048,8 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -1112,7 +1115,7 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -1175,7 +1178,7 @@ class _$GetBreakAllownceListApiImpl implements GetBreakAllownceListApi {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -1516,7 +1519,8 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -1582,7 +1586,7 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -1645,7 +1649,7 @@ class _$SingleShiftDateChangedEventImpl implements SingleShiftDateChangedEvent {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -1982,7 +1986,8 @@ class _$StartHourChangedImpl implements StartHourChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -2048,7 +2053,7 @@ class _$StartHourChangedImpl implements StartHourChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -2111,7 +2116,7 @@ class _$StartHourChangedImpl implements StartHourChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -2447,7 +2452,8 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -2513,7 +2519,7 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -2576,7 +2582,7 @@ class _$StartMinuteChangedImpl implements StartMinuteChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -2913,7 +2919,8 @@ class _$EndHourChangedImpl implements EndHourChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -2979,7 +2986,7 @@ class _$EndHourChangedImpl implements EndHourChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -3042,7 +3049,7 @@ class _$EndHourChangedImpl implements EndHourChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -3378,7 +3385,8 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -3444,7 +3452,7 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -3507,7 +3515,7 @@ class _$EndMinuteChangedImpl implements EndMinuteChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -3844,7 +3852,8 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -3910,7 +3919,7 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -3973,7 +3982,7 @@ class _$UnpaidBreakChangedImpl implements UnpaidBreakChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -4286,7 +4295,8 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -4352,7 +4362,7 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -4415,7 +4425,7 @@ class _$TotalPayableHoursChangedImpl implements TotalPayableHoursChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -4749,7 +4759,8 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -4815,7 +4826,7 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -4878,7 +4889,7 @@ class _$CommuteAllownceChangedImpl implements CommuteAllownceChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -5216,7 +5227,8 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -5282,7 +5294,7 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -5345,7 +5357,7 @@ class _$CommuteHoursChangedImpl implements CommuteHoursChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -5683,7 +5695,8 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -5749,7 +5762,7 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -5812,7 +5825,7 @@ class _$CommuteRateChangedImpl implements CommuteRateChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -6152,7 +6165,8 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -6218,7 +6232,7 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -6281,7 +6295,7 @@ class _$AccomdationAllownceChangedImpl implements AccomdationAllownceChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -6621,7 +6635,8 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -6687,7 +6702,7 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -6750,7 +6765,7 @@ class _$AccomdationHoursChangedImpl implements AccomdationHoursChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -7090,7 +7105,8 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -7156,7 +7172,7 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -7219,7 +7235,7 @@ class _$AccomdationRateChangedImpl implements AccomdationRateChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -7556,7 +7572,8 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -7622,7 +7639,7 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -7685,7 +7702,7 @@ class _$SingleShiftNotesImpl implements SingleShiftNotes {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -8022,7 +8039,8 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -8088,7 +8106,7 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -8151,7 +8169,7 @@ class _$CheckIsMoreVancancyImpl implements CheckIsMoreVancancy {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -8488,7 +8506,8 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -8554,7 +8573,7 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -8617,7 +8636,7 @@ class _$AddVacancyChangedImpl implements AddVacancyChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -8955,7 +8974,8 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -9021,7 +9041,7 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -9084,7 +9104,7 @@ class _$SingleShiftSubmittedImpl implements SingleShiftSubmitted {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -9452,7 +9472,8 @@ class _$GetTeamsListImpl implements GetTeamsList {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -9518,7 +9539,7 @@ class _$GetTeamsListImpl implements GetTeamsList {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -9581,7 +9602,7 @@ class _$GetTeamsListImpl implements GetTeamsList {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -9920,7 +9941,8 @@ class _$RecurringCheckImpl implements RecurringCheck {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -9986,7 +10008,7 @@ class _$RecurringCheckImpl implements RecurringCheck {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -10049,7 +10071,7 @@ class _$RecurringCheckImpl implements RecurringCheck {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -10385,7 +10407,8 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -10451,7 +10474,7 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -10514,7 +10537,7 @@ class _$ShareWithTeamsCheckImpl implements ShareWithTeamsCheck {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -10851,7 +10874,8 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -10917,7 +10941,7 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -10980,7 +11004,7 @@ class _$SaveAsTemplateCheckImpl implements SaveAsTemplateCheck {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -11317,7 +11341,8 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -11383,7 +11408,7 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -11446,7 +11471,7 @@ class _$DisclaimerChangedImpl implements DisclaimerChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -11785,7 +11810,8 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -11851,7 +11877,7 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -11914,7 +11940,7 @@ class _$RecurringStartDateChangedImpl implements RecurringStartDateChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -12164,7 +12190,7 @@ abstract class _$$RecurrenceModeChangedImplCopyWith<$Res> {
           $Res Function(_$RecurrenceModeChangedImpl) then) =
       __$$RecurrenceModeChangedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String mode});
+  $Res call({String mode, BuildContext context});
 }
 
 /// @nodoc
@@ -12179,12 +12205,17 @@ class __$$RecurrenceModeChangedImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? mode = null,
+    Object? context = null,
   }) {
     return _then(_$RecurrenceModeChangedImpl(
       null == mode
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
               as String,
+      null == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
     ));
   }
 }
@@ -12192,14 +12223,16 @@ class __$$RecurrenceModeChangedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
-  const _$RecurrenceModeChangedImpl(this.mode);
+  const _$RecurrenceModeChangedImpl(this.mode, this.context);
 
   @override
   final String mode;
+  @override
+  final BuildContext context;
 
   @override
   String toString() {
-    return 'PostShiftEvent.recurrenceModeChanged(mode: $mode)';
+    return 'PostShiftEvent.recurrenceModeChanged(mode: $mode, context: $context)';
   }
 
   @override
@@ -12207,11 +12240,12 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RecurrenceModeChangedImpl &&
-            (identical(other.mode, mode) || other.mode == mode));
+            (identical(other.mode, mode) || other.mode == mode) &&
+            (identical(other.context, context) || other.context == context));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, mode);
+  int get hashCode => Object.hash(runtimeType, mode, context);
 
   @JsonKey(ignore: true)
   @override
@@ -12252,7 +12286,8 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -12284,7 +12319,7 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     required TResult Function(int postId, PostShiftDTO? updatedPost)
         postTheShiftEvent,
   }) {
-    return recurrenceModeChanged(mode);
+    return recurrenceModeChanged(mode, context);
   }
 
   @override
@@ -12318,7 +12353,7 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -12347,7 +12382,7 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult? Function(BuildContext context)? sameTimeShiftSubmitted,
     TResult? Function(int postId, PostShiftDTO? updatedPost)? postTheShiftEvent,
   }) {
-    return recurrenceModeChanged?.call(mode);
+    return recurrenceModeChanged?.call(mode, context);
   }
 
   @override
@@ -12381,7 +12416,7 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -12411,7 +12446,7 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
     required TResult orElse(),
   }) {
     if (recurrenceModeChanged != null) {
-      return recurrenceModeChanged(mode);
+      return recurrenceModeChanged(mode, context);
     }
     return orElse();
   }
@@ -12615,10 +12650,12 @@ class _$RecurrenceModeChangedImpl implements RecurrenceModeChanged {
 }
 
 abstract class RecurrenceModeChanged implements PostShiftEvent {
-  const factory RecurrenceModeChanged(final String mode) =
+  const factory RecurrenceModeChanged(
+          final String mode, final BuildContext context) =
       _$RecurrenceModeChangedImpl;
 
   String get mode;
+  BuildContext get context;
   @JsonKey(ignore: true)
   _$$RecurrenceModeChangedImplCopyWith<_$RecurrenceModeChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -12730,7 +12767,8 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -12796,7 +12834,7 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -12859,7 +12897,7 @@ class _$RecurrenceWeeksChangedImpl implements RecurrenceWeeksChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -13199,7 +13237,8 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -13265,7 +13304,7 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -13328,7 +13367,7 @@ class _$RecurringEndDateChangedImpl implements RecurringEndDateChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -13675,7 +13714,8 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -13741,7 +13781,7 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -13804,7 +13844,7 @@ class _$SelectTeamEventImpl implements SelectTeamEvent {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -14150,7 +14190,8 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -14216,7 +14257,7 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -14279,7 +14320,7 @@ class _$RecurringButtonEventImpl implements RecurringButtonEvent {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -14620,7 +14661,8 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -14686,7 +14728,7 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -14749,7 +14791,7 @@ class _$CheckIsIndividualPostImpl implements CheckIsIndividualPost {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -15096,7 +15138,8 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -15162,7 +15205,7 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -15225,7 +15268,7 @@ class _$multiDateSelectionChangedImpl implements multiDateSelectionChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -15540,7 +15583,8 @@ class _$MultidateContinueButtonPressedImpl
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -15606,7 +15650,7 @@ class _$MultidateContinueButtonPressedImpl
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -15669,7 +15713,7 @@ class _$MultidateContinueButtonPressedImpl
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -16007,7 +16051,8 @@ class _$MultiDateSameDiffTypeChangedImpl
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -16073,7 +16118,7 @@ class _$MultiDateSameDiffTypeChangedImpl
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -16136,7 +16181,7 @@ class _$MultiDateSameDiffTypeChangedImpl
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -16493,7 +16538,8 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -16559,7 +16605,7 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -16622,7 +16668,7 @@ class _$UnpaidBreakListChangedImpl implements UnpaidBreakListChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -16938,7 +16984,8 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -17004,7 +17051,7 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -17067,7 +17114,7 @@ class _$PayableHourListChangedImpl implements PayableHourListChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -17415,7 +17462,8 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -17481,7 +17529,7 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -17544,7 +17592,7 @@ class _$StartHourListChangedImpl implements StartHourListChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -17902,7 +17950,8 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -17968,7 +18017,7 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -18031,7 +18080,7 @@ class _$StartMinuteListChangedImpl implements StartMinuteListChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -18387,7 +18436,8 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -18453,7 +18503,7 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -18516,7 +18566,7 @@ class _$EndHourListChangedImpl implements EndHourListChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -18873,7 +18923,8 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -18939,7 +18990,7 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -19002,7 +19053,7 @@ class _$EndMinuteListChangedImpl implements EndMinuteListChanged {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -19364,7 +19415,8 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -19430,7 +19482,7 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -19493,7 +19545,7 @@ class _$DifferentTimeShiftSubmittedImpl implements DifferentTimeShiftSubmitted {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -19887,7 +19939,8 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -19953,7 +20006,7 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -20016,7 +20069,7 @@ class _$InitMultiDifferentDateEventImpl implements InitMultiDifferentDateEvent {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -20330,7 +20383,8 @@ class _$BackEventImpl implements BackEvent {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -20396,7 +20450,7 @@ class _$BackEventImpl implements BackEvent {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -20459,7 +20513,7 @@ class _$BackEventImpl implements BackEvent {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -20792,7 +20846,8 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -20858,7 +20913,7 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -20921,7 +20976,7 @@ class _$SameTimeShiftSubmittedImpl implements SameTimeShiftSubmitted {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,
@@ -21281,7 +21336,8 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
     required TResult Function(bool isCheck) saveAsTemplateCheck,
     required TResult Function(String note) disclaimerChanged,
     required TResult Function(String selectedDate) recurringStartDateChanged,
-    required TResult Function(String mode) recurrenceModeChanged,
+    required TResult Function(String mode, BuildContext context)
+        recurrenceModeChanged,
     required TResult Function(SkillDTO day) recurrenceWeeksChanged,
     required TResult Function(String selectedDate) recurringEndDateChanged,
     required TResult Function(TeamDTO team) selectTeamEvent,
@@ -21347,7 +21403,7 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
     TResult? Function(bool isCheck)? saveAsTemplateCheck,
     TResult? Function(String note)? disclaimerChanged,
     TResult? Function(String selectedDate)? recurringStartDateChanged,
-    TResult? Function(String mode)? recurrenceModeChanged,
+    TResult? Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult? Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult? Function(String selectedDate)? recurringEndDateChanged,
     TResult? Function(TeamDTO team)? selectTeamEvent,
@@ -21410,7 +21466,7 @@ class _$PostTheShiftEventImpl implements PostTheShiftEvent {
     TResult Function(bool isCheck)? saveAsTemplateCheck,
     TResult Function(String note)? disclaimerChanged,
     TResult Function(String selectedDate)? recurringStartDateChanged,
-    TResult Function(String mode)? recurrenceModeChanged,
+    TResult Function(String mode, BuildContext context)? recurrenceModeChanged,
     TResult Function(SkillDTO day)? recurrenceWeeksChanged,
     TResult Function(String selectedDate)? recurringEndDateChanged,
     TResult Function(TeamDTO team)? selectTeamEvent,

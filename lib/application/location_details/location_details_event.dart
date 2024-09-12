@@ -4,11 +4,14 @@ part of 'location_details_bloc.dart';
 class LocationDetailsEvent with _$LocationDetailsEvent {
   const factory LocationDetailsEvent.addressChanged(String address) =
       AddressChanged;
+
+  const factory LocationDetailsEvent.getPlaceDetail(String placeId) =
+      GetPlaceDetail;
   const factory LocationDetailsEvent.getFacilityTypeList() =
       GetFacilityTypeList;
 
   const factory LocationDetailsEvent.locationSelectedFromSearchList(
-      String selectedLocation) = _LocationSelectedFromSearchList;
+      Predictions selectedLocation) = _LocationSelectedFromSearchList;
 
   const factory LocationDetailsEvent.locationIdChanged(String locationId) =
       LocationIdChanged;
@@ -22,8 +25,8 @@ class LocationDetailsEvent with _$LocationDetailsEvent {
   const factory LocationDetailsEvent.unitNumberChanged(String unitNumber) =
       UnitNumberChanged;
 
-  const factory LocationDetailsEvent.addUnitNumberChipList(String unitNumber,String unitNote) =
-      AddUnitNumberChipList;
+  const factory LocationDetailsEvent.addUnitNumberChipList(
+      String unitNumber, String unitNote) = AddUnitNumberChipList;
   const factory LocationDetailsEvent.removeUnitNumberChip(int index) =
       RemoveUnitNumberChip;
 

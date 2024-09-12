@@ -20,6 +20,7 @@ import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/infrastructure/main/shift_date_detail_dto/shift_date_detail_dto.dart';
 import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
 import 'package:shift/presentation/common/utils/date_time_format.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 part 'post_shift_event.dart';
@@ -411,6 +412,28 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           );
         },
         recurrenceModeChanged: (e) {
+          /*String recurrenceMode = e.mode;
+          DateTime? startDate = state.recurringStartDate.isValid()
+              ? DateTime.parse(state.recurringStartDate.getValue() ?? "")
+              : null;
+
+          DateTime? endDate = state.recurringEndDate.isValid()
+              ? DateTime.parse(state.recurringEndDate.getValue() ?? "")
+              : null;
+
+          if (e.mode == "Weekly" && startDate != null && endDate != null) {
+            int difference = endDate.difference(startDate).inDays;
+            if (difference < 7) {
+              showError(
+                      message:
+                          'End date must be at least 7 days after the start date for weekly recurrence.')
+                  .show(e.context);
+              recurrenceMode = state.recurrenceMode.getValue() ?? "";
+              print("recurrenceMode111---> ${recurrenceMode}");
+            }
+          }
+          print("recurrenceMode---> ${recurrenceMode}");*/
+
           emit(state.copyWith(
             recurrenceMode: InputEmptyOrNot(e.mode),
             // recurrenceWeekList: ListInputEmptyOrNot([]),

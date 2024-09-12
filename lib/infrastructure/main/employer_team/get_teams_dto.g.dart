@@ -35,16 +35,12 @@ Map<String, dynamic> _$$GetTeamsListDTOImplToJson(
 _$LocationImpl _$$LocationImplFromJson(Map<String, dynamic> json) =>
     _$LocationImpl(
       id: (json['id'] as num?)?.toInt(),
-      latitude: json['latitude'] as String?,
-      longitude: json['longitude'] as String?,
       location: json['location'] as String?,
     );
 
 Map<String, dynamic> _$$LocationImplToJson(_$LocationImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'latitude': instance.latitude,
-      'longitude': instance.longitude,
       'location': instance.location,
     };
 

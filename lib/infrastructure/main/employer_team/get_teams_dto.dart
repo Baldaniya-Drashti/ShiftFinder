@@ -21,8 +21,8 @@ class GetTeamsListDTO with _$GetTeamsListDTO {
 class Location with _$Location {
   const factory Location({
     int? id,
-    String? latitude,
-    String? longitude,
+    // double? latitude,
+    // double? longitude,
     String? location,
   }) = _Location;
 

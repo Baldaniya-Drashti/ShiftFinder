@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, avoid_print
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, avoid_print, must_be_immutable
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +12,7 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -159,7 +160,11 @@ class QuizResultScreen extends StatelessWidget {
                                 vertical: getSize(20), horizontal: getSize(20)),
                             child: CommonButton(
                               onPressed: () {
-                                showUnderDevelopment(context);
+                                // showUnderDevelopment(context);
+                                context.router.replaceAll([
+                                  const PageRouteInfo(
+                                      ContractorMainTabView.name)
+                                ]);
                               },
                               buttonText: StringConstant.txtContinue,
                             ),

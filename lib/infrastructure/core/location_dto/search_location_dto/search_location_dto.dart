@@ -6,8 +6,7 @@ part 'search_location_dto.g.dart';
 @freezed
 class SearchLocationDTO with _$SearchLocationDTO {
   const factory SearchLocationDTO({
-    List<dynamic>? html_attributions,
-    List<Results>? results,
+    List<Predictions>? predictions,
     String? status,
   }) = _SearchLocationDTO;
 
@@ -16,86 +15,61 @@ class SearchLocationDTO with _$SearchLocationDTO {
 }
 
 @freezed
-class Results with _$Results {
-  const factory Results({
-    String? formatted_address,
-    Geometry? geometry,
-    String? icon,
-    String? icon_background_color,
-    String? icon_mask_base_uri,
-    String? name,
+class Predictions with _$Predictions {
+  const factory Predictions({
+    String? description,
+    List<MatchedSubstrings>? matched_substrings,
     String? place_id,
-    PlusCode? plus_code,
     String? reference,
+    StructuredFormatting? structured_formatting,
+    List<Terms>? terms,
     List<String>? types,
-  }) = _Results;
+  }) = _Predictions;
 
-  factory Results.fromJson(Map<String, dynamic> json) =>
-      _$ResultsFromJson(json);
+  factory Predictions.fromJson(Map<String, dynamic> json) =>
+      _$PredictionsFromJson(json);
 }
 
 @freezed
-class Geometry with _$Geometry {
-  const factory Geometry({
-    Location? location,
-    Viewport? viewport,
-  }) = _Geometry;
+class MatchedSubstrings with _$MatchedSubstrings {
+  const factory MatchedSubstrings({
+    int? length,
+    int? offset,
+  }) = _MatchedSubstrings;
 
-  factory Geometry.fromJson(Map<String, dynamic> json) =>
-      _$GeometryFromJson(json);
+  factory MatchedSubstrings.fromJson(Map<String, dynamic> json) =>
+      _$MatchedSubstringsFromJson(json);
 }
 
 @freezed
-class Location with _$Location {
-  const factory Location({
-    double? lat,
-    double? lng,
-  }) = _Location;
+class StructuredFormatting with _$StructuredFormatting {
+  const factory StructuredFormatting({
+    String? main_text,
+    List<MainTextMatchedSubstrings>? main_text_matched_substrings,
+    String? secondary_text,
+  }) = _StructuredFormatting;
 
-  factory Location.fromJson(Map<String, dynamic> json) =>
-      _$LocationFromJson(json);
+  factory StructuredFormatting.fromJson(Map<String, dynamic> json) =>
+      _$StructuredFormattingFromJson(json);
 }
 
 @freezed
-class Viewport with _$Viewport {
-  const factory Viewport({
-    Northeast? northeast,
-    Southwest? southwest,
-  }) = _Viewport;
+class MainTextMatchedSubstrings with _$MainTextMatchedSubstrings {
+  const factory MainTextMatchedSubstrings({
+    int? length,
+    int? offset,
+  }) = _MainTextMatchedSubstrings;
 
-  factory Viewport.fromJson(Map<String, dynamic> json) =>
-      _$ViewportFromJson(json);
+  factory MainTextMatchedSubstrings.fromJson(Map<String, dynamic> json) =>
+      _$MainTextMatchedSubstringsFromJson(json);
 }
 
 @freezed
-class Northeast with _$Northeast {
-  const factory Northeast({
-    double? lat,
-    double? lng,
-  }) = _Northeast;
+class Terms with _$Terms {
+  const factory Terms({
+    int? offset,
+    String? value,
+  }) = _Terms;
 
-  factory Northeast.fromJson(Map<String, dynamic> json) =>
-      _$NortheastFromJson(json);
-}
-
-@freezed
-class Southwest with _$Southwest {
-  const factory Southwest({
-    double? lat,
-    double? lng,
-  }) = _Southwest;
-
-  factory Southwest.fromJson(Map<String, dynamic> json) =>
-      _$SouthwestFromJson(json);
-}
-
-@freezed
-class PlusCode with _$PlusCode {
-  const factory PlusCode({
-    String? compound_code,
-    String? global_code,
-  }) = _PlusCode;
-
-  factory PlusCode.fromJson(Map<String, dynamic> json) =>
-      _$PlusCodeFromJson(json);
+  factory Terms.fromJson(Map<String, dynamic> json) => _$TermsFromJson(json);
 }

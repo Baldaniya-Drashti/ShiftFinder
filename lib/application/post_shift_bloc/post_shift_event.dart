@@ -66,8 +66,8 @@ class PostShiftEvent with _$PostShiftEvent {
       DisclaimerChanged;
   const factory PostShiftEvent.recurringStartDateChanged(String selectedDate) =
       RecurringStartDateChanged;
-  const factory PostShiftEvent.recurrenceModeChanged(String mode) =
-      RecurrenceModeChanged;
+  const factory PostShiftEvent.recurrenceModeChanged(
+      String mode, BuildContext context) = RecurrenceModeChanged;
   const factory PostShiftEvent.recurrenceWeeksChanged(SkillDTO day) =
       RecurrenceWeeksChanged;
   const factory PostShiftEvent.recurringEndDateChanged(String selectedDate) =
@@ -113,6 +113,6 @@ class PostShiftEvent with _$PostShiftEvent {
       SameTimeShiftSubmitted;
 
   /// Post the Shift
-  const factory PostShiftEvent.postTheShiftEvent(int postId,PostShiftDTO? updatedPost) =
-      PostTheShiftEvent;
+  const factory PostShiftEvent.postTheShiftEvent(
+      int postId, PostShiftDTO? updatedPost) = PostTheShiftEvent;
 }

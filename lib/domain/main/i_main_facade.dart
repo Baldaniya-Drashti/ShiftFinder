@@ -37,6 +37,10 @@ abstract class IMainFacade {
     required int page,
   });
 
+  Future<Either<MainFailure, CommonResponse>> getContractorDashboardListAPI({
+    required int page,
+  });
+
   Future<Either<MainFailure, CommonResponse>> getViewApplicantsAPI({
     required String postId,
     required bool isTotalApplicants,

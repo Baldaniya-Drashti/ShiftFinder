@@ -25,6 +25,7 @@ class AddNewMemberBloc extends Bloc<AddNewMemberEvent, AddNewMemberState> {
             emit(
               state.copyWith(
                 teamNameTextField: InputEmptyOrNot(value.teamName),
+                failureOrSuccessOption: none(),
               ),
             );
           },
@@ -32,6 +33,7 @@ class AddNewMemberBloc extends Bloc<AddNewMemberEvent, AddNewMemberState> {
             emit(
               state.copyWith(
                 jobPositionTextField: InputEmptyOrNot(value.jobLocationChange),
+                failureOrSuccessOption: none(),
               ),
             );
           },
@@ -40,6 +42,7 @@ class AddNewMemberBloc extends Bloc<AddNewMemberEvent, AddNewMemberState> {
               state.copyWith(
                 //locationTextField: InputEmptyOrNot(value.jobLocationChange),
                 mobileNumber: MobileNumber(value.phoneNumber),
+                failureOrSuccessOption: none(),
               ),
             );
           },
@@ -48,6 +51,7 @@ class AddNewMemberBloc extends Bloc<AddNewMemberEvent, AddNewMemberState> {
               state.copyWith(
                 //locationTextField: InputEmptyOrNot(value.jobLocationChange),
                 emailAddress: EmailAddress(value.email),
+                failureOrSuccessOption: none(),
               ),
             );
           },
@@ -120,6 +124,7 @@ class AddNewMemberBloc extends Bloc<AddNewMemberEvent, AddNewMemberState> {
             emit(
               state.copyWith(
                 teamID: value.teamID,
+                failureOrSuccessOption: none(),
               ),
             );
           },

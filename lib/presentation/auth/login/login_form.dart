@@ -48,19 +48,15 @@ class LoginForm extends StatelessWidget {
               ).show(context);
             },
             (r) {
-              // context.router.push(const PageRouteInfo(MainTabView.name));
               if (r.isProfileComplete == 1) {
                 print("profile complete");
                 if (getCurrentRole() == 2) {
                   context.router.replace(PageRouteInfo(MainTabView.name));
                 } else {
-                  showSuccess(
-                          message:
-                              "Success! Next Process is under development!!")
-                      .show(context);
+                  // showSuccess(message:"Success! Next Process is under development!!").show(context);
+                  context.router
+                      .replace(PageRouteInfo(ContractorMainTabView.name));
                 }
-
-                // context.router.replace(const PageRouteInfo(MainTabView.name));
               } else {
                 context.router.replace(
                     getCurrentPage(r.lastPage ?? '', fromSplash: true));

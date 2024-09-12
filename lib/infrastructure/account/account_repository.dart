@@ -980,7 +980,7 @@ class AccountRepository extends IAccountRepository {
     try {
       var mapData = {
         'quiz_details': quizDetails,
-        'last_page': "MainTab",
+        'last_page': "ContractorMainTab",
         'isProfileComplete': "1",
       };
 
@@ -1084,11 +1084,11 @@ class AccountRepository extends IAccountRepository {
     required String locationId,
     required String accreditationNumber,
     required String locationNotes,
-    required String unitNumber,
-    required String unitNotes,
+    // required String unitNumber,
+    // required String unitNotes,
     required List<UnitDTO> units,
-    // required String latitude,
-    // required String longitude,
+    required String latitude,
+    required String longitude,
   }) async {
     try {
       var mapData = {
@@ -1106,8 +1106,8 @@ class AccountRepository extends IAccountRepository {
         // "units_number_or_name": unitNumber,
         // "units_note": unitNotes,
         "units": units,
-        // "latitude": latitude,
-        // "longitude": longitude,
+        "latitude": latitude,
+        "longitude": longitude,
       };
 
       if (units.isNotEmpty) {

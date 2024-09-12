@@ -47,6 +47,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
     this.dropDownReadOnly = false,
     this.disableDropDownColor,
     this.dropDownIcon,
+    this.onDropDownTap,
   });
   final String? labelText;
   final Widget? ddPrefixIcon;
@@ -82,6 +83,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
   final bool dropDownReadOnly;
   final Color? disableDropDownColor;
   final Widget? dropDownIcon;
+  final void Function()? onDropDownTap;
 
   @override
   Widget build(BuildContext context) {
@@ -200,6 +202,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
                   isExpanded: true,
                   items: items,
                   onChanged: onChanged,
+                  onTap: onDropDownTap,
                 ),
               ),
               if (showTextfield) ...[
