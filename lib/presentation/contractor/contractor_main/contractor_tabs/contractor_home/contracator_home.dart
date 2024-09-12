@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, deprecated_member_use
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +10,10 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 
 @RoutePage(name: 'ContractorHomeView')
 class ContractorHomeView extends StatelessWidget {
@@ -254,7 +256,21 @@ class ContractorHomeView extends StatelessWidget {
                       children: [
                         appliedProposalBtn(
                           btnTitle: StringConstant.apply,
-                          onPressed: () {},
+                          onPressed: () {
+                            AppDialog.showDelete(
+                              context,
+                              infoMessage: StringConstant
+                                  .areYouSureYouWantToApplyForTheShift,
+                              title: StringConstant.apply,
+                              deleteBtnText: StringConstant.apply,
+                              onCancelClick: () {
+                                context.router.maybePop();
+                              },
+                              onDeleteClick: () {
+                                context.router.maybePop();
+                              },
+                            );
+                          },
                         ),
                         SizedBox(
                           width: getSize(10),
@@ -263,7 +279,10 @@ class ContractorHomeView extends StatelessWidget {
                           btnTitle: StringConstant.sendProposal,
                           bgColor: AppColors.white,
                           borderColor: AppColors.primaryColor,
-                          onPressed: () {},
+                          onPressed: () {
+                            context.router
+                                .push(PageRouteInfo(SendProposal.name));
+                          },
                         ),
                       ],
                     )
@@ -282,10 +301,11 @@ class ContractorHomeView extends StatelessWidget {
       Color? bgColor}) {
     return Expanded(
       child: CommonButton(
-        height: 46,
+        height: 40,
         onPressed: onPressed,
         buttonText: btnTitle,
         borderRadius: 10,
+        buttonFontSize: 14,
         borderColor: borderColor,
         buttonTextColor: borderColor,
         backgroundColor: bgColor,
@@ -315,7 +335,7 @@ class ContractorHomeView extends StatelessWidget {
                 ),
                 isThreeLine: true,
                 title: BaseText(
-                  text: "CT Technologist" ?? "",
+                  text: "CT Technologist",
                   textColor: AppColors.black,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,

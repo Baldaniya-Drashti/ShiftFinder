@@ -366,6 +366,9 @@ class StringConstant {
   static const String noTeamsFound = "No Teams Found";
   static const String apply = "Apply";
   static const String sendProposal = "Send Proposal";
+  static const String areYouSureYouWantToApplyForTheShift = "Are you sure you want to apply for the shift?";
+  static const String yourProposalTerms = "Your Proposal Terms";
+  static const String proposalTermsDesc = "Send your proposal with your required adjustments. Adjusting the below terms may reduce your chance of acceptance.";
 
   ///
 
