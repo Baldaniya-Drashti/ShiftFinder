@@ -37,7 +37,7 @@ class ViewSingleApplicantsBloc
                 shiftFailureOrSuccessOption: optionOf(failureOrSuccess),
               )),
               (r) {
-                print("post--> ${r}");
+                print("post--> $r");
                 emit(state.copyWith(
                   isLoading: false,
                   showErrorMessages: false,

@@ -315,7 +315,7 @@ class ContractorHomeView extends StatelessWidget {
                 ),
                 isThreeLine: true,
                 title: BaseText(
-                  text: "CT Technologist" ?? "",
+                  text: "CT Technologist",
                   textColor: AppColors.black,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -382,8 +382,7 @@ class ContractorHomeView extends StatelessWidget {
                         children: [
                           BaseText(
                             text:
-                                "4517 Washington Manchester, Kentucky 39495" ??
-                                    "",
+                                "4517 Washington Manchester, Kentucky 39495",
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                             textColor: AppColors.black,

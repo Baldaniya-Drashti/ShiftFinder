@@ -12,12 +12,12 @@ class CommonCardDialog extends StatelessWidget {
   final String description;
   final String buttonText;
   final Function() onPressed;
-  bool barrierDismissible;
-  Widget? otherContent;
-  EdgeInsets? insetPadding;
-  void Function(dynamic)? onCallback;
+  final bool barrierDismissible;
+  final Widget? otherContent;
+  final EdgeInsets? insetPadding;
+  final Function(dynamic)? onCallback;
 
-  CommonCardDialog(
+  const CommonCardDialog(
       {super.key,
       required this.title,
       required this.description,

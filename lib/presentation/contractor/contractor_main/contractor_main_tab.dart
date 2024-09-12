@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/contractor_main_tab_bloc/contractor_home_bloc/contractor_home_bloc.dart';
 import 'package:shift/application/contractor_main_tab_bloc/contractor_main_bloc.dart';
-import 'package:shift/application/main_tab/home/home_bloc.dart';
 import 'package:shift/application/profile/account/account_cubit.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
