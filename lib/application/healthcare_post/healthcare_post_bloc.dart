@@ -558,7 +558,7 @@ class HealthcarePostBloc
               language_other: state.languageOther.join(','),
               location_id: getSelectedLocationIds(),
               location_unit: state.selectedLocationUnit,
-              rate_hour: double.parse(state.rateHour.getValue() ?? "0.0"),
+              rate_hour: double.parse(state.rateHour.getValue()),
             );
 
             print("Role id--> ${getSelectedRoleIds()} ");

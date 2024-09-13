@@ -1,13 +1,15 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/main_tab/profile/profile_sections/teams/teams_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/main/employer_team/get_teams_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
-
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
 import 'package:shift/presentation/main/tabs/profile/teams/team_detail/widgets/no_team_member_view.dart';
 import 'package:shift/presentation/main/tabs/profile/teams/team_detail/widgets/team_member_list.dart';
@@ -29,8 +31,6 @@ class TeamDetailView extends StatelessWidget {
         ..add(TeamsEvent.setTeamDetail(getTeamsListDTO)),
       child: BlocConsumer<TeamsBloc, TeamsState>(
         builder: (context, state) {
-          print("printdfjsd--> ${state.teamDetail.members}");
-
           return WillPopScope(
             onWillPop: () {
               Navigator.pop(context, true);
@@ -52,9 +52,8 @@ class TeamDetailView extends StatelessWidget {
                       isFromTeamDetail: true,
                       onPressedDelete: () {
                         AcceptRejectDialog(
-                          title: 'Delete Team',
-                          description:
-                              'Deleting this team will prevent you from sharing the shift posting summary with its members. Are you sure you want to proceed?',
+                          title: StringConstant.deleteTeam,
+                          description: StringConstant.deleteTeamDesc,
                           onPressedAccept: () {
                             context.router.maybePop(true).then(
                               (value) {
@@ -69,7 +68,8 @@ class TeamDetailView extends StatelessWidget {
                           onPressedReject: () {
                             context.router.maybePop();
                           },
-                          acceptButtonText: 'Delete',
+                          acceptButtonText:
+                              StringConstant.accommodationAllowance,
                         ).acceptRejectDialog(context);
                       },
                       onPressedEdit: () async {

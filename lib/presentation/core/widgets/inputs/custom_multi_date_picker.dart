@@ -7,12 +7,16 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 
 class CustomMultiDatePicker extends StatelessWidget {
   final List<DateTime?> value;
+  final Color? selectedDateBGColor;
   final void Function(List<DateTime>)? onValueChanged;
   final bool isDisabled;
+  final bool Function(DateTime)? selectableDayPredicate;
   const CustomMultiDatePicker(
       {super.key,
       required this.value,
       this.onValueChanged,
+      this.selectedDateBGColor,
+      this.selectableDayPredicate,
       this.isDisabled = false});
 
   @override
@@ -32,17 +36,24 @@ class CustomMultiDatePicker extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
           selectedDayTextStyle: TextStyle(
-              fontWeight: FontWeight.w500,
-              color: AppColors.white,
-              fontSize: getFontSize(12)),
+            fontWeight: FontWeight.w500,
+            color: AppColors.white,
+            fontSize: getFontSize(12),
+          ),
           selectedDayHighlightColor: AppColors.primaryColor,
           daySplashColor: AppColors.transparent,
           disabledDayTextStyle: TextStyle(
-            color: (isDisabled) ? AppColors.black : AppColors.grey,
+            color: (isDisabled)
+                ? AppColors.black
+                : (selectableDayPredicate != null)
+                    ? AppColors.black
+                    : AppColors.grey,
           ),
-          selectableDayPredicate: (value) {
-            return (isDisabled) ? false : true;
-          },
+          selectableDayPredicate: (selectableDayPredicate != null)
+              ? selectableDayPredicate
+              : (value) {
+                  return (isDisabled) ? false : true;
+                },
         ),
         value: value,
         onValueChanged: onValueChanged,

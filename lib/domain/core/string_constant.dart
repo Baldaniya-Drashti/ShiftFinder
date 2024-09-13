@@ -366,9 +366,26 @@ class StringConstant {
   static const String noTeamsFound = "No Teams Found";
   static const String apply = "Apply";
   static const String sendProposal = "Send Proposal";
-  static const String areYouSureYouWantToApplyForTheShift = "Are you sure you want to apply for the shift?";
+  static const String areYouSureYouWantToApplyForTheShift =
+      "Are you sure you want to apply for the shift?";
   static const String yourProposalTerms = "Your Proposal Terms";
-  static const String proposalTermsDesc = "Send your proposal with your required adjustments. Adjusting the below terms may reduce your chance of acceptance.";
+  static const String proposeAvailability = "Propose Availability";
+  static const String enterAvailability = "Enter Availability";
+  static const String done = "Done";
+  static const String next = "Next";
+  static const String editTime = "Edit Time";
+  static const String markUnavailability = "Mark Unavailability";
+  static const String proposedTime = "Proposed Time";
+  static const String notAvailable = "Not Available";
+  static const String deleteTeam = "Delete Team";
+  static const String deleteTeamDesc =
+      "Deleting this team will prevent you from sharing the shift posting summary with its members. Are you sure you want to proceed?";
+  static const String proposalDesc =
+      "Select your available times and mark any dates you are unavailable to work.";
+  static const String availabilityDesc =
+      "Propose your available times or mark dates you are unavailable for the posted shifts.";
+  static const String proposalTermsDesc =
+      "Send your proposal with your required adjustments. Adjusting the below terms may reduce your chance of acceptance.";
 
   ///
 

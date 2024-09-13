@@ -178,7 +178,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/auth/contractor_auth/intro_video_bloc/intro_video_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
-import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/quiz_dto/quiz_dto.dart';
@@ -189,7 +188,6 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
-import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/common_card_dialog.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -460,7 +458,7 @@ class IntroQuizScreen extends StatelessWidget {
       },
       onCallback: (value) {
         if (value == true) {
-          print("callback value---> ${value}");
+          print("callback value---> $value");
           context.router.push(PageRouteInfo(QuizResultScreen.name));
         }
       },

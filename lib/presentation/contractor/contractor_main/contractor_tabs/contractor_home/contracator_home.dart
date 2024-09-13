@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-import 'package:shift/application/contractor_main_tab_bloc/contractor_home_bloc/contractor_home_bloc.dart';
+import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_home_bloc/contractor_home_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
@@ -401,9 +401,7 @@ class ContractorHomeView extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           BaseText(
-                            text:
-                                "4517 Washington Manchester, Kentucky 39495" ??
-                                    "",
+                            text: "4517 Washington Manchester, Kentucky 39495",
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                             textColor: AppColors.black,
