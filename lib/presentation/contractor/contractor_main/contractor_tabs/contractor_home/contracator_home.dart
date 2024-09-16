@@ -223,15 +223,17 @@ class ContractorHomeView extends StatelessWidget {
                     ),
                     CommonButton(
                       onPressed: () {
-                        /*context.router.push(
-                    PageRouteInfo(
-                      ViewHomeShiftDetails.name,
-                      args: ViewHomeShiftDetailsArgs(
-                        postId: state.contractorDashboardList[index].id ?? -1,
-                        isTotalApplicants: true,
-                      ),
-                    ),
-                  );*/
+                        context.router.push(
+                          PageRouteInfo(
+                            ViewContractorShift.name,
+                            args: ViewContractorShiftArgs(
+                              postId:
+                                  // state.contractorDashboardList[index].id ?? -1,
+                                  1,
+                              isTotalApplicants: true,
+                            ),
+                          ),
+                        );
                       },
                       height: getSize(40),
                       borderRadius: 7,
@@ -636,7 +638,7 @@ class ContractorHomeView extends StatelessWidget {
                     )
                   : highLightText(boldValue: boldValue, timidValue: timidValue),
             ],
-          )
+          ),
         ],
       ),
     );

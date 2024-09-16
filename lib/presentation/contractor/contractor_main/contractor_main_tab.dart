@@ -16,9 +16,9 @@ import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/contracator_home.dart';
+import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/contractor_shifts.dart';
 import 'package:shift/presentation/core/app_router.gr.dart' as autoroute;
 import 'package:shift/presentation/core/style/app_colors.dart';
-import 'package:shift/presentation/main/tabs/history_view.dart';
 import 'package:shift/presentation/main/tabs/notification_view.dart';
 import 'package:shift/presentation/main/tabs/profile/profile_view.dart';
 import 'package:shift/presentation/main/widgets/custom_bottom_navigation.dart';
@@ -145,7 +145,7 @@ getAppbar(ContractorMainTabState state, BuildContext context) {
       );
     case 1:
       return ContractorHomeAppBar(
-        titleText: StringConstant.history,
+        titleText: StringConstant.shifts,
       );
     case 2:
       return ContractorHomeAppBar(
@@ -166,8 +166,8 @@ Route? onGenerateRoute(RouteSettings settings, String tabItem) {
     builder: (context) {
       if (tabItem == autoroute.ContractorHomeView.name) {
         return ContractorHomeView();
-      } else if (tabItem == autoroute.HistoryView.name) {
-        return HistoryView();
+      } else if (tabItem == autoroute.ContractorShiftView.name) {
+        return ContractorShiftView();
       } else if (tabItem == autoroute.NotificationView.name) {
         return NotificationView();
       } else if (tabItem == autoroute.ProfileView.name) {

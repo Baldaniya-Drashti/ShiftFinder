@@ -19,6 +19,7 @@ _$DateTimeDTOImpl _$$DateTimeDTOImplFromJson(Map<String, dynamic> json) =>
       endMinute: json['endMinute'] as String?,
       totalPaybleHours: json['totalPaybleHours'] as String?,
       unpaidBreak: json['unpaidBreak'] as String?,
+      isUnAvailable: json['isUnAvailable'] as bool?,
     );
 
 Map<String, dynamic> _$$DateTimeDTOImplToJson(_$DateTimeDTOImpl instance) =>
@@ -34,4 +35,5 @@ Map<String, dynamic> _$$DateTimeDTOImplToJson(_$DateTimeDTOImpl instance) =>
       'endMinute': instance.endMinute,
       'totalPaybleHours': instance.totalPaybleHours,
       'unpaidBreak': instance.unpaidBreak,
+      'isUnAvailable': instance.isUnAvailable,
     };

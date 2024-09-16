@@ -22,7 +22,8 @@ class ProposeAvailability extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<SendProposalBloc>(),
+      create: (context) =>
+          getIt<SendProposalBloc>()..add(SendProposalEvent.getMultiDateEvent()),
       child: BlocConsumer<SendProposalBloc, SendProposalState>(
         listener: (context, state) {},
         builder: (context, state) {

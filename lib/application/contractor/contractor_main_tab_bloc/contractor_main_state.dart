@@ -6,7 +6,7 @@ class ContractorMainTabState with _$ContractorMainTabState {
     required int selectedTab,
     required int pageIndex,
     required String homePage,
-    required String historyPage,
+    required String shiftPage,
     required String notificationPage,
     required String profilePage,
   }) = _ContractorMainTabState;
@@ -14,7 +14,7 @@ class ContractorMainTabState with _$ContractorMainTabState {
         selectedTab: 0,
         pageIndex: 0,
         homePage: ContractorHomeView.name,
-        historyPage: HistoryView.name,
+        shiftPage: ContractorShiftView.name,
         notificationPage: NotificationView.name,
         profilePage: ProfileView.name,
       );

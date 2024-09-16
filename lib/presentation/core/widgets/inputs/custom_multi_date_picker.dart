@@ -40,7 +40,8 @@ class CustomMultiDatePicker extends StatelessWidget {
             color: AppColors.white,
             fontSize: getFontSize(12),
           ),
-          selectedDayHighlightColor: AppColors.primaryColor,
+          selectedDayHighlightColor:
+              selectedDateBGColor ?? AppColors.primaryColor,
           daySplashColor: AppColors.transparent,
           disabledDayTextStyle: TextStyle(
             color: (isDisabled)

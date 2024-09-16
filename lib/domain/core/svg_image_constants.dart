@@ -102,4 +102,7 @@ class SvgImageConstant {
   static const filter = "assets/svg/filter.svg";
   static const leaf = "assets/svg/leaf.svg";
   static const greyVerticalLine = "assets/svg/grey_vertical_line.svg";
+  static const timerShift = "assets/svg/timer_shift.svg";
+  static const chatWithBG = "assets/svg/chat_with_bg.svg";
+  static const dollorRound = "assets/svg/dollor_round.svg";
 }

@@ -33,11 +33,11 @@ class ContractorMainTabBloc
                     pageIndex: pageList.indexOf(state.homePage)));
                 break;
               case 1:
-                if (!pageList.contains(state.historyPage)) {
-                  pageList.add(state.historyPage);
+                if (!pageList.contains(state.shiftPage)) {
+                  pageList.add(state.shiftPage);
                 }
                 emit(state.copyWith(
-                    pageIndex: pageList.indexOf(state.historyPage)));
+                    pageIndex: pageList.indexOf(state.shiftPage)));
                 break;
               case 2:
                 if (!pageList.contains(state.notificationPage)) {

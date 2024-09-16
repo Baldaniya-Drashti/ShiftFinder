@@ -31,6 +31,7 @@ mixin _$DateTimeDTO {
   String? get endMinute => throw _privateConstructorUsedError;
   String? get totalPaybleHours => throw _privateConstructorUsedError;
   String? get unpaidBreak => throw _privateConstructorUsedError;
+  bool? get isUnAvailable => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -55,7 +56,8 @@ abstract class $DateTimeDTOCopyWith<$Res> {
       String? endHour,
       String? endMinute,
       String? totalPaybleHours,
-      String? unpaidBreak});
+      String? unpaidBreak,
+      bool? isUnAvailable});
 }
 
 /// @nodoc
@@ -82,6 +84,7 @@ class _$DateTimeDTOCopyWithImpl<$Res, $Val extends DateTimeDTO>
     Object? endMinute = freezed,
     Object? totalPaybleHours = freezed,
     Object? unpaidBreak = freezed,
+    Object? isUnAvailable = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -128,6 +131,10 @@ class _$DateTimeDTOCopyWithImpl<$Res, $Val extends DateTimeDTO>
           ? _value.unpaidBreak
           : unpaidBreak // ignore: cast_nullable_to_non_nullable
               as String?,
+      isUnAvailable: freezed == isUnAvailable
+          ? _value.isUnAvailable
+          : isUnAvailable // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -151,7 +158,8 @@ abstract class _$$DateTimeDTOImplCopyWith<$Res>
       String? endHour,
       String? endMinute,
       String? totalPaybleHours,
-      String? unpaidBreak});
+      String? unpaidBreak,
+      bool? isUnAvailable});
 }
 
 /// @nodoc
@@ -176,6 +184,7 @@ class __$$DateTimeDTOImplCopyWithImpl<$Res>
     Object? endMinute = freezed,
     Object? totalPaybleHours = freezed,
     Object? unpaidBreak = freezed,
+    Object? isUnAvailable = freezed,
   }) {
     return _then(_$DateTimeDTOImpl(
       id: freezed == id
@@ -222,6 +231,10 @@ class __$$DateTimeDTOImplCopyWithImpl<$Res>
           ? _value.unpaidBreak
           : unpaidBreak // ignore: cast_nullable_to_non_nullable
               as String?,
+      isUnAvailable: freezed == isUnAvailable
+          ? _value.isUnAvailable
+          : isUnAvailable // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -240,7 +253,8 @@ class _$DateTimeDTOImpl implements _DateTimeDTO {
       this.endHour,
       this.endMinute,
       this.totalPaybleHours,
-      this.unpaidBreak});
+      this.unpaidBreak,
+      this.isUnAvailable});
 
   factory _$DateTimeDTOImpl.fromJson(Map<String, dynamic> json) =>
       _$$DateTimeDTOImplFromJson(json);
@@ -267,10 +281,12 @@ class _$DateTimeDTOImpl implements _DateTimeDTO {
   final String? totalPaybleHours;
   @override
   final String? unpaidBreak;
+  @override
+  final bool? isUnAvailable;
 
   @override
   String toString() {
-    return 'DateTimeDTO(id: $id, start_time: $start_time, end_time: $end_time, objId: $objId, date: $date, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, totalPaybleHours: $totalPaybleHours, unpaidBreak: $unpaidBreak)';
+    return 'DateTimeDTO(id: $id, start_time: $start_time, end_time: $end_time, objId: $objId, date: $date, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, totalPaybleHours: $totalPaybleHours, unpaidBreak: $unpaidBreak, isUnAvailable: $isUnAvailable)';
   }
 
   @override
@@ -295,7 +311,9 @@ class _$DateTimeDTOImpl implements _DateTimeDTO {
             (identical(other.totalPaybleHours, totalPaybleHours) ||
                 other.totalPaybleHours == totalPaybleHours) &&
             (identical(other.unpaidBreak, unpaidBreak) ||
-                other.unpaidBreak == unpaidBreak));
+                other.unpaidBreak == unpaidBreak) &&
+            (identical(other.isUnAvailable, isUnAvailable) ||
+                other.isUnAvailable == isUnAvailable));
   }
 
   @JsonKey(ignore: true)
@@ -312,7 +330,8 @@ class _$DateTimeDTOImpl implements _DateTimeDTO {
       endHour,
       endMinute,
       totalPaybleHours,
-      unpaidBreak);
+      unpaidBreak,
+      isUnAvailable);
 
   @JsonKey(ignore: true)
   @override
@@ -340,7 +359,8 @@ abstract class _DateTimeDTO implements DateTimeDTO {
       final String? endHour,
       final String? endMinute,
       final String? totalPaybleHours,
-      final String? unpaidBreak}) = _$DateTimeDTOImpl;
+      final String? unpaidBreak,
+      final bool? isUnAvailable}) = _$DateTimeDTOImpl;
 
   factory _DateTimeDTO.fromJson(Map<String, dynamic> json) =
       _$DateTimeDTOImpl.fromJson;
@@ -367,6 +387,8 @@ abstract class _DateTimeDTO implements DateTimeDTO {
   String? get totalPaybleHours;
   @override
   String? get unpaidBreak;
+  @override
+  bool? get isUnAvailable;
   @override
   @JsonKey(ignore: true)
   _$$DateTimeDTOImplCopyWith<_$DateTimeDTOImpl> get copyWith =>

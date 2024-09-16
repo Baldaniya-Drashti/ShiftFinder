@@ -378,6 +378,20 @@ class StringConstant {
   static const String proposedTime = "Proposed Time";
   static const String notAvailable = "Not Available";
   static const String deleteTeam = "Delete Team";
+  static const String shifts = "Shifts";
+  static const String currentShifts = "Current Shifts";
+  static const String upcomingShifts = "Upcoming Shifts";
+  static const String appliedShifts = "Applied Shifts";
+  static const String estimatedPayables = "Estimated Payables";
+  static const String clockIn = "Clock in";
+  static const String clockOut = "Clock out";
+  static const String submit = "Submit";
+  static const String submitted = "Submitted";
+  static const String withdrawShift = "Withdraw Shift";
+  static const String withdraw = "Withdraw";
+  static const String reason = "Reason";
+  static const String withdrawShiftDesc =
+      "Withdrawal from the shift is not allowed within 24 hours of the shift start time. You can no longer withdraw from this shift.";
   static const String deleteTeamDesc =
       "Deleting this team will prevent you from sharing the shift posting summary with its members. Are you sure you want to proceed?";
   static const String proposalDesc =
