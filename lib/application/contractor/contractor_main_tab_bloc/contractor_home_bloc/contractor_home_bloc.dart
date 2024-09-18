@@ -5,9 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/employer_home/employer_dashboard_dto.dart';
+import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 
 part 'contractor_home_state.dart';
 part 'contractor_home_event.dart';
@@ -25,6 +27,32 @@ class ContractorHomeBloc
   ContractorHomeBloc(this.mainFacade) : super(ContractorHomeState.initial()) {
     on<ContractorHomeEvent>((event, emit) async {
       await event.map(
+        getShiftDetailEvent: (e) async {
+          Either<MainFailure, HealthcarePostDTO>? failureOrSuccess;
+          emit(
+            state.copyWith(isLoading: true),
+          );
+          failureOrSuccess = await mainFacade.getPostApi(
+            postId: e.postId,
+          );
+
+          failureOrSuccess.fold(
+            (l) => emit(state.copyWith(
+              isLoading: false,
+              showErrorMessages: true,
+              shiftFailureOrSuccessOption: optionOf(failureOrSuccess),
+            )),
+            (r) {
+              print("post--> $r");
+              emit(state.copyWith(
+                isLoading: false,
+                showErrorMessages: false,
+                shift: r,
+                shiftFailureOrSuccessOption: optionOf(failureOrSuccess),
+              ));
+            },
+          );
+        },
         deletePost: (e) async {
           final res = await mainFacade.deletePostApi(postId: e.postId);
           res.fold(
@@ -95,6 +123,28 @@ class ContractorHomeBloc
               );
             },
           );
+        },
+        filterShiftEvent: (e) async {
+          final type = (e.filterType == StringConstant.singleShifts)
+              ? 1
+              : (e.filterType == StringConstant.multiShifts)
+                  ? 2
+                  : 0;
+
+          if (type != state.filterType) {
+            emit(
+              state.copyWith(
+                isLoading: true,
+              ),
+            );
+            await Future.delayed(Duration(seconds: 3));
+            emit(
+              state.copyWith(
+                isLoading: false,
+                filterType: type,
+              ),
+            );
+          }
         },
       );
     });

@@ -136,10 +136,38 @@ getAppbar(ContractorMainTabState state, BuildContext context) {
           ],
         ),
         actions: [
-          SvgPicture.asset(
-            SvgImageConstant.filter,
-            height: getSize(38),
-            width: getSize(38),
+          // SvgPicture.asset(
+          //   SvgImageConstant.filter,
+          //   height: getSize(38),
+          //   width: getSize(38),
+          // ),
+          PopupMenuButton<String>(
+            icon: SvgPicture.asset(
+              SvgImageConstant.filter, // Replace with your SVG icon path
+              height: getSize(38),
+              width: getSize(38),
+            ),
+            color: AppColors.white,
+            padding: EdgeInsets.zero,
+            onSelected: (String result) {
+              context
+                  .read<ContractorHomeBloc>()
+                  .add(ContractorHomeEvent.filterShiftEvent(result));
+            },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              PopupMenuItem<String>(
+                value: StringConstant.all,
+                child: Text(StringConstant.all),
+              ),
+              PopupMenuItem<String>(
+                value: StringConstant.singleShifts,
+                child: Text(StringConstant.singleShifts),
+              ),
+              PopupMenuItem<String>(
+                value: StringConstant.multiShifts,
+                child: Text(StringConstant.multiShifts),
+              ),
+            ],
           ),
         ],
       );

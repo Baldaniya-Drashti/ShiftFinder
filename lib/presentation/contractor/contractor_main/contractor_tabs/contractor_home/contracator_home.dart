@@ -9,7 +9,10 @@ import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/employer_home/employer_dashboard_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -23,8 +26,8 @@ class ContractorHomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ContractorHomeBloc, ContractorHomeState>(
       builder: (context, state) {
-        return getCheckoutContainer(context);
-        /*return PaginatedListView(
+        // return getCheckoutContainer(context);
+        return PaginatedListView(
           onRefresh: () {
             context
                 .read<ContractorHomeBloc>()
@@ -57,7 +60,7 @@ class ContractorHomeView extends StatelessWidget {
                         return getCheckoutContainer(index, context);
                       },
                     ),
-        );*/
+        );
       },
     );
   }
@@ -193,105 +196,99 @@ class ContractorHomeView extends StatelessWidget {
   }
 */
   getCheckoutContainer(
+    int index,
     BuildContext context,
   ) {
     return BlocBuilder<ContractorHomeBloc, ContractorHomeState>(
       builder: (context, state) {
-        return ListView.builder(
-            itemCount: 2,
-            itemBuilder: (context, index) {
-              return Container(
-                padding: EdgeInsets.all(getSize(10)),
-                margin: EdgeInsets.symmetric(vertical: getSize(12)),
-                width: getSize(355),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(getSize(20)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.black.withOpacity(0.2),
-                      blurRadius: 25,
+        return Container(
+          padding: EdgeInsets.all(getSize(10)),
+          margin: EdgeInsets.symmetric(vertical: getSize(12)),
+          width: getSize(355),
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(getSize(20)),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.black.withOpacity(0.2),
+                blurRadius: 25,
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              contractorDataBox(context, index),
+              SizedBox(
+                height: getSize(8),
+              ),
+              CommonButton(
+                onPressed: () {
+                  context.router.push(
+                    PageRouteInfo(
+                      ViewContractorShift.name,
+                      args: ViewContractorShiftArgs(
+                        postId: state.contractorDashboardList[index].id ?? -1,
+                        isTotalApplicants: true,
+                      ),
                     ),
-                  ],
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    contractorDataBox(context),
-                    SizedBox(
-                      height: getSize(8),
-                    ),
-                    CommonButton(
-                      onPressed: () {
-                        context.router.push(
-                          PageRouteInfo(
-                            ViewContractorShift.name,
-                            args: ViewContractorShiftArgs(
-                              postId:
-                                  // state.contractorDashboardList[index].id ?? -1,
-                                  1,
-                              isTotalApplicants: true,
-                            ),
-                          ),
-                        );
-                      },
-                      height: getSize(40),
-                      borderRadius: 7,
-                      backgroundColor: AppColors.primaryColor.withOpacity(0.1),
-                      buttonTextColor: AppColors.black,
-                      buttonFontSize: 12,
-                      buttonText: StringConstant.viewShiftDetails,
-                    ),
-                    (index == 1)
-                        ? singleShiftDateTimeBreakUI(context)
-                        : multiShiftDateTimeBreakUI(context),
-                    requiredSkillBox(
-                      svgPrefixIcon: SvgImageConstant.female,
-                      title: StringConstant.specialtiesRequired,
-                      value:
-                          'Behavioral Health, Perinatal, Urology, Anesthesiology, NICU',
-                    ),
-                    rateHoursBox(),
-                    payableBox(),
-                    SizedBox(height: getSize(20)),
-                    Row(
-                      children: [
-                        appliedProposalBtn(
-                          btnTitle: StringConstant.apply,
-                          onPressed: () {
-                            AppDialog.showDelete(
-                              context,
-                              infoMessage: StringConstant
-                                  .areYouSureYouWantToApplyForTheShift,
-                              title: StringConstant.apply,
-                              deleteBtnText: StringConstant.apply,
-                              onCancelClick: () {
-                                context.router.maybePop();
-                              },
-                              onDeleteClick: () {
-                                context.router.maybePop();
-                              },
-                            );
-                          },
-                        ),
-                        SizedBox(
-                          width: getSize(10),
-                        ),
-                        appliedProposalBtn(
-                          btnTitle: StringConstant.sendProposal,
-                          bgColor: AppColors.white,
-                          borderColor: AppColors.primaryColor,
-                          onPressed: () {
-                            context.router
-                                .push(PageRouteInfo(SendProposal.name));
-                          },
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              );
-            });
+                  );
+                },
+                height: getSize(40),
+                borderRadius: 7,
+                backgroundColor: AppColors.primaryColor.withOpacity(0.1),
+                buttonTextColor: AppColors.black,
+                buttonFontSize: 12,
+                buttonText: StringConstant.viewShiftDetails,
+              ),
+              (state.contractorDashboardList[index].shift_type == 1)
+                  ? singleShiftDateTimeBreakUI(context, index, state)
+                  : multiShiftDateTimeBreakUI(context, index, state),
+              requiredSkillBox(
+                svgPrefixIcon: SvgImageConstant.female,
+                title: StringConstant.specialtiesRequired,
+                value:
+                    state.contractorDashboardList[index].specialties_list ?? "",
+              ),
+              rateHoursBox(state.contractorDashboardList[index]),
+              payableBox(state.contractorDashboardList[index]),
+              SizedBox(height: getSize(20)),
+              Row(
+                children: [
+                  appliedProposalBtn(
+                    btnTitle: StringConstant.apply,
+                    onPressed: () {
+                      AppDialog.showDelete(
+                        context,
+                        infoMessage:
+                            StringConstant.areYouSureYouWantToApplyForTheShift,
+                        title: StringConstant.apply,
+                        deleteBtnText: StringConstant.apply,
+                        onCancelClick: () {
+                          context.router.maybePop();
+                        },
+                        onDeleteClick: () {
+                          context.router.maybePop();
+                        },
+                      );
+                    },
+                  ),
+                  SizedBox(
+                    width: getSize(10),
+                  ),
+                  appliedProposalBtn(
+                    btnTitle: StringConstant.sendProposal,
+                    bgColor: AppColors.white,
+                    borderColor: AppColors.primaryColor,
+                    onPressed: () {
+                      context.router.push(PageRouteInfo(SendProposal.name));
+                    },
+                  ),
+                ],
+              )
+            ],
+          ),
+        );
       },
     );
   }
@@ -315,7 +312,7 @@ class ContractorHomeView extends StatelessWidget {
     );
   }
 
-  Widget contractorDataBox(BuildContext context) {
+  Widget contractorDataBox(BuildContext context, int index) {
     return BlocBuilder<ContractorHomeBloc, ContractorHomeState>(
       builder: (context, state) {
         return Container(
@@ -337,23 +334,27 @@ class ContractorHomeView extends StatelessWidget {
                 ),
                 isThreeLine: true,
                 title: BaseText(
-                  text: "CT Technologist",
+                  text: state.contractorDashboardList[index].roles_list_name ??
+                      "",
                   textColor: AppColors.black,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
+                  maxLines: 1,
                 ),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     BaseText(
-                      text: "Louis Vuitton Pvt. Ltd.",
+                      text: state.contractorDashboardList[index].company_name ??
+                          "",
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
                       textColor: AppColors.black.withOpacity(0.80),
                     ),
                     BaseText(
-                      text: "(Healthcare - 2DFG125)",
+                      text:
+                          "(${getIndustryText(state.contractorDashboardList[index].industry ?? 0)} - ${state.contractorDashboardList[index].listing_id ?? ""})",
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
                       textColor: AppColors.black.withOpacity(0.80),
@@ -361,7 +362,7 @@ class ContractorHomeView extends StatelessWidget {
                   ],
                 ),
                 trailing: BaseText(
-                  text: "2 Days Ago",
+                  text: state.contractorDashboardList[index].last_ago ?? "",
                   fontSize: 10,
                   fontWeight: FontWeight.w600,
                   textColor: AppColors.black.withOpacity(0.80),
@@ -409,7 +410,9 @@ class ContractorHomeView extends StatelessWidget {
                             textColor: AppColors.black,
                           ),
                           BaseText(
-                            text: "10.2 Km Away",
+                            text:
+                                state.contractorDashboardList[index].distance ??
+                                    "",
                             fontSize: 10,
                             fontWeight: FontWeight.w600,
                             textColor: AppColors.primaryColor,
@@ -476,7 +479,9 @@ class ContractorHomeView extends StatelessWidget {
     );
   }
 
-  Widget singleShiftDateTimeBreakUI(BuildContext context) {
+  Widget singleShiftDateTimeBreakUI(
+      BuildContext context, int index, ContractorHomeState state) {
+    final list = state.contractorDashboardList[index];
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
@@ -496,18 +501,22 @@ class ContractorHomeView extends StatelessWidget {
             children: [
               displayDateBreak(
                 context,
-                boldValue: "12 May,",
-                timidValue: "2024",
+                list,
+                boldValue: convertTimeStampToDate(list.start_date ?? -1),
+                timidValue:
+                    convertTimeStampToDate(list.start_date ?? -1, isYear: true),
                 title: StringConstant.shiftDate,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
               displayTime(
                 title: StringConstant.time,
-                startDate: "07:15 AM",
-                endDate: "18:30 AM",
+                startDate:
+                    convertTimeStampToDate(list.start_time ?? -1, isTime: true),
+                endDate:
+                    convertTimeStampToDate(list.end_time ?? -1, isTime: true),
                 svgPrefixIcon: SvgImageConstant.clock,
               ),
-              displayDateBreak(context,
+              displayDateBreak(context, list,
                   boldValue: "45 Min",
                   timidValue: "",
                   title: StringConstant.unpaidBreak,
@@ -538,12 +547,15 @@ class ContractorHomeView extends StatelessWidget {
       if (isYear) {
         return DateFormat('yyyy').format(dateTime);
       } else {
-        return DateFormat('d MMMM, ').format(dateTime);
+        return DateFormat('d MMM, ').format(dateTime);
       }
     }
   }
 
-  Widget multiShiftDateTimeBreakUI(BuildContext context) {
+  Widget multiShiftDateTimeBreakUI(
+      BuildContext context, int index, ContractorHomeState state) {
+    final list = state.contractorDashboardList[index];
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
@@ -563,16 +575,17 @@ class ContractorHomeView extends StatelessWidget {
             children: [
               displayDateBreak(
                 context,
+                list,
                 boldValue: "",
                 timidValue: "",
                 showBtn: true,
                 title: StringConstant.shiftDates,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
-              displayDateBreak(context,
-                  boldValue: "45 Min",
+              displayDateBreak(context, list,
+                  boldValue: "${list.total_shift ?? -1}",
                   timidValue: "",
-                  title: StringConstant.unpaidBreak,
+                  title: StringConstant.totalShifts,
                   svgPrefixIcon: SvgImageConstant.clock),
             ],
           ),
@@ -591,7 +604,8 @@ class ContractorHomeView extends StatelessWidget {
   }
 
   Widget displayDateBreak(
-    BuildContext context, {
+    BuildContext context,
+    EmployerDashboardDTO post, {
     required String title,
     required String boldValue,
     required String timidValue,
@@ -623,11 +637,12 @@ class ContractorHomeView extends StatelessWidget {
               (showBtn)
                   ? CommonButton(
                       onPressed: () {
-                        /*if (post.shift_detail != null) {
-                          context.router.push(PageRouteInfo(ViewDates.name,
-                              args: ViewDatesArgs(
-                                  shiftDetail: post.shift_detail!)));
-                        }*/
+                        if (post.shift_date != null) {
+                          context.router.push(PageRouteInfo(
+                              ViewContractorShiftDates.name,
+                              args: ViewContractorShiftDatesArgs(
+                                  shiftDetail: post)));
+                        }
                       },
                       width: 100,
                       height: 23,
@@ -787,7 +802,7 @@ class ContractorHomeView extends StatelessWidget {
     );
   }
 
-  Widget rateHoursBox() {
+  Widget rateHoursBox(EmployerDashboardDTO post) {
     return Container(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(20),
@@ -803,7 +818,7 @@ class ContractorHomeView extends StatelessWidget {
             rateWithBGIcon(
               svgIcon: SvgImageConstant.clockWithBag,
               title: StringConstant.hourlyRate,
-              value: "\$27",
+              value: (post.rate_hour != null) ? "\$${post.rate_hour}" : "\$0",
             ),
             Container(
               width: getSize(40),
@@ -813,7 +828,7 @@ class ContractorHomeView extends StatelessWidget {
             rateWithBGIcon(
               svgIcon: SvgImageConstant.clockWithOuterLine,
               title: StringConstant.totalHours,
-              value: "9h 15min",
+              value: post.total_payable_hour ?? "",
             ),
           ],
         ));
@@ -864,7 +879,7 @@ class ContractorHomeView extends StatelessWidget {
     );
   }
 
-  Widget payableBox() {
+  Widget payableBox(EmployerDashboardDTO post) {
     return Container(
       padding:
           EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
@@ -876,22 +891,23 @@ class ContractorHomeView extends StatelessWidget {
         children: [
           paybaleTitleRate(
             title: StringConstant.totalNumberOfVacancy,
-            value: "08",
+            value:
+                "${(post.total_vacancy.toString().length == 2) ? post.total_vacancy : "0${post.total_vacancy}"}",
             isFirst: true,
           ),
           commonDivider(),
           paybaleTitleRate(
             title: "${StringConstant.accommodationAllowance}:-",
-            value: "\$20",
+            value: "\$${post.accommodation_allowance ?? 00}",
           ),
           paybaleTitleRate(
             title: "${StringConstant.commuteAllowance}:-",
-            value: "\$10",
+            value: "\$${post.commute_allowance ?? 00}",
           ),
           commonDivider(),
           paybaleTitleRate(
             title: StringConstant.estimatedEarningsForShift,
-            value: "\$4675.00",
+            value: "\$${post.total_amount ?? 00}",
             isLast: true,
           ),
         ],

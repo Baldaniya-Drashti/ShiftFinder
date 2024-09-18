@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
-import 'package:shift/application/main_tab/home/view_single_applicants/view_single_applicants_bloc.dart';
+import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_home_bloc/contractor_home_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
@@ -35,9 +35,9 @@ class ViewContractorShift extends StatelessWidget {
   Widget build(BuildContext context) {
     print("shift id--> $postId");
     return BlocProvider(
-      create: (context) => getIt<ViewSingleApplicantsBloc>()
-        ..add(ViewSingleApplicantsEvent.getShiftDetailEvent(postId)),
-      child: BlocConsumer<ViewSingleApplicantsBloc, ViewSingleApplicantsState>(
+      create: (context) => getIt<ContractorHomeBloc>()
+        ..add(ContractorHomeEvent.getShiftDetailEvent(postId)),
+      child: BlocConsumer<ContractorHomeBloc, ContractorHomeState>(
         listener: (context, state) {
           state.shiftFailureOrSuccessOption.fold(
             () {},
@@ -58,6 +58,7 @@ class ViewContractorShift extends StatelessWidget {
         },
         builder: (context, state) {
           final shift = state.shift;
+          print("${shift.shift_detail?.shift_type}");
           return Scaffold(
             backgroundColor: AppColors.scaffoldColor,
             appBar: CommonAppBar(
@@ -377,13 +378,27 @@ class ViewContractorShift extends StatelessWidget {
               textColor: AppColors.black,
               fontSize: 16,
               fontWeight: FontWeight.w600,
+              maxLines: 2,
             ),
-            subtitle: BaseText(
-              text:
-                  "(${CommonList.industryList.where((item) => item.id == getCurrentIndustry()).map((item) => item.title).join(', ')} - ${post.listing_id})",
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              textColor: AppColors.black.withOpacity(0.70),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                BaseText(
+                  // text: post.company_name ?? "",
+                  text: "post.company_name",
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  textColor: AppColors.black.withOpacity(0.80),
+                ),
+                BaseText(
+                  text:
+                      "(${CommonList.industryList.where((item) => item.id == getCurrentIndustry()).map((item) => item.title).join(', ')} - ${post.listing_id})",
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  textColor: AppColors.black.withOpacity(0.70),
+                ),
+              ],
             ),
             trailing: BaseText(
               text: post.last_ago ?? "",
@@ -625,7 +640,7 @@ class ViewContractorShift extends StatelessWidget {
                     )
                   : highLightText(boldValue: boldValue, timidValue: timidValue),
             ],
-          )
+          ),
         ],
       ),
     );

@@ -390,6 +390,9 @@ class StringConstant {
   static const String withdrawShift = "Withdraw Shift";
   static const String withdraw = "Withdraw";
   static const String reason = "Reason";
+  static const String all = "All";
+  static const String multiShifts = "Multi Shifts";
+  static const String singleShifts = "Single Shifts";
   static const String withdrawShiftDesc =
       "Withdrawal from the shift is not allowed within 24 hours of the shift start time. You can no longer withdraw from this shift.";
   static const String deleteTeamDesc =
