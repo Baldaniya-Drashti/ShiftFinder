@@ -21740,7 +21740,7 @@ mixin _$PostShiftState {
   Rate get accomdationRate => throw _privateConstructorUsedError;
   String get singleShiftNote => throw _privateConstructorUsedError;
   bool get isMoreVacancy => throw _privateConstructorUsedError;
-  InputEmptyOrNot get selectedVacancy => throw _privateConstructorUsedError;
+  Vacancy get selectedVacancy => throw _privateConstructorUsedError;
   bool get singleShiftErrorMessages => throw _privateConstructorUsedError;
   Option<Either<MainFailure, HealthcarePostDTO>>
       get singleShiftFailureOrSuccessOption =>
@@ -21816,7 +21816,7 @@ abstract class $PostShiftStateCopyWith<$Res> {
       Rate accomdationRate,
       String singleShiftNote,
       bool isMoreVacancy,
-      InputEmptyOrNot selectedVacancy,
+      Vacancy selectedVacancy,
       bool singleShiftErrorMessages,
       Option<Either<MainFailure, HealthcarePostDTO>>
           singleShiftFailureOrSuccessOption,
@@ -22004,7 +22004,7 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
       selectedVacancy: null == selectedVacancy
           ? _value.selectedVacancy
           : selectedVacancy // ignore: cast_nullable_to_non_nullable
-              as InputEmptyOrNot,
+              as Vacancy,
       singleShiftErrorMessages: null == singleShiftErrorMessages
           ? _value.singleShiftErrorMessages
           : singleShiftErrorMessages // ignore: cast_nullable_to_non_nullable
@@ -22158,7 +22158,7 @@ abstract class _$$PostShiftStateImplCopyWith<$Res>
       Rate accomdationRate,
       String singleShiftNote,
       bool isMoreVacancy,
-      InputEmptyOrNot selectedVacancy,
+      Vacancy selectedVacancy,
       bool singleShiftErrorMessages,
       Option<Either<MainFailure, HealthcarePostDTO>>
           singleShiftFailureOrSuccessOption,
@@ -22346,7 +22346,7 @@ class __$$PostShiftStateImplCopyWithImpl<$Res>
       selectedVacancy: null == selectedVacancy
           ? _value.selectedVacancy
           : selectedVacancy // ignore: cast_nullable_to_non_nullable
-              as InputEmptyOrNot,
+              as Vacancy,
       singleShiftErrorMessages: null == singleShiftErrorMessages
           ? _value.singleShiftErrorMessages
           : singleShiftErrorMessages // ignore: cast_nullable_to_non_nullable
@@ -22575,7 +22575,7 @@ class _$PostShiftStateImpl implements _PostShiftState {
   @override
   final bool isMoreVacancy;
   @override
-  final InputEmptyOrNot selectedVacancy;
+  final Vacancy selectedVacancy;
   @override
   final bool singleShiftErrorMessages;
   @override
@@ -22852,7 +22852,7 @@ abstract class _PostShiftState implements PostShiftState {
       required final Rate accomdationRate,
       required final String singleShiftNote,
       required final bool isMoreVacancy,
-      required final InputEmptyOrNot selectedVacancy,
+      required final Vacancy selectedVacancy,
       required final bool singleShiftErrorMessages,
       required final Option<Either<MainFailure, HealthcarePostDTO>>
           singleShiftFailureOrSuccessOption,
@@ -22932,7 +22932,7 @@ abstract class _PostShiftState implements PostShiftState {
   @override
   bool get isMoreVacancy;
   @override
-  InputEmptyOrNot get selectedVacancy;
+  Vacancy get selectedVacancy;
   @override
   bool get singleShiftErrorMessages;
   @override

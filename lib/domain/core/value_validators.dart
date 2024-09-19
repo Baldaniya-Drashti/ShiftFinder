@@ -24,9 +24,33 @@ Either<ValueFailure<String>, String> validateEmailAddress(String input) {
   }
 }
 
+Either<ValueFailure<String>, String> validateNumberOfVacancy(String input) {
+  if (validateStringNotEmpty(input).isRight()) {
+    if (input != "0" && input != "1") {
+      return right(input);
+    } else {
+      return left(ValueFailure.invalidVacancy(failedValue: input));
+    }
+  } else {
+    return left(ValueFailure.empty(failedValue: input));
+  }
+}
+
 Either<ValueFailure<String>, String> validateUsername(String input) {
   if (validateStringNotEmpty(input).isRight()) {
     if (input.length >= 2 && input.length <= 32) {
+      return right(input);
+    } else {
+      return left(ValueFailure.invalidUsername(failedValue: input));
+    }
+  } else {
+    return left(ValueFailure.empty(failedValue: input));
+  }
+}
+
+Either<ValueFailure<String>, String> validateLastname(String input) {
+  if (validateStringNotEmpty(input).isRight()) {
+    if (input.length <= 32) {
       return right(input);
     } else {
       return left(ValueFailure.invalidUsername(failedValue: input));

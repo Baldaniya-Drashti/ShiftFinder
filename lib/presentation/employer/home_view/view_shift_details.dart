@@ -157,6 +157,10 @@ class ViewHomeShiftDetails extends StatelessWidget {
           ),
           commonDivider(),
           paybaleTitleRate(
+            title: "${StringConstant.estimatedWage}:-",
+            value: "\$${payable.total_wage ?? 00}",
+          ),
+          paybaleTitleRate(
             title: "${StringConstant.accommodationAllowance}:-",
             value: "\$${payable.accommodation_allowance ?? 00}",
           ),

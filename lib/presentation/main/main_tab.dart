@@ -17,7 +17,7 @@ import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart' as autoroute;
 import 'package:shift/presentation/core/style/app_colors.dart';
-import 'package:shift/presentation/main/tabs/history_view.dart';
+import 'package:shift/presentation/main/tabs/employer_shift_view.dart';
 import 'package:shift/presentation/main/tabs/home/home_view.dart';
 import 'package:shift/presentation/main/tabs/notification_view.dart';
 import 'package:shift/presentation/main/tabs/profile/profile_view.dart';
@@ -174,16 +174,17 @@ getAppbar(MainTabState state, BuildContext context) {
               fontFamily: "Aclonica",
               textColor: AppColors.black.withOpacity(0.7),
             ),
+            SizedBox(height: getSize(2)),
             BaseText(
               text:
                   "${getCurrentUser().firstName ?? ''} ${getCurrentUser().lastName ?? ''}",
-              fontSize: 12,
+              fontSize: 13,
               fontWeight: FontWeight.w400,
               fontFamily: "Aclonica",
             ),
             BaseText(
               text: "${getCurrentUser().companyName ?? ''}",
-              fontSize: 8,
+              fontSize: 10,
               fontWeight: FontWeight.w600,
               textColor: AppColors.primaryColor,
             ),
@@ -197,7 +198,7 @@ getAppbar(MainTabState state, BuildContext context) {
       );
     case 1:
       return HomeAppbar(
-        titleText: StringConstant.history,
+        titleText: StringConstant.shifts,
       );
     case 2:
       return HomeAppbar(
@@ -219,8 +220,8 @@ Route? onGenerateRoute(RouteSettings settings, String tabItem) {
     builder: (context) {
       if (tabItem == autoroute.HomeView.name) {
         return HomeView();
-      } else if (tabItem == autoroute.HistoryView.name) {
-        return HistoryView();
+      } else if (tabItem == autoroute.EmployerShiftView.name) {
+        return EmployerShiftView();
       } else if (tabItem == autoroute.NotificationView.name) {
         return NotificationView();
       } else if (tabItem == autoroute.ProfileView.name) {

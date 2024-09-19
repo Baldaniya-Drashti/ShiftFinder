@@ -76,7 +76,7 @@ class CustomBottomNavigationWidget extends StatelessWidget {
 
   List activeTabIconList = [
     SvgImageConstant.homeTabActive,
-    SvgImageConstant.shiftTab,
+    SvgImageConstant.timerShift,
     SvgImageConstant.notificationTab,
     SvgImageConstant.profileTab,
   ];
@@ -90,7 +90,7 @@ class CustomBottomNavigationWidget extends StatelessWidget {
 
   List<String> tabLabelList = [
     StringConstant.home,
-    StringConstant.history,
+    StringConstant.shift,
     StringConstant.notification,
     StringConstant.profile,
   ];
@@ -176,7 +176,7 @@ class ContractorBottomNavigationWidget extends StatelessWidget {
 
   List<String> tabLabelList = [
     StringConstant.home,
-    StringConstant.shifts,
+    StringConstant.shift,
     StringConstant.notification,
     StringConstant.profile,
   ];

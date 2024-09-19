@@ -19,21 +19,24 @@ mixin _$OnboardingEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int selectedUser) submitOnboarding1,
-    required TResult Function(int selectedIndustry) submitOnboarding2,
+    required TResult Function(int selectedIndustry, BuildContext context)
+        submitOnboarding2,
     required TResult Function() submitOnboarding3,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int selectedUser)? submitOnboarding1,
-    TResult? Function(int selectedIndustry)? submitOnboarding2,
+    TResult? Function(int selectedIndustry, BuildContext context)?
+        submitOnboarding2,
     TResult? Function()? submitOnboarding3,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int selectedUser)? submitOnboarding1,
-    TResult Function(int selectedIndustry)? submitOnboarding2,
+    TResult Function(int selectedIndustry, BuildContext context)?
+        submitOnboarding2,
     TResult Function()? submitOnboarding3,
     required TResult orElse(),
   }) =>
@@ -147,7 +150,8 @@ class _$SubmitOnboarding1Impl implements SubmitOnboarding1 {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int selectedUser) submitOnboarding1,
-    required TResult Function(int selectedIndustry) submitOnboarding2,
+    required TResult Function(int selectedIndustry, BuildContext context)
+        submitOnboarding2,
     required TResult Function() submitOnboarding3,
   }) {
     return submitOnboarding1(selectedUser);
@@ -157,7 +161,8 @@ class _$SubmitOnboarding1Impl implements SubmitOnboarding1 {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int selectedUser)? submitOnboarding1,
-    TResult? Function(int selectedIndustry)? submitOnboarding2,
+    TResult? Function(int selectedIndustry, BuildContext context)?
+        submitOnboarding2,
     TResult? Function()? submitOnboarding3,
   }) {
     return submitOnboarding1?.call(selectedUser);
@@ -167,7 +172,8 @@ class _$SubmitOnboarding1Impl implements SubmitOnboarding1 {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int selectedUser)? submitOnboarding1,
-    TResult Function(int selectedIndustry)? submitOnboarding2,
+    TResult Function(int selectedIndustry, BuildContext context)?
+        submitOnboarding2,
     TResult Function()? submitOnboarding3,
     required TResult orElse(),
   }) {
@@ -228,7 +234,7 @@ abstract class _$$SubmitOnboarding2ImplCopyWith<$Res> {
           $Res Function(_$SubmitOnboarding2Impl) then) =
       __$$SubmitOnboarding2ImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({int selectedIndustry});
+  $Res call({int selectedIndustry, BuildContext context});
 }
 
 /// @nodoc
@@ -243,12 +249,17 @@ class __$$SubmitOnboarding2ImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? selectedIndustry = null,
+    Object? context = null,
   }) {
     return _then(_$SubmitOnboarding2Impl(
       null == selectedIndustry
           ? _value.selectedIndustry
           : selectedIndustry // ignore: cast_nullable_to_non_nullable
               as int,
+      null == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
     ));
   }
 }
@@ -256,14 +267,16 @@ class __$$SubmitOnboarding2ImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SubmitOnboarding2Impl implements SubmitOnboarding2 {
-  const _$SubmitOnboarding2Impl(this.selectedIndustry);
+  const _$SubmitOnboarding2Impl(this.selectedIndustry, this.context);
 
   @override
   final int selectedIndustry;
+  @override
+  final BuildContext context;
 
   @override
   String toString() {
-    return 'OnboardingEvent.submitOnboarding2(selectedIndustry: $selectedIndustry)';
+    return 'OnboardingEvent.submitOnboarding2(selectedIndustry: $selectedIndustry, context: $context)';
   }
 
   @override
@@ -272,11 +285,12 @@ class _$SubmitOnboarding2Impl implements SubmitOnboarding2 {
         (other.runtimeType == runtimeType &&
             other is _$SubmitOnboarding2Impl &&
             (identical(other.selectedIndustry, selectedIndustry) ||
-                other.selectedIndustry == selectedIndustry));
+                other.selectedIndustry == selectedIndustry) &&
+            (identical(other.context, context) || other.context == context));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, selectedIndustry);
+  int get hashCode => Object.hash(runtimeType, selectedIndustry, context);
 
   @JsonKey(ignore: true)
   @override
@@ -289,32 +303,35 @@ class _$SubmitOnboarding2Impl implements SubmitOnboarding2 {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int selectedUser) submitOnboarding1,
-    required TResult Function(int selectedIndustry) submitOnboarding2,
+    required TResult Function(int selectedIndustry, BuildContext context)
+        submitOnboarding2,
     required TResult Function() submitOnboarding3,
   }) {
-    return submitOnboarding2(selectedIndustry);
+    return submitOnboarding2(selectedIndustry, context);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int selectedUser)? submitOnboarding1,
-    TResult? Function(int selectedIndustry)? submitOnboarding2,
+    TResult? Function(int selectedIndustry, BuildContext context)?
+        submitOnboarding2,
     TResult? Function()? submitOnboarding3,
   }) {
-    return submitOnboarding2?.call(selectedIndustry);
+    return submitOnboarding2?.call(selectedIndustry, context);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int selectedUser)? submitOnboarding1,
-    TResult Function(int selectedIndustry)? submitOnboarding2,
+    TResult Function(int selectedIndustry, BuildContext context)?
+        submitOnboarding2,
     TResult Function()? submitOnboarding3,
     required TResult orElse(),
   }) {
     if (submitOnboarding2 != null) {
-      return submitOnboarding2(selectedIndustry);
+      return submitOnboarding2(selectedIndustry, context);
     }
     return orElse();
   }
@@ -355,10 +372,12 @@ class _$SubmitOnboarding2Impl implements SubmitOnboarding2 {
 }
 
 abstract class SubmitOnboarding2 implements OnboardingEvent {
-  const factory SubmitOnboarding2(final int selectedIndustry) =
+  const factory SubmitOnboarding2(
+          final int selectedIndustry, final BuildContext context) =
       _$SubmitOnboarding2Impl;
 
   int get selectedIndustry;
+  BuildContext get context;
   @JsonKey(ignore: true)
   _$$SubmitOnboarding2ImplCopyWith<_$SubmitOnboarding2Impl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -403,7 +422,8 @@ class _$SubmitOnboarding3Impl implements SubmitOnboarding3 {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int selectedUser) submitOnboarding1,
-    required TResult Function(int selectedIndustry) submitOnboarding2,
+    required TResult Function(int selectedIndustry, BuildContext context)
+        submitOnboarding2,
     required TResult Function() submitOnboarding3,
   }) {
     return submitOnboarding3();
@@ -413,7 +433,8 @@ class _$SubmitOnboarding3Impl implements SubmitOnboarding3 {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int selectedUser)? submitOnboarding1,
-    TResult? Function(int selectedIndustry)? submitOnboarding2,
+    TResult? Function(int selectedIndustry, BuildContext context)?
+        submitOnboarding2,
     TResult? Function()? submitOnboarding3,
   }) {
     return submitOnboarding3?.call();
@@ -423,7 +444,8 @@ class _$SubmitOnboarding3Impl implements SubmitOnboarding3 {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int selectedUser)? submitOnboarding1,
-    TResult Function(int selectedIndustry)? submitOnboarding2,
+    TResult Function(int selectedIndustry, BuildContext context)?
+        submitOnboarding2,
     TResult Function()? submitOnboarding3,
     required TResult orElse(),
   }) {

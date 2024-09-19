@@ -68,6 +68,31 @@ class Username extends ValueObject<String> {
   const Username._(this.value);
 }
 
+class Lastname extends ValueObject<String> {
+  @override
+  final Either<ValueFailure<String>, String> value;
+
+  factory Lastname(String input) {
+    return Lastname._(
+      validateLastname(input),
+    );
+  }
+  const Lastname._(this.value);
+}
+
+class Vacancy extends ValueObject<String> {
+  @override
+  final Either<ValueFailure<String>, String> value;
+
+  factory Vacancy(String input) {
+    return Vacancy._(
+      validateNumberOfVacancy(input),
+    );
+  }
+
+  const Vacancy._(this.value);
+}
+
 class MobileNumber extends ValueObject<String> {
   @override
   final Either<ValueFailure<String>, String> value;

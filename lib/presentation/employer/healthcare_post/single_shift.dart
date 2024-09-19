@@ -136,13 +136,13 @@ class SinglePostShift extends StatelessWidget {
                       if (state.isMoreVacancy) ...[
                         paddingBetweenFields(),
                         numberOfVacancy(context, state),
-                        if (state.singleShiftErrorMessages &&
+                        /*if (state.singleShiftErrorMessages &&
                             !(PostShiftBloc.isMoreVacancyValid(
                                 isMoreVacancy: state.isMoreVacancy,
                                 vacancyValue: state.selectedVacancy)))
                           commonErrorText(
                             StringConstant.pleaseAddNumberOfVacancies,
-                          ),
+                          ),*/
                       ],
                       Padding(
                         padding: EdgeInsets.only(
@@ -610,6 +610,10 @@ class SinglePostShift extends StatelessWidget {
       hintText: StringConstant.numberOfVacancies,
       initialValue: state.selectedVacancy.getValue(),
       keyboardType: TextInputType.number,
+      errorInputBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: AppColors.transparent),
+        borderRadius: BorderRadius.circular(getSize(10)),
+      ),
       maxLength: 3,
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
@@ -619,6 +623,16 @@ class SinglePostShift extends StatelessWidget {
             .read<PostShiftBloc>()
             .add(PostShiftEvent.addVacancyChanged(value));
       },
+      validator: (p0, p1) =>
+          context.read<PostShiftBloc>().state.selectedVacancy.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseAddNumberOfVacancies,
+                  invalidVacancy: (value) =>
+                      StringConstant.numberOfVacanciesMustBeGreaterThanOne,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
     );
   }
 }

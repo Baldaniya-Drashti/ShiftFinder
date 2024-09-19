@@ -317,9 +317,15 @@ class PostShiftRecurring extends StatelessWidget {
         onTap: () {
           bool value = state.isShareWithTeams;
           value = !value;
-          context
-              .read<PostShiftBloc>()
-              .add(PostShiftEvent.shareWithTeamsCheck(value));
+
+          if (value == true && state.teamList.isEmpty) {
+            showError(message: StringConstant.toShareThisPostDesc)
+                .show(context);
+          } else {
+            context
+                .read<PostShiftBloc>()
+                .add(PostShiftEvent.shareWithTeamsCheck(value));
+          }
         },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -339,9 +345,14 @@ class PostShiftRecurring extends StatelessWidget {
                 ),
                 onChanged: (value) {
                   if (value != null) {
-                    context
-                        .read<PostShiftBloc>()
-                        .add(PostShiftEvent.shareWithTeamsCheck(value));
+                    if (value == true && state.teamList.isEmpty) {
+                      showError(message: StringConstant.toShareThisPostDesc)
+                          .show(context);
+                    } else {
+                      context
+                          .read<PostShiftBloc>()
+                          .add(PostShiftEvent.shareWithTeamsCheck(value));
+                    }
                   }
                 },
               ),

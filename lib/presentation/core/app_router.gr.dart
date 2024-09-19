@@ -84,9 +84,9 @@ import 'package:shift/presentation/core/widgets/google_map/show_google_map.dart'
 import 'package:shift/presentation/employer/healthcare_post/add_multi_date_time.dart'
     as _i7;
 import 'package:shift/presentation/employer/healthcare_post/healthcare_post.dart'
-    as _i20;
-import 'package:shift/presentation/employer/healthcare_post/healthcare_post_shit_type.dart'
     as _i21;
+import 'package:shift/presentation/employer/healthcare_post/healthcare_post_shit_type.dart'
+    as _i22;
 import 'package:shift/presentation/employer/healthcare_post/payable_detail.dart'
     as _i35;
 import 'package:shift/presentation/employer/healthcare_post/post_shift_recurring.dart'
@@ -97,7 +97,7 @@ import 'package:shift/presentation/employer/home_view/view_dates.dart' as _i57;
 import 'package:shift/presentation/employer/home_view/view_shift_details.dart'
     as _i58;
 import 'package:shift/presentation/main/main_tab.dart' as _i30;
-import 'package:shift/presentation/main/tabs/history_view.dart' as _i22;
+import 'package:shift/presentation/main/tabs/employer_shift_view.dart' as _i20;
 import 'package:shift/presentation/main/tabs/home/home_view.dart' as _i23;
 import 'package:shift/presentation/main/tabs/home/praposals/counter_prapose/awaiting_confirmation_view.dart'
     as _i12;
@@ -324,12 +324,18 @@ abstract class $AppRouter extends _i62.RootStackRouter {
         ),
       );
     },
+    EmployerShiftView.name: (routeData) {
+      return _i62.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i20.EmployerShiftView(),
+      );
+    },
     HealthCarePostForm.name: (routeData) {
       final args = routeData.argsAs<HealthCarePostFormArgs>(
           orElse: () => const HealthCarePostFormArgs());
       return _i62.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i20.HealthCarePostForm(
+        child: _i21.HealthCarePostForm(
           key: args.key,
           postId: args.postId,
           isFromSplash: args.isFromSplash,
@@ -340,18 +346,12 @@ abstract class $AppRouter extends _i62.RootStackRouter {
       final args = routeData.argsAs<HealthcarePostShiftArgs>();
       return _i62.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i21.HealthcarePostShift(
+        child: _i22.HealthcarePostShift(
           key: args.key,
           postId: args.postId,
           updateShift: args.updateShift,
           post: args.post,
         ),
-      );
-    },
-    HistoryView.name: (routeData) {
-      return _i62.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i22.HistoryView(),
       );
     },
     HomeView.name: (routeData) {
@@ -1301,7 +1301,21 @@ class EducationListScreenArgs {
 }
 
 /// generated route for
-/// [_i20.HealthCarePostForm]
+/// [_i20.EmployerShiftView]
+class EmployerShiftView extends _i62.PageRouteInfo<void> {
+  const EmployerShiftView({List<_i62.PageRouteInfo>? children})
+      : super(
+          EmployerShiftView.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'EmployerShiftView';
+
+  static const _i62.PageInfo<void> page = _i62.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i21.HealthCarePostForm]
 class HealthCarePostForm extends _i62.PageRouteInfo<HealthCarePostFormArgs> {
   HealthCarePostForm({
     _i63.Key? key,
@@ -1344,7 +1358,7 @@ class HealthCarePostFormArgs {
 }
 
 /// generated route for
-/// [_i21.HealthcarePostShift]
+/// [_i22.HealthcarePostShift]
 class HealthcarePostShift extends _i62.PageRouteInfo<HealthcarePostShiftArgs> {
   HealthcarePostShift({
     _i63.Key? key,
@@ -1389,20 +1403,6 @@ class HealthcarePostShiftArgs {
   String toString() {
     return 'HealthcarePostShiftArgs{key: $key, postId: $postId, updateShift: $updateShift, post: $post}';
   }
-}
-
-/// generated route for
-/// [_i22.HistoryView]
-class HistoryView extends _i62.PageRouteInfo<void> {
-  const HistoryView({List<_i62.PageRouteInfo>? children})
-      : super(
-          HistoryView.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'HistoryView';
-
-  static const _i62.PageInfo<void> page = _i62.PageInfo<void>(name);
 }
 
 /// generated route for

@@ -136,6 +136,8 @@ class LocationDetailForm extends StatelessWidget {
                                       context.read<LocationDetailsBloc>().add(
                                           const LocationDetailsEvent
                                               .continueBtnPressed());
+                                      unitNoNamecontroller.clear();
+                                      unitNotecontroller.clear();
                                     },
                                     buttonText: StringConstant.txtContinue,
                                   ),

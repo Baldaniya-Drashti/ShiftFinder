@@ -19,7 +19,7 @@ mixin _$MainTabState {
   int get selectedTab => throw _privateConstructorUsedError;
   int get pageIndex => throw _privateConstructorUsedError;
   String get homePage => throw _privateConstructorUsedError;
-  String get historyPage => throw _privateConstructorUsedError;
+  String get employerShiftPage => throw _privateConstructorUsedError;
   String get notificationPage => throw _privateConstructorUsedError;
   String get profilePage => throw _privateConstructorUsedError;
 
@@ -38,7 +38,7 @@ abstract class $MainTabStateCopyWith<$Res> {
       {int selectedTab,
       int pageIndex,
       String homePage,
-      String historyPage,
+      String employerShiftPage,
       String notificationPage,
       String profilePage});
 }
@@ -59,7 +59,7 @@ class _$MainTabStateCopyWithImpl<$Res, $Val extends MainTabState>
     Object? selectedTab = null,
     Object? pageIndex = null,
     Object? homePage = null,
-    Object? historyPage = null,
+    Object? employerShiftPage = null,
     Object? notificationPage = null,
     Object? profilePage = null,
   }) {
@@ -76,9 +76,9 @@ class _$MainTabStateCopyWithImpl<$Res, $Val extends MainTabState>
           ? _value.homePage
           : homePage // ignore: cast_nullable_to_non_nullable
               as String,
-      historyPage: null == historyPage
-          ? _value.historyPage
-          : historyPage // ignore: cast_nullable_to_non_nullable
+      employerShiftPage: null == employerShiftPage
+          ? _value.employerShiftPage
+          : employerShiftPage // ignore: cast_nullable_to_non_nullable
               as String,
       notificationPage: null == notificationPage
           ? _value.notificationPage
@@ -104,7 +104,7 @@ abstract class _$$MainTabStateImplCopyWith<$Res>
       {int selectedTab,
       int pageIndex,
       String homePage,
-      String historyPage,
+      String employerShiftPage,
       String notificationPage,
       String profilePage});
 }
@@ -123,7 +123,7 @@ class __$$MainTabStateImplCopyWithImpl<$Res>
     Object? selectedTab = null,
     Object? pageIndex = null,
     Object? homePage = null,
-    Object? historyPage = null,
+    Object? employerShiftPage = null,
     Object? notificationPage = null,
     Object? profilePage = null,
   }) {
@@ -140,9 +140,9 @@ class __$$MainTabStateImplCopyWithImpl<$Res>
           ? _value.homePage
           : homePage // ignore: cast_nullable_to_non_nullable
               as String,
-      historyPage: null == historyPage
-          ? _value.historyPage
-          : historyPage // ignore: cast_nullable_to_non_nullable
+      employerShiftPage: null == employerShiftPage
+          ? _value.employerShiftPage
+          : employerShiftPage // ignore: cast_nullable_to_non_nullable
               as String,
       notificationPage: null == notificationPage
           ? _value.notificationPage
@@ -163,7 +163,7 @@ class _$MainTabStateImpl implements _MainTabState {
       {required this.selectedTab,
       required this.pageIndex,
       required this.homePage,
-      required this.historyPage,
+      required this.employerShiftPage,
       required this.notificationPage,
       required this.profilePage});
 
@@ -174,7 +174,7 @@ class _$MainTabStateImpl implements _MainTabState {
   @override
   final String homePage;
   @override
-  final String historyPage;
+  final String employerShiftPage;
   @override
   final String notificationPage;
   @override
@@ -182,7 +182,7 @@ class _$MainTabStateImpl implements _MainTabState {
 
   @override
   String toString() {
-    return 'MainTabState(selectedTab: $selectedTab, pageIndex: $pageIndex, homePage: $homePage, historyPage: $historyPage, notificationPage: $notificationPage, profilePage: $profilePage)';
+    return 'MainTabState(selectedTab: $selectedTab, pageIndex: $pageIndex, homePage: $homePage, employerShiftPage: $employerShiftPage, notificationPage: $notificationPage, profilePage: $profilePage)';
   }
 
   @override
@@ -196,8 +196,8 @@ class _$MainTabStateImpl implements _MainTabState {
                 other.pageIndex == pageIndex) &&
             (identical(other.homePage, homePage) ||
                 other.homePage == homePage) &&
-            (identical(other.historyPage, historyPage) ||
-                other.historyPage == historyPage) &&
+            (identical(other.employerShiftPage, employerShiftPage) ||
+                other.employerShiftPage == employerShiftPage) &&
             (identical(other.notificationPage, notificationPage) ||
                 other.notificationPage == notificationPage) &&
             (identical(other.profilePage, profilePage) ||
@@ -206,7 +206,7 @@ class _$MainTabStateImpl implements _MainTabState {
 
   @override
   int get hashCode => Object.hash(runtimeType, selectedTab, pageIndex, homePage,
-      historyPage, notificationPage, profilePage);
+      employerShiftPage, notificationPage, profilePage);
 
   @JsonKey(ignore: true)
   @override
@@ -220,7 +220,7 @@ abstract class _MainTabState implements MainTabState {
       {required final int selectedTab,
       required final int pageIndex,
       required final String homePage,
-      required final String historyPage,
+      required final String employerShiftPage,
       required final String notificationPage,
       required final String profilePage}) = _$MainTabStateImpl;
 
@@ -231,7 +231,7 @@ abstract class _MainTabState implements MainTabState {
   @override
   String get homePage;
   @override
-  String get historyPage;
+  String get employerShiftPage;
   @override
   String get notificationPage;
   @override

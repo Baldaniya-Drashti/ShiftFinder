@@ -26,6 +26,10 @@ class ValueFailure<T> with _$ValueFailure<T> {
     required T failedValue,
   }) = InvalidRate<T>;
 
+  const factory ValueFailure.invalidVacancy({
+    required T failedValue,
+  }) = InvalidVacancy<T>;
+
   const factory ValueFailure.invalidUsername({
     required T failedValue,
   }) = InvalidUsername<T>;

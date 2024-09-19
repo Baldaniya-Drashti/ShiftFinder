@@ -32,11 +32,11 @@ class MainTabBloc extends Bloc<MainTabEvent, MainTabState> {
                     pageIndex: pageList.indexOf(state.homePage)));
                 break;
               case 1:
-                if (!pageList.contains(state.historyPage)) {
-                  pageList.add(state.historyPage);
+                if (!pageList.contains(state.employerShiftPage)) {
+                  pageList.add(state.employerShiftPage);
                 }
                 emit(state.copyWith(
-                    pageIndex: pageList.indexOf(state.historyPage)));
+                    pageIndex: pageList.indexOf(state.employerShiftPage)));
                 break;
               case 2:
                 if (!pageList.contains(state.notificationPage)) {

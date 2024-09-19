@@ -4,7 +4,7 @@ part of 'register_form_bloc.dart';
 class RegisterFormState with _$RegisterFormState {
   const factory RegisterFormState({
     required Username firstName,
-    required Username lastName,
+    required Lastname lastName,
     required FocusNode firstNameFocusNode,
     required bool isSubmitting,
     required bool isCheck,
@@ -44,7 +44,7 @@ class RegisterFormState with _$RegisterFormState {
   factory RegisterFormState.initial() => RegisterFormState(
         firstNameFocusNode: FocusNode(),
         firstName: Username(""),
-        lastName: Username(""),
+        lastName: Lastname(""),
         isSubmitting: false,
         showErrorMessages: false,
         isCheck: false,

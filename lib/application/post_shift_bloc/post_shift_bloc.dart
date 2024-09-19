@@ -30,7 +30,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
   static List<SkillDTO> shiftTypeList = [
     SkillDTO(id: 1, name: "Single"),
     SkillDTO(id: 2, name: "Multi"),
-    SkillDTO(id: 3, name: "Long-Term"),
+    // SkillDTO(id: 3, name: "Long-Term"),
   ];
   static bool isAllownceValid(
       {required InputEmptyOrNot selectedValue,
@@ -55,7 +55,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
 
   static bool isMoreVacancyValid({
     required bool isMoreVacancy,
-    required InputEmptyOrNot vacancyValue,
+    required Vacancy vacancyValue,
   }) {
     if (isMoreVacancy && vacancyValue.isValid()) {
       return true;
@@ -117,7 +117,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           await getaAccomdationHoursListApi(emit);
           if (e.updateShift != null) {
             setShiftDataToUpdate(emit, e.updateShift!);
-            await Future.delayed(Duration(seconds: 2));
+            // await Future.delayed(Duration(seconds: 2));
           }
           emit(
             state.copyWith(
@@ -289,7 +289,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
         addVacancyChanged: (e) {
           emit(
             state.copyWith(
-              selectedVacancy: InputEmptyOrNot(e.vacancy),
+              selectedVacancy: Vacancy(e.vacancy),
               singleShiftFailureOrSuccessOption: none(),
             ),
           );
@@ -489,7 +489,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           await getTeamsListApi(emit);
           if (e.updateShift != null) {
             setShiftDataToUpdate(emit, e.updateShift!);
-            await Future.delayed(Duration(seconds: 2));
+            // await Future.delayed(Duration(seconds: 2));
           }
 
           emit(
@@ -597,10 +597,20 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
 
         /// Multi Shift
         initMultiDifferentDateEvent: (e) async {
+          final updatedList = e.list.map((item) {
+            return item.copyWith(
+              startMinute: item.startMinute?.isEmpty ?? true
+                  ? "00 Min"
+                  : item.startMinute,
+              endMinute:
+                  item.endMinute?.isEmpty ?? true ? "00 Min" : item.endMinute,
+            );
+          }).toList();
+
           emit(
             state.copyWith(
               isLoading: true,
-              multiDateTimeList: e.list,
+              multiDateTimeList: updatedList,
               updateShift: e.updateShift ?? HealthcarePostDTO(),
               singleShiftFailureOrSuccessOption: none(),
             ),
@@ -608,7 +618,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           await getUnpaidBreakListApi(emit);
           if (e.updateShift != null) {
             setShiftDataToUpdate(emit, e.updateShift!);
-            await Future.delayed(Duration(seconds: 2));
+            // await Future.delayed(Duration(seconds: 2));
           }
           // SkillDTO? selectedSkillDTO = shiftTypeList.firstWhere(
           //   (skill) => skill.name == e.shiftType,
@@ -630,7 +640,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               singleShiftFailureOrSuccessOption: none(),
             ),
           );
-          await Future.delayed(Duration(seconds: 2));
+          // await Future.delayed(Duration(seconds: 2));
           emit(
             state.copyWith(
               isLoading: false,
@@ -955,7 +965,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               : ""),
           singleShiftNote: r.shift_note ?? "",
           isMoreVacancy: (r.vacancie_type == 1) ? true : false,
-          selectedVacancy: InputEmptyOrNot("${r.number_of_vacancie ?? 0}"),
+          selectedVacancy: Vacancy("${r.number_of_vacancie ?? 0}"),
 
           /// Set for Same time for all date data
           isIndividualPost: (r.individual_shift == 1) ? true : false,
@@ -1323,12 +1333,16 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
     final minutes = int.parse(parts[1]);
     final seconds = double.parse(parts[2])
         .round(); // Handles the case of fractional seconds
-    return Duration(hours: hours, minutes: minutes, seconds: seconds);
+    final duration1 =
+        Duration(hours: hours, minutes: minutes, seconds: seconds);
+    return duration1;
   }
 
   Duration sumTotalPayableHours(List<DateTimeDTO> multiDateTimeList) {
-    return multiDateTimeList.fold(Duration.zero,
-        (total, dto) => total + parseDuration(dto.totalPaybleHours ?? ""));
+    final totalDuration = multiDateTimeList.fold(Duration.zero, (total, dto) {
+      return total + parseDuration(dto.totalPaybleHours ?? "");
+    });
+    return totalDuration;
   }
 
   bool isTimeFilled(DateTimeDTO dto) {

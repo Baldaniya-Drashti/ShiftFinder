@@ -6548,7 +6548,7 @@ abstract class VerifyOtp implements RegisterFormEvent {
 /// @nodoc
 mixin _$RegisterFormState {
   Username get firstName => throw _privateConstructorUsedError;
-  Username get lastName => throw _privateConstructorUsedError;
+  Lastname get lastName => throw _privateConstructorUsedError;
   FocusNode get firstNameFocusNode => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
   bool get isCheck => throw _privateConstructorUsedError;
@@ -6597,7 +6597,7 @@ abstract class $RegisterFormStateCopyWith<$Res> {
   @useResult
   $Res call(
       {Username firstName,
-      Username lastName,
+      Lastname lastName,
       FocusNode firstNameFocusNode,
       bool isSubmitting,
       bool isCheck,
@@ -6678,7 +6678,7 @@ class _$RegisterFormStateCopyWithImpl<$Res, $Val extends RegisterFormState>
       lastName: null == lastName
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
-              as Username,
+              as Lastname,
       firstNameFocusNode: null == firstNameFocusNode
           ? _value.firstNameFocusNode
           : firstNameFocusNode // ignore: cast_nullable_to_non_nullable
@@ -6801,7 +6801,7 @@ abstract class _$$RegisterFormStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {Username firstName,
-      Username lastName,
+      Lastname lastName,
       FocusNode firstNameFocusNode,
       bool isSubmitting,
       bool isCheck,
@@ -6880,7 +6880,7 @@ class __$$RegisterFormStateImplCopyWithImpl<$Res>
       lastName: null == lastName
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
-              as Username,
+              as Lastname,
       firstNameFocusNode: null == firstNameFocusNode
           ? _value.firstNameFocusNode
           : firstNameFocusNode // ignore: cast_nullable_to_non_nullable
@@ -7031,7 +7031,7 @@ class _$RegisterFormStateImpl implements _RegisterFormState {
   @override
   final Username firstName;
   @override
-  final Username lastName;
+  final Lastname lastName;
   @override
   final FocusNode firstNameFocusNode;
   @override
@@ -7215,7 +7215,7 @@ class _$RegisterFormStateImpl implements _RegisterFormState {
 abstract class _RegisterFormState implements RegisterFormState {
   const factory _RegisterFormState(
       {required final Username firstName,
-      required final Username lastName,
+      required final Lastname lastName,
       required final FocusNode firstNameFocusNode,
       required final bool isSubmitting,
       required final bool isCheck,
@@ -7250,7 +7250,7 @@ abstract class _RegisterFormState implements RegisterFormState {
   @override
   Username get firstName;
   @override
-  Username get lastName;
+  Lastname get lastName;
   @override
   FocusNode get firstNameFocusNode;
   @override

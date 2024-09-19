@@ -69,7 +69,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
         lastNameChanged: (e) {
           emit(
             state.copyWith(
-              lastName: Username(e.lastName),
+              lastName: Lastname(e.lastName),
               authFailureOrSuccessOption: none(),
             ),
           );

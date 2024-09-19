@@ -580,7 +580,7 @@ class HealthCarePostForm extends StatelessWidget {
               },
               builder: (context, state) {
                 return (state.isLoading)
-                    ? CenterLoadingIndicator()
+                    ? CenterLoadingIndicator(isOnlyLoader: true)
                     : Padding(
                         padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                         child: Form(
@@ -640,6 +640,7 @@ class HealthCarePostForm extends StatelessWidget {
   Widget roleDropDown(BuildContext context, HealthcarePostState state) {
     return CustomDropdwonWithTextField(
       labelText: StringConstant.role,
+      hintText: StringConstant.selectRole,
       isLabelPadding: true,
       showTextfield: false,
       value: (state.roleType.getValue()!.isNotEmpty)
@@ -670,7 +671,6 @@ class HealthCarePostForm extends StatelessWidget {
               );
         }
       },
-      hintText: StringConstant.selectRoles,
     );
   }
 

@@ -114,13 +114,13 @@ class SameTimeForMultiDate extends StatelessWidget {
               if (state.isMoreVacancy) ...[
                 paddingBetweenFields(),
                 numberOfVacancy(context, state),
-                if (state.singleShiftErrorMessages &&
+                /*if (state.singleShiftErrorMessages &&
                     !(PostShiftBloc.isMoreVacancyValid(
                         isMoreVacancy: state.isMoreVacancy,
                         vacancyValue: state.selectedVacancy)))
                   commonErrorText(
                     StringConstant.pleaseAddNumberOfVacancies,
-                  ),
+                  ),*/
               ],
               Padding(
                 padding: EdgeInsets.only(top: getSize(50), bottom: getSize(30)),
@@ -565,6 +565,20 @@ class SameTimeForMultiDate extends StatelessWidget {
             .read<PostShiftBloc>()
             .add(PostShiftEvent.addVacancyChanged(value));
       },
+      errorInputBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: AppColors.transparent),
+        borderRadius: BorderRadius.circular(getSize(10)),
+      ),
+      validator: (p0, p1) =>
+          context.read<PostShiftBloc>().state.selectedVacancy.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseAddNumberOfVacancies,
+                  invalidVacancy: (value) =>
+                      StringConstant.numberOfVacanciesMustBeGreaterThanOne,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
     );
   }
 

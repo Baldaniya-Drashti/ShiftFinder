@@ -286,6 +286,7 @@ class AddMultiDateTime extends StatelessWidget {
   }
 
   Widget startTime(BuildContext context, PostShiftState state, int index) {
+    print("TIMEMEMEM----->${state.multiDateTimeList[index]}");
     final hour = state.multiDateTimeList[index].startHour;
     final minute = state.multiDateTimeList[index].startMinute;
     return CustomTimePickerDropdown(
