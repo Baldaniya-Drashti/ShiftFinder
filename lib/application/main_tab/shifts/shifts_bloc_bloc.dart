@@ -21,6 +21,7 @@ part 'shifts_bloc_bloc.freezed.dart';
 @injectable
 class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
   static TextEditingController locationCtrl = TextEditingController();
+  
   final IAccountRepository iAccountRepository;
   List<dynamic> placeList = [];
   ShiftsBloc(this.iAccountRepository) : super(ShiftsBlocState.initial()) {

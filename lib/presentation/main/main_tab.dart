@@ -24,7 +24,6 @@ import 'package:shift/presentation/main/tabs/notification_view.dart';
 import 'package:shift/presentation/main/tabs/profile/profile_view.dart';
 import 'package:shift/presentation/main/widgets/custom_bottom_navigation.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
-import 'package:shift/presentation/main/widgets/shifts_appbar.dart';
 
 @RoutePage(name: 'MainTabView')
 class MainTabView extends StatelessWidget {
@@ -198,7 +197,9 @@ getAppbar(MainTabState state, BuildContext context) {
         ],
       );
     case 1:
-      return ShiftsAppbar();
+      return HomeAppbar(
+        titleText: 'Shifts',
+      );
     case 2:
       return HomeAppbar(
         titleText: StringConstant.notification,

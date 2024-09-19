@@ -1,32 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 
-class ShiftsAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const ShiftsAppbar({super.key});
+class TabBarViewWidget extends StatelessWidget {
+  final TabController tabController;
+  const TabBarViewWidget({super.key, required this.tabController});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ShiftsBloc, ShiftsBlocState>(
       builder: (context, state) {
-        return AppBar(
-          systemOverlayStyle: SystemUiOverlayStyle.dark,
-          automaticallyImplyLeading: true,
-          scrolledUnderElevation: 0,
-          backgroundColor: AppColors.white,
-          centerTitle: true,
-          title: BaseText(
-            text: 'Shifts',
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            fontFamily: "Aclonica",
+        return DecoratedBox(
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: Color(0xFFC5C5C5),
+                width: 2,
+              ),
+            ),
           ),
-          elevation: 0,
-          bottom: TabBar(
+          child: TabBar(
             onTap: (value) {
               context.read<ShiftsBloc>().add(ShiftsBlocEvent.tabChange(value));
             },
@@ -44,6 +40,7 @@ class ShiftsAppbar extends StatelessWidget implements PreferredSizeWidget {
               fontFamily: 'Roboto Flex',
             ),
             labelColor: AppColors.black,
+            controller: tabController,
             unselectedLabelColor: AppColors.black.withOpacity(0.60),
             splashFactory: NoSplash.splashFactory,
             dividerColor: Color(0xFFC5C5C5),
@@ -80,7 +77,6 @@ class ShiftsAppbar extends StatelessWidget implements PreferredSizeWidget {
             ],
           ),
         );
-    
       },
     );
   }
@@ -98,7 +94,4 @@ class ShiftsAppbar extends StatelessWidget implements PreferredSizeWidget {
           : Color(0xFFC5C5C5),
     );
   }
-
-  @override
-  Size get preferredSize => Size.fromHeight(getSize(100));
 }
