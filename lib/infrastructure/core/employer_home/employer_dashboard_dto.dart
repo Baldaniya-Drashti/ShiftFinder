@@ -11,8 +11,10 @@ class EmployerDashboardDTO with _$EmployerDashboardDTO {
     String? listing_id,
     List<RolesList>? roles_list,
     String? roles_list_name,
+    String? company_name,
     String? last_ago,
     int? industry,
+    String? distance,
     Location? location,
     List<ShiftDate>? shift_date,
     int? start_date,
@@ -24,6 +26,13 @@ class EmployerDashboardDTO with _$EmployerDashboardDTO {
     List<dynamic>? total_application_profiles,
     int? total_proposal_counts,
     List<dynamic>? total_proposal_profiles,
+    String? specialties_list,
+    int? rate_hour,
+    String? total_payable_hour,
+    int? total_vacancy,
+    int? accommodation_allowance,
+    int? commute_allowance,
+    int? total_amount,
   }) = _EmployerDashboardDTO;
 
   factory EmployerDashboardDTO.fromJson(Map<String, dynamic> json) =>

@@ -43,6 +43,7 @@ class CustomTextField extends StatelessWidget {
     this.hintAsValue = false,
     this.prefixIconConstraints,
     this.labelTextWidth,
+    this.hintTextColor,
   }) : super(key: key);
 
   final List<TextInputFormatter>? inputFormatters;
@@ -78,6 +79,7 @@ class CustomTextField extends StatelessWidget {
   final bool hintAsValue;
   final BoxConstraints? prefixIconConstraints;
   final double? labelTextWidth;
+  final Color? hintTextColor;
 
   @override
   Widget build(BuildContext context) {
@@ -247,7 +249,7 @@ class CustomTextField extends StatelessWidget {
                   hintStyle: TextStyle(
                     color: hintAsValue
                         ? AppColors.black
-                        : AppColors.black.withOpacity(0.5),
+                        : hintTextColor ?? AppColors.black.withOpacity(0.5),
                     fontSize: getFontSize(hintAsValue ? 13 : 14),
                     fontWeight: FontWeight.w500,
                   ),

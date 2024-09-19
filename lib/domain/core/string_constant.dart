@@ -366,6 +366,43 @@ class StringConstant {
   static const String noTeamsFound = "No Teams Found";
   static const String apply = "Apply";
   static const String sendProposal = "Send Proposal";
+  static const String areYouSureYouWantToApplyForTheShift =
+      "Are you sure you want to apply for the shift?";
+  static const String yourProposalTerms = "Your Proposal Terms";
+  static const String proposeAvailability = "Propose Availability";
+  static const String enterAvailability = "Enter Availability";
+  static const String done = "Done";
+  static const String next = "Next";
+  static const String editTime = "Edit Time";
+  static const String markUnavailability = "Mark Unavailability";
+  static const String proposedTime = "Proposed Time";
+  static const String notAvailable = "Not Available";
+  static const String deleteTeam = "Delete Team";
+  static const String shifts = "Shifts";
+  static const String currentShifts = "Current Shifts";
+  static const String upcomingShifts = "Upcoming Shifts";
+  static const String appliedShifts = "Applied Shifts";
+  static const String estimatedPayables = "Estimated Payables";
+  static const String clockIn = "Clock in";
+  static const String clockOut = "Clock out";
+  static const String submit = "Submit";
+  static const String submitted = "Submitted";
+  static const String withdrawShift = "Withdraw Shift";
+  static const String withdraw = "Withdraw";
+  static const String reason = "Reason";
+  static const String all = "All";
+  static const String multiShifts = "Multi Shifts";
+  static const String singleShifts = "Single Shifts";
+  static const String withdrawShiftDesc =
+      "Withdrawal from the shift is not allowed within 24 hours of the shift start time. You can no longer withdraw from this shift.";
+  static const String deleteTeamDesc =
+      "Deleting this team will prevent you from sharing the shift posting summary with its members. Are you sure you want to proceed?";
+  static const String proposalDesc =
+      "Select your available times and mark any dates you are unavailable to work.";
+  static const String availabilityDesc =
+      "Propose your available times or mark dates you are unavailable for the posted shifts.";
+  static const String proposalTermsDesc =
+      "Send your proposal with your required adjustments. Adjusting the below terms may reduce your chance of acceptance.";
 
   ///
 

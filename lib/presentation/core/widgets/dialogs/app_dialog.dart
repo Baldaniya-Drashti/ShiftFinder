@@ -56,6 +56,7 @@ class AppDialog {
     EdgeInsets? insetPadding,
     String? cancelText,
     String? deleteBtnText,
+    Widget? otherContent,
     bool barrierDismissible = false,
     required VoidCallback? onCancelClick,
     required VoidCallback? onDeleteClick,
@@ -72,12 +73,18 @@ class AppDialog {
               fontFamily: "Aclonica",
               textAlign: TextAlign.center,
             ),
-            content: BaseText(
-              text: infoMessage,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              textAlign: TextAlign.center,
-              textColor: AppColors.black.withOpacity(0.7),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                BaseText(
+                  text: infoMessage,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  textAlign: TextAlign.center,
+                  textColor: AppColors.black.withOpacity(0.7),
+                ),
+                otherContent ?? Container()
+              ],
             ),
             elevation: 80,
             backgroundColor: AppColors.white,
@@ -202,5 +209,74 @@ class AppDialog {
     //   type: QuickAlertType.error,
     //   text: successMessage,
     // );
+  }
+
+  static Future<void> showWithDrawIInfo(
+    BuildContext context, {
+    EdgeInsets? insetPadding,
+    String? cancelText,
+    String? deleteBtnText,
+    bool barrierDismissible = false,
+    required VoidCallback? onCancelClick,
+    required VoidCallback? onDeleteClick,
+  }) async {
+    showDialog(
+        context: context,
+        barrierDismissible: barrierDismissible,
+        builder: (context) {
+          return AlertDialog(
+            title: BaseText(
+              text: StringConstant.withdrawShift,
+              fontSize: 22,
+              fontWeight: FontWeight.w400,
+              fontFamily: "Aclonica",
+              textAlign: TextAlign.center,
+            ),
+            content: BaseText(
+              text: StringConstant.withdrawShiftDesc,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              textAlign: TextAlign.center,
+              textColor: AppColors.black.withOpacity(0.7),
+            ),
+            elevation: 80,
+            backgroundColor: AppColors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            insetPadding:
+                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CommonButton(
+                    onPressed: () {
+                      if (onCancelClick != null) {
+                        onCancelClick.call();
+                      }
+                      AppFocus.unfocus(context);
+                    },
+                    width: 150,
+                    buttonText: cancelText ?? StringConstant.cancle,
+                    backgroundColor: AppColors.white,
+                    buttonTextColor: AppColors.primaryColor,
+                    borderColor: AppColors.primaryColor,
+                  ),
+                  CommonButton(
+                    onPressed: () {
+                      if (onDeleteClick != null) {
+                        onDeleteClick.call();
+                      }
+                      AppFocus.unfocus(context);
+                    },
+                    width: 150,
+                    buttonText: deleteBtnText ?? StringConstant.delete,
+                  )
+                ],
+              ),
+            ],
+          );
+        });
   }
 }

@@ -453,8 +453,8 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
             ),
           );
           print("Covid document delete id ---> ${state.covidDocId}");
-          failureOrSuccess = await _repository.deleteDocumentApi(
-              credId: state.covidDocId);
+          failureOrSuccess =
+              await _repository.deleteDocumentApi(credId: state.covidDocId);
 
           failureOrSuccess.fold(
             (l) => emit(

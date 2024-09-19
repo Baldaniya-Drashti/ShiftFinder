@@ -4,8 +4,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shift/application/contractor_main_tab_bloc/contractor_home_bloc/contractor_home_bloc.dart';
-import 'package:shift/application/contractor_main_tab_bloc/contractor_main_bloc.dart';
+import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_home_bloc/contractor_home_bloc.dart';
+import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_main_bloc.dart';
 import 'package:shift/application/profile/account/account_cubit.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
@@ -15,10 +15,10 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contracator_home.dart';
+import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/contracator_home.dart';
+import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/contractor_shifts.dart';
 import 'package:shift/presentation/core/app_router.gr.dart' as autoroute;
 import 'package:shift/presentation/core/style/app_colors.dart';
-import 'package:shift/presentation/main/tabs/shifts/shifts_view.dart';
 import 'package:shift/presentation/main/tabs/notification_view.dart';
 import 'package:shift/presentation/main/tabs/profile/profile_view.dart';
 import 'package:shift/presentation/main/widgets/custom_bottom_navigation.dart';
@@ -136,16 +136,44 @@ getAppbar(ContractorMainTabState state, BuildContext context) {
           ],
         ),
         actions: [
-          SvgPicture.asset(
-            SvgImageConstant.filter,
-            height: getSize(38),
-            width: getSize(38),
+          // SvgPicture.asset(
+          //   SvgImageConstant.filter,
+          //   height: getSize(38),
+          //   width: getSize(38),
+          // ),
+          PopupMenuButton<String>(
+            icon: SvgPicture.asset(
+              SvgImageConstant.filter, // Replace with your SVG icon path
+              height: getSize(38),
+              width: getSize(38),
+            ),
+            color: AppColors.white,
+            padding: EdgeInsets.zero,
+            onSelected: (String result) {
+              context
+                  .read<ContractorHomeBloc>()
+                  .add(ContractorHomeEvent.filterShiftEvent(result));
+            },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              PopupMenuItem<String>(
+                value: StringConstant.all,
+                child: Text(StringConstant.all),
+              ),
+              PopupMenuItem<String>(
+                value: StringConstant.singleShifts,
+                child: Text(StringConstant.singleShifts),
+              ),
+              PopupMenuItem<String>(
+                value: StringConstant.multiShifts,
+                child: Text(StringConstant.multiShifts),
+              ),
+            ],
           ),
         ],
       );
     case 1:
       return ContractorHomeAppBar(
-        titleText: StringConstant.history,
+        titleText: StringConstant.shifts,
       );
     case 2:
       return ContractorHomeAppBar(
@@ -166,8 +194,8 @@ Route? onGenerateRoute(RouteSettings settings, String tabItem) {
     builder: (context) {
       if (tabItem == autoroute.ContractorHomeView.name) {
         return ContractorHomeView();
-      } else if (tabItem == autoroute.HistoryView.name) {
-        return HistoryView();
+      } else if (tabItem == autoroute.ContractorShiftView.name) {
+        return ContractorShiftView();
       } else if (tabItem == autoroute.NotificationView.name) {
         return NotificationView();
       } else if (tabItem == autoroute.ProfileView.name) {

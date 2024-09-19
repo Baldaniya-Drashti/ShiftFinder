@@ -57,6 +57,12 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: ShowGoogleMap.page),
         AutoRoute(page: ContractorMainTabView.page),
         AutoRoute(page: ContractorHomeView.page),
+        AutoRoute(page: SendProposal.page),
+        AutoRoute(page: ProposeAvailability.page),
+        AutoRoute(page: ContractorShiftView.page),
+        AutoRoute(page: ViewUpcomingShiftDetails.page),
+        AutoRoute(page: ViewContractorShift.page),
+        AutoRoute(page: ViewContractorShiftDates.page),
         AutoRoute(
           page: MainTabView.page,
           children: [
