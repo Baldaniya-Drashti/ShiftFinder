@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/main_tab/home/home_bloc.dart';
 import 'package:shift/application/main_tab/main_tab_bloc.dart';
+import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart';
 import 'package:shift/application/profile/account/account_cubit.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
@@ -17,12 +18,13 @@ import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart' as autoroute;
 import 'package:shift/presentation/core/style/app_colors.dart';
-import 'package:shift/presentation/main/tabs/history_view.dart';
+import 'package:shift/presentation/main/tabs/shifts/shifts_view.dart';
 import 'package:shift/presentation/main/tabs/home/home_view.dart';
 import 'package:shift/presentation/main/tabs/notification_view.dart';
 import 'package:shift/presentation/main/tabs/profile/profile_view.dart';
 import 'package:shift/presentation/main/widgets/custom_bottom_navigation.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
+import 'package:shift/presentation/main/widgets/shifts_appbar.dart';
 
 @RoutePage(name: 'MainTabView')
 class MainTabView extends StatelessWidget {
@@ -42,10 +44,10 @@ class MainTabView extends StatelessWidget {
         BlocProvider<AccountCubit>(
           create: (context) => getIt<AccountCubit>()..getAccount(),
         ),
-        // BlocProvider(
-        //   create: (context) =>
-        //       getIt<HomeBloc>()..add(HomeEvent.getProductList(true)),
-        // ),
+        BlocProvider(
+          create: (context) =>
+              getIt<ShiftsBloc>()..add(ShiftsBlocEvent.getLocationListAPI()),
+        ),
         // BlocProvider(
         //   create: (context) => getIt<NotificationsBloc>()
         //     ..add(NotificationsEvent.getNotificationList(true))
@@ -57,7 +59,7 @@ class MainTabView extends StatelessWidget {
       child: BlocBuilder<MainTabBloc, MainTabState>(
         builder: (context, state) {
           return DefaultTabController(
-            length: 2,
+            length: 3,
             child: Scaffold(
               backgroundColor: AppColors.scaffoldColor,
               appBar: getAppbar(state, context),
@@ -196,9 +198,7 @@ getAppbar(MainTabState state, BuildContext context) {
         ],
       );
     case 1:
-      return HomeAppbar(
-        titleText: StringConstant.history,
-      );
+      return ShiftsAppbar();
     case 2:
       return HomeAppbar(
         titleText: StringConstant.notification,

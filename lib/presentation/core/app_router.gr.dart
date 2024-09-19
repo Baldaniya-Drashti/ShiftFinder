@@ -8,24 +8,24 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i56;
-import 'package:flutter/material.dart' as _i57;
+import 'package:auto_route/auto_route.dart' as _i57;
+import 'package:flutter/material.dart' as _i58;
 import 'package:shift/application/auth/contractor_auth/location_example.dart'
-    as _i27;
+    as _i28;
 import 'package:shift/infrastructure/core/education_dto/education_dto.dart'
-    as _i58;
-import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart'
-    as _i63;
-import 'package:shift/infrastructure/main/employer_team/get_teams_dto.dart'
-    as _i62;
-import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart'
-    as _i60;
-import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart'
     as _i59;
-import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart'
-    as _i61;
-import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart'
+import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart'
     as _i64;
+import 'package:shift/infrastructure/main/employer_team/get_teams_dto.dart'
+    as _i63;
+import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart'
+    as _i61;
+import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart'
+    as _i60;
+import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart'
+    as _i62;
+import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart'
+    as _i65;
 import 'package:shift/presentation/auth/contractor_auth/add_bank_details.dart'
     as _i1;
 import 'package:shift/presentation/auth/contractor_auth/add_contractor_skills.dart'
@@ -41,95 +41,97 @@ import 'package:shift/presentation/auth/contractor_auth/education_details/add_ed
 import 'package:shift/presentation/auth/contractor_auth/education_details/education_detail_list.dart'
     as _i18;
 import 'package:shift/presentation/auth/contractor_auth/intro_quiz.dart'
-    as _i23;
-import 'package:shift/presentation/auth/contractor_auth/intro_video.dart'
     as _i24;
-import 'package:shift/presentation/auth/contractor_auth/legal_screening_questions.dart'
+import 'package:shift/presentation/auth/contractor_auth/intro_video.dart'
     as _i25;
+import 'package:shift/presentation/auth/contractor_auth/legal_screening_questions.dart'
+    as _i26;
 import 'package:shift/presentation/auth/contractor_auth/quiz_result.dart'
-    as _i40;
+    as _i41;
 import 'package:shift/presentation/auth/contractor_auth/reference_details/add_reference_detail.dart'
     as _i10;
 import 'package:shift/presentation/auth/contractor_auth/reference_details/reference_detail_list.dart'
-    as _i41;
+    as _i42;
 import 'package:shift/presentation/auth/contractor_auth/terms_conditions.dart'
-    as _i49;
+    as _i50;
 import 'package:shift/presentation/auth/employer_auth/add_card_detail.dart'
     as _i2;
 import 'package:shift/presentation/auth/employer_auth/location_detail_form.dart'
-    as _i26;
-import 'package:shift/presentation/auth/login/login_screen.dart' as _i28;
-import 'package:shift/presentation/auth/register/register_profile.dart' as _i42;
-import 'package:shift/presentation/auth/register/register_screen.dart' as _i43;
+    as _i27;
+import 'package:shift/presentation/auth/login/login_screen.dart' as _i29;
+import 'package:shift/presentation/auth/register/register_profile.dart' as _i43;
+import 'package:shift/presentation/auth/register/register_screen.dart' as _i44;
 import 'package:shift/presentation/contractor/contractor_main/contractor_main_tab.dart'
     as _i15;
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contracator_home.dart'
     as _i14;
 import 'package:shift/presentation/core/widgets/google_map/show_google_map.dart'
-    as _i45;
+    as _i46;
 import 'package:shift/presentation/employer/healthcare_post/add_multi_date_time.dart'
     as _i7;
 import 'package:shift/presentation/employer/healthcare_post/healthcare_post.dart'
-    as _i19;
-import 'package:shift/presentation/employer/healthcare_post/healthcare_post_shit_type.dart'
     as _i20;
+import 'package:shift/presentation/employer/healthcare_post/healthcare_post_shit_type.dart'
+    as _i21;
 import 'package:shift/presentation/employer/healthcare_post/payable_detail.dart'
-    as _i34;
+    as _i35;
 import 'package:shift/presentation/employer/healthcare_post/post_shift_recurring.dart'
-    as _i36;
+    as _i37;
 import 'package:shift/presentation/employer/healthcare_post/review_post_detail.dart'
-    as _i44;
-import 'package:shift/presentation/employer/home_view/view_dates.dart' as _i52;
+    as _i45;
+import 'package:shift/presentation/employer/home_view/view_dates.dart' as _i53;
 import 'package:shift/presentation/employer/home_view/view_shift_details.dart'
-    as _i53;
-import 'package:shift/presentation/main/main_tab.dart' as _i29;
-import 'package:shift/presentation/main/tabs/history_view.dart' as _i21;
-import 'package:shift/presentation/main/tabs/home/home_view.dart' as _i22;
+    as _i54;
+import 'package:shift/presentation/main/main_tab.dart' as _i30;
+import 'package:shift/presentation/main/tabs/home/home_view.dart' as _i23;
 import 'package:shift/presentation/main/tabs/home/praposals/counter_prapose/awaiting_confirmation_view.dart'
     as _i12;
 import 'package:shift/presentation/main/tabs/home/praposals/counter_prapose/counter_purpose_view.dart'
     as _i16;
 import 'package:shift/presentation/main/tabs/home/praposals/total_praposal_view.dart'
-    as _i50;
-import 'package:shift/presentation/main/tabs/home/praposals/widgets/view_person_praposal_view.dart'
-    as _i54;
-import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/view_applicant_profile.dart'
     as _i51;
+import 'package:shift/presentation/main/tabs/home/praposals/widgets/view_person_praposal_view.dart'
+    as _i55;
+import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/view_applicant_profile.dart'
+    as _i52;
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/widgets/common_document_view.dart'
     as _i13;
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/widgets/personal_reference_detail.dart'
-    as _i35;
+    as _i36;
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/widgets/professional_reference_detail.dart'
-    as _i38;
+    as _i39;
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_single_applicants.dart'
-    as _i55;
+    as _i56;
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/add_card_view.dart'
     as _i3;
-import 'package:shift/presentation/main/tabs/notification_view.dart' as _i30;
-import 'package:shift/presentation/main/tabs/profile/profile_view.dart' as _i39;
+import 'package:shift/presentation/main/tabs/notification_view.dart' as _i31;
+import 'package:shift/presentation/main/tabs/profile/profile_view.dart' as _i40;
 import 'package:shift/presentation/main/tabs/profile/teams/add_new_member/add_new_member_view.dart'
     as _i8;
 import 'package:shift/presentation/main/tabs/profile/teams/add_new_team/add_new_team_view.dart'
     as _i9;
 import 'package:shift/presentation/main/tabs/profile/teams/team_detail/team_detail_view.dart'
-    as _i47;
-import 'package:shift/presentation/main/tabs/profile/teams/teams_view.dart'
     as _i48;
-import 'package:shift/presentation/onboarding/onboarding1.dart' as _i31;
-import 'package:shift/presentation/onboarding/onboarding2.dart' as _i32;
-import 'package:shift/presentation/onboarding/onboarding3.dart' as _i33;
-import 'package:shift/presentation/privacy_policy/privacy_policy.dart' as _i37;
-import 'package:shift/presentation/splash/splash_page.dart' as _i46;
+import 'package:shift/presentation/main/tabs/profile/teams/teams_view.dart'
+    as _i49;
+import 'package:shift/presentation/main/tabs/shifts/shifts_view.dart' as _i22;
+import 'package:shift/presentation/main/tabs/shifts/widgets/filled_shifts_view.dart'
+    as _i19;
+import 'package:shift/presentation/onboarding/onboarding1.dart' as _i32;
+import 'package:shift/presentation/onboarding/onboarding2.dart' as _i33;
+import 'package:shift/presentation/onboarding/onboarding3.dart' as _i34;
+import 'package:shift/presentation/privacy_policy/privacy_policy.dart' as _i38;
+import 'package:shift/presentation/splash/splash_page.dart' as _i47;
 
-abstract class $AppRouter extends _i56.RootStackRouter {
+abstract class $AppRouter extends _i57.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i56.PageFactory> pagesMap = {
+  final Map<String, _i57.PageFactory> pagesMap = {
     AddBankDetailsScreen.name: (routeData) {
       final args = routeData.argsAs<AddBankDetailsScreenArgs>(
           orElse: () => const AddBankDetailsScreenArgs());
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i1.AddBankDetailsScreen(
           key: args.key,
@@ -140,7 +142,7 @@ abstract class $AppRouter extends _i56.RootStackRouter {
     AddCardDetailPage.name: (routeData) {
       final args = routeData.argsAs<AddCardDetailPageArgs>(
           orElse: () => const AddCardDetailPageArgs());
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i2.AddCardDetailPage(
           key: args.key,
@@ -149,7 +151,7 @@ abstract class $AppRouter extends _i56.RootStackRouter {
       );
     },
     AddCardView.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i3.AddCardView(),
       );
@@ -157,7 +159,7 @@ abstract class $AppRouter extends _i56.RootStackRouter {
     AddContractorSkillsForm.name: (routeData) {
       final args = routeData.argsAs<AddContractorSkillsFormArgs>(
           orElse: () => const AddContractorSkillsFormArgs());
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i4.AddContractorSkillsForm(
           key: args.key,
@@ -168,7 +170,7 @@ abstract class $AppRouter extends _i56.RootStackRouter {
     AddEducationDetailScreen.name: (routeData) {
       final args = routeData.argsAs<AddEducationDetailScreenArgs>(
           orElse: () => const AddEducationDetailScreenArgs());
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i5.AddEducationDetail(
           key: args.key,
@@ -180,7 +182,7 @@ abstract class $AppRouter extends _i56.RootStackRouter {
     AddExperienceDetailScreen.name: (routeData) {
       final args = routeData.argsAs<AddExperienceDetailScreenArgs>(
           orElse: () => const AddExperienceDetailScreenArgs());
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i6.AddExperienceDetail(
           key: args.key,
@@ -190,7 +192,7 @@ abstract class $AppRouter extends _i56.RootStackRouter {
     },
     AddMultiDateTime.name: (routeData) {
       final args = routeData.argsAs<AddMultiDateTimeArgs>();
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i7.AddMultiDateTime(
           key: args.key,
@@ -202,7 +204,7 @@ abstract class $AppRouter extends _i56.RootStackRouter {
     },
     AddNewMemberView.name: (routeData) {
       final args = routeData.argsAs<AddNewMemberViewArgs>();
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i8.AddNewMemberView(
           key: args.key,
@@ -215,7 +217,7 @@ abstract class $AppRouter extends _i56.RootStackRouter {
     AddNewTeamView.name: (routeData) {
       final args = routeData.argsAs<AddNewTeamViewArgs>(
           orElse: () => const AddNewTeamViewArgs());
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i9.AddNewTeamView(
           key: args.key,
@@ -227,7 +229,7 @@ abstract class $AppRouter extends _i56.RootStackRouter {
     AddReferenceDetailScreen.name: (routeData) {
       final args = routeData.argsAs<AddReferenceDetailScreenArgs>(
           orElse: () => const AddReferenceDetailScreenArgs());
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i10.AddReferenceDetail(
           key: args.key,
@@ -239,7 +241,7 @@ abstract class $AppRouter extends _i56.RootStackRouter {
     AddSpecialityExperience.name: (routeData) {
       final args = routeData.argsAs<AddSpecialityExperienceArgs>(
           orElse: () => const AddSpecialityExperienceArgs());
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i11.AddSpecialityExperience(
           key: args.key,
@@ -248,14 +250,14 @@ abstract class $AppRouter extends _i56.RootStackRouter {
       );
     },
     AwaitingConfirmationView.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i12.AwaitingConfirmationView(),
       );
     },
     CommonDocumentView.name: (routeData) {
       final args = routeData.argsAs<CommonDocumentViewArgs>();
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i13.CommonDocumentView(
           key: args.key,
@@ -265,19 +267,19 @@ abstract class $AppRouter extends _i56.RootStackRouter {
       );
     },
     ContractorHomeView.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i14.ContractorHomeView(),
       );
     },
     ContractorMainTabView.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i15.ContractorMainTabView(),
       );
     },
     CounterPurposeView.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i16.CounterPurposeView(),
       );
@@ -285,7 +287,7 @@ abstract class $AppRouter extends _i56.RootStackRouter {
     DocumentPageScreen.name: (routeData) {
       final args = routeData.argsAs<DocumentPageScreenArgs>(
           orElse: () => const DocumentPageScreenArgs());
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i17.DocumentPage(
           key: args.key,
@@ -296,7 +298,7 @@ abstract class $AppRouter extends _i56.RootStackRouter {
     EducationListScreen.name: (routeData) {
       final args = routeData.argsAs<EducationListScreenArgs>(
           orElse: () => const EducationListScreenArgs());
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i18.EducationListScreen(
           key: args.key,
@@ -304,12 +306,18 @@ abstract class $AppRouter extends _i56.RootStackRouter {
         ),
       );
     },
+    FilledShiftsView.name: (routeData) {
+      return _i57.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i19.FilledShiftsView(),
+      );
+    },
     HealthCarePostForm.name: (routeData) {
       final args = routeData.argsAs<HealthCarePostFormArgs>(
           orElse: () => const HealthCarePostFormArgs());
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i19.HealthCarePostForm(
+        child: _i20.HealthCarePostForm(
           key: args.key,
           postId: args.postId,
           isFromSplash: args.isFromSplash,
@@ -318,9 +326,9 @@ abstract class $AppRouter extends _i56.RootStackRouter {
     },
     HealthcarePostShift.name: (routeData) {
       final args = routeData.argsAs<HealthcarePostShiftArgs>();
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i20.HealthcarePostShift(
+        child: _i21.HealthcarePostShift(
           key: args.key,
           postId: args.postId,
           updateShift: args.updateShift,
@@ -329,35 +337,35 @@ abstract class $AppRouter extends _i56.RootStackRouter {
       );
     },
     HistoryView.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i21.HistoryView(),
+        child: const _i22.HistoryView(),
       );
     },
     HomeView.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i22.HomeView(),
+        child: const _i23.HomeView(),
       );
     },
     IntroQuizScreen.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i23.IntroQuizScreen(),
+        child: _i24.IntroQuizScreen(),
       );
     },
     IntroVideoScreen.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i24.IntroVideoScreen(),
+        child: _i25.IntroVideoScreen(),
       );
     },
     LegalScreeningQuestionsPage.name: (routeData) {
       final args = routeData.argsAs<LegalScreeningQuestionsPageArgs>(
           orElse: () => const LegalScreeningQuestionsPageArgs());
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i25.LegalScreeningQuestionsPage(
+        child: _i26.LegalScreeningQuestionsPage(
           key: args.key,
           isFromSplash: args.isFromSplash,
         ),
@@ -366,67 +374,67 @@ abstract class $AppRouter extends _i56.RootStackRouter {
     LocationDetailForm.name: (routeData) {
       final args = routeData.argsAs<LocationDetailFormArgs>(
           orElse: () => const LocationDetailFormArgs());
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i26.LocationDetailForm(
+        child: _i27.LocationDetailForm(
           key: args.key,
           isFromSplash: args.isFromSplash,
         ),
       );
     },
     LocationExample.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i27.LocationExample(),
+        child: _i28.LocationExample(),
       );
     },
     LoginPage.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i28.LoginScreen(),
+        child: const _i29.LoginScreen(),
       );
     },
     MainTabView.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i29.MainTabView(),
+        child: const _i30.MainTabView(),
       );
     },
     NotificationView.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i30.NotificationView(),
+        child: const _i31.NotificationView(),
       );
     },
     Onboarding1.name: (routeData) {
       final args = routeData.argsAs<Onboarding1Args>(
           orElse: () => const Onboarding1Args());
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i31.OnBoarding1(key: args.key),
+        child: _i32.OnBoarding1(key: args.key),
       );
     },
     Onboarding2.name: (routeData) {
       final args = routeData.argsAs<Onboarding2Args>(
           orElse: () => const Onboarding2Args());
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i32.OnBoarding2(key: args.key),
+        child: _i33.OnBoarding2(key: args.key),
       );
     },
     OnBoarding3.name: (routeData) {
       final args = routeData.argsAs<OnBoarding3Args>(
           orElse: () => const OnBoarding3Args());
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i33.OnBoarding3(key: args.key),
+        child: _i34.OnBoarding3(key: args.key),
       );
     },
     PayableDetail.name: (routeData) {
       final args = routeData.argsAs<PayableDetailArgs>();
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i34.PayableDetail(
+        child: _i35.PayableDetail(
           key: args.key,
           post: args.post,
           isUpdate: args.isUpdate,
@@ -435,16 +443,16 @@ abstract class $AppRouter extends _i56.RootStackRouter {
       );
     },
     PersonalReferenceDetail.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i35.PersonalReferenceDetail(),
+        child: const _i36.PersonalReferenceDetail(),
       );
     },
     PostShiftRecurring.name: (routeData) {
       final args = routeData.argsAs<PostShiftRecurringArgs>();
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i36.PostShiftRecurring(
+        child: _i37.PostShiftRecurring(
           key: args.key,
           shiftType: args.shiftType,
           updateShift: args.updateShift,
@@ -455,35 +463,35 @@ abstract class $AppRouter extends _i56.RootStackRouter {
     PrivacyPolicyScreen.name: (routeData) {
       final args = routeData.argsAs<PrivacyPolicyScreenArgs>(
           orElse: () => const PrivacyPolicyScreenArgs());
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i37.PrivacyPolicyScreen(key: args.key),
+        child: _i38.PrivacyPolicyScreen(key: args.key),
       );
     },
     ProfessionalReferenceDetail.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i38.ProfessionalReferenceDetail(),
+        child: const _i39.ProfessionalReferenceDetail(),
       );
     },
     ProfileView.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i39.ProfileView(),
+        child: const _i40.ProfileView(),
       );
     },
     QuizResultScreen.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i40.QuizResultScreen(),
+        child: _i41.QuizResultScreen(),
       );
     },
     ReferenceListScreen.name: (routeData) {
       final args = routeData.argsAs<ReferenceListScreenArgs>(
           orElse: () => const ReferenceListScreenArgs());
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i41.ReferenceListScreen(
+        child: _i42.ReferenceListScreen(
           key: args.key,
           isFromSplash: args.isFromSplash,
         ),
@@ -491,9 +499,9 @@ abstract class $AppRouter extends _i56.RootStackRouter {
     },
     RegisterProfilePage.name: (routeData) {
       final args = routeData.argsAs<RegisterProfilePageArgs>();
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i42.RegisterProfileScreen(
+        child: _i43.RegisterProfileScreen(
           key: args.key,
           firstName: args.firstName,
           lastName: args.lastName,
@@ -502,16 +510,16 @@ abstract class $AppRouter extends _i56.RootStackRouter {
       );
     },
     RegisterPage.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i43.RegisterScreen(),
+        child: const _i44.RegisterScreen(),
       );
     },
     ReviewPostShiftDetail.name: (routeData) {
       final args = routeData.argsAs<ReviewPostShiftDetailArgs>();
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i44.ReviewPostShiftDetail(
+        child: _i45.ReviewPostShiftDetail(
           key: args.key,
           post: args.post,
           isUpdate: args.isUpdate,
@@ -521,9 +529,9 @@ abstract class $AppRouter extends _i56.RootStackRouter {
     },
     ShowGoogleMap.name: (routeData) {
       final args = routeData.argsAs<ShowGoogleMapArgs>();
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i45.ShowGoogleMap(
+        child: _i46.ShowGoogleMap(
           key: args.key,
           latitude: args.latitude,
           longitude: args.longitude,
@@ -531,33 +539,33 @@ abstract class $AppRouter extends _i56.RootStackRouter {
       );
     },
     SplashPage.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i46.SplashPage(),
+        child: const _i47.SplashPage(),
       );
     },
     TeamDetailView.name: (routeData) {
       final args = routeData.argsAs<TeamDetailViewArgs>();
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i47.TeamDetailView(
+        child: _i48.TeamDetailView(
           key: args.key,
           getTeamsListDTO: args.getTeamsListDTO,
         ),
       );
     },
     TeamsView.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i48.TeamsView(),
+        child: const _i49.TeamsView(),
       );
     },
     TermsAndConditionsScreen.name: (routeData) {
       final args = routeData.argsAs<TermsAndConditionsScreenArgs>(
           orElse: () => const TermsAndConditionsScreenArgs());
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i49.TermsAndConditionsScreen(
+        child: _i50.TermsAndConditionsScreen(
           key: args.key,
           isFromSplash: args.isFromSplash,
           isFromRegister: args.isFromRegister,
@@ -565,22 +573,22 @@ abstract class $AppRouter extends _i56.RootStackRouter {
       );
     },
     TotalPraposalView.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i50.TotalPraposalView(),
+        child: const _i51.TotalPraposalView(),
       );
     },
     ViewApplicantProfile.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i51.ViewApplicantProfile(),
+        child: const _i52.ViewApplicantProfile(),
       );
     },
     ViewDates.name: (routeData) {
       final args = routeData.argsAs<ViewDatesArgs>();
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i52.ViewDates(
+        child: _i53.ViewDates(
           key: args.key,
           shiftDetail: args.shiftDetail,
         ),
@@ -588,9 +596,9 @@ abstract class $AppRouter extends _i56.RootStackRouter {
     },
     ViewHomeShiftDetails.name: (routeData) {
       final args = routeData.argsAs<ViewHomeShiftDetailsArgs>();
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i53.ViewHomeShiftDetails(
+        child: _i54.ViewHomeShiftDetails(
           key: args.key,
           postId: args.postId,
           isTotalApplicants: args.isTotalApplicants,
@@ -598,15 +606,15 @@ abstract class $AppRouter extends _i56.RootStackRouter {
       );
     },
     ViewPersonPraposalView.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i54.ViewPersonPraposalView(),
+        child: const _i55.ViewPersonPraposalView(),
       );
     },
     ViewSingleApplicants.name: (routeData) {
-      return _i56.AutoRoutePage<dynamic>(
+      return _i57.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i55.ViewSingleApplicants(),
+        child: const _i56.ViewSingleApplicants(),
       );
     },
   };
@@ -615,11 +623,11 @@ abstract class $AppRouter extends _i56.RootStackRouter {
 /// generated route for
 /// [_i1.AddBankDetailsScreen]
 class AddBankDetailsScreen
-    extends _i56.PageRouteInfo<AddBankDetailsScreenArgs> {
+    extends _i57.PageRouteInfo<AddBankDetailsScreenArgs> {
   AddBankDetailsScreen({
-    _i57.Key? key,
+    _i58.Key? key,
     bool isFromSplash = false,
-    List<_i56.PageRouteInfo>? children,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           AddBankDetailsScreen.name,
           args: AddBankDetailsScreenArgs(
@@ -631,8 +639,8 @@ class AddBankDetailsScreen
 
   static const String name = 'AddBankDetailsScreen';
 
-  static const _i56.PageInfo<AddBankDetailsScreenArgs> page =
-      _i56.PageInfo<AddBankDetailsScreenArgs>(name);
+  static const _i57.PageInfo<AddBankDetailsScreenArgs> page =
+      _i57.PageInfo<AddBankDetailsScreenArgs>(name);
 }
 
 class AddBankDetailsScreenArgs {
@@ -641,7 +649,7 @@ class AddBankDetailsScreenArgs {
     this.isFromSplash = false,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final bool isFromSplash;
 
@@ -653,11 +661,11 @@ class AddBankDetailsScreenArgs {
 
 /// generated route for
 /// [_i2.AddCardDetailPage]
-class AddCardDetailPage extends _i56.PageRouteInfo<AddCardDetailPageArgs> {
+class AddCardDetailPage extends _i57.PageRouteInfo<AddCardDetailPageArgs> {
   AddCardDetailPage({
-    _i57.Key? key,
+    _i58.Key? key,
     bool isFromSplash = false,
-    List<_i56.PageRouteInfo>? children,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           AddCardDetailPage.name,
           args: AddCardDetailPageArgs(
@@ -669,8 +677,8 @@ class AddCardDetailPage extends _i56.PageRouteInfo<AddCardDetailPageArgs> {
 
   static const String name = 'AddCardDetailPage';
 
-  static const _i56.PageInfo<AddCardDetailPageArgs> page =
-      _i56.PageInfo<AddCardDetailPageArgs>(name);
+  static const _i57.PageInfo<AddCardDetailPageArgs> page =
+      _i57.PageInfo<AddCardDetailPageArgs>(name);
 }
 
 class AddCardDetailPageArgs {
@@ -679,7 +687,7 @@ class AddCardDetailPageArgs {
     this.isFromSplash = false,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final bool isFromSplash;
 
@@ -691,8 +699,8 @@ class AddCardDetailPageArgs {
 
 /// generated route for
 /// [_i3.AddCardView]
-class AddCardView extends _i56.PageRouteInfo<void> {
-  const AddCardView({List<_i56.PageRouteInfo>? children})
+class AddCardView extends _i57.PageRouteInfo<void> {
+  const AddCardView({List<_i57.PageRouteInfo>? children})
       : super(
           AddCardView.name,
           initialChildren: children,
@@ -700,17 +708,17 @@ class AddCardView extends _i56.PageRouteInfo<void> {
 
   static const String name = 'AddCardView';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i4.AddContractorSkillsForm]
 class AddContractorSkillsForm
-    extends _i56.PageRouteInfo<AddContractorSkillsFormArgs> {
+    extends _i57.PageRouteInfo<AddContractorSkillsFormArgs> {
   AddContractorSkillsForm({
-    _i57.Key? key,
+    _i58.Key? key,
     bool isFromSplash = false,
-    List<_i56.PageRouteInfo>? children,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           AddContractorSkillsForm.name,
           args: AddContractorSkillsFormArgs(
@@ -722,8 +730,8 @@ class AddContractorSkillsForm
 
   static const String name = 'AddContractorSkillsForm';
 
-  static const _i56.PageInfo<AddContractorSkillsFormArgs> page =
-      _i56.PageInfo<AddContractorSkillsFormArgs>(name);
+  static const _i57.PageInfo<AddContractorSkillsFormArgs> page =
+      _i57.PageInfo<AddContractorSkillsFormArgs>(name);
 }
 
 class AddContractorSkillsFormArgs {
@@ -732,7 +740,7 @@ class AddContractorSkillsFormArgs {
     this.isFromSplash = false,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final bool isFromSplash;
 
@@ -745,12 +753,12 @@ class AddContractorSkillsFormArgs {
 /// generated route for
 /// [_i5.AddEducationDetail]
 class AddEducationDetailScreen
-    extends _i56.PageRouteInfo<AddEducationDetailScreenArgs> {
+    extends _i57.PageRouteInfo<AddEducationDetailScreenArgs> {
   AddEducationDetailScreen({
-    _i57.Key? key,
+    _i58.Key? key,
     bool isFromSplash = false,
-    _i58.EducationDTO? educationObj,
-    List<_i56.PageRouteInfo>? children,
+    _i59.EducationDTO? educationObj,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           AddEducationDetailScreen.name,
           args: AddEducationDetailScreenArgs(
@@ -763,8 +771,8 @@ class AddEducationDetailScreen
 
   static const String name = 'AddEducationDetailScreen';
 
-  static const _i56.PageInfo<AddEducationDetailScreenArgs> page =
-      _i56.PageInfo<AddEducationDetailScreenArgs>(name);
+  static const _i57.PageInfo<AddEducationDetailScreenArgs> page =
+      _i57.PageInfo<AddEducationDetailScreenArgs>(name);
 }
 
 class AddEducationDetailScreenArgs {
@@ -774,11 +782,11 @@ class AddEducationDetailScreenArgs {
     this.educationObj,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final bool isFromSplash;
 
-  final _i58.EducationDTO? educationObj;
+  final _i59.EducationDTO? educationObj;
 
   @override
   String toString() {
@@ -789,11 +797,11 @@ class AddEducationDetailScreenArgs {
 /// generated route for
 /// [_i6.AddExperienceDetail]
 class AddExperienceDetailScreen
-    extends _i56.PageRouteInfo<AddExperienceDetailScreenArgs> {
+    extends _i57.PageRouteInfo<AddExperienceDetailScreenArgs> {
   AddExperienceDetailScreen({
-    _i57.Key? key,
+    _i58.Key? key,
     bool isFromSplash = false,
-    List<_i56.PageRouteInfo>? children,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           AddExperienceDetailScreen.name,
           args: AddExperienceDetailScreenArgs(
@@ -805,8 +813,8 @@ class AddExperienceDetailScreen
 
   static const String name = 'AddExperienceDetailScreen';
 
-  static const _i56.PageInfo<AddExperienceDetailScreenArgs> page =
-      _i56.PageInfo<AddExperienceDetailScreenArgs>(name);
+  static const _i57.PageInfo<AddExperienceDetailScreenArgs> page =
+      _i57.PageInfo<AddExperienceDetailScreenArgs>(name);
 }
 
 class AddExperienceDetailScreenArgs {
@@ -815,7 +823,7 @@ class AddExperienceDetailScreenArgs {
     this.isFromSplash = false,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final bool isFromSplash;
 
@@ -827,13 +835,13 @@ class AddExperienceDetailScreenArgs {
 
 /// generated route for
 /// [_i7.AddMultiDateTime]
-class AddMultiDateTime extends _i56.PageRouteInfo<AddMultiDateTimeArgs> {
+class AddMultiDateTime extends _i57.PageRouteInfo<AddMultiDateTimeArgs> {
   AddMultiDateTime({
-    _i57.Key? key,
-    required _i59.MultiShiftDTO selectedObj,
-    _i60.HealthcarePostDTO? updateShift,
-    required _i61.PostShiftDTO post,
-    List<_i56.PageRouteInfo>? children,
+    _i58.Key? key,
+    required _i60.MultiShiftDTO selectedObj,
+    _i61.HealthcarePostDTO? updateShift,
+    required _i62.PostShiftDTO post,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           AddMultiDateTime.name,
           args: AddMultiDateTimeArgs(
@@ -847,8 +855,8 @@ class AddMultiDateTime extends _i56.PageRouteInfo<AddMultiDateTimeArgs> {
 
   static const String name = 'AddMultiDateTime';
 
-  static const _i56.PageInfo<AddMultiDateTimeArgs> page =
-      _i56.PageInfo<AddMultiDateTimeArgs>(name);
+  static const _i57.PageInfo<AddMultiDateTimeArgs> page =
+      _i57.PageInfo<AddMultiDateTimeArgs>(name);
 }
 
 class AddMultiDateTimeArgs {
@@ -859,13 +867,13 @@ class AddMultiDateTimeArgs {
     required this.post,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
-  final _i59.MultiShiftDTO selectedObj;
+  final _i60.MultiShiftDTO selectedObj;
 
-  final _i60.HealthcarePostDTO? updateShift;
+  final _i61.HealthcarePostDTO? updateShift;
 
-  final _i61.PostShiftDTO post;
+  final _i62.PostShiftDTO post;
 
   @override
   String toString() {
@@ -875,13 +883,13 @@ class AddMultiDateTimeArgs {
 
 /// generated route for
 /// [_i8.AddNewMemberView]
-class AddNewMemberView extends _i56.PageRouteInfo<AddNewMemberViewArgs> {
+class AddNewMemberView extends _i57.PageRouteInfo<AddNewMemberViewArgs> {
   AddNewMemberView({
-    _i57.Key? key,
+    _i58.Key? key,
     bool isUpdateMember = false,
-    required _i62.Members? getTeamsListDTO,
+    required _i63.Members? getTeamsListDTO,
     required String teamID,
-    List<_i56.PageRouteInfo>? children,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           AddNewMemberView.name,
           args: AddNewMemberViewArgs(
@@ -895,8 +903,8 @@ class AddNewMemberView extends _i56.PageRouteInfo<AddNewMemberViewArgs> {
 
   static const String name = 'AddNewMemberView';
 
-  static const _i56.PageInfo<AddNewMemberViewArgs> page =
-      _i56.PageInfo<AddNewMemberViewArgs>(name);
+  static const _i57.PageInfo<AddNewMemberViewArgs> page =
+      _i57.PageInfo<AddNewMemberViewArgs>(name);
 }
 
 class AddNewMemberViewArgs {
@@ -907,11 +915,11 @@ class AddNewMemberViewArgs {
     required this.teamID,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final bool isUpdateMember;
 
-  final _i62.Members? getTeamsListDTO;
+  final _i63.Members? getTeamsListDTO;
 
   final String teamID;
 
@@ -923,12 +931,12 @@ class AddNewMemberViewArgs {
 
 /// generated route for
 /// [_i9.AddNewTeamView]
-class AddNewTeamView extends _i56.PageRouteInfo<AddNewTeamViewArgs> {
+class AddNewTeamView extends _i57.PageRouteInfo<AddNewTeamViewArgs> {
   AddNewTeamView({
-    _i57.Key? key,
+    _i58.Key? key,
     bool isUpdateMember = false,
-    _i62.GetTeamsListDTO? getTeamsListDTO,
-    List<_i56.PageRouteInfo>? children,
+    _i63.GetTeamsListDTO? getTeamsListDTO,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           AddNewTeamView.name,
           args: AddNewTeamViewArgs(
@@ -941,8 +949,8 @@ class AddNewTeamView extends _i56.PageRouteInfo<AddNewTeamViewArgs> {
 
   static const String name = 'AddNewTeamView';
 
-  static const _i56.PageInfo<AddNewTeamViewArgs> page =
-      _i56.PageInfo<AddNewTeamViewArgs>(name);
+  static const _i57.PageInfo<AddNewTeamViewArgs> page =
+      _i57.PageInfo<AddNewTeamViewArgs>(name);
 }
 
 class AddNewTeamViewArgs {
@@ -952,11 +960,11 @@ class AddNewTeamViewArgs {
     this.getTeamsListDTO,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final bool isUpdateMember;
 
-  final _i62.GetTeamsListDTO? getTeamsListDTO;
+  final _i63.GetTeamsListDTO? getTeamsListDTO;
 
   @override
   String toString() {
@@ -967,12 +975,12 @@ class AddNewTeamViewArgs {
 /// generated route for
 /// [_i10.AddReferenceDetail]
 class AddReferenceDetailScreen
-    extends _i56.PageRouteInfo<AddReferenceDetailScreenArgs> {
+    extends _i57.PageRouteInfo<AddReferenceDetailScreenArgs> {
   AddReferenceDetailScreen({
-    _i57.Key? key,
+    _i58.Key? key,
     bool isFromSplash = false,
-    _i63.ReferenceDTO? referenceObj,
-    List<_i56.PageRouteInfo>? children,
+    _i64.ReferenceDTO? referenceObj,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           AddReferenceDetailScreen.name,
           args: AddReferenceDetailScreenArgs(
@@ -985,8 +993,8 @@ class AddReferenceDetailScreen
 
   static const String name = 'AddReferenceDetailScreen';
 
-  static const _i56.PageInfo<AddReferenceDetailScreenArgs> page =
-      _i56.PageInfo<AddReferenceDetailScreenArgs>(name);
+  static const _i57.PageInfo<AddReferenceDetailScreenArgs> page =
+      _i57.PageInfo<AddReferenceDetailScreenArgs>(name);
 }
 
 class AddReferenceDetailScreenArgs {
@@ -996,11 +1004,11 @@ class AddReferenceDetailScreenArgs {
     this.referenceObj,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final bool isFromSplash;
 
-  final _i63.ReferenceDTO? referenceObj;
+  final _i64.ReferenceDTO? referenceObj;
 
   @override
   String toString() {
@@ -1011,11 +1019,11 @@ class AddReferenceDetailScreenArgs {
 /// generated route for
 /// [_i11.AddSpecialityExperience]
 class AddSpecialityExperience
-    extends _i56.PageRouteInfo<AddSpecialityExperienceArgs> {
+    extends _i57.PageRouteInfo<AddSpecialityExperienceArgs> {
   AddSpecialityExperience({
-    _i57.Key? key,
+    _i58.Key? key,
     bool isFromSplash = false,
-    List<_i56.PageRouteInfo>? children,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           AddSpecialityExperience.name,
           args: AddSpecialityExperienceArgs(
@@ -1027,8 +1035,8 @@ class AddSpecialityExperience
 
   static const String name = 'AddSpecialityExperience';
 
-  static const _i56.PageInfo<AddSpecialityExperienceArgs> page =
-      _i56.PageInfo<AddSpecialityExperienceArgs>(name);
+  static const _i57.PageInfo<AddSpecialityExperienceArgs> page =
+      _i57.PageInfo<AddSpecialityExperienceArgs>(name);
 }
 
 class AddSpecialityExperienceArgs {
@@ -1037,7 +1045,7 @@ class AddSpecialityExperienceArgs {
     this.isFromSplash = false,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final bool isFromSplash;
 
@@ -1049,8 +1057,8 @@ class AddSpecialityExperienceArgs {
 
 /// generated route for
 /// [_i12.AwaitingConfirmationView]
-class AwaitingConfirmationView extends _i56.PageRouteInfo<void> {
-  const AwaitingConfirmationView({List<_i56.PageRouteInfo>? children})
+class AwaitingConfirmationView extends _i57.PageRouteInfo<void> {
+  const AwaitingConfirmationView({List<_i57.PageRouteInfo>? children})
       : super(
           AwaitingConfirmationView.name,
           initialChildren: children,
@@ -1058,17 +1066,17 @@ class AwaitingConfirmationView extends _i56.PageRouteInfo<void> {
 
   static const String name = 'AwaitingConfirmationView';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i13.CommonDocumentView]
-class CommonDocumentView extends _i56.PageRouteInfo<CommonDocumentViewArgs> {
+class CommonDocumentView extends _i57.PageRouteInfo<CommonDocumentViewArgs> {
   CommonDocumentView({
-    _i57.Key? key,
+    _i58.Key? key,
     required String title,
     required String pdfUrl,
-    List<_i56.PageRouteInfo>? children,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           CommonDocumentView.name,
           args: CommonDocumentViewArgs(
@@ -1081,8 +1089,8 @@ class CommonDocumentView extends _i56.PageRouteInfo<CommonDocumentViewArgs> {
 
   static const String name = 'CommonDocumentView';
 
-  static const _i56.PageInfo<CommonDocumentViewArgs> page =
-      _i56.PageInfo<CommonDocumentViewArgs>(name);
+  static const _i57.PageInfo<CommonDocumentViewArgs> page =
+      _i57.PageInfo<CommonDocumentViewArgs>(name);
 }
 
 class CommonDocumentViewArgs {
@@ -1092,7 +1100,7 @@ class CommonDocumentViewArgs {
     required this.pdfUrl,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final String title;
 
@@ -1106,8 +1114,8 @@ class CommonDocumentViewArgs {
 
 /// generated route for
 /// [_i14.ContractorHomeView]
-class ContractorHomeView extends _i56.PageRouteInfo<void> {
-  const ContractorHomeView({List<_i56.PageRouteInfo>? children})
+class ContractorHomeView extends _i57.PageRouteInfo<void> {
+  const ContractorHomeView({List<_i57.PageRouteInfo>? children})
       : super(
           ContractorHomeView.name,
           initialChildren: children,
@@ -1115,13 +1123,13 @@ class ContractorHomeView extends _i56.PageRouteInfo<void> {
 
   static const String name = 'ContractorHomeView';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i15.ContractorMainTabView]
-class ContractorMainTabView extends _i56.PageRouteInfo<void> {
-  const ContractorMainTabView({List<_i56.PageRouteInfo>? children})
+class ContractorMainTabView extends _i57.PageRouteInfo<void> {
+  const ContractorMainTabView({List<_i57.PageRouteInfo>? children})
       : super(
           ContractorMainTabView.name,
           initialChildren: children,
@@ -1129,13 +1137,13 @@ class ContractorMainTabView extends _i56.PageRouteInfo<void> {
 
   static const String name = 'ContractorMainTabView';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i16.CounterPurposeView]
-class CounterPurposeView extends _i56.PageRouteInfo<void> {
-  const CounterPurposeView({List<_i56.PageRouteInfo>? children})
+class CounterPurposeView extends _i57.PageRouteInfo<void> {
+  const CounterPurposeView({List<_i57.PageRouteInfo>? children})
       : super(
           CounterPurposeView.name,
           initialChildren: children,
@@ -1143,16 +1151,16 @@ class CounterPurposeView extends _i56.PageRouteInfo<void> {
 
   static const String name = 'CounterPurposeView';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i17.DocumentPage]
-class DocumentPageScreen extends _i56.PageRouteInfo<DocumentPageScreenArgs> {
+class DocumentPageScreen extends _i57.PageRouteInfo<DocumentPageScreenArgs> {
   DocumentPageScreen({
-    _i57.Key? key,
+    _i58.Key? key,
     bool isFromSplash = false,
-    List<_i56.PageRouteInfo>? children,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           DocumentPageScreen.name,
           args: DocumentPageScreenArgs(
@@ -1164,8 +1172,8 @@ class DocumentPageScreen extends _i56.PageRouteInfo<DocumentPageScreenArgs> {
 
   static const String name = 'DocumentPageScreen';
 
-  static const _i56.PageInfo<DocumentPageScreenArgs> page =
-      _i56.PageInfo<DocumentPageScreenArgs>(name);
+  static const _i57.PageInfo<DocumentPageScreenArgs> page =
+      _i57.PageInfo<DocumentPageScreenArgs>(name);
 }
 
 class DocumentPageScreenArgs {
@@ -1174,7 +1182,7 @@ class DocumentPageScreenArgs {
     this.isFromSplash = false,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final bool isFromSplash;
 
@@ -1186,11 +1194,11 @@ class DocumentPageScreenArgs {
 
 /// generated route for
 /// [_i18.EducationListScreen]
-class EducationListScreen extends _i56.PageRouteInfo<EducationListScreenArgs> {
+class EducationListScreen extends _i57.PageRouteInfo<EducationListScreenArgs> {
   EducationListScreen({
-    _i57.Key? key,
+    _i58.Key? key,
     bool isFromSplash = false,
-    List<_i56.PageRouteInfo>? children,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           EducationListScreen.name,
           args: EducationListScreenArgs(
@@ -1202,8 +1210,8 @@ class EducationListScreen extends _i56.PageRouteInfo<EducationListScreenArgs> {
 
   static const String name = 'EducationListScreen';
 
-  static const _i56.PageInfo<EducationListScreenArgs> page =
-      _i56.PageInfo<EducationListScreenArgs>(name);
+  static const _i57.PageInfo<EducationListScreenArgs> page =
+      _i57.PageInfo<EducationListScreenArgs>(name);
 }
 
 class EducationListScreenArgs {
@@ -1212,7 +1220,7 @@ class EducationListScreenArgs {
     this.isFromSplash = false,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final bool isFromSplash;
 
@@ -1223,13 +1231,27 @@ class EducationListScreenArgs {
 }
 
 /// generated route for
-/// [_i19.HealthCarePostForm]
-class HealthCarePostForm extends _i56.PageRouteInfo<HealthCarePostFormArgs> {
+/// [_i19.FilledShiftsView]
+class FilledShiftsView extends _i57.PageRouteInfo<void> {
+  const FilledShiftsView({List<_i57.PageRouteInfo>? children})
+      : super(
+          FilledShiftsView.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'FilledShiftsView';
+
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i20.HealthCarePostForm]
+class HealthCarePostForm extends _i57.PageRouteInfo<HealthCarePostFormArgs> {
   HealthCarePostForm({
-    _i57.Key? key,
+    _i58.Key? key,
     int? postId,
     bool isFromSplash = false,
-    List<_i56.PageRouteInfo>? children,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           HealthCarePostForm.name,
           args: HealthCarePostFormArgs(
@@ -1242,8 +1264,8 @@ class HealthCarePostForm extends _i56.PageRouteInfo<HealthCarePostFormArgs> {
 
   static const String name = 'HealthCarePostForm';
 
-  static const _i56.PageInfo<HealthCarePostFormArgs> page =
-      _i56.PageInfo<HealthCarePostFormArgs>(name);
+  static const _i57.PageInfo<HealthCarePostFormArgs> page =
+      _i57.PageInfo<HealthCarePostFormArgs>(name);
 }
 
 class HealthCarePostFormArgs {
@@ -1253,7 +1275,7 @@ class HealthCarePostFormArgs {
     this.isFromSplash = false,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final int? postId;
 
@@ -1266,14 +1288,14 @@ class HealthCarePostFormArgs {
 }
 
 /// generated route for
-/// [_i20.HealthcarePostShift]
-class HealthcarePostShift extends _i56.PageRouteInfo<HealthcarePostShiftArgs> {
+/// [_i21.HealthcarePostShift]
+class HealthcarePostShift extends _i57.PageRouteInfo<HealthcarePostShiftArgs> {
   HealthcarePostShift({
-    _i57.Key? key,
+    _i58.Key? key,
     required int postId,
-    _i60.HealthcarePostDTO? updateShift,
-    required _i61.PostShiftDTO post,
-    List<_i56.PageRouteInfo>? children,
+    _i61.HealthcarePostDTO? updateShift,
+    required _i62.PostShiftDTO post,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           HealthcarePostShift.name,
           args: HealthcarePostShiftArgs(
@@ -1287,8 +1309,8 @@ class HealthcarePostShift extends _i56.PageRouteInfo<HealthcarePostShiftArgs> {
 
   static const String name = 'HealthcarePostShift';
 
-  static const _i56.PageInfo<HealthcarePostShiftArgs> page =
-      _i56.PageInfo<HealthcarePostShiftArgs>(name);
+  static const _i57.PageInfo<HealthcarePostShiftArgs> page =
+      _i57.PageInfo<HealthcarePostShiftArgs>(name);
 }
 
 class HealthcarePostShiftArgs {
@@ -1299,13 +1321,13 @@ class HealthcarePostShiftArgs {
     required this.post,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final int postId;
 
-  final _i60.HealthcarePostDTO? updateShift;
+  final _i61.HealthcarePostDTO? updateShift;
 
-  final _i61.PostShiftDTO post;
+  final _i62.PostShiftDTO post;
 
   @override
   String toString() {
@@ -1314,9 +1336,9 @@ class HealthcarePostShiftArgs {
 }
 
 /// generated route for
-/// [_i21.HistoryView]
-class HistoryView extends _i56.PageRouteInfo<void> {
-  const HistoryView({List<_i56.PageRouteInfo>? children})
+/// [_i22.HistoryView]
+class HistoryView extends _i57.PageRouteInfo<void> {
+  const HistoryView({List<_i57.PageRouteInfo>? children})
       : super(
           HistoryView.name,
           initialChildren: children,
@@ -1324,13 +1346,13 @@ class HistoryView extends _i56.PageRouteInfo<void> {
 
   static const String name = 'HistoryView';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i22.HomeView]
-class HomeView extends _i56.PageRouteInfo<void> {
-  const HomeView({List<_i56.PageRouteInfo>? children})
+/// [_i23.HomeView]
+class HomeView extends _i57.PageRouteInfo<void> {
+  const HomeView({List<_i57.PageRouteInfo>? children})
       : super(
           HomeView.name,
           initialChildren: children,
@@ -1338,13 +1360,13 @@ class HomeView extends _i56.PageRouteInfo<void> {
 
   static const String name = 'HomeView';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i23.IntroQuizScreen]
-class IntroQuizScreen extends _i56.PageRouteInfo<void> {
-  const IntroQuizScreen({List<_i56.PageRouteInfo>? children})
+/// [_i24.IntroQuizScreen]
+class IntroQuizScreen extends _i57.PageRouteInfo<void> {
+  const IntroQuizScreen({List<_i57.PageRouteInfo>? children})
       : super(
           IntroQuizScreen.name,
           initialChildren: children,
@@ -1352,13 +1374,13 @@ class IntroQuizScreen extends _i56.PageRouteInfo<void> {
 
   static const String name = 'IntroQuizScreen';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i24.IntroVideoScreen]
-class IntroVideoScreen extends _i56.PageRouteInfo<void> {
-  const IntroVideoScreen({List<_i56.PageRouteInfo>? children})
+/// [_i25.IntroVideoScreen]
+class IntroVideoScreen extends _i57.PageRouteInfo<void> {
+  const IntroVideoScreen({List<_i57.PageRouteInfo>? children})
       : super(
           IntroVideoScreen.name,
           initialChildren: children,
@@ -1366,17 +1388,17 @@ class IntroVideoScreen extends _i56.PageRouteInfo<void> {
 
   static const String name = 'IntroVideoScreen';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i25.LegalScreeningQuestionsPage]
+/// [_i26.LegalScreeningQuestionsPage]
 class LegalScreeningQuestionsPage
-    extends _i56.PageRouteInfo<LegalScreeningQuestionsPageArgs> {
+    extends _i57.PageRouteInfo<LegalScreeningQuestionsPageArgs> {
   LegalScreeningQuestionsPage({
-    _i57.Key? key,
+    _i58.Key? key,
     bool isFromSplash = false,
-    List<_i56.PageRouteInfo>? children,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           LegalScreeningQuestionsPage.name,
           args: LegalScreeningQuestionsPageArgs(
@@ -1388,8 +1410,8 @@ class LegalScreeningQuestionsPage
 
   static const String name = 'LegalScreeningQuestionsPage';
 
-  static const _i56.PageInfo<LegalScreeningQuestionsPageArgs> page =
-      _i56.PageInfo<LegalScreeningQuestionsPageArgs>(name);
+  static const _i57.PageInfo<LegalScreeningQuestionsPageArgs> page =
+      _i57.PageInfo<LegalScreeningQuestionsPageArgs>(name);
 }
 
 class LegalScreeningQuestionsPageArgs {
@@ -1398,7 +1420,7 @@ class LegalScreeningQuestionsPageArgs {
     this.isFromSplash = false,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final bool isFromSplash;
 
@@ -1409,12 +1431,12 @@ class LegalScreeningQuestionsPageArgs {
 }
 
 /// generated route for
-/// [_i26.LocationDetailForm]
-class LocationDetailForm extends _i56.PageRouteInfo<LocationDetailFormArgs> {
+/// [_i27.LocationDetailForm]
+class LocationDetailForm extends _i57.PageRouteInfo<LocationDetailFormArgs> {
   LocationDetailForm({
-    _i57.Key? key,
+    _i58.Key? key,
     bool isFromSplash = false,
-    List<_i56.PageRouteInfo>? children,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           LocationDetailForm.name,
           args: LocationDetailFormArgs(
@@ -1426,8 +1448,8 @@ class LocationDetailForm extends _i56.PageRouteInfo<LocationDetailFormArgs> {
 
   static const String name = 'LocationDetailForm';
 
-  static const _i56.PageInfo<LocationDetailFormArgs> page =
-      _i56.PageInfo<LocationDetailFormArgs>(name);
+  static const _i57.PageInfo<LocationDetailFormArgs> page =
+      _i57.PageInfo<LocationDetailFormArgs>(name);
 }
 
 class LocationDetailFormArgs {
@@ -1436,7 +1458,7 @@ class LocationDetailFormArgs {
     this.isFromSplash = false,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final bool isFromSplash;
 
@@ -1447,9 +1469,9 @@ class LocationDetailFormArgs {
 }
 
 /// generated route for
-/// [_i27.LocationExample]
-class LocationExample extends _i56.PageRouteInfo<void> {
-  const LocationExample({List<_i56.PageRouteInfo>? children})
+/// [_i28.LocationExample]
+class LocationExample extends _i57.PageRouteInfo<void> {
+  const LocationExample({List<_i57.PageRouteInfo>? children})
       : super(
           LocationExample.name,
           initialChildren: children,
@@ -1457,13 +1479,13 @@ class LocationExample extends _i56.PageRouteInfo<void> {
 
   static const String name = 'LocationExample';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i28.LoginScreen]
-class LoginPage extends _i56.PageRouteInfo<void> {
-  const LoginPage({List<_i56.PageRouteInfo>? children})
+/// [_i29.LoginScreen]
+class LoginPage extends _i57.PageRouteInfo<void> {
+  const LoginPage({List<_i57.PageRouteInfo>? children})
       : super(
           LoginPage.name,
           initialChildren: children,
@@ -1471,13 +1493,13 @@ class LoginPage extends _i56.PageRouteInfo<void> {
 
   static const String name = 'LoginPage';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i29.MainTabView]
-class MainTabView extends _i56.PageRouteInfo<void> {
-  const MainTabView({List<_i56.PageRouteInfo>? children})
+/// [_i30.MainTabView]
+class MainTabView extends _i57.PageRouteInfo<void> {
+  const MainTabView({List<_i57.PageRouteInfo>? children})
       : super(
           MainTabView.name,
           initialChildren: children,
@@ -1485,13 +1507,13 @@ class MainTabView extends _i56.PageRouteInfo<void> {
 
   static const String name = 'MainTabView';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i30.NotificationView]
-class NotificationView extends _i56.PageRouteInfo<void> {
-  const NotificationView({List<_i56.PageRouteInfo>? children})
+/// [_i31.NotificationView]
+class NotificationView extends _i57.PageRouteInfo<void> {
+  const NotificationView({List<_i57.PageRouteInfo>? children})
       : super(
           NotificationView.name,
           initialChildren: children,
@@ -1499,15 +1521,15 @@ class NotificationView extends _i56.PageRouteInfo<void> {
 
   static const String name = 'NotificationView';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i31.OnBoarding1]
-class Onboarding1 extends _i56.PageRouteInfo<Onboarding1Args> {
+/// [_i32.OnBoarding1]
+class Onboarding1 extends _i57.PageRouteInfo<Onboarding1Args> {
   Onboarding1({
-    _i57.Key? key,
-    List<_i56.PageRouteInfo>? children,
+    _i58.Key? key,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           Onboarding1.name,
           args: Onboarding1Args(key: key),
@@ -1516,14 +1538,14 @@ class Onboarding1 extends _i56.PageRouteInfo<Onboarding1Args> {
 
   static const String name = 'Onboarding1';
 
-  static const _i56.PageInfo<Onboarding1Args> page =
-      _i56.PageInfo<Onboarding1Args>(name);
+  static const _i57.PageInfo<Onboarding1Args> page =
+      _i57.PageInfo<Onboarding1Args>(name);
 }
 
 class Onboarding1Args {
   const Onboarding1Args({this.key});
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   @override
   String toString() {
@@ -1532,11 +1554,11 @@ class Onboarding1Args {
 }
 
 /// generated route for
-/// [_i32.OnBoarding2]
-class Onboarding2 extends _i56.PageRouteInfo<Onboarding2Args> {
+/// [_i33.OnBoarding2]
+class Onboarding2 extends _i57.PageRouteInfo<Onboarding2Args> {
   Onboarding2({
-    _i57.Key? key,
-    List<_i56.PageRouteInfo>? children,
+    _i58.Key? key,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           Onboarding2.name,
           args: Onboarding2Args(key: key),
@@ -1545,14 +1567,14 @@ class Onboarding2 extends _i56.PageRouteInfo<Onboarding2Args> {
 
   static const String name = 'Onboarding2';
 
-  static const _i56.PageInfo<Onboarding2Args> page =
-      _i56.PageInfo<Onboarding2Args>(name);
+  static const _i57.PageInfo<Onboarding2Args> page =
+      _i57.PageInfo<Onboarding2Args>(name);
 }
 
 class Onboarding2Args {
   const Onboarding2Args({this.key});
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   @override
   String toString() {
@@ -1561,11 +1583,11 @@ class Onboarding2Args {
 }
 
 /// generated route for
-/// [_i33.OnBoarding3]
-class OnBoarding3 extends _i56.PageRouteInfo<OnBoarding3Args> {
+/// [_i34.OnBoarding3]
+class OnBoarding3 extends _i57.PageRouteInfo<OnBoarding3Args> {
   OnBoarding3({
-    _i57.Key? key,
-    List<_i56.PageRouteInfo>? children,
+    _i58.Key? key,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           OnBoarding3.name,
           args: OnBoarding3Args(key: key),
@@ -1574,14 +1596,14 @@ class OnBoarding3 extends _i56.PageRouteInfo<OnBoarding3Args> {
 
   static const String name = 'OnBoarding3';
 
-  static const _i56.PageInfo<OnBoarding3Args> page =
-      _i56.PageInfo<OnBoarding3Args>(name);
+  static const _i57.PageInfo<OnBoarding3Args> page =
+      _i57.PageInfo<OnBoarding3Args>(name);
 }
 
 class OnBoarding3Args {
   const OnBoarding3Args({this.key});
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   @override
   String toString() {
@@ -1590,14 +1612,14 @@ class OnBoarding3Args {
 }
 
 /// generated route for
-/// [_i34.PayableDetail]
-class PayableDetail extends _i56.PageRouteInfo<PayableDetailArgs> {
+/// [_i35.PayableDetail]
+class PayableDetail extends _i57.PageRouteInfo<PayableDetailArgs> {
   PayableDetail({
-    _i57.Key? key,
-    required _i60.HealthcarePostDTO post,
+    _i58.Key? key,
+    required _i61.HealthcarePostDTO post,
     bool isUpdate = false,
-    _i61.PostShiftDTO? updatedPost,
-    List<_i56.PageRouteInfo>? children,
+    _i62.PostShiftDTO? updatedPost,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           PayableDetail.name,
           args: PayableDetailArgs(
@@ -1611,8 +1633,8 @@ class PayableDetail extends _i56.PageRouteInfo<PayableDetailArgs> {
 
   static const String name = 'PayableDetail';
 
-  static const _i56.PageInfo<PayableDetailArgs> page =
-      _i56.PageInfo<PayableDetailArgs>(name);
+  static const _i57.PageInfo<PayableDetailArgs> page =
+      _i57.PageInfo<PayableDetailArgs>(name);
 }
 
 class PayableDetailArgs {
@@ -1623,13 +1645,13 @@ class PayableDetailArgs {
     this.updatedPost,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
-  final _i60.HealthcarePostDTO post;
+  final _i61.HealthcarePostDTO post;
 
   final bool isUpdate;
 
-  final _i61.PostShiftDTO? updatedPost;
+  final _i62.PostShiftDTO? updatedPost;
 
   @override
   String toString() {
@@ -1638,9 +1660,9 @@ class PayableDetailArgs {
 }
 
 /// generated route for
-/// [_i35.PersonalReferenceDetail]
-class PersonalReferenceDetail extends _i56.PageRouteInfo<void> {
-  const PersonalReferenceDetail({List<_i56.PageRouteInfo>? children})
+/// [_i36.PersonalReferenceDetail]
+class PersonalReferenceDetail extends _i57.PageRouteInfo<void> {
+  const PersonalReferenceDetail({List<_i57.PageRouteInfo>? children})
       : super(
           PersonalReferenceDetail.name,
           initialChildren: children,
@@ -1648,18 +1670,18 @@ class PersonalReferenceDetail extends _i56.PageRouteInfo<void> {
 
   static const String name = 'PersonalReferenceDetail';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i36.PostShiftRecurring]
-class PostShiftRecurring extends _i56.PageRouteInfo<PostShiftRecurringArgs> {
+/// [_i37.PostShiftRecurring]
+class PostShiftRecurring extends _i57.PageRouteInfo<PostShiftRecurringArgs> {
   PostShiftRecurring({
-    _i57.Key? key,
+    _i58.Key? key,
     required int shiftType,
-    required _i60.HealthcarePostDTO? updateShift,
-    required _i61.PostShiftDTO post,
-    List<_i56.PageRouteInfo>? children,
+    required _i61.HealthcarePostDTO? updateShift,
+    required _i62.PostShiftDTO post,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           PostShiftRecurring.name,
           args: PostShiftRecurringArgs(
@@ -1673,8 +1695,8 @@ class PostShiftRecurring extends _i56.PageRouteInfo<PostShiftRecurringArgs> {
 
   static const String name = 'PostShiftRecurring';
 
-  static const _i56.PageInfo<PostShiftRecurringArgs> page =
-      _i56.PageInfo<PostShiftRecurringArgs>(name);
+  static const _i57.PageInfo<PostShiftRecurringArgs> page =
+      _i57.PageInfo<PostShiftRecurringArgs>(name);
 }
 
 class PostShiftRecurringArgs {
@@ -1685,13 +1707,13 @@ class PostShiftRecurringArgs {
     required this.post,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final int shiftType;
 
-  final _i60.HealthcarePostDTO? updateShift;
+  final _i61.HealthcarePostDTO? updateShift;
 
-  final _i61.PostShiftDTO post;
+  final _i62.PostShiftDTO post;
 
   @override
   String toString() {
@@ -1700,11 +1722,11 @@ class PostShiftRecurringArgs {
 }
 
 /// generated route for
-/// [_i37.PrivacyPolicyScreen]
-class PrivacyPolicyScreen extends _i56.PageRouteInfo<PrivacyPolicyScreenArgs> {
+/// [_i38.PrivacyPolicyScreen]
+class PrivacyPolicyScreen extends _i57.PageRouteInfo<PrivacyPolicyScreenArgs> {
   PrivacyPolicyScreen({
-    _i57.Key? key,
-    List<_i56.PageRouteInfo>? children,
+    _i58.Key? key,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           PrivacyPolicyScreen.name,
           args: PrivacyPolicyScreenArgs(key: key),
@@ -1713,14 +1735,14 @@ class PrivacyPolicyScreen extends _i56.PageRouteInfo<PrivacyPolicyScreenArgs> {
 
   static const String name = 'PrivacyPolicyScreen';
 
-  static const _i56.PageInfo<PrivacyPolicyScreenArgs> page =
-      _i56.PageInfo<PrivacyPolicyScreenArgs>(name);
+  static const _i57.PageInfo<PrivacyPolicyScreenArgs> page =
+      _i57.PageInfo<PrivacyPolicyScreenArgs>(name);
 }
 
 class PrivacyPolicyScreenArgs {
   const PrivacyPolicyScreenArgs({this.key});
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   @override
   String toString() {
@@ -1729,9 +1751,9 @@ class PrivacyPolicyScreenArgs {
 }
 
 /// generated route for
-/// [_i38.ProfessionalReferenceDetail]
-class ProfessionalReferenceDetail extends _i56.PageRouteInfo<void> {
-  const ProfessionalReferenceDetail({List<_i56.PageRouteInfo>? children})
+/// [_i39.ProfessionalReferenceDetail]
+class ProfessionalReferenceDetail extends _i57.PageRouteInfo<void> {
+  const ProfessionalReferenceDetail({List<_i57.PageRouteInfo>? children})
       : super(
           ProfessionalReferenceDetail.name,
           initialChildren: children,
@@ -1739,13 +1761,13 @@ class ProfessionalReferenceDetail extends _i56.PageRouteInfo<void> {
 
   static const String name = 'ProfessionalReferenceDetail';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i39.ProfileView]
-class ProfileView extends _i56.PageRouteInfo<void> {
-  const ProfileView({List<_i56.PageRouteInfo>? children})
+/// [_i40.ProfileView]
+class ProfileView extends _i57.PageRouteInfo<void> {
+  const ProfileView({List<_i57.PageRouteInfo>? children})
       : super(
           ProfileView.name,
           initialChildren: children,
@@ -1753,13 +1775,13 @@ class ProfileView extends _i56.PageRouteInfo<void> {
 
   static const String name = 'ProfileView';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i40.QuizResultScreen]
-class QuizResultScreen extends _i56.PageRouteInfo<void> {
-  const QuizResultScreen({List<_i56.PageRouteInfo>? children})
+/// [_i41.QuizResultScreen]
+class QuizResultScreen extends _i57.PageRouteInfo<void> {
+  const QuizResultScreen({List<_i57.PageRouteInfo>? children})
       : super(
           QuizResultScreen.name,
           initialChildren: children,
@@ -1767,16 +1789,16 @@ class QuizResultScreen extends _i56.PageRouteInfo<void> {
 
   static const String name = 'QuizResultScreen';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i41.ReferenceListScreen]
-class ReferenceListScreen extends _i56.PageRouteInfo<ReferenceListScreenArgs> {
+/// [_i42.ReferenceListScreen]
+class ReferenceListScreen extends _i57.PageRouteInfo<ReferenceListScreenArgs> {
   ReferenceListScreen({
-    _i57.Key? key,
+    _i58.Key? key,
     bool isFromSplash = false,
-    List<_i56.PageRouteInfo>? children,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           ReferenceListScreen.name,
           args: ReferenceListScreenArgs(
@@ -1788,8 +1810,8 @@ class ReferenceListScreen extends _i56.PageRouteInfo<ReferenceListScreenArgs> {
 
   static const String name = 'ReferenceListScreen';
 
-  static const _i56.PageInfo<ReferenceListScreenArgs> page =
-      _i56.PageInfo<ReferenceListScreenArgs>(name);
+  static const _i57.PageInfo<ReferenceListScreenArgs> page =
+      _i57.PageInfo<ReferenceListScreenArgs>(name);
 }
 
 class ReferenceListScreenArgs {
@@ -1798,7 +1820,7 @@ class ReferenceListScreenArgs {
     this.isFromSplash = false,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final bool isFromSplash;
 
@@ -1809,14 +1831,14 @@ class ReferenceListScreenArgs {
 }
 
 /// generated route for
-/// [_i42.RegisterProfileScreen]
-class RegisterProfilePage extends _i56.PageRouteInfo<RegisterProfilePageArgs> {
+/// [_i43.RegisterProfileScreen]
+class RegisterProfilePage extends _i57.PageRouteInfo<RegisterProfilePageArgs> {
   RegisterProfilePage({
-    _i57.Key? key,
+    _i58.Key? key,
     required String firstName,
     required String lastName,
     required int checkTermsPrivacy,
-    List<_i56.PageRouteInfo>? children,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           RegisterProfilePage.name,
           args: RegisterProfilePageArgs(
@@ -1830,8 +1852,8 @@ class RegisterProfilePage extends _i56.PageRouteInfo<RegisterProfilePageArgs> {
 
   static const String name = 'RegisterProfilePage';
 
-  static const _i56.PageInfo<RegisterProfilePageArgs> page =
-      _i56.PageInfo<RegisterProfilePageArgs>(name);
+  static const _i57.PageInfo<RegisterProfilePageArgs> page =
+      _i57.PageInfo<RegisterProfilePageArgs>(name);
 }
 
 class RegisterProfilePageArgs {
@@ -1842,7 +1864,7 @@ class RegisterProfilePageArgs {
     required this.checkTermsPrivacy,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final String firstName;
 
@@ -1857,9 +1879,9 @@ class RegisterProfilePageArgs {
 }
 
 /// generated route for
-/// [_i43.RegisterScreen]
-class RegisterPage extends _i56.PageRouteInfo<void> {
-  const RegisterPage({List<_i56.PageRouteInfo>? children})
+/// [_i44.RegisterScreen]
+class RegisterPage extends _i57.PageRouteInfo<void> {
+  const RegisterPage({List<_i57.PageRouteInfo>? children})
       : super(
           RegisterPage.name,
           initialChildren: children,
@@ -1867,19 +1889,19 @@ class RegisterPage extends _i56.PageRouteInfo<void> {
 
   static const String name = 'RegisterPage';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i44.ReviewPostShiftDetail]
+/// [_i45.ReviewPostShiftDetail]
 class ReviewPostShiftDetail
-    extends _i56.PageRouteInfo<ReviewPostShiftDetailArgs> {
+    extends _i57.PageRouteInfo<ReviewPostShiftDetailArgs> {
   ReviewPostShiftDetail({
-    _i57.Key? key,
-    required _i60.HealthcarePostDTO post,
+    _i58.Key? key,
+    required _i61.HealthcarePostDTO post,
     bool isUpdate = false,
-    _i61.PostShiftDTO? updatedPost,
-    List<_i56.PageRouteInfo>? children,
+    _i62.PostShiftDTO? updatedPost,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           ReviewPostShiftDetail.name,
           args: ReviewPostShiftDetailArgs(
@@ -1893,8 +1915,8 @@ class ReviewPostShiftDetail
 
   static const String name = 'ReviewPostShiftDetail';
 
-  static const _i56.PageInfo<ReviewPostShiftDetailArgs> page =
-      _i56.PageInfo<ReviewPostShiftDetailArgs>(name);
+  static const _i57.PageInfo<ReviewPostShiftDetailArgs> page =
+      _i57.PageInfo<ReviewPostShiftDetailArgs>(name);
 }
 
 class ReviewPostShiftDetailArgs {
@@ -1905,13 +1927,13 @@ class ReviewPostShiftDetailArgs {
     this.updatedPost,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
-  final _i60.HealthcarePostDTO post;
+  final _i61.HealthcarePostDTO post;
 
   final bool isUpdate;
 
-  final _i61.PostShiftDTO? updatedPost;
+  final _i62.PostShiftDTO? updatedPost;
 
   @override
   String toString() {
@@ -1920,13 +1942,13 @@ class ReviewPostShiftDetailArgs {
 }
 
 /// generated route for
-/// [_i45.ShowGoogleMap]
-class ShowGoogleMap extends _i56.PageRouteInfo<ShowGoogleMapArgs> {
+/// [_i46.ShowGoogleMap]
+class ShowGoogleMap extends _i57.PageRouteInfo<ShowGoogleMapArgs> {
   ShowGoogleMap({
-    _i57.Key? key,
+    _i58.Key? key,
     required double latitude,
     required double longitude,
-    List<_i56.PageRouteInfo>? children,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           ShowGoogleMap.name,
           args: ShowGoogleMapArgs(
@@ -1939,8 +1961,8 @@ class ShowGoogleMap extends _i56.PageRouteInfo<ShowGoogleMapArgs> {
 
   static const String name = 'ShowGoogleMap';
 
-  static const _i56.PageInfo<ShowGoogleMapArgs> page =
-      _i56.PageInfo<ShowGoogleMapArgs>(name);
+  static const _i57.PageInfo<ShowGoogleMapArgs> page =
+      _i57.PageInfo<ShowGoogleMapArgs>(name);
 }
 
 class ShowGoogleMapArgs {
@@ -1950,7 +1972,7 @@ class ShowGoogleMapArgs {
     required this.longitude,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final double latitude;
 
@@ -1963,9 +1985,9 @@ class ShowGoogleMapArgs {
 }
 
 /// generated route for
-/// [_i46.SplashPage]
-class SplashPage extends _i56.PageRouteInfo<void> {
-  const SplashPage({List<_i56.PageRouteInfo>? children})
+/// [_i47.SplashPage]
+class SplashPage extends _i57.PageRouteInfo<void> {
+  const SplashPage({List<_i57.PageRouteInfo>? children})
       : super(
           SplashPage.name,
           initialChildren: children,
@@ -1973,16 +1995,16 @@ class SplashPage extends _i56.PageRouteInfo<void> {
 
   static const String name = 'SplashPage';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i47.TeamDetailView]
-class TeamDetailView extends _i56.PageRouteInfo<TeamDetailViewArgs> {
+/// [_i48.TeamDetailView]
+class TeamDetailView extends _i57.PageRouteInfo<TeamDetailViewArgs> {
   TeamDetailView({
-    _i57.Key? key,
-    required _i62.GetTeamsListDTO getTeamsListDTO,
-    List<_i56.PageRouteInfo>? children,
+    _i58.Key? key,
+    required _i63.GetTeamsListDTO getTeamsListDTO,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           TeamDetailView.name,
           args: TeamDetailViewArgs(
@@ -1994,8 +2016,8 @@ class TeamDetailView extends _i56.PageRouteInfo<TeamDetailViewArgs> {
 
   static const String name = 'TeamDetailView';
 
-  static const _i56.PageInfo<TeamDetailViewArgs> page =
-      _i56.PageInfo<TeamDetailViewArgs>(name);
+  static const _i57.PageInfo<TeamDetailViewArgs> page =
+      _i57.PageInfo<TeamDetailViewArgs>(name);
 }
 
 class TeamDetailViewArgs {
@@ -2004,9 +2026,9 @@ class TeamDetailViewArgs {
     required this.getTeamsListDTO,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
-  final _i62.GetTeamsListDTO getTeamsListDTO;
+  final _i63.GetTeamsListDTO getTeamsListDTO;
 
   @override
   String toString() {
@@ -2015,9 +2037,9 @@ class TeamDetailViewArgs {
 }
 
 /// generated route for
-/// [_i48.TeamsView]
-class TeamsView extends _i56.PageRouteInfo<void> {
-  const TeamsView({List<_i56.PageRouteInfo>? children})
+/// [_i49.TeamsView]
+class TeamsView extends _i57.PageRouteInfo<void> {
+  const TeamsView({List<_i57.PageRouteInfo>? children})
       : super(
           TeamsView.name,
           initialChildren: children,
@@ -2025,18 +2047,18 @@ class TeamsView extends _i56.PageRouteInfo<void> {
 
   static const String name = 'TeamsView';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i49.TermsAndConditionsScreen]
+/// [_i50.TermsAndConditionsScreen]
 class TermsAndConditionsScreen
-    extends _i56.PageRouteInfo<TermsAndConditionsScreenArgs> {
+    extends _i57.PageRouteInfo<TermsAndConditionsScreenArgs> {
   TermsAndConditionsScreen({
-    _i57.Key? key,
+    _i58.Key? key,
     bool isFromSplash = false,
     bool isFromRegister = false,
-    List<_i56.PageRouteInfo>? children,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           TermsAndConditionsScreen.name,
           args: TermsAndConditionsScreenArgs(
@@ -2049,8 +2071,8 @@ class TermsAndConditionsScreen
 
   static const String name = 'TermsAndConditionsScreen';
 
-  static const _i56.PageInfo<TermsAndConditionsScreenArgs> page =
-      _i56.PageInfo<TermsAndConditionsScreenArgs>(name);
+  static const _i57.PageInfo<TermsAndConditionsScreenArgs> page =
+      _i57.PageInfo<TermsAndConditionsScreenArgs>(name);
 }
 
 class TermsAndConditionsScreenArgs {
@@ -2060,7 +2082,7 @@ class TermsAndConditionsScreenArgs {
     this.isFromRegister = false,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final bool isFromSplash;
 
@@ -2073,9 +2095,9 @@ class TermsAndConditionsScreenArgs {
 }
 
 /// generated route for
-/// [_i50.TotalPraposalView]
-class TotalPraposalView extends _i56.PageRouteInfo<void> {
-  const TotalPraposalView({List<_i56.PageRouteInfo>? children})
+/// [_i51.TotalPraposalView]
+class TotalPraposalView extends _i57.PageRouteInfo<void> {
+  const TotalPraposalView({List<_i57.PageRouteInfo>? children})
       : super(
           TotalPraposalView.name,
           initialChildren: children,
@@ -2083,13 +2105,13 @@ class TotalPraposalView extends _i56.PageRouteInfo<void> {
 
   static const String name = 'TotalPraposalView';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i51.ViewApplicantProfile]
-class ViewApplicantProfile extends _i56.PageRouteInfo<void> {
-  const ViewApplicantProfile({List<_i56.PageRouteInfo>? children})
+/// [_i52.ViewApplicantProfile]
+class ViewApplicantProfile extends _i57.PageRouteInfo<void> {
+  const ViewApplicantProfile({List<_i57.PageRouteInfo>? children})
       : super(
           ViewApplicantProfile.name,
           initialChildren: children,
@@ -2097,16 +2119,16 @@ class ViewApplicantProfile extends _i56.PageRouteInfo<void> {
 
   static const String name = 'ViewApplicantProfile';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i52.ViewDates]
-class ViewDates extends _i56.PageRouteInfo<ViewDatesArgs> {
+/// [_i53.ViewDates]
+class ViewDates extends _i57.PageRouteInfo<ViewDatesArgs> {
   ViewDates({
-    _i57.Key? key,
-    required _i64.ShiftDetailDTO shiftDetail,
-    List<_i56.PageRouteInfo>? children,
+    _i58.Key? key,
+    required _i65.ShiftDetailDTO shiftDetail,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           ViewDates.name,
           args: ViewDatesArgs(
@@ -2118,8 +2140,8 @@ class ViewDates extends _i56.PageRouteInfo<ViewDatesArgs> {
 
   static const String name = 'ViewDates';
 
-  static const _i56.PageInfo<ViewDatesArgs> page =
-      _i56.PageInfo<ViewDatesArgs>(name);
+  static const _i57.PageInfo<ViewDatesArgs> page =
+      _i57.PageInfo<ViewDatesArgs>(name);
 }
 
 class ViewDatesArgs {
@@ -2128,9 +2150,9 @@ class ViewDatesArgs {
     required this.shiftDetail,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
-  final _i64.ShiftDetailDTO shiftDetail;
+  final _i65.ShiftDetailDTO shiftDetail;
 
   @override
   String toString() {
@@ -2139,14 +2161,14 @@ class ViewDatesArgs {
 }
 
 /// generated route for
-/// [_i53.ViewHomeShiftDetails]
+/// [_i54.ViewHomeShiftDetails]
 class ViewHomeShiftDetails
-    extends _i56.PageRouteInfo<ViewHomeShiftDetailsArgs> {
+    extends _i57.PageRouteInfo<ViewHomeShiftDetailsArgs> {
   ViewHomeShiftDetails({
-    _i57.Key? key,
+    _i58.Key? key,
     required int postId,
     bool isTotalApplicants = false,
-    List<_i56.PageRouteInfo>? children,
+    List<_i57.PageRouteInfo>? children,
   }) : super(
           ViewHomeShiftDetails.name,
           args: ViewHomeShiftDetailsArgs(
@@ -2159,8 +2181,8 @@ class ViewHomeShiftDetails
 
   static const String name = 'ViewHomeShiftDetails';
 
-  static const _i56.PageInfo<ViewHomeShiftDetailsArgs> page =
-      _i56.PageInfo<ViewHomeShiftDetailsArgs>(name);
+  static const _i57.PageInfo<ViewHomeShiftDetailsArgs> page =
+      _i57.PageInfo<ViewHomeShiftDetailsArgs>(name);
 }
 
 class ViewHomeShiftDetailsArgs {
@@ -2170,7 +2192,7 @@ class ViewHomeShiftDetailsArgs {
     this.isTotalApplicants = false,
   });
 
-  final _i57.Key? key;
+  final _i58.Key? key;
 
   final int postId;
 
@@ -2183,9 +2205,9 @@ class ViewHomeShiftDetailsArgs {
 }
 
 /// generated route for
-/// [_i54.ViewPersonPraposalView]
-class ViewPersonPraposalView extends _i56.PageRouteInfo<void> {
-  const ViewPersonPraposalView({List<_i56.PageRouteInfo>? children})
+/// [_i55.ViewPersonPraposalView]
+class ViewPersonPraposalView extends _i57.PageRouteInfo<void> {
+  const ViewPersonPraposalView({List<_i57.PageRouteInfo>? children})
       : super(
           ViewPersonPraposalView.name,
           initialChildren: children,
@@ -2193,13 +2215,13 @@ class ViewPersonPraposalView extends _i56.PageRouteInfo<void> {
 
   static const String name = 'ViewPersonPraposalView';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i55.ViewSingleApplicants]
-class ViewSingleApplicants extends _i56.PageRouteInfo<void> {
-  const ViewSingleApplicants({List<_i56.PageRouteInfo>? children})
+/// [_i56.ViewSingleApplicants]
+class ViewSingleApplicants extends _i57.PageRouteInfo<void> {
+  const ViewSingleApplicants({List<_i57.PageRouteInfo>? children})
       : super(
           ViewSingleApplicants.name,
           initialChildren: children,
@@ -2207,5 +2229,5 @@ class ViewSingleApplicants extends _i56.PageRouteInfo<void> {
 
   static const String name = 'ViewSingleApplicants';
 
-  static const _i56.PageInfo<void> page = _i56.PageInfo<void>(name);
+  static const _i57.PageInfo<void> page = _i57.PageInfo<void>(name);
 }

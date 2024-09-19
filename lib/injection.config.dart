@@ -19,7 +19,7 @@ import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart'
 import 'package:shift/application/auth/contractor_auth/document_bloc/document_bloc.dart'
     as _i28;
 import 'package:shift/application/auth/contractor_auth/education_detail_bloc/education_detail_bloc.dart'
-    as _i32;
+    as _i33;
 import 'package:shift/application/auth/contractor_auth/experience_bloc/experience_bloc.dart'
     as _i26;
 import 'package:shift/application/auth/contractor_auth/intro_video_bloc/intro_video_bloc.dart'
@@ -27,7 +27,7 @@ import 'package:shift/application/auth/contractor_auth/intro_video_bloc/intro_vi
 import 'package:shift/application/auth/contractor_auth/legal_screening_bloc/legal_screening_bloc.dart'
     as _i27;
 import 'package:shift/application/auth/contractor_auth/reference_bloc/reference_bloc.dart'
-    as _i33;
+    as _i34;
 import 'package:shift/application/auth/contractor_auth/speciality_experience/speciality_experience_bloc.dart'
     as _i31;
 import 'package:shift/application/auth/contractor_auth/terms_and_condition_bloc/terms_and_condition_bloc.dart'
@@ -38,7 +38,7 @@ import 'package:shift/application/auth/login_form/login_form_bloc.dart' as _i24;
 import 'package:shift/application/auth/register_form/register_form_bloc.dart'
     as _i23;
 import 'package:shift/application/contractor_main_tab_bloc/contractor_home_bloc/contractor_home_bloc.dart'
-    as _i36;
+    as _i37;
 import 'package:shift/application/contractor_main_tab_bloc/contractor_main_bloc.dart'
     as _i16;
 import 'package:shift/application/google_map/google_map_bloc.dart' as _i4;
@@ -46,14 +46,16 @@ import 'package:shift/application/healthcare_post/healthcare_post_bloc.dart'
     as _i14;
 import 'package:shift/application/location_details/location_details_bloc.dart'
     as _i29;
-import 'package:shift/application/main_tab/home/home_bloc.dart' as _i34;
+import 'package:shift/application/main_tab/home/home_bloc.dart' as _i35;
 import 'package:shift/application/main_tab/home/view_single_applicants/view_single_applicants_bloc.dart'
     as _i18;
 import 'package:shift/application/main_tab/main_tab_bloc.dart' as _i15;
 import 'package:shift/application/main_tab/profile/profile_sections/teams/add_new_member/add_new_member_bloc.dart'
-    as _i35;
+    as _i36;
 import 'package:shift/application/main_tab/profile/profile_sections/teams/teams_bloc.dart'
     as _i13;
+import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart'
+    as _i32;
 import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart' as _i17;
 import 'package:shift/application/profile/account/account_cubit.dart' as _i30;
 import 'package:shift/application/splash/splash_bloc.dart' as _i12;
@@ -142,19 +144,21 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i30.AccountCubit(gh<_i8.IAccountRepository>()));
     gh.factory<_i31.SpecialityExperienceBloc>(
         () => _i31.SpecialityExperienceBloc(gh<_i8.IAccountRepository>()));
-    gh.factory<_i32.EducationDetailBloc>(() => _i32.EducationDetailBloc(
+    gh.factory<_i32.ShiftsBloc>(
+        () => _i32.ShiftsBloc(gh<_i8.IAccountRepository>()));
+    gh.factory<_i33.EducationDetailBloc>(() => _i33.EducationDetailBloc(
           gh<_i8.IAccountRepository>(),
           gh<_i6.IAuthFacade>(),
         ));
-    gh.factory<_i33.ReferenceBloc>(() => _i33.ReferenceBloc(
+    gh.factory<_i34.ReferenceBloc>(() => _i34.ReferenceBloc(
           gh<_i8.IAccountRepository>(),
           gh<_i6.IAuthFacade>(),
         ));
-    gh.factory<_i34.HomeBloc>(() => _i34.HomeBloc(gh<_i10.IMainFacade>()));
-    gh.factory<_i35.AddNewMemberBloc>(
-        () => _i35.AddNewMemberBloc(gh<_i10.IMainFacade>()));
-    gh.factory<_i36.ContractorHomeBloc>(
-        () => _i36.ContractorHomeBloc(gh<_i10.IMainFacade>()));
+    gh.factory<_i35.HomeBloc>(() => _i35.HomeBloc(gh<_i10.IMainFacade>()));
+    gh.factory<_i36.AddNewMemberBloc>(
+        () => _i36.AddNewMemberBloc(gh<_i10.IMainFacade>()));
+    gh.factory<_i37.ContractorHomeBloc>(
+        () => _i37.ContractorHomeBloc(gh<_i10.IMainFacade>()));
     return this;
   }
 }
