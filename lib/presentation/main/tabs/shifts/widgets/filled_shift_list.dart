@@ -1,9 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/main/tabs/shifts/widgets/delete_shift_dialog.dart';
 
 class FilledShiftListView extends StatelessWidget {
   const FilledShiftListView({
@@ -72,19 +75,25 @@ class FilledShiftListView extends StatelessWidget {
                                     fontWeight: FontWeight.w600,
                                   ),
                                   Spacer(),
-                                  Container(
-                                    alignment: Alignment.center,
-                                    height: getSize(28),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.white,
-                                      borderRadius:
-                                          BorderRadius.circular(getSize(5)),
-                                    ),
-                                    width: getSize(28),
-                                    child: SvgPicture.asset(
-                                      SvgImageConstant.delete,
-                                      colorFilter: ColorFilter.mode(
-                                          AppColors.black, BlendMode.srcATop),
+                                  GestureDetector(
+                                    onTap: () {
+                                      DeleteShiftDialog()
+                                          .deleteShiftDialog(context);
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: getSize(28),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(getSize(5)),
+                                      ),
+                                      width: getSize(28),
+                                      child: SvgPicture.asset(
+                                        SvgImageConstant.delete,
+                                        colorFilter: ColorFilter.mode(
+                                            AppColors.black, BlendMode.srcATop),
+                                      ),
                                     ),
                                   )
                                 ],
@@ -219,20 +228,32 @@ class FilledShiftListView extends StatelessWidget {
                   ),
                   Spacer(),
                   Expanded(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: getSize(8),
-                        // horizontal: getSize(20),
-                      ),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: AppColors.scaffoldColor,
-                        borderRadius: BorderRadius.circular(getSize(7)),
-                      ),
-                      child: BaseText(
-                        text: 'View shift Details',
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600,
+                    child: GestureDetector(
+                      onTap: () {
+                        context.router.push(
+                          PageRouteInfo(
+                            ViewHomeShiftDetails.name,
+                            args: ViewHomeShiftDetailsArgs(
+                              postId: 1,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          vertical: getSize(8),
+                          // horizontal: getSize(20),
+                        ),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: AppColors.scaffoldColor,
+                          borderRadius: BorderRadius.circular(getSize(7)),
+                        ),
+                        child: BaseText(
+                          text: 'View shift Details',
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),

@@ -10,6 +10,7 @@ class AcceptRejectDialog extends StatelessWidget {
   final String description;
   final String acceptButtonText;
   final String rejectButtonText;
+  final Widget? otherContent;
   final Function() onPressedAccept;
   final Function() onPressedReject;
 
@@ -20,7 +21,8 @@ class AcceptRejectDialog extends StatelessWidget {
       required this.onPressedAccept,
       required this.onPressedReject,
       this.acceptButtonText = 'Accept',
-      this.rejectButtonText = 'Cancel'});
+      this.rejectButtonText = 'Cancel',
+      this.otherContent});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,9 @@ class AcceptRejectDialog extends StatelessWidget {
       builder: (context) => AlertDialog(
         contentPadding: EdgeInsets.zero,
         clipBehavior: Clip.none,
-        insetPadding: EdgeInsets.symmetric(horizontal: getSize(30)),
+        elevation: 0,
+        backgroundColor: AppColors.white,
+        insetPadding: EdgeInsets.symmetric(horizontal: getSize(17)),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(getSize(15)),
         ),
@@ -56,10 +60,12 @@ class AcceptRejectDialog extends StatelessWidget {
               BaseText(
                 text: description,
                 fontSize: 14,
+                showFullDescription: true,
                 textAlign: TextAlign.center,
                 fontWeight: FontWeight.w500,
                 textColor: AppColors.black.withOpacity(0.7),
               ),
+              otherContent ?? SizedBox(),
               SizedBox(
                 height: getSize(30),
               ),
