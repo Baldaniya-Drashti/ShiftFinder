@@ -3,9 +3,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shift/application/auth/register_form/register_form_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
@@ -15,6 +17,8 @@ import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/inputs/custom_pin_field.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/dialogs.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
 // ignore: must_be_immutable
 class VerifyPhoneNumber extends StatelessWidget {
@@ -188,18 +192,44 @@ class VerifyPhoneNumber extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-          SizedBox(
-            height: getSize(10),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: BaseText(
-              textAlign: TextAlign.center,
-              text: (getCurrentRole() == 1) ? emailOrPhone : emailOrPhone,
-              fontSize: getSize(12),
-              textColor: AppColors.black.withOpacity(0.7),
-              fontWeight: FontWeight.w600,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              BaseText(
+                textAlign: TextAlign.center,
+                text: (getCurrentRole() == 1) ? emailOrPhone : emailOrPhone,
+                fontSize: getSize(12),
+                textColor: AppColors.black.withOpacity(0.7),
+                fontWeight: FontWeight.w600,
+              ),
+              GestureDetector(
+                onTap: () {
+                  if (getCurrentRole() == 1) {
+                    editPhone(context, state, emailOrPhone);
+                  } else {
+                    editEmail(context, state, emailOrPhone);
+                  }
+                },
+                child: Container(
+                  color: AppColors.transparent,
+                  padding: EdgeInsets.all(getSize(10)),
+                  child: Container(
+                    padding: EdgeInsets.all(getSize(5)),
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: SvgPicture.asset(
+                      SvgImageConstant.edit,
+                      color: AppColors.primaryColor,
+                      height: getSize(15),
+                      width: getSize(15),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           SizedBox(
             height: getSize(30),
@@ -283,6 +313,112 @@ class VerifyPhoneNumber extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  editEmail(
+      BuildContext context, RegisterFormState state, String initialValue) {
+    AppDialog.showDelete(
+      context,
+      title: StringConstant.editEmail,
+      infoMessage: StringConstant.pleaseEditYourEmailToGetVerificationCode,
+      otherContent: Form(
+        autovalidateMode: state.showEditedErrorMessage
+            ? AutovalidateMode.always
+            : AutovalidateMode.disabled,
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: getSize(20)),
+              child: CustomTextField(
+                labelText: StringConstant.email,
+                initialValue: initialValue,
+                onChanged: (value) {
+                  /*  context
+                      .read<RegisterFormBloc>()
+                      .add(RegisterFormEvent.editedEmailEvent(initialValue));*/
+                },
+                validator: (p0, p1) => context
+                    .read<RegisterFormBloc>()
+                    .state
+                    .editedEmail
+                    .value
+                    .fold(
+                      (f) => f.maybeMap(
+                        empty: (value) => StringConstant.pleaseEnterEmail,
+                        invalidEmail: (_) =>
+                            StringConstant.pleaseEnterValidEmail,
+                        orElse: () => null,
+                      ),
+                      (_) => null,
+                    ),
+                fillColor: AppColors.grey04,
+                prefixIcon: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: getSize(14),
+                    vertical: getSize(14),
+                  ),
+                  child: SvgPicture.asset(
+                    SvgImageConstant.email,
+                    height: getSize(24),
+                    width: getSize(24),
+                    color: AppColors.primaryColor,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      deleteBtnText: StringConstant.resendCode,
+      onCancelClick: () {
+        context.router.maybePop();
+      },
+      onDeleteClick: () {
+        /*context
+            .read<RegisterFormBloc>()
+            .add(RegisterFormEvent.editEmailOrPhone());*/
+      },
+    );
+  }
+
+  editPhone(
+      BuildContext context, RegisterFormState state, String initialValue) {
+    AppDialog.showDelete(
+      context,
+      title: StringConstant.editPhoneNumber,
+      infoMessage:
+          StringConstant.pleaseEditYourPhoneNnumberToGetVerificationCode,
+      otherContent: Padding(
+        padding: EdgeInsets.only(top: getSize(20)),
+        child: Form(
+          autovalidateMode: state.showOtpErrorMessages
+              ? AutovalidateMode.always
+              : AutovalidateMode.disabled,
+          child: CustomTextField(
+            labelText: StringConstant.phoneNumber,
+            initialValue: initialValue,
+            fillColor: AppColors.grey04,
+            prefixIcon: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: getSize(14),
+                vertical: getSize(14),
+              ),
+              child: SvgPicture.asset(
+                SvgImageConstant.contact,
+                height: getSize(24),
+                width: getSize(24),
+                color: AppColors.primaryColor,
+              ),
+            ),
+          ),
+        ),
+      ),
+      deleteBtnText: StringConstant.resendCode,
+      onCancelClick: () {
+        context.router.maybePop();
+      },
+      onDeleteClick: () {},
     );
   }
 }

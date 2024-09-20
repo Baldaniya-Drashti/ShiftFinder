@@ -226,11 +226,16 @@ class SameTimeForMultiDate extends StatelessWidget {
             }
           },
         ),
-        if (state.singleShiftErrorMessages &&
-            (!state.startHour.isValid() || !state.startMinute.isValid()))
-          commonErrorText(
-            StringConstant.pleaseSelectHourAndMinutesOfStartTime,
-          ),
+        (state.singleShiftErrorMessages &&
+                (!state.startHour.isValid() || !state.startMinute.isValid()))
+            ? commonErrorText(
+                StringConstant.pleaseSelectHourAndMinutesOfStartTime,
+              )
+            : (PostShiftBloc.timeIsPast(
+                    state, state.startHour, state.startMinute, shiftType: 1))
+                ? commonErrorText(
+                    StringConstant.shiftStartTimeMustBeAFutureTime)
+                : Container(),
       ],
     );
   }
@@ -263,11 +268,12 @@ class SameTimeForMultiDate extends StatelessWidget {
             }
           },
         ),
-        if (state.singleShiftErrorMessages &&
-            (!state.endHour.isValid() || !state.endMinute.isValid()))
-          commonErrorText(
-            StringConstant.pleaseSelectHourAndMinutesOfEndTime,
-          ),
+        (state.singleShiftErrorMessages &&
+                (!state.endHour.isValid() || !state.endMinute.isValid()))
+            ? commonErrorText(
+                StringConstant.pleaseSelectHourAndMinutesOfEndTime,
+              )
+            : Container(),
       ],
     );
   }

@@ -45,6 +45,9 @@ mixin _$RegisterFormEvent {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -74,6 +77,9 @@ mixin _$RegisterFormEvent {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -103,6 +109,9 @@ mixin _$RegisterFormEvent {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -136,6 +145,8 @@ mixin _$RegisterFormEvent {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -165,6 +176,8 @@ mixin _$RegisterFormEvent {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -194,6 +207,8 @@ mixin _$RegisterFormEvent {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -310,6 +325,9 @@ class _$FirstNameChangedImpl implements FirstNameChanged {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return firstNameChanged(firstName);
   }
@@ -342,6 +360,9 @@ class _$FirstNameChangedImpl implements FirstNameChanged {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return firstNameChanged?.call(firstName);
   }
@@ -374,6 +395,9 @@ class _$FirstNameChangedImpl implements FirstNameChanged {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (firstNameChanged != null) {
@@ -413,6 +437,8 @@ class _$FirstNameChangedImpl implements FirstNameChanged {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return firstNameChanged(this);
   }
@@ -445,6 +471,8 @@ class _$FirstNameChangedImpl implements FirstNameChanged {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return firstNameChanged?.call(this);
   }
@@ -477,6 +505,8 @@ class _$FirstNameChangedImpl implements FirstNameChanged {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (firstNameChanged != null) {
@@ -589,6 +619,9 @@ class _$LastNameChangedImpl implements LastNameChanged {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return lastNameChanged(lastName);
   }
@@ -621,6 +654,9 @@ class _$LastNameChangedImpl implements LastNameChanged {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return lastNameChanged?.call(lastName);
   }
@@ -653,6 +689,9 @@ class _$LastNameChangedImpl implements LastNameChanged {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (lastNameChanged != null) {
@@ -692,6 +731,8 @@ class _$LastNameChangedImpl implements LastNameChanged {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return lastNameChanged(this);
   }
@@ -724,6 +765,8 @@ class _$LastNameChangedImpl implements LastNameChanged {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return lastNameChanged?.call(this);
   }
@@ -756,6 +799,8 @@ class _$LastNameChangedImpl implements LastNameChanged {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (lastNameChanged != null) {
@@ -866,6 +911,9 @@ class _$CheckTermsConditionImpl implements CheckTermsCondition {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return checkTermsCondition(isCheck);
   }
@@ -898,6 +946,9 @@ class _$CheckTermsConditionImpl implements CheckTermsCondition {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return checkTermsCondition?.call(isCheck);
   }
@@ -930,6 +981,9 @@ class _$CheckTermsConditionImpl implements CheckTermsCondition {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (checkTermsCondition != null) {
@@ -969,6 +1023,8 @@ class _$CheckTermsConditionImpl implements CheckTermsCondition {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return checkTermsCondition(this);
   }
@@ -1001,6 +1057,8 @@ class _$CheckTermsConditionImpl implements CheckTermsCondition {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return checkTermsCondition?.call(this);
   }
@@ -1033,6 +1091,8 @@ class _$CheckTermsConditionImpl implements CheckTermsCondition {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (checkTermsCondition != null) {
@@ -1117,6 +1177,9 @@ class _$RegisterPressedImpl implements RegisterPressed {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return registerPressed();
   }
@@ -1149,6 +1212,9 @@ class _$RegisterPressedImpl implements RegisterPressed {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return registerPressed?.call();
   }
@@ -1181,6 +1247,9 @@ class _$RegisterPressedImpl implements RegisterPressed {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (registerPressed != null) {
@@ -1220,6 +1289,8 @@ class _$RegisterPressedImpl implements RegisterPressed {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return registerPressed(this);
   }
@@ -1252,6 +1323,8 @@ class _$RegisterPressedImpl implements RegisterPressed {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return registerPressed?.call(this);
   }
@@ -1284,6 +1357,8 @@ class _$RegisterPressedImpl implements RegisterPressed {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (registerPressed != null) {
@@ -1390,6 +1465,9 @@ class _$ChangeProfilePicImpl implements ChangeProfilePic {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return changeProfilePic(imagePath);
   }
@@ -1422,6 +1500,9 @@ class _$ChangeProfilePicImpl implements ChangeProfilePic {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return changeProfilePic?.call(imagePath);
   }
@@ -1454,6 +1535,9 @@ class _$ChangeProfilePicImpl implements ChangeProfilePic {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (changeProfilePic != null) {
@@ -1493,6 +1577,8 @@ class _$ChangeProfilePicImpl implements ChangeProfilePic {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return changeProfilePic(this);
   }
@@ -1525,6 +1611,8 @@ class _$ChangeProfilePicImpl implements ChangeProfilePic {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return changeProfilePic?.call(this);
   }
@@ -1557,6 +1645,8 @@ class _$ChangeProfilePicImpl implements ChangeProfilePic {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (changeProfilePic != null) {
@@ -1669,6 +1759,9 @@ class _$CompanyNameChangedImpl implements CompanyNameChanged {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return companyNameChanged(companyName);
   }
@@ -1701,6 +1794,9 @@ class _$CompanyNameChangedImpl implements CompanyNameChanged {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return companyNameChanged?.call(companyName);
   }
@@ -1733,6 +1829,9 @@ class _$CompanyNameChangedImpl implements CompanyNameChanged {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (companyNameChanged != null) {
@@ -1772,6 +1871,8 @@ class _$CompanyNameChangedImpl implements CompanyNameChanged {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return companyNameChanged(this);
   }
@@ -1804,6 +1905,8 @@ class _$CompanyNameChangedImpl implements CompanyNameChanged {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return companyNameChanged?.call(this);
   }
@@ -1836,6 +1939,8 @@ class _$CompanyNameChangedImpl implements CompanyNameChanged {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (companyNameChanged != null) {
@@ -1948,6 +2053,9 @@ class _$phoneNumberChangedImpl implements phoneNumberChanged {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return phoneNumberChanged(phoneNumber);
   }
@@ -1980,6 +2088,9 @@ class _$phoneNumberChangedImpl implements phoneNumberChanged {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return phoneNumberChanged?.call(phoneNumber);
   }
@@ -2012,6 +2123,9 @@ class _$phoneNumberChangedImpl implements phoneNumberChanged {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (phoneNumberChanged != null) {
@@ -2051,6 +2165,8 @@ class _$phoneNumberChangedImpl implements phoneNumberChanged {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return phoneNumberChanged(this);
   }
@@ -2083,6 +2199,8 @@ class _$phoneNumberChangedImpl implements phoneNumberChanged {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return phoneNumberChanged?.call(this);
   }
@@ -2115,6 +2233,8 @@ class _$phoneNumberChangedImpl implements phoneNumberChanged {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (phoneNumberChanged != null) {
@@ -2225,6 +2345,9 @@ class _$EmailChangedImpl implements EmailChanged {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return emailChanged(email);
   }
@@ -2257,6 +2380,9 @@ class _$EmailChangedImpl implements EmailChanged {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return emailChanged?.call(email);
   }
@@ -2289,6 +2415,9 @@ class _$EmailChangedImpl implements EmailChanged {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (emailChanged != null) {
@@ -2328,6 +2457,8 @@ class _$EmailChangedImpl implements EmailChanged {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return emailChanged(this);
   }
@@ -2360,6 +2491,8 @@ class _$EmailChangedImpl implements EmailChanged {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return emailChanged?.call(this);
   }
@@ -2392,6 +2525,8 @@ class _$EmailChangedImpl implements EmailChanged {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (emailChanged != null) {
@@ -2505,6 +2640,9 @@ class _$LocationAddressChangedImpl implements LocationAddressChanged {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return locationAddressChanged(location);
   }
@@ -2537,6 +2675,9 @@ class _$LocationAddressChangedImpl implements LocationAddressChanged {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return locationAddressChanged?.call(location);
   }
@@ -2569,6 +2710,9 @@ class _$LocationAddressChangedImpl implements LocationAddressChanged {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (locationAddressChanged != null) {
@@ -2608,6 +2752,8 @@ class _$LocationAddressChangedImpl implements LocationAddressChanged {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return locationAddressChanged(this);
   }
@@ -2640,6 +2786,8 @@ class _$LocationAddressChangedImpl implements LocationAddressChanged {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return locationAddressChanged?.call(this);
   }
@@ -2672,6 +2820,8 @@ class _$LocationAddressChangedImpl implements LocationAddressChanged {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (locationAddressChanged != null) {
@@ -2789,6 +2939,9 @@ class _$LocationSelectedFromSearchListImpl
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return locationSelectedFromSearchList(selectedLocation);
   }
@@ -2821,6 +2974,9 @@ class _$LocationSelectedFromSearchListImpl
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return locationSelectedFromSearchList?.call(selectedLocation);
   }
@@ -2853,6 +3009,9 @@ class _$LocationSelectedFromSearchListImpl
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (locationSelectedFromSearchList != null) {
@@ -2892,6 +3051,8 @@ class _$LocationSelectedFromSearchListImpl
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return locationSelectedFromSearchList(this);
   }
@@ -2924,6 +3085,8 @@ class _$LocationSelectedFromSearchListImpl
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return locationSelectedFromSearchList?.call(this);
   }
@@ -2956,6 +3119,8 @@ class _$LocationSelectedFromSearchListImpl
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (locationSelectedFromSearchList != null) {
@@ -3069,6 +3234,9 @@ class _$PasswordChangedImpl implements PasswordChanged {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return passwordChanged(password);
   }
@@ -3101,6 +3269,9 @@ class _$PasswordChangedImpl implements PasswordChanged {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return passwordChanged?.call(password);
   }
@@ -3133,6 +3304,9 @@ class _$PasswordChangedImpl implements PasswordChanged {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (passwordChanged != null) {
@@ -3172,6 +3346,8 @@ class _$PasswordChangedImpl implements PasswordChanged {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return passwordChanged(this);
   }
@@ -3204,6 +3380,8 @@ class _$PasswordChangedImpl implements PasswordChanged {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return passwordChanged?.call(this);
   }
@@ -3236,6 +3414,8 @@ class _$PasswordChangedImpl implements PasswordChanged {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (passwordChanged != null) {
@@ -3358,6 +3538,9 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return confirmPasswordChanged(confirmPassword, password);
   }
@@ -3390,6 +3573,9 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return confirmPasswordChanged?.call(confirmPassword, password);
   }
@@ -3422,6 +3608,9 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (confirmPasswordChanged != null) {
@@ -3461,6 +3650,8 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return confirmPasswordChanged(this);
   }
@@ -3493,6 +3684,8 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return confirmPasswordChanged?.call(this);
   }
@@ -3525,6 +3718,8 @@ class _$ConfirmPasswordChangedImpl implements ConfirmPasswordChanged {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (confirmPasswordChanged != null) {
@@ -3641,6 +3836,9 @@ class _$AssociationTextChangedImpl implements AssociationTextChanged {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return associationTextChanged(associationText);
   }
@@ -3673,6 +3871,9 @@ class _$AssociationTextChangedImpl implements AssociationTextChanged {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return associationTextChanged?.call(associationText);
   }
@@ -3705,6 +3906,9 @@ class _$AssociationTextChangedImpl implements AssociationTextChanged {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (associationTextChanged != null) {
@@ -3744,6 +3948,8 @@ class _$AssociationTextChangedImpl implements AssociationTextChanged {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return associationTextChanged(this);
   }
@@ -3776,6 +3982,8 @@ class _$AssociationTextChangedImpl implements AssociationTextChanged {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return associationTextChanged?.call(this);
   }
@@ -3808,6 +4016,8 @@ class _$AssociationTextChangedImpl implements AssociationTextChanged {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (associationTextChanged != null) {
@@ -3920,6 +4130,9 @@ class _$ReferralCodeChangedImpl implements ReferralCodeChanged {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return referralCodeChanged(referralCode);
   }
@@ -3952,6 +4165,9 @@ class _$ReferralCodeChangedImpl implements ReferralCodeChanged {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return referralCodeChanged?.call(referralCode);
   }
@@ -3984,6 +4200,9 @@ class _$ReferralCodeChangedImpl implements ReferralCodeChanged {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (referralCodeChanged != null) {
@@ -4023,6 +4242,8 @@ class _$ReferralCodeChangedImpl implements ReferralCodeChanged {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return referralCodeChanged(this);
   }
@@ -4055,6 +4276,8 @@ class _$ReferralCodeChangedImpl implements ReferralCodeChanged {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return referralCodeChanged?.call(this);
   }
@@ -4087,6 +4310,8 @@ class _$ReferralCodeChangedImpl implements ReferralCodeChanged {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (referralCodeChanged != null) {
@@ -4199,6 +4424,9 @@ class _$CompanyDescChangedImpl implements CompanyDescChanged {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return companyDescChanged(companyDesc);
   }
@@ -4231,6 +4459,9 @@ class _$CompanyDescChangedImpl implements CompanyDescChanged {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return companyDescChanged?.call(companyDesc);
   }
@@ -4263,6 +4494,9 @@ class _$CompanyDescChangedImpl implements CompanyDescChanged {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (companyDescChanged != null) {
@@ -4302,6 +4536,8 @@ class _$CompanyDescChangedImpl implements CompanyDescChanged {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return companyDescChanged(this);
   }
@@ -4334,6 +4570,8 @@ class _$CompanyDescChangedImpl implements CompanyDescChanged {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return companyDescChanged?.call(this);
   }
@@ -4366,6 +4604,8 @@ class _$CompanyDescChangedImpl implements CompanyDescChanged {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (companyDescChanged != null) {
@@ -4486,6 +4726,9 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return selectCountryCode(phoneCode, flag);
   }
@@ -4518,6 +4761,9 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return selectCountryCode?.call(phoneCode, flag);
   }
@@ -4550,6 +4796,9 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (selectCountryCode != null) {
@@ -4589,6 +4838,8 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return selectCountryCode(this);
   }
@@ -4621,6 +4872,8 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return selectCountryCode?.call(this);
   }
@@ -4653,6 +4906,8 @@ class _$SelectCountryCodeImpl implements SelectCountryCode {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (selectCountryCode != null) {
@@ -4791,6 +5046,9 @@ class _$RegisterProfileBtnPressedImpl implements RegisterProfileBtnPressed {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return registerProfileBtnPressed(firstName, lastName, isCheckTerms);
   }
@@ -4823,6 +5081,9 @@ class _$RegisterProfileBtnPressedImpl implements RegisterProfileBtnPressed {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return registerProfileBtnPressed?.call(firstName, lastName, isCheckTerms);
   }
@@ -4855,6 +5116,9 @@ class _$RegisterProfileBtnPressedImpl implements RegisterProfileBtnPressed {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (registerProfileBtnPressed != null) {
@@ -4894,6 +5158,8 @@ class _$RegisterProfileBtnPressedImpl implements RegisterProfileBtnPressed {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return registerProfileBtnPressed(this);
   }
@@ -4926,6 +5192,8 @@ class _$RegisterProfileBtnPressedImpl implements RegisterProfileBtnPressed {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return registerProfileBtnPressed?.call(this);
   }
@@ -4958,6 +5226,8 @@ class _$RegisterProfileBtnPressedImpl implements RegisterProfileBtnPressed {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (registerProfileBtnPressed != null) {
@@ -5072,6 +5342,9 @@ class _$ObscureTextImpl implements ObscureText {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return obscureText(field);
   }
@@ -5104,6 +5377,9 @@ class _$ObscureTextImpl implements ObscureText {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return obscureText?.call(field);
   }
@@ -5136,6 +5412,9 @@ class _$ObscureTextImpl implements ObscureText {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (obscureText != null) {
@@ -5175,6 +5454,8 @@ class _$ObscureTextImpl implements ObscureText {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return obscureText(this);
   }
@@ -5207,6 +5488,8 @@ class _$ObscureTextImpl implements ObscureText {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return obscureText?.call(this);
   }
@@ -5239,6 +5522,8 @@ class _$ObscureTextImpl implements ObscureText {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (obscureText != null) {
@@ -5348,6 +5633,9 @@ class _$ChangeOTPImpl implements ChangeOTP {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return changeOTP(otp);
   }
@@ -5380,6 +5668,9 @@ class _$ChangeOTPImpl implements ChangeOTP {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return changeOTP?.call(otp);
   }
@@ -5412,6 +5703,9 @@ class _$ChangeOTPImpl implements ChangeOTP {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (changeOTP != null) {
@@ -5451,6 +5745,8 @@ class _$ChangeOTPImpl implements ChangeOTP {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return changeOTP(this);
   }
@@ -5483,6 +5779,8 @@ class _$ChangeOTPImpl implements ChangeOTP {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return changeOTP?.call(this);
   }
@@ -5515,6 +5813,8 @@ class _$ChangeOTPImpl implements ChangeOTP {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (changeOTP != null) {
@@ -5598,6 +5898,9 @@ class _$StartCountdownImpl implements StartCountdown {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return startCountdown();
   }
@@ -5630,6 +5933,9 @@ class _$StartCountdownImpl implements StartCountdown {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return startCountdown?.call();
   }
@@ -5662,6 +5968,9 @@ class _$StartCountdownImpl implements StartCountdown {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (startCountdown != null) {
@@ -5701,6 +6010,8 @@ class _$StartCountdownImpl implements StartCountdown {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return startCountdown(this);
   }
@@ -5733,6 +6044,8 @@ class _$StartCountdownImpl implements StartCountdown {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return startCountdown?.call(this);
   }
@@ -5765,6 +6078,8 @@ class _$StartCountdownImpl implements StartCountdown {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (startCountdown != null) {
@@ -5843,6 +6158,9 @@ class _$DecrementTimerImpl implements DecrementTimer {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return decrementTimer();
   }
@@ -5875,6 +6193,9 @@ class _$DecrementTimerImpl implements DecrementTimer {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return decrementTimer?.call();
   }
@@ -5907,6 +6228,9 @@ class _$DecrementTimerImpl implements DecrementTimer {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (decrementTimer != null) {
@@ -5946,6 +6270,8 @@ class _$DecrementTimerImpl implements DecrementTimer {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return decrementTimer(this);
   }
@@ -5978,6 +6304,8 @@ class _$DecrementTimerImpl implements DecrementTimer {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return decrementTimer?.call(this);
   }
@@ -6010,6 +6338,8 @@ class _$DecrementTimerImpl implements DecrementTimer {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (decrementTimer != null) {
@@ -6088,6 +6418,9 @@ class _$ResendOtpImpl implements ResendOtp {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return resendOtp();
   }
@@ -6120,6 +6453,9 @@ class _$ResendOtpImpl implements ResendOtp {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return resendOtp?.call();
   }
@@ -6152,6 +6488,9 @@ class _$ResendOtpImpl implements ResendOtp {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (resendOtp != null) {
@@ -6191,6 +6530,8 @@ class _$ResendOtpImpl implements ResendOtp {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return resendOtp(this);
   }
@@ -6223,6 +6564,8 @@ class _$ResendOtpImpl implements ResendOtp {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return resendOtp?.call(this);
   }
@@ -6255,6 +6598,8 @@ class _$ResendOtpImpl implements ResendOtp {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (resendOtp != null) {
@@ -6360,6 +6705,9 @@ class _$VerifyOtpImpl implements VerifyOtp {
     required TResult Function() decrementTimer,
     required TResult Function() resendOtp,
     required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
   }) {
     return verifyOtp(password);
   }
@@ -6392,6 +6740,9 @@ class _$VerifyOtpImpl implements VerifyOtp {
     TResult? Function()? decrementTimer,
     TResult? Function()? resendOtp,
     TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
   }) {
     return verifyOtp?.call(password);
   }
@@ -6424,6 +6775,9 @@ class _$VerifyOtpImpl implements VerifyOtp {
     TResult Function()? decrementTimer,
     TResult Function()? resendOtp,
     TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (verifyOtp != null) {
@@ -6463,6 +6817,8 @@ class _$VerifyOtpImpl implements VerifyOtp {
     required TResult Function(DecrementTimer value) decrementTimer,
     required TResult Function(ResendOtp value) resendOtp,
     required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
   }) {
     return verifyOtp(this);
   }
@@ -6495,6 +6851,8 @@ class _$VerifyOtpImpl implements VerifyOtp {
     TResult? Function(DecrementTimer value)? decrementTimer,
     TResult? Function(ResendOtp value)? resendOtp,
     TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
   }) {
     return verifyOtp?.call(this);
   }
@@ -6527,6 +6885,8 @@ class _$VerifyOtpImpl implements VerifyOtp {
     TResult Function(DecrementTimer value)? decrementTimer,
     TResult Function(ResendOtp value)? resendOtp,
     TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
     required TResult orElse(),
   }) {
     if (verifyOtp != null) {
@@ -6542,6 +6902,612 @@ abstract class VerifyOtp implements RegisterFormEvent {
   String get password;
   @JsonKey(ignore: true)
   _$$VerifyOtpImplCopyWith<_$VerifyOtpImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$EditedEmailEventImplCopyWith<$Res> {
+  factory _$$EditedEmailEventImplCopyWith(_$EditedEmailEventImpl value,
+          $Res Function(_$EditedEmailEventImpl) then) =
+      __$$EditedEmailEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String value});
+}
+
+/// @nodoc
+class __$$EditedEmailEventImplCopyWithImpl<$Res>
+    extends _$RegisterFormEventCopyWithImpl<$Res, _$EditedEmailEventImpl>
+    implements _$$EditedEmailEventImplCopyWith<$Res> {
+  __$$EditedEmailEventImplCopyWithImpl(_$EditedEmailEventImpl _value,
+      $Res Function(_$EditedEmailEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? value = null,
+  }) {
+    return _then(_$EditedEmailEventImpl(
+      null == value
+          ? _value.value
+          : value // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$EditedEmailEventImpl implements EditedEmailEvent {
+  const _$EditedEmailEventImpl(this.value);
+
+  @override
+  final String value;
+
+  @override
+  String toString() {
+    return 'RegisterFormEvent.editedEmailEvent(value: $value)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$EditedEmailEventImpl &&
+            (identical(other.value, value) || other.value == value));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, value);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$EditedEmailEventImplCopyWith<_$EditedEmailEventImpl> get copyWith =>
+      __$$EditedEmailEventImplCopyWithImpl<_$EditedEmailEventImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String firstName) firstNameChanged,
+    required TResult Function(String lastName) lastNameChanged,
+    required TResult Function(bool isCheck) checkTermsCondition,
+    required TResult Function() registerPressed,
+    required TResult Function(String imagePath) changeProfilePic,
+    required TResult Function(String companyName) companyNameChanged,
+    required TResult Function(String phoneNumber) phoneNumberChanged,
+    required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
+    required TResult Function(String selectedLocation)
+        locationSelectedFromSearchList,
+    required TResult Function(String password) passwordChanged,
+    required TResult Function(String confirmPassword, String password)
+        confirmPasswordChanged,
+    required TResult Function(String associationText) associationTextChanged,
+    required TResult Function(String referralCode) referralCodeChanged,
+    required TResult Function(String companyDesc) companyDescChanged,
+    required TResult Function(String phoneCode, String flag) selectCountryCode,
+    required TResult Function(
+            String firstName, String lastName, int isCheckTerms)
+        registerProfileBtnPressed,
+    required TResult Function(int field) obscureText,
+    required TResult Function(String otp) changeOTP,
+    required TResult Function() startCountdown,
+    required TResult Function() decrementTimer,
+    required TResult Function() resendOtp,
+    required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
+  }) {
+    return editedEmailEvent(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String firstName)? firstNameChanged,
+    TResult? Function(String lastName)? lastNameChanged,
+    TResult? Function(bool isCheck)? checkTermsCondition,
+    TResult? Function()? registerPressed,
+    TResult? Function(String imagePath)? changeProfilePic,
+    TResult? Function(String companyName)? companyNameChanged,
+    TResult? Function(String phoneNumber)? phoneNumberChanged,
+    TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
+    TResult? Function(String selectedLocation)? locationSelectedFromSearchList,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String confirmPassword, String password)?
+        confirmPasswordChanged,
+    TResult? Function(String associationText)? associationTextChanged,
+    TResult? Function(String referralCode)? referralCodeChanged,
+    TResult? Function(String companyDesc)? companyDescChanged,
+    TResult? Function(String phoneCode, String flag)? selectCountryCode,
+    TResult? Function(String firstName, String lastName, int isCheckTerms)?
+        registerProfileBtnPressed,
+    TResult? Function(int field)? obscureText,
+    TResult? Function(String otp)? changeOTP,
+    TResult? Function()? startCountdown,
+    TResult? Function()? decrementTimer,
+    TResult? Function()? resendOtp,
+    TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
+  }) {
+    return editedEmailEvent?.call(value);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String firstName)? firstNameChanged,
+    TResult Function(String lastName)? lastNameChanged,
+    TResult Function(bool isCheck)? checkTermsCondition,
+    TResult Function()? registerPressed,
+    TResult Function(String imagePath)? changeProfilePic,
+    TResult Function(String companyName)? companyNameChanged,
+    TResult Function(String phoneNumber)? phoneNumberChanged,
+    TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
+    TResult Function(String selectedLocation)? locationSelectedFromSearchList,
+    TResult Function(String password)? passwordChanged,
+    TResult Function(String confirmPassword, String password)?
+        confirmPasswordChanged,
+    TResult Function(String associationText)? associationTextChanged,
+    TResult Function(String referralCode)? referralCodeChanged,
+    TResult Function(String companyDesc)? companyDescChanged,
+    TResult Function(String phoneCode, String flag)? selectCountryCode,
+    TResult Function(String firstName, String lastName, int isCheckTerms)?
+        registerProfileBtnPressed,
+    TResult Function(int field)? obscureText,
+    TResult Function(String otp)? changeOTP,
+    TResult Function()? startCountdown,
+    TResult Function()? decrementTimer,
+    TResult Function()? resendOtp,
+    TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
+    required TResult orElse(),
+  }) {
+    if (editedEmailEvent != null) {
+      return editedEmailEvent(value);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(FirstNameChanged value) firstNameChanged,
+    required TResult Function(LastNameChanged value) lastNameChanged,
+    required TResult Function(CheckTermsCondition value) checkTermsCondition,
+    required TResult Function(RegisterPressed value) registerPressed,
+    required TResult Function(ChangeProfilePic value) changeProfilePic,
+    required TResult Function(CompanyNameChanged value) companyNameChanged,
+    required TResult Function(phoneNumberChanged value) phoneNumberChanged,
+    required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
+    required TResult Function(_LocationSelectedFromSearchList value)
+        locationSelectedFromSearchList,
+    required TResult Function(PasswordChanged value) passwordChanged,
+    required TResult Function(ConfirmPasswordChanged value)
+        confirmPasswordChanged,
+    required TResult Function(AssociationTextChanged value)
+        associationTextChanged,
+    required TResult Function(ReferralCodeChanged value) referralCodeChanged,
+    required TResult Function(CompanyDescChanged value) companyDescChanged,
+    required TResult Function(SelectCountryCode value) selectCountryCode,
+    required TResult Function(RegisterProfileBtnPressed value)
+        registerProfileBtnPressed,
+    required TResult Function(ObscureText value) obscureText,
+    required TResult Function(ChangeOTP value) changeOTP,
+    required TResult Function(StartCountdown value) startCountdown,
+    required TResult Function(DecrementTimer value) decrementTimer,
+    required TResult Function(ResendOtp value) resendOtp,
+    required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
+  }) {
+    return editedEmailEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(FirstNameChanged value)? firstNameChanged,
+    TResult? Function(LastNameChanged value)? lastNameChanged,
+    TResult? Function(CheckTermsCondition value)? checkTermsCondition,
+    TResult? Function(RegisterPressed value)? registerPressed,
+    TResult? Function(ChangeProfilePic value)? changeProfilePic,
+    TResult? Function(CompanyNameChanged value)? companyNameChanged,
+    TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
+    TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
+    TResult? Function(_LocationSelectedFromSearchList value)?
+        locationSelectedFromSearchList,
+    TResult? Function(PasswordChanged value)? passwordChanged,
+    TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
+    TResult? Function(AssociationTextChanged value)? associationTextChanged,
+    TResult? Function(ReferralCodeChanged value)? referralCodeChanged,
+    TResult? Function(CompanyDescChanged value)? companyDescChanged,
+    TResult? Function(SelectCountryCode value)? selectCountryCode,
+    TResult? Function(RegisterProfileBtnPressed value)?
+        registerProfileBtnPressed,
+    TResult? Function(ObscureText value)? obscureText,
+    TResult? Function(ChangeOTP value)? changeOTP,
+    TResult? Function(StartCountdown value)? startCountdown,
+    TResult? Function(DecrementTimer value)? decrementTimer,
+    TResult? Function(ResendOtp value)? resendOtp,
+    TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
+  }) {
+    return editedEmailEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FirstNameChanged value)? firstNameChanged,
+    TResult Function(LastNameChanged value)? lastNameChanged,
+    TResult Function(CheckTermsCondition value)? checkTermsCondition,
+    TResult Function(RegisterPressed value)? registerPressed,
+    TResult Function(ChangeProfilePic value)? changeProfilePic,
+    TResult Function(CompanyNameChanged value)? companyNameChanged,
+    TResult Function(phoneNumberChanged value)? phoneNumberChanged,
+    TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
+    TResult Function(_LocationSelectedFromSearchList value)?
+        locationSelectedFromSearchList,
+    TResult Function(PasswordChanged value)? passwordChanged,
+    TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
+    TResult Function(AssociationTextChanged value)? associationTextChanged,
+    TResult Function(ReferralCodeChanged value)? referralCodeChanged,
+    TResult Function(CompanyDescChanged value)? companyDescChanged,
+    TResult Function(SelectCountryCode value)? selectCountryCode,
+    TResult Function(RegisterProfileBtnPressed value)?
+        registerProfileBtnPressed,
+    TResult Function(ObscureText value)? obscureText,
+    TResult Function(ChangeOTP value)? changeOTP,
+    TResult Function(StartCountdown value)? startCountdown,
+    TResult Function(DecrementTimer value)? decrementTimer,
+    TResult Function(ResendOtp value)? resendOtp,
+    TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
+    required TResult orElse(),
+  }) {
+    if (editedEmailEvent != null) {
+      return editedEmailEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class EditedEmailEvent implements RegisterFormEvent {
+  const factory EditedEmailEvent(final String value) = _$EditedEmailEventImpl;
+
+  String get value;
+  @JsonKey(ignore: true)
+  _$$EditedEmailEventImplCopyWith<_$EditedEmailEventImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$EditEmailOrPhoneImplCopyWith<$Res> {
+  factory _$$EditEmailOrPhoneImplCopyWith(_$EditEmailOrPhoneImpl value,
+          $Res Function(_$EditEmailOrPhoneImpl) then) =
+      __$$EditEmailOrPhoneImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String? email, String? phone, String? countryCode});
+}
+
+/// @nodoc
+class __$$EditEmailOrPhoneImplCopyWithImpl<$Res>
+    extends _$RegisterFormEventCopyWithImpl<$Res, _$EditEmailOrPhoneImpl>
+    implements _$$EditEmailOrPhoneImplCopyWith<$Res> {
+  __$$EditEmailOrPhoneImplCopyWithImpl(_$EditEmailOrPhoneImpl _value,
+      $Res Function(_$EditEmailOrPhoneImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = freezed,
+    Object? phone = freezed,
+    Object? countryCode = freezed,
+  }) {
+    return _then(_$EditEmailOrPhoneImpl(
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
+      countryCode: freezed == countryCode
+          ? _value.countryCode
+          : countryCode // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$EditEmailOrPhoneImpl implements EditEmailOrPhone {
+  const _$EditEmailOrPhoneImpl({this.email, this.phone, this.countryCode});
+
+  @override
+  final String? email;
+  @override
+  final String? phone;
+  @override
+  final String? countryCode;
+
+  @override
+  String toString() {
+    return 'RegisterFormEvent.editEmailOrPhone(email: $email, phone: $phone, countryCode: $countryCode)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$EditEmailOrPhoneImpl &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.countryCode, countryCode) ||
+                other.countryCode == countryCode));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, email, phone, countryCode);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$EditEmailOrPhoneImplCopyWith<_$EditEmailOrPhoneImpl> get copyWith =>
+      __$$EditEmailOrPhoneImplCopyWithImpl<_$EditEmailOrPhoneImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String firstName) firstNameChanged,
+    required TResult Function(String lastName) lastNameChanged,
+    required TResult Function(bool isCheck) checkTermsCondition,
+    required TResult Function() registerPressed,
+    required TResult Function(String imagePath) changeProfilePic,
+    required TResult Function(String companyName) companyNameChanged,
+    required TResult Function(String phoneNumber) phoneNumberChanged,
+    required TResult Function(String email) emailChanged,
+    required TResult Function(String location) locationAddressChanged,
+    required TResult Function(String selectedLocation)
+        locationSelectedFromSearchList,
+    required TResult Function(String password) passwordChanged,
+    required TResult Function(String confirmPassword, String password)
+        confirmPasswordChanged,
+    required TResult Function(String associationText) associationTextChanged,
+    required TResult Function(String referralCode) referralCodeChanged,
+    required TResult Function(String companyDesc) companyDescChanged,
+    required TResult Function(String phoneCode, String flag) selectCountryCode,
+    required TResult Function(
+            String firstName, String lastName, int isCheckTerms)
+        registerProfileBtnPressed,
+    required TResult Function(int field) obscureText,
+    required TResult Function(String otp) changeOTP,
+    required TResult Function() startCountdown,
+    required TResult Function() decrementTimer,
+    required TResult Function() resendOtp,
+    required TResult Function(String password) verifyOtp,
+    required TResult Function(String value) editedEmailEvent,
+    required TResult Function(String? email, String? phone, String? countryCode)
+        editEmailOrPhone,
+  }) {
+    return editEmailOrPhone(email, phone, countryCode);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String firstName)? firstNameChanged,
+    TResult? Function(String lastName)? lastNameChanged,
+    TResult? Function(bool isCheck)? checkTermsCondition,
+    TResult? Function()? registerPressed,
+    TResult? Function(String imagePath)? changeProfilePic,
+    TResult? Function(String companyName)? companyNameChanged,
+    TResult? Function(String phoneNumber)? phoneNumberChanged,
+    TResult? Function(String email)? emailChanged,
+    TResult? Function(String location)? locationAddressChanged,
+    TResult? Function(String selectedLocation)? locationSelectedFromSearchList,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String confirmPassword, String password)?
+        confirmPasswordChanged,
+    TResult? Function(String associationText)? associationTextChanged,
+    TResult? Function(String referralCode)? referralCodeChanged,
+    TResult? Function(String companyDesc)? companyDescChanged,
+    TResult? Function(String phoneCode, String flag)? selectCountryCode,
+    TResult? Function(String firstName, String lastName, int isCheckTerms)?
+        registerProfileBtnPressed,
+    TResult? Function(int field)? obscureText,
+    TResult? Function(String otp)? changeOTP,
+    TResult? Function()? startCountdown,
+    TResult? Function()? decrementTimer,
+    TResult? Function()? resendOtp,
+    TResult? Function(String password)? verifyOtp,
+    TResult? Function(String value)? editedEmailEvent,
+    TResult? Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
+  }) {
+    return editEmailOrPhone?.call(email, phone, countryCode);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String firstName)? firstNameChanged,
+    TResult Function(String lastName)? lastNameChanged,
+    TResult Function(bool isCheck)? checkTermsCondition,
+    TResult Function()? registerPressed,
+    TResult Function(String imagePath)? changeProfilePic,
+    TResult Function(String companyName)? companyNameChanged,
+    TResult Function(String phoneNumber)? phoneNumberChanged,
+    TResult Function(String email)? emailChanged,
+    TResult Function(String location)? locationAddressChanged,
+    TResult Function(String selectedLocation)? locationSelectedFromSearchList,
+    TResult Function(String password)? passwordChanged,
+    TResult Function(String confirmPassword, String password)?
+        confirmPasswordChanged,
+    TResult Function(String associationText)? associationTextChanged,
+    TResult Function(String referralCode)? referralCodeChanged,
+    TResult Function(String companyDesc)? companyDescChanged,
+    TResult Function(String phoneCode, String flag)? selectCountryCode,
+    TResult Function(String firstName, String lastName, int isCheckTerms)?
+        registerProfileBtnPressed,
+    TResult Function(int field)? obscureText,
+    TResult Function(String otp)? changeOTP,
+    TResult Function()? startCountdown,
+    TResult Function()? decrementTimer,
+    TResult Function()? resendOtp,
+    TResult Function(String password)? verifyOtp,
+    TResult Function(String value)? editedEmailEvent,
+    TResult Function(String? email, String? phone, String? countryCode)?
+        editEmailOrPhone,
+    required TResult orElse(),
+  }) {
+    if (editEmailOrPhone != null) {
+      return editEmailOrPhone(email, phone, countryCode);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(FirstNameChanged value) firstNameChanged,
+    required TResult Function(LastNameChanged value) lastNameChanged,
+    required TResult Function(CheckTermsCondition value) checkTermsCondition,
+    required TResult Function(RegisterPressed value) registerPressed,
+    required TResult Function(ChangeProfilePic value) changeProfilePic,
+    required TResult Function(CompanyNameChanged value) companyNameChanged,
+    required TResult Function(phoneNumberChanged value) phoneNumberChanged,
+    required TResult Function(EmailChanged value) emailChanged,
+    required TResult Function(LocationAddressChanged value)
+        locationAddressChanged,
+    required TResult Function(_LocationSelectedFromSearchList value)
+        locationSelectedFromSearchList,
+    required TResult Function(PasswordChanged value) passwordChanged,
+    required TResult Function(ConfirmPasswordChanged value)
+        confirmPasswordChanged,
+    required TResult Function(AssociationTextChanged value)
+        associationTextChanged,
+    required TResult Function(ReferralCodeChanged value) referralCodeChanged,
+    required TResult Function(CompanyDescChanged value) companyDescChanged,
+    required TResult Function(SelectCountryCode value) selectCountryCode,
+    required TResult Function(RegisterProfileBtnPressed value)
+        registerProfileBtnPressed,
+    required TResult Function(ObscureText value) obscureText,
+    required TResult Function(ChangeOTP value) changeOTP,
+    required TResult Function(StartCountdown value) startCountdown,
+    required TResult Function(DecrementTimer value) decrementTimer,
+    required TResult Function(ResendOtp value) resendOtp,
+    required TResult Function(VerifyOtp value) verifyOtp,
+    required TResult Function(EditedEmailEvent value) editedEmailEvent,
+    required TResult Function(EditEmailOrPhone value) editEmailOrPhone,
+  }) {
+    return editEmailOrPhone(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(FirstNameChanged value)? firstNameChanged,
+    TResult? Function(LastNameChanged value)? lastNameChanged,
+    TResult? Function(CheckTermsCondition value)? checkTermsCondition,
+    TResult? Function(RegisterPressed value)? registerPressed,
+    TResult? Function(ChangeProfilePic value)? changeProfilePic,
+    TResult? Function(CompanyNameChanged value)? companyNameChanged,
+    TResult? Function(phoneNumberChanged value)? phoneNumberChanged,
+    TResult? Function(EmailChanged value)? emailChanged,
+    TResult? Function(LocationAddressChanged value)? locationAddressChanged,
+    TResult? Function(_LocationSelectedFromSearchList value)?
+        locationSelectedFromSearchList,
+    TResult? Function(PasswordChanged value)? passwordChanged,
+    TResult? Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
+    TResult? Function(AssociationTextChanged value)? associationTextChanged,
+    TResult? Function(ReferralCodeChanged value)? referralCodeChanged,
+    TResult? Function(CompanyDescChanged value)? companyDescChanged,
+    TResult? Function(SelectCountryCode value)? selectCountryCode,
+    TResult? Function(RegisterProfileBtnPressed value)?
+        registerProfileBtnPressed,
+    TResult? Function(ObscureText value)? obscureText,
+    TResult? Function(ChangeOTP value)? changeOTP,
+    TResult? Function(StartCountdown value)? startCountdown,
+    TResult? Function(DecrementTimer value)? decrementTimer,
+    TResult? Function(ResendOtp value)? resendOtp,
+    TResult? Function(VerifyOtp value)? verifyOtp,
+    TResult? Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult? Function(EditEmailOrPhone value)? editEmailOrPhone,
+  }) {
+    return editEmailOrPhone?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(FirstNameChanged value)? firstNameChanged,
+    TResult Function(LastNameChanged value)? lastNameChanged,
+    TResult Function(CheckTermsCondition value)? checkTermsCondition,
+    TResult Function(RegisterPressed value)? registerPressed,
+    TResult Function(ChangeProfilePic value)? changeProfilePic,
+    TResult Function(CompanyNameChanged value)? companyNameChanged,
+    TResult Function(phoneNumberChanged value)? phoneNumberChanged,
+    TResult Function(EmailChanged value)? emailChanged,
+    TResult Function(LocationAddressChanged value)? locationAddressChanged,
+    TResult Function(_LocationSelectedFromSearchList value)?
+        locationSelectedFromSearchList,
+    TResult Function(PasswordChanged value)? passwordChanged,
+    TResult Function(ConfirmPasswordChanged value)? confirmPasswordChanged,
+    TResult Function(AssociationTextChanged value)? associationTextChanged,
+    TResult Function(ReferralCodeChanged value)? referralCodeChanged,
+    TResult Function(CompanyDescChanged value)? companyDescChanged,
+    TResult Function(SelectCountryCode value)? selectCountryCode,
+    TResult Function(RegisterProfileBtnPressed value)?
+        registerProfileBtnPressed,
+    TResult Function(ObscureText value)? obscureText,
+    TResult Function(ChangeOTP value)? changeOTP,
+    TResult Function(StartCountdown value)? startCountdown,
+    TResult Function(DecrementTimer value)? decrementTimer,
+    TResult Function(ResendOtp value)? resendOtp,
+    TResult Function(VerifyOtp value)? verifyOtp,
+    TResult Function(EditedEmailEvent value)? editedEmailEvent,
+    TResult Function(EditEmailOrPhone value)? editEmailOrPhone,
+    required TResult orElse(),
+  }) {
+    if (editEmailOrPhone != null) {
+      return editEmailOrPhone(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class EditEmailOrPhone implements RegisterFormEvent {
+  const factory EditEmailOrPhone(
+      {final String? email,
+      final String? phone,
+      final String? countryCode}) = _$EditEmailOrPhoneImpl;
+
+  String? get email;
+  String? get phone;
+  String? get countryCode;
+  @JsonKey(ignore: true)
+  _$$EditEmailOrPhoneImplCopyWith<_$EditEmailOrPhoneImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -6584,6 +7550,13 @@ mixin _$RegisterFormState {
   Option<Either<AuthFailure, String>> get verifyOtpFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
 
+  /// EDIT PHONE OR EMAIL VIEW
+  EmailAddress get editedEmail => throw _privateConstructorUsedError;
+  MobileNumber get editedPhone => throw _privateConstructorUsedError;
+  bool get showEditedErrorMessage => throw _privateConstructorUsedError;
+  Option<Either<AuthFailure, String>> get editFailureorSuccessOption =>
+      throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $RegisterFormStateCopyWith<RegisterFormState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -6624,7 +7597,11 @@ abstract class $RegisterFormStateCopyWith<$Res> {
       int secondsRemaining,
       bool showOtpErrorMessages,
       Option<Either<AuthFailure, String>> resendFailureOrSuccessOption,
-      Option<Either<AuthFailure, String>> verifyOtpFailureOrSuccessOption});
+      Option<Either<AuthFailure, String>> verifyOtpFailureOrSuccessOption,
+      EmailAddress editedEmail,
+      MobileNumber editedPhone,
+      bool showEditedErrorMessage,
+      Option<Either<AuthFailure, String>> editFailureorSuccessOption});
 }
 
 /// @nodoc
@@ -6669,6 +7646,10 @@ class _$RegisterFormStateCopyWithImpl<$Res, $Val extends RegisterFormState>
     Object? showOtpErrorMessages = null,
     Object? resendFailureOrSuccessOption = null,
     Object? verifyOtpFailureOrSuccessOption = null,
+    Object? editedEmail = null,
+    Object? editedPhone = null,
+    Object? showEditedErrorMessage = null,
+    Object? editFailureorSuccessOption = null,
   }) {
     return _then(_value.copyWith(
       firstName: null == firstName
@@ -6787,6 +7768,22 @@ class _$RegisterFormStateCopyWithImpl<$Res, $Val extends RegisterFormState>
           ? _value.verifyOtpFailureOrSuccessOption
           : verifyOtpFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, String>>,
+      editedEmail: null == editedEmail
+          ? _value.editedEmail
+          : editedEmail // ignore: cast_nullable_to_non_nullable
+              as EmailAddress,
+      editedPhone: null == editedPhone
+          ? _value.editedPhone
+          : editedPhone // ignore: cast_nullable_to_non_nullable
+              as MobileNumber,
+      showEditedErrorMessage: null == showEditedErrorMessage
+          ? _value.showEditedErrorMessage
+          : showEditedErrorMessage // ignore: cast_nullable_to_non_nullable
+              as bool,
+      editFailureorSuccessOption: null == editFailureorSuccessOption
+          ? _value.editFailureorSuccessOption
+          : editFailureorSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AuthFailure, String>>,
     ) as $Val);
   }
 }
@@ -6828,7 +7825,11 @@ abstract class _$$RegisterFormStateImplCopyWith<$Res>
       int secondsRemaining,
       bool showOtpErrorMessages,
       Option<Either<AuthFailure, String>> resendFailureOrSuccessOption,
-      Option<Either<AuthFailure, String>> verifyOtpFailureOrSuccessOption});
+      Option<Either<AuthFailure, String>> verifyOtpFailureOrSuccessOption,
+      EmailAddress editedEmail,
+      MobileNumber editedPhone,
+      bool showEditedErrorMessage,
+      Option<Either<AuthFailure, String>> editFailureorSuccessOption});
 }
 
 /// @nodoc
@@ -6871,6 +7872,10 @@ class __$$RegisterFormStateImplCopyWithImpl<$Res>
     Object? showOtpErrorMessages = null,
     Object? resendFailureOrSuccessOption = null,
     Object? verifyOtpFailureOrSuccessOption = null,
+    Object? editedEmail = null,
+    Object? editedPhone = null,
+    Object? showEditedErrorMessage = null,
+    Object? editFailureorSuccessOption = null,
   }) {
     return _then(_$RegisterFormStateImpl(
       firstName: null == firstName
@@ -6989,6 +7994,22 @@ class __$$RegisterFormStateImplCopyWithImpl<$Res>
           ? _value.verifyOtpFailureOrSuccessOption
           : verifyOtpFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<AuthFailure, String>>,
+      editedEmail: null == editedEmail
+          ? _value.editedEmail
+          : editedEmail // ignore: cast_nullable_to_non_nullable
+              as EmailAddress,
+      editedPhone: null == editedPhone
+          ? _value.editedPhone
+          : editedPhone // ignore: cast_nullable_to_non_nullable
+              as MobileNumber,
+      showEditedErrorMessage: null == showEditedErrorMessage
+          ? _value.showEditedErrorMessage
+          : showEditedErrorMessage // ignore: cast_nullable_to_non_nullable
+              as bool,
+      editFailureorSuccessOption: null == editFailureorSuccessOption
+          ? _value.editFailureorSuccessOption
+          : editFailureorSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<AuthFailure, String>>,
     ));
   }
 }
@@ -7025,7 +8046,11 @@ class _$RegisterFormStateImpl implements _RegisterFormState {
       required this.secondsRemaining,
       required this.showOtpErrorMessages,
       required this.resendFailureOrSuccessOption,
-      required this.verifyOtpFailureOrSuccessOption})
+      required this.verifyOtpFailureOrSuccessOption,
+      required this.editedEmail,
+      required this.editedPhone,
+      required this.showEditedErrorMessage,
+      required this.editFailureorSuccessOption})
       : _searchLocationList = searchLocationList;
 
   @override
@@ -7098,9 +8123,19 @@ class _$RegisterFormStateImpl implements _RegisterFormState {
   @override
   final Option<Either<AuthFailure, String>> verifyOtpFailureOrSuccessOption;
 
+  /// EDIT PHONE OR EMAIL VIEW
+  @override
+  final EmailAddress editedEmail;
+  @override
+  final MobileNumber editedPhone;
+  @override
+  final bool showEditedErrorMessage;
+  @override
+  final Option<Either<AuthFailure, String>> editFailureorSuccessOption;
+
   @override
   String toString() {
-    return 'RegisterFormState(firstName: $firstName, lastName: $lastName, firstNameFocusNode: $firstNameFocusNode, isSubmitting: $isSubmitting, isCheck: $isCheck, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption, selectImage: $selectImage, companyName: $companyName, phoneNumber: $phoneNumber, enteredPhoneNo: $enteredPhoneNo, enteredPassword: $enteredPassword, email: $email, locationAddress: $locationAddress, searchLocationList: $searchLocationList, password: $password, confirmPassword: $confirmPassword, association: $association, referralCode: $referralCode, companyDescription: $companyDescription, selectedCountrycode: $selectedCountrycode, selectedCountryFlag: $selectedCountryFlag, isNewPassObscure: $isNewPassObscure, isConfirmPassObscure: $isConfirmPassObscure, enteredOTP: $enteredOTP, secondsRemaining: $secondsRemaining, showOtpErrorMessages: $showOtpErrorMessages, resendFailureOrSuccessOption: $resendFailureOrSuccessOption, verifyOtpFailureOrSuccessOption: $verifyOtpFailureOrSuccessOption)';
+    return 'RegisterFormState(firstName: $firstName, lastName: $lastName, firstNameFocusNode: $firstNameFocusNode, isSubmitting: $isSubmitting, isCheck: $isCheck, showErrorMessages: $showErrorMessages, authFailureOrSuccessOption: $authFailureOrSuccessOption, selectImage: $selectImage, companyName: $companyName, phoneNumber: $phoneNumber, enteredPhoneNo: $enteredPhoneNo, enteredPassword: $enteredPassword, email: $email, locationAddress: $locationAddress, searchLocationList: $searchLocationList, password: $password, confirmPassword: $confirmPassword, association: $association, referralCode: $referralCode, companyDescription: $companyDescription, selectedCountrycode: $selectedCountrycode, selectedCountryFlag: $selectedCountryFlag, isNewPassObscure: $isNewPassObscure, isConfirmPassObscure: $isConfirmPassObscure, enteredOTP: $enteredOTP, secondsRemaining: $secondsRemaining, showOtpErrorMessages: $showOtpErrorMessages, resendFailureOrSuccessOption: $resendFailureOrSuccessOption, verifyOtpFailureOrSuccessOption: $verifyOtpFailureOrSuccessOption, editedEmail: $editedEmail, editedPhone: $editedPhone, showEditedErrorMessage: $showEditedErrorMessage, editFailureorSuccessOption: $editFailureorSuccessOption)';
   }
 
   @override
@@ -7164,10 +8199,17 @@ class _$RegisterFormStateImpl implements _RegisterFormState {
             (identical(other.resendFailureOrSuccessOption, resendFailureOrSuccessOption) ||
                 other.resendFailureOrSuccessOption ==
                     resendFailureOrSuccessOption) &&
-            (identical(other.verifyOtpFailureOrSuccessOption,
-                    verifyOtpFailureOrSuccessOption) ||
+            (identical(other.verifyOtpFailureOrSuccessOption, verifyOtpFailureOrSuccessOption) ||
                 other.verifyOtpFailureOrSuccessOption ==
-                    verifyOtpFailureOrSuccessOption));
+                    verifyOtpFailureOrSuccessOption) &&
+            (identical(other.editedEmail, editedEmail) ||
+                other.editedEmail == editedEmail) &&
+            (identical(other.editedPhone, editedPhone) ||
+                other.editedPhone == editedPhone) &&
+            (identical(other.showEditedErrorMessage, showEditedErrorMessage) ||
+                other.showEditedErrorMessage == showEditedErrorMessage) &&
+            (identical(other.editFailureorSuccessOption, editFailureorSuccessOption) ||
+                other.editFailureorSuccessOption == editFailureorSuccessOption));
   }
 
   @override
@@ -7201,7 +8243,11 @@ class _$RegisterFormStateImpl implements _RegisterFormState {
         secondsRemaining,
         showOtpErrorMessages,
         resendFailureOrSuccessOption,
-        verifyOtpFailureOrSuccessOption
+        verifyOtpFailureOrSuccessOption,
+        editedEmail,
+        editedPhone,
+        showEditedErrorMessage,
+        editFailureorSuccessOption
       ]);
 
   @JsonKey(ignore: true)
@@ -7245,7 +8291,12 @@ abstract class _RegisterFormState implements RegisterFormState {
       required final Option<Either<AuthFailure, String>>
           resendFailureOrSuccessOption,
       required final Option<Either<AuthFailure, String>>
-          verifyOtpFailureOrSuccessOption}) = _$RegisterFormStateImpl;
+          verifyOtpFailureOrSuccessOption,
+      required final EmailAddress editedEmail,
+      required final MobileNumber editedPhone,
+      required final bool showEditedErrorMessage,
+      required final Option<Either<AuthFailure, String>>
+          editFailureorSuccessOption}) = _$RegisterFormStateImpl;
 
   @override
   Username get firstName;
@@ -7309,6 +8360,16 @@ abstract class _RegisterFormState implements RegisterFormState {
   Option<Either<AuthFailure, String>> get resendFailureOrSuccessOption;
   @override
   Option<Either<AuthFailure, String>> get verifyOtpFailureOrSuccessOption;
+  @override
+
+  /// EDIT PHONE OR EMAIL VIEW
+  EmailAddress get editedEmail;
+  @override
+  MobileNumber get editedPhone;
+  @override
+  bool get showEditedErrorMessage;
+  @override
+  Option<Either<AuthFailure, String>> get editFailureorSuccessOption;
   @override
   @JsonKey(ignore: true)
   _$$RegisterFormStateImplCopyWith<_$RegisterFormStateImpl> get copyWith =>

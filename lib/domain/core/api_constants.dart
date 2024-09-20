@@ -12,6 +12,7 @@ class ApiConstants {
   static String resendOtp = 'resend_otp';
   static String verifyOtp = 'verify_otp';
   static String forgotPassword = 'forgot_password';
+  static String editEmailOrPhone = 'edit_email_or_phone';
   static String logout = 'logout';
   static String editLastPage = 'edit_last_page';
 

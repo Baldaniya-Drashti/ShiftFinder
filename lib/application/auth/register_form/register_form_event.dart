@@ -65,4 +65,8 @@ class RegisterFormEvent with _$RegisterFormEvent {
   const factory RegisterFormEvent.decrementTimer() = DecrementTimer;
   const factory RegisterFormEvent.resendOtp() = ResendOtp;
   const factory RegisterFormEvent.verifyOtp(String password) = VerifyOtp;
+  const factory RegisterFormEvent.editedEmailEvent(String value) =
+      EditedEmailEvent;
+  const factory RegisterFormEvent.editEmailOrPhone(
+      {String? email, String? phone, String? countryCode}) = EditEmailOrPhone;
 }

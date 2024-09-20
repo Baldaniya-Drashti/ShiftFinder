@@ -53,6 +53,50 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
   RegisterFormBloc(this._authFacade) : super(RegisterFormState.initial()) {
     on<RegisterFormEvent>((event, emit) async {
       await event.map(
+        editedEmailEvent: (e) {
+          print("edited email---> ${e.value}");
+          emit(state.copyWith(
+            editedEmail: EmailAddress(e.value),
+            editFailureorSuccessOption: none(),
+          ));
+        },
+        editEmailOrPhone: (e) async {
+          emit(state.copyWith(
+            showEditedErrorMessage: true,
+            editFailureorSuccessOption: none(),
+          ));
+
+          /* Either<AuthFailure, String>? failureOrSuccess;
+
+          final isEmailValid = state.enteredOTP.isValid();
+
+          if (isEmailValid) {
+            emit(
+              state.copyWith(
+                isSubmitting: true,
+                authFailureOrSuccessOption: none(),
+              ),
+            );
+
+            failureOrSuccess = await _authFacade.verifyOtp(
+              emailAddress:
+                  (getCurrentRole() == 1) ? "" : getCurrentUser().email ?? "",
+              phoneNumber: (getCurrentRole() == 1)
+                  ? "${getCurrentUser().phone ?? ""}"
+                  : "",
+              otp: state.enteredOTP,
+            );
+
+          }
+          emit(
+            state.copyWith(
+              isSubmitting: false,
+              showOtpErrorMessages: true,
+              enteredOTP: OTPText(""),
+              verifyOtpFailureOrSuccessOption: optionOf(failureOrSuccess),
+            ),
+          );*/
+        },
         changeProfilePic: (e) {
           emit(
             state.copyWith(selectImage: e.imagePath),

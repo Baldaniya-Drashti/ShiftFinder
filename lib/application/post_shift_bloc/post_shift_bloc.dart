@@ -53,6 +53,85 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
     return false;
   }
 
+  static bool timeIsPast(
+    PostShiftState state,
+    InputEmptyOrNot selectedHour,
+    InputEmptyOrNot selectedMin, {
+    int shiftType = 0,
+    DateTimeDTO? multiDate,
+  }) {
+    DateTime currentDate = DateTime.now();
+    DateTime selectedDate = (shiftType == 2)
+        ? DateTime.parse(multiDate!.date ?? "")
+        : (state.signleShiftDate.isValid())
+            ? DateTime.parse(state.signleShiftDate.getValue() ?? "")
+            : DateTime.now();
+    bool isSameDate = (shiftType == 1)
+        ? isCurrentDateInList(state.selectedMultiDates.getValue())
+        : (selectedDate.year == currentDate.year &&
+            selectedDate.month == currentDate.month &&
+            selectedDate.day == currentDate.day);
+
+    if (selectedHour.isValid() && selectedMin.isValid()) {
+      final selectedTime = CustomDateTimeFormat.parseTime(
+          selectedHour.getValue()!, selectedMin.getValue()!);
+      if (isSameDate) {
+        final isBefore = selectedTime.isBefore(currentDate);
+
+        return isBefore;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  static bool isCurrentDateInList(List<DateTime> selectedMultiDates) {
+    DateTime today = DateTime.now();
+    for (DateTime date in selectedMultiDates) {
+      if (date.year == today.year &&
+          date.month == today.month &&
+          date.day == today.day) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  static bool timeIsBefore(
+    PostShiftState state, {
+    int shiftType = 0,
+    List<DateTimeDTO>? multiDate,
+  }) {
+    bool isPast = false;
+    DateTime today = DateTime.now();
+
+    multiDate?.any((currentObj) {
+      if (currentObj.date != null) {
+        InputEmptyOrNot selectedHour =
+            InputEmptyOrNot(currentObj.startHour ?? "");
+        InputEmptyOrNot selectedMin =
+            InputEmptyOrNot(currentObj.startMinute ?? "");
+
+        final date = DateTime.parse(currentObj.date!);
+        final isSameDate = (date.year == today.year &&
+            date.month == today.month &&
+            date.day == today.day);
+
+        if (selectedHour.isValid() && selectedMin.isValid()) {
+          final selectedTime = CustomDateTimeFormat.parseTime(
+              selectedHour.getValue()!, selectedMin.getValue()!);
+          if (isSameDate) {
+            isPast = selectedTime.isBefore(DateTime.now());
+          }
+        }
+      }
+      return isPast;
+    });
+    return isPast;
+  }
+
   static bool isMoreVacancyValid({
     required bool isMoreVacancy,
     required Vacancy vacancyValue,
@@ -320,6 +399,11 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           final isStartMinuteValid = state.startMinute.isValid();
           final isEndHourValid = state.endHour.isValid();
           final isEndMinuteValid = state.endMinute.isValid();
+          final isBeforeStartTime =
+              timeIsPast(state, state.startHour, state.startMinute);
+          final isBeforeEndTime =
+              timeIsPast(state, state.endHour, state.endMinute);
+
           final isVacancyValid = isMoreVacancyValid(
               isMoreVacancy: state.isMoreVacancy,
               vacancyValue: state.selectedVacancy);
@@ -337,7 +421,9 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               isEndHourValid &&
               isEndMinuteValid &&
               isUnpaidBreakValid &&
-              isVacancyValid) {
+              isVacancyValid &&
+              !isBeforeStartTime &&
+              !isBeforeEndTime) {
             print("All details are valid!");
             /*failureOrSuccess = await _mainFacade.createPostShiftApi(
                 shift: passShiftData(state));*/
@@ -790,8 +876,13 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           // final isUnPaidBreakValid = state.unpaidBreak.isValid();
           final isAllDatesValid = state.multiDateTimeList.every((dto) =>
               dto.totalPaybleHours != null && dto.totalPaybleHours!.isNotEmpty);
+          final timeIsBefore = PostShiftBloc.timeIsBefore(
+            state,
+            multiDate: state.multiDateTimeList,
+            shiftType: 2,
+          );
 
-          if (isAllDatesValid) {
+          if (isAllDatesValid && !timeIsBefore) {
             /*failureOrSuccess = await _mainFacade.createPostShiftApi(
                 shift: passShiftData(
               state,
@@ -843,6 +934,11 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           final isVacancyValid = isMoreVacancyValid(
               isMoreVacancy: state.isMoreVacancy,
               vacancyValue: state.selectedVacancy);
+          final isBeforeStartTime = timeIsPast(
+              state, state.startHour, state.startMinute,
+              shiftType: 1);
+          final isBeforeEndTime =
+              timeIsPast(state, state.endHour, state.endMinute, shiftType: 1);
 
           if (isMultiDateValid &&
               isCommuteAllownceValid &&
@@ -852,7 +948,9 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               isEndHourValid &&
               isEndMinuteValid &&
               isUnpaidBreakValid &&
-              isVacancyValid) {
+              isVacancyValid &&
+              !isBeforeStartTime &&
+              !isBeforeEndTime) {
             print("All details are valid!");
             /*failureOrSuccess = await _mainFacade.createPostShiftApi(
                 shift: passShiftData(state));*/
@@ -1278,6 +1376,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
       //     .difference(DateTime.parse(updatedDTO.start_time!));
 
       print("total hours---> ${timeDiffBetweenEndStartTime}");
+      print("total hours---> timeDifference ${timeDifference}");
       updatedDTO = updatedDTO.copyWith(
           totalPaybleHours: (timeDifference != null)
               ? CustomDateTimeFormat.formatDuration(timeDifference)
@@ -1300,17 +1399,21 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
   String allTimesFilled(List<DateTimeDTO> multiDateTimeList) {
     bool areAllTimesFilled = multiDateTimeList.every((dto) =>
         dto.totalPaybleHours != null && dto.totalPaybleHours!.isNotEmpty);
-    final unpaidBreak =
-        CustomDateTimeFormat.extractUnpaidBreak(state.unpaidBreak.getValue()!);
+
     if (areAllTimesFilled) {
       // Substract unpaid break list
       List<DateTimeDTO> updatedList = multiDateTimeList.map((dto) {
         if (isTimeFilled(dto)) {
+          final unpaidBreak =
+              CustomDateTimeFormat.extractUnpaidBreak(dto.unpaidBreak ?? "0");
           var timeDiffBetweenEndStartTime = DateTime.parse(dto.end_time!)
               .difference(DateTime.parse(dto.start_time!));
 
           final timeDifference =
               timeDiffBetweenEndStartTime - Duration(minutes: unpaidBreak);
+          // print("timeDifference---> timeDifference ${timeDifference}");
+          print("timeDifference---> timeDifference ${unpaidBreak}");
+
           return dto.copyWith(totalPaybleHours: timeDifference.toString());
         } else {
           return dto;
@@ -1339,6 +1442,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
   }
 
   Duration sumTotalPayableHours(List<DateTimeDTO> multiDateTimeList) {
+    print("payable hours: ${multiDateTimeList}");
     final totalDuration = multiDateTimeList.fold(Duration.zero, (total, dto) {
       return total + parseDuration(dto.totalPaybleHours ?? "");
     });

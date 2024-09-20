@@ -39,7 +39,7 @@ class TeamDetailView extends StatelessWidget {
             child: Scaffold(
               appBar: CommonAppBar(
                 onBackPressed: () => context.router.maybePop(),
-                title: getTeamsListDTO.name ?? "",
+                title: state.teamDetail.name ?? getTeamsListDTO.name ?? "",
               ),
               body: Column(
                 children: [
@@ -68,8 +68,7 @@ class TeamDetailView extends StatelessWidget {
                           onPressedReject: () {
                             context.router.maybePop();
                           },
-                          acceptButtonText:
-                              StringConstant.accommodationAllowance,
+                          acceptButtonText: StringConstant.delete,
                         ).acceptRejectDialog(context);
                       },
                       onPressedEdit: () async {

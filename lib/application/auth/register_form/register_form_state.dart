@@ -39,6 +39,12 @@ class RegisterFormState with _$RegisterFormState {
     required Option<Either<AuthFailure, String>> resendFailureOrSuccessOption,
     required Option<Either<AuthFailure, String>>
         verifyOtpFailureOrSuccessOption,
+
+    /// EDIT PHONE OR EMAIL VIEW
+    required EmailAddress editedEmail,
+    required MobileNumber editedPhone,
+    required bool showEditedErrorMessage,
+    required Option<Either<AuthFailure, String>> editFailureorSuccessOption,
   }) = _RegisterFormState;
 
   factory RegisterFormState.initial() => RegisterFormState(
@@ -75,5 +81,11 @@ class RegisterFormState with _$RegisterFormState {
         showOtpErrorMessages: false,
         resendFailureOrSuccessOption: none(),
         verifyOtpFailureOrSuccessOption: none(),
+
+        /// EDIT PHONE OR EMAIL VIEW
+        editedPhone: MobileNumber(""),
+        editedEmail: EmailAddress(""),
+        showEditedErrorMessage: false,
+        editFailureorSuccessOption: none(),
       );
 }

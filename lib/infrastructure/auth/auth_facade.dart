@@ -222,6 +222,45 @@ class AuthFacade implements IAuthFacade {
   }
 
   @override
+  Future<Either<AuthFailure, String>> editEmailOrPhone({
+    String? email,
+    String? countryCode,
+    String? countryNameCode,
+    String? phone,
+  }) async {
+    try {
+      var mapData = {
+        // "id": getCurrentUser().userId,
+        "email": email,
+        "country_code": countryCode,
+        "country_name_code": countryNameCode,
+        "phone": phone,
+      };
+      print("get currentUser id ---> ${getCurrentUser().userId}");
+
+      final response = await apiService.postMethod(
+        ApiConstants.editEmailOrPhone,
+        mapData,
+      );
+      print("RESPONSE OF EDIT PHONE---> ${response.data}");
+
+      final account = CurrentUserDto.fromJson(response.data).toDomain();
+      setCurrentUser(account);
+      return right(response.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      }
+
+      return left(const AuthFailure.serverError());
+    }
+  }
+
+  @override
   Future<Either<AuthFailure, Unit>> registerForPush(
       {required String fcmToken}) {
     throw UnimplementedError();

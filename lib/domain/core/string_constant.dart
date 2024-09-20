@@ -396,6 +396,16 @@ class StringConstant {
   static const String multiShifts = "Multi Shifts";
   static const String singleShifts = "Single Shifts";
   static const String recurrenceDuration = "Recurrence Duration";
+  static const String editEmail = "Edit Email";
+  static const String editPhoneNumber = "Edit Phone Number";
+  static const String pleaseEditYourEmailToGetVerificationCode =
+      "Please edit your email to get verification code";
+  static const String pleaseEditYourPhoneNnumberToGetVerificationCode =
+      "Please edit your phone number to get verification code";
+  static const String noTeamsAddedYet =
+      "No teams added yet. Tap Add New Team to get started.";
+  static const String shiftStartTimeMustBeAFutureTime =
+      "Shift start time must be a future time";
   static const String getStartedwithNewShift =
       "Get started by creating your first shift! Tap the + icon to begin.";
   static const String withdrawShiftDesc =

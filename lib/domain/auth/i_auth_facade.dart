@@ -93,4 +93,11 @@ abstract class IAuthFacade {
   // Future<Either<AuthFailure, String>> deleteEducationApi({
   //   required int educationId,
   // });
+
+  Future<Either<AuthFailure, String>> editEmailOrPhone({
+    String? email,
+    String? countryCode,
+    String? countryNameCode,
+    String? phone,
+  });
 }
