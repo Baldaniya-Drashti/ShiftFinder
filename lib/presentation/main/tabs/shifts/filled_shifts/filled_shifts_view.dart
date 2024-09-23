@@ -7,7 +7,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/widgets/dropdown/custom_dropdown_textfield.dart';
-import 'package:shift/presentation/main/tabs/shifts/widgets/filled_shift_list.dart';
+import 'package:shift/presentation/main/tabs/shifts/filled_shifts/widgets/filled_shift_list.dart';
 
 @RoutePage(name: 'FilledShiftsView')
 class FilledShiftsView extends StatelessWidget {

@@ -21,31 +21,33 @@ class ViewApplicantProfile extends StatelessWidget {
         },
         title: 'View Profile',
       ),
-      body: ListView(
-        shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.symmetric(
-          horizontal: getSize(20),
+      body: SafeArea(
+        child: ListView(
+          shrinkWrap: true,
+          physics: BouncingScrollPhysics(),
+          padding: EdgeInsets.symmetric(
+            horizontal: getSize(20),
+          ),
+          children: [
+            getApplicantswDetailContainer(),
+            SizedBox(
+              height: getSize(10),
+            ),
+            ApplicantSpecialize(),
+            SizedBox(
+              height: getSize(20),
+            ),
+            EducationView(),
+            SizedBox(
+              height: getSize(20),
+            ),
+            ReferenceView(),
+            SizedBox(
+              height: getSize(20),
+            ),
+            DocumentsView(),
+          ],
         ),
-        children: [
-          getApplicantswDetailContainer(),
-          SizedBox(
-            height: getSize(10),
-          ),
-          ApplicantSpecialize(),
-          SizedBox(
-            height: getSize(20),
-          ),
-          EducationView(),
-          SizedBox(
-            height: getSize(20),
-          ),
-          ReferenceView(),
-          SizedBox(
-            height: getSize(20),
-          ),
-          DocumentsView(),
-        ],
       ),
     );
   }
