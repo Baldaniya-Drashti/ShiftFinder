@@ -34,6 +34,11 @@ class ViewFilledShiftsDates extends StatelessWidget {
             svgPrefixIcon: SvgImageConstant.clockWithOuterLine,
             title: "${StringConstant.totalNumberOfShifts} - 05",
           ),
+          // CustomMultiDatePicker(value: [
+          //   DateTime.now(),
+          //   DateTime(DateTime.now().year, DateTime.now().month,
+          //       DateTime.now().day + 1)
+          // ]),
           ListView.builder(
               itemCount: 10,
               shrinkWrap: true,
