@@ -5,6 +5,9 @@ class HomeState with _$HomeState {
   const factory HomeState({
     required bool showErrorMessages,
     required Option<Either<MainFailure, String>> failureOrSuccessOption,
+    required bool teamStatusErrorMessage,
+    required Option<Either<MainFailure, TeamAvailableDTO>>
+        teamStatusFailureOrSuccessOption,
     required bool isSubmitting,
     required bool isLoading,
     required bool isNoDataFound,
@@ -19,5 +22,7 @@ class HomeState with _$HomeState {
         isLoading: false,
         isNoDataFound: false,
         isErrorInAPI: false,
+        teamStatusFailureOrSuccessOption: none(),
+        teamStatusErrorMessage: false,
       );
 }

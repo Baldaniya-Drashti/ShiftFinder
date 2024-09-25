@@ -318,12 +318,14 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           }
         },
         commuteAllownceChanged: (e) {
-          emit(state.copyWith(
-            selectedCommuteAllownce: InputEmptyOrNot(e.selectedValue),
-            commuteHour: InputEmptyOrNot(""),
-            commuteRate: Rate(""),
-            singleShiftFailureOrSuccessOption: none(),
-          ));
+          if (e.selectedValue != state.selectedCommuteAllownce.getValue()) {
+            emit(state.copyWith(
+              selectedCommuteAllownce: InputEmptyOrNot(e.selectedValue),
+              commuteHour: InputEmptyOrNot(""),
+              commuteRate: Rate(""),
+              singleShiftFailureOrSuccessOption: none(),
+            ));
+          }
         },
         commuteHoursChanged: (e) {
           emit(state.copyWith(
@@ -338,12 +340,14 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           ));
         },
         accomdationAllownceChanged: (e) {
-          emit(state.copyWith(
-            selectedAccomdationAllownce: InputEmptyOrNot(e.selectedValue),
-            accomdationHour: InputEmptyOrNot(""),
-            accomdationRate: Rate(""),
-            singleShiftFailureOrSuccessOption: none(),
-          ));
+          if (e.selectedValue != state.selectedAccomdationAllownce.getValue()) {
+            emit(state.copyWith(
+              selectedAccomdationAllownce: InputEmptyOrNot(e.selectedValue),
+              accomdationHour: InputEmptyOrNot(""),
+              accomdationRate: Rate(""),
+              singleShiftFailureOrSuccessOption: none(),
+            ));
+          }
         },
         accomdationHoursChanged: (e) {
           emit(state.copyWith(
@@ -377,6 +381,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           emit(
             state.copyWith(
               isMoreVacancy: e.isMoreVacancy,
+              selectedVacancy: Vacancy(""),
               singleShiftFailureOrSuccessOption: none(),
             ),
           );

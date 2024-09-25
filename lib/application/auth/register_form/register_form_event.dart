@@ -50,7 +50,8 @@ class RegisterFormEvent with _$RegisterFormEvent {
   const factory RegisterFormEvent.selectCountryCode(
       String phoneCode, String flag) = SelectCountryCode;
 
-  const factory RegisterFormEvent.registerProfileBtnPressed({
+  const factory RegisterFormEvent.registerProfileBtnPressed(
+    BuildContext context, {
     required String firstName,
     required String lastName,
     required int isCheckTerms,
@@ -67,6 +68,10 @@ class RegisterFormEvent with _$RegisterFormEvent {
   const factory RegisterFormEvent.verifyOtp(String password) = VerifyOtp;
   const factory RegisterFormEvent.editedEmailEvent(String value) =
       EditedEmailEvent;
-  const factory RegisterFormEvent.editEmailOrPhone(
+  const factory RegisterFormEvent.editedPhoneEvent(String value,
+      {String? countryCode, String? countryFlag}) = EditedPhoneEvent;
+  const factory RegisterFormEvent.editEmailOrPhone(BuildContext context,
       {String? email, String? phone, String? countryCode}) = EditEmailOrPhone;
+  const factory RegisterFormEvent.selectEditedCountryCode(
+      String phoneCode, String flag) = SelectEditedCountryCode;
 }

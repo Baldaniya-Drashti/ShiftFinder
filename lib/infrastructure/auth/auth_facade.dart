@@ -96,9 +96,17 @@ class AuthFacade implements IAuthFacade {
         ApiConstants.logout,
       )
           .then((value) async {
+        final currentRole = getCurrentRole();
+        final currentIndustry = getCurrentIndustry();
+        final isUserShowIntro = getUserShowIntro();
         Hive.box(BoxNames.settingsBox).clear();
         Hive.box<AccountEntity>(BoxNames.currentUser).clear();
-        await Hive.box(BoxNames.settingsBox).put(BoxKeys.isUserShowIntro, true);
+        await Hive.box(BoxNames.settingsBox)
+            .put(BoxKeys.isUserShowIntro, isUserShowIntro);
+        await Hive.box(BoxNames.settingsBox)
+            .put(BoxKeys.currentRole, currentRole);
+        await Hive.box(BoxNames.settingsBox)
+            .put(BoxKeys.currentIndustry, currentIndustry);
         return right(value?.dioMessage ?? "");
       });
       // await Future.wait([
@@ -126,6 +134,7 @@ class AuthFacade implements IAuthFacade {
     required int check_terms_privacy,
     required String? companyName,
     required String countryCode,
+    required String countryFlag,
     required MobileNumber phoneNumber,
     required EmailAddress email,
     required Password password,
@@ -145,6 +154,7 @@ class AuthFacade implements IAuthFacade {
         "service_roles": getCurrentRole(),
         "industry_id": getCurrentIndustry(),
         "country_code": countryCode,
+        "country_name_code": countryFlag,
         "first_name": firstName.getOrCrash(),
         "last_name": lastName.getOrCrash(),
         "check_terms_privacy": check_terms_privacy,
@@ -230,7 +240,8 @@ class AuthFacade implements IAuthFacade {
   }) async {
     try {
       var mapData = {
-        // "id": getCurrentUser().userId,
+        "id": getCurrentUser().userId,
+        // "id": 313,
         "email": email,
         "country_code": countryCode,
         "country_name_code": countryNameCode,

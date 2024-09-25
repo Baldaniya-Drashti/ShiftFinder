@@ -15,6 +15,7 @@ abstract class IAuthFacade {
     required String profileImage,
     required String? companyName,
     required String countryCode,
+    required String countryFlag,
     required MobileNumber phoneNumber,
     required EmailAddress email,
     required Password password,

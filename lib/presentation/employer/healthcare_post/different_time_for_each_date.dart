@@ -4,9 +4,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
@@ -16,6 +18,7 @@ import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_multi_date_picker.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
@@ -255,6 +258,20 @@ class DifferentTimeForEachDate extends StatelessWidget {
               .add(PostShiftEvent.commuteHoursChanged(value));
         }
       },
+      isOptional: true,
+      optionalWidget: GestureDetector(
+        onTap: () {
+          AppDialog.showInfo(context, StringConstant.multiCommuteInfoDesc,
+              maxLines: 15);
+        },
+        child: Container(
+          color: AppColors.transparent,
+          padding: EdgeInsets.only(right: getSize(30)),
+          child: SvgPicture.asset(
+            SvgImageConstant.infoCircle,
+          ),
+        ),
+      ),
     );
   }
 
@@ -336,6 +353,20 @@ class DifferentTimeForEachDate extends StatelessWidget {
               .add(PostShiftEvent.accomdationHoursChanged(value));
         }
       },
+      isOptional: true,
+      optionalWidget: GestureDetector(
+        onTap: () {
+          AppDialog.showInfo(context, StringConstant.multiAccomdationInfoDesc,
+              maxLines: 15);
+        },
+        child: Container(
+          color: AppColors.transparent,
+          padding: EdgeInsets.only(right: getSize(30)),
+          child: SvgPicture.asset(
+            SvgImageConstant.infoCircle,
+          ),
+        ),
+      ),
     );
   }
 

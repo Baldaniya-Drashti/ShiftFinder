@@ -96,8 +96,25 @@ class StringConstant {
   static const String letsGetStarted = "Let's Get Started!";
   static const String locationAddress = "Location Address";
   static const String profilePhoto = "Profile Photo";
+  static const String recurrenceModeInfoDesc =
+      "For 'Weekly' You sould select minimum 7 days range";
+  static const String singleAccomdationInfoDesc =
+      "Choose 'Flat Rate' to offer a fixed amount as accommodation allowance for the shift. \nIf you select 'Hours,' the accommodation allowance for the shift will be calculated as the number of hours you specify, multiplied by the hourly rate you're offering to the contractor.";
+  static const String singleCommuteInfoDesc =
+      "Choose 'Flat Rate' to offer a fixed amount as a commute allowance for the shift. \nIf you select 'Hours,' the commute allowance for the shift will be calculated as the number of hours you specify, multiplied by the hourly rate you're offering to the contractor.";
+  static const String multiAccomdationInfoDesc =
+      "Choose 'Flat Rate' to offer a fixed amount as accommodation allowance for each shift. \nIf you select 'Hours,' the accommodation allowance for the shift will be calculated as the number of hours you specify, multiplied by the hourly rate you're offering to the contractor. \nFor multi-shift postings, the total accommodation allowance will be multiplied by the number of shifts in the schedule.";
+  static const String multiCommuteInfoDesc =
+      "Choose 'Flat Rate' to offer a fixed amount as a commute allowance for each shift. \nIf you select 'Hours,' the commute allowance for the shift will be calculated as the number of hours you specify, multiplied by the hourly rate you're offering to the contractor. \nFor multi-shift postings, the total commute allowance will be multiplied by the number of shifts in the schedule.";
+
+  static const String individualPostInfoDesc =
+      "If you post as individual shifts, each date in the multi-shift schedule will be treated as a separate posting, allowing you to hire different contractors for each date. Otherwise, only one contractor can be hired for all dates.";
   static const String mutltiplelocationInfoDesc =
       "If you have multiple locations, you can add them later through your profile.";
+  static const String teamInfoDesc =
+      "By selecting this option, the posting summary will be automatically sent via email to all members of the selected team(s).";
+  static const String saveTemplateInfoDesc =
+      "By selecting this option, the posting will be saved as a template based on the role for easy future posting. You can access this template in your profile under the 'Saved Templates' option.";
   static const String ok = "Ok";
   static const String select = "Select";
   static const String completeProfile = "Complete Profile";
@@ -398,6 +415,7 @@ class StringConstant {
   static const String recurrenceDuration = "Recurrence Duration";
   static const String editEmail = "Edit Email";
   static const String editPhoneNumber = "Edit Phone Number";
+  static const String editUnit = "Edit Unit";
   static const String pleaseEditYourEmailToGetVerificationCode =
       "Please edit your email to get verification code";
   static const String pleaseEditYourPhoneNnumberToGetVerificationCode =
@@ -591,5 +609,10 @@ class StringConstant {
   static const String pleaseSelectStartAndEndTimeForEachDate =
       "Please select a Start time, End time and Unpaid break for each shift date";
 
+  static const String someDetailsAreMissingOrInvalidPleaseCheck =
+      "Some details are missing or invalid please check!";
+  static const String unitAlreadyExist = "Unit already exist!";
+  static const String checkTeamStatusDesc = "It looks like you haven't created a team yet! By setting up internal teams, you can automatically share posting details with your team members, streamlining your hiring process. You can create a team through your profile, and then continue with shift posting. Do you want to proceed with creating a team now?";
+  static const String createYourTeamToGetStarted = "Create Your Team to Get Started";
   static const String underDevelopment = "Under Development";
 }

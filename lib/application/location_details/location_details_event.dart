@@ -29,6 +29,9 @@ class LocationDetailsEvent with _$LocationDetailsEvent {
       String unitNumber, String unitNote) = AddUnitNumberChipList;
   const factory LocationDetailsEvent.removeUnitNumberChip(int index) =
       RemoveUnitNumberChip;
+  const factory LocationDetailsEvent.editUnitNumberChip(
+          BuildContext context, int index, UnitDTO updatedUnit) =
+      EditUnitNumberChip;
 
   const factory LocationDetailsEvent.notesChanged(String notes) = NotesChanged;
   const factory LocationDetailsEvent.facilityTypeChanged(String faciltyType) =
@@ -36,5 +39,11 @@ class LocationDetailsEvent with _$LocationDetailsEvent {
 
   const factory LocationDetailsEvent.addOtherfaciltyType(String faciltyType) =
       AddOtherfaciltyType;
-  const factory LocationDetailsEvent.continueBtnPressed() = ContinueBtnPressed;
+  const factory LocationDetailsEvent.continueBtnPressed(BuildContext context) =
+      ContinueBtnPressed;
+
+  const factory LocationDetailsEvent.updateUnitNumberChanged(
+      String unitNumber) = UpdateUnitNumberChanged;
+  const factory LocationDetailsEvent.updateUnitNotesChanged(String notes) =
+      UpdateUnitNotesChanged;
 }

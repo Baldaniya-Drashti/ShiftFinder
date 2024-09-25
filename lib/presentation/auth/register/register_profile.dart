@@ -88,8 +88,10 @@ class RegisterProfileScreen extends StatelessWidget {
                     VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
                       context,
                       (getCurrentRole() == 1)
-                          ? "+${state.selectedCountrycode} ${state.enteredPhoneNo}"
+                          ? state.enteredPhoneNo
                           : state.email.getValue(),
+                      "+${state.selectedCountrycode}",
+                      state.selectedCountryFlag,
                       state.password.getValue(),
                     );
                   },
@@ -137,9 +139,17 @@ class RegisterProfileScreen extends StatelessWidget {
                           child: CommonButton(
                             isSubmitting: state.isSubmitting,
                             onPressed: () {
+                              /*VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
+                                context,
+                                (getCurrentRole() == 1)
+                                    ? "+${state.selectedCountrycode} ${state.enteredPhoneNo}"
+                                    : state.email.getValue(),
+                                state.password.getValue(),
+                              );*/
                               context.read<RegisterFormBloc>().add(
                                       RegisterFormEvent
                                           .registerProfileBtnPressed(
+                                    context,
                                     firstName: firstName,
                                     lastName: lastName,
                                     isCheckTerms: checkTermsPrivacy,

@@ -1,13 +1,20 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/employer_home/employer_dashboard_dto.dart';
+import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 
 part 'home_state.dart';
 part 'home_event.dart';
@@ -31,6 +38,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               state.copyWith(
                 isErrorInAPI: true,
                 isLoading: false,
+                teamStatusFailureOrSuccessOption: none(),
               ),
             ),
             (r) {
@@ -38,6 +46,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 state.copyWith(
                   isLoading: false,
                   isErrorInAPI: false,
+                  teamStatusFailureOrSuccessOption: none(),
                 ),
               );
               add(HomeEvent.getEmployerDashboardList(true));
@@ -96,7 +105,81 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             },
           );
         },
+        checkTeamAvailableEvent: (e) async {
+          emit(
+            state.copyWith(
+              teamStatusErrorMessage: true,
+              teamStatusFailureOrSuccessOption: none(),
+            ),
+          );
+          final res = await mainFacade.employerTeamCheck();
+          emit(
+            state.copyWith(
+              teamStatusErrorMessage: false,
+              teamStatusFailureOrSuccessOption: optionOf(res),
+            ),
+          );
+          res.fold(
+            (l) {
+              showError(
+                message: l.maybeMap(
+                  showAPIResponseMessage: (value) => value.message,
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
+                  orElse: () => "Server Error. Try again later.",
+                ),
+              ).show(e.context);
+            },
+            (r) {
+              emit(
+                state.copyWith(
+                  teamStatusErrorMessage: false,
+                  teamStatusFailureOrSuccessOption: optionOf(res),
+                ),
+              );
+              if (r.isTeamAvailable == 1) {
+                e.context.router
+                    .push(PageRouteInfo(HealthCarePostForm.name))
+                    .then((value) {
+                  e.context
+                      .read<HomeBloc>()
+                      .add(HomeEvent.getEmployerDashboardList(true));
+                });
+              } else {
+                teamCheckDialog(e.context, state);
+              }
+            },
+          );
+        },
       );
     });
+  }
+
+  teamCheckDialog(BuildContext context, HomeState state) {
+    AppDialog.showDelete(
+      context,
+      title: StringConstant.createYourTeamToGetStarted,
+      infoMessage: StringConstant.checkTeamStatusDesc,
+      deleteBtnText: StringConstant.yes,
+      cancelText: StringConstant.no,
+      onCancelClick: () {
+        context.router.maybePop();
+        context.router
+            .push(PageRouteInfo(HealthCarePostForm.name))
+            .then((value) {
+          context
+              .read<HomeBloc>()
+              .add(HomeEvent.getEmployerDashboardList(true));
+        });
+      },
+      onDeleteClick: () {
+        context.router.maybePop();
+        context.router.push(PageRouteInfo(TeamsView.name)).then((value) {
+          context
+              .read<HomeBloc>()
+              .add(HomeEvent.checkTeamAvailableEvent(context));
+        });
+      },
+    );
   }
 }

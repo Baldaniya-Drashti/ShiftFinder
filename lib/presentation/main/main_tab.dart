@@ -13,10 +13,12 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart' as autoroute;
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/main/tabs/employer_shift_view.dart';
 import 'package:shift/presentation/main/tabs/home/home_view.dart';
 import 'package:shift/presentation/main/tabs/notification_view.dart';
@@ -84,47 +86,85 @@ class MainTabView extends StatelessWidget {
                   ),
                 ),
               ),
-              floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  context.router
-                      .push(PageRouteInfo(autoroute.HealthCarePostForm.name))
-                      .then((value) {
+              floatingActionButton: BlocListener<HomeBloc, HomeState>(
+                listener: (context, state) {
+                  /*state.teamStatusFailureOrSuccessOption.fold(
+                    () {},
+                    (either) => either.fold(
+                      (failure) {
+                        showError(
+                          message: failure.maybeMap(
+                            showAPIResponseMessage: (value) => value.message,
+                            networkError: (value) =>
+                                'Please check your internet connectivity',
+                            orElse: () => "Server Error. Try again later.",
+                          ),
+                        ).show(context);
+                      },
+                      (r) {
+                        if (r.isTeamAvailable == 1) {
+                          context.router
+                              .push(PageRouteInfo(
+                                  autoroute.HealthCarePostForm.name))
+                              .then((value) {
+                            context
+                                .read<HomeBloc>()
+                                .add(HomeEvent.getEmployerDashboardList(true));
+                          });
+                        } else {
+                          teamCheckDialog(context, state);
+                        }
+                      },
+                    ),
+                  );*/
+                },
+                child: FloatingActionButton(
+                  onPressed: () {
                     context
                         .read<HomeBloc>()
-                        .add(HomeEvent.getEmployerDashboardList(true));
-                  });
+                        .add(HomeEvent.checkTeamAvailableEvent(context));
 
-                  // context.router.push(PageRouteInfo(
-                  //   autoroute.HealthcarePostShift.name,
-                  //   args: autoroute.HealthcarePostShiftArgs(postId: 28),
-                  // ));
+                    /*context.router
+                                    .push(PageRouteInfo(autoroute.HealthCarePostForm.name))
+                                    .then((value) {
+                                  context
+                                      .read<HomeBloc>()
+                                      .add(HomeEvent.getEmployerDashboardList(true));
+                                });*/
 
-                  // context.router.push(PageRouteInfo(
-                  //   autoroute.PostShiftRecurring.name,
-                  //   args: autoroute.PostShiftRecurringArgs(
-                  //       shiftType: 1, healthcarePost: HealthcarePostDTO()),
-                  // ));
-                },
-                backgroundColor: AppColors.primaryColor,
-                shape: CircleBorder(
-                  side: BorderSide(
-                    color: AppColors.darkGreen,
-                    width: getSize(3),
-                  ),
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.primaryColor,
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: AssetImage(PngImageConstants.floating_background),
+                    // context.router.push(PageRouteInfo(
+                    //   autoroute.HealthcarePostShift.name,
+                    //   args: autoroute.HealthcarePostShiftArgs(postId: 28),
+                    // ));
+
+                    // context.router.push(PageRouteInfo(
+                    //   autoroute.PostShiftRecurring.name,
+                    //   args: autoroute.PostShiftRecurringArgs(
+                    //       shiftType: 1, healthcarePost: HealthcarePostDTO()),
+                    // ));
+                  },
+                  backgroundColor: AppColors.primaryColor,
+                  shape: CircleBorder(
+                    side: BorderSide(
+                      color: AppColors.darkGreen,
+                      width: getSize(3),
                     ),
                   ),
-                  alignment: Alignment.center,
-                  child: SvgPicture.asset(
-                    SvgImageConstant.plus,
-                    height: getSize(30),
-                    width: getSize(30),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryColor,
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image:
+                            AssetImage(PngImageConstants.floating_background),
+                      ),
+                    ),
+                    alignment: Alignment.center,
+                    child: SvgPicture.asset(
+                      SvgImageConstant.plus,
+                      height: getSize(30),
+                      width: getSize(30),
+                    ),
                   ),
                 ),
               ),
@@ -137,6 +177,7 @@ class MainTabView extends StatelessWidget {
       ),
     );
   }
+
 }
 
 getAppbar(MainTabState state, BuildContext context) {

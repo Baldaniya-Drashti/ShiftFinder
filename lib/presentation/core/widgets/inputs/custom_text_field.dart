@@ -116,6 +116,9 @@ class CustomTextField extends StatelessWidget {
       OutlineInputBorder border,
       OutlineInputBorder focusedBorder,
       InputBorder errorBorder) {
+    final focusNodeToUse = focusNode;
+    print("focusNodeToUse----> $focusNodeToUse");
+
     return Column(
       key: key,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,7 +186,7 @@ class CustomTextField extends StatelessWidget {
             readOnly: readOnly,
             inputFormatters: inputFormatters,
             minLines: minLines,
-            focusNode: focusNode,
+            focusNode: focusNodeToUse,
             onTap: onTap,
             onChanged: onChanged,
             initialValue: initialValue,

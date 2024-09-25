@@ -278,3 +278,142 @@ abstract class _TeamDTO implements TeamDTO {
   _$$TeamDTOImplCopyWith<_$TeamDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+TeamAvailableDTO _$TeamAvailableDTOFromJson(Map<String, dynamic> json) {
+  return _TeamAvailableDTO.fromJson(json);
+}
+
+/// @nodoc
+mixin _$TeamAvailableDTO {
+  int? get isTeamAvailable => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $TeamAvailableDTOCopyWith<TeamAvailableDTO> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $TeamAvailableDTOCopyWith<$Res> {
+  factory $TeamAvailableDTOCopyWith(
+          TeamAvailableDTO value, $Res Function(TeamAvailableDTO) then) =
+      _$TeamAvailableDTOCopyWithImpl<$Res, TeamAvailableDTO>;
+  @useResult
+  $Res call({int? isTeamAvailable});
+}
+
+/// @nodoc
+class _$TeamAvailableDTOCopyWithImpl<$Res, $Val extends TeamAvailableDTO>
+    implements $TeamAvailableDTOCopyWith<$Res> {
+  _$TeamAvailableDTOCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isTeamAvailable = freezed,
+  }) {
+    return _then(_value.copyWith(
+      isTeamAvailable: freezed == isTeamAvailable
+          ? _value.isTeamAvailable
+          : isTeamAvailable // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$TeamAvailableDTOImplCopyWith<$Res>
+    implements $TeamAvailableDTOCopyWith<$Res> {
+  factory _$$TeamAvailableDTOImplCopyWith(_$TeamAvailableDTOImpl value,
+          $Res Function(_$TeamAvailableDTOImpl) then) =
+      __$$TeamAvailableDTOImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int? isTeamAvailable});
+}
+
+/// @nodoc
+class __$$TeamAvailableDTOImplCopyWithImpl<$Res>
+    extends _$TeamAvailableDTOCopyWithImpl<$Res, _$TeamAvailableDTOImpl>
+    implements _$$TeamAvailableDTOImplCopyWith<$Res> {
+  __$$TeamAvailableDTOImplCopyWithImpl(_$TeamAvailableDTOImpl _value,
+      $Res Function(_$TeamAvailableDTOImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isTeamAvailable = freezed,
+  }) {
+    return _then(_$TeamAvailableDTOImpl(
+      isTeamAvailable: freezed == isTeamAvailable
+          ? _value.isTeamAvailable
+          : isTeamAvailable // ignore: cast_nullable_to_non_nullable
+              as int?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$TeamAvailableDTOImpl implements _TeamAvailableDTO {
+  const _$TeamAvailableDTOImpl({this.isTeamAvailable});
+
+  factory _$TeamAvailableDTOImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TeamAvailableDTOImplFromJson(json);
+
+  @override
+  final int? isTeamAvailable;
+
+  @override
+  String toString() {
+    return 'TeamAvailableDTO(isTeamAvailable: $isTeamAvailable)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TeamAvailableDTOImpl &&
+            (identical(other.isTeamAvailable, isTeamAvailable) ||
+                other.isTeamAvailable == isTeamAvailable));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, isTeamAvailable);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TeamAvailableDTOImplCopyWith<_$TeamAvailableDTOImpl> get copyWith =>
+      __$$TeamAvailableDTOImplCopyWithImpl<_$TeamAvailableDTOImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$TeamAvailableDTOImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _TeamAvailableDTO implements TeamAvailableDTO {
+  const factory _TeamAvailableDTO({final int? isTeamAvailable}) =
+      _$TeamAvailableDTOImpl;
+
+  factory _TeamAvailableDTO.fromJson(Map<String, dynamic> json) =
+      _$TeamAvailableDTOImpl.fromJson;
+
+  @override
+  int? get isTeamAvailable;
+  @override
+  @JsonKey(ignore: true)
+  _$$TeamAvailableDTOImplCopyWith<_$TeamAvailableDTOImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}

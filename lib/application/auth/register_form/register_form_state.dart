@@ -43,6 +43,9 @@ class RegisterFormState with _$RegisterFormState {
     /// EDIT PHONE OR EMAIL VIEW
     required EmailAddress editedEmail,
     required MobileNumber editedPhone,
+    required String editedCountrycode,
+    required String editedCountryFlag,
+    required bool isEditing,
     required bool showEditedErrorMessage,
     required Option<Either<AuthFailure, String>> editFailureorSuccessOption,
   }) = _RegisterFormState;
@@ -85,6 +88,9 @@ class RegisterFormState with _$RegisterFormState {
         /// EDIT PHONE OR EMAIL VIEW
         editedPhone: MobileNumber(""),
         editedEmail: EmailAddress(""),
+        editedCountrycode: "1",
+        editedCountryFlag: "🇨🇦",
+        isEditing: false,
         showEditedErrorMessage: false,
         editFailureorSuccessOption: none(),
       );

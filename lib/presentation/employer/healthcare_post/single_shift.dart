@@ -21,6 +21,7 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_time_picker_dropdown.dart';
@@ -449,6 +450,20 @@ class SinglePostShift extends StatelessWidget {
               .add(PostShiftEvent.commuteHoursChanged(value));
         }
       },
+      isOptional: true,
+      optionalWidget: GestureDetector(
+        onTap: () {
+          AppDialog.showInfo(context, StringConstant.singleCommuteInfoDesc,
+              maxLines: 15);
+        },
+        child: Container(
+          color: AppColors.transparent,
+          padding: EdgeInsets.only(right: getSize(30)),
+          child: SvgPicture.asset(
+            SvgImageConstant.infoCircle,
+          ),
+        ),
+      ),
     );
   }
 
@@ -530,6 +545,20 @@ class SinglePostShift extends StatelessWidget {
               .add(PostShiftEvent.accomdationHoursChanged(value));
         }
       },
+      isOptional: true,
+      optionalWidget: GestureDetector(
+        onTap: () {
+          AppDialog.showInfo(context, StringConstant.singleAccomdationInfoDesc,
+              maxLines: 15);
+        },
+        child: Container(
+          color: AppColors.transparent,
+          padding: EdgeInsets.only(right: getSize(30)),
+          child: SvgPicture.asset(
+            SvgImageConstant.infoCircle,
+          ),
+        ),
+      ),
     );
   }
 

@@ -8,6 +8,7 @@ import 'package:shift/application/location_details/location_details_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
@@ -25,18 +26,17 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'locationDetailForm')
 class LocationDetailForm extends StatelessWidget {
   bool isFromSplash = false;
-
   LocationDetailForm({super.key, this.isFromSplash = false});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<LocationDetailsBloc>()
-        ..add(LocationDetailsEvent.getFacilityTypeList()),
-      child: GestureDetector(
-        onTap: () {
-          AppFocus.unfocus(context);
-        },
+    return GestureDetector(
+      onTap: () {
+        AppFocus.unfocus(context);
+      },
+      child: BlocProvider(
+        create: (context) => getIt<LocationDetailsBloc>()
+          ..add(LocationDetailsEvent.getFacilityTypeList()),
         child: Scaffold(
             appBar: CommonAppBar(
               isShowBackBtn: !isFromSplash,
@@ -134,8 +134,8 @@ class LocationDetailForm extends StatelessWidget {
                                       print(
                                           "Address---> ${state.address.getValue()}");
                                       context.read<LocationDetailsBloc>().add(
-                                          const LocationDetailsEvent
-                                              .continueBtnPressed());
+                                          LocationDetailsEvent
+                                              .continueBtnPressed(context));
                                       unitNoNamecontroller.clear();
                                       unitNotecontroller.clear();
                                     },
@@ -453,6 +453,7 @@ class LocationDetailForm extends StatelessWidget {
 
   TextEditingController unitNoNamecontroller = TextEditingController();
   TextEditingController unitNotecontroller = TextEditingController();
+
   Widget unitNumberField(
     BuildContext context,
     LocationDetailsState state,
@@ -539,15 +540,127 @@ class LocationDetailForm extends StatelessWidget {
                       fontSize: 10,
                     )
                   : null,
-              trailing: GestureDetector(
-                onTap: () {
-                  context
-                      .read<LocationDetailsBloc>()
-                      .add(LocationDetailsEvent.removeUnitNumberChip(index));
-                },
-                child: SvgPicture.asset(SvgImageConstant.bin),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      editUnitDialog(context,
+                          context.read<LocationDetailsBloc>(), state, index);
+                    },
+                    child: SvgPicture.asset(SvgImageConstant.editWithBg),
+                  ),
+                  SizedBox(width: getSize(10)),
+                  GestureDetector(
+                    onTap: () {
+                      context.read<LocationDetailsBloc>().add(
+                          LocationDetailsEvent.removeUnitNumberChip(index));
+                    },
+                    child: SvgPicture.asset(SvgImageConstant.bin),
+                  ),
+                ],
               ),
             ),
+          );
+        });
+  }
+
+  TextEditingController updateUnitNameCtrl = TextEditingController();
+  TextEditingController updateUnitNoteCtrl = TextEditingController();
+
+  editUnitDialog(
+    BuildContext context,
+    LocationDetailsBloc bloc,
+    LocationDetailsState state,
+    int index,
+  ) {
+    updateUnitNameCtrl.text = state.listOfUnit[index].number_or_name ?? "";
+    updateUnitNoteCtrl.text = state.listOfUnit[index].note ?? "";
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return BlocBuilder<LocationDetailsBloc, LocationDetailsState>(
+            bloc: bloc,
+            builder: (context, state) {
+              return AlertDialog(
+                  elevation: 80,
+                  backgroundColor: AppColors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                  title: BaseText(
+                    text: StringConstant.editUnit,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Aclonica",
+                    textAlign: TextAlign.center,
+                  ),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      paddingBetweenFields(height: getSize(10)),
+                      CustomTextField(
+                        controller: updateUnitNameCtrl,
+                        labelText: StringConstant.unitNumberName,
+                        hintText: StringConstant.unitNumberName,
+                        isLabelPadding: false,
+                        errorMaxLines: 2,
+                        onChanged: (value) {
+                          bloc.add(LocationDetailsEvent.updateUnitNumberChanged(
+                              value.trim()));
+                        },
+                        validator: null,
+                      ),
+                      paddingBetweenFields(height: getSize(10)),
+                      CustomTextField(
+                        controller: updateUnitNoteCtrl,
+                        labelText: StringConstant.notes,
+                        hintText: StringConstant.typeHere,
+                        isOptional: true,
+                        isLabelPadding: false,
+                        maxLines: 3,
+                        errorMaxLines: 2,
+                        onChanged: (value) {
+                          bloc.add(LocationDetailsEvent.updateUnitNotesChanged(
+                              value.trim()));
+                        },
+                        validator: null,
+                      ),
+                      paddingBetweenFields(),
+                      Align(
+                        alignment: Alignment.center,
+                        child: CommonButton(
+                          onPressed: (updateUnitNameCtrl.text.isNotEmpty)
+                              ? () {
+                                  bloc.add(
+                                      LocationDetailsEvent.editUnitNumberChip(
+                                          context,
+                                          index,
+                                          UnitDTO(
+                                            number_or_name:
+                                                updateUnitNameCtrl.text.trim(),
+                                            note:
+                                                updateUnitNoteCtrl.text.trim(),
+                                          )));
+                                }
+                              : () {},
+                          buttonText: StringConstant.update,
+                          // width: 5,
+                          buttonFontSize: 12,
+                          buttonFontWeight: FontWeight.w600,
+                          height: 35,
+                          backgroundColor: (updateUnitNameCtrl.text.isNotEmpty)
+                              ? AppColors.primaryColor.withOpacity(0.15)
+                              : AppColors.primaryColor.withOpacity(0.05),
+                          buttonTextColor: (updateUnitNameCtrl.text.isNotEmpty)
+                              ? AppColors.primaryColor
+                              : AppColors.primaryColor.withOpacity(0.3),
+                        ),
+                      )
+                    ],
+                  ));
+            },
           );
         });
   }

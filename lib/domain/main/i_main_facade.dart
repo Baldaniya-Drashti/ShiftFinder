@@ -33,6 +33,7 @@ abstract class IMainFacade {
   Future<Either<MainFailure, String>> deletePostApi({
     required int postId,
   });
+  Future<Either<MainFailure, TeamAvailableDTO>> employerTeamCheck();
   Future<Either<MainFailure, CommonResponse>> getEmployerDashboardListAPI({
     required int page,
   });

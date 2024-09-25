@@ -37,9 +37,7 @@ class MultiPostShift extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           return (state.isLoading)
-              ? CenterLoadingIndicator(
-                  isOnlyLoader: true,
-                )
+              ? CenterLoadingIndicator(isOnlyLoader: true)
               : Form(
                   autovalidateMode: (state.singleShiftErrorMessages)
                       ? AutovalidateMode.always
@@ -48,7 +46,7 @@ class MultiPostShift extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Visibility(
-                          // visible: state.updateShift.id == null,
+                          visible: state.updateShift.id == null,
                           child: sameOrDifferentRadio(context, state)),
                       paddingBetweenFields(),
                       (state.selectedMultiShiftType == 1)

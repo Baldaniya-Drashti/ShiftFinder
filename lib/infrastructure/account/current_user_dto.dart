@@ -47,7 +47,7 @@ class CurrentUserDto with _$CurrentUserDto {
       association: association,
       companyDescription: companyDescription,
       companyName: companyName,
-      countryNameCode: countryCode,
+      countryNameCode: countryNameCode,
       industryId: industryId,
       isVerified: isVerified,
       lastPage: lastPage,

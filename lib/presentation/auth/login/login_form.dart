@@ -30,10 +30,8 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(
-        "CURRENT USER INFORMATION FROM STORAGE---->  ${getCurrentUser().userId}");
     return BlocConsumer<LoginFormBloc, LoginFormState>(
-      listener: (context, state) {
+      listener: (_, state) {
         state.authFailureOrSuccessOption.fold(
           () {},
           (either) => either.fold(
@@ -53,9 +51,11 @@ class LoginForm extends StatelessWidget {
                 if (getCurrentRole() == 2) {
                   context.router.replace(PageRouteInfo(MainTabView.name));
                 } else {
-                  // showSuccess(message:"Success! Next Process is under development!!").show(context);
-                  context.router
-                      .replace(PageRouteInfo(ContractorMainTabView.name));
+                  showSuccess(
+                          message:
+                              "Success! Next Process is under development!!")
+                      .show(context);
+                  // context.router.replace(PageRouteInfo(ContractorMainTabView.name));
                 }
               } else {
                 context.router.replace(
@@ -82,10 +82,11 @@ class LoginForm extends StatelessWidget {
               AppFocus.unfocus(context);
               VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
                 context,
-                // state.emailId.getValue(),
                 (getCurrentRole() == 1)
-                    ? "${r.countryCode} ${r.phone}"
+                    ? "${r.phone}"
                     : state.emailId.getValue(),
+                "+${r.countryCode}",
+                r.countryNameCode ?? "",
                 state.password.getValue(),
               );
             },

@@ -27,3 +27,15 @@ Map<String, dynamic> _$$TeamDTOImplToJson(_$TeamDTOImpl instance) =>
       'total_member': instance.total_member,
       'members': instance.members,
     };
+
+_$TeamAvailableDTOImpl _$$TeamAvailableDTOImplFromJson(
+        Map<String, dynamic> json) =>
+    _$TeamAvailableDTOImpl(
+      isTeamAvailable: (json['isTeamAvailable'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$$TeamAvailableDTOImplToJson(
+        _$TeamAvailableDTOImpl instance) =>
+    <String, dynamic>{
+      'isTeamAvailable': instance.isTeamAvailable,
+    };

@@ -14,10 +14,13 @@ import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/place_detail_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/search_location_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/presentation/common/utils/app_focus.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 part 'location_details_event.dart';
 part 'location_details_state.dart';
 part 'location_details_bloc.freezed.dart';
@@ -103,6 +106,22 @@ class LocationDetailsBloc
       : super(LocationDetailsState.initial()) {
     on<LocationDetailsEvent>((event, emit) async {
       await event.map(
+        updateUnitNumberChanged: (e) {
+          emit(
+            state.copyWith(
+              updatedUnitNumber: e.unitNumber,
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
+        updateUnitNotesChanged: (e) {
+          emit(
+            state.copyWith(
+              updatedUnitNotes: e.notes,
+              authFailureOrSuccessOption: none(),
+            ),
+          );
+        },
         getFacilityTypeList: (e) async {
           emit(
             state.copyWith(
@@ -203,6 +222,24 @@ class LocationDetailsBloc
             ),
           );
         },
+        editUnitNumberChip: (e) {
+          List<UnitDTO> updatedList = List.from(state.listOfUnit);
+          if (!state.listOfUnit.any((unit) =>
+              unit.number_or_name?.toLowerCase() ==
+              e.updatedUnit.number_or_name?.toLowerCase())) {
+            updatedList[e.index] = e.updatedUnit;
+            emit(
+              state.copyWith(
+                listOfUnit: updatedList,
+                authFailureOrSuccessOption: none(),
+              ),
+            );
+            Navigator.pop(e.context);
+          } else {
+            AppFocus.unfocus(e.context);
+            showError(message: StringConstant.unitAlreadyExist).show(e.context);
+          }
+        },
         removeUnitNumberChip: (e) {
           /*emit(
             state.copyWith(
@@ -247,9 +284,14 @@ class LocationDetailsBloc
           }*/
 
           /// for unit list
+          print("Unit list----> ${state.listOfUnit}");
           if (e.unitNumber.trim().isNotEmpty &&
-              (!state.listOfUnit
-                      .every((unit) => unit.number_or_name == e.unitNumber) ||
+              (!state.listOfUnit.any((unit) {
+                    print("Unit number----> ${e.unitNumber}");
+                    print("Unit number_or_name----> ${unit.number_or_name}");
+                    return unit.number_or_name?.toLowerCase() ==
+                        e.unitNumber.trim().toLowerCase();
+                  }) ||
                   state.listOfUnit.isEmpty)) {
             emit(
               state.copyWith(
@@ -333,6 +375,12 @@ class LocationDetailsBloc
                       .toString() ??
                   '',
             );
+          } else {
+            AppFocus.unfocus(e.context);
+            showError(
+                    message: StringConstant
+                        .someDetailsAreMissingOrInvalidPleaseCheck)
+                .show(e.context);
           }
           emit(
             state.copyWith(
