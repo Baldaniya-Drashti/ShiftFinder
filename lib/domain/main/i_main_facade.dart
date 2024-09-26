@@ -40,6 +40,7 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, CommonResponse>> getContractorDashboardListAPI({
     required int page,
+    int? filterType,
   });
 
   Future<Either<MainFailure, CommonResponse>> getViewApplicantsAPI({

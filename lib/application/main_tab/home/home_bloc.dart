@@ -69,11 +69,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               return;
             }
           }
-
           var res = await mainFacade.getEmployerDashboardListAPI(page: page);
-
           page++;
-
           res.fold(
             (l) => emit(
               state.copyWith(

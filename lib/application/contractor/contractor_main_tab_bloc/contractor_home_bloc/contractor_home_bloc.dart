@@ -87,8 +87,10 @@ class ContractorHomeBloc
               return;
             }
           }
-
-          var res = await mainFacade.getContractorDashboardListAPI(page: page);
+          print("state filytertype---> ${state.filterType}");
+          print("e filtertype----> ${e.filterType}");
+          var res = await mainFacade.getContractorDashboardListAPI(
+              page: page, filterType: state.filterType);
 
           page++;
 
@@ -133,6 +135,10 @@ class ContractorHomeBloc
 
           if (type != state.filterType) {
             emit(
+              state.copyWith(filterType: type),
+            );
+            add(ContractorHomeEvent.getContractorDashboardList(true));
+            /* emit(
               state.copyWith(
                 isLoading: true,
               ),
@@ -143,7 +149,7 @@ class ContractorHomeBloc
                 isLoading: false,
                 filterType: type,
               ),
-            );
+            );*/
           }
         },
       );

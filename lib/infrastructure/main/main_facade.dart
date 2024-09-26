@@ -861,9 +861,10 @@ class MainFacade implements IMainFacade {
 
   @override
   Future<Either<MainFailure, CommonResponse>> getContractorDashboardListAPI(
-      {required int page}) async {
+      {required int page, int? filterType}) async {
     try {
       Map<String, dynamic> mapData = {
+        'filter_type': filterType ?? 0,
         'page': page,
         'perPage': _perPage,
       };
