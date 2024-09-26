@@ -546,9 +546,29 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
         },
 
         recurringEndDateChanged: (e) {
+          int? difference;
+          DateTime? startDate = state.recurringStartDate.isValid()
+              ? DateTime.parse(state.recurringStartDate.getValue() ?? "")
+              : null;
+
+          DateTime? endDate = DateTime.parse(e.selectedDate);
+
+          if (startDate != null && endDate != null) {
+            difference = endDate.difference(startDate).inDays;
+            print("Total days difference ${difference}");
+            // if (difference >= 7) {
+            // isRangeMoreThanWeek = true;
+            // print("isRengeMoreThanWeek---> $isRangeMoreThanWeek");
+            // }
+          }
           emit(
             state.copyWith(
               recurringEndDate: InputEmptyOrNot(e.selectedDate),
+              isRangeMoreThanWeek: (difference != null && difference > 7),
+              recurrenceMode: (difference != null && difference > 7)
+                  ? InputEmptyOrNot('Weekly')
+                  : InputEmptyOrNot('Daily'),
+              recurrenceWeekList: ListInputEmptyOrNot([]),
               recurringFailureOrSuccessOption: none(),
             ),
           );
@@ -1034,7 +1054,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
       Emitter<PostShiftState> emit, HealthcarePostDTO updatedShift) async {
     final r = updatedShift.shift_detail;
     if (r != null) {
-      print("Update r---> ${jsonEncode(r.teams)}");
+      print("Update r---> ${jsonEncode(r.recurrence_mode)}");
       emit(
         state.copyWith(
           isLoading: true,
@@ -1100,10 +1120,6 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           isSaveAsTemplate: (r.save_template_status == 1) ? true : false,
           disclaimerNote: r.disclaimer ?? "",
           selectedTeamList: setTeamList(r.teams ?? []),
-          recurrenceMode:
-              InputEmptyOrNot((r.recurrence_mode == '2') ? "Weekly" : "Daily"),
-          recurrenceWeekList: setWeekList(r.days ?? ""),
-
           recurringStartDate: InputEmptyOrNot((r.recurring_start_date != null)
               ? DateTime.fromMillisecondsSinceEpoch(
                       r.recurring_start_date! * 1000)
@@ -1114,9 +1130,34 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                       r.recurring_end_date! * 1000)
                   .toString()
               : ""),
+          recurrenceMode:
+              InputEmptyOrNot((r.recurrence_mode == '2') ? 'Weekly' : 'Daily'),
+          isRangeMoreThanWeek: setRecurringRange(
+              endDate: r.recurring_end_date, startDate: r.recurring_start_date),
+          recurrenceWeekList: setWeekList(r.days ?? ""),
         ),
       );
     }
+  }
+
+  bool setRecurringRange({required int? startDate, required int? endDate}) {
+    int? difference;
+
+    DateTime? formattedstartDate = (startDate != null)
+        ? DateTime.fromMillisecondsSinceEpoch(startDate * 1000)
+        : null;
+    DateTime? formattedEndDate = (endDate != null)
+        ? DateTime.fromMillisecondsSinceEpoch(endDate * 1000)
+        : null;
+
+    if (formattedstartDate != null && formattedEndDate != null) {
+      difference = formattedEndDate.difference(formattedstartDate).inDays;
+      print("Total days difference ${difference}");
+      if (difference > 7) {
+        return true;
+      }
+    }
+    return false;
   }
 
   ListInputEmptyOrNot<TeamDTO> setTeamList(List<TeamDTO> teamList) {

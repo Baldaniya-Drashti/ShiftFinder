@@ -169,37 +169,6 @@ class ReviewPostShiftDetail extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (post.shift_detail != null &&
-              post.shift_detail!.shift_type == 1 &&
-              post.shift_detail!.recurrence_mode != null)
-            chipListBox(
-              padding: EdgeInsets.zero,
-              bgColor: AppColors.transparent,
-              // chipList: post.shift_detail!.days!.split(',')
-              //   .where((item) => item != )
-              //   .map((item) => item.name ?? "")
-              //   .toList(),
-              chipList: (post.shift_detail!.days != null &&
-                      post.shift_detail!.days!.isNotEmpty)
-                  ? post.shift_detail!.days!
-                      .split(',')
-                      .where((item) => item.isNotEmpty)
-                      .map((item) {
-                        int dayId = int.parse(item.trim());
-                        SkillDTO? day = CommonList.weekList.firstWhere(
-                            (element) => element.id == dayId,
-                            orElse: () => SkillDTO());
-                        return day.name ?? "";
-                      })
-                      .where((dayName) => dayName.isNotEmpty)
-                      .toList()
-                  : [],
-              title: StringConstant.recurrenceMode,
-              value: (post.shift_detail?.recurrence_mode == "2")
-                  ? "Weekly"
-                  : "Daily",
-            ),
-          SizedBox(height: getSize(10)),
           BaseText(
             text: StringConstant.recurrenceDuration,
             fontSize: 14,
@@ -233,6 +202,37 @@ class ReviewPostShiftDetail extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(height: getSize(15)),
+          if (post.shift_detail != null &&
+              post.shift_detail!.shift_type == 1 &&
+              post.shift_detail!.recurrence_mode != null)
+            chipListBox(
+              padding: EdgeInsets.zero,
+              bgColor: AppColors.transparent,
+              // chipList: post.shift_detail!.days!.split(',')
+              //   .where((item) => item != )
+              //   .map((item) => item.name ?? "")
+              //   .toList(),
+              chipList: (post.shift_detail!.days != null &&
+                      post.shift_detail!.days!.isNotEmpty)
+                  ? post.shift_detail!.days!
+                      .split(',')
+                      .where((item) => item.isNotEmpty)
+                      .map((item) {
+                        int dayId = int.parse(item.trim());
+                        SkillDTO? day = CommonList.weekList.firstWhere(
+                            (element) => element.id == dayId,
+                            orElse: () => SkillDTO());
+                        return day.name ?? "";
+                      })
+                      .where((dayName) => dayName.isNotEmpty)
+                      .toList()
+                  : [],
+              title: StringConstant.recurrenceMode,
+              value: (post.shift_detail?.recurrence_mode == "2")
+                  ? "Weekly"
+                  : "Daily",
+            ),
         ],
       ),
     );

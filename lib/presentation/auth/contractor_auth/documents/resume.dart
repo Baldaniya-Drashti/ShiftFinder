@@ -15,6 +15,7 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/common/widgets/image_chosser.dialog.dart';
 import 'package:shift/presentation/common/widgets/show_picked_file.dart';
 import 'package:shift/presentation/common/widgets/upload_document_box.dart';
+import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 
@@ -85,21 +86,44 @@ class ResumeDocument extends StatelessWidget {
                                   },
                                 ),
                         ),
+                        if (state.showResumeErrorMessages &&
+                            (state.resume.file == null ||
+                                (state.resume.file != null &&
+                                    state.resume.file!.isEmpty)))
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: getSize(10), horizontal: getSize(20)),
+                            child: const BaseText(
+                              text: StringConstant.pleaseSelectResume,
+                              fontSize: 12,
+                              textColor: AppColors.red,
+                            ),
+                          ),
                         Padding(
                           padding: EdgeInsets.only(
-                              top: getSize(40), bottom: getSize(50)),
+                              top: getSize(40), bottom: getSize(10)),
                           child: Align(
                             alignment: Alignment.center,
                             child: CommonButton(
                               onPressed: () {
-                                context
-                                    .read<ResumeBloc>()
-                                    .add(const ResumeEvent.resumeDocSubmit());
+                                context.read<ResumeBloc>().add(
+                                    ResumeEvent.resumeDocSubmit(isSkip: false));
                               },
                               buttonText: StringConstant.txtContinue,
                             ),
                           ),
-                        )
+                        ),
+                        if (state.resume.file == null ||
+                            (state.resume.file != null &&
+                                state.resume.file!.isEmpty))
+                          documentSkipButton(
+                            context,
+                            onPressed: () {
+                              context.read<ResumeBloc>().add(
+                                  ResumeEvent.resumeDocSubmit(isSkip: true));
+                            },
+                          ),
+                        paddingBetweenFields(height: 40),
                       ],
                     ),
                   ),

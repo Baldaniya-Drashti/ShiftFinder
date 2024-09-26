@@ -193,7 +193,7 @@ class ImmunizationsVaccinations extends StatelessWidget {
                           ),
                           Padding(
                             padding: EdgeInsets.only(
-                                top: getSize(50), bottom: getSize(50)),
+                                top: getSize(50), bottom: getSize(10)),
                             child: Align(
                               alignment: Alignment.center,
                               child: CommonButton(
@@ -201,12 +201,25 @@ class ImmunizationsVaccinations extends StatelessWidget {
                                   context.read<ImmunizationBloc>().add(
                                       const ImmunizationEvent
                                           .immunizationDocSubmit(
-                                          isAddMoreBtnClick: false));
+                                          isAddMoreBtnClick: false,
+                                          isSkip: false));
                                 },
                                 buttonText: StringConstant.txtContinue,
                               ),
                             ),
-                          )
+                          ),
+                          if (state.immunizationList.isEmpty)
+                            documentSkipButton(
+                              context,
+                              onPressed: () {
+                                context.read<ImmunizationBloc>().add(
+                                    const ImmunizationEvent
+                                        .immunizationDocSubmit(
+                                        isAddMoreBtnClick: false,
+                                        isSkip: true));
+                              },
+                            ),
+                          paddingBetweenFields(height: 40)
                         ],
                       ),
                     ),

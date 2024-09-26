@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_home_bloc/contractor_home_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
@@ -368,10 +369,14 @@ class ViewContractorShift extends StatelessWidget {
           ListTile(
             dense: true,
             titleAlignment: ListTileTitleAlignment.top,
-            leading: SvgPicture.asset(
-              SvgImageConstant.femaleGrey,
-              width: getSize(36.28),
-              height: getSize(43.41),
+            leading: Container(
+              height: getSize(40),
+              width: getSize(40),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(
+                PngImageConstants.leafWithBG,
+              ))),
             ),
             title: BaseText(
               text: post.roles_list_name ?? "",

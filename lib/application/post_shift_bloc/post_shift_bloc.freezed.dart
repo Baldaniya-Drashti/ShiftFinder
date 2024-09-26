@@ -21752,6 +21752,7 @@ mixin _$PostShiftState {
   bool get isShareWithTeams => throw _privateConstructorUsedError;
   bool get isSaveAsTemplate => throw _privateConstructorUsedError;
   String get disclaimerNote => throw _privateConstructorUsedError;
+  bool get isRangeMoreThanWeek => throw _privateConstructorUsedError;
   InputEmptyOrNot get recurringStartDate => throw _privateConstructorUsedError;
   InputEmptyOrNot get recurringEndDate => throw _privateConstructorUsedError;
   ListInputEmptyOrNot<SkillDTO> get recurrenceWeekList =>
@@ -21825,6 +21826,7 @@ abstract class $PostShiftStateCopyWith<$Res> {
       bool isShareWithTeams,
       bool isSaveAsTemplate,
       String disclaimerNote,
+      bool isRangeMoreThanWeek,
       InputEmptyOrNot recurringStartDate,
       InputEmptyOrNot recurringEndDate,
       ListInputEmptyOrNot<SkillDTO> recurrenceWeekList,
@@ -21893,6 +21895,7 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
     Object? isShareWithTeams = null,
     Object? isSaveAsTemplate = null,
     Object? disclaimerNote = null,
+    Object? isRangeMoreThanWeek = null,
     Object? recurringStartDate = null,
     Object? recurringEndDate = null,
     Object? recurrenceWeekList = null,
@@ -22034,6 +22037,10 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
           ? _value.disclaimerNote
           : disclaimerNote // ignore: cast_nullable_to_non_nullable
               as String,
+      isRangeMoreThanWeek: null == isRangeMoreThanWeek
+          ? _value.isRangeMoreThanWeek
+          : isRangeMoreThanWeek // ignore: cast_nullable_to_non_nullable
+              as bool,
       recurringStartDate: null == recurringStartDate
           ? _value.recurringStartDate
           : recurringStartDate // ignore: cast_nullable_to_non_nullable
@@ -22167,6 +22174,7 @@ abstract class _$$PostShiftStateImplCopyWith<$Res>
       bool isShareWithTeams,
       bool isSaveAsTemplate,
       String disclaimerNote,
+      bool isRangeMoreThanWeek,
       InputEmptyOrNot recurringStartDate,
       InputEmptyOrNot recurringEndDate,
       ListInputEmptyOrNot<SkillDTO> recurrenceWeekList,
@@ -22235,6 +22243,7 @@ class __$$PostShiftStateImplCopyWithImpl<$Res>
     Object? isShareWithTeams = null,
     Object? isSaveAsTemplate = null,
     Object? disclaimerNote = null,
+    Object? isRangeMoreThanWeek = null,
     Object? recurringStartDate = null,
     Object? recurringEndDate = null,
     Object? recurrenceWeekList = null,
@@ -22376,6 +22385,10 @@ class __$$PostShiftStateImplCopyWithImpl<$Res>
           ? _value.disclaimerNote
           : disclaimerNote // ignore: cast_nullable_to_non_nullable
               as String,
+      isRangeMoreThanWeek: null == isRangeMoreThanWeek
+          ? _value.isRangeMoreThanWeek
+          : isRangeMoreThanWeek // ignore: cast_nullable_to_non_nullable
+              as bool,
       recurringStartDate: null == recurringStartDate
           ? _value.recurringStartDate
           : recurringStartDate // ignore: cast_nullable_to_non_nullable
@@ -22487,6 +22500,7 @@ class _$PostShiftStateImpl implements _PostShiftState {
       required this.isShareWithTeams,
       required this.isSaveAsTemplate,
       required this.disclaimerNote,
+      required this.isRangeMoreThanWeek,
       required this.recurringStartDate,
       required this.recurringEndDate,
       required this.recurrenceWeekList,
@@ -22602,6 +22616,8 @@ class _$PostShiftStateImpl implements _PostShiftState {
   @override
   final String disclaimerNote;
   @override
+  final bool isRangeMoreThanWeek;
+  @override
   final InputEmptyOrNot recurringStartDate;
   @override
   final InputEmptyOrNot recurringEndDate;
@@ -22677,7 +22693,7 @@ class _$PostShiftStateImpl implements _PostShiftState {
 
   @override
   String toString() {
-    return 'PostShiftState(updateShift: $updateShift, shiftType: $shiftType, postId: $postId, isLoading: $isLoading, post: $post, signleShiftDate: $signleShiftDate, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, breakList: $breakList, accomdationHoursList: $accomdationHoursList, unpaidBreak: $unpaidBreak, totalPaybleHours: $totalPaybleHours, selectedCommuteAllownce: $selectedCommuteAllownce, commuteHour: $commuteHour, commuteRate: $commuteRate, selectedAccomdationAllownce: $selectedAccomdationAllownce, accomdationHour: $accomdationHour, accomdationRate: $accomdationRate, singleShiftNote: $singleShiftNote, isMoreVacancy: $isMoreVacancy, selectedVacancy: $selectedVacancy, singleShiftErrorMessages: $singleShiftErrorMessages, singleShiftFailureOrSuccessOption: $singleShiftFailureOrSuccessOption, teamList: $teamList, isToBeRecurring: $isToBeRecurring, isShareWithTeams: $isShareWithTeams, isSaveAsTemplate: $isSaveAsTemplate, disclaimerNote: $disclaimerNote, recurringStartDate: $recurringStartDate, recurringEndDate: $recurringEndDate, recurrenceWeekList: $recurrenceWeekList, selectedTeamList: $selectedTeamList, recurrenceMode: $recurrenceMode, recurringErrorMessage: $recurringErrorMessage, recurringFailureOrSuccessOption: $recurringFailureOrSuccessOption, isIndividualPost: $isIndividualPost, selectedMultiShiftType: $selectedMultiShiftType, selectedMultiDates: $selectedMultiDates, startHourList: $startHourList, startMinuteList: $startMinuteList, endHourList: $endHourList, endMinuteList: $endMinuteList, multiDateTimeList: $multiDateTimeList, isDifferentDateDataValid: $isDifferentDateDataValid, differentDateFailureOrSuccessOption: $differentDateFailureOrSuccessOption, postShiftFailureOrSuccessOption: $postShiftFailureOrSuccessOption)';
+    return 'PostShiftState(updateShift: $updateShift, shiftType: $shiftType, postId: $postId, isLoading: $isLoading, post: $post, signleShiftDate: $signleShiftDate, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, breakList: $breakList, accomdationHoursList: $accomdationHoursList, unpaidBreak: $unpaidBreak, totalPaybleHours: $totalPaybleHours, selectedCommuteAllownce: $selectedCommuteAllownce, commuteHour: $commuteHour, commuteRate: $commuteRate, selectedAccomdationAllownce: $selectedAccomdationAllownce, accomdationHour: $accomdationHour, accomdationRate: $accomdationRate, singleShiftNote: $singleShiftNote, isMoreVacancy: $isMoreVacancy, selectedVacancy: $selectedVacancy, singleShiftErrorMessages: $singleShiftErrorMessages, singleShiftFailureOrSuccessOption: $singleShiftFailureOrSuccessOption, teamList: $teamList, isToBeRecurring: $isToBeRecurring, isShareWithTeams: $isShareWithTeams, isSaveAsTemplate: $isSaveAsTemplate, disclaimerNote: $disclaimerNote, isRangeMoreThanWeek: $isRangeMoreThanWeek, recurringStartDate: $recurringStartDate, recurringEndDate: $recurringEndDate, recurrenceWeekList: $recurrenceWeekList, selectedTeamList: $selectedTeamList, recurrenceMode: $recurrenceMode, recurringErrorMessage: $recurringErrorMessage, recurringFailureOrSuccessOption: $recurringFailureOrSuccessOption, isIndividualPost: $isIndividualPost, selectedMultiShiftType: $selectedMultiShiftType, selectedMultiDates: $selectedMultiDates, startHourList: $startHourList, startMinuteList: $startMinuteList, endHourList: $endHourList, endMinuteList: $endMinuteList, multiDateTimeList: $multiDateTimeList, isDifferentDateDataValid: $isDifferentDateDataValid, differentDateFailureOrSuccessOption: $differentDateFailureOrSuccessOption, postShiftFailureOrSuccessOption: $postShiftFailureOrSuccessOption)';
   }
 
   @override
@@ -22743,14 +22759,15 @@ class _$PostShiftStateImpl implements _PostShiftState {
                 other.isSaveAsTemplate == isSaveAsTemplate) &&
             (identical(other.disclaimerNote, disclaimerNote) ||
                 other.disclaimerNote == disclaimerNote) &&
+            (identical(other.isRangeMoreThanWeek, isRangeMoreThanWeek) ||
+                other.isRangeMoreThanWeek == isRangeMoreThanWeek) &&
             (identical(other.recurringStartDate, recurringStartDate) ||
                 other.recurringStartDate == recurringStartDate) &&
             (identical(other.recurringEndDate, recurringEndDate) ||
                 other.recurringEndDate == recurringEndDate) &&
             (identical(other.recurrenceWeekList, recurrenceWeekList) ||
                 other.recurrenceWeekList == recurrenceWeekList) &&
-            (identical(other.selectedTeamList, selectedTeamList) ||
-                other.selectedTeamList == selectedTeamList) &&
+            (identical(other.selectedTeamList, selectedTeamList) || other.selectedTeamList == selectedTeamList) &&
             (identical(other.recurrenceMode, recurrenceMode) || other.recurrenceMode == recurrenceMode) &&
             (identical(other.recurringErrorMessage, recurringErrorMessage) || other.recurringErrorMessage == recurringErrorMessage) &&
             (identical(other.recurringFailureOrSuccessOption, recurringFailureOrSuccessOption) || other.recurringFailureOrSuccessOption == recurringFailureOrSuccessOption) &&
@@ -22800,6 +22817,7 @@ class _$PostShiftStateImpl implements _PostShiftState {
         isShareWithTeams,
         isSaveAsTemplate,
         disclaimerNote,
+        isRangeMoreThanWeek,
         recurringStartDate,
         recurringEndDate,
         recurrenceWeekList,
@@ -22861,6 +22879,7 @@ abstract class _PostShiftState implements PostShiftState {
       required final bool isShareWithTeams,
       required final bool isSaveAsTemplate,
       required final String disclaimerNote,
+      required final bool isRangeMoreThanWeek,
       required final InputEmptyOrNot recurringStartDate,
       required final InputEmptyOrNot recurringEndDate,
       required final ListInputEmptyOrNot<SkillDTO> recurrenceWeekList,
@@ -22950,6 +22969,8 @@ abstract class _PostShiftState implements PostShiftState {
   bool get isSaveAsTemplate;
   @override
   String get disclaimerNote;
+  @override
+  bool get isRangeMoreThanWeek;
   @override
   InputEmptyOrNot get recurringStartDate;
   @override

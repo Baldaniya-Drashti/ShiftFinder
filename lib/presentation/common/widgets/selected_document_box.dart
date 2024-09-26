@@ -72,8 +72,8 @@ class SelectedDocumentBox extends StatelessWidget {
                     isExpandedImage: false,
                     mainBoxHeight: getSize(60),
                     mainBoxWidth: getSize(50),
-                    childBoxHeight: getSize(48),
-                    childBoxWidth: getSize(38),
+                    childBoxHeight: getSize(60),
+                    childBoxWidth: getSize(50),
                     iconSize: getSize(20),
                   ),
                   SizedBox(

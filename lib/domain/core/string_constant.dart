@@ -416,6 +416,13 @@ class StringConstant {
   static const String editEmail = "Edit Email";
   static const String editPhoneNumber = "Edit Phone Number";
   static const String editUnit = "Edit Unit";
+  static const String noShiftPostedYet = "No Shift Posted Yet!";
+  static const String confirm = "Confirm";
+  static const String confirmationRequired = "Confirmation Required";
+  static const String confirmationRecurringDesc1 = "You are about to post";
+  static const String confirmationRecurringDesc2 =
+      "recurring shifts. \nPlease confirm if you want to proceed with posting this many shifts.";
+
   static const String pleaseEditYourEmailToGetVerificationCode =
       "Please edit your email to get verification code";
   static const String pleaseEditYourPhoneNnumberToGetVerificationCode =
@@ -540,7 +547,8 @@ class StringConstant {
   static const String pleaseSelectImmunizationDocument =
       "Please select immunizations/vaccinations document";
   static const String pleaseSelectLiabilityDocument =
-      "Please select your professional liability protection document.";
+      "Please select your professional liability protection document";
+  static const String pleaseSelectResume = "Please select your resume";
   static const String pleaseSelectEquipmentDocument =
       "Please select apparel/equipment document";
   static const String legalScreeningTermsErrorText =
@@ -610,9 +618,11 @@ class StringConstant {
       "Please select a Start time, End time and Unpaid break for each shift date";
 
   static const String someDetailsAreMissingOrInvalidPleaseCheck =
-      "Some details are missing or invalid please check!";
+      "Some details are missing or invalid. Please check!";
   static const String unitAlreadyExist = "Unit already exist!";
-  static const String checkTeamStatusDesc = "It looks like you haven't created a team yet! By setting up internal teams, you can automatically share posting details with your team members, streamlining your hiring process. You can create a team through your profile, and then continue with shift posting. Do you want to proceed with creating a team now?";
-  static const String createYourTeamToGetStarted = "Create Your Team to Get Started";
+  static const String checkTeamStatusDesc =
+      "It looks like you haven't created a team yet! By setting up internal teams, you can automatically share posting details with your team members, streamlining your hiring process. You can create a team through your profile, and then continue with shift posting. \nDo you want to proceed with creating a team now?";
+  static const String createYourTeamToGetStarted =
+      "Create Your Team to Get Started";
   static const String underDevelopment = "Under Development";
 }

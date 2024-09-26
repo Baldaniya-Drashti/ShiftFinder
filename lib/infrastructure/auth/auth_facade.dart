@@ -64,6 +64,7 @@ class AuthFacade implements IAuthFacade {
           "email": email.getOrCrash(),
           "password": password.getOrCrash(),
           "service_roles": getCurrentRole(),
+          "industry_id": getCurrentIndustry(),
         },
       );
 

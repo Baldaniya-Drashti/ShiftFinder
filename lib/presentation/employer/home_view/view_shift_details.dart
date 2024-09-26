@@ -127,6 +127,9 @@ class ViewHomeShiftDetails extends StatelessWidget {
                                   // "2464 Royal Ln. Mesa, New Jersey 45463",
                                   units: shift.location_unit ?? ""),
                               if (shift.shift_detail != null &&
+                                  shift.shift_detail!.shift_type == 1)
+                                recurrence(shift),
+                              if (shift.shift_detail != null &&
                                   shift.shift_detail!.payables != null)
                                 payableBox(shift.shift_detail!.payables!),
                             ],
@@ -187,6 +190,88 @@ class ViewHomeShiftDetails extends StatelessWidget {
     return Divider(
       color: AppColors.black.withOpacity(0.2),
       thickness: getSize(0.5),
+    );
+  }
+
+  Widget recurrence(HealthcarePostDTO post) {
+    return Container(
+      padding:
+          EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: AppColors.grey04,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          BaseText(
+            text: StringConstant.recurrenceDuration,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            textColor: AppColors.black,
+          ),
+          SizedBox(height: getSize(7)),
+          Row(
+            children: [
+              BaseText(
+                text: (post.shift_detail?.recurring_start_date != null)
+                    ? "${DateFormat("d MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch((post.shift_detail?.recurring_start_date ?? -1) * 1000))}"
+                    : "",
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                textColor: AppColors.primaryColor,
+              ),
+              BaseText(
+                text: "  to  ",
+                fontSize: 10,
+                fontWeight: FontWeight.w500,
+                textColor: AppColors.black.withOpacity(0.7),
+              ),
+              BaseText(
+                text: (post.shift_detail?.recurring_end_date != null)
+                    ? "${DateFormat("d MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch((post.shift_detail?.recurring_end_date ?? -1) * 1000))}"
+                    : "",
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                textColor: AppColors.primaryColor,
+              ),
+            ],
+          ),
+          SizedBox(height: getSize(15)),
+          if (post.shift_detail != null &&
+              post.shift_detail!.shift_type == 1 &&
+              post.shift_detail!.recurrence_mode != null)
+            chipListBox(
+              padding: EdgeInsets.zero,
+              bgColor: AppColors.transparent,
+              // chipList: post.shift_detail!.days!.split(',')
+              //   .where((item) => item != )
+              //   .map((item) => item.name ?? "")
+              //   .toList(),
+              chipList: (post.shift_detail!.days != null &&
+                      post.shift_detail!.days!.isNotEmpty)
+                  ? post.shift_detail!.days!
+                      .split(',')
+                      .where((item) => item.isNotEmpty)
+                      .map((item) {
+                        int dayId = int.parse(item.trim());
+                        SkillDTO? day = CommonList.weekList.firstWhere(
+                            (element) => element.id == dayId,
+                            orElse: () => SkillDTO());
+                        return day.name ?? "";
+                      })
+                      .where((dayName) => dayName.isNotEmpty)
+                      .toList()
+                  : [],
+              title: StringConstant.recurrenceMode,
+              value: (post.shift_detail?.recurrence_mode == "2")
+                  ? "Weekly"
+                  : "Daily",
+            ),
+        ],
+      ),
     );
   }
 
@@ -840,16 +925,18 @@ class ViewHomeShiftDetails extends StatelessWidget {
     required List<String> chipList,
     required String title,
     required String value,
+    Color? bgColor,
+    EdgeInsets? padding,
   }) {
     return Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: getSize(12),
-          vertical: getSize(10),
-        ),
-        margin: EdgeInsets.symmetric(vertical: getSize(5)),
+        padding: padding ??
+            EdgeInsets.symmetric(
+                horizontal: getSize(12), vertical: getSize(10)),
+        margin: EdgeInsets.symmetric(vertical: getSize(0)),
         width: double.infinity,
         decoration: BoxDecoration(
-            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+            color: bgColor ?? AppColors.grey04,
+            borderRadius: BorderRadius.circular(10)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

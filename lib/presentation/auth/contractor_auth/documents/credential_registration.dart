@@ -202,19 +202,35 @@ class CredentialRegistration extends StatelessWidget {
                           ),
                           Padding(
                             padding: EdgeInsets.only(
-                                top: getSize(50), bottom: getSize(50)),
+                                top: getSize(50), bottom: getSize(10)),
                             child: Align(
                               alignment: Alignment.center,
                               child: CommonButton(
                                 onPressed: () {
                                   context.read<CredentialBloc>().add(
-                                      const CredentialEvent.credentialDocSubmit(
-                                          isAddMoreBtnClick: false));
+                                          const CredentialEvent
+                                              .credentialDocSubmit(
+                                        isAddMoreBtnClick: false,
+                                        isSkip: false,
+                                      ));
                                 },
                                 buttonText: StringConstant.txtContinue,
                               ),
                             ),
-                          )
+                          ),
+                          if (state.credentialRegistrationList.isEmpty)
+                            documentSkipButton(
+                              context,
+                              onPressed: () {
+                                context.read<CredentialBloc>().add(
+                                        const CredentialEvent
+                                            .credentialDocSubmit(
+                                      isAddMoreBtnClick: false,
+                                      isSkip: true,
+                                    ));
+                              },
+                            ),
+                          paddingBetweenFields(height: 40)
                         ],
                       ),
                     ),

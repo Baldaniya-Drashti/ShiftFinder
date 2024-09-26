@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_home_bloc/contractor_home_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_home/employer_dashboard_dto.dart';
@@ -326,12 +327,21 @@ class ContractorHomeView extends StatelessWidget {
             children: [
               ListTile(
                 dense: true,
-                leading: SvgPicture.asset(
-                  SvgImageConstant.female,
-                  width: getSize(36.28),
-                  height: getSize(43.41),
-                  color: AppColors.primaryColor,
+                leading: Container(
+                  height: getSize(40),
+                  width: getSize(40),
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage(
+                    PngImageConstants.leafWithBG,
+                  ))),
                 ),
+                // leading: SvgPicture.asset(
+                //   SvgImageConstant.leafWithBG,
+                //   width: getSize(36.28),
+                //   height: getSize(43.41),
+                //   color: AppColors.primaryColor,
+                // ),
                 isThreeLine: true,
                 title: BaseText(
                   text: state.contractorDashboardList[index].roles_list_name ??
@@ -404,7 +414,9 @@ class ContractorHomeView extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           BaseText(
-                            text: "4517 Washington Manchester, Kentucky 39495",
+                            text: state.contractorDashboardList[index].location
+                                    ?.location ??
+                                "",
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                             textColor: AppColors.black,

@@ -173,6 +173,7 @@ import 'package:injectable/injectable.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/auth/i_auth_facade.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
@@ -181,6 +182,7 @@ import 'package:shift/infrastructure/core/speciality/speciality_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 part 'healthcare_post_event.dart';
 part 'healthcare_post_state.dart';
@@ -601,6 +603,10 @@ class HealthcarePostBloc
               rateHour: double.parse(state.rateHour.getValue() ?? "0.0"),
             );*/
           } else {
+            showError(
+                    message: StringConstant
+                        .someDetailsAreMissingOrInvalidPleaseCheck)
+                .show(e.context);
             print("SOME DETAILS ARE INVALID!");
           }
           // print("Failure or success--> ${failureOrSuccess}");

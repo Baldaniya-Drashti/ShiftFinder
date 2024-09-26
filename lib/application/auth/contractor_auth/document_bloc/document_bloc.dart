@@ -393,6 +393,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
           emit(
             state.copyWith(
               isLoading: true,
+              showCovidErrorMessages: false,
               coviDocAuthFailureOrSuccessOption: none(),
             ),
           );
@@ -487,56 +488,61 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
           Either<AccountFailure, String>? failureOrSuccess;
 
           final isCovidDocValid = state.covidVaccinationDoc.isValid();
-          // if (isCovidDocValid) {
-          // emit(
-          //   state.copyWith(
-          //     isCovidDocSubmitting: true,
-          //     showCovidErrorMessages: false,
-          //     coviDocAuthFailureOrSuccessOption: optionOf(right("success")),
-          //   ),
-          // );
 
-          emit(
-            state.copyWith(
-              isCovidDocSubmitting: true,
-              coviDocAuthFailureOrSuccessOption: none(),
-            ),
-          );
-
-          if (state.covidDocId != -1) {
-            failureOrSuccess = await _repository.updateDocumentApi(
-              id: state.covidDocId,
-              documentType: 2,
-              documentFile: state.covidVaccinationDoc.getValue() ?? "",
-            );
-          } else if (state.covidVaccinationDoc.isValid()) {
-            failureOrSuccess = await _repository.addDocumentApi(
-              documentType: 2,
-              documentFile: state.covidVaccinationDoc.getValue() ?? "",
-            );
+          if (e.isSkip) {
+            DocumentBloc.pageController.nextPage(
+                duration: const Duration(milliseconds: 10),
+                curve: Curves.easeInOut);
           } else {
-            failureOrSuccess = right("success");
-          }
-
-          failureOrSuccess.fold(
-            (l) => emit(
+            emit(
               state.copyWith(
-                isCovidDocSubmitting: false,
+                isCovidDocSubmitting: true,
+                coviDocAuthFailureOrSuccessOption: none(),
               ),
-            ),
-            (r) {
-              DocumentBloc.pageController.nextPage(
-                  duration: const Duration(milliseconds: 10),
-                  curve: Curves.easeInOut);
-            },
-          );
+            );
+            if (isCovidDocValid) {
+              if (state.covidDocId != -1) {
+                failureOrSuccess = await _repository.updateDocumentApi(
+                  id: state.covidDocId,
+                  documentType: 2,
+                  documentFile: state.covidVaccinationDoc.getValue() ?? "",
+                );
+              } else {
+                failureOrSuccess = await _repository.addDocumentApi(
+                  documentType: 2,
+                  documentFile: state.covidVaccinationDoc.getValue() ?? "",
+                );
+              }
 
-          emit(
-            state.copyWith(
-              isCovidDocSubmitting: false,
-              coviDocAuthFailureOrSuccessOption: optionOf(failureOrSuccess),
-            ),
-          );
+              failureOrSuccess.fold(
+                (l) => emit(
+                  state.copyWith(
+                    isCovidDocSubmitting: false,
+                  ),
+                ),
+                (r) {
+                  DocumentBloc.pageController.nextPage(
+                      duration: const Duration(milliseconds: 10),
+                      curve: Curves.easeInOut);
+                },
+              );
+
+              emit(
+                state.copyWith(
+                  isCovidDocSubmitting: false,
+                  coviDocAuthFailureOrSuccessOption: optionOf(failureOrSuccess),
+                ),
+              );
+            } else {
+              emit(
+                state.copyWith(
+                  isCovidDocSubmitting: false,
+                  showCovidErrorMessages: true,
+                  coviDocAuthFailureOrSuccessOption: optionOf(failureOrSuccess),
+                ),
+              );
+            }
+          }
         },
       );
     });
@@ -789,81 +795,14 @@ class CredentialBloc extends Bloc<CredentialEvent, CredentialState> {
           final isProvinceRegistrationValid =
               state.selectedProvinceRegistration.isValid();
 
-          /// True When click on continue - add more btn and all details are valid
-          if (isCredentialDocValid &&
-              isDocumentTitleValid &&
-              isProvinceRegistrationValid &&
-              (state.isCredExpiryCheck ||
-                  state.credentialExpiryDate.isNotEmpty)) {
-            Either<AccountFailure, Account>? failureOrSuccess;
-
-            emit(
-              state.copyWith(
-                isLoading: true,
-                isCredintialDocSubmitting: true,
-                credintialDocAuthFailureOrSuccessOption: none(),
-              ),
-            );
-
-            failureOrSuccess = await _repository.addMultiDocumentApi(
-              documentType: 3,
-              registrationNumber: state.registrationNumber,
-              provinceOfRegistration:
-                  state.selectedProvinceRegistration.getValue(),
-              documentTitle: state.documentTitle.getValue(),
-              documentFile: state.credentialRegistrationDoc.getValue() ?? "",
-              expiryDate: state.credentialExpiryDate,
-              expiryDateNotApplicable: state.isCredExpiryCheck,
-            );
-
-            failureOrSuccess.fold(
-              (l) => emit(
-                state.copyWith(
-                  isLoading: false,
-                  isCredintialDocSubmitting: false,
-                ),
-              ),
-              (r) {
-                emit(
-                  state.copyWith(
-                    credentialRegistrationList: r.document
-                            ?.where((doc) => doc.document_type == 3)
-                            .toList() ??
-                        [],
-                    credentialRegistrationDoc: InputEmptyOrNot(""),
-                    documentTitle: InputEmptyOrNot(""),
-                    selectedProvinceRegistration: InputEmptyOrNot(""),
-                    registrationNumber: "",
-                    credentialExpiryDate: "",
-                    isLoading: false,
-                    isCredExpiryCheck: false,
-                    isCredintialDocSubmitting: false,
-                    showCredintialErrorMessages: false,
-                    credintialDocAuthFailureOrSuccessOption: none(),
-                  ),
-                );
-                DocumentBloc.pageController.nextPage(
-                  duration: const Duration(milliseconds: 10),
-                  curve: Curves.easeInOut,
-                );
-              },
-            );
-            emit(
-              state.copyWith(
-                isLoading: false,
-                credintialDocAuthFailureOrSuccessOption:
-                    optionOf(failureOrSuccess),
-              ),
-            );
-          }
-
-          /// True When click on continue btn and all details are empty
-          else if (!e.isAddMoreBtnClick &&
-              !isCredentialDocValid &&
-              !isDocumentTitleValid &&
-              !isProvinceRegistrationValid &&
-              (!state.isCredExpiryCheck &&
-                  state.credentialExpiryDate.isEmpty)) {
+          if (e.isSkip) {
+            /// True When click on continue btn and all details are empty
+            /*if (!e.isAddMoreBtnClick &&
+                !isCredentialDocValid &&
+                !isDocumentTitleValid &&
+                !isProvinceRegistrationValid &&
+                (!state.isCredExpiryCheck &&
+                    state.credentialExpiryDate.isEmpty)) {*/
             emit(
               state.copyWith(
                 isCredintialDocSubmitting: true,
@@ -875,18 +814,87 @@ class CredentialBloc extends Bloc<CredentialEvent, CredentialState> {
             DocumentBloc.pageController.nextPage(
                 duration: const Duration(milliseconds: 10),
                 curve: Curves.easeInOut);
-          }
+            // }
+          } else {
+            /// True When click on continue - add more btn and all details are valid
+            if (isCredentialDocValid &&
+                isDocumentTitleValid &&
+                isProvinceRegistrationValid &&
+                (state.isCredExpiryCheck ||
+                    state.credentialExpiryDate.isNotEmpty)) {
+              Either<AccountFailure, Account>? failureOrSuccess;
 
-          /// True When click on continue - add more btn and some details are empty or not valid
+              emit(
+                state.copyWith(
+                  isLoading: true,
+                  isCredintialDocSubmitting: true,
+                  credintialDocAuthFailureOrSuccessOption: none(),
+                ),
+              );
 
-          else {
-            emit(
-              state.copyWith(
-                isCredintialDocSubmitting: false,
-                showCredintialErrorMessages: true,
-                credintialDocAuthFailureOrSuccessOption: none(),
-              ),
-            );
+              failureOrSuccess = await _repository.addMultiDocumentApi(
+                documentType: 3,
+                registrationNumber: state.registrationNumber,
+                provinceOfRegistration:
+                    state.selectedProvinceRegistration.getValue(),
+                documentTitle: state.documentTitle.getValue(),
+                documentFile: state.credentialRegistrationDoc.getValue() ?? "",
+                expiryDate: state.credentialExpiryDate,
+                expiryDateNotApplicable: state.isCredExpiryCheck,
+              );
+
+              failureOrSuccess.fold(
+                (l) => emit(
+                  state.copyWith(
+                    isLoading: false,
+                    isCredintialDocSubmitting: false,
+                  ),
+                ),
+                (r) {
+                  emit(
+                    state.copyWith(
+                      credentialRegistrationList: r.document
+                              ?.where((doc) => doc.document_type == 3)
+                              .toList() ??
+                          [],
+                      credentialRegistrationDoc: InputEmptyOrNot(""),
+                      documentTitle: InputEmptyOrNot(""),
+                      selectedProvinceRegistration: InputEmptyOrNot(""),
+                      registrationNumber: "",
+                      credentialExpiryDate: "",
+                      isLoading: false,
+                      isCredExpiryCheck: false,
+                      isCredintialDocSubmitting: false,
+                      showCredintialErrorMessages: false,
+                      credintialDocAuthFailureOrSuccessOption: none(),
+                    ),
+                  );
+                  DocumentBloc.pageController.nextPage(
+                    duration: const Duration(milliseconds: 10),
+                    curve: Curves.easeInOut,
+                  );
+                },
+              );
+              emit(
+                state.copyWith(
+                  isLoading: false,
+                  credintialDocAuthFailureOrSuccessOption:
+                      optionOf(failureOrSuccess),
+                ),
+              );
+            }
+
+            /// True When click on continue - add more btn and some details are empty or not valid
+
+            else {
+              emit(
+                state.copyWith(
+                  isCredintialDocSubmitting: false,
+                  showCredintialErrorMessages: true,
+                  credintialDocAuthFailureOrSuccessOption: none(),
+                ),
+              );
+            }
           }
         },
       );
@@ -1130,79 +1138,15 @@ class ProfessionalLicensesBloc
           final isProvinceRegistrationValid =
               state.selectedProvinceRegistration.isValid();
 
-          /// True When click on continue - add more btn and all details are valid
-          if (isProfessionalLicensesDocValid &&
-              isDocumentTitleValid &&
-              isProvinceRegistrationValid &&
-              (state.isLicensesExpiryCheck ||
-                  state.licensesExpiryDate.isNotEmpty)) {
-            Either<AccountFailure, Account>? failureOrSuccess;
+          if (e.isSkip) {
+            /// True When click on continue btn and all details are empty
 
-            emit(
-              state.copyWith(
-                isLicensesDocSubmitting: true,
-                licensesDocAuthFailureOrSuccessOption: none(),
-              ),
-            );
-
-            failureOrSuccess = await _repository.addMultiDocumentApi(
-              documentType: 4,
-              registrationNumber: state.registrationNumber,
-              provinceOfRegistration:
-                  state.selectedProvinceRegistration.getValue(),
-              documentTitle: state.documentTitle.getValue(),
-              documentFile: state.professionalLicensesDoc.getValue() ?? "",
-              expiryDate: state.licensesExpiryDate,
-              expiryDateNotApplicable: state.isLicensesExpiryCheck,
-            );
-
-            failureOrSuccess.fold(
-              (l) => emit(
-                state.copyWith(
-                  isLicensesDocSubmitting: false,
-                ),
-              ),
-              (r) {
-                emit(
-                  state.copyWith(
-                    professionalLicensesList: r.document
-                            ?.where((doc) => doc.document_type == 4)
-                            .toList() ??
-                        [],
-                    professionalLicensesDoc: InputEmptyOrNot(""),
-                    documentTitle: InputEmptyOrNot(""),
-                    selectedProvinceRegistration: InputEmptyOrNot(""),
-                    registrationNumber: "",
-                    licensesExpiryDate: "",
-                    isLicensesExpiryCheck: false,
-                    isLicensesDocSubmitting: false,
-                    showLicensesErrorMessages: false,
-                    licensesDocAuthFailureOrSuccessOption: none(),
-                  ),
-                );
-                DocumentBloc.pageController.nextPage(
-                  duration: const Duration(milliseconds: 10),
-                  curve: Curves.easeInOut,
-                );
-              },
-            );
-            emit(
-              state.copyWith(
-                isLicensesDocSubmitting: false,
-                licensesDocAuthFailureOrSuccessOption:
-                    optionOf(failureOrSuccess),
-              ),
-            );
-          }
-
-          /// True When click on continue btn and all details are empty
-
-          else if (!e.isAddMoreBtnClick &&
+            /* if (!e.isAddMoreBtnClick &&
               !isProfessionalLicensesDocValid &&
               !isDocumentTitleValid &&
               !isProvinceRegistrationValid &&
               (!state.isLicensesExpiryCheck &&
-                  state.licensesExpiryDate.isEmpty)) {
+                  state.licensesExpiryDate.isEmpty)) {*/
             emit(
               state.copyWith(
                 isLicensesDocSubmitting: true,
@@ -1214,18 +1158,83 @@ class ProfessionalLicensesBloc
             DocumentBloc.pageController.nextPage(
                 duration: const Duration(milliseconds: 10),
                 curve: Curves.easeInOut);
-          }
+            // }
+          } else {
+            /// True When click on continue - add more btn and all details are valid
+            if (isProfessionalLicensesDocValid &&
+                isDocumentTitleValid &&
+                isProvinceRegistrationValid &&
+                (state.isLicensesExpiryCheck ||
+                    state.licensesExpiryDate.isNotEmpty)) {
+              Either<AccountFailure, Account>? failureOrSuccess;
 
-          /// True When click on continue - add more btn and some details are empty or not valid
+              emit(
+                state.copyWith(
+                  isLicensesDocSubmitting: true,
+                  licensesDocAuthFailureOrSuccessOption: none(),
+                ),
+              );
 
-          else {
-            emit(
-              state.copyWith(
-                isLicensesDocSubmitting: false,
-                showLicensesErrorMessages: true,
-                licensesDocAuthFailureOrSuccessOption: none(),
-              ),
-            );
+              failureOrSuccess = await _repository.addMultiDocumentApi(
+                documentType: 4,
+                registrationNumber: state.registrationNumber,
+                provinceOfRegistration:
+                    state.selectedProvinceRegistration.getValue(),
+                documentTitle: state.documentTitle.getValue(),
+                documentFile: state.professionalLicensesDoc.getValue() ?? "",
+                expiryDate: state.licensesExpiryDate,
+                expiryDateNotApplicable: state.isLicensesExpiryCheck,
+              );
+
+              failureOrSuccess.fold(
+                (l) => emit(
+                  state.copyWith(
+                    isLicensesDocSubmitting: false,
+                  ),
+                ),
+                (r) {
+                  emit(
+                    state.copyWith(
+                      professionalLicensesList: r.document
+                              ?.where((doc) => doc.document_type == 4)
+                              .toList() ??
+                          [],
+                      professionalLicensesDoc: InputEmptyOrNot(""),
+                      documentTitle: InputEmptyOrNot(""),
+                      selectedProvinceRegistration: InputEmptyOrNot(""),
+                      registrationNumber: "",
+                      licensesExpiryDate: "",
+                      isLicensesExpiryCheck: false,
+                      isLicensesDocSubmitting: false,
+                      showLicensesErrorMessages: false,
+                      licensesDocAuthFailureOrSuccessOption: none(),
+                    ),
+                  );
+                  DocumentBloc.pageController.nextPage(
+                    duration: const Duration(milliseconds: 10),
+                    curve: Curves.easeInOut,
+                  );
+                },
+              );
+              emit(
+                state.copyWith(
+                  isLicensesDocSubmitting: false,
+                  licensesDocAuthFailureOrSuccessOption:
+                      optionOf(failureOrSuccess),
+                ),
+              );
+            }
+
+            /// True When click on continue - add more btn and some details are empty or not valid
+            else {
+              emit(
+                state.copyWith(
+                  isLicensesDocSubmitting: false,
+                  showLicensesErrorMessages: true,
+                  licensesDocAuthFailureOrSuccessOption: none(),
+                ),
+              );
+            }
           }
         },
       );
@@ -1437,13 +1446,34 @@ class ImmunizationBloc extends Bloc<ImmunizationEvent, ImmunizationState> {
           final isImmunizationDocValid = state.immunizationDoc.isValid();
           final isImmunizationNameValid = state.immunizationName.isValid();
 
-          /// True When click on continue - add more btn and all details are valid
-          if (isImmunizationDocValid && isImmunizationNameValid
-              /*(state.isImmunizationExpiryCheck ||
+          if (e.isSkip) {
+            /// True When click on continue btn and all details are empty
+
+            /* if (!e.isAddMoreBtnClick &&
+              !isImmunizationDocValid &&
+              !isImmunizationNameValid &&
+              (!state.isImmunizationExpiryCheck &&
+                  state.immunizationExpiryDate.isEmpty)) {*/
+            emit(
+              state.copyWith(
+                isImmunizationDocSubmitting: true,
+                showImmunizationErrorMessages: false,
+                immunizationDocAuthFailureOrSuccessOption:
+                    optionOf(right(Account())),
+              ),
+            );
+            DocumentBloc.pageController.nextPage(
+                duration: const Duration(milliseconds: 10),
+                curve: Curves.easeInOut);
+            // }
+          } else {
+            /// True When click on continue - add more btn and all details are valid
+            if (isImmunizationDocValid && isImmunizationNameValid
+                /*(state.isImmunizationExpiryCheck ||
                   state.immunizationExpiryDate.isNotEmpty)*/
 
-              ) {
-            /*emit(
+                ) {
+              /*emit(
               state.copyWith(
                 isImmunizationDocSubmitting: true,
                 showImmunizationErrorMessages: false,
@@ -1456,90 +1486,71 @@ class ImmunizationBloc extends Bloc<ImmunizationEvent, ImmunizationState> {
               curve: Curves.easeInOut,
             );*/
 
-            Either<AccountFailure, Account>? failureOrSuccess;
+              Either<AccountFailure, Account>? failureOrSuccess;
 
-            emit(
-              state.copyWith(
-                isImmunizationDocSubmitting: true,
-                immunizationDocAuthFailureOrSuccessOption: none(),
-              ),
-            );
+              emit(
+                state.copyWith(
+                  isImmunizationDocSubmitting: true,
+                  immunizationDocAuthFailureOrSuccessOption: none(),
+                ),
+              );
 
-            failureOrSuccess = await _repository.addMultiDocumentApi(
-              documentType: 5,
-              nameOfVaccinations: state.immunizationName.getValue(),
-              documentFile: state.immunizationDoc.getValue() ?? "",
-              // expiryDate: state.immunizationExpiryDate,
-              // expiryDateNotApplicable: state.isImmunizationExpiryCheck,
-            );
+              failureOrSuccess = await _repository.addMultiDocumentApi(
+                documentType: 5,
+                nameOfVaccinations: state.immunizationName.getValue(),
+                documentFile: state.immunizationDoc.getValue() ?? "",
+                // expiryDate: state.immunizationExpiryDate,
+                // expiryDateNotApplicable: state.isImmunizationExpiryCheck,
+              );
 
-            failureOrSuccess.fold(
-              (l) => emit(
+              failureOrSuccess.fold(
+                (l) => emit(
+                  state.copyWith(
+                    isImmunizationDocSubmitting: false,
+                  ),
+                ),
+                (r) {
+                  emit(
+                    state.copyWith(
+                      immunizationList: r.document
+                              ?.where((doc) => doc.document_type == 5)
+                              .toList() ??
+                          [],
+                      immunizationName: InputEmptyOrNot(""),
+                      immunizationDoc: InputEmptyOrNot(""),
+                      immunizationExpiryDate: "",
+                      isImmunizationExpiryCheck: false,
+                      isImmunizationDocSubmitting: false,
+                      showImmunizationErrorMessages: false,
+                      immunizationDocAuthFailureOrSuccessOption: none(),
+                    ),
+                  );
+                  DocumentBloc.pageController.nextPage(
+                    duration: const Duration(milliseconds: 10),
+                    curve: Curves.easeInOut,
+                  );
+                },
+              );
+              emit(
                 state.copyWith(
                   isImmunizationDocSubmitting: false,
+                  immunizationDocAuthFailureOrSuccessOption:
+                      optionOf(failureOrSuccess),
                 ),
-              ),
-              (r) {
-                emit(
-                  state.copyWith(
-                    immunizationList: r.document
-                            ?.where((doc) => doc.document_type == 5)
-                            .toList() ??
-                        [],
-                    immunizationName: InputEmptyOrNot(""),
-                    immunizationDoc: InputEmptyOrNot(""),
-                    immunizationExpiryDate: "",
-                    isImmunizationExpiryCheck: false,
-                    isImmunizationDocSubmitting: false,
-                    showImmunizationErrorMessages: false,
-                    immunizationDocAuthFailureOrSuccessOption: none(),
-                  ),
-                );
-                DocumentBloc.pageController.nextPage(
-                  duration: const Duration(milliseconds: 10),
-                  curve: Curves.easeInOut,
-                );
-              },
-            );
-            emit(
-              state.copyWith(
-                isImmunizationDocSubmitting: false,
-                immunizationDocAuthFailureOrSuccessOption:
-                    optionOf(failureOrSuccess),
-              ),
-            );
-          }
+              );
+            }
 
-          /// True When click on continue btn and all details are empty
+            /// True When click on continue - add more btn and some details are empty or not valid
 
-          else if (!e.isAddMoreBtnClick &&
-              !isImmunizationDocValid &&
-              !isImmunizationNameValid &&
-              (!state.isImmunizationExpiryCheck &&
-                  state.immunizationExpiryDate.isEmpty)) {
-            emit(
-              state.copyWith(
-                isImmunizationDocSubmitting: true,
-                showImmunizationErrorMessages: false,
-                immunizationDocAuthFailureOrSuccessOption:
-                    optionOf(right(Account())),
-              ),
-            );
-            DocumentBloc.pageController.nextPage(
-                duration: const Duration(milliseconds: 10),
-                curve: Curves.easeInOut);
-          }
-
-          /// True When click on continue - add more btn and some details are empty or not valid
-
-          else {
-            emit(
-              state.copyWith(
-                isImmunizationDocSubmitting: false,
-                showImmunizationErrorMessages: true,
-                immunizationDocAuthFailureOrSuccessOption: none(),
-              ),
-            );
+            else {
+              emit(
+                state.copyWith(
+                  isImmunizationDocSubmitting: false,
+                  showImmunizationErrorMessages: true,
+                  immunizationDocAuthFailureOrSuccessOption: none(),
+                ),
+              );
+            }
           }
         },
       );
@@ -1735,67 +1746,12 @@ class ProfessionalLiabilityBloc
         liabilityDocSubmit: (e) async {
           final isLiabilityDocValid = state.liabilityDoc.isValid();
 
-          /// True When click on continue - add more btn and all details are valid
-          if (isLiabilityDocValid &&
-              (state.isLiabilityExpiryCheck ||
-                  state.liabilityExpiryDate.isNotEmpty)) {
-            Either<AccountFailure, Account>? failureOrSuccess;
-
-            emit(
-              state.copyWith(
-                isLiabilityDocSubmitting: true,
-                liabilityDocAuthFailureOrSuccessOption: none(),
-              ),
-            );
-
-            failureOrSuccess = await _repository.addMultiDocumentApi(
-              documentType: 6,
-              documentFile: state.liabilityDoc.getValue() ?? "",
-              expiryDate: state.liabilityExpiryDate,
-              expiryDateNotApplicable: state.isLiabilityExpiryCheck,
-            );
-
-            failureOrSuccess.fold(
-              (l) => emit(
-                state.copyWith(
-                  isLiabilityDocSubmitting: false,
-                ),
-              ),
-              (r) {
-                emit(
-                  state.copyWith(
-                    liabilityList: r.document
-                            ?.where((doc) => doc.document_type == 6)
-                            .toList() ??
-                        [],
-                    liabilityDoc: InputEmptyOrNot(""),
-                    liabilityExpiryDate: "",
-                    isLiabilityExpiryCheck: false,
-                    isLiabilityDocSubmitting: false,
-                    showLiabilityErrorMessages: false,
-                    liabilityDocAuthFailureOrSuccessOption: none(),
-                  ),
-                );
-                DocumentBloc.pageController.nextPage(
-                  duration: const Duration(milliseconds: 10),
-                  curve: Curves.easeInOut,
-                );
-              },
-            );
-            emit(
-              state.copyWith(
-                isLiabilityDocSubmitting: false,
-                liabilityDocAuthFailureOrSuccessOption:
-                    optionOf(failureOrSuccess),
-              ),
-            );
-          }
-
-          /// True When click on continue btn and all details are empty
-          else if (!e.isAddMoreBtnClick &&
+          if (e.isSkip) {
+            /// True When click on continue btn and all details are empty
+            /* if (!e.isAddMoreBtnClick &&
               !isLiabilityDocValid &&
               (!state.isLiabilityExpiryCheck &&
-                  state.liabilityExpiryDate.isEmpty)) {
+                  state.liabilityExpiryDate.isEmpty)) {*/
             emit(
               state.copyWith(
                 isLiabilityDocSubmitting: true,
@@ -1807,17 +1763,74 @@ class ProfessionalLiabilityBloc
             DocumentBloc.pageController.nextPage(
                 duration: const Duration(milliseconds: 10),
                 curve: Curves.easeInOut);
-          }
+            // }
+          } else {
+            /// True When click on continue - add more btn and all details are valid
+            if (isLiabilityDocValid &&
+                (state.isLiabilityExpiryCheck ||
+                    state.liabilityExpiryDate.isNotEmpty)) {
+              Either<AccountFailure, Account>? failureOrSuccess;
 
-          /// True When click on continue - add more btn and some details are empty or not valid
-          else {
-            emit(
-              state.copyWith(
-                isLiabilityDocSubmitting: false,
-                showLiabilityErrorMessages: true,
-                liabilityDocAuthFailureOrSuccessOption: none(),
-              ),
-            );
+              emit(
+                state.copyWith(
+                  isLiabilityDocSubmitting: true,
+                  liabilityDocAuthFailureOrSuccessOption: none(),
+                ),
+              );
+
+              failureOrSuccess = await _repository.addMultiDocumentApi(
+                documentType: 6,
+                documentFile: state.liabilityDoc.getValue() ?? "",
+                expiryDate: state.liabilityExpiryDate,
+                expiryDateNotApplicable: state.isLiabilityExpiryCheck,
+              );
+
+              failureOrSuccess.fold(
+                (l) => emit(
+                  state.copyWith(
+                    isLiabilityDocSubmitting: false,
+                  ),
+                ),
+                (r) {
+                  emit(
+                    state.copyWith(
+                      liabilityList: r.document
+                              ?.where((doc) => doc.document_type == 6)
+                              .toList() ??
+                          [],
+                      liabilityDoc: InputEmptyOrNot(""),
+                      liabilityExpiryDate: "",
+                      isLiabilityExpiryCheck: false,
+                      isLiabilityDocSubmitting: false,
+                      showLiabilityErrorMessages: false,
+                      liabilityDocAuthFailureOrSuccessOption: none(),
+                    ),
+                  );
+                  DocumentBloc.pageController.nextPage(
+                    duration: const Duration(milliseconds: 10),
+                    curve: Curves.easeInOut,
+                  );
+                },
+              );
+              emit(
+                state.copyWith(
+                  isLiabilityDocSubmitting: false,
+                  liabilityDocAuthFailureOrSuccessOption:
+                      optionOf(failureOrSuccess),
+                ),
+              );
+            }
+
+            /// True When click on continue - add more btn and some details are empty or not valid
+            else {
+              emit(
+                state.copyWith(
+                  isLiabilityDocSubmitting: false,
+                  showLiabilityErrorMessages: true,
+                  liabilityDocAuthFailureOrSuccessOption: none(),
+                ),
+              );
+            }
           }
         },
       );
@@ -1949,56 +1962,115 @@ class ResumeBloc extends Bloc<ResumeEvent, ResumeState> {
           //     duration: const Duration(milliseconds: 10),
           //     curve: Curves.easeInOut);
           Either<AccountFailure, Account>? failureOrSuccess;
-          emit(
-            state.copyWith(
-              isResumeDocSubmitting: true,
-              resumeDocAuthFailureOrSuccessOption: none(),
-            ),
-          );
-          if (state.resume.id != null) {
-            failureOrSuccess = await _repository.updateMultiDocumentApi(
-              id: state.resume.id!,
-              documentType: 7,
-              documentFile: state.resume.file ?? "",
+
+          if (e.isSkip) {
+            emit(
+              state.copyWith(
+                isResumeDocSubmitting: true,
+                resumeDocAuthFailureOrSuccessOption: none(),
+              ),
             );
-          } else {
             failureOrSuccess = await _repository.addMultiDocumentApi(
               documentType: 7,
               documentFile: state.resume.file ?? "",
             );
-          }
-          failureOrSuccess.fold(
-            (l) => emit(
+
+            failureOrSuccess.fold(
+              (l) => emit(
+                state.copyWith(
+                  isResumeDocSubmitting: false,
+                ),
+              ),
+              (r) {
+                if (r.document != null) {
+                  emit(
+                    state.copyWith(
+                      resume: r.document!.firstWhere(
+                        (document) => document.document_type == 7,
+                        orElse: () => DocumentDTO(),
+                      ),
+                      isResumeDocSubmitting: false,
+                      showResumeErrorMessages: false,
+                      resumeDocAuthFailureOrSuccessOption: none(),
+                    ),
+                  );
+                  DocumentBloc.pageController.nextPage(
+                    duration: const Duration(milliseconds: 10),
+                    curve: Curves.easeInOut,
+                  );
+                }
+              },
+            );
+            emit(
               state.copyWith(
                 isResumeDocSubmitting: false,
+                resumeDocAuthFailureOrSuccessOption: optionOf(failureOrSuccess),
               ),
-            ),
-            (r) {
-              if (r.document != null) {
-                emit(
-                  state.copyWith(
-                    resume: r.document!.firstWhere(
-                      (document) => document.document_type == 7,
-                      orElse: () => DocumentDTO(),
-                    ),
-                    isResumeDocSubmitting: false,
-                    showResumeErrorMessages: false,
-                    resumeDocAuthFailureOrSuccessOption: none(),
-                  ),
+            );
+          } else {
+            emit(
+              state.copyWith(
+                isResumeDocSubmitting: true,
+                resumeDocAuthFailureOrSuccessOption: none(),
+              ),
+            );
+
+            if (state.resume.file != null && state.resume.file!.isNotEmpty) {
+              if (state.resume.id != null) {
+                failureOrSuccess = await _repository.updateMultiDocumentApi(
+                  id: state.resume.id!,
+                  documentType: 7,
+                  documentFile: state.resume.file ?? "",
                 );
-                DocumentBloc.pageController.nextPage(
-                  duration: const Duration(milliseconds: 10),
-                  curve: Curves.easeInOut,
+              } else {
+                failureOrSuccess = await _repository.addMultiDocumentApi(
+                  documentType: 7,
+                  documentFile: state.resume.file ?? "",
                 );
               }
-            },
-          );
-          emit(
-            state.copyWith(
-              isResumeDocSubmitting: false,
-              resumeDocAuthFailureOrSuccessOption: optionOf(failureOrSuccess),
-            ),
-          );
+              failureOrSuccess.fold(
+                (l) => emit(
+                  state.copyWith(
+                    isResumeDocSubmitting: false,
+                  ),
+                ),
+                (r) {
+                  if (r.document != null) {
+                    emit(
+                      state.copyWith(
+                        resume: r.document!.firstWhere(
+                          (document) => document.document_type == 7,
+                          orElse: () => DocumentDTO(),
+                        ),
+                        isResumeDocSubmitting: false,
+                        showResumeErrorMessages: false,
+                        resumeDocAuthFailureOrSuccessOption: none(),
+                      ),
+                    );
+                    DocumentBloc.pageController.nextPage(
+                      duration: const Duration(milliseconds: 10),
+                      curve: Curves.easeInOut,
+                    );
+                  }
+                },
+              );
+              emit(
+                state.copyWith(
+                  isResumeDocSubmitting: false,
+                  resumeDocAuthFailureOrSuccessOption:
+                      optionOf(failureOrSuccess),
+                ),
+              );
+            } else {
+              emit(
+                state.copyWith(
+                  isResumeDocSubmitting: false,
+                  showResumeErrorMessages: true,
+                  resumeDocAuthFailureOrSuccessOption: none(),
+                ),
+              );
+            }
+          }
         },
       );
     });
@@ -2187,58 +2259,11 @@ class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
           final isEquipmentDocValid = state.equipmentDoc.isValid();
           final isEquipmentNameValid = state.equipmentName.isValid();
 
-          /// True When click on continue - add more btn and all details are valid
-          if (isEquipmentDocValid && isEquipmentNameValid) {
-            Either<AccountFailure, Account>? failureOrSuccess;
-
-            emit(
-              state.copyWith(
-                isEquipmentDocSubmitting: true,
-                submitDocAuthFailureOrSuccessOption: none(),
-              ),
-            );
-
-            failureOrSuccess = await _repository.addMultiDocumentApi(
-              documentType: 8,
-              documentFile: state.equipmentDoc.getValue() ?? "",
-              documentTitle: state.equipmentName.getValue(),
-              lastPage: "BankDetail",
-            );
-
-            failureOrSuccess.fold(
-              (l) => emit(
-                state.copyWith(
-                  isEquipmentDocSubmitting: false,
-                ),
-              ),
-              (r) {
-                emit(
-                  state.copyWith(
-                    equipmentList: r.document
-                            ?.where((doc) => doc.document_type == 8)
-                            .toList() ??
-                        [],
-                    equipmentDoc: InputEmptyOrNot(""),
-                    equipmentName: InputEmptyOrNot(""),
-                    isEquipmentDocSubmitting: false,
-                    showEquipmentErrorMessages: false,
-                    submitDocAuthFailureOrSuccessOption: none(),
-                  ),
-                );
-              },
-            );
-            emit(
-              state.copyWith(
-                isEquipmentDocSubmitting: false,
-                submitDocAuthFailureOrSuccessOption: optionOf(failureOrSuccess),
-              ),
-            );
-          }
-
-          /// True When click on continue btn and all details are empty
-          else if (!e.isAddMoreBtnClick &&
+          if (e.isSkip) {
+            /// True When click on continue btn and all details are empty
+            /* if (!e.isAddMoreBtnClick &&
               !isEquipmentDocValid &&
-              !isEquipmentNameValid) {
+              !isEquipmentNameValid) {*/
             Either<AccountFailure, Account>? failureOrSuccess;
 
             emit(
@@ -2291,17 +2316,67 @@ class EquipmentBloc extends Bloc<EquipmentEvent, EquipmentState> {
             //     submitDocAuthFailureOrSuccessOption: optionOf(right(Account())),
             //   ),
             // );
-          }
+            // }
+          } else {
+            /// True When click on continue - add more btn and all details are valid
+            if (isEquipmentDocValid && isEquipmentNameValid) {
+              Either<AccountFailure, Account>? failureOrSuccess;
 
-          /// True When click on continue - add more btn and some details are empty or not valid
-          else {
-            emit(
-              state.copyWith(
-                isEquipmentDocSubmitting: false,
-                showEquipmentErrorMessages: true,
-                submitDocAuthFailureOrSuccessOption: none(),
-              ),
-            );
+              emit(
+                state.copyWith(
+                  isEquipmentDocSubmitting: true,
+                  submitDocAuthFailureOrSuccessOption: none(),
+                ),
+              );
+
+              failureOrSuccess = await _repository.addMultiDocumentApi(
+                documentType: 8,
+                documentFile: state.equipmentDoc.getValue() ?? "",
+                documentTitle: state.equipmentName.getValue(),
+                lastPage: "BankDetail",
+              );
+
+              failureOrSuccess.fold(
+                (l) => emit(
+                  state.copyWith(
+                    isEquipmentDocSubmitting: false,
+                  ),
+                ),
+                (r) {
+                  emit(
+                    state.copyWith(
+                      equipmentList: r.document
+                              ?.where((doc) => doc.document_type == 8)
+                              .toList() ??
+                          [],
+                      equipmentDoc: InputEmptyOrNot(""),
+                      equipmentName: InputEmptyOrNot(""),
+                      isEquipmentDocSubmitting: false,
+                      showEquipmentErrorMessages: false,
+                      submitDocAuthFailureOrSuccessOption: none(),
+                    ),
+                  );
+                },
+              );
+              emit(
+                state.copyWith(
+                  isEquipmentDocSubmitting: false,
+                  submitDocAuthFailureOrSuccessOption:
+                      optionOf(failureOrSuccess),
+                ),
+              );
+            }
+
+            /// True When click on continue - add more btn and some details are empty or not valid
+            else {
+              emit(
+                state.copyWith(
+                  isEquipmentDocSubmitting: false,
+                  showEquipmentErrorMessages: true,
+                  submitDocAuthFailureOrSuccessOption: none(),
+                ),
+              );
+            }
           }
         },
       );

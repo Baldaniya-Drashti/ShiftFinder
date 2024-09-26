@@ -30,7 +30,7 @@ mixin _$DocumentEvent {
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
-    required TResult Function() covidDocSubmit,
+    required TResult Function(bool isSkip) covidDocSubmit,
     required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) =>
       throw _privateConstructorUsedError;
@@ -48,7 +48,7 @@ mixin _$DocumentEvent {
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
-    TResult? Function()? covidDocSubmit,
+    TResult? Function(bool isSkip)? covidDocSubmit,
     TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) =>
       throw _privateConstructorUsedError;
@@ -66,7 +66,7 @@ mixin _$DocumentEvent {
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
-    TResult Function()? covidDocSubmit,
+    TResult Function(bool isSkip)? covidDocSubmit,
     TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) =>
@@ -232,7 +232,7 @@ class _$NextPageImpl implements _NextPage {
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
-    required TResult Function() covidDocSubmit,
+    required TResult Function(bool isSkip) covidDocSubmit,
     required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return nextPage(page);
@@ -253,7 +253,7 @@ class _$NextPageImpl implements _NextPage {
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
-    TResult? Function()? covidDocSubmit,
+    TResult? Function(bool isSkip)? covidDocSubmit,
     TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return nextPage?.call(page);
@@ -274,7 +274,7 @@ class _$NextPageImpl implements _NextPage {
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
-    TResult Function()? covidDocSubmit,
+    TResult Function(bool isSkip)? covidDocSubmit,
     TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
@@ -422,7 +422,7 @@ class _$SubmitDocumentsEventImpl implements _SubmitDocumentsEvent {
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
-    required TResult Function() covidDocSubmit,
+    required TResult Function(bool isSkip) covidDocSubmit,
     required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return submitDocumentsEvent();
@@ -443,7 +443,7 @@ class _$SubmitDocumentsEventImpl implements _SubmitDocumentsEvent {
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
-    TResult? Function()? covidDocSubmit,
+    TResult? Function(bool isSkip)? covidDocSubmit,
     TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return submitDocumentsEvent?.call();
@@ -464,7 +464,7 @@ class _$SubmitDocumentsEventImpl implements _SubmitDocumentsEvent {
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
-    TResult Function()? covidDocSubmit,
+    TResult Function(bool isSkip)? covidDocSubmit,
     TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
@@ -607,7 +607,7 @@ class _$GetAllDocumentStatusImpl implements _GetAllDocumentStatus {
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
-    required TResult Function() covidDocSubmit,
+    required TResult Function(bool isSkip) covidDocSubmit,
     required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return getAllDocumentStatus();
@@ -628,7 +628,7 @@ class _$GetAllDocumentStatusImpl implements _GetAllDocumentStatus {
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
-    TResult? Function()? covidDocSubmit,
+    TResult? Function(bool isSkip)? covidDocSubmit,
     TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return getAllDocumentStatus?.call();
@@ -649,7 +649,7 @@ class _$GetAllDocumentStatusImpl implements _GetAllDocumentStatus {
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
-    TResult Function()? covidDocSubmit,
+    TResult Function(bool isSkip)? covidDocSubmit,
     TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
@@ -819,7 +819,7 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
-    required TResult Function() covidDocSubmit,
+    required TResult Function(bool isSkip) covidDocSubmit,
     required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return selectGovermentDoc(govermentDoc);
@@ -840,7 +840,7 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
-    TResult? Function()? covidDocSubmit,
+    TResult? Function(bool isSkip)? covidDocSubmit,
     TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return selectGovermentDoc?.call(govermentDoc);
@@ -861,7 +861,7 @@ class _$SelectGovermentDocImpl implements _SelectGovermentDoc {
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
-    TResult Function()? covidDocSubmit,
+    TResult Function(bool isSkip)? covidDocSubmit,
     TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
@@ -1009,7 +1009,7 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
-    required TResult Function() covidDocSubmit,
+    required TResult Function(bool isSkip) covidDocSubmit,
     required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return getGovermentDoc();
@@ -1030,7 +1030,7 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
-    TResult? Function()? covidDocSubmit,
+    TResult? Function(bool isSkip)? covidDocSubmit,
     TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return getGovermentDoc?.call();
@@ -1051,7 +1051,7 @@ class _$GetGovermentDocImpl implements _GetGovermentDoc {
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
-    TResult Function()? covidDocSubmit,
+    TResult Function(bool isSkip)? covidDocSubmit,
     TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
@@ -1222,7 +1222,7 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
-    required TResult Function() covidDocSubmit,
+    required TResult Function(bool isSkip) covidDocSubmit,
     required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return checkNAGovermentExpiryDate(isCheck);
@@ -1243,7 +1243,7 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
-    TResult? Function()? covidDocSubmit,
+    TResult? Function(bool isSkip)? covidDocSubmit,
     TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return checkNAGovermentExpiryDate?.call(isCheck);
@@ -1264,7 +1264,7 @@ class _$CheckNAGovermentExpiryDateImpl implements CheckNAGovermentExpiryDate {
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
-    TResult Function()? covidDocSubmit,
+    TResult Function(bool isSkip)? covidDocSubmit,
     TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
@@ -1442,7 +1442,7 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
-    required TResult Function() covidDocSubmit,
+    required TResult Function(bool isSkip) covidDocSubmit,
     required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return govermentExpiryDateChanged(expiryDate);
@@ -1463,7 +1463,7 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
-    TResult? Function()? covidDocSubmit,
+    TResult? Function(bool isSkip)? covidDocSubmit,
     TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return govermentExpiryDateChanged?.call(expiryDate);
@@ -1484,7 +1484,7 @@ class _$GovermentExpiryDateChangedImpl implements _GovermentExpiryDateChanged {
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
-    TResult Function()? covidDocSubmit,
+    TResult Function(bool isSkip)? covidDocSubmit,
     TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
@@ -1660,7 +1660,7 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
-    required TResult Function() covidDocSubmit,
+    required TResult Function(bool isSkip) covidDocSubmit,
     required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return deleteGovermentDoc(govermentDoc);
@@ -1681,7 +1681,7 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
-    TResult? Function()? covidDocSubmit,
+    TResult? Function(bool isSkip)? covidDocSubmit,
     TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return deleteGovermentDoc?.call(govermentDoc);
@@ -1702,7 +1702,7 @@ class _$DeleteGovermentDocImpl implements _DeleteGovermentDoc {
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
-    TResult Function()? covidDocSubmit,
+    TResult Function(bool isSkip)? covidDocSubmit,
     TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
@@ -1850,7 +1850,7 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
-    required TResult Function() covidDocSubmit,
+    required TResult Function(bool isSkip) covidDocSubmit,
     required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return govermentDocSubmit();
@@ -1871,7 +1871,7 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
-    TResult? Function()? covidDocSubmit,
+    TResult? Function(bool isSkip)? covidDocSubmit,
     TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return govermentDocSubmit?.call();
@@ -1892,7 +1892,7 @@ class _$GovermentDocSubmitImpl implements _GovermentDocSubmit {
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
-    TResult Function()? covidDocSubmit,
+    TResult Function(bool isSkip)? covidDocSubmit,
     TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
@@ -2064,7 +2064,7 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
-    required TResult Function() covidDocSubmit,
+    required TResult Function(bool isSkip) covidDocSubmit,
     required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return selectCovidVaccinationDoc(covidDoc);
@@ -2085,7 +2085,7 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
-    TResult? Function()? covidDocSubmit,
+    TResult? Function(bool isSkip)? covidDocSubmit,
     TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return selectCovidVaccinationDoc?.call(covidDoc);
@@ -2106,7 +2106,7 @@ class _$SelectCovidVaccinationDocImpl implements _SelectCovidVaccinationDoc {
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
-    TResult Function()? covidDocSubmit,
+    TResult Function(bool isSkip)? covidDocSubmit,
     TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
@@ -2282,7 +2282,7 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
-    required TResult Function() covidDocSubmit,
+    required TResult Function(bool isSkip) covidDocSubmit,
     required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return deleteCovidDoc(covidDoc);
@@ -2303,7 +2303,7 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
-    TResult? Function()? covidDocSubmit,
+    TResult? Function(bool isSkip)? covidDocSubmit,
     TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return deleteCovidDoc?.call(covidDoc);
@@ -2324,7 +2324,7 @@ class _$DeleteCovidDocImpl implements _DeleteCovidDoc {
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
-    TResult Function()? covidDocSubmit,
+    TResult Function(bool isSkip)? covidDocSubmit,
     TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
@@ -2471,7 +2471,7 @@ class _$GetCovidDocImpl implements _GetCovidDoc {
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
-    required TResult Function() covidDocSubmit,
+    required TResult Function(bool isSkip) covidDocSubmit,
     required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return getCovidDoc();
@@ -2492,7 +2492,7 @@ class _$GetCovidDocImpl implements _GetCovidDoc {
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
-    TResult? Function()? covidDocSubmit,
+    TResult? Function(bool isSkip)? covidDocSubmit,
     TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return getCovidDoc?.call();
@@ -2513,7 +2513,7 @@ class _$GetCovidDocImpl implements _GetCovidDoc {
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
-    TResult Function()? covidDocSubmit,
+    TResult Function(bool isSkip)? covidDocSubmit,
     TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
@@ -2610,6 +2610,8 @@ abstract class _$$CovidDocSubmitImplCopyWith<$Res> {
   factory _$$CovidDocSubmitImplCopyWith(_$CovidDocSubmitImpl value,
           $Res Function(_$CovidDocSubmitImpl) then) =
       __$$CovidDocSubmitImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isSkip});
 }
 
 /// @nodoc
@@ -2619,26 +2621,51 @@ class __$$CovidDocSubmitImplCopyWithImpl<$Res>
   __$$CovidDocSubmitImplCopyWithImpl(
       _$CovidDocSubmitImpl _value, $Res Function(_$CovidDocSubmitImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isSkip = null,
+  }) {
+    return _then(_$CovidDocSubmitImpl(
+      isSkip: null == isSkip
+          ? _value.isSkip
+          : isSkip // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$CovidDocSubmitImpl implements _CovidDocSubmit {
-  const _$CovidDocSubmitImpl();
+  const _$CovidDocSubmitImpl({required this.isSkip});
+
+  @override
+  final bool isSkip;
 
   @override
   String toString() {
-    return 'DocumentEvent.covidDocSubmit()';
+    return 'DocumentEvent.covidDocSubmit(isSkip: $isSkip)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$CovidDocSubmitImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$CovidDocSubmitImpl &&
+            (identical(other.isSkip, isSkip) || other.isSkip == isSkip));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, isSkip);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CovidDocSubmitImplCopyWith<_$CovidDocSubmitImpl> get copyWith =>
+      __$$CovidDocSubmitImplCopyWithImpl<_$CovidDocSubmitImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2655,10 +2682,10 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
-    required TResult Function() covidDocSubmit,
+    required TResult Function(bool isSkip) covidDocSubmit,
     required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
-    return covidDocSubmit();
+    return covidDocSubmit(isSkip);
   }
 
   @override
@@ -2676,10 +2703,10 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
-    TResult? Function()? covidDocSubmit,
+    TResult? Function(bool isSkip)? covidDocSubmit,
     TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
-    return covidDocSubmit?.call();
+    return covidDocSubmit?.call(isSkip);
   }
 
   @override
@@ -2697,12 +2724,12 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
-    TResult Function()? covidDocSubmit,
+    TResult Function(bool isSkip)? covidDocSubmit,
     TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
     if (covidDocSubmit != null) {
-      return covidDocSubmit();
+      return covidDocSubmit(isSkip);
     }
     return orElse();
   }
@@ -2786,7 +2813,13 @@ class _$CovidDocSubmitImpl implements _CovidDocSubmit {
 }
 
 abstract class _CovidDocSubmit implements DocumentEvent {
-  const factory _CovidDocSubmit() = _$CovidDocSubmitImpl;
+  const factory _CovidDocSubmit({required final bool isSkip}) =
+      _$CovidDocSubmitImpl;
+
+  bool get isSkip;
+  @JsonKey(ignore: true)
+  _$$CovidDocSubmitImplCopyWith<_$CovidDocSubmitImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -2869,7 +2902,7 @@ class _$GovtDocumentTitleChangedImpl implements GovtDocumentTitleChanged {
     required TResult Function(String covidDoc) selectCovidVaccinationDoc,
     required TResult Function(String covidDoc) deleteCovidDoc,
     required TResult Function() getCovidDoc,
-    required TResult Function() covidDocSubmit,
+    required TResult Function(bool isSkip) covidDocSubmit,
     required TResult Function(String documentTitle) govtDocumentTitleChanged,
   }) {
     return govtDocumentTitleChanged(documentTitle);
@@ -2890,7 +2923,7 @@ class _$GovtDocumentTitleChangedImpl implements GovtDocumentTitleChanged {
     TResult? Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult? Function(String covidDoc)? deleteCovidDoc,
     TResult? Function()? getCovidDoc,
-    TResult? Function()? covidDocSubmit,
+    TResult? Function(bool isSkip)? covidDocSubmit,
     TResult? Function(String documentTitle)? govtDocumentTitleChanged,
   }) {
     return govtDocumentTitleChanged?.call(documentTitle);
@@ -2911,7 +2944,7 @@ class _$GovtDocumentTitleChangedImpl implements GovtDocumentTitleChanged {
     TResult Function(String covidDoc)? selectCovidVaccinationDoc,
     TResult Function(String covidDoc)? deleteCovidDoc,
     TResult Function()? getCovidDoc,
-    TResult Function()? covidDocSubmit,
+    TResult Function(bool isSkip)? covidDocSubmit,
     TResult Function(String documentTitle)? govtDocumentTitleChanged,
     required TResult orElse(),
   }) {
@@ -3024,7 +3057,8 @@ mixin _$CredentialEvent {
     required TResult Function(String credentialDoc) deleteCredentialDoc,
     required TResult Function() addMoreCredentialDoc,
     required TResult Function(int index) deleteCredentialObject,
-    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        credentialDocSubmit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -3039,7 +3073,7 @@ mixin _$CredentialEvent {
     TResult? Function(String credentialDoc)? deleteCredentialDoc,
     TResult? Function()? addMoreCredentialDoc,
     TResult? Function(int index)? deleteCredentialObject,
-    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -3054,7 +3088,7 @@ mixin _$CredentialEvent {
     TResult Function(String credentialDoc)? deleteCredentialDoc,
     TResult Function()? addMoreCredentialDoc,
     TResult Function(int index)? deleteCredentialObject,
-    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -3186,7 +3220,8 @@ class _$GetCredentialDocListImpl implements GetCredentialDocList {
     required TResult Function(String credentialDoc) deleteCredentialDoc,
     required TResult Function() addMoreCredentialDoc,
     required TResult Function(int index) deleteCredentialObject,
-    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        credentialDocSubmit,
   }) {
     return getCredentialDocList();
   }
@@ -3204,7 +3239,7 @@ class _$GetCredentialDocListImpl implements GetCredentialDocList {
     TResult? Function(String credentialDoc)? deleteCredentialDoc,
     TResult? Function()? addMoreCredentialDoc,
     TResult? Function(int index)? deleteCredentialObject,
-    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
   }) {
     return getCredentialDocList?.call();
   }
@@ -3222,7 +3257,7 @@ class _$GetCredentialDocListImpl implements GetCredentialDocList {
     TResult Function(String credentialDoc)? deleteCredentialDoc,
     TResult Function()? addMoreCredentialDoc,
     TResult Function(int index)? deleteCredentialObject,
-    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
     required TResult orElse(),
   }) {
     if (getCredentialDocList != null) {
@@ -3383,7 +3418,8 @@ class _$CheckNACredExpiryDateImpl implements CheckNACredExpiryDate {
     required TResult Function(String credentialDoc) deleteCredentialDoc,
     required TResult Function() addMoreCredentialDoc,
     required TResult Function(int index) deleteCredentialObject,
-    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        credentialDocSubmit,
   }) {
     return checkNACredExpiryDate(isCheck);
   }
@@ -3401,7 +3437,7 @@ class _$CheckNACredExpiryDateImpl implements CheckNACredExpiryDate {
     TResult? Function(String credentialDoc)? deleteCredentialDoc,
     TResult? Function()? addMoreCredentialDoc,
     TResult? Function(int index)? deleteCredentialObject,
-    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
   }) {
     return checkNACredExpiryDate?.call(isCheck);
   }
@@ -3419,7 +3455,7 @@ class _$CheckNACredExpiryDateImpl implements CheckNACredExpiryDate {
     TResult Function(String credentialDoc)? deleteCredentialDoc,
     TResult Function()? addMoreCredentialDoc,
     TResult Function(int index)? deleteCredentialObject,
-    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
     required TResult orElse(),
   }) {
     if (checkNACredExpiryDate != null) {
@@ -3587,7 +3623,8 @@ class _$CredExpiryDateChangedImpl implements _CredExpiryDateChanged {
     required TResult Function(String credentialDoc) deleteCredentialDoc,
     required TResult Function() addMoreCredentialDoc,
     required TResult Function(int index) deleteCredentialObject,
-    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        credentialDocSubmit,
   }) {
     return credExpiryDateChanged(expiryDate);
   }
@@ -3605,7 +3642,7 @@ class _$CredExpiryDateChangedImpl implements _CredExpiryDateChanged {
     TResult? Function(String credentialDoc)? deleteCredentialDoc,
     TResult? Function()? addMoreCredentialDoc,
     TResult? Function(int index)? deleteCredentialObject,
-    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
   }) {
     return credExpiryDateChanged?.call(expiryDate);
   }
@@ -3623,7 +3660,7 @@ class _$CredExpiryDateChangedImpl implements _CredExpiryDateChanged {
     TResult Function(String credentialDoc)? deleteCredentialDoc,
     TResult Function()? addMoreCredentialDoc,
     TResult Function(int index)? deleteCredentialObject,
-    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
     required TResult orElse(),
   }) {
     if (credExpiryDateChanged != null) {
@@ -3792,7 +3829,8 @@ class _$RegistrationNumberChanegdImpl implements _RegistrationNumberChanegd {
     required TResult Function(String credentialDoc) deleteCredentialDoc,
     required TResult Function() addMoreCredentialDoc,
     required TResult Function(int index) deleteCredentialObject,
-    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        credentialDocSubmit,
   }) {
     return registrationNumberChanegd(registrationNo);
   }
@@ -3810,7 +3848,7 @@ class _$RegistrationNumberChanegdImpl implements _RegistrationNumberChanegd {
     TResult? Function(String credentialDoc)? deleteCredentialDoc,
     TResult? Function()? addMoreCredentialDoc,
     TResult? Function(int index)? deleteCredentialObject,
-    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
   }) {
     return registrationNumberChanegd?.call(registrationNo);
   }
@@ -3828,7 +3866,7 @@ class _$RegistrationNumberChanegdImpl implements _RegistrationNumberChanegd {
     TResult Function(String credentialDoc)? deleteCredentialDoc,
     TResult Function()? addMoreCredentialDoc,
     TResult Function(int index)? deleteCredentialObject,
-    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
     required TResult orElse(),
   }) {
     if (registrationNumberChanegd != null) {
@@ -3996,7 +4034,8 @@ class _$DocumentTitleChangedImpl implements _DocumentTitleChanged {
     required TResult Function(String credentialDoc) deleteCredentialDoc,
     required TResult Function() addMoreCredentialDoc,
     required TResult Function(int index) deleteCredentialObject,
-    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        credentialDocSubmit,
   }) {
     return documentTitleChanged(documentTitle);
   }
@@ -4014,7 +4053,7 @@ class _$DocumentTitleChangedImpl implements _DocumentTitleChanged {
     TResult? Function(String credentialDoc)? deleteCredentialDoc,
     TResult? Function()? addMoreCredentialDoc,
     TResult? Function(int index)? deleteCredentialObject,
-    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
   }) {
     return documentTitleChanged?.call(documentTitle);
   }
@@ -4032,7 +4071,7 @@ class _$DocumentTitleChangedImpl implements _DocumentTitleChanged {
     TResult Function(String credentialDoc)? deleteCredentialDoc,
     TResult Function()? addMoreCredentialDoc,
     TResult Function(int index)? deleteCredentialObject,
-    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
     required TResult orElse(),
   }) {
     if (documentTitleChanged != null) {
@@ -4202,7 +4241,8 @@ class _$SelectProvinceRegistrationImpl implements _SelectProvinceRegistration {
     required TResult Function(String credentialDoc) deleteCredentialDoc,
     required TResult Function() addMoreCredentialDoc,
     required TResult Function(int index) deleteCredentialObject,
-    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        credentialDocSubmit,
   }) {
     return selectProvinceRegistration(provinceRegistration);
   }
@@ -4220,7 +4260,7 @@ class _$SelectProvinceRegistrationImpl implements _SelectProvinceRegistration {
     TResult? Function(String credentialDoc)? deleteCredentialDoc,
     TResult? Function()? addMoreCredentialDoc,
     TResult? Function(int index)? deleteCredentialObject,
-    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
   }) {
     return selectProvinceRegistration?.call(provinceRegistration);
   }
@@ -4238,7 +4278,7 @@ class _$SelectProvinceRegistrationImpl implements _SelectProvinceRegistration {
     TResult Function(String credentialDoc)? deleteCredentialDoc,
     TResult Function()? addMoreCredentialDoc,
     TResult Function(int index)? deleteCredentialObject,
-    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
     required TResult orElse(),
   }) {
     if (selectProvinceRegistration != null) {
@@ -4410,7 +4450,8 @@ class _$SelectCredentialRegistrationDocImpl
     required TResult Function(String credentialDoc) deleteCredentialDoc,
     required TResult Function() addMoreCredentialDoc,
     required TResult Function(int index) deleteCredentialObject,
-    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        credentialDocSubmit,
   }) {
     return selectCredentialDoc(credentialDoc);
   }
@@ -4428,7 +4469,7 @@ class _$SelectCredentialRegistrationDocImpl
     TResult? Function(String credentialDoc)? deleteCredentialDoc,
     TResult? Function()? addMoreCredentialDoc,
     TResult? Function(int index)? deleteCredentialObject,
-    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
   }) {
     return selectCredentialDoc?.call(credentialDoc);
   }
@@ -4446,7 +4487,7 @@ class _$SelectCredentialRegistrationDocImpl
     TResult Function(String credentialDoc)? deleteCredentialDoc,
     TResult Function()? addMoreCredentialDoc,
     TResult Function(int index)? deleteCredentialObject,
-    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
     required TResult orElse(),
   }) {
     if (selectCredentialDoc != null) {
@@ -4614,7 +4655,8 @@ class _$DeleteCredentialDocImpl implements _DeleteCredentialDoc {
     required TResult Function(String credentialDoc) deleteCredentialDoc,
     required TResult Function() addMoreCredentialDoc,
     required TResult Function(int index) deleteCredentialObject,
-    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        credentialDocSubmit,
   }) {
     return deleteCredentialDoc(credentialDoc);
   }
@@ -4632,7 +4674,7 @@ class _$DeleteCredentialDocImpl implements _DeleteCredentialDoc {
     TResult? Function(String credentialDoc)? deleteCredentialDoc,
     TResult? Function()? addMoreCredentialDoc,
     TResult? Function(int index)? deleteCredentialObject,
-    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
   }) {
     return deleteCredentialDoc?.call(credentialDoc);
   }
@@ -4650,7 +4692,7 @@ class _$DeleteCredentialDocImpl implements _DeleteCredentialDoc {
     TResult Function(String credentialDoc)? deleteCredentialDoc,
     TResult Function()? addMoreCredentialDoc,
     TResult Function(int index)? deleteCredentialObject,
-    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
     required TResult orElse(),
   }) {
     if (deleteCredentialDoc != null) {
@@ -4790,7 +4832,8 @@ class _$AddMoreCredentialDocImpl implements _AddMoreCredentialDoc {
     required TResult Function(String credentialDoc) deleteCredentialDoc,
     required TResult Function() addMoreCredentialDoc,
     required TResult Function(int index) deleteCredentialObject,
-    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        credentialDocSubmit,
   }) {
     return addMoreCredentialDoc();
   }
@@ -4808,7 +4851,7 @@ class _$AddMoreCredentialDocImpl implements _AddMoreCredentialDoc {
     TResult? Function(String credentialDoc)? deleteCredentialDoc,
     TResult? Function()? addMoreCredentialDoc,
     TResult? Function(int index)? deleteCredentialObject,
-    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
   }) {
     return addMoreCredentialDoc?.call();
   }
@@ -4826,7 +4869,7 @@ class _$AddMoreCredentialDocImpl implements _AddMoreCredentialDoc {
     TResult Function(String credentialDoc)? deleteCredentialDoc,
     TResult Function()? addMoreCredentialDoc,
     TResult Function(int index)? deleteCredentialObject,
-    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
     required TResult orElse(),
   }) {
     if (addMoreCredentialDoc != null) {
@@ -4988,7 +5031,8 @@ class _$DeleteCredentialObjectImpl implements _DeleteCredentialObject {
     required TResult Function(String credentialDoc) deleteCredentialDoc,
     required TResult Function() addMoreCredentialDoc,
     required TResult Function(int index) deleteCredentialObject,
-    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        credentialDocSubmit,
   }) {
     return deleteCredentialObject(index);
   }
@@ -5006,7 +5050,7 @@ class _$DeleteCredentialObjectImpl implements _DeleteCredentialObject {
     TResult? Function(String credentialDoc)? deleteCredentialDoc,
     TResult? Function()? addMoreCredentialDoc,
     TResult? Function(int index)? deleteCredentialObject,
-    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
   }) {
     return deleteCredentialObject?.call(index);
   }
@@ -5024,7 +5068,7 @@ class _$DeleteCredentialObjectImpl implements _DeleteCredentialObject {
     TResult Function(String credentialDoc)? deleteCredentialDoc,
     TResult Function()? addMoreCredentialDoc,
     TResult Function(int index)? deleteCredentialObject,
-    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
     required TResult orElse(),
   }) {
     if (deleteCredentialObject != null) {
@@ -5120,7 +5164,7 @@ abstract class _$$CredentialDocSubmitImplCopyWith<$Res> {
           $Res Function(_$CredentialDocSubmitImpl) then) =
       __$$CredentialDocSubmitImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({bool isAddMoreBtnClick});
+  $Res call({bool isAddMoreBtnClick, bool isSkip});
 }
 
 /// @nodoc
@@ -5135,11 +5179,16 @@ class __$$CredentialDocSubmitImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isAddMoreBtnClick = null,
+    Object? isSkip = null,
   }) {
     return _then(_$CredentialDocSubmitImpl(
       isAddMoreBtnClick: null == isAddMoreBtnClick
           ? _value.isAddMoreBtnClick
           : isAddMoreBtnClick // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSkip: null == isSkip
+          ? _value.isSkip
+          : isSkip // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -5148,14 +5197,17 @@ class __$$CredentialDocSubmitImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CredentialDocSubmitImpl implements _CredentialDocSubmit {
-  const _$CredentialDocSubmitImpl({required this.isAddMoreBtnClick});
+  const _$CredentialDocSubmitImpl(
+      {required this.isAddMoreBtnClick, required this.isSkip});
 
   @override
   final bool isAddMoreBtnClick;
+  @override
+  final bool isSkip;
 
   @override
   String toString() {
-    return 'CredentialEvent.credentialDocSubmit(isAddMoreBtnClick: $isAddMoreBtnClick)';
+    return 'CredentialEvent.credentialDocSubmit(isAddMoreBtnClick: $isAddMoreBtnClick, isSkip: $isSkip)';
   }
 
   @override
@@ -5164,11 +5216,12 @@ class _$CredentialDocSubmitImpl implements _CredentialDocSubmit {
         (other.runtimeType == runtimeType &&
             other is _$CredentialDocSubmitImpl &&
             (identical(other.isAddMoreBtnClick, isAddMoreBtnClick) ||
-                other.isAddMoreBtnClick == isAddMoreBtnClick));
+                other.isAddMoreBtnClick == isAddMoreBtnClick) &&
+            (identical(other.isSkip, isSkip) || other.isSkip == isSkip));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isAddMoreBtnClick);
+  int get hashCode => Object.hash(runtimeType, isAddMoreBtnClick, isSkip);
 
   @JsonKey(ignore: true)
   @override
@@ -5191,9 +5244,10 @@ class _$CredentialDocSubmitImpl implements _CredentialDocSubmit {
     required TResult Function(String credentialDoc) deleteCredentialDoc,
     required TResult Function() addMoreCredentialDoc,
     required TResult Function(int index) deleteCredentialObject,
-    required TResult Function(bool isAddMoreBtnClick) credentialDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        credentialDocSubmit,
   }) {
-    return credentialDocSubmit(isAddMoreBtnClick);
+    return credentialDocSubmit(isAddMoreBtnClick, isSkip);
   }
 
   @override
@@ -5209,9 +5263,9 @@ class _$CredentialDocSubmitImpl implements _CredentialDocSubmit {
     TResult? Function(String credentialDoc)? deleteCredentialDoc,
     TResult? Function()? addMoreCredentialDoc,
     TResult? Function(int index)? deleteCredentialObject,
-    TResult? Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
   }) {
-    return credentialDocSubmit?.call(isAddMoreBtnClick);
+    return credentialDocSubmit?.call(isAddMoreBtnClick, isSkip);
   }
 
   @override
@@ -5227,11 +5281,11 @@ class _$CredentialDocSubmitImpl implements _CredentialDocSubmit {
     TResult Function(String credentialDoc)? deleteCredentialDoc,
     TResult Function()? addMoreCredentialDoc,
     TResult Function(int index)? deleteCredentialObject,
-    TResult Function(bool isAddMoreBtnClick)? credentialDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? credentialDocSubmit,
     required TResult orElse(),
   }) {
     if (credentialDocSubmit != null) {
-      return credentialDocSubmit(isAddMoreBtnClick);
+      return credentialDocSubmit(isAddMoreBtnClick, isSkip);
     }
     return orElse();
   }
@@ -5308,10 +5362,12 @@ class _$CredentialDocSubmitImpl implements _CredentialDocSubmit {
 }
 
 abstract class _CredentialDocSubmit implements CredentialEvent {
-  const factory _CredentialDocSubmit({required final bool isAddMoreBtnClick}) =
-      _$CredentialDocSubmitImpl;
+  const factory _CredentialDocSubmit(
+      {required final bool isAddMoreBtnClick,
+      required final bool isSkip}) = _$CredentialDocSubmitImpl;
 
   bool get isAddMoreBtnClick;
+  bool get isSkip;
   @JsonKey(ignore: true)
   _$$CredentialDocSubmitImplCopyWith<_$CredentialDocSubmitImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -5334,7 +5390,8 @@ mixin _$ProfessionalLicensesEvent {
     required TResult Function(String licensesDoc) deleteLicensesDoc,
     required TResult Function() addMoreLicensesDoc,
     required TResult Function(int index) deleteLicensesObject,
-    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        licensesDocSubmit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -5349,7 +5406,7 @@ mixin _$ProfessionalLicensesEvent {
     TResult? Function(String licensesDoc)? deleteLicensesDoc,
     TResult? Function()? addMoreLicensesDoc,
     TResult? Function(int index)? deleteLicensesObject,
-    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -5364,7 +5421,7 @@ mixin _$ProfessionalLicensesEvent {
     TResult Function(String licensesDoc)? deleteLicensesDoc,
     TResult Function()? addMoreLicensesDoc,
     TResult Function(int index)? deleteLicensesObject,
-    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -5506,7 +5563,8 @@ class _$GetProfessinalLicensesListImpl implements GetProfessinalLicensesList {
     required TResult Function(String licensesDoc) deleteLicensesDoc,
     required TResult Function() addMoreLicensesDoc,
     required TResult Function(int index) deleteLicensesObject,
-    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        licensesDocSubmit,
   }) {
     return getProfessinalLicensesList();
   }
@@ -5524,7 +5582,7 @@ class _$GetProfessinalLicensesListImpl implements GetProfessinalLicensesList {
     TResult? Function(String licensesDoc)? deleteLicensesDoc,
     TResult? Function()? addMoreLicensesDoc,
     TResult? Function(int index)? deleteLicensesObject,
-    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
   }) {
     return getProfessinalLicensesList?.call();
   }
@@ -5542,7 +5600,7 @@ class _$GetProfessinalLicensesListImpl implements GetProfessinalLicensesList {
     TResult Function(String licensesDoc)? deleteLicensesDoc,
     TResult Function()? addMoreLicensesDoc,
     TResult Function(int index)? deleteLicensesObject,
-    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
     required TResult orElse(),
   }) {
     if (getProfessinalLicensesList != null) {
@@ -5711,7 +5769,8 @@ class _$CheckNALicensesExpiryDateImpl implements CheckNALicensesExpiryDate {
     required TResult Function(String licensesDoc) deleteLicensesDoc,
     required TResult Function() addMoreLicensesDoc,
     required TResult Function(int index) deleteLicensesObject,
-    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        licensesDocSubmit,
   }) {
     return checkNALicensesExpiryDate(isCheck);
   }
@@ -5729,7 +5788,7 @@ class _$CheckNALicensesExpiryDateImpl implements CheckNALicensesExpiryDate {
     TResult? Function(String licensesDoc)? deleteLicensesDoc,
     TResult? Function()? addMoreLicensesDoc,
     TResult? Function(int index)? deleteLicensesObject,
-    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
   }) {
     return checkNALicensesExpiryDate?.call(isCheck);
   }
@@ -5747,7 +5806,7 @@ class _$CheckNALicensesExpiryDateImpl implements CheckNALicensesExpiryDate {
     TResult Function(String licensesDoc)? deleteLicensesDoc,
     TResult Function()? addMoreLicensesDoc,
     TResult Function(int index)? deleteLicensesObject,
-    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
     required TResult orElse(),
   }) {
     if (checkNALicensesExpiryDate != null) {
@@ -5923,7 +5982,8 @@ class _$LicensesExpiryDateChangedImpl implements _LicensesExpiryDateChanged {
     required TResult Function(String licensesDoc) deleteLicensesDoc,
     required TResult Function() addMoreLicensesDoc,
     required TResult Function(int index) deleteLicensesObject,
-    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        licensesDocSubmit,
   }) {
     return licensesExpiryDateChanged(expiryDate);
   }
@@ -5941,7 +6001,7 @@ class _$LicensesExpiryDateChangedImpl implements _LicensesExpiryDateChanged {
     TResult? Function(String licensesDoc)? deleteLicensesDoc,
     TResult? Function()? addMoreLicensesDoc,
     TResult? Function(int index)? deleteLicensesObject,
-    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
   }) {
     return licensesExpiryDateChanged?.call(expiryDate);
   }
@@ -5959,7 +6019,7 @@ class _$LicensesExpiryDateChangedImpl implements _LicensesExpiryDateChanged {
     TResult Function(String licensesDoc)? deleteLicensesDoc,
     TResult Function()? addMoreLicensesDoc,
     TResult Function(int index)? deleteLicensesObject,
-    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
     required TResult orElse(),
   }) {
     if (licensesExpiryDateChanged != null) {
@@ -6137,7 +6197,8 @@ class _$LicensesRegistrationNumberChanegdImpl
     required TResult Function(String licensesDoc) deleteLicensesDoc,
     required TResult Function() addMoreLicensesDoc,
     required TResult Function(int index) deleteLicensesObject,
-    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        licensesDocSubmit,
   }) {
     return licensesRegistrationNumberChanegd(registrationNo);
   }
@@ -6155,7 +6216,7 @@ class _$LicensesRegistrationNumberChanegdImpl
     TResult? Function(String licensesDoc)? deleteLicensesDoc,
     TResult? Function()? addMoreLicensesDoc,
     TResult? Function(int index)? deleteLicensesObject,
-    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
   }) {
     return licensesRegistrationNumberChanegd?.call(registrationNo);
   }
@@ -6173,7 +6234,7 @@ class _$LicensesRegistrationNumberChanegdImpl
     TResult Function(String licensesDoc)? deleteLicensesDoc,
     TResult Function()? addMoreLicensesDoc,
     TResult Function(int index)? deleteLicensesObject,
-    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
     required TResult orElse(),
   }) {
     if (licensesRegistrationNumberChanegd != null) {
@@ -6353,7 +6414,8 @@ class _$LicensesDocumentTitleChangedImpl
     required TResult Function(String licensesDoc) deleteLicensesDoc,
     required TResult Function() addMoreLicensesDoc,
     required TResult Function(int index) deleteLicensesObject,
-    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        licensesDocSubmit,
   }) {
     return licensesDocumentTitleChanged(documentTitle);
   }
@@ -6371,7 +6433,7 @@ class _$LicensesDocumentTitleChangedImpl
     TResult? Function(String licensesDoc)? deleteLicensesDoc,
     TResult? Function()? addMoreLicensesDoc,
     TResult? Function(int index)? deleteLicensesObject,
-    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
   }) {
     return licensesDocumentTitleChanged?.call(documentTitle);
   }
@@ -6389,7 +6451,7 @@ class _$LicensesDocumentTitleChangedImpl
     TResult Function(String licensesDoc)? deleteLicensesDoc,
     TResult Function()? addMoreLicensesDoc,
     TResult Function(int index)? deleteLicensesObject,
-    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
     required TResult orElse(),
   }) {
     if (licensesDocumentTitleChanged != null) {
@@ -6567,7 +6629,8 @@ class _$SelectProvinceLicensesImpl implements _SelectProvinceLicenses {
     required TResult Function(String licensesDoc) deleteLicensesDoc,
     required TResult Function() addMoreLicensesDoc,
     required TResult Function(int index) deleteLicensesObject,
-    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        licensesDocSubmit,
   }) {
     return selectProvinceLicenses(provinceRegistration);
   }
@@ -6585,7 +6648,7 @@ class _$SelectProvinceLicensesImpl implements _SelectProvinceLicenses {
     TResult? Function(String licensesDoc)? deleteLicensesDoc,
     TResult? Function()? addMoreLicensesDoc,
     TResult? Function(int index)? deleteLicensesObject,
-    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
   }) {
     return selectProvinceLicenses?.call(provinceRegistration);
   }
@@ -6603,7 +6666,7 @@ class _$SelectProvinceLicensesImpl implements _SelectProvinceLicenses {
     TResult Function(String licensesDoc)? deleteLicensesDoc,
     TResult Function()? addMoreLicensesDoc,
     TResult Function(int index)? deleteLicensesObject,
-    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
     required TResult orElse(),
   }) {
     if (selectProvinceLicenses != null) {
@@ -6777,7 +6840,8 @@ class _$SelectLicensesDocImpl implements _SelectLicensesDoc {
     required TResult Function(String licensesDoc) deleteLicensesDoc,
     required TResult Function() addMoreLicensesDoc,
     required TResult Function(int index) deleteLicensesObject,
-    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        licensesDocSubmit,
   }) {
     return selectLicensesDoc(licensesDoc);
   }
@@ -6795,7 +6859,7 @@ class _$SelectLicensesDocImpl implements _SelectLicensesDoc {
     TResult? Function(String licensesDoc)? deleteLicensesDoc,
     TResult? Function()? addMoreLicensesDoc,
     TResult? Function(int index)? deleteLicensesObject,
-    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
   }) {
     return selectLicensesDoc?.call(licensesDoc);
   }
@@ -6813,7 +6877,7 @@ class _$SelectLicensesDocImpl implements _SelectLicensesDoc {
     TResult Function(String licensesDoc)? deleteLicensesDoc,
     TResult Function()? addMoreLicensesDoc,
     TResult Function(int index)? deleteLicensesObject,
-    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
     required TResult orElse(),
   }) {
     if (selectLicensesDoc != null) {
@@ -6987,7 +7051,8 @@ class _$DeleteLicensesDocImpl implements _DeleteLicensesDoc {
     required TResult Function(String licensesDoc) deleteLicensesDoc,
     required TResult Function() addMoreLicensesDoc,
     required TResult Function(int index) deleteLicensesObject,
-    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        licensesDocSubmit,
   }) {
     return deleteLicensesDoc(licensesDoc);
   }
@@ -7005,7 +7070,7 @@ class _$DeleteLicensesDocImpl implements _DeleteLicensesDoc {
     TResult? Function(String licensesDoc)? deleteLicensesDoc,
     TResult? Function()? addMoreLicensesDoc,
     TResult? Function(int index)? deleteLicensesObject,
-    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
   }) {
     return deleteLicensesDoc?.call(licensesDoc);
   }
@@ -7023,7 +7088,7 @@ class _$DeleteLicensesDocImpl implements _DeleteLicensesDoc {
     TResult Function(String licensesDoc)? deleteLicensesDoc,
     TResult Function()? addMoreLicensesDoc,
     TResult Function(int index)? deleteLicensesObject,
-    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
     required TResult orElse(),
   }) {
     if (deleteLicensesDoc != null) {
@@ -7169,7 +7234,8 @@ class _$AddMoreLicensesDocImpl implements _AddMoreLicensesDoc {
     required TResult Function(String licensesDoc) deleteLicensesDoc,
     required TResult Function() addMoreLicensesDoc,
     required TResult Function(int index) deleteLicensesObject,
-    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        licensesDocSubmit,
   }) {
     return addMoreLicensesDoc();
   }
@@ -7187,7 +7253,7 @@ class _$AddMoreLicensesDocImpl implements _AddMoreLicensesDoc {
     TResult? Function(String licensesDoc)? deleteLicensesDoc,
     TResult? Function()? addMoreLicensesDoc,
     TResult? Function(int index)? deleteLicensesObject,
-    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
   }) {
     return addMoreLicensesDoc?.call();
   }
@@ -7205,7 +7271,7 @@ class _$AddMoreLicensesDocImpl implements _AddMoreLicensesDoc {
     TResult Function(String licensesDoc)? deleteLicensesDoc,
     TResult Function()? addMoreLicensesDoc,
     TResult Function(int index)? deleteLicensesObject,
-    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
     required TResult orElse(),
   }) {
     if (addMoreLicensesDoc != null) {
@@ -7373,7 +7439,8 @@ class _$DeleteLicensesObjectImpl implements _DeleteLicensesObject {
     required TResult Function(String licensesDoc) deleteLicensesDoc,
     required TResult Function() addMoreLicensesDoc,
     required TResult Function(int index) deleteLicensesObject,
-    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        licensesDocSubmit,
   }) {
     return deleteLicensesObject(index);
   }
@@ -7391,7 +7458,7 @@ class _$DeleteLicensesObjectImpl implements _DeleteLicensesObject {
     TResult? Function(String licensesDoc)? deleteLicensesDoc,
     TResult? Function()? addMoreLicensesDoc,
     TResult? Function(int index)? deleteLicensesObject,
-    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
   }) {
     return deleteLicensesObject?.call(index);
   }
@@ -7409,7 +7476,7 @@ class _$DeleteLicensesObjectImpl implements _DeleteLicensesObject {
     TResult Function(String licensesDoc)? deleteLicensesDoc,
     TResult Function()? addMoreLicensesDoc,
     TResult Function(int index)? deleteLicensesObject,
-    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
     required TResult orElse(),
   }) {
     if (deleteLicensesObject != null) {
@@ -7509,7 +7576,7 @@ abstract class _$$LicensesDocSubmitImplCopyWith<$Res> {
           $Res Function(_$LicensesDocSubmitImpl) then) =
       __$$LicensesDocSubmitImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({bool isAddMoreBtnClick});
+  $Res call({bool isAddMoreBtnClick, bool isSkip});
 }
 
 /// @nodoc
@@ -7525,11 +7592,16 @@ class __$$LicensesDocSubmitImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isAddMoreBtnClick = null,
+    Object? isSkip = null,
   }) {
     return _then(_$LicensesDocSubmitImpl(
       isAddMoreBtnClick: null == isAddMoreBtnClick
           ? _value.isAddMoreBtnClick
           : isAddMoreBtnClick // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSkip: null == isSkip
+          ? _value.isSkip
+          : isSkip // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -7538,14 +7610,17 @@ class __$$LicensesDocSubmitImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LicensesDocSubmitImpl implements _LicensesDocSubmit {
-  const _$LicensesDocSubmitImpl({required this.isAddMoreBtnClick});
+  const _$LicensesDocSubmitImpl(
+      {required this.isAddMoreBtnClick, required this.isSkip});
 
   @override
   final bool isAddMoreBtnClick;
+  @override
+  final bool isSkip;
 
   @override
   String toString() {
-    return 'ProfessionalLicensesEvent.licensesDocSubmit(isAddMoreBtnClick: $isAddMoreBtnClick)';
+    return 'ProfessionalLicensesEvent.licensesDocSubmit(isAddMoreBtnClick: $isAddMoreBtnClick, isSkip: $isSkip)';
   }
 
   @override
@@ -7554,11 +7629,12 @@ class _$LicensesDocSubmitImpl implements _LicensesDocSubmit {
         (other.runtimeType == runtimeType &&
             other is _$LicensesDocSubmitImpl &&
             (identical(other.isAddMoreBtnClick, isAddMoreBtnClick) ||
-                other.isAddMoreBtnClick == isAddMoreBtnClick));
+                other.isAddMoreBtnClick == isAddMoreBtnClick) &&
+            (identical(other.isSkip, isSkip) || other.isSkip == isSkip));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isAddMoreBtnClick);
+  int get hashCode => Object.hash(runtimeType, isAddMoreBtnClick, isSkip);
 
   @JsonKey(ignore: true)
   @override
@@ -7583,9 +7659,10 @@ class _$LicensesDocSubmitImpl implements _LicensesDocSubmit {
     required TResult Function(String licensesDoc) deleteLicensesDoc,
     required TResult Function() addMoreLicensesDoc,
     required TResult Function(int index) deleteLicensesObject,
-    required TResult Function(bool isAddMoreBtnClick) licensesDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        licensesDocSubmit,
   }) {
-    return licensesDocSubmit(isAddMoreBtnClick);
+    return licensesDocSubmit(isAddMoreBtnClick, isSkip);
   }
 
   @override
@@ -7601,9 +7678,9 @@ class _$LicensesDocSubmitImpl implements _LicensesDocSubmit {
     TResult? Function(String licensesDoc)? deleteLicensesDoc,
     TResult? Function()? addMoreLicensesDoc,
     TResult? Function(int index)? deleteLicensesObject,
-    TResult? Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
   }) {
-    return licensesDocSubmit?.call(isAddMoreBtnClick);
+    return licensesDocSubmit?.call(isAddMoreBtnClick, isSkip);
   }
 
   @override
@@ -7619,11 +7696,11 @@ class _$LicensesDocSubmitImpl implements _LicensesDocSubmit {
     TResult Function(String licensesDoc)? deleteLicensesDoc,
     TResult Function()? addMoreLicensesDoc,
     TResult Function(int index)? deleteLicensesObject,
-    TResult Function(bool isAddMoreBtnClick)? licensesDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? licensesDocSubmit,
     required TResult orElse(),
   }) {
     if (licensesDocSubmit != null) {
-      return licensesDocSubmit(isAddMoreBtnClick);
+      return licensesDocSubmit(isAddMoreBtnClick, isSkip);
     }
     return orElse();
   }
@@ -7704,10 +7781,12 @@ class _$LicensesDocSubmitImpl implements _LicensesDocSubmit {
 }
 
 abstract class _LicensesDocSubmit implements ProfessionalLicensesEvent {
-  const factory _LicensesDocSubmit({required final bool isAddMoreBtnClick}) =
-      _$LicensesDocSubmitImpl;
+  const factory _LicensesDocSubmit(
+      {required final bool isAddMoreBtnClick,
+      required final bool isSkip}) = _$LicensesDocSubmitImpl;
 
   bool get isAddMoreBtnClick;
+  bool get isSkip;
   @JsonKey(ignore: true)
   _$$LicensesDocSubmitImplCopyWith<_$LicensesDocSubmitImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -7726,7 +7805,8 @@ mixin _$ImmunizationEvent {
     required TResult Function(String immunizationDoc) deleteImmunizationDoc,
     required TResult Function() addMoreImmunizationDoc,
     required TResult Function(int index) deleteImmunizationObject,
-    required TResult Function(bool isAddMoreBtnClick) immunizationDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        immunizationDocSubmit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -7739,7 +7819,8 @@ mixin _$ImmunizationEvent {
     TResult? Function(String immunizationDoc)? deleteImmunizationDoc,
     TResult? Function()? addMoreImmunizationDoc,
     TResult? Function(int index)? deleteImmunizationObject,
-    TResult? Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)?
+        immunizationDocSubmit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -7752,7 +7833,8 @@ mixin _$ImmunizationEvent {
     TResult Function(String immunizationDoc)? deleteImmunizationDoc,
     TResult Function()? addMoreImmunizationDoc,
     TResult Function(int index)? deleteImmunizationObject,
-    TResult Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)?
+        immunizationDocSubmit,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -7884,7 +7966,8 @@ class _$GetImmunizationDataOnInitImpl implements _GetImmunizationDataOnInit {
     required TResult Function(String immunizationDoc) deleteImmunizationDoc,
     required TResult Function() addMoreImmunizationDoc,
     required TResult Function(int index) deleteImmunizationObject,
-    required TResult Function(bool isAddMoreBtnClick) immunizationDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        immunizationDocSubmit,
   }) {
     return getImmunizationDataOnInit();
   }
@@ -7900,7 +7983,8 @@ class _$GetImmunizationDataOnInitImpl implements _GetImmunizationDataOnInit {
     TResult? Function(String immunizationDoc)? deleteImmunizationDoc,
     TResult? Function()? addMoreImmunizationDoc,
     TResult? Function(int index)? deleteImmunizationObject,
-    TResult? Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)?
+        immunizationDocSubmit,
   }) {
     return getImmunizationDataOnInit?.call();
   }
@@ -7916,7 +8000,8 @@ class _$GetImmunizationDataOnInitImpl implements _GetImmunizationDataOnInit {
     TResult Function(String immunizationDoc)? deleteImmunizationDoc,
     TResult Function()? addMoreImmunizationDoc,
     TResult Function(int index)? deleteImmunizationObject,
-    TResult Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)?
+        immunizationDocSubmit,
     required TResult orElse(),
   }) {
     if (getImmunizationDataOnInit != null) {
@@ -8077,7 +8162,8 @@ class _$ImmunizationsNameChanegdImpl implements _ImmunizationsNameChanegd {
     required TResult Function(String immunizationDoc) deleteImmunizationDoc,
     required TResult Function() addMoreImmunizationDoc,
     required TResult Function(int index) deleteImmunizationObject,
-    required TResult Function(bool isAddMoreBtnClick) immunizationDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        immunizationDocSubmit,
   }) {
     return immunizationsNameChanegd(immunizationsName);
   }
@@ -8093,7 +8179,8 @@ class _$ImmunizationsNameChanegdImpl implements _ImmunizationsNameChanegd {
     TResult? Function(String immunizationDoc)? deleteImmunizationDoc,
     TResult? Function()? addMoreImmunizationDoc,
     TResult? Function(int index)? deleteImmunizationObject,
-    TResult? Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)?
+        immunizationDocSubmit,
   }) {
     return immunizationsNameChanegd?.call(immunizationsName);
   }
@@ -8109,7 +8196,8 @@ class _$ImmunizationsNameChanegdImpl implements _ImmunizationsNameChanegd {
     TResult Function(String immunizationDoc)? deleteImmunizationDoc,
     TResult Function()? addMoreImmunizationDoc,
     TResult Function(int index)? deleteImmunizationObject,
-    TResult Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)?
+        immunizationDocSubmit,
     required TResult orElse(),
   }) {
     if (immunizationsNameChanegd != null) {
@@ -8277,7 +8365,8 @@ class _$CheckNAImmunizationExpiryDateImpl
     required TResult Function(String immunizationDoc) deleteImmunizationDoc,
     required TResult Function() addMoreImmunizationDoc,
     required TResult Function(int index) deleteImmunizationObject,
-    required TResult Function(bool isAddMoreBtnClick) immunizationDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        immunizationDocSubmit,
   }) {
     return checkNAImmunizationExpiryDate(isCheck);
   }
@@ -8293,7 +8382,8 @@ class _$CheckNAImmunizationExpiryDateImpl
     TResult? Function(String immunizationDoc)? deleteImmunizationDoc,
     TResult? Function()? addMoreImmunizationDoc,
     TResult? Function(int index)? deleteImmunizationObject,
-    TResult? Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)?
+        immunizationDocSubmit,
   }) {
     return checkNAImmunizationExpiryDate?.call(isCheck);
   }
@@ -8309,7 +8399,8 @@ class _$CheckNAImmunizationExpiryDateImpl
     TResult Function(String immunizationDoc)? deleteImmunizationDoc,
     TResult Function()? addMoreImmunizationDoc,
     TResult Function(int index)? deleteImmunizationObject,
-    TResult Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)?
+        immunizationDocSubmit,
     required TResult orElse(),
   }) {
     if (checkNAImmunizationExpiryDate != null) {
@@ -8479,7 +8570,8 @@ class _$ImmunizationExpiryDateChangedImpl
     required TResult Function(String immunizationDoc) deleteImmunizationDoc,
     required TResult Function() addMoreImmunizationDoc,
     required TResult Function(int index) deleteImmunizationObject,
-    required TResult Function(bool isAddMoreBtnClick) immunizationDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        immunizationDocSubmit,
   }) {
     return immunizationExpiryDateChanged(expiryDate);
   }
@@ -8495,7 +8587,8 @@ class _$ImmunizationExpiryDateChangedImpl
     TResult? Function(String immunizationDoc)? deleteImmunizationDoc,
     TResult? Function()? addMoreImmunizationDoc,
     TResult? Function(int index)? deleteImmunizationObject,
-    TResult? Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)?
+        immunizationDocSubmit,
   }) {
     return immunizationExpiryDateChanged?.call(expiryDate);
   }
@@ -8511,7 +8604,8 @@ class _$ImmunizationExpiryDateChangedImpl
     TResult Function(String immunizationDoc)? deleteImmunizationDoc,
     TResult Function()? addMoreImmunizationDoc,
     TResult Function(int index)? deleteImmunizationObject,
-    TResult Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)?
+        immunizationDocSubmit,
     required TResult orElse(),
   }) {
     if (immunizationExpiryDateChanged != null) {
@@ -8677,7 +8771,8 @@ class _$SelectImmunizationDocImpl implements _SelectImmunizationDoc {
     required TResult Function(String immunizationDoc) deleteImmunizationDoc,
     required TResult Function() addMoreImmunizationDoc,
     required TResult Function(int index) deleteImmunizationObject,
-    required TResult Function(bool isAddMoreBtnClick) immunizationDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        immunizationDocSubmit,
   }) {
     return selectImmunizationDoc(immunizationDoc);
   }
@@ -8693,7 +8788,8 @@ class _$SelectImmunizationDocImpl implements _SelectImmunizationDoc {
     TResult? Function(String immunizationDoc)? deleteImmunizationDoc,
     TResult? Function()? addMoreImmunizationDoc,
     TResult? Function(int index)? deleteImmunizationObject,
-    TResult? Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)?
+        immunizationDocSubmit,
   }) {
     return selectImmunizationDoc?.call(immunizationDoc);
   }
@@ -8709,7 +8805,8 @@ class _$SelectImmunizationDocImpl implements _SelectImmunizationDoc {
     TResult Function(String immunizationDoc)? deleteImmunizationDoc,
     TResult Function()? addMoreImmunizationDoc,
     TResult Function(int index)? deleteImmunizationObject,
-    TResult Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)?
+        immunizationDocSubmit,
     required TResult orElse(),
   }) {
     if (selectImmunizationDoc != null) {
@@ -8874,7 +8971,8 @@ class _$DeleteImmunizationDocImpl implements _DeleteImmunizationDoc {
     required TResult Function(String immunizationDoc) deleteImmunizationDoc,
     required TResult Function() addMoreImmunizationDoc,
     required TResult Function(int index) deleteImmunizationObject,
-    required TResult Function(bool isAddMoreBtnClick) immunizationDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        immunizationDocSubmit,
   }) {
     return deleteImmunizationDoc(immunizationDoc);
   }
@@ -8890,7 +8988,8 @@ class _$DeleteImmunizationDocImpl implements _DeleteImmunizationDoc {
     TResult? Function(String immunizationDoc)? deleteImmunizationDoc,
     TResult? Function()? addMoreImmunizationDoc,
     TResult? Function(int index)? deleteImmunizationObject,
-    TResult? Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)?
+        immunizationDocSubmit,
   }) {
     return deleteImmunizationDoc?.call(immunizationDoc);
   }
@@ -8906,7 +9005,8 @@ class _$DeleteImmunizationDocImpl implements _DeleteImmunizationDoc {
     TResult Function(String immunizationDoc)? deleteImmunizationDoc,
     TResult Function()? addMoreImmunizationDoc,
     TResult Function(int index)? deleteImmunizationObject,
-    TResult Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)?
+        immunizationDocSubmit,
     required TResult orElse(),
   }) {
     if (deleteImmunizationDoc != null) {
@@ -9045,7 +9145,8 @@ class _$AddMoreImmunizationDocImpl implements _AddMoreImmunizationDoc {
     required TResult Function(String immunizationDoc) deleteImmunizationDoc,
     required TResult Function() addMoreImmunizationDoc,
     required TResult Function(int index) deleteImmunizationObject,
-    required TResult Function(bool isAddMoreBtnClick) immunizationDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        immunizationDocSubmit,
   }) {
     return addMoreImmunizationDoc();
   }
@@ -9061,7 +9162,8 @@ class _$AddMoreImmunizationDocImpl implements _AddMoreImmunizationDoc {
     TResult? Function(String immunizationDoc)? deleteImmunizationDoc,
     TResult? Function()? addMoreImmunizationDoc,
     TResult? Function(int index)? deleteImmunizationObject,
-    TResult? Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)?
+        immunizationDocSubmit,
   }) {
     return addMoreImmunizationDoc?.call();
   }
@@ -9077,7 +9179,8 @@ class _$AddMoreImmunizationDocImpl implements _AddMoreImmunizationDoc {
     TResult Function(String immunizationDoc)? deleteImmunizationDoc,
     TResult Function()? addMoreImmunizationDoc,
     TResult Function(int index)? deleteImmunizationObject,
-    TResult Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)?
+        immunizationDocSubmit,
     required TResult orElse(),
   }) {
     if (addMoreImmunizationDoc != null) {
@@ -9237,7 +9340,8 @@ class _$DeleteImmunizationObjectImpl implements _DeleteImmunizationObject {
     required TResult Function(String immunizationDoc) deleteImmunizationDoc,
     required TResult Function() addMoreImmunizationDoc,
     required TResult Function(int index) deleteImmunizationObject,
-    required TResult Function(bool isAddMoreBtnClick) immunizationDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        immunizationDocSubmit,
   }) {
     return deleteImmunizationObject(index);
   }
@@ -9253,7 +9357,8 @@ class _$DeleteImmunizationObjectImpl implements _DeleteImmunizationObject {
     TResult? Function(String immunizationDoc)? deleteImmunizationDoc,
     TResult? Function()? addMoreImmunizationDoc,
     TResult? Function(int index)? deleteImmunizationObject,
-    TResult? Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)?
+        immunizationDocSubmit,
   }) {
     return deleteImmunizationObject?.call(index);
   }
@@ -9269,7 +9374,8 @@ class _$DeleteImmunizationObjectImpl implements _DeleteImmunizationObject {
     TResult Function(String immunizationDoc)? deleteImmunizationDoc,
     TResult Function()? addMoreImmunizationDoc,
     TResult Function(int index)? deleteImmunizationObject,
-    TResult Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)?
+        immunizationDocSubmit,
     required TResult orElse(),
   }) {
     if (deleteImmunizationObject != null) {
@@ -9365,7 +9471,7 @@ abstract class _$$ImmunizationDocSubmitImplCopyWith<$Res> {
           $Res Function(_$ImmunizationDocSubmitImpl) then) =
       __$$ImmunizationDocSubmitImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({bool isAddMoreBtnClick});
+  $Res call({bool isAddMoreBtnClick, bool isSkip});
 }
 
 /// @nodoc
@@ -9380,11 +9486,16 @@ class __$$ImmunizationDocSubmitImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isAddMoreBtnClick = null,
+    Object? isSkip = null,
   }) {
     return _then(_$ImmunizationDocSubmitImpl(
       isAddMoreBtnClick: null == isAddMoreBtnClick
           ? _value.isAddMoreBtnClick
           : isAddMoreBtnClick // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSkip: null == isSkip
+          ? _value.isSkip
+          : isSkip // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -9393,14 +9504,17 @@ class __$$ImmunizationDocSubmitImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ImmunizationDocSubmitImpl implements _ImmunizationDocSubmit {
-  const _$ImmunizationDocSubmitImpl({required this.isAddMoreBtnClick});
+  const _$ImmunizationDocSubmitImpl(
+      {required this.isAddMoreBtnClick, required this.isSkip});
 
   @override
   final bool isAddMoreBtnClick;
+  @override
+  final bool isSkip;
 
   @override
   String toString() {
-    return 'ImmunizationEvent.immunizationDocSubmit(isAddMoreBtnClick: $isAddMoreBtnClick)';
+    return 'ImmunizationEvent.immunizationDocSubmit(isAddMoreBtnClick: $isAddMoreBtnClick, isSkip: $isSkip)';
   }
 
   @override
@@ -9409,11 +9523,12 @@ class _$ImmunizationDocSubmitImpl implements _ImmunizationDocSubmit {
         (other.runtimeType == runtimeType &&
             other is _$ImmunizationDocSubmitImpl &&
             (identical(other.isAddMoreBtnClick, isAddMoreBtnClick) ||
-                other.isAddMoreBtnClick == isAddMoreBtnClick));
+                other.isAddMoreBtnClick == isAddMoreBtnClick) &&
+            (identical(other.isSkip, isSkip) || other.isSkip == isSkip));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isAddMoreBtnClick);
+  int get hashCode => Object.hash(runtimeType, isAddMoreBtnClick, isSkip);
 
   @JsonKey(ignore: true)
   @override
@@ -9434,9 +9549,10 @@ class _$ImmunizationDocSubmitImpl implements _ImmunizationDocSubmit {
     required TResult Function(String immunizationDoc) deleteImmunizationDoc,
     required TResult Function() addMoreImmunizationDoc,
     required TResult Function(int index) deleteImmunizationObject,
-    required TResult Function(bool isAddMoreBtnClick) immunizationDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        immunizationDocSubmit,
   }) {
-    return immunizationDocSubmit(isAddMoreBtnClick);
+    return immunizationDocSubmit(isAddMoreBtnClick, isSkip);
   }
 
   @override
@@ -9450,9 +9566,10 @@ class _$ImmunizationDocSubmitImpl implements _ImmunizationDocSubmit {
     TResult? Function(String immunizationDoc)? deleteImmunizationDoc,
     TResult? Function()? addMoreImmunizationDoc,
     TResult? Function(int index)? deleteImmunizationObject,
-    TResult? Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)?
+        immunizationDocSubmit,
   }) {
-    return immunizationDocSubmit?.call(isAddMoreBtnClick);
+    return immunizationDocSubmit?.call(isAddMoreBtnClick, isSkip);
   }
 
   @override
@@ -9466,11 +9583,12 @@ class _$ImmunizationDocSubmitImpl implements _ImmunizationDocSubmit {
     TResult Function(String immunizationDoc)? deleteImmunizationDoc,
     TResult Function()? addMoreImmunizationDoc,
     TResult Function(int index)? deleteImmunizationObject,
-    TResult Function(bool isAddMoreBtnClick)? immunizationDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)?
+        immunizationDocSubmit,
     required TResult orElse(),
   }) {
     if (immunizationDocSubmit != null) {
-      return immunizationDocSubmit(isAddMoreBtnClick);
+      return immunizationDocSubmit(isAddMoreBtnClick, isSkip);
     }
     return orElse();
   }
@@ -9547,9 +9665,11 @@ class _$ImmunizationDocSubmitImpl implements _ImmunizationDocSubmit {
 
 abstract class _ImmunizationDocSubmit implements ImmunizationEvent {
   const factory _ImmunizationDocSubmit(
-      {required final bool isAddMoreBtnClick}) = _$ImmunizationDocSubmitImpl;
+      {required final bool isAddMoreBtnClick,
+      required final bool isSkip}) = _$ImmunizationDocSubmitImpl;
 
   bool get isAddMoreBtnClick;
+  bool get isSkip;
   @JsonKey(ignore: true)
   _$$ImmunizationDocSubmitImplCopyWith<_$ImmunizationDocSubmitImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -9566,7 +9686,8 @@ mixin _$ProfessionalLiabilityEvent {
     required TResult Function(String liabilityDoc) deleteLiabilityDoc,
     required TResult Function() addMoreLiabilityDoc,
     required TResult Function(int index) deleteLiabilityObject,
-    required TResult Function(bool isAddMoreBtnClick) liabilityDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        liabilityDocSubmit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -9578,7 +9699,7 @@ mixin _$ProfessionalLiabilityEvent {
     TResult? Function(String liabilityDoc)? deleteLiabilityDoc,
     TResult? Function()? addMoreLiabilityDoc,
     TResult? Function(int index)? deleteLiabilityObject,
-    TResult? Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? liabilityDocSubmit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -9590,7 +9711,7 @@ mixin _$ProfessionalLiabilityEvent {
     TResult Function(String liabilityDoc)? deleteLiabilityDoc,
     TResult Function()? addMoreLiabilityDoc,
     TResult Function(int index)? deleteLiabilityObject,
-    TResult Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? liabilityDocSubmit,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -9706,7 +9827,8 @@ class _$GetLiabilityListImpl implements GetLiabilityList {
     required TResult Function(String liabilityDoc) deleteLiabilityDoc,
     required TResult Function() addMoreLiabilityDoc,
     required TResult Function(int index) deleteLiabilityObject,
-    required TResult Function(bool isAddMoreBtnClick) liabilityDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        liabilityDocSubmit,
   }) {
     return getLiabilityList();
   }
@@ -9721,7 +9843,7 @@ class _$GetLiabilityListImpl implements GetLiabilityList {
     TResult? Function(String liabilityDoc)? deleteLiabilityDoc,
     TResult? Function()? addMoreLiabilityDoc,
     TResult? Function(int index)? deleteLiabilityObject,
-    TResult? Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? liabilityDocSubmit,
   }) {
     return getLiabilityList?.call();
   }
@@ -9736,7 +9858,7 @@ class _$GetLiabilityListImpl implements GetLiabilityList {
     TResult Function(String liabilityDoc)? deleteLiabilityDoc,
     TResult Function()? addMoreLiabilityDoc,
     TResult Function(int index)? deleteLiabilityObject,
-    TResult Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? liabilityDocSubmit,
     required TResult orElse(),
   }) {
     if (getLiabilityList != null) {
@@ -9881,7 +10003,8 @@ class _$CheckNALiabilityExpiryDateImpl implements CheckNALiabilityExpiryDate {
     required TResult Function(String liabilityDoc) deleteLiabilityDoc,
     required TResult Function() addMoreLiabilityDoc,
     required TResult Function(int index) deleteLiabilityObject,
-    required TResult Function(bool isAddMoreBtnClick) liabilityDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        liabilityDocSubmit,
   }) {
     return checkNALiabilityExpiryDate(isCheck);
   }
@@ -9896,7 +10019,7 @@ class _$CheckNALiabilityExpiryDateImpl implements CheckNALiabilityExpiryDate {
     TResult? Function(String liabilityDoc)? deleteLiabilityDoc,
     TResult? Function()? addMoreLiabilityDoc,
     TResult? Function(int index)? deleteLiabilityObject,
-    TResult? Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? liabilityDocSubmit,
   }) {
     return checkNALiabilityExpiryDate?.call(isCheck);
   }
@@ -9911,7 +10034,7 @@ class _$CheckNALiabilityExpiryDateImpl implements CheckNALiabilityExpiryDate {
     TResult Function(String liabilityDoc)? deleteLiabilityDoc,
     TResult Function()? addMoreLiabilityDoc,
     TResult Function(int index)? deleteLiabilityObject,
-    TResult Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? liabilityDocSubmit,
     required TResult orElse(),
   }) {
     if (checkNALiabilityExpiryDate != null) {
@@ -10064,7 +10187,8 @@ class _$LiabilityExpiryDateChangedImpl implements _LiabilityExpiryDateChanged {
     required TResult Function(String liabilityDoc) deleteLiabilityDoc,
     required TResult Function() addMoreLiabilityDoc,
     required TResult Function(int index) deleteLiabilityObject,
-    required TResult Function(bool isAddMoreBtnClick) liabilityDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        liabilityDocSubmit,
   }) {
     return liabilityExpiryDateChanged(expiryDate);
   }
@@ -10079,7 +10203,7 @@ class _$LiabilityExpiryDateChangedImpl implements _LiabilityExpiryDateChanged {
     TResult? Function(String liabilityDoc)? deleteLiabilityDoc,
     TResult? Function()? addMoreLiabilityDoc,
     TResult? Function(int index)? deleteLiabilityObject,
-    TResult? Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? liabilityDocSubmit,
   }) {
     return liabilityExpiryDateChanged?.call(expiryDate);
   }
@@ -10094,7 +10218,7 @@ class _$LiabilityExpiryDateChangedImpl implements _LiabilityExpiryDateChanged {
     TResult Function(String liabilityDoc)? deleteLiabilityDoc,
     TResult Function()? addMoreLiabilityDoc,
     TResult Function(int index)? deleteLiabilityObject,
-    TResult Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? liabilityDocSubmit,
     required TResult orElse(),
   }) {
     if (liabilityExpiryDateChanged != null) {
@@ -10245,7 +10369,8 @@ class _$SelectLiabilityDocImpl implements _SelectLiabilityDoc {
     required TResult Function(String liabilityDoc) deleteLiabilityDoc,
     required TResult Function() addMoreLiabilityDoc,
     required TResult Function(int index) deleteLiabilityObject,
-    required TResult Function(bool isAddMoreBtnClick) liabilityDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        liabilityDocSubmit,
   }) {
     return selectLiabilityDoc(liabilityDoc);
   }
@@ -10260,7 +10385,7 @@ class _$SelectLiabilityDocImpl implements _SelectLiabilityDoc {
     TResult? Function(String liabilityDoc)? deleteLiabilityDoc,
     TResult? Function()? addMoreLiabilityDoc,
     TResult? Function(int index)? deleteLiabilityObject,
-    TResult? Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? liabilityDocSubmit,
   }) {
     return selectLiabilityDoc?.call(liabilityDoc);
   }
@@ -10275,7 +10400,7 @@ class _$SelectLiabilityDocImpl implements _SelectLiabilityDoc {
     TResult Function(String liabilityDoc)? deleteLiabilityDoc,
     TResult Function()? addMoreLiabilityDoc,
     TResult Function(int index)? deleteLiabilityObject,
-    TResult Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? liabilityDocSubmit,
     required TResult orElse(),
   }) {
     if (selectLiabilityDoc != null) {
@@ -10425,7 +10550,8 @@ class _$DeleteLiabilityDocImpl implements _DeleteLiabilityDoc {
     required TResult Function(String liabilityDoc) deleteLiabilityDoc,
     required TResult Function() addMoreLiabilityDoc,
     required TResult Function(int index) deleteLiabilityObject,
-    required TResult Function(bool isAddMoreBtnClick) liabilityDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        liabilityDocSubmit,
   }) {
     return deleteLiabilityDoc(liabilityDoc);
   }
@@ -10440,7 +10566,7 @@ class _$DeleteLiabilityDocImpl implements _DeleteLiabilityDoc {
     TResult? Function(String liabilityDoc)? deleteLiabilityDoc,
     TResult? Function()? addMoreLiabilityDoc,
     TResult? Function(int index)? deleteLiabilityObject,
-    TResult? Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? liabilityDocSubmit,
   }) {
     return deleteLiabilityDoc?.call(liabilityDoc);
   }
@@ -10455,7 +10581,7 @@ class _$DeleteLiabilityDocImpl implements _DeleteLiabilityDoc {
     TResult Function(String liabilityDoc)? deleteLiabilityDoc,
     TResult Function()? addMoreLiabilityDoc,
     TResult Function(int index)? deleteLiabilityObject,
-    TResult Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? liabilityDocSubmit,
     required TResult orElse(),
   }) {
     if (deleteLiabilityDoc != null) {
@@ -10578,7 +10704,8 @@ class _$AddMoreLiabilityDocImpl implements _AddMoreLiabilityDoc {
     required TResult Function(String liabilityDoc) deleteLiabilityDoc,
     required TResult Function() addMoreLiabilityDoc,
     required TResult Function(int index) deleteLiabilityObject,
-    required TResult Function(bool isAddMoreBtnClick) liabilityDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        liabilityDocSubmit,
   }) {
     return addMoreLiabilityDoc();
   }
@@ -10593,7 +10720,7 @@ class _$AddMoreLiabilityDocImpl implements _AddMoreLiabilityDoc {
     TResult? Function(String liabilityDoc)? deleteLiabilityDoc,
     TResult? Function()? addMoreLiabilityDoc,
     TResult? Function(int index)? deleteLiabilityObject,
-    TResult? Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? liabilityDocSubmit,
   }) {
     return addMoreLiabilityDoc?.call();
   }
@@ -10608,7 +10735,7 @@ class _$AddMoreLiabilityDocImpl implements _AddMoreLiabilityDoc {
     TResult Function(String liabilityDoc)? deleteLiabilityDoc,
     TResult Function()? addMoreLiabilityDoc,
     TResult Function(int index)? deleteLiabilityObject,
-    TResult Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? liabilityDocSubmit,
     required TResult orElse(),
   }) {
     if (addMoreLiabilityDoc != null) {
@@ -10752,7 +10879,8 @@ class _$DeleteLiabilityObjectImpl implements _DeleteLiabilityObject {
     required TResult Function(String liabilityDoc) deleteLiabilityDoc,
     required TResult Function() addMoreLiabilityDoc,
     required TResult Function(int index) deleteLiabilityObject,
-    required TResult Function(bool isAddMoreBtnClick) liabilityDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        liabilityDocSubmit,
   }) {
     return deleteLiabilityObject(index);
   }
@@ -10767,7 +10895,7 @@ class _$DeleteLiabilityObjectImpl implements _DeleteLiabilityObject {
     TResult? Function(String liabilityDoc)? deleteLiabilityDoc,
     TResult? Function()? addMoreLiabilityDoc,
     TResult? Function(int index)? deleteLiabilityObject,
-    TResult? Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? liabilityDocSubmit,
   }) {
     return deleteLiabilityObject?.call(index);
   }
@@ -10782,7 +10910,7 @@ class _$DeleteLiabilityObjectImpl implements _DeleteLiabilityObject {
     TResult Function(String liabilityDoc)? deleteLiabilityDoc,
     TResult Function()? addMoreLiabilityDoc,
     TResult Function(int index)? deleteLiabilityObject,
-    TResult Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? liabilityDocSubmit,
     required TResult orElse(),
   }) {
     if (deleteLiabilityObject != null) {
@@ -10864,7 +10992,7 @@ abstract class _$$LiabilityDocSubmitImplCopyWith<$Res> {
           $Res Function(_$LiabilityDocSubmitImpl) then) =
       __$$LiabilityDocSubmitImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({bool isAddMoreBtnClick});
+  $Res call({bool isAddMoreBtnClick, bool isSkip});
 }
 
 /// @nodoc
@@ -10880,11 +11008,16 @@ class __$$LiabilityDocSubmitImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isAddMoreBtnClick = null,
+    Object? isSkip = null,
   }) {
     return _then(_$LiabilityDocSubmitImpl(
       isAddMoreBtnClick: null == isAddMoreBtnClick
           ? _value.isAddMoreBtnClick
           : isAddMoreBtnClick // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSkip: null == isSkip
+          ? _value.isSkip
+          : isSkip // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -10893,14 +11026,17 @@ class __$$LiabilityDocSubmitImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LiabilityDocSubmitImpl implements _LiabilityDocSubmit {
-  const _$LiabilityDocSubmitImpl({required this.isAddMoreBtnClick});
+  const _$LiabilityDocSubmitImpl(
+      {required this.isAddMoreBtnClick, required this.isSkip});
 
   @override
   final bool isAddMoreBtnClick;
+  @override
+  final bool isSkip;
 
   @override
   String toString() {
-    return 'ProfessionalLiabilityEvent.liabilityDocSubmit(isAddMoreBtnClick: $isAddMoreBtnClick)';
+    return 'ProfessionalLiabilityEvent.liabilityDocSubmit(isAddMoreBtnClick: $isAddMoreBtnClick, isSkip: $isSkip)';
   }
 
   @override
@@ -10909,11 +11045,12 @@ class _$LiabilityDocSubmitImpl implements _LiabilityDocSubmit {
         (other.runtimeType == runtimeType &&
             other is _$LiabilityDocSubmitImpl &&
             (identical(other.isAddMoreBtnClick, isAddMoreBtnClick) ||
-                other.isAddMoreBtnClick == isAddMoreBtnClick));
+                other.isAddMoreBtnClick == isAddMoreBtnClick) &&
+            (identical(other.isSkip, isSkip) || other.isSkip == isSkip));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isAddMoreBtnClick);
+  int get hashCode => Object.hash(runtimeType, isAddMoreBtnClick, isSkip);
 
   @JsonKey(ignore: true)
   @override
@@ -10932,9 +11069,10 @@ class _$LiabilityDocSubmitImpl implements _LiabilityDocSubmit {
     required TResult Function(String liabilityDoc) deleteLiabilityDoc,
     required TResult Function() addMoreLiabilityDoc,
     required TResult Function(int index) deleteLiabilityObject,
-    required TResult Function(bool isAddMoreBtnClick) liabilityDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        liabilityDocSubmit,
   }) {
-    return liabilityDocSubmit(isAddMoreBtnClick);
+    return liabilityDocSubmit(isAddMoreBtnClick, isSkip);
   }
 
   @override
@@ -10947,9 +11085,9 @@ class _$LiabilityDocSubmitImpl implements _LiabilityDocSubmit {
     TResult? Function(String liabilityDoc)? deleteLiabilityDoc,
     TResult? Function()? addMoreLiabilityDoc,
     TResult? Function(int index)? deleteLiabilityObject,
-    TResult? Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? liabilityDocSubmit,
   }) {
-    return liabilityDocSubmit?.call(isAddMoreBtnClick);
+    return liabilityDocSubmit?.call(isAddMoreBtnClick, isSkip);
   }
 
   @override
@@ -10962,11 +11100,11 @@ class _$LiabilityDocSubmitImpl implements _LiabilityDocSubmit {
     TResult Function(String liabilityDoc)? deleteLiabilityDoc,
     TResult Function()? addMoreLiabilityDoc,
     TResult Function(int index)? deleteLiabilityObject,
-    TResult Function(bool isAddMoreBtnClick)? liabilityDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? liabilityDocSubmit,
     required TResult orElse(),
   }) {
     if (liabilityDocSubmit != null) {
-      return liabilityDocSubmit(isAddMoreBtnClick);
+      return liabilityDocSubmit(isAddMoreBtnClick, isSkip);
     }
     return orElse();
   }
@@ -11029,10 +11167,12 @@ class _$LiabilityDocSubmitImpl implements _LiabilityDocSubmit {
 }
 
 abstract class _LiabilityDocSubmit implements ProfessionalLiabilityEvent {
-  const factory _LiabilityDocSubmit({required final bool isAddMoreBtnClick}) =
-      _$LiabilityDocSubmitImpl;
+  const factory _LiabilityDocSubmit(
+      {required final bool isAddMoreBtnClick,
+      required final bool isSkip}) = _$LiabilityDocSubmitImpl;
 
   bool get isAddMoreBtnClick;
+  bool get isSkip;
   @JsonKey(ignore: true)
   _$$LiabilityDocSubmitImplCopyWith<_$LiabilityDocSubmitImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -11045,7 +11185,7 @@ mixin _$ResumeEvent {
     required TResult Function() getResumeDoc,
     required TResult Function(String resumeDoc) selectResumeDoc,
     required TResult Function(String resumeDoc) deleteResumeDoc,
-    required TResult Function() resumeDocSubmit,
+    required TResult Function(bool isSkip) resumeDocSubmit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -11053,7 +11193,7 @@ mixin _$ResumeEvent {
     TResult? Function()? getResumeDoc,
     TResult? Function(String resumeDoc)? selectResumeDoc,
     TResult? Function(String resumeDoc)? deleteResumeDoc,
-    TResult? Function()? resumeDocSubmit,
+    TResult? Function(bool isSkip)? resumeDocSubmit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -11061,7 +11201,7 @@ mixin _$ResumeEvent {
     TResult Function()? getResumeDoc,
     TResult Function(String resumeDoc)? selectResumeDoc,
     TResult Function(String resumeDoc)? deleteResumeDoc,
-    TResult Function()? resumeDocSubmit,
+    TResult Function(bool isSkip)? resumeDocSubmit,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -11151,7 +11291,7 @@ class _$GetResumeDocImpl implements GetResumeDoc {
     required TResult Function() getResumeDoc,
     required TResult Function(String resumeDoc) selectResumeDoc,
     required TResult Function(String resumeDoc) deleteResumeDoc,
-    required TResult Function() resumeDocSubmit,
+    required TResult Function(bool isSkip) resumeDocSubmit,
   }) {
     return getResumeDoc();
   }
@@ -11162,7 +11302,7 @@ class _$GetResumeDocImpl implements GetResumeDoc {
     TResult? Function()? getResumeDoc,
     TResult? Function(String resumeDoc)? selectResumeDoc,
     TResult? Function(String resumeDoc)? deleteResumeDoc,
-    TResult? Function()? resumeDocSubmit,
+    TResult? Function(bool isSkip)? resumeDocSubmit,
   }) {
     return getResumeDoc?.call();
   }
@@ -11173,7 +11313,7 @@ class _$GetResumeDocImpl implements GetResumeDoc {
     TResult Function()? getResumeDoc,
     TResult Function(String resumeDoc)? selectResumeDoc,
     TResult Function(String resumeDoc)? deleteResumeDoc,
-    TResult Function()? resumeDocSubmit,
+    TResult Function(bool isSkip)? resumeDocSubmit,
     required TResult orElse(),
   }) {
     if (getResumeDoc != null) {
@@ -11293,7 +11433,7 @@ class _$SelectResumeDocImpl implements _SelectResumeDoc {
     required TResult Function() getResumeDoc,
     required TResult Function(String resumeDoc) selectResumeDoc,
     required TResult Function(String resumeDoc) deleteResumeDoc,
-    required TResult Function() resumeDocSubmit,
+    required TResult Function(bool isSkip) resumeDocSubmit,
   }) {
     return selectResumeDoc(resumeDoc);
   }
@@ -11304,7 +11444,7 @@ class _$SelectResumeDocImpl implements _SelectResumeDoc {
     TResult? Function()? getResumeDoc,
     TResult? Function(String resumeDoc)? selectResumeDoc,
     TResult? Function(String resumeDoc)? deleteResumeDoc,
-    TResult? Function()? resumeDocSubmit,
+    TResult? Function(bool isSkip)? resumeDocSubmit,
   }) {
     return selectResumeDoc?.call(resumeDoc);
   }
@@ -11315,7 +11455,7 @@ class _$SelectResumeDocImpl implements _SelectResumeDoc {
     TResult Function()? getResumeDoc,
     TResult Function(String resumeDoc)? selectResumeDoc,
     TResult Function(String resumeDoc)? deleteResumeDoc,
-    TResult Function()? resumeDocSubmit,
+    TResult Function(bool isSkip)? resumeDocSubmit,
     required TResult orElse(),
   }) {
     if (selectResumeDoc != null) {
@@ -11441,7 +11581,7 @@ class _$DeleteResumeDocImpl implements _DeleteResumeDoc {
     required TResult Function() getResumeDoc,
     required TResult Function(String resumeDoc) selectResumeDoc,
     required TResult Function(String resumeDoc) deleteResumeDoc,
-    required TResult Function() resumeDocSubmit,
+    required TResult Function(bool isSkip) resumeDocSubmit,
   }) {
     return deleteResumeDoc(resumeDoc);
   }
@@ -11452,7 +11592,7 @@ class _$DeleteResumeDocImpl implements _DeleteResumeDoc {
     TResult? Function()? getResumeDoc,
     TResult? Function(String resumeDoc)? selectResumeDoc,
     TResult? Function(String resumeDoc)? deleteResumeDoc,
-    TResult? Function()? resumeDocSubmit,
+    TResult? Function(bool isSkip)? resumeDocSubmit,
   }) {
     return deleteResumeDoc?.call(resumeDoc);
   }
@@ -11463,7 +11603,7 @@ class _$DeleteResumeDocImpl implements _DeleteResumeDoc {
     TResult Function()? getResumeDoc,
     TResult Function(String resumeDoc)? selectResumeDoc,
     TResult Function(String resumeDoc)? deleteResumeDoc,
-    TResult Function()? resumeDocSubmit,
+    TResult Function(bool isSkip)? resumeDocSubmit,
     required TResult orElse(),
   }) {
     if (deleteResumeDoc != null) {
@@ -11525,6 +11665,8 @@ abstract class _$$ResumeDocSubmitImplCopyWith<$Res> {
   factory _$$ResumeDocSubmitImplCopyWith(_$ResumeDocSubmitImpl value,
           $Res Function(_$ResumeDocSubmitImpl) then) =
       __$$ResumeDocSubmitImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isSkip});
 }
 
 /// @nodoc
@@ -11534,26 +11676,51 @@ class __$$ResumeDocSubmitImplCopyWithImpl<$Res>
   __$$ResumeDocSubmitImplCopyWithImpl(
       _$ResumeDocSubmitImpl _value, $Res Function(_$ResumeDocSubmitImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isSkip = null,
+  }) {
+    return _then(_$ResumeDocSubmitImpl(
+      isSkip: null == isSkip
+          ? _value.isSkip
+          : isSkip // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$ResumeDocSubmitImpl implements _ResumeDocSubmit {
-  const _$ResumeDocSubmitImpl();
+  const _$ResumeDocSubmitImpl({required this.isSkip});
+
+  @override
+  final bool isSkip;
 
   @override
   String toString() {
-    return 'ResumeEvent.resumeDocSubmit()';
+    return 'ResumeEvent.resumeDocSubmit(isSkip: $isSkip)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ResumeDocSubmitImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$ResumeDocSubmitImpl &&
+            (identical(other.isSkip, isSkip) || other.isSkip == isSkip));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, isSkip);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ResumeDocSubmitImplCopyWith<_$ResumeDocSubmitImpl> get copyWith =>
+      __$$ResumeDocSubmitImplCopyWithImpl<_$ResumeDocSubmitImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -11561,9 +11728,9 @@ class _$ResumeDocSubmitImpl implements _ResumeDocSubmit {
     required TResult Function() getResumeDoc,
     required TResult Function(String resumeDoc) selectResumeDoc,
     required TResult Function(String resumeDoc) deleteResumeDoc,
-    required TResult Function() resumeDocSubmit,
+    required TResult Function(bool isSkip) resumeDocSubmit,
   }) {
-    return resumeDocSubmit();
+    return resumeDocSubmit(isSkip);
   }
 
   @override
@@ -11572,9 +11739,9 @@ class _$ResumeDocSubmitImpl implements _ResumeDocSubmit {
     TResult? Function()? getResumeDoc,
     TResult? Function(String resumeDoc)? selectResumeDoc,
     TResult? Function(String resumeDoc)? deleteResumeDoc,
-    TResult? Function()? resumeDocSubmit,
+    TResult? Function(bool isSkip)? resumeDocSubmit,
   }) {
-    return resumeDocSubmit?.call();
+    return resumeDocSubmit?.call(isSkip);
   }
 
   @override
@@ -11583,11 +11750,11 @@ class _$ResumeDocSubmitImpl implements _ResumeDocSubmit {
     TResult Function()? getResumeDoc,
     TResult Function(String resumeDoc)? selectResumeDoc,
     TResult Function(String resumeDoc)? deleteResumeDoc,
-    TResult Function()? resumeDocSubmit,
+    TResult Function(bool isSkip)? resumeDocSubmit,
     required TResult orElse(),
   }) {
     if (resumeDocSubmit != null) {
-      return resumeDocSubmit();
+      return resumeDocSubmit(isSkip);
     }
     return orElse();
   }
@@ -11631,7 +11798,13 @@ class _$ResumeDocSubmitImpl implements _ResumeDocSubmit {
 }
 
 abstract class _ResumeDocSubmit implements ResumeEvent {
-  const factory _ResumeDocSubmit() = _$ResumeDocSubmitImpl;
+  const factory _ResumeDocSubmit({required final bool isSkip}) =
+      _$ResumeDocSubmitImpl;
+
+  bool get isSkip;
+  @JsonKey(ignore: true)
+  _$$ResumeDocSubmitImplCopyWith<_$ResumeDocSubmitImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -11644,7 +11817,8 @@ mixin _$EquipmentEvent {
     required TResult Function(String equipmentDoc) deleteEquipmentDoc,
     required TResult Function() addMoreEquipmentDoc,
     required TResult Function(int index) deleteEquipmentObject,
-    required TResult Function(bool isAddMoreBtnClick) equipmentDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        equipmentDocSubmit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -11655,7 +11829,7 @@ mixin _$EquipmentEvent {
     TResult? Function(String equipmentDoc)? deleteEquipmentDoc,
     TResult? Function()? addMoreEquipmentDoc,
     TResult? Function(int index)? deleteEquipmentObject,
-    TResult? Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? equipmentDocSubmit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -11666,7 +11840,7 @@ mixin _$EquipmentEvent {
     TResult Function(String equipmentDoc)? deleteEquipmentDoc,
     TResult Function()? addMoreEquipmentDoc,
     TResult Function(int index)? deleteEquipmentObject,
-    TResult Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? equipmentDocSubmit,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -11769,7 +11943,8 @@ class _$GetEquipmentListImpl implements GetEquipmentList {
     required TResult Function(String equipmentDoc) deleteEquipmentDoc,
     required TResult Function() addMoreEquipmentDoc,
     required TResult Function(int index) deleteEquipmentObject,
-    required TResult Function(bool isAddMoreBtnClick) equipmentDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        equipmentDocSubmit,
   }) {
     return getEquipmentList();
   }
@@ -11783,7 +11958,7 @@ class _$GetEquipmentListImpl implements GetEquipmentList {
     TResult? Function(String equipmentDoc)? deleteEquipmentDoc,
     TResult? Function()? addMoreEquipmentDoc,
     TResult? Function(int index)? deleteEquipmentObject,
-    TResult? Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? equipmentDocSubmit,
   }) {
     return getEquipmentList?.call();
   }
@@ -11797,7 +11972,7 @@ class _$GetEquipmentListImpl implements GetEquipmentList {
     TResult Function(String equipmentDoc)? deleteEquipmentDoc,
     TResult Function()? addMoreEquipmentDoc,
     TResult Function(int index)? deleteEquipmentObject,
-    TResult Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? equipmentDocSubmit,
     required TResult orElse(),
   }) {
     if (getEquipmentList != null) {
@@ -11931,7 +12106,8 @@ class _$EquipmentNameChanegdImpl implements _EquipmentNameChanegd {
     required TResult Function(String equipmentDoc) deleteEquipmentDoc,
     required TResult Function() addMoreEquipmentDoc,
     required TResult Function(int index) deleteEquipmentObject,
-    required TResult Function(bool isAddMoreBtnClick) equipmentDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        equipmentDocSubmit,
   }) {
     return equipmentNameChanegd(equipmentName);
   }
@@ -11945,7 +12121,7 @@ class _$EquipmentNameChanegdImpl implements _EquipmentNameChanegd {
     TResult? Function(String equipmentDoc)? deleteEquipmentDoc,
     TResult? Function()? addMoreEquipmentDoc,
     TResult? Function(int index)? deleteEquipmentObject,
-    TResult? Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? equipmentDocSubmit,
   }) {
     return equipmentNameChanegd?.call(equipmentName);
   }
@@ -11959,7 +12135,7 @@ class _$EquipmentNameChanegdImpl implements _EquipmentNameChanegd {
     TResult Function(String equipmentDoc)? deleteEquipmentDoc,
     TResult Function()? addMoreEquipmentDoc,
     TResult Function(int index)? deleteEquipmentObject,
-    TResult Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? equipmentDocSubmit,
     required TResult orElse(),
   }) {
     if (equipmentNameChanegd != null) {
@@ -12098,7 +12274,8 @@ class _$SelectEquipmentDocImpl implements _SelectEquipmentDoc {
     required TResult Function(String equipmentDoc) deleteEquipmentDoc,
     required TResult Function() addMoreEquipmentDoc,
     required TResult Function(int index) deleteEquipmentObject,
-    required TResult Function(bool isAddMoreBtnClick) equipmentDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        equipmentDocSubmit,
   }) {
     return selectEquipmentDoc(equipmentDoc);
   }
@@ -12112,7 +12289,7 @@ class _$SelectEquipmentDocImpl implements _SelectEquipmentDoc {
     TResult? Function(String equipmentDoc)? deleteEquipmentDoc,
     TResult? Function()? addMoreEquipmentDoc,
     TResult? Function(int index)? deleteEquipmentObject,
-    TResult? Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? equipmentDocSubmit,
   }) {
     return selectEquipmentDoc?.call(equipmentDoc);
   }
@@ -12126,7 +12303,7 @@ class _$SelectEquipmentDocImpl implements _SelectEquipmentDoc {
     TResult Function(String equipmentDoc)? deleteEquipmentDoc,
     TResult Function()? addMoreEquipmentDoc,
     TResult Function(int index)? deleteEquipmentObject,
-    TResult Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? equipmentDocSubmit,
     required TResult orElse(),
   }) {
     if (selectEquipmentDoc != null) {
@@ -12265,7 +12442,8 @@ class _$DeleteEquipmentDocImpl implements _DeleteEquipmentDoc {
     required TResult Function(String equipmentDoc) deleteEquipmentDoc,
     required TResult Function() addMoreEquipmentDoc,
     required TResult Function(int index) deleteEquipmentObject,
-    required TResult Function(bool isAddMoreBtnClick) equipmentDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        equipmentDocSubmit,
   }) {
     return deleteEquipmentDoc(equipmentDoc);
   }
@@ -12279,7 +12457,7 @@ class _$DeleteEquipmentDocImpl implements _DeleteEquipmentDoc {
     TResult? Function(String equipmentDoc)? deleteEquipmentDoc,
     TResult? Function()? addMoreEquipmentDoc,
     TResult? Function(int index)? deleteEquipmentObject,
-    TResult? Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? equipmentDocSubmit,
   }) {
     return deleteEquipmentDoc?.call(equipmentDoc);
   }
@@ -12293,7 +12471,7 @@ class _$DeleteEquipmentDocImpl implements _DeleteEquipmentDoc {
     TResult Function(String equipmentDoc)? deleteEquipmentDoc,
     TResult Function()? addMoreEquipmentDoc,
     TResult Function(int index)? deleteEquipmentObject,
-    TResult Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? equipmentDocSubmit,
     required TResult orElse(),
   }) {
     if (deleteEquipmentDoc != null) {
@@ -12405,7 +12583,8 @@ class _$AddMoreEquipmentDocImpl implements _AddMoreEquipmentDoc {
     required TResult Function(String equipmentDoc) deleteEquipmentDoc,
     required TResult Function() addMoreEquipmentDoc,
     required TResult Function(int index) deleteEquipmentObject,
-    required TResult Function(bool isAddMoreBtnClick) equipmentDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        equipmentDocSubmit,
   }) {
     return addMoreEquipmentDoc();
   }
@@ -12419,7 +12598,7 @@ class _$AddMoreEquipmentDocImpl implements _AddMoreEquipmentDoc {
     TResult? Function(String equipmentDoc)? deleteEquipmentDoc,
     TResult? Function()? addMoreEquipmentDoc,
     TResult? Function(int index)? deleteEquipmentObject,
-    TResult? Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? equipmentDocSubmit,
   }) {
     return addMoreEquipmentDoc?.call();
   }
@@ -12433,7 +12612,7 @@ class _$AddMoreEquipmentDocImpl implements _AddMoreEquipmentDoc {
     TResult Function(String equipmentDoc)? deleteEquipmentDoc,
     TResult Function()? addMoreEquipmentDoc,
     TResult Function(int index)? deleteEquipmentObject,
-    TResult Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? equipmentDocSubmit,
     required TResult orElse(),
   }) {
     if (addMoreEquipmentDoc != null) {
@@ -12566,7 +12745,8 @@ class _$DeleteEquipmentObjectImpl implements _DeleteEquipmentObject {
     required TResult Function(String equipmentDoc) deleteEquipmentDoc,
     required TResult Function() addMoreEquipmentDoc,
     required TResult Function(int index) deleteEquipmentObject,
-    required TResult Function(bool isAddMoreBtnClick) equipmentDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        equipmentDocSubmit,
   }) {
     return deleteEquipmentObject(index);
   }
@@ -12580,7 +12760,7 @@ class _$DeleteEquipmentObjectImpl implements _DeleteEquipmentObject {
     TResult? Function(String equipmentDoc)? deleteEquipmentDoc,
     TResult? Function()? addMoreEquipmentDoc,
     TResult? Function(int index)? deleteEquipmentObject,
-    TResult? Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? equipmentDocSubmit,
   }) {
     return deleteEquipmentObject?.call(index);
   }
@@ -12594,7 +12774,7 @@ class _$DeleteEquipmentObjectImpl implements _DeleteEquipmentObject {
     TResult Function(String equipmentDoc)? deleteEquipmentDoc,
     TResult Function()? addMoreEquipmentDoc,
     TResult Function(int index)? deleteEquipmentObject,
-    TResult Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? equipmentDocSubmit,
     required TResult orElse(),
   }) {
     if (deleteEquipmentObject != null) {
@@ -12667,7 +12847,7 @@ abstract class _$$EquipmentDocSubmitImplCopyWith<$Res> {
           $Res Function(_$EquipmentDocSubmitImpl) then) =
       __$$EquipmentDocSubmitImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({bool isAddMoreBtnClick});
+  $Res call({bool isAddMoreBtnClick, bool isSkip});
 }
 
 /// @nodoc
@@ -12682,11 +12862,16 @@ class __$$EquipmentDocSubmitImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isAddMoreBtnClick = null,
+    Object? isSkip = null,
   }) {
     return _then(_$EquipmentDocSubmitImpl(
       isAddMoreBtnClick: null == isAddMoreBtnClick
           ? _value.isAddMoreBtnClick
           : isAddMoreBtnClick // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSkip: null == isSkip
+          ? _value.isSkip
+          : isSkip // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -12695,14 +12880,17 @@ class __$$EquipmentDocSubmitImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$EquipmentDocSubmitImpl implements _EquipmentDocSubmit {
-  const _$EquipmentDocSubmitImpl({required this.isAddMoreBtnClick});
+  const _$EquipmentDocSubmitImpl(
+      {required this.isAddMoreBtnClick, required this.isSkip});
 
   @override
   final bool isAddMoreBtnClick;
+  @override
+  final bool isSkip;
 
   @override
   String toString() {
-    return 'EquipmentEvent.equipmentDocSubmit(isAddMoreBtnClick: $isAddMoreBtnClick)';
+    return 'EquipmentEvent.equipmentDocSubmit(isAddMoreBtnClick: $isAddMoreBtnClick, isSkip: $isSkip)';
   }
 
   @override
@@ -12711,11 +12899,12 @@ class _$EquipmentDocSubmitImpl implements _EquipmentDocSubmit {
         (other.runtimeType == runtimeType &&
             other is _$EquipmentDocSubmitImpl &&
             (identical(other.isAddMoreBtnClick, isAddMoreBtnClick) ||
-                other.isAddMoreBtnClick == isAddMoreBtnClick));
+                other.isAddMoreBtnClick == isAddMoreBtnClick) &&
+            (identical(other.isSkip, isSkip) || other.isSkip == isSkip));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isAddMoreBtnClick);
+  int get hashCode => Object.hash(runtimeType, isAddMoreBtnClick, isSkip);
 
   @JsonKey(ignore: true)
   @override
@@ -12733,9 +12922,10 @@ class _$EquipmentDocSubmitImpl implements _EquipmentDocSubmit {
     required TResult Function(String equipmentDoc) deleteEquipmentDoc,
     required TResult Function() addMoreEquipmentDoc,
     required TResult Function(int index) deleteEquipmentObject,
-    required TResult Function(bool isAddMoreBtnClick) equipmentDocSubmit,
+    required TResult Function(bool isAddMoreBtnClick, bool isSkip)
+        equipmentDocSubmit,
   }) {
-    return equipmentDocSubmit(isAddMoreBtnClick);
+    return equipmentDocSubmit(isAddMoreBtnClick, isSkip);
   }
 
   @override
@@ -12747,9 +12937,9 @@ class _$EquipmentDocSubmitImpl implements _EquipmentDocSubmit {
     TResult? Function(String equipmentDoc)? deleteEquipmentDoc,
     TResult? Function()? addMoreEquipmentDoc,
     TResult? Function(int index)? deleteEquipmentObject,
-    TResult? Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    TResult? Function(bool isAddMoreBtnClick, bool isSkip)? equipmentDocSubmit,
   }) {
-    return equipmentDocSubmit?.call(isAddMoreBtnClick);
+    return equipmentDocSubmit?.call(isAddMoreBtnClick, isSkip);
   }
 
   @override
@@ -12761,11 +12951,11 @@ class _$EquipmentDocSubmitImpl implements _EquipmentDocSubmit {
     TResult Function(String equipmentDoc)? deleteEquipmentDoc,
     TResult Function()? addMoreEquipmentDoc,
     TResult Function(int index)? deleteEquipmentObject,
-    TResult Function(bool isAddMoreBtnClick)? equipmentDocSubmit,
+    TResult Function(bool isAddMoreBtnClick, bool isSkip)? equipmentDocSubmit,
     required TResult orElse(),
   }) {
     if (equipmentDocSubmit != null) {
-      return equipmentDocSubmit(isAddMoreBtnClick);
+      return equipmentDocSubmit(isAddMoreBtnClick, isSkip);
     }
     return orElse();
   }
@@ -12819,10 +13009,12 @@ class _$EquipmentDocSubmitImpl implements _EquipmentDocSubmit {
 }
 
 abstract class _EquipmentDocSubmit implements EquipmentEvent {
-  const factory _EquipmentDocSubmit({required final bool isAddMoreBtnClick}) =
-      _$EquipmentDocSubmitImpl;
+  const factory _EquipmentDocSubmit(
+      {required final bool isAddMoreBtnClick,
+      required final bool isSkip}) = _$EquipmentDocSubmitImpl;
 
   bool get isAddMoreBtnClick;
+  bool get isSkip;
   @JsonKey(ignore: true)
   _$$EquipmentDocSubmitImplCopyWith<_$EquipmentDocSubmitImpl> get copyWith =>
       throw _privateConstructorUsedError;

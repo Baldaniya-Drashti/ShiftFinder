@@ -23,7 +23,7 @@ class DocumentEvent with _$DocumentEvent {
   const factory DocumentEvent.deleteCovidDoc(String covidDoc) = _DeleteCovidDoc;
   const factory DocumentEvent.getCovidDoc() = _GetCovidDoc;
 
-  const factory DocumentEvent.covidDocSubmit() = _CovidDocSubmit;
+  const factory DocumentEvent.covidDocSubmit({required bool isSkip}) = _CovidDocSubmit;
   const factory DocumentEvent.govtDocumentTitleChanged(String documentTitle) =
       GovtDocumentTitleChanged;
 
@@ -67,7 +67,8 @@ class CredentialEvent with _$CredentialEvent {
   const factory CredentialEvent.deleteCredentialObject(int index) =
       _DeleteCredentialObject;
   const factory CredentialEvent.credentialDocSubmit(
-      {required bool isAddMoreBtnClick}) = _CredentialDocSubmit;
+      {required bool isAddMoreBtnClick,
+      required bool isSkip}) = _CredentialDocSubmit;
 }
 
 @freezed
@@ -94,7 +95,8 @@ class ProfessionalLicensesEvent with _$ProfessionalLicensesEvent {
   const factory ProfessionalLicensesEvent.deleteLicensesObject(int index) =
       _DeleteLicensesObject;
   const factory ProfessionalLicensesEvent.licensesDocSubmit(
-      {required bool isAddMoreBtnClick}) = _LicensesDocSubmit;
+      {required bool isAddMoreBtnClick,
+      required bool isSkip}) = _LicensesDocSubmit;
 }
 
 @freezed
@@ -117,7 +119,8 @@ class ImmunizationEvent with _$ImmunizationEvent {
   const factory ImmunizationEvent.deleteImmunizationObject(int index) =
       _DeleteImmunizationObject;
   const factory ImmunizationEvent.immunizationDocSubmit(
-      {required bool isAddMoreBtnClick}) = _ImmunizationDocSubmit;
+      {required bool isAddMoreBtnClick,
+      required bool isSkip}) = _ImmunizationDocSubmit;
 }
 
 @freezed
@@ -138,7 +141,8 @@ class ProfessionalLiabilityEvent with _$ProfessionalLiabilityEvent {
   const factory ProfessionalLiabilityEvent.deleteLiabilityObject(int index) =
       _DeleteLiabilityObject;
   const factory ProfessionalLiabilityEvent.liabilityDocSubmit(
-      {required bool isAddMoreBtnClick}) = _LiabilityDocSubmit;
+      {required bool isAddMoreBtnClick,
+      required bool isSkip}) = _LiabilityDocSubmit;
 }
 
 @freezed
@@ -149,7 +153,8 @@ class ResumeEvent with _$ResumeEvent {
       _SelectResumeDoc;
   const factory ResumeEvent.deleteResumeDoc(String resumeDoc) =
       _DeleteResumeDoc;
-  const factory ResumeEvent.resumeDocSubmit() = _ResumeDocSubmit;
+  const factory ResumeEvent.resumeDocSubmit({required bool isSkip}) =
+      _ResumeDocSubmit;
 }
 
 @freezed
@@ -167,5 +172,6 @@ class EquipmentEvent with _$EquipmentEvent {
   const factory EquipmentEvent.deleteEquipmentObject(int index) =
       _DeleteEquipmentObject;
   const factory EquipmentEvent.equipmentDocSubmit(
-      {required bool isAddMoreBtnClick}) = _EquipmentDocSubmit;
+      {required bool isAddMoreBtnClick,
+      required bool isSkip}) = _EquipmentDocSubmit;
 }
