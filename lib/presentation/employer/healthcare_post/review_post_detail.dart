@@ -96,7 +96,8 @@ class ReviewPostShiftDetail extends StatelessWidget {
                           ),
                         // "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?"),
                         if (post.shift_detail != null &&
-                            post.shift_detail!.shift_type == 1)
+                            post.shift_detail!.shift_type == 1 &&
+                            post.shift_detail!.recurrence_mode != null)
                           recurrence(),
                         if (post.shift_detail != null &&
                             post.shift_detail!.disclaimer != null &&
@@ -113,6 +114,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
                                       1)
                                   ? "0${post.shift_detail!.number_of_vacancie}"
                                   : "${post.shift_detail!.number_of_vacancie}"),
+                        SizedBox(height: getSize(5)),
                         if (post.shift_detail != null &&
                             post.shift_detail!.teams != null &&
                             post.shift_detail!.teams!.isNotEmpty)
@@ -188,7 +190,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
               ),
               BaseText(
                 text: "  to  ",
-                fontSize: 10,
+                fontSize: 11,
                 fontWeight: FontWeight.w500,
                 textColor: AppColors.black.withOpacity(0.7),
               ),
@@ -750,46 +752,43 @@ class ReviewPostShiftDetail extends StatelessWidget {
 
   Widget rateWithBGIcon(
       {required String svgIcon, required String title, required String value}) {
-    return Flexible(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              BaseText(
-                text: title,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                textColor: AppColors.black.withOpacity(0.7),
-              ),
-              SizedBox(
-                height: getSize(5),
-              ),
-              BaseText(
-                text: value,
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                textColor: AppColors.black,
-              ),
-            ],
-          ),
-          Flexible(
-            child: Align(
-              alignment: Alignment.center,
-              child: SvgPicture.asset(
-                svgIcon,
-                height: getSize(35),
-                width: getSize(35),
-                color: AppColors.primaryColor.withOpacity(0.2),
-              ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            BaseText(
+              text: title,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              textColor: AppColors.black.withOpacity(0.7),
             ),
-          )
-        ],
-      ),
+            SizedBox(
+              height: getSize(5),
+            ),
+            BaseText(
+              text: value,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              textColor: AppColors.black,
+            ),
+          ],
+        ),
+        SizedBox(width: getSize(10)),
+        Align(
+          alignment: Alignment.center,
+          child: SvgPicture.asset(
+            svgIcon,
+            height: getSize(35),
+            width: getSize(35),
+            color: AppColors.primaryColor.withOpacity(0.2),
+          ),
+        )
+      ],
     );
   }
 

@@ -9,6 +9,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
@@ -19,6 +20,7 @@ import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/infrastructure/main/shift_date_detail_dto/shift_date_detail_dto.dart';
 import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
 import 'package:shift/presentation/common/utils/date_time_format.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 part 'post_shift_event.dart';
@@ -406,8 +408,8 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           final isEndMinuteValid = state.endMinute.isValid();
           final isBeforeStartTime =
               timeIsPast(state, state.startHour, state.startMinute);
-          final isBeforeEndTime =
-              timeIsPast(state, state.endHour, state.endMinute);
+          // final isBeforeEndTime =
+          //     timeIsPast(state, state.endHour, state.endMinute);
 
           final isVacancyValid = isMoreVacancyValid(
               isMoreVacancy: state.isMoreVacancy,
@@ -427,13 +429,11 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               isEndMinuteValid &&
               isUnpaidBreakValid &&
               isVacancyValid &&
-              !isBeforeStartTime &&
-              !isBeforeEndTime) {
+              !isBeforeStartTime) {
             print("All details are valid!");
             /*failureOrSuccess = await _mainFacade.createPostShiftApi(
                 shift: passShiftData(state));*/
             final post = continueWithPostDetail(state, passShiftData(state));
-
             e.context.router.push(PageRouteInfo(
               PostShiftRecurring.name,
               args: PostShiftRecurringArgs(
@@ -443,7 +443,11 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               ),
             ));
           } else {
-            print("Some details are invalid!");
+            showError(
+                    message: StringConstant
+                        .someDetailsAreMissingOrInvalidPleaseCheck)
+                .show(e.context);
+            print("Some details are invalid! ${isBeforeStartTime}");
           }
           emit(
             state.copyWith(

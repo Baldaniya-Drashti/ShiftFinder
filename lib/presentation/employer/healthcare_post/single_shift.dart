@@ -263,8 +263,9 @@ class SinglePostShift extends StatelessWidget {
                 : (state.singleShiftErrorMessages && !isStartMinValid(state))
                     ? commonErrorText(
                         StringConstant.pleaseSelectMinutesOfStartTime)
-                    : (PostShiftBloc.timeIsPast(
-                            state, state.startHour, state.startMinute))
+                    : (state.singleShiftErrorMessages &&
+                            PostShiftBloc.timeIsPast(
+                                state, state.startHour, state.startMinute))
                         ? commonErrorText(
                             StringConstant.shiftStartTimeMustBeAFutureTime)
                         : Container(),

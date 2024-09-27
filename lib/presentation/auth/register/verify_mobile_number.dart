@@ -187,9 +187,7 @@ class VerifyPhoneNumber extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
-            height: getSize(10),
-          ),
+          SizedBox(height: getSize(10)),
           Container(
             width: getSize(255),
             alignment: Alignment.center,
@@ -302,6 +300,7 @@ class VerifyPhoneNumber extends StatelessWidget {
                   : () {},
               buttonText: "",
               backgroundColor: AppColors.transparent,
+              width: 150,
               customWidget: BaseText(
                 text: StringConstant.resendCode,
                 fontSize: 12,
@@ -448,7 +447,7 @@ class VerifyPhoneNumber extends StatelessWidget {
 
   editPhone(BuildContext context, RegisterFormBloc bloc,
       RegisterFormState state, String initialValue) {
-    print("countryFlagValue1111----> $countryFlagValue");
+    print("countryFlagValue1111----> $countryCodeValue");
 
     showDialog(
         context: context,

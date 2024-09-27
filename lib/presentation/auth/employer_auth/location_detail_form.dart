@@ -62,6 +62,7 @@ class LocationDetailForm extends StatelessWidget {
                       ).show(context);
                     },
                     (r) {
+                      AppFocus.unfocus(context);
                       context.router
                           .push(const PageRouteInfo(AddCardDetailPage.name))
                           .then((value) {

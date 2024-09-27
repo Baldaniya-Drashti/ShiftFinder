@@ -427,14 +427,24 @@ class DifferentTimeForEachDate extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(
-              width: getSize(15),
-            ),
-            Flexible(
+            SizedBox(width: getSize(15)),
+            Expanded(
               child: BaseText(
                 text: StringConstant.postAsIndividualShifts,
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                AppDialog.showInfo(
+                  context,
+                  StringConstant.individualPostInfoDesc,
+                  maxLines: 10,
+                );
+              },
+              child: SvgPicture.asset(
+                SvgImageConstant.infoCircle,
               ),
             ),
           ],

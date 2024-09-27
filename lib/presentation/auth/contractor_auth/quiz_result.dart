@@ -29,9 +29,8 @@ class QuizResultScreen extends StatelessWidget {
           getIt<IntroVideoBloc>()..add(IntroVideoEvent.getQuizResultlist()),
       child: Scaffold(
         appBar: CommonAppBar(
-          onBackPressed: () {
-            context.router.maybePop();
-          },
+          onBackPressed: () {},
+          isShowBackBtn: false,
           title: StringConstant.result,
         ),
         body: BlocConsumer<IntroVideoBloc, IntroVideoState>(
@@ -160,11 +159,11 @@ class QuizResultScreen extends StatelessWidget {
                                 vertical: getSize(20), horizontal: getSize(20)),
                             child: CommonButton(
                               onPressed: () {
-                                // showUnderDevelopment(context);
-                                context.router.replaceAll([
+                                showUnderDevelopment(context);
+                                /* context.router.replaceAll([
                                   const PageRouteInfo(
                                       ContractorMainTabView.name)
-                                ]);
+                                ]);*/
                               },
                               buttonText: StringConstant.txtContinue,
                             ),

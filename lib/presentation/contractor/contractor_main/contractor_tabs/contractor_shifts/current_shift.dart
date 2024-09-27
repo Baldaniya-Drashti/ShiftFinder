@@ -109,6 +109,7 @@ class CurrentShift extends StatelessWidget {
       hintText: StringConstant.clockIn,
       fillColor: AppColors.grey04,
       readOnly: true,
+      onTap: () {},
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(16),

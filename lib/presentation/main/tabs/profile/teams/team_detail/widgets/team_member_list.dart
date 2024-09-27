@@ -76,10 +76,14 @@ class TeamMemberList extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          BaseText(
-                            text: members[index].name ?? "",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
+                          Expanded(
+                            child: BaseText(
+                              text: members[index].name ?? "",
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                           Icon(Icons.arrow_forward_ios_rounded)
                         ],

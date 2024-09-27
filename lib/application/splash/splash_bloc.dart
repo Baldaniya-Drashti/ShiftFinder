@@ -33,6 +33,9 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
         started: (e) async {
           final authenticated = await _authFacade.checkAuthenticated();
           final showIntro = getUserShowIntro();
+
+          print("is User show Intro---> ${showIntro}");
+
           if (showIntro == true || showIntro == null) {
             emit(const SplashState.introScreenVisibilty());
           } else {

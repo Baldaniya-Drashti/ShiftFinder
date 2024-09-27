@@ -17,12 +17,10 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
           authCheckRequested: (e) async {},
           signedOut: (SignedOut value) async {
             var res = await _authFacade.logout();
-            res.fold(
-              (l) => null,
-              (r) => emit(
-                AuthStatusState.unauthenticated(r),
-              ),
-            );
+            res.fold((l) => null, (r) {
+              emit(AuthStatusState.initial());
+              emit(AuthStatusState.unauthenticated(r));
+            });
           },
         );
       },
