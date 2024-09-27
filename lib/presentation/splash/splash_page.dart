@@ -39,6 +39,7 @@ class SplashPage extends StatelessWidget {
                       ? context.router.replace(PageRouteInfo(MainTabView.name))
                       : context.router
                           .replace(PageRouteInfo(ContractorMainTabView.name))
+                  // : context.router.replace(getCurrentPage(value.lastPage,fromSplash: true,))
                   : context.router.replace(getCurrentPage(
                       value.lastPage,
                       fromSplash: true,

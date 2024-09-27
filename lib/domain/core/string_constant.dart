@@ -16,7 +16,7 @@ class StringConstant {
   static const String onBoarding3Desc_contractor =
       'Discover health service shifts that allow you to showcase your expertise, support diverse teams, and make a meaningful impact where you\'re needed most.';
   static const String onBoarding3Desc_employer =
-      'Connect with a qualified health service professional to bridge gaps in unfilled shifts.Enhance your team’s expertise with our professional support.';
+      'Connect with a qualified health service professional to bridge gaps in unfilled shifts. Enhance your team’s expertise with our professional support.';
   static const String letsStart = 'Lets Start';
   static const String login = 'Login';
   static const String welcomeBack = 'Welcome Back!';
@@ -82,6 +82,7 @@ class StringConstant {
   static const String healthcare = "Healthcare";
   static const String role = "Role";
   static const String selectRoles = "Select Roles";
+  static const String selectRole = "Select Role";
   static const String requiredSpecialties = "Required Specialties";
   static const String specialties = "Specialties";
   static const String preferredSoftwareSkills = "Preferred Software Skills";
@@ -95,8 +96,25 @@ class StringConstant {
   static const String letsGetStarted = "Let's Get Started!";
   static const String locationAddress = "Location Address";
   static const String profilePhoto = "Profile Photo";
+  static const String recurrenceModeInfoDesc =
+      "For 'Weekly' You sould select minimum 7 days range";
+  static const String singleAccomdationInfoDesc =
+      "Choose 'Flat Rate' to offer a fixed amount as accommodation allowance for the shift. \nIf you select 'Hours,' the accommodation allowance for the shift will be calculated as the number of hours you specify, multiplied by the hourly rate you're offering to the contractor.";
+  static const String singleCommuteInfoDesc =
+      "Choose 'Flat Rate' to offer a fixed amount as a commute allowance for the shift. \nIf you select 'Hours,' the commute allowance for the shift will be calculated as the number of hours you specify, multiplied by the hourly rate you're offering to the contractor.";
+  static const String multiAccomdationInfoDesc =
+      "Choose 'Flat Rate' to offer a fixed amount as accommodation allowance for each shift. \nIf you select 'Hours,' the accommodation allowance for the shift will be calculated as the number of hours you specify, multiplied by the hourly rate you're offering to the contractor. \nFor multi-shift postings, the total accommodation allowance will be multiplied by the number of shifts in the schedule.";
+  static const String multiCommuteInfoDesc =
+      "Choose 'Flat Rate' to offer a fixed amount as a commute allowance for each shift. \nIf you select 'Hours,' the commute allowance for the shift will be calculated as the number of hours you specify, multiplied by the hourly rate you're offering to the contractor. \nFor multi-shift postings, the total commute allowance will be multiplied by the number of shifts in the schedule.";
+
+  static const String individualPostInfoDesc =
+      "If you post as individual shifts, each date in the multi-shift schedule will be treated as a separate posting, allowing you to hire different contractors for each date. Otherwise, only one contractor can be hired for all dates.";
   static const String mutltiplelocationInfoDesc =
       "If you have multiple locations, you can add them later through your profile.";
+  static const String teamInfoDesc =
+      "By selecting this option, the posting summary will be automatically sent via email to all members of the selected team(s).";
+  static const String saveTemplateInfoDesc =
+      "By selecting this option, the posting will be saved as a template based on the role for easy future posting. You can access this template in your profile under the 'Saved Templates' option.";
   static const String ok = "Ok";
   static const String select = "Select";
   static const String completeProfile = "Complete Profile";
@@ -257,7 +275,6 @@ class StringConstant {
   static const String bankDetailsTerms =
       "Please review and confirm the details you have entered.";
   static const String home = "Home";
-  static const String history = "History";
   static const String notification = "Notification";
   static const String profile = "Profile";
   static const String viewDetails = "View Details";
@@ -325,6 +342,7 @@ class StringConstant {
   static const String reviewDetails = "Review Details";
   static const String payables = "Payables";
   static const String totalWage = "Total Wage";
+  static const String estimatedWage = "Estimated Wage";
   static const String totalAllowance = "Total Allowance";
   static const String totalPayableForOneShift = "Total payable for one shift";
   static const String totalAmountPayable = "Total Amount Payable";
@@ -379,6 +397,7 @@ class StringConstant {
   static const String notAvailable = "Not Available";
   static const String deleteTeam = "Delete Team";
   static const String shifts = "Shifts";
+  static const String shift = "Shift";
   static const String currentShifts = "Current Shifts";
   static const String upcomingShifts = "Upcoming Shifts";
   static const String appliedShifts = "Applied Shifts";
@@ -393,6 +412,27 @@ class StringConstant {
   static const String all = "All";
   static const String multiShifts = "Multi Shifts";
   static const String singleShifts = "Single Shifts";
+  static const String recurrenceDuration = "Recurrence Duration";
+  static const String editEmail = "Edit Email";
+  static const String editPhoneNumber = "Edit Phone Number";
+  static const String editUnit = "Edit Unit";
+  static const String noShiftPostedYet = "No Shift Posted Yet!";
+  static const String confirm = "Confirm";
+  static const String confirmationRequired = "Confirmation Required";
+  static const String confirmationRecurringDesc1 = "You are about to post";
+  static const String confirmationRecurringDesc2 =
+      "recurring shifts. \nPlease confirm if you want to proceed with posting this many shifts.";
+
+  static const String pleaseEditYourEmailToGetVerificationCode =
+      "Please edit your email to get verification code";
+  static const String pleaseEditYourPhoneNnumberToGetVerificationCode =
+      "Please edit your phone number to get verification code";
+  static const String noTeamsAddedYet =
+      "No teams added yet. Tap Add New Team to get started.";
+  static const String shiftStartTimeMustBeAFutureTime =
+      "Shift start time must be a future time";
+  static const String getStartedwithNewShift =
+      "Get started by creating your first shift! Tap the + icon to begin.";
   static const String withdrawShiftDesc =
       "Withdrawal from the shift is not allowed within 24 hours of the shift start time. You can no longer withdraw from this shift.";
   static const String deleteTeamDesc =
@@ -473,16 +513,16 @@ class StringConstant {
       "Please enter valid last name";
   static const String pleaseEnterYourLastName = "Please enter your last name";
   static const String termsPolicyErrorText =
-      "You must accept the terms and privacy policy to register an account!";
+      "Please check the box to accept the Terms and Policy to proceed";
   static const String pleaseEnterCompanyName = "Please enter company name";
   static const String pleaseEnterLocationName = "Please enter location address";
-  static const String pleaseSelectRoleType = "Please select role type";
+  static const String pleaseSelectRoleType = "Please select a role";
   static const String pleaseSelectLanguageRequirement =
       "Please select language requirement";
-  static const String pleaseEnterRateHour = "Please enter rate/hour";
-  static const String pleaseEnterValidRateHour = "The rate should not be 0";
+  static const String pleaseEnterRateHour = "Please enter Rate/Hour";
+  static const String pleaseEnterValidRateHour = "The Rate should not be 0";
 
-  static const String pleaseEnterLocation = "Please enter location";
+  static const String pleaseEnterLocation = "Please select a location";
   static const String pleaseAddContactPerson = "Please add contact person";
   static const String pleaseAddProfessionOfTheReferrer =
       "Please add profession of the referrer";
@@ -507,15 +547,16 @@ class StringConstant {
   static const String pleaseSelectImmunizationDocument =
       "Please select immunizations/vaccinations document";
   static const String pleaseSelectLiabilityDocument =
-      "Please select your professional liability protection document.";
+      "Please select your professional liability protection document";
+  static const String pleaseSelectResume = "Please select your resume";
   static const String pleaseSelectEquipmentDocument =
       "Please select apparel/equipment document";
   static const String legalScreeningTermsErrorText =
-      "You must agree to the terms before proceeding.";
+      "Please check the affirmation box to confirm your agreement before proceeding.";
   static const String youMustAnswerAllTheQuestions =
       "You must answer all the questions.";
   static const String pleaseCompleteAllQuestionOfQuiz =
-      "Please complete all question of quiz.";
+      "Please complete all questions in the quiz to proceed";
   static const String pleaseAddCardHolderName = "Please add card holder name";
   static const String pleaseAddValidCardHolderName =
       "Please add valid card holder name";
@@ -537,11 +578,11 @@ class StringConstant {
   static const String pleaseAddBankAddress = "Please add bank address";
   static const String bankTermsErrorText =
       "Please select the checkbox to confirm";
-  static const String pleaseSelectLocationUnit = "Please select location unit";
+  static const String pleaseSelectLocationUnit = "Please select a unit";
   static const String somethindWentWrong =
       "Something wrong. Please try again!!";
   static const String pleaseSelectHourAndMinutesOfStartTime =
-      "Please select hour and minutes of start time";
+      "Please select shift start time";
   static const String pleaseSelectHourOfStartTime =
       "Please select hour of start time";
   static const String pleaseSelectMinutesOfStartTime =
@@ -551,17 +592,19 @@ class StringConstant {
   static const String pleaseSelectMinutesOfEndTime =
       "Please select minutes of end time";
   static const String pleaseSelectHourAndMinutesOfEndTime =
-      "Please select hour and minutes of end time";
+      "Please select shift end time";
   static const String pleaseSelectUnpaidBreakTime =
       "Please select unpaid break time";
-  static const String pleaseSelectDate = "Please select date";
+  static const String pleaseSelectDate = "Please select shift date";
   static const String pleaseSelectCommuteAllownceValue =
-      "Please add commute allowance value";
+      "Please add commute allowance";
   static const String flatRateShouldNotBeZero = "Flat rate should not be 0";
   static const String pleaseSelectAccomdationAllownceValue =
-      "Please add accomdation allowance value";
+      "Please add accommodation allowance";
   static const String pleaseAddNumberOfVacancies =
       "Please add number of vacancies";
+  static const String numberOfVacanciesMustBeGreaterThanOne =
+      "Number of vacancies must be greater than 1";
   static const String pleaseSelectRecurrenceMode =
       "Please select recurrence mode";
   static const String pleaseSelectAtLeastOneTeam =
@@ -569,8 +612,17 @@ class StringConstant {
 
   static const String pleaseSelectAtLeastOneDate =
       "Please select at least one date";
+  static const String toShareThisPostDesc =
+      "To share this post first you need to Create a team and Add team members from profile";
   static const String pleaseSelectStartAndEndTimeForEachDate =
-      "You must select Start time, End time and Unpaid break for each date";
+      "Please select a Start time, End time and Unpaid break for each shift date";
 
+  static const String someDetailsAreMissingOrInvalidPleaseCheck =
+      "Some details are missing or invalid. Please check!";
+  static const String unitAlreadyExist = "Unit already exist!";
+  static const String checkTeamStatusDesc =
+      "It looks like you haven't created a team yet! By setting up internal teams, you can automatically share posting details with your team members, streamlining your hiring process. You can create a team through your profile, and then continue with shift posting. \nDo you want to proceed with creating a team now?";
+  static const String createYourTeamToGetStarted =
+      "Create Your Team to Get Started";
   static const String underDevelopment = "Under Development";
 }

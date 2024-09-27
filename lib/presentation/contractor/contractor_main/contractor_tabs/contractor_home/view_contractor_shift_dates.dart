@@ -21,7 +21,7 @@ class ViewContractorShiftDates extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final shift = shiftDetail.shift_date ?? [];
-    print("shiftDetail ---> ${jsonEncode(shift)}");
+    print("shiftDetail ---> ${jsonEncode(shiftDetail.id)}");
 
     return Scaffold(
       appBar: CommonAppBar(

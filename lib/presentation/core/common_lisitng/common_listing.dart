@@ -160,7 +160,8 @@ class CommonList {
 
   static List<String> minutesList = ['00 Min', '15 Min', '30 Min', '45 Min'];
   static List<String> commuteAllownceList = ['None', 'Flat Rate', 'Hours'];
-  static List<String> recurrenceModeList = ['Daily', 'Weekly'];
+  static List<String> recurrenceModeList = ['Weekly'];
+  static List<String> recurrenceModeOnlyDaily = ['Daily'];
   static List<SkillDTO> weekList = [
     SkillDTO(id: 0, name: "Monday"),
     SkillDTO(id: 1, name: "Tuesday"),

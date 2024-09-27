@@ -3,16 +3,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/utils/date_time_format.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_multi_date_picker.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
@@ -114,13 +117,13 @@ class SameTimeForMultiDate extends StatelessWidget {
               if (state.isMoreVacancy) ...[
                 paddingBetweenFields(),
                 numberOfVacancy(context, state),
-                if (state.singleShiftErrorMessages &&
+                /*if (state.singleShiftErrorMessages &&
                     !(PostShiftBloc.isMoreVacancyValid(
                         isMoreVacancy: state.isMoreVacancy,
                         vacancyValue: state.selectedVacancy)))
                   commonErrorText(
                     StringConstant.pleaseAddNumberOfVacancies,
-                  ),
+                  ),*/
               ],
               Padding(
                 padding: EdgeInsets.only(top: getSize(50), bottom: getSize(30)),
@@ -226,11 +229,16 @@ class SameTimeForMultiDate extends StatelessWidget {
             }
           },
         ),
-        if (state.singleShiftErrorMessages &&
-            (!state.startHour.isValid() || !state.startMinute.isValid()))
-          commonErrorText(
-            StringConstant.pleaseSelectHourAndMinutesOfStartTime,
-          ),
+        (state.singleShiftErrorMessages &&
+                (!state.startHour.isValid() || !state.startMinute.isValid()))
+            ? commonErrorText(
+                StringConstant.pleaseSelectHourAndMinutesOfStartTime,
+              )
+            : (PostShiftBloc.timeIsPast(
+                    state, state.startHour, state.startMinute, shiftType: 1))
+                ? commonErrorText(
+                    StringConstant.shiftStartTimeMustBeAFutureTime)
+                : Container(),
       ],
     );
   }
@@ -263,11 +271,12 @@ class SameTimeForMultiDate extends StatelessWidget {
             }
           },
         ),
-        if (state.singleShiftErrorMessages &&
-            (!state.endHour.isValid() || !state.endMinute.isValid()))
-          commonErrorText(
-            StringConstant.pleaseSelectHourAndMinutesOfEndTime,
-          ),
+        (state.singleShiftErrorMessages &&
+                (!state.endHour.isValid() || !state.endMinute.isValid()))
+            ? commonErrorText(
+                StringConstant.pleaseSelectHourAndMinutesOfEndTime,
+              )
+            : Container(),
       ],
     );
   }
@@ -387,6 +396,20 @@ class SameTimeForMultiDate extends StatelessWidget {
               .add(PostShiftEvent.commuteHoursChanged(value));
         }
       },
+      isOptional: true,
+      optionalWidget: GestureDetector(
+        onTap: () {
+          AppDialog.showInfo(context, StringConstant.multiCommuteInfoDesc,
+              maxLines: 15);
+        },
+        child: Container(
+          color: AppColors.transparent,
+          padding: EdgeInsets.only(right: getSize(30)),
+          child: SvgPicture.asset(
+            SvgImageConstant.infoCircle,
+          ),
+        ),
+      ),
     );
   }
 
@@ -470,6 +493,20 @@ class SameTimeForMultiDate extends StatelessWidget {
               .add(PostShiftEvent.accomdationHoursChanged(value));
         }
       },
+      isOptional: true,
+      optionalWidget: GestureDetector(
+        onTap: () {
+          AppDialog.showInfo(context, StringConstant.multiAccomdationInfoDesc,
+              maxLines: 15);
+        },
+        child: Container(
+          color: AppColors.transparent,
+          padding: EdgeInsets.only(right: getSize(30)),
+          child: SvgPicture.asset(
+            SvgImageConstant.infoCircle,
+          ),
+        ),
+      ),
     );
   }
 
@@ -565,6 +602,20 @@ class SameTimeForMultiDate extends StatelessWidget {
             .read<PostShiftBloc>()
             .add(PostShiftEvent.addVacancyChanged(value));
       },
+      errorInputBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: AppColors.transparent),
+        borderRadius: BorderRadius.circular(getSize(10)),
+      ),
+      validator: (p0, p1) =>
+          context.read<PostShiftBloc>().state.selectedVacancy.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseAddNumberOfVacancies,
+                  invalidVacancy: (value) =>
+                      StringConstant.numberOfVacanciesMustBeGreaterThanOne,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
     );
   }
 
@@ -612,11 +663,23 @@ class SameTimeForMultiDate extends StatelessWidget {
             SizedBox(
               width: getSize(15),
             ),
-            Flexible(
+            Expanded(
               child: BaseText(
                 text: StringConstant.postAsIndividualShifts,
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                AppDialog.showInfo(
+                  context,
+                  StringConstant.individualPostInfoDesc,
+                  maxLines: 10,
+                );
+              },
+              child: SvgPicture.asset(
+                SvgImageConstant.infoCircle,
               ),
             ),
           ],

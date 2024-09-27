@@ -80,6 +80,7 @@ class OnBoarding2 extends StatelessWidget {
                                     .read<OnboardingBloc>()
                                     .add(OnboardingEvent.submitOnboarding2(
                                       industryList[index].id ?? 1,
+                                      context,
                                     ));
                               },
                               child: OnBoardTile(

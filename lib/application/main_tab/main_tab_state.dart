@@ -6,7 +6,7 @@ class MainTabState with _$MainTabState {
     required int selectedTab,
     required int pageIndex,
     required String homePage,
-    required String historyPage,
+    required String employerShiftPage,
     required String notificationPage,
     required String profilePage,
   }) = _MainTabState;
@@ -14,7 +14,7 @@ class MainTabState with _$MainTabState {
         selectedTab: 0,
         pageIndex: 0,
         homePage: HomeView.name,
-        historyPage: HistoryView.name,
+        employerShiftPage: EmployerShiftView.name,
         notificationPage: NotificationView.name,
         profilePage: ProfileView.name,
       );

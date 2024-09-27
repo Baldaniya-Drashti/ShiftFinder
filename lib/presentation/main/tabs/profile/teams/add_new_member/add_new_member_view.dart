@@ -59,9 +59,7 @@ class AddNewMemberView extends StatelessWidget {
               (r) {
                 if (r.isNotEmpty) {
                   showSuccess(message: r).show(context).then(
-                        (value) => context.router.popUntil(
-                          (route) => route.isFirst,
-                        ),
+                        (value) => context.router.maybePop(true),
                       );
                 } else {
                   context.router.maybePop(true);

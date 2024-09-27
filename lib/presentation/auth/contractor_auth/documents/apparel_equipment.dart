@@ -169,19 +169,34 @@ class ApparelEquipment extends StatelessWidget {
                           ),
                           Padding(
                             padding: EdgeInsets.only(
-                                top: getSize(50), bottom: getSize(50)),
+                                top: getSize(50), bottom: getSize(10)),
                             child: Align(
                               alignment: Alignment.center,
                               child: CommonButton(
                                 onPressed: () {
                                   context.read<EquipmentBloc>().add(
-                                      const EquipmentEvent.equipmentDocSubmit(
-                                          isAddMoreBtnClick: false));
+                                          const EquipmentEvent
+                                              .equipmentDocSubmit(
+                                        isAddMoreBtnClick: false,
+                                        isSkip: false,
+                                      ));
                                 },
                                 buttonText: StringConstant.txtContinue,
                               ),
                             ),
-                          )
+                          ),
+                          if (state.equipmentList.isEmpty)
+                            documentSkipButton(
+                              context,
+                              onPressed: () {
+                                context.read<EquipmentBloc>().add(
+                                        const EquipmentEvent.equipmentDocSubmit(
+                                      isAddMoreBtnClick: false,
+                                      isSkip: true,
+                                    ));
+                              },
+                            ),
+                          paddingBetweenFields(height: 40)
                         ],
                       ),
                     ),

@@ -241,8 +241,6 @@ class AddMultiDateTime extends StatelessWidget {
   Widget startEndTime(
       BuildContext context, PostShiftState state, DateTimeDTO currentObj,
       {required int index}) {
-    print("multiDateTimeList--> ${state.multiDateTimeList}");
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -269,6 +267,7 @@ class AddMultiDateTime extends StatelessWidget {
           decoration: BoxDecoration(
               color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               startTime(context, state, index),
@@ -278,6 +277,17 @@ class AddMultiDateTime extends StatelessWidget {
               unpaidBreakDropDown(context, state, index),
               paddingBetweenFields(),
               paybleHours(state, index),
+              (PostShiftBloc.timeIsPast(
+                state,
+                InputEmptyOrNot(currentObj.startHour ?? ""),
+                InputEmptyOrNot(currentObj.startMinute ?? ""),
+                shiftType: 2,
+                multiDate: currentObj,
+              ))
+                  ? commonErrorText(
+                      StringConstant.shiftStartTimeMustBeAFutureTime,
+                      padding: EdgeInsets.only(top: getSize(10)))
+                  : Container(),
             ],
           ),
         ),

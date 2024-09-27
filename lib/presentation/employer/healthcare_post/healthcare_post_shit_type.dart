@@ -104,14 +104,15 @@ class HealthcarePostShift extends StatelessWidget {
                         ConstrainedBox(
                           constraints:
                               BoxConstraints(minHeight: constraint.maxHeight),
-                          child: (state.shiftType == 3)
+                          child:
+                              /*(state.shiftType == 3)
                               ? Center(
                                   child: BaseText(
                                     text: StringConstant.longTerm,
                                     fontSize: 25,
                                   ),
-                                )
-                              : (state.shiftType == 2)
+                                ): */
+                              (state.shiftType == 2)
                                   ? MultiPostShift(
                                       shiftType: state.shiftType,
                                       postId: postId,

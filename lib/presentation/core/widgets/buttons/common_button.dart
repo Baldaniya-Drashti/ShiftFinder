@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -124,4 +125,23 @@ class _CommonButtonState extends State<CommonButton> {
                 ),
     );
   }
+}
+
+Widget documentSkipButton(BuildContext context,
+    {required VoidCallback onPressed}) {
+  return Align(
+    alignment: Alignment.center,
+    child: CommonButton(
+      onPressed: onPressed,
+      buttonText: StringConstant.skip,
+      height: 40,
+      width: 150,
+      // borderRadius: 10,
+      // buttonFontSize: 12,
+      buttonFontWeight: FontWeight.w500,
+      backgroundColor: AppColors.transparent,
+      buttonTextColor: AppColors.primaryColor,
+      borderColor: AppColors.transparent,
+    ),
+  );
 }

@@ -57,9 +57,12 @@ class TeamsBloc extends Bloc<TeamsEvent, TeamsState> {
             Either<MainFailure, String>? failureOrSuccess;
             //  var isLocationValid = state.locationTextField.isValid();
             var isTeamNameValid = state.teamNameTextField.isValid();
-            if (state.singleValueDropDownController.dropDownValue?.name !=
-                    null &&
-                isTeamNameValid) {
+            final isLocationValid =
+                (state.singleValueDropDownController.dropDownValue?.name !=
+                        null &&
+                    state.singleValueDropDownController.dropDownValue!.name
+                        .isNotEmpty);
+            if (isLocationValid && isTeamNameValid) {
               emit(
                 state.copyWith(
                   isSubmitting: true,

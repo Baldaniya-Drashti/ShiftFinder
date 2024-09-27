@@ -45,6 +45,8 @@ class MarkUnavailability extends StatelessWidget {
     List<DateTime> selectedDates = state.multiDates.map((dto) {
       return (dto.date != null) ? DateTime.parse(dto.date!) : DateTime.now();
     }).toList();
+
+    print("selected datess----> $selectedDates");
     return CustomMultiDatePicker(
       value: selectedDates,
       selectedDateBGColor:

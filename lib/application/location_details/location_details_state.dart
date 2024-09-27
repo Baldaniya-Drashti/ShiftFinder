@@ -21,6 +21,8 @@ class LocationDetailsState with _$LocationDetailsState {
     required bool isSubmitting,
     required bool isLoading,
     required bool showErrorMessages,
+    required String updatedUnitNumber,
+    required String updatedUnitNotes,
     required Option<Either<AccountFailure, Account>> authFailureOrSuccessOption,
   }) = _LocationDetailsState;
   factory LocationDetailsState.initial() => LocationDetailsState(
@@ -34,6 +36,8 @@ class LocationDetailsState with _$LocationDetailsState {
         locationNote: "",
         unitNumber: "",
         notes: "",
+        updatedUnitNumber: "",
+        updatedUnitNotes: "",
         faciltyTypeDDValue: "",
         otherFaciltyTypeValue: "",
         listOfUnit: [],

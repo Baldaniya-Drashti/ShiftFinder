@@ -15,6 +15,7 @@ abstract class IAuthFacade {
     required String profileImage,
     required String? companyName,
     required String countryCode,
+    required String countryFlag,
     required MobileNumber phoneNumber,
     required EmailAddress email,
     required Password password,
@@ -93,4 +94,11 @@ abstract class IAuthFacade {
   // Future<Either<AuthFailure, String>> deleteEducationApi({
   //   required int educationId,
   // });
+
+  Future<Either<AuthFailure, String>> editEmailOrPhone({
+    String? email,
+    String? countryCode,
+    String? countryNameCode,
+    String? phone,
+  });
 }

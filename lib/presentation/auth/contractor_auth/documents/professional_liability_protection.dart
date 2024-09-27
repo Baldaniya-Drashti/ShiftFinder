@@ -205,20 +205,35 @@ class ProfessionalLiabilityProtection extends StatelessWidget {
                           ),
                           Padding(
                             padding: EdgeInsets.only(
-                                top: getSize(40), bottom: getSize(50)),
+                                top: getSize(40), bottom: getSize(10)),
                             child: Align(
                               alignment: Alignment.center,
                               child: CommonButton(
                                 onPressed: () {
                                   context.read<ProfessionalLiabilityBloc>().add(
-                                      const ProfessionalLiabilityEvent
-                                          .liabilityDocSubmit(
-                                          isAddMoreBtnClick: false));
+                                          const ProfessionalLiabilityEvent
+                                              .liabilityDocSubmit(
+                                        isAddMoreBtnClick: false,
+                                        isSkip: false,
+                                      ));
                                 },
                                 buttonText: StringConstant.txtContinue,
                               ),
                             ),
-                          )
+                          ),
+                          if (state.liabilityList.isEmpty)
+                            documentSkipButton(
+                              context,
+                              onPressed: () {
+                                context.read<ProfessionalLiabilityBloc>().add(
+                                        const ProfessionalLiabilityEvent
+                                            .liabilityDocSubmit(
+                                      isAddMoreBtnClick: false,
+                                      isSkip: true,
+                                    ));
+                              },
+                            ),
+                          paddingBetweenFields(height: 40)
                         ],
                       ),
                     ),

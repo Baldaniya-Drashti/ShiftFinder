@@ -96,34 +96,8 @@ class ReviewPostShiftDetail extends StatelessWidget {
                           ),
                         // "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?"),
                         if (post.shift_detail != null &&
-                            post.shift_detail!.shift_type == 1 &&
-                            post.shift_detail!.recurrence_mode != null)
-                          chipListBox(
-                            // chipList: post.shift_detail!.days!.split(',')
-                            //   .where((item) => item != )
-                            //   .map((item) => item.name ?? "")
-                            //   .toList(),
-                            chipList: (post.shift_detail!.days != null &&
-                                    post.shift_detail!.days!.isNotEmpty)
-                                ? post.shift_detail!.days!
-                                    .split(',')
-                                    .where((item) => item.isNotEmpty)
-                                    .map((item) {
-                                      int dayId = int.parse(item.trim());
-                                      SkillDTO? day = CommonList.weekList
-                                          .firstWhere(
-                                              (element) => element.id == dayId,
-                                              orElse: () => SkillDTO());
-                                      return day.name ?? "";
-                                    })
-                                    .where((dayName) => dayName.isNotEmpty)
-                                    .toList()
-                                : [],
-                            title: StringConstant.recurrenceMode,
-                            value: (post.shift_detail?.recurrence_mode == "2")
-                                ? "Weekly"
-                                : "Daily",
-                          ),
+                            post.shift_detail!.shift_type == 1)
+                          recurrence(),
                         if (post.shift_detail != null &&
                             post.shift_detail!.disclaimer != null &&
                             post.shift_detail!.disclaimer!.isNotEmpty)
@@ -182,6 +156,88 @@ class ReviewPostShiftDetail extends StatelessWidget {
     );
   }
 
+  Widget recurrence() {
+    return Container(
+      padding:
+          EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: AppColors.grey04,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          BaseText(
+            text: StringConstant.recurrenceDuration,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            textColor: AppColors.black,
+          ),
+          SizedBox(height: getSize(7)),
+          Row(
+            children: [
+              BaseText(
+                text: (post.shift_detail?.recurring_start_date != null)
+                    ? "${DateFormat("d MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch((post.shift_detail?.recurring_start_date ?? -1) * 1000))}"
+                    : "",
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                textColor: AppColors.primaryColor,
+              ),
+              BaseText(
+                text: "  to  ",
+                fontSize: 10,
+                fontWeight: FontWeight.w500,
+                textColor: AppColors.black.withOpacity(0.7),
+              ),
+              BaseText(
+                text: (post.shift_detail?.recurring_end_date != null)
+                    ? "${DateFormat("d MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch((post.shift_detail?.recurring_end_date ?? -1) * 1000))}"
+                    : "",
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                textColor: AppColors.primaryColor,
+              ),
+            ],
+          ),
+          SizedBox(height: getSize(15)),
+          if (post.shift_detail != null &&
+              post.shift_detail!.shift_type == 1 &&
+              post.shift_detail!.recurrence_mode != null)
+            chipListBox(
+              padding: EdgeInsets.zero,
+              bgColor: AppColors.transparent,
+              // chipList: post.shift_detail!.days!.split(',')
+              //   .where((item) => item != )
+              //   .map((item) => item.name ?? "")
+              //   .toList(),
+              chipList: (post.shift_detail!.days != null &&
+                      post.shift_detail!.days!.isNotEmpty)
+                  ? post.shift_detail!.days!
+                      .split(',')
+                      .where((item) => item.isNotEmpty)
+                      .map((item) {
+                        int dayId = int.parse(item.trim());
+                        SkillDTO? day = CommonList.weekList.firstWhere(
+                            (element) => element.id == dayId,
+                            orElse: () => SkillDTO());
+                        return day.name ?? "";
+                      })
+                      .where((dayName) => dayName.isNotEmpty)
+                      .toList()
+                  : [],
+              title: StringConstant.recurrenceMode,
+              value: (post.shift_detail?.recurrence_mode == "2")
+                  ? "Weekly"
+                  : "Daily",
+            ),
+        ],
+      ),
+    );
+  }
+
   Widget languageBox({
     required String title,
     required String value,
@@ -201,7 +257,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
         subtitle: BaseText(
           text: value,
           fontSize: 14,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.w600,
           textColor: AppColors.primaryColor,
           maxLines: 5,
         ),
@@ -492,7 +548,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
       if (isYear) {
         return DateFormat('yyyy').format(dateTime);
       } else {
-        return DateFormat('d MMMM, ').format(dateTime);
+        return DateFormat('d MMM, ').format(dateTime);
       }
     }
   }
@@ -836,16 +892,18 @@ class ReviewPostShiftDetail extends StatelessWidget {
     required List<String> chipList,
     required String title,
     required String value,
+    Color? bgColor,
+    EdgeInsets? padding,
   }) {
     return Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: getSize(12),
-          vertical: getSize(10),
-        ),
-        margin: EdgeInsets.symmetric(vertical: getSize(5)),
+        padding: padding ??
+            EdgeInsets.symmetric(
+                horizontal: getSize(12), vertical: getSize(10)),
+        margin: EdgeInsets.symmetric(vertical: getSize(0)),
         width: double.infinity,
         decoration: BoxDecoration(
-            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+            color: bgColor ?? AppColors.grey04,
+            borderRadius: BorderRadius.circular(10)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

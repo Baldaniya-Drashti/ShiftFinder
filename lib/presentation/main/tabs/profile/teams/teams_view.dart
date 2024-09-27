@@ -55,7 +55,7 @@ class TeamsView extends StatelessWidget {
                         width: getSize(280),
                         child: BaseText(
                           textColor: AppColors.black.withOpacity(0.65),
-                          text: 'No teams found',
+                          text: StringConstant.noTeamsAddedYet,
                           textAlign: TextAlign.center,
                           lineHeight: 1.2,
                         ),

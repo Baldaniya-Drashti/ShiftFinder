@@ -40,6 +40,41 @@ class HomeView extends StatelessWidget {
                 .add(HomeEvent.getEmployerDashboardList(false));
           },
           isNoDataFound: state.isNoDataFound,
+          noDataWidget: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(
+                  SvgImageConstant.noShiftNurse,
+                  height: getSize(112.59),
+                  width: getSize(94.09),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: getSize(20), bottom: getSize(5)),
+                  child: BaseText(
+                    text: StringConstant.noShiftPostedYet,
+                    textAlign: TextAlign.center,
+                    textColor: AppColors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Aclonica',
+                  ),
+                ),
+                SizedBox(
+                  width: getSize(280),
+                  child: BaseText(
+                    textColor: AppColors.black.withOpacity(0.65),
+                    text: StringConstant.getStartedwithNewShift,
+                    textAlign: TextAlign.center,
+                    lineHeight: 1.2,
+                  ),
+                ),
+              ],
+            ),
+          ),
           child: state.isLoading
               ? CenterLoadingIndicator(isOnlyLoader: true)
               : state.isErrorInAPI

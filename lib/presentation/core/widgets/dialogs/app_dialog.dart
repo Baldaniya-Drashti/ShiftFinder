@@ -16,6 +16,8 @@ class AppDialog {
     BuildContext context,
     String infoMessage, {
     EdgeInsets? insetPadding,
+    int? maxLines,
+    void Function()? onPressed,
   }) async {
     showDialog(
         context: context,
@@ -27,6 +29,7 @@ class AppDialog {
               fontSize: 16,
               fontWeight: FontWeight.w500,
               textAlign: TextAlign.center,
+              maxLines: maxLines,
             ),
             elevation: 80,
             backgroundColor: AppColors.white,
@@ -38,9 +41,10 @@ class AppDialog {
             actionsAlignment: MainAxisAlignment.center,
             actions: [
               CommonButton(
-                onPressed: () {
-                  context.router.maybePop();
-                },
+                onPressed: onPressed ??
+                    () {
+                      context.router.maybePop();
+                    },
                 width: 200,
                 buttonText: StringConstant.ok,
               )
@@ -82,6 +86,7 @@ class AppDialog {
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.center,
                   textColor: AppColors.black.withOpacity(0.7),
+                  maxLines: 20,
                 ),
                 otherContent ?? Container()
               ],

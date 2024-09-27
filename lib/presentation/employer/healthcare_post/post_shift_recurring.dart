@@ -23,6 +23,7 @@ import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
@@ -128,6 +129,9 @@ class PostShiftRecurring extends StatelessWidget {
                                                 recurringStartDateField(
                                                     context, state),
                                                 paddingBetweenFields(),
+                                                recurringEndDateField(
+                                                    context, state),
+                                                paddingBetweenFields(),
                                                 recurrenceModeDropDown(
                                                     context, state),
                                                 if (state
@@ -162,9 +166,6 @@ class PostShiftRecurring extends StatelessWidget {
                                                         .pleaseSelectRecurrenceMode),
                                                   paddingBetweenFields(),
                                                 ],
-                                                recurringEndDateField(
-                                                    context, state),
-                                                paddingBetweenFields(),
                                               ],
                                             )),
                                       ],
@@ -196,11 +197,42 @@ class PostShiftRecurring extends StatelessWidget {
                                         vertical: getSize(20)),
                                     child: CommonButton(
                                       onPressed: () {
-                                        context.read<PostShiftBloc>().add(
-                                            PostShiftEvent.recurringButtonEvent(
-                                                context,
-                                                updateShift?.shift_detail?.id ??
-                                                    -1));
+                                        int? difference;
+                                        DateTime? startDate =
+                                            state.recurringStartDate.isValid()
+                                                ? DateTime.parse(state
+                                                        .recurringStartDate
+                                                        .getValue() ??
+                                                    "")
+                                                : null;
+
+                                        DateTime? endDate =
+                                            state.recurringEndDate.isValid()
+                                                ? DateTime.parse(state
+                                                        .recurringEndDate
+                                                        .getValue() ??
+                                                    "")
+                                                : null;
+
+                                        if (startDate != null &&
+                                            endDate != null) {
+                                          difference = endDate
+                                              .difference(startDate)
+                                              .inDays;
+                                        }
+                                        if (difference != null &&
+                                            difference > 20) {
+                                          confirmationDialog(context, state,
+                                              noOfShift: difference);
+                                        } else {
+                                          context.read<PostShiftBloc>().add(
+                                              PostShiftEvent
+                                                  .recurringButtonEvent(
+                                                      context,
+                                                      updateShift?.shift_detail
+                                                              ?.id ??
+                                                          -1));
+                                        }
                                       },
                                       buttonText: StringConstant.txtContinue,
                                     ),
@@ -222,6 +254,26 @@ class PostShiftRecurring extends StatelessWidget {
   Widget paddingBetweenFields({double? height}) {
     return SizedBox(
       height: getSize(height ?? 15),
+    );
+  }
+
+  confirmationDialog(BuildContext context, PostShiftState state,
+      {required int noOfShift}) {
+    AppDialog.showDelete(
+      context,
+      title: StringConstant.confirmationRequired,
+      infoMessage:
+          "${StringConstant.confirmationRecurringDesc1} $noOfShift ${StringConstant.confirmationRecurringDesc2}",
+      deleteBtnText: StringConstant.confirm,
+      cancelText: StringConstant.cancle,
+      onCancelClick: () {
+        context.router.maybePop();
+      },
+      onDeleteClick: () {
+        context.router.maybePop();
+        context.read<PostShiftBloc>().add(PostShiftEvent.recurringButtonEvent(
+            context, updateShift?.shift_detail?.id ?? -1));
+      },
     );
   }
 
@@ -317,9 +369,15 @@ class PostShiftRecurring extends StatelessWidget {
         onTap: () {
           bool value = state.isShareWithTeams;
           value = !value;
-          context
-              .read<PostShiftBloc>()
-              .add(PostShiftEvent.shareWithTeamsCheck(value));
+
+          if (value == true && state.teamList.isEmpty) {
+            showError(message: StringConstant.toShareThisPostDesc)
+                .show(context);
+          } else {
+            context
+                .read<PostShiftBloc>()
+                .add(PostShiftEvent.shareWithTeamsCheck(value));
+          }
         },
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -339,9 +397,14 @@ class PostShiftRecurring extends StatelessWidget {
                 ),
                 onChanged: (value) {
                   if (value != null) {
-                    context
-                        .read<PostShiftBloc>()
-                        .add(PostShiftEvent.shareWithTeamsCheck(value));
+                    if (value == true && state.teamList.isEmpty) {
+                      showError(message: StringConstant.toShareThisPostDesc)
+                          .show(context);
+                    } else {
+                      context
+                          .read<PostShiftBloc>()
+                          .add(PostShiftEvent.shareWithTeamsCheck(value));
+                    }
                   }
                 },
               ),
@@ -349,11 +412,23 @@ class PostShiftRecurring extends StatelessWidget {
             SizedBox(
               width: getSize(15),
             ),
-            Flexible(
+            Expanded(
               child: BaseText(
                 text: StringConstant.shareThisPostingWithTheTeam,
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                AppDialog.showInfo(
+                  context,
+                  StringConstant.teamInfoDesc,
+                  maxLines: 10,
+                );
+              },
+              child: SvgPicture.asset(
+                SvgImageConstant.infoCircle,
               ),
             ),
           ],
@@ -409,11 +484,23 @@ class PostShiftRecurring extends StatelessWidget {
             SizedBox(
               width: getSize(15),
             ),
-            Flexible(
+            Expanded(
               child: BaseText(
                 text: StringConstant.saveThisAsATemplateForFuturePosting,
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                AppDialog.showInfo(
+                  context,
+                  StringConstant.saveTemplateInfoDesc,
+                  maxLines: 10,
+                );
+              },
+              child: SvgPicture.asset(
+                SvgImageConstant.infoCircle,
               ),
             ),
           ],
@@ -481,6 +568,24 @@ class PostShiftRecurring extends StatelessWidget {
   }
 
   Widget recurrenceModeDropDown(BuildContext context, PostShiftState state) {
+    /*bool isRangeMoreThanWeek = false;
+    DateTime? startDate = state.recurringStartDate.isValid()
+        ? DateTime.parse(state.recurringStartDate.getValue() ?? "")
+        : null;
+
+    DateTime? endDate = state.recurringEndDate.isValid()
+        ? DateTime.parse(state.recurringEndDate.getValue() ?? "")
+        : null;
+
+    if (startDate != null && endDate != null) {
+      int difference = endDate.difference(startDate).inDays;
+      if (difference >= 7) {
+        isRangeMoreThanWeek = true;
+        print("isRengeMoreThanWeek---> $isRangeMoreThanWeek");
+      }
+    }*/
+
+    print("isRangeMoreThanWeek----> ${state.isRangeMoreThanWeek}");
     return CustomDropdwonWithTextField(
       labelText: StringConstant.recurrenceMode,
       hintText: StringConstant.recurrenceMode,
@@ -489,16 +594,27 @@ class PostShiftRecurring extends StatelessWidget {
       value: (state.recurrenceMode.isValid())
           ? state.recurrenceMode.getValue()
           : null,
-      items: CommonList.recurrenceModeList.map((val) {
-        return DropdownMenuItem<String>(
-          value: val,
-          child: BaseText(
-            text: val,
-            fontSize: 14,
-            textColor: AppColors.black,
-          ),
-        );
-      }).toList(),
+      items: (state.isRangeMoreThanWeek)
+          ? CommonList.recurrenceModeList.map((val) {
+              return DropdownMenuItem<String>(
+                value: val,
+                child: BaseText(
+                  text: val,
+                  fontSize: 14,
+                  textColor: AppColors.black,
+                ),
+              );
+            }).toList()
+          : CommonList.recurrenceModeOnlyDaily.map((val) {
+              return DropdownMenuItem<String>(
+                value: val,
+                child: BaseText(
+                  text: val,
+                  fontSize: 14,
+                  textColor: AppColors.black,
+                ),
+              );
+            }).toList(),
       onChanged: (value) {
         if (value != null) {
           context

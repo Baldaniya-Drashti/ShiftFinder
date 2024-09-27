@@ -41,7 +41,12 @@ class PaginatedListView extends StatelessWidget {
       header: MaterialClassicHeader(
         color: AppColors.primaryColor,
       ),
-      footer: footer,
+      footer: footer ??
+          CustomFooter(
+            builder: (context, loadStatus) {
+              return SizedBox();
+            },
+          ),
       enablePullUp: true,
       enablePullDown: true,
       reverse: reverse,

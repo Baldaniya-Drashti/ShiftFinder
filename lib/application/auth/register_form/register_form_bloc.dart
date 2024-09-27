@@ -10,6 +10,8 @@ import 'package:injectable/injectable.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/auth/i_auth_facade.dart';
+import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,7 +23,7 @@ part 'register_form_bloc.freezed.dart';
 class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
   final IAuthFacade _authFacade;
 
-  late Timer timer;
+  Timer? timer;
   bool isNewPassObscure = false;
   bool isConfirmPassObscure = false;
   List<dynamic> placeList = [];
@@ -53,6 +55,100 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
   RegisterFormBloc(this._authFacade) : super(RegisterFormState.initial()) {
     on<RegisterFormEvent>((event, emit) async {
       await event.map(
+        editedPhoneEvent: (e) {
+          print("edited phone---> ${e.value}");
+          emit(state.copyWith(
+            editedPhone: MobileNumber(e.value),
+            editedCountrycode: e.countryCode ?? state.editedCountrycode,
+            editedCountryFlag: e.countryFlag ?? state.editedCountryFlag,
+            editFailureorSuccessOption: none(),
+          ));
+        },
+        editedEmailEvent: (e) {
+          print("edited email---> ${e.value}");
+          emit(state.copyWith(
+            editedEmail: EmailAddress(e.value),
+            editFailureorSuccessOption: none(),
+          ));
+        },
+        selectEditedCountryCode: (e) {
+          emit(
+            state.copyWith(
+              editedCountrycode: e.phoneCode,
+              editedCountryFlag: e.flag,
+              editFailureorSuccessOption: none(),
+            ),
+          );
+        },
+        editEmailOrPhone: (e) async {
+          Either<AuthFailure, String>? failureOrSuccess;
+          final isEmailValid = state.editedEmail.isValid();
+          final isPhoneValid = state.editedPhone.isValid();
+
+          if (getCurrentRole() == 1) {
+            if (isPhoneValid) {
+              emit(
+                state.copyWith(
+                  isEditing: true,
+                  editFailureorSuccessOption: none(),
+                ),
+              );
+              failureOrSuccess = await _authFacade.editEmailOrPhone(
+                email: "",
+                phone: state.editedPhone.getValue(),
+                countryCode: state.editedCountrycode,
+                countryNameCode: state.editedCountryFlag,
+              );
+            }
+          } else {
+            if (isEmailValid) {
+              emit(
+                state.copyWith(
+                  isEditing: true,
+                  editFailureorSuccessOption: none(),
+                ),
+              );
+              failureOrSuccess = await _authFacade.editEmailOrPhone(
+                email: state.editedEmail.getValue(),
+                phone: "",
+                countryCode: "",
+              );
+            }
+          }
+
+          failureOrSuccess?.fold(
+            (failure) {
+              emit(
+                state.copyWith(
+                  isEditing: false,
+                  showEditedErrorMessage: false,
+                  editFailureorSuccessOption: none(),
+                ),
+              );
+              showError(
+                  message: failure.maybeMap(
+                showAPIResponseMessage: (value) => value.message,
+                networkError: (value) =>
+                    'Please check your internet connectivity',
+                orElse: () => "Server Error. Try again later.",
+              )).show(e.context);
+            },
+            (r) {
+              emit(
+                state.copyWith(
+                  isEditing: false,
+                  editedEmail: EmailAddress(""),
+                  editedPhone: MobileNumber(""),
+                  showEditedErrorMessage: false,
+                  editFailureorSuccessOption: optionOf(failureOrSuccess),
+                ),
+              );
+              showSuccess(message: r).show(e.context).then((value) {
+                Navigator.pop(e.context, true);
+              });
+            },
+          );
+        },
         changeProfilePic: (e) {
           emit(
             state.copyWith(selectImage: e.imagePath),
@@ -69,7 +165,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
         lastNameChanged: (e) {
           emit(
             state.copyWith(
-              lastName: Username(e.lastName),
+              lastName: Lastname(e.lastName),
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -251,6 +347,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
                 companyName: null,
                 phoneNumber: state.phoneNumber,
                 countryCode: '+${state.selectedCountrycode}',
+                countryFlag: state.selectedCountryFlag,
                 email: state.email,
                 password: state.password,
                 confirmPassword: state.confirmPassword,
@@ -259,6 +356,11 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
                 referralCode: state.referralCode,
                 locationAddress: state.locationAddress.getValue() ?? "",
               );
+            } else {
+              showError(
+                      message: StringConstant
+                          .someDetailsAreMissingOrInvalidPleaseCheck)
+                  .show(e.context);
             }
           } else {
             if (isCompanyNameValid &&
@@ -280,6 +382,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
                 profileImage: state.selectImage,
                 companyName: state.companyName.getValue(),
                 countryCode: '+${state.selectedCountrycode}',
+                countryFlag: state.selectedCountryFlag,
                 phoneNumber: state.phoneNumber,
                 email: state.email,
                 password: state.password,
@@ -291,6 +394,11 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
               );
               print("Failure Or successs---> $failureOrSuccess");
               // failureOrSuccess = right("sucess");
+            } else {
+              showError(
+                      message: StringConstant
+                          .someDetailsAreMissingOrInvalidPleaseCheck)
+                  .show(e.context);
             }
           }
 
@@ -334,10 +442,13 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
             ),
           );
         },
-
         startCountdown: (StartCountdown value) {
+          if (timer != null) {
+            timer!.cancel();
+          }
           timer = Timer.periodic(const Duration(seconds: 1), (timer) {
             if (state.secondsRemaining > 0 && !isClosed) {
+              print("Start countdown");
               add(const RegisterFormEvent.decrementTimer());
             } else {
               timer.cancel();
@@ -382,8 +493,9 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           //     resendFailureOrSuccessOption: optionOf(failureOrSuccess),
           //   ),
           // );
-
-          timer.cancel();
+          if (timer != null) {
+            timer!.cancel();
+          }
 
           Either<AuthFailure, String>? failureOrSuccess;
 

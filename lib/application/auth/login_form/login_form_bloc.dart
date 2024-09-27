@@ -67,6 +67,7 @@ class LoginFormBloc extends Bloc<LoginFormEvent, LoginFormState> {
                 state.copyWith(
                   isSubmitting: true,
                   authFailureOrSuccessOption: none(),
+                  verificationFailureOrSuccessOption: none(),
                 ),
               );
               failureOrSuccess = await _authFacade.login(

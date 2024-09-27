@@ -117,7 +117,8 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
                               },
                             ),
                     ),
-                    if (state.showCovidErrorMessages)
+                    if (state.showCovidErrorMessages &&
+                        !state.covidVaccinationDoc.isValid())
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: getSize(10)),
                         child: const BaseText(
@@ -131,18 +132,32 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
                       alignment: Alignment.center,
                       child: Padding(
                         padding: EdgeInsets.only(
-                            top: getSize(90), bottom: getSize(50)),
+                            top: getSize(50), bottom: getSize(10)),
                         child: CommonButton(
                           isSubmitting: state.isCovidDocSubmitting,
                           onPressed: () {
                             context
                                 .read<DocumentBloc>()
-                                .add(const DocumentEvent.covidDocSubmit());
+                                .add(const DocumentEvent.covidDocSubmit(
+                                  isSkip: false,
+                                ));
                           },
                           buttonText: StringConstant.txtContinue,
                         ),
                       ),
-                    )
+                    ),
+                    if (!state.covidVaccinationDoc.isValid())
+                      documentSkipButton(
+                        context,
+                        onPressed: () {
+                          context
+                              .read<DocumentBloc>()
+                              .add(const DocumentEvent.covidDocSubmit(
+                                isSkip: true,
+                              ));
+                        },
+                      ),
+                    SizedBox(height: getSize(40)),
                   ],
                 ),
               );

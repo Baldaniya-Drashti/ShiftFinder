@@ -30,10 +30,8 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(
-        "CURRENT USER INFORMATION FROM STORAGE---->  ${getCurrentUser().userId}");
     return BlocConsumer<LoginFormBloc, LoginFormState>(
-      listener: (context, state) {
+      listener: (_, state) {
         state.authFailureOrSuccessOption.fold(
           () {},
           (either) => either.fold(
@@ -82,10 +80,11 @@ class LoginForm extends StatelessWidget {
               AppFocus.unfocus(context);
               VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
                 context,
-                // state.emailId.getValue(),
                 (getCurrentRole() == 1)
-                    ? "${r.countryCode} ${r.phone}"
+                    ? "${r.phone}"
                     : state.emailId.getValue(),
+                "+${r.countryCode}",
+                r.countryNameCode ?? "",
                 state.password.getValue(),
               );
             },

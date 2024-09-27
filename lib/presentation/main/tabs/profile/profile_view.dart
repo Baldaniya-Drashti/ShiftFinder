@@ -20,7 +20,7 @@ class ProfileView extends StatelessWidget {
           initial: (value) {},
           authenticated: (value) {},
           unauthenticated: (value) =>
-              context.router.replaceAll([PageRouteInfo(Onboarding1.name)]),
+              context.router.replaceAll([const PageRouteInfo(LoginPage.name)]),
         );
       },
       child: ListView(

@@ -341,6 +341,5 @@ class FilledShiftListView extends StatelessWidget {
         );
       },
     );
-  
   }
 }

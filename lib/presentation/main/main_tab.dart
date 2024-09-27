@@ -18,7 +18,7 @@ import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart' as autoroute;
 import 'package:shift/presentation/core/style/app_colors.dart';
-import 'package:shift/presentation/main/tabs/shifts/shifts_view.dart';
+import 'package:shift/presentation/main/tabs/employer_shift_view.dart';
 import 'package:shift/presentation/main/tabs/home/home_view.dart';
 import 'package:shift/presentation/main/tabs/notification_view.dart';
 import 'package:shift/presentation/main/tabs/profile/profile_view.dart';
@@ -85,47 +85,85 @@ class MainTabView extends StatelessWidget {
                   ),
                 ),
               ),
-              floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  context.router
-                      .push(PageRouteInfo(autoroute.HealthCarePostForm.name))
-                      .then((value) {
+              floatingActionButton: BlocListener<HomeBloc, HomeState>(
+                listener: (context, state) {
+                  /*state.teamStatusFailureOrSuccessOption.fold(
+                    () {},
+                    (either) => either.fold(
+                      (failure) {
+                        showError(
+                          message: failure.maybeMap(
+                            showAPIResponseMessage: (value) => value.message,
+                            networkError: (value) =>
+                                'Please check your internet connectivity',
+                            orElse: () => "Server Error. Try again later.",
+                          ),
+                        ).show(context);
+                      },
+                      (r) {
+                        if (r.isTeamAvailable == 1) {
+                          context.router
+                              .push(PageRouteInfo(
+                                  autoroute.HealthCarePostForm.name))
+                              .then((value) {
+                            context
+                                .read<HomeBloc>()
+                                .add(HomeEvent.getEmployerDashboardList(true));
+                          });
+                        } else {
+                          teamCheckDialog(context, state);
+                        }
+                      },
+                    ),
+                  );*/
+                },
+                child: FloatingActionButton(
+                  onPressed: () {
                     context
                         .read<HomeBloc>()
-                        .add(HomeEvent.getEmployerDashboardList(true));
-                  });
+                        .add(HomeEvent.checkTeamAvailableEvent(context));
 
-                  // context.router.push(PageRouteInfo(
-                  //   autoroute.HealthcarePostShift.name,
-                  //   args: autoroute.HealthcarePostShiftArgs(postId: 28),
-                  // ));
+                    /*context.router
+                                    .push(PageRouteInfo(autoroute.HealthCarePostForm.name))
+                                    .then((value) {
+                                  context
+                                      .read<HomeBloc>()
+                                      .add(HomeEvent.getEmployerDashboardList(true));
+                                });*/
 
-                  // context.router.push(PageRouteInfo(
-                  //   autoroute.PostShiftRecurring.name,
-                  //   args: autoroute.PostShiftRecurringArgs(
-                  //       shiftType: 1, healthcarePost: HealthcarePostDTO()),
-                  // ));
-                },
-                backgroundColor: AppColors.primaryColor,
-                shape: CircleBorder(
-                  side: BorderSide(
-                    color: AppColors.darkGreen,
-                    width: getSize(3),
-                  ),
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.primaryColor,
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: AssetImage(PngImageConstants.floating_background),
+                    // context.router.push(PageRouteInfo(
+                    //   autoroute.HealthcarePostShift.name,
+                    //   args: autoroute.HealthcarePostShiftArgs(postId: 28),
+                    // ));
+
+                    // context.router.push(PageRouteInfo(
+                    //   autoroute.PostShiftRecurring.name,
+                    //   args: autoroute.PostShiftRecurringArgs(
+                    //       shiftType: 1, healthcarePost: HealthcarePostDTO()),
+                    // ));
+                  },
+                  backgroundColor: AppColors.primaryColor,
+                  shape: CircleBorder(
+                    side: BorderSide(
+                      color: AppColors.darkGreen,
+                      width: getSize(3),
                     ),
                   ),
-                  alignment: Alignment.center,
-                  child: SvgPicture.asset(
-                    SvgImageConstant.plus,
-                    height: getSize(30),
-                    width: getSize(30),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryColor,
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image:
+                            AssetImage(PngImageConstants.floating_background),
+                      ),
+                    ),
+                    alignment: Alignment.center,
+                    child: SvgPicture.asset(
+                      SvgImageConstant.plus,
+                      height: getSize(30),
+                      width: getSize(30),
+                    ),
                   ),
                 ),
               ),
@@ -138,6 +176,7 @@ class MainTabView extends StatelessWidget {
       ),
     );
   }
+
 }
 
 getAppbar(MainTabState state, BuildContext context) {
@@ -175,16 +214,17 @@ getAppbar(MainTabState state, BuildContext context) {
               fontFamily: "Aclonica",
               textColor: AppColors.black.withOpacity(0.7),
             ),
+            SizedBox(height: getSize(2)),
             BaseText(
               text:
                   "${getCurrentUser().firstName ?? ''} ${getCurrentUser().lastName ?? ''}",
-              fontSize: 12,
+              fontSize: 13,
               fontWeight: FontWeight.w400,
               fontFamily: "Aclonica",
             ),
             BaseText(
               text: "${getCurrentUser().companyName ?? ''}",
-              fontSize: 8,
+              fontSize: 10,
               fontWeight: FontWeight.w600,
               textColor: AppColors.primaryColor,
             ),
@@ -198,7 +238,7 @@ getAppbar(MainTabState state, BuildContext context) {
       );
     case 1:
       return HomeAppbar(
-        titleText: 'Shifts',
+        titleText: StringConstant.shifts,
       );
     case 2:
       return HomeAppbar(
@@ -220,8 +260,8 @@ Route? onGenerateRoute(RouteSettings settings, String tabItem) {
     builder: (context) {
       if (tabItem == autoroute.HomeView.name) {
         return HomeView();
-      } else if (tabItem == autoroute.HistoryView.name) {
-        return HistoryView();
+      } else if (tabItem == autoroute.EmployerShiftView.name) {
+        return EmployerShiftView();
       } else if (tabItem == autoroute.NotificationView.name) {
         return NotificationView();
       } else if (tabItem == autoroute.ProfileView.name) {

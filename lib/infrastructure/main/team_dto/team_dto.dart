@@ -19,3 +19,13 @@ class TeamDTO with _$TeamDTO {
   factory TeamDTO.fromJson(Map<String, dynamic> json) =>
       _$TeamDTOFromJson(json);
 }
+
+@freezed
+class TeamAvailableDTO with _$TeamAvailableDTO {
+  const factory TeamAvailableDTO({
+    int? isTeamAvailable,
+  }) = _TeamAvailableDTO;
+
+  factory TeamAvailableDTO.fromJson(Map<String, dynamic> json) =>
+      _$TeamAvailableDTOFromJson(json);
+}

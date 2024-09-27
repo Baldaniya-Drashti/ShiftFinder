@@ -205,7 +205,7 @@ class ProfessionalLicenses extends StatelessWidget {
                           ),
                           Padding(
                             padding: EdgeInsets.only(
-                                top: getSize(50), bottom: getSize(50)),
+                                top: getSize(50), bottom: getSize(10)),
                             child: Align(
                               alignment: Alignment.center,
                               child: CommonButton(
@@ -213,12 +213,25 @@ class ProfessionalLicenses extends StatelessWidget {
                                   context.read<ProfessionalLicensesBloc>().add(
                                       const ProfessionalLicensesEvent
                                           .licensesDocSubmit(
-                                          isAddMoreBtnClick: false));
+                                          isAddMoreBtnClick: false,
+                                          isSkip: false));
                                 },
                                 buttonText: StringConstant.txtContinue,
                               ),
                             ),
-                          )
+                          ),
+                          if (state.professionalLicensesList.isEmpty)
+                            documentSkipButton(
+                              context,
+                              onPressed: () {
+                                context.read<ProfessionalLicensesBloc>().add(
+                                    const ProfessionalLicensesEvent
+                                        .licensesDocSubmit(
+                                        isAddMoreBtnClick: false,
+                                        isSkip: true));
+                              },
+                            ),
+                          paddingBetweenFields(height: 40)
                         ],
                       ),
                     ),

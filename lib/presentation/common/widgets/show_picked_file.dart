@@ -50,22 +50,9 @@ class ShowPickedFile extends StatelessWidget {
             : BorderRadius.circular(5),
       ),
       alignment: Alignment.center,
-      child: badges.Badge(
-        onTap: () {
-          AppFocus.unfocus(context);
-          if (onDelete != null) {
-            onDelete!.call();
-          }
-        },
-        showBadge: showBadge,
-        badgeContent: SvgPicture.asset(
-          SvgImageConstant.minusCircle,
-          height: getSize(20),
-          width: getSize(20),
-        ),
-        badgeStyle: badges.BadgeStyle(
-          badgeColor: AppColors.primaryColor,
-        ),
+      child: showBadgeButton(
+        showBadge,
+        context: context,
         child: Container(
           decoration: BoxDecoration(
             boxShadow: [
@@ -115,7 +102,7 @@ class ShowPickedFile extends StatelessWidget {
                       // ),
                       height: getSize(90),
                       width: getSize(90),
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fill,
                     )
                   : Image.file(
                       File(selectedFile ?? ''),
@@ -147,5 +134,29 @@ class ShowPickedFile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget showBadgeButton(bool showBadge,
+      {required BuildContext context, required Widget child}) {
+    return (showBadge)
+        ? badges.Badge(
+            onTap: () {
+              AppFocus.unfocus(context);
+              if (onDelete != null) {
+                onDelete!.call();
+              }
+            },
+            showBadge: showBadge,
+            badgeContent: SvgPicture.asset(
+              SvgImageConstant.minusCircle,
+              height: getSize(20),
+              width: getSize(20),
+            ),
+            badgeStyle: badges.BadgeStyle(
+              badgeColor: AppColors.primaryColor,
+            ),
+            child: child,
+          )
+        : child;
   }
 }

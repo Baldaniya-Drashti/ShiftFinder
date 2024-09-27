@@ -555,6 +555,31 @@ class MainFacade implements IMainFacade {
   }
 
   @override
+  Future<Either<MainFailure, TeamAvailableDTO>> employerTeamCheck() async {
+    try {
+      final res = await apiService.getMethod(ApiConstants.employerTeamCheck);
+      if (res != null) {
+        final data = TeamAvailableDTO.fromJson(res.data);
+        return right(data);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
   Future<Either<MainFailure, CommonResponse>> getEmployerDashboardListAPI(
       {required int page}) async {
     try {
@@ -836,9 +861,10 @@ class MainFacade implements IMainFacade {
 
   @override
   Future<Either<MainFailure, CommonResponse>> getContractorDashboardListAPI(
-      {required int page}) async {
+      {required int page, int? filterType}) async {
     try {
       Map<String, dynamic> mapData = {
+        'filter_type': filterType ?? 0,
         'page': page,
         'perPage': _perPage,
       };
