@@ -12,7 +12,11 @@ class ShiftsBlocState with _$ShiftsBlocState {
     required List<Predictions> searchLocationList,
     required PlaceDetailDTO selectedAddress,
     required SingleValueDropDownController singleValueDropDownController,
+    required SingleValueDropDownController
+        singleValueApprovedShiftDropDownController,
     required List<DropDownValueModel> locationList,
+    required TimeOfDay clockIn,
+    required TimeOfDay clockOut,
     required Option<Either<AccountFailure, Account>> authFailureOrSuccessOption,
   }) = _ShiftsBlocState;
   factory ShiftsBlocState.initial() => ShiftsBlocState(
@@ -27,5 +31,9 @@ class ShiftsBlocState with _$ShiftsBlocState {
         authFailureOrSuccessOption: none(),
         locationList: [],
         singleValueDropDownController: SingleValueDropDownController(),
+        singleValueApprovedShiftDropDownController:
+            SingleValueDropDownController(),
+        clockIn: TimeOfDay.now(),
+        clockOut: TimeOfDay.now(),
       );
 }

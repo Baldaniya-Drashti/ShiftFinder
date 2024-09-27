@@ -66,11 +66,20 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
             );
           },
           withdrawShift: (WithdrawShift value) async {
-            // var isValidReason = state.deleteReason.isValid();
-            // if (isValidReason) {
-            //   emit(state.copyWith(showErrorMessages: false));
-            // }
             emit(state.copyWith(showErrorMessages: true));
+          },
+          changeClockInClockOutTime: (CangeClockInClockOutTime value) async {
+            if (value.isClockIn) {
+              emit(
+                state.copyWith(clockIn: value.time),
+              );
+            } else {
+              emit(
+                state.copyWith(
+                  clockOut: value.time,
+                ),
+              );
+            }
           },
         );
       },

@@ -7,6 +7,7 @@ class ShiftsBlocEvent with _$ShiftsBlocEvent {
 
   const factory ShiftsBlocEvent.getLocationListAPI() = GetLocationListAPI;
   const factory ShiftsBlocEvent.withdrawShift() = WithdrawShift;
-
   factory ShiftsBlocEvent.deleteReasonChange(String value) = DeleteReasonChange;
+  factory ShiftsBlocEvent.changeClockInClockOutTime(
+      TimeOfDay time, bool isClockIn) = CangeClockInClockOutTime;
 }

@@ -6,12 +6,12 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
-import 'package:shift/presentation/main/tabs/shifts/filled_shifts/widgets/delete_shift_dialog.dart';
+import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
+import 'package:shift/presentation/main/tabs/shifts/approved_shifts/widgets/edit_clock_time_dialog.dart';
 
-class FilledShiftListView extends StatelessWidget {
-  const FilledShiftListView({
-    super.key,
-  });
+class ApprovedShiftList extends StatelessWidget {
+  const ApprovedShiftList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +26,11 @@ class FilledShiftListView extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-            context.router.push(
-              PageRouteInfo(
-                ViewApplicantProfile.name,
-              ),
-            );
+            // context.router.push(
+            //   PageRouteInfo(
+            //     ViewApplicantProfile.name,
+            //   ),
+            // );
           },
           child: Container(
             margin: EdgeInsets.symmetric(
@@ -83,28 +83,6 @@ class FilledShiftListView extends StatelessWidget {
                                       fontWeight: FontWeight.w600,
                                     ),
                                     Spacer(),
-                                    GestureDetector(
-                                      onTap: () {
-                                        DeleteShiftDialog()
-                                            .deleteShiftDialog(context);
-                                      },
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        height: getSize(28),
-                                        decoration: BoxDecoration(
-                                          color: AppColors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(getSize(5)),
-                                        ),
-                                        width: getSize(28),
-                                        child: SvgPicture.asset(
-                                          SvgImageConstant.delete,
-                                          colorFilter: ColorFilter.mode(
-                                              AppColors.black,
-                                              BlendMode.srcATop),
-                                        ),
-                                      ),
-                                    )
                                   ],
                                 ),
                                 SizedBox(height: getSize(3)),
@@ -144,6 +122,34 @@ class FilledShiftListView extends StatelessWidget {
                           ),
                         ],
                       ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: getSize(10)),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: getSize(12),
+                    horizontal: getSize(20),
+                  ),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: AppColors.scaffoldColor,
+                    borderRadius: BorderRadius.circular(getSize(10)),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      BaseText(
+                        text: 'Remaining Shifts',
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      BaseText(
+                        text: '03',
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        textColor: AppColors.primaryColor,
+                      )
                     ],
                   ),
                 ),
@@ -266,7 +272,124 @@ class FilledShiftListView extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: getSize(10)),
+                SizedBox(height: getSize(15)),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: getSize(10),
+                    horizontal: getSize(20),
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.scaffoldColor,
+                    borderRadius: BorderRadius.circular(getSize(10)),
+                  ),
+                  child: Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SvgPicture.asset(
+                        SvgImageConstant.clock,
+                        height: getSize(15),
+                        width: getSize(15),
+                        colorFilter: ColorFilter.mode(
+                          Colors.black,
+                          BlendMode.srcATop,
+                        ),
+                      ),
+                      SizedBox(width: getSize(7)),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          BaseText(
+                            text: 'Clock in',
+                            fontSize: 8,
+                            fontWeight: FontWeight.w400,
+                            textColor: AppColors.black.withOpacity(0.7),
+                          ),
+                          SizedBox(height: getSize(5)),
+                          BaseText(
+                            text: '09:15 AM',
+                            fontSize: 12,
+                            textColor: AppColors.primaryColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                      SvgPicture.asset(
+                        SvgImageConstant.infoCircle,
+                        height: getSize(15),
+                        width: getSize(15),
+                        colorFilter: ColorFilter.mode(
+                          Colors.black,
+                          BlendMode.srcATop,
+                        ),
+                      ),
+                      SizedBox(width: getSize(7)),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          BaseText(
+                            text: 'Clock out',
+                            fontSize: 8,
+                            fontWeight: FontWeight.w400,
+                            textColor: AppColors.black.withOpacity(0.7),
+                          ),
+                          SizedBox(height: getSize(5)),
+                          BaseText(
+                            text: '07:30 PM',
+                            fontSize: 12,
+                            textColor: AppColors.primaryColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: getSize(15)),
+                Row(
+                  children: [
+                    Expanded(
+                      child: CommonButton(
+                        height: 34,
+                        onPressed: () {
+                          AcceptRejectDialog(
+                            title: 'Approve',
+                            description:
+                                'By approving these clock in and out times, you confirm that you have reviewed the [contractor name]’s  hours. Once approved, the times will be finalized.',
+                            onPressedAccept: () {},
+                            acceptButtonText: 'Approve',
+                            onPressedReject: () {
+                              context.router.maybePop();
+                            },
+                          ).acceptRejectDialog(context);
+                        },
+                        borderRadius: 7,
+                        buttonFontWeight: FontWeight.w600,
+                        buttonFontSize: 12,
+                        buttonText: 'Approve',
+                      ),
+                    ),
+                    SizedBox(
+                      width: getSize(25),
+                    ),
+                    Expanded(
+                      child: CommonButton(
+                        height: 34,
+                        backgroundColor: Color(0xFFF5F5F5),
+                        borderColor: Color(0xFFF5F5F5),
+                        buttonTextColor: AppColors.black,
+                        onPressed: () {
+                          EditClockTimeDialog().editClockTimeDialog(context);
+                        },
+                        buttonFontWeight: FontWeight.w600,
+                        buttonFontSize: 12,
+                        borderRadius: 7,
+                        buttonText: 'Edit',
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: getSize(15)),
                 Container(
                   padding: EdgeInsets.symmetric(
                     vertical: getSize(10),
@@ -341,6 +464,5 @@ class FilledShiftListView extends StatelessWidget {
         );
       },
     );
-  
   }
 }
