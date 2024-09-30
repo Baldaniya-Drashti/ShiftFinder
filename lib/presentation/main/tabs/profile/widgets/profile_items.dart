@@ -30,7 +30,9 @@ class ProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: 'Chat',
         image: SvgImageConstant.chat,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(Chat.name));
+        },
       ),
       ProfileItemModel(
         title: 'Locations',

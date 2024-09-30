@@ -113,8 +113,8 @@ class ApiConstants {
   static String getVenderDetailFilter = 'customer/shop/product/filter';
 
   //chat
-  static String getChatList = 'chat/list';
-  static String getChatDetailList = 'chat/details';
+  static String getChatList = 'chat-list';
+  static String getMessageList = 'chat';
 
   //notification
   static String getNotificationList = 'notification';

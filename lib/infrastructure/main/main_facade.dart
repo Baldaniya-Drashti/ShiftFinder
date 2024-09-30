@@ -8,6 +8,8 @@ import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/api_constants.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
+import 'package:shift/infrastructure/core/chat/chat_response.dart';
+import 'package:shift/infrastructure/core/chat/message_response.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/network/injectable_module.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
@@ -873,6 +875,81 @@ class MainFacade implements IMainFacade {
           queryParameters: mapData);
 
       if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> chatListApi(
+      {required int page}) async {
+    try {
+      Map<String, dynamic> mapData = {
+        'page': page,
+        'perPage': 50,
+      };
+
+      final res = await apiService.getMethod(
+        ApiConstants.getChatList,
+        queryParameters: mapData,
+      );
+      if (res != null) {
+        final list = res.data as List<dynamic>;
+        res.data == null;
+        res.listData = list
+            .map((e) => ChatUser.fromJson(e as Map<String, dynamic>))
+            .toList();
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> getMessage(
+      {required int page, required int id}) async {
+    try {
+      Map<String, dynamic> mapData = {'page': page, 'perPage': 10, 'id': id};
+
+      final res = await apiService.getMethod(
+        ApiConstants.getMessageList,
+        queryParameters: mapData,
+      );
+      if (res != null) {
+        final list = res.data as List<dynamic>;
+        res.data == null;
+        res.listData = list
+            .map((e) => MessageData.fromJson(e as Map<String, dynamic>))
+            .toList();
         return right(res);
       } else {
         return left(const MainFailure.serverError());

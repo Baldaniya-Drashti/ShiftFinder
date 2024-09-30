@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/main_failure.dart';
+import 'package:shift/infrastructure/core/chat/chat_response.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
@@ -34,6 +35,7 @@ abstract class IMainFacade {
     required int postId,
   });
   Future<Either<MainFailure, TeamAvailableDTO>> employerTeamCheck();
+
   Future<Either<MainFailure, CommonResponse>> getEmployerDashboardListAPI({
     required int page,
   });
@@ -114,5 +116,14 @@ abstract class IMainFacade {
   });
   Future<Either<MainFailure, String>> deleteTeamMemberApi({
     required String teamMemberId,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> chatListApi({
+    required int page,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> getMessage({
+    required int page,
+    required int id,
   });
 }

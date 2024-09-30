@@ -69,5 +69,7 @@ class AppRouter extends $AppRouter {
             AutoRoute(page: HomeView.page),
           ],
         ),
+        AutoRoute(page: Chat.page),
+        AutoRoute(page: Message.page),
       ];
 }
