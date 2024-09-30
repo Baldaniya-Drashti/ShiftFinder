@@ -892,4 +892,93 @@ class MainFacade implements IMainFacade {
       return left(const MainFailure.serverError());
     }
   }
+
+  @override
+  Future<Either<MainFailure, String>> contractorApplyOrSendProposal({
+    required int postId,
+    int? shiftType,
+    int? rateHour,
+    String? commuteAllowance,
+    String? accommodationAllowance,
+    String? date,
+    String? startTime,
+    String? endTime,
+    String? multiDate,
+    String? unavailabilityDate,
+  }) async {
+    try {
+      Map<String, dynamic> mapData = {
+        'post_id': postId,
+        'shift_type': shiftType,
+      };
+
+      if (shiftType == 2) {
+        mapData.addAll({
+          'rate_hour': rateHour,
+          'commute_allowance': commuteAllowance,
+          'accommodation_allowance': accommodationAllowance,
+          'date': date,
+          'start_time': startTime,
+          'end_time': endTime,
+          'multi_date': multiDate,
+          'unavailability_date': unavailabilityDate,
+        });
+      }
+
+      final res = await apiService.postMethod(
+        ApiConstants.contractorApplyOrSendProposal,
+        mapData,
+      );
+      print("res.dioMessage---> ${res.dioMessage}");
+
+      return right(res.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> getContractorShifts(
+      {required int page, int? filterType}) async {
+    try {
+      Map<String, dynamic> mapData = {
+        'filter_type': filterType ?? 0,
+        'page': page,
+        'perPage': _perPage,
+      };
+
+      final res = await apiService.getMethod(ApiConstants.contractorShifts,
+          queryParameters: mapData);
+
+      if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
 }

@@ -2,65 +2,91 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
+import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_shift_bloc/contractor_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/infrastructure/contractor_main/shift/upcoming_shift_dto/upcoming_shift_dto.dart';
+import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/dialogs.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
-class UpcomingShift extends StatelessWidget {
+class UpcomingShift extends StatefulWidget {
   const UpcomingShift({super.key});
 
   @override
+  State<UpcomingShift> createState() => _UpcomingShiftState();
+}
+
+class _UpcomingShiftState extends State<UpcomingShift> {
+  @override
+  void initState() {
+    super.initState();
+    context
+        .read<ContractorShiftBloc>()
+        .add(ContractorShiftEvent.getUpcomingShiftAPI(true));
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 5,
-      shrinkWrap: true,
-      padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-      physics: NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        return Container(
-          margin: EdgeInsets.symmetric(vertical: getSize(10)),
-          padding: EdgeInsets.all(getSize(10)),
-          width: getSize(355),
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(getSize(20)),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.black.withOpacity(0.2),
-                blurRadius: 25,
-              ),
-            ],
-          ),
-          child: Column(
-            children: [
-              userDetail(context),
-              paddingBetweenFields(),
-              dateAndTime(context),
-              paddingBetweenFields(),
-              CommonButton(
-                onPressed: () {
-                  context.router.push(PageRouteInfo(
-                      ViewUpcomingShiftDetails.name,
-                      args: ViewUpcomingShiftDetailsArgs(postId: 1)));
+    return BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
+      builder: (context, state) {
+        return (state.isLoading)
+            ? CenterLoadingIndicator(isOnlyLoader: true)
+            : ListView.builder(
+                itemCount: state.upcomingShiftList.length,
+                shrinkWrap: true,
+                padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.symmetric(vertical: getSize(10)),
+                    padding: EdgeInsets.all(getSize(10)),
+                    width: getSize(355),
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(getSize(20)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.black.withOpacity(0.2),
+                          blurRadius: 25,
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        userDetail(context, state.upcomingShiftList[index]),
+                        paddingBetweenFields(),
+                        dateAndTime(context, state.upcomingShiftList[index]),
+                        paddingBetweenFields(),
+                        CommonButton(
+                          onPressed: () {
+                            context.router.push(PageRouteInfo(
+                                ViewUpcomingShiftDetails.name,
+                                args: ViewUpcomingShiftDetailsArgs(postId: 1)));
+                          },
+                          height: 34,
+                          borderRadius: 10,
+                          buttonText: StringConstant.viewShiftDetails,
+                          buttonFontSize: 12,
+                          buttonTextColor: AppColors.black,
+                          backgroundColor:
+                              AppColors.primaryColor.withOpacity(0.2),
+                        ),
+                      ],
+                    ),
+                  );
                 },
-                height: 34,
-                borderRadius: 10,
-                buttonText: StringConstant.viewShiftDetails,
-                buttonFontSize: 12,
-                buttonTextColor: AppColors.black,
-                backgroundColor: AppColors.primaryColor.withOpacity(0.2),
-              ),
-            ],
-          ),
-        );
+              );
       },
     );
   }
@@ -71,7 +97,7 @@ class UpcomingShift extends StatelessWidget {
     );
   }
 
-  Widget userDetail(BuildContext context) {
+  Widget userDetail(BuildContext context, UpComingShiftDTO shift) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
@@ -90,7 +116,7 @@ class UpcomingShift extends StatelessWidget {
             ),
             isThreeLine: true,
             title: BaseText(
-              text: "CT Technologist",
+              text: shift.role_lists_name ?? "",
               textColor: AppColors.black,
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -100,13 +126,14 @@ class UpcomingShift extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 BaseText(
-                  text: "Louis Vuitton Pvt. Ltd.",
+                  text: shift.company_name ?? "",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                   textColor: AppColors.black.withOpacity(0.80),
                 ),
                 BaseText(
-                  text: "(Healthcare - 2DFG125)",
+                  text:
+                      "(${getIndustry(shift.industry_id ?? 0)}  - ${shift.listing_id ?? ''})",
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   textColor: AppColors.black.withOpacity(0.80),
@@ -176,14 +203,14 @@ class UpcomingShift extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       BaseText(
-                        text: "4517 Washington Manchester, Kentucky 39495",
+                        text: shift.location ?? "",
                         fontSize: 12,
                         maxLines: 1,
                         fontWeight: FontWeight.w500,
                         textColor: AppColors.black,
                       ),
                       BaseText(
-                        text: "10.2 Km Away",
+                        text: shift.distance ?? "",
                         fontSize: 10,
                         maxLines: 1,
                         fontWeight: FontWeight.w600,
@@ -222,16 +249,41 @@ class UpcomingShift extends StatelessWidget {
     );
   }
 
-  Widget dateAndTime(BuildContext context) {
+  String getIndustry(int id) {
+    OnBoardingDTO industry = CommonList.industryList.firstWhere(
+      (item) => item.id == id,
+      orElse: () => OnBoardingDTO(),
+    );
+    return industry.title ?? "";
+  }
+
+  Widget dateAndTime(BuildContext context, UpComingShiftDTO shift) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         displayDateBreak(
           context,
-          boldValue: "12 May,",
-          timidValue: "2024",
-          title: StringConstant.shiftDate,
+          boldValue: convertTimeStampToDate(shift.applied_date ?? -1),
+          timidValue:
+              convertTimeStampToDate(shift.applied_date ?? -1, isYear: true),
+          title: "",
           svgPrefixIcon: SvgImageConstant.calendar,
+          titleWidget: Row(
+            children: [
+              BaseText(
+                text: StringConstant.startDate,
+                fontSize: 10,
+                fontWeight: FontWeight.w400,
+                textColor: AppColors.black.withOpacity(0.7),
+              ),
+              BaseText(
+                text: " (5 Shifts)",
+                fontSize: 10,
+                fontWeight: FontWeight.w400,
+                textColor: AppColors.primaryColor,
+              ),
+            ],
+          ),
         ),
         displayTime(
           title: StringConstant.time,
@@ -243,6 +295,21 @@ class UpcomingShift extends StatelessWidget {
     );
   }
 
+  String convertTimeStampToDate(int timestamp,
+      {bool isYear = false, bool isTime = false}) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+
+    if (isTime) {
+      return DateFormat('hh:mm a').format(dateTime);
+    } else {
+      if (isYear) {
+        return DateFormat('yyyy').format(dateTime);
+      } else {
+        return DateFormat('d MMM, ').format(dateTime);
+      }
+    }
+  }
+
   Widget displayDateBreak(
     BuildContext context, {
     required String title,
@@ -250,6 +317,7 @@ class UpcomingShift extends StatelessWidget {
     required String timidValue,
     required String svgPrefixIcon,
     bool showBtn = false,
+    Widget? titleWidget,
   }) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: getSize(10)),
@@ -285,12 +353,13 @@ class UpcomingShift extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BaseText(
-                      text: title,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400,
-                      textColor: AppColors.black.withOpacity(0.7),
-                    ),
+                    titleWidget ??
+                        BaseText(
+                          text: title,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400,
+                          textColor: AppColors.black.withOpacity(0.7),
+                        ),
                     highLightText(boldValue: boldValue, timidValue: timidValue),
                   ],
                 ),

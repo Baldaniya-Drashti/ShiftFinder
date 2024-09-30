@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -10,6 +12,7 @@ import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/employer_home/employer_dashboard_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 
 part 'contractor_home_state.dart';
 part 'contractor_home_event.dart';
@@ -75,7 +78,6 @@ class ContractorHomeBloc
         },
         initialEvent: (e) async {},
         getContractorDashboardList: (e) async {
-          print("Api called after delete--->");
           if (e.isRefresh) {
             page = 1;
             emit(state
@@ -87,8 +89,7 @@ class ContractorHomeBloc
               return;
             }
           }
-          print("state filytertype---> ${state.filterType}");
-          print("e filtertype----> ${e.filterType}");
+
           var res = await mainFacade.getContractorDashboardListAPI(
               page: page, filterType: state.filterType);
 
@@ -151,6 +152,32 @@ class ContractorHomeBloc
               ),
             );*/
           }
+        },
+        applyShiftSubmittedEvent: (e) async {
+          Either<MainFailure, String>? failureOrSuccess;
+
+          failureOrSuccess = await mainFacade.contractorApplyOrSendProposal(
+              postId: e.postId ?? -1, shiftType: 1);
+
+          failureOrSuccess.fold(
+            (l) {
+              e.context.router.maybePop();
+              showError(
+                message: l.maybeMap(
+                  showAPIResponseMessage: (value) => value.message,
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
+                  orElse: () => "Server Error. Try again later.",
+                ),
+              ).show(e.context);
+            },
+            (r) {
+              e.context.router.maybePop();
+              showSuccess(message: r).show(e.context).then((value) {
+                add(ContractorHomeEvent.getContractorDashboardList(true));
+              });
+            },
+          );
         },
       );
     });

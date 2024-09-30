@@ -1,0 +1,29 @@
+// ignore_for_file: non_constant_identifier_names
+
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'upcoming_shift_dto.freezed.dart';
+part 'upcoming_shift_dto.g.dart';
+
+@freezed
+class UpComingShiftDTO with _$UpComingShiftDTO {
+  const factory UpComingShiftDTO({
+    int? id,
+    int? employer_post_user_id,
+    String? role_lists_name,
+    String? company_name,
+    String? profile,
+    int? industry_id,
+    String? listing_id,
+    String? distance,
+    String? location,
+    int? request,
+    int? urgent_action,
+    int? revoke_status,
+    String? last_ago,
+    int? applied_date,
+    bool? check_delete,
+  }) = _UpComingShiftDTO;
+
+  factory UpComingShiftDTO.fromJson(Map<String, dynamic> json) =>
+      _$UpComingShiftDTOFromJson(json);
+}

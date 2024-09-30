@@ -115,4 +115,20 @@ abstract class IMainFacade {
   Future<Either<MainFailure, String>> deleteTeamMemberApi({
     required String teamMemberId,
   });
+
+  Future<Either<MainFailure, String>> contractorApplyOrSendProposal({
+    required int postId,
+    int? shiftType,
+    int? rateHour,
+    String? commuteAllowance,
+    String? accommodationAllowance,
+    String? date,
+    String? startTime,
+    String? endTime,
+    String? multiDate,
+    String? unavailabilityDate,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> getContractorShifts(
+      {required int page, int? filterType});
 }

@@ -10,7 +10,6 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/send_proposal/edit_proposal_time.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/applied_shift.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/current_shift.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/upcoming_shift.dart';
@@ -30,20 +29,21 @@ class ContractorShiftView extends StatelessWidget {
           return Scaffold(
             body: DefaultTabController(
               length: 3,
-              initialIndex: state.selectedTab,
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    tabbar(context),
-                    paddingBetweenFields(),
-                    (state.selectedTab == 0)
+              initialIndex: state.selectedTab - 1,
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  tabbar(context),
+                  paddingBetweenFields(),
+                  Expanded(
+                    child: (state.selectedTab == 1)
                         ? CurrentShift()
-                        : (state.selectedTab == 1)
+                        : (state.selectedTab == 2)
                             ? UpcomingShift()
                             : AppliedShift(),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           );
@@ -63,7 +63,7 @@ class ContractorShiftView extends StatelessWidget {
       onTap: (value) {
         context
             .read<ContractorShiftBloc>()
-            .add(ContractorShiftEvent.changeShiftTab(value));
+            .add(ContractorShiftEvent.changeShiftTab(value + 1));
       },
       padding: EdgeInsets.zero,
       labelStyle: TextStyle(

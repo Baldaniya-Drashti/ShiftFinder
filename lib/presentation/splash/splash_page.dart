@@ -37,10 +37,9 @@ class SplashPage extends StatelessWidget {
               () => (value.isProfileComplete == 1)
                   ? (getCurrentRole() == 2)
                       ? context.router.replace(PageRouteInfo(MainTabView.name))
-                      // : context.router
-                      //     .replace(PageRouteInfo(ContractorMainTabView.name))
                       : context.router
-                          .replace(const PageRouteInfo(LoginPage.name))
+                          .replace(PageRouteInfo(ContractorMainTabView.name))
+                  // : context.router.replace(const PageRouteInfo(LoginPage.name))
                   : context.router.replace(getCurrentPage(
                       value.lastPage,
                       fromSplash: true,

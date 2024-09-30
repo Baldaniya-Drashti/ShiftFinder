@@ -58,7 +58,7 @@ class ContractorHomeView extends StatelessWidget {
                       shrinkWrap: true,
                       physics: BouncingScrollPhysics(),
                       itemBuilder: (_, index) {
-                        return getCheckoutContainer(index, context);
+                        return getCheckoutContainer(index, context, state);
                       },
                     ),
         );
@@ -199,98 +199,96 @@ class ContractorHomeView extends StatelessWidget {
   getCheckoutContainer(
     int index,
     BuildContext context,
+    ContractorHomeState state,
   ) {
-    return BlocBuilder<ContractorHomeBloc, ContractorHomeState>(
-      builder: (context, state) {
-        return Container(
-          padding: EdgeInsets.all(getSize(10)),
-          margin: EdgeInsets.symmetric(vertical: getSize(12)),
-          width: getSize(355),
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(getSize(20)),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.black.withOpacity(0.2),
-                blurRadius: 25,
-              ),
-            ],
+    return Container(
+      padding: EdgeInsets.all(getSize(10)),
+      margin: EdgeInsets.symmetric(vertical: getSize(12)),
+      width: getSize(355),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(getSize(20)),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.black.withOpacity(0.2),
+            blurRadius: 25,
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          contractorDataBox(context, index),
+          SizedBox(
+            height: getSize(8),
+          ),
+          CommonButton(
+            onPressed: () {
+              context.router.push(
+                PageRouteInfo(
+                  ViewContractorShift.name,
+                  args: ViewContractorShiftArgs(
+                    postId: state.contractorDashboardList[index].id ?? -1,
+                    isTotalApplicants: true,
+                  ),
+                ),
+              );
+            },
+            height: getSize(40),
+            borderRadius: 7,
+            backgroundColor: AppColors.primaryColor.withOpacity(0.1),
+            buttonTextColor: AppColors.black,
+            buttonFontSize: 12,
+            buttonText: StringConstant.viewShiftDetails,
+          ),
+          (state.contractorDashboardList[index].shift_type == 1)
+              ? singleShiftDateTimeBreakUI(context, index, state)
+              : multiShiftDateTimeBreakUI(context, index, state),
+          requiredSkillBox(
+            svgPrefixIcon: SvgImageConstant.female,
+            title: StringConstant.specialtiesRequired,
+            value: state.contractorDashboardList[index].specialties_list ?? "",
+          ),
+          rateHoursBox(state.contractorDashboardList[index]),
+          payableBox(state.contractorDashboardList[index]),
+          SizedBox(height: getSize(20)),
+          Row(
             children: [
-              contractorDataBox(context, index),
-              SizedBox(
-                height: getSize(8),
-              ),
-              CommonButton(
+              appliedProposalBtn(
+                btnTitle: StringConstant.apply,
                 onPressed: () {
-                  context.router.push(
-                    PageRouteInfo(
-                      ViewContractorShift.name,
-                      args: ViewContractorShiftArgs(
-                        postId: state.contractorDashboardList[index].id ?? -1,
-                        isTotalApplicants: true,
-                      ),
-                    ),
+                  AppDialog.showDelete(
+                    context,
+                    infoMessage:
+                        StringConstant.areYouSureYouWantToApplyForTheShift,
+                    title: StringConstant.apply,
+                    deleteBtnText: StringConstant.apply,
+                    onCancelClick: () {
+                      context.router.maybePop();
+                    },
+                    onDeleteClick: () {
+                      // context.router.maybePop();
+                      context.read<ContractorHomeBloc>().add(
+                          ContractorHomeEvent.applyShiftSubmittedEvent(
+                              state.contractorDashboardList[index].id,
+                              context));
+                    },
                   );
                 },
-                height: getSize(40),
-                borderRadius: 7,
-                backgroundColor: AppColors.primaryColor.withOpacity(0.1),
-                buttonTextColor: AppColors.black,
-                buttonFontSize: 12,
-                buttonText: StringConstant.viewShiftDetails,
               ),
-              (state.contractorDashboardList[index].shift_type == 1)
-                  ? singleShiftDateTimeBreakUI(context, index, state)
-                  : multiShiftDateTimeBreakUI(context, index, state),
-              requiredSkillBox(
-                svgPrefixIcon: SvgImageConstant.female,
-                title: StringConstant.specialtiesRequired,
-                value:
-                    state.contractorDashboardList[index].specialties_list ?? "",
+              SizedBox(width: getSize(10)),
+              appliedProposalBtn(
+                btnTitle: StringConstant.sendProposal,
+                bgColor: AppColors.white,
+                borderColor: AppColors.primaryColor,
+                onPressed: () {
+                  context.router.push(PageRouteInfo(SendProposal.name));
+                },
               ),
-              rateHoursBox(state.contractorDashboardList[index]),
-              payableBox(state.contractorDashboardList[index]),
-              SizedBox(height: getSize(20)),
-              Row(
-                children: [
-                  appliedProposalBtn(
-                    btnTitle: StringConstant.apply,
-                    onPressed: () {
-                      AppDialog.showDelete(
-                        context,
-                        infoMessage:
-                            StringConstant.areYouSureYouWantToApplyForTheShift,
-                        title: StringConstant.apply,
-                        deleteBtnText: StringConstant.apply,
-                        onCancelClick: () {
-                          context.router.maybePop();
-                        },
-                        onDeleteClick: () {
-                          context.router.maybePop();
-                        },
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    width: getSize(10),
-                  ),
-                  appliedProposalBtn(
-                    btnTitle: StringConstant.sendProposal,
-                    bgColor: AppColors.white,
-                    borderColor: AppColors.primaryColor,
-                    onPressed: () {
-                      context.router.push(PageRouteInfo(SendProposal.name));
-                    },
-                  ),
-                ],
-              )
             ],
-          ),
-        );
-      },
+          )
+        ],
+      ),
     );
   }
 
@@ -418,6 +416,7 @@ class ContractorHomeView extends StatelessWidget {
                                     ?.location ??
                                 "",
                             fontSize: 12,
+                            maxLines: 1,
                             fontWeight: FontWeight.w500,
                             textColor: AppColors.black,
                           ),

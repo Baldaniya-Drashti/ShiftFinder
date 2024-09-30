@@ -10,4 +10,6 @@ class ContractorHomeEvent with _$ContractorHomeEvent {
       FilterShiftEvent;
   const factory ContractorHomeEvent.getShiftDetailEvent(int postId) =
       GetShiftDetailEvent;
+  const factory ContractorHomeEvent.applyShiftSubmittedEvent(
+      int? postId, BuildContext context) = ApplyShiftSubmittedEvent;
 }

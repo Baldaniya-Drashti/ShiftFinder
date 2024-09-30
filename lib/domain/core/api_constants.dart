@@ -41,6 +41,10 @@ class ApiConstants {
   static String legalScreeningQuestionAnswer =
       'legal_screening_question_answer';
 
+// Contractor
+  static String contractorApplyOrSendProposal =
+      'contractor_apply_or_send_proposal';
+
 // Common
   static String roleList = 'role_list';
   static String specialtieList = 'specialtie_list';
@@ -130,6 +134,7 @@ class ApiConstants {
 
   //contractor dashboard
   static String contractorDashboard = 'contractor_dashboard';
+  static String contractorShifts = 'contractor_shifts';
 
   //team
   static String getTeamList = 'get_team';

@@ -1,53 +1,85 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
+import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_shift_bloc/contractor_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/contractor_main/shift/current_shift_dto/current_shift_dto.dart';
+import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
-class CurrentShift extends StatelessWidget {
+class CurrentShift extends StatefulWidget {
   const CurrentShift({super.key});
 
   @override
+  State<CurrentShift> createState() => _CurrentShiftState();
+}
+
+class _CurrentShiftState extends State<CurrentShift> {
+  @override
+  void initState() {
+    super.initState();
+    context
+        .read<ContractorShiftBloc>()
+        .add(ContractorShiftEvent.getCurrentShiftDetailAPI(true));
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 5,
-      shrinkWrap: true,
-      padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-      physics: NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        return Container(
-          margin: EdgeInsets.symmetric(vertical: getSize(12)),
-          padding: EdgeInsets.all(getSize(10)),
-          width: getSize(355),
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(getSize(20)),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.black.withOpacity(0.2),
-                blurRadius: 25,
-              ),
-            ],
-          ),
-          child: Column(
-            children: [
-              userDetail(context),
-              paddingBetweenFields(),
-              remainingShifts(value: "05"),
-              paddingBetweenFields(),
-              dateAndTime(context),
-              paddingBetweenFields(),
-              clockIn(),
-              paddingBetweenFields(),
-              clockOut(),
-            ],
-          ),
-        );
+    return BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
+      builder: (context, state) {
+        return (state.isLoading)
+            ? CenterLoadingIndicator(isOnlyLoader: true)
+            : ListView.builder(
+                itemCount: state.currentShiftList.length,
+                shrinkWrap: true,
+                padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                itemBuilder: (context, index) {
+                  final shift = state.currentShiftList[index];
+                  return Container(
+                    margin: EdgeInsets.symmetric(vertical: getSize(12)),
+                    padding: EdgeInsets.all(getSize(10)),
+                    width: getSize(355),
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(getSize(20)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.black.withOpacity(0.2),
+                          blurRadius: 25,
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        userDetail(context, shift),
+                        paddingBetweenFields(),
+                        numberOfVacancy(
+                            value:
+                                // "${shift.shift_detail?.number_of_vacancie ?? 0}"),
+                                "${(shift.shift_detail?.number_of_vacancie.toString().length == 2) ? shift.shift_detail?.number_of_vacancie : "0${shift.shift_detail?.number_of_vacancie}"}"),
+                        paddingBetweenFields(),
+                        dateAndTime(context, shift),
+                        paddingBetweenFields(),
+                        clockIn(context, index, state),
+                        paddingBetweenFields(),
+                        clockOut(),
+                      ],
+                    ),
+                  );
+                },
+              );
       },
     );
   }
@@ -58,7 +90,7 @@ class CurrentShift extends StatelessWidget {
     );
   }
 
-  Widget dateAndTime(BuildContext context) {
+  Widget dateAndTime(BuildContext context, CurrentShiftDTO shift) {
     return Column(
       children: [
         Row(
@@ -66,8 +98,11 @@ class CurrentShift extends StatelessWidget {
           children: [
             displayDateBreak(
               context,
-              boldValue: "12 May,",
-              timidValue: "2024",
+              // boldValue: "12 May,",
+              // timidValue: "2024",
+              boldValue: convertTimeStampToDate(shift.shift_detail?.date ?? -1),
+              timidValue: convertTimeStampToDate(shift.shift_detail?.date ?? -1,
+                  isYear: true),
               title: StringConstant.shiftDate,
               svgPrefixIcon: SvgImageConstant.calendar,
             ),
@@ -84,7 +119,8 @@ class CurrentShift extends StatelessWidget {
           children: [
             displayDateBreak(
               context,
-              boldValue: "\$460",
+              boldValue:
+                  "\$${shift.shift_detail?.payables?.total_amount_payable ?? ""}",
               timidValue: "",
               title: StringConstant.estimatedPayables,
               svgPrefixIcon: SvgImageConstant.dollorRound,
@@ -103,13 +139,41 @@ class CurrentShift extends StatelessWidget {
     );
   }
 
-  Widget clockIn() {
+  String convertTimeStampToDate(int timestamp,
+      {bool isYear = false, bool isTime = false}) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+
+    if (isTime) {
+      return DateFormat('hh:mm a').format(dateTime);
+    } else {
+      if (isYear) {
+        return DateFormat('yyyy').format(dateTime);
+      } else {
+        return DateFormat('d MMM, ').format(dateTime);
+      }
+    }
+  }
+
+  Widget clockIn(BuildContext context, int index, ContractorShiftState state) {
+    bool isClockInValid =
+        (state.currentShiftList[index].selectedClockInTime != null &&
+            state.currentShiftList[index].selectedClockInTime!.isNotEmpty);
     return CustomTextField(
       labelText: StringConstant.clockIn,
-      hintText: StringConstant.clockIn,
+      hintText: (isClockInValid)
+          ? state.currentShiftList[index].selectedClockInTime
+          : StringConstant.clockIn,
+      hintAsValue: isClockInValid,
       fillColor: AppColors.grey04,
       readOnly: true,
-      onTap: () {},
+      onTap: () async {
+        final clockInTime = await showTimePicker(context);
+        if (clockInTime.isNotEmpty) {
+          context.read<ContractorShiftBloc>().add(
+              ContractorShiftEvent.setClockIn(
+                  index: index, clockInTime: clockInTime));
+        }
+      },
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(16),
@@ -123,13 +187,67 @@ class CurrentShift extends StatelessWidget {
         ),
       ),
       suffixIcon: CommonButton(
-        onPressed: () {},
+        onPressed: () {
+          submitTime(
+            context,
+            title: StringConstant.clockIn,
+            infoMessage: StringConstant.clockInConfirmationDesc,
+            onSubmit: () {},
+          );
+        },
         borderRadius: 10,
         buttonFontSize: 10,
         height: 33,
         width: 73,
         buttonText: StringConstant.submit,
       ),
+    );
+  }
+
+  Future<String> showTimePicker(BuildContext context) async {
+    final TimeOfDay? pickedTime = await showDialog(
+        context: context,
+        builder: (context) {
+          return Theme(
+            data: ThemeData.light().copyWith(
+              timePickerTheme: TimePickerThemeData(
+                dayPeriodColor: AppColors.primaryColor,
+                dayPeriodTextColor: AppColors.black,
+              ),
+              colorScheme: ColorScheme.light(
+                primary: AppColors.primaryColor,
+                onSurface: AppColors.black,
+              ),
+              textButtonTheme: TextButtonThemeData(
+                style: TextButton.styleFrom(),
+              ),
+            ),
+            child: TimePickerDialog(
+              initialTime: TimeOfDay.fromDateTime(DateTime.now()),
+            ),
+          );
+        });
+
+    if (pickedTime != null) {
+      print("Selected Time:  ${pickedTime.format(context)}");
+      return pickedTime.format(context);
+    } else {
+      return "";
+    }
+  }
+
+  submitTime(BuildContext context,
+      {required String title,
+      required String infoMessage,
+      required void Function()? onSubmit}) {
+    AppDialog.showDelete(
+      context,
+      title: title,
+      infoMessage: infoMessage,
+      onCancelClick: () {
+        context.router.maybePop();
+      },
+      onDeleteClick: onSubmit,
     );
   }
 
@@ -284,7 +402,7 @@ class CurrentShift extends StatelessWidget {
     ));
   }
 
-  Widget userDetail(BuildContext context) {
+  Widget userDetail(BuildContext context, CurrentShiftDTO shift) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
@@ -303,7 +421,7 @@ class CurrentShift extends StatelessWidget {
             ),
             isThreeLine: true,
             title: BaseText(
-              text: "CT Technologist",
+              text: shift.roles_list_name ?? "",
               textColor: AppColors.black,
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -313,13 +431,14 @@ class CurrentShift extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 BaseText(
-                  text: "Louis Vuitton Pvt. Ltd.",
+                  text: shift.company_name ?? "",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                   textColor: AppColors.black.withOpacity(0.80),
                 ),
                 BaseText(
-                  text: "(Healthcare - 2DFG125)",
+                  text:
+                      "(${getIndustry(shift.industry_id ?? 0)}  - ${shift.listing_id ?? ''})",
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   textColor: AppColors.black.withOpacity(0.80),
@@ -371,14 +490,14 @@ class CurrentShift extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       BaseText(
-                        text: "4517 Washington Manchester, Kentucky 39495",
+                        text: shift.location?.location ?? "",
                         fontSize: 12,
                         maxLines: 1,
                         fontWeight: FontWeight.w500,
                         textColor: AppColors.black,
                       ),
                       BaseText(
-                        text: "10.2 Km Away",
+                        text: shift.distance ?? "",
                         fontSize: 10,
                         maxLines: 1,
                         fontWeight: FontWeight.w600,
@@ -398,7 +517,15 @@ class CurrentShift extends StatelessWidget {
     );
   }
 
-  Widget remainingShifts({
+  String getIndustry(int id) {
+    OnBoardingDTO industry = CommonList.industryList.firstWhere(
+      (item) => item.id == id,
+      orElse: () => OnBoardingDTO(),
+    );
+    return industry.title ?? "";
+  }
+
+  Widget numberOfVacancy({
     required String value,
   }) {
     return Container(
