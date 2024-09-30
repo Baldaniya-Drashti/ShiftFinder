@@ -533,24 +533,24 @@ class StringConstant {
   static const String pleaseSelectExpiryDateIfApplicable =
       "Please add expiry date if applicable";
   static const String pleaseSelectCovidVaccinationDoc =
-      "Please select covid vaccination document";
+      "Please select Covid vaccination document";
   static const String pleaseAddDocumentTitle = "Please add document title";
   static const String pleaseAddImmunizationName =
       "Please add immunization name";
   static const String pleaseAddTitle = "Please add title";
   static const String pleaseSelectCredentialRegistrationDocument =
-      "Please select credentials/registration document";
+      "Please select Credentials/Registration document";
   static const String pleaseSelectProvinceOfRegistrationDocument =
-      "Please select province of registration document";
+      "Please select Province of registration document";
   static const String pleaseSelectProfessionalLicensesDocument =
-      "Please select professional licenses document";
+      "Please select Professional licenses document";
   static const String pleaseSelectImmunizationDocument =
-      "Please select immunizations/vaccinations document";
+      "Please select Immunizations/Vaccinations document";
   static const String pleaseSelectLiabilityDocument =
-      "Please select your professional liability protection document";
+      "Please select your Professional liability protection document";
   static const String pleaseSelectResume = "Please select your resume";
   static const String pleaseSelectEquipmentDocument =
-      "Please select apparel/equipment document";
+      "Please select Apparel/Equipment document";
   static const String legalScreeningTermsErrorText =
       "Please check the affirmation box to confirm your agreement before proceeding.";
   static const String youMustAnswerAllTheQuestions =
@@ -621,7 +621,7 @@ class StringConstant {
       "Some details are missing or invalid. Please check!";
   static const String unitAlreadyExist = "Unit already exist!";
   static const String checkTeamStatusDesc =
-      "It looks like you haven't created a team yet! By setting up internal teams, you can automatically share posting details with your team members, streamlining your hiring process. You can create a team through your profile, and then continue with shift posting. \nDo you want to proceed with creating a team now?";
+      "It looks like you haven't created a team yet! By setting up internal teams, you can automatically share posting details with your team members, streamlining your hiring process. You can create a team through your profile and then continue with shift posting. \nDo you want to proceed with creating a team now?";
   static const String createYourTeamToGetStarted =
       "Create Your Team to Get Started";
   static const String underDevelopment = "Under Development";

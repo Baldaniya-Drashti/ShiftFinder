@@ -443,6 +443,7 @@ class MainFacade implements IMainFacade {
     try {
       Map<String, dynamic> mapData = postShiftDetail.toJson();
 
+      print("Sending Multi Date->  ${postShiftDetail.multi_date}");
       print("Sending Data->  ${jsonEncode(mapData)}");
       final res = await apiService.postMethod(ApiConstants.createPost, mapData);
       final data = HealthcarePostDTO.fromJson(res.data);
@@ -451,7 +452,6 @@ class MainFacade implements IMainFacade {
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
-
         if (commonRespose.dioMessage != null) {
           return left(
               MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
@@ -470,9 +470,10 @@ class MainFacade implements IMainFacade {
     try {
       Map<String, dynamic> mapData = postShiftDetail.toJson();
 
+      print("Sending Multi Date->  ${postShiftDetail}");
       print("Sending Data->  ${jsonEncode(mapData)}");
       final res = await apiService.postMethod(ApiConstants.updatePost, mapData);
-      print("Posttt HEALTHCARE->  ${res}");
+      print("Posttt Healthcare->  ${res}");
 
       final data = HealthcarePostDTO.fromJson(res.data);
       print("Healthercare Update Post Response->  ${data}");
@@ -480,7 +481,6 @@ class MainFacade implements IMainFacade {
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
-
         if (commonRespose.dioMessage != null) {
           return left(
               MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));

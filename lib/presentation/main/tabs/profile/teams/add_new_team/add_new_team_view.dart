@@ -150,7 +150,7 @@ class AddNewTeamView extends StatelessWidget {
                       textCapitalization: TextCapitalization.words,
                       validator: (p0, p1) => state.teamNameTextField.value.fold(
                         (l) => l.maybeMap(
-                          empty: (_) => 'Please enter team name',
+                          empty: (_) => 'Please add team name',
                           orElse: () => null,
                         ),
                         (r) => null,

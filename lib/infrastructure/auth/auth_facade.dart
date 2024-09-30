@@ -100,20 +100,22 @@ class AuthFacade implements IAuthFacade {
         final currentRole = getCurrentRole();
         final currentIndustry = getCurrentIndustry();
         final isUserShowIntro = getUserShowIntro();
+
+        print("getCurrent isUserShowIntro----> $isUserShowIntro");
+
         Hive.box(BoxNames.settingsBox).clear();
         Hive.box<AccountEntity>(BoxNames.currentUser).clear();
+
+        /// Set Intro screen Data
         await Hive.box(BoxNames.settingsBox)
             .put(BoxKeys.isUserShowIntro, isUserShowIntro);
         await Hive.box(BoxNames.settingsBox)
             .put(BoxKeys.currentRole, currentRole);
         await Hive.box(BoxNames.settingsBox)
             .put(BoxKeys.currentIndustry, currentIndustry);
+
         return right(value?.dioMessage ?? "");
       });
-      // await Future.wait([
-
-      // ]);
-      //  return right('');
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
@@ -244,7 +246,7 @@ class AuthFacade implements IAuthFacade {
         "id": getCurrentUser().userId,
         // "id": 313,
         "email": email,
-        "country_code": countryCode,
+        "country_code": countryCode?.replaceAll('+', ''),
         "country_name_code": countryNameCode,
         "phone": phone,
       };

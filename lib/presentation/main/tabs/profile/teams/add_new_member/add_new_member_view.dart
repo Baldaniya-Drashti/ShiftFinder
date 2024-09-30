@@ -107,7 +107,7 @@ class AddNewMemberView extends StatelessWidget {
                       },
                       validator: (p0, p1) => state.teamNameTextField.value.fold(
                         (l) => l.maybeMap(
-                          empty: (value) => 'Please enter team member name',
+                          empty: (value) => 'Please add team member name',
                           orElse: () => null,
                         ),
                         (r) => null,

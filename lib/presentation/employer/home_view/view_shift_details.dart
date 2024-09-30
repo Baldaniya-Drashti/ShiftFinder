@@ -127,7 +127,8 @@ class ViewHomeShiftDetails extends StatelessWidget {
                                   // "2464 Royal Ln. Mesa, New Jersey 45463",
                                   units: shift.location_unit ?? ""),
                               if (shift.shift_detail != null &&
-                                  shift.shift_detail!.shift_type == 1)
+                                  shift.shift_detail!.shift_type == 1 &&
+                                  shift.shift_detail!.recurrence_mode != null)
                                 recurrence(shift),
                               if (shift.shift_detail != null &&
                                   shift.shift_detail!.payables != null)
@@ -217,7 +218,10 @@ class ViewHomeShiftDetails extends StatelessWidget {
             children: [
               BaseText(
                 text: (post.shift_detail?.recurring_start_date != null)
-                    ? DateFormat("d MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch((post.shift_detail?.recurring_start_date ?? -1) * 1000))
+                    ? DateFormat("d MMM, yyyy").format(
+                        DateTime.fromMillisecondsSinceEpoch(
+                            (post.shift_detail?.recurring_start_date ?? -1) *
+                                1000))
                     : "",
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
@@ -231,7 +235,10 @@ class ViewHomeShiftDetails extends StatelessWidget {
               ),
               BaseText(
                 text: (post.shift_detail?.recurring_end_date != null)
-                    ? DateFormat("d MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch((post.shift_detail?.recurring_end_date ?? -1) * 1000))
+                    ? DateFormat("d MMM, yyyy").format(
+                        DateTime.fromMillisecondsSinceEpoch(
+                            (post.shift_detail?.recurring_end_date ?? -1) *
+                                1000))
                     : "",
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
@@ -790,46 +797,41 @@ class ViewHomeShiftDetails extends StatelessWidget {
 
   Widget rateWithBGIcon(
       {required String svgIcon, required String title, required String value}) {
-    return Flexible(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              BaseText(
-                text: title,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                textColor: AppColors.black.withOpacity(0.7),
-              ),
-              SizedBox(
-                height: getSize(5),
-              ),
-              BaseText(
-                text: value,
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                textColor: AppColors.black,
-              ),
-            ],
-          ),
-          Flexible(
-            child: Align(
-              alignment: Alignment.center,
-              child: SvgPicture.asset(
-                svgIcon,
-                height: getSize(35),
-                width: getSize(35),
-                color: AppColors.primaryColor.withOpacity(0.2),
-              ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            BaseText(
+              text: title,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              textColor: AppColors.black.withOpacity(0.7),
             ),
-          )
-        ],
-      ),
+            SizedBox(height: getSize(5)),
+            BaseText(
+              text: value,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              textColor: AppColors.black,
+            ),
+          ],
+        ),
+        SizedBox(width: getSize(10)),
+        Align(
+          alignment: Alignment.center,
+          child: SvgPicture.asset(
+            svgIcon,
+            height: getSize(35),
+            width: getSize(35),
+            color: AppColors.primaryColor.withOpacity(0.2),
+          ),
+        )
+      ],
     );
   }
 

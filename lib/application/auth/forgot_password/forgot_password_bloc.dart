@@ -246,6 +246,7 @@ class ForgotPasswordBloc
               state.copyWith(
                 isSubmitting: true,
                 authFailureOrSuccessOption: none(),
+                saveNewPassFailureOrSuccessOption: none(),
               ),
             );
             failureOrSuccess = await _authFacade.forgotPassword(

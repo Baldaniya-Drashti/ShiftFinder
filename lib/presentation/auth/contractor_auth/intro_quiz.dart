@@ -459,7 +459,8 @@ class IntroQuizScreen extends StatelessWidget {
       onCallback: (value) {
         if (value == true) {
           print("callback value---> $value");
-          context.router.push(PageRouteInfo(QuizResultScreen.name));
+          // context.router.push(PageRouteInfo(QuizResultScreen.name));
+          context.router.replaceAll([PageRouteInfo(QuizResultScreen.name)]);
         }
       },
       title: StringConstant.result,
