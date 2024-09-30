@@ -36,7 +36,7 @@ class CommonCardDialog extends StatelessWidget {
     return const Placeholder();
   }
 
-  addCardDialog(BuildContext context) {
+  addCardDialog(BuildContext context) async {
     return showDialog(
       context: context,
       barrierDismissible: barrierDismissible,

@@ -11,6 +11,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
+import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/common_card_dialog.dart';
 
 class EditClockTimeDialog extends StatelessWidget {
   const EditClockTimeDialog({super.key});
@@ -182,20 +183,29 @@ class EditClockTimeDialog extends StatelessWidget {
                         Expanded(
                           child: CommonButton(
                             onPressed: () async {
-                              await context.router.maybePop().then(
-                                (value) {
-                                  AcceptRejectDialog(
-                                    title: 'Approve',
+                              await context.router.maybePop();
+                              AcceptRejectDialog(
+                                title: 'Approve',
+                                description:
+                                    'By approving these clock in and out times, you confirm that you have reviewed the [contractor name]’s  hours. Once approved, the times will be finalized.',
+                                onPressedAccept: () async {
+                                  await context.router.maybePop();
+                                  CommonCardDialog(
+                                    title: 'Approved!',
                                     description:
-                                        'By approving these clock in and out times, you confirm that you have reviewed the [contractor name]’s  hours. Once approved, the times will be finalized.',
-                                    onPressedAccept: () {},
-                                    acceptButtonText: 'Approve',
-                                    onPressedReject: () {
-                                      context.router.maybePop();
+                                        'The clock in and out times for this shift have been successfully approved.',
+                                    buttonText: 'Ok',
+                                    onPressed: () async {
+                                      await context.router.maybePop();
                                     },
-                                  ).acceptRejectDialog(context);
+                                    image: SvgImageConstant.approved,
+                                  ).addCardDialog(context);
                                 },
-                              );
+                                acceptButtonText: 'Approve',
+                                onPressedReject: () async {
+                                  await context.router.maybePop();
+                                },
+                              ).acceptRejectDialog(context);
                             },
                             buttonText: 'Approve',
                           ),
