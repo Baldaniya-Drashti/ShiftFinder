@@ -10,7 +10,7 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_multi_date_picker.dart';
 
 class MarkUnavailability extends StatelessWidget {
-  MarkUnavailability({super.key});
+  const MarkUnavailability({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class MarkUnavailability extends StatelessWidget {
       return (dto.date != null) ? DateTime.parse(dto.date!) : DateTime.now();
     }).toList();
 
-    print("selected datess----> ${selectedDates}");
+    print("selected datess----> $selectedDates");
     return CustomMultiDatePicker(
       value: selectedDates,
       selectedDateBGColor:

@@ -7,86 +7,111 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_shift_bloc/contractor_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/contractor_main/shift/upcoming_shift_dto/upcoming_shift_dto.dart';
 import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
-import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/dialogs.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
+import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 
-class UpcomingShift extends StatefulWidget {
+class UpcomingShift extends StatelessWidget {
   const UpcomingShift({super.key});
-
-  @override
-  State<UpcomingShift> createState() => _UpcomingShiftState();
-}
-
-class _UpcomingShiftState extends State<UpcomingShift> {
-  @override
-  void initState() {
-    super.initState();
-    context
-        .read<ContractorShiftBloc>()
-        .add(ContractorShiftEvent.getUpcomingShiftAPI(true));
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
       builder: (context, state) {
-        return (state.isLoading)
-            ? CenterLoadingIndicator(isOnlyLoader: true)
-            : ListView.builder(
-                itemCount: state.upcomingShiftList.length,
-                shrinkWrap: true,
-                padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.symmetric(vertical: getSize(10)),
-                    padding: EdgeInsets.all(getSize(10)),
-                    width: getSize(355),
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(getSize(20)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.black.withOpacity(0.2),
-                          blurRadius: 25,
-                        ),
-                      ],
+        return PaginatedListView(
+          onRefresh: () {
+            context
+                .read<ContractorShiftBloc>()
+                .add(ContractorShiftEvent.getUpcomingShiftAPI(true));
+          },
+          refreshController:
+              context.read<ContractorShiftBloc>().upcomingShiftRefreshCtrl,
+          onLoading: () {
+            context
+                .read<ContractorShiftBloc>()
+                .add(ContractorShiftEvent.getUpcomingShiftAPI(false));
+          },
+          isNoDataFound: state.isNoDataFound,
+          child: state.isLoading
+              ? CenterLoadingIndicator(isOnlyLoader: true)
+              : state.isErrorInAPI
+                  ? Center(
+                      child: BaseText(text: StringConstant.somethindWentWrong),
+                    )
+                  : ListView.builder(
+                      itemCount: state.upcomingShiftList.length,
+                      shrinkWrap: true,
+                      padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                      itemBuilder: (context, index) {
+                        return Container(
+                          margin: EdgeInsets.symmetric(vertical: getSize(10)),
+                          padding: EdgeInsets.all(getSize(10)),
+                          width: getSize(355),
+                          decoration: BoxDecoration(
+                            color: AppColors.white,
+                            borderRadius: BorderRadius.circular(getSize(20)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.black.withOpacity(0.2),
+                                blurRadius: 25,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              userDetail(context, state,
+                                  state.upcomingShiftList[index]),
+                              paddingBetweenFields(),
+                              dateAndTime(
+                                  context, state.upcomingShiftList[index]),
+                              paddingBetweenFields(),
+                              CommonButton(
+                                onPressed: () {
+                                  /*context.router.push(
+                                    PageRouteInfo(
+                                      ViewUpcomingShiftDetails.name,
+                                      args: ViewUpcomingShiftDetailsArgs(
+                                          postId: 1),
+                                    ),
+                                  );*/
+                                  context.router.push(
+                                    PageRouteInfo(
+                                      ViewContractorShift.name,
+                                      args: ViewContractorShiftArgs(
+                                        postId: state.upcomingShiftList[index]
+                                                .post_id ??
+                                            -1,
+                                        isTotalApplicants: true,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                height: 34,
+                                borderRadius: 10,
+                                buttonText: StringConstant.viewShiftDetails,
+                                buttonFontSize: 12,
+                                buttonTextColor: AppColors.black,
+                                backgroundColor:
+                                    AppColors.primaryColor.withOpacity(0.2),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
-                    child: Column(
-                      children: [
-                        userDetail(context, state.upcomingShiftList[index]),
-                        paddingBetweenFields(),
-                        dateAndTime(context, state.upcomingShiftList[index]),
-                        paddingBetweenFields(),
-                        CommonButton(
-                          onPressed: () {
-                            context.router.push(PageRouteInfo(
-                                ViewUpcomingShiftDetails.name,
-                                args: ViewUpcomingShiftDetailsArgs(postId: 1)));
-                          },
-                          height: 34,
-                          borderRadius: 10,
-                          buttonText: StringConstant.viewShiftDetails,
-                          buttonFontSize: 12,
-                          buttonTextColor: AppColors.black,
-                          backgroundColor:
-                              AppColors.primaryColor.withOpacity(0.2),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              );
+        );
       },
     );
   }
@@ -97,7 +122,8 @@ class _UpcomingShiftState extends State<UpcomingShift> {
     );
   }
 
-  Widget userDetail(BuildContext context, UpComingShiftDTO shift) {
+  Widget userDetail(BuildContext context, ContractorShiftState state,
+      UpComingShiftDTO shift) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
@@ -108,11 +134,10 @@ class _UpcomingShiftState extends State<UpcomingShift> {
         children: [
           ListTile(
             dense: true,
-            leading: SvgPicture.asset(
-              SvgImageConstant.female,
-              width: getSize(36.28),
-              height: getSize(43.41),
-              color: AppColors.primaryColor,
+            leading: Image.asset(
+              PngImageConstants.leafWithBG,
+              height: getSize(40),
+              width: getSize(40),
             ),
             isThreeLine: true,
             title: BaseText(
@@ -149,7 +174,8 @@ class _UpcomingShiftState extends State<UpcomingShift> {
                   infoMessage: StringConstant.withdrawShiftDesc,
                   onOkClick: () {
                     context.router.maybePop().then((value) {
-                      showWithdrawDialog(context);
+                      showWithdrawDialog(
+                          context, shift, context.read<ContractorShiftBloc>());
                     });
                   },
                 );
@@ -228,23 +254,51 @@ class _UpcomingShiftState extends State<UpcomingShift> {
     );
   }
 
-  showWithdrawDialog(BuildContext context) {
+  showWithdrawDialog(
+    BuildContext context,
+    UpComingShiftDTO shift,
+    ContractorShiftBloc bloc,
+  ) {
     AppDialog.showDelete(
       context,
       title: StringConstant.withdrawShift,
-      infoMessage: StringConstant.withdrawShiftDesc,
+      infoMessage: StringConstant.withdrawCADFeeDesc,
       deleteBtnText: StringConstant.withdraw,
-      otherContent: CustomTextField(
-        labelText: StringConstant.reason,
-        hintText: StringConstant.typeHere,
-        maxLines: 5,
-        fillColor: AppColors.grey04,
+      otherContent: BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
+        bloc: bloc..emit(bloc.state.copyWith(showErrorMessages: false)),
+        builder: (_, state) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CustomTextField(
+                labelText: StringConstant.reason,
+                hintText: StringConstant.typeHere,
+                maxLines: 5,
+                fillColor: AppColors.grey04,
+                onChanged: (value) {
+                  context
+                      .read<ContractorShiftBloc>()
+                      .add(ContractorShiftEvent.deletePostReasonChanged(value));
+                },
+              ),
+              if (state.showErrorMessages)
+                commonErrorText(
+                  "Please add valid reason to delete post",
+                  padding: EdgeInsets.symmetric(
+                      horizontal: getSize(15), vertical: getSize(10)),
+                ),
+            ],
+          );
+        },
       ),
       onCancelClick: () {
         context.router.maybePop();
       },
       onDeleteClick: () {
-        context.router.maybePop();
+        context.read<ContractorShiftBloc>().add(
+            ContractorShiftEvent.deleteUpcomingShift(context,
+                postId: shift.post_id ?? -1));
       },
     );
   }
@@ -261,35 +315,39 @@ class _UpcomingShiftState extends State<UpcomingShift> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        displayDateBreak(
-          context,
-          boldValue: convertTimeStampToDate(shift.applied_date ?? -1),
-          timidValue:
-              convertTimeStampToDate(shift.applied_date ?? -1, isYear: true),
-          title: "",
-          svgPrefixIcon: SvgImageConstant.calendar,
-          titleWidget: Row(
-            children: [
-              BaseText(
-                text: StringConstant.startDate,
-                fontSize: 10,
-                fontWeight: FontWeight.w400,
-                textColor: AppColors.black.withOpacity(0.7),
-              ),
-              BaseText(
-                text: " (5 Shifts)",
-                fontSize: 10,
-                fontWeight: FontWeight.w400,
-                textColor: AppColors.primaryColor,
-              ),
-            ],
+        Flexible(
+          child: displayDateBreak(
+            context,
+            boldValue: convertTimeStampToDate(shift.applied_date ?? -1),
+            timidValue:
+                convertTimeStampToDate(shift.applied_date ?? -1, isYear: true),
+            title: "",
+            svgPrefixIcon: SvgImageConstant.calendar,
+            titleWidget: Row(
+              children: [
+                BaseText(
+                  text: StringConstant.startDate,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
+                  textColor: AppColors.black.withOpacity(0.7),
+                ),
+                BaseText(
+                  text: " (5 Shifts)",
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
+                  textColor: AppColors.primaryColor,
+                ),
+              ],
+            ),
           ),
         ),
-        displayTime(
-          title: StringConstant.time,
-          startDate: "07:15 AM",
-          endDate: "18:30 AM",
-          svgPrefixIcon: SvgImageConstant.clock,
+        Flexible(
+          child: displayTime(
+            title: StringConstant.time,
+            startDate: "07:15 AM to 07:15 AM",
+            endDate: "18:30 AM",
+            svgPrefixIcon: SvgImageConstant.clock,
+          ),
         ),
       ],
     );
@@ -386,19 +444,21 @@ class _UpcomingShiftState extends State<UpcomingShift> {
             width: getSize(16),
           ),
           SizedBox(width: getSize(10)),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BaseText(
-                text: StringConstant.time,
-                fontSize: 10,
-                fontWeight: FontWeight.w400,
-                textColor: AppColors.black.withOpacity(0.7),
-              ),
-              highLightText(
-                  boldValue: "$startDate to $endDate", timidValue: ""),
-            ],
+          Flexible(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                BaseText(
+                  text: StringConstant.time,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
+                  textColor: AppColors.black.withOpacity(0.7),
+                ),
+                highLightText(
+                    boldValue: "$startDate to $endDate", timidValue: ""),
+              ],
+            ),
           )
         ],
       ),
@@ -410,27 +470,28 @@ class _UpcomingShiftState extends State<UpcomingShift> {
       required String timidValue,
       String? thirdValue}) {
     return RichText(
+        maxLines: 1,
         text: TextSpan(
-      text: boldValue,
-      style: TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        color: AppColors.black,
-      ),
-      children: [
-        TextSpan(
-          text: timidValue,
+          text: boldValue,
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: AppColors.black.withOpacity(0.5),
+            color: AppColors.black,
           ),
-        ),
-        TextSpan(
-          text: thirdValue ?? "",
-        ),
-      ],
-    ));
+          children: [
+            TextSpan(
+              text: timidValue,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: AppColors.black.withOpacity(0.5),
+              ),
+            ),
+            TextSpan(
+              text: thirdValue ?? "",
+            ),
+          ],
+        ));
   }
 
   Widget paybaleTitleRate(

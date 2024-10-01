@@ -33,11 +33,15 @@ _$EmployerDashboardDTOImpl _$$EmployerDashboardDTOImplFromJson(
       total_shift: (json['total_shift'] as num?)?.toInt(),
       total_application_counts:
           (json['total_application_counts'] as num?)?.toInt(),
-      total_application_profiles:
-          json['total_application_profiles'] as List<dynamic>?,
+      total_application_profiles: (json['total_application_profiles']
+              as List<dynamic>?)
+          ?.map((e) => ApplicationProfile.fromJson(e as Map<String, dynamic>))
+          .toList(),
       total_proposal_counts: (json['total_proposal_counts'] as num?)?.toInt(),
-      total_proposal_profiles:
-          json['total_proposal_profiles'] as List<dynamic>?,
+      total_proposal_profiles: (json['total_proposal_profiles']
+              as List<dynamic>?)
+          ?.map((e) => ApplicationProfile.fromJson(e as Map<String, dynamic>))
+          .toList(),
       specialties_list: json['specialties_list'] as String?,
       rate_hour: (json['rate_hour'] as num?)?.toInt(),
       total_payable_hour: json['total_payable_hour'] as String?,
@@ -122,4 +126,18 @@ Map<String, dynamic> _$$ShiftDateImplToJson(_$ShiftDateImpl instance) =>
       'start_time': instance.start_time,
       'end_date': instance.end_date,
       'end_time': instance.end_time,
+    };
+
+_$ApplicationProfileImpl _$$ApplicationProfileImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ApplicationProfileImpl(
+      id: (json['id'] as num?)?.toInt(),
+      profile: json['profile'] as String?,
+    );
+
+Map<String, dynamic> _$$ApplicationProfileImplToJson(
+        _$ApplicationProfileImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'profile': instance.profile,
     };

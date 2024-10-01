@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
-import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_home_bloc/contractor_home_bloc.dart';
+import 'package:shift/application/main_tab/home/view_single_applicants/view_single_applicants_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
-import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
@@ -36,9 +35,9 @@ class ViewContractorShift extends StatelessWidget {
   Widget build(BuildContext context) {
     print("shift id--> $postId");
     return BlocProvider(
-      create: (context) => getIt<ContractorHomeBloc>()
-        ..add(ContractorHomeEvent.getShiftDetailEvent(postId)),
-      child: BlocConsumer<ContractorHomeBloc, ContractorHomeState>(
+      create: (context) => getIt<ViewSingleApplicantsBloc>()
+        ..add(ViewSingleApplicantsEvent.getShiftDetailEvent(postId)),
+      child: BlocConsumer<ViewSingleApplicantsBloc, ViewSingleApplicantsState>(
         listener: (context, state) {
           state.shiftFailureOrSuccessOption.fold(
             () {},
@@ -59,7 +58,6 @@ class ViewContractorShift extends StatelessWidget {
         },
         builder: (context, state) {
           final shift = state.shift;
-          print("${shift.shift_detail?.shift_type}");
           return Scaffold(
             backgroundColor: AppColors.scaffoldColor,
             appBar: CommonAppBar(
@@ -129,6 +127,10 @@ class ViewContractorShift extends StatelessWidget {
                                   // "2464 Royal Ln. Mesa, New Jersey 45463",
                                   units: shift.location_unit ?? ""),
                               if (shift.shift_detail != null &&
+                                  shift.shift_detail!.shift_type == 1 &&
+                                  shift.shift_detail!.recurrence_mode != null)
+                                recurrence(shift),
+                              if (shift.shift_detail != null &&
                                   shift.shift_detail!.payables != null)
                                 payableBox(shift.shift_detail!.payables!),
                             ],
@@ -159,6 +161,10 @@ class ViewContractorShift extends StatelessWidget {
           ),
           commonDivider(),
           paybaleTitleRate(
+            title: "${StringConstant.estimatedWage}:-",
+            value: "\$${payable.total_wage ?? 00}",
+          ),
+          paybaleTitleRate(
             title: "${StringConstant.accommodationAllowance}:-",
             value: "\$${payable.accommodation_allowance ?? 00}",
           ),
@@ -185,6 +191,94 @@ class ViewContractorShift extends StatelessWidget {
     return Divider(
       color: AppColors.black.withOpacity(0.2),
       thickness: getSize(0.5),
+    );
+  }
+
+  Widget recurrence(HealthcarePostDTO post) {
+    return Container(
+      padding:
+          EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: AppColors.grey04,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          BaseText(
+            text: StringConstant.recurrenceDuration,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            textColor: AppColors.black,
+          ),
+          SizedBox(height: getSize(7)),
+          Row(
+            children: [
+              BaseText(
+                text: (post.shift_detail?.recurring_start_date != null)
+                    ? DateFormat("d MMM, yyyy").format(
+                        DateTime.fromMillisecondsSinceEpoch(
+                            (post.shift_detail?.recurring_start_date ?? -1) *
+                                1000))
+                    : "",
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                textColor: AppColors.primaryColor,
+              ),
+              BaseText(
+                text: "  to  ",
+                fontSize: 10,
+                fontWeight: FontWeight.w500,
+                textColor: AppColors.black.withOpacity(0.7),
+              ),
+              BaseText(
+                text: (post.shift_detail?.recurring_end_date != null)
+                    ? DateFormat("d MMM, yyyy").format(
+                        DateTime.fromMillisecondsSinceEpoch(
+                            (post.shift_detail?.recurring_end_date ?? -1) *
+                                1000))
+                    : "",
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                textColor: AppColors.primaryColor,
+              ),
+            ],
+          ),
+          SizedBox(height: getSize(15)),
+          if (post.shift_detail != null &&
+              post.shift_detail!.shift_type == 1 &&
+              post.shift_detail!.recurrence_mode != null)
+            chipListBox(
+              padding: EdgeInsets.zero,
+              bgColor: AppColors.transparent,
+              // chipList: post.shift_detail!.days!.split(',')
+              //   .where((item) => item != )
+              //   .map((item) => item.name ?? "")
+              //   .toList(),
+              chipList: (post.shift_detail!.days != null &&
+                      post.shift_detail!.days!.isNotEmpty)
+                  ? post.shift_detail!.days!
+                      .split(',')
+                      .where((item) => item.isNotEmpty)
+                      .map((item) {
+                        int dayId = int.parse(item.trim());
+                        SkillDTO? day = CommonList.weekList.firstWhere(
+                            (element) => element.id == dayId,
+                            orElse: () => SkillDTO());
+                        return day.name ?? "";
+                      })
+                      .where((dayName) => dayName.isNotEmpty)
+                      .toList()
+                  : [],
+              title: StringConstant.recurrenceMode,
+              value: (post.shift_detail?.recurrence_mode == "2")
+                  ? "Weekly"
+                  : "Daily",
+            ),
+        ],
+      ),
     );
   }
 
@@ -326,7 +420,7 @@ class ViewContractorShift extends StatelessWidget {
   Widget rateHoursBox(HealthcarePostDTO post) {
     return Container(
         padding: EdgeInsets.symmetric(
-          horizontal: getSize(20),
+          horizontal: getSize(10),
           vertical: getSize(10),
         ),
         margin: EdgeInsets.symmetric(vertical: getSize(5)),
@@ -369,41 +463,23 @@ class ViewContractorShift extends StatelessWidget {
           ListTile(
             dense: true,
             titleAlignment: ListTileTitleAlignment.top,
-            leading: Container(
-              height: getSize(40),
-              width: getSize(40),
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(
-                PngImageConstants.leafWithBG,
-              ))),
+            leading: SvgPicture.asset(
+              SvgImageConstant.femaleGrey,
+              width: getSize(36.28),
+              height: getSize(43.41),
             ),
             title: BaseText(
               text: post.roles_list_name ?? "",
               textColor: AppColors.black,
               fontSize: 16,
               fontWeight: FontWeight.w600,
-              maxLines: 2,
             ),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                BaseText(
-                  // text: post.company_name ?? "",
-                  text: "post.company_name",
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.80),
-                ),
-                BaseText(
-                  text:
-                      "(${CommonList.industryList.where((item) => item.id == getCurrentIndustry()).map((item) => item.title).join(', ')} - ${post.listing_id})",
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  textColor: AppColors.black.withOpacity(0.70),
-                ),
-              ],
+            subtitle: BaseText(
+              text:
+                  "(${CommonList.industryList.where((item) => item.id == getCurrentIndustry()).map((item) => item.title).join(', ')} - ${post.listing_id})",
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              textColor: AppColors.black.withOpacity(0.70),
             ),
             trailing: BaseText(
               text: post.last_ago ?? "",
@@ -426,26 +502,12 @@ class ViewContractorShift extends StatelessWidget {
               SizedBox(
                 width: getSize(10),
               ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    BaseText(
-                      text: post.location?.location ?? "",
-                      fontSize: 10,
-                      maxLines: 1,
-                      fontWeight: FontWeight.w500,
-                      textColor: AppColors.black,
-                    ),
-                    BaseText(
-                      text: "10.2 Km Away",
-                      fontSize: 10,
-                      maxLines: 1,
-                      fontWeight: FontWeight.w600,
-                      textColor: AppColors.primaryColor,
-                    ),
-                  ],
+              Flexible(
+                child: BaseText(
+                  text: post.location?.location ?? "",
+                  fontSize: 10,
+                  maxLines: 5,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
@@ -645,7 +707,7 @@ class ViewContractorShift extends StatelessWidget {
                     )
                   : highLightText(boldValue: boldValue, timidValue: timidValue),
             ],
-          ),
+          )
         ],
       ),
     );
@@ -735,46 +797,41 @@ class ViewContractorShift extends StatelessWidget {
 
   Widget rateWithBGIcon(
       {required String svgIcon, required String title, required String value}) {
-    return Flexible(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              BaseText(
-                text: title,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                textColor: AppColors.black.withOpacity(0.7),
-              ),
-              SizedBox(
-                height: getSize(5),
-              ),
-              BaseText(
-                text: value,
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                textColor: AppColors.black,
-              ),
-            ],
-          ),
-          Flexible(
-            child: Align(
-              alignment: Alignment.center,
-              child: SvgPicture.asset(
-                svgIcon,
-                height: getSize(35),
-                width: getSize(35),
-                color: AppColors.primaryColor.withOpacity(0.2),
-              ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            BaseText(
+              text: title,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              textColor: AppColors.black.withOpacity(0.7),
             ),
-          )
-        ],
-      ),
+            SizedBox(height: getSize(5)),
+            BaseText(
+              text: value,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              textColor: AppColors.black,
+            ),
+          ],
+        ),
+        SizedBox(width: getSize(10)),
+        Align(
+          alignment: Alignment.center,
+          child: SvgPicture.asset(
+            svgIcon,
+            height: getSize(35),
+            width: getSize(35),
+            color: AppColors.primaryColor.withOpacity(0.2),
+          ),
+        )
+      ],
     );
   }
 
@@ -870,16 +927,18 @@ class ViewContractorShift extends StatelessWidget {
     required List<String> chipList,
     required String title,
     required String value,
+    Color? bgColor,
+    EdgeInsets? padding,
   }) {
     return Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: getSize(12),
-          vertical: getSize(10),
-        ),
-        margin: EdgeInsets.symmetric(vertical: getSize(5)),
+        padding: padding ??
+            EdgeInsets.symmetric(
+                horizontal: getSize(12), vertical: getSize(10)),
+        margin: EdgeInsets.symmetric(vertical: getSize(0)),
         width: double.infinity,
         decoration: BoxDecoration(
-            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+            color: bgColor ?? AppColors.grey04,
+            borderRadius: BorderRadius.circular(10)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

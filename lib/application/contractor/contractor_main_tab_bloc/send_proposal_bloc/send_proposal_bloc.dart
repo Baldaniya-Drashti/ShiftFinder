@@ -20,17 +20,16 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
           },
           getMultiDateEvent: (e) {
             List<DateTimeDTO> selectedDateList = [
-              DateTimeDTO(date: DateTime.now().toString()),
+              DateTimeDTO(date: DateTime.now().toString(), isUnAvailable: true),
               DateTimeDTO(
-                  date: DateTime.now().add(Duration(days: 1)).toString()),
+                  date: DateTime.now().add(Duration(days: 1)).toString(),
+                  isUnAvailable: false),
               DateTimeDTO(
-                  date: DateTime.now().add(Duration(days: 3)).toString()),
+                  date: DateTime.now().add(Duration(days: 3)).toString(),
+                  isUnAvailable: false),
               DateTimeDTO(
-                  date: DateTime.now().add(Duration(days: 5)).toString()),
-              DateTimeDTO(
-                  date: DateTime.now().add(Duration(days: 7)).toString()),
-              DateTimeDTO(
-                  date: DateTime.now().add(Duration(days: 8)).toString()),
+                  date: DateTime.now().add(Duration(days: 5)).toString(),
+                  isUnAvailable: false),
             ];
             emit(state.copyWith(multiDates: selectedDateList));
           },
@@ -38,76 +37,25 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
             List<DateTimeDTO> updatedDateTimeDTOList =
                 List.from(state.multiDates);
 
-            /*for (int i = 0; i < updatedDateTimeDTOList.length; i++) {
-              final currentDate =
-                  DateTime.parse(updatedDateTimeDTOList[i].date!);
+            Set<DateTime> set2 = e.selectedDateList.toSet();
 
-              if (e.selectedDateList.any((selectedDate) =>
-                  selectedDate.year == currentDate.year &&
-                  selectedDate.month == currentDate.month &&
-                  selectedDate.day == currentDate.day)) {
-                updatedDateTimeDTOList[i] =
-                    updatedDateTimeDTOList[i].copyWith(isUnAvailable: false);
-                print("Current date ---> $currentDate");
-              } else {
-                updatedDateTimeDTOList[i] =
-                    updatedDateTimeDTOList[i].copyWith(isUnAvailable: true);
-                print("Else Current date ---> $currentDate");
-              }
-            }*/
+            List<DateTimeDTO> result = updatedDateTimeDTOList
+                .where((item) => !set2.contains(DateTime.parse(item.date!)))
+                .toList();
 
-            /*for (int i = 0; i < updatedDateTimeDTOList.length; i++) {
-              for (var currentDate in e.selectedDateList) {
-                if (DateTime.parse(updatedDateTimeDTOList[i].date!) !=
-                    currentDate) {
-                  updatedDateTimeDTOList[i] =
-                      updatedDateTimeDTOList[i].copyWith(isUnAvailable: true);
-                  print("Updated DTO---> $i");
-                  print("Updated DTO E date---> $currentDate");
-                  print(
-                      "Updated DTO Date---> ${updatedDateTimeDTOList[i].date}");
-                }
-              }
-            }*/
+            final index = updatedDateTimeDTOList
+                .indexWhere((item) => item.date == result[0].date);
 
-            /*for (int i = 0; i < updatedDateTimeDTOList.length; i++) {
-              for (var currentDate in e.selectedDateList) {
-                final dtoDate = DateTime.parse(updatedDateTimeDTOList[i].date!);
+            updatedDateTimeDTOList[index] =
+                updatedDateTimeDTOList[index].copyWith(isUnAvailable: true);
 
-                if (dtoDate.year == currentDate.year &&
-                    dtoDate.month == currentDate.month &&
-                    dtoDate.day == currentDate.day) {
-                  updatedDateTimeDTOList[i] =
-                      updatedDateTimeDTOList[i].copyWith(isUnAvailable: false);
-
-                  print(
-                      "Updated DTO at index $i ---> ${updatedDateTimeDTOList[i]}");
-                  print("Matched currentDate ---> $currentDate");
-                } else {
-                  updatedDateTimeDTOList[i] =
-                      updatedDateTimeDTOList[i].copyWith(isUnAvailable: true);
-                  print("Else part is called ---> $currentDate");
-                }
-              }
-            }*/
-
-            /*for (DateTime selectedDate in e.selectedDateList) {
-              DateTimeDTO? dto = updatedDateTimeDTOList.firstWhere(
-                (dto) =>
-                    dto.date != null &&
-                    DateTime.parse(dto.date!) == selectedDate,
-                orElse: () => DateTimeDTO(),
-              );
-
-              if (dto.date != null) {
-                int index = updatedDateTimeDTOList.indexOf(dto);
-                updatedDateTimeDTOList[index] =
-                    dto.copyWith(isUnAvailable: true);
-              }
-            }*/
             print(
                 "updatedDateTimeDTOList---> ${jsonEncode(updatedDateTimeDTOList)}");
-            emit(state.copyWith(multiDates: updatedDateTimeDTOList));
+            emit(
+              state.copyWith(
+                multiDates: updatedDateTimeDTOList,
+              ),
+            );
           },
         );
       },

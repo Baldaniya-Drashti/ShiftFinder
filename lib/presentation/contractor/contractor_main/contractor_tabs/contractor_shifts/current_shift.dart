@@ -3,83 +3,91 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_shift_bloc/contractor_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/contractor_main/shift/current_shift_dto/current_shift_dto.dart';
 import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
-import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
-class CurrentShift extends StatefulWidget {
+class CurrentShift extends StatelessWidget {
   const CurrentShift({super.key});
-
-  @override
-  State<CurrentShift> createState() => _CurrentShiftState();
-}
-
-class _CurrentShiftState extends State<CurrentShift> {
-  @override
-  void initState() {
-    super.initState();
-    context
-        .read<ContractorShiftBloc>()
-        .add(ContractorShiftEvent.getCurrentShiftDetailAPI(true));
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
       builder: (context, state) {
-        return (state.isLoading)
-            ? CenterLoadingIndicator(isOnlyLoader: true)
-            : ListView.builder(
-                itemCount: state.currentShiftList.length,
-                shrinkWrap: true,
-                padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                itemBuilder: (context, index) {
-                  final shift = state.currentShiftList[index];
-                  return Container(
-                    margin: EdgeInsets.symmetric(vertical: getSize(12)),
-                    padding: EdgeInsets.all(getSize(10)),
-                    width: getSize(355),
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(getSize(20)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.black.withOpacity(0.2),
-                          blurRadius: 25,
-                        ),
-                      ],
+        return PaginatedListView(
+          onRefresh: () {
+            context
+                .read<ContractorShiftBloc>()
+                .add(ContractorShiftEvent.getCurrentShiftDetailAPI(true));
+          },
+          refreshController:
+              context.read<ContractorShiftBloc>().currentShiftRefreshCtrl,
+          onLoading: () {
+            context
+                .read<ContractorShiftBloc>()
+                .add(ContractorShiftEvent.getCurrentShiftDetailAPI(false));
+          },
+          isNoDataFound: state.isNoDataFound,
+          child: state.isLoading
+              ? CenterLoadingIndicator(isOnlyLoader: true)
+              : state.isErrorInAPI
+                  ? Center(
+                      child: BaseText(text: StringConstant.somethindWentWrong),
+                    )
+                  : ListView.builder(
+                      itemCount: state.currentShiftList.length,
+                      shrinkWrap: true,
+                      padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                      itemBuilder: (context, index) {
+                        final shift = state.currentShiftList[index];
+                        return Container(
+                          margin: EdgeInsets.symmetric(vertical: getSize(12)),
+                          padding: EdgeInsets.all(getSize(10)),
+                          width: getSize(355),
+                          decoration: BoxDecoration(
+                            color: AppColors.white,
+                            borderRadius: BorderRadius.circular(getSize(20)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.black.withOpacity(0.2),
+                                blurRadius: 25,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              userDetail(context, shift),
+                              paddingBetweenFields(),
+                              numberOfVacancy(
+                                  value:
+                                      // "${shift.shift_detail?.number_of_vacancie ?? 0}"),
+                                      "${(shift.shift_detail?.number_of_vacancie.toString().length == 2) ? shift.shift_detail?.number_of_vacancie : "0${shift.shift_detail?.number_of_vacancie}"}"),
+                              paddingBetweenFields(),
+                              dateAndTime(context, shift),
+                              paddingBetweenFields(),
+                              clockIn(context, index, shift),
+                              paddingBetweenFields(),
+                              clockOut(context, index, shift),
+                            ],
+                          ),
+                        );
+                      },
                     ),
-                    child: Column(
-                      children: [
-                        userDetail(context, shift),
-                        paddingBetweenFields(),
-                        numberOfVacancy(
-                            value:
-                                // "${shift.shift_detail?.number_of_vacancie ?? 0}"),
-                                "${(shift.shift_detail?.number_of_vacancie.toString().length == 2) ? shift.shift_detail?.number_of_vacancie : "0${shift.shift_detail?.number_of_vacancie}"}"),
-                        paddingBetweenFields(),
-                        dateAndTime(context, shift),
-                        paddingBetweenFields(),
-                        clockIn(context, index, state),
-                        paddingBetweenFields(),
-                        clockOut(),
-                      ],
-                    ),
-                  );
-                },
-              );
+        );
       },
     );
   }
@@ -108,8 +116,16 @@ class _CurrentShiftState extends State<CurrentShift> {
             ),
             displayTime(
               title: StringConstant.time,
-              startDate: "07:15 AM",
-              endDate: "18:30 AM",
+              startDate: (shift.shift_detail?.start_time != null)
+                  ? DateFormat('hh:mm a').format(
+                      DateTime.fromMillisecondsSinceEpoch(
+                          (shift.shift_detail?.start_time ?? 0) * 1000))
+                  : "",
+              endDate: (shift.shift_detail?.end_time != null)
+                  ? DateFormat('hh:mm a').format(
+                      DateTime.fromMillisecondsSinceEpoch(
+                          (shift.shift_detail?.end_time ?? 0) * 1000))
+                  : "",
               svgPrefixIcon: SvgImageConstant.clock,
             ),
           ],
@@ -129,9 +145,20 @@ class _CurrentShiftState extends State<CurrentShift> {
               context,
               boldValue: "",
               timidValue: "",
-              showBtn: true,
               title: "",
               svgPrefixIcon: "",
+              showBtn: true,
+              onBtnPressed: () {
+                context.router.push(
+                  PageRouteInfo(
+                    ViewContractorShift.name,
+                    args: ViewContractorShiftArgs(
+                      postId: shift.post_id ?? -1,
+                      isTotalApplicants: true,
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),
@@ -154,26 +181,31 @@ class _CurrentShiftState extends State<CurrentShift> {
     }
   }
 
-  Widget clockIn(BuildContext context, int index, ContractorShiftState state) {
-    bool isClockInValid =
-        (state.currentShiftList[index].selectedClockInTime != null &&
-            state.currentShiftList[index].selectedClockInTime!.isNotEmpty);
+  Widget clockIn(BuildContext context, int index, CurrentShiftDTO shift) {
+    bool isClockInValid = (shift.clock_in != null);
     return CustomTextField(
       labelText: StringConstant.clockIn,
       hintText: (isClockInValid)
-          ? state.currentShiftList[index].selectedClockInTime
-          : StringConstant.clockIn,
+          ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(
+              (shift.clock_in ?? -1) * 1000))
+          : (shift.selectedClockInTime != null)
+              ? DateFormat('hh:mm a').format(
+                  DateTime.fromMillisecondsSinceEpoch(
+                      (shift.selectedClockInTime ?? -1) * 1000))
+              : StringConstant.clockIn,
       hintAsValue: isClockInValid,
       fillColor: AppColors.grey04,
       readOnly: true,
-      onTap: () async {
-        final clockInTime = await showTimePicker(context);
-        if (clockInTime.isNotEmpty) {
-          context.read<ContractorShiftBloc>().add(
-              ContractorShiftEvent.setClockIn(
-                  index: index, clockInTime: clockInTime));
-        }
-      },
+      onTap: (shift.clock_in != null)
+          ? null
+          : () async {
+              final clockInTime = await showTimePicker(context);
+              if (clockInTime != null) {
+                context.read<ContractorShiftBloc>().add(
+                    ContractorShiftEvent.setClockIn(context,
+                        index: index, clockInTime: clockInTime));
+              }
+            },
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(16),
@@ -186,25 +218,116 @@ class _CurrentShiftState extends State<CurrentShift> {
           color: AppColors.primaryColor,
         ),
       ),
-      suffixIcon: CommonButton(
-        onPressed: () {
-          submitTime(
-            context,
-            title: StringConstant.clockIn,
-            infoMessage: StringConstant.clockInConfirmationDesc,
-            onSubmit: () {},
-          );
-        },
-        borderRadius: 10,
-        buttonFontSize: 10,
-        height: 33,
-        width: 73,
-        buttonText: StringConstant.submit,
-      ),
+      suffixIcon: (shift.clock_in != null)
+          ? BaseText(
+              text: StringConstant.submitted,
+              fontSize: 10,
+              textColor: AppColors.primaryColor,
+            )
+          : CommonButton(
+              onPressed: (shift.selectedClockInTime != null)
+                  ? () {
+                      submitTime(
+                        context,
+                        title: StringConstant.clockIn,
+                        infoMessage: StringConstant.clockInConfirmationDesc,
+                        onSubmit: () {
+                          context.read<ContractorShiftBloc>().add(
+                              ContractorShiftEvent.submitClockInOut(context,
+                                  clockInOutTime:
+                                      shift.selectedClockInTime ?? -1,
+                                  postId: shift.post_id ?? -1));
+                        },
+                      );
+                    }
+                  : () {},
+              borderRadius: 10,
+              buttonFontSize: 10,
+              height: 33,
+              width: 73,
+              backgroundColor: (shift.selectedClockInTime != null)
+                  ? AppColors.primaryColor
+                  : AppColors.primaryColor.withOpacity(0.5),
+              buttonText: StringConstant.submit,
+            ),
     );
   }
 
-  Future<String> showTimePicker(BuildContext context) async {
+  Widget clockOut(BuildContext context, int index, CurrentShiftDTO shift) {
+    bool isClockOutValid = (shift.clock_out != null);
+    return CustomTextField(
+      labelText: StringConstant.clockOut,
+      hintText: (isClockOutValid)
+          ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(
+              (shift.clock_out ?? -1) * 1000))
+          : (shift.selectedClockOutTime != null)
+              ? DateFormat('hh:mm a').format(
+                  DateTime.fromMillisecondsSinceEpoch(
+                      (shift.selectedClockOutTime ?? -1) * 1000))
+              : StringConstant.clockOut,
+      hintAsValue: isClockOutValid,
+      fillColor: AppColors.grey04,
+      readOnly: true,
+      onTap: (shift.clock_out != null)
+          ? null
+          : (shift.clock_in != null)
+              ? () async {
+                  final clockOutTime = await showTimePicker(context);
+                  if (clockOutTime != null) {
+                    context.read<ContractorShiftBloc>().add(
+                        ContractorShiftEvent.setClockOut(context,
+                            index: index, clockOutTime: clockOutTime));
+                  }
+                }
+              : null,
+      prefixIcon: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: getSize(16),
+          vertical: getSize(16),
+        ),
+        child: SvgPicture.asset(
+          SvgImageConstant.clock,
+          height: getSize(16),
+          width: getSize(16),
+          color: AppColors.primaryColor,
+        ),
+      ),
+      suffixIcon: (shift.clock_out != null)
+          ? BaseText(
+              text: StringConstant.submitted,
+              fontSize: 10,
+              textColor: AppColors.primaryColor,
+            )
+          : CommonButton(
+              onPressed: (shift.selectedClockOutTime != null)
+                  ? () {
+                      submitTime(
+                        context,
+                        title: StringConstant.clockOut,
+                        infoMessage: StringConstant.clockOutConfirmationDesc,
+                        onSubmit: () {
+                          context.read<ContractorShiftBloc>().add(
+                              ContractorShiftEvent.submitClockInOut(context,
+                                  clockInOutTime:
+                                      shift.selectedClockOutTime ?? -1,
+                                  postId: shift.post_id ?? -1));
+                        },
+                      );
+                    }
+                  : () {},
+              borderRadius: 10,
+              buttonFontSize: 10,
+              height: 33,
+              width: 73,
+              backgroundColor: (shift.selectedClockOutTime != null)
+                  ? AppColors.primaryColor
+                  : AppColors.primaryColor.withOpacity(0.5),
+              buttonText: StringConstant.submit,
+            ),
+    );
+  }
+
+  Future<TimeOfDay?> showTimePicker(BuildContext context) async {
     final TimeOfDay? pickedTime = await showDialog(
         context: context,
         builder: (context) {
@@ -228,12 +351,8 @@ class _CurrentShiftState extends State<CurrentShift> {
           );
         });
 
-    if (pickedTime != null) {
-      print("Selected Time:  ${pickedTime.format(context)}");
-      return pickedTime.format(context);
-    } else {
-      return "";
-    }
+    print("Selected Time:  ${pickedTime?.format(context)}");
+    return pickedTime;
   }
 
   submitTime(BuildContext context,
@@ -247,59 +366,31 @@ class _CurrentShiftState extends State<CurrentShift> {
       onCancelClick: () {
         context.router.maybePop();
       },
+      cancelText: StringConstant.no,
+      deleteBtnText: StringConstant.yes,
       onDeleteClick: onSubmit,
     );
   }
 
-  Widget clockOut() {
-    return CustomTextField(
-      labelText: StringConstant.clockOut,
-      hintText: StringConstant.clockOut,
-      fillColor: AppColors.grey04,
-      readOnly: true,
-      prefixIcon: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: getSize(16),
-          vertical: getSize(16),
-        ),
-        child: SvgPicture.asset(
-          SvgImageConstant.clock,
-          height: getSize(16),
-          width: getSize(16),
-          color: AppColors.primaryColor,
-        ),
-      ),
-      suffixIcon: CommonButton(
-        onPressed: () {},
-        borderRadius: 10,
-        buttonFontSize: 10,
-        height: 33,
-        width: 73,
-        backgroundColor: AppColors.primaryColor.withOpacity(0.5),
-        buttonText: StringConstant.submitted,
-      ),
-    );
-  }
-
-  Widget displayDateBreak(
-    BuildContext context, {
-    required String title,
-    required String boldValue,
-    required String timidValue,
-    required String svgPrefixIcon,
-    bool showBtn = false,
-  }) {
+  Widget displayDateBreak(BuildContext context,
+      {required String title,
+      required String boldValue,
+      required String timidValue,
+      required String svgPrefixIcon,
+      bool showBtn = false,
+      void Function()? onBtnPressed}) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: getSize(10)),
       child: (showBtn)
           ? CommonButton(
-              onPressed: () {
-                /*if (post.shift_detail != null) {
+              onPressed: onBtnPressed ??
+                  () {
+                    /*if (post.shift_detail != null) {
                           context.router.push(PageRouteInfo(ViewDates.name,
                               args: ViewDatesArgs(
                                   shiftDetail: post.shift_detail!)));
                         }*/
-              },
+                  },
               width: 160,
               height: 34,
               borderRadius: 5,
@@ -365,8 +456,28 @@ class _CurrentShiftState extends State<CurrentShift> {
                 fontWeight: FontWeight.w400,
                 textColor: AppColors.black.withOpacity(0.7),
               ),
-              highLightText(
-                  boldValue: "$startDate to $endDate", timidValue: ""),
+              Row(
+                children: [
+                  BaseText(
+                    text: startDate,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    textColor: AppColors.black.withOpacity(0.7),
+                  ),
+                  BaseText(
+                    text: ' to ',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    textColor: AppColors.black.withOpacity(0.7),
+                  ),
+                  BaseText(
+                    text: endDate,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    textColor: AppColors.black.withOpacity(0.7),
+                  ),
+                ],
+              ),
             ],
           )
         ],
@@ -413,11 +524,10 @@ class _CurrentShiftState extends State<CurrentShift> {
         children: [
           ListTile(
             dense: true,
-            leading: SvgPicture.asset(
-              SvgImageConstant.female,
-              width: getSize(36.28),
-              height: getSize(43.41),
-              color: AppColors.primaryColor,
+            leading: Image.asset(
+              PngImageConstants.leafWithBG,
+              height: getSize(40),
+              width: getSize(40),
             ),
             isThreeLine: true,
             title: BaseText(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/main_tab/home/home_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/infrastructure/core/employer_home/employer_dashboard_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 
@@ -20,7 +21,7 @@ class StackedImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        List imageList = isTotalApplicants
+        List<ApplicationProfile> imageList = isTotalApplicants
             ? (state.employerDashboardList[index].total_application_profiles ??
                 [])
             : (state.employerDashboardList[index].total_proposal_profiles ??
@@ -51,7 +52,7 @@ class StackedImage extends StatelessWidget {
                         image: DecorationImage(
                           opacity: (imageList.length > 6 && i == 5) ? 0.4 : 100,
                           image: NetworkImage(
-                            imageList[i],
+                            imageList[i].profile ?? "",
                           ),
                           fit: BoxFit.cover,
                         ),

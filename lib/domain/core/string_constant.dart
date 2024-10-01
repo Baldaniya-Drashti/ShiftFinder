@@ -420,6 +420,8 @@ class StringConstant {
   static const String confirm = "Confirm";
   static const String clockInConfirmationDesc =
       "Are you sure you want to add the clock in time?";
+  static const String clockOutConfirmationDesc =
+      "Are you sure you want to add the clock out time?";
   static const String confirmationRequired = "Confirmation Required";
   static const String confirmationRecurringDesc1 = "You are about to post";
   static const String confirmationRecurringDesc2 =
@@ -437,6 +439,8 @@ class StringConstant {
       "Get started by creating your first shift! Tap the + icon to begin.";
   static const String withdrawShiftDesc =
       "Withdrawal from the shift is not allowed within 24 hours of the shift start time. You can no longer withdraw from this shift.";
+  static const String withdrawCADFeeDesc =
+      "Withdrawing from this shift may impact your rating and future opportunities. Please note that a withdrawal fee of CAD 100 will be charged. Are you sure you want to proceed?";
   static const String deleteTeamDesc =
       "Deleting this team will prevent you from sharing the shift posting summary with its members. Are you sure you want to proceed?";
   static const String proposalDesc =

@@ -11,6 +11,7 @@ part 'current_shift_dto.g.dart';
 class CurrentShiftDTO with _$CurrentShiftDTO {
   const factory CurrentShiftDTO({
     int? id,
+    int? post_id,
     String? listing_id,
     String? last_ago,
     int? industry_id,
@@ -30,8 +31,10 @@ class CurrentShiftDTO with _$CurrentShiftDTO {
     ShiftDetailDTO? shift_detail,
     String? software_skill,
     String? specialties_detail,
-    String? selectedClockInTime,
-    String? selectedClockOutTime,
+    int? clock_in,
+    int? clock_out,
+    int? selectedClockInTime,
+    int? selectedClockOutTime,
   }) = _CurrentShiftDTO;
 
   factory CurrentShiftDTO.fromJson(Map<String, dynamic> json) =>

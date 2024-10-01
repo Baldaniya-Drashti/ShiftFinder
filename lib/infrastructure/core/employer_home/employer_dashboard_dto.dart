@@ -23,9 +23,9 @@ class EmployerDashboardDTO with _$EmployerDashboardDTO {
     int? end_time,
     int? total_shift,
     int? total_application_counts,
-    List<dynamic>? total_application_profiles,
+    List<ApplicationProfile>? total_application_profiles,
     int? total_proposal_counts,
-    List<dynamic>? total_proposal_profiles,
+    List<ApplicationProfile>? total_proposal_profiles,
     String? specialties_list,
     int? rate_hour,
     String? total_payable_hour,
@@ -74,4 +74,15 @@ class ShiftDate with _$ShiftDate {
 
   factory ShiftDate.fromJson(Map<String, dynamic> json) =>
       _$ShiftDateFromJson(json);
+}
+
+@freezed
+class ApplicationProfile with _$ApplicationProfile {
+  const factory ApplicationProfile({
+    int? id,
+    String? profile,
+  }) = _ApplicationProfile;
+
+  factory ApplicationProfile.fromJson(Map<String, dynamic> json) =>
+      _$ApplicationProfileFromJson(json);
 }

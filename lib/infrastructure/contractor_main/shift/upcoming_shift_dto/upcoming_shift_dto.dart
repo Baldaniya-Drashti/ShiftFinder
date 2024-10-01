@@ -8,6 +8,7 @@ part 'upcoming_shift_dto.g.dart';
 class UpComingShiftDTO with _$UpComingShiftDTO {
   const factory UpComingShiftDTO({
     int? id,
+    int? post_id,
     int? employer_post_user_id,
     String? role_lists_name,
     String? company_name,

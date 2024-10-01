@@ -4,6 +4,7 @@ part of 'contractor_shift_bloc.dart';
 class ContractorShiftState with _$ContractorShiftState {
   factory ContractorShiftState({
     required int selectedTab,
+    required InputEmptyOrNot deletePostReason,
     required bool showErrorMessages,
     required bool isLoading,
     required bool isNoDataFound,
@@ -15,6 +16,7 @@ class ContractorShiftState with _$ContractorShiftState {
   }) = _ContractorShiftState;
   factory ContractorShiftState.initial() => ContractorShiftState(
         selectedTab: 1,
+        deletePostReason: InputEmptyOrNot(""),
         currentShiftList: [],
         upcomingShiftList: [],
         isErrorInAPI: false,

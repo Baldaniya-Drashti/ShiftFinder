@@ -981,4 +981,69 @@ class MainFacade implements IMainFacade {
       return left(const MainFailure.serverError());
     }
   }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut(
+      {required int shiftId, required int clockTime}) async {
+    try {
+      Map<String, dynamic> mapData = {
+        'id': shiftId,
+        'time': clockTime,
+      };
+
+      final res = await apiService.postMethod(
+        ApiConstants.contractorClockInClockOut,
+        mapData,
+      );
+
+      return right(res);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> deleteUpcomingShiftApi({
+    required int id,
+    String reason = "",
+  }) async {
+    try {
+      Map<String, dynamic> mapData = {'reason': reason};
+
+      print("Sending Data->  ${id}");
+
+      final res = await apiService.deleteMethod(
+        "${ApiConstants.deleteUpcomingShift}/$id",
+        queryParameters: mapData,
+      );
+
+      if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+      return left(const MainFailure.serverError());
+    }
+  }
 }

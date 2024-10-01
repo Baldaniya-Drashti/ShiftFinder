@@ -131,4 +131,12 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, CommonResponse>> getContractorShifts(
       {required int page, int? filterType});
+
+  Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut(
+      {required int shiftId, required int clockTime});
+
+  Future<Either<MainFailure, CommonResponse>> deleteUpcomingShiftApi({
+    required int id,
+    String reason = "",
+  });
 }
