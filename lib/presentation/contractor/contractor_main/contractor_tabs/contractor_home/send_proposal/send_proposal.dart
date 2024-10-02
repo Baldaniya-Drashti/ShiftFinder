@@ -626,7 +626,11 @@ class SendProposal extends StatelessWidget {
           )),
       prefixIconConstraints:
           BoxConstraints(maxWidth: getSize(100), minHeight: 0),
-      onChanged: (value) {},
+      onChanged: (value) {
+        context
+            .read<SendProposalBloc>()
+            .add(SendProposalEvent.rateHourChanged(value));
+      },
       validator: (p0, p1) => context
           .read<SendProposalState>()
           .rateHour
@@ -673,7 +677,11 @@ class SendProposal extends StatelessWidget {
           )),
       prefixIconConstraints:
           BoxConstraints(maxWidth: getSize(100), minHeight: 0),
-      onChanged: (value) {},
+      onChanged: (value) {
+        context
+            .read<SendProposalBloc>()
+            .add(SendProposalEvent.commuteRateChanged(value));
+      },
       /*validator: (p0, p1) => context
           .read<HealthcarePostBloc>()
           .state
@@ -736,11 +744,11 @@ class SendProposal extends StatelessWidget {
         );
       }).toList(),
       onChanged: (value) {
-        // if (value != null) {
-        //   context
-        //       .read<PostShiftBloc>()
-        //       .add(PostShiftEvent.commuteAllownceChanged(value));
-        // }
+        if (value != null) {
+          context
+              .read<SendProposalBloc>()
+              .add(SendProposalEvent.commuteHourChanged(value));
+        }
       },
       childDropDownItems: CommonList.commuteAllownceList.map((val) {
         return DropdownMenuItem<String>(
@@ -788,7 +796,11 @@ class SendProposal extends StatelessWidget {
           )),
       prefixIconConstraints:
           BoxConstraints(maxWidth: getSize(100), minHeight: 0),
-      onChanged: (value) {},
+      onChanged: (value) {
+        context
+            .read<SendProposalBloc>()
+            .add(SendProposalEvent.accomdationRateChanged(value));
+      },
       /*validator: (p0, p1) => context
           .read<HealthcarePostBloc>()
           .state
@@ -845,11 +857,11 @@ class SendProposal extends StatelessWidget {
         );
       }).toList(),
       onChanged: (value) {
-        // if (value != null) {
-        //   context
-        //       .read<PostShiftBloc>()
-        //       .add(PostShiftEvent.commuteAllownceChanged(value));
-        // }
+        if (value != null) {
+          context
+              .read<SendProposalBloc>()
+              .add(SendProposalEvent.accomdationHourChanged(value));
+        }
       },
       childDropDownItems: CommonList.commuteAllownceList.map((val) {
         return DropdownMenuItem<String>(

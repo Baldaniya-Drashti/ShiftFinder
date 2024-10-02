@@ -11,40 +11,40 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:shift/application/auth/auth_status/auth_status_bloc.dart'
-    as _i21;
+    as _i20;
 import 'package:shift/application/auth/contractor_auth/add_contractor_skill_form_bloc/add_contractor_skill_form_bloc.dart'
-    as _i22;
+    as _i21;
 import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart'
     as _i3;
 import 'package:shift/application/auth/contractor_auth/document_bloc/document_bloc.dart'
-    as _i29;
+    as _i26;
 import 'package:shift/application/auth/contractor_auth/education_detail_bloc/education_detail_bloc.dart'
     as _i33;
 import 'package:shift/application/auth/contractor_auth/experience_bloc/experience_bloc.dart'
     as _i27;
 import 'package:shift/application/auth/contractor_auth/intro_video_bloc/intro_video_bloc.dart'
-    as _i26;
-import 'package:shift/application/auth/contractor_auth/legal_screening_bloc/legal_screening_bloc.dart'
     as _i28;
+import 'package:shift/application/auth/contractor_auth/legal_screening_bloc/legal_screening_bloc.dart'
+    as _i29;
 import 'package:shift/application/auth/contractor_auth/reference_bloc/reference_bloc.dart'
     as _i34;
 import 'package:shift/application/auth/contractor_auth/speciality_experience/speciality_experience_bloc.dart'
     as _i30;
 import 'package:shift/application/auth/contractor_auth/terms_and_condition_bloc/terms_and_condition_bloc.dart'
-    as _i23;
+    as _i22;
 import 'package:shift/application/auth/forgot_password/forgot_password_bloc.dart'
-    as _i20;
-import 'package:shift/application/auth/login_form/login_form_bloc.dart' as _i25;
+    as _i23;
+import 'package:shift/application/auth/login_form/login_form_bloc.dart' as _i24;
 import 'package:shift/application/auth/register_form/register_form_bloc.dart'
-    as _i24;
+    as _i25;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_home_bloc/contractor_home_bloc.dart'
-    as _i36;
+    as _i35;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_main_bloc.dart'
     as _i15;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_shift_bloc/contractor_shift_bloc.dart'
-    as _i35;
+    as _i36;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/send_proposal_bloc/send_proposal_bloc.dart'
-    as _i18;
+    as _i17;
 import 'package:shift/application/google_map/google_map_bloc.dart' as _i4;
 import 'package:shift/application/healthcare_post/healthcare_post_bloc.dart'
     as _i14;
@@ -52,13 +52,13 @@ import 'package:shift/application/location_details/location_details_bloc.dart'
     as _i31;
 import 'package:shift/application/main_tab/home/home_bloc.dart' as _i37;
 import 'package:shift/application/main_tab/home/view_single_applicants/view_single_applicants_bloc.dart'
-    as _i19;
+    as _i18;
 import 'package:shift/application/main_tab/main_tab_bloc.dart' as _i16;
 import 'package:shift/application/main_tab/profile/profile_sections/teams/add_new_member/add_new_member_bloc.dart'
     as _i38;
 import 'package:shift/application/main_tab/profile/profile_sections/teams/teams_bloc.dart'
     as _i13;
-import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart' as _i17;
+import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart' as _i19;
 import 'package:shift/application/profile/account/account_cubit.dart' as _i32;
 import 'package:shift/application/splash/splash_bloc.dart' as _i12;
 import 'package:shift/domain/account/i_account_repository.dart' as _i8;
@@ -106,42 +106,42 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i15.ContractorMainTabBloc>(
         () => _i15.ContractorMainTabBloc(gh<_i6.IAuthFacade>()));
     gh.factory<_i16.MainTabBloc>(() => _i16.MainTabBloc(gh<_i6.IAuthFacade>()));
-    gh.factory<_i17.PostShiftBloc>(
-        () => _i17.PostShiftBloc(gh<_i10.IMainFacade>()));
-    gh.factory<_i18.SendProposalBloc>(
-        () => _i18.SendProposalBloc(gh<_i10.IMainFacade>()));
-    gh.factory<_i19.ViewSingleApplicantsBloc>(
-        () => _i19.ViewSingleApplicantsBloc(gh<_i10.IMainFacade>()));
-    gh.factory<_i20.ForgotPasswordBloc>(
-        () => _i20.ForgotPasswordBloc(gh<_i6.IAuthFacade>()));
-    gh.factory<_i21.AuthStatusBloc>(
-        () => _i21.AuthStatusBloc(gh<_i6.IAuthFacade>()));
-    gh.factory<_i22.AddContractorSkillFormBloc>(
-        () => _i22.AddContractorSkillFormBloc(gh<_i6.IAuthFacade>()));
-    gh.factory<_i23.TermsAndConditionBloc>(
-        () => _i23.TermsAndConditionBloc(gh<_i6.IAuthFacade>()));
-    gh.factory<_i24.RegisterFormBloc>(
-        () => _i24.RegisterFormBloc(gh<_i6.IAuthFacade>()));
-    gh.factory<_i25.LoginFormBloc>(
-        () => _i25.LoginFormBloc(gh<_i6.IAuthFacade>()));
-    gh.factory<_i26.IntroVideoBloc>(
-        () => _i26.IntroVideoBloc(gh<_i8.IAccountRepository>()));
+    gh.factory<_i17.SendProposalBloc>(
+        () => _i17.SendProposalBloc(gh<_i10.IMainFacade>()));
+    gh.factory<_i18.ViewSingleApplicantsBloc>(
+        () => _i18.ViewSingleApplicantsBloc(gh<_i10.IMainFacade>()));
+    gh.factory<_i19.PostShiftBloc>(
+        () => _i19.PostShiftBloc(gh<_i10.IMainFacade>()));
+    gh.factory<_i20.AuthStatusBloc>(
+        () => _i20.AuthStatusBloc(gh<_i6.IAuthFacade>()));
+    gh.factory<_i21.AddContractorSkillFormBloc>(
+        () => _i21.AddContractorSkillFormBloc(gh<_i6.IAuthFacade>()));
+    gh.factory<_i22.TermsAndConditionBloc>(
+        () => _i22.TermsAndConditionBloc(gh<_i6.IAuthFacade>()));
+    gh.factory<_i23.ForgotPasswordBloc>(
+        () => _i23.ForgotPasswordBloc(gh<_i6.IAuthFacade>()));
+    gh.factory<_i24.LoginFormBloc>(
+        () => _i24.LoginFormBloc(gh<_i6.IAuthFacade>()));
+    gh.factory<_i25.RegisterFormBloc>(
+        () => _i25.RegisterFormBloc(gh<_i6.IAuthFacade>()));
+    gh.factory<_i26.DocumentBloc>(
+        () => _i26.DocumentBloc(gh<_i8.IAccountRepository>()));
+    gh.factory<_i26.ProfessionalLicensesBloc>(
+        () => _i26.ProfessionalLicensesBloc(gh<_i8.IAccountRepository>()));
+    gh.factory<_i26.ImmunizationBloc>(
+        () => _i26.ImmunizationBloc(gh<_i8.IAccountRepository>()));
+    gh.factory<_i26.ProfessionalLiabilityBloc>(
+        () => _i26.ProfessionalLiabilityBloc(gh<_i8.IAccountRepository>()));
+    gh.factory<_i26.ResumeBloc>(
+        () => _i26.ResumeBloc(gh<_i8.IAccountRepository>()));
+    gh.factory<_i26.EquipmentBloc>(
+        () => _i26.EquipmentBloc(gh<_i8.IAccountRepository>()));
     gh.factory<_i27.ExperienceBloc>(
         () => _i27.ExperienceBloc(gh<_i8.IAccountRepository>()));
-    gh.factory<_i28.LegalScreeningBloc>(
-        () => _i28.LegalScreeningBloc(gh<_i8.IAccountRepository>()));
-    gh.factory<_i29.DocumentBloc>(
-        () => _i29.DocumentBloc(gh<_i8.IAccountRepository>()));
-    gh.factory<_i29.ProfessionalLicensesBloc>(
-        () => _i29.ProfessionalLicensesBloc(gh<_i8.IAccountRepository>()));
-    gh.factory<_i29.ImmunizationBloc>(
-        () => _i29.ImmunizationBloc(gh<_i8.IAccountRepository>()));
-    gh.factory<_i29.ProfessionalLiabilityBloc>(
-        () => _i29.ProfessionalLiabilityBloc(gh<_i8.IAccountRepository>()));
-    gh.factory<_i29.ResumeBloc>(
-        () => _i29.ResumeBloc(gh<_i8.IAccountRepository>()));
-    gh.factory<_i29.EquipmentBloc>(
-        () => _i29.EquipmentBloc(gh<_i8.IAccountRepository>()));
+    gh.factory<_i28.IntroVideoBloc>(
+        () => _i28.IntroVideoBloc(gh<_i8.IAccountRepository>()));
+    gh.factory<_i29.LegalScreeningBloc>(
+        () => _i29.LegalScreeningBloc(gh<_i8.IAccountRepository>()));
     gh.factory<_i30.SpecialityExperienceBloc>(
         () => _i30.SpecialityExperienceBloc(gh<_i8.IAccountRepository>()));
     gh.factory<_i31.LocationDetailsBloc>(
@@ -156,10 +156,10 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i8.IAccountRepository>(),
           gh<_i6.IAuthFacade>(),
         ));
-    gh.factory<_i35.ContractorShiftBloc>(
-        () => _i35.ContractorShiftBloc(gh<_i10.IMainFacade>()));
-    gh.factory<_i36.ContractorHomeBloc>(
-        () => _i36.ContractorHomeBloc(gh<_i10.IMainFacade>()));
+    gh.factory<_i35.ContractorHomeBloc>(
+        () => _i35.ContractorHomeBloc(gh<_i10.IMainFacade>()));
+    gh.factory<_i36.ContractorShiftBloc>(
+        () => _i36.ContractorShiftBloc(gh<_i10.IMainFacade>()));
     gh.factory<_i37.HomeBloc>(() => _i37.HomeBloc(gh<_i10.IMainFacade>()));
     gh.factory<_i38.AddNewMemberBloc>(
         () => _i38.AddNewMemberBloc(gh<_i10.IMainFacade>()));

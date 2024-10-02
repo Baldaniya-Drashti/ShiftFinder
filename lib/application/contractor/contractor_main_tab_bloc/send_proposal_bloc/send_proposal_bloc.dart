@@ -42,6 +42,41 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
     on<SendProposalEvent>(
       (event, emit) async {
         await event.map(
+          accomdationHourChanged: (e) {
+            emit(state.copyWith(
+              accomdationHour: InputEmptyOrNot(e.rate),
+              showErrorMessages: false,
+              failureOrSuccessOption: none(),
+            ));
+          },
+          accomdationRateChanged: (e) {
+            emit(state.copyWith(
+              accomdationRate: Rate(e.hour),
+              showErrorMessages: false,
+              failureOrSuccessOption: none(),
+            ));
+          },
+          commuteHourChanged: (e) {
+            emit(state.copyWith(
+              commuteHour: InputEmptyOrNot(e.hour),
+              showErrorMessages: false,
+              failureOrSuccessOption: none(),
+            ));
+          },
+          commuteRateChanged: (e) {
+            emit(state.copyWith(
+              commuteRate: Rate(e.rate),
+              showErrorMessages: false,
+              failureOrSuccessOption: none(),
+            ));
+          },
+          rateHourChanged: (e) {
+            emit(state.copyWith(
+              rateHour: Rate(e.rate),
+              showErrorMessages: false,
+              failureOrSuccessOption: none(),
+            ));
+          },
           getContractorShiftDetail: (e) async {
             Either<MainFailure, HealthcarePostDTO>? failureOrSuccess;
             emit(state.copyWith(isLoading: true));
