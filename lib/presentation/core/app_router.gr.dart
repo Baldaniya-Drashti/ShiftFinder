@@ -546,9 +546,13 @@ abstract class $AppRouter extends _i62.RootStackRouter {
       );
     },
     SendProposal.name: (routeData) {
+      final args = routeData.argsAs<SendProposalArgs>();
       return _i62.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i47.SendProposal(),
+        child: _i47.SendProposal(
+          key: args.key,
+          postId: args.postId,
+        ),
       );
     },
     ShowGoogleMap.name: (routeData) {
@@ -2013,16 +2017,40 @@ class ReviewPostShiftDetailArgs {
 
 /// generated route for
 /// [_i47.SendProposal]
-class SendProposal extends _i62.PageRouteInfo<void> {
-  const SendProposal({List<_i62.PageRouteInfo>? children})
-      : super(
+class SendProposal extends _i62.PageRouteInfo<SendProposalArgs> {
+  SendProposal({
+    _i63.Key? key,
+    required int postId,
+    List<_i62.PageRouteInfo>? children,
+  }) : super(
           SendProposal.name,
+          args: SendProposalArgs(
+            key: key,
+            postId: postId,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'SendProposal';
 
-  static const _i62.PageInfo<void> page = _i62.PageInfo<void>(name);
+  static const _i62.PageInfo<SendProposalArgs> page =
+      _i62.PageInfo<SendProposalArgs>(name);
+}
+
+class SendProposalArgs {
+  const SendProposalArgs({
+    this.key,
+    required this.postId,
+  });
+
+  final _i63.Key? key;
+
+  final int postId;
+
+  @override
+  String toString() {
+    return 'SendProposalArgs{key: $key, postId: $postId}';
+  }
 }
 
 /// generated route for

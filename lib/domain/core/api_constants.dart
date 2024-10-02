@@ -135,6 +135,7 @@ class ApiConstants {
 
   //contractor shift
   static String contractorShifts = 'contractor_shifts';
+  static String contractorShiftDetail = 'contractor_shifts_details';
   static String contractorClockInClockOut = 'contractor_clock_in_or_out';
   static String deleteUpcomingShift = 'contractor_shift';
 

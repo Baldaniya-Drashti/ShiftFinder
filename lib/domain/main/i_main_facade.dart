@@ -139,4 +139,7 @@ abstract class IMainFacade {
     required int id,
     String reason = "",
   });
+
+  Future<Either<MainFailure, HealthcarePostDTO>> getContractorShiftDetail(
+      {required int postId});
 }
