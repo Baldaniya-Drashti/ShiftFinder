@@ -12,6 +12,9 @@ class ShiftsBlocState with _$ShiftsBlocState {
     required List<Predictions> searchLocationList,
     required PlaceDetailDTO selectedAddress,
     required SingleValueDropDownController singleValueDropDownController,
+    required SingleValueDropDownController cancelledShiftSortByController,
+    required SingleValueDropDownController
+        cancelledShiftSortByLocationController,
     required SingleValueDropDownController
         singleValueApprovedShiftDropDownController,
     required List<DropDownValueModel> locationList,
@@ -35,5 +38,7 @@ class ShiftsBlocState with _$ShiftsBlocState {
             SingleValueDropDownController(),
         clockIn: TimeOfDay.now(),
         clockOut: TimeOfDay.now(),
+        cancelledShiftSortByController: SingleValueDropDownController(),
+        cancelledShiftSortByLocationController: SingleValueDropDownController(),
       );
 }

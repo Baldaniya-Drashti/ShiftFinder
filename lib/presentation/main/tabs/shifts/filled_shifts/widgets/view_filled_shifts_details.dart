@@ -121,7 +121,9 @@ class ViewFilledShiftsDetails extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
       width: double.infinity,
       decoration: BoxDecoration(
-          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+        color: AppColors.grey04,
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         minVerticalPadding: 0,
