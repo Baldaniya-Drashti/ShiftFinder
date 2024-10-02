@@ -11,7 +11,7 @@ class AuthStatusBloc extends Bloc<AuthStatusEvent, AuthStatusState> {
   final IAuthFacade _authFacade;
 
   AuthStatusBloc(this._authFacade) : super(const AuthStatusState.initial()) {
-    on<AuthStatusEvent>(
+  on<AuthStatusEvent>(
       (event, emit) async {
         await event.map(
           authCheckRequested: (e) async {},

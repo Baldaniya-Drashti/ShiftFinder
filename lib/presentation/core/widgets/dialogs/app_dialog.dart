@@ -135,6 +135,7 @@ class AppDialog {
   static Future<void> showSuccess(
     BuildContext context, {
     String? title,
+    String? buttonText,
     required String infoMessage,
     EdgeInsets? insetPadding,
     Widget? image,
@@ -198,7 +199,7 @@ class AppDialog {
                   AppFocus.unfocus(context);
                 },
                 width: 200,
-                buttonText: StringConstant.ok,
+                buttonText: buttonText??StringConstant.ok,
               ),
             ],
           );

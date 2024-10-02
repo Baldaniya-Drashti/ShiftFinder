@@ -28,8 +28,7 @@ class _DocumentPageState extends State<DocumentPage> {
         AppFocus.unfocus(context);
       },
       child: BlocProvider(
-        create: (context) =>
-            getIt<DocumentBloc>()..add(DocumentEvent.getAllDocumentStatus()),
+        create: (context) => getIt<DocumentBloc>()..add(DocumentEvent.getAllDocumentStatus()),
         child: BlocConsumer<DocumentBloc, DocumentState>(
           listener: (context, state) {
             state.authFailureOrSuccessOption.fold(
@@ -39,8 +38,7 @@ class _DocumentPageState extends State<DocumentPage> {
                   showError(
                     message: failure.maybeMap(
                       showAPIResponseMessage: (value) => value.message,
-                      networkError: (value) =>
-                          'Please check your internet connectivity',
+                      networkError: (value) => 'Please check your internet connectivity',
                       orElse: () => "Server Error. Try again later.",
                     ),
                   ).show(context);
@@ -53,8 +51,7 @@ class _DocumentPageState extends State<DocumentPage> {
             return Scaffold(
               appBar: CommonAppBar(
                 forceMaterialTransparency: false,
-                isShowBackBtn:
-                    (state.currentPage == 0) ? !widget.isFromSplash : true,
+                isShowBackBtn: (state.currentPage == 0) ? !widget.isFromSplash : true,
                 onBackPressed: () {
                   AppFocus.unfocus(context);
                   if (state.currentPage == 0) {
@@ -67,19 +64,14 @@ class _DocumentPageState extends State<DocumentPage> {
                       curve: Curves.easeOut,
                     )
                         .then((value) {
-                      print(
-                          "WHEN CLICK ON BACK OF PAGE VIEW > THEN IS CALLED!");
-                      context
-                          .read<DocumentBloc>()
-                          .add(DocumentEvent.getAllDocumentStatus());
+                      print("WHEN CLICK ON BACK OF PAGE VIEW > THEN IS CALLED!");
+                      context.read<DocumentBloc>().add(DocumentEvent.getAllDocumentStatus());
                     });
                   }
                 },
                 title: DocumentBloc.appbarTitleList[state.currentPage],
               ),
-              body: (state.allListLoading)
-                  ? CenterLoadingIndicator()
-                  : getPageView(state, context),
+              body: (state.allListLoading) ? CenterLoadingIndicator() : getPageView(state, context),
             );
           },
         ),

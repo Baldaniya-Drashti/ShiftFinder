@@ -35,7 +35,7 @@ class UploadDocumentBox extends StatelessWidget {
                 height: getSize(66),
                 width: getSize(58),
                 child: Image.asset(
-                  PngImageConstants.upload,
+                  PngImageConstants.upload
                 ),
               ),
               const SizedBox(

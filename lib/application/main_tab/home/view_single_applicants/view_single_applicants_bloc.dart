@@ -9,17 +9,18 @@ import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
+
 part 'view_single_applicants_state.dart';
+
 part 'view_single_applicants_event.dart';
+
 part 'view_single_applicants_bloc.freezed.dart';
 
 @injectable
-class ViewSingleApplicantsBloc
-    extends Bloc<ViewSingleApplicantsEvent, ViewSingleApplicantsState> {
+class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingleApplicantsState> {
   final IMainFacade _mainFacade;
 
-  ViewSingleApplicantsBloc(this._mainFacade)
-      : super(ViewSingleApplicantsState.initial()) {
+  ViewSingleApplicantsBloc(this._mainFacade) : super(ViewSingleApplicantsState.initial()) {
     on<ViewSingleApplicantsEvent>(
       (event, emit) async {
         await event.map(
@@ -76,10 +77,7 @@ class ViewSingleApplicantsBloc
             final isCardDateValid = state.cardDate.isValid();
             final isCvvValid = state.cvv.isValid();
 
-            if (isCardHolderNameValid &&
-                isCardNumberValid &&
-                isCardDateValid &&
-                isCvvValid) {
+            if (isCardHolderNameValid && isCardNumberValid && isCardDateValid && isCvvValid) {
               emit(
                 state.copyWith(
                   isSubmitting: true,

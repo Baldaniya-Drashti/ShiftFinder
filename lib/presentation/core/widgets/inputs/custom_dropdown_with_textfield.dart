@@ -48,6 +48,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
     this.dropDownIcon,
     this.onDropDownTap,
   });
+
   final String? labelText;
   final Widget? ddPrefixIcon;
   final String? hintText;
@@ -105,8 +106,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
       children: [
         if (labelText != null) ...[
           Padding(
-            padding: EdgeInsets.only(
-                left: getSize((isLabelPadding == true) ? 18 : 0)),
+            padding: EdgeInsets.only(left: getSize((isLabelPadding == true) ? 18 : 0)),
             child: Row(
               children: [
                 BaseText(
@@ -138,9 +138,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
         ],
         Container(
           decoration: BoxDecoration(
-            color: (showTextfield || showDropDown)
-                ? AppColors.white
-                : AppColors.transparent,
+            color: (showTextfield || showDropDown) ? AppColors.white : AppColors.transparent,
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
@@ -161,9 +159,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
                   menuMaxHeight: getSize(300),
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: (dropDownReadOnly)
-                        ? disableDropDownColor ?? AppColors.grey04
-                        : AppColors.white,
+                    fillColor: (dropDownReadOnly) ? disableDropDownColor ?? AppColors.grey04 : AppColors.white,
                     prefixIcon: (showPrefixIcon)
                         ? Padding(
                             padding: EdgeInsets.symmetric(
@@ -348,6 +344,7 @@ class CustomLocationDropdDown extends StatelessWidget {
     this.fieldInitialValue,
     this.removeErrorBorder = false,
   });
+
   final String? labelText;
   final Widget? ddPrefixIcon;
   final String? hintText;
@@ -400,8 +397,7 @@ class CustomLocationDropdDown extends StatelessWidget {
       children: [
         if (labelText != null) ...[
           Padding(
-            padding: EdgeInsets.only(
-                left: getSize((isLabelPadding == true) ? 18 : 0)),
+            padding: EdgeInsets.only(left: getSize((isLabelPadding == true) ? 18 : 0)),
             child: Row(
               children: [
                 BaseText(
@@ -433,9 +429,7 @@ class CustomLocationDropdDown extends StatelessWidget {
         ],
         Container(
           decoration: BoxDecoration(
-            color: (showTextfield || showDropDown)
-                ? AppColors.white
-                : AppColors.transparent,
+            color: (showTextfield || showDropDown) ? AppColors.white : AppColors.transparent,
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(

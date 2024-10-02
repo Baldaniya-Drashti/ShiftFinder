@@ -63,6 +63,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: ViewUpcomingShiftDetails.page),
         AutoRoute(page: ViewContractorShift.page),
         AutoRoute(page: ViewContractorShiftDates.page),
+        AutoRoute(page: PreviousShiftView.page),
         AutoRoute(
           page: MainTabView.page,
           children: [

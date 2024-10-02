@@ -14,6 +14,7 @@ class ContractorShiftState with _$ContractorShiftState {
     required Option<Either<MainFailure, HealthcarePostDTO>>
         currentShiftFailureOrSuccessOption,
   }) = _ContractorShiftState;
+
   factory ContractorShiftState.initial() => ContractorShiftState(
         selectedTab: 1,
         deletePostReason: InputEmptyOrNot(""),

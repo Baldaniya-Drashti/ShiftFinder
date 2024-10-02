@@ -13,16 +13,14 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 class ShowGoogleMap extends StatelessWidget {
   final double latitude;
   final double longitude;
-  const ShowGoogleMap(
-      {super.key, required this.latitude, required this.longitude});
+
+  const ShowGoogleMap({super.key, required this.latitude, required this.longitude});
 
   @override
   Widget build(BuildContext context) {
-    final Completer<GoogleMapController> controller =
-        Completer<GoogleMapController>();
+    final Completer<GoogleMapController> controller = Completer<GoogleMapController>();
     return BlocProvider(
-      create: (context) => getIt<GoogleMapBloc>()
-        ..add(GoogleMapEvent.addMarker(latitude, longitude)),
+      create: (context) => getIt<GoogleMapBloc>()..add(GoogleMapEvent.addMarker(latitude, longitude)),
       child: BlocBuilder<GoogleMapBloc, GoogleMapState>(
         builder: (context, state) {
           return Scaffold(

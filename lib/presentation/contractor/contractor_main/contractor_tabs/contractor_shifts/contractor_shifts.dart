@@ -63,9 +63,7 @@ class ContractorShiftView extends StatelessWidget {
   Widget tabbar(BuildContext context) {
     return TabBar(
       onTap: (value) {
-        context
-            .read<ContractorShiftBloc>()
-            .add(ContractorShiftEvent.changeShiftTab(value + 1));
+        context.read<ContractorShiftBloc>().add(ContractorShiftEvent.changeShiftTab(value + 1));
       },
       padding: EdgeInsets.zero,
       labelStyle: TextStyle(
@@ -73,8 +71,7 @@ class ContractorShiftView extends StatelessWidget {
         color: AppColors.primaryColor,
         fontWeight: FontWeight.w500,
       ),
-      overlayColor:
-          WidgetStateProperty.all(AppColors.primaryColor.withOpacity(0.01)),
+      overlayColor: WidgetStateProperty.all(AppColors.primaryColor.withOpacity(0.01)),
       unselectedLabelStyle: TextStyle(
         fontSize: getFontSize(14),
         color: Colors.black.withOpacity(0.5),

@@ -26,8 +26,7 @@ class AddReferenceDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     print("referenceObj--->  $referenceObj");
     return BlocProvider(
-      create: (context) => getIt<ReferenceBloc>()
-        ..add(ReferenceEvent.referenceObjEvent(referenceObj)),
+      create: (context) => getIt<ReferenceBloc>()..add(ReferenceEvent.referenceObjEvent(referenceObj)),
       child: GestureDetector(
         onTap: () {
           AppFocus.unfocus(context);

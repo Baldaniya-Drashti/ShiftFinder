@@ -106,4 +106,10 @@ class SvgImageConstant {
   static const chatWithBG = "assets/svg/chat_with_bg.svg";
   static const dollorRound = "assets/svg/dollor_round.svg";
   static const noShiftNurse = "assets/svg/no_shift.svg";
+  static const star = "assets/svg/star.svg";
+  static const heart1 = "assets/svg/heart1.svg";
+  static const block = "assets/svg/block.svg";
+  static const medalStar = "assets/svg/medal-star.svg";
+  static const starOutlined = "assets/svg/start_outlined.svg";
+  static const rightArrow = "assets/svg/right_arrow.svg";
 }

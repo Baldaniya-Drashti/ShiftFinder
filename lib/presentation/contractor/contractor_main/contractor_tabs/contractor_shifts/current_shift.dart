@@ -24,22 +24,18 @@ import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
 class CurrentShift extends StatelessWidget {
   const CurrentShift({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
       builder: (context, state) {
         return PaginatedListView(
           onRefresh: () {
-            context
-                .read<ContractorShiftBloc>()
-                .add(ContractorShiftEvent.getCurrentShiftDetailAPI(true));
+            context.read<ContractorShiftBloc>().add(ContractorShiftEvent.getCurrentShiftDetailAPI(true));
           },
-          refreshController:
-              context.read<ContractorShiftBloc>().currentShiftRefreshCtrl,
+          refreshController: context.read<ContractorShiftBloc>().currentShiftRefreshCtrl,
           onLoading: () {
-            context
-                .read<ContractorShiftBloc>()
-                .add(ContractorShiftEvent.getCurrentShiftDetailAPI(false));
+            context.read<ContractorShiftBloc>().add(ContractorShiftEvent.getCurrentShiftDetailAPI(false));
           },
           isNoDataFound: state.isNoDataFound,
           child: state.isLoading
@@ -109,22 +105,17 @@ class CurrentShift extends StatelessWidget {
               // boldValue: "12 May,",
               // timidValue: "2024",
               boldValue: convertTimeStampToDate(shift.shift_detail?.date ?? -1),
-              timidValue: convertTimeStampToDate(shift.shift_detail?.date ?? -1,
-                  isYear: true),
+              timidValue: convertTimeStampToDate(shift.shift_detail?.date ?? -1, isYear: true),
               title: StringConstant.shiftDate,
               svgPrefixIcon: SvgImageConstant.calendar,
             ),
             displayTime(
               title: StringConstant.time,
               startDate: (shift.shift_detail?.start_time != null)
-                  ? DateFormat('hh:mm a').format(
-                      DateTime.fromMillisecondsSinceEpoch(
-                          (shift.shift_detail?.start_time ?? 0) * 1000))
+                  ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((shift.shift_detail?.start_time ?? 0) * 1000))
                   : "",
               endDate: (shift.shift_detail?.end_time != null)
-                  ? DateFormat('hh:mm a').format(
-                      DateTime.fromMillisecondsSinceEpoch(
-                          (shift.shift_detail?.end_time ?? 0) * 1000))
+                  ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((shift.shift_detail?.end_time ?? 0) * 1000))
                   : "",
               svgPrefixIcon: SvgImageConstant.clock,
             ),
@@ -135,8 +126,7 @@ class CurrentShift extends StatelessWidget {
           children: [
             displayDateBreak(
               context,
-              boldValue:
-                  "\$${shift.shift_detail?.payables?.total_amount_payable ?? ""}",
+              boldValue: "\$${shift.shift_detail?.payables?.total_amount_payable ?? ""}",
               timidValue: "",
               title: StringConstant.estimatedPayables,
               svgPrefixIcon: SvgImageConstant.dollorRound,
@@ -166,8 +156,7 @@ class CurrentShift extends StatelessWidget {
     );
   }
 
-  String convertTimeStampToDate(int timestamp,
-      {bool isYear = false, bool isTime = false}) {
+  String convertTimeStampToDate(int timestamp, {bool isYear = false, bool isTime = false}) {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
 
     if (isTime) {
@@ -186,12 +175,9 @@ class CurrentShift extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.clockIn,
       hintText: (isClockInValid)
-          ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(
-              (shift.clock_in ?? -1) * 1000))
+          ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((shift.clock_in ?? -1) * 1000))
           : (shift.selectedClockInTime != null)
-              ? DateFormat('hh:mm a').format(
-                  DateTime.fromMillisecondsSinceEpoch(
-                      (shift.selectedClockInTime ?? -1) * 1000))
+              ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((shift.selectedClockInTime ?? -1) * 1000))
               : StringConstant.clockIn,
       hintAsValue: isClockInValid,
       fillColor: AppColors.grey04,
@@ -201,9 +187,7 @@ class CurrentShift extends StatelessWidget {
           : () async {
               final clockInTime = await showTimePicker(context);
               if (clockInTime != null) {
-                context.read<ContractorShiftBloc>().add(
-                    ContractorShiftEvent.setClockIn(context,
-                        index: index, clockInTime: clockInTime));
+                context.read<ContractorShiftBloc>().add(ContractorShiftEvent.setClockIn(context, index: index, clockInTime: clockInTime));
               }
             },
       prefixIcon: Padding(
@@ -232,11 +216,8 @@ class CurrentShift extends StatelessWidget {
                         title: StringConstant.clockIn,
                         infoMessage: StringConstant.clockInConfirmationDesc,
                         onSubmit: () {
-                          context.read<ContractorShiftBloc>().add(
-                              ContractorShiftEvent.submitClockInOut(context,
-                                  clockInOutTime:
-                                      shift.selectedClockInTime ?? -1,
-                                  postId: shift.post_id ?? -1));
+                          context.read<ContractorShiftBloc>().add(ContractorShiftEvent.submitClockInOut(context,
+                              clockInOutTime: shift.selectedClockInTime ?? -1, postId: shift.post_id ?? -1));
                         },
                       );
                     }
@@ -245,9 +226,7 @@ class CurrentShift extends StatelessWidget {
               buttonFontSize: 10,
               height: 33,
               width: 73,
-              backgroundColor: (shift.selectedClockInTime != null)
-                  ? AppColors.primaryColor
-                  : AppColors.primaryColor.withOpacity(0.5),
+              backgroundColor: (shift.selectedClockInTime != null) ? AppColors.primaryColor : AppColors.primaryColor.withOpacity(0.5),
               buttonText: StringConstant.submit,
             ),
     );
@@ -258,12 +237,9 @@ class CurrentShift extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.clockOut,
       hintText: (isClockOutValid)
-          ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch(
-              (shift.clock_out ?? -1) * 1000))
+          ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((shift.clock_out ?? -1) * 1000))
           : (shift.selectedClockOutTime != null)
-              ? DateFormat('hh:mm a').format(
-                  DateTime.fromMillisecondsSinceEpoch(
-                      (shift.selectedClockOutTime ?? -1) * 1000))
+              ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((shift.selectedClockOutTime ?? -1) * 1000))
               : StringConstant.clockOut,
       hintAsValue: isClockOutValid,
       fillColor: AppColors.grey04,
@@ -274,9 +250,9 @@ class CurrentShift extends StatelessWidget {
               ? () async {
                   final clockOutTime = await showTimePicker(context);
                   if (clockOutTime != null) {
-                    context.read<ContractorShiftBloc>().add(
-                        ContractorShiftEvent.setClockOut(context,
-                            index: index, clockOutTime: clockOutTime));
+                    context
+                        .read<ContractorShiftBloc>()
+                        .add(ContractorShiftEvent.setClockOut(context, index: index, clockOutTime: clockOutTime));
                   }
                 }
               : null,
@@ -306,11 +282,8 @@ class CurrentShift extends StatelessWidget {
                         title: StringConstant.clockOut,
                         infoMessage: StringConstant.clockOutConfirmationDesc,
                         onSubmit: () {
-                          context.read<ContractorShiftBloc>().add(
-                              ContractorShiftEvent.submitClockInOut(context,
-                                  clockInOutTime:
-                                      shift.selectedClockOutTime ?? -1,
-                                  postId: shift.post_id ?? -1));
+                          context.read<ContractorShiftBloc>().add(ContractorShiftEvent.submitClockInOut(context,
+                              clockInOutTime: shift.selectedClockOutTime ?? -1, postId: shift.post_id ?? -1));
                         },
                       );
                     }
@@ -319,9 +292,7 @@ class CurrentShift extends StatelessWidget {
               buttonFontSize: 10,
               height: 33,
               width: 73,
-              backgroundColor: (shift.selectedClockOutTime != null)
-                  ? AppColors.primaryColor
-                  : AppColors.primaryColor.withOpacity(0.5),
+              backgroundColor: (shift.selectedClockOutTime != null) ? AppColors.primaryColor : AppColors.primaryColor.withOpacity(0.5),
               buttonText: StringConstant.submit,
             ),
     );
@@ -355,10 +326,7 @@ class CurrentShift extends StatelessWidget {
     return pickedTime;
   }
 
-  submitTime(BuildContext context,
-      {required String title,
-      required String infoMessage,
-      required void Function()? onSubmit}) {
+  submitTime(BuildContext context, {required String title, required String infoMessage, required void Function()? onSubmit}) {
     AppDialog.showDelete(
       context,
       title: title,
@@ -485,10 +453,7 @@ class CurrentShift extends StatelessWidget {
     );
   }
 
-  Widget highLightText(
-      {required String boldValue,
-      required String timidValue,
-      String? thirdValue}) {
+  Widget highLightText({required String boldValue, required String timidValue, String? thirdValue}) {
     return RichText(
         text: TextSpan(
       text: boldValue,
@@ -547,8 +512,7 @@ class CurrentShift extends StatelessWidget {
                   textColor: AppColors.black.withOpacity(0.80),
                 ),
                 BaseText(
-                  text:
-                      "(${getIndustry(shift.industry_id ?? 0)}  - ${shift.listing_id ?? ''})",
+                  text: "(${getIndustry(shift.industry_id ?? 0)}  - ${shift.listing_id ?? ''})",
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   textColor: AppColors.black.withOpacity(0.80),
@@ -645,17 +609,11 @@ class CurrentShift extends StatelessWidget {
         ),
         margin: EdgeInsets.symmetric(vertical: getSize(5)),
         width: double.infinity,
-        decoration: BoxDecoration(
-            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
-        child: paybaleTitleRate(
-            title: StringConstant.numberOfVacancies, value: value));
+        decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+        child: paybaleTitleRate(title: StringConstant.numberOfVacancies, value: value));
   }
 
-  Widget paybaleTitleRate(
-      {required String title,
-      required String value,
-      bool isFirst = false,
-      isLast = false}) {
+  Widget paybaleTitleRate({required String title, required String value, bool isFirst = false, isLast = false}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
