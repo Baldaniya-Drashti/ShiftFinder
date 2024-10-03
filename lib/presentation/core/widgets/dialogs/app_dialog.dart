@@ -36,8 +36,7 @@ class AppDialog {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actionsAlignment: MainAxisAlignment.center,
             actions: [
               CommonButton(
@@ -64,6 +63,7 @@ class AppDialog {
     bool barrierDismissible = false,
     required VoidCallback? onCancelClick,
     required VoidCallback? onDeleteClick,
+    Color? deleteColor,
   }) async {
     showDialog(
         context: context,
@@ -96,8 +96,7 @@ class AppDialog {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actions: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -116,6 +115,7 @@ class AppDialog {
                     borderColor: AppColors.primaryColor,
                   ),
                   CommonButton(
+                    backgroundColor: deleteColor,
                     onPressed: () {
                       if (onDeleteClick != null) {
                         onDeleteClick.call();
@@ -188,8 +188,7 @@ class AppDialog {
             ),
             alignment: Alignment.center,
             actionsAlignment: MainAxisAlignment.center,
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actions: [
               CommonButton(
                 onPressed: () {
@@ -199,7 +198,7 @@ class AppDialog {
                   AppFocus.unfocus(context);
                 },
                 width: 200,
-                buttonText: buttonText??StringConstant.ok,
+                buttonText: buttonText ?? StringConstant.ok,
               ),
             ],
           );
@@ -250,8 +249,7 @@ class AppDialog {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actions: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

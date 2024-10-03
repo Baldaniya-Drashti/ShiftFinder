@@ -33,8 +33,7 @@ class FilledShiftListView extends StatelessWidget {
             );
           },
           child: Container(
-            margin: EdgeInsets.symmetric(
-                vertical: getSize(index == 0 || index == 9 ? 0 : 12.5)),
+            margin: EdgeInsets.symmetric(vertical: getSize(index == 0 || index == 9 ? 0 : 12.5)),
             padding: EdgeInsets.all(getSize(10)),
             decoration: BoxDecoration(
               color: AppColors.white,
@@ -85,23 +84,19 @@ class FilledShiftListView extends StatelessWidget {
                                     Spacer(),
                                     GestureDetector(
                                       onTap: () {
-                                        DeleteShiftDialog()
-                                            .deleteShiftDialog(context);
+                                        DeleteShiftDialog().deleteShiftDialog(context);
                                       },
                                       child: Container(
                                         alignment: Alignment.center,
                                         height: getSize(28),
                                         decoration: BoxDecoration(
                                           color: AppColors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(getSize(5)),
+                                          borderRadius: BorderRadius.circular(getSize(5)),
                                         ),
                                         width: getSize(28),
                                         child: SvgPicture.asset(
                                           SvgImageConstant.delete,
-                                          colorFilter: ColorFilter.mode(
-                                              AppColors.black,
-                                              BlendMode.srcATop),
+                                          colorFilter: ColorFilter.mode(AppColors.black, BlendMode.srcATop),
                                         ),
                                       ),
                                     )
@@ -111,9 +106,7 @@ class FilledShiftListView extends StatelessWidget {
                                 BaseText(
                                   text: '(Healthcare - 2DFG125)',
                                   fontSize: 12,
-                                  textColor:
-                                      const Color.fromARGB(255, 55, 46, 46)
-                                          .withOpacity(0.8),
+                                  textColor: const Color.fromARGB(255, 55, 46, 46).withOpacity(0.8),
                                 )
                               ],
                             ),

@@ -4,6 +4,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 
 class PreviousShiftRemarkedView extends StatelessWidget {
   const PreviousShiftRemarkedView({super.key});
@@ -19,8 +20,8 @@ class PreviousShiftRemarkedView extends StatelessWidget {
           ),
           BaseText(
             text: "You can remove a contractor from your remarked list by clicking the delete button again.",
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
+            fontSize: 10,
+            fontWeight: FontWeight.w500,
           ),
           SizedBox(
             height: getSize(18),
@@ -57,67 +58,92 @@ class _PreviousShiftRemarkedTile extends StatelessWidget {
             ListTile(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(getSize(16))),
               tileColor: AppColors.scaffoldColor,
-              leading: CircleAvatar(
+              leading:  CircleAvatar(
+                radius: getSize(25),
                 backgroundColor: AppColors.green,
-                radius: 24,
-              ),
-              title: Align(
-                alignment: Alignment.centerLeft,
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      BaseText(
-                        text: "Roboto Flex",
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15,
-                      ),
-                      SizedBox(
-                        width: getSize(10),
-                      ),
-                      SvgPicture.asset(
-                        SvgImageConstant.rightArrow,
-                        height: 13,
-                        width: 13,
-                        color: AppColors.black.withOpacity(0.5),
-                      )
-                    ],
+                child: CircleAvatar(
+                  radius: getSize(24),
+                  backgroundImage: NetworkImage(
+                    'https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg',
                   ),
                 ),
               ),
-              subtitle: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              title: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SvgPicture.asset(
-                    SvgImageConstant.emailFilled,
-                    height: 16,
-                    width: 16,
-                  ),
-                  SizedBox(
-                    width: getSize(4),
-                  ),
-                  Expanded(
-                    child: BaseText(
-                      text: "debra.holt@example.com",
-                      fontWeight: FontWeight.w600,
-                      fontSize: 11,
-                      textColor: AppColors.black.withOpacity(0.6),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          BaseText(
+                            text: "Roboto Flex",
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                          ),
+                          SizedBox(
+                            width: getSize(10),
+                          ),
+                          SvgPicture.asset(
+                            SvgImageConstant.rightArrow,
+                            height: 10,
+                            width: 10,
+                            color: AppColors.black.withOpacity(0.5),
+                          )
+                        ],
+                      ),
                     ),
                   ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SvgPicture.asset(
+                        SvgImageConstant.emailFilled,
+                        height: 16,
+                        width: 16,
+                      ),
+                      SizedBox(
+                        width: getSize(4),
+                      ),
+                      Expanded(
+                        child: BaseText(
+                          text: "debra.holt@example.com",
+                          fontWeight: FontWeight.w600,
+                          fontSize: 10,
+                          textColor: AppColors.black.withOpacity(0.6),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
               trailing: Material(
                 color: AppColors.red.withOpacity(0.2),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                child: Padding(
-                  padding: EdgeInsets.all(getSize(9)),
-                  child: SvgPicture.asset(
-                    SvgImageConstant.delete,
-                    color: AppColors.red,
-                    height: 20,
-                    width: 20,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(getSize(7))),
+                child: GestureDetector(
+                  onTap: () {
+                    AppDialog.showDelete(
+                      title: "Remove",
+                      context,
+                      infoMessage: "Are you sure you want to remove this contractor from remarked list?",
+                      onCancelClick: () {
+                        Navigator.pop(context);
+                      },
+                      onDeleteClick: () {},
+                      deleteBtnText: "Remove"
+                    );
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.all(getSize(9)),
+                    child: SvgPicture.asset(
+                      SvgImageConstant.delete,
+                      color: AppColors.red,
+                      height: 13,
+                      width: 13,
+                    ),
                   ),
                 ),
               ),
@@ -127,7 +153,7 @@ class _PreviousShiftRemarkedTile extends StatelessWidget {
             ),
             BaseText(
               text: "Comment",
-              fontSize: getSize(16),
+              fontSize: 12,
             ),
             SizedBox(
               height: getSize(12),
@@ -139,7 +165,7 @@ class _PreviousShiftRemarkedTile extends StatelessWidget {
                 padding: EdgeInsets.all(getSize(15)),
                 child: BaseText(
                   maxLines: 15,
-                  fontSize: getSize(14),
+                  fontSize: getSize(12),
                   fontWeight: FontWeight.w500,
                   text:
                       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",

@@ -16,16 +16,14 @@ class EmployerShiftView extends StatefulWidget {
   State<EmployerShiftView> createState() => _EmployerShiftViewState();
 }
 
-class _EmployerShiftViewState extends State<EmployerShiftView>
-    with SingleTickerProviderStateMixin {
+class _EmployerShiftViewState extends State<EmployerShiftView> with SingleTickerProviderStateMixin {
   late TabController tabController;
+
   @override
   void initState() {
     tabController = TabController(length: 3, vsync: this);
     tabController.addListener(() {
-      context
-          .read<ShiftsBloc>()
-          .add(ShiftsBlocEvent.tabChange(tabController.index));
+      context.read<ShiftsBloc>().add(ShiftsBlocEvent.tabChange(tabController.index));
     });
     super.initState();
   }

@@ -12,7 +12,9 @@ import 'package:shift/infrastructure/core/location_dto/search_location_dto/place
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/search_location_dto.dart';
 
 part 'shifts_bloc_event.dart';
+
 part 'shifts_bloc_state.dart';
+
 part 'shifts_bloc_bloc.freezed.dart';
 
 @injectable
@@ -21,6 +23,7 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
 
   final IAccountRepository iAccountRepository;
   List<dynamic> placeList = [];
+
   ShiftsBloc(this.iAccountRepository) : super(ShiftsBlocState.initial()) {
     on<ShiftsBlocEvent>(
       (event, emit) async {
@@ -44,15 +47,13 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
               (r) {
                 var dropdownList = r
                     .map(
-                      (e) => DropDownValueModel(
-                          name: e.location ?? "", value: e.id),
+                      (e) => DropDownValueModel(name: e.location ?? "", value: e.id),
                     )
                     .toList();
                 return emit(
                   state.copyWith(
                     isLoading: false,
-                    locationList: List.from(state.locationList)
-                      ..addAll(dropdownList),
+                    locationList: List.from(state.locationList)..addAll(dropdownList),
                   ),
                 );
               },
@@ -80,6 +81,9 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
                 ),
               );
             }
+          },
+          onChangeSortBy: (OnChangeSortBy value) {
+            emit(state.copyWith(cancelledShiftSortByController: SingleValueDropDownController(data: value.controller.dropDownValue)));
           },
         );
       },

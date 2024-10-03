@@ -45,6 +45,8 @@ import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor
     as _i131;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/send_proposal_bloc/send_proposal_bloc.dart'
     as _i678;
+import 'package:shift/application/employer/profile/previous_shift_bloc.dart'
+    as _i506;
 import 'package:shift/application/google_map/google_map_bloc.dart' as _i168;
 import 'package:shift/application/healthcare_post/healthcare_post_bloc.dart'
     as _i383;
@@ -84,9 +86,8 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    gh.factory<_i131.ContractorShiftBloc>(() => _i131.ContractorShiftBloc());
-    gh.factory<_i678.SendProposalBloc>(() => _i678.SendProposalBloc());
     gh.factory<_i1025.CardBloc>(() => _i1025.CardBloc());
+    gh.factory<_i506.PreviousShiftBloc>(() => _i506.PreviousShiftBloc());
     gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
     gh.lazySingleton<_i771.ApiService>(() => _i771.ApiService());
     gh.lazySingleton<_i277.IAuthFacade>(
@@ -114,6 +115,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i73.MainTabBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i541.PostShiftBloc>(
         () => _i541.PostShiftBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i678.SendProposalBloc>(
+        () => _i678.SendProposalBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i518.ViewSingleApplicantsBloc>(
         () => _i518.ViewSingleApplicantsBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i744.ForgotPasswordBloc>(
@@ -162,6 +165,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i253.IAccountRepository>(),
           gh<_i277.IAuthFacade>(),
         ));
+    gh.factory<_i131.ContractorShiftBloc>(
+        () => _i131.ContractorShiftBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i153.ContractorHomeBloc>(
         () => _i153.ContractorHomeBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i901.HomeBloc>(() => _i901.HomeBloc(gh<_i111.IMainFacade>()));

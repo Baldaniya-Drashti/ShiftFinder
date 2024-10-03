@@ -28,15 +28,14 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 class ViewHomeShiftDetails extends StatelessWidget {
   final int postId;
   final bool isTotalApplicants;
-  const ViewHomeShiftDetails(
-      {super.key, required this.postId, this.isTotalApplicants = false});
+
+  const ViewHomeShiftDetails({super.key, required this.postId, this.isTotalApplicants = false});
 
   @override
   Widget build(BuildContext context) {
     print("shift id--> $postId");
     return BlocProvider(
-      create: (context) => getIt<ViewSingleApplicantsBloc>()
-        ..add(ViewSingleApplicantsEvent.getShiftDetailEvent(postId)),
+      create: (context) => getIt<ViewSingleApplicantsBloc>()..add(ViewSingleApplicantsEvent.getShiftDetailEvent(postId)),
       child: BlocConsumer<ViewSingleApplicantsBloc, ViewSingleApplicantsState>(
         listener: (context, state) {
           state.shiftFailureOrSuccessOption.fold(
@@ -46,8 +45,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
                 showError(
                   message: failure.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) =>
-                        'Please check your internet connectivity',
+                    networkError: (value) => 'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(context);
@@ -88,15 +86,13 @@ class ViewHomeShiftDetails extends StatelessWidget {
                               (shift.shift_detail?.shift_type == 1)
                                   ? singleShiftDateTimeBreakUI(context, shift)
                                   : multiShiftDateTimeBreakUI(context, shift),
-                              if (shift.specialties_detail != null &&
-                                  shift.specialties_detail!.isNotEmpty)
+                              if (shift.specialties_detail != null && shift.specialties_detail!.isNotEmpty)
                                 requiredSkillBox(
                                   svgPrefixIcon: SvgImageConstant.female,
                                   title: StringConstant.specialtiesRequired,
                                   value: shift.specialties_detail ?? "",
                                 ),
-                              if (shift.software_skill != null &&
-                                  shift.software_skill!.isNotEmpty)
+                              if (shift.software_skill != null && shift.software_skill!.isNotEmpty)
                                 requiredSkillBox(
                                   svgPrefixIcon: SvgImageConstant.mouse,
                                   title: StringConstant.softwareSkills,
@@ -117,10 +113,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
                               if (shift.shift_detail != null &&
                                   shift.shift_detail!.disclaimer != null &&
                                   shift.shift_detail!.disclaimer!.isNotEmpty)
-                                notesBox(
-                                    title: StringConstant.disclaimer,
-                                    value:
-                                        shift.shift_detail?.disclaimer ?? ""),
+                                notesBox(title: StringConstant.disclaimer, value: shift.shift_detail?.disclaimer ?? ""),
                               locationDetailBox(
                                   title: StringConstant.locationDetails,
                                   locationValue: shift.location?.location ?? "",
@@ -130,8 +123,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
                                   shift.shift_detail!.shift_type == 1 &&
                                   shift.shift_detail!.recurrence_mode != null)
                                 recurrence(shift),
-                              if (shift.shift_detail != null &&
-                                  shift.shift_detail!.payables != null)
+                              if (shift.shift_detail != null && shift.shift_detail!.payables != null)
                                 payableBox(shift.shift_detail!.payables!),
                             ],
                           ),
@@ -145,18 +137,15 @@ class ViewHomeShiftDetails extends StatelessWidget {
 
   Widget payableBox(PayableDTO payable) {
     return Container(
-      padding:
-          EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
+      padding: EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
       width: double.infinity,
-      decoration: BoxDecoration(
-          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: Column(
         children: [
           paybaleTitleRate(
             title: StringConstant.totalNumberOfVacancy,
-            value:
-                "${(payable.number_of_vacancie.toString().length == 2) ? payable.number_of_vacancie : "0${payable.number_of_vacancie}"}",
+            value: "${(payable.number_of_vacancie.toString().length == 2) ? payable.number_of_vacancie : "0${payable.number_of_vacancie}"}",
             isFirst: true,
           ),
           commonDivider(),
@@ -196,8 +185,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
 
   Widget recurrence(HealthcarePostDTO post) {
     return Container(
-      padding:
-          EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
+      padding: EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
       width: double.infinity,
       decoration: BoxDecoration(
         color: AppColors.grey04,
@@ -218,10 +206,8 @@ class ViewHomeShiftDetails extends StatelessWidget {
             children: [
               BaseText(
                 text: (post.shift_detail?.recurring_start_date != null)
-                    ? DateFormat("d MMM, yyyy").format(
-                        DateTime.fromMillisecondsSinceEpoch(
-                            (post.shift_detail?.recurring_start_date ?? -1) *
-                                1000))
+                    ? DateFormat("d MMM, yyyy")
+                        .format(DateTime.fromMillisecondsSinceEpoch((post.shift_detail?.recurring_start_date ?? -1) * 1000))
                     : "",
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
@@ -235,10 +221,8 @@ class ViewHomeShiftDetails extends StatelessWidget {
               ),
               BaseText(
                 text: (post.shift_detail?.recurring_end_date != null)
-                    ? DateFormat("d MMM, yyyy").format(
-                        DateTime.fromMillisecondsSinceEpoch(
-                            (post.shift_detail?.recurring_end_date ?? -1) *
-                                1000))
+                    ? DateFormat("d MMM, yyyy")
+                        .format(DateTime.fromMillisecondsSinceEpoch((post.shift_detail?.recurring_end_date ?? -1) * 1000))
                     : "",
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
@@ -247,9 +231,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
             ],
           ),
           SizedBox(height: getSize(15)),
-          if (post.shift_detail != null &&
-              post.shift_detail!.shift_type == 1 &&
-              post.shift_detail!.recurrence_mode != null)
+          if (post.shift_detail != null && post.shift_detail!.shift_type == 1 && post.shift_detail!.recurrence_mode != null)
             chipListBox(
               padding: EdgeInsets.zero,
               bgColor: AppColors.transparent,
@@ -257,25 +239,20 @@ class ViewHomeShiftDetails extends StatelessWidget {
               //   .where((item) => item != )
               //   .map((item) => item.name ?? "")
               //   .toList(),
-              chipList: (post.shift_detail!.days != null &&
-                      post.shift_detail!.days!.isNotEmpty)
+              chipList: (post.shift_detail!.days != null && post.shift_detail!.days!.isNotEmpty)
                   ? post.shift_detail!.days!
                       .split(',')
                       .where((item) => item.isNotEmpty)
                       .map((item) {
                         int dayId = int.parse(item.trim());
-                        SkillDTO? day = CommonList.weekList.firstWhere(
-                            (element) => element.id == dayId,
-                            orElse: () => SkillDTO());
+                        SkillDTO? day = CommonList.weekList.firstWhere((element) => element.id == dayId, orElse: () => SkillDTO());
                         return day.name ?? "";
                       })
                       .where((dayName) => dayName.isNotEmpty)
                       .toList()
                   : [],
               title: StringConstant.recurrenceMode,
-              value: (post.shift_detail?.recurrence_mode == "2")
-                  ? "Weekly"
-                  : "Daily",
+              value: (post.shift_detail?.recurrence_mode == "2") ? "Weekly" : "Daily",
             ),
         ],
       ),
@@ -292,8 +269,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
       ),
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
       width: double.infinity,
-      decoration: BoxDecoration(
-          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         minVerticalPadding: 0,
@@ -326,8 +302,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
       ),
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
       width: double.infinity,
-      decoration: BoxDecoration(
-          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         minVerticalPadding: 0,
@@ -368,8 +343,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
       ),
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
       width: double.infinity,
-      decoration: BoxDecoration(
-          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         minVerticalPadding: 0,
@@ -425,8 +399,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
         ),
         margin: EdgeInsets.symmetric(vertical: getSize(5)),
         width: double.infinity,
-        decoration: BoxDecoration(
-            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+        decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -455,8 +428,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
         borderRadius: BorderRadius.circular(getSize(10)),
         color: AppColors.grey04,
       ),
-      padding:
-          EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
+      padding: EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
       child: Column(
         children: [
@@ -517,8 +489,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
     );
   }
 
-  Widget singleShiftDateTimeBreakUI(
-      BuildContext context, HealthcarePostDTO post) {
+  Widget singleShiftDateTimeBreakUI(BuildContext context, HealthcarePostDTO post) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
@@ -539,22 +510,15 @@ class ViewHomeShiftDetails extends StatelessWidget {
               displayDateBreak(
                 context,
                 post,
-                boldValue: convertTimeStampToDate(
-                    post.shift_detail?.detail?[0].date ?? -1),
-                timidValue: convertTimeStampToDate(
-                    post.shift_detail?.detail?[0].date ?? -1,
-                    isYear: true),
+                boldValue: convertTimeStampToDate(post.shift_detail?.detail?[0].date ?? -1),
+                timidValue: convertTimeStampToDate(post.shift_detail?.detail?[0].date ?? -1, isYear: true),
                 title: StringConstant.shiftDate,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
               displayTime(
                 title: StringConstant.time,
-                startDate: convertTimeStampToDate(
-                    post.shift_detail?.detail?[0].start_time ?? -1,
-                    isTime: true),
-                endDate: convertTimeStampToDate(
-                    post.shift_detail?.detail?[0].end_time ?? -1,
-                    isTime: true),
+                startDate: convertTimeStampToDate(post.shift_detail?.detail?[0].start_time ?? -1, isTime: true),
+                endDate: convertTimeStampToDate(post.shift_detail?.detail?[0].end_time ?? -1, isTime: true),
                 svgPrefixIcon: SvgImageConstant.clock,
               ),
               displayDateBreak(context, post,
@@ -578,8 +542,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
     );
   }
 
-  String convertTimeStampToDate(int timestamp,
-      {bool isYear = false, bool isTime = false}) {
+  String convertTimeStampToDate(int timestamp, {bool isYear = false, bool isTime = false}) {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
 
     if (isTime) {
@@ -593,8 +556,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
     }
   }
 
-  Widget multiShiftDateTimeBreakUI(
-      BuildContext context, HealthcarePostDTO post) {
+  Widget multiShiftDateTimeBreakUI(BuildContext context, HealthcarePostDTO post) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
@@ -621,19 +583,16 @@ class ViewHomeShiftDetails extends StatelessWidget {
                 title: StringConstant.shiftDates,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
-              (post.shift_detail?.shift_type == 2 &&
-                      post.shift_detail?.same_or_different_time == 2)
+              (post.shift_detail?.shift_type == 2 && post.shift_detail?.same_or_different_time == 2)
                   ? displayDateBreak(context, post,
-                      boldValue: (post.shift_detail?.detail != null &&
-                              post.shift_detail!.detail!.isNotEmpty)
+                      boldValue: (post.shift_detail?.detail != null && post.shift_detail!.detail!.isNotEmpty)
                           ? "${(post.shift_detail?.detail?.length.toString().length == 2) ? post.shift_detail?.detail?.length : "0${post.shift_detail?.detail?.length}"}"
                           : "00",
                       timidValue: "",
                       title: StringConstant.totalNumberOfShifts,
                       svgPrefixIcon: SvgImageConstant.clockWithOuterLine)
                   : displayDateBreak(context, post,
-                      boldValue:
-                          post.shift_detail?.unpaid_break?.short_name ?? "",
+                      boldValue: post.shift_detail?.unpaid_break?.short_name ?? "",
                       timidValue: "",
                       title: StringConstant.unpaidBreak,
                       svgPrefixIcon: SvgImageConstant.clock),
@@ -693,9 +652,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
                   ? CommonButton(
                       onPressed: () {
                         if (post.shift_detail != null) {
-                          context.router.push(PageRouteInfo(ViewDates.name,
-                              args: ViewDatesArgs(
-                                  shiftDetail: post.shift_detail!)));
+                          context.router.push(PageRouteInfo(ViewDates.name, args: ViewDatesArgs(shiftDetail: post.shift_detail!)));
                         }
                       },
                       width: 100,
@@ -767,10 +724,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
     );
   }
 
-  Widget highLightText(
-      {required String boldValue,
-      required String timidValue,
-      String? thirdValue}) {
+  Widget highLightText({required String boldValue, required String timidValue, String? thirdValue}) {
     return RichText(
         text: TextSpan(
       text: boldValue,
@@ -795,8 +749,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
     ));
   }
 
-  Widget rateWithBGIcon(
-      {required String svgIcon, required String title, required String value}) {
+  Widget rateWithBGIcon({required String svgIcon, required String title, required String value}) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -847,8 +800,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
       ),
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
       width: double.infinity,
-      decoration: BoxDecoration(
-          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         minVerticalPadding: 0,
@@ -899,11 +851,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
     );
   }
 
-  Widget paybaleTitleRate(
-      {required String title,
-      required String value,
-      bool isFirst = false,
-      isLast = false}) {
+  Widget paybaleTitleRate({required String title, required String value, bool isFirst = false, isLast = false}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -931,14 +879,10 @@ class ViewHomeShiftDetails extends StatelessWidget {
     EdgeInsets? padding,
   }) {
     return Container(
-        padding: padding ??
-            EdgeInsets.symmetric(
-                horizontal: getSize(12), vertical: getSize(10)),
+        padding: padding ?? EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
         margin: EdgeInsets.symmetric(vertical: getSize(0)),
         width: double.infinity,
-        decoration: BoxDecoration(
-            color: bgColor ?? AppColors.grey04,
-            borderRadius: BorderRadius.circular(10)),
+        decoration: BoxDecoration(color: bgColor ?? AppColors.grey04, borderRadius: BorderRadius.circular(10)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -950,9 +894,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.only(top: getSize(5)),
-              decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(10)),
+              decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(10)),
               child: ListTile(
                 dense: true,
                 title: BaseText(
@@ -970,8 +912,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
               onDelete: (v) {},
               chipList: chipList,
               deleteIcon: Container(),
-              deleteIconBoxConstraints:
-                  BoxConstraints(minWidth: 0, minHeight: 0),
+              deleteIconBoxConstraints: BoxConstraints(minWidth: 0, minHeight: 0),
             ),
           ],
         ));
@@ -984,8 +925,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
         vertical: getSize(10),
       ),
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
-      decoration: BoxDecoration(
-          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -1027,9 +967,6 @@ class ViewHomeShiftDetails extends StatelessWidget {
     }
 
     // Return the list of language names as a comma-separated string
-    return list
-        .where((item) => item.name != null)
-        .map((item) => item.name)
-        .join(', ');
+    return list.where((item) => item.name != null).map((item) => item.name).join(', ');
   }
 }

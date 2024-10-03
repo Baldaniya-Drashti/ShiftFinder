@@ -15,16 +15,14 @@ class HistoryView extends StatefulWidget {
   State<HistoryView> createState() => _HistoryViewState();
 }
 
-class _HistoryViewState extends State<HistoryView>
-    with SingleTickerProviderStateMixin {
+class _HistoryViewState extends State<HistoryView> with SingleTickerProviderStateMixin {
   late TabController tabController;
+
   @override
   void initState() {
     tabController = TabController(length: 3, vsync: this);
     tabController.addListener(() {
-      context
-          .read<ShiftsBloc>()
-          .add(ShiftsBlocEvent.tabChange(tabController.index));
+      context.read<ShiftsBloc>().add(ShiftsBlocEvent.tabChange(tabController.index));
     });
     super.initState();
   }

@@ -4,6 +4,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_fav_view.dart';
 
 class PreviousShiftBlockedView extends StatelessWidget {
@@ -20,8 +21,8 @@ class PreviousShiftBlockedView extends StatelessWidget {
           ),
           BaseText(
             text: "You can unblock a contractor from your blocked list by clicking the blocked button again.",
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
+            fontSize: 10,
+            fontWeight: FontWeight.w500,
           ),
           SizedBox(
             height: getSize(18),
@@ -41,9 +42,21 @@ class PreviousShiftBlockedView extends StatelessWidget {
                   elevation: 0,
                   backgroundColor: AppColors.red.withOpacity(0.2),
                 ),
-                icon: SvgPicture.asset(SvgImageConstant.blockedFilled, height: 20, width: 20),
-                onPressed: () {},
-                label: BaseText(text: "Blocked", fontSize: 12, textColor: AppColors.red),
+                icon: SvgPicture.asset(SvgImageConstant.blockedFilled, height: 15, width: 15),
+                onPressed: () {
+                  AppDialog.showDelete(
+                    title: "Unblock",
+                    context,
+                    infoMessage:
+                        "Unblocking [contractor name] will allow them to view and apply for your future postings. Are you sure you want to proceed?",
+                    onCancelClick: () {
+                      Navigator.pop(context);
+                    },
+                    onDeleteClick: () {},
+                    deleteBtnText: "Unblock",
+                  );
+                },
+                label: BaseText(text: "Blocked", fontSize: 10, textColor: AppColors.red),
               ),
             ),
             separatorBuilder: (context, index) => SizedBox(

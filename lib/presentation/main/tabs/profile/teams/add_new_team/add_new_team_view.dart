@@ -104,6 +104,7 @@ class AddNewTeamView extends StatelessWidget {
                     ),
                     SizedBox(height: getSize(8)),
                     CustomDropdownTextfield(
+
                       valueController: state.singleValueDropDownController,
                       list: state.locationList,
                       hintText: 'Location',

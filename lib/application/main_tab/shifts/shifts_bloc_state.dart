@@ -13,15 +13,14 @@ class ShiftsBlocState with _$ShiftsBlocState {
     required PlaceDetailDTO selectedAddress,
     required SingleValueDropDownController singleValueDropDownController,
     required SingleValueDropDownController cancelledShiftSortByController,
-    required SingleValueDropDownController
-        cancelledShiftSortByLocationController,
-    required SingleValueDropDownController
-        singleValueApprovedShiftDropDownController,
+    required SingleValueDropDownController cancelledShiftSortByLocationController,
+    required SingleValueDropDownController singleValueApprovedShiftDropDownController,
     required List<DropDownValueModel> locationList,
     required TimeOfDay clockIn,
     required TimeOfDay clockOut,
     required Option<Either<AccountFailure, Account>> authFailureOrSuccessOption,
   }) = _ShiftsBlocState;
+
   factory ShiftsBlocState.initial() => ShiftsBlocState(
         selectedTab: 0,
         pageIndex: 0,
@@ -34,11 +33,12 @@ class ShiftsBlocState with _$ShiftsBlocState {
         authFailureOrSuccessOption: none(),
         locationList: [],
         singleValueDropDownController: SingleValueDropDownController(),
-        singleValueApprovedShiftDropDownController:
-            SingleValueDropDownController(),
+        singleValueApprovedShiftDropDownController: SingleValueDropDownController(),
         clockIn: TimeOfDay.now(),
         clockOut: TimeOfDay.now(),
-        cancelledShiftSortByController: SingleValueDropDownController(),
+        cancelledShiftSortByController: SingleValueDropDownController(
+          data: DropDownValueModel(name: "Cancelled by You", value: 1),
+        ),
         cancelledShiftSortByLocationController: SingleValueDropDownController(),
       );
 }

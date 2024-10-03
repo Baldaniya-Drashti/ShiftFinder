@@ -43,13 +43,11 @@ class CustomDropdownTextfield extends StatelessWidget {
       // dropdownColor: ColorConstants.white,
       listPadding: ListPadding(top: getSize(8), bottom: getSize(8)),
       enableSearch: enableSearch,
-
       autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: valueController,
       searchDecoration: InputDecoration(
         alignLabelWithHint: true,
         isDense: true,
-
         filled: false,
         prefixIcon: prefixIcon,
         focusColor: AppColors.white,

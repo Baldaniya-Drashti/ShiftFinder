@@ -1,9 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -55,7 +57,7 @@ class _PreviousShiftAllListTile extends StatelessWidget {
           children: [
             Material(
               elevation: 0,
-              borderRadius: BorderRadius.circular(getSize(20)),
+              borderRadius: BorderRadius.circular(getSize(10)),
               color: AppColors.scaffoldColor,
               child: Padding(
                 padding: EdgeInsets.all(getSize(18)),
@@ -65,9 +67,15 @@ class _PreviousShiftAllListTile extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        CircleAvatar(
-                          radius: 24,
-                          backgroundColor: AppColors.darkGreen,
+                          CircleAvatar(
+                          radius: getSize(25),
+                          backgroundColor: AppColors.green,
+                          child: CircleAvatar(
+                            radius: getSize(24),
+                            backgroundImage: NetworkImage(
+                              'https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg',
+                            ),
+                          ),
                         ),
                         SizedBox(
                           width: getSize(12),
@@ -81,13 +89,11 @@ class _PreviousShiftAllListTile extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                               fontSize: 15,
                             ),
-                            SizedBox(
-                              height: getSize(3),
-                            ),
+
                             BaseText(
                               text: "CT Technologist",
                               fontSize: 10,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w500,
                             ),
                           ],
                         ),
@@ -126,16 +132,16 @@ class _PreviousShiftAllListTile extends StatelessWidget {
                             children: [
                               BaseText(
                                 text: "4517 Washington Manchester, Kentucky 39495",
-                                fontWeight: FontWeight.w600,
-                                fontSize: getSize(13),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 11,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                               ),
                               BaseText(
                                 text: "10.2 Km Away",
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w500,
                                 textColor: AppColors.green,
-                                fontSize: getSize(12),
+                                fontSize: 10,
                               ),
                             ],
                           ),
@@ -150,12 +156,19 @@ class _PreviousShiftAllListTile extends StatelessWidget {
               height: getSize(12),
             ),
             CommonButton(
-              onPressed: () {},
+              height: 38,
+              onPressed: () {
+                context.router.push(
+                  PageRouteInfo(
+                    ViewApplicantProfile.name,
+                  ),
+                );
+              },
               buttonText: "View Profile",
               backgroundColor: AppColors.scaffoldColor,
-              borderRadius: getSize(16),
+              borderRadius: 7,
               buttonTextColor: Colors.black,
-              buttonFontSize: getSize(16),
+              buttonFontSize: 12,
               buttonFontWeight: FontWeight.w600,
             ),
             SizedBox(
@@ -168,7 +181,7 @@ class _PreviousShiftAllListTile extends StatelessWidget {
                 Flexible(
                   child: Row(
                     children: [
-                      SvgPicture.asset(SvgImageConstant.calendar, height: 20, width: 20, color: AppColors.black.withOpacity(0.6)),
+                      SvgPicture.asset(SvgImageConstant.calendar, height: 15, width: 15, color: AppColors.black.withOpacity(0.6)),
                       SizedBox(
                         width: getSize(8),
                       ),
@@ -179,15 +192,15 @@ class _PreviousShiftAllListTile extends StatelessWidget {
                           children: [
                             BaseText(
                               text: "Last Worked Date",
-                              fontSize: getSize(13),
+                              fontSize: getSize(10),
                               textColor: AppColors.black.withOpacity(0.6),
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w400,
                             ),
                             Text.rich(
-                              style: TextStyle(fontSize: getSize(14)),
+                              style: TextStyle(fontSize: 12),
                               TextSpan(
                                 text: "12 May, ",
-                                style: TextStyle(fontWeight: FontWeight.w600),
+                                style: TextStyle(fontWeight: FontWeight.w500),
                                 children: [
                                   TextSpan(text: "2024", style: TextStyle(color: AppColors.black.withOpacity(0.5))),
                                 ],
@@ -202,7 +215,7 @@ class _PreviousShiftAllListTile extends StatelessWidget {
                 Flexible(
                   child: Row(
                     children: [
-                      SvgPicture.asset(SvgImageConstant.clock, height: 20, width: 20, color: AppColors.black.withOpacity(0.6)),
+                      SvgPicture.asset(SvgImageConstant.clock, height: 15, width: 15, color: AppColors.black.withOpacity(0.6)),
                       SizedBox(
                         width: getSize(8),
                       ),
@@ -213,16 +226,15 @@ class _PreviousShiftAllListTile extends StatelessWidget {
                           children: [
                             BaseText(
                               text: "Time",
-                              fontSize: getSize(13),
+                              fontSize: getSize(10),
                               textColor: AppColors.black.withOpacity(0.6),
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w400,
                             ),
                             BaseText(
-                              text: "09:15 AM to 07:30 PM",
-                              fontSize: getSize(14),
-                              textColor: AppColors.black,
-                              fontWeight: FontWeight.w600,
-                            ),
+                              text: '09:15 AM to 07:30 PM',
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            )
                           ],
                         ),
                       ),
@@ -236,7 +248,7 @@ class _PreviousShiftAllListTile extends StatelessWidget {
             ),
             Material(
               elevation: 0,
-              borderRadius: BorderRadius.all(Radius.circular(getSize(16))),
+              borderRadius: BorderRadius.all(Radius.circular(getSize(10))),
               color: AppColors.scaffoldColor,
               child: Padding(
                 padding: EdgeInsets.all(getSize(16)),
@@ -312,7 +324,20 @@ class _PreviousShiftAllListTile extends StatelessWidget {
                         _IconButton(
                           label: "Block",
                           icon: SvgImageConstant.block,
-                          onTap: () {},
+                          onTap: () {
+                            AppDialog.showDelete(
+                              deleteBtnText: "Block",
+                              deleteColor: AppColors.redAccent,
+                              title: "Block",
+                              context,
+                              infoMessage:
+                                  "Blocking [contractor name] will prevent them from seeing any future postings. Are you sure you want to proceed?",
+                              onCancelClick: () {
+                                Navigator.pop(context);
+                              },
+                              onDeleteClick: () {},
+                            );
+                          },
                         )
                       ],
                     ),
@@ -344,13 +369,44 @@ class _IconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
+      child: Material(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        elevation: 0.0,
+        color: AppColors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(getSize(7))),
+        child: InkWell(
+          onTap: () {},
+          child: Padding(
+            padding: EdgeInsets.all(getSize(8)),
+            child: Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SvgPicture.asset(icon, height: getSize(14), width: getSize(14)),
+                  SizedBox(
+                    width: getSize(5),
+                  ),
+                  BaseText(
+                    text: label,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 10,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    return Expanded(
       child: ElevatedButton.icon(
         icon: Center(
-            child: SvgPicture.asset(
-          icon,
-          height: 18,
-          width: 18,
-        )),
+          child: SvgPicture.asset(
+            icon,
+            height: 14,
+            width: 14,
+          ),
+        ),
         style: ElevatedButton.styleFrom(
           elevation: 0.0,
           backgroundColor: AppColors.white,
@@ -360,8 +416,8 @@ class _IconButton extends StatelessWidget {
         onPressed: onTap,
         label: BaseText(
           text: label,
-          fontWeight: FontWeight.w600,
-          fontSize: getSize(13),
+          fontWeight: FontWeight.w500,
+          fontSize: 10,
         ),
       ),
     );
@@ -391,7 +447,7 @@ class _RatingDropdown extends StatelessWidget {
         ),
         SizedBox(height: getSize(7)),
         Container(
-          height: 40,
+
           decoration: BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.circular(getSize(10)),
@@ -403,6 +459,7 @@ class _RatingDropdown extends StatelessWidget {
             ],
           ),
           child: DropdownButtonFormField(
+            isDense: true,
             icon: SvgPicture.asset(
               color: AppColors.black,
               SvgImageConstant.downArrow,
@@ -412,6 +469,7 @@ class _RatingDropdown extends StatelessWidget {
             iconSize: 8,
             value: value,
             decoration: InputDecoration(
+              isDense: true,
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
               contentPadding: EdgeInsets.symmetric(

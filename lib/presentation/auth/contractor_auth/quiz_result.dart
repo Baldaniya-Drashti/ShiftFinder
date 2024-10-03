@@ -12,6 +12,7 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -160,8 +161,7 @@ class QuizResultScreen extends StatelessWidget {
                               onPressed: () {
                                 showUnderDevelopment(context);
                                 context.router.replaceAll([
-                                  const PageRouteInfo(
-                                      ContractorMainTabView.name)
+                                  const PageRouteInfo(ContractorMainTabView.name)
                                 ]);
                               },
                               buttonText: StringConstant.txtContinue,
