@@ -12,6 +12,8 @@ _$HealthcarePostDTOImpl _$$HealthcarePostDTOImplFromJson(
       id: (json['id'] as num?)?.toInt(),
       listing_id: json['listing_id'] as String?,
       last_ago: json['last_ago'] as String?,
+      company_name: json['company_name'] as String?,
+      distance: json['distance'] as String?,
       roles_list: (json['roles_list'] as List<dynamic>?)
           ?.map((e) => SkillDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -48,6 +50,8 @@ Map<String, dynamic> _$$HealthcarePostDTOImplToJson(
       'id': instance.id,
       'listing_id': instance.listing_id,
       'last_ago': instance.last_ago,
+      'company_name': instance.company_name,
+      'distance': instance.distance,
       'roles_list': instance.roles_list,
       'roles_list_name': instance.roles_list_name,
       'specialties_detail_list': instance.specialties_detail_list,

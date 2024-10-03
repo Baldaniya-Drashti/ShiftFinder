@@ -117,16 +117,7 @@ abstract class IMainFacade {
   });
 
   Future<Either<MainFailure, String>> contractorApplyOrSendProposal({
-    required int postId,
-    int? shiftType,
-    int? rateHour,
-    String? commuteAllowance,
-    String? accommodationAllowance,
-    String? date,
-    String? startTime,
-    String? endTime,
-    String? multiDate,
-    String? unavailabilityDate,
+    required Map<String, dynamic> mapData,
   });
 
   Future<Either<MainFailure, CommonResponse>> getContractorShifts(

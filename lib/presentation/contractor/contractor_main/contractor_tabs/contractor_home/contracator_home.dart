@@ -282,10 +282,17 @@ class ContractorHomeView extends StatelessWidget {
                 bgColor: AppColors.white,
                 borderColor: AppColors.primaryColor,
                 onPressed: () {
-                  context.router.push(PageRouteInfo(SendProposal.name,
-                      args: SendProposalArgs(
-                          postId:
-                              state.contractorDashboardList[index].id ?? -1)));
+                  context.router
+                      .push(PageRouteInfo(SendProposal.name,
+                          args: SendProposalArgs(
+                              postId: state.contractorDashboardList[index].id ??
+                                  -1)))
+                      .then((value) {
+                    if (value == true) {
+                      context.read<ContractorHomeBloc>().add(
+                          ContractorHomeEvent.getContractorDashboardList(true));
+                    }
+                  });
                 },
               ),
             ],

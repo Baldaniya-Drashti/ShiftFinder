@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, use_key_in_widget_constructors, must_be_immutable
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +8,9 @@ import 'package:shift/application/contractor/contractor_main_tab_bloc/send_propo
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
+import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
+import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/send_proposal/edit_proposal_time.dart';
@@ -17,13 +20,15 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'ProposeAvailability')
 class ProposeAvailability extends StatelessWidget {
-  const ProposeAvailability({super.key});
+  HealthcarePostDTO post;
+  List<DateTimeDTO>? updatedDates;
+  ProposeAvailability({required this.post, this.updatedDates});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          getIt<SendProposalBloc>()..add(SendProposalEvent.getMultiDateEvent()),
+      create: (context) => getIt<SendProposalBloc>()
+        ..add(SendProposalEvent.getMultiDateEvent(post, updatedDates)),
       child: BlocConsumer<SendProposalBloc, SendProposalState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -54,11 +59,13 @@ class ProposeAvailability extends StatelessWidget {
                       paddingBetweenFields(),
                       numberOfShift(
                         svgPrefixIcon: SvgImageConstant.clockWithOuterLine,
-                        title: "${StringConstant.totalNumberOfShifts} - 05",
+                        title:
+                            "${StringConstant.totalNumberOfShifts} - ${(post.shift_detail?.detail != null && post.shift_detail!.detail!.isNotEmpty) ? "${(post.shift_detail?.detail?.length.toString().length == 2) ? post.shift_detail?.detail?.length : "0${post.shift_detail?.detail?.length}"}" : "00"}",
                       ),
                       paddingBetweenFields(),
                       (state.selectedTab == 0)
-                          ? EditProposalTime()
+                          ? EditProposalTime(
+                              shift: post.shift_detail ?? ShiftDetailDTO())
                           : MarkUnavailability(),
                     ],
                   ),

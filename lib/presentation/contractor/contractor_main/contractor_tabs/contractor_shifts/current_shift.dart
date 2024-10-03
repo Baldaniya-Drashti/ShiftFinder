@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_shift_bloc/contractor_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
@@ -153,7 +152,7 @@ class CurrentShift extends StatelessWidget {
                   PageRouteInfo(
                     ViewContractorShift.name,
                     args: ViewContractorShiftArgs(
-                      postId: shift.post_id ?? -1,
+                      postId: shift.id ?? -1,
                       isTotalApplicants: true,
                     ),
                   ),

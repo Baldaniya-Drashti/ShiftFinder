@@ -157,7 +157,11 @@ class ContractorHomeBloc
           Either<MainFailure, String>? failureOrSuccess;
 
           failureOrSuccess = await mainFacade.contractorApplyOrSendProposal(
-              postId: e.postId ?? -1, shiftType: 1);
+            mapData: {
+              'post_id': e.postId ?? -1,
+              'shift_type': 1,
+            },
+          );
 
           failureOrSuccess.fold(
             (l) {

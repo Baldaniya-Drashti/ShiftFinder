@@ -15,9 +15,11 @@ import 'package:shift/application/auth/contractor_auth/location_example.dart'
 import 'package:shift/infrastructure/core/education_dto/education_dto.dart'
     as _i64;
 import 'package:shift/infrastructure/core/employer_home/employer_dashboard_dto.dart'
-    as _i70;
+    as _i71;
 import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart'
     as _i69;
+import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart'
+    as _i70;
 import 'package:shift/infrastructure/main/employer_team/get_teams_dto.dart'
     as _i68;
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart'
@@ -27,7 +29,7 @@ import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart'
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart'
     as _i67;
 import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart'
-    as _i71;
+    as _i72;
 import 'package:shift/presentation/auth/contractor_auth/add_bank_details.dart'
     as _i1;
 import 'package:shift/presentation/auth/contractor_auth/add_contractor_skills.dart'
@@ -493,9 +495,13 @@ abstract class $AppRouter extends _i62.RootStackRouter {
       );
     },
     ProposeAvailability.name: (routeData) {
+      final args = routeData.argsAs<ProposeAvailabilityArgs>();
       return _i62.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i41.ProposeAvailability(),
+        child: _i41.ProposeAvailability(
+          post: args.post,
+          updatedDates: args.updatedDates,
+        ),
       );
     },
     QuizResultScreen.name: (routeData) {
@@ -1840,16 +1846,40 @@ class ProfileView extends _i62.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i41.ProposeAvailability]
-class ProposeAvailability extends _i62.PageRouteInfo<void> {
-  const ProposeAvailability({List<_i62.PageRouteInfo>? children})
-      : super(
+class ProposeAvailability extends _i62.PageRouteInfo<ProposeAvailabilityArgs> {
+  ProposeAvailability({
+    required _i66.HealthcarePostDTO post,
+    List<_i70.DateTimeDTO>? updatedDates,
+    List<_i62.PageRouteInfo>? children,
+  }) : super(
           ProposeAvailability.name,
+          args: ProposeAvailabilityArgs(
+            post: post,
+            updatedDates: updatedDates,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'ProposeAvailability';
 
-  static const _i62.PageInfo<void> page = _i62.PageInfo<void>(name);
+  static const _i62.PageInfo<ProposeAvailabilityArgs> page =
+      _i62.PageInfo<ProposeAvailabilityArgs>(name);
+}
+
+class ProposeAvailabilityArgs {
+  const ProposeAvailabilityArgs({
+    required this.post,
+    this.updatedDates,
+  });
+
+  final _i66.HealthcarePostDTO post;
+
+  final List<_i70.DateTimeDTO>? updatedDates;
+
+  @override
+  String toString() {
+    return 'ProposeAvailabilityArgs{post: $post, updatedDates: $updatedDates}';
+  }
 }
 
 /// generated route for
@@ -2283,7 +2313,7 @@ class ViewContractorShiftDates
     extends _i62.PageRouteInfo<ViewContractorShiftDatesArgs> {
   ViewContractorShiftDates({
     _i63.Key? key,
-    required _i70.EmployerDashboardDTO shiftDetail,
+    required _i71.EmployerDashboardDTO shiftDetail,
     List<_i62.PageRouteInfo>? children,
   }) : super(
           ViewContractorShiftDates.name,
@@ -2308,7 +2338,7 @@ class ViewContractorShiftDatesArgs {
 
   final _i63.Key? key;
 
-  final _i70.EmployerDashboardDTO shiftDetail;
+  final _i71.EmployerDashboardDTO shiftDetail;
 
   @override
   String toString() {
@@ -2321,7 +2351,7 @@ class ViewContractorShiftDatesArgs {
 class ViewDates extends _i62.PageRouteInfo<ViewDatesArgs> {
   ViewDates({
     _i63.Key? key,
-    required _i71.ShiftDetailDTO shiftDetail,
+    required _i72.ShiftDetailDTO shiftDetail,
     List<_i62.PageRouteInfo>? children,
   }) : super(
           ViewDates.name,
@@ -2346,7 +2376,7 @@ class ViewDatesArgs {
 
   final _i63.Key? key;
 
-  final _i71.ShiftDetailDTO shiftDetail;
+  final _i72.ShiftDetailDTO shiftDetail;
 
   @override
   String toString() {

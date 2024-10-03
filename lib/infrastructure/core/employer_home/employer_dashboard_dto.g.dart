@@ -118,6 +118,10 @@ _$ShiftDateImpl _$$ShiftDateImplFromJson(Map<String, dynamic> json) =>
       start_time: (json['start_time'] as num?)?.toInt(),
       end_date: (json['end_date'] as num?)?.toInt(),
       end_time: (json['end_time'] as num?)?.toInt(),
+      date: (json['date'] as num?)?.toInt(),
+      unpaid_break: json['unpaid_break'] == null
+          ? null
+          : SkillDTO.fromJson(json['unpaid_break'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$ShiftDateImplToJson(_$ShiftDateImpl instance) =>
@@ -126,6 +130,8 @@ Map<String, dynamic> _$$ShiftDateImplToJson(_$ShiftDateImpl instance) =>
       'start_time': instance.start_time,
       'end_date': instance.end_date,
       'end_time': instance.end_time,
+      'date': instance.date,
+      'unpaid_break': instance.unpaid_break,
     };
 
 _$ApplicationProfileImpl _$$ApplicationProfileImplFromJson(
