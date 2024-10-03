@@ -5,13 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/send_proposal_bloc/send_proposal_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -19,65 +23,167 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_time_picker_dropdown.dart';
+import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'SendProposal')
+// ignore: must_be_immutable
 class SendProposal extends StatelessWidget {
-  const SendProposal({super.key});
+  int postId;
+  SendProposal({super.key, required this.postId});
 
   @override
   Widget build(BuildContext context) {
+    print("posid---> $postId");
     return GestureDetector(
       onTap: () {
         AppFocus.unfocus(context);
       },
       child: BlocProvider(
-        create: (context) => getIt<SendProposalBloc>(),
-        child: Scaffold(
-          appBar: CommonAppBar(
-            onBackPressed: () {
-              context.router.maybePop();
-            },
-            title: StringConstant.sendProposal,
-          ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-              child: Column(
-                children: [
-                  contractorDataBox(context),
-                  paddingBetweenFields(),
-                  availability(context),
-                  paddingBetweenFields(),
-                  shiftDate(),
-                  paddingBetweenFields(),
-                  proposalTerms(),
-                  paddingBetweenFields(),
-                  startTime(context),
-                  paddingBetweenFields(),
-                  endTime(context),
-                  paddingBetweenFields(),
-                  rateHourDropDown(context),
-                  paddingBetweenFields(),
-                  commuteAllownceField(context),
-                  paddingBetweenFields(),
-                  commuteAllownceDropDown(context),
-                  paddingBetweenFields(),
-                  accomdationAllownceField(context),
-                  paddingBetweenFields(),
-                  accomdationAllownceDropDown(context),
-                  paddingBetweenFields(),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: getSize(20)),
-                    child: CommonButton(
-                      onPressed: () {},
-                      buttonText: StringConstant.sendProposal,
-                    ),
-                  )
-                ],
+        create: (context) => getIt<SendProposalBloc>()
+          ..add(SendProposalEvent.getContractorShiftDetail(postId)),
+        child: BlocBuilder<SendProposalBloc, SendProposalState>(
+          builder: (context, state) {
+            return Scaffold(
+              appBar: CommonAppBar(
+                onBackPressed: () {
+                  context.router.maybePop();
+                },
+                title: StringConstant.sendProposal,
               ),
-            ),
-          ),
+              body: (state.isLoading)
+                  ? CenterLoadingIndicator(isOnlyLoader: true)
+                  : SingleChildScrollView(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                        child: Column(
+                          children: [
+                            contractorDataBox(context, state.shift),
+                            paddingBetweenFields(),
+                            Visibility(
+                                visible:
+                                    state.shift.shift_detail?.shift_type == 2,
+                                child: Column(
+                                  children: [
+                                    availability(context),
+                                    paddingBetweenFields(),
+                                  ],
+                                )),
+                            shiftDate(state.shift),
+                            paddingBetweenFields(),
+                            proposalTerms(),
+                            paddingBetweenFields(),
+                            Visibility(
+                                visible:
+                                    state.shift.shift_detail?.shift_type == 1,
+                                child: Column(
+                                  children: [
+                                    startTime(context, state),
+                                    paddingBetweenFields(),
+                                    endTime(context, state),
+                                    paddingBetweenFields(),
+                                  ],
+                                )),
+                            rateHourField(context, state),
+                            paddingBetweenFields(),
+                            Visibility(
+                                visible: state.shift.shift_detail
+                                        ?.commute_allowance_type ==
+                                    1,
+                                child: Column(
+                                  children: [
+                                    commuteAllownceField(context, state),
+                                    if (state.showErrorMessages &&
+                                        !state.commuteRate.isValid())
+                                      commonErrorText(
+                                        (double.tryParse(state.commuteRate
+                                                        .getValue()) !=
+                                                    null &&
+                                                double.parse(state.commuteRate
+                                                        .getValue()) <=
+                                                    0)
+                                            ? StringConstant
+                                                .flatRateShouldNotBeZero
+                                            : StringConstant
+                                                .pleaseSelectCommuteAllownceValue,
+                                      ),
+                                    paddingBetweenFields(),
+                                  ],
+                                )),
+                            Visibility(
+                                visible: state.shift.shift_detail
+                                        ?.commute_allowance_type ==
+                                    2,
+                                child: Column(
+                                  children: [
+                                    commuteAllownceDropDown(context, state),
+                                    if (state.showErrorMessages &&
+                                        !state.commuteHour.isValid())
+                                      commonErrorText(
+                                        StringConstant
+                                            .pleaseSelectCommuteAllownceValue,
+                                      ),
+                                    paddingBetweenFields(),
+                                  ],
+                                )),
+                            Visibility(
+                                visible: state.shift.shift_detail
+                                        ?.accommodation_allowance_type ==
+                                    1,
+                                child: Column(
+                                  children: [
+                                    accomdationAllownceField(context, state),
+                                    if (state.showErrorMessages &&
+                                        !state.accomdationRate.isValid())
+                                      commonErrorText(
+                                        (double.tryParse(state.accomdationRate
+                                                        .getValue()) !=
+                                                    null &&
+                                                double.parse(state
+                                                        .accomdationRate
+                                                        .getValue()) <=
+                                                    0)
+                                            ? StringConstant
+                                                .flatRateShouldNotBeZero
+                                            : StringConstant
+                                                .pleaseSelectAccomdationAllownceValue,
+                                      ),
+                                    paddingBetweenFields(),
+                                  ],
+                                )),
+                            Visibility(
+                                visible: state.shift.shift_detail
+                                        ?.accommodation_allowance_type ==
+                                    2,
+                                child: Column(
+                                  children: [
+                                    accomdationAllownceDropDown(context, state),
+                                    if (state.showErrorMessages &&
+                                        !state.accomdationHour.isValid())
+                                      commonErrorText(
+                                        StringConstant
+                                            .pleaseSelectAccomdationAllownceValue,
+                                      ),
+                                    paddingBetweenFields(),
+                                  ],
+                                )),
+                            Padding(
+                              padding:
+                                  EdgeInsets.symmetric(vertical: getSize(20)),
+                              child: CommonButton(
+                                onPressed: () {
+                                  context.read<SendProposalBloc>().add(
+                                      SendProposalEvent.submitProposalEvent());
+                                },
+                                buttonText: StringConstant.sendProposal,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+            );
+          },
         ),
       ),
     );
@@ -146,7 +252,7 @@ class SendProposal extends StatelessWidget {
     );
   }
 
-  Widget contractorDataBox(BuildContext context) {
+  Widget contractorDataBox(BuildContext context, HealthcarePostDTO post) {
     return Container(
       // height: getSize(113.41),
       decoration: BoxDecoration(
@@ -166,7 +272,7 @@ class SendProposal extends StatelessWidget {
             ),
             isThreeLine: true,
             title: BaseText(
-              text: "CT Technologist",
+              text: post.roles_list_name ?? "",
               textColor: AppColors.black,
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -176,13 +282,14 @@ class SendProposal extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 BaseText(
-                  text: "Louis Vuitton Pvt. Ltd.",
+                  text: "post.companyName",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                   textColor: AppColors.black.withOpacity(0.80),
                 ),
                 BaseText(
-                  text: "(Healthcare - 2DFG125)",
+                  text:
+                      "(${CommonList.industryList.where((item) => item.id == getCurrentIndustry()).map((item) => item.title).join(', ')} - ${post.listing_id})",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                   textColor: AppColors.black.withOpacity(0.80),
@@ -190,7 +297,7 @@ class SendProposal extends StatelessWidget {
               ],
             ),
             trailing: BaseText(
-              text: "2 Days Ago",
+              text: post.last_ago ?? "",
               fontSize: 10,
               fontWeight: FontWeight.w600,
               textColor: AppColors.black.withOpacity(0.80),
@@ -232,13 +339,13 @@ class SendProposal extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       BaseText(
-                        text: "4517 Washington Manchester, Kentucky 39495",
+                        text: post.location?.location ?? "",
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                         textColor: AppColors.black,
                       ),
                       BaseText(
-                        text: "10.2 Km Away",
+                        text: "post.Away",
                         fontSize: 10,
                         fontWeight: FontWeight.w600,
                         textColor: AppColors.primaryColor,
@@ -257,7 +364,7 @@ class SendProposal extends StatelessWidget {
     );
   }
 
-  Widget shiftDate() {
+  Widget shiftDate(HealthcarePostDTO post) {
     return Container(
         // height: getSize(113.41),
         decoration: BoxDecoration(
@@ -288,11 +395,32 @@ class SendProposal extends StatelessWidget {
                   textColor: AppColors.black.withOpacity(0.7),
                 ),
                 SizedBox(height: getSize(5)),
-                highLightText(boldValue: "12 May, ", timidValue: "2024"),
+                highLightText(
+                  boldValue: convertTimeStampToDate(
+                      post.shift_detail?.detail?[0].date ?? -1),
+                  timidValue: convertTimeStampToDate(
+                      post.shift_detail?.detail?[0].date ?? -1,
+                      isYear: true),
+                ),
               ],
             ),
           ],
         ));
+  }
+
+  String convertTimeStampToDate(int timestamp,
+      {bool isYear = false, bool isTime = false}) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+
+    if (isTime) {
+      return DateFormat('hh:mm a').format(dateTime);
+    } else {
+      if (isYear) {
+        return DateFormat('yyyy').format(dateTime);
+      } else {
+        return DateFormat('d MMM, ').format(dateTime);
+      }
+    }
   }
 
   Widget availability(BuildContext context) {
@@ -407,7 +535,7 @@ class SendProposal extends StatelessWidget {
     ));
   }
 
-  Widget startTime(BuildContext context) {
+  Widget startTime(BuildContext context, SendProposalState state) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -415,11 +543,11 @@ class SendProposal extends StatelessWidget {
         CustomTimePickerDropdown(
           labelText: StringConstant.startTime,
           disableDropDownColor: AppColors.grey04,
-          /*hourValue:
+          hourValue:
               (state.startHour.isValid()) ? state.startHour.getValue() : null,
           minuteValue: (state.startMinute.isValid())
               ? state.startMinute.getValue()
-              : null,*/
+              : null,
           hourOnChanged: (value) {},
           minOnChanged: (value) {},
         ),
@@ -437,7 +565,7 @@ class SendProposal extends StatelessWidget {
     );
   }
 
-  Widget endTime(BuildContext context) {
+  Widget endTime(BuildContext context, SendProposalState state) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -445,10 +573,10 @@ class SendProposal extends StatelessWidget {
         CustomTimePickerDropdown(
           labelText: StringConstant.endTime,
           disableDropDownColor: AppColors.grey04,
-          /*hourValue:
+          hourValue:
               (state.endHour.isValid()) ? state.endHour.getValue() : null,
           minuteValue:
-              (state.endMinute.isValid()) ? state.endMinute.getValue() : null,*/
+              (state.endMinute.isValid()) ? state.endMinute.getValue() : null,
           hourOnChanged: (value) {},
           minOnChanged: (value) {},
         ),
@@ -467,13 +595,15 @@ class SendProposal extends StatelessWidget {
     );
   }
 
-  Widget rateHourDropDown(BuildContext context) {
+  Widget rateHourField(BuildContext context, SendProposalState state) {
     return CustomTextField(
       labelText: StringConstant.rateHour,
       isLabelPadding: true,
       isPrefixValueShow: true,
       errorMaxLines: 2,
       maxLength: 5,
+      initialValue:
+          (state.rateHour.isValid()) ? state.rateHour.getValue() : null,
       hintText: StringConstant.rateHour,
       keyboardType:
           TextInputType.numberWithOptions(decimal: true, signed: true),
@@ -490,16 +620,19 @@ class SendProposal extends StatelessWidget {
             text: '\$ ',
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            // textColor: (state.rateHour.isValid())
-            //     ? AppColors.black
-            //     : AppColors.black.withOpacity(0.5),
+            textColor: (state.rateHour.isValid())
+                ? AppColors.black
+                : AppColors.black.withOpacity(0.5),
           )),
       prefixIconConstraints:
           BoxConstraints(maxWidth: getSize(100), minHeight: 0),
-      onChanged: (value) {},
-      /*validator: (p0, p1) => context
-          .read<HealthcarePostBloc>()
-          .state
+      onChanged: (value) {
+        context
+            .read<SendProposalBloc>()
+            .add(SendProposalEvent.rateHourChanged(value));
+      },
+      validator: (p0, p1) => context
+          .read<SendProposalState>()
           .rateHour
           .value
           .fold(
@@ -509,11 +642,11 @@ class SendProposal extends StatelessWidget {
               orElse: () => null,
             ),
             (_) => null,
-          ),*/
+          ),
     );
   }
 
-  Widget commuteAllownceField(BuildContext context) {
+  Widget commuteAllownceField(BuildContext context, SendProposalState state) {
     return CustomTextField(
       labelText: StringConstant.commuteAllowance,
       isLabelPadding: true,
@@ -526,6 +659,8 @@ class SendProposal extends StatelessWidget {
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
       ],
+      initialValue:
+          (state.commuteRate.isValid()) ? state.commuteRate.getValue() : null,
       prefixIcon: Padding(
           padding: EdgeInsets.only(
             left: getSize(20),
@@ -542,7 +677,11 @@ class SendProposal extends StatelessWidget {
           )),
       prefixIconConstraints:
           BoxConstraints(maxWidth: getSize(100), minHeight: 0),
-      onChanged: (value) {},
+      onChanged: (value) {
+        context
+            .read<SendProposalBloc>()
+            .add(SendProposalEvent.commuteRateChanged(value));
+      },
       /*validator: (p0, p1) => context
           .read<HealthcarePostBloc>()
           .state
@@ -559,7 +698,8 @@ class SendProposal extends StatelessWidget {
     );
   }
 
-  Widget commuteAllownceDropDown(BuildContext context) {
+  Widget commuteAllownceDropDown(
+      BuildContext context, SendProposalState state) {
     return CustomDropdwonWithTextField(
       labelText: StringConstant.commuteAllowance,
       hintText: StringConstant.commuteAllowance,
@@ -573,6 +713,8 @@ class SendProposal extends StatelessWidget {
       ],
       fieldKeyboardType: TextInputType.numberWithOptions(decimal: true),
       fieldHintText: "0.00",
+      value:
+          (state.commuteHour.isValid()) ? state.commuteHour.getValue() : null,
       /*value: (state.selectedCommuteAllownce.isValid())
           ? state.selectedCommuteAllownce.getValue()
           : null,*/
@@ -591,22 +733,22 @@ class SendProposal extends StatelessWidget {
           )),
       fieldPrefixIconConstraints:
           BoxConstraints(maxWidth: getSize(100), minHeight: 0),
-      items: CommonList.commuteAllownceList.map((val) {
+      items: state.accomdationHoursList.map((val) {
         return DropdownMenuItem<String>(
-          value: val,
+          value: val.name,
           child: BaseText(
-            text: val,
+            text: val.name ?? "",
             fontSize: 14,
             textColor: AppColors.black,
           ),
         );
       }).toList(),
       onChanged: (value) {
-        // if (value != null) {
-        //   context
-        //       .read<PostShiftBloc>()
-        //       .add(PostShiftEvent.commuteAllownceChanged(value));
-        // }
+        if (value != null) {
+          context
+              .read<SendProposalBloc>()
+              .add(SendProposalEvent.commuteHourChanged(value));
+        }
       },
       childDropDownItems: CommonList.commuteAllownceList.map((val) {
         return DropdownMenuItem<String>(
@@ -621,7 +763,8 @@ class SendProposal extends StatelessWidget {
     );
   }
 
-  Widget accomdationAllownceField(BuildContext context) {
+  Widget accomdationAllownceField(
+      BuildContext context, SendProposalState state) {
     return CustomTextField(
       labelText: StringConstant.accommodationAllowance,
       isLabelPadding: true,
@@ -629,6 +772,9 @@ class SendProposal extends StatelessWidget {
       errorMaxLines: 2,
       maxLength: 5,
       hintText: StringConstant.accommodationAllowance,
+      initialValue: (state.accomdationRate.isValid())
+          ? state.accomdationRate.getValue()
+          : null,
       keyboardType:
           TextInputType.numberWithOptions(decimal: true, signed: true),
       inputFormatters: [
@@ -650,7 +796,11 @@ class SendProposal extends StatelessWidget {
           )),
       prefixIconConstraints:
           BoxConstraints(maxWidth: getSize(100), minHeight: 0),
-      onChanged: (value) {},
+      onChanged: (value) {
+        context
+            .read<SendProposalBloc>()
+            .add(SendProposalEvent.accomdationRateChanged(value));
+      },
       /*validator: (p0, p1) => context
           .read<HealthcarePostBloc>()
           .state
@@ -667,20 +817,17 @@ class SendProposal extends StatelessWidget {
     );
   }
 
-  Widget accomdationAllownceDropDown(BuildContext context) {
+  Widget accomdationAllownceDropDown(
+      BuildContext context, SendProposalState state) {
     return CustomDropdwonWithTextField(
       labelText: StringConstant.accommodationAllowance,
       hintText: StringConstant.accommodationAllowance,
       isLabelPadding: true,
-      fieldMaxLength: 5,
       showTextfield: false,
       showDropDown: false,
-      childDroDwonHintText: StringConstant.selectHours,
-      fieldInputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
-      ],
-      fieldKeyboardType: TextInputType.numberWithOptions(decimal: true),
-      fieldHintText: "0.00",
+      value: (state.accomdationHour.isValid())
+          ? state.accomdationHour.getValue()
+          : null,
       /*value: (state.selectedCommuteAllownce.isValid())
           ? state.selectedCommuteAllownce.getValue()
           : null,*/
@@ -699,22 +846,22 @@ class SendProposal extends StatelessWidget {
           )),
       fieldPrefixIconConstraints:
           BoxConstraints(maxWidth: getSize(100), minHeight: 0),
-      items: CommonList.commuteAllownceList.map((val) {
+      items: state.accomdationHoursList.map((val) {
         return DropdownMenuItem<String>(
-          value: val,
+          value: val.name,
           child: BaseText(
-            text: val,
+            text: val.name ?? "",
             fontSize: 14,
             textColor: AppColors.black,
           ),
         );
       }).toList(),
       onChanged: (value) {
-        // if (value != null) {
-        //   context
-        //       .read<PostShiftBloc>()
-        //       .add(PostShiftEvent.commuteAllownceChanged(value));
-        // }
+        if (value != null) {
+          context
+              .read<SendProposalBloc>()
+              .add(SendProposalEvent.accomdationHourChanged(value));
+        }
       },
       childDropDownItems: CommonList.commuteAllownceList.map((val) {
         return DropdownMenuItem<String>(
