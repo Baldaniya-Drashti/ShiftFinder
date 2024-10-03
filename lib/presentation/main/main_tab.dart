@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/main_tab/home/home_bloc.dart';
 import 'package:shift/application/main_tab/main_tab_bloc.dart';
+import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart';
 import 'package:shift/application/profile/account/account_cubit.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
@@ -13,12 +14,10 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
-import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart' as autoroute;
 import 'package:shift/presentation/core/style/app_colors.dart';
-import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/main/tabs/employer_shift_view.dart';
 import 'package:shift/presentation/main/tabs/home/home_view.dart';
 import 'package:shift/presentation/main/tabs/notification_view.dart';
@@ -44,10 +43,10 @@ class MainTabView extends StatelessWidget {
         BlocProvider<AccountCubit>(
           create: (context) => getIt<AccountCubit>()..getAccount(),
         ),
-        // BlocProvider(
-        //   create: (context) =>
-        //       getIt<HomeBloc>()..add(HomeEvent.getProductList(true)),
-        // ),
+        BlocProvider(
+          create: (context) =>
+              getIt<ShiftsBloc>()..add(ShiftsBlocEvent.getLocationListAPI()),
+        ),
         // BlocProvider(
         //   create: (context) => getIt<NotificationsBloc>()
         //     ..add(NotificationsEvent.getNotificationList(true))
@@ -59,7 +58,7 @@ class MainTabView extends StatelessWidget {
       child: BlocBuilder<MainTabBloc, MainTabState>(
         builder: (context, state) {
           return DefaultTabController(
-            length: 2,
+            length: 3,
             child: Scaffold(
               backgroundColor: AppColors.scaffoldColor,
               appBar: getAppbar(state, context),

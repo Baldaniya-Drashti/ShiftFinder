@@ -21,30 +21,32 @@ class CommonDocumentView extends StatelessWidget {
         },
         title: title,
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: getSize(20),
-          vertical: getSize(10),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            BaseText(
-              text: 'The document',
-              fontWeight: FontWeight.w500,
-            ),
-            SizedBox(
-              height: getSize(10),
-            ),
-            Expanded(
-              child: SfPdfViewer.network(
-                pdfUrl,
-                // scrollDirection: PdfScrollDirection.horizontal,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: getSize(20),
+            vertical: getSize(10),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BaseText(
+                text: 'The document',
+                fontWeight: FontWeight.w500,
               ),
-            ),
-          ],
+              SizedBox(
+                height: getSize(10),
+              ),
+              Expanded(
+                child: SfPdfViewer.network(
+                  pdfUrl,
+                  // scrollDirection: PdfScrollDirection.horizontal,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
-}
+} 

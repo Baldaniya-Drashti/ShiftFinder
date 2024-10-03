@@ -14,12 +14,12 @@ class CommonCardDialog extends StatelessWidget {
   final String description;
   final String buttonText;
   final Function() onPressed;
-  bool barrierDismissible;
-  Widget? otherContent;
-  EdgeInsets? insetPadding;
-  void Function(dynamic)? onCallback;
+  final bool barrierDismissible;
+  final Widget? otherContent;
+  final EdgeInsets? insetPadding;
+  final Function(dynamic)? onCallback;
 
-  CommonCardDialog(
+  const CommonCardDialog(
       {super.key,
       required this.title,
       required this.description,
@@ -36,7 +36,7 @@ class CommonCardDialog extends StatelessWidget {
     return const Placeholder();
   }
 
-  addCardDialog(BuildContext context) {
+  addCardDialog(BuildContext context) async {
     return showDialog(
       context: context,
       barrierDismissible: barrierDismissible,

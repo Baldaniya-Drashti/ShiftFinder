@@ -350,13 +350,13 @@ class CustomLocationDropdDown extends StatelessWidget {
   final String? hintText;
   final String? fieldHintText;
   final String? childDroDwonHintText;
-  final dynamic? value;
+  final dynamic value;
   final List<DropdownMenuItem<dynamic>>? items;
   final bool? isLabelPadding;
   final bool showTextfield;
   final bool showDropDown;
-  final Function(dynamic?)? onChanged;
-  final String? Function(dynamic?)? validator;
+  final Function(dynamic)? onChanged;
+  final String? Function(dynamic)? validator;
   final bool showPrefixIcon;
   final bool? isOptional;
   final Widget? optionalWidget;

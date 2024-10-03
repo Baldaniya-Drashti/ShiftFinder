@@ -40,7 +40,7 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
                 shiftFailureOrSuccessOption: optionOf(failureOrSuccess),
               )),
               (r) {
-                print("post--> ${r}");
+                print("post--> $r");
                 emit(state.copyWith(
                   isLoading: false,
                   showErrorMessages: false,

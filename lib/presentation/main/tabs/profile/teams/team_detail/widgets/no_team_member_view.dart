@@ -9,8 +9,8 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 
 class NoTeamMemberView extends StatelessWidget {
   final String teamID;
-  void Function() addMemberPressed;
-  NoTeamMemberView(
+  final Function() addMemberPressed;
+  const NoTeamMemberView(
       {super.key, required this.teamID, required this.addMemberPressed});
 
   @override

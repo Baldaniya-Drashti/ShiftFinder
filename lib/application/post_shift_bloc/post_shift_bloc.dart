@@ -557,7 +557,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
 
           DateTime? endDate = DateTime.parse(e.selectedDate);
 
-          if (startDate != null && endDate != null) {
+          if (startDate != null) {
             difference = endDate.difference(startDate).inDays;
             print("Total days difference ${difference}");
             // if (difference >= 7) {
@@ -1684,7 +1684,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
         shift_note: state.singleShiftNote,
         vacancie_type: (state.isMoreVacancy) ? 1 : 0,
         number_of_vacancie: (state.selectedVacancy.isValid())
-            ? int.parse(state.selectedVacancy.getValue() ?? "0")
+            ? int.parse(state.selectedVacancy.getValue())
             : null,
 
         /// Extra params of Multi shift
