@@ -11,7 +11,7 @@ class PreviousShiftFavView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return SingleChildScrollView(
       padding: EdgeInsets.all(getSize(20)),
       child: Column(
         children: [
@@ -26,23 +26,30 @@ class PreviousShiftFavView extends StatelessWidget {
           SizedBox(
             height: getSize(18),
           ),
-          Expanded(
-            child: ListView.separated(
-              shrinkWrap: true,
-              itemBuilder: (context, index) => PreviousShiftFavTile(
-                profileImage: '',
-                title: "Test",
-                subtitle: 'Test',
-                traling: ElevatedButton.icon(
-                  onPressed: () {},
-                  label: BaseText(text: ""),
+          ListView.separated(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) => PreviousShiftFavTile(
+              profileImage: '',
+              title: "Roboto Flex",
+              subtitle: 'CT Technologist',
+              traling: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  visualDensity: VisualDensity.compact,
+                  padding: EdgeInsets.symmetric(horizontal: getSize(13),vertical: getSize(2)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  elevation: 0,
+                  backgroundColor: AppColors.green.withOpacity(0.2),
                 ),
+                icon: SvgPicture.asset(SvgImageConstant.heartChecked,height: 20,width: 20,),
+                onPressed: () {},
+                label: BaseText(text: "Favorite",fontSize: 12,textColor: AppColors.green),
               ),
-              separatorBuilder: (context, index) => SizedBox(
-                height: getSize(16),
-              ),
-              itemCount: 4,
             ),
+            separatorBuilder: (context, index) => SizedBox(
+              height: getSize(16),
+            ),
+            itemCount: 4,
           )
         ],
       ),
@@ -107,6 +114,7 @@ class PreviousShiftFavTile extends StatelessWidget {
             text: subtitle,
             fontWeight: FontWeight.w600,
             fontSize: 11,
+            textColor: AppColors.black.withOpacity(0.6),
           ),
           trailing: traling,
         ),

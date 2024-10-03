@@ -112,4 +112,7 @@ class SvgImageConstant {
   static const medalStar = "assets/svg/medal-star.svg";
   static const starOutlined = "assets/svg/start_outlined.svg";
   static const rightArrow = "assets/svg/right_arrow.svg";
+  static const heartChecked = "assets/svg/heart_checked.svg";
+  static const blockedFilled = "assets/svg/blocked_filled.svg";
+  static const emailFilled = "assets/svg/email_filled.svg";
 }

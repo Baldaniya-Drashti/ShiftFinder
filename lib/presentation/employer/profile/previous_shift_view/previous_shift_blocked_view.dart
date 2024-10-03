@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_fav_view.dart';
 
 class PreviousShiftBlockedView extends StatelessWidget {
@@ -8,7 +11,7 @@ class PreviousShiftBlockedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return SingleChildScrollView(
       padding: EdgeInsets.all(getSize(20)),
       child: Column(
         children: [
@@ -23,23 +26,30 @@ class PreviousShiftBlockedView extends StatelessWidget {
           SizedBox(
             height: getSize(18),
           ),
-          Expanded(
-            child: ListView.separated(
-              shrinkWrap: true,
-              itemBuilder: (context, index) => PreviousShiftFavTile(
-                profileImage: '',
-                title: "Barbara ",
-                subtitle: 'CT Technologist',
-                traling: ElevatedButton.icon(
-                  onPressed: () {},
-                  label: BaseText(text: ""),
+          ListView.separated(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) => PreviousShiftFavTile(
+              profileImage: '',
+              title: "Barbara ",
+              subtitle: 'CT Technologist',
+              traling: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  visualDensity: VisualDensity.compact,
+                  padding: EdgeInsets.symmetric(horizontal: getSize(13), vertical: getSize(2)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  elevation: 0,
+                  backgroundColor: AppColors.red.withOpacity(0.2),
                 ),
+                icon: SvgPicture.asset(SvgImageConstant.blockedFilled, height: 20, width: 20),
+                onPressed: () {},
+                label: BaseText(text: "Blocked", fontSize: 12, textColor: AppColors.red),
               ),
-              separatorBuilder: (context, index) => SizedBox(
-                height: getSize(16),
-              ),
-              itemCount: 4,
             ),
+            separatorBuilder: (context, index) => SizedBox(
+              height: getSize(16),
+            ),
+            itemCount: 4,
           )
         ],
       ),

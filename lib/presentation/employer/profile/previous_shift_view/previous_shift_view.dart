@@ -9,6 +9,7 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_blocked_view.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_fav_view.dart';
+import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_remarked_view.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'PreviousShiftView')
@@ -39,7 +40,7 @@ class PreviousShiftView extends StatelessWidget {
                         PreviousShiftAllView(),
                         PreviousShiftFavView(),
                         PreviousShiftBlockedView(),
-                        Text("Remarked"),
+                        PreviousShiftRemarkedView(),
                       ],
                     ),
                   )

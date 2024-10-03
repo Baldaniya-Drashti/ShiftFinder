@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -14,7 +13,7 @@ class PreviousShiftAllView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return SingleChildScrollView(
       padding: EdgeInsets.all(getSize(16)),
       child: Column(
         children: [
@@ -23,15 +22,15 @@ class PreviousShiftAllView extends StatelessWidget {
             value: 5.0,
           ),
           SizedBox(
-            height: getSize(12),
+            height: getSize(22),
           ),
-          Expanded(
-            child: ListView.separated(
-              itemCount: 5,
-              itemBuilder: (context, index) => _PreviousShiftAllListTile(),
-              separatorBuilder: (context, index) => SizedBox(
-                height: getSize(18),
-              ),
+          ListView.separated(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: 5,
+            itemBuilder: (context, index) => _PreviousShiftAllListTile(),
+            separatorBuilder: (context, index) => SizedBox(
+              height: getSize(18),
             ),
           )
         ],
@@ -61,10 +60,10 @@ class _PreviousShiftAllListTile extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(getSize(18)),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         CircleAvatar(
                           radius: 24,
@@ -93,18 +92,15 @@ class _PreviousShiftAllListTile extends StatelessWidget {
                           ],
                         ),
                         Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(top: getSize(4)),
-                            child: Align(
-                              alignment: Alignment.centerRight,
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  SvgPicture.asset(SvgImageConstant.star),
-                                  SizedBox(width: getSize(8)),
-                                  BaseText(text: "4.5", fontSize: 12, fontWeight: FontWeight.w600),
-                                ],
-                              ),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SvgPicture.asset(SvgImageConstant.star),
+                                SizedBox(width: getSize(8)),
+                                BaseText(text: "4.5", fontSize: 12, fontWeight: FontWeight.w600),
+                              ],
                             ),
                           ),
                         )
@@ -121,7 +117,7 @@ class _PreviousShiftAllListTile extends StatelessWidget {
                       children: [
                         SvgPicture.asset(SvgImageConstant.location, color: Colors.black, height: 24, width: 24),
                         SizedBox(
-                          width: getSize(3),
+                          width: getSize(6),
                         ),
                         Expanded(
                           child: Column(
@@ -131,7 +127,7 @@ class _PreviousShiftAllListTile extends StatelessWidget {
                               BaseText(
                                 text: "4517 Washington Manchester, Kentucky 39495",
                                 fontWeight: FontWeight.w600,
-                                fontSize: getSize(14),
+                                fontSize: getSize(13),
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                               ),
@@ -139,7 +135,7 @@ class _PreviousShiftAllListTile extends StatelessWidget {
                                 text: "10.2 Km Away",
                                 fontWeight: FontWeight.w600,
                                 textColor: AppColors.green,
-                                fontSize: getSize(13),
+                                fontSize: getSize(12),
                               ),
                             ],
                           ),
@@ -365,7 +361,7 @@ class _IconButton extends StatelessWidget {
         label: BaseText(
           text: label,
           fontWeight: FontWeight.w600,
-          fontSize: getSize(14),
+          fontSize: getSize(13),
         ),
       ),
     );
@@ -384,55 +380,74 @@ class _RatingDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(getSize(10)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.lightGrey.withOpacity(0.2),
-            blurRadius: 30,
-          )
-        ],
-      ),
-      child: DropdownButtonFormField(
-        icon: SvgPicture.asset(SvgImageConstant.downArrow),
-        value: value,
-        decoration: InputDecoration(
-          enabledBorder: InputBorder.none,
-          focusedBorder: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(
-            vertical: getSize(12),
-            horizontal: getSize(20),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        BaseText(
+          text: "Sort by",
+          fontSize: 10,
+          fontWeight: FontWeight.w500,
+        ),
+        SizedBox(height: getSize(7)),
+        Container(
+          height: 40,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(getSize(10)),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.lightGrey.withOpacity(0.2),
+                blurRadius: 30,
+              )
+            ],
+          ),
+          child: DropdownButtonFormField(
+            icon: SvgPicture.asset(
+              color: AppColors.black,
+              SvgImageConstant.downArrow,
+              height: 8,
+              width: 6,
+            ),
+            iconSize: 8,
+            value: value,
+            decoration: InputDecoration(
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              contentPadding: EdgeInsets.symmetric(
+                vertical: getSize(12),
+                horizontal: getSize(20),
+              ),
+            ),
+            dropdownColor: AppColors.white,
+            elevation: 5,
+            items: [5.0, 4.0, 3.0, 2.0, 1.0]
+                .map(
+                  (e) => DropdownMenuItem(
+                    value: e,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SvgPicture.asset(SvgImageConstant.star),
+                        SizedBox(
+                          width: getSize(8),
+                        ),
+                        BaseText(
+                          text: e.toString(),
+                          fontWeight: FontWeight.w600,
+                          fontSize: getSize(15),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+                .toList(),
+            onChanged: (value) {
+              onChanged(value!);
+            },
           ),
         ),
-        dropdownColor: AppColors.white,
-        elevation: 5,
-        items: [5.0, 4.0, 3.0, 2.0, 1.0]
-            .map(
-              (e) => DropdownMenuItem(
-                value: e,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SvgPicture.asset(SvgImageConstant.star),
-                    SizedBox(
-                      width: getSize(8),
-                    ),
-                    BaseText(
-                      text: e.toString(),
-                      fontWeight: FontWeight.w600,
-                      fontSize: getSize(15),
-                    )
-                  ],
-                ),
-              ),
-            )
-            .toList(),
-        onChanged: (value) {
-          onChanged(value!);
-        },
-      ),
+      ],
     );
   }
 }
