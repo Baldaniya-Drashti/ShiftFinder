@@ -230,6 +230,7 @@ class ContractorHomeView extends StatelessWidget {
                   args: ViewContractorShiftArgs(
                     postId: state.contractorDashboardList[index].id ?? -1,
                     isTotalApplicants: true,
+                    fromDashboard: true,
                   ),
                 ),
               );

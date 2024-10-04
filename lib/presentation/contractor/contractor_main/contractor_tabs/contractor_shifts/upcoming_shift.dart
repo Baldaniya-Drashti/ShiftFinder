@@ -47,8 +47,7 @@ class UpcomingShift extends StatelessWidget {
               ? CenterLoadingIndicator(isOnlyLoader: true)
               : state.isErrorInAPI
                   ? Center(
-                      child: BaseText(text: StringConstant.somethindWentWrong),
-                    )
+                      child: BaseText(text: StringConstant.somethindWentWrong))
                   : ListView.builder(
                       itemCount: state.upcomingShiftList.length,
                       shrinkWrap: true,
@@ -319,9 +318,8 @@ class UpcomingShift extends StatelessWidget {
         Flexible(
           child: displayDateBreak(
             context,
-            boldValue: convertTimeStampToDate(shift.applied_date ?? -1),
-            timidValue:
-                convertTimeStampToDate(shift.applied_date ?? -1, isYear: true),
+            boldValue: convertTimeStampToDate(shift.date ?? -1),
+            timidValue: convertTimeStampToDate(shift.date ?? -1, isYear: true),
             title: "",
             svgPrefixIcon: SvgImageConstant.calendar,
             titleWidget: Row(
@@ -332,12 +330,14 @@ class UpcomingShift extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                   textColor: AppColors.black.withOpacity(0.7),
                 ),
-                BaseText(
-                  text: " (5 Shifts)",
-                  fontSize: 10,
-                  fontWeight: FontWeight.w400,
-                  textColor: AppColors.primaryColor,
-                ),
+                if (shift.shift_type == 1)
+                  BaseText(
+                    text:
+                        " (${shift.total_shift ?? 0} ${(shift.total_shift ?? 0) <= 1 ? StringConstant.shift : StringConstant.shifts})",
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    textColor: AppColors.primaryColor,
+                  ),
               ],
             ),
           ),
@@ -345,8 +345,16 @@ class UpcomingShift extends StatelessWidget {
         Flexible(
           child: displayTime(
             title: StringConstant.time,
-            startDate: "07:15 AM",
-            endDate: "18:30 AM",
+            startDate: (shift.start_time != null)
+                ? DateFormat('hh:mm a').format(
+                    DateTime.fromMillisecondsSinceEpoch(
+                        (shift.start_time ?? 0) * 1000))
+                : "",
+            endDate: (shift.end_time != null)
+                ? DateFormat('hh:mm a').format(
+                    DateTime.fromMillisecondsSinceEpoch(
+                        (shift.end_time ?? 0) * 1000))
+                : "",
             svgPrefixIcon: SvgImageConstant.clock,
           ),
         ),

@@ -82,14 +82,26 @@ class SendProposal extends StatelessWidget {
                                   1) ...[
                                 shiftDate(state.shift),
                                 paddingBetweenFields(),
-                                unpaidBreak(state.shift),
-                                paddingBetweenFields(),
                               ],
                               proposalTerms(),
                               paddingBetweenFields(),
+                              if (state.shift.shift_detail?.shift_type == 1 ||
+                                  (state.shift.shift_detail?.shift_type == 2 &&
+                                      state.shift.shift_detail
+                                              ?.same_or_different_time ==
+                                          1)) ...[
+                                unpaidBreak(state.shift),
+                                paddingBetweenFields(),
+                              ],
                               Visibility(
-                                  visible:
-                                      state.shift.shift_detail?.shift_type == 1,
+                                  visible: (state
+                                              .shift.shift_detail?.shift_type ==
+                                          1 ||
+                                      (state.shift.shift_detail?.shift_type ==
+                                              2 &&
+                                          state.shift.shift_detail
+                                                  ?.same_or_different_time ==
+                                              1)),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -202,10 +214,19 @@ class SendProposal extends StatelessWidget {
                                               .submitSingleShiftProposalEvent(
                                                   context));
                                     } else {
-                                      context.read<SendProposalBloc>().add(
-                                          SendProposalEvent
-                                              .submitMultiShiftProposalEvent(
-                                                  context));
+                                      if (state.shift.shift_detail
+                                              ?.same_or_different_time ==
+                                          1) {
+                                        context.read<SendProposalBloc>().add(
+                                            SendProposalEvent
+                                                .submitSameMultiShiftProposalEvent(
+                                                    context));
+                                      } else {
+                                        context.read<SendProposalBloc>().add(
+                                            SendProposalEvent
+                                                .submitDifferentMultiShiftProposalEvent(
+                                                    context));
+                                      }
                                     }
                                   },
                                   buttonText: StringConstant.sendProposal,
@@ -316,7 +337,7 @@ class SendProposal extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 BaseText(
-                  text: "post.companyName",
+                  text: post.company_name ?? "",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                   textColor: AppColors.black.withOpacity(0.80),
@@ -379,7 +400,7 @@ class SendProposal extends StatelessWidget {
                         textColor: AppColors.black,
                       ),
                       BaseText(
-                        text: "post.Away",
+                        text: post.distance ?? "",
                         fontSize: 10,
                         fontWeight: FontWeight.w600,
                         textColor: AppColors.primaryColor,
@@ -443,8 +464,6 @@ class SendProposal extends StatelessWidget {
   }
 
   Widget unpaidBreak(HealthcarePostDTO post) {
-    print(
-        "post.shift_detail?.detail?[0].unpaid_break ---> ${post.shift_detail?.detail?[0].unpaid_break}");
     return Container(
         // height: getSize(113.41),
         decoration: BoxDecoration(
@@ -513,6 +532,8 @@ class SendProposal extends StatelessWidget {
   }
 
   Widget availability(BuildContext context, SendProposalState state) {
+    final unAvailableList =
+        state.multiDates.where((ele) => ele.isUnAvailable == true);
     return Container(
         // height: getSize(113.41),
         decoration: BoxDecoration(
@@ -521,90 +542,65 @@ class SendProposal extends StatelessWidget {
         ),
         padding: EdgeInsets.symmetric(
             horizontal: getSize(12), vertical: getSize(10)),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Flexible(
-              child: ListTile(
-                titleAlignment: ListTileTitleAlignment.top,
-                horizontalTitleGap: 0,
-                contentPadding: EdgeInsets.only(left: getSize(5)),
-                leading: SvgPicture.asset(
-                  SvgImageConstant.calendar,
-                  color: AppColors.black,
-                  height: getSize(20),
-                  width: getSize(20),
-                ),
-                title: BaseText(
-                  text: StringConstant.proposeAvailability,
-                  fontSize: 12,
+        child: ListTile(
+          titleAlignment: ListTileTitleAlignment.titleHeight,
+          horizontalTitleGap: 0,
+          contentPadding: EdgeInsets.only(left: getSize(5)),
+          minTileHeight: getSize(59),
+          leading: SvgPicture.asset(
+            SvgImageConstant.calendar,
+            color: AppColors.black,
+            height: getSize(20),
+            width: getSize(20),
+          ),
+          title: BaseText(
+            text: StringConstant.proposeAvailability,
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            textColor: AppColors.black,
+          ),
+          subtitle: (state.shift.shift_detail?.same_or_different_time == 1)
+              ? BaseText(
+                  text: (unAvailableList.isNotEmpty)
+                      ? "${StringConstant.unavailableDates} - ${unAvailableList.length}"
+                      : StringConstant.availableForEveryDates,
+                  fontSize: 10,
                   fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.7),
-                ),
-                subtitle: BaseText(
+                  maxLines: 5,
+                  textColor: (unAvailableList.isNotEmpty)
+                      ? AppColors.redAccent
+                      : AppColors.primaryColor,
+                )
+              : BaseText(
                   text: StringConstant.availabilityDesc,
                   fontSize: 10,
                   fontWeight: FontWeight.w400,
                   maxLines: 5,
                   textColor: AppColors.black.withOpacity(0.7),
                 ),
-              ),
-            ),
-            SizedBox(width: getSize(5)),
-            /*SvgPicture.asset(
-              SvgImageConstant.calendar,
-              color: AppColors.black,
-              height: getSize(20),
-              width: getSize(20),
-            ),
-            SizedBox(width: getSize(10)),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                BaseText(
-                  text: StringConstant.proposeAvailability,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.7),
-                ),
-                SizedBox(
-                  width: getHorizontalSize(160),
-                  child: BaseText(
-                    text: StringConstant.availabilityDesc,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
-                    maxLines: 5,
-                    textColor: AppColors.black.withOpacity(0.7),
-                  ),
-                ),
-              ],
-            ),
-            Spacer(),*/
-            CommonButton(
-              onPressed: () {
-                context.router
-                    .push(PageRouteInfo(ProposeAvailability.name,
-                        args: ProposeAvailabilityArgs(
-                          post: state.shift,
-                          updatedDates: state.multiDates,
-                        )))
-                    .then((value) {
-                  if (value != null) {
-                    context.read<SendProposalBloc>().add(
-                        SendProposalEvent.setMultiDate(
-                            value as List<DateTimeDTO>));
-                  }
-                });
-              },
-              height: 29,
-              width: 132,
-              buttonFontSize: 12,
-              borderRadius: 5,
-              buttonFontWeight: FontWeight.w500,
-              buttonText: StringConstant.enterAvailability,
-            ),
-          ],
+          trailing: CommonButton(
+            onPressed: () {
+              context.router
+                  .push(PageRouteInfo(ProposeAvailability.name,
+                      args: ProposeAvailabilityArgs(
+                        post: state.shift,
+                        updatedDates: state.multiDates,
+                      )))
+                  .then((value) {
+                if (value != null) {
+                  context.read<SendProposalBloc>().add(
+                      SendProposalEvent.setMultiDate(
+                          updatedDates: value as List<DateTimeDTO>));
+                }
+              });
+            },
+            height: 29,
+            width: 132,
+            buttonFontSize: 12,
+            borderRadius: 5,
+            buttonFontWeight: FontWeight.w500,
+            buttonText: StringConstant.enterAvailability,
+          ),
         ));
   }
 
@@ -736,19 +732,20 @@ class SendProposal extends StatelessWidget {
         FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
       ],
       prefixIcon: Padding(
-          padding: EdgeInsets.only(
-            left: getSize(20),
-            top: getSize(14),
-            bottom: getSize(14),
-          ),
-          child: BaseText(
-            text: '\$ ',
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            textColor: (state.rateHour.isValid())
-                ? AppColors.black
-                : AppColors.black.withOpacity(0.5),
-          )),
+        padding: EdgeInsets.only(
+          left: getSize(20),
+          top: getSize(14),
+          bottom: getSize(14),
+        ),
+        child: BaseText(
+          text: '\$ ',
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          textColor: (state.rateHour.isValid())
+              ? AppColors.black
+              : AppColors.black.withOpacity(0.5),
+        ),
+      ),
       prefixIconConstraints:
           BoxConstraints(maxWidth: getSize(100), minHeight: 0),
       onChanged: (value) {

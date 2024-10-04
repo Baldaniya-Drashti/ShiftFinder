@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/main_tab/home/view_single_applicants/view_single_applicants_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
@@ -29,15 +30,23 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 class ViewContractorShift extends StatelessWidget {
   final int postId;
   final bool isTotalApplicants;
-  const ViewContractorShift(
-      {super.key, required this.postId, this.isTotalApplicants = false});
+  final bool fromDashboard;
+  ViewContractorShift({
+    super.key,
+    required this.postId,
+    this.isTotalApplicants = false,
+    this.fromDashboard = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     print("shift id--> $postId");
     return BlocProvider(
       create: (context) => getIt<ViewSingleApplicantsBloc>()
-        ..add(ViewSingleApplicantsEvent.getShiftDetailEvent(postId)),
+        ..add(ViewSingleApplicantsEvent.getShiftDetailEvent(
+          postId,
+          fromDashboard: fromDashboard,
+        )),
       child: BlocConsumer<ViewSingleApplicantsBloc, ViewSingleApplicantsState>(
         listener: (context, state) {
           state.shiftFailureOrSuccessOption.fold(

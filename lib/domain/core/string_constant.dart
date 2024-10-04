@@ -418,6 +418,8 @@ class StringConstant {
   static const String editUnit = "Edit Unit";
   static const String noShiftPostedYet = "No Shift Posted Yet!";
   static const String confirm = "Confirm";
+  static const String unavailableDates = "Unavailable Dates";
+  static const String availableForEveryDates = "Available for Every Dates";
   static const String clockInConfirmationDesc =
       "Are you sure you want to add the clock in time?";
   static const String clockOutConfirmationDesc =

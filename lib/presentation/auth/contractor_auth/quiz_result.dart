@@ -159,7 +159,7 @@ class QuizResultScreen extends StatelessWidget {
                                 vertical: getSize(20), horizontal: getSize(20)),
                             child: CommonButton(
                               onPressed: () {
-                                showUnderDevelopment(context);
+                                // showUnderDevelopment(context);
                                 context.router.replaceAll([
                                   const PageRouteInfo(
                                       ContractorMainTabView.name)

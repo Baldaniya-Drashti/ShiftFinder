@@ -11,7 +11,6 @@ import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
-import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_time_picker_dropdown.dart';
 
@@ -31,10 +30,10 @@ class EditProposalTime extends StatelessWidget {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                return startEndTime(context, index, state.multiDates[index]);
-                /*return (index.isOdd)
-                    ? notAvailable(context)
-                    : startEndTime(context, state.multiDates[index]);*/
+                // return startEndTime(context, index, state.multiDates[index]);
+                return (state.multiDates[index].isUnAvailable)
+                    ? notAvailable(context, state.multiDates[index])
+                    : startEndTime(context, index, state.multiDates[index]);
               },
             ),
             Padding(
@@ -193,7 +192,7 @@ class EditProposalTime extends StatelessWidget {
     );
   }
 
-  Widget notAvailable(BuildContext context) {
+  Widget notAvailable(BuildContext context, DateTimeDTO currentObj) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -202,7 +201,10 @@ class EditProposalTime extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(
               getSize(20), getSize(10), getSize(20), getSize(5)),
           child: BaseText(
-            text: "24 Sep, 2024",
+            text: (currentObj.date != null && currentObj.date!.isNotEmpty)
+                ? DateFormat('d MMM, yyyy')
+                    .format(DateTime.parse(currentObj.date ?? ""))
+                : "",
             textColor: AppColors.primaryColor,
             fontSize: 14,
             fontWeight: FontWeight.w500,

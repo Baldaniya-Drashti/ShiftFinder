@@ -626,6 +626,7 @@ abstract class $AppRouter extends _i62.RootStackRouter {
           key: args.key,
           postId: args.postId,
           isTotalApplicants: args.isTotalApplicants,
+          fromDashboard: args.fromDashboard,
         ),
       );
     },
@@ -2271,6 +2272,7 @@ class ViewContractorShift extends _i62.PageRouteInfo<ViewContractorShiftArgs> {
     _i63.Key? key,
     required int postId,
     bool isTotalApplicants = false,
+    bool fromDashboard = false,
     List<_i62.PageRouteInfo>? children,
   }) : super(
           ViewContractorShift.name,
@@ -2278,6 +2280,7 @@ class ViewContractorShift extends _i62.PageRouteInfo<ViewContractorShiftArgs> {
             key: key,
             postId: postId,
             isTotalApplicants: isTotalApplicants,
+            fromDashboard: fromDashboard,
           ),
           initialChildren: children,
         );
@@ -2293,6 +2296,7 @@ class ViewContractorShiftArgs {
     this.key,
     required this.postId,
     this.isTotalApplicants = false,
+    this.fromDashboard = false,
   });
 
   final _i63.Key? key;
@@ -2301,9 +2305,11 @@ class ViewContractorShiftArgs {
 
   final bool isTotalApplicants;
 
+  final bool fromDashboard;
+
   @override
   String toString() {
-    return 'ViewContractorShiftArgs{key: $key, postId: $postId, isTotalApplicants: $isTotalApplicants}';
+    return 'ViewContractorShiftArgs{key: $key, postId: $postId, isTotalApplicants: $isTotalApplicants, fromDashboard: $fromDashboard}';
   }
 }
 

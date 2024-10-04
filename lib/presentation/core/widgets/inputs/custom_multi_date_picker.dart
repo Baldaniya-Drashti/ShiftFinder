@@ -13,6 +13,13 @@ class CustomMultiDatePicker extends StatelessWidget {
   final bool isDisabled;
   final bool Function(DateTime)? selectableDayPredicate;
   final Map<DateTime, Color>? selectedDateColors;
+  final Widget? Function(
+      {required DateTime date,
+      BoxDecoration? decoration,
+      bool? isDisabled,
+      bool? isSelected,
+      bool? isToday,
+      TextStyle? textStyle})? dayBuilder;
 
   const CustomMultiDatePicker({
     super.key,
@@ -22,6 +29,7 @@ class CustomMultiDatePicker extends StatelessWidget {
     this.selectableDayPredicate,
     this.isDisabled = false,
     this.selectedDateColors,
+    this.dayBuilder,
   });
 
   @override
@@ -32,6 +40,7 @@ class CustomMultiDatePicker extends StatelessWidget {
       child: CalendarDatePicker2(
         selectedDateColors: selectedDateColors ?? {},
         config: CalendarDatePicker2Config(
+          dayBuilder: dayBuilder,
           firstDate: DateTime.now(),
           calendarType: CalendarDatePicker2Type.multi,
           disableMonthPicker: true,

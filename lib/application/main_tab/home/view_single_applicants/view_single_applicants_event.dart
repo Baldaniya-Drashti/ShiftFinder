@@ -18,6 +18,6 @@ class ViewSingleApplicantsEvent with _$ViewSingleApplicantsEvent {
       GetViewSingleApplicantsAPI;
   const factory ViewSingleApplicantsEvent.saveButtonPressed(
       BuildContext context) = SaveButtonPressed;
-  const factory ViewSingleApplicantsEvent.getShiftDetailEvent(int postId) =
-      GetShiftDetailEvent;
+  const factory ViewSingleApplicantsEvent.getShiftDetailEvent(int postId,
+      {@Default(false) bool fromDashboard}) = GetShiftDetailEvent;
 }

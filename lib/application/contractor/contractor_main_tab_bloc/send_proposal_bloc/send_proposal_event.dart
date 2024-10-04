@@ -46,9 +46,11 @@ class SendProposalEvent with _$SendProposalEvent {
   const factory SendProposalEvent.getMultiDateEvent(
           HealthcarePostDTO post, List<DateTimeDTO>? updatedDates) =
       GetMultiDateEvent;
-  const factory SendProposalEvent.setMultiDate(
-    List<DateTimeDTO> updatedDates,
-  ) = SetMultiDate;
-  const factory SendProposalEvent.submitMultiShiftProposalEvent(
-      BuildContext context) = SubmitMultiShiftProposalEvent;
+  const factory SendProposalEvent.setMultiDate({
+    required List<DateTimeDTO> updatedDates,
+  }) = SetMultiDate;
+  const factory SendProposalEvent.submitDifferentMultiShiftProposalEvent(
+      BuildContext context) = SubmitDifferentMultiShiftProposalEvent;
+  const factory SendProposalEvent.submitSameMultiShiftProposalEvent(
+      BuildContext context) = SubmitSameMultiShiftProposalEvent;
 }

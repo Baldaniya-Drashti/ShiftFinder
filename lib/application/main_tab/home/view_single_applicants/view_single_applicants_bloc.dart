@@ -28,9 +28,16 @@ class ViewSingleApplicantsBloc
             emit(
               state.copyWith(isLoading: true),
             );
-            failureOrSuccess = await _mainFacade.getContractorShiftDetail(
-              postId: e.postId,
-            );
+
+            if (e.fromDashboard) {
+              failureOrSuccess = await _mainFacade.getPostApi(
+                postId: e.postId,
+              );
+            } else {
+              failureOrSuccess = await _mainFacade.getContractorShiftDetail(
+                postId: e.postId,
+              );
+            }
 
             failureOrSuccess.fold(
               (l) => emit(state.copyWith(
