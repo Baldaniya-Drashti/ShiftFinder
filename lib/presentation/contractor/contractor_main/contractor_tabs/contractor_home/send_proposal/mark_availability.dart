@@ -6,9 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/send_proposal_bloc/send_proposal_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_multi_date_picker.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class MarkUnavailability extends StatelessWidget {
   const MarkUnavailability({super.key});
@@ -47,9 +49,11 @@ class MarkUnavailability extends StatelessWidget {
       return (dto.date != null) ? DateTime.parse(dto.date!) : DateTime.now();
     }).toList();
 
-    print("selected datess----> $selectedDates");
+    Log.debug("selected datess----> $selectedDates");
     return CustomMultiDatePicker(
+      selectedDateList: state.multiDates,
       value: selectedDates,
+      selectedDateBGColor: state.multiDates.any((element) => element.isUnAvailable==true)?AppColors.green:AppColors.red,
       /*selectedDateColors:
           (state.multiDates.every((element) => element.isUnAvailable == true))
               ? {
@@ -58,18 +62,16 @@ class MarkUnavailability extends StatelessWidget {
                   DateTime(2024, 10, 7): Colors.yellowAccent,
                 }
               : {},*/
-      selectedDateBGColor:
-          state.multiDates.any((dto) => dto.isUnAvailable == true)
-              ? AppColors.redAccent
-              : AppColors.primaryColor,
       selectableDayPredicate: (date) {
         return isDateExist(selectedDates, date);
       },
       onValueChanged: (value) {
+        final date = state.multiDates.where((dto) => dto.isUnAvailable == true).length;
+        Log.debug("date ${date}");
+        Log.debug(state.multiDates);
         print("Value is changed---> $value");
-        context
-            .read<SendProposalBloc>()
-            .add(SendProposalEvent.setDateUnavailableEvent(value));
+        Log.debug(value);
+        context.read<SendProposalBloc>().add(SendProposalEvent.setDateUnavailableEvent(value));
       },
     );
   }
@@ -132,8 +134,6 @@ class MarkUnavailability extends StatelessWidget {
 */
   bool isDateExist(List<DateTime> selectedDates, DateTime currentDate) {
     return selectedDates.any((selectedDate) =>
-        selectedDate.year == currentDate.year &&
-        selectedDate.month == currentDate.month &&
-        selectedDate.day == currentDate.day);
+        selectedDate.year == currentDate.year && selectedDate.month == currentDate.month && selectedDate.day == currentDate.day);
   }
 }

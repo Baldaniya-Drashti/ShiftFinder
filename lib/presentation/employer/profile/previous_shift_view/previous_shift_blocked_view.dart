@@ -32,7 +32,7 @@ class PreviousShiftBlockedView extends StatelessWidget {
             shrinkWrap: true,
             itemBuilder: (context, index) => PreviousShiftFavTile(
               profileImage: '',
-              title: "Barbara ",
+              title: "Barbara",
               subtitle: 'CT Technologist',
               traling: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(

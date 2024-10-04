@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shift/application/employer/profile/previous_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
@@ -19,24 +21,36 @@ class PreviousShiftAllView extends StatelessWidget {
       padding: EdgeInsets.all(getSize(16)),
       child: Column(
         children: [
-          _RatingDropdown(
-            onChanged: (double value) {},
-            value: 5.0,
+          BlocSelector<PreviousShiftBloc, PreviousShiftState, double>(
+            selector: (state) => state.selectedRating,
+            builder: (context, selectedRating) {
+              return _RatingsDropdown(
+                onChanged: (double value) {
+                  context.read<PreviousShiftBloc>().add(PreviousShiftEvent.ratingChangeEvent(rating: value));
+                },
+                value: selectedRating,
+              );
+            },
           ),
-          SizedBox(
-            height: getSize(22),
-          ),
-          ListView.separated(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: 5,
-            itemBuilder: (context, index) => _PreviousShiftAllListTile(),
-            separatorBuilder: (context, index) => SizedBox(
-              height: getSize(18),
-            ),
-          )
+          SizedBox(height: getSize(22)),
+          _PreviousShiftAllListView()
         ],
       ),
+    );
+  }
+}
+
+class _PreviousShiftAllListView extends StatelessWidget {
+  const _PreviousShiftAllListView();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: 5,
+      itemBuilder: (context, index) => _PreviousShiftAllListTile(),
+      separatorBuilder: (context, index) => SizedBox(height: getSize(18)),
     );
   }
 }
@@ -47,10 +61,7 @@ class _PreviousShiftAllListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(getSize(20)),
-        color: AppColors.white,
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(getSize(20)), color: AppColors.white),
       child: Padding(
         padding: EdgeInsets.all(getSize(15)),
         child: Column(
@@ -67,7 +78,7 @@ class _PreviousShiftAllListTile extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                          CircleAvatar(
+                        CircleAvatar(
                           radius: getSize(25),
                           backgroundColor: AppColors.green,
                           child: CircleAvatar(
@@ -89,7 +100,6 @@ class _PreviousShiftAllListTile extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                               fontSize: 15,
                             ),
-
                             BaseText(
                               text: "CT Technologist",
                               fontSize: 10,
@@ -424,8 +434,8 @@ class _IconButton extends StatelessWidget {
   }
 }
 
-class _RatingDropdown extends StatelessWidget {
-  const _RatingDropdown({
+class _RatingsDropdown extends StatelessWidget {
+  const _RatingsDropdown({
     super.key,
     required this.onChanged,
     required this.value,
@@ -447,7 +457,6 @@ class _RatingDropdown extends StatelessWidget {
         ),
         SizedBox(height: getSize(7)),
         Container(
-
           decoration: BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.circular(getSize(10)),

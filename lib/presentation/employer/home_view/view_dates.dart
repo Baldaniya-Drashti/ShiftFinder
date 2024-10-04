@@ -39,32 +39,6 @@ class ViewDates extends StatelessWidget {
                 title:
                     "${StringConstant.totalNumberOfShifts} - ${(shift.length < 10) ? "0${shift.length}" : shift.length}",
               ),
-              /*CalendarDatePicker2(
-                config: CalendarDatePicker2Config(
-                  calendarType: CalendarDatePicker2Type.multi,
-                  disableMonthPicker: true,
-                  disableModePicker: true,
-                  weekdayLabels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-                  weekdayLabelTextStyle: TextStyle(
-                    color: AppColors.primaryColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  selectedDayTextStyle: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.white,
-                  ),
-                  selectedDayHighlightColor: AppColors.primaryColor,
-                  daySplashColor: AppColors.transparent,
-                  disabledDayTextStyle: TextStyle(
-                    color: AppColors.black,
-                  ),
-                  selectableDayPredicate: (value) {
-                    return false;
-                  },
-                ),
-                value: _selectedDates,
-                onValueChanged: (day) {},
-              ),*/
               ListView.builder(
                   itemCount: shift.length,
                   shrinkWrap: true,

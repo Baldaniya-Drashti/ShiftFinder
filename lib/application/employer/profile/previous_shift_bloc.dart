@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -12,13 +14,12 @@ part 'previous_shift_bloc.freezed.dart';
 class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
   final List<String> pageList = [];
 
-  PreviousShiftBloc() : super(PreviousShiftState.initial()) {
+  PreviousShiftBloc() : super(PreviousShiftState()) {
     on<PreviousShiftEvent>(
-      (event, emit) async {
+      (event, emit) {
         event.map(
-          tabChange: (value) {
-            emit(state.copyWith(selectedTab: value.tabIndex));
-          },
+          tabChangeEvent: (value) => emit(state.copyWith(currentTabIndex: value.tabIndex)),
+          ratingChangeEvent: (value) => emit(state.copyWith(selectedRating: value.rating)),
         );
       },
     );

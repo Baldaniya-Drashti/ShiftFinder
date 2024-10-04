@@ -76,6 +76,8 @@ dependencies:
   dropdown_textfield: ^1.2.0
   google_maps_flutter: ^2.9.0
   # datepicker_dropdown: ^0.1.4
+  syncfusion_flutter_datepicker:
+  equatable: ^2.0.5
   
 
 dev_dependencies:
