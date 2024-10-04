@@ -1,38 +1,54 @@
+// ignore_for_file: must_be_immutable, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:shift/application/contractor/contractor_main_tab_bloc/send_proposal_bloc/send_proposal_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
+import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_time_picker_dropdown.dart';
 
 class EditProposalTime extends StatelessWidget {
-  const EditProposalTime({super.key});
+  ShiftDetailDTO shift;
+  EditProposalTime({required this.shift});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ListView.builder(
-          itemCount: 5,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            return (index.isOdd)
-                ? notAvailable(context)
-                : startEndTime(context);
-          },
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: getSize(30)),
-          child: CommonButton(
-            onPressed: () {},
-            buttonText: StringConstant.done,
-          ),
-        ),
-      ],
+    return BlocBuilder<SendProposalBloc, SendProposalState>(
+      builder: (context, state) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListView.builder(
+              itemCount: state.multiDates.length,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return startEndTime(context, index, state.multiDates[index]);
+                /*return (index.isOdd)
+                    ? notAvailable(context)
+                    : startEndTime(context, state.multiDates[index]);*/
+              },
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: getSize(30)),
+              child: CommonButton(
+                onPressed: () {
+                  Navigator.pop(context, state.multiDates);
+                },
+                buttonText: StringConstant.done,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -42,7 +58,7 @@ class EditProposalTime extends StatelessWidget {
     );
   }
 
-  Widget startEndTime(BuildContext context) {
+  Widget startEndTime(BuildContext context, int index, DateTimeDTO currentObj) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -51,7 +67,10 @@ class EditProposalTime extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(
               getSize(20), getSize(10), getSize(20), getSize(5)),
           child: BaseText(
-            text: "24 Sep, 2024",
+            text: (currentObj.date != null && currentObj.date!.isNotEmpty)
+                ? DateFormat('d MMM, yyyy')
+                    .format(DateTime.parse(currentObj.date ?? ""))
+                : "",
             textColor: AppColors.primaryColor,
             fontSize: 14,
             fontWeight: FontWeight.w500,
@@ -65,11 +84,13 @@ class EditProposalTime extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              startTime(context),
+              startTime(context, index, currentObj),
               paddingBetweenFields(),
-              endTime(context),
+              endTime(context, index, currentObj),
               paddingBetweenFields(),
-              paybleHours(),
+              unpaidBreakDropDown(currentObj.unpaidBreak),
+              paddingBetweenFields(),
+              paybleHours(currentObj.totalPaybleHours),
             ],
           ),
         ),
@@ -77,28 +98,84 @@ class EditProposalTime extends StatelessWidget {
     );
   }
 
-  Widget startTime(BuildContext context) {
-    return CustomTimePickerDropdown(
-      labelText: StringConstant.startTime,
-      isLabelPadding: false,
-      hourOnChanged: (value) {},
-      minOnChanged: (value) {},
+  Widget startTime(BuildContext context, int index, DateTimeDTO obj) {
+    final startHourValid = (obj.startHour != null && obj.startHour!.isNotEmpty);
+    final startMinuteValid =
+        (obj.startHour != null && obj.startHour!.isNotEmpty);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        CustomTimePickerDropdown(
+          labelText: StringConstant.startTime,
+          disableDropDownColor: AppColors.grey04,
+          hourValue: (startHourValid) ? obj.startHour : null,
+          minuteValue: (startMinuteValid) ? obj.startMinute : null,
+          hourOnChanged: (value) {
+            if (value != null) {
+              context.read<SendProposalBloc>().add(
+                  SendProposalEvent.startHourListChanged(
+                      value, index, obj.date ?? ""));
+            }
+          },
+          minOnChanged: (value) {
+            if (value != null) {
+              context.read<SendProposalBloc>().add(
+                  SendProposalEvent.startMinuteListChanged(
+                      value, index, obj.date ?? ""));
+            }
+          },
+        ),
+      ],
     );
   }
 
-  Widget endTime(BuildContext context) {
-    return CustomTimePickerDropdown(
-      labelText: StringConstant.endTime,
-      isLabelPadding: false,
-      hourOnChanged: (value) {},
-      minOnChanged: (value) {},
+  Widget endTime(BuildContext context, int index, DateTimeDTO obj) {
+    final endHourValid = (obj.endHour != null && obj.endHour!.isNotEmpty);
+    final endMinuteValid = (obj.endMinute != null && obj.endMinute!.isNotEmpty);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        CustomTimePickerDropdown(
+          labelText: StringConstant.endTime,
+          disableDropDownColor: AppColors.grey04,
+          hourValue: (endHourValid) ? obj.endHour : null,
+          minuteValue: (endMinuteValid) ? obj.endMinute : null,
+          hourOnChanged: (value) {
+            if (value != null) {
+              context.read<SendProposalBloc>().add(
+                  SendProposalEvent.endHourListChanged(
+                      value, index, obj.date ?? ""));
+            }
+          },
+          minOnChanged: (value) {
+            if (value != null) {
+              context.read<SendProposalBloc>().add(
+                  SendProposalEvent.endMinuteListChanged(
+                      value, index, obj.date ?? ""));
+            }
+          },
+        ),
+      ],
     );
   }
 
-  Widget paybleHours() {
+  Widget unpaidBreakDropDown(String? breakTime) {
+    return CustomTextField(
+      labelText: StringConstant.unpaidBreak,
+      hintText: (breakTime != null && breakTime.isNotEmpty) ? breakTime : null,
+      isLabelPadding: false,
+      hintAsValue: true,
+      readOnly: true,
+      fillColor: AppColors.grey04,
+    );
+  }
+
+  Widget paybleHours(String? payableHours) {
     return CustomTextField(
       labelText: StringConstant.payableHours,
-      hintText: "00h 00min",
+      hintText: payableHours ?? "00h 00min",
       isLabelPadding: false,
       hintAsValue: true,
       readOnly: true,

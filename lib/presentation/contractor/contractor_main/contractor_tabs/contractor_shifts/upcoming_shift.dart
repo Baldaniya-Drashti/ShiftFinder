@@ -89,9 +89,9 @@ class UpcomingShift extends StatelessWidget {
                                     PageRouteInfo(
                                       ViewContractorShift.name,
                                       args: ViewContractorShiftArgs(
-                                        postId: state.upcomingShiftList[index]
-                                                .post_id ??
-                                            -1,
+                                        postId:
+                                            state.upcomingShiftList[index].id ??
+                                                -1,
                                         isTotalApplicants: true,
                                       ),
                                     ),
@@ -164,33 +164,35 @@ class UpcomingShift extends StatelessWidget {
                 ),
               ],
             ),
-            trailing: GestureDetector(
-              onTap: () {
-                AppDialog.showSuccess(
-                  context,
-                  image: Container(),
-                  title: StringConstant.withdrawShift,
-                  infoMessage: StringConstant.withdrawShiftDesc,
-                  onOkClick: () {
-                    context.router.maybePop().then((value) {
-                      showWithdrawDialog(
-                          context, shift, context.read<ContractorShiftBloc>());
-                    });
-                  },
-                );
-              },
-              child: Container(
-                padding: EdgeInsets.all(getSize(5)),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: SvgPicture.asset(
-                  SvgImageConstant.delete,
-                  color: AppColors.black,
-                ),
-              ),
-            ),
+            trailing: (shift.check_delete == true)
+                ? GestureDetector(
+                    onTap: () {
+                      AppDialog.showSuccess(
+                        context,
+                        image: Container(),
+                        title: StringConstant.withdrawShift,
+                        infoMessage: StringConstant.withdrawShiftDesc,
+                        onOkClick: () {
+                          context.router.maybePop().then((value) {
+                            showWithdrawDialog(context, shift,
+                                context.read<ContractorShiftBloc>());
+                          });
+                        },
+                      );
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(getSize(5)),
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: SvgPicture.asset(
+                        SvgImageConstant.delete,
+                        color: AppColors.black,
+                      ),
+                    ),
+                  )
+                : Text(""),
             contentPadding: EdgeInsets.zero,
             visualDensity: VisualDensity.compact,
             minTileHeight: getSize(43.41),
@@ -343,7 +345,7 @@ class UpcomingShift extends StatelessWidget {
         Flexible(
           child: displayTime(
             title: StringConstant.time,
-            startDate: "07:15 AM to 07:15 AM",
+            startDate: "07:15 AM",
             endDate: "18:30 AM",
             svgPrefixIcon: SvgImageConstant.clock,
           ),

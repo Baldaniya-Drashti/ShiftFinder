@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/main_tab/home/view_single_applicants/view_single_applicants_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
@@ -67,7 +68,9 @@ class ViewContractorShift extends StatelessWidget {
               title: StringConstant.viewShiftDetails,
             ),
             body: (state.isLoading)
-                ? CenterLoadingIndicator()
+                ? CenterLoadingIndicator(
+                    isOnlyLoader: true,
+                  )
                 : (state.showErrorMessages)
                     ? Center(
                         child: BaseText(text: "No data found!"),
@@ -161,10 +164,6 @@ class ViewContractorShift extends StatelessWidget {
           ),
           commonDivider(),
           paybaleTitleRate(
-            title: "${StringConstant.estimatedWage}:-",
-            value: "\$${payable.total_wage ?? 00}",
-          ),
-          paybaleTitleRate(
             title: "${StringConstant.accommodationAllowance}:-",
             value: "\$${payable.accommodation_allowance ?? 00}",
           ),
@@ -172,13 +171,9 @@ class ViewContractorShift extends StatelessWidget {
             title: "${StringConstant.commuteAllowance}:-",
             value: "\$${payable.commute_allowance ?? 00}",
           ),
-          paybaleTitleRate(
-            title: "${StringConstant.shiftFinderServiceFee}:-",
-            value: "\$${payable.service_fee ?? 00}",
-          ),
           commonDivider(),
           paybaleTitleRate(
-            title: StringConstant.estimatedTotalPayable,
+            title: StringConstant.estimatedEarningsForShift,
             value: "\$${payable.total_amount_payable ?? 00}",
             isLast: true,
           ),
@@ -463,10 +458,10 @@ class ViewContractorShift extends StatelessWidget {
           ListTile(
             dense: true,
             titleAlignment: ListTileTitleAlignment.top,
-            leading: SvgPicture.asset(
-              SvgImageConstant.femaleGrey,
-              width: getSize(36.28),
-              height: getSize(43.41),
+            leading: Image.asset(
+              PngImageConstants.leafWithBG,
+              height: getSize(50),
+              width: getSize(40),
             ),
             title: BaseText(
               text: post.roles_list_name ?? "",
@@ -474,12 +469,24 @@ class ViewContractorShift extends StatelessWidget {
               fontSize: 16,
               fontWeight: FontWeight.w600,
             ),
-            subtitle: BaseText(
-              text:
-                  "(${CommonList.industryList.where((item) => item.id == getCurrentIndustry()).map((item) => item.title).join(', ')} - ${post.listing_id})",
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-              textColor: AppColors.black.withOpacity(0.70),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                BaseText(
+                  text: post.company_name ?? "",
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  textColor: AppColors.black.withOpacity(0.80),
+                ),
+                BaseText(
+                  text:
+                      "(${CommonList.industryList.where((item) => item.id == getCurrentIndustry()).map((item) => item.title).join(', ')} - ${post.listing_id})",
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  textColor: AppColors.black.withOpacity(0.80),
+                ),
+              ],
             ),
             trailing: BaseText(
               text: post.last_ago ?? "",
@@ -502,12 +509,25 @@ class ViewContractorShift extends StatelessWidget {
               SizedBox(
                 width: getSize(10),
               ),
-              Flexible(
-                child: BaseText(
-                  text: post.location?.location ?? "",
-                  fontSize: 10,
-                  maxLines: 5,
-                  fontWeight: FontWeight.w500,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    BaseText(
+                      text: post.location?.location ?? "",
+                      fontSize: 12,
+                      maxLines: 1,
+                      fontWeight: FontWeight.w500,
+                      textColor: AppColors.black,
+                    ),
+                    BaseText(
+                      text: post.distance ?? "",
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600,
+                      textColor: AppColors.primaryColor,
+                    ),
+                  ],
                 ),
               ),
             ],

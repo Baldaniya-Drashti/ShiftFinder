@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 
 part 'employer_dashboard_dto.freezed.dart';
 part 'employer_dashboard_dto.g.dart';
@@ -70,6 +71,8 @@ class ShiftDate with _$ShiftDate {
     int? start_time,
     int? end_date,
     int? end_time,
+    int? date,
+    SkillDTO? unpaid_break,
   }) = _ShiftDate;
 
   factory ShiftDate.fromJson(Map<String, dynamic> json) =>

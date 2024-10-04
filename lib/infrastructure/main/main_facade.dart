@@ -895,35 +895,27 @@ class MainFacade implements IMainFacade {
 
   @override
   Future<Either<MainFailure, String>> contractorApplyOrSendProposal({
-    required int postId,
-    int? shiftType,
-    int? rateHour,
-    String? commuteAllowance,
-    String? accommodationAllowance,
-    String? date,
-    String? startTime,
-    String? endTime,
-    String? multiDate,
-    String? unavailabilityDate,
+    required Map<String, dynamic> mapData,
   }) async {
     try {
-      Map<String, dynamic> mapData = {
-        'post_id': postId,
-        'shift_type': shiftType,
-      };
+      print("Sending Data---> ${jsonEncode(mapData)}");
+      // Map<String, dynamic> mapData = {
+      //   'post_id': postId,
+      //   'shift_type': shiftType,
+      // };
 
-      if (shiftType == 2) {
-        mapData.addAll({
-          'rate_hour': rateHour,
-          'commute_allowance': commuteAllowance,
-          'accommodation_allowance': accommodationAllowance,
-          'date': date,
-          'start_time': startTime,
-          'end_time': endTime,
-          'multi_date': multiDate,
-          'unavailability_date': unavailabilityDate,
-        });
-      }
+      // if (shiftType == 2) {
+      //   mapData.addAll({
+      //     'rate_hour': rateHour,
+      //     'commute_allowance': commuteAllowance,
+      //     'accommodation_allowance': accommodationAllowance,
+      //     'date': date,
+      //     'start_time': startTime,
+      //     'end_time': endTime,
+      //     'multi_date': multiDate,
+      //     'unavailability_date': unavailabilityDate,
+      //   });
+      // }
 
       final res = await apiService.postMethod(
         ApiConstants.contractorApplyOrSendProposal,
@@ -1052,7 +1044,7 @@ class MainFacade implements IMainFacade {
       {required int postId}) async {
     try {
       final res = await apiService.getMethod(
-        "${ApiConstants.contractorShiftDetail}/$id",
+        "${ApiConstants.contractorShiftDetail}/$postId",
       );
       if (res != null) {
         final data = HealthcarePostDTO.fromJson(res.data);

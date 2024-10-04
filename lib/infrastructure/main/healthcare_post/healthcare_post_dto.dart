@@ -13,6 +13,8 @@ class HealthcarePostDTO with _$HealthcarePostDTO {
     int? id,
     String? listing_id,
     String? last_ago,
+    String? company_name,
+    String? distance,
     List<SkillDTO>? roles_list,
     String? roles_list_name,
     List<SkillDTO>? specialties_detail_list,

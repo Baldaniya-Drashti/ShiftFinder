@@ -72,16 +72,15 @@ class ViewContractorShiftDates extends StatelessWidget {
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     return chipListBox(
-                        date: convertTimeStampToDate(
-                          shift[index].start_date ?? -1,
-                          isDate: true,
-                        ),
-                        title: StringConstant.shiftTime,
-                        value:
-                            "${convertTimeStampToDate(shift[index].start_time ?? -1)} to ${convertTimeStampToDate(shift[index].end_time ?? -1)}",
-                        unpaidBreak: ""
-                        // unpaidBreak: "${shift[index].unpaid_break?.short_name}",
-                        );
+                      date: convertTimeStampToDate(
+                        shift[index].date ?? -1,
+                        isDate: true,
+                      ),
+                      title: StringConstant.shiftTime,
+                      value:
+                          "${convertTimeStampToDate(shift[index].start_time ?? -1)} to ${convertTimeStampToDate(shift[index].end_time ?? -1)}",
+                      unpaidBreak: "${shift[index].unpaid_break?.short_name}",
+                    );
                   }),
               /*startEndDate(
                 hour: "09 AM",

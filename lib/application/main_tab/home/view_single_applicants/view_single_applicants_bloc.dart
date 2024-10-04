@@ -29,7 +29,7 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
             emit(
               state.copyWith(isLoading: true),
             );
-            failureOrSuccess = await _mainFacade.getPostApi(
+            failureOrSuccess = await _mainFacade.getContractorShiftDetail(
               postId: e.postId,
             );
 
