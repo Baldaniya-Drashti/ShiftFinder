@@ -29,7 +29,11 @@ class PreviousShiftView extends StatelessWidget {
             children: [
               UnderlinedTabBar(
                 tabs: [Tab(text: "All"), Tab(text: "Favorites"), Tab(text: "Blocked"), Tab(text: "Remarked")],
-                onTap: (value) => context.read<PreviousShiftBloc>().add(PreviousShiftEvent.tabChangeEvent(tabIndex: value)),
+                onTap: (value) {
+                  context.read<PreviousShiftBloc>().add(
+                        PreviousShiftEvent.tabChangeEvent(tabIndex: value),
+                      );
+                },
               ),
               Expanded(
                 child: TabBarView(

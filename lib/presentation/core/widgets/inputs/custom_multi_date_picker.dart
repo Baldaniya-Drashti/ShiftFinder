@@ -33,7 +33,6 @@ class CustomMultiDatePicker extends StatelessWidget {
       child: CalendarDatePicker2(
         selectedDateColors: selectedDateColors ?? {},
         config: CalendarDatePicker2Config(
-          selectedDayList: ,
           firstDate: DateTime.now(),
           calendarType: CalendarDatePicker2Type.multi,
           disableMonthPicker: true,

@@ -78,6 +78,7 @@ dependencies:
   # datepicker_dropdown: ^0.1.4
   syncfusion_flutter_datepicker:
   equatable: ^2.0.5
+  gap: ^3.0.1
   
 
 dev_dependencies:

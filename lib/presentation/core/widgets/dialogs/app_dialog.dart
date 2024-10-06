@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -7,6 +8,7 @@ import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/rating_bar.dart';
 
 /// Shows a dialog.
 /// Use in priority cases where it's necessary for the user to see
@@ -114,16 +116,19 @@ class AppDialog {
                     buttonTextColor: AppColors.primaryColor,
                     borderColor: AppColors.primaryColor,
                   ),
-                  CommonButton(
-                    backgroundColor: deleteColor,
-                    onPressed: () {
-                      if (onDeleteClick != null) {
-                        onDeleteClick.call();
-                      }
-                      AppFocus.unfocus(context);
-                    },
-                    width: 150,
-                    buttonText: deleteBtnText ?? StringConstant.delete,
+                  Gap(getSize(8)),
+                  Flexible(
+                    child: CommonButton(
+                      backgroundColor: deleteColor,
+                      onPressed: () {
+                        if (onDeleteClick != null) {
+                          onDeleteClick.call();
+                        }
+                        AppFocus.unfocus(context);
+                      },
+                      width: 150,
+                      buttonText: deleteBtnText ?? StringConstant.delete,
+                    ),
                   )
                 ],
               ),
@@ -282,5 +287,61 @@ class AppDialog {
             ],
           );
         });
+  }
+
+  static Future<void> showLeaveRatingModal(BuildContext context) async {
+    int rating = 5;
+    final result = await showDialog<bool?>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          actionsAlignment: MainAxisAlignment.center,
+          insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
+          titlePadding: EdgeInsets.zero,
+          title: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(PngImageConstants.leaveRating),
+              Gap(getSize(20)),
+              BaseText(
+                text: "Leave a Rating",
+                fontSize: 22,
+                fontWeight: FontWeight.w400,
+                fontFamily: "Aclonica",
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BaseText(
+                text: "Your feedback is valuable! Please rate [contractor name] to help showcase their performance and maintain service quality.",
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                textAlign: TextAlign.center,
+                textColor: AppColors.black.withOpacity(0.7),
+              ),
+              Gap(getSize(20)),
+              RatingBar(
+                initialRating: rating,
+                onChanged: (int value) {
+                  rating = value;
+                },
+              )
+            ],
+          ),
+          actions: [
+            CommonButton(
+              onPressed: () {
+                print("===>$rating");
+              },
+              width: 200,
+              buttonText: "Submit",
+            )
+          ],
+        );
+      },
+    );
   }
 }

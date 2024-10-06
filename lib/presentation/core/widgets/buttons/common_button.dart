@@ -1,6 +1,7 @@
 // ignore_for_file: use_super_parameters, prefer_const_constructors
 
 import 'dart:async';
+import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
@@ -25,6 +26,7 @@ class CommonButton extends StatefulWidget {
   final FontWeight? buttonFontWeight;
   final Widget? widget;
   final bool isSubmitting;
+
   const CommonButton({
     Key? key,
     required this.onPressed,
@@ -52,6 +54,7 @@ class CommonButton extends StatefulWidget {
 class _CommonButtonState extends State<CommonButton> {
   bool isButtonDisabled = false;
   Timer? buttonTimer;
+
   void _handleButtonTap() {
     if (!isButtonDisabled) {
       setState(() {
@@ -77,16 +80,14 @@ class _CommonButtonState extends State<CommonButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed:
-          widget.isSubmitting || isButtonDisabled ? null : _handleButtonTap,
+      onPressed: widget.isSubmitting || isButtonDisabled ? null : _handleButtonTap,
       style: ElevatedButton.styleFrom(
         side: BorderSide(color: widget.borderColor ?? Colors.transparent),
         elevation: 0,
         shadowColor: Colors.transparent,
         splashFactory: NoSplash.splashFactory,
         backgroundColor: widget.backgroundColor ?? AppColors.primaryColor,
-        disabledBackgroundColor:
-            widget.backgroundColor ?? AppColors.primaryColor,
+        disabledBackgroundColor: widget.backgroundColor ?? AppColors.primaryColor,
         padding: EdgeInsets.zero,
         fixedSize: Size(
           getSize(widget.width ?? MediaQuery.of(context).size.width * 100),
@@ -127,8 +128,7 @@ class _CommonButtonState extends State<CommonButton> {
   }
 }
 
-Widget documentSkipButton(BuildContext context,
-    {required VoidCallback onPressed}) {
+Widget documentSkipButton(BuildContext context, {required VoidCallback onPressed}) {
   return Align(
     alignment: Alignment.center,
     child: CommonButton(
@@ -144,4 +144,77 @@ Widget documentSkipButton(BuildContext context,
       borderColor: AppColors.transparent,
     ),
   );
+}
+
+class CommonMaterialButton extends StatelessWidget {
+  const CommonMaterialButton({
+    super.key,
+    required this.onPressed,
+    required this.label,
+    this.height,
+    this.width,
+    this.backgroundColor,
+    this.textStyle,
+    this.radius,
+    this.padding,
+  }) : _icon = null;
+
+  const CommonMaterialButton.icon({
+    super.key,
+    required this.onPressed,
+    required this.label,
+    required final Widget icon,
+    this.height,
+    this.width,
+    this.backgroundColor,
+    this.textStyle,
+    this.radius,
+    this.padding,
+  }) : _icon = icon;
+
+  final double? height;
+  final double? width;
+  final VoidCallback onPressed;
+  final String label;
+  final Color? backgroundColor;
+  final TextStyle? textStyle;
+  final double? radius;
+  final EdgeInsets? padding;
+  final Widget? _icon;
+
+  @override
+  Widget build(BuildContext context) {
+    Widget child;
+    final baseTextStyle = TextStyle(fontSize: getSize(12), fontWeight: FontWeight.w600);
+    final Widget title = BaseText(text: label, style: textStyle ?? baseTextStyle);
+
+    if (_icon != null) {
+      child = Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [_icon, Gap(getSize(6)), title],
+      );
+    } else {
+      child = title;
+    }
+
+    return SizedBox(
+      height: height ?? 38,
+      width: width ?? double.maxFinite,
+      child: Material(
+        color: backgroundColor ?? AppColors.primaryColor,
+        elevation: 0.0,
+        borderRadius: BorderRadius.circular(radius ?? 0.0),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: InkWell(
+          onTap: onPressed,
+          child: Padding(
+            padding: padding ?? EdgeInsets.all(getSize(8.0)),
+            child: Center(
+              child: child,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

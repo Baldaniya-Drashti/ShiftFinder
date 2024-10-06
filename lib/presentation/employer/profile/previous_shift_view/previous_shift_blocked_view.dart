@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
-import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_fav_view.dart';
+import 'package:shift/presentation/core/widgets/tile.dart';
 
 class PreviousShiftBlockedView extends StatelessWidget {
   const PreviousShiftBlockedView({super.key});
@@ -30,42 +32,56 @@ class PreviousShiftBlockedView extends StatelessWidget {
           ListView.separated(
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemBuilder: (context, index) => PreviousShiftFavTile(
-              profileImage: '',
-              title: "Barbara",
-              subtitle: 'CT Technologist',
-              traling: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  visualDensity: VisualDensity.compact,
-                  padding: EdgeInsets.symmetric(horizontal: getSize(13), vertical: getSize(2)),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  elevation: 0,
-                  backgroundColor: AppColors.red.withOpacity(0.2),
-                ),
-                icon: SvgPicture.asset(SvgImageConstant.blockedFilled, height: 15, width: 15),
-                onPressed: () {
-                  AppDialog.showDelete(
-                    title: "Unblock",
-                    context,
-                    infoMessage:
-                        "Unblocking [contractor name] will allow them to view and apply for your future postings. Are you sure you want to proceed?",
-                    onCancelClick: () {
-                      Navigator.pop(context);
-                    },
-                    onDeleteClick: () {},
-                    deleteBtnText: "Unblock",
-                  );
-                },
-                label: BaseText(text: "Blocked", fontSize: 10, textColor: AppColors.red),
-              ),
-            ),
-            separatorBuilder: (context, index) => SizedBox(
-              height: getSize(16),
-            ),
+            itemBuilder: (context, index) => _PreviousShiftBlockedTile(),
+            separatorBuilder: (context, index) => Gap(getSize(16)),
             itemCount: 4,
           )
         ],
       ),
+    );
+  }
+}
+
+class _PreviousShiftBlockedTile extends StatelessWidget {
+  const _PreviousShiftBlockedTile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BaseTileDecoration(
+      padding: EdgeInsets.all(getSize(12)),
+      child: Material(
+        borderRadius: BorderRadius.circular(getSize(16)),
+        color: AppColors.scaffoldColor,
+        child: UserInfoTile(
+          padding: EdgeInsets.symmetric(horizontal: getSize(16)),
+          title: "Roboto Flex",
+          subTitle: "CT Technologist",
+          url: "https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg",
+          trailing: CommonMaterialButton.icon(
+            radius: 10.0,
+            backgroundColor: AppColors.redAccent.withOpacity(0.2),
+            width: 90,
+            height: 33,
+            onPressed: () => _showBlockedDialog(context),
+            label: "Blocked",
+            textStyle: TextStyle(fontSize: 10, color: AppColors.red),
+            icon: SvgPicture.asset(SvgImageConstant.blockedFilled, height: 15, width: 15),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showBlockedDialog(BuildContext context) {
+    AppDialog.showDelete(
+      title: "Unblock",
+      context,
+      infoMessage: "Unblocking [contractor name] will allow them to view and apply for your future postings. Are you sure you want to proceed?",
+      onCancelClick: () {
+        Navigator.pop(context);
+      },
+      onDeleteClick: () {},
+      deleteBtnText: "Unblock",
     );
   }
 }
