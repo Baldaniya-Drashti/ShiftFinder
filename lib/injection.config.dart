@@ -114,32 +114,26 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i400.ContractorMainTabBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i73.MainTabBloc>(
         () => _i73.MainTabBloc(gh<_i277.IAuthFacade>()));
-    gh.factory<_i541.PostShiftBloc>(
-        () => _i541.PostShiftBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i678.SendProposalBloc>(
         () => _i678.SendProposalBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i518.ViewSingleApplicantsBloc>(
         () => _i518.ViewSingleApplicantsBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i744.ForgotPasswordBloc>(
-        () => _i744.ForgotPasswordBloc(gh<_i277.IAuthFacade>()));
+    gh.factory<_i541.PostShiftBloc>(
+        () => _i541.PostShiftBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i1033.AuthStatusBloc>(
         () => _i1033.AuthStatusBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i471.AddContractorSkillFormBloc>(
         () => _i471.AddContractorSkillFormBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i1026.TermsAndConditionBloc>(
         () => _i1026.TermsAndConditionBloc(gh<_i277.IAuthFacade>()));
-    gh.factory<_i134.RegisterFormBloc>(
-        () => _i134.RegisterFormBloc(gh<_i277.IAuthFacade>()));
+    gh.factory<_i744.ForgotPasswordBloc>(
+        () => _i744.ForgotPasswordBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i31.LoginFormBloc>(
         () => _i31.LoginFormBloc(gh<_i277.IAuthFacade>()));
+    gh.factory<_i134.RegisterFormBloc>(
+        () => _i134.RegisterFormBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i234.EditProfileBloc>(
         () => _i234.EditProfileBloc(gh<_i277.IAuthFacade>()));
-    gh.factory<_i897.IntroVideoBloc>(
-        () => _i897.IntroVideoBloc(gh<_i253.IAccountRepository>()));
-    gh.factory<_i161.ExperienceBloc>(
-        () => _i161.ExperienceBloc(gh<_i253.IAccountRepository>()));
-    gh.factory<_i653.LegalScreeningBloc>(
-        () => _i653.LegalScreeningBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i408.DocumentBloc>(
         () => _i408.DocumentBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i408.ProfessionalLicensesBloc>(
@@ -152,6 +146,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i408.ResumeBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i408.EquipmentBloc>(
         () => _i408.EquipmentBloc(gh<_i253.IAccountRepository>()));
+    gh.factory<_i161.ExperienceBloc>(
+        () => _i161.ExperienceBloc(gh<_i253.IAccountRepository>()));
+    gh.factory<_i897.IntroVideoBloc>(
+        () => _i897.IntroVideoBloc(gh<_i253.IAccountRepository>()));
+    gh.factory<_i653.LegalScreeningBloc>(
+        () => _i653.LegalScreeningBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i944.SpecialityExperienceBloc>(
         () => _i944.SpecialityExperienceBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i359.LocationDetailsBloc>(
@@ -168,15 +168,15 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i253.IAccountRepository>(),
           gh<_i277.IAuthFacade>(),
         ));
-    gh.factory<_i131.ContractorShiftBloc>(
-        () => _i131.ContractorShiftBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i153.ContractorHomeBloc>(
         () => _i153.ContractorHomeBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i131.ContractorShiftBloc>(
+        () => _i131.ContractorShiftBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i827.PreviousShiftBloc>(
+        () => _i827.PreviousShiftBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i901.HomeBloc>(() => _i901.HomeBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i946.AddNewMemberBloc>(
         () => _i946.AddNewMemberBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i827.PreviousShiftBloc>(
-        () => _i827.PreviousShiftBloc(gh<_i111.IMainFacade>()));
     return this;
   }
 }

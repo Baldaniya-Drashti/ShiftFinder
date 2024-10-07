@@ -11,16 +11,20 @@ class EditProfileState with _$EditProfileState {
     required String selectedCountrycode,
     required String companyDescription,
     required MobileNumber phoneNumber,
+    required bool showErrorMessages,
+    required String association,
   }) = _EditProfileState;
 
   factory EditProfileState.initial() => EditProfileState(
         selectedImage: '',
         firstName: Username(""),
         lastName: Lastname(""),
+        association: "",
         companyName: InputEmptyOrNot(""),
         phoneNumber: MobileNumber(""),
         selectedCountryFlag: '',
         selectedCountrycode: '',
         companyDescription: '',
+        showErrorMessages: false,
       );
 }
