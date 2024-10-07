@@ -10,7 +10,7 @@ class ContractorHomeState with _$ContractorHomeState {
     required bool isLoading,
     required bool isNoDataFound,
     required bool isErrorInAPI,
-    required List<EmployerDashboardDTO> contractorDashboardList,
+    required List<ContactorDashboardDTO> contractorDashboardList,
     required Option<Either<MainFailure, HealthcarePostDTO>>
         shiftFailureOrSuccessOption,
     required HealthcarePostDTO shift,

@@ -379,7 +379,7 @@ class _MultiSelectDialogState<T> extends State<MultiSelectDialog<T>> {
               if (widget.isShowOtherValue) ...[
                 Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: getSize(20), vertical: getSize(18)),
+                      horizontal: getSize(15), vertical: getSize(18)),
                   child: CustomTextField(
                     labelText: "Add Other ${widget.title}",
                     labelTextWidth: getSize(250),

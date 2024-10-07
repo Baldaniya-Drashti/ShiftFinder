@@ -9,9 +9,8 @@ import 'package:shift/domain/core/document_expiry_picker.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/infrastructure/account/account_repository.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
-import 'package:shift/infrastructure/core/network/injectable_module.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/file_picker_utils.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/image_picker_utils.dart';
@@ -33,8 +32,8 @@ class CredentialRegistration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CredentialBloc(AccountRepository(ApiService()))
-        ..add(CredentialEvent.getCredentialDocList()),
+      create: (context) =>
+          getIt<CredentialBloc>()..add(CredentialEvent.getCredentialDocList()),
       child: BlocConsumer<CredentialBloc, CredentialState>(
         listener: (context, state) {
           state.credintialDocAuthFailureOrSuccessOption.fold(

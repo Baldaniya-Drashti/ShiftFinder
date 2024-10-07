@@ -176,6 +176,7 @@ class ViewContractorShift extends StatelessWidget {
             title: "${StringConstant.accommodationAllowance}:-",
             value: "\$${payable.accommodation_allowance ?? 00}",
           ),
+          SizedBox(height: getSize(5)),
           paybaleTitleRate(
             title: "${StringConstant.commuteAllowance}:-",
             value: "\$${payable.commute_allowance ?? 00}",
@@ -233,7 +234,7 @@ class ViewContractorShift extends StatelessWidget {
               ),
               BaseText(
                 text: "  to  ",
-                fontSize: 10,
+                fontSize: 12,
                 fontWeight: FontWeight.w500,
                 textColor: AppColors.black.withOpacity(0.7),
               ),
@@ -507,13 +508,12 @@ class ViewContractorShift extends StatelessWidget {
           ),
           commonDivider(),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SvgPicture.asset(
                 SvgImageConstant.location,
                 color: AppColors.black,
-                height: getSize(20),
-                width: getSize(20),
+                height: getSize(25),
+                width: getSize(25),
               ),
               SizedBox(
                 width: getSize(10),

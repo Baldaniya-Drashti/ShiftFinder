@@ -259,10 +259,11 @@ class SinglePostShift extends StatelessWidget {
             ? commonErrorText(
                 StringConstant.pleaseSelectHourAndMinutesOfStartTime)
             : (state.singleShiftErrorMessages && !isStartHourValid(state))
-                ? commonErrorText(StringConstant.pleaseSelectHourOfStartTime)
+                ? commonErrorText(
+                    StringConstant.pleaseSelectHourAndMinutesOfStartTime)
                 : (state.singleShiftErrorMessages && !isStartMinValid(state))
                     ? commonErrorText(
-                        StringConstant.pleaseSelectMinutesOfStartTime)
+                        StringConstant.pleaseSelectHourAndMinutesOfStartTime)
                     : (state.singleShiftErrorMessages &&
                             PostShiftBloc.timeIsPast(
                                 state, state.startHour, state.startMinute))
@@ -328,10 +329,11 @@ class SinglePostShift extends StatelessWidget {
             ? commonErrorText(
                 StringConstant.pleaseSelectHourAndMinutesOfEndTime)
             : (state.singleShiftErrorMessages && !isEndHourValid(state))
-                ? commonErrorText(StringConstant.pleaseSelectHourOfEndTime)
+                ? commonErrorText(
+                    StringConstant.pleaseSelectHourAndMinutesOfEndTime)
                 : (state.singleShiftErrorMessages && !isEndMinValid(state))
                     ? commonErrorText(
-                        StringConstant.pleaseSelectMinutesOfEndTime)
+                        StringConstant.pleaseSelectHourAndMinutesOfEndTime)
                     : Container(),
       ],
     );

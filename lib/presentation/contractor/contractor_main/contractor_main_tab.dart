@@ -16,6 +16,7 @@ import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/contracator_home.dart';
+import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_profile/contractor_profile.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/contractor_shifts.dart';
 import 'package:shift/presentation/core/app_router.gr.dart' as autoroute;
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -115,21 +116,22 @@ getAppbar(ContractorMainTabState state, BuildContext context) {
           children: [
             BaseText(
               text: StringConstant.welcome,
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: FontWeight.w400,
               fontFamily: "Aclonica",
+              lineHeight: getSize(1),
               textColor: AppColors.black.withOpacity(0.7),
             ),
             BaseText(
               text:
                   "${getCurrentUser().firstName ?? ''} ${getCurrentUser().lastName ?? ''}",
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: FontWeight.w400,
               fontFamily: "Aclonica",
             ),
             BaseText(
               text: "${getCurrentUser().companyName ?? ''}",
-              fontSize: 8,
+              fontSize: 10,
               fontWeight: FontWeight.w600,
               textColor: AppColors.primaryColor,
             ),
@@ -199,7 +201,7 @@ Route? onGenerateRoute(RouteSettings settings, String tabItem) {
       } else if (tabItem == autoroute.NotificationView.name) {
         return NotificationView();
       } else if (tabItem == autoroute.ProfileView.name) {
-        return ProfileView();
+        return ContractorProfileView();
       }
       return Container();
     },

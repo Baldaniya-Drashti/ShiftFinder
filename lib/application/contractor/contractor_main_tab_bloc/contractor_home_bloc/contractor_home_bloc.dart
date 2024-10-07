@@ -10,6 +10,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
+import 'package:shift/infrastructure/core/contractor_home/contractor_dashboard_dto.dart';
 import 'package:shift/infrastructure/core/employer_home/employer_dashboard_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
@@ -113,14 +114,14 @@ class ContractorHomeBloc
                   isLoading: false,
                   isErrorInAPI: false,
                   isNoDataFound: (r.data as List<dynamic>)
-                      .map((e) => EmployerDashboardDTO.fromJson(e))
+                      .map((e) => ContactorDashboardDTO.fromJson(e))
                       .toList()
                       .isEmpty,
                   //  getProductList: []
                   contractorDashboardList:
                       List.from(state.contractorDashboardList)
                         ..addAll((r.data as List<dynamic>)
-                            .map((e) => EmployerDashboardDTO.fromJson(e))
+                            .map((e) => ContactorDashboardDTO.fromJson(e))
                             .toList()),
                 ),
               );

@@ -268,8 +268,8 @@ class SendProposal extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              height: getSize(43.41),
-              width: getSize(36.28),
+              height: getSize(50),
+              width: getSize(40),
               child: SvgPicture.asset(
                 SvgImageConstant.female,
                 color: AppColors.primaryColor,
@@ -292,6 +292,7 @@ class SendProposal extends StatelessWidget {
               fontSize: 14,
               fontWeight: FontWeight.w600,
             ),
+            SizedBox(height: getSize(5)),
             Flexible(
               child: BaseText(
                 text: StringConstant.proposalTermsDesc,
@@ -489,15 +490,15 @@ class SendProposal extends StatelessWidget {
               children: [
                 BaseText(
                   text: StringConstant.unpaidBreak,
-                  fontSize: 10,
+                  fontSize: 12,
                   fontWeight: FontWeight.w400,
                   textColor: AppColors.black.withOpacity(0.7),
                 ),
                 SizedBox(height: getSize(5)),
                 BaseText(
                   text: post.shift_detail?.unpaid_break?.name ?? "",
-                  fontSize: 10,
-                  fontWeight: FontWeight.w400,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
                   textColor: AppColors.primaryColor,
                 ),
               ],

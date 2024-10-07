@@ -176,7 +176,7 @@ class ContractorBottomNavigationWidget extends StatelessWidget {
 
   List<String> tabLabelList = [
     StringConstant.home,
-    StringConstant.shift,
+    StringConstant.shifts,
     StringConstant.notification,
     StringConstant.profile,
   ];

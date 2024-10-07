@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
@@ -38,6 +37,9 @@ class ContractorShiftBloc
           changeShiftTab: (e) async {
             print("Current Tab index---> ${e.tabIndex}");
             emit(state.copyWith(selectedTab: e.tabIndex));
+          },
+          appliedShiftChangeTab: (e) {
+            emit(state.copyWith(selectedAppliedTab: e.tabIndex));
           },
           getCurrentShiftDetailAPI: (e) async {
             if (e.isRefresh) {
@@ -80,7 +82,7 @@ class ContractorShiftBloc
                     selectedClockOutTime: "10",
                   ),
                 ];*/
-                return emit(
+                emit(
                   state.copyWith(
                     isLoading: false,
                     isErrorInAPI: false,
@@ -103,7 +105,7 @@ class ContractorShiftBloc
               upcomingShiftPage = 1;
               emit(state.copyWith(
                 upcomingShiftList: [],
-                isLoading: e.isRefresh,
+                isUpcomingLoading: e.isRefresh,
               ));
               upcomingShiftRefreshCtrl.resetNoData();
             } else {
@@ -120,8 +122,8 @@ class ContractorShiftBloc
             res.fold(
               (l) => emit(
                 state.copyWith(
-                  isErrorInAPI: true,
-                  isLoading: false,
+                  isUpcomingErrorInAPI: true,
+                  isUpcomingLoading: false,
                   upcomingShiftList: [],
                 ),
               ),
@@ -133,9 +135,9 @@ class ContractorShiftBloc
 
                 return emit(
                   state.copyWith(
-                    isLoading: false,
-                    isErrorInAPI: false,
-                    isNoDataFound: (r.data as List<dynamic>)
+                    isUpcomingLoading: false,
+                    isUpcomingErrorInAPI: false,
+                    isUpcomingNoDataFound: (r.data as List<dynamic>)
                         .map((e) => UpComingShiftDTO.fromJson(e))
                         .toList()
                         .isEmpty,

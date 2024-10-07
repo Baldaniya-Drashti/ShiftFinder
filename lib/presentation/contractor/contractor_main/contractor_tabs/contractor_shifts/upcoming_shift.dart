@@ -42,10 +42,10 @@ class UpcomingShift extends StatelessWidget {
                 .read<ContractorShiftBloc>()
                 .add(ContractorShiftEvent.getUpcomingShiftAPI(false));
           },
-          isNoDataFound: state.isNoDataFound,
-          child: state.isLoading
+          isNoDataFound: state.isUpcomingNoDataFound,
+          child: state.isUpcomingLoading
               ? CenterLoadingIndicator(isOnlyLoader: true)
-              : state.isErrorInAPI
+              : state.isUpcomingErrorInAPI
                   ? Center(
                       child: BaseText(text: StringConstant.somethindWentWrong))
                   : ListView.builder(

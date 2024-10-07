@@ -654,15 +654,15 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                   : null,
               // post_shift_id: e.postShiftId,
               recurring_status: (state.isToBeRecurring) ? "1" : "0",
-              recurring_start_date:
-                  (state.recurringStartDate.getValue() != null &&
-                          state.recurringStartDate.getValue()!.isNotEmpty)
-                      ? (DateTime.parse(state.recurringStartDate.getValue()!)
-                                  .toUtc()
-                                  .millisecondsSinceEpoch /
-                              1000)
-                          .toString()
-                      : "",
+              recurring_start_date: (state.isToBeRecurring &&
+                      state.recurringStartDate.getValue() != null &&
+                      state.recurringStartDate.getValue()!.isNotEmpty)
+                  ? (DateTime.parse(state.recurringStartDate.getValue()!)
+                              .toUtc()
+                              .millisecondsSinceEpoch /
+                          1000)
+                      .toString()
+                  : "",
               recurrence_mode:
                   (state.recurrenceMode.getValue() == "Weekly") ? 2 : 1,
               days: (state.isToBeRecurring &&
@@ -670,7 +670,8 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                   ? getSelectedRecurringDayIds(
                       state.recurrenceWeekList.getValue())
                   : "",
-              recurring_end_date: (state.recurringEndDate.getValue() != null &&
+              recurring_end_date: (state.isToBeRecurring &&
+                      state.recurringEndDate.getValue() != null &&
                       state.recurringEndDate.getValue()!.isNotEmpty)
                   ? (DateTime.parse(state.recurringEndDate.getValue()!)
                               .toUtc()

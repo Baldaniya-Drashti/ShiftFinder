@@ -27,9 +27,31 @@ class _DocumentPageState extends State<DocumentPage> {
       onTap: () {
         AppFocus.unfocus(context);
       },
-      child: BlocProvider(
-        create: (context) =>
-            getIt<DocumentBloc>()..add(DocumentEvent.getAllDocumentStatus()),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => getIt<DocumentBloc>()
+              ..add(DocumentEvent.getAllDocumentStatus()),
+          ),
+          BlocProvider(
+            create: (context) => getIt<CredentialBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => getIt<ProfessionalLicensesBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => getIt<ImmunizationBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => getIt<ProfessionalLiabilityBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => getIt<ResumeBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => getIt<EquipmentBloc>(),
+          ),
+        ],
         child: BlocConsumer<DocumentBloc, DocumentState>(
           listener: (context, state) {
             state.authFailureOrSuccessOption.fold(
@@ -76,6 +98,11 @@ class _DocumentPageState extends State<DocumentPage> {
                   }
                 },
                 title: DocumentBloc.appbarTitleList[state.currentPage],
+                // showSkipBtn: showSkipBtn(context, state),
+                showSkipBtn: false,
+                onSkipped: () {
+                  handleSkipEvent(context, state.currentPage);
+                },
               ),
               body: (state.allListLoading)
                   ? CenterLoadingIndicator()
@@ -94,9 +121,119 @@ class _DocumentPageState extends State<DocumentPage> {
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) => DocumentBloc.documentPageList[index],
       onPageChanged: (value) {
-        print("CUrRENT PAGE IS===> $value");
+        print("CURRENT PAGE IS===> $value");
         context.read<DocumentBloc>().add(DocumentEvent.nextPage(value));
       },
     );
+  }
+
+  static handleSkipEvent(BuildContext context, int currentPage) {
+    switch (currentPage) {
+      case 2:
+        // Skip action for CovidVaccinationDocument
+        context.read<DocumentBloc>().add(const DocumentEvent.covidDocSubmit(
+              isSkip: true,
+            ));
+        break;
+      case 3:
+        // Skip action for CredentialRegistration
+        context
+            .read<CredentialBloc>()
+            .add(const CredentialEvent.credentialDocSubmit(
+              isAddMoreBtnClick: false,
+              isSkip: true,
+            ));
+        break;
+      case 4:
+        // Skip action for ProfessionalLicenses
+        context.read<ProfessionalLicensesBloc>().add(
+            const ProfessionalLicensesEvent.licensesDocSubmit(
+                isAddMoreBtnClick: false, isSkip: true));
+        break;
+      case 5:
+        // Skip action for ImmunizationsVaccinations
+        context.read<ImmunizationBloc>().add(
+            const ImmunizationEvent.immunizationDocSubmit(
+                isAddMoreBtnClick: false, isSkip: true));
+        break;
+      case 6:
+        // Skip action for ProfessionalLiabilityProtection
+        context
+            .read<ProfessionalLiabilityBloc>()
+            .add(const ProfessionalLiabilityEvent.liabilityDocSubmit(
+              isAddMoreBtnClick: false,
+              isSkip: true,
+            ));
+        break;
+      case 7:
+        // Skip action for ResumeDocument
+        context
+            .read<ResumeBloc>()
+            .add(ResumeEvent.resumeDocSubmit(isSkip: true));
+        break;
+      case 8:
+        // Skip action for ApparelEquipment
+        context
+            .read<EquipmentBloc>()
+            .add(const EquipmentEvent.equipmentDocSubmit(
+              isAddMoreBtnClick: false,
+              isSkip: true,
+            ));
+        break;
+      default:
+        print("Unknown Document page");
+    }
+  }
+
+  showSkipBtn(BuildContext context, DocumentState state) {
+    {
+      switch (state.currentPage) {
+        case 2:
+          return !context
+              .read<DocumentBloc>()
+              .state
+              .covidVaccinationDoc
+              .isValid();
+
+        case 3:
+          return context
+              .read<CredentialBloc>()
+              .state
+              .credentialRegistrationList
+              .isEmpty;
+
+        case 4:
+          return context
+              .read<ProfessionalLicensesBloc>()
+              .state
+              .professionalLicensesList
+              .isEmpty;
+
+        case 5:
+          return context
+              .read<ImmunizationBloc>()
+              .state
+              .immunizationList
+              .isEmpty;
+
+        case 6:
+          return context
+              .read<ProfessionalLiabilityBloc>()
+              .state
+              .liabilityList
+              .isEmpty;
+
+        case 7:
+          final resumeState = context.read<ResumeBloc>().state;
+          return resumeState.resume.file == null ||
+              (resumeState.resume.file != null &&
+                  resumeState.resume.file!.isEmpty);
+        case 8:
+          return context.read<EquipmentBloc>().state.equipmentList.isEmpty;
+
+        default:
+          return false;
+      }
+    }
   }
 }

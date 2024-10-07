@@ -132,6 +132,8 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i28.LegalScreeningBloc(gh<_i8.IAccountRepository>()));
     gh.factory<_i29.DocumentBloc>(
         () => _i29.DocumentBloc(gh<_i8.IAccountRepository>()));
+    gh.factory<_i29.CredentialBloc>(
+        () => _i29.CredentialBloc(gh<_i8.IAccountRepository>()));
     gh.factory<_i29.ProfessionalLicensesBloc>(
         () => _i29.ProfessionalLicensesBloc(gh<_i8.IAccountRepository>()));
     gh.factory<_i29.ImmunizationBloc>(

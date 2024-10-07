@@ -47,6 +47,7 @@ class SvgImageConstant {
   static const bag = "assets/svg/bag.svg";
   static const personPlus = "assets/svg/person_plus.svg";
   static const departmentSetting = "assets/svg/department_setting.svg";
+  static const contectFilled = "assets/svg/contect_filled.svg";
   static const clockWithVerticalLine =
       "assets/svg/clock_with_vertical_line.svg";
   static const documentWithVerticalLine =

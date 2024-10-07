@@ -22,4 +22,7 @@ class ContractorShiftEvent with _$ContractorShiftEvent {
 
   const factory ContractorShiftEvent.deletePostReasonChanged(String reason) =
       DeletePostReasonChanged;
+
+  const factory ContractorShiftEvent.appliedShiftChangeTab(int tabIndex) =
+      AppliedShiftChangeTab;
 }

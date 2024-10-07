@@ -36,7 +36,8 @@ class ViewHomeShiftDetails extends StatelessWidget {
     print("shift id--> $postId");
     return BlocProvider(
       create: (context) => getIt<ViewSingleApplicantsBloc>()
-        ..add(ViewSingleApplicantsEvent.getShiftDetailEvent(postId)),
+        ..add(ViewSingleApplicantsEvent.getShiftDetailEvent(postId,
+            fromDashboard: true)),
       child: BlocConsumer<ViewSingleApplicantsBloc, ViewSingleApplicantsState>(
         listener: (context, state) {
           state.shiftFailureOrSuccessOption.fold(
@@ -229,7 +230,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
               ),
               BaseText(
                 text: "  to  ",
-                fontSize: 10,
+                fontSize: 12,
                 fontWeight: FontWeight.w500,
                 textColor: AppColors.black.withOpacity(0.7),
               ),

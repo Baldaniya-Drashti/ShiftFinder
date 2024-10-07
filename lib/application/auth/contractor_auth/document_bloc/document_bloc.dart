@@ -549,6 +549,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
   }
 }
 
+@injectable
 class CredentialBloc extends Bloc<CredentialEvent, CredentialState> {
   final IAccountRepository _repository;
 
