@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -30,9 +31,7 @@ class PreviousShiftRemarkedView extends StatelessWidget {
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) => _PreviousShiftRemarkedTile(),
-            separatorBuilder: (context, index) => SizedBox(
-              height: getSize(16),
-            ),
+            separatorBuilder: (context, index) => Gap(getSize(16)),
             itemCount: 4,
           )
         ],
@@ -41,8 +40,11 @@ class PreviousShiftRemarkedView extends StatelessWidget {
   }
 }
 
+
+
+
 class _PreviousShiftRemarkedTile extends StatelessWidget {
-  const _PreviousShiftRemarkedTile({super.key});
+  const _PreviousShiftRemarkedTile();
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,7 @@ class _PreviousShiftRemarkedTile extends StatelessWidget {
             ListTile(
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(getSize(16))),
               tileColor: AppColors.scaffoldColor,
-              leading:  CircleAvatar(
+              leading: CircleAvatar(
                 radius: getSize(25),
                 backgroundColor: AppColors.green,
                 child: CircleAvatar(
@@ -126,15 +128,11 @@ class _PreviousShiftRemarkedTile extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () {
                     AppDialog.showDelete(
-                      title: "Remove",
-                      context,
-                      infoMessage: "Are you sure you want to remove this contractor from remarked list?",
-                      onCancelClick: () {
-                        Navigator.pop(context);
-                      },
-                      onDeleteClick: () {},
-                      deleteBtnText: "Remove"
-                    );
+                        title: "Remove",
+                        context,
+                        infoMessage: "Are you sure you want to remove this contractor from remarked list?", onCancelClick: () {
+                      Navigator.pop(context);
+                    }, onDeleteClick: () {}, deleteBtnText: "Remove");
                   },
                   child: Padding(
                     padding: EdgeInsets.all(getSize(9)),

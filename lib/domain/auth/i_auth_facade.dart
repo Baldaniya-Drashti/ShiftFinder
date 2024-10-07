@@ -40,6 +40,7 @@ abstract class IAuthFacade {
   });
 
   Future<bool> checkAuthenticated();
+
   Future<bool> checkUserVerified();
 
   Future<Either<AuthFailure, String>> logout();
@@ -53,12 +54,14 @@ abstract class IAuthFacade {
   Future<Either<AuthFailure, Unit>> registerForPush({
     required String fcmToken,
   });
+
   Future<Either<AuthFailure, String>> verifyOtp({
     required String emailAddress,
     required String phoneNumber,
     required OTPText otp,
     bool isForgotPassword = false,
   });
+
   Future<Either<AuthFailure, String>> resendOtp({
     required String emailAddress,
     required String phoneNumber,
@@ -71,9 +74,13 @@ abstract class IAuthFacade {
   });
 
   Future<Either<AuthFailure, List<SkillDTO>>> getRoleList();
+
   Future<Either<AuthFailure, List<SpecialityDTO>>> getSpecialityList();
+
   Future<Either<AuthFailure, List<SkillDTO>>> getExperienceList();
+
   Future<Either<AuthFailure, List<SkillDTO>>> getSoftwareSkillList();
+
   Future<Either<AuthFailure, List<SkillDTO>>> getLanguageList();
 
   Future<Either<AuthFailure, String>> completeProfileAPI({
@@ -91,6 +98,7 @@ abstract class IAuthFacade {
     required InputEmptyOrNot yearOfCompletion,
     required InputEmptyOrNot graduatingInstitution,
   });
+
   // Future<Either<AuthFailure, String>> deleteEducationApi({
   //   required int educationId,
   // });
@@ -100,5 +108,9 @@ abstract class IAuthFacade {
     String? countryCode,
     String? countryNameCode,
     String? phone,
+  });
+
+  Future<Either<AuthFailure, String>> editEmployerProfile({
+   required Map<String, dynamic> data,
   });
 }

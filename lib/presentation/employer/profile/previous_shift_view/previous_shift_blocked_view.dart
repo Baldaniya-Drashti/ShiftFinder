@@ -53,6 +53,12 @@ class _PreviousShiftBlockedTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(getSize(16)),
         color: AppColors.scaffoldColor,
         child: UserInfoTile(
+          titleIcon: SvgPicture.asset(
+            SvgImageConstant.rightArrow,
+            height: 13,
+            width: 13,
+            colorFilter: ColorFilter.mode(AppColors.black.withOpacity(0.5), BlendMode.srcIn),
+          ),
           padding: EdgeInsets.symmetric(horizontal: getSize(16)),
           title: "Roboto Flex",
           subTitle: "CT Technologist",
@@ -76,7 +82,8 @@ class _PreviousShiftBlockedTile extends StatelessWidget {
     AppDialog.showDelete(
       title: "Unblock",
       context,
-      infoMessage: "Unblocking [contractor name] will allow them to view and apply for your future postings. Are you sure you want to proceed?",
+      infoMessage:
+          "Unblocking [contractor name] will allow them to view and apply for your future postings. Are you sure you want to proceed?",
       onCancelClick: () {
         Navigator.pop(context);
       },

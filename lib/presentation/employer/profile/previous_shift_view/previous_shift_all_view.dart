@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:shift/application/employer/profile/previous_shift_bloc.dart';
+import 'package:shift/application/employer/profile/previous_shift/previous_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -47,6 +50,30 @@ class _PreviousShiftAllListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+      // return BlocBuilder<PreviousShiftBloc, PreviousShiftState>(
+      //   builder: (context, state) {
+      //     return Expanded(
+      //       child: PaginatedListView(
+      //         onRefresh: () => PreviousShiftEvent.fetchAllPreviousPost(refresh: true),
+      //         onLoading: () => PreviousShiftEvent.fetchAllPreviousPost(refresh: false),
+      //         refreshController: context.read<PreviousShiftBloc>().allPost,
+      //         isNoDataFound: state.allListNoDataFound,
+      //         child: state.allListLoading
+      //             ? CenterLoadingIndicator(isOnlyLoader: true)
+      //             : state.allListIsErrorApi
+      //                 ? BaseText(text: StringConstant.somethindWentWrong)
+      //                 : ListView.separated(
+      //                     physics: NeverScrollableScrollPhysics(),
+      //                     shrinkWrap: true,
+      //                     itemCount: 5,
+      //                     itemBuilder: (context, index) => _PreviousShiftListTile(),
+      //                     separatorBuilder: (context, index) => SizedBox(height: getSize(18)),
+      //                   ),
+      //       ),
+      //     );
+      //   },
+      // );
+
     return ListView.separated(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -59,7 +86,6 @@ class _PreviousShiftAllListView extends StatelessWidget {
 
 class _RatingsDropdown extends StatelessWidget {
   const _RatingsDropdown({
-    super.key,
     required this.onChanged,
     required this.value,
   });

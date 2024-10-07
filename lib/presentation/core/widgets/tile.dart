@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -13,6 +14,8 @@ class UserInfoTile extends StatelessWidget {
     this.backgroundColor,
     this.trailing,
     this.padding,
+    this.titleIcon,
+    this.subtitleIcon,
   });
 
   final Color? backgroundColor;
@@ -21,9 +24,33 @@ class UserInfoTile extends StatelessWidget {
   final Widget? trailing;
   final EdgeInsets? padding;
   final String url;
+  final Widget? titleIcon;
+  final Widget? subtitleIcon;
 
   @override
   Widget build(BuildContext context) {
+    Widget title, subtitle;
+    final titleLabel = BaseText(text: this.title, fontWeight: FontWeight.w600, fontSize: 15);
+    final subtitleLabel = BaseText(text: subTitle, fontSize: 10, fontWeight: FontWeight.w500);
+
+    if (titleIcon != null) {
+      title = Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [titleLabel, Gap(getSize(8)), titleIcon!],
+      );
+    } else {
+      title = titleLabel;
+    }
+
+    if (subtitleIcon != null) {
+      subtitle = Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [subtitleIcon!, Gap(getSize(8)), subtitleLabel],
+      );
+    } else {
+      subtitle = subtitleLabel;
+    }
+
     return ListTile(
       tileColor: backgroundColor,
       contentPadding: padding ?? EdgeInsets.zero,
@@ -31,8 +58,8 @@ class UserInfoTile extends StatelessWidget {
       trailing: trailing,
       leading: UserAvatar(url: url),
       minLeadingWidth: 0,
-      title: BaseText(text: title, fontWeight: FontWeight.w600, fontSize: 15),
-      subtitle: BaseText(text: subTitle, fontSize: 10, fontWeight: FontWeight.w500),
+      title: title,
+      subtitle: subtitle,
     );
   }
 }

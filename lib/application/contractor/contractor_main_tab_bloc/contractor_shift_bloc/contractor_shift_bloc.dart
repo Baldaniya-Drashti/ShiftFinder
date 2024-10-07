@@ -44,10 +44,7 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
           getCurrentShiftDetailAPI: (e) async {
             if (e.isRefresh) {
               currentShiftPage = 1;
-              emit(state.copyWith(
-                currentShiftList: [],
-                isLoading: e.isRefresh,
-              ));
+              emit(state.copyWith(currentShiftList: [], isLoading: e.isRefresh));
               currentShiftRefreshCtrl.resetNoData();
             } else {
               if (currentShiftPage > currentShiftLastPage) {
@@ -59,11 +56,7 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
             currentShiftPage++;
             res.fold(
               (l) => emit(
-                state.copyWith(
-                  isErrorInAPI: true,
-                  isLoading: false,
-                  currentShiftList: [],
-                ),
+                state.copyWith(isErrorInAPI: true, isLoading: false, currentShiftList: []),
               ),
               (r) {
                 currentShiftLastPage = r.meta?.lastPage ?? 1;
@@ -97,10 +90,7 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
           getUpcomingShiftAPI: (e) async {
             if (e.isRefresh) {
               upcomingShiftPage = 1;
-              emit(state.copyWith(
-                upcomingShiftList: [],
-                isLoading: e.isRefresh,
-              ));
+              emit(state.copyWith(upcomingShiftList: [], isLoading: e.isRefresh));
               upcomingShiftRefreshCtrl.resetNoData();
             } else {
               if (upcomingShiftPage > upcomingShiftLastPage) {
@@ -203,7 +193,6 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
 
             if (state.deletePostReason.isValid()) {
               failureOrSuccess = await mainFacade.deleteUpcomingShiftApi(id: e.postId, reason: "");
-
               failureOrSuccess.fold(
                 (l) {
                   e.context.router.maybePop();

@@ -11,8 +11,7 @@ class ContractorShiftState with _$ContractorShiftState {
     required bool isErrorInAPI,
     required List<CurrentShiftDTO> currentShiftList,
     required List<UpComingShiftDTO> upcomingShiftList,
-    required Option<Either<MainFailure, HealthcarePostDTO>>
-        currentShiftFailureOrSuccessOption,
+    required Option<Either<MainFailure, HealthcarePostDTO>>currentShiftFailureOrSuccessOption,
   }) = _ContractorShiftState;
 
   factory ContractorShiftState.initial() => ContractorShiftState(

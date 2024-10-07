@@ -25,22 +25,18 @@ import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 
 class UpcomingShift extends StatelessWidget {
   const UpcomingShift({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
       builder: (context, state) {
         return PaginatedListView(
           onRefresh: () {
-            context
-                .read<ContractorShiftBloc>()
-                .add(ContractorShiftEvent.getUpcomingShiftAPI(true));
+            context.read<ContractorShiftBloc>().add(ContractorShiftEvent.getUpcomingShiftAPI(true));
           },
-          refreshController:
-              context.read<ContractorShiftBloc>().upcomingShiftRefreshCtrl,
+          refreshController: context.read<ContractorShiftBloc>().upcomingShiftRefreshCtrl,
           onLoading: () {
-            context
-                .read<ContractorShiftBloc>()
-                .add(ContractorShiftEvent.getUpcomingShiftAPI(false));
+            context.read<ContractorShiftBloc>().add(ContractorShiftEvent.getUpcomingShiftAPI(false));
           },
           isNoDataFound: state.isNoDataFound,
           child: state.isLoading
@@ -70,11 +66,9 @@ class UpcomingShift extends StatelessWidget {
                           ),
                           child: Column(
                             children: [
-                              userDetail(context, state,
-                                  state.upcomingShiftList[index]),
+                              userDetail(context, state, state.upcomingShiftList[index]),
                               paddingBetweenFields(),
-                              dateAndTime(
-                                  context, state.upcomingShiftList[index]),
+                              dateAndTime(context, state.upcomingShiftList[index]),
                               paddingBetweenFields(),
                               CommonButton(
                                 onPressed: () {
@@ -89,9 +83,7 @@ class UpcomingShift extends StatelessWidget {
                                     PageRouteInfo(
                                       ViewContractorShift.name,
                                       args: ViewContractorShiftArgs(
-                                        postId:
-                                            state.upcomingShiftList[index].id ??
-                                                -1,
+                                        postId: state.upcomingShiftList[index].id ?? -1,
                                         isTotalApplicants: true,
                                       ),
                                     ),
@@ -102,8 +94,7 @@ class UpcomingShift extends StatelessWidget {
                                 buttonText: StringConstant.viewShiftDetails,
                                 buttonFontSize: 12,
                                 buttonTextColor: AppColors.black,
-                                backgroundColor:
-                                    AppColors.primaryColor.withOpacity(0.2),
+                                backgroundColor: AppColors.primaryColor.withOpacity(0.2),
                               ),
                             ],
                           ),
@@ -121,8 +112,7 @@ class UpcomingShift extends StatelessWidget {
     );
   }
 
-  Widget userDetail(BuildContext context, ContractorShiftState state,
-      UpComingShiftDTO shift) {
+  Widget userDetail(BuildContext context, ContractorShiftState state, UpComingShiftDTO shift) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
@@ -156,8 +146,7 @@ class UpcomingShift extends StatelessWidget {
                   textColor: AppColors.black.withOpacity(0.80),
                 ),
                 BaseText(
-                  text:
-                      "(${getIndustry(shift.industry_id ?? 0)}  - ${shift.listing_id ?? ''})",
+                  text: "(${getIndustry(shift.industry_id ?? 0)}  - ${shift.listing_id ?? ''})",
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   textColor: AppColors.black.withOpacity(0.80),
@@ -174,8 +163,7 @@ class UpcomingShift extends StatelessWidget {
                         infoMessage: StringConstant.withdrawShiftDesc,
                         onOkClick: () {
                           context.router.maybePop().then((value) {
-                            showWithdrawDialog(context, shift,
-                                context.read<ContractorShiftBloc>());
+                            showWithdrawDialog(context, shift, context.read<ContractorShiftBloc>());
                           });
                         },
                       );
@@ -278,16 +266,13 @@ class UpcomingShift extends StatelessWidget {
                 maxLines: 5,
                 fillColor: AppColors.grey04,
                 onChanged: (value) {
-                  context
-                      .read<ContractorShiftBloc>()
-                      .add(ContractorShiftEvent.deletePostReasonChanged(value));
+                  context.read<ContractorShiftBloc>().add(ContractorShiftEvent.deletePostReasonChanged(value));
                 },
               ),
               if (state.showErrorMessages)
                 commonErrorText(
                   "Please add valid reason to delete post",
-                  padding: EdgeInsets.symmetric(
-                      horizontal: getSize(15), vertical: getSize(10)),
+                  padding: EdgeInsets.symmetric(horizontal: getSize(15), vertical: getSize(10)),
                 ),
             ],
           );
@@ -297,9 +282,7 @@ class UpcomingShift extends StatelessWidget {
         context.router.maybePop();
       },
       onDeleteClick: () {
-        context.read<ContractorShiftBloc>().add(
-            ContractorShiftEvent.deleteUpcomingShift(context,
-                postId: shift.post_id ?? -1));
+        context.read<ContractorShiftBloc>().add(ContractorShiftEvent.deleteUpcomingShift(context, postId: shift.post_id ?? -1));
       },
     );
   }
@@ -320,8 +303,7 @@ class UpcomingShift extends StatelessWidget {
           child: displayDateBreak(
             context,
             boldValue: convertTimeStampToDate(shift.applied_date ?? -1),
-            timidValue:
-                convertTimeStampToDate(shift.applied_date ?? -1, isYear: true),
+            timidValue: convertTimeStampToDate(shift.applied_date ?? -1, isYear: true),
             title: "",
             svgPrefixIcon: SvgImageConstant.calendar,
             titleWidget: Row(
@@ -354,8 +336,7 @@ class UpcomingShift extends StatelessWidget {
     );
   }
 
-  String convertTimeStampToDate(int timestamp,
-      {bool isYear = false, bool isTime = false}) {
+  String convertTimeStampToDate(int timestamp, {bool isYear = false, bool isTime = false}) {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
 
     if (isTime) {
@@ -456,8 +437,7 @@ class UpcomingShift extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                   textColor: AppColors.black.withOpacity(0.7),
                 ),
-                highLightText(
-                    boldValue: "$startDate to $endDate", timidValue: ""),
+                highLightText(boldValue: "$startDate to $endDate", timidValue: ""),
               ],
             ),
           )
@@ -466,10 +446,7 @@ class UpcomingShift extends StatelessWidget {
     );
   }
 
-  Widget highLightText(
-      {required String boldValue,
-      required String timidValue,
-      String? thirdValue}) {
+  Widget highLightText({required String boldValue, required String timidValue, String? thirdValue}) {
     return RichText(
         maxLines: 1,
         text: TextSpan(
@@ -495,11 +472,7 @@ class UpcomingShift extends StatelessWidget {
         ));
   }
 
-  Widget paybaleTitleRate(
-      {required String title,
-      required String value,
-      bool isFirst = false,
-      isLast = false}) {
+  Widget paybaleTitleRate({required String title, required String value, bool isFirst = false, isLast = false}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

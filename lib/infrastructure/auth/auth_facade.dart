@@ -32,9 +32,7 @@ class AuthFacade implements IAuthFacade {
 
   @override
   Future<Either<AuthFailure, Unit>> changePassword(
-      {required Password oldPassword,
-      required Password newPassword,
-      required Password confirmNewPassword}) {
+      {required Password oldPassword, required Password newPassword, required Password confirmNewPassword}) {
     throw UnimplementedError();
   }
 
@@ -78,8 +76,7 @@ class AuthFacade implements IAuthFacade {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(
-              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AuthFailure.networkError());
@@ -107,12 +104,9 @@ class AuthFacade implements IAuthFacade {
         Hive.box<AccountEntity>(BoxNames.currentUser).clear();
 
         /// Set Intro screen Data
-        await Hive.box(BoxNames.settingsBox)
-            .put(BoxKeys.isUserShowIntro, isUserShowIntro);
-        await Hive.box(BoxNames.settingsBox)
-            .put(BoxKeys.currentRole, currentRole);
-        await Hive.box(BoxNames.settingsBox)
-            .put(BoxKeys.currentIndustry, currentIndustry);
+        await Hive.box(BoxNames.settingsBox).put(BoxKeys.isUserShowIntro, isUserShowIntro);
+        await Hive.box(BoxNames.settingsBox).put(BoxKeys.currentRole, currentRole);
+        await Hive.box(BoxNames.settingsBox).put(BoxKeys.currentIndustry, currentIndustry);
 
         return right(value?.dioMessage ?? "");
       });
@@ -121,8 +115,7 @@ class AuthFacade implements IAuthFacade {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(
-              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       }
 
@@ -225,8 +218,7 @@ class AuthFacade implements IAuthFacade {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
         if (commonRespose.dioMessage != null) {
-          return left(
-              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       }
 
@@ -265,8 +257,7 @@ class AuthFacade implements IAuthFacade {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
         if (commonRespose.dioMessage != null) {
-          return left(
-              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       }
 
@@ -275,8 +266,7 @@ class AuthFacade implements IAuthFacade {
   }
 
   @override
-  Future<Either<AuthFailure, Unit>> registerForPush(
-      {required String fcmToken}) {
+  Future<Either<AuthFailure, Unit>> registerForPush({required String fcmToken}) {
     throw UnimplementedError();
   }
 
@@ -303,8 +293,7 @@ class AuthFacade implements IAuthFacade {
       }
 
       print("Sending Data--->  ${jsonEncode(mapData)}");
-      final response =
-          await apiService.postMethod(ApiConstants.verifyOtp, mapData);
+      final response = await apiService.postMethod(ApiConstants.verifyOtp, mapData);
 
       final account = CurrentUserDto.fromJson(response.data).toDomain();
       setUserToken(account.auth?.accessToken ?? "");
@@ -315,8 +304,7 @@ class AuthFacade implements IAuthFacade {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(
-              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       }
 
@@ -331,11 +319,7 @@ class AuthFacade implements IAuthFacade {
     bool forgotPassword = false,
   }) async {
     try {
-      var mapData = {
-        "email": emailAddress,
-        "phone": phoneNumber,
-        "service_roles": getCurrentRole()
-      };
+      var mapData = {"email": emailAddress, "phone": phoneNumber, "service_roles": getCurrentRole()};
 
       if (forgotPassword == true) {
         mapData.addAll({
@@ -345,8 +329,7 @@ class AuthFacade implements IAuthFacade {
 
       print("Sending Data---> ${jsonEncode(mapData)}");
 
-      final response =
-          await apiService.postMethod(ApiConstants.resendOtp, mapData);
+      final response = await apiService.postMethod(ApiConstants.resendOtp, mapData);
 
       final account = CurrentUserDto.fromJson(response.data).toDomain();
       if (forgotPassword != true) {
@@ -359,8 +342,7 @@ class AuthFacade implements IAuthFacade {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(
-              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       }
 
@@ -379,16 +361,14 @@ class AuthFacade implements IAuthFacade {
         "password_confirmation": confirmPassword,
       };
 
-      final response =
-          await apiService.postMethod(ApiConstants.forgotPassword, mapData);
+      final response = await apiService.postMethod(ApiConstants.forgotPassword, mapData);
 
       return right(response.dioMessage ?? "");
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
         if (commonRespose.dioMessage != null) {
-          return left(
-              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       }
       return left(const AuthFailure.serverError());
@@ -421,8 +401,7 @@ class AuthFacade implements IAuthFacade {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(
-              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AuthFailure.networkError());
@@ -454,8 +433,7 @@ class AuthFacade implements IAuthFacade {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(
-              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AuthFailure.networkError());
@@ -487,8 +465,7 @@ class AuthFacade implements IAuthFacade {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(
-              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AuthFailure.networkError());
@@ -520,8 +497,7 @@ class AuthFacade implements IAuthFacade {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(
-              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AuthFailure.networkError());
@@ -553,8 +529,7 @@ class AuthFacade implements IAuthFacade {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(
-              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AuthFailure.networkError());
@@ -588,8 +563,7 @@ class AuthFacade implements IAuthFacade {
       };
 
       print("Sending Params:---> ${jsonEncode(mapData)}");
-      final response =
-          await apiService.postMethod(ApiConstants.completeProfile, mapData);
+      final response = await apiService.postMethod(ApiConstants.completeProfile, mapData);
       logger.d("RESPONSE OF COMPLETE PROFILE---> ${jsonEncode(response.data)}");
 
       return right(response.dioMessage ?? "");
@@ -598,8 +572,7 @@ class AuthFacade implements IAuthFacade {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(
-              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AuthFailure.networkError());
@@ -624,8 +597,7 @@ class AuthFacade implements IAuthFacade {
       };
 
       print("Sending Params:---> ${jsonEncode(mapData)}");
-      final response =
-          await apiService.postMethod(ApiConstants.education, mapData);
+      final response = await apiService.postMethod(ApiConstants.education, mapData);
       logger.d("Response of Add Education---> ${jsonEncode(response.data)}");
 
       return right(response.dioMessage ?? "");
@@ -634,8 +606,7 @@ class AuthFacade implements IAuthFacade {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(
-              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AuthFailure.networkError());
@@ -664,8 +635,7 @@ class AuthFacade implements IAuthFacade {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(
-              AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AuthFailure.networkError());
@@ -675,74 +645,128 @@ class AuthFacade implements IAuthFacade {
     }
   }
 
-  // @override
-  // Future<Either<AuthFailure, String>> deleteEducationApi({
-  //   required int educationId,
-  // }) async {
-  //   try {
-  //     final mapData = {
-  //       "id": educationId,
-  //     };
+  @override
+  Future<Either<AuthFailure, String>> editEmployerProfile({required Map<String, dynamic> data}) async {
+    try {
+      final response = await apiService.postMethod(ApiConstants.editLastPage, FormData.fromMap(data));
 
-  //     print("Sending Params:---> ${jsonEncode(mapData)}");
+      final account = CurrentUserDto.fromJson(response.data).toDomain();
+      logger.d("RESPONSE OF LAST PAGE---> ${response.data}");
 
-  //     final response = await apiService
-  //         .deleteMethod('${ApiConstants.destroyEducation}?id=$educationId');
+      return right("");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
 
-  //     if (response != null && response.data != null) {
-  //       // final account = CurrentUserDto.fromJson(response.data).toDomain();
-  //       print("Response:---> ${response.dioMessage}");
+        if (commonRespose.dioMessage != null) {
+          return left(AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AuthFailure.networkError());
+      }
 
-  //       return right(response.dioMessage ?? "");
-  //     } else {
-  //       return left(const AuthFailure.serverError());
-  //     }
-  //   } on DioException catch (err) {
-  //     if (err.response != null) {
-  //       var commonRespose = CommonResponse.fromJson(err.response?.data);
+      return left(const AuthFailure.serverError());
+    }
+  }
 
-  //       if (commonRespose.dioMessage != null) {
-  //         return left(
-  //             AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
-  //       }
-  //     } else if (err.type == DioExceptionType.connectionError) {
-  //       return left(const AuthFailure.networkError());
-  //     }
+// @override
+// Future<Either<AuthFailure, String>> editEmployerProfile({required Map<String, dynamic> data}) async {
+//
+//   try {
+//     final response = await apiService.postMethod(
+//       ApiConstants.editProfile,
+//       FormData.fromMap(data)
+//
+//     );
+//
+//     // final account = CurrentUserDto.fromJson(response.data).toDomain();
+//     // logger.d("RESPONSE OF LAST PAGE---> ${response.data}");
+//     //
+//     // return right(account);
+//     return right(response.data);
+//   } on DioException catch (err) {
+//     if (err.response != null) {
+//       var commonRespose = CommonResponse.fromJson(err.response?.data);
+//
+//       if (commonRespose.dioMessage != null) {
+//         return left(AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+//       }
+//     } else if (err.type == DioExceptionType.connectionError) {
+//       return left(const AuthFailure.networkError());
+//     }
+//
+//     return left(const AuthFailure.serverError());
+//   }
+// }
 
-  //     return left(const AuthFailure.serverError());
-  //   }
-  // }
+// @override
+// Future<Either<AuthFailure, String>> deleteEducationApi({
+//   required int educationId,
+// }) async {
+//   try {
+//     final mapData = {
+//       "id": educationId,
+//     };
 
-  // @override
-  // Future<Either<AuthFailure, String>> login({
-  //   required String countryCode,
-  //   required EmailAddress mobileNumber,
-  // }) async {
-  //   try {
-  //     final response = await apiService.postMethod(
-  //       ApiConstants.login,
-  //       {
-  //         "role": 2,
-  //         "country_code": countryCode,
-  //         "mobile": "9664620465",
-  //       },
-  //     );
+//     print("Sending Params:---> ${jsonEncode(mapData)}");
 
-  //     final account = CurrentUserDto.fromJson(response.data).toDomain();
-  //     setRememberToken(account.rememberToken ?? "");
-  //     _setUserData(account);
-  //     return right(response.dioMessage ?? "");
-  //   } on DioException catch (err) {
-  //     if (err.response != null) {
-  //       var commonRespose = CommonResponse.fromJson(err.response?.data);
-  //       if (commonRespose.dioMessage != null) {
-  //         return left(
-  //             AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
-  //       }
-  //     } else if (err.type == DioExceptionType.connectionError) {
-  //       return left(const AuthFailure.networkError());
-  //     }
-  //     return left(const AuthFailure.serverError());
-  //   }
-  // }
+//     final response = await apiService
+//         .deleteMethod('${ApiConstants.destroyEducation}?id=$educationId');
+
+//     if (response != null && response.data != null) {
+//       // final account = CurrentUserDto.fromJson(response.data).toDomain();
+//       print("Response:---> ${response.dioMessage}");
+
+//       return right(response.dioMessage ?? "");
+//     } else {
+//       return left(const AuthFailure.serverError());
+//     }
+//   } on DioException catch (err) {
+//     if (err.response != null) {
+//       var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+//       if (commonRespose.dioMessage != null) {
+//         return left(
+//             AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+//       }
+//     } else if (err.type == DioExceptionType.connectionError) {
+//       return left(const AuthFailure.networkError());
+//     }
+
+//     return left(const AuthFailure.serverError());
+//   }
+// }
+
+// @override
+// Future<Either<AuthFailure, String>> login({
+//   required String countryCode,
+//   required EmailAddress mobileNumber,
+// }) async {
+//   try {
+//     final response = await apiService.postMethod(
+//       ApiConstants.login,
+//       {
+//         "role": 2,
+//         "country_code": countryCode,
+//         "mobile": "9664620465",
+//       },
+//     );
+
+//     final account = CurrentUserDto.fromJson(response.data).toDomain();
+//     setRememberToken(account.rememberToken ?? "");
+//     _setUserData(account);
+//     return right(response.dioMessage ?? "");
+//   } on DioException catch (err) {
+//     if (err.response != null) {
+//       var commonRespose = CommonResponse.fromJson(err.response?.data);
+//       if (commonRespose.dioMessage != null) {
+//         return left(
+//             AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+//       }
+//     } else if (err.type == DioExceptionType.connectionError) {
+//       return left(const AuthFailure.networkError());
+//     }
+//     return left(const AuthFailure.serverError());
+//   }
+// }
 }

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shift/application/employer/profile/previous_shift_bloc.dart';
+import 'package:shift/application/employer/profile/previous_shift/previous_shift_bloc.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/core/widgets/underlined_tab_bar.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
@@ -17,7 +17,7 @@ class PreviousShiftView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<PreviousShiftBloc>(),
+      create: (context) => getIt<PreviousShiftBloc>()..add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true)),
       child: Scaffold(
         appBar: CommonAppBar(
           onBackPressed: () => Navigator.pop(context),
