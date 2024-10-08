@@ -527,7 +527,6 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
             // timer.cancel();
           }
 
-
           emit(
             state.copyWith(
               isSubmitting: false,
@@ -541,4 +540,3 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
     });
   }
 }
-

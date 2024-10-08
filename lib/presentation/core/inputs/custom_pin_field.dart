@@ -26,6 +26,7 @@ class CustomPinField extends StatelessWidget {
   final String? Function(String?, BuildContext)? validator;
   final Function(String)? onCompleted;
   final TextEditingController? controller;
+
   @override
   Widget build(BuildContext context) {
     return Column(

@@ -13,9 +13,13 @@ class EditProfileState with _$EditProfileState {
     required MobileNumber phoneNumber,
     required bool showErrorMessages,
     required String association,
+    required bool isSubmitting,
+    required Option<Either<AuthFailure, Account>> editProfileFailureOrSuccessOption,
   }) = _EditProfileState;
 
   factory EditProfileState.initial() => EditProfileState(
+        isSubmitting: false,
+        editProfileFailureOrSuccessOption: none(),
         selectedImage: '',
         firstName: Username(""),
         lastName: Lastname(""),

@@ -82,8 +82,7 @@ class LoginFormBloc extends Bloc<LoginFormEvent, LoginFormState> {
                 state.copyWith(
                   isSubmitting: false,
                   showErrorMessages: true,
-                  verificationFailureOrSuccessOption:
-                      optionOf(failureOrSuccess),
+                  verificationFailureOrSuccessOption: optionOf(failureOrSuccess),
                   authFailureOrSuccessOption: none(),
                 ),
               );

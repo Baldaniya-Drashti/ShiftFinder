@@ -7,6 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:hive/hive.dart';
 import 'package:logger/web.dart';
 import 'package:shift/domain/account/account.dart';
+import 'package:shift/domain/account/account_failure.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/auth/i_auth_facade.dart';
@@ -21,6 +22,7 @@ import 'package:shift/infrastructure/core/speciality/speciality_dto.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 
 @LazySingleton(as: IAuthFacade)
 class AuthFacade implements IAuthFacade {
@@ -621,10 +623,7 @@ class AuthFacade implements IAuthFacade {
     required String lastPage,
   }) async {
     try {
-      final response = await apiService.postMethod(
-        ApiConstants.editLastPage,
-        {"last_page": lastPage},
-      );
+      final response = await apiService.postMethod(ApiConstants.editLastPage, {"last_page": lastPage});
 
       final account = CurrentUserDto.fromJson(response.data).toDomain();
       logger.d("RESPONSE OF LAST PAGE---> ${response.data}");
@@ -646,14 +645,58 @@ class AuthFacade implements IAuthFacade {
   }
 
   @override
-  Future<Either<AuthFailure, String>> editEmployerProfile({required Map<String, dynamic> data}) async {
+  Future<Either<AuthFailure, Account>> editEmployerProfile({
+    required String firstName,
+    required String lastName,
+    required String companyName,
+    required String phoneNumber,
+    required String association,
+    required String companyDes,
+    required String profileImage,
+    required String countryCode,
+    required String countryNameCode,
+  }) async {
     try {
-      final response = await apiService.postMethod(ApiConstants.editLastPage, FormData.fromMap(data));
+      final user = getCurrentUser();
+      final formData = FormData.fromMap({
+        "first_name": firstName,
+        "last_name": lastName,
+        "email": user.email,
+        "company_name": companyName,
+        "country_code": countryCode,
+        "country_name_code": countryNameCode,
+        "phone": phoneNumber,
+        "association_you_belong_to": association,
+        "company_description": companyDes,
+        "last_page": "1"
+      });
 
-      final account = CurrentUserDto.fromJson(response.data).toDomain();
-      logger.d("RESPONSE OF LAST PAGE---> ${response.data}");
+      print("profileImage => $profileImage");
 
-      return right("");
+      if (profileImage.isNotEmpty) {
+        var multipartFile = await MultipartFile.fromFile(
+          profileImage,
+          filename: 'profile.png',
+          headers: {
+            'contentType': ['image/png'],
+          },
+        );
+        formData.files.add(MapEntry('profile', multipartFile));
+      }
+      Log.success(formData.fields);
+
+      final response = await apiService.postMethod(
+        ApiConstants.editProfile,
+        {},
+        formData: formData,
+        isMultipart: true,
+      );
+      if (response.data != null) {
+        final account = CurrentUserDto.fromJson(response.data).toDomain();
+        return right(account);
+      } else {
+        return left(const AuthFailure.serverError());
+      }
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
@@ -667,37 +710,28 @@ class AuthFacade implements IAuthFacade {
 
       return left(const AuthFailure.serverError());
     }
-  }
 
-// @override
-// Future<Either<AuthFailure, String>> editEmployerProfile({required Map<String, dynamic> data}) async {
-//
-//   try {
-//     final response = await apiService.postMethod(
-//       ApiConstants.editProfile,
-//       FormData.fromMap(data)
-//
-//     );
-//
-//     // final account = CurrentUserDto.fromJson(response.data).toDomain();
-//     // logger.d("RESPONSE OF LAST PAGE---> ${response.data}");
-//     //
-//     // return right(account);
-//     return right(response.data);
-//   } on DioException catch (err) {
-//     if (err.response != null) {
-//       var commonRespose = CommonResponse.fromJson(err.response?.data);
-//
-//       if (commonRespose.dioMessage != null) {
-//         return left(AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
-//       }
-//     } else if (err.type == DioExceptionType.connectionError) {
-//       return left(const AuthFailure.networkError());
-//     }
-//
-//     return left(const AuthFailure.serverError());
-//   }
-// }
+    // try {
+    //   final response = await apiService.postMethod(ApiConstants.editLastPage, FormData.fromMap(data));
+    //
+    //   final account = CurrentUserDto.fromJson(response.data).toDomain();
+    //   logger.d("RESPONSE OF LAST PAGE---> ${response.data}");
+    //
+    //   return right("");
+    // } on DioException catch (err) {
+    //   if (err.response != null) {
+    //     var commonRespose = CommonResponse.fromJson(err.response?.data);
+    //
+    //     if (commonRespose.dioMessage != null) {
+    //       return left(AuthFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+    //     }
+    //   } else if (err.type == DioExceptionType.connectionError) {
+    //     return left(const AuthFailure.networkError());
+    //   }
+    //
+    //   return left(const AuthFailure.serverError());
+    // }
+  }
 
 // @override
 // Future<Either<AuthFailure, String>> deleteEducationApi({

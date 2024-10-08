@@ -110,7 +110,15 @@ abstract class IAuthFacade {
     String? phone,
   });
 
-  Future<Either<AuthFailure, String>> editEmployerProfile({
-   required Map<String, dynamic> data,
+  Future<Either<AuthFailure, Account>> editEmployerProfile({
+    required String firstName,
+    required String lastName,
+    required String companyName,
+    required String phoneNumber,
+    required String association,
+    required String companyDes,
+    required String profileImage,
+    required String countryCode,
+    required String countryNameCode,
   });
 }
