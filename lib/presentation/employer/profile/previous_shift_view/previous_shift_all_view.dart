@@ -22,25 +22,22 @@ class PreviousShiftAllView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.all(getSize(16)),
-      child: Column(
-        children: [
-          BlocSelector<PreviousShiftBloc, PreviousShiftState, double>(
-            selector: (state) => state.selectedRating,
-            builder: (context, selectedRating) {
-              return _RatingsDropdown(
-                onChanged: (double value) {
-                  context.read<PreviousShiftBloc>().add(PreviousShiftEvent.ratingChangeEvent(rating: value));
-                },
-                value: selectedRating,
-              );
-            },
-          ),
-          SizedBox(height: getSize(22)),
-          _PreviousShiftAllListView()
-        ],
-      ),
+    return Column(
+      children: [
+        BlocSelector<PreviousShiftBloc, PreviousShiftState, double>(
+          selector: (state) => state.selectedRating,
+          builder: (context, selectedRating) {
+            return _RatingsDropdown(
+              onChanged: (double value) {
+                context.read<PreviousShiftBloc>().add(PreviousShiftEvent.ratingChangeEvent(rating: value));
+              },
+              value: selectedRating,
+            );
+          },
+        ),
+        SizedBox(height: getSize(22)),
+        _PreviousShiftAllListView()
+      ],
     );
   }
 }
@@ -50,36 +47,51 @@ class _PreviousShiftAllListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      // return BlocBuilder<PreviousShiftBloc, PreviousShiftState>(
-      //   builder: (context, state) {
-      //     return Expanded(
-      //       child: PaginatedListView(
-      //         onRefresh: () => PreviousShiftEvent.fetchAllPreviousPost(refresh: true),
-      //         onLoading: () => PreviousShiftEvent.fetchAllPreviousPost(refresh: false),
-      //         refreshController: context.read<PreviousShiftBloc>().allPost,
-      //         isNoDataFound: state.allListNoDataFound,
-      //         child: state.allListLoading
-      //             ? CenterLoadingIndicator(isOnlyLoader: true)
-      //             : state.allListIsErrorApi
-      //                 ? BaseText(text: StringConstant.somethindWentWrong)
-      //                 : ListView.separated(
-      //                     physics: NeverScrollableScrollPhysics(),
-      //                     shrinkWrap: true,
-      //                     itemCount: 5,
-      //                     itemBuilder: (context, index) => _PreviousShiftListTile(),
-      //                     separatorBuilder: (context, index) => SizedBox(height: getSize(18)),
-      //                   ),
-      //       ),
-      //     );
-      //   },
-      // );
+    // return BlocBuilder<PreviousShiftBloc, PreviousShiftState>(
+    //   builder: (context, state) {
+    //     return Expanded(
+    //       child: PaginatedListView(
+    //         onRefresh: () => PreviousShiftEvent.fetchAllPreviousPost(refresh: true),
+    //         onLoading: () => PreviousShiftEvent.fetchAllPreviousPost(refresh: false),
+    //         refreshController: context.read<PreviousShiftBloc>().allPost,
+    //         isNoDataFound: state.allListNoDataFound,
+    //         child: state.allListLoading
+    //             ? CenterLoadingIndicator(isOnlyLoader: true)
+    //             : state.allListIsErrorApi
+    //                 ? BaseText(text: StringConstant.somethindWentWrong)
+    //                 : ListView.separated(
+    //                     physics: NeverScrollableScrollPhysics(),
+    //                     shrinkWrap: true,
+    //                     itemCount: 5,
+    //                     itemBuilder: (context, index) => _PreviousShiftListTile(),
+    //                     separatorBuilder: (context, index) => SizedBox(height: getSize(18)),
+    //                   ),
+    //       ),
+    //     );
+    //   },
+    // );
 
-    return ListView.separated(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: 5,
-      itemBuilder: (context, index) => _PreviousShiftListTile(),
-      separatorBuilder: (context, index) => SizedBox(height: getSize(18)),
+    // return ListView.separated(
+    //   physics: NeverScrollableScrollPhysics(),
+    //   shrinkWrap: true,
+    //   itemCount: 5,
+    //   itemBuilder: (context, index) => _PreviousShiftListTile(),
+    //   separatorBuilder: (context, index) => SizedBox(height: getSize(18)),
+    // );
+
+    return Expanded(
+      child: PaginatedListView(
+        onRefresh: () {},
+        onLoading: () {},
+        refreshController: context.read<PreviousShiftBloc>().allPost,
+        child: ListView.separated(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: 5,
+          itemBuilder: (context, index) => _PreviousShiftListTile(),
+          separatorBuilder: (context, index) => SizedBox(height: getSize(18)),
+        ),
+      ),
     );
   }
 }

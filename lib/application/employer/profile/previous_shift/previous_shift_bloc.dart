@@ -14,7 +14,7 @@ part 'previous_shift_bloc.freezed.dart';
 
 @injectable
 class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
-  final IMainFacade mainFacade;
+  final IMainFacade _mainFacade;
 
   int allPostPage = 1;
   int allPostLastPage = 1;
@@ -30,9 +30,9 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
   final RefreshController blocked = RefreshController();
   final RefreshController remarked = RefreshController();
 
-  PreviousShiftBloc(this.mainFacade) : super(PreviousShiftState()) {
+  PreviousShiftBloc(this._mainFacade) : super(PreviousShiftState()) {
     on<PreviousShiftEvent>(
-      (event, emit) {
+      (event, emit) async {
         event.map(
           tabChangeEvent: (value) => emit(state.copyWith(currentTabIndex: value.tabIndex)),
           ratingChangeEvent: (value) {
@@ -49,7 +49,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                 return;
               }
             }
-            var res = await mainFacade.getPreviousPost(page: allPostPage, type: 0);
+            var res = await _mainFacade.getPreviousPost(page: allPostPage, type: 0);
             allPostPage++;
             res.fold(
               (l) => emit(

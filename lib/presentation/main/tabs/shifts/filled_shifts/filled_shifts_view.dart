@@ -53,9 +53,33 @@ class FilledShiftsView extends StatelessWidget {
     BuildContext context,
     ShiftsBlocState state,
   ) {
+
+    return CustomDropdownTextfield(
+      valueController: state.singleValueDropDownController,
+      list: state.locationList,
+      hintText: 'Location',
+      validator: (p0) {
+        if (p0 == null || p0.isEmpty) {
+          return 'Please select location';
+        } else {
+          return null;
+        }
+      },
+      prefixIcon: Center(
+        widthFactor: 1,
+        child: SvgPicture.asset(
+          SvgImageConstant.locationIcon,
+          colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcATop),
+          height: 16,
+          width: 16,
+        ),
+      ),
+    );
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: getSize(20)),
       child: CustomDropdownTextfield(
+
         valueController: state.singleValueDropDownController,
         list: state.locationList,
         hintText: 'Location',
@@ -66,16 +90,13 @@ class FilledShiftsView extends StatelessWidget {
             return null;
           }
         },
-        prefixIcon: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: getSize(14),
-            vertical: getSize(16),
-          ),
+        prefixIcon: Center(
+          widthFactor: 1,
           child: SvgPicture.asset(
             SvgImageConstant.locationIcon,
             colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcATop),
-            height: getSize(15),
-            width: getSize(15),
+            height: 16,
+            width: 16,
           ),
         ),
       ),
