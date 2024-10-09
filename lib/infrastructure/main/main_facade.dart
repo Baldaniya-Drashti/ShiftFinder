@@ -943,13 +943,17 @@ class MainFacade implements IMainFacade {
 
   @override
   Future<Either<MainFailure, CommonResponse>> getContractorShifts(
-      {required int page, int? filterType}) async {
+      {required int page, int? filterType, int? appliedType}) async {
     try {
       Map<String, dynamic> mapData = {
         'filter_type': filterType ?? 0,
         'page': page,
         'perPage': _perPage,
       };
+
+      if (appliedType != null) {
+        mapData.addAll({'applied_type': appliedType});
+      }
 
       final res = await apiService.getMethod(ApiConstants.contractorShifts,
           queryParameters: mapData);

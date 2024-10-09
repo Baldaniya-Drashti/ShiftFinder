@@ -50,6 +50,7 @@ class CurrentShift extends StatelessWidget {
                   : ListView.builder(
                       itemCount: state.currentShiftList.length,
                       shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
                       padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                       itemBuilder: (context, index) {
                         final shift = state.currentShiftList[index];

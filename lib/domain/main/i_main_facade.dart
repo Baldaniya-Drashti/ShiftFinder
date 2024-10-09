@@ -121,7 +121,7 @@ abstract class IMainFacade {
   });
 
   Future<Either<MainFailure, CommonResponse>> getContractorShifts(
-      {required int page, int? filterType});
+      {required int page, int? filterType, int? appliedType});
 
   Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut(
       {required int shiftId, required int clockTime});

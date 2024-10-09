@@ -51,6 +51,7 @@ class UpcomingShift extends StatelessWidget {
                   : ListView.builder(
                       itemCount: state.upcomingShiftList.length,
                       shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
                       padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                       itemBuilder: (context, index) {
                         return Container(

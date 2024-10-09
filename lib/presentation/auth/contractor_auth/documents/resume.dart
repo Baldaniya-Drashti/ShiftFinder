@@ -123,7 +123,7 @@ class ResumeDocument extends StatelessWidget {
                                   ResumeEvent.resumeDocSubmit(isSkip: true));
                             },
                           ),
-                        paddingBetweenFields(height: 40),
+                        paddingBetweenFields(height: 20),
                       ],
                     ),
                   ),

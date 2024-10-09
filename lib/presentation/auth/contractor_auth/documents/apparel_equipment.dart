@@ -87,119 +87,131 @@ class ApparelEquipment extends StatelessWidget {
               ? CenterLoadingIndicator()
               : Padding(
                   padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                  child: SingleChildScrollView(
-                    child: Form(
-                      autovalidateMode: (state.showEquipmentErrorMessages)
-                          ? AutovalidateMode.always
-                          : AutovalidateMode.disabled,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          (state.equipmentList.isNotEmpty)
-                              ? ListView.builder(
-                                  itemCount: state.equipmentList.length,
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  itemBuilder: (context, index) {
-                                    DocumentDTO immunizationObject =
-                                        state.equipmentList[index];
-                                    return Padding(
-                                      padding:
-                                          EdgeInsets.only(top: getSize(10)),
-                                      child: SelectedDocumentBox(
-                                        pickedFile: immunizationObject.file,
-                                        title:
-                                            immunizationObject.document_title ??
-                                                "",
-                                        showDeleteButton: true,
-                                        deleteDescription:
-                                            StringConstant.deleteEquipmentDesc,
-                                        onCancelClick: () {
-                                          context.router.maybePop();
-                                        },
-                                        onDeleteClick: () {
-                                          context.read<EquipmentBloc>().add(
-                                              EquipmentEvent
-                                                  .deleteEquipmentObject(
-                                                      index));
-                                          context.router.maybePop();
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Form(
+                            autovalidateMode: (state.showEquipmentErrorMessages)
+                                ? AutovalidateMode.always
+                                : AutovalidateMode.disabled,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                (state.equipmentList.isNotEmpty)
+                                    ? ListView.builder(
+                                        itemCount: state.equipmentList.length,
+                                        shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        itemBuilder: (context, index) {
+                                          DocumentDTO immunizationObject =
+                                              state.equipmentList[index];
+                                          return Padding(
+                                            padding: EdgeInsets.only(
+                                                top: getSize(10)),
+                                            child: SelectedDocumentBox(
+                                              pickedFile:
+                                                  immunizationObject.file,
+                                              title: immunizationObject
+                                                      .document_title ??
+                                                  "",
+                                              showDeleteButton: true,
+                                              deleteDescription: StringConstant
+                                                  .deleteEquipmentDesc,
+                                              onCancelClick: () {
+                                                context.router.maybePop();
+                                              },
+                                              onDeleteClick: () {
+                                                context
+                                                    .read<EquipmentBloc>()
+                                                    .add(EquipmentEvent
+                                                        .deleteEquipmentObject(
+                                                            index));
+                                                context.router.maybePop();
+                                              },
+                                            ),
+                                          );
+                                        })
+                                    : Container(),
+                                SizedBox(
+                                  height: getSize(20),
+                                ),
+                                equipmentNameField(context, state),
+                                paddingBetweenFields(),
+                                (state.equipmentDoc.isValid())
+                                    ? selectedImage(
+                                        context,
+                                        state.equipmentDoc.getValue() ?? "",
+                                        state: state,
+                                      )
+                                    : UploadDocumentBox(
+                                        height: getSize(400),
+                                        onUploadBtnPressed: () {
+                                          clickUploadButton(context);
                                         },
                                       ),
-                                    );
-                                  })
-                              : Container(),
-                          SizedBox(
-                            height: getSize(20),
-                          ),
-                          equipmentNameField(context, state),
-                          paddingBetweenFields(),
-                          (state.equipmentDoc.isValid())
-                              ? selectedImage(
+                                if (state.showEquipmentErrorMessages &&
+                                    !state.equipmentDoc.isValid())
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: getSize(10),
+                                        horizontal: getSize(20)),
+                                    child: const BaseText(
+                                      text: StringConstant
+                                          .pleaseSelectEquipmentDocument,
+                                      fontSize: 12,
+                                      textColor: AppColors.red,
+                                    ),
+                                  ),
+                                paddingBetweenFields(),
+                                addMoreButton(
                                   context,
-                                  state.equipmentDoc.getValue() ?? "",
-                                  state: state,
-                                )
-                              : UploadDocumentBox(
-                                  height: getSize(400),
-                                  onUploadBtnPressed: () {
-                                    clickUploadButton(context);
+                                  state,
+                                  onPressed: () {
+                                    context.read<EquipmentBloc>().add(
+                                        const EquipmentEvent
+                                            .addMoreEquipmentDoc());
                                   },
                                 ),
-                          if (state.showEquipmentErrorMessages &&
-                              !state.equipmentDoc.isValid())
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: getSize(10),
-                                  horizontal: getSize(20)),
-                              child: const BaseText(
-                                text: StringConstant
-                                    .pleaseSelectEquipmentDocument,
-                                fontSize: 12,
-                                textColor: AppColors.red,
-                              ),
-                            ),
-                          paddingBetweenFields(),
-                          addMoreButton(
-                            context,
-                            state,
-                            onPressed: () {
-                              context.read<EquipmentBloc>().add(
-                                  const EquipmentEvent.addMoreEquipmentDoc());
-                            },
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: getSize(50), bottom: getSize(10)),
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: CommonButton(
-                                onPressed: () {
-                                  context.read<EquipmentBloc>().add(
-                                          const EquipmentEvent
-                                              .equipmentDocSubmit(
-                                        isAddMoreBtnClick: false,
-                                        isSkip: false,
-                                      ));
-                                },
-                                buttonText: StringConstant.txtContinue,
-                              ),
+                                paddingBetweenFields(height: 40)
+                              ],
                             ),
                           ),
-                          if (state.equipmentList.isEmpty)
-                            documentSkipButton(
-                              context,
-                              onPressed: () {
-                                context.read<EquipmentBloc>().add(
-                                        const EquipmentEvent.equipmentDocSubmit(
-                                      isAddMoreBtnClick: false,
-                                      isSkip: true,
-                                    ));
-                              },
-                            ),
-                          paddingBetweenFields(height: 40)
-                        ],
+                        ),
                       ),
-                    ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: getSize(20), bottom: getSize(10)),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: CommonButton(
+                            onPressed: () {
+                              context
+                                  .read<EquipmentBloc>()
+                                  .add(const EquipmentEvent.equipmentDocSubmit(
+                                    isAddMoreBtnClick: false,
+                                    isSkip: false,
+                                  ));
+                            },
+                            buttonText: StringConstant.txtContinue,
+                          ),
+                        ),
+                      ),
+                      if (state.equipmentList.isEmpty)
+                        documentSkipButton(
+                          context,
+                          onPressed: () {
+                            context
+                                .read<EquipmentBloc>()
+                                .add(const EquipmentEvent.equipmentDocSubmit(
+                                  isAddMoreBtnClick: false,
+                                  isSkip: true,
+                                ));
+                          },
+                        ),
+                      paddingBetweenFields(),
+                    ],
                   ),
                 );
         },

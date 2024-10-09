@@ -11,13 +11,25 @@ class ContractorShiftState with _$ContractorShiftState {
     required bool isNoDataFound,
     required bool isErrorInAPI,
 
-    ///
+    /// upcoming
     required bool isUpcomingLoading,
     required bool isUpcomingNoDataFound,
     required bool isUpcomingErrorInAPI,
 
+    /// applied
+    required bool isAppliedLoading,
+    required bool isAppliedNoDataFound,
+    required bool isAppliedErrorInAPI,
+
+    /// applied
+    required bool isCounterLoading,
+    required bool isCounterNoDataFound,
+    required bool isCounterErrorInAPI,
+
     ///
     required List<CurrentShiftDTO> currentShiftList,
+    required List<AppliedShiftDTO> appliedList,
+    required List<AppliedShiftDTO> counterList,
     required List<UpComingShiftDTO> upcomingShiftList,
     required Option<Either<MainFailure, HealthcarePostDTO>>
         currentShiftFailureOrSuccessOption,
@@ -28,12 +40,20 @@ class ContractorShiftState with _$ContractorShiftState {
         deletePostReason: InputEmptyOrNot(""),
         currentShiftList: [],
         upcomingShiftList: [],
+        appliedList: [],
+        counterList: [],
+        isCounterErrorInAPI: false,
+        isCounterLoading: false,
+        isCounterNoDataFound: false,
         isErrorInAPI: false,
         isLoading: false,
         isNoDataFound: false,
         isUpcomingErrorInAPI: false,
         isUpcomingLoading: false,
         isUpcomingNoDataFound: false,
+        isAppliedErrorInAPI: false,
+        isAppliedLoading: false,
+        isAppliedNoDataFound: false,
         showErrorMessages: false,
         currentShiftFailureOrSuccessOption: none(),
       );

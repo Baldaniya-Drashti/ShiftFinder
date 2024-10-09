@@ -25,4 +25,9 @@ class ContractorShiftEvent with _$ContractorShiftEvent {
 
   const factory ContractorShiftEvent.appliedShiftChangeTab(int tabIndex) =
       AppliedShiftChangeTab;
+
+  const factory ContractorShiftEvent.getAppliedTypeList(bool isRefresh,
+      {int? filterType, int? applied_type}) = GetAppliedTypeList;
+  const factory ContractorShiftEvent.getCounterProposalList(bool isRefresh,
+      {int? filterType, int? applied_type}) = GetCounterProposalList;
 }

@@ -278,7 +278,7 @@ class StringConstant {
   static const String notification = "Notification";
   static const String profile = "Profile";
   static const String viewDetails = "View Details";
-  static const String viewShiftDetails = "View shift Details";
+  static const String viewShiftDetails = "View Shift Details";
   static const String viewShiftDates = "View shift Dates";
   static const String totalApplications = "Total Applications";
   static const String totalProposals = "Total Proposals";
@@ -313,6 +313,7 @@ class StringConstant {
   static const String single = "Single";
   static const String multi = "Multi";
   static const String singleShift = "Single shift";
+  static const String urgentActionRequired = "Urgent Action Required";
 
   static const String longTerm = "Long-Term";
   static const String date = "Date";
@@ -422,6 +423,22 @@ class StringConstant {
   static const String confirm = "Confirm";
   static const String unavailableDates = "Unavailable Dates";
   static const String availableForEveryDates = "Available for Every Dates";
+  static const String appliedDate = "Applied Date";
+  static const String proposalDate = "Proposal Date";
+  static const String cancelApplication = "Cancel Application";
+  static const String revoking = "Revoking...";
+  static const String declineShift = "Decline Shift";
+  static const String confirmAcceptance = "Confirm Acceptance";
+  static const String proposalReceived = "Proposal Received";
+  static const String proposalSent = "Proposal Sent";
+  static const String urgentActionRequiredDesc =
+      "Your shift application has been accepted by the employer. Please confirm your acceptance to finalize the shift.";
+  static const String decline = "Decline";
+  static const String declineShiftDesc =
+      "Declining this shift may impact future opportunities. Are you sure you want to decline?";
+  static const String areYouSureYouWantToCancelTheApplication = "Are you sure you want to cancel the application?";
+  static const String offerRevokedByTheEmployer =
+      "Offer Revoked by the Employer";
   static const String clockInConfirmationDesc =
       "Are you sure you want to add the clock in time?";
   static const String clockOutConfirmationDesc =

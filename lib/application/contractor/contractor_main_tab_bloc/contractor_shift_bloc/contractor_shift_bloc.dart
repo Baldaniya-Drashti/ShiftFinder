@@ -8,6 +8,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
+import 'package:shift/infrastructure/contractor_main/shift/applied_shift_dto/applied_shift_dto.dart';
 import 'package:shift/infrastructure/contractor_main/shift/current_shift_dto/current_shift_dto.dart';
 import 'package:shift/infrastructure/contractor_main/shift/upcoming_shift_dto/upcoming_shift_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
@@ -27,7 +28,14 @@ class ContractorShiftBloc
   int upcomingShiftPage = 1;
   int upcomingShiftLastPage = 1;
 
+  int appliedTypePage = 1;
+  int appliedTypeLastPage = 1;
+  int counterTypePage = 1;
+  int counterTypeLastPage = 1;
+
   final RefreshController currentShiftRefreshCtrl = RefreshController();
+  final RefreshController counterShiftRefreshCtrl = RefreshController();
+  final RefreshController appliedTypeRefreshCtrl = RefreshController();
   final RefreshController upcomingShiftRefreshCtrl = RefreshController();
 
   ContractorShiftBloc(this.mainFacade) : super(ContractorShiftState.initial()) {
@@ -247,6 +255,102 @@ class ContractorShiftBloc
             } else {
               emit(state.copyWith(showErrorMessages: true));
             }
+          },
+          getAppliedTypeList: (e) async {
+            if (e.isRefresh) {
+              appliedTypePage = 1;
+              emit(state.copyWith(
+                appliedList: [],
+                isAppliedLoading: e.isRefresh,
+              ));
+              appliedTypeRefreshCtrl.resetNoData();
+            } else {
+              if (appliedTypePage > appliedTypeLastPage) {
+                appliedTypeRefreshCtrl.loadNoData();
+                return;
+              }
+            }
+            var res = await mainFacade.getContractorShifts(
+                page: appliedTypePage, filterType: 3, appliedType: 1);
+            appliedTypePage++;
+            res.fold(
+              (l) => emit(
+                state.copyWith(
+                  isAppliedErrorInAPI: true,
+                  isAppliedLoading: false,
+                  appliedList: [],
+                ),
+              ),
+              (r) {
+                appliedTypeLastPage = r.meta?.lastPage ?? 1;
+                if (e.isRefresh) {
+                  List.from(state.appliedList).clear();
+                }
+
+                emit(
+                  state.copyWith(
+                    isAppliedLoading: false,
+                    isAppliedErrorInAPI: false,
+                    isAppliedNoDataFound: (r.data as List<dynamic>)
+                        .map((e) => AppliedShiftDTO.fromJson(e))
+                        .toList()
+                        .isEmpty,
+                    appliedList: List.from(state.appliedList)
+                      ..addAll((r.data as List<dynamic>)
+                          .map((e) => AppliedShiftDTO.fromJson(e))
+                          .toList()),
+                  ),
+                );
+              },
+            );
+          },
+          getCounterProposalList: (e) async {
+            if (e.isRefresh) {
+              counterTypePage = 1;
+              emit(state.copyWith(
+                counterList: [],
+                isCounterLoading: e.isRefresh,
+              ));
+              counterShiftRefreshCtrl.resetNoData();
+            } else {
+              if (counterTypePage > counterTypeLastPage) {
+                counterShiftRefreshCtrl.loadNoData();
+                return;
+              }
+            }
+            var res = await mainFacade.getContractorShifts(
+                page: counterTypePage, filterType: 3, appliedType: 2);
+            counterTypePage++;
+            res.fold(
+              (l) => emit(
+                state.copyWith(
+                  isCounterErrorInAPI: true,
+                  isCounterLoading: false,
+                  counterList: [],
+                ),
+              ),
+              (r) {
+                counterTypeLastPage = r.meta?.lastPage ?? 1;
+                if (e.isRefresh) {
+                  List.from(state.counterList).clear();
+                }
+
+                emit(
+                  state.copyWith(
+                    isCounterLoading: false,
+                    isCounterErrorInAPI: false,
+                    isCounterNoDataFound: (r.data as List<dynamic>)
+                        .map((e) => AppliedShiftDTO.fromJson(e))
+                        .toList()
+                        .isEmpty,
+                    counterList: List.from(state.counterList)
+                      ..addAll((r.data as List<dynamic>)
+                          .map((e) => AppliedShiftDTO.fromJson(e))
+                          .toList()),
+                  ),
+                );
+              },
+            );
           },
         );
       },
