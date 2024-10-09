@@ -524,6 +524,7 @@ class ContractorHomeView extends StatelessWidget {
           SizedBox(width: getSize(10)),
           Column(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BaseText(
@@ -543,7 +544,7 @@ class ContractorHomeView extends StatelessWidget {
                         }
                       },
                       width: 100,
-                      height: 23,
+                      height: 27,
                       borderRadius: 5,
                       buttonFontSize: 12,
                       buttonFontWeight: FontWeight.w500,
@@ -685,6 +686,7 @@ class ContractorHomeView extends StatelessWidget {
               fontSize: 14,
               fontWeight: FontWeight.w600,
             ),
+            SizedBox(height: getSize(3)),
             Flexible(
               child: BaseText(
                 text: value,

@@ -4,6 +4,7 @@ part of 'home_bloc.dart';
 class HomeState with _$HomeState {
   const factory HomeState({
     required bool showErrorMessages,
+    required bool showTeamDialog,
     required Option<Either<MainFailure, String>> failureOrSuccessOption,
     required bool teamStatusErrorMessage,
     required Option<Either<MainFailure, TeamAvailableDTO>>
@@ -15,6 +16,7 @@ class HomeState with _$HomeState {
     required List<EmployerDashboardDTO> employerDashboardList,
   }) = _HomeState;
   factory HomeState.initial() => HomeState(
+        showTeamDialog: false,
         showErrorMessages: false,
         failureOrSuccessOption: none(),
         isSubmitting: false,

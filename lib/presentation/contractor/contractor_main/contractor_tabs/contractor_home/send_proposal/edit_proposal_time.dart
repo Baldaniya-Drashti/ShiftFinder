@@ -8,6 +8,8 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
 import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart';
+import 'package:shift/presentation/common/utils/date_time_format.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -40,7 +42,21 @@ class EditProposalTime extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: getSize(30)),
               child: CommonButton(
                 onPressed: () {
-                  Navigator.pop(context, state.multiDates);
+                  final isLessThanTwoHours = state.multiDates.any((dto) {
+                    final totalPayableDuration =
+                        CustomDateTimeFormat.parseTotalPayableHours(
+                            dto.totalPaybleHours!);
+                    return totalPayableDuration < Duration(hours: 2);
+                  });
+
+                  if (isLessThanTwoHours) {
+                    showError(
+                            message: StringConstant
+                                .theTotalPayableHourMustBeAtLeastTwo)
+                        .show(context);
+                  } else {
+                    Navigator.pop(context, state.multiDates);
+                  }
                 },
                 buttonText: StringConstant.done,
               ),

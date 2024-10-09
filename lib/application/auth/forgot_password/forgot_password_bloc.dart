@@ -203,6 +203,7 @@ class ForgotPasswordBloc
             state.copyWith(
               newPassword: Password(e.newPassword),
               authFailureOrSuccessOption: none(),
+              saveNewPassFailureOrSuccessOption: none(),
             ),
           );
           add(ForgotPasswordEvent.confirmPasswordChanged(
@@ -214,6 +215,7 @@ class ForgotPasswordBloc
               confirmPassword: ConfirmPassword(
                   e.confirmPassword, state.newPassword.getValue()),
               authFailureOrSuccessOption: none(),
+              saveNewPassFailureOrSuccessOption: none(),
             ),
           );
         },
@@ -224,6 +226,7 @@ class ForgotPasswordBloc
               state.copyWith(
                 isNewPassObscure: isNewPassObscure,
                 authFailureOrSuccessOption: none(),
+                saveNewPassFailureOrSuccessOption: none(),
               ),
             );
           } else {
@@ -232,6 +235,7 @@ class ForgotPasswordBloc
               state.copyWith(
                 isConfirmPassObscure: isConfirmPassObscure,
                 authFailureOrSuccessOption: none(),
+                saveNewPassFailureOrSuccessOption: none(),
               ),
             );
           }

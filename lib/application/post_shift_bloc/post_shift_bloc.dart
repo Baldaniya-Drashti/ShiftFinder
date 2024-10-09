@@ -12,6 +12,7 @@ import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
+import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
@@ -408,18 +409,25 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           final isEndMinuteValid = state.endMinute.isValid();
           final isBeforeStartTime =
               timeIsPast(state, state.startHour, state.startMinute);
+
+          final isMoreThanTwoHours =
+              CustomDateTimeFormat.parseTotalPayableHours(
+                  state.totalPaybleHours);
+
           // final isBeforeEndTime =
           //     timeIsPast(state, state.endHour, state.endMinute);
 
           final isVacancyValid = isMoreVacancyValid(
               isMoreVacancy: state.isMoreVacancy,
               vacancyValue: state.selectedVacancy);
+
           emit(
             state.copyWith(
               isLoading: true,
               singleShiftFailureOrSuccessOption: none(),
             ),
           );
+
           if (isSingleDateValid &&
               isCommuteAllownceValid &&
               isAccomdationAllownceValid &&
@@ -430,18 +438,26 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               isUnpaidBreakValid &&
               isVacancyValid &&
               !isBeforeStartTime) {
-            print("All details are valid!");
-            /*failureOrSuccess = await _mainFacade.createPostShiftApi(
+            if (isMoreThanTwoHours < Duration(hours: 2)) {
+              showError(
+                      message:
+                          StringConstant.theTotalPayableHourMustBeAtLeastTwo)
+                  .show(e.context);
+              print("Hours is minimum 2 hour");
+            } else {
+              print("All details are valid!");
+              /*failureOrSuccess = await _mainFacade.createPostShiftApi(
                 shift: passShiftData(state));*/
-            final post = continueWithPostDetail(state, passShiftData(state));
-            e.context.router.push(PageRouteInfo(
-              PostShiftRecurring.name,
-              args: PostShiftRecurringArgs(
-                shiftType: state.shiftType,
-                updateShift: state.updateShift,
-                post: post,
-              ),
-            ));
+              final post = continueWithPostDetail(state, passShiftData(state));
+              e.context.router.push(PageRouteInfo(
+                PostShiftRecurring.name,
+                args: PostShiftRecurringArgs(
+                  shiftType: state.shiftType,
+                  updateShift: state.updateShift,
+                  post: post,
+                ),
+              ));
+            }
           } else {
             showError(
                     message: StringConstant
@@ -449,6 +465,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                 .show(e.context);
             print("Some details are invalid! ${isBeforeStartTime}");
           }
+
           emit(
             state.copyWith(
               isLoading: false,
@@ -688,8 +705,17 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               save_template_status: (state.isSaveAsTemplate) ? "1" : "0",
             );
             if (state.updateShift.id != null && state.updateShift.id != -1) {
-              failureOrSuccess = await _mainFacade.updatePostApi(
+              final res = await _mainFacade.updatePostApi(
                 postShiftDetail: postObj,
+              );
+              res.fold(
+                (l) {
+                  failureOrSuccess = left(l);
+                },
+                (r) {
+                  final data = HealthcarePostDTO.fromJson(r.data);
+                  failureOrSuccess = right(data);
+                },
               );
             } else {
               failureOrSuccess = await _mainFacade.createPostApi(
@@ -906,11 +932,19 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
           // final isUnPaidBreakValid = state.unpaidBreak.isValid();
           final isAllDatesValid = state.multiDateTimeList.every((dto) =>
               dto.totalPaybleHours != null && dto.totalPaybleHours!.isNotEmpty);
+
           final timeIsBefore = PostShiftBloc.timeIsBefore(
             state,
             multiDate: state.multiDateTimeList,
             shiftType: 2,
           );
+
+          final isLessThanTwoHours = state.multiDateTimeList.any((dto) {
+            final totalPayableDuration =
+                CustomDateTimeFormat.parseTotalPayableHours(
+                    dto.totalPaybleHours!);
+            return totalPayableDuration < Duration(hours: 2);
+          });
 
           if (isAllDatesValid && !timeIsBefore) {
             /*failureOrSuccess = await _mainFacade.createPostShiftApi(
@@ -919,23 +953,28 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               shiftDetail: e.shiftDetail,
             ));*/
 
-            final post = continueWithPostDetail(
-                state, passShiftData(state, shiftDetail: e.shiftDetail));
-
-            /*PostShiftDTO post = state.post.copyWith(
+            if (isLessThanTwoHours) {
+              showError(
+                      message:
+                          StringConstant.theTotalPayableHourMustBeAtLeastTwo)
+                  .show(e.context);
+            } else {
+              final post = continueWithPostDetail(
+                  state, passShiftData(state, shiftDetail: e.shiftDetail));
+              /*PostShiftDTO post = state.post.copyWith(
               shiftDetail: passShiftData(state, shiftDetail: e.shiftDetail),
             );*/
+              print("Post from push222:--> ${jsonEncode(post)}");
 
-            print("Post from push222:--> ${jsonEncode(post)}");
-
-            e.context.router.push(PageRouteInfo(
-              PostShiftRecurring.name,
-              args: PostShiftRecurringArgs(
-                shiftType: state.shiftType,
-                updateShift: state.updateShift,
-                post: post,
-              ),
-            ));
+              e.context.router.push(PageRouteInfo(
+                PostShiftRecurring.name,
+                args: PostShiftRecurringArgs(
+                  shiftType: state.shiftType,
+                  updateShift: state.updateShift,
+                  post: post,
+                ),
+              ));
+            }
           }
           emit(
             state.copyWith(
@@ -969,6 +1008,9 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               shiftType: 1);
           final isBeforeEndTime =
               timeIsPast(state, state.endHour, state.endMinute, shiftType: 1);
+          final isMoreThanTwoHours =
+              CustomDateTimeFormat.parseTotalPayableHours(
+                  state.totalPaybleHours);
 
           if (isMultiDateValid &&
               isCommuteAllownceValid &&
@@ -981,26 +1023,36 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               isVacancyValid &&
               !isBeforeStartTime &&
               !isBeforeEndTime) {
-            print("All details are valid!");
-            /*failureOrSuccess = await _mainFacade.createPostShiftApi(
+            if (isMoreThanTwoHours < Duration(hours: 2)) {
+              showError(
+                      message:
+                          StringConstant.theTotalPayableHourMustBeAtLeastTwo)
+                  .show(e.context);
+            } else {
+              print("All details are valid!");
+              /*failureOrSuccess = await _mainFacade.createPostShiftApi(
                 shift: passShiftData(state));*/
 
-            final post = continueWithPostDetail(state, passShiftData(state));
+              final post = continueWithPostDetail(state, passShiftData(state));
 
-            /*PostShiftDTO post = state.post.copyWith(
+              /*PostShiftDTO post = state.post.copyWith(
               shiftDetail: passShiftData(state),
             );*/
-            print("Post from push111:--> ${jsonEncode(post)}");
-
-            e.context.router.push(PageRouteInfo(
-              PostShiftRecurring.name,
-              args: PostShiftRecurringArgs(
-                shiftType: state.shiftType,
-                updateShift: state.updateShift,
-                post: post,
-              ),
-            ));
+              print("Post from push111:--> ${jsonEncode(post)}");
+              e.context.router.push(PageRouteInfo(
+                PostShiftRecurring.name,
+                args: PostShiftRecurringArgs(
+                  shiftType: state.shiftType,
+                  updateShift: state.updateShift,
+                  post: post,
+                ),
+              ));
+            }
           } else {
+            showError(
+                    message: StringConstant
+                        .someDetailsAreMissingOrInvalidPleaseCheck)
+                .show(e.context);
             print("Some details are invalid!");
           }
 
@@ -1016,24 +1068,28 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             state.copyWith(
               isLoading: true,
               recurringFailureOrSuccessOption: none(),
+              updatePostFailureOrSuccessOption: none(),
               postShiftFailureOrSuccessOption: none(),
             ),
           );
           print("All details are valid! ");
           if (e.updatedPost != null) {
-            Either<MainFailure, HealthcarePostDTO>? updateFailureOrSuccess;
+            Either<MainFailure, CommonResponse>? updateFailureOrSuccess;
             PostShiftDTO postObj = e.updatedPost!.copyWith(
               update_status: 1,
             );
             updateFailureOrSuccess = await _mainFacade.updatePostApi(
               postShiftDetail: postObj,
             );
+
             emit(
               state.copyWith(
                 isLoading: false,
                 singleShiftErrorMessages: true,
                 postShiftFailureOrSuccessOption: none(),
-                recurringFailureOrSuccessOption:
+                // recurringFailureOrSuccessOption:
+                //     optionOf(updateFailureOrSuccess),
+                updatePostFailureOrSuccessOption:
                     optionOf(updateFailureOrSuccess),
               ),
             );
@@ -1046,6 +1102,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                 isLoading: false,
                 singleShiftErrorMessages: true,
                 recurringFailureOrSuccessOption: none(),
+                updatePostFailureOrSuccessOption: none(),
                 postShiftFailureOrSuccessOption: optionOf(failureOrSuccess),
               ),
             );

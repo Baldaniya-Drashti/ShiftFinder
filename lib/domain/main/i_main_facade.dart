@@ -24,7 +24,7 @@ abstract class IMainFacade {
   Future<Either<MainFailure, HealthcarePostDTO>> createPostApi({
     required PostShiftDTO postShiftDetail,
   });
-  Future<Either<MainFailure, HealthcarePostDTO>> updatePostApi({
+  Future<Either<MainFailure, CommonResponse>> updatePostApi({
     required PostShiftDTO postShiftDetail,
   });
   Future<Either<MainFailure, HealthcarePostDTO>> getPostApi({

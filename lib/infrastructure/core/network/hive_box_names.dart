@@ -9,9 +9,11 @@ class BoxKeys {
   static const currentIndustry = "selectedIndustry";
   static const isUserShowIntro = "isUserShowIntro";
   static const currentKey = "account";
+  static const isShowEmptyTeamDialog = "isShowEmptyTeamDialog";
 
   /// CONTRACTOR DOCUMENTS
   static const governmentIssueId = "governmentIssueId";
+
   static const covidVaccinationDoc = "covidVaccinationDoc";
   static const credentialRegistrationDoc = "credentialRegistrationDoc";
 

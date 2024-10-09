@@ -31,6 +31,15 @@ int? getCurrentRole() {
   return Hive.box(BoxNames.settingsBox).get(BoxKeys.currentRole);
 }
 
+Future<void> setShowTeamDialog(bool isShow) async {
+  return await Hive.box(BoxNames.settingsBox)
+      .put(BoxKeys.isShowEmptyTeamDialog, isShow);
+}
+
+bool? getShowTeamDialog() {
+  return Hive.box(BoxNames.settingsBox).get(BoxKeys.isShowEmptyTeamDialog);
+}
+
 // Future<void> setCurrentUser(Account account) async {
 //   // Hacky solution to allow testing
 //   if (!Platform.environment.containsKey('FLUTTER_TEST')) {

@@ -24,6 +24,9 @@ class PostShiftDTO with _$PostShiftDTO {
     String? recurring_status,
     String? start_date,
     int? recurrence_mode,
+    int? recurrence_id,
+    String? recurring_start_date,
+    String? recurring_end_date,
     String? days,
     String? end_date,
     String? disclaimer,
@@ -47,9 +50,6 @@ class PostShiftDTO with _$PostShiftDTO {
     String? shift_note,
     String? vacancie_type,
     int? number_of_vacancie,
-    int? recurrence_id,
-    String? recurring_start_date,
-    String? recurring_end_date,
     String? multi_date,
   }) = _PostShiftDTO;
 

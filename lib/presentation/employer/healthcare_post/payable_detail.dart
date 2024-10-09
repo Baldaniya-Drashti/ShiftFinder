@@ -64,7 +64,7 @@ class PayableDetail extends StatelessWidget {
               },
             ),
           );
-          state.recurringFailureOrSuccessOption.fold(
+          state.updatePostFailureOrSuccessOption.fold(
             () {},
             (either) => either.fold(
               (failure) {
@@ -81,8 +81,7 @@ class PayableDetail extends StatelessWidget {
                 AppDialog.showSuccess(
                   context,
                   title: StringConstant.allSet,
-                  infoMessage:
-                      "Your healthcare shift has been successfully updated!",
+                  infoMessage: r.dioMessage ?? "",
                   onOkClick: () {
                     // context.router.maybePop();
 

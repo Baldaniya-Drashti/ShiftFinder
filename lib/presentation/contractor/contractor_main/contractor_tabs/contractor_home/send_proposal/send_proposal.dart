@@ -536,50 +536,66 @@ class SendProposal extends StatelessWidget {
     final unAvailableList =
         state.multiDates.where((ele) => ele.isUnAvailable == true);
     return Container(
-        // height: getSize(113.41),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(getSize(10)),
-          color: AppColors.white,
-        ),
-        padding: EdgeInsets.symmetric(
-            horizontal: getSize(12), vertical: getSize(10)),
-        child: ListTile(
-          titleAlignment: ListTileTitleAlignment.titleHeight,
-          horizontalTitleGap: 0,
-          contentPadding: EdgeInsets.only(left: getSize(5)),
-          minTileHeight: getSize(59),
-          leading: SvgPicture.asset(
-            SvgImageConstant.calendar,
-            color: AppColors.black,
+      // height: getSize(113.41),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(getSize(10)),
+        color: AppColors.white,
+      ),
+      padding:
+          EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
+      child:
+          /*Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            color: Colors.yellow,
             height: getSize(20),
             width: getSize(20),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: SvgPicture.asset(
+                SvgImageConstant.calendar,
+                color: AppColors.black,
+              ),
+            ),
           ),
-          title: BaseText(
-            text: StringConstant.proposeAvailability,
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            textColor: AppColors.black,
+          Flexible(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  BaseText(
+                    text: StringConstant.proposeAvailability,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    textColor: AppColors.black,
+                  ),
+                  (state.shift.shift_detail?.same_or_different_time == 1)
+                      ? BaseText(
+                          text: (unAvailableList.isNotEmpty)
+                              ? "${StringConstant.unavailableDates} - ${unAvailableList.length}"
+                              : StringConstant.availableForEveryDates,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400,
+                          maxLines: 5,
+                          textColor: (unAvailableList.isNotEmpty)
+                              ? AppColors.redAccent
+                              : AppColors.primaryColor,
+                        )
+                      : BaseText(
+                          text: StringConstant.availabilityDesc,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400,
+                          maxLines: 5,
+                          textColor: AppColors.black.withOpacity(0.7),
+                        ),
+                ],
+              ),
+            ),
           ),
-          subtitle: (state.shift.shift_detail?.same_or_different_time == 1)
-              ? BaseText(
-                  text: (unAvailableList.isNotEmpty)
-                      ? "${StringConstant.unavailableDates} - ${unAvailableList.length}"
-                      : StringConstant.availableForEveryDates,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w400,
-                  maxLines: 5,
-                  textColor: (unAvailableList.isNotEmpty)
-                      ? AppColors.redAccent
-                      : AppColors.primaryColor,
-                )
-              : BaseText(
-                  text: StringConstant.availabilityDesc,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w400,
-                  maxLines: 5,
-                  textColor: AppColors.black.withOpacity(0.7),
-                ),
-          trailing: CommonButton(
+          CommonButton(
             onPressed: () {
               context.router
                   .push(PageRouteInfo(ProposeAvailability.name,
@@ -602,7 +618,69 @@ class SendProposal extends StatelessWidget {
             buttonFontWeight: FontWeight.w500,
             buttonText: StringConstant.enterAvailability,
           ),
-        ));
+        ],
+      ),*/
+          ListTile(
+        titleAlignment: ListTileTitleAlignment.center,
+        horizontalTitleGap: 0,
+        contentPadding: EdgeInsets.only(left: getSize(5)),
+        minTileHeight: getSize(59),
+        leading: SvgPicture.asset(
+          SvgImageConstant.calendar,
+          color: AppColors.black,
+          height: getSize(20),
+          width: getSize(20),
+        ),
+        title: BaseText(
+          text: StringConstant.proposeAvailability,
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          textColor: AppColors.black,
+        ),
+        subtitle: (state.shift.shift_detail?.same_or_different_time == 1)
+            ? BaseText(
+                text: (unAvailableList.isNotEmpty)
+                    ? "${StringConstant.unavailableDates} - ${unAvailableList.length}"
+                    : StringConstant.availableForEveryDates,
+                fontSize: 10,
+                fontWeight: FontWeight.w400,
+                maxLines: 5,
+                textColor: (unAvailableList.isNotEmpty)
+                    ? AppColors.redAccent
+                    : AppColors.primaryColor,
+              )
+            : BaseText(
+                text: StringConstant.availabilityDesc,
+                fontSize: 10,
+                fontWeight: FontWeight.w400,
+                maxLines: 5,
+                textColor: AppColors.black.withOpacity(0.7),
+              ),
+        trailing: CommonButton(
+          onPressed: () {
+            context.router
+                .push(PageRouteInfo(ProposeAvailability.name,
+                    args: ProposeAvailabilityArgs(
+                      post: state.shift,
+                      updatedDates: state.multiDates,
+                    )))
+                .then((value) {
+              if (value != null) {
+                context.read<SendProposalBloc>().add(
+                    SendProposalEvent.setMultiDate(
+                        updatedDates: value as List<DateTimeDTO>));
+              }
+            });
+          },
+          height: 29,
+          width: 132,
+          buttonFontSize: 12,
+          borderRadius: 5,
+          buttonFontWeight: FontWeight.w500,
+          buttonText: StringConstant.enterAvailability,
+        ),
+      ),
+    );
   }
 
   Widget highLightText(

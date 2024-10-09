@@ -74,6 +74,19 @@ class CustomDateTimeFormat {
     return "$formattedMinute Min";
   }
 
+  static Duration parseTotalPayableHours(String totalPayableHours) {
+    final regex = RegExp(r'(\d+)h\s*(\d+)?min?');
+    final match = regex.firstMatch(totalPayableHours);
+
+    if (match != null) {
+      final hours = int.parse(match.group(1) ?? '0');
+      final minutes = int.parse(match.group(2) ?? '0');
+
+      return Duration(hours: hours, minutes: minutes);
+    }
+    return Duration.zero;
+  }
+
   static getShiftTime(InputEmptyOrNot startHour, InputEmptyOrNot startMin,
       InputEmptyOrNot endHour, InputEmptyOrNot endMin) {
     if (startHour.isValid() &&

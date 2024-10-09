@@ -4,7 +4,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/main_tab/home/view_single_applicants/view_single_applicants_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
@@ -40,7 +39,6 @@ class ViewContractorShift extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("shift id--> $postId");
     return BlocProvider(
       create: (context) => getIt<ViewSingleApplicantsBloc>()
         ..add(ViewSingleApplicantsEvent.getShiftDetailEvent(
@@ -140,6 +138,7 @@ class ViewContractorShift extends StatelessWidget {
                                   units: shift.location_unit ?? ""),
                               if (shift.shift_detail != null &&
                                   shift.shift_detail!.shift_type == 1 &&
+                                  shift.shift_detail!.recurring_status == 1 &&
                                   shift.shift_detail!.recurrence_mode != null)
                                 recurrence(shift),
                               if (shift.shift_detail != null &&
@@ -407,6 +406,7 @@ class ViewContractorShift extends StatelessWidget {
               fontSize: 14,
               fontWeight: FontWeight.w600,
             ),
+            SizedBox(height: getSize(3)),
             Flexible(
               child: BaseText(
                 text: value,
@@ -655,11 +655,11 @@ class ViewContractorShift extends StatelessWidget {
                   ? displayDateBreak(context, post,
                       boldValue: (post.shift_detail?.detail != null &&
                               post.shift_detail!.detail!.isNotEmpty)
-                          ? "${(post.shift_detail?.detail?.length.toString().length == 2) ? post.shift_detail?.detail?.length : "0${post.shift_detail?.detail?.length}"}"
-                          : "00",
+                          ? "${(post.shift_detail?.detail?.length.toString().length == 2) ? post.shift_detail?.detail?.length : "0${post.shift_detail?.detail?.length}"} Shifts"
+                          : "00 Shifts",
                       timidValue: "",
-                      title: StringConstant.totalNumberOfShifts,
-                      svgPrefixIcon: SvgImageConstant.clockWithOuterLine)
+                      title: StringConstant.totalShifts,
+                      svgPrefixIcon: SvgImageConstant.clock)
                   : displayDateBreak(context, post,
                       boldValue:
                           post.shift_detail?.unpaid_break?.short_name ?? "",

@@ -464,7 +464,7 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, HealthcarePostDTO>> updatePostApi({
+  Future<Either<MainFailure, CommonResponse>> updatePostApi({
     required PostShiftDTO postShiftDetail,
   }) async {
     try {
@@ -477,7 +477,8 @@ class MainFacade implements IMainFacade {
 
       final data = HealthcarePostDTO.fromJson(res.data);
       print("Healthercare Update Post Response->  ${data}");
-      return right(data);
+      // return right(data);
+      return right(res);
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);

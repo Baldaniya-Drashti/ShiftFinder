@@ -609,7 +609,7 @@ class StringConstant {
   static const String numberOfVacanciesMustBeGreaterThanOne =
       "Number of vacancies must be greater than 1";
   static const String pleaseSelectRecurrenceMode =
-      "‘Please select days for recurrence";
+      "Please select days for recurrence";
   static const String pleaseSelectAtLeastOneTeam =
       "Please select at least one team";
 
@@ -627,5 +627,8 @@ class StringConstant {
       "It looks like you haven't created a team yet! By setting up internal teams, you can automatically share posting details with your team members, streamlining your hiring process. You can create a team through your profile and then continue with shift posting. \nDo you want to proceed with creating a team now?";
   static const String createYourTeamToGetStarted =
       "Create Your Team to Get Started";
+  static const String dontShowThisAgain = "Don’t show this again";
+  static const String theTotalPayableHourMustBeAtLeastTwo =
+      "The total payable hours must be at least 2 hours.";
   static const String underDevelopment = "Under Development";
 }

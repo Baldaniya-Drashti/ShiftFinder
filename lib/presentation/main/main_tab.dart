@@ -209,7 +209,7 @@ getAppbar(MainTabState state, BuildContext context) {
           children: [
             BaseText(
               text: StringConstant.welcome,
-              fontSize: 14,
+              fontSize: 13,
               fontWeight: FontWeight.w400,
               fontFamily: "Aclonica",
               lineHeight: getSize(1),
@@ -219,7 +219,7 @@ getAppbar(MainTabState state, BuildContext context) {
             BaseText(
               text:
                   "${getCurrentUser().firstName ?? ''} ${getCurrentUser().lastName ?? ''}",
-              fontSize: 14,
+              fontSize: 13,
               fontWeight: FontWeight.w400,
               fontFamily: "Aclonica",
             ),

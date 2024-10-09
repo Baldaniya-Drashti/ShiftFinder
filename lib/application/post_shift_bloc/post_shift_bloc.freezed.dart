@@ -21763,6 +21763,9 @@ mixin _$PostShiftState {
   bool get recurringErrorMessage => throw _privateConstructorUsedError;
   Option<Either<MainFailure, HealthcarePostDTO>>
       get recurringFailureOrSuccessOption => throw _privateConstructorUsedError;
+  Option<Either<MainFailure, CommonResponse>>
+      get updatePostFailureOrSuccessOption =>
+          throw _privateConstructorUsedError;
 
   /// Multi shift
   bool get isIndividualPost => throw _privateConstructorUsedError;
@@ -21835,6 +21838,8 @@ abstract class $PostShiftStateCopyWith<$Res> {
       bool recurringErrorMessage,
       Option<Either<MainFailure, HealthcarePostDTO>>
           recurringFailureOrSuccessOption,
+      Option<Either<MainFailure, CommonResponse>>
+          updatePostFailureOrSuccessOption,
       bool isIndividualPost,
       int selectedMultiShiftType,
       ListInputEmptyOrNot<DateTime> selectedMultiDates,
@@ -21903,6 +21908,7 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
     Object? recurrenceMode = null,
     Object? recurringErrorMessage = null,
     Object? recurringFailureOrSuccessOption = null,
+    Object? updatePostFailureOrSuccessOption = null,
     Object? isIndividualPost = null,
     Object? selectedMultiShiftType = null,
     Object? selectedMultiDates = null,
@@ -22069,6 +22075,10 @@ class _$PostShiftStateCopyWithImpl<$Res, $Val extends PostShiftState>
           ? _value.recurringFailureOrSuccessOption
           : recurringFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<MainFailure, HealthcarePostDTO>>,
+      updatePostFailureOrSuccessOption: null == updatePostFailureOrSuccessOption
+          ? _value.updatePostFailureOrSuccessOption
+          : updatePostFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<MainFailure, CommonResponse>>,
       isIndividualPost: null == isIndividualPost
           ? _value.isIndividualPost
           : isIndividualPost // ignore: cast_nullable_to_non_nullable
@@ -22183,6 +22193,8 @@ abstract class _$$PostShiftStateImplCopyWith<$Res>
       bool recurringErrorMessage,
       Option<Either<MainFailure, HealthcarePostDTO>>
           recurringFailureOrSuccessOption,
+      Option<Either<MainFailure, CommonResponse>>
+          updatePostFailureOrSuccessOption,
       bool isIndividualPost,
       int selectedMultiShiftType,
       ListInputEmptyOrNot<DateTime> selectedMultiDates,
@@ -22251,6 +22263,7 @@ class __$$PostShiftStateImplCopyWithImpl<$Res>
     Object? recurrenceMode = null,
     Object? recurringErrorMessage = null,
     Object? recurringFailureOrSuccessOption = null,
+    Object? updatePostFailureOrSuccessOption = null,
     Object? isIndividualPost = null,
     Object? selectedMultiShiftType = null,
     Object? selectedMultiDates = null,
@@ -22417,6 +22430,10 @@ class __$$PostShiftStateImplCopyWithImpl<$Res>
           ? _value.recurringFailureOrSuccessOption
           : recurringFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
               as Option<Either<MainFailure, HealthcarePostDTO>>,
+      updatePostFailureOrSuccessOption: null == updatePostFailureOrSuccessOption
+          ? _value.updatePostFailureOrSuccessOption
+          : updatePostFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
+              as Option<Either<MainFailure, CommonResponse>>,
       isIndividualPost: null == isIndividualPost
           ? _value.isIndividualPost
           : isIndividualPost // ignore: cast_nullable_to_non_nullable
@@ -22508,6 +22525,7 @@ class _$PostShiftStateImpl implements _PostShiftState {
       required this.recurrenceMode,
       required this.recurringErrorMessage,
       required this.recurringFailureOrSuccessOption,
+      required this.updatePostFailureOrSuccessOption,
       required this.isIndividualPost,
       required this.selectedMultiShiftType,
       required this.selectedMultiDates,
@@ -22632,6 +22650,9 @@ class _$PostShiftStateImpl implements _PostShiftState {
   @override
   final Option<Either<MainFailure, HealthcarePostDTO>>
       recurringFailureOrSuccessOption;
+  @override
+  final Option<Either<MainFailure, CommonResponse>>
+      updatePostFailureOrSuccessOption;
 
   /// Multi shift
   @override
@@ -22693,7 +22714,7 @@ class _$PostShiftStateImpl implements _PostShiftState {
 
   @override
   String toString() {
-    return 'PostShiftState(updateShift: $updateShift, shiftType: $shiftType, postId: $postId, isLoading: $isLoading, post: $post, signleShiftDate: $signleShiftDate, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, breakList: $breakList, accomdationHoursList: $accomdationHoursList, unpaidBreak: $unpaidBreak, totalPaybleHours: $totalPaybleHours, selectedCommuteAllownce: $selectedCommuteAllownce, commuteHour: $commuteHour, commuteRate: $commuteRate, selectedAccomdationAllownce: $selectedAccomdationAllownce, accomdationHour: $accomdationHour, accomdationRate: $accomdationRate, singleShiftNote: $singleShiftNote, isMoreVacancy: $isMoreVacancy, selectedVacancy: $selectedVacancy, singleShiftErrorMessages: $singleShiftErrorMessages, singleShiftFailureOrSuccessOption: $singleShiftFailureOrSuccessOption, teamList: $teamList, isToBeRecurring: $isToBeRecurring, isShareWithTeams: $isShareWithTeams, isSaveAsTemplate: $isSaveAsTemplate, disclaimerNote: $disclaimerNote, isRangeMoreThanWeek: $isRangeMoreThanWeek, recurringStartDate: $recurringStartDate, recurringEndDate: $recurringEndDate, recurrenceWeekList: $recurrenceWeekList, selectedTeamList: $selectedTeamList, recurrenceMode: $recurrenceMode, recurringErrorMessage: $recurringErrorMessage, recurringFailureOrSuccessOption: $recurringFailureOrSuccessOption, isIndividualPost: $isIndividualPost, selectedMultiShiftType: $selectedMultiShiftType, selectedMultiDates: $selectedMultiDates, startHourList: $startHourList, startMinuteList: $startMinuteList, endHourList: $endHourList, endMinuteList: $endMinuteList, multiDateTimeList: $multiDateTimeList, isDifferentDateDataValid: $isDifferentDateDataValid, differentDateFailureOrSuccessOption: $differentDateFailureOrSuccessOption, postShiftFailureOrSuccessOption: $postShiftFailureOrSuccessOption)';
+    return 'PostShiftState(updateShift: $updateShift, shiftType: $shiftType, postId: $postId, isLoading: $isLoading, post: $post, signleShiftDate: $signleShiftDate, startHour: $startHour, startMinute: $startMinute, endHour: $endHour, endMinute: $endMinute, breakList: $breakList, accomdationHoursList: $accomdationHoursList, unpaidBreak: $unpaidBreak, totalPaybleHours: $totalPaybleHours, selectedCommuteAllownce: $selectedCommuteAllownce, commuteHour: $commuteHour, commuteRate: $commuteRate, selectedAccomdationAllownce: $selectedAccomdationAllownce, accomdationHour: $accomdationHour, accomdationRate: $accomdationRate, singleShiftNote: $singleShiftNote, isMoreVacancy: $isMoreVacancy, selectedVacancy: $selectedVacancy, singleShiftErrorMessages: $singleShiftErrorMessages, singleShiftFailureOrSuccessOption: $singleShiftFailureOrSuccessOption, teamList: $teamList, isToBeRecurring: $isToBeRecurring, isShareWithTeams: $isShareWithTeams, isSaveAsTemplate: $isSaveAsTemplate, disclaimerNote: $disclaimerNote, isRangeMoreThanWeek: $isRangeMoreThanWeek, recurringStartDate: $recurringStartDate, recurringEndDate: $recurringEndDate, recurrenceWeekList: $recurrenceWeekList, selectedTeamList: $selectedTeamList, recurrenceMode: $recurrenceMode, recurringErrorMessage: $recurringErrorMessage, recurringFailureOrSuccessOption: $recurringFailureOrSuccessOption, updatePostFailureOrSuccessOption: $updatePostFailureOrSuccessOption, isIndividualPost: $isIndividualPost, selectedMultiShiftType: $selectedMultiShiftType, selectedMultiDates: $selectedMultiDates, startHourList: $startHourList, startMinuteList: $startMinuteList, endHourList: $endHourList, endMinuteList: $endMinuteList, multiDateTimeList: $multiDateTimeList, isDifferentDateDataValid: $isDifferentDateDataValid, differentDateFailureOrSuccessOption: $differentDateFailureOrSuccessOption, postShiftFailureOrSuccessOption: $postShiftFailureOrSuccessOption)';
   }
 
   @override
@@ -22771,6 +22792,7 @@ class _$PostShiftStateImpl implements _PostShiftState {
             (identical(other.recurrenceMode, recurrenceMode) || other.recurrenceMode == recurrenceMode) &&
             (identical(other.recurringErrorMessage, recurringErrorMessage) || other.recurringErrorMessage == recurringErrorMessage) &&
             (identical(other.recurringFailureOrSuccessOption, recurringFailureOrSuccessOption) || other.recurringFailureOrSuccessOption == recurringFailureOrSuccessOption) &&
+            (identical(other.updatePostFailureOrSuccessOption, updatePostFailureOrSuccessOption) || other.updatePostFailureOrSuccessOption == updatePostFailureOrSuccessOption) &&
             (identical(other.isIndividualPost, isIndividualPost) || other.isIndividualPost == isIndividualPost) &&
             (identical(other.selectedMultiShiftType, selectedMultiShiftType) || other.selectedMultiShiftType == selectedMultiShiftType) &&
             (identical(other.selectedMultiDates, selectedMultiDates) || other.selectedMultiDates == selectedMultiDates) &&
@@ -22825,6 +22847,7 @@ class _$PostShiftStateImpl implements _PostShiftState {
         recurrenceMode,
         recurringErrorMessage,
         recurringFailureOrSuccessOption,
+        updatePostFailureOrSuccessOption,
         isIndividualPost,
         selectedMultiShiftType,
         selectedMultiDates,
@@ -22888,6 +22911,8 @@ abstract class _PostShiftState implements PostShiftState {
       required final bool recurringErrorMessage,
       required final Option<Either<MainFailure, HealthcarePostDTO>>
           recurringFailureOrSuccessOption,
+      required final Option<Either<MainFailure, CommonResponse>>
+          updatePostFailureOrSuccessOption,
       required final bool isIndividualPost,
       required final int selectedMultiShiftType,
       required final ListInputEmptyOrNot<DateTime> selectedMultiDates,
@@ -22986,6 +23011,9 @@ abstract class _PostShiftState implements PostShiftState {
   @override
   Option<Either<MainFailure, HealthcarePostDTO>>
       get recurringFailureOrSuccessOption;
+  @override
+  Option<Either<MainFailure, CommonResponse>>
+      get updatePostFailureOrSuccessOption;
   @override
 
   /// Multi shift

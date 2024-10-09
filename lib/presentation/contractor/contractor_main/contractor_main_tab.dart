@@ -21,7 +21,6 @@ import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/co
 import 'package:shift/presentation/core/app_router.gr.dart' as autoroute;
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/tabs/notification_view.dart';
-import 'package:shift/presentation/main/tabs/profile/profile_view.dart';
 import 'package:shift/presentation/main/widgets/custom_bottom_navigation.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
@@ -112,7 +111,7 @@ getAppbar(ContractorMainTabState state, BuildContext context) {
         ),
         titleWidget: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             BaseText(
               text: StringConstant.welcome,
@@ -129,12 +128,12 @@ getAppbar(ContractorMainTabState state, BuildContext context) {
               fontWeight: FontWeight.w400,
               fontFamily: "Aclonica",
             ),
-            BaseText(
-              text: "${getCurrentUser().companyName ?? ''}",
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-              textColor: AppColors.primaryColor,
-            ),
+            // BaseText(
+            //   text: "${getCurrentUser().companyName ?? ''}",
+            //   fontSize: 10,
+            //   fontWeight: FontWeight.w600,
+            //   textColor: AppColors.primaryColor,
+            // ),
           ],
         ),
         actions: [

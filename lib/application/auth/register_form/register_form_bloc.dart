@@ -11,7 +11,6 @@ import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/auth/i_auth_facade.dart';
 import 'package:shift/domain/core/string_constant.dart';
-import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:http/http.dart' as http;

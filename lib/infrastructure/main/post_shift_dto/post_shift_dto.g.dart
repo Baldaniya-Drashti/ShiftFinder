@@ -23,6 +23,9 @@ _$PostShiftDTOImpl _$$PostShiftDTOImplFromJson(Map<String, dynamic> json) =>
       recurring_status: json['recurring_status'] as String?,
       start_date: json['start_date'] as String?,
       recurrence_mode: (json['recurrence_mode'] as num?)?.toInt(),
+      recurrence_id: (json['recurrence_id'] as num?)?.toInt(),
+      recurring_start_date: json['recurring_start_date'] as String?,
+      recurring_end_date: json['recurring_end_date'] as String?,
       days: json['days'] as String?,
       end_date: json['end_date'] as String?,
       disclaimer: json['disclaimer'] as String?,
@@ -45,9 +48,6 @@ _$PostShiftDTOImpl _$$PostShiftDTOImplFromJson(Map<String, dynamic> json) =>
       shift_note: json['shift_note'] as String?,
       vacancie_type: json['vacancie_type'] as String?,
       number_of_vacancie: (json['number_of_vacancie'] as num?)?.toInt(),
-      recurrence_id: (json['recurrence_id'] as num?)?.toInt(),
-      recurring_start_date: json['recurring_start_date'] as String?,
-      recurring_end_date: json['recurring_end_date'] as String?,
       multi_date: json['multi_date'] as String?,
     );
 
@@ -68,6 +68,9 @@ Map<String, dynamic> _$$PostShiftDTOImplToJson(_$PostShiftDTOImpl instance) =>
       'recurring_status': instance.recurring_status,
       'start_date': instance.start_date,
       'recurrence_mode': instance.recurrence_mode,
+      'recurrence_id': instance.recurrence_id,
+      'recurring_start_date': instance.recurring_start_date,
+      'recurring_end_date': instance.recurring_end_date,
       'days': instance.days,
       'end_date': instance.end_date,
       'disclaimer': instance.disclaimer,
@@ -89,8 +92,5 @@ Map<String, dynamic> _$$PostShiftDTOImplToJson(_$PostShiftDTOImpl instance) =>
       'shift_note': instance.shift_note,
       'vacancie_type': instance.vacancie_type,
       'number_of_vacancie': instance.number_of_vacancie,
-      'recurrence_id': instance.recurrence_id,
-      'recurring_start_date': instance.recurring_start_date,
-      'recurring_end_date': instance.recurring_end_date,
       'multi_date': instance.multi_date,
     };
