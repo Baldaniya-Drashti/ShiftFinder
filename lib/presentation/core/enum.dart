@@ -1,0 +1,1 @@
+enum ShiftDetailRoute { employerCancelledShift }

@@ -5,11 +5,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/employer/profile/edit_profile/edit_profile_view.dart';
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/common_card_dialog.dart';
 
@@ -21,8 +24,8 @@ class EditClockTimeDialog extends StatelessWidget {
     return const Placeholder();
   }
 
-  editClockTimeDialog(BuildContext context) {
-    return showDialog(
+  editClockTimeDialog(BuildContext context) async {
+    final result = await showDialog<bool?>(
       context: context,
       builder: (context) => BlocProvider(
         create: (context) => getIt<ShiftsBloc>(),
@@ -41,7 +44,7 @@ class EditClockTimeDialog extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: getSize(25)),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     SizedBox(
                       height: getSize(30),
@@ -50,13 +53,13 @@ class EditClockTimeDialog extends StatelessWidget {
                       text: 'Edit Clock Time',
                       fontSize: 22,
                       fontFamily: 'Aclonica',
+                      textAlign: TextAlign.center,
                     ),
                     SizedBox(
                       height: getSize(10),
                     ),
                     BaseText(
-                      text:
-                          'Please only edit the clock in and out times if you find major discrepancies to avoid potential disputes',
+                      text: 'Please only edit the clock in and out times if you find major discrepancies to avoid potential disputes',
                       fontSize: 14,
                       showFullDescription: true,
                       textAlign: TextAlign.center,
@@ -67,6 +70,7 @@ class EditClockTimeDialog extends StatelessWidget {
                       height: getSize(18),
                     ),
                     Text.rich(
+                      textAlign: TextAlign.center,
                       TextSpan(
                         style: TextStyle(
                           fontFamily: 'Roboto Flex',
@@ -183,29 +187,7 @@ class EditClockTimeDialog extends StatelessWidget {
                         Expanded(
                           child: CommonButton(
                             onPressed: () async {
-                              await context.router.maybePop();
-                              AcceptRejectDialog(
-                                title: 'Approve',
-                                description:
-                                    'By approving these clock in and out times, you confirm that you have reviewed the [contractor name]’s  hours. Once approved, the times will be finalized.',
-                                onPressedAccept: () async {
-                                  await context.router.maybePop();
-                                  CommonCardDialog(
-                                    title: 'Approved!',
-                                    description:
-                                        'The clock in and out times for this shift have been successfully approved.',
-                                    buttonText: 'Ok',
-                                    onPressed: () async {
-                                      await context.router.maybePop();
-                                    },
-                                    image: SvgImageConstant.approved,
-                                  ).addCardDialog(context);
-                                },
-                                acceptButtonText: 'Approve',
-                                onPressedReject: () async {
-                                  await context.router.maybePop();
-                                },
-                              ).acceptRejectDialog(context);
+                              context.router.maybePop(true);
                             },
                             buttonText: 'Approve',
                           ),
@@ -223,6 +205,96 @@ class EditClockTimeDialog extends StatelessWidget {
         ),
       ),
     );
+
+    if (result ?? false) {
+      AcceptRejectDialog(
+        title: 'Approve',
+        description:
+            'By approving these clock in and out times, you confirm that you have reviewed the [contractor name]’s  hours. Once approved, the times will be finalized.',
+        onPressedAccept: () async {
+          await context.router.maybePop();
+          final result=await showDialog<bool?>(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                contentPadding: EdgeInsets.all(24).copyWith(top: 0),
+                clipBehavior: Clip.none,
+                insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(getSize(15)),
+                ),
+                titlePadding: EdgeInsets.zero,
+                title: Column(
+                  children: [
+                    Stack(
+                      clipBehavior: Clip.none,
+                      alignment: Alignment.center,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(getSize(15)),
+                          child: Image.asset(PngImageConstants.curvedBackgroundImage),
+                        ),
+                        Positioned(
+                          top: getSize(85),
+                          child: SvgPicture.asset(
+                            SvgImageConstant.approved,
+                            height: getSize(107),
+                            width: getSize(107),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: getSize(80),
+                    ),
+                    BaseText(
+                      text: "Approved!",
+                      fontSize: 22,
+                      fontFamily: 'Aclonica',
+                    ),
+                  ],
+                ),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      height: getSize(10),
+                    ),
+                    BaseText(
+                      text: "The clock in and out times for this shift have been successfully approved.",
+                      fontSize: 14,
+                      textAlign: TextAlign.center,
+                      fontWeight: FontWeight.w500,
+                      textColor: AppColors.black.withOpacity(0.7),
+                    ),
+                  ],
+                ),
+                actionsAlignment: MainAxisAlignment.center,
+                actions: [
+                  CommonButton(
+                    height: 46,
+                    width: 200,
+                    onPressed: () {
+                      context.router.maybePop(true);
+                    },
+                    buttonText: "Ok",
+                  ),
+                ],
+              );
+            },
+          );
+          if(result??true){
+            context.router.push(PageRouteInfo(ShiftActionsView.name));
+
+          }
+
+        },
+        acceptButtonText: 'Approve',
+        onPressedReject: () async {
+          await context.router.maybePop();
+        },
+      ).acceptRejectDialog(context);
+    }
   }
 
   String formatTimeOfDay(TimeOfDay tod) {
@@ -232,8 +304,7 @@ class EditClockTimeDialog extends StatelessWidget {
     return format.format(dt);
   }
 
-  Future<TimeOfDay?> selectTime(
-      BuildContext context, TimeOfDay selectedTime) async {
+  Future<TimeOfDay?> selectTime(BuildContext context, TimeOfDay selectedTime) async {
     //log(selectedTime.);
     final TimeOfDay? pickedTime = await showTimePicker(
       context: context,

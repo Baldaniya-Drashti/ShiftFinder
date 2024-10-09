@@ -37,13 +37,12 @@ class CommonCardDialog extends StatelessWidget {
   }
 
   addCardDialog(BuildContext context) async {
-    return showDialog(
+    showDialog<bool?>(
       context: context,
       barrierDismissible: barrierDismissible,
       builder: (context) => AlertDialog(
         clipBehavior: Clip.none,
-        insetPadding:
-            insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+        insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(getSize(15)),
         ),
@@ -104,10 +103,6 @@ class CommonCardDialog extends StatelessWidget {
           ),
         ],
       ),
-    ).then((value) {
-      if (onCallback != null) {
-        onCallback!(value);
-      }
-    });
+    );
   }
 }

@@ -24,23 +24,16 @@ class ReferenceView extends StatelessWidget {
         SizedBox(
           height: getSize(8),
         ),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: 2,
-          itemBuilder: (context, index) {
-            return getReferenceDetail(context);
-          },
-        ),
+        professionalRef(context),
+        personalRef(context),
       ],
     );
   }
 
-  getReferenceDetail(BuildContext context) {
+  professionalRef(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.router.push(PageRouteInfo(PersonalReferenceDetail.name));
-
+        context.router.push(PageRouteInfo(ProfessionalReferenceDetail.name));
         //  context.router.push(PageRouteInfo(ProfessionalReferenceDetail.name));
       },
       child: Container(
@@ -56,8 +49,8 @@ class ReferenceView extends StatelessWidget {
         child: Row(
           children: [
             Image.asset(
-              PngImageConstants.education,
-              height: getSize(25),
+              PngImageConstants.person,
+              height: getSize(35),
               width: getSize(45),
             ),
             SizedBox(
@@ -75,7 +68,7 @@ class ReferenceView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   BaseText(
-                    text: 'Program Completed',
+                    text: 'Professional',
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                   ),
@@ -83,16 +76,85 @@ class ReferenceView extends StatelessWidget {
                     height: getSize(5),
                   ),
                   BaseText(
-                    text: 'Completed in - 2010',
-                    fontSize: 8,
+                    text: 'Brooklyn Simmons',
+                    fontSize: 12,
                     fontWeight: FontWeight.w500,
                   ),
                   SizedBox(
                     height: getSize(5),
                   ),
                   BaseText(
-                    text: 'Veritex Community Inst.of USA',
+                    text: 'debra.holt@example.com',
                     fontSize: 10,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.arrow_forward_rounded)
+          ],
+        ),
+      ),
+    );
+  }
+
+  personalRef(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        context.router.push(PageRouteInfo(PersonalReferenceDetail.name));
+        //  context.router.push(PageRouteInfo(ProfessionalReferenceDetail.name));
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: getSize(10)),
+        padding: EdgeInsets.symmetric(
+          horizontal: getSize(20),
+          vertical: getSize(14),
+        ),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          children: [
+            Image.asset(
+              PngImageConstants.person,
+              height: getSize(35),
+              width: getSize(45),
+            ),
+            SizedBox(
+              width: getSize(15),
+            ),
+            Image.asset(
+              PngImageConstants.line,
+              height: getSize(80),
+            ),
+            SizedBox(
+              width: getSize(15),
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  BaseText(
+                    text: 'Personal',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  SizedBox(
+                    height: getSize(5),
+                  ),
+                  BaseText(
+                    text: 'Brooklyn Simmons',
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                  ),
+                  SizedBox(
+                    height: getSize(5),
+                  ),
+                  BaseText(
+                    text: 'debra.holt@example.com',
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
                   ),
                 ],
               ),

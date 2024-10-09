@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -8,6 +9,7 @@ import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/rating_bar.dart';
 
 /// Shows a dialog.
@@ -84,7 +86,7 @@ class AppDialog {
               children: [
                 BaseText(
                   text: infoMessage,
-                  fontSize: 16,
+                  fontSize: 14,
                   fontWeight: FontWeight.w500,
                   textAlign: TextAlign.center,
                   textColor: AppColors.black.withOpacity(0.7),
@@ -292,6 +294,7 @@ class AppDialog {
   static Future<void> showLeaveRatingModal(BuildContext context) async {
     int rating = 5;
     final result = await showDialog<bool?>(
+      barrierDismissible: false,
       context: context,
       builder: (context) {
         return AlertDialog(
@@ -316,7 +319,8 @@ class AppDialog {
             mainAxisSize: MainAxisSize.min,
             children: [
               BaseText(
-                text: "Your feedback is valuable! Please rate [contractor name] to help showcase their performance and maintain service quality.",
+                text:
+                    "Your feedback is valuable! Please rate [contractor name] to help showcase their performance and maintain service quality.",
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 textAlign: TextAlign.center,
@@ -342,6 +346,100 @@ class AppDialog {
           ],
         );
       },
+    );
+  }
+}
+
+class AddRemarkModal extends StatefulWidget {
+  const AddRemarkModal({super.key, this.initialValue});
+
+  final String? initialValue;
+
+  @override
+  State<AddRemarkModal> createState() => _AddRemarkModalState();
+}
+
+class _AddRemarkModalState extends State<AddRemarkModal> {
+  late TextEditingController _controller;
+  late GlobalKey<FormState> _formKey;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.initialValue);
+    _formKey = GlobalKey<FormState>();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: AppColors.white,
+      actionsAlignment: MainAxisAlignment.center,
+      insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
+      title: BaseText(
+        text: "Add a Remark",
+        fontSize: 22,
+        fontWeight: FontWeight.w400,
+        fontFamily: "Aclonica",
+        textAlign: TextAlign.center,
+      ),
+      content: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          BaseText(
+            text:
+                "Please enter your comments or feedback about the contractor. This remark will be visible only to you and is intended for your review.",
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            textAlign: TextAlign.center,
+            textColor: AppColors.black.withOpacity(0.7),
+          ),
+          Gap(getSize(20)),
+          BaseText(text: "Comment", fontSize: 12),
+          Gap(getSize(8)),
+          Form(
+            key: _formKey,
+            child: CustomTextField(
+              controller: _controller,
+              maxLines: 5,
+              hintText: "Type here",
+              fillColor: AppColors.scaffoldColor,
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        Row(
+          children: [
+            Expanded(
+              child: CommonButton(
+                onPressed: () => context.router.maybePop(),
+                buttonText: "Cancel",
+                backgroundColor: AppColors.white,
+                borderColor: AppColors.green,
+                buttonTextColor: AppColors.green,
+              ),
+            ),
+            Gap(16),
+            Expanded(
+              child: CommonButton(
+                onPressed: () {
+                  if (!_formKey.currentState!.validate()) return;
+                  context.router.maybePop(_controller.text.trim());
+                },
+                buttonText: "Done",
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

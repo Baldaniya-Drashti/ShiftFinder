@@ -151,6 +151,7 @@ class CustomDropdownTextfield extends StatelessWidget {
       validator: validator,
       textFieldFocusNode: textFieldFocusNode,
       textFieldDecoration: InputDecoration(
+
         alignLabelWithHint: true,
         isDense: true,
         prefixIcon: prefixIcon,

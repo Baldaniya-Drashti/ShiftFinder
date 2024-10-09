@@ -1,10 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/enum.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/tabs/shifts/filled_shifts/widgets/delete_shift_dialog.dart';
 
@@ -15,25 +19,18 @@ class FilledShiftListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 10,
-      shrinkWrap: true,
-      padding: EdgeInsets.symmetric(
-        horizontal: getSize(10),
-        vertical: getSize(12.5),
-      ),
-      physics: BouncingScrollPhysics(),
-      itemBuilder: (context, index) {
-        return GestureDetector(
-          onTap: () {
-            context.router.push(
-              PageRouteInfo(
-                ViewApplicantProfile.name,
-              ),
-            );
-          },
-          child: Container(
-            margin: EdgeInsets.symmetric(vertical: getSize(index == 0 || index == 9 ? 0 : 12.5)),
+    return PaginatedListView(
+      onRefresh: () {},
+      onLoading: () {},
+      refreshController: RefreshController(),
+      child: ListView.separated(
+        separatorBuilder: (context, index) => Gap(16),
+        itemCount: 10,
+        shrinkWrap: true,
+        padding: EdgeInsets.symmetric(horizontal: getSize(10), vertical: getSize(12.5)),
+        physics: BouncingScrollPhysics(),
+        itemBuilder: (context, index) {
+          return Container(
             padding: EdgeInsets.all(getSize(10)),
             decoration: BoxDecoration(
               color: AppColors.white,
@@ -95,6 +92,7 @@ class FilledShiftListView extends StatelessWidget {
                                         ),
                                         width: getSize(28),
                                         child: SvgPicture.asset(
+                                          height: 16,
                                           SvgImageConstant.delete,
                                           colorFilter: ColorFilter.mode(AppColors.black, BlendMode.srcATop),
                                         ),
@@ -235,7 +233,8 @@ class FilledShiftListView extends StatelessWidget {
                         onTap: () {
                           context.router.push(
                             PageRouteInfo(
-                              ViewFilledShiftsDetails.name,
+                              ViewHomeShiftDetails.name,
+                              args: ViewHomeShiftDetailsArgs(postId: 485),
                             ),
                           );
                         },
@@ -269,70 +268,77 @@ class FilledShiftListView extends StatelessWidget {
                     color: AppColors.scaffoldColor,
                     borderRadius: BorderRadius.circular(getSize(10)),
                   ),
-                  child: Row(
-                    //ainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CircleAvatar(
-                        radius: getSize(20),
-                        backgroundColor: AppColors.green,
-                        child: CircleAvatar(
-                          radius: getSize(19),
-                          backgroundImage: NetworkImage(
-                            'https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg',
+                  child: InkWell(
+                    onTap: () {
+                      context.router.push(
+                        PageRouteInfo(ViewApplicantProfile.name),
+                      );
+                    },
+                    child: Row(
+                      //ainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CircleAvatar(
+                          radius: getSize(20),
+                          backgroundColor: AppColors.green,
+                          child: CircleAvatar(
+                            radius: getSize(19),
+                            backgroundImage: NetworkImage(
+                              'https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg',
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(width: getSize(10)),
-                      BaseText(
-                        text: 'Rochel Foose',
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      SizedBox(width: getSize(5)),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: getSize(14),
-                      ),
-                      Spacer(),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: getSize(8),
-                          horizontal: getSize(16),
+                        SizedBox(width: getSize(10)),
+                        BaseText(
+                          text: 'Rochel Foose',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
                         ),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: AppColors.green.withOpacity(0.15),
-                          borderRadius: BorderRadius.circular(getSize(8)),
+                        SizedBox(width: getSize(5)),
+                        Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: getSize(14),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              SvgImageConstant.chat,
-                              height: getSize(14),
-                              width: getSize(14),
-                              colorFilter: ColorFilter.mode(
-                                Colors.black,
-                                BlendMode.srcATop,
+                        Spacer(),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            vertical: getSize(8),
+                            horizontal: getSize(16),
+                          ),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: AppColors.green.withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(getSize(8)),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                SvgImageConstant.chat,
+                                height: getSize(14),
+                                width: getSize(14),
+                                colorFilter: ColorFilter.mode(
+                                  Colors.black,
+                                  BlendMode.srcATop,
+                                ),
                               ),
-                            ),
-                            SizedBox(width: getSize(3)),
-                            BaseText(
-                              text: 'Chat',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
+                              SizedBox(width: getSize(3)),
+                              BaseText(
+                                text: 'Chat',
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

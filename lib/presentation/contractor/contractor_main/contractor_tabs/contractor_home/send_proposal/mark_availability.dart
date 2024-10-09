@@ -9,7 +9,6 @@ import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_multi_date_picker.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class MarkUnavailability extends StatelessWidget {
   const MarkUnavailability({super.key});
@@ -100,44 +99,6 @@ class MarkUnavailability extends StatelessWidget {
     );
   }
 
-  Widget selectMultiDate2(BuildContext context, SendProposalState state) {
-    final isUnAvaiable =
-        state.multiDates.any((dto) => dto.isUnAvailable == true);
-    print("COLORS---> ${isUnAvaiable}");
-    return SfDateRangePicker(
-      onSelectionChanged: (value) {
-        context
-            .read<SendProposalBloc>()
-            .add(SendProposalEvent.setDateUnavailableEvent(value.value));
-      },
-      selectionMode: DateRangePickerSelectionMode.multiple,
-      initialSelectedDates: [
-        DateTime.now().add(Duration(days: 1)),
-        DateTime.now().add(Duration(days: 2)),
-        DateTime.now().add(Duration(days: 3)),
-        DateTime.now().add(Duration(days: 4)),
-      ],
-      selectionColor:
-          isUnAvaiable ? AppColors.redAccent : AppColors.primaryColor,
-
-      /*cellBuilder: (context, cell) {
-        return Container(
-          decoration:
-              BoxDecoration(color: AppColors.blue, shape: BoxShape.circle),
-          child: Center(
-            child: Text(
-              MaterialLocalizations.of(context).formatDecimal(cell.date.day),
-              // style: textStyle,
-            ),
-          ),
-        );
-      },*/
-      // monthCellStyle: DateRangePickerMonthCellStyle(
-      //   selectionColor: AppColors.primaryColor,
-      //   rangeSelectionColor: AppColors.primaryColor,
-      // ),
-    );
-  }
 
   /*Widget selectedMulti(BuildContext context, SendProposalState state) {
     List<DateTime> selectedDates = state.multiDates.map((dto) {

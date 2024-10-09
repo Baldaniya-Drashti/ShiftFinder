@@ -54,24 +54,29 @@ class FilledShiftsView extends StatelessWidget {
     ShiftsBlocState state,
   ) {
 
-    return CustomDropdownTextfield(
-      valueController: state.singleValueDropDownController,
-      list: state.locationList,
-      hintText: 'Location',
-      validator: (p0) {
-        if (p0 == null || p0.isEmpty) {
-          return 'Please select location';
-        } else {
-          return null;
-        }
-      },
-      prefixIcon: Center(
-        widthFactor: 1,
-        child: SvgPicture.asset(
-          SvgImageConstant.locationIcon,
-          colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcATop),
-          height: 16,
-          width: 16,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+
+      child: CustomDropdownTextfield(
+
+        valueController: state.singleValueDropDownController,
+        list: state.locationList,
+        hintText: 'Location',
+        validator: (p0) {
+          if (p0 == null || p0.isEmpty) {
+            return 'Please select location';
+          } else {
+            return null;
+          }
+        },
+        prefixIcon: Center(
+          widthFactor: 1,
+          child: SvgPicture.asset(
+            SvgImageConstant.locationIcon,
+            colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcATop),
+            height: 16,
+            width: 16,
+          ),
         ),
       ),
     );
