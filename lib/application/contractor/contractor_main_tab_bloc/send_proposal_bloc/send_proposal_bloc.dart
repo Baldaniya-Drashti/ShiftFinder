@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
@@ -27,8 +28,8 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
   final IMainFacade _mainFacade;
   static bool isAllownceValid(
       {required int selectedValue,
-        required InputEmptyOrNot hourValue,
-        required Rate rateValue}) {
+      required InputEmptyOrNot hourValue,
+      required Rate rateValue}) {
     final parsedRate = double.tryParse(rateValue.getValue());
     final rateValid = parsedRate != null && parsedRate > 0;
 
@@ -46,7 +47,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
 
   SendProposalBloc(this._mainFacade) : super(SendProposalState.initial()) {
     on<SendProposalEvent>(
-          (event, emit) async {
+      (event, emit) async {
         await event.map(
           accomdationHourChanged: (e) {
             emit(state.copyWith(
@@ -135,7 +136,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
 
               emit(state.copyWith(
                 totalPaybleHours:
-                CustomDateTimeFormat.formatDuration(timeDifference),
+                    CustomDateTimeFormat.formatDuration(timeDifference),
               ));
             } else if (isStartHourValid &&
                 isStartMinuteValid &&
@@ -153,7 +154,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
 
               emit(state.copyWith(
                 totalPaybleHours:
-                CustomDateTimeFormat.formatDuration(timeDifference),
+                    CustomDateTimeFormat.formatDuration(timeDifference),
               ));
             } else {
               print("start time data is not valid!");
@@ -170,12 +171,12 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
             );
 
             failureOrSuccess.fold(
-                  (l) => emit(state.copyWith(
+              (l) => emit(state.copyWith(
                 isLoading: false,
                 showErrorMessages: true,
                 failureOrSuccessOption: optionOf(failureOrSuccess),
               )),
-                  (r) {
+              (r) {
                 print("post--> $r");
                 setShiftDataToUpdate(emit, r);
                 emit(state.copyWith(
@@ -191,7 +192,13 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
             emit(state.copyWith(selectedTab: value.tabIndex));
           },
           setMultiDate: (e) {
-            emit(state.copyWith(multiDates: e.updatedDates));
+            emit(
+              state.copyWith(
+                  multiDates: e.updatedDates,
+                  unAvailableDates: e.updatedDates
+                      .where((item) => item.isUnAvailable == true)
+                      .toList()),
+            );
           },
           getMultiDateEvent: (e) {
             // List<DateTimeDTO> selectedDateList = [
@@ -210,21 +217,26 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
             if (e.updatedDates != null && e.updatedDates!.isNotEmpty) {
               emit(
                 state.copyWith(
-                  shift: e.post,
-                  multiDates: e.updatedDates!,
-                ),
+                    shift: e.post,
+                    multiDates: e.updatedDates!,
+                    unAvailableDates: e.updatedDates!
+                        .where((item) => item.isUnAvailable == true)
+                        .toList()),
               );
             } else {
               emit(
                 state.copyWith(
-                  shift: e.post,
-                  multiDates: (e.post.shift_detail?.shift_type == 2 &&
-                      e.post.shift_detail?.same_or_different_time == 2)
-                      ? getDifferentMultiDate(e.post.shift_detail?.detail ?? [])
-                      : [],
-                ),
+                    shift: e.post,
+                    multiDates: getDifferentMultiDate(
+                        e.post.shift_detail?.detail ?? [])),
               );
             }
+            emit(
+              state.copyWith(
+                selectedTab:
+                    (e.post.shift_detail?.same_or_different_time == 1) ? 1 : 0,
+              ),
+            );
           },
           startHourListChanged: (e) {
             final list = createOrUpdateDateTimeDTO(
@@ -285,7 +297,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
           },
           setDateUnavailableEvent: (e) {
             List<DateTimeDTO> updatedDateTimeDTOList =
-            List.from(state.multiDates);
+                List.from(state.multiDates);
 
             Set<DateTime> set2 = e.selectedDateList.toSet();
 
@@ -297,35 +309,45 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                 .indexWhere((item) => item.date == result[0].date);
 
             updatedDateTimeDTOList[index] =
-                updatedDateTimeDTOList[index].copyWith(isUnAvailable: true);
+                updatedDateTimeDTOList[index].copyWith(
+              isUnAvailable: !updatedDateTimeDTOList[index].isUnAvailable,
+              colorText:
+                  (!(updatedDateTimeDTOList[index].isUnAvailable) == true)
+                      ? "0xffEB0000"
+                      : "0xFF0FB62A",
+            );
 
-            print(
-                "updatedDateTimeDTOList---> ${jsonEncode(updatedDateTimeDTOList)}");
+            List<DateTimeDTO> unAvailableDates = updatedDateTimeDTOList
+                .where((item) => item.isUnAvailable == true)
+                .toList();
+
             emit(
               state.copyWith(
                 multiDates: updatedDateTimeDTOList,
+                unAvailableDates: unAvailableDates,
               ),
             );
           },
           submitSingleShiftProposalEvent: (e) async {
             final isCommuteAllownceValid = isAllownceValid(
                 selectedValue:
-                state.shift.shift_detail?.commute_allowance_type ?? -1,
+                    state.shift.shift_detail?.commute_allowance_type ?? -1,
                 hourValue: state.commuteHour,
                 rateValue: state.commuteRate);
             final isAccomdationAllownceValid = isAllownceValid(
                 selectedValue:
-                state.shift.shift_detail?.accommodation_allowance_type ??
-                    -1,
+                    state.shift.shift_detail?.accommodation_allowance_type ??
+                        -1,
                 hourValue: state.accomdationHour,
                 rateValue: state.accomdationRate);
-
             final isStartHourValid = state.startHour.isValid();
             final isStartMinuteValid = state.startMinute.isValid();
             final isEndHourValid = state.endHour.isValid();
             final isEndMinuteValid = state.endMinute.isValid();
             final isRateValid = state.rateHour.isValid();
-
+            final isMoreThanTwoHours =
+                CustomDateTimeFormat.parseTotalPayableHours(
+                    state.totalPaybleHours);
             if (isRateValid &&
                 isCommuteAllownceValid &&
                 isAccomdationAllownceValid &&
@@ -333,36 +355,43 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                 isStartMinuteValid &&
                 isEndHourValid &&
                 isEndMinuteValid) {
-              Either<MainFailure, String>? failureOrSuccess;
+              if (isMoreThanTwoHours < Duration(hours: 2)) {
+                showError(
+                        message:
+                            StringConstant.theTotalPayableHourMustBeAtLeastTwo)
+                    .show(e.context);
+              } else {
+                Either<MainFailure, String>? failureOrSuccess;
 
-              final isAllDatesValid = state.multiDates.every((dto) =>
-              dto.totalPaybleHours != null &&
-                  dto.totalPaybleHours!.isNotEmpty);
+                final isAllDatesValid = state.multiDates.every((dto) =>
+                    dto.totalPaybleHours != null &&
+                    dto.totalPaybleHours!.isNotEmpty);
 
-              if (isAllDatesValid) {
-                failureOrSuccess =
-                await _mainFacade.contractorApplyOrSendProposal(
-                  mapData: singleShiftData(state),
-                );
+                if (isAllDatesValid) {
+                  failureOrSuccess =
+                      await _mainFacade.contractorApplyOrSendProposal(
+                    mapData: singleShiftData(state),
+                  );
 
-                failureOrSuccess.fold(
-                      (l) {
-                    e.context.router.maybePop();
-                    showError(
-                      message: l.maybeMap(
-                        showAPIResponseMessage: (value) => value.message,
-                        networkError: (value) =>
-                        'Please check your internet connectivity',
-                        orElse: () => "Server Error. Try again later.",
-                      ),
-                    ).show(e.context);
-                  },
-                      (r) {
-                    showSuccess(message: r).show(e.context).then((value) {
-                      e.context.router.maybePop(true);
-                    });
-                  },
-                );
+                  failureOrSuccess.fold(
+                    (l) {
+                      e.context.router.maybePop();
+                      showError(
+                        message: l.maybeMap(
+                          showAPIResponseMessage: (value) => value.message,
+                          networkError: (value) =>
+                              'Please check your internet connectivity',
+                          orElse: () => "Server Error. Try again later.",
+                        ),
+                      ).show(e.context);
+                    },
+                    (r) {
+                      showSuccess(message: r).show(e.context).then((value) {
+                        e.context.router.maybePop(true);
+                      });
+                    },
+                  );
+                }
               }
             } else {
               print("Some details are invalid!");
@@ -375,34 +404,121 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
               );
             }
           },
-          submitMultiShiftProposalEvent: (e) async {
+          submitSameMultiShiftProposalEvent: (e) async {
             Either<MainFailure, String>? failureOrSuccess;
 
+            final isCommuteAllownceValid = isAllownceValid(
+                selectedValue:
+                    state.shift.shift_detail?.commute_allowance_type ?? -1,
+                hourValue: state.commuteHour,
+                rateValue: state.commuteRate);
+            final isAccomdationAllownceValid = isAllownceValid(
+                selectedValue:
+                    state.shift.shift_detail?.accommodation_allowance_type ??
+                        -1,
+                hourValue: state.accomdationHour,
+                rateValue: state.accomdationRate);
+            final isStartHourValid = state.startHour.isValid();
+            final isStartMinuteValid = state.startMinute.isValid();
+            final isEndHourValid = state.endHour.isValid();
+            final isEndMinuteValid = state.endMinute.isValid();
+            final isRateValid = state.rateHour.isValid();
+            final isMoreThanTwoHours =
+                CustomDateTimeFormat.parseTotalPayableHours(
+                    state.totalPaybleHours);
+
+            if (isRateValid &&
+                isCommuteAllownceValid &&
+                isAccomdationAllownceValid &&
+                isStartHourValid &&
+                isStartMinuteValid &&
+                isEndHourValid &&
+                isEndMinuteValid) {
+              if (isMoreThanTwoHours < Duration(hours: 2)) {
+                showError(
+                        message:
+                            StringConstant.theTotalPayableHourMustBeAtLeastTwo)
+                    .show(e.context);
+              } else {
+                final post = continueWithPostDetail(state);
+
+                failureOrSuccess =
+                    await _mainFacade.contractorApplyOrSendProposal(
+                  mapData: post,
+                );
+
+                failureOrSuccess.fold(
+                  (l) {
+                    e.context.router.maybePop();
+                    showError(
+                      message: l.maybeMap(
+                        showAPIResponseMessage: (value) => value.message,
+                        networkError: (value) =>
+                            'Please check your internet connectivity',
+                        orElse: () => "Server Error. Try again later.",
+                      ),
+                    ).show(e.context);
+                  },
+                  (r) {
+                    e.context.router.maybePop();
+                    showSuccess(message: r).show(e.context).then((value) {
+                      e.context.router.maybePop(true);
+                    });
+                  },
+                );
+              }
+            } else {
+              print("Some details are invalid!");
+              emit(
+                state.copyWith(
+                  showErrorMessages: true,
+                  failureOrSuccessOption: none(),
+                ),
+              );
+            }
+          },
+          submitDifferentMultiShiftProposalEvent: (e) async {
+            Either<MainFailure, String>? failureOrSuccess;
+            final isCommuteAllownceValid = isAllownceValid(
+                selectedValue:
+                    state.shift.shift_detail?.commute_allowance_type ?? -1,
+                hourValue: state.commuteHour,
+                rateValue: state.commuteRate);
+            final isAccomdationAllownceValid = isAllownceValid(
+                selectedValue:
+                    state.shift.shift_detail?.accommodation_allowance_type ??
+                        -1,
+                hourValue: state.accomdationHour,
+                rateValue: state.accomdationRate);
+            final isRateValid = state.rateHour.isValid();
             final isAllDatesValid = state.multiDates.every((dto) =>
-            dto.totalPaybleHours != null &&
+                dto.totalPaybleHours != null &&
                 dto.totalPaybleHours!.isNotEmpty);
 
-            if (isAllDatesValid) {
+            if (isAllDatesValid &&
+                isRateValid &&
+                isCommuteAllownceValid &&
+                isAccomdationAllownceValid) {
               final post = continueWithPostDetail(state);
 
               failureOrSuccess =
-              await _mainFacade.contractorApplyOrSendProposal(
+                  await _mainFacade.contractorApplyOrSendProposal(
                 mapData: post,
               );
 
               failureOrSuccess.fold(
-                    (l) {
+                (l) {
                   e.context.router.maybePop();
                   showError(
                     message: l.maybeMap(
                       showAPIResponseMessage: (value) => value.message,
                       networkError: (value) =>
-                      'Please check your internet connectivity',
+                          'Please check your internet connectivity',
                       orElse: () => "Server Error. Try again later.",
                     ),
                   ).show(e.context);
                 },
-                    (r) {
+                (r) {
                   e.context.router.maybePop();
                   showSuccess(message: r).show(e.context).then((value) {
                     e.context.router.maybePop(true);
@@ -423,11 +539,11 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
   }
   Map<String, dynamic> singleShiftData(SendProposalState state) {
     String startTime = CustomDateTimeFormat.parseTime(
-        state.startHour.getValue() ?? "",
-        state.startMinute.getValue() ?? "")
+            state.startHour.getValue() ?? "",
+            state.startMinute.getValue() ?? "")
         .toString();
     String endTime = CustomDateTimeFormat.parseTime(
-        state.endHour.getValue() ?? "", state.endMinute.getValue() ?? "")
+            state.endHour.getValue() ?? "", state.endMinute.getValue() ?? "")
         .toString();
 
     return {
@@ -436,21 +552,21 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
       'rate_hour': state.rateHour.getValue(),
       'date': state.shift.shift_detail?.date,
       'start_time':
-      DateTime.parse(startTime).toUtc().millisecondsSinceEpoch / 1000,
+          DateTime.parse(startTime).toUtc().millisecondsSinceEpoch / 1000,
       'end_time': DateTime.parse(endTime).toUtc().millisecondsSinceEpoch / 1000,
       'commute_allowance': (state.shift.shift_detail?.commute_allowance_type ==
-          1)
+              1)
           ? state.commuteRate.getValue()
           : (state.shift.shift_detail?.commute_allowance_type == 2)
-          ? getAccomdationHourId(state, state.commuteHour.getValue() ?? "")
-          : "",
+              ? getAccomdationHourId(state, state.commuteHour.getValue() ?? "")
+              : "",
       'accommodation_allowance':
-      (state.shift.shift_detail?.accommodation_allowance_type == 1)
-          ? state.accomdationRate.getValue()
-          : (state.shift.shift_detail?.accommodation_allowance_type == 2)
-          ? getAccomdationHourId(
-          state, state.accomdationHour.getValue() ?? "")
-          : "",
+          (state.shift.shift_detail?.accommodation_allowance_type == 1)
+              ? state.accomdationRate.getValue()
+              : (state.shift.shift_detail?.accommodation_allowance_type == 2)
+                  ? getAccomdationHourId(
+                      state, state.accomdationHour.getValue() ?? "")
+                  : "",
     };
   }
 
@@ -463,37 +579,38 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
         (shiftDetail.shift_type == 2 &&
             shiftDetail.same_or_different_time == 1)) {
       startTime = CustomDateTimeFormat.parseTime(
-          state.startHour.getValue() ?? "",
-          state.startMinute.getValue() ?? "")
+              state.startHour.getValue() ?? "",
+              state.startMinute.getValue() ?? "")
           .toString();
       endTime = CustomDateTimeFormat.parseTime(
-          state.endHour.getValue() ?? "", state.endMinute.getValue() ?? "")
+              state.endHour.getValue() ?? "", state.endMinute.getValue() ?? "")
           .toString();
     }
 
     String mapMultiDateToApiFormat() {
       if (state.multiDates.isNotEmpty) {
-        final list = state.multiDates.map((multiDate) {
+        final list = state.multiDates
+            .where((element) => element.isUnAvailable == false)
+            .map((multiDate) {
           final map = {
             'date': DateTime.parse(multiDate.date ?? "")
-                .toUtc()
-                .millisecondsSinceEpoch /
+                    .toUtc()
+                    .millisecondsSinceEpoch ~/
                 1000,
             'start_time': DateTime.parse(
-                (shiftDetail.same_or_different_time == 1)
-                    ? startTime
-                    : multiDate.start_time ?? "")
-                .toUtc()
-                .millisecondsSinceEpoch /
+                        (shiftDetail.same_or_different_time == 1)
+                            ? startTime
+                            : multiDate.start_time ?? "")
+                    .toUtc()
+                    .millisecondsSinceEpoch ~/
                 1000,
             'end_time': DateTime.parse((shiftDetail.same_or_different_time == 1)
-                ? endTime
-                : multiDate.end_time ?? "")
-                .toUtc()
-                .millisecondsSinceEpoch /
+                        ? endTime
+                        : multiDate.end_time ?? "")
+                    .toUtc()
+                    .millisecondsSinceEpoch ~/
                 1000,
             'payable_hour': multiDate.totalPaybleHours,
-            // 'unpaid_break_id':getSelectedUnPaidBreakId(breakTime: multiDate.unpaidBreak),
           };
           return map;
         }).toList();
@@ -503,6 +620,26 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
       }
     }
 
+    String unAvailableDateFormat() {
+      if (state.multiDates.isNotEmpty) {
+        final list = state.multiDates
+            .where((element) => element.isUnAvailable == true)
+            .map((multiDate) {
+          return (DateTime.parse(multiDate.date ?? "")
+                  .toUtc()
+                  .millisecondsSinceEpoch /
+              1000);
+        }).toList();
+
+        return jsonEncode(list);
+      } else {
+        return "";
+      }
+    }
+
+    print("unAvailableDateFormat---> ${unAvailableDateFormat()}");
+    print("mapMultiDateToApiFormat---> ${mapMultiDateToApiFormat()}");
+
     Map<String, dynamic> mapData = {
       'post_id': state.shift.id,
       'shift_type': 2,
@@ -510,73 +647,38 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
       'commute_allowance': (shiftDetail.commute_allowance_type == 1)
           ? state.commuteRate.getValue()
           : (shiftDetail.commute_allowance_type == 2)
-          ? getAccomdationHourId(state, state.commuteHour.getValue() ?? "")
-          : "",
+              ? getAccomdationHourId(state, state.commuteHour.getValue() ?? "")
+              : "",
       'accommodation_allowance': (shiftDetail.accommodation_allowance_type == 1)
           ? state.accomdationRate.getValue()
           : (shiftDetail.accommodation_allowance_type == 2)
-          ? getAccomdationHourId(
-          state, state.accomdationHour.getValue() ?? "")
-          : "",
+              ? getAccomdationHourId(
+                  state, state.accomdationHour.getValue() ?? "")
+              : "",
       'multi_date': mapMultiDateToApiFormat(),
-      'unavailability_date': "",
-      // shift_type: shift.shift_type,
-      // unpaid_break_id: shift.unpaid_break_id,
-      // total_payable_hour: shift.total_payable_hour,
-      // commute_allowance_type: shift.commute_allowance_type,
-      // accommodation_allowance_type: shift.accommodation_allowance_type,
-      // vacancie_type: shift.vacancie_type.toString(),
-      // date: (shift.date != null && shift.date!.isNotEmpty)
-      //     ? (DateTime.parse(shift.date ?? "").toUtc().millisecondsSinceEpoch /
-      //             1000)
-      //         .toString()
-      //     : null,
-      // start_time: (shift.start_time != null && shift.start_time!.isNotEmpty)
-      //     ? (DateTime.parse(shift.start_time ?? "")
-      //                 .toUtc()
-      //                 .millisecondsSinceEpoch /
-      //             1000)
-      //         .toString()
-      //     : null,
-      // end_time: (shift.end_time != null && shift.end_time!.isNotEmpty)
-      //     ? (DateTime.parse(shift.end_time ?? "")
-      //                 .toUtc()
-      //                 .millisecondsSinceEpoch /
-      //             1000)
-      //         .toString()
-      //     : null,
-      // same_or_different_time: shift.same_or_different_time,
-      // multi_date: mapMultiDateToApiFormat(),
-      // individual_shift: shift.individual_shift,
-      // commute_allowance: shift.commute_allowance,
-      // accommodation_allowance: shift.accommodation_allowance,
-      // shift_note: shift.shift_note,
-      // number_of_vacancie: shift.number_of_vacancie,
+      'unavailability_date': unAvailableDateFormat(),
     };
     return mapData;
   }
 
   List<DateTimeDTO> createOrUpdateDateTimeDTO(
-      SendProposalState state, {
-        required String date,
-        required int condition,
-        required String value,
-        required int? index,
-      }) {
+    SendProposalState state, {
+    required String date,
+    required int condition,
+    required String value,
+    required int? index,
+  }) {
     final list = List<DateTimeDTO>.from(state.multiDates);
 
-    // Check if the item with the given date exists
     final existingIndex = list.indexWhere((item) => item.date == date);
 
-    // Create or update the DTO
     DateTimeDTO updatedDTO = existingIndex != -1
         ? list[existingIndex]
         : DateTimeDTO(
-      date: date,
-      objId: index,
-    );
+            date: date,
+            objId: index,
+          );
 
-    // Update fields based on the condition
     updatedDTO = updatedDTO.copyWith(
       startHour: condition == 1 ? value : updatedDTO.startHour,
       startMinute: condition == 2 ? value : updatedDTO.startMinute,
@@ -585,21 +687,18 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
       unpaidBreak: condition == 5 ? value : updatedDTO.unpaidBreak,
     );
 
-    // Update start_time if startHour and startMinute are set
     if (updatedDTO.startHour != null && updatedDTO.startMinute != null) {
       final startTime = CustomDateTimeFormat.parseTime(
           updatedDTO.startHour!, updatedDTO.startMinute!);
       updatedDTO = updatedDTO.copyWith(start_time: startTime.toString());
     }
 
-    // Update end_time if endHour and endMinute are set
     if (updatedDTO.endHour != null && updatedDTO.endMinute != null) {
       final endTime = CustomDateTimeFormat.parseTime(
           updatedDTO.endHour!, updatedDTO.endMinute!);
       updatedDTO = updatedDTO.copyWith(end_time: endTime.toString());
     }
 
-    // Calculate total payable hours
     if (isTimeFilled(updatedDTO)) {
       DateTime endTime = DateTime.parse(updatedDTO.end_time ?? "");
       DateTime startTime = DateTime.parse(updatedDTO.start_time ?? "");
@@ -612,15 +711,12 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
       if (updatedDTO.unpaidBreak != null &&
           updatedDTO.unpaidBreak!.isNotEmpty) {
         final unpaidBreak = (updatedDTO.unpaidBreak != null &&
-            updatedDTO.unpaidBreak!.isNotEmpty)
+                updatedDTO.unpaidBreak!.isNotEmpty)
             ? CustomDateTimeFormat.extractUnpaidBreak(updatedDTO.unpaidBreak!)
             : 0;
         timeDifference =
             timeDiffBetweenEndStartTime - Duration(minutes: unpaidBreak);
       }
-
-      // var timeDiffBetweenEndStartTime = DateTime.parse(updatedDTO.end_time!)
-      //     .difference(DateTime.parse(updatedDTO.start_time!));
 
       print("total hours---> $timeDiffBetweenEndStartTime");
       print("total hours---> timeDifference $timeDifference");
@@ -631,10 +727,8 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
     }
 
     if (existingIndex != -1) {
-      // If the item exists, update it
       list[existingIndex] = updatedDTO;
     } else {
-      // If the item does not exist, insert it
       list.add(updatedDTO);
       list.sort((a, b) => a.date!.compareTo(b.date!));
     }
@@ -678,7 +772,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
               : ""),
           accomdationHour: InputEmptyOrNot((r.accommodation_allowance_type == 2)
               ? getAccomdationHourName(
-              r.accommodation_allowance_type_details ?? 0)
+                  r.accommodation_allowance_type_details ?? 0)
               : ""),
           accomdationRate: Rate((r.accommodation_allowance_type == 1)
               ? "${r.accommodation_allowance_type_details ?? 0}"
@@ -690,7 +784,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
 
   String getAccomdationHourId(SendProposalState state, String selectedHour) {
     final hourId = state.accomdationHoursList.firstWhere(
-            (hour) => hour.name == selectedHour,
+        (hour) => hour.name == selectedHour,
         orElse: () => SkillDTO());
     print("Hour ID --> $hourId");
     return "${hourId.id ?? -1}";
@@ -699,12 +793,12 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
   getaAccomdationHoursListApi(Emitter<SendProposalState> emit) async {
     final hoursList = await _mainFacade.getAccomdationHoursListApi();
     hoursList.fold(
-          (l) => emit(
+      (l) => emit(
         state.copyWith(
           accomdationHoursList: [],
         ),
       ),
-          (r) {
+      (r) {
         print("Hours List ---> $hoursList");
         return emit(
           state.copyWith(
@@ -716,7 +810,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
   }
 
   List<DateTimeDTO> getDifferentMultiDate(List<ShiftDateDetailDTO> detail) {
-    print("detail is empty--> ${detail}");
+    print("detail is empty--> $detail");
     final list = detail.map((multiDate) {
       final timestamp = multiDate.date;
       // return (timestamp != null)
@@ -729,22 +823,22 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
             ? DateTime.fromMillisecondsSinceEpoch(timestamp * 1000).toString()
             : DateTime.now().toString(),
         startHour:
-        CustomDateTimeFormat.getHour(timestamp: multiDate.start_time ?? 0),
+            CustomDateTimeFormat.getHour(timestamp: multiDate.start_time ?? 0),
         startMinute: CustomDateTimeFormat.getMinute(
             timestamp: multiDate.start_time ?? 0),
         endHour:
-        CustomDateTimeFormat.getHour(timestamp: multiDate.end_time ?? 0),
+            CustomDateTimeFormat.getHour(timestamp: multiDate.end_time ?? 0),
         endMinute:
-        CustomDateTimeFormat.getMinute(timestamp: multiDate.end_time ?? 0),
-        totalPaybleHours: multiDate.payable_hour ?? "",
+            CustomDateTimeFormat.getMinute(timestamp: multiDate.end_time ?? 0),
         start_time: (multiDate.start_time != null)
             ? DateTime.fromMillisecondsSinceEpoch(multiDate.start_time! * 1000)
-            .toString()
+                .toString()
             : DateTime.now().toString(),
         end_time: (multiDate.end_time != null)
             ? DateTime.fromMillisecondsSinceEpoch(multiDate.end_time! * 1000)
-            .toString()
+                .toString()
             : DateTime.now().toString(),
+        totalPaybleHours: multiDate.payable_hour ?? "",
         unpaidBreak: multiDate.unpaid_break?.name ?? "",
       );
     }).toList();

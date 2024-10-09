@@ -10,7 +10,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/infrastructure/core/employer_home/employer_dashboard_dto.dart';
+import 'package:shift/infrastructure/core/contractor_home/contractor_dashboard_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -30,11 +30,16 @@ class ContractorHomeView extends StatelessWidget {
         // return getCheckoutContainer(context);
         return PaginatedListView(
           onRefresh: () {
-            context.read<ContractorHomeBloc>().add(ContractorHomeEvent.getContractorDashboardList(true));
+            context
+                .read<ContractorHomeBloc>()
+                .add(ContractorHomeEvent.getContractorDashboardList(true));
           },
-          refreshController: context.read<ContractorHomeBloc>().refreshController,
+          refreshController:
+              context.read<ContractorHomeBloc>().refreshController,
           onLoading: () {
-            context.read<ContractorHomeBloc>().add(ContractorHomeEvent.getContractorDashboardList(false));
+            context
+                .read<ContractorHomeBloc>()
+                .add(ContractorHomeEvent.getContractorDashboardList(false));
           },
           isNoDataFound: state.isNoDataFound,
           child: state.isLoading
@@ -61,136 +66,6 @@ class ContractorHomeView extends StatelessWidget {
     );
   }
 
-  /*getCheckoutContainer(
-    int index,
-    BuildContext context,
-  ) {
-    return BlocBuilder<ContractorHomeBloc, ContractorHomeState>(
-      builder: (context, state) {
-        return Container(
-          padding: EdgeInsets.all(getSize(10)),
-          margin: EdgeInsets.symmetric(vertical: getSize(12)),
-          width: getSize(355),
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(getSize(20)),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.black.withOpacity(0.2),
-                blurRadius: 25,
-              ),
-            ],
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              contractorDataBox(context, index),
-              SizedBox(
-                height: getSize(8),
-              ),
-              CommonButton(
-                onPressed: () {
-                  context.router.push(
-                    PageRouteInfo(
-                      ViewHomeShiftDetails.name,
-                      args: ViewHomeShiftDetailsArgs(
-                        postId: state.contractorDashboardList[index].id ?? -1,
-                        isTotalApplicants: true,
-                      ),
-                    ),
-                  );
-                },
-                height: getSize(40),
-                borderRadius: 7,
-                backgroundColor: AppColors.primaryColor.withOpacity(0.1),
-                buttonTextColor: AppColors.black,
-                buttonFontSize: 12,
-                buttonText: StringConstant.viewShiftDetails,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: AppColors.grey04,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                padding: EdgeInsets.symmetric(vertical: getSize(10)),
-                margin: EdgeInsets.symmetric(vertical: getSize(10)),
-                child: IntrinsicHeight(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      verticalLabelValue(
-                        label: "${StringConstant.shiftDate}:-",
-                        value:
-                            (state.contractorDashboardList[index].start_date !=
-                                    null)
-                                ? DateFormat('MMM dd,yyyy').format(
-                                    DateTime.fromMillisecondsSinceEpoch((state
-                                                .contractorDashboardList[index]
-                                                .start_date ??
-                                            -1) *
-                                        1000),
-                                  )
-                                : "",
-                      ),
-                      verticalDivider(),
-                      (state.contractorDashboardList[index].shift_type == 1)
-                          ? verticalLabelValue(
-                              label: "${StringConstant.startAndEndTime}:-",
-                              value: (state.contractorDashboardList[index]
-                                              .start_time !=
-                                          null &&
-                                      state.contractorDashboardList[index]
-                                              .end_time !=
-                                          null)
-                                  ? "${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((state.contractorDashboardList[index].start_time ?? 0) * 1000))} to ${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((state.contractorDashboardList[index].end_time ?? 0) * 1000))}"
-                                  : "",
-                            )
-                          : verticalLabelValue(
-                              label: "${StringConstant.totalShifts}:-",
-                              value:
-                                  "${state.contractorDashboardList[index].total_shift ?? 0} Shifts",
-                            )
-                    ],
-                  ),
-                ),
-              ),
-              proposalBox(
-                  title: StringConstant.totalApplications,
-                  value: (state.contractorDashboardList[index]
-                              .total_application_counts ??
-                          0)
-                      .toString(),
-                  onTap: () {
-                    showUnderDevelopment(context);
-
-                    // context.router
-                    //     .push(PageRouteInfo(ViewSingleApplicants.name));
-                  },
-                  index: index,
-                  isTotalApplicants: true),
-              SizedBox(
-                height: getSize(10),
-              ),
-              proposalBox(
-                title: StringConstant.totalProposals,
-                value: (state.contractorDashboardList[index]
-                            .total_proposal_counts ??
-                        0)
-                    .toString(),
-                onTap: () {
-                  showUnderDevelopment(context);
-
-                  // context.router.push(PageRouteInfo(TotalPraposalView.name));
-                },
-                index: index,
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-*/
   getCheckoutContainer(
     int index,
     BuildContext context,
@@ -225,6 +100,7 @@ class ContractorHomeView extends StatelessWidget {
                   args: ViewContractorShiftArgs(
                     postId: state.contractorDashboardList[index].id ?? -1,
                     isTotalApplicants: true,
+                    fromDashboard: true,
                   ),
                 ),
               );
@@ -254,7 +130,8 @@ class ContractorHomeView extends StatelessWidget {
                 onPressed: () {
                   AppDialog.showDelete(
                     context,
-                    infoMessage: StringConstant.areYouSureYouWantToApplyForTheShift,
+                    infoMessage:
+                        StringConstant.areYouSureYouWantToApplyForTheShift,
                     title: StringConstant.apply,
                     deleteBtnText: StringConstant.apply,
                     onCancelClick: () {
@@ -262,9 +139,10 @@ class ContractorHomeView extends StatelessWidget {
                     },
                     onDeleteClick: () {
                       // context.router.maybePop();
-                      context
-                          .read<ContractorHomeBloc>()
-                          .add(ContractorHomeEvent.applyShiftSubmittedEvent(state.contractorDashboardList[index].id, context));
+                      context.read<ContractorHomeBloc>().add(
+                          ContractorHomeEvent.applyShiftSubmittedEvent(
+                              state.contractorDashboardList[index].id,
+                              context));
                     },
                   );
                 },
@@ -276,10 +154,14 @@ class ContractorHomeView extends StatelessWidget {
                 borderColor: AppColors.primaryColor,
                 onPressed: () {
                   context.router
-                      .push(PageRouteInfo(SendProposal.name, args: SendProposalArgs(postId: state.contractorDashboardList[index].id ?? -1)))
+                      .push(PageRouteInfo(SendProposal.name,
+                          args: SendProposalArgs(
+                              postId: state.contractorDashboardList[index].id ??
+                                  -1)))
                       .then((value) {
                     if (value == true) {
-                      context.read<ContractorHomeBloc>().add(ContractorHomeEvent.getContractorDashboardList(true));
+                      context.read<ContractorHomeBloc>().add(
+                          ContractorHomeEvent.getContractorDashboardList(true));
                     }
                   });
                 },
@@ -291,7 +173,11 @@ class ContractorHomeView extends StatelessWidget {
     );
   }
 
-  appliedProposalBtn({required void Function() onPressed, required String btnTitle, Color? borderColor, Color? bgColor}) {
+  appliedProposalBtn(
+      {required void Function() onPressed,
+      required String btnTitle,
+      Color? borderColor,
+      Color? bgColor}) {
     return Expanded(
       child: CommonButton(
         height: 40,
@@ -337,7 +223,8 @@ class ContractorHomeView extends StatelessWidget {
                 // ),
                 isThreeLine: true,
                 title: BaseText(
-                  text: state.contractorDashboardList[index].roles_list_name ?? "",
+                  text: state.contractorDashboardList[index].roles_list_name ??
+                      "",
                   textColor: AppColors.black,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -348,7 +235,8 @@ class ContractorHomeView extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     BaseText(
-                      text: state.contractorDashboardList[index].company_name ?? "",
+                      text: state.contractorDashboardList[index].company_name ??
+                          "",
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
                       textColor: AppColors.black.withOpacity(0.80),
@@ -405,14 +293,18 @@ class ContractorHomeView extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           BaseText(
-                            text: state.contractorDashboardList[index].location?.location ?? "",
+                            text: state.contractorDashboardList[index].location
+                                    ?.location ??
+                                "",
                             fontSize: 12,
                             maxLines: 1,
                             fontWeight: FontWeight.w500,
                             textColor: AppColors.black,
                           ),
                           BaseText(
-                            text: state.contractorDashboardList[index].distance ?? "",
+                            text:
+                                state.contractorDashboardList[index].distance ??
+                                    "",
                             fontSize: 10,
                             fontWeight: FontWeight.w600,
                             textColor: AppColors.primaryColor,
@@ -479,7 +371,8 @@ class ContractorHomeView extends StatelessWidget {
     );
   }
 
-  Widget singleShiftDateTimeBreakUI(BuildContext context, int index, ContractorHomeState state) {
+  Widget singleShiftDateTimeBreakUI(
+      BuildContext context, int index, ContractorHomeState state) {
     final list = state.contractorDashboardList[index];
     return Container(
       decoration: BoxDecoration(
@@ -502,18 +395,24 @@ class ContractorHomeView extends StatelessWidget {
                 context,
                 list,
                 boldValue: convertTimeStampToDate(list.start_date ?? -1),
-                timidValue: convertTimeStampToDate(list.start_date ?? -1, isYear: true),
+                timidValue:
+                    convertTimeStampToDate(list.start_date ?? -1, isYear: true),
                 title: StringConstant.shiftDate,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
               displayTime(
                 title: StringConstant.time,
-                startDate: convertTimeStampToDate(list.start_time ?? -1, isTime: true),
-                endDate: convertTimeStampToDate(list.end_time ?? -1, isTime: true),
+                startDate:
+                    convertTimeStampToDate(list.start_time ?? -1, isTime: true),
+                endDate:
+                    convertTimeStampToDate(list.end_time ?? -1, isTime: true),
                 svgPrefixIcon: SvgImageConstant.clock,
               ),
               displayDateBreak(context, list,
-                  boldValue: "45 Min", timidValue: "", title: StringConstant.unpaidBreak, svgPrefixIcon: SvgImageConstant.clock),
+                  boldValue: list.unpaid_break?.short_name ?? "",
+                  timidValue: "",
+                  title: StringConstant.unpaidBreak,
+                  svgPrefixIcon: SvgImageConstant.clock),
             ],
           ),
           Padding(
@@ -530,7 +429,8 @@ class ContractorHomeView extends StatelessWidget {
     );
   }
 
-  String convertTimeStampToDate(int timestamp, {bool isYear = false, bool isTime = false}) {
+  String convertTimeStampToDate(int timestamp,
+      {bool isYear = false, bool isTime = false}) {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
 
     if (isTime) {
@@ -544,7 +444,8 @@ class ContractorHomeView extends StatelessWidget {
     }
   }
 
-  Widget multiShiftDateTimeBreakUI(BuildContext context, int index, ContractorHomeState state) {
+  Widget multiShiftDateTimeBreakUI(
+      BuildContext context, int index, ContractorHomeState state) {
     final list = state.contractorDashboardList[index];
 
     return Container(
@@ -573,11 +474,17 @@ class ContractorHomeView extends StatelessWidget {
                 title: StringConstant.shiftDates,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
-              displayDateBreak(context, list,
-                  boldValue: "${list.total_shift ?? -1}",
-                  timidValue: "",
-                  title: StringConstant.totalShifts,
-                  svgPrefixIcon: SvgImageConstant.clock),
+              (list.shift_type == 2 && list.same_or_different_time == 2)
+                  ? displayDateBreak(context, list,
+                      boldValue: "${list.total_shift ?? -1}",
+                      timidValue: "",
+                      title: StringConstant.totalShifts,
+                      svgPrefixIcon: SvgImageConstant.clock)
+                  : displayDateBreak(context, list,
+                      boldValue: list.unpaid_break?.short_name ?? "",
+                      timidValue: "",
+                      title: StringConstant.unpaidBreak,
+                      svgPrefixIcon: SvgImageConstant.clock),
             ],
           ),
           Padding(
@@ -596,7 +503,7 @@ class ContractorHomeView extends StatelessWidget {
 
   Widget displayDateBreak(
     BuildContext context,
-    EmployerDashboardDTO post, {
+    ContactorDashboardDTO post, {
     required String title,
     required String boldValue,
     required String timidValue,
@@ -617,6 +524,7 @@ class ContractorHomeView extends StatelessWidget {
           SizedBox(width: getSize(10)),
           Column(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               BaseText(
@@ -629,12 +537,14 @@ class ContractorHomeView extends StatelessWidget {
                   ? CommonButton(
                       onPressed: () {
                         if (post.shift_date != null) {
-                          context.router
-                              .push(PageRouteInfo(ViewContractorShiftDates.name, args: ViewContractorShiftDatesArgs(shiftDetail: post)));
+                          context.router.push(PageRouteInfo(
+                              ViewContractorShiftDates.name,
+                              args: ViewContractorShiftDatesArgs(
+                                  shiftDetail: post)));
                         }
                       },
                       width: 100,
-                      height: 23,
+                      height: 27,
                       borderRadius: 5,
                       buttonFontSize: 12,
                       buttonFontWeight: FontWeight.w500,
@@ -702,7 +612,10 @@ class ContractorHomeView extends StatelessWidget {
     );
   }
 
-  Widget highLightText({required String boldValue, required String timidValue, String? thirdValue}) {
+  Widget highLightText(
+      {required String boldValue,
+      required String timidValue,
+      String? thirdValue}) {
     return RichText(
         text: TextSpan(
       text: boldValue,
@@ -739,7 +652,8 @@ class ContractorHomeView extends StatelessWidget {
       ),
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
       width: double.infinity,
-      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         minVerticalPadding: 0,
@@ -772,6 +686,7 @@ class ContractorHomeView extends StatelessWidget {
               fontSize: 14,
               fontWeight: FontWeight.w600,
             ),
+            SizedBox(height: getSize(3)),
             Flexible(
               child: BaseText(
                 text: value,
@@ -787,7 +702,7 @@ class ContractorHomeView extends StatelessWidget {
     );
   }
 
-  Widget rateHoursBox(EmployerDashboardDTO post) {
+  Widget rateHoursBox(ContactorDashboardDTO post) {
     return Container(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(20),
@@ -795,7 +710,8 @@ class ContractorHomeView extends StatelessWidget {
         ),
         margin: EdgeInsets.symmetric(vertical: getSize(5)),
         width: double.infinity,
-        decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+        decoration: BoxDecoration(
+            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -818,61 +734,60 @@ class ContractorHomeView extends StatelessWidget {
         ));
   }
 
-  Widget rateWithBGIcon({required String svgIcon, required String title, required String value}) {
-    return Flexible(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              BaseText(
-                text: title,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                textColor: AppColors.black.withOpacity(0.7),
-              ),
-              SizedBox(
-                height: getSize(5),
-              ),
-              BaseText(
-                text: value,
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-                textColor: AppColors.black,
-              ),
-            ],
-          ),
-          Flexible(
-            child: Align(
-              alignment: Alignment.center,
-              child: SvgPicture.asset(
-                svgIcon,
-                height: getSize(35),
-                width: getSize(35),
-                color: AppColors.primaryColor.withOpacity(0.2),
-              ),
+  Widget rateWithBGIcon(
+      {required String svgIcon, required String title, required String value}) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            BaseText(
+              text: title,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              textColor: AppColors.black.withOpacity(0.7),
             ),
-          )
-        ],
-      ),
+            SizedBox(height: getSize(5)),
+            BaseText(
+              text: value,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              textColor: AppColors.black,
+            ),
+          ],
+        ),
+        SizedBox(width: getSize(10)),
+        Align(
+          alignment: Alignment.center,
+          child: SvgPicture.asset(
+            svgIcon,
+            height: getSize(35),
+            width: getSize(35),
+            color: AppColors.primaryColor.withOpacity(0.2),
+          ),
+        )
+      ],
     );
   }
 
-  Widget payableBox(EmployerDashboardDTO post) {
+  Widget payableBox(ContactorDashboardDTO post) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
+      padding:
+          EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
       width: double.infinity,
-      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: Column(
         children: [
           paybaleTitleRate(
             title: StringConstant.totalNumberOfVacancy,
-            value: "${(post.total_vacancy.toString().length == 2) ? post.total_vacancy : "0${post.total_vacancy}"}",
+            value:
+                "${(post.total_vacancy.toString().length == 2) ? post.total_vacancy : "0${post.total_vacancy}"}",
             isFirst: true,
           ),
           commonDivider(),
@@ -880,6 +795,7 @@ class ContractorHomeView extends StatelessWidget {
             title: "${StringConstant.accommodationAllowance}:-",
             value: "\$${post.accommodation_allowance ?? 00}",
           ),
+          SizedBox(height: getSize(5)),
           paybaleTitleRate(
             title: "${StringConstant.commuteAllowance}:-",
             value: "\$${post.commute_allowance ?? 00}",
@@ -902,7 +818,11 @@ class ContractorHomeView extends StatelessWidget {
     );
   }
 
-  Widget paybaleTitleRate({required String title, required String value, bool isFirst = false, isLast = false}) {
+  Widget paybaleTitleRate(
+      {required String title,
+      required String value,
+      bool isFirst = false,
+      isLast = false}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

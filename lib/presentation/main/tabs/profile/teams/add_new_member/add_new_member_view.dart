@@ -119,8 +119,8 @@ class AddNewMemberView extends StatelessWidget {
                       prefillValue: state.jobPositionTextField.getValue(),
                       value: StringConstant.jobPosition,
                       inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                            RegExp(r'[a-zA-Z\s]')),
+                        // FilteringTextInputFormatter.allow(
+                        //     RegExp(r'[a-zA-Z\s]')),
                       ],
                       onChanged: (value) {
                         context.read<AddNewMemberBloc>().add(

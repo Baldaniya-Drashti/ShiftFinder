@@ -97,6 +97,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
                         // "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?"),
                         if (post.shift_detail != null &&
                             post.shift_detail!.shift_type == 1 &&
+                            post.shift_detail!.recurring_status == 1 &&
                             post.shift_detail!.recurrence_mode != null)
                           recurrence(),
                         if (post.shift_detail != null &&
@@ -360,6 +361,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
               fontSize: 14,
               fontWeight: FontWeight.w600,
             ),
+            SizedBox(height: getSize(3)),
             Flexible(
               child: BaseText(
                 text: value,
@@ -460,8 +462,8 @@ class ReviewPostShiftDetail extends StatelessWidget {
               SvgPicture.asset(
                 SvgImageConstant.location,
                 color: AppColors.black,
-                height: getSize(20),
-                width: getSize(20),
+                height: getSize(25),
+                width: getSize(25),
               ),
               SizedBox(
                 width: getSize(10),
@@ -587,10 +589,10 @@ class ReviewPostShiftDetail extends StatelessWidget {
                   ? displayDateBreak(context,
                       boldValue: (post.shift_detail?.detail != null &&
                               post.shift_detail!.detail!.isNotEmpty)
-                          ? "${(post.shift_detail?.detail?.length.toString().length == 2) ? post.shift_detail?.detail?.length : "0${post.shift_detail?.detail?.length}"}"
-                          : "00",
+                          ? "${(post.shift_detail?.detail?.length.toString().length == 2) ? post.shift_detail?.detail?.length : "0${post.shift_detail?.detail?.length}"} Shifts"
+                          : "00 Shifts",
                       timidValue: "",
-                      title: StringConstant.totalNumberOfShifts,
+                      title: StringConstant.totalShifts,
                       svgPrefixIcon: SvgImageConstant.clockWithOuterLine)
                   : displayDateBreak(context,
                       boldValue:

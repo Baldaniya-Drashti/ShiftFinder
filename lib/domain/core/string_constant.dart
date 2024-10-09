@@ -14,7 +14,7 @@ class StringConstant {
   static const String letsFindTheRightHealthServiceProfessional =
       'Let\'s Find The Right Health\nService Professional';
   static const String onBoarding3Desc_contractor =
-      'Discover health service shifts that allow you to showcase your expertise, support diverse teams, and make a meaningful impact where you\'re needed most.';
+      'Discover health service shifts that allow you to showcase your expertise, support diverse teams and make a meaningful impact where you\'re needed most.';
   static const String onBoarding3Desc_employer =
       'Connect with a qualified health service professional to bridge gaps in unfilled shifts. Enhance your team’s expertise with our professional support.';
   static const String letsStart = 'Lets Start';
@@ -47,7 +47,7 @@ class StringConstant {
   static const String verifyYourPhoneNumber = "Verify Your Phone Number";
   static const String verifyYourEmail = "Verify Your Email";
   static const String verificationDesc =
-      "Please enter the verification code sent to your registered phone number to proceed.";
+      "Please enter the verification code that sent to your phone number.";
   static const String emailVerificationDesc =
       "Please enter the verification code that sent to your email.";
   static const String resendCode = "Resend Code";
@@ -401,6 +401,8 @@ class StringConstant {
   static const String currentShifts = "Current Shifts";
   static const String upcomingShifts = "Upcoming Shifts";
   static const String appliedShifts = "Applied Shifts";
+  static const String applied = "Applied";
+  static const String counterProposal = "Counter Proposal";
   static const String estimatedPayables = "Estimated Payables";
   static const String clockIn = "Clock in";
   static const String clockOut = "Clock out";
@@ -418,6 +420,8 @@ class StringConstant {
   static const String editUnit = "Edit Unit";
   static const String noShiftPostedYet = "No Shift Posted Yet!";
   static const String confirm = "Confirm";
+  static const String unavailableDates = "Unavailable Dates";
+  static const String availableForEveryDates = "Available for Every Dates";
   static const String clockInConfirmationDesc =
       "Are you sure you want to add the clock in time?";
   static const String clockOutConfirmationDesc =
@@ -484,7 +488,7 @@ class StringConstant {
   static const String pleaseAddReferrersEmail = "Please add referrer's email";
   static const String pleaseAddJobLocationFacility =
       "Please add job location/facility";
-  static const String pleaseAddUnitDepartment = "Please add unit/department";
+  static const String pleaseAddUnitDepartment = "Please add Unit/Department";
   static const String pleaseSelectStartDate = "Please select start date";
   static const String pleaseSelectEndDate = "Please select end date";
   static const String pleaseEnterMobileNumber = "Please enter phone number";
@@ -589,14 +593,7 @@ class StringConstant {
       "Something wrong. Please try again!!";
   static const String pleaseSelectHourAndMinutesOfStartTime =
       "Please select shift start time";
-  static const String pleaseSelectHourOfStartTime =
-      "Please select hour of start time";
-  static const String pleaseSelectMinutesOfStartTime =
-      "Please select minutes of start time";
-  static const String pleaseSelectHourOfEndTime =
-      "Please select hour of end time";
-  static const String pleaseSelectMinutesOfEndTime =
-      "Please select minutes of end time";
+
   static const String pleaseSelectHourAndMinutesOfEndTime =
       "Please select shift end time";
   static const String pleaseSelectUnpaidBreakTime =
@@ -612,7 +609,7 @@ class StringConstant {
   static const String numberOfVacanciesMustBeGreaterThanOne =
       "Number of vacancies must be greater than 1";
   static const String pleaseSelectRecurrenceMode =
-      "Please select recurrence mode";
+      "Please select days for recurrence";
   static const String pleaseSelectAtLeastOneTeam =
       "Please select at least one team";
 
@@ -630,5 +627,8 @@ class StringConstant {
       "It looks like you haven't created a team yet! By setting up internal teams, you can automatically share posting details with your team members, streamlining your hiring process. You can create a team through your profile and then continue with shift posting. \nDo you want to proceed with creating a team now?";
   static const String createYourTeamToGetStarted =
       "Create Your Team to Get Started";
+  static const String dontShowThisAgain = "Don’t show this again";
+  static const String theTotalPayableHourMustBeAtLeastTwo =
+      "The total payable hours must be at least 2 hours.";
   static const String underDevelopment = "Under Development";
 }

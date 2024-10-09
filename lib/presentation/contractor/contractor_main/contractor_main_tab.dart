@@ -16,11 +16,11 @@ import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_home/contracator_home.dart';
+import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_profile/contractor_profile.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/contractor_shifts.dart';
 import 'package:shift/presentation/core/app_router.gr.dart' as autoroute;
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/tabs/notification_view.dart';
-import 'package:shift/presentation/main/tabs/profile/profile_view.dart';
 import 'package:shift/presentation/main/widgets/custom_bottom_navigation.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
@@ -33,10 +33,12 @@ class ContractorMainTabView extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => getIt<ContractorMainTabBloc>()..add(ContractorMainTabEvent.tabChange(0)),
+          create: (context) => getIt<ContractorMainTabBloc>()
+            ..add(ContractorMainTabEvent.tabChange(0)),
         ),
         BlocProvider(
-          create: (context) => getIt<ContractorHomeBloc>()..add(ContractorHomeEvent.getContractorDashboardList(true)),
+          create: (context) => getIt<ContractorHomeBloc>()
+            ..add(ContractorHomeEvent.getContractorDashboardList(true)),
         ),
         BlocProvider<AccountCubit>(
           create: (context) => getIt<AccountCubit>()..getAccount(),
@@ -60,10 +62,13 @@ class ContractorMainTabView extends StatelessWidget {
                     (int index) {
                       return Navigator(
                         onGenerateRoute: (RouteSettings settings) {
-                          print("PAGE IS ${context.read<ContractorMainTabBloc>().pageList[index]}");
+                          print(
+                              "PAGE IS ${context.read<ContractorMainTabBloc>().pageList[index]}");
                           return onGenerateRoute(
                             settings,
-                            context.read<ContractorMainTabBloc>().pageList[index],
+                            context
+                                .read<ContractorMainTabBloc>()
+                                .pageList[index],
                           );
                         },
                       );
@@ -91,7 +96,8 @@ getAppbar(ContractorMainTabState state, BuildContext context) {
             shape: BoxShape.circle,
             border: Border.all(color: AppColors.darkGreen, width: getSize(3)),
             image: DecorationImage(
-              image: (getCurrentUser().profileImage != null && getCurrentUser().profileImage!.isNotEmpty)
+              image: (getCurrentUser().profileImage != null &&
+                      getCurrentUser().profileImage!.isNotEmpty)
                   ? CachedNetworkImageProvider(
                       getCurrentUser().profileImage!,
                       // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBLrdd7MIMxvrcpH-P3EtMy2jhc5PL0tDNww&s",
@@ -105,27 +111,29 @@ getAppbar(ContractorMainTabState state, BuildContext context) {
         ),
         titleWidget: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             BaseText(
               text: StringConstant.welcome,
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: FontWeight.w400,
               fontFamily: "Aclonica",
+              lineHeight: getSize(1),
               textColor: AppColors.black.withOpacity(0.7),
             ),
             BaseText(
-              text: "${getCurrentUser().firstName ?? ''} ${getCurrentUser().lastName ?? ''}",
-              fontSize: 12,
+              text:
+                  "${getCurrentUser().firstName ?? ''} ${getCurrentUser().lastName ?? ''}",
+              fontSize: 14,
               fontWeight: FontWeight.w400,
               fontFamily: "Aclonica",
             ),
-            BaseText(
-              text: "${getCurrentUser().companyName ?? ''}",
-              fontSize: 8,
-              fontWeight: FontWeight.w600,
-              textColor: AppColors.primaryColor,
-            ),
+            // BaseText(
+            //   text: "${getCurrentUser().companyName ?? ''}",
+            //   fontSize: 10,
+            //   fontWeight: FontWeight.w600,
+            //   textColor: AppColors.primaryColor,
+            // ),
           ],
         ),
         actions: [
@@ -143,7 +151,9 @@ getAppbar(ContractorMainTabState state, BuildContext context) {
             color: AppColors.white,
             padding: EdgeInsets.zero,
             onSelected: (String result) {
-              context.read<ContractorHomeBloc>().add(ContractorHomeEvent.filterShiftEvent(result));
+              context
+                  .read<ContractorHomeBloc>()
+                  .add(ContractorHomeEvent.filterShiftEvent(result));
             },
             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
               PopupMenuItem<String>(
@@ -190,7 +200,7 @@ Route? onGenerateRoute(RouteSettings settings, String tabItem) {
       } else if (tabItem == autoroute.NotificationView.name) {
         return NotificationView();
       } else if (tabItem == autoroute.ProfileView.name) {
-        return ProfileView();
+        return ContractorProfileView();
       }
       return Container();
     },

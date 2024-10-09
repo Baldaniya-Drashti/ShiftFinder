@@ -8,14 +8,14 @@ import 'package:intl/intl.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/infrastructure/core/employer_home/employer_dashboard_dto.dart';
+import 'package:shift/infrastructure/core/contractor_home/contractor_dashboard_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'ViewContractorShiftDates')
 class ViewContractorShiftDates extends StatelessWidget {
-  EmployerDashboardDTO shiftDetail;
+  ContactorDashboardDTO shiftDetail;
   ViewContractorShiftDates({super.key, required this.shiftDetail});
 
   @override
@@ -266,7 +266,8 @@ class ViewContractorShiftDates extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (shiftDetail.shift_type == 2) ...[
+                if (shiftDetail.shift_type == 2 &&
+                    shiftDetail.same_or_different_time == 2) ...[
                   SizedBox(height: getSize(10)),
                   BaseText(
                     text: StringConstant.unpaidBreak,

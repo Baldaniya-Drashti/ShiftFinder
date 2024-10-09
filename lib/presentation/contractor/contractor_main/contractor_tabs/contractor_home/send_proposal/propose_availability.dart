@@ -55,7 +55,8 @@ class ProposeAvailability extends StatelessWidget {
                         textColor: AppColors.black.withOpacity(0.6),
                       ),
                       paddingBetweenFields(),
-                      tabbar(context),
+                      if (post.shift_detail?.same_or_different_time == 2)
+                        tabbar(context),
                       paddingBetweenFields(),
                       numberOfShift(
                         svgPrefixIcon: SvgImageConstant.clockWithOuterLine,

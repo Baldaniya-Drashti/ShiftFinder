@@ -544,10 +544,10 @@ class ViewUpcomingShiftDetails extends StatelessWidget {
                   ? displayDateBreak(context, post,
                       boldValue: (post.shift_detail?.detail != null &&
                               post.shift_detail!.detail!.isNotEmpty)
-                          ? "${(post.shift_detail?.detail?.length.toString().length == 2) ? post.shift_detail?.detail?.length : "0${post.shift_detail?.detail?.length}"}"
-                          : "00",
+                          ? "${(post.shift_detail?.detail?.length.toString().length == 2) ? post.shift_detail?.detail?.length : "0${post.shift_detail?.detail?.length}"} Shifts"
+                          : "00 Shifts",
                       timidValue: "",
-                      title: StringConstant.totalNumberOfShifts,
+                      title: StringConstant.totalShifts,
                       svgPrefixIcon: SvgImageConstant.clockWithOuterLine)
                   : displayDateBreak(context, post,
                       boldValue:

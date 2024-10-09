@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:shift/domain/core/math_utils.dart';
-import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/custom_multi_date_picker/calendar_date_picker2.dart';
 import 'package:shift/presentation/core/widgets/custom_multi_date_picker/calendar_date_picker2_config.dart';
@@ -14,25 +13,34 @@ class CustomMultiDatePicker extends StatelessWidget {
   final bool isDisabled;
   final bool Function(DateTime)? selectableDayPredicate;
   final Map<DateTime, Color>? selectedDateColors;
-  final List<DateTimeDTO> selectedDateList;
+  final Widget? Function(
+      {required DateTime date,
+      BoxDecoration? decoration,
+      bool? isDisabled,
+      bool? isSelected,
+      bool? isToday,
+      TextStyle? textStyle})? dayBuilder;
 
-  const CustomMultiDatePicker(
-      {super.key,
-      required this.value,
-      this.onValueChanged,
-      this.selectedDateBGColor,
-      this.selectableDayPredicate,
-      this.isDisabled = false,
-      this.selectedDateColors,
-      this.selectedDateList = const []});
+  const CustomMultiDatePicker({
+    super.key,
+    required this.value,
+    this.onValueChanged,
+    this.selectedDateBGColor,
+    this.selectableDayPredicate,
+    this.isDisabled = false,
+    this.selectedDateColors,
+    this.dayBuilder,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(
+          color: AppColors.white, borderRadius: BorderRadius.circular(10)),
       child: CalendarDatePicker2(
         selectedDateColors: selectedDateColors ?? {},
         config: CalendarDatePicker2Config(
+          dayBuilder: dayBuilder,
           firstDate: DateTime.now(),
           calendarType: CalendarDatePicker2Type.multi,
           disableMonthPicker: true,
@@ -47,7 +55,8 @@ class CustomMultiDatePicker extends StatelessWidget {
             color: AppColors.white,
             fontSize: getFontSize(12),
           ),
-          selectedDayHighlightColor: selectedDateBGColor ?? AppColors.primaryColor,
+          selectedDayHighlightColor:
+              selectedDateBGColor ?? AppColors.primaryColor,
           daySplashColor: AppColors.transparent,
           disabledDayTextStyle: TextStyle(
             color: (isDisabled)

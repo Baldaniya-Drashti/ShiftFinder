@@ -10,25 +10,24 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
+import 'package:shift/infrastructure/core/contractor_home/contractor_dashboard_dto.dart';
 import 'package:shift/infrastructure/core/employer_home/employer_dashboard_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 
 part 'contractor_home_state.dart';
-
 part 'contractor_home_event.dart';
-
 part 'contractor_home_bloc.freezed.dart';
 
 @injectable
-class ContractorHomeBloc extends Bloc<ContractorHomeEvent, ContractorHomeState> {
+class ContractorHomeBloc
+    extends Bloc<ContractorHomeEvent, ContractorHomeState> {
   int page = 1;
   int lastPage = 1;
   Timer? searchOnStoppedTyping;
   bool isFetching = false;
   final RefreshController refreshController = RefreshController();
   final IMainFacade mainFacade;
-
   ContractorHomeBloc(this.mainFacade) : super(ContractorHomeState.initial()) {
     on<ContractorHomeEvent>((event, emit) async {
       await event.map(
@@ -82,7 +81,8 @@ class ContractorHomeBloc extends Bloc<ContractorHomeEvent, ContractorHomeState> 
         getContractorDashboardList: (e) async {
           if (e.isRefresh) {
             page = 1;
-            emit(state.copyWith(contractorDashboardList: [], isLoading: e.isRefresh));
+            emit(state
+                .copyWith(contractorDashboardList: [], isLoading: e.isRefresh));
             refreshController.resetNoData();
           } else {
             if (page > lastPage) {
@@ -91,7 +91,8 @@ class ContractorHomeBloc extends Bloc<ContractorHomeEvent, ContractorHomeState> 
             }
           }
 
-          var res = await mainFacade.getContractorDashboardListAPI(page: page, filterType: state.filterType);
+          var res = await mainFacade.getContractorDashboardListAPI(
+              page: page, filterType: state.filterType);
 
           page++;
 
@@ -112,10 +113,16 @@ class ContractorHomeBloc extends Bloc<ContractorHomeEvent, ContractorHomeState> 
                 state.copyWith(
                   isLoading: false,
                   isErrorInAPI: false,
-                  isNoDataFound: (r.data as List<dynamic>).map((e) => EmployerDashboardDTO.fromJson(e)).toList().isEmpty,
+                  isNoDataFound: (r.data as List<dynamic>)
+                      .map((e) => ContactorDashboardDTO.fromJson(e))
+                      .toList()
+                      .isEmpty,
                   //  getProductList: []
-                  contractorDashboardList: List.from(state.contractorDashboardList)
-                    ..addAll((r.data as List<dynamic>).map((e) => EmployerDashboardDTO.fromJson(e)).toList()),
+                  contractorDashboardList:
+                      List.from(state.contractorDashboardList)
+                        ..addAll((r.data as List<dynamic>)
+                            .map((e) => ContactorDashboardDTO.fromJson(e))
+                            .toList()),
                 ),
               );
             },
@@ -163,7 +170,8 @@ class ContractorHomeBloc extends Bloc<ContractorHomeEvent, ContractorHomeState> 
               showError(
                 message: l.maybeMap(
                   showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) => 'Please check your internet connectivity',
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
                   orElse: () => "Server Error. Try again later.",
                 ),
               ).show(e.context);

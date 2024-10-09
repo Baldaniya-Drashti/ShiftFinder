@@ -154,7 +154,29 @@ class LocationDetailsBloc
         },
         editUnitNumberChip: (e) {
           List<UnitDTO> updatedList = List.from(state.listOfUnit);
-          if (!state.listOfUnit.any((unit) =>
+
+          final existingUnit = state.listOfUnit[e.index];
+
+          bool isUnitNameAlreadyExist = state.listOfUnit.any((unit) =>
+              unit.number_or_name?.toLowerCase() ==
+                  e.updatedUnit.number_or_name?.toLowerCase() &&
+              unit != existingUnit);
+          if (isUnitNameAlreadyExist) {
+            AppFocus.unfocus(e.context);
+            showError(message: StringConstant.unitAlreadyExist).show(e.context);
+          } else {
+            // - The number_or_name is new (not existing in another unit)
+            // - Or the number_or_name is the same, and only the note is changed
+            updatedList[e.index] = e.updatedUnit;
+            emit(
+              state.copyWith(
+                listOfUnit: updatedList,
+                authFailureOrSuccessOption: none(),
+              ),
+            );
+            Navigator.pop(e.context);
+          }
+          /*if (!state.listOfUnit.any((unit) =>
               unit.number_or_name?.toLowerCase() ==
               e.updatedUnit.number_or_name?.toLowerCase())) {
             updatedList[e.index] = e.updatedUnit;
@@ -168,7 +190,7 @@ class LocationDetailsBloc
           } else {
             AppFocus.unfocus(e.context);
             showError(message: StringConstant.unitAlreadyExist).show(e.context);
-          }
+          }*/
         },
         removeUnitNumberChip: (e) {
           /*emit(

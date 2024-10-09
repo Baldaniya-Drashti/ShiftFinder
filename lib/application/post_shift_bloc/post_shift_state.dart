@@ -50,6 +50,8 @@ class PostShiftState with _$PostShiftState {
     required bool recurringErrorMessage,
     required Option<Either<MainFailure, HealthcarePostDTO>>
         recurringFailureOrSuccessOption,
+    required Option<Either<MainFailure, CommonResponse>>
+        updatePostFailureOrSuccessOption,
 
     /// Multi shift
     required bool isIndividualPost,
@@ -129,5 +131,6 @@ class PostShiftState with _$PostShiftState {
 
         /// Post the shift
         postShiftFailureOrSuccessOption: none(),
+        updatePostFailureOrSuccessOption: none(),
       );
 }

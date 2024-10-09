@@ -25,6 +25,11 @@ _$UpComingShiftDTOImpl _$$UpComingShiftDTOImplFromJson(
       last_ago: json['last_ago'] as String?,
       applied_date: (json['applied_date'] as num?)?.toInt(),
       check_delete: json['check_delete'] as bool?,
+      date: (json['date'] as num?)?.toInt(),
+      start_time: (json['start_time'] as num?)?.toInt(),
+      end_time: (json['end_time'] as num?)?.toInt(),
+      shift_type: (json['shift_type'] as num?)?.toInt(),
+      total_shift: (json['total_shift'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$UpComingShiftDTOImplToJson(
@@ -46,4 +51,9 @@ Map<String, dynamic> _$$UpComingShiftDTOImplToJson(
       'last_ago': instance.last_ago,
       'applied_date': instance.applied_date,
       'check_delete': instance.check_delete,
+      'date': instance.date,
+      'start_time': instance.start_time,
+      'end_time': instance.end_time,
+      'shift_type': instance.shift_type,
+      'total_shift': instance.total_shift,
     };

@@ -24,21 +24,16 @@ abstract class IMainFacade {
   Future<Either<MainFailure, HealthcarePostDTO>> createPostApi({
     required PostShiftDTO postShiftDetail,
   });
-
-  Future<Either<MainFailure, HealthcarePostDTO>> updatePostApi({
+  Future<Either<MainFailure, CommonResponse>> updatePostApi({
     required PostShiftDTO postShiftDetail,
   });
-
   Future<Either<MainFailure, HealthcarePostDTO>> getPostApi({
     required int postId,
   });
-
   Future<Either<MainFailure, String>> deletePostApi({
     required int postId,
   });
-
   Future<Either<MainFailure, TeamAvailableDTO>> employerTeamCheck();
-
   Future<Either<MainFailure, CommonResponse>> getEmployerDashboardListAPI({
     required int page,
   });
@@ -57,12 +52,10 @@ abstract class IMainFacade {
     required int page,
     String? id,
   });
-
   Future<Either<MainFailure, List<SkillDTO>>> getUnpaidBreakListApi();
-
   Future<Either<MainFailure, List<SkillDTO>>> getAccomdationHoursListApi();
-
-  Future<Either<MainFailure, HealthcarePostDTO>> createPostShiftApi({required MultiShiftDTO shift});
+  Future<Either<MainFailure, HealthcarePostDTO>> createPostShiftApi(
+      {required MultiShiftDTO shift});
 
   Future<Either<MainFailure, HealthcarePostDTO>> createPostShiftRecurringApi({
     required int postShiftId,
@@ -86,7 +79,6 @@ abstract class IMainFacade {
   Future<Either<MainFailure, String>> postShiftApi({
     required int postId,
   });
-
   Future<Either<MainFailure, String>> createTeamApi({
     required String locationId,
     required InputEmptyOrNot teamName,
@@ -101,7 +93,6 @@ abstract class IMainFacade {
   Future<Either<MainFailure, String>> deleteTeamApi({
     required String teamId,
   });
-
   Future<Either<MainFailure, String>> createTeamMemberApi({
     required String teamId,
     required InputEmptyOrNot teamMemberName,
@@ -121,7 +112,6 @@ abstract class IMainFacade {
     required EmailAddress email,
     required MobileNumber phoneNumber,
   });
-
   Future<Either<MainFailure, String>> deleteTeamMemberApi({
     required String teamMemberId,
   });
@@ -134,18 +124,14 @@ abstract class IMainFacade {
   Future<Either<MainFailure, CommonResponse>> getPreviousPost({required int page,required int type});
 
 
-
-
-  Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut({required int shiftId, required int clockTime});
+  Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut(
+      {required int shiftId, required int clockTime});
 
   Future<Either<MainFailure, CommonResponse>> deleteUpcomingShiftApi({
     required int id,
     String reason = "",
   });
 
-  Future<Either<MainFailure, HealthcarePostDTO>> getContractorShiftDetail({required int postId});
-
-
-
-
+  Future<Either<MainFailure, HealthcarePostDTO>> getContractorShiftDetail(
+      {required int postId});
 }

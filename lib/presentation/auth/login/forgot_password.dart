@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, deprecated_member_use
 
 import 'package:auto_route/auto_route.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -102,6 +103,10 @@ class FilterBottomSheet extends StatelessWidget {
                         orElse: () => "Server Error. Try again later.",
                       ),
                     ).show(context);
+                    context
+                        .read<ForgotPasswordBloc>()
+                        .state
+                        .copyWith(saveNewPassFailureOrSuccessOption: none());
                   },
                   (r) {
                     context.router.maybePop();
@@ -353,7 +358,7 @@ class FilterBottomSheet extends StatelessWidget {
             alignment: Alignment.center,
             child: BaseText(
               textAlign: TextAlign.center,
-              maxLines: 2,
+              maxLines: 5,
               text: (getCurrentRole() == 1)
                   ? StringConstant.verificationDesc
                   : StringConstant.emailVerificationDesc,

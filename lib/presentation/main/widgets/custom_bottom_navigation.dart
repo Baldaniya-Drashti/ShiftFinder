@@ -152,8 +152,8 @@ class ContractorBottomNavigationWidget extends StatelessWidget {
               blurStyle: BlurStyle.normal,
             ),
             elevation: 0,
-            leftCornerRadius: getSize(0),
-            rightCornerRadius: getSize(0),
+            leftCornerRadius: getSize(35),
+            rightCornerRadius: getSize(35),
           ),
         );
       },
@@ -176,7 +176,7 @@ class ContractorBottomNavigationWidget extends StatelessWidget {
 
   List<String> tabLabelList = [
     StringConstant.home,
-    StringConstant.shift,
+    StringConstant.shifts,
     StringConstant.notification,
     StringConstant.profile,
   ];

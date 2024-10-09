@@ -24,23 +24,32 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MainTabBloc, MainTabState>(
       builder: (context, state) {
-        return Padding(
-          padding: EdgeInsets.symmetric(horizontal: getSize(19.5)),
-          child: AppBar(
-            scrolledUnderElevation: 0,
-            backgroundColor: AppColors.scaffoldColor,
-            elevation: 0,
-            leading: leading ?? Container(),
-            centerTitle: (titleText != null) ? true : false,
-            title: (titleText != null)
-                ? BaseText(
-                    text: titleText!,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: "Aclonica",
-                  )
-                : titleWidget ?? Container(),
-            actions: actions,
+        return PreferredSize(
+          preferredSize: Size.fromHeight(120),
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(
+                getSize(19.5), getSize(15), getSize(19.5), 0),
+            child: AppBar(
+                scrolledUnderElevation: 0,
+                backgroundColor: AppColors.scaffoldColor,
+                elevation: 0,
+                leading: leading ?? Container(),
+                centerTitle: (titleText != null) ? true : false,
+                title: (titleText != null)
+                    ? BaseText(
+                        text: titleText!,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Aclonica",
+                      )
+                    : titleWidget ?? Container(),
+                actions: actions,
+                bottom: PreferredSize(
+                  preferredSize: Size.fromHeight(0),
+                  child: Container(
+                    height: getSize(5),
+                  ),
+                )),
           ),
         );
       },

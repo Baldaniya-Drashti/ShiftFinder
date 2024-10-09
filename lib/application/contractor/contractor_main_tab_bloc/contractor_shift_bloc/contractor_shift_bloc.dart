@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
@@ -14,15 +13,13 @@ import 'package:shift/infrastructure/contractor_main/shift/upcoming_shift_dto/up
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
-
 part 'contractor_shift_event.dart';
-
 part 'contractor_shift_state.dart';
-
 part 'contractor_shift_bloc.freezed.dart';
 
 @injectable
-class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftState> {
+class ContractorShiftBloc
+    extends Bloc<ContractorShiftEvent, ContractorShiftState> {
   final IMainFacade mainFacade;
 
   int currentShiftPage = 1;
@@ -41,10 +38,16 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
             print("Current Tab index---> ${e.tabIndex}");
             emit(state.copyWith(selectedTab: e.tabIndex));
           },
+          appliedShiftChangeTab: (e) {
+            emit(state.copyWith(selectedAppliedTab: e.tabIndex));
+          },
           getCurrentShiftDetailAPI: (e) async {
             if (e.isRefresh) {
               currentShiftPage = 1;
-              emit(state.copyWith(currentShiftList: [], isLoading: e.isRefresh));
+              emit(state.copyWith(
+                currentShiftList: [],
+                isLoading: e.isRefresh,
+              ));
               currentShiftRefreshCtrl.resetNoData();
             } else {
               if (currentShiftPage > currentShiftLastPage) {
@@ -52,11 +55,16 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
                 return;
               }
             }
-            var res = await mainFacade.getContractorShifts(page: currentShiftPage, filterType: 1);
+            var res = await mainFacade.getContractorShifts(
+                page: currentShiftPage, filterType: 1);
             currentShiftPage++;
             res.fold(
               (l) => emit(
-                state.copyWith(isErrorInAPI: true, isLoading: false, currentShiftList: []),
+                state.copyWith(
+                  isErrorInAPI: true,
+                  isLoading: false,
+                  currentShiftList: [],
+                ),
               ),
               (r) {
                 currentShiftLastPage = r.meta?.lastPage ?? 1;
@@ -74,13 +82,18 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
                     selectedClockOutTime: "10",
                   ),
                 ];*/
-                return emit(
+                emit(
                   state.copyWith(
                     isLoading: false,
                     isErrorInAPI: false,
-                    isNoDataFound: (r.data as List<dynamic>).map((e) => CurrentShiftDTO.fromJson(e)).toList().isEmpty,
+                    isNoDataFound: (r.data as List<dynamic>)
+                        .map((e) => CurrentShiftDTO.fromJson(e))
+                        .toList()
+                        .isEmpty,
                     currentShiftList: List.from(state.currentShiftList)
-                      ..addAll((r.data as List<dynamic>).map((e) => CurrentShiftDTO.fromJson(e)).toList()),
+                      ..addAll((r.data as List<dynamic>)
+                          .map((e) => CurrentShiftDTO.fromJson(e))
+                          .toList()),
                     // currentShiftList: dummyList,
                   ),
                 );
@@ -90,7 +103,10 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
           getUpcomingShiftAPI: (e) async {
             if (e.isRefresh) {
               upcomingShiftPage = 1;
-              emit(state.copyWith(upcomingShiftList: [], isLoading: e.isRefresh));
+              emit(state.copyWith(
+                upcomingShiftList: [],
+                isUpcomingLoading: e.isRefresh,
+              ));
               upcomingShiftRefreshCtrl.resetNoData();
             } else {
               if (upcomingShiftPage > upcomingShiftLastPage) {
@@ -99,14 +115,15 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
               }
             }
             print("SELECTED TAB---> ${state.selectedTab}");
-            var res = await mainFacade.getContractorShifts(page: upcomingShiftPage, filterType: 2);
+            var res = await mainFacade.getContractorShifts(
+                page: upcomingShiftPage, filterType: 2);
 
             upcomingShiftPage++;
             res.fold(
               (l) => emit(
                 state.copyWith(
-                  isErrorInAPI: true,
-                  isLoading: false,
+                  isUpcomingErrorInAPI: true,
+                  isUpcomingLoading: false,
                   upcomingShiftList: [],
                 ),
               ),
@@ -118,18 +135,24 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
 
                 return emit(
                   state.copyWith(
-                    isLoading: false,
-                    isErrorInAPI: false,
-                    isNoDataFound: (r.data as List<dynamic>).map((e) => UpComingShiftDTO.fromJson(e)).toList().isEmpty,
+                    isUpcomingLoading: false,
+                    isUpcomingErrorInAPI: false,
+                    isUpcomingNoDataFound: (r.data as List<dynamic>)
+                        .map((e) => UpComingShiftDTO.fromJson(e))
+                        .toList()
+                        .isEmpty,
                     upcomingShiftList: List.from(state.upcomingShiftList)
-                      ..addAll((r.data as List<dynamic>).map((e) => UpComingShiftDTO.fromJson(e)).toList()),
+                      ..addAll((r.data as List<dynamic>)
+                          .map((e) => UpComingShiftDTO.fromJson(e))
+                          .toList()),
                   ),
                 );
               },
             );
           },
           setClockIn: (e) {
-            final List<CurrentShiftDTO> shiftList = List.from(state.currentShiftList);
+            final List<CurrentShiftDTO> shiftList =
+                List.from(state.currentShiftList);
 
             final clockInTimeStamp = convertToTimestamp(e.clockInTime);
 
@@ -143,7 +166,8 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
             emit(state.copyWith(currentShiftList: List.from(shiftList)));
           },
           setClockOut: (e) {
-            final List<CurrentShiftDTO> shiftList = List.from(state.currentShiftList);
+            final List<CurrentShiftDTO> shiftList =
+                List.from(state.currentShiftList);
 
             final clockOutTimeStamp = convertToTimestamp(e.clockOutTime);
 
@@ -159,7 +183,8 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
           submitClockInOut: (e) async {
             Either<MainFailure, CommonResponse>? failureOrSuccess;
 
-            failureOrSuccess = await mainFacade.submitContractorClockInClockOut(shiftId: e.postId, clockTime: e.clockInOutTime);
+            failureOrSuccess = await mainFacade.submitContractorClockInClockOut(
+                shiftId: e.postId, clockTime: e.clockInOutTime);
 
             failureOrSuccess.fold(
               (l) {
@@ -167,14 +192,17 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
                 showError(
                   message: l.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) => 'Please check your internet connectivity',
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(e.context);
               },
               (r) {
                 e.context.router.maybePop();
-                showSuccess(message: r.dioMessage ?? "").show(e.context).then((value) {
+                showSuccess(message: r.dioMessage ?? "")
+                    .show(e.context)
+                    .then((value) {
                   add(ContractorShiftEvent.getCurrentShiftDetailAPI(true));
                 });
               },
@@ -192,21 +220,26 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
             Either<MainFailure, CommonResponse>? failureOrSuccess;
 
             if (state.deletePostReason.isValid()) {
-              failureOrSuccess = await mainFacade.deleteUpcomingShiftApi(id: e.postId, reason: "");
+              failureOrSuccess = await mainFacade.deleteUpcomingShiftApi(
+                  id: e.postId, reason: "");
+
               failureOrSuccess.fold(
                 (l) {
                   e.context.router.maybePop();
                   showError(
                     message: l.maybeMap(
                       showAPIResponseMessage: (value) => value.message,
-                      networkError: (value) => 'Please check your internet connectivity',
+                      networkError: (value) =>
+                          'Please check your internet connectivity',
                       orElse: () => "Server Error. Try again later.",
                     ),
                   ).show(e.context);
                 },
                 (r) {
                   e.context.router.maybePop();
-                  showSuccess(message: r.dioMessage ?? "").show(e.context).then((value) {
+                  showSuccess(message: r.dioMessage ?? "")
+                      .show(e.context)
+                      .then((value) {
                     add(ContractorShiftEvent.getUpcomingShiftAPI(true));
                   });
                 },

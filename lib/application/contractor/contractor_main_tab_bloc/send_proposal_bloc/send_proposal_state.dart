@@ -23,6 +23,7 @@ class SendProposalState with _$SendProposalState {
         failureOrSuccessOption,
     required int selectedTab,
     required List<DateTimeDTO> multiDates,
+    required List<DateTimeDTO> unAvailableDates,
   }) = _SendProposalState;
   factory SendProposalState.initial() => SendProposalState(
         selectedTab: 0,
@@ -39,6 +40,7 @@ class SendProposalState with _$SendProposalState {
         accomdationRate: Rate(""),
         accomdationHoursList: [],
         multiDates: [],
+        unAvailableDates: [],
         isLoading: false,
         isSubmitting: false,
         showErrorMessages: false,

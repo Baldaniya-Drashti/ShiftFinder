@@ -8,4 +8,6 @@ class HomeEvent with _$HomeEvent {
       GetEmployerDashboardList;
   const factory HomeEvent.checkTeamAvailableEvent(BuildContext context,
       {int? index}) = CheckTeamAvailableEvent;
+  const factory HomeEvent.dontShowAgain(BuildContext context,
+      {@Default(false) bool isCheck}) = DontShowAgain;
 }

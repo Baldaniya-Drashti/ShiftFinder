@@ -19,7 +19,8 @@ class DateTimeDTO with _$DateTimeDTO {
     String? endMinute,
     String? totalPaybleHours,
     String? unpaidBreak,
-    bool? isUnAvailable,
+    @Default(false)bool isUnAvailable,
+    String? colorText,
   }) = _DateTimeDTO;
 
   factory DateTimeDTO.fromJson(Map<String, dynamic> json) =>

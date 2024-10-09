@@ -10,7 +10,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/applied_shift.dart';
+import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/applied_shift/applied_shift.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/current_shift.dart';
 import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/upcoming_shift.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';

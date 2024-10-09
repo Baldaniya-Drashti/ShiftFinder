@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -7,15 +6,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/employer_home/employer_dashboard_dto.dart';
 import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
+import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
-
 part 'home_state.dart';
 part 'home_event.dart';
 part 'home_bloc.freezed.dart';
@@ -102,6 +104,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             },
           );
         },
+        dontShowAgain: (e) {
+          print("jvjv---> ${e.isCheck}");
+          emit(state.copyWith(
+            showTeamDialog: e.isCheck,
+            teamStatusErrorMessage: false,
+            teamStatusFailureOrSuccessOption: none(),
+          ));
+        },
         checkTeamAvailableEvent: (e) async {
           emit(
             state.copyWith(
@@ -134,7 +144,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                   teamStatusFailureOrSuccessOption: optionOf(res),
                 ),
               );
-              if (r.isTeamAvailable == 1) {
+              if (r.isTeamAvailable == 1 || getShowTeamDialog() == false) {
                 e.context.router
                     .push(PageRouteInfo(HealthCarePostForm.name))
                     .then((value) {
@@ -157,25 +167,82 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       context,
       title: StringConstant.createYourTeamToGetStarted,
       infoMessage: StringConstant.checkTeamStatusDesc,
+      barrierDismissible: true,
       deleteBtnText: StringConstant.yes,
       cancelText: StringConstant.no,
+      otherContent: dontShowAgain(context),
       onCancelClick: () {
+        if (state.showTeamDialog) {
+          setShowTeamDialog(false);
+        }
         context.router.maybePop();
         context.router
             .push(PageRouteInfo(HealthCarePostForm.name))
             .then((value) {
-          context
-              .read<HomeBloc>()
-              .add(HomeEvent.getEmployerDashboardList(true));
+          add(HomeEvent.getEmployerDashboardList(true));
         });
       },
       onDeleteClick: () {
+        if (state.showTeamDialog) {
+          setShowTeamDialog(false);
+        }
+
         context.router.maybePop();
         context.router.push(PageRouteInfo(TeamsView.name)).then((value) {
-          context
-              .read<HomeBloc>()
-              .add(HomeEvent.checkTeamAvailableEvent(context));
+          add(HomeEvent.checkTeamAvailableEvent(context));
         });
+      },
+    );
+  }
+
+  Widget dontShowAgain(BuildContext context) {
+    print("state.showTeamDialog---> ${state.showTeamDialog}");
+    return BlocBuilder<HomeBloc, HomeState>(
+      bloc: context.read<HomeBloc>(),
+      builder: (context, state) {
+        return Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: getSize(20), vertical: getSize(20)),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              SizedBox(
+                height: getSize(20),
+                width: getSize(16.67),
+                // color: Colors.green,
+                child: Checkbox(
+                  value: state.showTeamDialog,
+                  activeColor: AppColors.primaryColor,
+                  side: BorderSide(
+                    width: getSize(1.5),
+                    color: AppColors.black.withOpacity(0.5),
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  onChanged: (value) {
+                    if (value != null) {
+                      add(HomeEvent.dontShowAgain(context, isCheck: value));
+                    }
+                  },
+                ),
+              ),
+              SizedBox(
+                width: getSize(20),
+              ),
+              Flexible(
+                child: BaseText(
+                  text: StringConstant.dontShowThisAgain,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  textAlign: TextAlign.center,
+                  textColor: AppColors.black.withOpacity(0.7),
+                  maxLines: 20,
+                ),
+              ),
+            ],
+          ),
+        );
       },
     );
   }
