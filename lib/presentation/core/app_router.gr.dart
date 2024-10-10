@@ -2526,10 +2526,18 @@ class ViewPersonPraposalView extends _i71.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i69.ViewSingleApplicants]
-class ViewSingleApplicants extends _i71.PageRouteInfo<void> {
-  const ViewSingleApplicants({List<_i71.PageRouteInfo>? children})
-      : super(
+class ViewSingleApplicants
+    extends _i71.PageRouteInfo<ViewSingleApplicantsArgs> {
+  ViewSingleApplicants({
+    _i72.Key? key,
+    required int postId,
+    List<_i71.PageRouteInfo>? children,
+  }) : super(
           ViewSingleApplicants.name,
+          args: ViewSingleApplicantsArgs(
+            key: key,
+            postId: postId,
+          ),
           initialChildren: children,
         );
 
@@ -2538,9 +2546,29 @@ class ViewSingleApplicants extends _i71.PageRouteInfo<void> {
   static _i71.PageInfo page = _i71.PageInfo(
     name,
     builder: (data) {
-      return const _i69.ViewSingleApplicants();
+      final args = data.argsAs<ViewSingleApplicantsArgs>();
+      return _i69.ViewSingleApplicants(
+        key: args.key,
+        postId: args.postId,
+      );
     },
   );
+}
+
+class ViewSingleApplicantsArgs {
+  const ViewSingleApplicantsArgs({
+    this.key,
+    required this.postId,
+  });
+
+  final _i72.Key? key;
+
+  final int postId;
+
+  @override
+  String toString() {
+    return 'ViewSingleApplicantsArgs{key: $key, postId: $postId}';
+  }
 }
 
 /// generated route for

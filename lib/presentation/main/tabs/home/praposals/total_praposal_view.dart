@@ -21,12 +21,9 @@ class TotalPraposalView extends StatelessWidget {
       body: ListView(
         shrinkWrap: true,
         physics: BouncingScrollPhysics(),
-        children: [
-          SizedBox(height: getSize(20)),
-          MainPraposalView(),
-          PersonListWidget()
-        ],
+        children: [SizedBox(height: getSize(20)), MainPraposalView(), PersonListWidget()],
       ),
     );
   }
 }
+

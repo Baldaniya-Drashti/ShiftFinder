@@ -6,11 +6,9 @@ import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
 import 'package:shift/presentation/core/widgets/dropdown/custom_dropdown_textfield.dart';
 import 'package:shift/presentation/main/tabs/shifts/approved_shifts/widgets/approved_shift_list.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 
 class ApproveShiftView extends StatelessWidget {
   const ApproveShiftView({super.key});

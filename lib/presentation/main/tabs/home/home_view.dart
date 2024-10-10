@@ -14,6 +14,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -194,10 +195,11 @@ class HomeView extends StatelessWidget {
                   title: StringConstant.totalApplications,
                   value: (state.employerDashboardList[index].total_application_counts ?? 0).toString(),
                   onTap: () {
-                    showUnderDevelopment(context);
+                    //showUnderDevelopment(context);
 
-                    // context.router
-                    //     .push(PageRouteInfo(ViewSingleApplicants.name));
+                    Log.debug(state.employerDashboardList[index].id);
+                    final id= state.employerDashboardList[index].id;
+                    context.router.push(PageRouteInfo(ViewSingleApplicants.name,args: ViewSingleApplicantsArgs(postId: id??0)));
                   },
                   index: index,
                   isTotalApplicants: true),
@@ -208,9 +210,10 @@ class HomeView extends StatelessWidget {
                 title: StringConstant.totalProposals,
                 value: (state.employerDashboardList[index].total_proposal_counts ?? 0).toString(),
                 onTap: () {
-                  showUnderDevelopment(context);
+                  //showUnderDevelopment(context);
+                  Log.debug(state.employerDashboardList[index].id);
 
-                  // context.router.push(PageRouteInfo(TotalPraposalView.name));
+                  context.router.push(PageRouteInfo(TotalPraposalView.name));
                 },
                 index: index,
               ),

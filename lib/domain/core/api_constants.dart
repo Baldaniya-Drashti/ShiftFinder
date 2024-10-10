@@ -149,9 +149,12 @@ class ApiConstants {
   static String deleteTeam = 'delete_team';
 
   static String employerPreviousShift = 'employer_previous_shift';
+  static String employerApplicants = 'employer_applicants';
+  static String employerApplicantsAcceptReject = 'employer_applicants_accept_reject';
   static String employerRating = 'employer_rating';
   static String employerRemark = 'employer_remark';
   static String deleteRemark = 'destroy_remark';
   static String employerBlock = 'employer_block';
   static String employerFavorite = 'employer_favorite';
+  static String employerRevoke = 'employer_applicants_revoke';
 }

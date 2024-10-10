@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/presentation/core/style/app_colors.dart';
 
 class DropDownItem<T> {
   final Widget? icon;
@@ -270,6 +272,83 @@ class ActionIcon extends StatelessWidget {
       tooltip: tooltip,
       iconSize: iconSize,
       splashRadius: splashRadius,
+    );
+  }
+}
+
+class CustomDropdownField<T> extends StatefulWidget {
+  const CustomDropdownField({
+    super.key,
+    required this.onChanged,
+    required this.value,
+    required this.items,
+    this.validator,
+    this.prefixIcon,
+  });
+
+  final ValueChanged<T?> onChanged;
+  final T? value;
+  final List<DropdownMenuItem<T?>> items;
+  final FormFieldValidator<T?>? validator;
+  final Widget? prefixIcon;
+
+  @override
+  State<CustomDropdownField> createState() => _CustomDropdownFieldState();
+}
+
+class _CustomDropdownFieldState extends State<CustomDropdownField> {
+  final ValueNotifier<bool> _isMenuOpened = ValueNotifier<bool>(false);
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButtonFormField2(
+      barrierLabel: "Test",
+      isDense: true,
+      validator: widget.validator,
+      style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
+      isExpanded: true,
+      menuItemStyleData: const MenuItemStyleData(
+        height: 35,
+        padding: EdgeInsets.only(left: 14, right: 14),
+      ),
+      dropdownStyleData: DropdownStyleData(
+        padding: EdgeInsets.zero,
+        offset: const Offset(0, -8),
+        elevation: 1,
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.all(Radius.circular(7)),
+        ),
+      ),
+      iconStyleData: IconStyleData(
+        icon: ValueListenableBuilder(
+          valueListenable: _isMenuOpened,
+          builder: (context, value, child) => AnimatedContainer(
+            duration: const Duration(milliseconds: 100),
+            transform: Matrix4.rotationZ(_isMenuOpened.value ? pi / 1 : 0),
+            transformAlignment: Alignment.center,
+            child: SvgPicture.asset(
+              height: 8,
+              SvgImageConstant.downArrow,
+              colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
+            ),
+          ),
+        ),
+      ),
+      decoration: InputDecoration(
+        fillColor: AppColors.white,
+        filled: true,
+        contentPadding: EdgeInsets.only(right: 16, top: 10, bottom: 10),
+        isDense: true,
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(6),
+        ),
+      ),
+      value: null,
+      onMenuStateChange: (isOpen) => _isMenuOpened.value = isOpen,
+      onChanged: (value) => widget.onChanged(value),
+      items: widget.items,
     );
   }
 }

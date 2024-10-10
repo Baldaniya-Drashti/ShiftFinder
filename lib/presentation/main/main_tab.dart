@@ -221,6 +221,7 @@ getAppbar(MainTabState state, BuildContext context) {
               fontSize: 13,
               fontWeight: FontWeight.w400,
               fontFamily: "Aclonica",
+              maxLines: 1,
             ),
             BaseText(
               text: "${getCurrentUser().companyName ?? ''}",
