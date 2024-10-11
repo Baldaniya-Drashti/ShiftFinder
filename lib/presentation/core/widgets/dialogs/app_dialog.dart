@@ -77,19 +77,21 @@ class AppDialog {
               fontFamily: "Aclonica",
               textAlign: TextAlign.center,
             ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                BaseText(
-                  text: infoMessage,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  textAlign: TextAlign.center,
-                  textColor: AppColors.black.withOpacity(0.7),
-                  maxLines: 20,
-                ),
-                otherContent ?? Container()
-              ],
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  BaseText(
+                    text: infoMessage,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    textAlign: TextAlign.center,
+                    textColor: AppColors.black.withOpacity(0.7),
+                    maxLines: 20,
+                  ),
+                  otherContent ?? Container()
+                ],
+              ),
             ),
             elevation: 80,
             backgroundColor: AppColors.white,

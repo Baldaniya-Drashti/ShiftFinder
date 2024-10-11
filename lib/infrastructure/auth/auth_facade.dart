@@ -101,7 +101,7 @@ class AuthFacade implements IAuthFacade {
         final currentIndustry = getCurrentIndustry();
         final isUserShowIntro = getUserShowIntro();
 
-        print("getCurrent isUserShowIntro----> ${isUserShowIntro}");
+        print("getCurrent isUserShowIntro----> $isUserShowIntro");
 
         Hive.box(BoxNames.settingsBox).clear();
         Hive.box<AccountEntity>(BoxNames.currentUser).clear();

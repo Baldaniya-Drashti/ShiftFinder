@@ -162,7 +162,9 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
           },
           getContractorShiftDetail: (e) async {
             Either<MainFailure, HealthcarePostDTO>? failureOrSuccess;
-            emit(state.copyWith(isLoading: true));
+            emit(state.copyWith(
+              isLoading: true,
+            ));
 
             await getaAccomdationHoursListApi(emit);
 
@@ -183,6 +185,8 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                   isLoading: false,
                   showErrorMessages: false,
                   shift: r,
+                  multiDates:
+                      getDifferentMultiDate(r.shift_detail?.detail ?? []),
                   failureOrSuccessOption: optionOf(failureOrSuccess),
                 ));
               },
@@ -298,6 +302,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
           setDateUnavailableEvent: (e) {
             List<DateTimeDTO> updatedDateTimeDTOList =
                 List.from(state.multiDates);
+            print("updatedDateTimeDTOList----> ${updatedDateTimeDTOList}");
 
             Set<DateTime> set2 = e.selectedDateList.toSet();
 
@@ -317,6 +322,8 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                       : "0xFF0FB62A",
             );
 
+            print(
+                "updatedDateTimeDTOList AFTER CHANGE COLOR----> $updatedDateTimeDTOList");
             List<DateTimeDTO> unAvailableDates = updatedDateTimeDTOList
                 .where((item) => item.isUnAvailable == true)
                 .toList();

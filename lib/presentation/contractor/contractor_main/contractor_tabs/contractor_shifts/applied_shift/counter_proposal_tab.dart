@@ -17,7 +17,6 @@ import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
-import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 
 class CounterProposalTab extends StatelessWidget {
   const CounterProposalTab({super.key});
@@ -92,107 +91,42 @@ class CounterProposalTab extends StatelessWidget {
                                   buttonText: StringConstant.viewShiftDetails,
                                 ),
                                 paddingBetweenFields(),
-                                proposalStatus(
-                                  title: StringConstant.proposalSent,
-                                  icon: SvgImageConstant.rightWithCircle,
-                                  boldValue: convertTimeStampToDate(
-                                      shift.applied_date ?? -1),
-                                  timidValue: convertTimeStampToDate(
-                                      shift.applied_date ?? -1,
-                                      isYear: true),
-                                ),
-                                proposalStatus(
-                                  title: StringConstant.proposalReceived,
-                                  icon: SvgImageConstant.receivedCircle,
-                                  boldValue: convertTimeStampToDate(
-                                      shift.applied_date ?? -1),
-                                  timidValue: convertTimeStampToDate(
-                                      shift.applied_date ?? -1,
-                                      isYear: true),
-                                ),
-                                paddingBetweenFields(),
-                                revokingStatus(),
-                                paddingBetweenFields(),
-                                BaseText(
-                                  text:
-                                      StringConstant.offerRevokedByTheEmployer,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                paddingBetweenFields(),
-                                Row(
-                                  children: [
-                                    buttonUI(
-                                      onPressed: () {
-                                        /*context.router.push(
-                                    PageRouteInfo(
-                                      ViewContractorShift.name,
-                                      args: ViewContractorShiftArgs(
-                                        postId:
-                                            state.upcomingShiftList[index].id ??
-                                                -1,
-                                        isTotalApplicants: true,
-                                      ),
-                                    ),
-                                  );*/
-                                      },
-                                      buttonText:
-                                          StringConstant.viewShiftDetails,
-                                      textColor: AppColors.black,
-                                      bgColor: AppColors.primaryColor
-                                          .withOpacity(0.10),
-                                    ),
-                                    SizedBox(width: getSize(10)),
-                                    (shift.request == 0)
-                                        ? buttonUI(
-                                            onPressed: () {
-                                              AppDialog.showUrgentActionDialog(
-                                                context,
-                                                title: StringConstant
-                                                    .urgentActionRequired,
-                                                infoMessage: StringConstant
-                                                    .urgentActionRequiredDesc,
-                                                cancelText:
-                                                    StringConstant.declineShift,
-                                                deleteBtnText: StringConstant
-                                                    .confirmAcceptance,
-                                                onCancelClick: () {
-                                                  context.router.maybePop();
-                                                },
-                                                onDeleteClick: () {
-                                                  context.router.maybePop();
-                                                },
-                                              );
-                                            },
-                                            buttonText: StringConstant
-                                                .urgentActionRequired,
-                                          )
-                                        : buttonUI(
-                                            onPressed: () {
-                                              AppDialog.showDelete(
-                                                context,
-                                                title:
-                                                    StringConstant.declineShift,
-                                                infoMessage: StringConstant
-                                                    .declineShiftDesc,
-                                                cancelText: StringConstant.no,
-                                                deleteBtnText:
-                                                    StringConstant.decline,
-                                                onCancelClick: () {
-                                                  context.router.maybePop();
-                                                },
-                                                onDeleteClick: () {
-                                                  context.router.maybePop();
-                                                },
-                                              );
-                                            },
-                                            buttonText: StringConstant
-                                                .cancelApplication,
-                                            textColor: AppColors.black,
-                                            bgColor: AppColors.redAccent
-                                                .withOpacity(0.10),
-                                          ),
-                                  ],
+                                GestureDetector(
+                                  onTap: () {
+                                    context.router
+                                        .push(PageRouteInfo(
+                                            ProposalReceived.name,
+                                            args: ProposalReceivedArgs(
+                                                post: shift)))
+                                        .then((value) {
+                                      if (value == true) {
+                                        context.read<ContractorShiftBloc>().add(
+                                            ContractorShiftEvent
+                                                .getCounterProposalList(true));
+                                      }
+                                    });
+                                  },
+                                  child: (shift.last_request == 1)
+                                      ? proposalStatus(
+                                          title:
+                                              StringConstant.proposalReceived,
+                                          icon: SvgImageConstant.receivedCircle,
+                                          boldValue: convertTimeStampToDate(
+                                              shift.applied_date ?? -1),
+                                          timidValue: convertTimeStampToDate(
+                                              shift.applied_date ?? -1,
+                                              isYear: true),
+                                        )
+                                      : proposalStatus(
+                                          title: StringConstant.proposalSent,
+                                          icon:
+                                              SvgImageConstant.rightWithCircle,
+                                          boldValue: convertTimeStampToDate(
+                                              shift.applied_date ?? -1),
+                                          timidValue: convertTimeStampToDate(
+                                              shift.applied_date ?? -1,
+                                              isYear: true),
+                                        ),
                                 ),
                               ],
                             ),
@@ -200,51 +134,6 @@ class CounterProposalTab extends StatelessWidget {
                         },
                       ));
       },
-    );
-  }
-
-  Widget revokingStatus() {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(getSize(10)),
-        color: AppColors.scaffoldColor,
-      ),
-      padding: EdgeInsets.symmetric(horizontal: getSize(12)),
-      child: ListTile(
-        dense: true,
-        contentPadding: EdgeInsets.zero,
-        horizontalTitleGap: 10,
-        title: BaseText(
-          text: StringConstant.revoking,
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-          textColor: AppColors.black.withOpacity(0.7),
-        ),
-        trailing: Container(
-          width: getSize(108),
-          padding: EdgeInsets.symmetric(
-              horizontal: getSize(10), vertical: getSize(5)),
-          decoration: BoxDecoration(
-              color: AppColors.primaryColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(6)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SvgPicture.asset(
-                SvgImageConstant.clock,
-                height: getSize(15),
-                width: getSize(15),
-              ),
-              BaseText(
-                text: "1 h 23 min",
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                textColor: AppColors.primaryColor,
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 
@@ -356,9 +245,7 @@ class CounterProposalTab extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
-            height: getSize(12),
-          ),
+          SizedBox(height: getSize(12)),
         ],
       ),
     );
@@ -455,24 +342,5 @@ class CounterProposalTab extends StatelessWidget {
         ),
       ],
     ));
-  }
-
-  Widget buttonUI({
-    required void Function() onPressed,
-    required String buttonText,
-    Color? bgColor,
-    Color? textColor,
-  }) {
-    return Flexible(
-      child: CommonButton(
-        onPressed: onPressed,
-        height: 34,
-        borderRadius: 10,
-        buttonText: buttonText,
-        buttonFontSize: 12,
-        buttonTextColor: textColor,
-        backgroundColor: bgColor,
-      ),
-    );
   }
 }

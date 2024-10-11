@@ -431,12 +431,23 @@ class StringConstant {
   static const String confirmAcceptance = "Confirm Acceptance";
   static const String proposalReceived = "Proposal Received";
   static const String proposalSent = "Proposal Sent";
+  static const String sendNewProposal = "Send New Proposal";
+  static const String hours = "Hours";
+  static const String acceptProposalDesc =
+      "Are you sure you want to accept the proposal?";
+  static const String rejectProposalDesc =
+      "Are you sure you want to reject the proposal?";
+  static const String posted = "Posted";
+  static const String proposed = "Proposed";
+  static const String accept = "Accept";
+  static const String reject = "Reject";
   static const String urgentActionRequiredDesc =
       "Your shift application has been accepted by the employer. Please confirm your acceptance to finalize the shift.";
   static const String decline = "Decline";
   static const String declineShiftDesc =
       "Declining this shift may impact future opportunities. Are you sure you want to decline?";
-  static const String areYouSureYouWantToCancelTheApplication = "Are you sure you want to cancel the application?";
+  static const String areYouSureYouWantToCancelTheApplication =
+      "Are you sure you want to cancel the application?";
   static const String offerRevokedByTheEmployer =
       "Offer Revoked by the Employer";
   static const String clockInConfirmationDesc =

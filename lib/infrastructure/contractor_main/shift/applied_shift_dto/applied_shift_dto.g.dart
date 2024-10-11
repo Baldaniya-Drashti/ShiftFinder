@@ -24,12 +24,18 @@ _$AppliedShiftDTOImpl _$$AppliedShiftDTOImplFromJson(
       request: (json['request'] as num?)?.toInt(),
       urgent_action: (json['urgent_action'] as num?)?.toInt(),
       revoke_status: (json['revoke_status'] as num?)?.toInt(),
+      revoke_start: (json['revoke_start'] as num?)?.toInt(),
       last_ago: json['last_ago'] as String?,
       applied_date: (json['applied_date'] as num?)?.toInt(),
+      last_request: (json['last_request'] as num?)?.toInt(),
       proposal_received: json['proposal_received'] == null
           ? null
           : ProposalReceivedDTO.fromJson(
               json['proposal_received'] as Map<String, dynamic>),
+      remainingRevokeTime: json['remainingRevokeTime'] == null
+          ? null
+          : Duration(
+              microseconds: (json['remainingRevokeTime'] as num).toInt()),
     );
 
 Map<String, dynamic> _$$AppliedShiftDTOImplToJson(
@@ -50,9 +56,12 @@ Map<String, dynamic> _$$AppliedShiftDTOImplToJson(
       'request': instance.request,
       'urgent_action': instance.urgent_action,
       'revoke_status': instance.revoke_status,
+      'revoke_start': instance.revoke_start,
       'last_ago': instance.last_ago,
       'applied_date': instance.applied_date,
+      'last_request': instance.last_request,
       'proposal_received': instance.proposal_received,
+      'remainingRevokeTime': instance.remainingRevokeTime?.inMicroseconds,
     };
 
 _$ProposalReceivedDTOImpl _$$ProposalReceivedDTOImplFromJson(

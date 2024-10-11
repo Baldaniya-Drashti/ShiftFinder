@@ -133,4 +133,7 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, HealthcarePostDTO>> getContractorShiftDetail(
       {required int postId});
+
+       Future<Either<MainFailure, String>> contractorShiftUrgentActionApi(
+      {required int postId, required int urgentAction});
 }

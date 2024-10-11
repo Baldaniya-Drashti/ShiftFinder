@@ -13,6 +13,7 @@ import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -26,120 +27,131 @@ class AppliedTab extends StatelessWidget {
     return BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
       builder: (context, state) {
         return PaginatedListView(
-            onRefresh: () {
-              context
-                  .read<ContractorShiftBloc>()
-                  .add(ContractorShiftEvent.getAppliedTypeList(true));
-            },
-            refreshController:
-                context.read<ContractorShiftBloc>().appliedTypeRefreshCtrl,
-            onLoading: () {
-              context
-                  .read<ContractorShiftBloc>()
-                  .add(ContractorShiftEvent.getAppliedTypeList(false));
-            },
-            isNoDataFound: state.isAppliedNoDataFound,
-            child: state.isAppliedLoading
-                ? CenterLoadingIndicator(isOnlyLoader: true)
-                : state.isAppliedErrorInAPI
-                    ? Center(
-                        child:
-                            BaseText(text: StringConstant.somethindWentWrong),
-                      )
-                    : ListView.builder(
-                        itemCount: state.appliedList.length,
-                        padding: EdgeInsets.symmetric(horizontal: getSize(10)),
-                        itemBuilder: (context, index) {
-                          final shift = state.appliedList[index];
-                          return Container(
-                            margin: EdgeInsets.symmetric(vertical: getSize(10)),
-                            padding: EdgeInsets.all(getSize(10)),
-                            width: getSize(355),
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.circular(getSize(20)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.black.withOpacity(0.2),
-                                  blurRadius: 10,
+          onRefresh: () {
+            context
+                .read<ContractorShiftBloc>()
+                .add(ContractorShiftEvent.getAppliedTypeList(true));
+          },
+          refreshController:
+              context.read<ContractorShiftBloc>().appliedTypeRefreshCtrl,
+          onLoading: () {
+            context
+                .read<ContractorShiftBloc>()
+                .add(ContractorShiftEvent.getAppliedTypeList(false));
+          },
+          isNoDataFound: state.isAppliedNoDataFound,
+          child: state.isAppliedLoading
+              ? CenterLoadingIndicator(isOnlyLoader: true)
+              : state.isAppliedErrorInAPI
+                  ? Center(
+                      child: BaseText(text: StringConstant.somethindWentWrong),
+                    )
+                  : ListView.builder(
+                      itemCount: state.appliedList.length,
+                      padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                      itemBuilder: (_, index) {
+                        final shift = state.appliedList[index];
+                        return Container(
+                          margin: EdgeInsets.symmetric(vertical: getSize(10)),
+                          padding: EdgeInsets.all(getSize(10)),
+                          width: getSize(355),
+                          decoration: BoxDecoration(
+                            color: AppColors.white,
+                            borderRadius: BorderRadius.circular(getSize(20)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.black.withOpacity(0.2),
+                                blurRadius: 10,
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              userDetail(context, shift),
+                              paddingBetweenFields(),
+                              dateView(
+                                title: StringConstant.appliedDate,
+                                boldValue: convertTimeStampToDate(
+                                    shift.applied_date ?? -1),
+                                timidValue: convertTimeStampToDate(
+                                    shift.applied_date ?? -1,
+                                    isYear: true),
+                              ),
+                              paddingBetweenFields(),
+                              dateView(
+                                title: StringConstant.proposalDate,
+                                boldValue: convertTimeStampToDate(
+                                    shift.applied_date ?? -1),
+                                timidValue: convertTimeStampToDate(
+                                    shift.applied_date ?? -1,
+                                    isYear: true),
+                              ),
+                              paddingBetweenFields(),
+                              if (shift.revoke_status == 1) ...[
+                                revokingStatus(context, state, shift),
+                              ] else ...[
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(10)),
+                                  child: BaseText(
+                                    text: StringConstant
+                                        .offerRevokedByTheEmployer,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ],
-                            ),
-                            child: Column(
-                              children: [
-                                userDetail(context, shift),
-                                paddingBetweenFields(),
-                                dateView(
-                                  title: StringConstant.appliedDate,
-                                  boldValue: convertTimeStampToDate(
-                                      shift.applied_date ?? -1),
-                                  timidValue: convertTimeStampToDate(
-                                      shift.applied_date ?? -1,
-                                      isYear: true),
-                                ),
-                                paddingBetweenFields(),
-                                dateView(
-                                  title: StringConstant.proposalDate,
-                                  boldValue: convertTimeStampToDate(
-                                      shift.applied_date ?? -1),
-                                  timidValue: convertTimeStampToDate(
-                                      shift.applied_date ?? -1,
-                                      isYear: true),
-                                ),
-                                paddingBetweenFields(),
-                                if (shift.revoke_status == 1) ...[
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: getSize(10)),
-                                    child: BaseText(
-                                      text: StringConstant
-                                          .offerRevokedByTheEmployer,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                              paddingBetweenFields(),
+                              Row(
+                                children: [
+                                  buttonUI(
+                                    onPressed: () {
+                                      context.router.push(
+                                        PageRouteInfo(
+                                          ViewContractorShift.name,
+                                          args: ViewContractorShiftArgs(
+                                            postId: state
+                                                    .upcomingShiftList[index]
+                                                    .id ??
+                                                -1,
+                                            isTotalApplicants: true,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    buttonText: StringConstant.viewShiftDetails,
+                                    textColor: AppColors.black,
+                                    bgColor: AppColors.primaryColor
+                                        .withOpacity(0.10),
                                   ),
-                                ] else ...[
-                                  revokingStatus(),
-                                  paddingBetweenFields(),
-                                  Row(
-                                    children: [
-                                      buttonUI(
-                                        onPressed: () {
-                                          /*context.router.push(
-                                  PageRouteInfo(
-                                    ViewContractorShift.name,
-                                    args: ViewContractorShiftArgs(
-                                      postId:
-                                          state.upcomingShiftList[index].id ??
-                                              -1,
-                                      isTotalApplicants: true,
-                                    ),
-                                  ),
-                                );*/
-                                        },
-                                        buttonText:
-                                            StringConstant.viewShiftDetails,
-                                        textColor: AppColors.black,
-                                        bgColor: AppColors.primaryColor
-                                            .withOpacity(0.10),
-                                      ),
-                                      SizedBox(width: getSize(10)),
-                                      (shift.request == 0)
-                                          ? urgentActionRequiredBtn(context)
-                                          : cancelBtn(context),
-                                    ],
-                                  ),
+                                  SizedBox(width: getSize(10)),
+                                  (shift.request == 1 &&
+                                          shift.urgent_action == 0)
+                                      ? urgentActionRequiredBtn(
+                                          context, shift.id ?? -1)
+                                      : cancelBtn(context, shift.id ?? -1)
                                 ],
-                              ],
-                            ),
-                          );
-                        },
-                      ));
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+        );
       },
     );
   }
 
-  Widget revokingStatus() {
+  Widget revokingStatus(
+      BuildContext context, ContractorShiftState state, AppliedShiftDTO shift) {
+    final hours =
+        shift.remainingRevokeTime?.inHours.toString().padLeft(2, '0') ?? 00;
+    final minutes = shift.remainingRevokeTime?.inMinutes
+            .remainder(60)
+            .toString()
+            .padLeft(2, '0') ??
+        00;
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
@@ -150,6 +162,13 @@ class AppliedTab extends StatelessWidget {
         dense: true,
         contentPadding: EdgeInsets.zero,
         horizontalTitleGap: 10,
+        onTap: () {
+          /*context.read<ContractorShiftBloc>().add(
+                ContractorShiftEvent.startRevokingTimer(
+                    Duration(hours: 2), shift.id ?? -1,
+                    revokeTime: (shift.id == 92) ? 1728627746 : 1728627655),
+              );*/
+        },
         title: Padding(
           padding: EdgeInsets.only(left: getSize(20)),
           child: BaseText(
@@ -161,13 +180,12 @@ class AppliedTab extends StatelessWidget {
         ),
         trailing: Container(
           width: getSize(108),
-          padding: EdgeInsets.symmetric(
-              horizontal: getSize(10), vertical: getSize(5)),
+          padding: EdgeInsets.symmetric(vertical: getSize(5)),
           decoration: BoxDecoration(
               color: AppColors.primaryColor.withOpacity(0.1),
               borderRadius: BorderRadius.circular(6)),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SvgPicture.asset(
                 SvgImageConstant.clock,
@@ -175,7 +193,7 @@ class AppliedTab extends StatelessWidget {
                 width: getSize(15),
               ),
               BaseText(
-                text: "1 h 23 min",
+                text: "$hours h $minutes min",
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
                 textColor: AppColors.primaryColor,
@@ -404,7 +422,7 @@ class AppliedTab extends StatelessWidget {
     );
   }
 
-  Widget urgentActionRequiredBtn(BuildContext context) {
+  Widget urgentActionRequiredBtn(BuildContext context, int postId) {
     return buttonUI(
       onPressed: () {
         AppDialog.showUrgentActionDialog(
@@ -414,8 +432,6 @@ class AppliedTab extends StatelessWidget {
           cancelText: StringConstant.declineShift,
           deleteBtnText: StringConstant.confirmAcceptance,
           onCancelClick: () {
-            context.router.maybePop();
-
             AppDialog.showDelete(
               context,
               title: StringConstant.declineShift,
@@ -427,11 +443,24 @@ class AppliedTab extends StatelessWidget {
               },
               onDeleteClick: () {
                 context.router.maybePop();
+                context.read<ContractorShiftBloc>().add(
+                      ContractorShiftEvent.urgentActionEvent(
+                        context,
+                        postId: postId,
+                        urgentAction: 2,
+                      ),
+                    );
               },
             );
           },
           onDeleteClick: () {
-            context.router.maybePop();
+            context.read<ContractorShiftBloc>().add(
+                  ContractorShiftEvent.urgentActionEvent(
+                    context,
+                    postId: postId,
+                    urgentAction: 1,
+                  ),
+                );
           },
         );
       },
@@ -439,7 +468,7 @@ class AppliedTab extends StatelessWidget {
     );
   }
 
-  Widget cancelBtn(BuildContext context) {
+  Widget cancelBtn(BuildContext context, int postId) {
     return buttonUI(
       onPressed: () {
         AppDialog.showDelete(
@@ -452,7 +481,13 @@ class AppliedTab extends StatelessWidget {
             context.router.maybePop();
           },
           onDeleteClick: () {
-            context.router.maybePop();
+            context.read<ContractorShiftBloc>().add(
+                  ContractorShiftEvent.urgentActionEvent(
+                    context,
+                    postId: postId,
+                    urgentAction: 2,
+                  ),
+                );
           },
         );
       },

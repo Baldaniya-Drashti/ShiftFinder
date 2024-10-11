@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/send_proposal_bloc/send_proposal_bloc.dart';
@@ -65,6 +67,7 @@ class MarkUnavailability extends StatelessWidget {
     List<DateTime> selectedDates = state.multiDates.map((dto) {
       return (dto.date != null) ? DateTime.parse(dto.date!) : DateTime.now();
     }).toList();
+    print(selectedDates);
 
     return CustomMultiDatePicker(
       value: selectedDates,
@@ -90,9 +93,13 @@ class MarkUnavailability extends StatelessWidget {
         );
       },
       selectableDayPredicate: (date) {
-        return isDateExist(selectedDates, date);
+        final dateExist = isDateExist(selectedDates, date);
+        print("dateExist---> $dateExist");
+
+        return dateExist;
       },
       onValueChanged: (value) {
+        print("setDateUnavailableEvent called!");
         context
             .read<SendProposalBloc>()
             .add(SendProposalEvent.setDateUnavailableEvent(value));
@@ -100,106 +107,14 @@ class MarkUnavailability extends StatelessWidget {
     );
   }
 
-  Widget selectMultiDate2(BuildContext context, SendProposalState state) {
-    final isUnAvaiable =
-        state.multiDates.any((dto) => dto.isUnAvailable == true);
-    print("COLORS---> ${isUnAvaiable}");
-    return SfDateRangePicker(
-      onSelectionChanged: (value) {
-        context
-            .read<SendProposalBloc>()
-            .add(SendProposalEvent.setDateUnavailableEvent(value.value));
-      },
-      selectionMode: DateRangePickerSelectionMode.multiple,
-      initialSelectedDates: [
-        DateTime.now().add(Duration(days: 1)),
-        DateTime.now().add(Duration(days: 2)),
-        DateTime.now().add(Duration(days: 3)),
-        DateTime.now().add(Duration(days: 4)),
-      ],
-      selectionColor:
-          isUnAvaiable ? AppColors.redAccent : AppColors.primaryColor,
-
-      /*cellBuilder: (context, cell) {
-        return Container(
-          decoration:
-              BoxDecoration(color: AppColors.blue, shape: BoxShape.circle),
-          child: Center(
-            child: Text(
-              MaterialLocalizations.of(context).formatDecimal(cell.date.day),
-              // style: textStyle,
-            ),
-          ),
-        );
-      },*/
-      // monthCellStyle: DateRangePickerMonthCellStyle(
-      //   selectionColor: AppColors.primaryColor,
-      //   rangeSelectionColor: AppColors.primaryColor,
-      // ),
-    );
-  }
-
-  /*Widget selectedMulti(BuildContext context, SendProposalState state) {
-    List<DateTime> selectedDates = state.multiDates.map((dto) {
-      return (dto.date != null) ? DateTime.parse(dto.date!) : DateTime.now();
-    }).toList();
-
-    print("print selected datesss--> ${selectedDates}");
-
-    return CalendarDatePicker2(
-      initialValue: selectedDates,
-      config: CalendarDatePicker2Config(
-        calendarType: CalendarDatePicker2Type.multi,
-        disableYearPicker: true,
-        weekdayLabelTextStyle: TextStyle(
-          color: AppColors.primaryColor,
-          fontWeight: FontWeight.bold,
-        ),
-        selectableDayPredicate: (date) {
-          return isDateExist(selectedDates, date);
-        },
-        selectedDayTextStyle: TextStyle(
-          fontWeight: FontWeight.w500,
-          color: AppColors.white,
-          fontSize: getFontSize(12),
-        ),
-        dayBuilder: ({
-          required date,
-          textStyle,
-          decoration,
-          isSelected,
-          isDisabled,
-          isToday,
-        }) {
-          return Container(
-            decoration: decoration?.copyWith(
-              color:
-                  (isSelected == true) ? AppColors.red : AppColors.primaryColor,
-            ),
-            child: Center(
-              child: Text(
-                MaterialLocalizations.of(context).formatDecimal(date.day),
-                style: textStyle,
-              ),
-            ),
-          );
-        },
-      ),
-      onValueChanged: (value) {
-        print("On changed value ---> ${value}");
-        // List<DateTime> nonNullableDates =
-        //     value.whereType<DateTime>().toList();
-        // context.read<SendProposalBloc>().add(
-        //     SendProposalEvent.setDateUnavailableEvent(
-        //         nonNullableDates));
-      },
-    );
-  }
-*/
   bool isDateExist(List<DateTime> selectedDates, DateTime currentDate) {
-    return selectedDates.any((selectedDate) =>
-        selectedDate.year == currentDate.year &&
-        selectedDate.month == currentDate.month &&
-        selectedDate.day == currentDate.day);
+    return selectedDates.any((selectedDate) {
+      // print("currentDate---> $currentDate");
+      // print("selectedDate---> $selectedDate");
+
+      return (selectedDate.year == currentDate.year &&
+          selectedDate.month == currentDate.month &&
+          selectedDate.day == currentDate.day);
+    });
   }
 }

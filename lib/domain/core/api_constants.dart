@@ -138,6 +138,7 @@ class ApiConstants {
   static String contractorShiftDetail = 'contractor_shifts_details';
   static String contractorClockInClockOut = 'contractor_clock_in_or_out';
   static String deleteUpcomingShift = 'contractor_shift';
+  static String contractorShiftsUrgentAction = 'contractor_shifts_urgent_action';
 
   //team
   static String getTeamList = 'get_team';

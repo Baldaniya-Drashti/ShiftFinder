@@ -33,8 +33,10 @@ class ContractorShiftState with _$ContractorShiftState {
     required List<UpComingShiftDTO> upcomingShiftList,
     required Option<Either<MainFailure, HealthcarePostDTO>>
         currentShiftFailureOrSuccessOption,
+    // required Duration remainingRevokeTime,
   }) = _ContractorShiftState;
   factory ContractorShiftState.initial() => ContractorShiftState(
+        // remainingRevokeTime: Duration(hours: 2),
         selectedTab: 1,
         selectedAppliedTab: 0,
         deletePostReason: InputEmptyOrNot(""),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -229,7 +231,8 @@ class ContractorShiftBloc
 
             if (state.deletePostReason.isValid()) {
               failureOrSuccess = await mainFacade.deleteUpcomingShiftApi(
-                  id: e.postId, reason: "");
+                  id: e.postId,
+                  reason: state.deletePostReason.getValue() ?? "");
 
               failureOrSuccess.fold(
                 (l) {
@@ -274,35 +277,49 @@ class ContractorShiftBloc
                 page: appliedTypePage, filterType: 3, appliedType: 1);
             appliedTypePage++;
             res.fold(
-              (l) => emit(
+                (l) => emit(
+                      state.copyWith(
+                        isAppliedErrorInAPI: true,
+                        isAppliedLoading: false,
+                        appliedList: [],
+                      ),
+                    ), (r) {
+              appliedTypeLastPage = r.meta?.lastPage ?? 1;
+              if (e.isRefresh) {
+                List.from(state.appliedList).clear();
+              }
+              final newShifts = (r.data as List<dynamic>)
+                  .map((e) => AppliedShiftDTO.fromJson(e))
+                  .toList();
+              emit(
                 state.copyWith(
-                  isAppliedErrorInAPI: true,
                   isAppliedLoading: false,
-                  appliedList: [],
-                ),
-              ),
-              (r) {
-                appliedTypeLastPage = r.meta?.lastPage ?? 1;
-                if (e.isRefresh) {
-                  List.from(state.appliedList).clear();
-                }
-
-                emit(
-                  state.copyWith(
-                    isAppliedLoading: false,
-                    isAppliedErrorInAPI: false,
-                    isAppliedNoDataFound: (r.data as List<dynamic>)
+                  isAppliedErrorInAPI: false,
+                  isAppliedNoDataFound: (r.data as List<dynamic>)
+                      .map((e) => AppliedShiftDTO.fromJson(e))
+                      .toList()
+                      .isEmpty,
+                  appliedList: List.from(state.appliedList)
+                    ..addAll((r.data as List<dynamic>)
                         .map((e) => AppliedShiftDTO.fromJson(e))
-                        .toList()
-                        .isEmpty,
-                    appliedList: List.from(state.appliedList)
-                      ..addAll((r.data as List<dynamic>)
-                          .map((e) => AppliedShiftDTO.fromJson(e))
-                          .toList()),
-                  ),
-                );
-              },
-            );
+                        .toList()),
+                ),
+              );
+
+              /// to start revoking timer
+              for (var shift in newShifts) {
+                if (shift.revoke_status == 0) {
+                  print("tart timer after revokng!!!");
+                  add(
+                    ContractorShiftEvent.startRevokingTimer(
+                      Duration(hours: 2), shift.id ?? -1,
+                      // revokeTime: (shift.id == 92) ? 1728637856 : 1728637756,
+                      revokeTime: shift.revoke_start ?? -1,
+                    ),
+                  );
+                }
+              }
+            });
           },
           getCounterProposalList: (e) async {
             if (e.isRefresh) {
@@ -352,9 +369,155 @@ class ContractorShiftBloc
               },
             );
           },
+          urgentActionEvent: (e) async {
+            print("urgent action called!!! ${e.postId}");
+
+            Either<MainFailure, String>? failureOrSuccess;
+
+            failureOrSuccess = await mainFacade.contractorShiftUrgentActionApi(
+                postId: e.postId, urgentAction: e.urgentAction);
+
+            failureOrSuccess.fold(
+              (l) {
+                e.context.router.maybePop();
+                showError(
+                  message: l.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(e.context);
+              },
+              (r) {
+                e.context.router.maybePop();
+                showSuccess(message: r).show(e.context).then((value) {
+                  add(ContractorShiftEvent.getAppliedTypeList(true));
+                });
+              },
+            );
+          },
+          proposalAcceptRejectEvent: (e) async {
+            print("proposal action called!!! ${e.postId}");
+            Either<MainFailure, String>? failureOrSuccess;
+
+            failureOrSuccess = await mainFacade.contractorShiftUrgentActionApi(
+                postId: e.postId, urgentAction: e.urgentAction);
+
+            failureOrSuccess.fold(
+              (l) {
+                // e.context.router.maybePop();
+                showError(
+                  message: l.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(e.context);
+              },
+              (r) {
+                // e.context.router.maybePop();
+                showSuccess(message: r).show(e.context).then((value) {
+                  // e.context.router.maybePop(true);
+                  Navigator.pop(e.context, true);
+                  // add(ContractorShiftEvent.getCounterProposalList(true));
+                });
+              },
+            );
+          },
+
+          /*startRevokingTimer: (e) async {
+            Duration remainingTime = e.duration;
+
+            print("remainingTime Of starting----> $remainingTime");
+
+            if (_timer != null) {
+              _timer?.cancel();
+            }
+
+            _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
+              print("Timer is started");
+
+              // Check if time has run out
+              if (remainingTime.inSeconds <= 0) {
+                timer.cancel();
+                remainingTime = Duration.zero;
+                _updateRemainingTime(remainingTime);
+              } else {
+                // Reduce remaining time by one second
+                remainingTime -= Duration(seconds: 1);
+                _updateRemainingTime(remainingTime);
+              }
+            });
+          },*/
+          startRevokingTimer: (e) {
+            DateTime timerStartTime =
+                DateTime.fromMillisecondsSinceEpoch(e.revokeTime * 1000);
+
+            Duration totalDuration = Duration(hours: 2);
+
+            final updatedList = state.appliedList.map((shift) {
+              if (shift.id == e.id) {
+                Duration remainingTime =
+                    calculateRemainingTime(timerStartTime, totalDuration);
+
+                print("remainingTime-----> $remainingTime");
+                Timer.periodic(const Duration(seconds: 1), (timer) {
+                  print("remainingTime Of starting----> $remainingTime");
+                  if (remainingTime.inSeconds <= 0) {
+                    timer.cancel();
+                    remainingTime = Duration.zero;
+                  } else {
+                    remainingTime -= const Duration(seconds: 1);
+                  }
+                  updateRemainingTime(remainingTime, shift.id ?? -1);
+                });
+              }
+              return shift;
+            }).toList();
+          },
         );
       },
     );
+  }
+
+  Duration calculateRemainingTime(
+      DateTime timerStartTime, Duration totalDuration) {
+    DateTime currentTime = DateTime.now();
+    Duration elapsedTime = currentTime.difference(timerStartTime);
+
+    print("elapsedTime----> $elapsedTime");
+    Duration remainingTime = totalDuration - elapsedTime;
+    print("remainingTime after restart----> $remainingTime");
+
+    // If remaining time is negative, return zero
+    if (remainingTime.isNegative) {
+      return Duration.zero;
+    } else {
+      return remainingTime;
+    }
+  }
+
+  // Define a new method to handle state emissions
+  void updateRemainingTime(Duration remainingTime, int id) {
+    // emit(state.copyWith(remainingRevokeTime: remainingTime));
+    emit(state.copyWith(
+      appliedList: state.appliedList.map((s) {
+        if (s.id == id) {
+          return s.copyWith(remainingRevokeTime: remainingTime);
+        }
+        return s;
+      }).toList(),
+    ));
+  }
+
+  Timer? _timer;
+
+  @override
+  Future<void> close() {
+    _timer?.cancel();
+    return super.close();
   }
 
   int convertToTimestamp(TimeOfDay timeOfDay) {
