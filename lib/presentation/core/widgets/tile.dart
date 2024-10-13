@@ -30,13 +30,17 @@ class UserInfoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget title, subtitle;
-    final titleLabel = BaseText(text: this.title, fontWeight: FontWeight.w600, fontSize: 15);
+    final titleLabel = BaseText(text: this.title, fontWeight: FontWeight.w600, fontSize: 14);
     final subtitleLabel = BaseText(text: subTitle, fontSize: 10, fontWeight: FontWeight.w500);
 
     if (titleIcon != null) {
       title = Row(
         mainAxisSize: MainAxisSize.min,
-        children: [titleLabel, Gap(getSize(8)), titleIcon!],
+        children: [
+          Flexible(child: titleLabel),
+          Gap(getSize(8)),
+          titleIcon!,
+        ],
       );
     } else {
       title = titleLabel;

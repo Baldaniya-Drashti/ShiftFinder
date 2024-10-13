@@ -192,14 +192,10 @@ class MainFacade implements IMainFacade {
         return shift.multi_date!.map((multiDate) {
           return {
             'date': DateTime.parse(multiDate.date ?? "").toUtc().millisecondsSinceEpoch / 1000,
-            'start_time': DateTime.parse((shift.same_or_different_time == 1) ? shift.start_time ?? "" : multiDate.start_time ?? "")
-                    .toUtc()
-                    .millisecondsSinceEpoch /
-                1000,
-            'end_time': DateTime.parse((shift.same_or_different_time == 1) ? shift.end_time ?? "" : multiDate.end_time ?? "")
-                    .toUtc()
-                    .millisecondsSinceEpoch /
-                1000
+            'start_time':
+                DateTime.parse((shift.same_or_different_time == 1) ? shift.start_time ?? "" : multiDate.start_time ?? "").toUtc().millisecondsSinceEpoch / 1000,
+            'end_time':
+                DateTime.parse((shift.same_or_different_time == 1) ? shift.end_time ?? "" : multiDate.end_time ?? "").toUtc().millisecondsSinceEpoch / 1000
           };
         }).toList();
       } else {
@@ -756,8 +752,7 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, String>> updateTeamApi(
-      {required String locationId, required String teamId, required InputEmptyOrNot teamName}) async {
+  Future<Either<MainFailure, String>> updateTeamApi({required String locationId, required String teamId, required InputEmptyOrNot teamName}) async {
     try {
       Map<String, dynamic> mapData = {"location_id": locationId, "team_name": teamName.getValue()?.trim()};
 
@@ -1004,9 +999,18 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, CommonResponse>> getPreviousPost({required int type, required int page}) async {
+  Future<Either<MainFailure, CommonResponse>> getPreviousPost({
+    required int type,
+    required int page,
+    required int sortBy,
+  }) async {
     try {
-      final res = await apiService.getMethod(ApiConstants.employerPreviousShift, queryParameters: {"type": type});
+      final res = await apiService.getMethod(ApiConstants.employerPreviousShift, queryParameters: {
+        "type": type,
+        "sort_by": sortBy,
+        "page": page,
+        "perPage": _perPage,
+      });
 
       if (res != null) {
         return right(res);
@@ -1081,7 +1085,6 @@ class MainFacade implements IMainFacade {
 
       return left(const MainFailure.serverError());
     }
-
   }
 
   @override
@@ -1139,7 +1142,7 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, CommonResponse>> getEmployerTotalProposal({required int postId,required int page}) async {
+  Future<Either<MainFailure, CommonResponse>> getEmployerTotalProposal({required int postId, required int page}) async {
     try {
       final res = await apiService.getMethod(ApiConstants.employerApplicants, queryParameters: {
         "post_id": postId,
@@ -1153,6 +1156,89 @@ class MainFacade implements IMainFacade {
       } else {
         return left(const MainFailure.serverError());
       }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> addFavorite({
+    required int postId,
+    required int userId,
+  }) async {
+    try {
+      final res = await apiService.postMethod(ApiConstants.employerAddFavorite, {
+        "post_id": postId,
+        "user_id": userId,
+      });
+
+      if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> addUnFavorite({
+    required int postId,
+    required int userId,
+  }) async {
+    try {
+      final res = await apiService.postMethod(ApiConstants.employerAddFavorite, {
+        "post_id": postId,
+        "user_id": userId,
+      });
+
+      if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> employerBlockUnblock({required int postId, required int userId}) async {
+    try {
+      final res = await apiService.postMethod(ApiConstants.employerBlock, {
+        "post_id": postId,
+        "user_id": userId,
+      });
+
+      return right(res);
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);

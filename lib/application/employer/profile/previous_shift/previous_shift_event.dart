@@ -7,7 +7,7 @@ class PreviousShiftEvent with _$PreviousShiftEvent {
   }) = TabChangeEvent;
 
   factory PreviousShiftEvent.ratingChangeEvent({
-    required double rating,
+    required int rating,
   }) = RatingChangeEvent;
   factory PreviousShiftEvent.fetchAllPreviousPost({
     required bool refresh,
@@ -29,14 +29,26 @@ class PreviousShiftEvent with _$PreviousShiftEvent {
   }) = DeleteRemarkedPost;
 
   factory PreviousShiftEvent.blockUnblockPost({
-    required int id,
-  }) = BlockUnblockPost;
+    required int userId,
+    required int postId,
+    required BuildContext context,
+  }) = BlockPost;
+
 
 
   factory PreviousShiftEvent.leaveRating({
     required int id,
   }) = LeaveRating;
-
+  factory PreviousShiftEvent.addFavorite({
+    required int postId,
+    required int userId,
+    required BuildContext context,
+  }) = AddFavorite;
+  factory PreviousShiftEvent.addUnFavorite({
+    required int postId,
+    required int userId,
+    required BuildContext context,
+  }) = AddUnFavorite;
 }
 
 

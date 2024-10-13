@@ -233,62 +233,63 @@ class AppDialog {
     required VoidCallback? onDeleteClick,
   }) async {
     showDialog(
-        context: context,
-        barrierDismissible: barrierDismissible,
-        builder: (context) {
-          return AlertDialog(
-            title: BaseText(
-              text: StringConstant.withdrawShift,
-              fontSize: 22,
-              fontWeight: FontWeight.w400,
-              fontFamily: "Aclonica",
-              textAlign: TextAlign.center,
+      context: context,
+      barrierDismissible: barrierDismissible,
+      builder: (context) {
+        return AlertDialog(
+          title: BaseText(
+            text: StringConstant.withdrawShift,
+            fontSize: 22,
+            fontWeight: FontWeight.w400,
+            fontFamily: "Aclonica",
+            textAlign: TextAlign.center,
+          ),
+          content: BaseText(
+            text: StringConstant.withdrawShiftDesc,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            textAlign: TextAlign.center,
+            textColor: AppColors.black.withOpacity(0.7),
+          ),
+          elevation: 80,
+          backgroundColor: AppColors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CommonButton(
+                  onPressed: () {
+                    if (onCancelClick != null) {
+                      onCancelClick.call();
+                    }
+                    AppFocus.unfocus(context);
+                  },
+                  width: 150,
+                  buttonText: cancelText ?? StringConstant.cancle,
+                  backgroundColor: AppColors.white,
+                  buttonTextColor: AppColors.primaryColor,
+                  borderColor: AppColors.primaryColor,
+                ),
+                CommonButton(
+                  onPressed: () {
+                    if (onDeleteClick != null) {
+                      onDeleteClick.call();
+                    }
+                    AppFocus.unfocus(context);
+                  },
+                  width: 150,
+                  buttonText: deleteBtnText ?? StringConstant.delete,
+                )
+              ],
             ),
-            content: BaseText(
-              text: StringConstant.withdrawShiftDesc,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              textAlign: TextAlign.center,
-              textColor: AppColors.black.withOpacity(0.7),
-            ),
-            elevation: 80,
-            backgroundColor: AppColors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
-            actions: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CommonButton(
-                    onPressed: () {
-                      if (onCancelClick != null) {
-                        onCancelClick.call();
-                      }
-                      AppFocus.unfocus(context);
-                    },
-                    width: 150,
-                    buttonText: cancelText ?? StringConstant.cancle,
-                    backgroundColor: AppColors.white,
-                    buttonTextColor: AppColors.primaryColor,
-                    borderColor: AppColors.primaryColor,
-                  ),
-                  CommonButton(
-                    onPressed: () {
-                      if (onDeleteClick != null) {
-                        onDeleteClick.call();
-                      }
-                      AppFocus.unfocus(context);
-                    },
-                    width: 150,
-                    buttonText: deleteBtnText ?? StringConstant.delete,
-                  )
-                ],
-              ),
-            ],
-          );
-        });
+          ],
+        );
+      },
+    );
   }
 
   static Future<void> showLeaveRatingModal(BuildContext context) async {
@@ -319,8 +320,7 @@ class AppDialog {
             mainAxisSize: MainAxisSize.min,
             children: [
               BaseText(
-                text:
-                    "Your feedback is valuable! Please rate [contractor name] to help showcase their performance and maintain service quality.",
+                text: "Your feedback is valuable! Please rate [contractor name] to help showcase their performance and maintain service quality.",
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 textAlign: TextAlign.center,
@@ -348,6 +348,67 @@ class AppDialog {
       },
     );
   }
+  static  Future<bool?> showCommonDialog({
+    required BuildContext context,
+    required String? title,
+    required String? content,
+    required String? successLabel,
+  }) async {
+    return showDialog<bool?>(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: AppColors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        alignment: Alignment.center,
+        actionsAlignment: MainAxisAlignment.center,
+        insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
+        title: title != null
+            ? BaseText(
+          text: title,
+          fontSize: 22,
+          fontWeight: FontWeight.w400,
+          fontFamily: "Aclonica",
+          textAlign: TextAlign.center,
+        )
+            : null,
+        content: content != null
+            ? BaseText(
+          text: content,
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          textAlign: TextAlign.center,
+          textColor: AppColors.black.withOpacity(0.7),
+          maxLines: 20,
+        )
+            : null,
+        actions: [
+          Row(
+            children: [
+              Expanded(
+                child: CommonButton(
+                  onPressed: () => context.router.maybePop(false),
+                  buttonText: "Cancel",
+                  backgroundColor: AppColors.white,
+                  borderColor: AppColors.green,
+                  buttonTextColor: AppColors.green,
+                ),
+              ),
+              Gap(16),
+              Expanded(
+                child: CommonButton(
+                  onPressed: () => context.router.maybePop(true),
+                  buttonText: successLabel ?? "Done",
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
 }
 
 class AddRemarkModal extends StatefulWidget {
@@ -394,8 +455,7 @@ class _AddRemarkModalState extends State<AddRemarkModal> {
         mainAxisSize: MainAxisSize.min,
         children: [
           BaseText(
-            text:
-                "Please enter your comments or feedback about the contractor. This remark will be visible only to you and is intended for your review.",
+            text: "Please enter your comments or feedback about the contractor. This remark will be visible only to you and is intended for your review.",
             fontSize: 14,
             fontWeight: FontWeight.w500,
             textAlign: TextAlign.center,
@@ -442,4 +502,5 @@ class _AddRemarkModalState extends State<AddRemarkModal> {
       ],
     );
   }
+
 }

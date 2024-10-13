@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:shift/application/employer/profile/previous_shift/previous_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/employer_previous_shift/employer_previous_shift_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -14,36 +20,42 @@ class PreviousShiftBlockedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.all(getSize(20)),
-      child: Column(
-        children: [
-          SizedBox(
-            height: getSize(12),
-          ),
-          BaseText(
-            text: "You can unblock a contractor from your blocked list by clicking the blocked button again.",
-            fontSize: 10,
-            fontWeight: FontWeight.w500,
-          ),
-          SizedBox(
-            height: getSize(18),
-          ),
-          ListView.separated(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) => _PreviousShiftBlockedTile(),
-            separatorBuilder: (context, index) => Gap(getSize(16)),
-            itemCount: 4,
-          )
-        ],
-      ),
+    return BlocBuilder<PreviousShiftBloc, PreviousShiftState>(
+      builder: (context, state) {
+        return Stack(
+          children: [
+            PaginatedListView(
+              onRefresh: () => PreviousShiftEvent.fetchBlockedList(refresh: true),
+              onLoading: () => PreviousShiftEvent.fetchBlockedList(refresh: false),
+              refreshController: context.read<PreviousShiftBloc>().blocked,
+              isNoDataFound: state.noDataFound,
+              child: state.getDataLoading
+                  ? CenterLoadingIndicator()
+                  : state.errorApi
+                      ? Center(
+                          child: BaseText(text: StringConstant.somethindWentWrong),
+                        )
+                      : ListView.separated(
+                          padding: EdgeInsets.all(getSize(20)),
+                          itemBuilder: (context, index) => _PreviousShiftBlockedTile(
+                            data: state.blockedList[index],
+                          ),
+                          separatorBuilder: (context, index) => Gap(getSize(16)),
+                          itemCount: state.blockedList.length,
+                        ),
+            ),
+            if (state.postDataLoading) CenterLoadingIndicator()
+          ],
+        );
+      },
     );
   }
 }
 
 class _PreviousShiftBlockedTile extends StatelessWidget {
-  const _PreviousShiftBlockedTile({super.key});
+  const _PreviousShiftBlockedTile({required this.data});
+
+  final EmployerPreviousShiftDto data;
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +72,9 @@ class _PreviousShiftBlockedTile extends StatelessWidget {
             colorFilter: ColorFilter.mode(AppColors.black.withOpacity(0.5), BlendMode.srcIn),
           ),
           padding: EdgeInsets.symmetric(horizontal: getSize(16)),
-          title: "Roboto Flex",
-          subTitle: "CT Technologist",
-          url: "https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg",
+          url: data.profile ?? "",
+          title: "${data.first_name ?? ""} ${data.last_name ?? ""}",
+          subTitle: "${data.role_lists_name}",
           trailing: CommonMaterialButton.icon(
             radius: 10.0,
             backgroundColor: AppColors.redAccent.withOpacity(0.2),
@@ -82,11 +94,8 @@ class _PreviousShiftBlockedTile extends StatelessWidget {
     AppDialog.showDelete(
       title: "Unblock",
       context,
-      infoMessage:
-          "Unblocking [contractor name] will allow them to view and apply for your future postings. Are you sure you want to proceed?",
-      onCancelClick: () {
-        Navigator.pop(context);
-      },
+      infoMessage: "Unblocking [contractor name] will allow them to view and apply for your future postings. Are you sure you want to proceed?",
+      onCancelClick: () => Navigator.pop(context),
       onDeleteClick: () {},
       deleteBtnText: "Unblock",
     );

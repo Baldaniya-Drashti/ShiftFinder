@@ -20,6 +20,7 @@ class UnderlinedTabBar extends StatelessWidget implements PreferredSizeWidget {
     final unselectedLabelStyle = baseTextStyle.copyWith(color: Colors.black.withOpacity(0.5));
 
     return TabBar(
+      onTap: onTap,
       tabs: tabs,
       padding: EdgeInsets.zero,
       labelStyle: baseTextStyle,

@@ -133,7 +133,11 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, CommonResponse>> getContractorShifts({required int page, int? filterType});
 
-  Future<Either<MainFailure, CommonResponse>> getPreviousPost({required int page, required int type});
+  Future<Either<MainFailure, CommonResponse>> getPreviousPost({
+    required int page,
+    required int type,
+    required int sortBy,
+  });
 
   Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut({required int shiftId, required int clockTime});
 
@@ -152,9 +156,11 @@ abstract class IMainFacade {
   Future<Either<MainFailure, CommonResponse>> acceptApplicant({
     required int id,
   });
+
   Future<Either<MainFailure, CommonResponse>> rejectApplicant({
     required int id,
   });
+
   Future<Either<MainFailure, CommonResponse>> revokeApplicant({
     required int postId,
     required int userId,
@@ -164,4 +170,21 @@ abstract class IMainFacade {
     required int postId,
     required int page,
   });
+
+  Future<Either<MainFailure, CommonResponse>> addFavorite({
+    required int postId,
+    required int userId,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> addUnFavorite({
+    required int postId,
+    required int userId,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> employerBlockUnblock({
+    required int postId,
+    required int userId,
+  });
+
+
 }

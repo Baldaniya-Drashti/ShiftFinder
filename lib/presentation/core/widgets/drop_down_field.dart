@@ -284,6 +284,7 @@ class CustomDropdownField<T> extends StatefulWidget {
     required this.items,
     this.validator,
     this.prefixIcon,
+    this.hintText,
   });
 
   final ValueChanged<T?> onChanged;
@@ -291,6 +292,7 @@ class CustomDropdownField<T> extends StatefulWidget {
   final List<DropdownMenuItem<T?>> items;
   final FormFieldValidator<T?>? validator;
   final Widget? prefixIcon;
+  final String? hintText;
 
   @override
   State<CustomDropdownField> createState() => _CustomDropdownFieldState();
@@ -302,13 +304,13 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField2(
-      barrierLabel: "Test",
+      hint: Text(widget.hintText ?? ""),
       isDense: true,
       validator: widget.validator,
       style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
       isExpanded: true,
       menuItemStyleData: const MenuItemStyleData(
-        height: 35,
+        height: 45,
         padding: EdgeInsets.only(left: 14, right: 14),
       ),
       dropdownStyleData: DropdownStyleData(
@@ -345,7 +347,7 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
           borderRadius: BorderRadius.circular(6),
         ),
       ),
-      value: null,
+      value: widget.value,
       onMenuStateChange: (isOpen) => _isMenuOpened.value = isOpen,
       onChanged: (value) => widget.onChanged(value),
       items: widget.items,

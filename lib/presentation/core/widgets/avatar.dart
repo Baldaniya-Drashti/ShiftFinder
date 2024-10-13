@@ -19,11 +19,11 @@ class UserAvatar extends StatelessWidget {
       ),
       child: ClipOval(
         child: CachedNetworkImage(
-          height: 45,
-          width: 45,
+          height: 40,
+          width: 40,
           fit: BoxFit.cover,
           imageUrl: url,
-          placeholder: (context, url) => Placeholder(),
+          placeholder: (context, url) => SizedBox(),
         ),
       ),
     );

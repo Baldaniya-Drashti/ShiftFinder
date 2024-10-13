@@ -4,27 +4,28 @@ part of 'previous_shift_bloc.dart';
 class PreviousShiftState with _$PreviousShiftState {
   const factory PreviousShiftState({
     @Default(0) int currentTabIndex,
-    @Default(5.0) double selectedRating,
-    @Default(false) allListLoading ,
+    @Default(5) int selectedRating,
+    @Default(false) getDataLoading ,
     @Default(false) favoriteListLoading ,
     @Default(false) blockedListLoading ,
     @Default(false) remarkedListLoading ,
+    @Default(false) postDataLoading ,
 
-    @Default(false) allListNoDataFound,
+    @Default(false) noDataFound,
     @Default(false) favoriteListNoDataFound ,
     @Default(false) blockedListNoDataFound ,
     @Default(false)  remarkedListNoDataFound,
 
 
-    @Default(false) allListIsErrorApi,
+    @Default(false) errorApi,
     @Default(false) favoriteListIsErrorApi ,
     @Default(false) blockedListIsErrorApi ,
     @Default(false)  remarkedListIsErrorApi,
 
-  @Default([]) List<dynamic> allPostList,
-  @Default([]) List<dynamic> favoritesList,
-  @Default([]) List<dynamic> blockedList,
-  @Default([]) List<dynamic> remarkedList,
+  @Default([]) List<EmployerPreviousShiftDto> employerPreviousList,
+  @Default([]) List<EmployerPreviousShiftDto> favoritesList,
+  @Default([]) List<EmployerPreviousShiftDto> blockedList,
+  @Default([]) List<EmployerPreviousShiftDto> remarkedList,
 
 }) = _PreviousShiftState;
 }

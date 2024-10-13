@@ -1,20 +1,25 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/application/employer/profile/previous_shift/previous_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/employer_previous_shift/employer_previous_shift_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
+import 'package:shift/presentation/core/widgets/drop_down_field.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
 
 class PreviousShiftAllView extends StatelessWidget {
@@ -22,76 +27,71 @@ class PreviousShiftAllView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        BlocSelector<PreviousShiftBloc, PreviousShiftState, double>(
-          selector: (state) => state.selectedRating,
-          builder: (context, selectedRating) {
-            return _RatingsDropdown(
-              onChanged: (double value) {
-                context.read<PreviousShiftBloc>().add(PreviousShiftEvent.ratingChangeEvent(rating: value));
-              },
-              value: selectedRating,
-            );
-          },
-        ),
-        SizedBox(height: getSize(22)),
-        _PreviousShiftAllListView()
-      ],
+    return BlocBuilder<PreviousShiftBloc, PreviousShiftState>(
+      builder: (context, state) {
+        Log.debug("loading ${state.getDataLoading}");
+
+        return Stack(
+          fit: StackFit.expand,
+          children: [
+            PaginatedListView(
+              onRefresh: () => PreviousShiftEvent.fetchAllPreviousPost(refresh: true),
+              onLoading: () => PreviousShiftEvent.fetchAllPreviousPost(refresh: false),
+              refreshController: context.read<PreviousShiftBloc>().allPost,
+              isNoDataFound: state.noDataFound,
+              child: state.getDataLoading
+                  ? CenterLoadingIndicator()
+                  : state.errorApi
+                      ? Center(
+                          child: BaseText(text: StringConstant.somethindWentWrong),
+                        )
+                      : SingleChildScrollView(
+                          physics: BouncingScrollPhysics(),
+                          padding: EdgeInsets.all(getSize(16)),
+                          child: Column(
+                            children: [
+                              BlocSelector<PreviousShiftBloc, PreviousShiftState, int>(
+                                selector: (state) => state.selectedRating,
+                                builder: (context, selectedRating) {
+                                  return _RatingsDropdown(
+                                    onChanged: (int value) {
+                                      context.read<PreviousShiftBloc>().add(PreviousShiftEvent.ratingChangeEvent(rating: value));
+                                    },
+                                    value: selectedRating,
+                                  );
+                                },
+                              ),
+                              SizedBox(height: getSize(16)),
+                              _PreviousShiftAllListView(allPostList: state.employerPreviousList)
+                            ],
+                          ),
+                        ),
+            ),
+            if (state.postDataLoading) CenterLoadingIndicator()
+          ],
+        );
+      },
     );
   }
 }
 
 class _PreviousShiftAllListView extends StatelessWidget {
-  const _PreviousShiftAllListView();
+  const _PreviousShiftAllListView({
+    required this.allPostList,
+  });
+
+  final List<EmployerPreviousShiftDto> allPostList;
 
   @override
   Widget build(BuildContext context) {
-    // return BlocBuilder<PreviousShiftBloc, PreviousShiftState>(
-    //   builder: (context, state) {
-    //     return Expanded(
-    //       child: PaginatedListView(
-    //         onRefresh: () => PreviousShiftEvent.fetchAllPreviousPost(refresh: true),
-    //         onLoading: () => PreviousShiftEvent.fetchAllPreviousPost(refresh: false),
-    //         refreshController: context.read<PreviousShiftBloc>().allPost,
-    //         isNoDataFound: state.allListNoDataFound,
-    //         child: state.allListLoading
-    //             ? CenterLoadingIndicator(isOnlyLoader: true)
-    //             : state.allListIsErrorApi
-    //                 ? BaseText(text: StringConstant.somethindWentWrong)
-    //                 : ListView.separated(
-    //                     physics: NeverScrollableScrollPhysics(),
-    //                     shrinkWrap: true,
-    //                     itemCount: 5,
-    //                     itemBuilder: (context, index) => _PreviousShiftListTile(),
-    //                     separatorBuilder: (context, index) => SizedBox(height: getSize(18)),
-    //                   ),
-    //       ),
-    //     );
-    //   },
-    // );
-
-    // return ListView.separated(
-    //   physics: NeverScrollableScrollPhysics(),
-    //   shrinkWrap: true,
-    //   itemCount: 5,
-    //   itemBuilder: (context, index) => _PreviousShiftListTile(),
-    //   separatorBuilder: (context, index) => SizedBox(height: getSize(18)),
-    // );
-
-    return Expanded(
-      child: PaginatedListView(
-        onRefresh: () {},
-        onLoading: () {},
-        refreshController: context.read<PreviousShiftBloc>().allPost,
-        child: ListView.separated(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: 5,
-          itemBuilder: (context, index) => _PreviousShiftListTile(),
-          separatorBuilder: (context, index) => SizedBox(height: getSize(18)),
-        ),
+    return ListView.separated(
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: allPostList.length,
+      itemBuilder: (context, index) => _PreviousShiftListTile(
+        data: allPostList[index],
       ),
+      separatorBuilder: (context, index) => SizedBox(height: getSize(18)),
     );
   }
 }
@@ -102,74 +102,43 @@ class _RatingsDropdown extends StatelessWidget {
     required this.value,
   });
 
-  final ValueSetter<double> onChanged;
-  final double value;
+  final ValueSetter<int> onChanged;
+  final int value;
 
   @override
   Widget build(BuildContext context) {
+    final ratings = <int>[5, 4, 3, 2, 1];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
         BaseText(text: "Sort by", fontSize: 10, fontWeight: FontWeight.w500),
         SizedBox(height: getSize(7)),
-        Container(
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(getSize(10)),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.lightGrey.withOpacity(0.2),
-                blurRadius: 30,
-              )
-            ],
-          ),
-          child: DropdownButtonFormField(
-            isDense: true,
-            icon: SvgPicture.asset(
-              color: AppColors.black,
-              SvgImageConstant.downArrow,
-              height: 8,
-              width: 6,
-            ),
-            iconSize: 8,
-            value: value,
-            decoration: InputDecoration(
-              isDense: true,
-              enabledBorder: InputBorder.none,
-              focusedBorder: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(
-                vertical: getSize(12),
-                horizontal: getSize(20),
-              ),
-            ),
-            dropdownColor: AppColors.white,
-            elevation: 5,
-            items: [5.0, 4.0, 3.0, 2.0, 1.0]
-                .map(
-                  (e) => DropdownMenuItem(
-                    value: e,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SvgPicture.asset(SvgImageConstant.star),
-                        SizedBox(
-                          width: getSize(8),
-                        ),
-                        BaseText(
-                          text: e.toString(),
-                          fontWeight: FontWeight.w600,
-                          fontSize: getSize(15),
-                        )
-                      ],
-                    ),
+        CustomDropdownField<int>(
+          items: ratings
+              .map(
+                (e) => DropdownMenuItem<int>(
+                  value: e,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SvgPicture.asset(SvgImageConstant.star),
+                      SizedBox(
+                        width: getSize(8),
+                      ),
+                      BaseText(
+                        text: "${e.toDouble()}",
+                        fontWeight: FontWeight.w600,
+                        fontSize: getSize(15),
+                      )
+                    ],
                   ),
-                )
-                .toList(),
-            onChanged: (value) {
-              onChanged(value!);
-            },
-          ),
+                ),
+              )
+              .toList(),
+          onChanged: (value) => onChanged(value!),
+          value: value,
         ),
       ],
     );
@@ -198,7 +167,9 @@ class RatingStar extends StatelessWidget {
 }
 
 class _PreviousShiftListTile extends StatelessWidget {
-  const _PreviousShiftListTile();
+  const _PreviousShiftListTile({required this.data});
+
+  final EmployerPreviousShiftDto data;
 
   @override
   Widget build(BuildContext context) {
@@ -245,10 +216,10 @@ class _PreviousShiftListTile extends StatelessWidget {
 
   Widget _buildUserInfo(BuildContext context) {
     return UserInfoTile(
-      url: 'https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg',
-      title: "Dhaval Pithadiya",
-      subTitle: "Flutter Dev",
-      trailing: RatingStar(rating: 5.0),
+      url: data.profile ?? "",
+      title: "${data.first_name ?? ""} ${data.last_name ?? ""}",
+      subTitle: "${data.role_lists_name}",
+      trailing: RatingStar(rating: data.rating?.toDouble() ?? 0.0),
     );
   }
 
@@ -273,10 +244,12 @@ class _PreviousShiftListTile extends StatelessWidget {
             subtitle: Text.rich(
               style: TextStyle(fontSize: 12),
               TextSpan(
-                text: "12 May, ",
+                text: "${convertUnixTimeToLocalString(data.last_worked_date ?? 0)}, ",
                 style: TextStyle(fontWeight: FontWeight.w500),
                 children: [
-                  TextSpan(text: "2024", style: TextStyle(color: AppColors.black.withOpacity(0.5))),
+                  TextSpan(
+                      text: "${DateTime.fromMillisecondsSinceEpoch(data.last_worked_date ?? 0).year}",
+                      style: TextStyle(color: AppColors.black.withOpacity(0.5))),
                 ],
               ),
             ),
@@ -298,7 +271,7 @@ class _PreviousShiftListTile extends StatelessWidget {
               fontWeight: FontWeight.w400,
             ),
             subtitle: BaseText(
-              text: '09:15 AM to 07:30 PM',
+              text: '${formatUnixTimestamp(data.last_worked_start_time ?? 0)} to ${formatUnixTimestamp(data.last_worked_end_time ?? 0)}',
               fontSize: 12,
               fontWeight: FontWeight.w500,
             ),
@@ -318,14 +291,14 @@ class _PreviousShiftListTile extends StatelessWidget {
         width: 24,
       ),
       title: BaseText(
-        text: "4517 Washington Manchester, Kentucky 39495",
+        text: data.location ?? "",
         fontWeight: FontWeight.w500,
         fontSize: 11,
         overflow: TextOverflow.ellipsis,
         maxLines: 1,
       ),
       subtitle: BaseText(
-        text: "10.2 Km Away",
+        text: data.distance ?? "",
         fontWeight: FontWeight.w500,
         textColor: AppColors.green,
         fontSize: 10,
@@ -346,9 +319,29 @@ class _PreviousShiftListTile extends StatelessWidget {
               children: [
                 Expanded(
                   child: _ActionButton(
-                    onPressed: () {},
-                    icon: SvgImageConstant.heart1,
-                    label: "Add to favorite",
+                    onPressed: () {
+                      final postId = data.post_id ?? 0;
+                      final userId = data.user_id ?? 0;
+                      if (data.isFavourite ?? false) {
+                        context.read<PreviousShiftBloc>().add(
+                              PreviousShiftEvent.addUnFavorite(
+                                postId: postId,
+                                userId: userId,
+                                context: context,
+                              ),
+                            );
+                      } else {
+                        context.read<PreviousShiftBloc>().add(
+                              PreviousShiftEvent.addFavorite(
+                                postId: postId,
+                                userId: userId,
+                                context: context,
+                              ),
+                            );
+                      }
+                    },
+                    icon: (data.isFavourite ?? false) ? SvgImageConstant.heartChecked : SvgImageConstant.heart1,
+                    label: "${(data.isFavourite ?? false) ? "Added" : "Add"} to favorite",
                   ),
                 ),
                 Gap(getSize(8.0)),
@@ -374,7 +367,21 @@ class _PreviousShiftListTile extends StatelessWidget {
                 Gap(getSize(8.0)),
                 Expanded(
                   child: _ActionButton(
-                    onPressed: () => _onBlock(context),
+                    onPressed: () {
+                      if (data.isBlock ?? false) {
+                        _onUnblock(
+                          context,
+                          postId: data.post_id ?? 0,
+                          userId: data.user_id ?? 0,
+                        );
+                      } else {
+                        _onBlock(
+                          context,
+                          postId: data.post_id ?? 0,
+                          userId: data.user_id ?? 0,
+                        );
+                      }
+                    },
                     label: "Block",
                     icon: SvgImageConstant.block,
                   ),
@@ -387,20 +394,48 @@ class _PreviousShiftListTile extends StatelessWidget {
     );
   }
 
-  void _onBlock(BuildContext context) {
+  void _onBlock(
+    BuildContext context, {
+    required int postId,
+    required int userId,
+  }) {
     AppDialog.showDelete(
       deleteBtnText: "Block",
       deleteColor: AppColors.redAccent,
       title: "Block",
       context,
       infoMessage: "Blocking [contractor name] will prevent them from seeing any future postings. Are you sure you want to proceed?",
-      onCancelClick: () => Navigator.pop(context),
-      onDeleteClick: () {},
+      onCancelClick: () => context.router.maybePop(),
+      onDeleteClick: () {
+        context.router.maybePop();
+        context.read<PreviousShiftBloc>().add(
+              PreviousShiftEvent.blockUnblockPost(userId: userId, postId: postId, context: context),
+            );
+      },
     );
   }
 
   void _onAddRating(BuildContext context) {
     AppDialog.showLeaveRatingModal(context);
+  }
+
+  Future<void> _onUnblock(
+    BuildContext context, {
+    required int postId,
+    required int userId,
+  }) async {
+    final result = await AppDialog.showCommonDialog(
+      context: context,
+      title: "Unblock",
+      content: "Unblocking [contractor name] will allow them to view and apply for your future postings. Are you sure you want to proceed?",
+      successLabel: "Unblock",
+    );
+
+    if (result ?? false) {
+      context.read<PreviousShiftBloc>().add(
+            PreviousShiftEvent.blockUnblockPost(userId: userId, postId: postId, context: context),
+          );
+    }
   }
 }
 
@@ -427,4 +462,17 @@ class _ActionButton extends StatelessWidget {
       textStyle: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w500),
     );
   }
+}
+
+String convertUnixTimeToLocalString(int timeStamp) {
+  final date = DateTime.fromMillisecondsSinceEpoch(timeStamp);
+  String formattedDate = DateFormat('d MMM').format(date);
+  return formattedDate;
+}
+
+String formatUnixTimestamp(int timestamp) {
+  DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+  String formattedTime = DateFormat('hh:mm a').format(date);
+
+  return formattedTime;
 }
