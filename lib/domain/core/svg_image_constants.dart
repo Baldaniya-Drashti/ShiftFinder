@@ -117,4 +117,12 @@ class SvgImageConstant {
   static const heartChecked = "assets/svg/heart_checked.svg";
   static const blockedFilled = "assets/svg/blocked_filled.svg";
   static const emailFilled = "assets/svg/email_filled.svg";
+  static const rightWithCircle = "assets/svg/right_with_circle.svg";
+  static const receivedCircle = "assets/svg/received_circle.svg";
+  static const bagLocation = "assets/svg/bag_location.svg";
+  static const calendarWithClock = "assets/svg/calendar_with_clock.svg";
+  static const star = "assets/svg/star.svg";
+  static const insights = "assets/svg/insights.svg";
+  static const share = "assets/svg/share.svg";
+  static const policies = "assets/svg/policies.svg";
 }

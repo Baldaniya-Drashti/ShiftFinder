@@ -40,7 +40,8 @@ class AppDialog {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding:
+                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actionsAlignment: MainAxisAlignment.center,
             actions: [
               CommonButton(
@@ -81,26 +82,29 @@ class AppDialog {
               fontFamily: "Aclonica",
               textAlign: TextAlign.center,
             ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                BaseText(
-                  text: infoMessage,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  textAlign: TextAlign.center,
-                  textColor: AppColors.black.withOpacity(0.7),
-                  maxLines: 20,
-                ),
-                otherContent ?? Container()
-              ],
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  BaseText(
+                    text: infoMessage,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    textAlign: TextAlign.center,
+                    textColor: AppColors.black.withOpacity(0.7),
+                    maxLines: 20,
+                  ),
+                  otherContent ?? Container()
+                ],
+              ),
             ),
             elevation: 80,
             backgroundColor: AppColors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding:
+                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actions: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -195,7 +199,8 @@ class AppDialog {
             ),
             alignment: Alignment.center,
             actionsAlignment: MainAxisAlignment.center,
-            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding:
+                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actions: [
               CommonButton(
                 onPressed: () {
@@ -409,6 +414,87 @@ class AppDialog {
     );
   }
 
+  static Future<void> showUrgentActionDialog(
+    BuildContext context, {
+    String? title,
+    required String infoMessage,
+    EdgeInsets? insetPadding,
+    String? cancelText,
+    String? deleteBtnText,
+    Widget? otherContent,
+    bool barrierDismissible = false,
+    required VoidCallback? onCancelClick,
+    required VoidCallback? onDeleteClick,
+  }) async {
+    showDialog(
+        context: context,
+        barrierDismissible: barrierDismissible,
+        builder: (context) {
+          return AlertDialog(
+            title: Stack(
+              alignment: Alignment.topCenter,
+              children: [
+                BaseText(
+                  text: title ?? "",
+                  fontSize: 22,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: "Aclonica",
+                  textAlign: TextAlign.center,
+                ),
+                Positioned(
+                  right: 0,
+                  child: CloseButton(),
+                ),
+              ],
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                BaseText(
+                  text: infoMessage,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  textAlign: TextAlign.center,
+                  textColor: AppColors.black.withOpacity(0.7),
+                  maxLines: 20,
+                ),
+                otherContent ?? Container()
+              ],
+            ),
+            elevation: 80,
+            backgroundColor: AppColors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            insetPadding:
+                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            actions: [
+              CommonButton(
+                onPressed: () {
+                  if (onDeleteClick != null) {
+                    onDeleteClick.call();
+                  }
+                  AppFocus.unfocus(context);
+                },
+                buttonText: deleteBtnText ?? StringConstant.delete,
+              ),
+              SizedBox(height: getSize(10)),
+              CommonButton(
+                onPressed: () {
+                  if (onCancelClick != null) {
+                    onCancelClick.call();
+                  }
+                  AppFocus.unfocus(context);
+                },
+                buttonText: cancelText ?? StringConstant.cancle,
+                backgroundColor: AppColors.white,
+                buttonTextColor: AppColors.primaryColor,
+                borderColor: AppColors.primaryColor,
+              ),
+            ],
+          );
+        });
+  }
 }
 
 class AddRemarkModal extends StatefulWidget {

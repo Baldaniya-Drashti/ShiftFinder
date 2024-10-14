@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/auth/auth_status/auth_status_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/domain/profile/profile_item_model.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -140,62 +141,80 @@ class ContractorProfileItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var profileItems = <ProfileItemModel>[
-      /*ProfileItemModel(
-        title: 'Completed Shifts',
+      ProfileItemModel(
+        title: StringConstant.updateProfile,
+        image: SvgImageConstant.person,
+        onTap: () {},
+      ),
+      ProfileItemModel(
+        title: StringConstant.previousShifts,
         image: SvgImageConstant.completedShifts,
         onTap: () {},
       ),
       ProfileItemModel(
-        title: 'Previous ShiftPros',
-        image: SvgImageConstant.previousShifts,
+        title: StringConstant.longTermPositions,
+        image: SvgImageConstant.calendarWithClock,
         onTap: () {},
       ),
       ProfileItemModel(
-        title: 'Chat',
+        title: StringConstant.fullTimePositions,
+        image: SvgImageConstant.bagLocation,
+        onTap: () {},
+      ),
+      ProfileItemModel(
+        title: StringConstant.myCalendar,
+        image: SvgImageConstant.calendar,
+        onTap: () {
+          context.router.push(PageRouteInfo(MyCalendarView.name));
+        },
+      ),
+      ProfileItemModel(
+        title: StringConstant.chat,
         image: SvgImageConstant.chat,
         onTap: () {},
       ),
       ProfileItemModel(
-        title: 'Locations',
-        image: SvgImageConstant.locationIcon,
-        onTap: () {
-          //context.router.push(PageRouteInfo(LocationDetailForm.name));
-        },
-      ),
-      ProfileItemModel(
-        title: 'Teams',
-        image: SvgImageConstant.teams,
-        onTap: () {
-          context.router.push(PageRouteInfo(TeamsView.name));
-        },
-      ),
-      ProfileItemModel(
-        title: 'Saved Templates',
-        image: SvgImageConstant.savedTemplates,
-        onTap: () {},
-      ),
-      ProfileItemModel(
-        title: 'Billing',
+        title: StringConstant.myEarnings,
         image: SvgImageConstant.billing,
         onTap: () {},
       ),
       ProfileItemModel(
-        title: 'Account Management',
+        title: StringConstant.performanceInsights,
+        image: SvgImageConstant.insights,
+        onTap: () {},
+      ),
+      ProfileItemModel(
+        title: StringConstant.referAColleague,
+        image: SvgImageConstant.referral,
+        onTap: () {},
+      ),
+      ProfileItemModel(
+        title: StringConstant.ratings,
+        image: SvgImageConstant.star,
+        onTap: () {},
+      ),
+      ProfileItemModel(
+        title: StringConstant.shareShiftFinder,
+        image: SvgImageConstant.share,
+        onTap: () {},
+      ),
+      ProfileItemModel(
+        title: StringConstant.accountManagement,
         image: SvgImageConstant.setting,
         onTap: () {},
       ),
       ProfileItemModel(
-        title: 'About ShiftFinder',
-        image: SvgImageConstant.aboutShiftFinder,
+        title: StringConstant.policies,
+        image: SvgImageConstant.policies,
         onTap: () {},
       ),
       ProfileItemModel(
-        title: 'Customer Support',
+        title: StringConstant.supportHelp,
         image: SvgImageConstant.customerSupport,
         onTap: () {},
-      ),*/
+      ),
       ProfileItemModel(
-        title: 'Log Out',
+        title: StringConstant.logOut,
         image: SvgImageConstant.logout,
         onTap: () {
           AcceptRejectDialog(

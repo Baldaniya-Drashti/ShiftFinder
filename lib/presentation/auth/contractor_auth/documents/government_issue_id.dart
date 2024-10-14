@@ -61,159 +61,184 @@ class _GovernmentIssueDocumentState extends State<GovernmentIssueDocument> {
       builder: (context, state) {
         return (state.isLoading)
             ? CenterLoadingIndicator()
-            : Form(
-                autovalidateMode: (state.showGovernmentIdErrorMessages)
-                    ? AutovalidateMode.always
-                    : AutovalidateMode.disabled,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        documentTitleField(state, context),
-                        SizedBox(
-                          height: getSize(15),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: BaseText(
-                            text: (state.govermentDoc.isValid())
-                                ? StringConstant.uploadedDocument
-                                : StringConstant.pleaseUploadTheDocument,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        SizedBox(
-                          height: getSize(10),
-                        ),
-                        (state.govermentDoc.isValid())
-                            ? selectedImage(
-                                context,
-                                state.govermentDoc.getValue() ?? "",
-                                state: state,
-                              )
-                            : UploadDocumentBox(
-                                height: getSize(390),
-                                onUploadBtnPressed: () {
-                                  ImageChooserDialog().showImageChooserDialog(
-                                    takePhotoCallback: () async {
-                                      String path = await ImagePickerUtils()
-                                              .pickImage(
-                                                  imageSource:
-                                                      ImageSource.camera,
-                                                  context: context) ??
-                                          '';
-                                      if (path.isNotEmpty) {
-                                        print("CAMERA IMAGE PATH: $path");
-                                        context.read<DocumentBloc>().add(
-                                              DocumentEvent.selectGovermentDoc(
-                                                  path),
-                                            );
-                                      }
-                                    },
-                                    selectPhotoCallback: () async {
-                                      String path = await ImagePickerUtils()
-                                              .pickImage(
-                                                  imageSource:
-                                                      ImageSource.gallery,
-                                                  context: context) ??
-                                          '';
+            : Padding(
+                padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Form(
+                          autovalidateMode:
+                              (state.showGovernmentIdErrorMessages)
+                                  ? AutovalidateMode.always
+                                  : AutovalidateMode.disabled,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              documentTitleField(state, context),
+                              SizedBox(
+                                height: getSize(15),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                child: BaseText(
+                                  text: (state.govermentDoc.isValid())
+                                      ? StringConstant.uploadedDocument
+                                      : StringConstant.pleaseUploadTheDocument,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              SizedBox(
+                                height: getSize(10),
+                              ),
+                              (state.govermentDoc.isValid())
+                                  ? selectedImage(
+                                      context,
+                                      state.govermentDoc.getValue() ?? "",
+                                      state: state,
+                                    )
+                                  : UploadDocumentBox(
+                                      height: getSize(390),
+                                      onUploadBtnPressed: () {
+                                        ImageChooserDialog()
+                                            .showImageChooserDialog(
+                                          takePhotoCallback: () async {
+                                            String path =
+                                                await ImagePickerUtils()
+                                                        .pickImage(
+                                                            imageSource:
+                                                                ImageSource
+                                                                    .camera,
+                                                            context: context) ??
+                                                    '';
+                                            if (path.isNotEmpty) {
+                                              print("CAMERA IMAGE PATH: $path");
+                                              context.read<DocumentBloc>().add(
+                                                    DocumentEvent
+                                                        .selectGovermentDoc(
+                                                            path),
+                                                  );
+                                            }
+                                          },
+                                          selectPhotoCallback: () async {
+                                            String path =
+                                                await ImagePickerUtils()
+                                                        .pickImage(
+                                                            imageSource:
+                                                                ImageSource
+                                                                    .gallery,
+                                                            context: context) ??
+                                                    '';
 
-                                      if (path.isNotEmpty) {
-                                        print("GALLERY IMAGE PATH: $path");
-                                        context.read<DocumentBloc>().add(
-                                              DocumentEvent.selectGovermentDoc(
-                                                  path),
-                                            );
-                                      }
-                                    },
-                                    selectPdfCallback: () async {
-                                      String path = await FilePickerUtils()
-                                              .pickPdf(context: context) ??
-                                          '';
-                                      if (path.isNotEmpty) {
-                                        print("PDF FILE PATH: $path");
-                                        context.read<DocumentBloc>().add(
-                                              DocumentEvent.selectGovermentDoc(
-                                                  path),
-                                            );
-                                      }
-                                    },
-                                    context: context,
-                                  );
+                                            if (path.isNotEmpty) {
+                                              print(
+                                                  "GALLERY IMAGE PATH: $path");
+                                              context.read<DocumentBloc>().add(
+                                                    DocumentEvent
+                                                        .selectGovermentDoc(
+                                                            path),
+                                                  );
+                                            }
+                                          },
+                                          selectPdfCallback: () async {
+                                            String path =
+                                                await FilePickerUtils().pickPdf(
+                                                        context: context) ??
+                                                    '';
+                                            if (path.isNotEmpty) {
+                                              print("PDF FILE PATH: $path");
+                                              context.read<DocumentBloc>().add(
+                                                    DocumentEvent
+                                                        .selectGovermentDoc(
+                                                            path),
+                                                  );
+                                            }
+                                          },
+                                          context: context,
+                                        );
+                                      },
+                                    ),
+                              if (state.showGovernmentIdErrorMessages &&
+                                  !state.govermentDoc.isValid())
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(10)),
+                                  child: const BaseText(
+                                    text:
+                                        "* ${StringConstant.pleaseUnploadGovernmentIssuedId}",
+                                    fontSize: 12,
+                                    textColor: AppColors.red,
+                                  ),
+                                ),
+                              DocumentExpiryDatePicker()
+                                  .notApplicableExpiryCheckBox(
+                                context,
+                                value: state.isGovernemtExpiryCheck,
+                                isDisabled:
+                                    (state.governmentExpiryDate.isNotEmpty),
+                                onChanged: (value) {
+                                  if (value != null) {
+                                    context.read<DocumentBloc>().add(
+                                        DocumentEvent
+                                            .checkNAGovermentExpiryDate(value));
+                                  }
                                 },
                               ),
-                        if (state.showGovernmentIdErrorMessages &&
-                            !state.govermentDoc.isValid())
-                          Padding(
-                            padding:
-                                EdgeInsets.symmetric(vertical: getSize(10)),
-                            child: const BaseText(
-                              text:
-                                  "* ${StringConstant.pleaseUnploadGovernmentIssuedId}",
-                              fontSize: 12,
-                              textColor: AppColors.red,
-                            ),
-                          ),
-                        DocumentExpiryDatePicker().notApplicableExpiryCheckBox(
-                          context,
-                          value: state.isGovernemtExpiryCheck,
-                          isDisabled: (state.governmentExpiryDate.isNotEmpty),
-                          onChanged: (value) {
-                            if (value != null) {
-                              context.read<DocumentBloc>().add(
-                                  DocumentEvent.checkNAGovermentExpiryDate(
-                                      value));
-                            }
-                          },
-                        ),
-                        DocumentExpiryDatePicker.expiryDateTextField(
-                          context,
-                          onPickedDate: (pickedDate) {
-                            context.read<DocumentBloc>().add(
-                                DocumentEvent.govermentExpiryDateChanged(
-                                    pickedDate.toString()));
-                          },
-                          onCancelClick: () {
-                            context.read<DocumentBloc>().add(
-                                DocumentEvent.govermentExpiryDateChanged(""));
-                          },
-                          selectedDate: state.governmentExpiryDate,
-                          isDisabled: !state.isGovernemtExpiryCheck,
-                        ),
-                        if ((!state.isGovernemtExpiryCheck &&
-                                state.governmentExpiryDate.isEmpty) &&
-                            state.showGovernmentIdErrorMessages)
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: getSize(5)),
-                            child: const BaseText(
-                              text:
-                                  "* ${StringConstant.pleaseSelectExpiryDateIfApplicable}",
-                              fontSize: 12,
-                              textColor: AppColors.red,
-                            ),
-                          ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: getSize(30), bottom: getSize(50)),
-                            child: CommonButton(
-                              isSubmitting: state.isGovermentDocSubmitting,
-                              onPressed: () {
-                                context.read<DocumentBloc>().add(
-                                    const DocumentEvent.govermentDocSubmit());
-                              },
-                              buttonText: StringConstant.txtContinue,
-                            ),
+                              DocumentExpiryDatePicker.expiryDateTextField(
+                                context,
+                                onPickedDate: (pickedDate) {
+                                  context.read<DocumentBloc>().add(
+                                      DocumentEvent.govermentExpiryDateChanged(
+                                          pickedDate.toString()));
+                                },
+                                onCancelClick: () {
+                                  context.read<DocumentBloc>().add(
+                                      DocumentEvent.govermentExpiryDateChanged(
+                                          ""));
+                                },
+                                selectedDate: state.governmentExpiryDate,
+                                isDisabled: !state.isGovernemtExpiryCheck,
+                              ),
+                              if ((!state.isGovernemtExpiryCheck &&
+                                      state.governmentExpiryDate.isEmpty) &&
+                                  state.showGovernmentIdErrorMessages)
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(5)),
+                                  child: const BaseText(
+                                    text:
+                                        "* ${StringConstant.pleaseSelectExpiryDateIfApplicable}",
+                                    fontSize: 12,
+                                    textColor: AppColors.red,
+                                  ),
+                                ),
+                              SizedBox(height: getSize(30)),
+                            ],
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            top: getSize(20), bottom: getSize(20)),
+                        child: CommonButton(
+                          isSubmitting: state.isGovermentDocSubmitting,
+                          onPressed: () {
+                            context
+                                .read<DocumentBloc>()
+                                .add(const DocumentEvent.govermentDocSubmit());
+                          },
+                          buttonText: StringConstant.txtContinue,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               );
       },

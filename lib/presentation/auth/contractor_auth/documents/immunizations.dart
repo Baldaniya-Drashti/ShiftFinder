@@ -56,173 +56,182 @@ class ImmunizationsVaccinations extends StatelessWidget {
               ? CenterLoadingIndicator()
               : Padding(
                   padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                  child: SingleChildScrollView(
-                    child: Form(
-                      autovalidateMode: (state.showImmunizationErrorMessages)
-                          ? AutovalidateMode.always
-                          : AutovalidateMode.disabled,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          (state.immunizationList.isNotEmpty)
-                              ? ListView.builder(
-                                  itemCount: state.immunizationList.length,
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  itemBuilder: (context, index) {
-                                    DocumentDTO immunizationObject =
-                                        state.immunizationList[index];
-                                    return Padding(
-                                      padding:
-                                          EdgeInsets.only(top: getSize(10)),
-                                      child: SelectedDocumentBox(
-                                        // leadingImage: Image.file(File(
-                                        //     immunizationObject.immunizationDocument ??
-                                        //         "")),
-                                        pickedFile: immunizationObject.file,
-                                        title: immunizationObject
-                                                .name_of_vaccinations ??
-                                            "",
-                                        showDeleteButton: true,
-                                        deleteDescription: StringConstant
-                                            .deleteImmunizationDesc,
-                                        onCancelClick: () {
-                                          context.router.maybePop();
-                                        },
-                                        onDeleteClick: () {
-                                          context.read<ImmunizationBloc>().add(
-                                              ImmunizationEvent
-                                                  .deleteImmunizationObject(
-                                                      index));
-                                          context.router.maybePop();
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Form(
+                            autovalidateMode:
+                                (state.showImmunizationErrorMessages)
+                                    ? AutovalidateMode.always
+                                    : AutovalidateMode.disabled,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                (state.immunizationList.isNotEmpty)
+                                    ? ListView.builder(
+                                        itemCount:
+                                            state.immunizationList.length,
+                                        shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        itemBuilder: (context, index) {
+                                          DocumentDTO immunizationObject =
+                                              state.immunizationList[index];
+                                          return Padding(
+                                            padding: EdgeInsets.only(
+                                                top: getSize(10)),
+                                            child: SelectedDocumentBox(
+                                              // leadingImage: Image.file(File(
+                                              //     immunizationObject.immunizationDocument ??
+                                              //         "")),
+                                              pickedFile:
+                                                  immunizationObject.file,
+                                              title: immunizationObject
+                                                      .name_of_vaccinations ??
+                                                  "",
+                                              showDeleteButton: true,
+                                              deleteDescription: StringConstant
+                                                  .deleteImmunizationDesc,
+                                              onCancelClick: () {
+                                                context.router.maybePop();
+                                              },
+                                              onDeleteClick: () {
+                                                context
+                                                    .read<ImmunizationBloc>()
+                                                    .add(ImmunizationEvent
+                                                        .deleteImmunizationObject(
+                                                            index));
+                                                context.router.maybePop();
+                                              },
+                                            ),
+                                          );
+                                        })
+                                    : SelectedDocumentBox(
+                                        leadingImageString: SvgImageConstant
+                                            .documentWithVerticalLine,
+                                        title: "",
+                                        subTitle1:
+                                            StringConstant.immunizationDesc,
+                                        showDeleteButton: false,
+                                      ),
+                                SizedBox(
+                                  height: getSize(20),
+                                ),
+                                immunizationNameField(context),
+                                paddingBetweenFields(),
+                                (state.immunizationDoc.isValid())
+                                    ? selectedImage(
+                                        context,
+                                        state.immunizationDoc.getValue() ?? "",
+                                        state: state,
+                                      )
+                                    : UploadDocumentBox(
+                                        height: getSize(300),
+                                        onUploadBtnPressed: () {
+                                          clickUploadButton(context);
                                         },
                                       ),
-                                    );
-                                  })
-                              : SelectedDocumentBox(
-                                  leadingImageString:
-                                      SvgImageConstant.documentWithVerticalLine,
-                                  title: "",
-                                  subTitle1: StringConstant.immunizationDesc,
-                                  showDeleteButton: false,
-                                ),
-                          SizedBox(
-                            height: getSize(20),
-                          ),
-                          immunizationNameField(context),
-                          paddingBetweenFields(),
-                          (state.immunizationDoc.isValid())
-                              ? selectedImage(
+                                if (state.showImmunizationErrorMessages &&
+                                    !state.immunizationDoc.isValid())
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: getSize(10),
+                                        horizontal: getSize(20)),
+                                    child: const BaseText(
+                                      text: StringConstant
+                                          .pleaseSelectImmunizationDocument,
+                                      fontSize: 12,
+                                      textColor: AppColors.red,
+                                    ),
+                                  ),
+                                paddingBetweenFields(),
+                                /*DocumentExpiryDatePicker()
+                                    .notApplicableExpiryCheckBox(
                                   context,
-                                  state.immunizationDoc.getValue() ?? "",
-                                  state: state,
-                                )
-                              : UploadDocumentBox(
-                                  height: getSize(300),
-                                  onUploadBtnPressed: () {
-                                    clickUploadButton(context);
+                                  value: state.isImmunizationExpiryCheck,
+                                  isDisabled:
+                                      (state.immunizationExpiryDate.isNotEmpty),
+                                  onChanged: (value) {
+                                    if (value != null) {
+                                      context.read<ImmunizationBloc>().add(
+                                          ImmunizationEvent
+                                              .checkNAImmunizationExpiryDate(value));
+                                    }
                                   },
                                 ),
-                          if (state.showImmunizationErrorMessages &&
-                              !state.immunizationDoc.isValid())
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: getSize(10),
-                                  horizontal: getSize(20)),
-                              child: const BaseText(
-                                text: StringConstant
-                                    .pleaseSelectImmunizationDocument,
-                                fontSize: 12,
-                                textColor: AppColors.red,
-                              ),
+                                DocumentExpiryDatePicker.expiryDateTextField(
+                                  context,
+                                  onPickedDate: (pickedDate) {
+                                    context.read<ImmunizationBloc>().add(
+                                        ImmunizationEvent
+                                            .immunizationExpiryDateChanged(
+                                                pickedDate.toString()));
+                                  },
+                                  onCancelClick: () {
+                                    context.read<ImmunizationBloc>().add(
+                                        ImmunizationEvent
+                                            .immunizationExpiryDateChanged(""));
+                                  },
+                                  selectedDate: state.immunizationExpiryDate,
+                                  isDisabled: !state.isImmunizationExpiryCheck,
+                                ),
+                                paddingBetweenFields(height: 5),
+                                if ((!state.isImmunizationExpiryCheck &&
+                                        state.immunizationExpiryDate.isEmpty) &&
+                                    state.showImmunizationErrorMessages)
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: getSize(20)),
+                                    child: const BaseText(
+                                      text: StringConstant
+                                          .pleaseSelectExpiryDateIfApplicable,
+                                      fontSize: 12,
+                                      textColor: AppColors.red,
+                                    ),
+                                  ),
+                                */
+                                addMoreButton(
+                                  context,
+                                  state,
+                                  onPressed: () {
+                                    context.read<ImmunizationBloc>().add(
+                                        const ImmunizationEvent
+                                            .addMoreImmunizationDoc());
+                                  },
+                                ),
+                                paddingBetweenFields(height: 40)
+                              ],
                             ),
-                          paddingBetweenFields(),
-                          /*DocumentExpiryDatePicker()
-                              .notApplicableExpiryCheckBox(
-                            context,
-                            value: state.isImmunizationExpiryCheck,
-                            isDisabled:
-                                (state.immunizationExpiryDate.isNotEmpty),
-                            onChanged: (value) {
-                              if (value != null) {
-                                context.read<ImmunizationBloc>().add(
-                                    ImmunizationEvent
-                                        .checkNAImmunizationExpiryDate(value));
-                              }
-                            },
                           ),
-                          DocumentExpiryDatePicker.expiryDateTextField(
-                            context,
-                            onPickedDate: (pickedDate) {
-                              context.read<ImmunizationBloc>().add(
-                                  ImmunizationEvent
-                                      .immunizationExpiryDateChanged(
-                                          pickedDate.toString()));
-                            },
-                            onCancelClick: () {
-                              context.read<ImmunizationBloc>().add(
-                                  ImmunizationEvent
-                                      .immunizationExpiryDateChanged(""));
-                            },
-                            selectedDate: state.immunizationExpiryDate,
-                            isDisabled: !state.isImmunizationExpiryCheck,
-                          ),
-                          paddingBetweenFields(height: 5),
-                          if ((!state.isImmunizationExpiryCheck &&
-                                  state.immunizationExpiryDate.isEmpty) &&
-                              state.showImmunizationErrorMessages)
-                            Padding(
-                              padding:
-                                  EdgeInsets.symmetric(horizontal: getSize(20)),
-                              child: const BaseText(
-                                text: StringConstant
-                                    .pleaseSelectExpiryDateIfApplicable,
-                                fontSize: 12,
-                                textColor: AppColors.red,
-                              ),
-                            ),
-                          */
-                          addMoreButton(
-                            context,
-                            state,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: getSize(20), bottom: getSize(10)),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: CommonButton(
                             onPressed: () {
                               context.read<ImmunizationBloc>().add(
-                                  const ImmunizationEvent
-                                      .addMoreImmunizationDoc());
+                                  const ImmunizationEvent.immunizationDocSubmit(
+                                      isAddMoreBtnClick: false, isSkip: false));
                             },
+                            buttonText: StringConstant.txtContinue,
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: getSize(50), bottom: getSize(10)),
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: CommonButton(
-                                onPressed: () {
-                                  context.read<ImmunizationBloc>().add(
-                                      const ImmunizationEvent
-                                          .immunizationDocSubmit(
-                                          isAddMoreBtnClick: false,
-                                          isSkip: false));
-                                },
-                                buttonText: StringConstant.txtContinue,
-                              ),
-                            ),
-                          ),
-                          if (state.immunizationList.isEmpty)
-                            documentSkipButton(
-                              context,
-                              onPressed: () {
-                                context.read<ImmunizationBloc>().add(
-                                    const ImmunizationEvent
-                                        .immunizationDocSubmit(
-                                        isAddMoreBtnClick: false,
-                                        isSkip: true));
-                              },
-                            ),
-                          paddingBetweenFields(height: 40)
-                        ],
+                        ),
                       ),
-                    ),
+                      if (state.immunizationList.isEmpty)
+                        documentSkipButton(
+                          context,
+                          onPressed: () {
+                            context.read<ImmunizationBloc>().add(
+                                const ImmunizationEvent.immunizationDocSubmit(
+                                    isAddMoreBtnClick: false, isSkip: true));
+                          },
+                        ),
+                      paddingBetweenFields(),
+                    ],
                   ),
                 );
         },

@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/send_proposal_bloc/send_proposal_bloc.dart';
@@ -9,6 +11,7 @@ import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_multi_date_picker.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class MarkUnavailability extends StatelessWidget {
   const MarkUnavailability({super.key});
@@ -64,6 +67,7 @@ class MarkUnavailability extends StatelessWidget {
     List<DateTime> selectedDates = state.multiDates.map((dto) {
       return (dto.date != null) ? DateTime.parse(dto.date!) : DateTime.now();
     }).toList();
+    print(selectedDates);
 
     return CustomMultiDatePicker(
       value: selectedDates,
@@ -89,9 +93,13 @@ class MarkUnavailability extends StatelessWidget {
         );
       },
       selectableDayPredicate: (date) {
-        return isDateExist(selectedDates, date);
+        final dateExist = isDateExist(selectedDates, date);
+        print("dateExist---> $dateExist");
+
+        return dateExist;
       },
       onValueChanged: (value) {
+        print("setDateUnavailableEvent called!");
         context
             .read<SendProposalBloc>()
             .add(SendProposalEvent.setDateUnavailableEvent(value));
@@ -99,68 +107,14 @@ class MarkUnavailability extends StatelessWidget {
     );
   }
 
-
-  /*Widget selectedMulti(BuildContext context, SendProposalState state) {
-    List<DateTime> selectedDates = state.multiDates.map((dto) {
-      return (dto.date != null) ? DateTime.parse(dto.date!) : DateTime.now();
-    }).toList();
-
-    print("print selected datesss--> ${selectedDates}");
-
-    return CalendarDatePicker2(
-      initialValue: selectedDates,
-      config: CalendarDatePicker2Config(
-        calendarType: CalendarDatePicker2Type.multi,
-        disableYearPicker: true,
-        weekdayLabelTextStyle: TextStyle(
-          color: AppColors.primaryColor,
-          fontWeight: FontWeight.bold,
-        ),
-        selectableDayPredicate: (date) {
-          return isDateExist(selectedDates, date);
-        },
-        selectedDayTextStyle: TextStyle(
-          fontWeight: FontWeight.w500,
-          color: AppColors.white,
-          fontSize: getFontSize(12),
-        ),
-        dayBuilder: ({
-          required date,
-          textStyle,
-          decoration,
-          isSelected,
-          isDisabled,
-          isToday,
-        }) {
-          return Container(
-            decoration: decoration?.copyWith(
-              color:
-                  (isSelected == true) ? AppColors.red : AppColors.primaryColor,
-            ),
-            child: Center(
-              child: Text(
-                MaterialLocalizations.of(context).formatDecimal(date.day),
-                style: textStyle,
-              ),
-            ),
-          );
-        },
-      ),
-      onValueChanged: (value) {
-        print("On changed value ---> ${value}");
-        // List<DateTime> nonNullableDates =
-        //     value.whereType<DateTime>().toList();
-        // context.read<SendProposalBloc>().add(
-        //     SendProposalEvent.setDateUnavailableEvent(
-        //         nonNullableDates));
-      },
-    );
-  }
-*/
   bool isDateExist(List<DateTime> selectedDates, DateTime currentDate) {
-    return selectedDates.any((selectedDate) =>
-        selectedDate.year == currentDate.year &&
-        selectedDate.month == currentDate.month &&
-        selectedDate.day == currentDate.day);
+    return selectedDates.any((selectedDate) {
+      // print("currentDate---> $currentDate");
+      // print("selectedDate---> $selectedDate");
+
+      return (selectedDate.year == currentDate.year &&
+          selectedDate.month == currentDate.month &&
+          selectedDate.day == currentDate.day);
+    });
   }
 }

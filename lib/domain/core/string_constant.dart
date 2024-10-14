@@ -278,7 +278,7 @@ class StringConstant {
   static const String notification = "Notification";
   static const String profile = "Profile";
   static const String viewDetails = "View Details";
-  static const String viewShiftDetails = "View shift Details";
+  static const String viewShiftDetails = "View Shift Details";
   static const String viewShiftDates = "View shift Dates";
   static const String totalApplications = "Total Applications";
   static const String totalProposals = "Total Proposals";
@@ -313,6 +313,7 @@ class StringConstant {
   static const String single = "Single";
   static const String multi = "Multi";
   static const String singleShift = "Single shift";
+  static const String urgentActionRequired = "Urgent Action Required";
 
   static const String longTerm = "Long-Term";
   static const String date = "Date";
@@ -422,6 +423,33 @@ class StringConstant {
   static const String confirm = "Confirm";
   static const String unavailableDates = "Unavailable Dates";
   static const String availableForEveryDates = "Available for Every Dates";
+  static const String appliedDate = "Applied Date";
+  static const String proposalDate = "Proposal Date";
+  static const String cancelApplication = "Cancel Application";
+  static const String revoking = "Revoking...";
+  static const String declineShift = "Decline Shift";
+  static const String confirmAcceptance = "Confirm Acceptance";
+  static const String proposalReceived = "Proposal Received";
+  static const String proposalSent = "Proposal Sent";
+  static const String sendNewProposal = "Send New Proposal";
+  static const String hours = "Hours";
+  static const String acceptProposalDesc =
+      "Are you sure you want to accept the proposal?";
+  static const String rejectProposalDesc =
+      "Are you sure you want to reject the proposal?";
+  static const String posted = "Posted";
+  static const String proposed = "Proposed";
+  static const String accept = "Accept";
+  static const String reject = "Reject";
+  static const String urgentActionRequiredDesc =
+      "Your shift application has been accepted by the employer. Please confirm your acceptance to finalize the shift.";
+  static const String decline = "Decline";
+  static const String declineShiftDesc =
+      "Declining this shift may impact future opportunities. Are you sure you want to decline?";
+  static const String areYouSureYouWantToCancelTheApplication =
+      "Are you sure you want to cancel the application?";
+  static const String offerRevokedByTheEmployer =
+      "Offer Revoked by the Employer";
   static const String clockInConfirmationDesc =
       "Are you sure you want to add the clock in time?";
   static const String clockOutConfirmationDesc =
@@ -453,6 +481,22 @@ class StringConstant {
       "Propose your available times or mark dates you are unavailable for the posted shifts.";
   static const String proposalTermsDesc =
       "Send your proposal with your required adjustments. Adjusting the below terms may reduce your chance of acceptance.";
+  static const String updateProfile = "Update Profile";
+  static const String previousShifts = "Previous Shifts";
+  static const String longTermPositions = "Long Term Positions";
+  static const String fullTimePositions = "Full Time Positions";
+  static const String myCalendar = "My Calendar";
+  static const String chat = "Chat";
+  static const String myEarnings = "My Earnings";
+  static const String performanceInsights = "Performance Insights";
+  static const String referAColleague = "Refer a Colleague";
+  static const String ratings = "Ratings";
+  static const String shareShiftFinder = "Share ShiftFinder";
+  static const String accountManagement = "Account Management";
+  static const String policies = "Policies";
+  static const String supportHelp = "Support & Help";
+  static const String logOut = "Log Out";
+  static const String selectEachShiftDateToViewTheUpcomingShift = "Select each shift date to view the upcoming shift.";
 
   ///
 

@@ -58,183 +58,199 @@ class ProfessionalLicenses extends StatelessWidget {
               ? CenterLoadingIndicator()
               : Padding(
                   padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                  child: SingleChildScrollView(
-                    child: Form(
-                      autovalidateMode: (state.showLicensesErrorMessages)
-                          ? AutovalidateMode.always
-                          : AutovalidateMode.disabled,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          (state.professionalLicensesList.isNotEmpty)
-                              ? ListView.builder(
-                                  itemCount:
-                                      state.professionalLicensesList.length,
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  itemBuilder: (context, index) {
-                                    DocumentDTO licensesObject =
-                                        state.professionalLicensesList[index];
-                                    return Padding(
-                                      padding:
-                                          EdgeInsets.only(top: getSize(10)),
-                                      child: SelectedDocumentBox(
-                                        // leadingImage: Image.file(File(
-                                        //     licensesObject.credentialDocument ?? "")),
-                                        pickedFile: licensesObject.file,
-                                        title:
-                                            licensesObject.document_title ?? "",
-                                        subTitle1: licensesObject
-                                                .province_of_registration ??
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Form(
+                            autovalidateMode: (state.showLicensesErrorMessages)
+                                ? AutovalidateMode.always
+                                : AutovalidateMode.disabled,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                (state.professionalLicensesList.isNotEmpty)
+                                    ? ListView.builder(
+                                        itemCount: state
+                                            .professionalLicensesList.length,
+                                        shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        itemBuilder: (context, index) {
+                                          DocumentDTO licensesObject = state
+                                              .professionalLicensesList[index];
+                                          return Padding(
+                                            padding: EdgeInsets.only(
+                                                top: getSize(10)),
+                                            child: SelectedDocumentBox(
+                                              // leadingImage: Image.file(File(
+                                              //     licensesObject.credentialDocument ?? "")),
+                                              pickedFile: licensesObject.file,
+                                              title: licensesObject
+                                                      .document_title ??
+                                                  "",
+                                              subTitle1: licensesObject
+                                                      .province_of_registration ??
+                                                  "",
+                                              subTitle2: licensesObject
+                                                      .registration_number ??
+                                                  "",
+                                              showDeleteButton: true,
+                                              deleteDescription: StringConstant
+                                                  .deleteProfessionalLicenseDesc,
+                                              onCancelClick: () {
+                                                context.router.maybePop();
+                                              },
+                                              onDeleteClick: () {
+                                                context
+                                                    .read<
+                                                        ProfessionalLicensesBloc>()
+                                                    .add(ProfessionalLicensesEvent
+                                                        .deleteLicensesObject(
+                                                            index));
+                                                context.router.maybePop();
+                                              },
+                                            ),
+                                          );
+                                        })
+                                    : SelectedDocumentBox(
+                                        leadingImageString: SvgImageConstant
+                                            .documentWithVerticalLine,
+                                        title: "",
+                                        subTitle1: StringConstant
+                                            .professionalLicensesDesc,
+                                        showDeleteButton: false,
+                                      ),
+                                SizedBox(
+                                  height: getSize(20),
+                                ),
+                                registrationNoField(context),
+                                paddingBetweenFields(),
+                                provinceRegistrationDropdown(context, state),
+                                paddingBetweenFields(),
+                                documentTitleField(context),
+                                paddingBetweenFields(),
+                                (state.professionalLicensesDoc.isValid())
+                                    ? selectedImage(
+                                        context,
+                                        state.professionalLicensesDoc
+                                                .getValue() ??
                                             "",
-                                        subTitle2: licensesObject
-                                                .registration_number ??
-                                            "",
-                                        showDeleteButton: true,
-                                        deleteDescription: StringConstant
-                                            .deleteProfessionalLicenseDesc,
-                                        onCancelClick: () {
-                                          context.router.maybePop();
-                                        },
-                                        onDeleteClick: () {
-                                          context
-                                              .read<ProfessionalLicensesBloc>()
-                                              .add(ProfessionalLicensesEvent
-                                                  .deleteLicensesObject(index));
-                                          context.router.maybePop();
+                                        state: state,
+                                      )
+                                    : UploadDocumentBox(
+                                        height: getSize(300),
+                                        onUploadBtnPressed: () {
+                                          clickUploadButton(context);
                                         },
                                       ),
-                                    );
-                                  })
-                              : SelectedDocumentBox(
-                                  leadingImageString:
-                                      SvgImageConstant.documentWithVerticalLine,
-                                  title: "",
-                                  subTitle1:
-                                      StringConstant.professionalLicensesDesc,
-                                  showDeleteButton: false,
-                                ),
-                          SizedBox(
-                            height: getSize(20),
-                          ),
-                          registrationNoField(context),
-                          paddingBetweenFields(),
-                          provinceRegistrationDropdown(context, state),
-                          paddingBetweenFields(),
-                          documentTitleField(context),
-                          paddingBetweenFields(),
-                          (state.professionalLicensesDoc.isValid())
-                              ? selectedImage(
+                                if (state.showLicensesErrorMessages &&
+                                    !state.professionalLicensesDoc.isValid())
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: getSize(10),
+                                        horizontal: getSize(20)),
+                                    child: BaseText(
+                                      text: StringConstant
+                                          .pleaseSelectProfessionalLicensesDocument,
+                                      fontSize: 12,
+                                      textColor: AppColors.red,
+                                    ),
+                                  ),
+                                paddingBetweenFields(),
+                                DocumentExpiryDatePicker()
+                                    .notApplicableExpiryCheckBox(
                                   context,
-                                  state.professionalLicensesDoc.getValue() ??
-                                      "",
-                                  state: state,
-                                )
-                              : UploadDocumentBox(
-                                  height: getSize(300),
-                                  onUploadBtnPressed: () {
-                                    clickUploadButton(context);
+                                  value: state.isLicensesExpiryCheck,
+                                  isDisabled:
+                                      (state.licensesExpiryDate.isNotEmpty),
+                                  onChanged: (value) {
+                                    if (value != null) {
+                                      context
+                                          .read<ProfessionalLicensesBloc>()
+                                          .add(ProfessionalLicensesEvent
+                                              .checkNALicensesExpiryDate(
+                                                  value));
+                                    }
                                   },
                                 ),
-                          if (state.showLicensesErrorMessages &&
-                              !state.professionalLicensesDoc.isValid())
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: getSize(10),
-                                  horizontal: getSize(20)),
-                              child: BaseText(
-                                text: StringConstant
-                                    .pleaseSelectProfessionalLicensesDocument,
-                                fontSize: 12,
-                                textColor: AppColors.red,
-                              ),
+                                DocumentExpiryDatePicker.expiryDateTextField(
+                                  context,
+                                  onPickedDate: (pickedDate) {
+                                    context
+                                        .read<ProfessionalLicensesBloc>()
+                                        .add(ProfessionalLicensesEvent
+                                            .licensesExpiryDateChanged(
+                                                pickedDate.toString()));
+                                  },
+                                  onCancelClick: () {
+                                    context
+                                        .read<ProfessionalLicensesBloc>()
+                                        .add(ProfessionalLicensesEvent
+                                            .licensesExpiryDateChanged(""));
+                                  },
+                                  selectedDate: state.licensesExpiryDate,
+                                  isDisabled: !state.isLicensesExpiryCheck,
+                                ),
+                                paddingBetweenFields(height: 5),
+                                if ((!state.isLicensesExpiryCheck &&
+                                        state.licensesExpiryDate.isEmpty) &&
+                                    state.showLicensesErrorMessages)
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: getSize(20)),
+                                    child: const BaseText(
+                                      text: StringConstant
+                                          .pleaseSelectExpiryDateIfApplicable,
+                                      fontSize: 12,
+                                      textColor: AppColors.red,
+                                    ),
+                                  ),
+                                paddingBetweenFields(),
+                                addMoreButton(
+                                  context,
+                                  state,
+                                  onPressed: () {
+                                    context
+                                        .read<ProfessionalLicensesBloc>()
+                                        .add(const ProfessionalLicensesEvent
+                                            .addMoreLicensesDoc());
+                                  },
+                                ),
+                                paddingBetweenFields(height: 40)
+                              ],
                             ),
-                          paddingBetweenFields(),
-                          DocumentExpiryDatePicker()
-                              .notApplicableExpiryCheckBox(
-                            context,
-                            value: state.isLicensesExpiryCheck,
-                            isDisabled: (state.licensesExpiryDate.isNotEmpty),
-                            onChanged: (value) {
-                              if (value != null) {
-                                context.read<ProfessionalLicensesBloc>().add(
-                                    ProfessionalLicensesEvent
-                                        .checkNALicensesExpiryDate(value));
-                              }
-                            },
                           ),
-                          DocumentExpiryDatePicker.expiryDateTextField(
-                            context,
-                            onPickedDate: (pickedDate) {
-                              context.read<ProfessionalLicensesBloc>().add(
-                                  ProfessionalLicensesEvent
-                                      .licensesExpiryDateChanged(
-                                          pickedDate.toString()));
-                            },
-                            onCancelClick: () {
-                              context.read<ProfessionalLicensesBloc>().add(
-                                  ProfessionalLicensesEvent
-                                      .licensesExpiryDateChanged(""));
-                            },
-                            selectedDate: state.licensesExpiryDate,
-                            isDisabled: !state.isLicensesExpiryCheck,
-                          ),
-                          paddingBetweenFields(height: 5),
-                          if ((!state.isLicensesExpiryCheck &&
-                                  state.licensesExpiryDate.isEmpty) &&
-                              state.showLicensesErrorMessages)
-                            Padding(
-                              padding:
-                                  EdgeInsets.symmetric(horizontal: getSize(20)),
-                              child: const BaseText(
-                                text: StringConstant
-                                    .pleaseSelectExpiryDateIfApplicable,
-                                fontSize: 12,
-                                textColor: AppColors.red,
-                              ),
-                            ),
-                          paddingBetweenFields(),
-                          addMoreButton(
-                            context,
-                            state,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: getSize(20), bottom: getSize(10)),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: CommonButton(
                             onPressed: () {
                               context.read<ProfessionalLicensesBloc>().add(
                                   const ProfessionalLicensesEvent
-                                      .addMoreLicensesDoc());
+                                      .licensesDocSubmit(
+                                      isAddMoreBtnClick: false, isSkip: false));
                             },
+                            buttonText: StringConstant.txtContinue,
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                                top: getSize(50), bottom: getSize(10)),
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: CommonButton(
-                                onPressed: () {
-                                  context.read<ProfessionalLicensesBloc>().add(
-                                      const ProfessionalLicensesEvent
-                                          .licensesDocSubmit(
-                                          isAddMoreBtnClick: false,
-                                          isSkip: false));
-                                },
-                                buttonText: StringConstant.txtContinue,
-                              ),
-                            ),
-                          ),
-                          if (state.professionalLicensesList.isEmpty)
-                            documentSkipButton(
-                              context,
-                              onPressed: () {
-                                context.read<ProfessionalLicensesBloc>().add(
-                                    const ProfessionalLicensesEvent
-                                        .licensesDocSubmit(
-                                        isAddMoreBtnClick: false,
-                                        isSkip: true));
-                              },
-                            ),
-                          paddingBetweenFields(height: 40)
-                        ],
+                        ),
                       ),
-                    ),
+                      if (state.professionalLicensesList.isEmpty)
+                        documentSkipButton(
+                          context,
+                          onPressed: () {
+                            context.read<ProfessionalLicensesBloc>().add(
+                                const ProfessionalLicensesEvent
+                                    .licensesDocSubmit(
+                                    isAddMoreBtnClick: false, isSkip: true));
+                          },
+                        ),
+                      paddingBetweenFields()
+                    ],
                   ),
                 );
         },

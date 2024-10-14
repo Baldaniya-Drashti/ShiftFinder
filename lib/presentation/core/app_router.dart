@@ -3,7 +3,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 
-
 @AutoRouterConfig()
 class AppRouter extends RootStackRouter {
   @override
@@ -70,6 +69,8 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: PreviousShiftView.page),
         AutoRoute(page: EditProfileView.page),
         AutoRoute(page: ShiftActionsView.page),
+        AutoRoute(page: ProposalReceived.page),
+        AutoRoute(page: MyCalendarView.page),
         AutoRoute(
           page: MainTabView.page,
           children: [

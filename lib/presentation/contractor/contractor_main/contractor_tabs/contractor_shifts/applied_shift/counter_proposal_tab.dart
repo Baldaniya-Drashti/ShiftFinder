@@ -1,10 +1,22 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_shift_bloc/contractor_shift_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/contractor_main/shift/applied_shift_dto/applied_shift_dto.dart';
+import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 
 class CounterProposalTab extends StatelessWidget {
   const CounterProposalTab({super.key});
@@ -13,71 +25,322 @@ class CounterProposalTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
       builder: (context, state) {
-        return DefaultTabController(
-          length: 2,
-          initialIndex: state.selectedAppliedTab,
-          child: Column(
-            children: [
-              tabbar(context),
-            ],
-          ),
-        );
+        return PaginatedListView(
+            onRefresh: () {
+              context
+                  .read<ContractorShiftBloc>()
+                  .add(ContractorShiftEvent.getCounterProposalList(true));
+            },
+            refreshController:
+                context.read<ContractorShiftBloc>().counterShiftRefreshCtrl,
+            onLoading: () {
+              context
+                  .read<ContractorShiftBloc>()
+                  .add(ContractorShiftEvent.getCounterProposalList(false));
+            },
+            isNoDataFound: state.isCounterNoDataFound,
+            child: state.isCounterLoading
+                ? CenterLoadingIndicator(isOnlyLoader: true)
+                : state.isCounterErrorInAPI
+                    ? Center(
+                        child:
+                            BaseText(text: StringConstant.somethindWentWrong),
+                      )
+                    : ListView.builder(
+                        itemCount: state.counterList.length,
+                        padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                        itemBuilder: (context, index) {
+                          final shift = state.counterList[index];
+
+                          return Container(
+                            margin: EdgeInsets.symmetric(vertical: getSize(10)),
+                            padding: EdgeInsets.all(getSize(10)),
+                            width: getSize(355),
+                            decoration: BoxDecoration(
+                              color: AppColors.white,
+                              borderRadius: BorderRadius.circular(getSize(20)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.black.withOpacity(0.2),
+                                  blurRadius: 10,
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                userDetail(context, shift),
+                                paddingBetweenFields(),
+                                CommonButton(
+                                  onPressed: () {
+                                    context.router.push(
+                                      PageRouteInfo(
+                                        ViewHomeShiftDetails.name,
+                                        args: ViewHomeShiftDetailsArgs(
+                                          postId: shift.post_id ?? -1,
+                                          isTotalApplicants: true,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  height: getSize(40),
+                                  borderRadius: 7,
+                                  backgroundColor:
+                                      AppColors.primaryColor.withOpacity(0.1),
+                                  buttonTextColor: AppColors.black,
+                                  buttonFontSize: 12,
+                                  buttonText: StringConstant.viewShiftDetails,
+                                ),
+                                paddingBetweenFields(),
+                                GestureDetector(
+                                  onTap: () {
+                                    context.router
+                                        .push(PageRouteInfo(
+                                            ProposalReceived.name,
+                                            args: ProposalReceivedArgs(
+                                                post: shift)))
+                                        .then((value) {
+                                      if (value == true) {
+                                        context.read<ContractorShiftBloc>().add(
+                                            ContractorShiftEvent
+                                                .getCounterProposalList(true));
+                                      }
+                                    });
+                                  },
+                                  child: (shift.last_request == 1)
+                                      ? proposalStatus(
+                                          title:
+                                              StringConstant.proposalReceived,
+                                          icon: SvgImageConstant.receivedCircle,
+                                          boldValue: convertTimeStampToDate(
+                                              shift.applied_date ?? -1),
+                                          timidValue: convertTimeStampToDate(
+                                              shift.applied_date ?? -1,
+                                              isYear: true),
+                                        )
+                                      : proposalStatus(
+                                          title: StringConstant.proposalSent,
+                                          icon:
+                                              SvgImageConstant.rightWithCircle,
+                                          boldValue: convertTimeStampToDate(
+                                              shift.applied_date ?? -1),
+                                          timidValue: convertTimeStampToDate(
+                                              shift.applied_date ?? -1,
+                                              isYear: true),
+                                        ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ));
       },
     );
   }
 
-  Widget tabbar(BuildContext context) {
+  Widget paddingBetweenFields({double? height}) {
+    return SizedBox(
+      height: getSize(height ?? 10),
+    );
+  }
+
+  Widget userDetail(BuildContext context, AppliedShiftDTO shift) {
     return Container(
-      height: getSize(50),
-      padding: EdgeInsets.symmetric(vertical: getSize(5)),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: AppColors.white,
+        borderRadius: BorderRadius.circular(getSize(10)),
+        color: AppColors.scaffoldColor,
       ),
-      child: TabBar(
-        onTap: (value) {},
-        padding: EdgeInsets.zero,
-        labelStyle: TextStyle(
-          fontSize: getFontSize(14),
-          color: AppColors.white,
-          fontWeight: FontWeight.w500,
-        ),
-        unselectedLabelStyle: TextStyle(
-          fontSize: getFontSize(14),
-          color: Colors.black.withOpacity(0.5),
-          fontWeight: FontWeight.w500,
-        ),
-        indicatorSize: TabBarIndicatorSize.tab,
-        dividerColor: AppColors.white,
-        indicator: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: AppColors.primaryColor,
-        ),
-        tabs: [
-          Tab(text: StringConstant.applied),
-          Tab(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+      padding: EdgeInsets.symmetric(horizontal: getSize(12)),
+      child: Column(
+        children: [
+          ListTile(
+            dense: true,
+            leading: Image.asset(
+              PngImageConstants.leafWithBG,
+              height: getSize(40),
+              width: getSize(40),
+            ),
+            isThreeLine: true,
+            title: BaseText(
+              text: shift.role_lists_name ?? " ",
+              textColor: AppColors.black,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Text(StringConstant.counterProposal),
-                Padding(
-                  padding: EdgeInsets.all(getSize(5)),
-                  child: Badge(
-                    backgroundColor: AppColors.redAccent,
-                    largeSize: getSize(20),
-                    // isLabelVisible: true,
-                    label: BaseText(
-                      text: '03',
-                      fontSize: 6,
-                      textColor: AppColors.white,
+                BaseText(
+                  text: shift.company_name ?? " ",
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  textColor: AppColors.black.withOpacity(0.80),
+                ),
+                BaseText(
+                  text:
+                      "(${getIndustry(shift.industry_id ?? 0)}  - ${shift.listing_id ?? ''})",
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  textColor: AppColors.black.withOpacity(0.80),
+                ),
+              ],
+            ),
+            trailing: BaseText(
+              text: shift.last_ago ?? " ",
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+            contentPadding: EdgeInsets.zero,
+            visualDensity: VisualDensity.compact,
+          ),
+          Divider(
+            color: AppColors.black.withOpacity(0.2),
+            thickness: getSize(0.5),
+          ),
+          GestureDetector(
+            onTap: () {
+              /*context.router.push(
+                    PageRouteInfo(
+                      ShowGoogleMap.name,
+                      args: ShowGoogleMapArgs(
+                        latitude: 21.191535534205194,
+                        longitude: 72.78582206137469,
+                      ),
                     ),
+                  );*/
+            },
+            child: Row(
+              children: [
+                SvgPicture.asset(
+                  SvgImageConstant.location,
+                  height: getSize(25),
+                  width: getSize(25),
+                  color: AppColors.black,
+                ),
+                SizedBox(
+                  width: getSize(10),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      BaseText(
+                        text: shift.location ?? " ",
+                        fontSize: 12,
+                        maxLines: 1,
+                        fontWeight: FontWeight.w500,
+                        textColor: AppColors.black,
+                      ),
+                      BaseText(
+                        text: shift.distance ?? " ",
+                        fontSize: 10,
+                        maxLines: 1,
+                        fontWeight: FontWeight.w600,
+                        textColor: AppColors.primaryColor,
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
+          SizedBox(height: getSize(12)),
         ],
       ),
     );
+  }
+
+  String getIndustry(int id) {
+    OnBoardingDTO industry = CommonList.industryList.firstWhere(
+      (item) => item.id == id,
+      orElse: () => OnBoardingDTO(),
+    );
+    return industry.title ?? "";
+  }
+
+  Widget proposalStatus(
+      {required String title,
+      required String icon,
+      required String boldValue,
+      required String timidValue}) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(getSize(10)),
+        color: AppColors.scaffoldColor,
+      ),
+      padding: EdgeInsets.symmetric(horizontal: getSize(12)),
+      child: ListTile(
+          dense: true,
+          contentPadding: EdgeInsets.zero,
+          horizontalTitleGap: 0,
+          leading: SvgPicture.asset(
+            SvgImageConstant.calendar,
+            color: AppColors.black.withOpacity(0.7),
+            height: getSize(20),
+            width: getSize(20),
+          ),
+          title: Row(
+            children: [
+              BaseText(
+                text: title,
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                textColor: AppColors.primaryColor,
+              ),
+              SizedBox(width: getSize(05)),
+              SvgPicture.asset(
+                icon,
+                height: getSize(15),
+                width: getSize(15),
+              ),
+            ],
+          ),
+          trailing:
+              highLightText(boldValue: boldValue, timidValue: timidValue)),
+    );
+  }
+
+  String convertTimeStampToDate(int timestamp,
+      {bool isYear = false, bool isTime = false}) {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+
+    if (isTime) {
+      return DateFormat('hh:mm a').format(dateTime);
+    } else {
+      if (isYear) {
+        return DateFormat('yyyy').format(dateTime);
+      } else {
+        return DateFormat('d MMM, ').format(dateTime);
+      }
+    }
+  }
+
+  Widget highLightText(
+      {required String boldValue,
+      required String timidValue,
+      String? thirdValue}) {
+    return RichText(
+        text: TextSpan(
+      text: boldValue,
+      style: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: AppColors.black,
+      ),
+      children: [
+        TextSpan(
+          text: timidValue,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: AppColors.black.withOpacity(0.5),
+          ),
+        ),
+        TextSpan(
+          text: thirdValue ?? "",
+        ),
+      ],
+    ));
   }
 }

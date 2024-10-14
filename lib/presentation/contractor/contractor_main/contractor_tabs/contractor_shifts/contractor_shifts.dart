@@ -24,7 +24,9 @@ class ContractorShiftView extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<ContractorShiftBloc>()
         ..add(ContractorShiftEvent.getCurrentShiftDetailAPI(true))
-        ..add(ContractorShiftEvent.getUpcomingShiftAPI(true)),
+        ..add(ContractorShiftEvent.getUpcomingShiftAPI(true))
+        ..add(ContractorShiftEvent.getAppliedTypeList(true))
+        ..add(ContractorShiftEvent.getCounterProposalList(true)),
       child: BlocConsumer<ContractorShiftBloc, ContractorShiftState>(
         listener: (context, state) {},
         builder: (context, state) {

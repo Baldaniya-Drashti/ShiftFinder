@@ -157,7 +157,7 @@ class _CovidVaccinationDocumentState extends State<CovidVaccinationDocument> {
                               ));
                         },
                       ),
-                    SizedBox(height: getSize(40)),
+                    SizedBox(height: getSize(20)),
                   ],
                 ),
               );

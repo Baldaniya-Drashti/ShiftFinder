@@ -4,6 +4,8 @@ import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/applied_shift/applied_tab.dart';
+import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/contractor_shifts/applied_shift/counter_proposal_tab.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 
 class AppliedShift extends StatelessWidget {
@@ -11,28 +13,33 @@ class AppliedShift extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    /*return Center(
       child: BaseText(
         text: StringConstant.underDevelopment,
       ),
-    );
-    /*return BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
+    );*/
+    return BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
       builder: (context, state) {
         return DefaultTabController(
           length: 2,
           initialIndex: state.selectedAppliedTab,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-            child: Column(
-              children: [
-                tabbar(context),
-                (state.selectedTab == 0) ? AppliedTab() : CounterProposalTab()
-              ],
-            ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: getSize(25)),
+                child: tabbar(context),
+              ),
+              Expanded(
+                child: (state.selectedAppliedTab == 0)
+                    ? AppliedTab()
+                    : CounterProposalTab(),
+              ),
+            ],
           ),
         );
       },
-    );*/
+    );
   }
 
   Widget tabbar(BuildContext context) {
@@ -67,17 +74,18 @@ class AppliedShift extends StatelessWidget {
           color: AppColors.primaryColor,
         ),
         tabs: [
-          Tab(text: StringConstant.applied),
           Tab(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(StringConstant.counterProposal),
-                Padding(
-                  padding: EdgeInsets.all(getSize(5)),
+                Text(StringConstant.applied),
+                /*Padding(
+                  padding: EdgeInsets.only(left: getSize(5)),
                   child: Badge(
                     backgroundColor: AppColors.redAccent,
-                    largeSize: getSize(20),
+                    largeSize: getSize(15),
+                    padding: EdgeInsets.symmetric(horizontal: getSize(3)),
+                    // smallSize: getSize(10),
                     // isLabelVisible: true,
                     label: BaseText(
                       text: '03',
@@ -85,7 +93,30 @@ class AppliedShift extends StatelessWidget {
                       textColor: AppColors.white,
                     ),
                   ),
-                ),
+                ),*/
+              ],
+            ),
+          ),
+          Tab(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(StringConstant.counterProposal),
+                /*Padding(
+                  padding: EdgeInsets.only(left: getSize(5)),
+                  child: Badge(
+                    backgroundColor: AppColors.redAccent,
+                    largeSize: getSize(15),
+                    padding: EdgeInsets.symmetric(horizontal: getSize(3)),
+                    // smallSize: getSize(10),
+                    // isLabelVisible: true,
+                    label: BaseText(
+                      text: '03',
+                      fontSize: 6,
+                      textColor: AppColors.white,
+                    ),
+                  ),
+                ),*/
               ],
             ),
           ),

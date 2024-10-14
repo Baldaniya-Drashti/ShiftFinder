@@ -25,4 +25,20 @@ class ContractorShiftEvent with _$ContractorShiftEvent {
 
   const factory ContractorShiftEvent.appliedShiftChangeTab(int tabIndex) =
       AppliedShiftChangeTab;
+
+  const factory ContractorShiftEvent.getAppliedTypeList(bool isRefresh,
+      {int? filterType, int? applied_type}) = GetAppliedTypeList;
+  const factory ContractorShiftEvent.getCounterProposalList(bool isRefresh,
+      {int? filterType, int? applied_type}) = GetCounterProposalList;
+
+  const factory ContractorShiftEvent.urgentActionEvent(BuildContext context,
+      {required int postId, required int urgentAction}) = UrgentActionEvent;
+  const factory ContractorShiftEvent.proposalAcceptRejectEvent(
+      BuildContext context,
+      {required int postId,
+      required int urgentAction}) = ProposalAcceptRejectEvent;
+
+  const factory ContractorShiftEvent.startRevokingTimer(
+          Duration duration, int id, {required int revokeTime}) =
+      StartRevokingTimer;
 }

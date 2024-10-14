@@ -30,7 +30,8 @@ class ApparelEquipment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<EquipmentBloc>()..add(EquipmentEvent.getEquipmentList()),
+      create: (context) =>
+          getIt<EquipmentBloc>()..add(EquipmentEvent.getEquipmentList()),
       child: BlocConsumer<EquipmentBloc, EquipmentState>(
         listener: (context, state) {
           state.equipmentDocAuthFailureOrSuccessOption.fold(
@@ -40,7 +41,8 @@ class ApparelEquipment extends StatelessWidget {
                 showError(
                   message: failure.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) => 'Please check your internet connectivity',
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(context);
@@ -55,7 +57,8 @@ class ApparelEquipment extends StatelessWidget {
                 showError(
                   message: failure.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) => 'Please check your internet connectivity',
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(context);
@@ -148,12 +151,15 @@ class ApparelEquipment extends StatelessWidget {
                             },
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: getSize(50), bottom: getSize(10)),
+                            padding: EdgeInsets.only(
+                                top: getSize(50), bottom: getSize(10)),
                             child: Align(
                               alignment: Alignment.center,
                               child: CommonButton(
                                 onPressed: () {
-                                  context.read<EquipmentBloc>().add(const EquipmentEvent.equipmentDocSubmit(
+                                  context.read<EquipmentBloc>().add(
+                                          const EquipmentEvent
+                                              .equipmentDocSubmit(
                                         isAddMoreBtnClick: false,
                                         isSkip: false,
                                       ));
@@ -166,7 +172,8 @@ class ApparelEquipment extends StatelessWidget {
                             documentSkipButton(
                               context,
                               onPressed: () {
-                                context.read<EquipmentBloc>().add(const EquipmentEvent.equipmentDocSubmit(
+                                context.read<EquipmentBloc>().add(
+                                        const EquipmentEvent.equipmentDocSubmit(
                                       isAddMoreBtnClick: false,
                                       isSkip: true,
                                     ));
