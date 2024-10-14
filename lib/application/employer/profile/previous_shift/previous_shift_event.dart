@@ -34,8 +34,6 @@ class PreviousShiftEvent with _$PreviousShiftEvent {
     required BuildContext context,
   }) = BlockPost;
 
-
-
   factory PreviousShiftEvent.leaveRating({
     required int id,
   }) = LeaveRating;

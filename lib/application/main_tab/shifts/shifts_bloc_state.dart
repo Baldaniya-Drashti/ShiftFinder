@@ -19,6 +19,24 @@ class ShiftsBlocState with _$ShiftsBlocState {
     required TimeOfDay clockIn,
     required TimeOfDay clockOut,
     required Option<Either<AccountFailure, Account>> authFailureOrSuccessOption,
+    required bool postDataLoading,
+    required bool noDataFound,
+    required bool errorApi,
+    required bool getDataLoading,
+    required List<EmployerShiftDto> filledShiftList,
+    required List<EmployerShiftDto> approveShiftList,
+    required List<EmployerShiftDto> cancelledShiftList,
+
+
+
+
+
+
+
+
+
+
+
   }) = _ShiftsBlocState;
 
   factory ShiftsBlocState.initial() => ShiftsBlocState(
@@ -40,5 +58,12 @@ class ShiftsBlocState with _$ShiftsBlocState {
           data: DropDownValueModel(name: "Cancelled by You", value: 1),
         ),
         cancelledShiftSortByLocationController: SingleValueDropDownController(),
+        errorApi: false,
+        getDataLoading: false,
+        noDataFound: false,
+        postDataLoading: false,
+        approveShiftList: [],
+        cancelledShiftList: [],
+        filledShiftList: [],
       );
 }

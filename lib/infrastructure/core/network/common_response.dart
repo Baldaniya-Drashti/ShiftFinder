@@ -9,6 +9,7 @@ class CommonResponse<T> {
   List<T>? listData;
   Errors? errors;
   Meta? meta;
+  AdditionalData? additional_data;
 
   CommonResponse({
     this.status,
@@ -29,6 +30,11 @@ class CommonResponse<T> {
     if (json.containsKey("meta") && json["meta"] != null) {
       meta = Meta.fromJson(json['meta']);
     }
+    if(json.containsKey("additional_data")){
+      additional_data=AdditionalData.fromMap(json["additional_data"]);
+    }
+
+
   }
 
   Map<String, dynamic> toJson() {
@@ -86,14 +92,7 @@ class Errors {
   List<String>? qrCode;
   List<String>? referralByUser;
 
-  Errors(
-      {this.firstName,
-      this.lastName,
-      this.email,
-      this.birthDate,
-      this.lookingFor,
-      this.gender,
-      this.lookingGender});
+  Errors({this.firstName, this.lastName, this.email, this.birthDate, this.lookingFor, this.gender, this.lookingGender});
 
   Errors.fromJson(Map<String, dynamic> json) {
     firstName = json['first_name']?.cast<String>();
@@ -130,8 +129,7 @@ class ErrorResponse {
 
   ErrorResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    message =
-        json['message'] != null ? Message.fromJson(json['message']) : null;
+    message = json['message'] != null ? Message.fromJson(json['message']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -216,13 +214,7 @@ class Meta {
   int? from;
   int? to;
 
-  Meta(
-      {this.total,
-      this.lastPage,
-      this.perPage,
-      this.currentPage,
-      this.from,
-      this.to});
+  Meta({this.total, this.lastPage, this.perPage, this.currentPage, this.from, this.to});
 
   Meta.fromJson(Map<String, dynamic> json) {
     total = json['total'];
@@ -242,5 +234,25 @@ class Meta {
     data['from'] = from;
     data['to'] = to;
     return data;
+  }
+}
+
+class AdditionalData {
+  final bool isCardAdded;
+
+  const AdditionalData({
+    this.isCardAdded = false,
+  });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'isCardAdded': isCardAdded,
+    };
+  }
+
+  factory AdditionalData.fromMap(Map<String, dynamic> map) {
+    return AdditionalData(
+      isCardAdded: map['is_card_added'] as bool,
+    );
   }
 }

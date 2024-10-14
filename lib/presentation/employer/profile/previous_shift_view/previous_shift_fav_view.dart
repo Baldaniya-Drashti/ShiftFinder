@@ -28,10 +28,10 @@ class PreviousShiftFavView extends StatelessWidget {
               onRefresh: () => PreviousShiftEvent.fetchFavoriteList(refresh: true),
               onLoading: () => PreviousShiftEvent.fetchFavoriteList(refresh: false),
               refreshController: context.read<PreviousShiftBloc>().favorite,
-              isNoDataFound: state.noDataFound,
-              child: state.getDataLoading
+              isNoDataFound: state.favoriteListNoDataFound,
+              child: state.favoriteListLoading
                   ? CenterLoadingIndicator()
-                  : state.errorApi
+                  : state.favoriteListIsErrorApi
                       ? Center(
                           child: BaseText(text: StringConstant.somethindWentWrong),
                         )

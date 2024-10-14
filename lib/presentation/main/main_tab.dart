@@ -37,15 +37,17 @@ class MainTabView extends StatelessWidget {
           create: (context) => getIt<MainTabBloc>()..add(TabChange(0)),
         ),
         BlocProvider(
-          create: (context) =>
-              getIt<HomeBloc>()..add(HomeEvent.getEmployerDashboardList(true)),
+          create: (context) => getIt<HomeBloc>()..add(HomeEvent.getEmployerDashboardList(true)),
         ),
         BlocProvider<AccountCubit>(
           create: (context) => getIt<AccountCubit>()..getAccount(),
         ),
         BlocProvider(
-          create: (context) =>
-              getIt<ShiftsBloc>()..add(ShiftsBlocEvent.getLocationListAPI()),
+          create: (context) => getIt<ShiftsBloc>()
+            ..add(ShiftsBlocEvent.getLocationListAPI())
+            ..add(
+              ShiftsBlocEvent.fetchFilledShiftList(refresh: true),
+            ),
         ),
         // BlocProvider(
         //   create: (context) => getIt<NotificationsBloc>()
@@ -73,8 +75,7 @@ class MainTabView extends StatelessWidget {
                     (int index) {
                       return Navigator(
                         onGenerateRoute: (RouteSettings settings) {
-                          print(
-                              "PAGE IS ${context.read<MainTabBloc>().pageList[index]}");
+                          print("PAGE IS ${context.read<MainTabBloc>().pageList[index]}");
                           return onGenerateRoute(
                             settings,
                             context.read<MainTabBloc>().pageList[index],
@@ -119,9 +120,7 @@ class MainTabView extends StatelessWidget {
                 },
                 child: FloatingActionButton(
                   onPressed: () {
-                    context
-                        .read<HomeBloc>()
-                        .add(HomeEvent.checkTeamAvailableEvent(context));
+                    context.read<HomeBloc>().add(HomeEvent.checkTeamAvailableEvent(context));
 
                     /*context.router
                                     .push(PageRouteInfo(autoroute.HealthCarePostForm.name))
@@ -154,8 +153,7 @@ class MainTabView extends StatelessWidget {
                       color: AppColors.primaryColor,
                       shape: BoxShape.circle,
                       image: DecorationImage(
-                        image:
-                            AssetImage(PngImageConstants.floating_background),
+                        image: AssetImage(PngImageConstants.floating_background),
                       ),
                     ),
                     alignment: Alignment.center,
@@ -167,8 +165,7 @@ class MainTabView extends StatelessWidget {
                   ),
                 ),
               ),
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerDocked,
+              floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
               bottomNavigationBar: CustomBottomNavigationWidget(),
             ),
           );
@@ -189,8 +186,7 @@ getAppbar(MainTabState state, BuildContext context) {
             shape: BoxShape.circle,
             border: Border.all(color: AppColors.darkGreen, width: getSize(3)),
             image: DecorationImage(
-              image: (getCurrentUser().profileImage != null &&
-                      getCurrentUser().profileImage!.isNotEmpty)
+              image: (getCurrentUser().profileImage != null && getCurrentUser().profileImage!.isNotEmpty)
                   ? CachedNetworkImageProvider(
                       getCurrentUser().profileImage!,
                       // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBLrdd7MIMxvrcpH-P3EtMy2jhc5PL0tDNww&s",
@@ -216,8 +212,7 @@ getAppbar(MainTabState state, BuildContext context) {
             ),
             SizedBox(height: getSize(2)),
             BaseText(
-              text:
-                  "${getCurrentUser().firstName ?? ''} ${getCurrentUser().lastName ?? ''}",
+              text: "${getCurrentUser().firstName ?? ''} ${getCurrentUser().lastName ?? ''}",
               fontSize: 13,
               fontWeight: FontWeight.w400,
               fontFamily: "Aclonica",

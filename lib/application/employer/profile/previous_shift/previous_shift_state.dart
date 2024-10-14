@@ -5,19 +5,22 @@ class PreviousShiftState with _$PreviousShiftState {
   const factory PreviousShiftState({
     @Default(0) int currentTabIndex,
     @Default(5) int selectedRating,
-    @Default(false) getDataLoading ,
+
+    @Default(false) postDataLoading ,
+
+    @Default(false) allDataListLoading ,
     @Default(false) favoriteListLoading ,
     @Default(false) blockedListLoading ,
     @Default(false) remarkedListLoading ,
-    @Default(false) postDataLoading ,
 
-    @Default(false) noDataFound,
+
+    @Default(false) allDataListNoDataFound,
     @Default(false) favoriteListNoDataFound ,
     @Default(false) blockedListNoDataFound ,
-    @Default(false)  remarkedListNoDataFound,
+    @Default(false) remarkedListNoDataFound,
 
 
-    @Default(false) errorApi,
+    @Default(false) allDataListIsErrorApi,
     @Default(false) favoriteListIsErrorApi ,
     @Default(false) blockedListIsErrorApi ,
     @Default(false)  remarkedListIsErrorApi,

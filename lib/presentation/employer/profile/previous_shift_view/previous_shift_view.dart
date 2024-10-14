@@ -18,56 +18,62 @@ class PreviousShiftView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) =>
-      getIt<PreviousShiftBloc>()
+      create: (_) => getIt<PreviousShiftBloc>()
         ..add(
           PreviousShiftEvent.fetchAllPreviousPost(refresh: true),
+        )
+        ..add(
+          PreviousShiftEvent.fetchFavoriteList(refresh: true),
+        )
+        ..add(
+          PreviousShiftEvent.fetchBlockedList(refresh: true),
+        )
+        ..add(
+          PreviousShiftEvent.fetchRemarkedList(refresh: true),
         ),
-      child: Builder(
-          builder: (context) {
-            return Scaffold(
-              appBar: CommonAppBar(
-                onBackPressed: () => Navigator.pop(context),
-                title: "All ShiftPros",
-              ),
-              body: DefaultTabController(
-                length: 4,
-                child: Column(
-                  children: [
-                    UnderlinedTabBar(
-                      tabs: [
-                        Tab(text: "All"),
-                        Tab(text: "Favorites"),
-                        Tab(text: "Blocked"),
-                        Tab(text: "Remarked"),
-                      ],
-                      onTap: (value) {
-                        Log.info("value ${value}");
-                        context.read<PreviousShiftBloc>().add(
+      child: Builder(builder: (context) {
+        return Scaffold(
+          appBar: CommonAppBar(
+            onBackPressed: () => Navigator.pop(context),
+            title: "All ShiftPros",
+          ),
+          body: DefaultTabController(
+            length: 4,
+            child: Column(
+              children: [
+                UnderlinedTabBar(
+                  tabs: [
+                    Tab(text: "All"),
+                    Tab(text: "Favorites"),
+                    Tab(text: "Blocked"),
+                    Tab(text: "Remarked"),
+                  ],
+                  onTap: (value) {
+                    Log.info("value ${value}");
+                    context.read<PreviousShiftBloc>().add(
                           PreviousShiftEvent.tabChangeEvent(tabIndex: value + 1),
                         );
-                      },
-                    ),
-                    BlocBuilder<PreviousShiftBloc, PreviousShiftState>(
-                      builder: (context, state) {
-                        return Expanded(
-                          child: TabBarView(
-                            children: [
-                              PreviousShiftAllView(),
-                              PreviousShiftFavView(),
-                              PreviousShiftBlockedView(),
-                              PreviousShiftRemarkedView(),
-                            ],
-                          ),
-                        );
-                      },
-                    )
-                  ],
+                  },
                 ),
-              ),
-            );
-          }
-      ),
+                BlocBuilder<PreviousShiftBloc, PreviousShiftState>(
+                  builder: (context, state) {
+                    return Expanded(
+                      child: TabBarView(
+                        children: [
+                          PreviousShiftAllView(),
+                          PreviousShiftFavView(),
+                          PreviousShiftBlockedView(),
+                          PreviousShiftRemarkedView(),
+                        ],
+                      ),
+                    );
+                  },
+                )
+              ],
+            ),
+          ),
+        );
+      }),
     );
   }
 }

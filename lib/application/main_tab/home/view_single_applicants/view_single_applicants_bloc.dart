@@ -8,6 +8,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/employer_applicant/employer_applicant_dto.dart';
@@ -16,6 +17,7 @@ import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
+import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/common_card_dialog.dart';
 
 part 'view_single_applicants_state.dart';
 
@@ -95,7 +97,7 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
             final isCardDateValid = state.cardDate.isValid();
             final isCvvValid = state.cvv.isValid();
             //request 1= accpeted
-            //request 0= notaccpeted
+              //request 0= notaccpeted
             if (isCardHolderNameValid && isCardNumberValid && isCardDateValid && isCvvValid) {
               emit(
                 state.copyWith(
@@ -114,7 +116,6 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
             );
           },
           getApplicantsList: (GetApplicantsList value) async {
-            print("Api called after delete--->");
             if (value.isRefresh) {
               page = 1;
               emit(state.copyWith(employerApplicantList: [], isLoading: value.isRefresh, postId: value.id));
@@ -141,10 +142,13 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
                 if (value.isRefresh) {
                   List.from(state.employerApplicantList).clear();
                 }
+
+                Log.success("response=> ${r.additional_data?.isCardAdded}");
                 return emit(
                   state.copyWith(
                     isLoading: false,
                     isErrorInAPI: false,
+                    isCardAdded: r.additional_data?.isCardAdded ?? false,
                     isNoDataFound: (r.data as List<dynamic>).map((e) => EmployerApplicantsDto.fromJson(e)).toList().isEmpty,
                     //  getProductList: []
                     employerApplicantList: List.from(state.employerApplicantList)
@@ -174,9 +178,19 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
               },
               (r) {
                 value.context.router.maybePop();
-                showSuccess(message: r.dioMessage ?? "").show(value.context).then((value) {
-                  add(ViewSingleApplicantsEvent.getApplicantsList(state.postId, true));
-                });
+                CommonCardDialog(
+                  title: 'Awaiting Confirmation',
+                  description: 'Application accepted, Contractor notified for Confirmation.',
+                  buttonText: 'Ok',
+                  onPressed: () {
+                    value.context.router.maybePop();
+                    add(ViewSingleApplicantsEvent.getApplicantsList(state.postId, true));
+                  },
+                  image: SvgImageConstant.timerShift,
+                ).addCardDialog(value.context);
+
+                //value.context.router.maybePop();
+                //showSuccess(message: r.dioMessage ?? "").show(value.context).then((value) {});
               },
             );
           },
@@ -208,7 +222,7 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
             Either<MainFailure, CommonResponse>? failureOrSuccess;
             failureOrSuccess = await _mainFacade.revokeApplicant(postId: value.postId, userId: value.userId);
             failureOrSuccess.fold(
-                  (l) {
+              (l) {
                 value.context.router.maybePop();
                 showError(
                   message: l.maybeMap(
@@ -218,7 +232,7 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
                   ),
                 ).show(value.context);
               },
-                  (r) {
+              (r) {
                 value.context.router.maybePop();
                 showSuccess(message: r.dioMessage ?? "").show(value.context).then((value) {
                   add(ViewSingleApplicantsEvent.getApplicantsList(state.postId, true));

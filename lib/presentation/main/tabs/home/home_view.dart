@@ -18,6 +18,7 @@ import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
+import 'package:shift/presentation/main/widgets/stacked_images.dart';
 
 @RoutePage(name: 'HomeView')
 class HomeView extends StatelessWidget {
@@ -445,11 +446,11 @@ class HomeView extends StatelessWidget {
                 SvgPicture.asset(
                   SvgImageConstant.threePerson,
                 ),
-                // Spacer(),
-                // StackedImage(
-                //   index: index,
-                //   isTotalApplicants: isTotalApplicants,
-                // ),
+                Spacer(),
+                StackedImage(
+                  index: index,
+                  isTotalApplicants: isTotalApplicants,
+                ),
               ],
             )
           ],

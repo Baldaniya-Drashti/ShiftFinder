@@ -186,5 +186,11 @@ abstract class IMainFacade {
     required int userId,
   });
 
+  Future<Either<MainFailure, CommonResponse>> getEmployerShift({
+    required int type,
+    required int locationId,
+    required int shortType,
+    required int page,
+  });
 
 }

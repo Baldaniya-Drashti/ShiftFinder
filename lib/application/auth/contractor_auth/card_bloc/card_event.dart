@@ -7,5 +7,5 @@ class CardEvent with _$CardEvent {
   const factory CardEvent.cardNoChanged(String cardNo) = CardNoChanged;
   const factory CardEvent.cvvNoChanged(String cvv) = CvvNoChanged;
   const factory CardEvent.expDateChanged(String expDate) = ExpDateChanged;
-  const factory CardEvent.addCardBtnPressed() = AddCardBtnPressed;
+  const factory CardEvent.addCardBtnPressed(BuildContext context) = AddCardBtnPressed;
 }

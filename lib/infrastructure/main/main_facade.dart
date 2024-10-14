@@ -192,10 +192,14 @@ class MainFacade implements IMainFacade {
         return shift.multi_date!.map((multiDate) {
           return {
             'date': DateTime.parse(multiDate.date ?? "").toUtc().millisecondsSinceEpoch / 1000,
-            'start_time':
-                DateTime.parse((shift.same_or_different_time == 1) ? shift.start_time ?? "" : multiDate.start_time ?? "").toUtc().millisecondsSinceEpoch / 1000,
-            'end_time':
-                DateTime.parse((shift.same_or_different_time == 1) ? shift.end_time ?? "" : multiDate.end_time ?? "").toUtc().millisecondsSinceEpoch / 1000
+            'start_time': DateTime.parse((shift.same_or_different_time == 1) ? shift.start_time ?? "" : multiDate.start_time ?? "")
+                    .toUtc()
+                    .millisecondsSinceEpoch /
+                1000,
+            'end_time': DateTime.parse((shift.same_or_different_time == 1) ? shift.end_time ?? "" : multiDate.end_time ?? "")
+                    .toUtc()
+                    .millisecondsSinceEpoch /
+                1000
           };
         }).toList();
       } else {
@@ -752,7 +756,8 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, String>> updateTeamApi({required String locationId, required String teamId, required InputEmptyOrNot teamName}) async {
+  Future<Either<MainFailure, String>> updateTeamApi(
+      {required String locationId, required String teamId, required InputEmptyOrNot teamName}) async {
     try {
       Map<String, dynamic> mapData = {"location_id": locationId, "team_name": teamName.getValue()?.trim()};
 
@@ -1239,6 +1244,42 @@ class MainFacade implements IMainFacade {
       });
 
       return right(res);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> getEmployerShift({
+    required int type,
+    required int locationId,
+    required int shortType,
+    required int page,
+  }) async {
+
+    try {
+      final res = await apiService.getMethod(ApiConstants.employerShift, queryParameters: {
+        "type": type,
+        "page": page,
+        "perPage": _perPage,
+        "location_id":locationId,
+        "short_type":shortType,
+      });
+
+      if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);

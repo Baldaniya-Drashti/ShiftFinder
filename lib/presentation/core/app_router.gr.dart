@@ -209,12 +209,14 @@ class AddCardDetailPage extends _i71.PageRouteInfo<AddCardDetailPageArgs> {
   AddCardDetailPage({
     _i72.Key? key,
     bool isFromSplash = false,
+    bool fromRegister = true,
     List<_i71.PageRouteInfo>? children,
   }) : super(
           AddCardDetailPage.name,
           args: AddCardDetailPageArgs(
             key: key,
             isFromSplash: isFromSplash,
+            fromRegister: fromRegister,
           ),
           initialChildren: children,
         );
@@ -229,6 +231,7 @@ class AddCardDetailPage extends _i71.PageRouteInfo<AddCardDetailPageArgs> {
       return _i2.AddCardDetailPage(
         key: args.key,
         isFromSplash: args.isFromSplash,
+        fromRegister: args.fromRegister,
       );
     },
   );
@@ -238,15 +241,18 @@ class AddCardDetailPageArgs {
   const AddCardDetailPageArgs({
     this.key,
     this.isFromSplash = false,
+    this.fromRegister = true,
   });
 
   final _i72.Key? key;
 
   final bool isFromSplash;
 
+  final bool fromRegister;
+
   @override
   String toString() {
-    return 'AddCardDetailPageArgs{key: $key, isFromSplash: $isFromSplash}';
+    return 'AddCardDetailPageArgs{key: $key, isFromSplash: $isFromSplash, fromRegister: $fromRegister}';
   }
 }
 

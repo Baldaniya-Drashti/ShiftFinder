@@ -15,4 +15,16 @@ class ShiftsBlocEvent with _$ShiftsBlocEvent {
   factory ShiftsBlocEvent.changeClockInClockOutTime(TimeOfDay time, bool isClockIn) = CangeClockInClockOutTime;
 
   factory ShiftsBlocEvent.onChangeSortBy(SingleValueDropDownController controller) = OnChangeSortBy;
+
+  factory ShiftsBlocEvent.fetchFilledShiftList({
+    required bool refresh,
+  }) = FetchAllPreviousPost;
+
+  factory ShiftsBlocEvent.fetchApprovedShiftList({
+    required bool refresh,
+  }) = FetchApprovedShiftList;
+
+  factory ShiftsBlocEvent.fetchCancelledShiftList({
+    required bool refresh,
+  }) = FetchCancelledShiftList;
 }

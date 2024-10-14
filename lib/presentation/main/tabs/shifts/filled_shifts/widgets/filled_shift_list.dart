@@ -1,14 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
-import 'package:shift/presentation/core/enum.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/tabs/shifts/filled_shifts/widgets/delete_shift_dialog.dart';
 
@@ -20,9 +21,9 @@ class FilledShiftListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PaginatedListView(
-      onRefresh: () {},
-      onLoading: () {},
-      refreshController: RefreshController(),
+      onRefresh: () => ShiftsBlocEvent.fetchFilledShiftList(refresh: true),
+      onLoading: () => ShiftsBlocEvent.fetchFilledShiftList(refresh: false),
+      refreshController: context.read<ShiftsBloc>().filledRefreshController,
       child: ListView.separated(
         separatorBuilder: (context, index) => Gap(16),
         itemCount: 10,
@@ -61,9 +62,7 @@ class FilledShiftListView extends StatelessWidget {
                             backgroundColor: AppColors.green,
                             child: CircleAvatar(
                               radius: getSize(29),
-                              backgroundImage: NetworkImage(
-                                'https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg',
-                              ),
+                              backgroundImage: AssetImage(PngImageConstants.document_img),
                             ),
                           ),
                           SizedBox(width: getSize(15)),

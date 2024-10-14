@@ -22,7 +22,6 @@ class TotalProposalBloc extends Bloc<TotalProposalEvent, TotalProposalState> {
         event.map(
           getTotalProposalList: (value) async {
             final response = await _mainFacade.getEmployerTotalProposal(postId: value.id, page: page);
-
             // _mainFacade.getEmployerTotalProposal(postId: value, page: page)
           },
         );

@@ -158,5 +158,6 @@ class ApiConstants {
   static String employerBlock = 'employer_block';
   static String employerFavorite = 'employer_favorite';
   static String employerRevoke = 'employer_applicants_revoke';
+  static String employerShift = 'get_employer_shift';
 
 }

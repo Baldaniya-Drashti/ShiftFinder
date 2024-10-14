@@ -29,7 +29,6 @@ class PreviousShiftAllView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<PreviousShiftBloc, PreviousShiftState>(
       builder: (context, state) {
-        Log.debug("loading ${state.getDataLoading}");
 
         return Stack(
           fit: StackFit.expand,
@@ -38,10 +37,10 @@ class PreviousShiftAllView extends StatelessWidget {
               onRefresh: () => PreviousShiftEvent.fetchAllPreviousPost(refresh: true),
               onLoading: () => PreviousShiftEvent.fetchAllPreviousPost(refresh: false),
               refreshController: context.read<PreviousShiftBloc>().allPost,
-              isNoDataFound: state.noDataFound,
-              child: state.getDataLoading
+              isNoDataFound: state.allDataListNoDataFound,
+              child: state.allDataListLoading
                   ? CenterLoadingIndicator()
-                  : state.errorApi
+                  : state.allDataListIsErrorApi
                       ? Center(
                           child: BaseText(text: StringConstant.somethindWentWrong),
                         )

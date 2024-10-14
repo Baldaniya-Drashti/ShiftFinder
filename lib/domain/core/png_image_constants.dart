@@ -39,6 +39,7 @@ class PngImageConstants {
   static const thumbsUp = "assets/png/thumbs_up.png";
   static const leafWithBG = "assets/png/leaf_with_bg.png";
   static const leaveRating = "assets/png/leave.png";
+  static const nurse2 = "assets/png/nurse2.png";
 
 
   static const List<String> allImages = [

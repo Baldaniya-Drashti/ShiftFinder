@@ -16,12 +16,14 @@ class ViewSingleApplicantsState with _$ViewSingleApplicantsState {
     required bool isNoDataFound,
     required bool isErrorInAPI,
     required List<EmployerApplicantsDto> employerApplicantList,
+    required bool isCardAdded,
 
     /// View Shift Detail
     required HealthcarePostDTO shift,
   }) = _ViewSingleApplicantsState;
 
   factory ViewSingleApplicantsState.initial() => ViewSingleApplicantsState(
+        isCardAdded: false,
         employerApplicantList: [],
         cardHoldersName: Username(''),
         cardNumber: CardNumber(''),

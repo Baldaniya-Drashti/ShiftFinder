@@ -43,17 +43,6 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
         await event.map(
           tabChangeEvent: (value) {
             final index = value.tabIndex;
-            print("index $index");
-            if (index == 1) {
-              add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true));
-            } else if (index == 2) {
-              add(PreviousShiftEvent.fetchFavoriteList(refresh: true));
-            } else if (index == 3) {
-              add(PreviousShiftEvent.fetchBlockedList(refresh: true));
-            } else if (index == 4) {
-              add(PreviousShiftEvent.fetchRemarkedList(refresh: true));
-            }
-
             emit(state.copyWith(
               currentTabIndex: value.tabIndex,
             ));
@@ -67,7 +56,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
             Log.debug("value.refresh ${value.refresh}");
             if (value.refresh) {
               currentPage = 1;
-              emit(state.copyWith(employerPreviousList: [], getDataLoading: value.refresh));
+              emit(state.copyWith(employerPreviousList: [], allDataListLoading: value.refresh));
               allPost.resetNoData();
             } else {
               if (currentPage > lastPage) {
@@ -84,8 +73,8 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
             res.fold(
               (l) => emit(
                 state.copyWith(
-                  errorApi: true,
-                  getDataLoading: false,
+                  allDataListIsErrorApi: true,
+                  allDataListLoading: false,
                   employerPreviousList: [],
                 ),
               ),
@@ -96,9 +85,9 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                 }
                 return emit(
                   state.copyWith(
-                    getDataLoading: false,
-                    errorApi: false,
-                    noDataFound: (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList().isEmpty,
+                    allDataListLoading: false,
+                    allDataListIsErrorApi: false,
+                    allDataListNoDataFound: (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList().isEmpty,
                     //  getProductList: []
                     employerPreviousList: List.from(state.employerPreviousList)
                       ..addAll(
@@ -112,7 +101,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
           fetchFavoriteList: (value) async {
             if (value.refresh) {
               currentPage = 1;
-              emit(state.copyWith(employerPreviousList: [], getDataLoading: value.refresh));
+              emit(state.copyWith(employerPreviousList: [], favoriteListLoading: value.refresh));
               allPost.resetNoData();
             } else {
               if (currentPage > lastPage) {
@@ -129,8 +118,8 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
             res.fold(
               (l) => emit(
                 state.copyWith(
-                  errorApi: true,
-                  getDataLoading: false,
+                  favoriteListIsErrorApi: true,
+                  favoriteListLoading: false,
                   employerPreviousList: [],
                 ),
               ),
@@ -141,9 +130,9 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                 }
                 return emit(
                   state.copyWith(
-                    getDataLoading: false,
-                    errorApi: false,
-                    noDataFound: (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList().isEmpty,
+                    favoriteListLoading: false,
+                    favoriteListIsErrorApi: false,
+                    favoriteListNoDataFound: (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList().isEmpty,
                     //  getProductList: []
                     favoritesList: List.from(state.employerPreviousList)
                       ..addAll(
@@ -157,7 +146,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
           fetchBlockedList: (value) async {
             if (value.refresh) {
               currentPage = 1;
-              emit(state.copyWith(blockedList: [], getDataLoading: value.refresh));
+              emit(state.copyWith(blockedList: [], blockedListLoading: value.refresh));
               allPost.resetNoData();
             } else {
               if (currentPage > lastPage) {
@@ -174,8 +163,8 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
             res.fold(
               (l) => emit(
                 state.copyWith(
-                  errorApi: true,
-                  getDataLoading: false,
+                  blockedListIsErrorApi: true,
+                  blockedListLoading: false,
                   blockedList: [],
                 ),
               ),
@@ -186,9 +175,9 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                 }
                 return emit(
                   state.copyWith(
-                    getDataLoading: false,
-                    errorApi: false,
-                    noDataFound: (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList().isEmpty,
+                    blockedListLoading: false,
+                    blockedListIsErrorApi: false,
+                    blockedListNoDataFound: (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList().isEmpty,
                     //  getProductList: []
                     blockedList: List.from(state.blockedList)
                       ..addAll(
@@ -202,7 +191,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
           fetchRemarkedList: (value) async {
             if (value.refresh) {
               currentPage = 1;
-              emit(state.copyWith(remarkedList: [], getDataLoading: value.refresh));
+              emit(state.copyWith(remarkedList: [], remarkedListLoading: value.refresh));
               allPost.resetNoData();
             } else {
               if (currentPage > lastPage) {
@@ -219,8 +208,8 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
             res.fold(
                   (l) => emit(
                 state.copyWith(
-                  errorApi: true,
-                  getDataLoading: false,
+                  remarkedListIsErrorApi: true,
+                  remarkedListLoading: false,
                   remarkedList: [],
                 ),
               ),
@@ -231,9 +220,9 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                 }
                 return emit(
                   state.copyWith(
-                    getDataLoading: false,
-                    errorApi: false,
-                    noDataFound: (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList().isEmpty,
+                    remarkedListLoading: false,
+                    remarkedListIsErrorApi: false,
+                    remarkedListNoDataFound: (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList().isEmpty,
                     //  getProductList: []
                     remarkedList: List.from(state.employerPreviousList)
                       ..addAll(
@@ -320,7 +309,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
               (r) {
                 final tempList = [...state.favoritesList];
                 tempList.removeWhere((element) => element.post_id == value.postId);
-                emit(state.copyWith(favoritesList: tempList, noDataFound: tempList.isEmpty));
+                emit(state.copyWith(favoritesList: tempList, favoriteListNoDataFound: tempList.isEmpty));
                 showSuccess(message: r.dioMessage ?? "").show(value.context);
               },
             );

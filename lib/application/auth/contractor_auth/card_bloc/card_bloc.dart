@@ -1,9 +1,12 @@
 // ignore_for_file: avoid_print
 
+import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shift/application/auth/contractor_auth/location_example.dart';
 import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 
@@ -56,6 +59,7 @@ class CardBloc extends Bloc<CardEvent, CardState> {
 
           if (isHolderNameValidated && isCardNoValidated && isCvvNoValidated) {
             print("All Details are validdddddd! ");
+
             emit(
               state.copyWith(
                 isSubmitting: true,
@@ -67,6 +71,9 @@ class CardBloc extends Bloc<CardEvent, CardState> {
             //   countryCode: '+${state.selectedCountrycode}',
             // );
             failureOrSuccess = right("success");
+            e.context.router.maybePop();
+
+
           }
           emit(
             state.copyWith(

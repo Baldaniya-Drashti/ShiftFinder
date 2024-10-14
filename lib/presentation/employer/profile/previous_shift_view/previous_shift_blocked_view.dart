@@ -28,10 +28,10 @@ class PreviousShiftBlockedView extends StatelessWidget {
               onRefresh: () => PreviousShiftEvent.fetchBlockedList(refresh: true),
               onLoading: () => PreviousShiftEvent.fetchBlockedList(refresh: false),
               refreshController: context.read<PreviousShiftBloc>().blocked,
-              isNoDataFound: state.noDataFound,
-              child: state.getDataLoading
+              isNoDataFound: state.blockedListNoDataFound,
+              child: state.blockedListLoading
                   ? CenterLoadingIndicator()
-                  : state.errorApi
+                  : state.blockedListIsErrorApi
                       ? Center(
                           child: BaseText(text: StringConstant.somethindWentWrong),
                         )
