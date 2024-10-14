@@ -79,7 +79,7 @@ class AppliedShift extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(StringConstant.applied),
-                Padding(
+                /*Padding(
                   padding: EdgeInsets.only(left: getSize(5)),
                   child: Badge(
                     backgroundColor: AppColors.redAccent,
@@ -93,7 +93,7 @@ class AppliedShift extends StatelessWidget {
                       textColor: AppColors.white,
                     ),
                   ),
-                ),
+                ),*/
               ],
             ),
           ),
@@ -102,21 +102,21 @@ class AppliedShift extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(StringConstant.counterProposal),
-                // Padding(
-                //   padding: EdgeInsets.only(left: getSize(5)),
-                //   child: Badge(
-                //     backgroundColor: AppColors.redAccent,
-                //     largeSize: getSize(15),
-                //     padding: EdgeInsets.symmetric(horizontal: getSize(3)),
-                //     // smallSize: getSize(10),
-                //     // isLabelVisible: true,
-                //     label: BaseText(
-                //       text: '03',
-                //       fontSize: 6,
-                //       textColor: AppColors.white,
-                //     ),
-                //   ),
-                // ),
+                /*Padding(
+                  padding: EdgeInsets.only(left: getSize(5)),
+                  child: Badge(
+                    backgroundColor: AppColors.redAccent,
+                    largeSize: getSize(15),
+                    padding: EdgeInsets.symmetric(horizontal: getSize(3)),
+                    // smallSize: getSize(10),
+                    // isLabelVisible: true,
+                    label: BaseText(
+                      text: '03',
+                      fontSize: 6,
+                      textColor: AppColors.white,
+                    ),
+                  ),
+                ),*/
               ],
             ),
           ),

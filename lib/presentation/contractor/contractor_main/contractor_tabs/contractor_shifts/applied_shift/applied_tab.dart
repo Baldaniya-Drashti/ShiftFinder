@@ -89,7 +89,7 @@ class AppliedTab extends StatelessWidget {
                               paddingBetweenFields(),
                               if (shift.revoke_status == 1) ...[
                                 revokingStatus(context, state, shift),
-                              ] else ...[
+                              ] else if (shift.revoke_status == 2) ...[
                                 Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical: getSize(10)),

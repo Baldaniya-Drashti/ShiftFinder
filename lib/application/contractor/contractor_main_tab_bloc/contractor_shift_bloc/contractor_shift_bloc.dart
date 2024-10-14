@@ -25,6 +25,8 @@ class ContractorShiftBloc
     extends Bloc<ContractorShiftEvent, ContractorShiftState> {
   final IMainFacade mainFacade;
 
+  Timer? _timer;
+
   int currentShiftPage = 1;
   int currentShiftLastPage = 1;
   int upcomingShiftPage = 1;
@@ -308,12 +310,11 @@ class ContractorShiftBloc
 
               /// to start revoking timer
               for (var shift in newShifts) {
-                if (shift.revoke_status == 0) {
-                  print("tart timer after revokng!!!");
+                if (shift.revoke_status == 1) {
                   add(
                     ContractorShiftEvent.startRevokingTimer(
                       Duration(hours: 2), shift.id ?? -1,
-                      // revokeTime: (shift.id == 92) ? 1728637856 : 1728637756,
+                      // revokeTime: (shift.id == 115) ? 1728877581 : 1728877581,
                       revokeTime: shift.revoke_start ?? -1,
                     ),
                   );
@@ -452,6 +453,7 @@ class ContractorShiftBloc
             });
           },*/
           startRevokingTimer: (e) {
+            print("revoke start time---> ${e.revokeTime}");
             DateTime timerStartTime =
                 DateTime.fromMillisecondsSinceEpoch(e.revokeTime * 1000);
 
@@ -459,12 +461,11 @@ class ContractorShiftBloc
 
             final updatedList = state.appliedList.map((shift) {
               if (shift.id == e.id) {
+                // if (shift.revoke_status == 1) {
                 Duration remainingTime =
                     calculateRemainingTime(timerStartTime, totalDuration);
 
-                print("remainingTime-----> $remainingTime");
-                Timer.periodic(const Duration(seconds: 1), (timer) {
-                  print("remainingTime Of starting----> $remainingTime");
+                _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
                   if (remainingTime.inSeconds <= 0) {
                     timer.cancel();
                     remainingTime = Duration.zero;
@@ -487,11 +488,8 @@ class ContractorShiftBloc
     DateTime currentTime = DateTime.now();
     Duration elapsedTime = currentTime.difference(timerStartTime);
 
-    print("elapsedTime----> $elapsedTime");
     Duration remainingTime = totalDuration - elapsedTime;
-    print("remainingTime after restart----> $remainingTime");
 
-    // If remaining time is negative, return zero
     if (remainingTime.isNegative) {
       return Duration.zero;
     } else {
@@ -499,9 +497,7 @@ class ContractorShiftBloc
     }
   }
 
-  // Define a new method to handle state emissions
   void updateRemainingTime(Duration remainingTime, int id) {
-    // emit(state.copyWith(remainingRevokeTime: remainingTime));
     emit(state.copyWith(
       appliedList: state.appliedList.map((s) {
         if (s.id == id) {
@@ -511,8 +507,6 @@ class ContractorShiftBloc
       }).toList(),
     ));
   }
-
-  Timer? _timer;
 
   @override
   Future<void> close() {

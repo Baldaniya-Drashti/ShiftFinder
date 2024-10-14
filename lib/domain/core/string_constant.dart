@@ -481,6 +481,22 @@ class StringConstant {
       "Propose your available times or mark dates you are unavailable for the posted shifts.";
   static const String proposalTermsDesc =
       "Send your proposal with your required adjustments. Adjusting the below terms may reduce your chance of acceptance.";
+  static const String updateProfile = "Update Profile";
+  static const String previousShifts = "Previous Shifts";
+  static const String longTermPositions = "Long Term Positions";
+  static const String fullTimePositions = "Full Time Positions";
+  static const String myCalendar = "My Calendar";
+  static const String chat = "Chat";
+  static const String myEarnings = "My Earnings";
+  static const String performanceInsights = "Performance Insights";
+  static const String referAColleague = "Refer a Colleague";
+  static const String ratings = "Ratings";
+  static const String shareShiftFinder = "Share ShiftFinder";
+  static const String accountManagement = "Account Management";
+  static const String policies = "Policies";
+  static const String supportHelp = "Support & Help";
+  static const String logOut = "Log Out";
+  static const String selectEachShiftDateToViewTheUpcomingShift = "Select each shift date to view the upcoming shift.";
 
   ///
 

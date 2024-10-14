@@ -64,6 +64,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: ViewContractorShift.page),
         AutoRoute(page: ViewContractorShiftDates.page),
         AutoRoute(page: ProposalReceived.page),
+        AutoRoute(page: MyCalendarView.page),
         AutoRoute(
           page: MainTabView.page,
           children: [
