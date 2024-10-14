@@ -11,7 +11,6 @@ import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_multi_date_picker.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class MarkUnavailability extends StatelessWidget {
   const MarkUnavailability({super.key});

@@ -18,4 +18,5 @@ class ViewSingleApplicantsEvent with _$ViewSingleApplicantsEvent {
   const factory ViewSingleApplicantsEvent.onRevoke({required int postId, required int userId,required  BuildContext context}) = OnRevoke;
 
   const factory ViewSingleApplicantsEvent.getShiftDetailEvent(int postId, {@Default(false) bool fromDashboard}) = GetShiftDetailEvent;
+
 }

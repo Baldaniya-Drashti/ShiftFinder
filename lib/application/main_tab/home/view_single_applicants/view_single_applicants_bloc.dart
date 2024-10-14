@@ -12,7 +12,6 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/employer_applicant/employer_applicant_dto.dart';
-import 'package:shift/infrastructure/core/employer_home/employer_dashboard_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
@@ -97,7 +96,7 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
             final isCardDateValid = state.cardDate.isValid();
             final isCvvValid = state.cvv.isValid();
             //request 1= accpeted
-              //request 0= notaccpeted
+            //request 0= notaccpeted
             if (isCardHolderNameValid && isCardNumberValid && isCardDateValid && isCvvValid) {
               emit(
                 state.copyWith(

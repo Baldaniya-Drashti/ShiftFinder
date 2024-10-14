@@ -1,6 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shift/application/main_tab/home/view_single_applicants/view_single_applicants_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/core/enum.dart';
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/widgets/applicant_detail_container.dart';
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/view_applicants/widgets/applicant_specialize.dart';
@@ -16,39 +20,42 @@ class ViewApplicantProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CommonAppBar(
-        onBackPressed: () {
-          context.router.maybePop();
-        },
-        title: 'View Profile',
-      ),
-      body: SafeArea(
-        child: ListView(
-          shrinkWrap: true,
-          physics: BouncingScrollPhysics(),
-          padding: EdgeInsets.symmetric(
-            horizontal: getSize(20),
+    return BlocProvider(
+      create: (context) => getIt<ViewSingleApplicantsBloc>(),
+      child: Scaffold(
+        appBar: CommonAppBar(
+          onBackPressed: () {
+            context.router.maybePop();
+          },
+          title: 'View Profile',
+        ),
+        body: SafeArea(
+          child: ListView(
+            shrinkWrap: true,
+            physics: BouncingScrollPhysics(),
+            padding: EdgeInsets.symmetric(
+              horizontal: getSize(20),
+            ),
+            children: [
+              getApplicantswDetailContainer(),
+              SizedBox(
+                height: getSize(10),
+              ),
+              ApplicantSpecialize(),
+              SizedBox(
+                height: getSize(20),
+              ),
+              EducationView(),
+              SizedBox(
+                height: getSize(20),
+              ),
+              ReferenceView(),
+              SizedBox(
+                height: getSize(20),
+              ),
+              DocumentsView(),
+            ],
           ),
-          children: [
-            getApplicantswDetailContainer(),
-            SizedBox(
-              height: getSize(10),
-            ),
-            ApplicantSpecialize(),
-            SizedBox(
-              height: getSize(20),
-            ),
-            EducationView(),
-            SizedBox(
-              height: getSize(20),
-            ),
-            ReferenceView(),
-            SizedBox(
-              height: getSize(20),
-            ),
-            DocumentsView(),
-          ],
         ),
       ),
     );
