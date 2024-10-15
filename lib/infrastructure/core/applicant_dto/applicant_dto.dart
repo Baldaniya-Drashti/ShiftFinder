@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/infrastructure/core/education_dto/education_dto.dart';
+import 'package:shift/infrastructure/core/experience_model/experience_dto.dart';
 import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
 
 part 'applicant_dto.freezed.dart';
@@ -12,6 +13,7 @@ class ApplicantDto with _$ApplicantDto {
   const factory ApplicantDto({
     int? id,
     String? first_name,
+    String? distance,
     String? last_name,
     String? email,
     int? is_verified,
@@ -28,12 +30,11 @@ class ApplicantDto with _$ApplicantDto {
     String? location,
     String? referral_code,
     String? last_page,
+    CompleteProfileDto? complete_profile,
     List<EducationDTO>? education,
+    List<ExperienceDTO>? experience,
     List<ReferenceDTO>? reference,
     List<DocumentDTO>? document,
-    List<SpecialtiesDetailDto>? specialties_detail,
-    List<SpecialtiesDetailDto>? complete_profile,
-    List<CompleteProfileDto>? softwares_skill_list,
   }) = _ApplicantDto;
 
   factory ApplicantDto.fromJson(Map<String, dynamic> json) => _$ApplicantDtoFromJson(json);
@@ -44,6 +45,12 @@ class CompleteProfileDto with _$CompleteProfileDto {
   const factory CompleteProfileDto({
     int? id,
     List<CompleteProfileDataDto>? roles_list,
+    List<SpecialtiesDetailDto>? specialties_detail,
+    List<CompleteProfileDataDto>? softwares_skill_list,
+    List<CompleteProfileDataDto>? languages_list,
+    String? language_other,
+    String? software_skill_other,
+
   }) = _CompleteProfileDto;
 
   factory CompleteProfileDto.fromJson(Map<String, dynamic> json) => _$CompleteProfileDtoFromJson(json);
@@ -72,3 +79,5 @@ class SpecialtiesDetailDto with _$SpecialtiesDetailDto {
 
   factory SpecialtiesDetailDto.fromJson(Map<String, dynamic> json) => _$SpecialtiesDetailDtoFromJson(json);
 }
+
+

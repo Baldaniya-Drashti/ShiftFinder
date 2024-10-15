@@ -1,15 +1,19 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'ProfessionalReferenceDetail')
 class ProfessionalReferenceDetail extends StatelessWidget {
-  const ProfessionalReferenceDetail({super.key});
+  const ProfessionalReferenceDetail({super.key, required this.data});
+
+  final ReferenceDTO data;
 
   @override
   Widget build(BuildContext context) {
@@ -28,47 +32,47 @@ class ProfessionalReferenceDetail extends StatelessWidget {
           referenceDetail(
             title: 'Job Position',
             image: SvgImageConstant.briefcase,
-            value: 'Job Position',
+            value: data.job_position ?? "",
           ),
           referenceDetail(
             title: 'Organization',
             image: SvgImageConstant.organization,
-            value: 'Organization',
+            value: data.organization ?? "",
           ),
           referenceDetail(
             title: 'Referrer',
             image: SvgImageConstant.person,
-            value: 'Kathryn Murphy',
+            value: data.referrer ?? "",
           ),
           referenceDetail(
             title: 'Referrer E-mail',
             image: SvgImageConstant.email,
-            value: 'nevaeh.simmons@example.com',
+            value: data.email ?? "",
           ),
           referenceDetail(
             title: 'Referrer Phone Number',
             image: SvgImageConstant.call,
-            value: '6284985687',
+            value: "${data.phone ?? 0}",
           ),
           referenceDetail(
             title: 'Job Location/Facility',
             image: SvgImageConstant.locationIcon,
-            value: '6391 Elgin St. Celina, Delaware 10299',
+            value: data.job_location??"",
           ),
           referenceDetail(
             title: 'Unit/Department',
             image: SvgImageConstant.unitDepartment,
-            value: '1901 Thornridge Cir. Shiloh, Hawaii 81063',
+            value: data.unit??"",
           ),
           referenceDetail(
             title: 'Start Date',
             image: SvgImageConstant.calendar,
-            value: 'May 12, 2024',
+            value: DateFormat("dd MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch(data.start_date??0)),
           ),
           referenceDetail(
             title: 'End Date',
             image: SvgImageConstant.calendar,
-            value: 'May 12, 2024',
+            value: DateFormat("dd MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch(data.end_date??0)),
           ),
           SizedBox(height: getSize(20)),
         ],
@@ -76,8 +80,7 @@ class ProfessionalReferenceDetail extends StatelessWidget {
     );
   }
 
-  referenceDetail(
-      {required String title, required String image, required String value}) {
+  referenceDetail({required String title, required String image, required String value}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -101,8 +104,7 @@ class ProfessionalReferenceDetail extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 image,
-                colorFilter:
-                    ColorFilter.mode(AppColors.green, BlendMode.srcATop),
+                colorFilter: ColorFilter.mode(AppColors.green, BlendMode.srcATop),
               ),
               SizedBox(width: getSize(10)),
               Visibility(
@@ -110,7 +112,7 @@ class ProfessionalReferenceDetail extends StatelessWidget {
                 child: Row(
                   children: [
                     SizedBox(width: getSize(15)),
-                    Icon(Icons.flag),
+                    Text("${data.country_name_code}",style: TextStyle(fontSize: 19),),
                     SizedBox(width: getSize(5)),
                     Icon(Icons.keyboard_arrow_down),
                     SizedBox(width: getSize(15)),

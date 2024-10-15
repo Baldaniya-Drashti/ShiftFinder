@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'PersonalReferenceDetail')
 class PersonalReferenceDetail extends StatelessWidget {
-  const PersonalReferenceDetail({super.key});
-
+  const PersonalReferenceDetail({super.key, required this.data});
+final ReferenceDTO data;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,22 +29,22 @@ class PersonalReferenceDetail extends StatelessWidget {
           referenceDetail(
             title: 'Contact Person',
             image: SvgImageConstant.person,
-            value: 'Kathryn Murphy',
+            value: data.contact_person??"",
           ),
           referenceDetail(
             title: 'E-mail',
             image: SvgImageConstant.email,
-            value: 'nevaeh.simmons@example.com',
+            value: data.email??"",
           ),
           referenceDetail(
             title: 'Referrer Phone Number',
             image: SvgImageConstant.call,
-            value: '6284985687',
+            value: "${data.phone??0}",
           ),
           referenceDetail(
             title: 'Profession of the Referrer',
             image: SvgImageConstant.briefcase,
-            value: 'Profession of the Referrer',
+            value: data.profession_referrer??"",
           ),
           SizedBox(height: getSize(20)),
         ],
@@ -85,7 +86,7 @@ class PersonalReferenceDetail extends StatelessWidget {
                 child: Row(
                   children: [
                     SizedBox(width: getSize(15)),
-                    Icon(Icons.flag),
+                    Text("${data.country_name_code}",style: TextStyle(fontSize: 19),),
                     SizedBox(width: getSize(5)),
                     Icon(Icons.keyboard_arrow_down),
                     SizedBox(width: getSize(15)),

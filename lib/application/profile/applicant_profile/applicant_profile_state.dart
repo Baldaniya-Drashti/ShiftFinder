@@ -6,11 +6,11 @@ class ApplicantProfileState with _$ApplicantProfileState {
     required bool isLoading,
     required bool isNoDataFound,
     required bool isErrorInAPI,
-    required Account account,
+    required ApplicantDto account,
   }) = _ApplicantProfileState;
 
   factory ApplicantProfileState.initial() => ApplicantProfileState(
-        account: Account(),
+        account: ApplicantDto(),
         isErrorInAPI: false,
         isLoading: false,
         isNoDataFound: false,

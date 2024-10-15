@@ -40,6 +40,8 @@ class PngImageConstants {
   static const leafWithBG = "assets/png/leaf_with_bg.png";
   static const leaveRating = "assets/png/leave.png";
   static const nurse2 = "assets/png/nurse2.png";
+  static const profile = "assets/png/profile.png";
+  static const suitcase = "assets/png/suitcase.png";
 
 
   static const List<String> allImages = [
@@ -69,5 +71,7 @@ class PngImageConstants {
     thumbsUp,
     leafWithBG,
     leaveRating,
+    profile,
+    suitcase,
   ];
 }

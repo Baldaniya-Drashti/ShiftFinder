@@ -13,7 +13,14 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'ViewPersonPraposalView')
 class ViewPersonPraposalView extends StatelessWidget {
-  const ViewPersonPraposalView({super.key});
+  const ViewPersonPraposalView({
+    super.key,
+    required this.postId,
+    required this.userId,
+  });
+
+  final int postId;
+  final int userId;
 
   @override
   Widget build(BuildContext context) {
@@ -158,19 +165,16 @@ class ViewPersonPraposalView extends StatelessWidget {
                   onPressed: () {
                     AcceptRejectDialog(
                       title: 'Accept',
-                      description:
-                          'Are you sure you want to accept this application?',
+                      description: 'Are you sure you want to accept this application?',
                       onPressedAccept: () {
                         context.router.maybePop().then(
                               (value) => CommonCardDialog(
                                 title: 'Awaiting Confirmation',
-                                description:
-                                    'Application accepted, Contractor\nnotified for Confirmation.',
+                                description: 'Application accepted, Contractor\nnotified for Confirmation.',
                                 buttonText: 'Ok',
                                 onPressed: () {
                                   //context.router.maybePop();
-                                  context.router.push(PageRouteInfo(
-                                      AwaitingConfirmationView.name));
+                                  context.router.push(PageRouteInfo(AwaitingConfirmationView.name));
                                 },
                                 image: SvgImageConstant.awaitingConfirmation,
                               ).addCardDialog(context),
@@ -193,8 +197,7 @@ class ViewPersonPraposalView extends StatelessWidget {
                   onPressed: () {
                     AcceptRejectDialog(
                       title: 'Reject',
-                      description:
-                          'Are you sure you want to reject this application?',
+                      description: 'Are you sure you want to reject this application?',
                       onPressedAccept: () {},
                       acceptButtonText: 'Reject',
                       onPressedReject: () {
@@ -233,8 +236,7 @@ class ViewPersonPraposalView extends StatelessWidget {
     );
   }
 
-  getTitleAndDescription(BuildContext context,
-      {required String title, required String description}) {
+  getTitleAndDescription(BuildContext context, {required String title, required String description}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -246,8 +248,7 @@ class ViewPersonPraposalView extends StatelessWidget {
         SizedBox(height: getSize(8)),
         Container(
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.symmetric(
-              horizontal: getSize(20), vertical: getSize(15)),
+          padding: EdgeInsets.symmetric(horizontal: getSize(20), vertical: getSize(15)),
           decoration: BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.circular(getSize(10)),

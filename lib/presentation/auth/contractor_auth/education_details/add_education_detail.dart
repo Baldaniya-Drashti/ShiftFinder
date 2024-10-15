@@ -24,14 +24,19 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 class AddEducationDetail extends StatelessWidget {
   bool isFromSplash = false;
   EducationDTO? educationObj;
+  bool readOnly = false;
 
-  AddEducationDetail({super.key, this.isFromSplash = false, this.educationObj});
+  AddEducationDetail({
+    super.key,
+    this.isFromSplash = false,
+    this.educationObj,
+    this.readOnly=false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<EducationDetailBloc>()
-        ..add(EducationDetailEvent.educationObjEvent(educationObj)),
+      create: (context) => getIt<EducationDetailBloc>()..add(EducationDetailEvent.educationObjEvent(educationObj)),
       child: GestureDetector(
         onTap: () {
           AppFocus.unfocus(context);
@@ -53,8 +58,7 @@ class AddEducationDetail extends StatelessWidget {
                     showError(
                       message: failure.maybeMap(
                         showAPIResponseMessage: (value) => value.message,
-                        networkError: (value) =>
-                            'Please check your internet connectivity',
+                        networkError: (value) => 'Please check your internet connectivity',
                         orElse: () => "Server Error. Try again later.",
                       ),
                     ).show(context);
@@ -74,10 +78,7 @@ class AddEducationDetail extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Form(
-                            autovalidateMode:
-                                state.showAddEducationErrorMessages
-                                    ? AutovalidateMode.always
-                                    : AutovalidateMode.disabled,
+                            autovalidateMode: state.showAddEducationErrorMessages ? AutovalidateMode.always : AutovalidateMode.disabled,
                             child: Expanded(
                               child: SingleChildScrollView(
                                 physics: const BouncingScrollPhysics(),
@@ -93,22 +94,18 @@ class AddEducationDetail extends StatelessWidget {
                               ),
                             ),
                           ),
+                          if(!readOnly)
                           Padding(
-                            padding: EdgeInsets.only(
-                                bottom: getSize(40), top: getSize(10)),
+                            padding: EdgeInsets.only(bottom: getSize(40), top: getSize(10)),
                             child: CommonButton(
                               isSubmitting: state.isSubmitting,
                               onPressed: () {
-                                context
-                                    .read<EducationDetailBloc>()
-                                    .add(EducationDetailEvent.onAddBtnPressed(
+                                context.read<EducationDetailBloc>().add(EducationDetailEvent.onAddBtnPressed(
                                       educationObj != null,
                                       id: educationObj?.id,
                                     ));
                               },
-                              buttonText: (educationObj != null)
-                                  ? StringConstant.update
-                                  : StringConstant.add,
+                              buttonText: (educationObj != null) ? StringConstant.update : StringConstant.add,
                             ),
                           ),
                         ],
@@ -129,6 +126,7 @@ class AddEducationDetail extends StatelessWidget {
 
   Widget programField(BuildContext context, EducationDetailState state) {
     return CustomTextField(
+      readOnly: readOnly,
       labelText: StringConstant.programCompleted,
       isLabelPadding: true,
       hintText: StringConstant.programCompleted,
@@ -148,17 +146,14 @@ class AddEducationDetail extends StatelessWidget {
           width: getSize(24),
         ),
       ),
-      onChanged: (value) => context
-          .read<EducationDetailBloc>()
-          .add(EducationDetailEvent.addProgramChanged(value)),
-      validator: (_, context) =>
-          context.read<EducationDetailBloc>().state.selectedProgram.value.fold(
-                (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseAddCompletedProgram,
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
+      onChanged: (value) => context.read<EducationDetailBloc>().add(EducationDetailEvent.addProgramChanged(value)),
+      validator: (_, context) => context.read<EducationDetailBloc>().state.selectedProgram.value.fold(
+            (f) => f.maybeMap(
+              empty: (value) => StringConstant.pleaseAddCompletedProgram,
+              orElse: () => null,
+            ),
+            (_) => null,
+          ),
     );
   }
 
@@ -168,13 +163,10 @@ class AddEducationDetail extends StatelessWidget {
       isLabelPadding: true,
       readOnly: true,
       onTap: () {
-        showYearPicker(context, state);
+        if(!readOnly) showYearPicker(context, state);
       },
-      hintText: (state.yearOfCompletion.getValue()!.isNotEmpty)
-          ? state.yearOfCompletion.getValue()
-          : StringConstant.yearOfCompletion,
-      hintAsValue:
-          (state.yearOfCompletion.getValue()!.isNotEmpty) ? true : false,
+      hintText: (state.yearOfCompletion.getValue()!.isNotEmpty) ? state.yearOfCompletion.getValue() : StringConstant.yearOfCompletion,
+      hintAsValue: (state.yearOfCompletion.getValue()!.isNotEmpty) ? true : false,
       prefixIcon: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(14),
@@ -186,19 +178,19 @@ class AddEducationDetail extends StatelessWidget {
           width: getSize(24),
         ),
       ),
-      validator: (_, context) =>
-          context.read<EducationDetailBloc>().state.yearOfCompletion.value.fold(
-                (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseSelectCompletionYear,
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
+      validator: (_, context) => context.read<EducationDetailBloc>().state.yearOfCompletion.value.fold(
+            (f) => f.maybeMap(
+              empty: (value) => StringConstant.pleaseSelectCompletionYear,
+              orElse: () => null,
+            ),
+            (_) => null,
+          ),
     );
   }
 
   Widget graduatingField(BuildContext context, EducationDetailState state) {
     return CustomTextField(
+      readOnly: readOnly,
       labelText: StringConstant.graduatingInstitution,
       isLabelPadding: true,
       hintText: StringConstant.graduatingInstitution,
@@ -218,15 +210,8 @@ class AddEducationDetail extends StatelessWidget {
           width: getSize(24),
         ),
       ),
-      onChanged: (value) => context
-          .read<EducationDetailBloc>()
-          .add(EducationDetailEvent.addInstituteChanged(value)),
-      validator: (_, context) => context
-          .read<EducationDetailBloc>()
-          .state
-          .selectedGraduation
-          .value
-          .fold(
+      onChanged: (value) => context.read<EducationDetailBloc>().add(EducationDetailEvent.addInstituteChanged(value)),
+      validator: (_, context) => context.read<EducationDetailBloc>().state.selectedGraduation.value.fold(
             (f) => f.maybeMap(
               empty: (value) => StringConstant.pleaseAddGradutionInstitute,
               orElse: () => null,
@@ -236,8 +221,7 @@ class AddEducationDetail extends StatelessWidget {
     );
   }
 
-  Future<void> showYearPicker(
-      BuildContext context, EducationDetailState state) async {
+  Future<void> showYearPicker(BuildContext context, EducationDetailState state) async {
     await showDialog(
       context: context,
       builder: (_) {
@@ -277,8 +261,7 @@ class AddEducationDetail extends StatelessWidget {
         print("onback value---> $value");
 
         context.read<EducationDetailBloc>().add(
-              EducationDetailEvent.addCompletionYearChanged(
-                  value.year.toString()),
+              EducationDetailEvent.addCompletionYearChanged(value.year.toString()),
             );
       }
     });

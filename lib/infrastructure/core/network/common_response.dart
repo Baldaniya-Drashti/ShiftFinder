@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:shift/infrastructure/core/additional_data_dto/additional_data_dto.dart';
 
 class CommonResponse<T> {
   bool? status;
@@ -9,7 +10,7 @@ class CommonResponse<T> {
   List<T>? listData;
   Errors? errors;
   Meta? meta;
-  AdditionalData? additional_data;
+  AdditionalDataDto? additional_data;
 
   CommonResponse({
     this.status,
@@ -30,11 +31,9 @@ class CommonResponse<T> {
     if (json.containsKey("meta") && json["meta"] != null) {
       meta = Meta.fromJson(json['meta']);
     }
-    if(json.containsKey("additional_data")){
-      additional_data=AdditionalData.fromMap(json["additional_data"]);
+    if (json.containsKey("additional_data")) {
+      additional_data = AdditionalDataDto.fromJson(json["additional_data"]);
     }
-
-
   }
 
   Map<String, dynamic> toJson() {

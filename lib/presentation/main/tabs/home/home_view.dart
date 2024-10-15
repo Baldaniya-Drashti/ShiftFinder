@@ -199,8 +199,8 @@ class HomeView extends StatelessWidget {
                     //showUnderDevelopment(context);
 
                     Log.debug(state.employerDashboardList[index].id);
-                    final id= state.employerDashboardList[index].id;
-                    context.router.push(PageRouteInfo(ViewSingleApplicants.name,args: ViewSingleApplicantsArgs(postId: id??0)));
+                    final id = state.employerDashboardList[index].id;
+                    context.router.push(PageRouteInfo(ViewSingleApplicants.name, args: ViewSingleApplicantsArgs(postId: id ?? 0)));
                   },
                   index: index,
                   isTotalApplicants: true),
@@ -213,8 +213,10 @@ class HomeView extends StatelessWidget {
                 onTap: () {
                   //showUnderDevelopment(context);
                   Log.debug(state.employerDashboardList[index].id);
-
-                  context.router.push(PageRouteInfo(TotalPraposalView.name));
+                  final id = state.employerDashboardList[index].id ?? 0;
+                  context.router.push(
+                    PageRouteInfo(TotalPraposalView.name, args: TotalPraposalViewArgs(postId: id)),
+                  );
                 },
                 index: index,
               ),

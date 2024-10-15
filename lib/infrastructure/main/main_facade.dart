@@ -1336,14 +1336,14 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, ApplicantDto>> getApplicantProfile({required int id}) async {
+  Future<Either<MainFailure, CommonResponse>> getApplicantProfile({required int id, required int postId}) async {
     try {
       final res = await apiService.getMethod(
-        ApiConstants.getUserInfo,
-        queryParameters: {"id": id},
+        ApiConstants.contractorUser,
+        queryParameters: {"user_id": id, "post_id": postId},
       );
       if (res != null) {
-        return right(ApplicantDto.fromJson(res.data));
+        return right(res);
       } else {
         return left(const MainFailure.serverError());
       }

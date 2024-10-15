@@ -81,7 +81,11 @@ class ViewSingleApplicants extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       if (state.employerApplicantList[index].revoke_status == 1)
-                                        ...[]
+                                        ...[
+
+
+
+                                        ]
                                       else ...[
                                         if (state.employerApplicantList[index].request == 1) ...[
                                           Expanded(
@@ -194,7 +198,12 @@ class ViewSingleApplicants extends StatelessWidget {
                                         Expanded(
                                           child: CommonButton(
                                             onPressed: () {
-                                              context.router.push(PageRouteInfo(ViewApplicantProfile.name));
+                                              final userId= state.employerApplicantList[index].user_id??-1;
+
+                                              Log.success("postId ${postId}");
+                                              context.router.push(
+                                                PageRouteInfo(ViewApplicantProfile.name, args: ViewApplicantProfileArgs(id: userId, postId: postId)),
+                                              );
                                             },
                                             backgroundColor: AppColors.scaffoldColor,
                                             buttonTextColor: AppColors.black,

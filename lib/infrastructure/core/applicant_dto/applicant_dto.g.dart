@@ -10,6 +10,7 @@ _$ApplicantDtoImpl _$$ApplicantDtoImplFromJson(Map<String, dynamic> json) =>
     _$ApplicantDtoImpl(
       id: (json['id'] as num?)?.toInt(),
       first_name: json['first_name'] as String?,
+      distance: json['distance'] as String?,
       last_name: json['last_name'] as String?,
       email: json['email'] as String?,
       is_verified: (json['is_verified'] as num?)?.toInt(),
@@ -26,8 +27,15 @@ _$ApplicantDtoImpl _$$ApplicantDtoImplFromJson(Map<String, dynamic> json) =>
       location: json['location'] as String?,
       referral_code: json['referral_code'] as String?,
       last_page: json['last_page'] as String?,
+      complete_profile: json['complete_profile'] == null
+          ? null
+          : CompleteProfileDto.fromJson(
+              json['complete_profile'] as Map<String, dynamic>),
       education: (json['education'] as List<dynamic>?)
           ?.map((e) => EducationDTO.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      experience: (json['experience'] as List<dynamic>?)
+          ?.map((e) => ExperienceDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
       reference: (json['reference'] as List<dynamic>?)
           ?.map((e) => ReferenceDTO.fromJson(e as Map<String, dynamic>))
@@ -35,21 +43,13 @@ _$ApplicantDtoImpl _$$ApplicantDtoImplFromJson(Map<String, dynamic> json) =>
       document: (json['document'] as List<dynamic>?)
           ?.map((e) => DocumentDTO.fromJson(e as Map<String, dynamic>))
           .toList(),
-      specialties_detail: (json['specialties_detail'] as List<dynamic>?)
-          ?.map((e) => SpecialtiesDetailDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      complete_profile: (json['complete_profile'] as List<dynamic>?)
-          ?.map((e) => SpecialtiesDetailDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      softwares_skill_list: (json['softwares_skill_list'] as List<dynamic>?)
-          ?.map((e) => CompleteProfileDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
     );
 
 Map<String, dynamic> _$$ApplicantDtoImplToJson(_$ApplicantDtoImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'first_name': instance.first_name,
+      'distance': instance.distance,
       'last_name': instance.last_name,
       'email': instance.email,
       'is_verified': instance.is_verified,
@@ -66,12 +66,11 @@ Map<String, dynamic> _$$ApplicantDtoImplToJson(_$ApplicantDtoImpl instance) =>
       'location': instance.location,
       'referral_code': instance.referral_code,
       'last_page': instance.last_page,
+      'complete_profile': instance.complete_profile,
       'education': instance.education,
+      'experience': instance.experience,
       'reference': instance.reference,
       'document': instance.document,
-      'specialties_detail': instance.specialties_detail,
-      'complete_profile': instance.complete_profile,
-      'softwares_skill_list': instance.softwares_skill_list,
     };
 
 _$CompleteProfileDtoImpl _$$CompleteProfileDtoImplFromJson(
@@ -82,6 +81,19 @@ _$CompleteProfileDtoImpl _$$CompleteProfileDtoImplFromJson(
           ?.map(
               (e) => CompleteProfileDataDto.fromJson(e as Map<String, dynamic>))
           .toList(),
+      specialties_detail: (json['specialties_detail'] as List<dynamic>?)
+          ?.map((e) => SpecialtiesDetailDto.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      softwares_skill_list: (json['softwares_skill_list'] as List<dynamic>?)
+          ?.map(
+              (e) => CompleteProfileDataDto.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      languages_list: (json['languages_list'] as List<dynamic>?)
+          ?.map(
+              (e) => CompleteProfileDataDto.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      language_other: json['language_other'] as String?,
+      software_skill_other: json['software_skill_other'] as String?,
     );
 
 Map<String, dynamic> _$$CompleteProfileDtoImplToJson(
@@ -89,6 +101,11 @@ Map<String, dynamic> _$$CompleteProfileDtoImplToJson(
     <String, dynamic>{
       'id': instance.id,
       'roles_list': instance.roles_list,
+      'specialties_detail': instance.specialties_detail,
+      'softwares_skill_list': instance.softwares_skill_list,
+      'languages_list': instance.languages_list,
+      'language_other': instance.language_other,
+      'software_skill_other': instance.software_skill_other,
     };
 
 _$CompleteProfileDataDtoImpl _$$CompleteProfileDataDtoImplFromJson(

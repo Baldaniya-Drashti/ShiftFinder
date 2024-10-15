@@ -204,7 +204,8 @@ abstract class IMainFacade {
     required int urgentAction,
   });
 
-  Future<Either<MainFailure, ApplicantDto>> getApplicantProfile({
+  Future<Either<MainFailure, CommonResponse>> getApplicantProfile({
     required int id,
+    required int postId,
   });
 }

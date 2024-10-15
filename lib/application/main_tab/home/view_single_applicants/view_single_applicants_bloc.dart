@@ -142,12 +142,12 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
                   List.from(state.employerApplicantList).clear();
                 }
 
-                Log.success("response=> ${r.additional_data?.isCardAdded}");
+                Log.success("response=> ${r.additional_data?.is_card_added}");
                 return emit(
                   state.copyWith(
                     isLoading: false,
                     isErrorInAPI: false,
-                    isCardAdded: r.additional_data?.isCardAdded ?? false,
+                    isCardAdded: r.additional_data?.is_card_added ?? false,
                     isNoDataFound: (r.data as List<dynamic>).map((e) => EmployerApplicantsDto.fromJson(e)).toList().isEmpty,
                     //  getProductList: []
                     employerApplicantList: List.from(state.employerApplicantList)

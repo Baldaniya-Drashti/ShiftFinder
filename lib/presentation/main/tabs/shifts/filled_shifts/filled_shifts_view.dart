@@ -320,8 +320,10 @@ class FilledShiftsView extends StatelessWidget {
                                       ),
                                       child: InkWell(
                                         onTap: () {
+                                          final userId=state.filledShiftList[index].user?.userId??-1;
+                                          Log.debug("${state.filledShiftList[index]}");
                                           context.router.push(
-                                            PageRouteInfo(ViewApplicantProfile.name),
+                                            PageRouteInfo(ViewApplicantProfile.name,args: ViewApplicantProfileArgs(id: userId, postId: 0)),
                                           );
                                         },
                                         child: Row(

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/infrastructure/core/total_proposal_dto/total_proposal_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -8,7 +9,10 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 class PersonListWidget extends StatelessWidget {
   const PersonListWidget({
     super.key,
+    required this.list,
   });
+
+  final List<TotalProposalDto> list;
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +20,14 @@ class PersonListWidget extends StatelessWidget {
       shrinkWrap: true,
       padding: EdgeInsets.all(getSize(20)),
       physics: NeverScrollableScrollPhysics(),
-      itemCount: 10,
+      itemCount: list.length,
       itemBuilder: (context, index) => Padding(
         padding: EdgeInsets.symmetric(vertical: getSize(7.5)),
         child: ListTile(
           dense: true,
-          onTap: () =>
-              context.router.push(PageRouteInfo(ViewPersonPraposalView.name)),
+          onTap: () => context.router.push(
+            PageRouteInfo(ViewPersonPraposalView.name),
+          ),
           contentPadding: EdgeInsets.symmetric(
             vertical: getSize(10),
             horizontal: getSize(15),
@@ -34,7 +39,7 @@ class PersonListWidget extends StatelessWidget {
           visualDensity: VisualDensity.compact,
           tileColor: AppColors.white,
           title: BaseText(
-            text: 'Rochel Foose',
+            text: '${list[index].first_name ?? ""} ${list[index].last_name ?? ""}',
             fontSize: 14,
             fontWeight: FontWeight.w500,
           ),
@@ -43,9 +48,7 @@ class PersonListWidget extends StatelessWidget {
             backgroundColor: AppColors.green,
             child: CircleAvatar(
               radius: getSize(19),
-              backgroundImage: NetworkImage(
-                'https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg',
-              ),
+              backgroundImage: NetworkImage(list[index].profile ?? ""),
             ),
           ),
           trailing: Icon(
