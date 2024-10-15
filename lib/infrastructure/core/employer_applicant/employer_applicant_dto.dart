@@ -18,7 +18,8 @@ class EmployerApplicantsDto with _$EmployerApplicantsDto{
     double? longitude,
     int? request,
     int? revoke_status,
-    dynamic revoke_start,
+    int? revoke_start,
+    Duration? duration,
 
   }) = _EmployerApplicantsDto;
 

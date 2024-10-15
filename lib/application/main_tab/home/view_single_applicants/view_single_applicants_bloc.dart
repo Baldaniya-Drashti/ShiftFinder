@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_brace_in_string_interps
 
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +33,7 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
   int page = 1;
   int lastPage = 1;
   bool isFetching = false;
+  Timer? _timer;
 
   ViewSingleApplicantsBloc(this._mainFacade) : super(ViewSingleApplicantsState.initial()) {
     on<ViewSingleApplicantsEvent>(
@@ -143,7 +146,9 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
                 }
 
                 Log.success("response=> ${r.additional_data?.is_card_added}");
-                return emit(
+                final employerApplicantList = (r.data as List<dynamic>).map((e) => EmployerApplicantsDto.fromJson(e)).toList();
+
+                emit(
                   state.copyWith(
                     isLoading: false,
                     isErrorInAPI: false,
@@ -154,6 +159,28 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
                       ..addAll((r.data as List<dynamic>).map((e) => EmployerApplicantsDto.fromJson(e)).toList()),
                   ),
                 );
+                // for (var shift in newShifts) {
+                //   if (shift.revoke_status == 1) {
+                //     add(
+                //       ContractorShiftEvent.startRevokingTimer(
+                //         Duration(hours: 2), shift.id ?? -1,
+                //         // revokeTime: (shift.id == 115) ? 1728877581 : 1728877581,
+                //         revokeTime: shift.revoke_start ?? -1,
+                //       ),
+                //     );
+                //   }
+                // }
+                for (var i in employerApplicantList) {
+                  if (i.revoke_status == 1) {
+                    add(
+                      ViewSingleApplicantsEvent.startRevokingTimer(
+                        duration: Duration(hours: 2),
+                        postId: i.id ?? -1,
+                        revokeTime: i.revoke_start ?? -1,
+                      ),
+                    );
+                  }
+                }
               },
             );
 
@@ -218,6 +245,15 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
             );
           },
           onRevoke: (OnRevoke value) async {
+            List<EmployerApplicantsDto> tempList = [...state.employerApplicantList];
+            final index = tempList.indexWhere((element) => element.user_id == value.userId);
+            final now = DateTime.now();
+            final revokeEndTime = now.copyWith(hour: now.hour + 2);
+            final unixTimeStamp = revokeEndTime.millisecondsSinceEpoch ~/ 1000;
+            tempList[index] = tempList[index].copyWith(revoke_status: 1, revoke_start: unixTimeStamp);
+
+            Log.debug("=>${tempList[index]}");
+            return;
             Either<MainFailure, CommonResponse>? failureOrSuccess;
             failureOrSuccess = await _mainFacade.revokeApplicant(postId: value.postId, userId: value.userId);
             failureOrSuccess.fold(
@@ -234,13 +270,81 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
               (r) {
                 value.context.router.maybePop();
                 showSuccess(message: r.dioMessage ?? "").show(value.context).then((value) {
-                  add(ViewSingleApplicantsEvent.getApplicantsList(state.postId, true));
+                  //add(ViewSingleApplicantsEvent.getApplicantsList(state.postId, true));
                 });
               },
             );
           },
+          startRevokingTimer: (StartRevokingTimer value) {
+            DateTime timerStartTime = DateTime.fromMillisecondsSinceEpoch(value.revokeTime * 1000);
+
+            Duration totalDuration = Duration(hours: 2);
+
+            state.employerApplicantList.map((shift) {
+              if (shift.id == value.postId) {
+                // if (shift.revoke_status == 1) {
+                Duration remainingTime = calculateRemainingTime(timerStartTime, totalDuration);
+
+                _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+                  if (remainingTime.inSeconds <= 0) {
+                    timer.cancel();
+                    remainingTime = Duration.zero;
+                  } else {
+                    remainingTime -= const Duration(seconds: 1);
+                  }
+                  updateRemainingTime(remainingTime, shift.id ?? -1);
+                });
+              }
+              return shift;
+            }).toList();
+          },
         );
       },
     );
+  }
+
+  Duration calculateRemainingTime(DateTime timerStartTime, Duration totalDuration) {
+    DateTime currentTime = DateTime.now();
+    Duration elapsedTime = currentTime.difference(timerStartTime);
+
+    Duration remainingTime = totalDuration - elapsedTime;
+
+    if (remainingTime.isNegative) {
+      return Duration.zero;
+    } else {
+      return remainingTime;
+    }
+  }
+
+  void updateRemainingTime(Duration remainingTime, int id) {
+    emit(state.copyWith(
+      employerApplicantList: state.employerApplicantList.map((s) {
+        if (s.id == id) {
+          return s.copyWith(duration: remainingTime);
+        }
+        return s;
+      }).toList(),
+    ));
+  }
+
+  @override
+  Future<void> close() {
+    _timer?.cancel();
+    return super.close();
+  }
+
+  int convertToTimestamp(TimeOfDay timeOfDay) {
+    // Get the current date
+    final now = DateTime.now();
+
+    final dateTime = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      timeOfDay.hour,
+      timeOfDay.minute,
+    );
+
+    return dateTime.toUtc().millisecondsSinceEpoch ~/ 1000;
   }
 }

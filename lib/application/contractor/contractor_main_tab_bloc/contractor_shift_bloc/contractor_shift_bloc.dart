@@ -100,8 +100,7 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
                     isLoading: false,
                     isErrorInAPI: false,
                     isNoDataFound: (r.data as List<dynamic>).map((e) => CurrentShiftDTO.fromJson(e)).toList().isEmpty,
-                    currentShiftList: List.from(state.currentShiftList)
-                      ..addAll((r.data as List<dynamic>).map((e) => CurrentShiftDTO.fromJson(e)).toList()),
+                    currentShiftList: List.from(state.currentShiftList)..addAll((r.data as List<dynamic>).map((e) => CurrentShiftDTO.fromJson(e)).toList()),
                     // currentShiftList: dummyList,
                   ),
                 );
@@ -145,8 +144,7 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
                     isUpcomingLoading: false,
                     isUpcomingErrorInAPI: false,
                     isUpcomingNoDataFound: (r.data as List<dynamic>).map((e) => UpComingShiftDTO.fromJson(e)).toList().isEmpty,
-                    upcomingShiftList: List.from(state.upcomingShiftList)
-                      ..addAll((r.data as List<dynamic>).map((e) => UpComingShiftDTO.fromJson(e)).toList()),
+                    upcomingShiftList: List.from(state.upcomingShiftList)..addAll((r.data as List<dynamic>).map((e) => UpComingShiftDTO.fromJson(e)).toList()),
                   ),
                 );
               },
@@ -274,8 +272,7 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
                   isAppliedLoading: false,
                   isAppliedErrorInAPI: false,
                   isAppliedNoDataFound: (r.data as List<dynamic>).map((e) => AppliedShiftDTO.fromJson(e)).toList().isEmpty,
-                  appliedList: List.from(state.appliedList)
-                    ..addAll((r.data as List<dynamic>).map((e) => AppliedShiftDTO.fromJson(e)).toList()),
+                  appliedList: List.from(state.appliedList)..addAll((r.data as List<dynamic>).map((e) => AppliedShiftDTO.fromJson(e)).toList()),
                 ),
               );
 
@@ -328,8 +325,7 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
                     isCounterLoading: false,
                     isCounterErrorInAPI: false,
                     isCounterNoDataFound: (r.data as List<dynamic>).map((e) => AppliedShiftDTO.fromJson(e)).toList().isEmpty,
-                    counterList: List.from(state.counterList)
-                      ..addAll((r.data as List<dynamic>).map((e) => AppliedShiftDTO.fromJson(e)).toList()),
+                    counterList: List.from(state.counterList)..addAll((r.data as List<dynamic>).map((e) => AppliedShiftDTO.fromJson(e)).toList()),
                   ),
                 );
               },

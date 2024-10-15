@@ -80,13 +80,18 @@ class ViewSingleApplicants extends StatelessWidget {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      if (state.employerApplicantList[index].revoke_status == 1)
-                                        ...[
-
-
-
-                                        ]
-                                      else ...[
+                                      if (state.employerApplicantList[index].revoke_status == 1) ...[
+                                        revokingStatus(context, state, state.employerApplicantList[index])
+                                      ] else if(state.employerApplicantList[index].revoke_status == 2)...[
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(vertical: getSize(10)),
+                                          child: BaseText(
+                                            text: StringConstant.offerRevokedByTheEmployer,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ] else ...[
                                         if (state.employerApplicantList[index].request == 1) ...[
                                           Expanded(
                                             child: CommonButton(
@@ -100,8 +105,7 @@ class ViewSingleApplicants extends StatelessWidget {
                                                     final userId = state.employerApplicantList[index].user_id;
 
                                                     context.read<ViewSingleApplicantsBloc>().add(
-                                                          ViewSingleApplicantsEvent.onRevoke(
-                                                              postId: postId, userId: userId ?? 0, context: context),
+                                                          ViewSingleApplicantsEvent.onRevoke(postId: postId, userId: userId ?? 0, context: context),
                                                         );
                                                   },
                                                   acceptButtonText: 'Revoke',
@@ -129,8 +133,8 @@ class ViewSingleApplicants extends StatelessWidget {
                                                     buttonText: 'Add Card',
                                                     onPressed: () {
                                                       context.router.maybePop();
-                                                      context.router.push(PageRouteInfo(AddCardDetailPage.name,
-                                                          args: AddCardDetailPageArgs(fromRegister: false)));
+                                                      context.router
+                                                          .push(PageRouteInfo(AddCardDetailPage.name, args: AddCardDetailPageArgs(fromRegister: false)));
                                                     },
                                                     image: SvgImageConstant.cardImage,
                                                   ).addCardDialog(context);
@@ -198,7 +202,7 @@ class ViewSingleApplicants extends StatelessWidget {
                                         Expanded(
                                           child: CommonButton(
                                             onPressed: () {
-                                              final userId= state.employerApplicantList[index].user_id??-1;
+                                              final userId = state.employerApplicantList[index].user_id ?? -1;
 
                                               Log.success("postId ${postId}");
                                               context.router.push(
@@ -223,6 +227,61 @@ class ViewSingleApplicants extends StatelessWidget {
                         ),
             );
           },
+        ),
+      ),
+    );
+  }
+
+  Widget revokingStatus(BuildContext context, ViewSingleApplicantsState state, EmployerApplicantsDto shift) {
+    final hours = shift.duration?.inHours.toString().padLeft(2, '0') ?? 00;
+    final minutes = shift.duration?.inMinutes.remainder(60).toString().padLeft(2, '0') ?? 00;
+
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(getSize(10)),
+        color: AppColors.scaffoldColor,
+      ),
+      padding: EdgeInsets.symmetric(horizontal: getSize(12)),
+      child: ListTile(
+        dense: true,
+        contentPadding: EdgeInsets.zero,
+        horizontalTitleGap: 10,
+        onTap: () {
+          /*context.read<ContractorShiftBloc>().add(
+                ContractorShiftEvent.startRevokingTimer(
+                    Duration(hours: 2), shift.id ?? -1,
+                    revokeTime: (shift.id == 92) ? 1728627746 : 1728627655),
+              );*/
+        },
+        title: Padding(
+          padding: EdgeInsets.only(left: getSize(20)),
+          child: BaseText(
+            text: StringConstant.revoking,
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            textColor: AppColors.black.withOpacity(0.7),
+          ),
+        ),
+        trailing: Container(
+          width: getSize(108),
+          padding: EdgeInsets.symmetric(vertical: getSize(5)),
+          decoration: BoxDecoration(color: AppColors.primaryColor.withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SvgPicture.asset(
+                SvgImageConstant.clock,
+                height: getSize(15),
+                width: getSize(15),
+              ),
+              BaseText(
+                text: "$hours h $minutes min",
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                textColor: AppColors.primaryColor,
+              ),
+            ],
+          ),
         ),
       ),
     );
