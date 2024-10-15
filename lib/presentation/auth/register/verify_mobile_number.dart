@@ -572,10 +572,9 @@ class VerifyPhoneNumber extends StatelessWidget {
         }).then((value) {
       if (value != null && value == true) {
         emailOrPhoneValue = "${getCurrentUser().phone ?? ''}";
-        countryCodeValue = "+${getCurrentUser().countryCode ?? ''}";
+        countryCodeValue = getCurrentUser().countryCode ?? '';
         countryFlagValue = getCurrentUser().countryNameCode ?? '';
 
-        print("countryFlagValue----> $countryFlagValue");
         bloc.add(RegisterFormEvent.startCountdown());
       }
     });

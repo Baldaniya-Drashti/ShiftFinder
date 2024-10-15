@@ -8,6 +8,7 @@ import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/api_constants.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
+import 'package:shift/infrastructure/contractor_main/profile/my_calendar_dto/my_calendar_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/network/injectable_module.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
@@ -1090,6 +1091,69 @@ class MainFacade implements IMainFacade {
       if (res != null) {
         print("Contractor Post Response->  ${res}");
         return right(res.dioMessage ?? "");
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, List<MyCalendarDTO>>>
+      getMyCalendarListApi() async {
+    try {
+      final res = await apiService.getMethod(
+        ApiConstants.contractorMyCalendar,
+      );
+      if (res != null) {
+        var account = res.data as List<dynamic>;
+        var data = account.map((e) => MyCalendarDTO.fromJson(e)).toList();
+        print("My Calendar List Response->  $data");
+
+        return right(data);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, ContractorMyCalendarDTO>>
+      getContractorMyCalendarDetailApi(int id) async {
+    try {
+      final res = await apiService.getMethod(
+        "${ApiConstants.contractorMyCalendar}/$id",
+      );
+      if (res != null) {
+        final data = ContractorMyCalendarDTO.fromJson(res.data);
+        print("My Calendar Contractor Detail Response->  $data");
+
+        return right(data);
       } else {
         return left(const MainFailure.serverError());
       }

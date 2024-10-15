@@ -69,30 +69,31 @@ class AppliedTab extends StatelessWidget {
                             children: [
                               userDetail(context, shift),
                               paddingBetweenFields(),
-                              dateView(
-                                title: StringConstant.appliedDate,
-                                boldValue: convertTimeStampToDate(
-                                    shift.applied_date ?? -1),
-                                timidValue: convertTimeStampToDate(
-                                    shift.applied_date ?? -1,
-                                    isYear: true),
-                              ),
-                              paddingBetweenFields(),
-                              dateView(
-                                title: StringConstant.proposalDate,
-                                boldValue: convertTimeStampToDate(
-                                    shift.applied_date ?? -1),
-                                timidValue: convertTimeStampToDate(
-                                    shift.applied_date ?? -1,
-                                    isYear: true),
-                              ),
+                              (shift.last_request == 1)
+                                  ? dateView(
+                                      title: StringConstant.appliedDate,
+                                      boldValue: convertTimeStampToDate(
+                                          shift.applied_date ?? -1),
+                                      timidValue: convertTimeStampToDate(
+                                          shift.applied_date ?? -1,
+                                          isYear: true),
+                                    )
+                                  : dateView(
+                                      title: StringConstant.proposalDate,
+                                      boldValue: convertTimeStampToDate(
+                                          shift.applied_date ?? -1),
+                                      timidValue: convertTimeStampToDate(
+                                          shift.applied_date ?? -1,
+                                          isYear: true),
+                                    ),
                               paddingBetweenFields(),
                               if (shift.revoke_status == 1) ...[
                                 revokingStatus(context, state, shift),
                               ] else if (shift.revoke_status == 2) ...[
                                 Padding(
                                   padding: EdgeInsets.symmetric(
-                                      vertical: getSize(10)),
+                                    vertical: getSize(10),
+                                  ),
                                   child: BaseText(
                                     text: StringConstant
                                         .offerRevokedByTheEmployer,
@@ -110,10 +111,9 @@ class AppliedTab extends StatelessWidget {
                                         PageRouteInfo(
                                           ViewContractorShift.name,
                                           args: ViewContractorShiftArgs(
-                                            postId: state
-                                                    .upcomingShiftList[index]
-                                                    .id ??
-                                                -1,
+                                            postId:
+                                                state.appliedList[index].id ??
+                                                    -1,
                                             isTotalApplicants: true,
                                           ),
                                         ),

@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/main_failure.dart';
+import 'package:shift/infrastructure/contractor_main/profile/my_calendar_dto/my_calendar_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
@@ -134,6 +135,10 @@ abstract class IMainFacade {
   Future<Either<MainFailure, HealthcarePostDTO>> getContractorShiftDetail(
       {required int postId});
 
-       Future<Either<MainFailure, String>> contractorShiftUrgentActionApi(
+  Future<Either<MainFailure, String>> contractorShiftUrgentActionApi(
       {required int postId, required int urgentAction});
+
+  Future<Either<MainFailure, List<MyCalendarDTO>>> getMyCalendarListApi();
+  Future<Either<MainFailure, ContractorMyCalendarDTO>>
+      getContractorMyCalendarDetailApi(int id);
 }
