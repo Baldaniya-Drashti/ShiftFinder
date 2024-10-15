@@ -30,8 +30,7 @@ class ApparelEquipment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          getIt<EquipmentBloc>()..add(EquipmentEvent.getEquipmentList()),
+      create: (context) => getIt<EquipmentBloc>()..add(EquipmentEvent.getEquipmentList()),
       child: BlocConsumer<EquipmentBloc, EquipmentState>(
         listener: (context, state) {
           state.equipmentDocAuthFailureOrSuccessOption.fold(
@@ -41,8 +40,7 @@ class ApparelEquipment extends StatelessWidget {
                 showError(
                   message: failure.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) =>
-                        'Please check your internet connectivity',
+                    networkError: (value) => 'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(context);
@@ -57,8 +55,7 @@ class ApparelEquipment extends StatelessWidget {
                 showError(
                   message: failure.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) =>
-                        'Please check your internet connectivity',
+                    networkError: (value) => 'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(context);
@@ -74,9 +71,7 @@ class ApparelEquipment extends StatelessWidget {
                   curve: Curves.easeInOut,
                 )
                     .then((value) {
-                  context
-                      .read<DocumentBloc>()
-                      .add(const DocumentEvent.getAllDocumentStatus());
+                  context.read<DocumentBloc>().add(const DocumentEvent.getAllDocumentStatus());
                 });
               },
             ),
@@ -87,131 +82,100 @@ class ApparelEquipment extends StatelessWidget {
               ? CenterLoadingIndicator()
               : Padding(
                   padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Expanded(
-                        child: SingleChildScrollView(
-                          child: Form(
-                            autovalidateMode: (state.showEquipmentErrorMessages)
-                                ? AutovalidateMode.always
-                                : AutovalidateMode.disabled,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                (state.equipmentList.isNotEmpty)
-                                    ? ListView.builder(
-                                        itemCount: state.equipmentList.length,
-                                        shrinkWrap: true,
-                                        physics: NeverScrollableScrollPhysics(),
-                                        itemBuilder: (context, index) {
-                                          DocumentDTO immunizationObject =
-                                              state.equipmentList[index];
-                                          return Padding(
-                                            padding: EdgeInsets.only(
-                                                top: getSize(10)),
-                                            child: SelectedDocumentBox(
-                                              pickedFile:
-                                                  immunizationObject.file,
-                                              title: immunizationObject
-                                                      .document_title ??
-                                                  "",
-                                              showDeleteButton: true,
-                                              deleteDescription: StringConstant
-                                                  .deleteEquipmentDesc,
-                                              onCancelClick: () {
-                                                context.router.maybePop();
-                                              },
-                                              onDeleteClick: () {
-                                                context
-                                                    .read<EquipmentBloc>()
-                                                    .add(EquipmentEvent
-                                                        .deleteEquipmentObject(
-                                                            index));
-                                                context.router.maybePop();
-                                              },
-                                            ),
-                                          );
-                                        })
-                                    : Container(),
-                                SizedBox(
-                                  height: getSize(20),
-                                ),
-                                equipmentNameField(context, state),
-                                paddingBetweenFields(),
-                                (state.equipmentDoc.isValid())
-                                    ? selectedImage(
-                                        context,
-                                        state.equipmentDoc.getValue() ?? "",
-                                        state: state,
-                                      )
-                                    : UploadDocumentBox(
-                                        height: getSize(400),
-                                        onUploadBtnPressed: () {
-                                          clickUploadButton(context);
+                  child: SingleChildScrollView(
+                    child: Form(
+                      autovalidateMode: (state.showEquipmentErrorMessages) ? AutovalidateMode.always : AutovalidateMode.disabled,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          (state.equipmentList.isNotEmpty)
+                              ? ListView.builder(
+                                  itemCount: state.equipmentList.length,
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    DocumentDTO immunizationObject = state.equipmentList[index];
+                                    return Padding(
+                                      padding: EdgeInsets.only(top: getSize(10)),
+                                      child: SelectedDocumentBox(
+                                        pickedFile: immunizationObject.file,
+                                        title: immunizationObject.document_title ?? "",
+                                        showDeleteButton: true,
+                                        deleteDescription: StringConstant.deleteEquipmentDesc,
+                                        onCancelClick: () {
+                                          context.router.maybePop();
+                                        },
+                                        onDeleteClick: () {
+                                          context.read<EquipmentBloc>().add(EquipmentEvent.deleteEquipmentObject(index));
+                                          context.router.maybePop();
                                         },
                                       ),
-                                if (state.showEquipmentErrorMessages &&
-                                    !state.equipmentDoc.isValid())
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: getSize(10),
-                                        horizontal: getSize(20)),
-                                    child: const BaseText(
-                                      text: StringConstant
-                                          .pleaseSelectEquipmentDocument,
-                                      fontSize: 12,
-                                      textColor: AppColors.red,
-                                    ),
-                                  ),
-                                paddingBetweenFields(),
-                                addMoreButton(
+                                    );
+                                  })
+                              : Container(),
+                          SizedBox(
+                            height: getSize(20),
+                          ),
+                          equipmentNameField(context, state),
+                          paddingBetweenFields(),
+                          (state.equipmentDoc.isValid())
+                              ? selectedImage(
                                   context,
-                                  state,
-                                  onPressed: () {
-                                    context.read<EquipmentBloc>().add(
-                                        const EquipmentEvent
-                                            .addMoreEquipmentDoc());
+                                  state.equipmentDoc.getValue() ?? "",
+                                  state: state,
+                                )
+                              : UploadDocumentBox(
+                                  height: getSize(400),
+                                  onUploadBtnPressed: () {
+                                    clickUploadButton(context);
                                   },
                                 ),
-                                paddingBetweenFields(height: 40)
-                              ],
+                          if (state.showEquipmentErrorMessages && !state.equipmentDoc.isValid())
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: getSize(10), horizontal: getSize(20)),
+                              child: const BaseText(
+                                text: StringConstant.pleaseSelectEquipmentDocument,
+                                fontSize: 12,
+                                textColor: AppColors.red,
+                              ),
+                            ),
+                          paddingBetweenFields(),
+                          addMoreButton(
+                            context,
+                            state,
+                            onPressed: () {
+                              context.read<EquipmentBloc>().add(const EquipmentEvent.addMoreEquipmentDoc());
+                            },
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: getSize(50), bottom: getSize(10)),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: CommonButton(
+                                onPressed: () {
+                                  context.read<EquipmentBloc>().add(const EquipmentEvent.equipmentDocSubmit(
+                                        isAddMoreBtnClick: false,
+                                        isSkip: false,
+                                      ));
+                                },
+                                buttonText: StringConstant.txtContinue,
+                              ),
                             ),
                           ),
-                        ),
+                          if (state.equipmentList.isEmpty)
+                            documentSkipButton(
+                              context,
+                              onPressed: () {
+                                context.read<EquipmentBloc>().add(const EquipmentEvent.equipmentDocSubmit(
+                                      isAddMoreBtnClick: false,
+                                      isSkip: true,
+                                    ));
+                              },
+                            ),
+                          paddingBetweenFields(height: 40)
+                        ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: getSize(20), bottom: getSize(10)),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: CommonButton(
-                            onPressed: () {
-                              context
-                                  .read<EquipmentBloc>()
-                                  .add(const EquipmentEvent.equipmentDocSubmit(
-                                    isAddMoreBtnClick: false,
-                                    isSkip: false,
-                                  ));
-                            },
-                            buttonText: StringConstant.txtContinue,
-                          ),
-                        ),
-                      ),
-                      if (state.equipmentList.isEmpty)
-                        documentSkipButton(
-                          context,
-                          onPressed: () {
-                            context
-                                .read<EquipmentBloc>()
-                                .add(const EquipmentEvent.equipmentDocSubmit(
-                                  isAddMoreBtnClick: false,
-                                  isSkip: true,
-                                ));
-                          },
-                        ),
-                      paddingBetweenFields(),
-                    ],
+                    ),
                   ),
                 );
         },
@@ -219,8 +183,7 @@ class ApparelEquipment extends StatelessWidget {
     );
   }
 
-  Widget selectedImage(BuildContext context, String selectedFile,
-      {required EquipmentState state}) {
+  Widget selectedImage(BuildContext context, String selectedFile, {required EquipmentState state}) {
     return ShowPickedFile(
       selectedFile: selectedFile,
       mainBoxHeight: getSize(400),
@@ -237,8 +200,7 @@ class ApparelEquipment extends StatelessWidget {
           onDeleteClick: () {
             if (state.equipmentDoc.isValid()) {
               context.read<EquipmentBloc>().add(
-                    EquipmentEvent.deleteEquipmentDoc(
-                        state.equipmentDoc.getValue()!),
+                    EquipmentEvent.deleteEquipmentDoc(state.equipmentDoc.getValue()!),
                   );
             }
             Navigator.pop(context);
@@ -251,9 +213,7 @@ class ApparelEquipment extends StatelessWidget {
   clickUploadButton(BuildContext context) {
     ImageChooserDialog().showImageChooserDialog(
       takePhotoCallback: () async {
-        String path = await ImagePickerUtils()
-                .pickImage(imageSource: ImageSource.camera, context: context) ??
-            '';
+        String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.camera, context: context) ?? '';
         if (path.isNotEmpty) {
           print("CAMERA IMAGE PATH: $path");
           context.read<EquipmentBloc>().add(
@@ -262,9 +222,7 @@ class ApparelEquipment extends StatelessWidget {
         }
       },
       selectPhotoCallback: () async {
-        String path = await ImagePickerUtils().pickImage(
-                imageSource: ImageSource.gallery, context: context) ??
-            '';
+        String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.gallery, context: context) ?? '';
 
         if (path.isNotEmpty) {
           print("GALLERY IMAGE PATH: $path");
@@ -297,26 +255,19 @@ class ApparelEquipment extends StatelessWidget {
       labelText: StringConstant.documentTitle,
       hintText: StringConstant.documentTitle,
       textCapitalization: TextCapitalization.sentences,
-      onChanged: (value) => context
-          .read<EquipmentBloc>()
-          .add(EquipmentEvent.equipmentNameChanegd(value)),
-      validator: (_, context) =>
-          context.read<EquipmentBloc>().state.equipmentName.value.fold(
-                (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseAddTitle,
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
+      onChanged: (value) => context.read<EquipmentBloc>().add(EquipmentEvent.equipmentNameChanegd(value)),
+      validator: (_, context) => context.read<EquipmentBloc>().state.equipmentName.value.fold(
+            (f) => f.maybeMap(
+              empty: (value) => StringConstant.pleaseAddTitle,
+              orElse: () => null,
+            ),
+            (_) => null,
+          ),
     );
   }
 
-  Widget addMoreButton(BuildContext context, EquipmentState state,
-      {required VoidCallback onPressed}) {
-    bool isAllDetailsAdded =
-        (state.equipmentName.isValid() && state.equipmentDoc.isValid())
-            ? true
-            : false;
+  Widget addMoreButton(BuildContext context, EquipmentState state, {required VoidCallback onPressed}) {
+    bool isAllDetailsAdded = (state.equipmentName.isValid() && state.equipmentDoc.isValid()) ? true : false;
     return Align(
       alignment: Alignment.center,
       child: CommonButton(
@@ -327,12 +278,8 @@ class ApparelEquipment extends StatelessWidget {
         buttonFontSize: 12,
         buttonFontWeight: FontWeight.w600,
         height: 35,
-        backgroundColor: (isAllDetailsAdded)
-            ? AppColors.primaryColor.withOpacity(0.15)
-            : AppColors.primaryColor.withOpacity(0.05),
-        buttonTextColor: (isAllDetailsAdded)
-            ? AppColors.primaryColor
-            : AppColors.primaryColor.withOpacity(0.3),
+        backgroundColor: (isAllDetailsAdded) ? AppColors.primaryColor.withOpacity(0.15) : AppColors.primaryColor.withOpacity(0.05),
+        buttonTextColor: (isAllDetailsAdded) ? AppColors.primaryColor : AppColors.primaryColor.withOpacity(0.3),
       ),
     );
   }

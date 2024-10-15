@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -7,6 +9,8 @@ import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
+import 'package:shift/presentation/core/widgets/rating_bar.dart';
 
 /// Shows a dialog.
 /// Use in priority cases where it's necessary for the user to see
@@ -64,6 +68,7 @@ class AppDialog {
     bool barrierDismissible = false,
     required VoidCallback? onCancelClick,
     required VoidCallback? onDeleteClick,
+    Color? deleteColor,
   }) async {
     showDialog(
         context: context,
@@ -117,15 +122,19 @@ class AppDialog {
                     buttonTextColor: AppColors.primaryColor,
                     borderColor: AppColors.primaryColor,
                   ),
-                  CommonButton(
-                    onPressed: () {
-                      if (onDeleteClick != null) {
-                        onDeleteClick.call();
-                      }
-                      AppFocus.unfocus(context);
-                    },
-                    width: 150,
-                    buttonText: deleteBtnText ?? StringConstant.delete,
+                  Gap(getSize(8)),
+                  Flexible(
+                    child: CommonButton(
+                      backgroundColor: deleteColor,
+                      onPressed: () {
+                        if (onDeleteClick != null) {
+                          onDeleteClick.call();
+                        }
+                        AppFocus.unfocus(context);
+                      },
+                      width: 150,
+                      buttonText: deleteBtnText ?? StringConstant.delete,
+                    ),
                   )
                 ],
               ),
@@ -137,6 +146,7 @@ class AppDialog {
   static Future<void> showSuccess(
     BuildContext context, {
     String? title,
+    String? buttonText,
     required String infoMessage,
     EdgeInsets? insetPadding,
     Widget? image,
@@ -200,7 +210,7 @@ class AppDialog {
                   AppFocus.unfocus(context);
                 },
                 width: 200,
-                buttonText: StringConstant.ok,
+                buttonText: buttonText ?? StringConstant.ok,
               ),
             ],
           );
@@ -228,63 +238,180 @@ class AppDialog {
     required VoidCallback? onDeleteClick,
   }) async {
     showDialog(
-        context: context,
-        barrierDismissible: barrierDismissible,
-        builder: (context) {
-          return AlertDialog(
-            title: BaseText(
-              text: StringConstant.withdrawShift,
-              fontSize: 22,
-              fontWeight: FontWeight.w400,
-              fontFamily: "Aclonica",
-              textAlign: TextAlign.center,
+      context: context,
+      barrierDismissible: barrierDismissible,
+      builder: (context) {
+        return AlertDialog(
+          title: BaseText(
+            text: StringConstant.withdrawShift,
+            fontSize: 22,
+            fontWeight: FontWeight.w400,
+            fontFamily: "Aclonica",
+            textAlign: TextAlign.center,
+          ),
+          content: BaseText(
+            text: StringConstant.withdrawShiftDesc,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            textAlign: TextAlign.center,
+            textColor: AppColors.black.withOpacity(0.7),
+          ),
+          elevation: 80,
+          backgroundColor: AppColors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CommonButton(
+                  onPressed: () {
+                    if (onCancelClick != null) {
+                      onCancelClick.call();
+                    }
+                    AppFocus.unfocus(context);
+                  },
+                  width: 150,
+                  buttonText: cancelText ?? StringConstant.cancle,
+                  backgroundColor: AppColors.white,
+                  buttonTextColor: AppColors.primaryColor,
+                  borderColor: AppColors.primaryColor,
+                ),
+                CommonButton(
+                  onPressed: () {
+                    if (onDeleteClick != null) {
+                      onDeleteClick.call();
+                    }
+                    AppFocus.unfocus(context);
+                  },
+                  width: 150,
+                  buttonText: deleteBtnText ?? StringConstant.delete,
+                )
+              ],
             ),
-            content: BaseText(
-              text: StringConstant.withdrawShiftDesc,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              textAlign: TextAlign.center,
-              textColor: AppColors.black.withOpacity(0.7),
-            ),
-            elevation: 80,
-            backgroundColor: AppColors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
-            actions: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CommonButton(
-                    onPressed: () {
-                      if (onCancelClick != null) {
-                        onCancelClick.call();
-                      }
-                      AppFocus.unfocus(context);
-                    },
-                    width: 150,
-                    buttonText: cancelText ?? StringConstant.cancle,
-                    backgroundColor: AppColors.white,
-                    buttonTextColor: AppColors.primaryColor,
-                    borderColor: AppColors.primaryColor,
-                  ),
-                  CommonButton(
-                    onPressed: () {
-                      if (onDeleteClick != null) {
-                        onDeleteClick.call();
-                      }
-                      AppFocus.unfocus(context);
-                    },
-                    width: 150,
-                    buttonText: deleteBtnText ?? StringConstant.delete,
-                  )
-                ],
+          ],
+        );
+      },
+    );
+  }
+
+  static Future<void> showLeaveRatingModal(BuildContext context) async {
+    int rating = 5;
+    final result = await showDialog<bool?>(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          actionsAlignment: MainAxisAlignment.center,
+          insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
+          titlePadding: EdgeInsets.zero,
+          title: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset(PngImageConstants.leaveRating),
+              Gap(getSize(20)),
+              BaseText(
+                text: "Leave a Rating",
+                fontSize: 22,
+                fontWeight: FontWeight.w400,
+                fontFamily: "Aclonica",
+                textAlign: TextAlign.center,
               ),
             ],
-          );
-        });
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BaseText(
+                text: "Your feedback is valuable! Please rate [contractor name] to help showcase their performance and maintain service quality.",
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                textAlign: TextAlign.center,
+                textColor: AppColors.black.withOpacity(0.7),
+              ),
+              Gap(getSize(20)),
+              RatingBar(
+                initialRating: rating,
+                onChanged: (int value) {
+                  rating = value;
+                },
+              )
+            ],
+          ),
+          actions: [
+            CommonButton(
+              onPressed: () {
+                print("===>$rating");
+              },
+              width: 200,
+              buttonText: "Submit",
+            )
+          ],
+        );
+      },
+    );
+  }
+  static  Future<bool?> showCommonDialog({
+    required BuildContext context,
+    required String? title,
+    required String? content,
+    required String? successLabel,
+  }) async {
+    return showDialog<bool?>(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: AppColors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        alignment: Alignment.center,
+        actionsAlignment: MainAxisAlignment.center,
+        insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
+        title: title != null
+            ? BaseText(
+          text: title,
+          fontSize: 22,
+          fontWeight: FontWeight.w400,
+          fontFamily: "Aclonica",
+          textAlign: TextAlign.center,
+        )
+            : null,
+        content: content != null
+            ? BaseText(
+          text: content,
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          textAlign: TextAlign.center,
+          textColor: AppColors.black.withOpacity(0.7),
+          maxLines: 20,
+        )
+            : null,
+        actions: [
+          Row(
+            children: [
+              Expanded(
+                child: CommonButton(
+                  onPressed: () => context.router.maybePop(false),
+                  buttonText: "Cancel",
+                  backgroundColor: AppColors.white,
+                  borderColor: AppColors.green,
+                  buttonTextColor: AppColors.green,
+                ),
+              ),
+              Gap(16),
+              Expanded(
+                child: CommonButton(
+                  onPressed: () => context.router.maybePop(true),
+                  buttonText: successLabel ?? "Done",
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   static Future<void> showUrgentActionDialog(
@@ -368,4 +495,98 @@ class AppDialog {
           );
         });
   }
+}
+
+class AddRemarkModal extends StatefulWidget {
+  const AddRemarkModal({super.key, this.initialValue});
+
+  final String? initialValue;
+
+  @override
+  State<AddRemarkModal> createState() => _AddRemarkModalState();
+}
+
+class _AddRemarkModalState extends State<AddRemarkModal> {
+  late TextEditingController _controller;
+  late GlobalKey<FormState> _formKey;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.initialValue);
+    _formKey = GlobalKey<FormState>();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: AppColors.white,
+      actionsAlignment: MainAxisAlignment.center,
+      insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
+      title: BaseText(
+        text: "Add a Remark",
+        fontSize: 22,
+        fontWeight: FontWeight.w400,
+        fontFamily: "Aclonica",
+        textAlign: TextAlign.center,
+      ),
+      content: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          BaseText(
+            text: "Please enter your comments or feedback about the contractor. This remark will be visible only to you and is intended for your review.",
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            textAlign: TextAlign.center,
+            textColor: AppColors.black.withOpacity(0.7),
+          ),
+          Gap(getSize(20)),
+          BaseText(text: "Comment", fontSize: 12),
+          Gap(getSize(8)),
+          Form(
+            key: _formKey,
+            child: CustomTextField(
+              controller: _controller,
+              maxLines: 5,
+              hintText: "Type here",
+              fillColor: AppColors.scaffoldColor,
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        Row(
+          children: [
+            Expanded(
+              child: CommonButton(
+                onPressed: () => context.router.maybePop(),
+                buttonText: "Cancel",
+                backgroundColor: AppColors.white,
+                borderColor: AppColors.green,
+                buttonTextColor: AppColors.green,
+              ),
+            ),
+            Gap(16),
+            Expanded(
+              child: CommonButton(
+                onPressed: () {
+                  if (!_formKey.currentState!.validate()) return;
+                  context.router.maybePop(_controller.text.trim());
+                },
+                buttonText: "Done",
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
 }

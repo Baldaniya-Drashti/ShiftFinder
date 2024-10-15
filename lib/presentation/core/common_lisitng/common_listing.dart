@@ -16,7 +16,7 @@ class CommonList {
     ),
     OnBoardingDTO(
       id: 2,
-      title: "Health Service \nFacilities\n",
+      title: "Healt Service \nFacilities\n",
       description: "Employer",
       image: PngImageConstants.patient,
       backgroundImage: SvgImageConstant.nurse,

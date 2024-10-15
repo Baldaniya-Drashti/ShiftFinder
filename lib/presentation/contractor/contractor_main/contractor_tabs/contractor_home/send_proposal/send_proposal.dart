@@ -206,6 +206,8 @@ class SendProposal extends StatelessWidget {
                                     EdgeInsets.symmetric(vertical: getSize(20)),
                                 child: CommonButton(
                                   onPressed: () {
+                                    print(
+                                        "state.shift.shift_detail?.shift_type---> ${state.shift.shift_detail?.shift_type}");
                                     if (state.shift.shift_detail?.shift_type ==
                                         1) {
                                       context.read<SendProposalBloc>().add(

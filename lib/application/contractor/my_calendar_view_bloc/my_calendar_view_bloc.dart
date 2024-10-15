@@ -42,11 +42,14 @@ class MyCalendarViewBloc
                 multiDates: r,
                 failureOrSuccessOption: optionOf(failureOrSuccess),
               ));
-              List<DateTime> dateTimeList = state.multiDates
-                  .map((item) => DateTime.fromMillisecondsSinceEpoch(
-                      (item.date ?? -1) * 1000))
-                  .skip(1)
-                  .toList();
+              List<DateTime> dateTimeList = state.multiDates.isNotEmpty
+                  ? state.multiDates
+                      .map((item) => DateTime.fromMillisecondsSinceEpoch(
+                          (item.date ?? -1) * 1000))
+                      .skip(1)
+                      .toList()
+                  : [];
+
               add(MyCalendarViewEvent.selectDateEvent(
                 e.context,
                 dateTimeList,
@@ -128,8 +131,12 @@ class MyCalendarViewBloc
             ),
           );
 
-          failureOrSuccess = await _mainFacade.getContractorMyCalendarDetailApi(
-              currentDateId ?? result[0].employer_post_id ?? -1);
+          failureOrSuccess = await _mainFacade
+              .getContractorMyCalendarDetailApi((currentDateId != null)
+                  ? currentDateId!
+                  : (result.isNotEmpty)
+                      ? result[0].employer_post_id ?? -1
+                      : -1);
 
           failureOrSuccess.fold(
             (l) {

@@ -4,7 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 
 @AutoRouterConfig()
-class AppRouter extends $AppRouter {
+class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(page: SplashPage.page, initial: true),
@@ -63,6 +63,12 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: ViewUpcomingShiftDetails.page),
         AutoRoute(page: ViewContractorShift.page),
         AutoRoute(page: ViewContractorShiftDates.page),
+        AutoRoute(page: ViewFilledShiftsDetails.page),
+        AutoRoute(page: ViewFilledShiftsDates.page),
+        AutoRoute(page: ViewAgreedPraposal.page),
+        AutoRoute(page: PreviousShiftView.page),
+        AutoRoute(page: EditProfileView.page),
+        AutoRoute(page: ShiftActionsView.page),
         AutoRoute(page: ProposalReceived.page),
         AutoRoute(page: MyCalendarView.page),
         AutoRoute(

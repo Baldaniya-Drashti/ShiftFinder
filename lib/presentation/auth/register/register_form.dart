@@ -36,15 +36,13 @@ class RegisterForm extends StatelessWidget {
               showError(
                 message: failure.maybeMap(
                   showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) =>
-                      'Please check your internet connectivity',
+                  networkError: (value) => 'Please check your internet connectivity',
                   orElse: () => "Server Error. Try again later.",
                 ),
               ).show(context);
             },
             (r) {
-              print(
-                  "${state.firstName.getValue()}  ${state.lastName.getValue()}  ${state.isCheck}");
+              print("${state.firstName.getValue()}  ${state.lastName.getValue()}  ${state.isCheck}");
               context.router.push(
                 PageRouteInfo(
                   RegisterProfilePage.name,
@@ -70,9 +68,7 @@ class RegisterForm extends StatelessWidget {
             child: BackGroundImage(
               imageString: PngImageConstants.register_frame,
               child: Form(
-                autovalidateMode: state.showErrorMessages
-                    ? AutovalidateMode.always
-                    : AutovalidateMode.disabled,
+                autovalidateMode: state.showErrorMessages ? AutovalidateMode.always : AutovalidateMode.disabled,
                 child: Column(
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -80,8 +76,7 @@ class RegisterForm extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         print("Already account clicked!");
-                        context.router
-                            .replace(const PageRouteInfo(LoginPage.name));
+                        context.router.replace(const PageRouteInfo(LoginPage.name));
                         // context.router.pushAndPopUntil(
                         //     const PageRouteInfo(LoginPage.name),
                         //     predicate: (route) => false);
@@ -109,8 +104,7 @@ class RegisterForm extends StatelessWidget {
     );
   }
 
-  RichText alreadyHaveAnAccount(
-      {required String title, required String description}) {
+  RichText alreadyHaveAnAccount({required String title, required String description}) {
     return RichText(
       text: TextSpan(
         style: TextStyle(
@@ -213,9 +207,7 @@ class RegisterForm extends StatelessWidget {
             ),
           ),
           BaseText(
-            text: (getCurrentRole() == 1)
-                ? StringConstant.createYourAccount
-                : StringConstant.shiftCoordinatorDetails,
+            text: (getCurrentRole() == 1) ? StringConstant.createYourAccount : StringConstant.shiftCoordinatorDetails,
             style: TextStyle(
               fontSize: getFontSize(14),
               fontWeight: FontWeight.w500,
@@ -245,19 +237,11 @@ class RegisterForm extends StatelessWidget {
               ),
             ),
             focusNode: state.firstNameFocusNode,
-            onChanged: (value) => context
-                .read<RegisterFormBloc>()
-                .add(RegisterFormEvent.firstNameChanged(value)),
-            validator: (_, context) => context
-                .read<RegisterFormBloc>()
-                .state
-                .firstName
-                .value
-                .fold(
+            onChanged: (value) => context.read<RegisterFormBloc>().add(RegisterFormEvent.firstNameChanged(value)),
+            validator: (_, context) => context.read<RegisterFormBloc>().state.firstName.value.fold(
                   (f) => f.maybeMap(
                     empty: (value) => StringConstant.pleaseEnterYourFirstName,
-                    invalidUsername: (value) =>
-                        StringConstant.pleaseEnterYourValidFirstName,
+                    invalidUsername: (value) => StringConstant.pleaseEnterYourValidFirstName,
                     orElse: () => null,
                   ),
                   (_) => null,
@@ -285,19 +269,11 @@ class RegisterForm extends StatelessWidget {
                 width: getSize(24),
               ),
             ),
-            onChanged: (value) => context
-                .read<RegisterFormBloc>()
-                .add(RegisterFormEvent.lastNameChanged(value)),
-            validator: (_, context) => context
-                .read<RegisterFormBloc>()
-                .state
-                .lastName
-                .value
-                .fold(
+            onChanged: (value) => context.read<RegisterFormBloc>().add(RegisterFormEvent.lastNameChanged(value)),
+            validator: (_, context) => context.read<RegisterFormBloc>().state.lastName.value.fold(
                   (f) => f.maybeMap(
                     empty: (value) => StringConstant.pleaseEnterYourLastName,
-                    invalidUsername: (value) =>
-                        StringConstant.pleaseEnterYourValidLastName,
+                    invalidUsername: (value) => StringConstant.pleaseEnterYourValidLastName,
                     orElse: () => null,
                   ),
                   (_) => null,
@@ -328,9 +304,7 @@ class RegisterForm extends StatelessWidget {
           CommonButton(
             isSubmitting: state.isSubmitting,
             onPressed: () {
-              context
-                  .read<RegisterFormBloc>()
-                  .add(const RegisterFormEvent.registerPressed());
+              context.read<RegisterFormBloc>().add(const RegisterFormEvent.registerPressed());
             },
             buttonText: StringConstant.txtContinue,
           ),
@@ -359,9 +333,7 @@ class RegisterForm extends StatelessWidget {
             ),
             onChanged: (value) {
               if (value != null) {
-                context
-                    .read<RegisterFormBloc>()
-                    .add(RegisterFormEvent.checkTermsCondition(value));
+                context.read<RegisterFormBloc>().add(RegisterFormEvent.checkTermsCondition(value));
               }
             },
           ),
@@ -376,15 +348,13 @@ class RegisterForm extends StatelessWidget {
             terms: StringConstant.termsOfService,
             priacyPolicy: StringConstant.privacyPolicy,
             onTermsClick: () {
-              context.router
-                  .push(const PageRouteInfo(TermsAndConditionsScreen.name,
-                      args: TermsAndConditionsScreenArgs(
-                        isFromRegister: true,
-                      )));
+              context.router.push(const PageRouteInfo(TermsAndConditionsScreen.name,
+                  args: TermsAndConditionsScreenArgs(
+                    isFromRegister: true,
+                  )));
             },
             onPrivacyPolicyClick: () {
-              context.router
-                  .push(const PageRouteInfo(PrivacyPolicyScreen.name));
+              context.router.push(const PageRouteInfo(PrivacyPolicyScreen.name));
             },
           ),
         ),

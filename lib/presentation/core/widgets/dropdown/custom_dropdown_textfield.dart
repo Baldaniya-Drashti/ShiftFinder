@@ -49,7 +49,6 @@ class CustomDropdownTextfield extends StatelessWidget {
       searchDecoration: InputDecoration(
         alignLabelWithHint: true,
         isDense: true,
-
         filled: false,
         prefixIcon: prefixIcon,
         focusColor: AppColors.white,
@@ -152,6 +151,7 @@ class CustomDropdownTextfield extends StatelessWidget {
       validator: validator,
       textFieldFocusNode: textFieldFocusNode,
       textFieldDecoration: InputDecoration(
+
         alignLabelWithHint: true,
         isDense: true,
         prefixIcon: prefixIcon,

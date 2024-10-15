@@ -59,10 +59,14 @@ class EducationView extends StatelessWidget {
                     SizedBox(
                       height: getSize(5),
                     ),
-                    BaseText(
-                      text: 'Completed in - 2010',
-                      fontSize: 8,
-                      fontWeight: FontWeight.w500,
+                    Text.rich(
+                      TextSpan(
+                        text: "Completed in - ",
+                        style: TextStyle(fontSize: 8),
+                        children: [
+                          TextSpan(text: "2010",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500))
+                        ]
+                      ),
                     ),
                     SizedBox(
                       height: getSize(5),
@@ -70,6 +74,7 @@ class EducationView extends StatelessWidget {
                     BaseText(
                       text: 'Veritex Community Inst.of USA',
                       fontSize: 10,
+                      fontWeight: FontWeight.w500,
                     ),
                   ],
                 ),
@@ -78,7 +83,6 @@ class EducationView extends StatelessWidget {
             ],
           ),
         ),
-     
       ],
     );
   }

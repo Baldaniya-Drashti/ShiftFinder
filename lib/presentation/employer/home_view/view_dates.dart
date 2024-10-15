@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_final_fields, prefer_const_literals_to_create_immutables, must_be_immutable, unused_field, avoid_print, deprecated_member_use
 
-import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,7 +20,7 @@ class ViewDates extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final shift = shiftDetail.detail ?? [];
-    print("shiftDetail ---> ${jsonEncode(shift)}");
+    // print("shiftDetail ---> ${jsonEncode(shift)}");
 
     return Scaffold(
       appBar: CommonAppBar(
@@ -40,32 +39,6 @@ class ViewDates extends StatelessWidget {
                 title:
                     "${StringConstant.totalNumberOfShifts} - ${(shift.length < 10) ? "0${shift.length}" : shift.length}",
               ),
-              /*CalendarDatePicker2(
-                config: CalendarDatePicker2Config(
-                  calendarType: CalendarDatePicker2Type.multi,
-                  disableMonthPicker: true,
-                  disableModePicker: true,
-                  weekdayLabels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-                  weekdayLabelTextStyle: TextStyle(
-                    color: AppColors.primaryColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  selectedDayTextStyle: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.white,
-                  ),
-                  selectedDayHighlightColor: AppColors.primaryColor,
-                  daySplashColor: AppColors.transparent,
-                  disabledDayTextStyle: TextStyle(
-                    color: AppColors.black,
-                  ),
-                  selectableDayPredicate: (value) {
-                    return false;
-                  },
-                ),
-                value: _selectedDates,
-                onValueChanged: (day) {},
-              ),*/
               ListView.builder(
                   itemCount: shift.length,
                   shrinkWrap: true,

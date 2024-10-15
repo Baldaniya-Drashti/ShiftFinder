@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 
@@ -82,7 +84,9 @@ class MainProfileView extends StatelessWidget {
                       ),
                       SizedBox(height: getSize(5)),
                       CommonButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.router.push(PageRouteInfo(EditProfileView.name));
+                        },
                         buttonText: 'Edit Profile',
                         buttonFontSize: 10,
                         height: 22,

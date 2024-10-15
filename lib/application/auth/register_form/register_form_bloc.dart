@@ -16,7 +16,9 @@ import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:http/http.dart' as http;
 
 part 'register_form_event.dart';
+
 part 'register_form_state.dart';
+
 part 'register_form_bloc.freezed.dart';
 
 @injectable
@@ -128,8 +130,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
               showError(
                   message: failure.maybeMap(
                 showAPIResponseMessage: (value) => value.message,
-                networkError: (value) =>
-                    'Please check your internet connectivity',
+                networkError: (value) => 'Please check your internet connectivity',
                 orElse: () => "Server Error. Try again later.",
               )).show(e.context);
             },
@@ -245,14 +246,12 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
               authFailureOrSuccessOption: none(),
             ),
           );
-          add(RegisterFormEvent.confirmPasswordChanged(
-              state.confirmPassword.getValue(), e.password));
+          add(RegisterFormEvent.confirmPasswordChanged(state.confirmPassword.getValue(), e.password));
         },
         confirmPasswordChanged: (e) {
           emit(
             state.copyWith(
-              confirmPassword:
-                  ConfirmPassword(e.confirmPassword, state.password.getValue()),
+              confirmPassword: ConfirmPassword(e.confirmPassword, state.password.getValue()),
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -322,16 +321,10 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           final isLocationAddressValid = state.locationAddress.isValid();
           final isProfilePicValid = (state.selectImage.isNotEmpty);
 
-          print(
-              "Phone number NEW-->  ${state.selectedCountrycode}  && ${state.phoneNumber}");
+          print("Phone number NEW-->  ${state.selectedCountrycode}  && ${state.phoneNumber}");
 
           if (getCurrentRole() == 1) {
-            if (isPhoneNumberValid &&
-                isEmailValid &&
-                isNewPassValid &&
-                isConfirmPassValid &&
-                isLocationAddressValid &&
-                isProfilePicValid) {
+            if (isPhoneNumberValid && isEmailValid && isNewPassValid && isConfirmPassValid && isLocationAddressValid && isProfilePicValid) {
               print("All details are valid");
               emit(
                 state.copyWith(
@@ -357,18 +350,10 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
                 locationAddress: state.locationAddress.getValue() ?? "",
               );
             } else {
-              showError(
-                      message: StringConstant
-                          .someDetailsAreMissingOrInvalidPleaseCheck)
-                  .show(e.context);
+              showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(e.context);
             }
           } else {
-            if (isCompanyNameValid &&
-                isPhoneNumberValid &&
-                isEmailValid &&
-                isNewPassValid &&
-                isConfirmPassValid &&
-                isProfilePicValid) {
+            if (isCompanyNameValid && isPhoneNumberValid && isEmailValid && isNewPassValid && isConfirmPassValid && isProfilePicValid) {
               emit(
                 state.copyWith(
                   isSubmitting: true,
@@ -395,10 +380,7 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
               print("Failure Or successs---> $failureOrSuccess");
               // failureOrSuccess = right("sucess");
             } else {
-              showError(
-                      message: StringConstant
-                          .someDetailsAreMissingOrInvalidPleaseCheck)
-                  .show(e.context);
+              showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(e.context);
             }
           }
 
@@ -507,11 +489,8 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           );
 
           failureOrSuccess = await _authFacade.resendOtp(
-            emailAddress:
-                (getCurrentRole() == 1) ? "" : getCurrentUser().email ?? "",
-            phoneNumber: (getCurrentRole() == 1)
-                ? "${getCurrentUser().phone ?? ""}"
-                : "",
+            emailAddress: (getCurrentRole() == 1) ? "" : getCurrentUser().email ?? "",
+            phoneNumber: (getCurrentRole() == 1) ? "${getCurrentUser().phone ?? ""}" : "",
           );
 
           emit(
@@ -528,7 +507,6 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
 
         verifyOtp: (e) async {
           Either<AuthFailure, String>? failureOrSuccess;
-
           final isOTPValid = state.enteredOTP.isValid();
 
           if (isOTPValid) {
@@ -540,17 +518,15 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
             );
 
             failureOrSuccess = await _authFacade.verifyOtp(
-              emailAddress:
-                  (getCurrentRole() == 1) ? "" : getCurrentUser().email ?? "",
-              phoneNumber: (getCurrentRole() == 1)
-                  ? "${getCurrentUser().phone ?? ""}"
-                  : "",
+              emailAddress: (getCurrentRole() == 1) ? "" : getCurrentUser().email ?? "",
+              phoneNumber: (getCurrentRole() == 1) ? "${getCurrentUser().phone ?? ""}" : "",
               otp: state.enteredOTP,
             );
 
             // failureOrSuccess = right("success");
             // timer.cancel();
           }
+
           emit(
             state.copyWith(
               isSubmitting: false,

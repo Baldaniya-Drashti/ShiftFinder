@@ -9,6 +9,7 @@ import 'package:shift/domain/core/api_constants.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/contractor_main/profile/my_calendar_dto/my_calendar_dto.dart';
+import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/network/injectable_module.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
@@ -943,18 +944,17 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, CommonResponse>> getContractorShifts(
-      {required int page, int? filterType, int? appliedType}) async {
+  Future<Either<MainFailure, CommonResponse>> getContractorShifts({
+    required int page,
+    int? filterType,
+    int? appliedType,
+  }) async {
     try {
       Map<String, dynamic> mapData = {
         'filter_type': filterType ?? 0,
         'page': page,
         'perPage': _perPage,
       };
-
-      if (appliedType != null) {
-        mapData.addAll({'applied_type': appliedType});
-      }
 
       final res = await apiService.getMethod(ApiConstants.contractorShifts,
           queryParameters: mapData);
@@ -1076,8 +1076,327 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, String>> contractorShiftUrgentActionApi(
-      {required int postId, required int urgentAction}) async {
+  Future<Either<MainFailure, CommonResponse>> getPreviousPost({
+    required int type,
+    required int page,
+    required int sortBy,
+  }) async {
+    try {
+      final res = await apiService
+          .getMethod(ApiConstants.employerPreviousShift, queryParameters: {
+        "type": type,
+        "sort_by": sortBy,
+        "page": page,
+        "perPage": _perPage,
+      });
+
+      if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> getApplicantList(
+      {required int postId, required int page}) async {
+    try {
+      final res = await apiService
+          .getMethod(ApiConstants.employerApplicants, queryParameters: {
+        "post_id": postId,
+        "type": 1,
+        "page": page,
+        "perPage": 10,
+      });
+
+      if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> acceptApplicant(
+      {required int id}) async {
+    try {
+      final res = await apiService.getMethod(
+          ApiConstants.employerApplicantsAcceptReject,
+          queryParameters: {
+            "id": id,
+            "request": 1,
+          });
+
+      if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> rejectApplicant(
+      {required int id}) async {
+    try {
+      final res = await apiService.getMethod(
+          ApiConstants.employerApplicantsAcceptReject,
+          queryParameters: {
+            "id": id,
+            "request": 2,
+          });
+
+      if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> revokeApplicant(
+      {required int postId, required int userId}) async {
+    try {
+      final res = await apiService
+          .getMethod(ApiConstants.employerRevoke, queryParameters: {
+        "post_id": postId,
+        "user_id": userId,
+      });
+
+      if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> getEmployerTotalProposal(
+      {required int postId, required int page}) async {
+    try {
+      final res = await apiService
+          .getMethod(ApiConstants.employerApplicants, queryParameters: {
+        "post_id": postId,
+        "type": 2,
+        "page": page,
+        "perPage": 10,
+      });
+
+      if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> addFavorite({
+    required int postId,
+    required int userId,
+  }) async {
+    try {
+      final res =
+          await apiService.postMethod(ApiConstants.employerAddFavorite, {
+        "post_id": postId,
+        "user_id": userId,
+      });
+
+      if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> addUnFavorite({
+    required int postId,
+    required int userId,
+  }) async {
+    try {
+      final res =
+          await apiService.postMethod(ApiConstants.employerAddFavorite, {
+        "post_id": postId,
+        "user_id": userId,
+      });
+
+      if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> employerBlockUnblock(
+      {required int postId, required int userId}) async {
+    try {
+      final res = await apiService.postMethod(ApiConstants.employerBlock, {
+        "post_id": postId,
+        "user_id": userId,
+      });
+
+      return right(res);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> getEmployerShift({
+    required int type,
+    required int locationId,
+    required int shortType,
+    required int page,
+  }) async {
+    try {
+      final res = await apiService
+          .getMethod(ApiConstants.employerShift, queryParameters: {
+        "type": type,
+        "page": page,
+        "perPage": _perPage,
+        "location_id": locationId,
+        "short_type": shortType,
+      });
+
+      if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, String>> contractorShiftUrgentActionApi({
+    required int postId,
+    required int urgentAction,
+  }) async {
     try {
       Map<String, dynamic> mapData = {
         'id': postId,
@@ -1089,8 +1408,37 @@ class MainFacade implements IMainFacade {
         queryParameters: mapData,
       );
       if (res != null) {
-        print("Contractor Post Response->  ${res}");
+        print("Contractor Post Response-> ${res}");
         return right(res.dioMessage ?? "");
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, ApplicantDto>> getApplicantProfile(
+      {required int id}) async {
+    try {
+      final res = await apiService.getMethod(
+        ApiConstants.getUserInfo,
+        queryParameters: {"id": id},
+      );
+      if (res != null) {
+        return right(ApplicantDto.fromJson(res.data));
       } else {
         return left(const MainFailure.serverError());
       }

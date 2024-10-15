@@ -5,13 +5,11 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/account/account_failure.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -19,6 +17,7 @@ import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/place_detail_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/search_location_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 part 'location_details_event.dart';
@@ -31,76 +30,6 @@ class LocationDetailsBloc
   final IAccountRepository _repository;
   static TextEditingController locationCtrl = TextEditingController();
   List<dynamic> placeList = [];
-
-  /// TO GET GOOGLE PLACES
-  Future<String?> fetchUrl(String query, {Map<String, String>? headers}) async {
-    var apiKey = dotenv.env['GOOGLE_PLACE_API_KEY'];
-    var uri = Uri.tryParse(
-        "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$query&types=address&language=en&components=country:ca&key=$apiKey")!;
-
-    try {
-      final response = await http.get(
-        uri,
-        headers: headers,
-      );
-      if (response.statusCode == 200) {
-        return response.body;
-      }
-    } catch (e) {
-      print("LOCATION CATCH ERROR: $e");
-    }
-    return null;
-  }
-
-  /*Future<String?> fetchUrl(String query, {Map<String, String>? headers}) async {
-    Uri uri = Uri.https(
-      "maps.googleapis.com",
-      'maps/api/place/autocomplete/json',
-      {
-        "input": query,
-        "key": "AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE",
-        "components": "country:ca",
-      },
-    );
-    try {
-      final response = await http.get(uri, headers: headers);
-      if (response.statusCode == 200) {
-        return response.body;
-      }
-    } catch (e) {
-      print("LOCATION CATCH ERROR: $e");
-    }
-    return null;
-  }*/
-
-  Future<PlaceDetailDTO?> getPlaceDetail(String placeId) async {
-    var apiKey = dotenv.env['GOOGLE_PLACE_API_KEY'];
-    var uri = Uri.tryParse(
-        "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&fields=geometry&key=$apiKey"
-        //   "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$query&types=address&language=en&components=country:ca&key=AIzaSyCiVTuKvc7IrDDG_onVY-CdAlKz_Mo_XoE",
-        )!;
-    try {
-      final response = await http.get(uri);
-
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(response.body);
-
-        var placeDetail = PlaceDetailDTO.fromJson(data);
-
-        return placeDetail;
-        // setState(() {
-        //   placeName = result['name'];
-        //   rating = result['rating'];
-        //   phoneNumber = result['formatted_phone_number'];
-        // });
-      } else {
-        print('Failed to load place details: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Error occurred: $e');
-    }
-    return null;
-  }
 
   LocationDetailsBloc(this._repository)
       : super(LocationDetailsState.initial()) {
@@ -161,7 +90,7 @@ class LocationDetailsBloc
           if (placeList.isNotEmpty) {
             placeList.clear();
           }
-          String? response = await fetchUrl(e.address);
+          String? response = await LocationHelper.fetchUrl(e.address);
           if (response != null) {
             print("API RESPONSE----> $response");
             placeList = json.decode(response)['predictions'];
@@ -180,7 +109,8 @@ class LocationDetailsBloc
         },
         locationSelectedFromSearchList: (e) async {
           locationCtrl.text = e.selectedLocation.description ?? "";
-          var res = await getPlaceDetail(e.selectedLocation.place_id ?? "");
+          var res = await LocationHelper.getPlaceDetail(
+              e.selectedLocation.place_id ?? "");
           emit(
             state.copyWith(
               address: InputEmptyOrNot(e.selectedLocation.description ?? ""),
@@ -422,7 +352,7 @@ class LocationDetailsBloc
           );
         },
         getPlaceDetail: (GetPlaceDetail value) async {
-          await getPlaceDetail(value.placeId);
+          await LocationHelper.getPlaceDetail(value.placeId);
         },
       );
     });

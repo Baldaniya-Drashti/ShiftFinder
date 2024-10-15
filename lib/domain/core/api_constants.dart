@@ -2,6 +2,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ApiConstants {
   static String baseUrl = dotenv.env['DEV_API_BASE_URL']!;
+
   //core
   static String registerForPush = 'register-for-push';
   static String contactSupport = 'contact/support';
@@ -18,6 +19,7 @@ class ApiConstants {
 
   static String getUserInfo = 'get_user_info';
   static String completeProfile = 'complete_profile';
+  static String editProfile = 'edit_profile';
   static String education = 'education';
   static String updateEducation = 'update_education';
   static String destroyEducation = 'destroy_education';
@@ -38,8 +40,7 @@ class ApiConstants {
   static String facilityTypeList = 'facility_type_list';
 
   static String legalScreeningQuestionList = 'legal_screening_question_list';
-  static String legalScreeningQuestionAnswer =
-      'legal_screening_question_answer';
+  static String legalScreeningQuestionAnswer = 'legal_screening_question_answer';
 
 // Common
   static String roleList = 'role_list';
@@ -130,8 +131,7 @@ class ApiConstants {
 
   //contractor dashboard
   static String contractorDashboard = 'contractor_dashboard';
-  static String contractorApplyOrSendProposal =
-      'contractor_apply_or_send_proposal';
+  static String contractorApplyOrSendProposal = 'contractor_apply_or_send_proposal';
 
   //contractor shift
   static String contractorShifts = 'contractor_shifts';
@@ -150,4 +150,17 @@ class ApiConstants {
   static String deleteTeamMember = 'delete_team_member';
   static String updateTeam = 'update_team';
   static String deleteTeam = 'delete_team';
+
+  static String employerPreviousShift = 'employer_previous_shift';
+  static String employerApplicants = 'employer_applicants';
+  static String employerApplicantsAcceptReject = 'employer_applicants_accept_reject';
+  static String employerRating = 'employer_rating';
+  static String employerRemark = 'employer_remark';
+  static String employerAddFavorite = 'employer_favorite';
+  static String deleteRemark = 'destroy_remark';
+  static String employerBlock = 'employer_block';
+  static String employerFavorite = 'employer_favorite';
+  static String employerRevoke = 'employer_applicants_revoke';
+  static String employerShift = 'get_employer_shift';
+
 }

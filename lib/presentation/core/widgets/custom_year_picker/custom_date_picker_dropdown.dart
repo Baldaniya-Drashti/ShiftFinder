@@ -202,10 +202,8 @@ class _DropdownDatePickerState extends State<DropdownDatePicker> {
   void initState() {
     super.initState();
     dayselVal = widget.selectedDay != null ? widget.selectedDay.toString() : '';
-    monthselVal =
-        widget.selectedMonth != null ? widget.selectedMonth.toString() : '';
-    yearselVal =
-        widget.selectedYear != null ? widget.selectedYear.toString() : '';
+    monthselVal = widget.selectedMonth != null ? widget.selectedMonth.toString() : '';
+    yearselVal = widget.selectedYear != null ? widget.selectedYear.toString() : '';
     listdates = List<int>.generate(daysIn, (index) => index + 1);
     listyears = List<int>.generate(
       (widget.endYear ?? DateTime.now().year) - (widget.startYear ?? 1900) + 1,
@@ -487,8 +485,7 @@ class _DropdownDatePickerState extends State<DropdownDatePicker> {
   ///month dropdown
   DropdownButtonFormField<String> monthDropdown() {
     return DropdownButtonFormField<String>(
-      decoration: widget.inputDecoration ??
-          (widget.isDropdownHideUnderline ? removeUnderline() : null),
+      decoration: widget.inputDecoration ?? (widget.isDropdownHideUnderline ? removeUnderline() : null),
       isExpanded: widget.isExpanded,
       hint: Text(widget.hintMonth, style: widget.hintTextStyle),
       icon: widget.icon ?? const Icon(Icons.expand_more, color: Colors.grey),
@@ -499,9 +496,7 @@ class _DropdownDatePickerState extends State<DropdownDatePicker> {
       dropdownColor: AppColors.scaffoldColor,
       menuMaxHeight: widget.menuMaxHeight,
       validator: (value) {
-        return widget.isFormValidator && value == null
-            ? widget.errorMonth
-            : null;
+        return widget.isFormValidator && value == null ? widget.errorMonth : null;
       },
       items: listMonths.map((item) {
         return DropdownMenuItem<String>(
@@ -522,16 +517,14 @@ class _DropdownDatePickerState extends State<DropdownDatePicker> {
   ///Remove underline from dropdown
   InputDecoration removeUnderline() {
     return const InputDecoration(
-      enabledBorder:
-          UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+      enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
     );
   }
 
   ///year dropdown
   DropdownButtonFormField<String> yearDropdown() {
     return DropdownButtonFormField<String>(
-      decoration: widget.inputDecoration ??
-          (widget.isDropdownHideUnderline ? removeUnderline() : null),
+      decoration: widget.inputDecoration ?? (widget.isDropdownHideUnderline ? removeUnderline() : null),
       hint: Text(widget.hintYear, style: widget.hintTextStyle),
       isExpanded: widget.isExpanded,
       icon: widget.icon ?? const Icon(Icons.expand_more, color: Colors.grey),
@@ -540,9 +533,7 @@ class _DropdownDatePickerState extends State<DropdownDatePicker> {
         yearsSelected(value);
       },
       validator: (value) {
-        return widget.isFormValidator && value == null
-            ? widget.errorYear
-            : null;
+        return widget.isFormValidator && value == null ? widget.errorYear : null;
       },
       menuMaxHeight: widget.menuMaxHeight,
       dropdownColor: AppColors.scaffoldColor,
@@ -565,8 +556,7 @@ class _DropdownDatePickerState extends State<DropdownDatePicker> {
   ///day dropdown
   DropdownButtonFormField<String> dayDropdown() {
     return DropdownButtonFormField<String>(
-      decoration: widget.inputDecoration ??
-          (widget.isDropdownHideUnderline ? removeUnderline() : null),
+      decoration: widget.inputDecoration ?? (widget.isDropdownHideUnderline ? removeUnderline() : null),
       hint: Text(widget.hintDay, style: widget.hintTextStyle),
       isExpanded: widget.isExpanded,
       icon: widget.icon ?? const Icon(Icons.expand_more, color: Colors.grey),

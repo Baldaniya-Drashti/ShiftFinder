@@ -38,6 +38,9 @@ class PngImageConstants {
   static const teamImage = "assets/png/team_image.png";
   static const thumbsUp = "assets/png/thumbs_up.png";
   static const leafWithBG = "assets/png/leaf_with_bg.png";
+  static const leaveRating = "assets/png/leave.png";
+  static const nurse2 = "assets/png/nurse2.png";
+
 
   static const List<String> allImages = [
     iroid_logo,
@@ -65,5 +68,6 @@ class PngImageConstants {
     intro__video_image,
     thumbsUp,
     leafWithBG,
+    leaveRating,
   ];
 }

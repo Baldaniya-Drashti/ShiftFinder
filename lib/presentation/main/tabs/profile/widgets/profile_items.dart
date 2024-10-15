@@ -26,7 +26,9 @@ class ProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: 'Previous ShiftPros',
         image: SvgImageConstant.previousShifts,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(PreviousShiftView.name));
+        },
       ),
       ProfileItemModel(
         title: 'Chat',
@@ -81,9 +83,7 @@ class ProfileItems extends StatelessWidget {
             description: 'Are you sure you want to log out?',
             onPressedAccept: () {
               context.router.maybePop().then(
-                    (value) => context
-                        .read<AuthStatusBloc>()
-                        .add(AuthStatusEvent.signedOut()),
+                    (value) => context.read<AuthStatusBloc>().add(AuthStatusEvent.signedOut()),
                   );
             },
             onPressedReject: () {

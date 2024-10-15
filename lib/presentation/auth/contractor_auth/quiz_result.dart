@@ -161,8 +161,7 @@ class QuizResultScreen extends StatelessWidget {
                               onPressed: () {
                                 // showUnderDevelopment(context);
                                 context.router.replaceAll([
-                                  const PageRouteInfo(
-                                      ContractorMainTabView.name)
+                                  const PageRouteInfo(ContractorMainTabView.name)
                                 ]);
                               },
                               buttonText: StringConstant.txtContinue,

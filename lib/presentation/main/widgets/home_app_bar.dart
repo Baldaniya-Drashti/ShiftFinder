@@ -18,12 +18,7 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
   Widget? leading;
   String? titleText;
 
-  HomeAppbar(
-      {super.key,
-      this.actions,
-      this.leading,
-      this.titleWidget,
-      this.titleText});
+  HomeAppbar({super.key, this.actions, this.leading, this.titleWidget, this.titleText});
 
   @override
   Widget build(BuildContext context) {
@@ -65,19 +60,13 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(getSize(70));
 }
 
-class ContractorHomeAppBar extends StatelessWidget
-    implements PreferredSizeWidget {
+class ContractorHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget? titleWidget;
   List<Widget>? actions;
   Widget? leading;
   String? titleText;
 
-  ContractorHomeAppBar(
-      {super.key,
-      this.actions,
-      this.leading,
-      this.titleWidget,
-      this.titleText});
+  ContractorHomeAppBar({super.key, this.actions, this.leading, this.titleWidget, this.titleText});
 
   @override
   Widget build(BuildContext context) {
@@ -121,6 +110,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   bool showSkipBtn;
   bool forceMaterialTransparency;
   VoidCallback? onSkipped;
+  final PreferredSizeWidget? bottom;
 
   CommonAppBar({
     super.key,
@@ -134,11 +124,13 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.showSkipBtn = false,
     this.forceMaterialTransparency = true,
     this.onSkipped,
+    this.bottom,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      bottom: bottom,
       forceMaterialTransparency: forceMaterialTransparency,
       scrolledUnderElevation: 0,
       leading: (isShowBackBtn != null && isShowBackBtn == true)
@@ -177,11 +169,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onTap: onSkipped,
                 child: Container(
                   color: AppColors.transparent,
-                  padding: EdgeInsets.only(
-                      right: getSize(20),
-                      left: getSize(10),
-                      top: getSize(10),
-                      bottom: getSize(10)),
+                  padding: EdgeInsets.only(right: getSize(20), left: getSize(10), top: getSize(10), bottom: getSize(10)),
                   child: BaseText(
                     text: StringConstant.skip,
                     fontSize: 12,

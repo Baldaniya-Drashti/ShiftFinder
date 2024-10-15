@@ -22,13 +22,13 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 class ProposeAvailability extends StatelessWidget {
   HealthcarePostDTO post;
   List<DateTimeDTO>? updatedDates;
+
   ProposeAvailability({required this.post, this.updatedDates});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<SendProposalBloc>()
-        ..add(SendProposalEvent.getMultiDateEvent(post, updatedDates)),
+      create: (context) => getIt<SendProposalBloc>()..add(SendProposalEvent.getMultiDateEvent(post, updatedDates)),
       child: BlocConsumer<SendProposalBloc, SendProposalState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -64,10 +64,7 @@ class ProposeAvailability extends StatelessWidget {
                             "${StringConstant.totalNumberOfShifts} - ${(post.shift_detail?.detail != null && post.shift_detail!.detail!.isNotEmpty) ? "${(post.shift_detail?.detail?.length.toString().length == 2) ? post.shift_detail?.detail?.length : "0${post.shift_detail?.detail?.length}"}" : "00"}",
                       ),
                       paddingBetweenFields(),
-                      (state.selectedTab == 0)
-                          ? EditProposalTime(
-                              shift: post.shift_detail ?? ShiftDetailDTO())
-                          : MarkUnavailability(),
+                      (state.selectedTab == 0) ? EditProposalTime(shift: post.shift_detail ?? ShiftDetailDTO()) : MarkUnavailability(),
                     ],
                   ),
                 ),
@@ -97,9 +94,7 @@ class ProposeAvailability extends StatelessWidget {
       ),
       child: TabBar(
         onTap: (value) {
-          context
-              .read<SendProposalBloc>()
-              .add(SendProposalEvent.tabChangeEvent(value));
+          context.read<SendProposalBloc>().add(SendProposalEvent.tabChangeEvent(value));
         },
         padding: EdgeInsets.zero,
         labelStyle: TextStyle(

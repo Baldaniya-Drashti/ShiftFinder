@@ -65,7 +65,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
             vacancie_type: (state.isMoreVacancy) ? 1 : 0,
             number_of_vacancie: (state.selectedVacancy.isValid())
                 ? int.parse(
-                    state.selectedVacancy.getValue() ?? "0",
+                    state.selectedVacancy.getValue(),
                   )
                 : null,
             multi_date: state.selectedMultiDates.getValue().map((date) {

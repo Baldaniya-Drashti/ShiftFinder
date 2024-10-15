@@ -1,7 +1,10 @@
 import 'package:dartz/dartz.dart';
+import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/contractor_main/profile/my_calendar_dto/my_calendar_dto.dart';
+import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
+import 'package:shift/infrastructure/core/employer_applicant/employer_applicant_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
@@ -25,16 +28,21 @@ abstract class IMainFacade {
   Future<Either<MainFailure, HealthcarePostDTO>> createPostApi({
     required PostShiftDTO postShiftDetail,
   });
+
   Future<Either<MainFailure, CommonResponse>> updatePostApi({
     required PostShiftDTO postShiftDetail,
   });
+
   Future<Either<MainFailure, HealthcarePostDTO>> getPostApi({
     required int postId,
   });
+
   Future<Either<MainFailure, String>> deletePostApi({
     required int postId,
   });
+
   Future<Either<MainFailure, TeamAvailableDTO>> employerTeamCheck();
+
   Future<Either<MainFailure, CommonResponse>> getEmployerDashboardListAPI({
     required int page,
   });
@@ -53,8 +61,11 @@ abstract class IMainFacade {
     required int page,
     String? id,
   });
+
   Future<Either<MainFailure, List<SkillDTO>>> getUnpaidBreakListApi();
+
   Future<Either<MainFailure, List<SkillDTO>>> getAccomdationHoursListApi();
+
   Future<Either<MainFailure, HealthcarePostDTO>> createPostShiftApi(
       {required MultiShiftDTO shift});
 
@@ -80,6 +91,7 @@ abstract class IMainFacade {
   Future<Either<MainFailure, String>> postShiftApi({
     required int postId,
   });
+
   Future<Either<MainFailure, String>> createTeamApi({
     required String locationId,
     required InputEmptyOrNot teamName,
@@ -94,6 +106,7 @@ abstract class IMainFacade {
   Future<Either<MainFailure, String>> deleteTeamApi({
     required String teamId,
   });
+
   Future<Either<MainFailure, String>> createTeamMemberApi({
     required String teamId,
     required InputEmptyOrNot teamMemberName,
@@ -113,6 +126,7 @@ abstract class IMainFacade {
     required EmailAddress email,
     required MobileNumber phoneNumber,
   });
+
   Future<Either<MainFailure, String>> deleteTeamMemberApi({
     required String teamMemberId,
   });
@@ -121,8 +135,17 @@ abstract class IMainFacade {
     required Map<String, dynamic> mapData,
   });
 
-  Future<Either<MainFailure, CommonResponse>> getContractorShifts(
-      {required int page, int? filterType, int? appliedType});
+  Future<Either<MainFailure, CommonResponse>> getContractorShifts({
+    required int page,
+    int? filterType,
+    int? appliedType,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> getPreviousPost({
+    required int page,
+    required int type,
+    required int sortBy,
+  });
 
   Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut(
       {required int shiftId, required int clockTime});
@@ -141,4 +164,52 @@ abstract class IMainFacade {
   Future<Either<MainFailure, List<MyCalendarDTO>>> getMyCalendarListApi();
   Future<Either<MainFailure, ContractorMyCalendarDTO>>
       getContractorMyCalendarDetailApi(int id);
+  Future<Either<MainFailure, CommonResponse>> getApplicantList({
+    required int postId,
+    required int page,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> acceptApplicant({
+    required int id,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> rejectApplicant({
+    required int id,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> revokeApplicant({
+    required int postId,
+    required int userId,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> getEmployerTotalProposal({
+    required int postId,
+    required int page,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> addFavorite({
+    required int postId,
+    required int userId,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> addUnFavorite({
+    required int postId,
+    required int userId,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> employerBlockUnblock({
+    required int postId,
+    required int userId,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> getEmployerShift({
+    required int type,
+    required int locationId,
+    required int shortType,
+    required int page,
+  });
+
+  Future<Either<MainFailure, ApplicantDto>> getApplicantProfile({
+    required int id,
+  });
 }

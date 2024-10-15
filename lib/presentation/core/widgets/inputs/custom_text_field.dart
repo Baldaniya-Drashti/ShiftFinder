@@ -43,7 +43,7 @@ class CustomTextField extends StatelessWidget {
     this.hintAsValue = false,
     this.prefixIconConstraints,
     this.labelTextWidth,
-    this.hintTextColor,
+    this.hintTextColor, this.autoValidateMode,
   }) : super(key: key);
 
   final List<TextInputFormatter>? inputFormatters;
@@ -80,6 +80,8 @@ class CustomTextField extends StatelessWidget {
   final BoxConstraints? prefixIconConstraints;
   final double? labelTextWidth;
   final Color? hintTextColor;
+  final AutovalidateMode? autoValidateMode;
+
 
   @override
   Widget build(BuildContext context) {
@@ -175,6 +177,7 @@ class CustomTextField extends StatelessWidget {
           ),
           // elevation: 0.3,
           child: TextFormField(
+            autovalidateMode: autoValidateMode,
             validator: (inputString) {
               return validator?.call(inputString, context);
             },

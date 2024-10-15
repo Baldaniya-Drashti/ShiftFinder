@@ -48,6 +48,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
     this.dropDownIcon,
     this.onDropDownTap,
   });
+
   final String? labelText;
   final Widget? ddPrefixIcon;
   final String? hintText;
@@ -105,8 +106,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
       children: [
         if (labelText != null) ...[
           Padding(
-            padding: EdgeInsets.only(
-                left: getSize((isLabelPadding == true) ? 18 : 0)),
+            padding: EdgeInsets.only(left: getSize((isLabelPadding == true) ? 18 : 0)),
             child: Row(
               children: [
                 BaseText(
@@ -138,9 +138,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
         ],
         Container(
           decoration: BoxDecoration(
-            color: (showTextfield || showDropDown)
-                ? AppColors.white
-                : AppColors.transparent,
+            color: (showTextfield || showDropDown) ? AppColors.white : AppColors.transparent,
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
@@ -161,9 +159,7 @@ class CustomDropdwonWithTextField extends StatelessWidget {
                   menuMaxHeight: getSize(300),
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: (dropDownReadOnly)
-                        ? disableDropDownColor ?? AppColors.grey04
-                        : AppColors.white,
+                    fillColor: (dropDownReadOnly) ? disableDropDownColor ?? AppColors.grey04 : AppColors.white,
                     prefixIcon: (showPrefixIcon)
                         ? Padding(
                             padding: EdgeInsets.symmetric(
@@ -348,18 +344,19 @@ class CustomLocationDropdDown extends StatelessWidget {
     this.fieldInitialValue,
     this.removeErrorBorder = false,
   });
+
   final String? labelText;
   final Widget? ddPrefixIcon;
   final String? hintText;
   final String? fieldHintText;
   final String? childDroDwonHintText;
-  final dynamic? value;
+  final dynamic value;
   final List<DropdownMenuItem<dynamic>>? items;
   final bool? isLabelPadding;
   final bool showTextfield;
   final bool showDropDown;
-  final Function(dynamic?)? onChanged;
-  final String? Function(dynamic?)? validator;
+  final Function(dynamic)? onChanged;
+  final String? Function(dynamic)? validator;
   final bool showPrefixIcon;
   final bool? isOptional;
   final Widget? optionalWidget;
@@ -400,8 +397,7 @@ class CustomLocationDropdDown extends StatelessWidget {
       children: [
         if (labelText != null) ...[
           Padding(
-            padding: EdgeInsets.only(
-                left: getSize((isLabelPadding == true) ? 18 : 0)),
+            padding: EdgeInsets.only(left: getSize((isLabelPadding == true) ? 18 : 0)),
             child: Row(
               children: [
                 BaseText(
@@ -433,9 +429,7 @@ class CustomLocationDropdDown extends StatelessWidget {
         ],
         Container(
           decoration: BoxDecoration(
-            color: (showTextfield || showDropDown)
-                ? AppColors.white
-                : AppColors.transparent,
+            color: (showTextfield || showDropDown) ? AppColors.white : AppColors.transparent,
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
