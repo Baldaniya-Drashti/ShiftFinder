@@ -16,7 +16,7 @@ class TotalProposalState with _$TotalProposalState {
         isNoDataFound: false,
         isErrorInAPI: false,
         isLoading: false,
-        additionalData: AdditionalDataDto(),
         totalProposedDataList: [],
+        additionalData: AdditionalDataDto(),
       );
 }

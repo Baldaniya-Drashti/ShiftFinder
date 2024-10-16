@@ -32,19 +32,13 @@ class SinglePostShift extends StatelessWidget {
 
   PostShiftDTO post;
 
-  SinglePostShift(
-      {super.key,
-      this.updateShift,
-      required this.shiftType,
-      required this.postId,
-      required this.post});
+  SinglePostShift({super.key, this.updateShift, required this.shiftType, required this.postId, required this.post});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<PostShiftBloc>()
-        ..add(PostShiftEvent.changeShiftType("Single",
-            postId: postId, post: post, updateShift: updateShift)),
+      create: (context) =>
+          getIt<PostShiftBloc>()..add(PostShiftEvent.changeShiftType("Single", postId: postId, post: post, updateShift: updateShift)),
       child: BlocConsumer<PostShiftBloc, PostShiftState>(
         listener: (context, state) {
           state.singleShiftFailureOrSuccessOption.fold(
@@ -54,8 +48,7 @@ class SinglePostShift extends StatelessWidget {
                 showError(
                   message: failure.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) =>
-                        'Please check your internet connectivity',
+                    networkError: (value) => 'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(context);
@@ -77,9 +70,7 @@ class SinglePostShift extends StatelessWidget {
           return (state.isLoading)
               ? CenterLoadingIndicator(isOnlyLoader: true)
               : Form(
-                  autovalidateMode: (state.singleShiftErrorMessages)
-                      ? AutovalidateMode.always
-                      : AutovalidateMode.disabled,
+                  autovalidateMode: (state.singleShiftErrorMessages) ? AutovalidateMode.always : AutovalidateMode.disabled,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -91,8 +82,7 @@ class SinglePostShift extends StatelessWidget {
                       endTime(context, state),
                       paddingBetweenFields(),
                       unpaidBreakDropDown(context, state),
-                      if (state.singleShiftErrorMessages &&
-                          (!state.unpaidBreak.isValid()))
+                      if (state.singleShiftErrorMessages && (!state.unpaidBreak.isValid()))
                         commonErrorText(
                           StringConstant.pleaseSelectUnpaidBreakTime,
                         ),
@@ -100,16 +90,9 @@ class SinglePostShift extends StatelessWidget {
                       totalPaybleHours(state),
                       paddingBetweenFields(),
                       commuteAllownceDropDown(context, state),
-                      if (state.singleShiftErrorMessages &&
-                          !(PostShiftBloc.isAllownceValid(
-                              selectedValue: state.selectedCommuteAllownce,
-                              hourValue: state.commuteHour,
-                              rateValue: state.commuteRate)))
+                      if (state.singleShiftErrorMessages && !(PostShiftBloc.isAllownceValid(selectedValue: state.selectedCommuteAllownce, hourValue: state.commuteHour, rateValue: state.commuteRate)))
                         commonErrorText(
-                          (double.tryParse(state.commuteRate.getValue()) !=
-                                      null &&
-                                  double.parse(state.commuteRate.getValue()) <=
-                                      0)
+                          (double.tryParse(state.commuteRate.getValue()) != null && double.parse(state.commuteRate.getValue()) <= 0)
                               ? StringConstant.flatRateShouldNotBeZero
                               : StringConstant.pleaseSelectCommuteAllownceValue,
                         ),
@@ -121,14 +104,9 @@ class SinglePostShift extends StatelessWidget {
                               hourValue: state.accomdationHour,
                               rateValue: state.accomdationRate)))
                         commonErrorText(
-                          (double.tryParse(state.accomdationRate.getValue()) !=
-                                      null &&
-                                  double.parse(
-                                          state.accomdationRate.getValue()) <=
-                                      0)
+                          (double.tryParse(state.accomdationRate.getValue()) != null && double.parse(state.accomdationRate.getValue()) <= 0)
                               ? StringConstant.flatRateShouldNotBeZero
-                              : StringConstant
-                                  .pleaseSelectAccomdationAllownceValue,
+                              : StringConstant.pleaseSelectAccomdationAllownceValue,
                         ),
                       paddingBetweenFields(),
                       shiftNotesField(context, state),
@@ -146,12 +124,10 @@ class SinglePostShift extends StatelessWidget {
                           ),*/
                       ],
                       Padding(
-                        padding: EdgeInsets.only(
-                            top: getSize(50), bottom: getSize(30)),
+                        padding: EdgeInsets.only(top: getSize(50), bottom: getSize(30)),
                         child: CommonButton(
                           onPressed: () {
-                            context.read<PostShiftBloc>().add(
-                                PostShiftEvent.singleShiftSubmitted(context));
+                            context.read<PostShiftBloc>().add(PostShiftEvent.singleShiftSubmitted(context));
                           },
                           buttonText: StringConstant.txtContinue,
                         ),
@@ -168,8 +144,7 @@ class SinglePostShift extends StatelessWidget {
     return CustomTextField(
       labelText: StringConstant.date,
       hintText: (state.signleShiftDate.isValid())
-          ? DateFormat('d MMM, yyyy')
-              .format(DateTime.parse(state.signleShiftDate.getValue() ?? ""))
+          ? DateFormat('d MMM, yyyy').format(DateTime.parse(state.signleShiftDate.getValue() ?? ""))
           : StringConstant.date,
       hintAsValue: (state.signleShiftDate.isValid()) ? true : false,
       readOnly: true,
@@ -195,9 +170,7 @@ class SinglePostShift extends StatelessWidget {
                 context,
                 firstDate: DateTime.now(),
                 onPickedDate: (pickedDate) {
-                  context
-                      .read<PostShiftBloc>()
-                      .add(PostShiftEvent.singleShiftDateChangedEvent(
+                  context.read<PostShiftBloc>().add(PostShiftEvent.singleShiftDateChangedEvent(
                         pickedDate.toString(),
                       ));
                 },
@@ -205,14 +178,13 @@ class SinglePostShift extends StatelessWidget {
                 selectedDate: DateTime.now(),
               );
             },
-      validator: (_, context) =>
-          context.read<PostShiftBloc>().state.signleShiftDate.value.fold(
-                (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseSelectDate,
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
+      validator: (_, context) => context.read<PostShiftBloc>().state.signleShiftDate.value.fold(
+            (f) => f.maybeMap(
+              empty: (value) => StringConstant.pleaseSelectDate,
+              orElse: () => null,
+            ),
+            (_) => null,
+          ),
     );
   }
 
@@ -232,41 +204,27 @@ class SinglePostShift extends StatelessWidget {
           dropDownIcon: (state.updateShift.id != null) ? Container() : null,
           dropDownReadOnly: (state.updateShift.id != null) ? true : false,
           disableDropDownColor: AppColors.grey04,
-          hourValue:
-              (state.startHour.isValid()) ? state.startHour.getValue() : null,
-          minuteValue: (state.startMinute.isValid())
-              ? state.startMinute.getValue()
-              : null,
+          hourValue: (state.startHour.isValid()) ? state.startHour.getValue() : null,
+          minuteValue: (state.startMinute.isValid()) ? state.startMinute.getValue() : null,
           hourOnChanged: (value) {
             if (value != null) {
-              context
-                  .read<PostShiftBloc>()
-                  .add(PostShiftEvent.startHourChanged(value));
+              context.read<PostShiftBloc>().add(PostShiftEvent.startHourChanged(value));
             }
           },
           minOnChanged: (value) {
             if (value != null) {
-              context
-                  .read<PostShiftBloc>()
-                  .add(PostShiftEvent.startMinuteChanged(value));
+              context.read<PostShiftBloc>().add(PostShiftEvent.startMinuteChanged(value));
             }
           },
         ),
-        (state.singleShiftErrorMessages &&
-                (!isStartHourValid(state) && !isStartMinValid(state)))
-            ? commonErrorText(
-                StringConstant.pleaseSelectHourAndMinutesOfStartTime)
+        (state.singleShiftErrorMessages && (!isStartHourValid(state) && !isStartMinValid(state)))
+            ? commonErrorText(StringConstant.pleaseSelectHourAndMinutesOfStartTime)
             : (state.singleShiftErrorMessages && !isStartHourValid(state))
-                ? commonErrorText(
-                    StringConstant.pleaseSelectHourAndMinutesOfStartTime)
+                ? commonErrorText(StringConstant.pleaseSelectHourAndMinutesOfStartTime)
                 : (state.singleShiftErrorMessages && !isStartMinValid(state))
-                    ? commonErrorText(
-                        StringConstant.pleaseSelectHourAndMinutesOfStartTime)
-                    : (state.singleShiftErrorMessages &&
-                            PostShiftBloc.timeIsPast(
-                                state, state.startHour, state.startMinute))
-                        ? commonErrorText(
-                            StringConstant.shiftStartTimeMustBeAFutureTime)
+                    ? commonErrorText(StringConstant.pleaseSelectHourAndMinutesOfStartTime)
+                    : (state.singleShiftErrorMessages && PostShiftBloc.timeIsPast(state, state.startHour, state.startMinute))
+                        ? commonErrorText(StringConstant.shiftStartTimeMustBeAFutureTime)
                         : Container(),
       ],
     );
@@ -298,22 +256,16 @@ class SinglePostShift extends StatelessWidget {
           dropDownIcon: (state.updateShift.id != null) ? Container() : null,
           dropDownReadOnly: (state.updateShift.id != null) ? true : false,
           disableDropDownColor: AppColors.grey04,
-          hourValue:
-              (state.endHour.isValid()) ? state.endHour.getValue() : null,
-          minuteValue:
-              (state.endMinute.isValid()) ? state.endMinute.getValue() : null,
+          hourValue: (state.endHour.isValid()) ? state.endHour.getValue() : null,
+          minuteValue: (state.endMinute.isValid()) ? state.endMinute.getValue() : null,
           hourOnChanged: (value) {
             if (value != null) {
-              context
-                  .read<PostShiftBloc>()
-                  .add(PostShiftEvent.endHourChanged(value));
+              context.read<PostShiftBloc>().add(PostShiftEvent.endHourChanged(value));
             }
           },
           minOnChanged: (value) {
             if (value != null) {
-              context
-                  .read<PostShiftBloc>()
-                  .add(PostShiftEvent.endMinuteChanged(value));
+              context.read<PostShiftBloc>().add(PostShiftEvent.endMinuteChanged(value));
             }
           },
         ),
@@ -322,16 +274,12 @@ class SinglePostShift extends StatelessWidget {
         //   commonErrorText(
         //     StringConstant.pleaseSelectHourAndMinutesOfEndTime,
         //   ),
-        (state.singleShiftErrorMessages &&
-                (!isEndHourValid(state) && !isEndMinValid(state)))
-            ? commonErrorText(
-                StringConstant.pleaseSelectHourAndMinutesOfEndTime)
+        (state.singleShiftErrorMessages && (!isEndHourValid(state) && !isEndMinValid(state)))
+            ? commonErrorText(StringConstant.pleaseSelectHourAndMinutesOfEndTime)
             : (state.singleShiftErrorMessages && !isEndHourValid(state))
-                ? commonErrorText(
-                    StringConstant.pleaseSelectHourAndMinutesOfEndTime)
+                ? commonErrorText(StringConstant.pleaseSelectHourAndMinutesOfEndTime)
                 : (state.singleShiftErrorMessages && !isEndMinValid(state))
-                    ? commonErrorText(
-                        StringConstant.pleaseSelectHourAndMinutesOfEndTime)
+                    ? commonErrorText(StringConstant.pleaseSelectHourAndMinutesOfEndTime)
                     : Container(),
       ],
     );
@@ -345,8 +293,7 @@ class SinglePostShift extends StatelessWidget {
       isLabelPadding: true,
       dropDownIcon: (state.updateShift.id != null) ? Container() : null,
       dropDownReadOnly: (state.updateShift.id != null) ? true : false,
-      value:
-          (state.unpaidBreak.isValid()) ? state.unpaidBreak.getValue() : null,
+      value: (state.unpaidBreak.isValid()) ? state.unpaidBreak.getValue() : null,
       items: state.breakList.map((val) {
         return DropdownMenuItem<String>(
           value: val.name,
@@ -359,9 +306,7 @@ class SinglePostShift extends StatelessWidget {
       }).toList(),
       onChanged: (value) {
         if (value != null) {
-          context
-              .read<PostShiftBloc>()
-              .add(PostShiftEvent.unpaidBreakChanged(value));
+          context.read<PostShiftBloc>().add(PostShiftEvent.unpaidBreakChanged(value));
         }
       },
     );
@@ -391,13 +336,9 @@ class SinglePostShift extends StatelessWidget {
       ],
       fieldKeyboardType: TextInputType.numberWithOptions(decimal: true),
       fieldHintText: "0.00",
-      value: (state.selectedCommuteAllownce.isValid())
-          ? state.selectedCommuteAllownce.getValue()
-          : null,
-      childDropDownValue:
-          (state.commuteHour.isValid()) ? state.commuteHour.getValue() : null,
-      fieldInitialValue:
-          (state.commuteRate.isValid()) ? state.commuteRate.getValue() : null,
+      value: (state.selectedCommuteAllownce.isValid()) ? state.selectedCommuteAllownce.getValue() : null,
+      childDropDownValue: (state.commuteHour.isValid()) ? state.commuteHour.getValue() : null,
+      fieldInitialValue: (state.commuteRate.isValid()) ? state.commuteRate.getValue() : null,
       fieldPrefixIcon: Padding(
           padding: EdgeInsets.only(
             left: getSize(20),
@@ -410,8 +351,7 @@ class SinglePostShift extends StatelessWidget {
             fontWeight: FontWeight.w500,
             textColor: AppColors.black.withOpacity(0.7),
           )),
-      fieldPrefixIconConstraints:
-          BoxConstraints(maxWidth: getSize(100), minHeight: 0),
+      fieldPrefixIconConstraints: BoxConstraints(maxWidth: getSize(100), minHeight: 0),
       items: CommonList.commuteAllownceList.map((val) {
         return DropdownMenuItem<String>(
           value: val,
@@ -424,15 +364,11 @@ class SinglePostShift extends StatelessWidget {
       }).toList(),
       onChanged: (value) {
         if (value != null) {
-          context
-              .read<PostShiftBloc>()
-              .add(PostShiftEvent.commuteAllownceChanged(value));
+          context.read<PostShiftBloc>().add(PostShiftEvent.commuteAllownceChanged(value));
         }
       },
       fieldOnChanged: (value) {
-        context
-            .read<PostShiftBloc>()
-            .add(PostShiftEvent.commuteRateChanged(value));
+        context.read<PostShiftBloc>().add(PostShiftEvent.commuteRateChanged(value));
       },
       childDropDownItems: state.accomdationHoursList.map((val) {
         return DropdownMenuItem<String>(
@@ -446,16 +382,13 @@ class SinglePostShift extends StatelessWidget {
       }).toList(),
       childDropDownOnChanged: (value) {
         if (value != null) {
-          context
-              .read<PostShiftBloc>()
-              .add(PostShiftEvent.commuteHoursChanged(value));
+          context.read<PostShiftBloc>().add(PostShiftEvent.commuteHoursChanged(value));
         }
       },
       isOptional: true,
       optionalWidget: GestureDetector(
         onTap: () {
-          AppDialog.showInfo(context, StringConstant.singleCommuteInfoDesc,
-              maxLines: 15);
+          AppDialog.showInfo(context, StringConstant.singleCommuteInfoDesc, maxLines: 15);
         },
         child: Container(
           color: AppColors.transparent,
@@ -468,29 +401,21 @@ class SinglePostShift extends StatelessWidget {
     );
   }
 
-  Widget accommodationAllowanceDropDown(
-      BuildContext context, PostShiftState state) {
+  Widget accommodationAllowanceDropDown(BuildContext context, PostShiftState state) {
     return CustomDropdwonWithTextField(
       labelText: StringConstant.accommodationAllowance,
       hintText: StringConstant.accommodationAllowance,
       isLabelPadding: true,
       fieldMaxLength: 5,
-      showTextfield:
-          (state.selectedAccomdationAllownce.getValue() == "Flat Rate"),
+      showTextfield: (state.selectedAccomdationAllownce.getValue() == "Flat Rate"),
       showDropDown: (state.selectedAccomdationAllownce.getValue() == "Hours"),
       childDroDwonHintText: StringConstant.selectHours,
       fieldInputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
       ],
-      value: (state.selectedAccomdationAllownce.isValid())
-          ? state.selectedAccomdationAllownce.getValue()
-          : null,
-      childDropDownValue: (state.accomdationHour.isValid())
-          ? state.accomdationHour.getValue()
-          : null,
-      fieldInitialValue: (state.accomdationRate.isValid())
-          ? state.accomdationRate.getValue()
-          : null,
+      value: (state.selectedAccomdationAllownce.isValid()) ? state.selectedAccomdationAllownce.getValue() : null,
+      childDropDownValue: (state.accomdationHour.isValid()) ? state.accomdationHour.getValue() : null,
+      fieldInitialValue: (state.accomdationRate.isValid()) ? state.accomdationRate.getValue() : null,
       fieldKeyboardType: TextInputType.numberWithOptions(decimal: true),
       fieldHintText: "0.00",
       fieldPrefixIcon: Padding(
@@ -505,8 +430,7 @@ class SinglePostShift extends StatelessWidget {
             fontWeight: FontWeight.w500,
             textColor: AppColors.black.withOpacity(0.7),
           )),
-      fieldPrefixIconConstraints:
-          BoxConstraints(maxWidth: getSize(100), minHeight: 0),
+      fieldPrefixIconConstraints: BoxConstraints(maxWidth: getSize(100), minHeight: 0),
       items: CommonList.commuteAllownceList.map((val) {
         return DropdownMenuItem<String>(
           value: val,
@@ -519,15 +443,11 @@ class SinglePostShift extends StatelessWidget {
       }).toList(),
       onChanged: (value) {
         if (value != null) {
-          context
-              .read<PostShiftBloc>()
-              .add(PostShiftEvent.accomdationAllownceChanged(value));
+          context.read<PostShiftBloc>().add(PostShiftEvent.accomdationAllownceChanged(value));
         }
       },
       fieldOnChanged: (value) {
-        context
-            .read<PostShiftBloc>()
-            .add(PostShiftEvent.accomdationRateChanged(value));
+        context.read<PostShiftBloc>().add(PostShiftEvent.accomdationRateChanged(value));
       },
       childDropDownItems: state.accomdationHoursList.map((val) {
         return DropdownMenuItem<String>(
@@ -541,16 +461,13 @@ class SinglePostShift extends StatelessWidget {
       }).toList(),
       childDropDownOnChanged: (value) {
         if (value != null) {
-          context
-              .read<PostShiftBloc>()
-              .add(PostShiftEvent.accomdationHoursChanged(value));
+          context.read<PostShiftBloc>().add(PostShiftEvent.accomdationHoursChanged(value));
         }
       },
       isOptional: true,
       optionalWidget: GestureDetector(
         onTap: () {
-          AppDialog.showInfo(context, StringConstant.singleAccomdationInfoDesc,
-              maxLines: 15);
+          AppDialog.showInfo(context, StringConstant.singleAccomdationInfoDesc, maxLines: 15);
         },
         child: Container(
           color: AppColors.transparent,
@@ -574,9 +491,7 @@ class SinglePostShift extends StatelessWidget {
       keyboardType: TextInputType.multiline,
       initialValue: state.singleShiftNote,
       onChanged: (value) {
-        context
-            .read<PostShiftBloc>()
-            .add(PostShiftEvent.singleShiftNotesChanged(value));
+        context.read<PostShiftBloc>().add(PostShiftEvent.singleShiftNotesChanged(value));
       },
     );
   }
@@ -588,17 +503,14 @@ class SinglePostShift extends StatelessWidget {
       onTap: () {
         bool value = state.isMoreVacancy;
         value = !value;
-        context
-            .read<PostShiftBloc>()
-            .add(PostShiftEvent.checkIsMoreVancancy(value));
+        context.read<PostShiftBloc>().add(PostShiftEvent.checkIsMoreVancancy(value));
       },
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: getSize(20),
           vertical: getSize(10),
         ),
-        decoration: BoxDecoration(
-            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+        decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -617,9 +529,7 @@ class SinglePostShift extends StatelessWidget {
                 ),
                 onChanged: (value) {
                   if (value != null) {
-                    context
-                        .read<PostShiftBloc>()
-                        .add(PostShiftEvent.checkIsMoreVancancy(value));
+                    context.read<PostShiftBloc>().add(PostShiftEvent.checkIsMoreVancancy(value));
                   }
                 },
               ),
@@ -655,20 +565,16 @@ class SinglePostShift extends StatelessWidget {
         FilteringTextInputFormatter.digitsOnly,
       ],
       onChanged: (value) {
-        context
-            .read<PostShiftBloc>()
-            .add(PostShiftEvent.addVacancyChanged(value));
+        context.read<PostShiftBloc>().add(PostShiftEvent.addVacancyChanged(value));
       },
-      validator: (p0, p1) =>
-          context.read<PostShiftBloc>().state.selectedVacancy.value.fold(
-                (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseAddNumberOfVacancies,
-                  invalidVacancy: (value) =>
-                      StringConstant.numberOfVacanciesMustBeGreaterThanOne,
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
+      validator: (p0, p1) => context.read<PostShiftBloc>().state.selectedVacancy.value.fold(
+            (f) => f.maybeMap(
+              empty: (value) => StringConstant.pleaseAddNumberOfVacancies,
+              invalidVacancy: (value) => StringConstant.numberOfVacanciesMustBeGreaterThanOne,
+              orElse: () => null,
+            ),
+            (_) => null,
+          ),
     );
   }
 }

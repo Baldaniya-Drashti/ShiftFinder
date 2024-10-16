@@ -1,15 +1,23 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
+import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/proposal_detail_dto/proposal_detail_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 
 class PraposalPersonView extends StatelessWidget {
   const PraposalPersonView({
     super.key,
+    required this.data,
   });
+
+  final ProposalDetailDto data;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +46,7 @@ class PraposalPersonView extends StatelessWidget {
                       child: CircleAvatar(
                         radius: getSize(19),
                         backgroundImage: NetworkImage(
-                          'https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg',
+                          data.profile ?? "",
                         ),
                       ),
                     ),
@@ -48,16 +56,15 @@ class PraposalPersonView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           BaseText(
-                            text: "Rochel Foose",
+                            text: "${data.first_name ?? ""} ${data.last_name ?? ""}",
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                           ),
                           SizedBox(height: getSize(3)),
                           BaseText(
-                            text: 'Distance - 20 Km',
+                            text: 'Distance - ${data.distance ?? ""}',
                             fontSize: 8,
-                            textColor: const Color.fromARGB(255, 55, 46, 46)
-                                .withOpacity(0.8),
+                            textColor: const Color.fromARGB(255, 55, 46, 46).withOpacity(0.8),
                           )
                         ],
                       ),
@@ -80,11 +87,13 @@ class PraposalPersonView extends StatelessWidget {
                         BlendMode.srcATop,
                       ),
                     ),
-                    SizedBox(width: getSize(5)),
-                    BaseText(
-                      text: '4517 Washington Manchester, Kentucky 39495',
-                      fontSize: 10,
-                      fontWeight: FontWeight.w500,
+                    SizedBox(width: getSize(6)),
+                    Expanded(
+                      child: BaseText(
+                        text: data.location ?? "",
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ],
                 ),
@@ -92,16 +101,44 @@ class PraposalPersonView extends StatelessWidget {
             ),
           ),
           SizedBox(height: getSize(10)),
-          CommonButton(
-            onPressed: () {},
-            backgroundColor: AppColors.green.withOpacity(0.1),
-            buttonText: 'View Profile',
-            borderRadius: 7,
-            buttonTextColor: AppColors.black,
+          Row(
+            children: [
+              Expanded(
+                child: CommonButton(
+                  height: 34,
+                  onPressed: () {},
+                  backgroundColor: AppColors.green.withOpacity(0.1),
+                  buttonText: 'View Profile',
+                  borderRadius: 7,
+                  buttonFontSize: 11,
+                  buttonTextColor: AppColors.black,
+                ),
+              ),
+              if (data.shift_type == "2") ...[
+                Gap(16),
+                Expanded(
+                  child: CommonButton(
+                    height: 34,
+                    onPressed: () {
+                      context.router.push(
+                        PageRouteInfo(
+                          EmployerAvailabilityView.name,
+                          args: EmployerAvailabilityViewArgs(list: data.posted_proposed_time ?? []),
+                        ),
+                      );
+                    },
+                    backgroundColor: AppColors.green.withOpacity(0.1),
+                    buttonText: 'Proposed Availability',
+                    borderRadius: 7,
+                    buttonFontSize: 11,
+                    buttonTextColor: AppColors.black,
+                  ),
+                ),
+              ]
+            ],
           )
         ],
       ),
     );
- 
   }
 }

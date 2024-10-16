@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/total_proposal_dto/total_proposal_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -29,12 +32,15 @@ class PersonListWidget extends StatelessWidget {
         child: ListTile(
           dense: true,
           onTap: () {
-          ///1 rec 2 sent
+            ///1 rec 2 sent
 
-            Log.success("postId  ${postId } userId ${list[index].user_id}");
-          //   context.router.push(
-          //   PageRouteInfo(ViewPersonPraposalView.name),
-          // );
+            Log.success("postId  ${postId} userId ${list[index].user_id}");
+            context.router.push(
+              PageRouteInfo(
+                ViewPersonPraposalView.name,
+                args: ViewPersonPraposalViewArgs(postId: postId, userId: list[index].user_id ?? -1),
+              ),
+            );
           },
           contentPadding: EdgeInsets.symmetric(
             vertical: getSize(10),
@@ -66,15 +72,17 @@ class PersonListWidget extends StatelessWidget {
           subtitle: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-
+              SvgPicture.asset(
+                list[index].last_request == 1 ? SvgImageConstant.receivedCircle : SvgImageConstant.rightWithCircle,
+                height: 13,
+                width: 13,
+              ),
+              Gap(4),
               BaseText(
-                text: '${list[index].first_name ?? ""} ${list[index].last_name ?? ""}',
+                text: list[index].last_request == 1 ? "Counter Received" : "Counter Sent",
                 fontSize: 10,
                 fontWeight: FontWeight.w500,
               ),
-
-
-
             ],
           ),
         ),

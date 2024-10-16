@@ -6,5 +6,5 @@ class TotalProposalEvent with _$TotalProposalEvent {
     required int id,
     required bool isRefresh,
     required BuildContext context,
-  }) = _GetTotalProposalList;
+  }) = GetTotalProposalList;
 }

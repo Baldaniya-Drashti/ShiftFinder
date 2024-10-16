@@ -64,6 +64,7 @@ class ViewApplicantProfile extends StatelessWidget {
                 physics: BouncingScrollPhysics(),
                 padding: EdgeInsets.symmetric(
                   horizontal: getSize(20),
+
                 ),
                 children: [
                   ApplicantsDetailView(data: state.account),
@@ -105,8 +106,8 @@ class ViewApplicantProfile extends StatelessWidget {
                             children: [
                               Image.asset(
                                 PngImageConstants.education,
-                                height: getSize(18),
-                                width: getSize(18),
+                                height: getSize(28),
+                                width: getSize(28),
                               ),
                               SizedBox(
                                 width: getSize(15),
@@ -166,8 +167,8 @@ class ViewApplicantProfile extends StatelessWidget {
                         children: [
                           Image.asset(
                             PngImageConstants.person,
-                            height: getSize(20),
-                            width: getSize(20),
+                            height: getSize(30),
+                            width: getSize(30),
                           ),
                           SizedBox(
                             width: getSize(15),
@@ -216,8 +217,8 @@ class ViewApplicantProfile extends StatelessWidget {
                         children: [
                           Image.asset(
                             PngImageConstants.person,
-                            height: getSize(18),
-                            width: getSize(18),
+                            height: getSize(30),
+                            width: getSize(30),
                           ),
                           SizedBox(
                             width: getSize(15),

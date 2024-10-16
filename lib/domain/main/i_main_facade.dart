@@ -2,10 +2,12 @@ import 'package:dartz/dartz.dart';
 import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/main_failure.dart';
+import 'package:shift/infrastructure/contractor_main/profile/my_calendar_dto/my_calendar_dto.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/infrastructure/core/employer_applicant/employer_applicant_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/infrastructure/core/total_proposal_dto/total_proposal_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
@@ -205,13 +207,27 @@ abstract class IMainFacade {
     required int page,
   });
 
-  Future<Either<MainFailure, String>> contractorShiftUrgentActionApi({
-    required int postId,
-    required int urgentAction,
-  });
+
 
   Future<Either<MainFailure, CommonResponse>> getApplicantProfile({
     required int id,
     required int postId,
+  });
+  Future<Either<MainFailure, CommonResponse>> getProposalDetail({
+    required int userId,
+    required int postId,
+  });
+  Future<Either<MainFailure, CommonResponse>> proposalAcceptReject({
+    required int id,
+    required int request,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> sendEmployerApplicantsCounterPropose({
+    required int id,
+    required int counterRateHour,
+    required int commuteAllowanceType,
+    required int accommodationAllowanceType,
+    required int? counterCommuteAllowance,
+    required int? counterAccommodationAllowance,
   });
 }

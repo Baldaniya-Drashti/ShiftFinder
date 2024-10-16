@@ -61,7 +61,7 @@ class ViewSingleApplicants extends StatelessWidget {
                     shrinkWrap: true,
                     physics: BouncingScrollPhysics(),
                     padding: EdgeInsets.symmetric(
-                      horizontal: getSize(10),
+                      horizontal: getSize(18),
                       vertical: getSize(20),
                     ),
                     itemBuilder: (context, index) {

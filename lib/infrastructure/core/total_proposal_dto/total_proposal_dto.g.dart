@@ -14,6 +14,7 @@ _$TotalProposalDtoImpl _$$TotalProposalDtoImplFromJson(
       last_name: json['last_name'] as String?,
       profile: json['profile'] as String?,
       user_id: (json['user_id'] as num?)?.toInt(),
+      last_request: (json['last_request'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$TotalProposalDtoImplToJson(
@@ -24,4 +25,5 @@ Map<String, dynamic> _$$TotalProposalDtoImplToJson(
       'last_name': instance.last_name,
       'profile': instance.profile,
       'user_id': instance.user_id,
+      'last_request': instance.last_request,
     };

@@ -15,6 +15,7 @@ import 'package:shift/infrastructure/core/employer_applicant/employer_applicant_
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/network/injectable_module.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/infrastructure/core/total_proposal_dto/total_proposal_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
@@ -1353,8 +1354,7 @@ class MainFacade implements IMainFacade {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(
-              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const MainFailure.networkError());
@@ -1365,8 +1365,7 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, List<MyCalendarDTO>>>
-      getMyCalendarListApi() async {
+  Future<Either<MainFailure, List<MyCalendarDTO>>> getMyCalendarListApi() async {
     try {
       final res = await apiService.getMethod(
         ApiConstants.contractorMyCalendar,
@@ -1385,8 +1384,7 @@ class MainFacade implements IMainFacade {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(
-              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const MainFailure.networkError());
@@ -1397,8 +1395,7 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, ContractorMyCalendarDTO>>
-      getContractorMyCalendarDetailApi(int id) async {
+  Future<Either<MainFailure, ContractorMyCalendarDTO>> getContractorMyCalendarDetailApi(int id) async {
     try {
       final res = await apiService.getMethod(
         "${ApiConstants.contractorMyCalendar}/$id",
@@ -1416,8 +1413,106 @@ class MainFacade implements IMainFacade {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(
-              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> getProposalDetail({required int userId, required int postId}) async {
+    try {
+      final res = await apiService.getMethod(
+        ApiConstants.employerApplicantsProposal,
+        queryParameters: {"post_id": postId, "user_id": userId},
+      );
+      if (res != null) {
+        // final data = TotalProposalDto.fromJson(res.data);
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> proposalAcceptReject({required int id, required int request}) async {
+    ///request = [1 -> Accept, 2 -> Reject]
+    try {
+      final res = await apiService.getMethod(
+        ApiConstants.employerApplicantsAcceptReject,
+        queryParameters: {"id": id, "request": request},
+      );
+      if (res != null) {
+        // final data = TotalProposalDto.fromJson(res.data);
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> sendEmployerApplicantsCounterPropose({
+    required int id,
+    required int counterRateHour,
+    required int commuteAllowanceType,
+    required int accommodationAllowanceType,
+    required int? counterCommuteAllowance,
+    required int? counterAccommodationAllowance,
+  }) async {
+    try {
+      final res = await apiService.getMethod(
+        ApiConstants.employerApplicantsCounterPropose,
+        queryParameters: {
+          "id": id,
+          "counter_rate_hour": counterRateHour,
+          "commute_allowance_type": commuteAllowanceType,
+          "accommodation_allowance_type": accommodationAllowanceType,
+          "counter_commute_allowance": counterCommuteAllowance,
+          "counter_accommodation_allowance": counterAccommodationAllowance,
+        },
+      );
+      if (res != null) {
+        // final data = TotalProposalDto.fromJson(res.data);
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const MainFailure.networkError());
