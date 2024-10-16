@@ -240,7 +240,8 @@ class AuthFacade implements IAuthFacade {
         "id": getCurrentUser().userId,
         // "id": 313,
         "email": email,
-        "country_code": countryCode?.replaceAll('+', ''),
+        // "country_code": countryCode?.replaceAll('+', ''),
+        "country_code": countryCode,
         "country_name_code": countryNameCode,
         "phone": phone,
       };

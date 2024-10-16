@@ -363,43 +363,46 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
                 isEndHourValid &&
                 isEndMinuteValid) {
               if (isMoreThanTwoHours < Duration(hours: 2)) {
+                print("show errorrrr on submit");
                 showError(
                         message:
                             StringConstant.theTotalPayableHourMustBeAtLeastTwo)
                     .show(e.context);
               } else {
+                print("show success on submit ${state.multiDates}");
+
                 Either<MainFailure, String>? failureOrSuccess;
 
-                final isAllDatesValid = state.multiDates.every((dto) =>
-                    dto.totalPaybleHours != null &&
-                    dto.totalPaybleHours!.isNotEmpty);
+                // final isAllDatesValid = state.multiDates.every((dto) =>
+                //     dto.totalPaybleHours != null &&
+                //     dto.totalPaybleHours!.isNotEmpty);
 
-                if (isAllDatesValid) {
-                  failureOrSuccess =
-                      await _mainFacade.contractorApplyOrSendProposal(
-                    mapData: singleShiftData(state),
-                  );
+                // if (isAllDatesValid) {
+                failureOrSuccess =
+                    await _mainFacade.contractorApplyOrSendProposal(
+                  mapData: singleShiftData(state),
+                );
 
-                  failureOrSuccess.fold(
-                    (l) {
-                      e.context.router.maybePop();
-                      showError(
-                        message: l.maybeMap(
-                          showAPIResponseMessage: (value) => value.message,
-                          networkError: (value) =>
-                              'Please check your internet connectivity',
-                          orElse: () => "Server Error. Try again later.",
-                        ),
-                      ).show(e.context);
-                    },
-                    (r) {
-                      showSuccess(message: r).show(e.context).then((value) {
-                        e.context.router.maybePop(true);
-                      });
-                    },
-                  );
-                }
+                failureOrSuccess.fold(
+                  (l) {
+                    e.context.router.maybePop();
+                    showError(
+                      message: l.maybeMap(
+                        showAPIResponseMessage: (value) => value.message,
+                        networkError: (value) =>
+                            'Please check your internet connectivity',
+                        orElse: () => "Server Error. Try again later.",
+                      ),
+                    ).show(e.context);
+                  },
+                  (r) {
+                    showSuccess(message: r).show(e.context).then((value) {
+                      e.context.router.maybePop(true);
+                    });
+                  },
+                );
               }
+              // }
             } else {
               print("Some details are invalid!");
 

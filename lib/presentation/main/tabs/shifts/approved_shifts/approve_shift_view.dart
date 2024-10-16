@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
@@ -26,7 +27,7 @@ class ApproveShiftView extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: getSize(20)),
               child: BaseText(
-                text: 'Sort by',
+                text: StringConstant.sortBy,
                 fontSize: 10,
                 fontWeight: FontWeight.w500,
               ),
@@ -68,7 +69,8 @@ class ApproveShiftView extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: getSize(20)),
       child: CustomDropdownTextfield(
         valueController: state.singleValueApprovedShiftDropDownController,
-        list: state.locationList,
+        // list: state.locationList,
+        list: [],
         hintText: 'Location',
         validator: (p0) {
           if (p0 == null || p0.isEmpty) {

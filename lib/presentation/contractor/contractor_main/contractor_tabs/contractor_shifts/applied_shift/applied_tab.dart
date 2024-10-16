@@ -28,11 +28,16 @@ class AppliedTab extends StatelessWidget {
       builder: (context, state) {
         return PaginatedListView(
           onRefresh: () {
-            context.read<ContractorShiftBloc>().add(ContractorShiftEvent.getAppliedTypeList(true));
+            context
+                .read<ContractorShiftBloc>()
+                .add(ContractorShiftEvent.getAppliedTypeList(true));
           },
-          refreshController: context.read<ContractorShiftBloc>().appliedTypeRefreshCtrl,
+          refreshController:
+              context.read<ContractorShiftBloc>().appliedTypeRefreshCtrl,
           onLoading: () {
-            context.read<ContractorShiftBloc>().add(ContractorShiftEvent.getAppliedTypeList(false));
+            context
+                .read<ContractorShiftBloc>()
+                .add(ContractorShiftEvent.getAppliedTypeList(false));
           },
           isNoDataFound: state.isAppliedNoDataFound,
           child: state.isAppliedLoading
@@ -64,25 +69,34 @@ class AppliedTab extends StatelessWidget {
                             children: [
                               userDetail(context, shift),
                               paddingBetweenFields(),
-                              dateView(
-                                title: StringConstant.appliedDate,
-                                boldValue: convertTimeStampToDate(shift.applied_date ?? -1),
-                                timidValue: convertTimeStampToDate(shift.applied_date ?? -1, isYear: true),
-                              ),
-                              paddingBetweenFields(),
-                              dateView(
-                                title: StringConstant.proposalDate,
-                                boldValue: convertTimeStampToDate(shift.applied_date ?? -1),
-                                timidValue: convertTimeStampToDate(shift.applied_date ?? -1, isYear: true),
-                              ),
+                              (shift.last_request == 1)
+                                  ? dateView(
+                                      title: StringConstant.appliedDate,
+                                      boldValue: convertTimeStampToDate(
+                                          shift.applied_date ?? -1),
+                                      timidValue: convertTimeStampToDate(
+                                          shift.applied_date ?? -1,
+                                          isYear: true),
+                                    )
+                                  : dateView(
+                                      title: StringConstant.proposalDate,
+                                      boldValue: convertTimeStampToDate(
+                                          shift.applied_date ?? -1),
+                                      timidValue: convertTimeStampToDate(
+                                          shift.applied_date ?? -1,
+                                          isYear: true),
+                                    ),
                               paddingBetweenFields(),
                               if (shift.revoke_status == 1) ...[
                                 revokingStatus(context, state, shift),
                               ] else if (shift.revoke_status == 2) ...[
                                 Padding(
-                                  padding: EdgeInsets.symmetric(vertical: getSize(10)),
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: getSize(10),
+                                  ),
                                   child: BaseText(
-                                    text: StringConstant.offerRevokedByTheEmployer,
+                                    text: StringConstant
+                                        .offerRevokedByTheEmployer,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -97,7 +111,9 @@ class AppliedTab extends StatelessWidget {
                                         PageRouteInfo(
                                           ViewContractorShift.name,
                                           args: ViewContractorShiftArgs(
-                                            postId: state.upcomingShiftList[index].id ?? -1,
+                                            postId:
+                                                state.appliedList[index].id ??
+                                                    -1,
                                             isTotalApplicants: true,
                                           ),
                                         ),
@@ -105,11 +121,14 @@ class AppliedTab extends StatelessWidget {
                                     },
                                     buttonText: StringConstant.viewShiftDetails,
                                     textColor: AppColors.black,
-                                    bgColor: AppColors.primaryColor.withOpacity(0.10),
+                                    bgColor: AppColors.primaryColor
+                                        .withOpacity(0.10),
                                   ),
                                   SizedBox(width: getSize(10)),
-                                  (shift.request == 1 && shift.urgent_action == 0)
-                                      ? urgentActionRequiredBtn(context, shift.id ?? -1)
+                                  (shift.request == 1 &&
+                                          shift.urgent_action == 0)
+                                      ? urgentActionRequiredBtn(
+                                          context, shift.id ?? -1)
                                       : cancelBtn(context, shift.id ?? -1)
                                 ],
                               ),
@@ -123,9 +142,15 @@ class AppliedTab extends StatelessWidget {
     );
   }
 
-  Widget revokingStatus(BuildContext context, ContractorShiftState state, AppliedShiftDTO shift) {
-    final hours = shift.remainingRevokeTime?.inHours.toString().padLeft(2, '0') ?? 00;
-    final minutes = shift.remainingRevokeTime?.inMinutes.remainder(60).toString().padLeft(2, '0') ?? 00;
+  Widget revokingStatus(
+      BuildContext context, ContractorShiftState state, AppliedShiftDTO shift) {
+    final hours =
+        shift.remainingRevokeTime?.inHours.toString().padLeft(2, '0') ?? 00;
+    final minutes = shift.remainingRevokeTime?.inMinutes
+            .remainder(60)
+            .toString()
+            .padLeft(2, '0') ??
+        00;
 
     return Container(
       decoration: BoxDecoration(
@@ -156,7 +181,9 @@ class AppliedTab extends StatelessWidget {
         trailing: Container(
           width: getSize(108),
           padding: EdgeInsets.symmetric(vertical: getSize(5)),
-          decoration: BoxDecoration(color: AppColors.primaryColor.withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
+          decoration: BoxDecoration(
+              color: AppColors.primaryColor.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(6)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -218,7 +245,8 @@ class AppliedTab extends StatelessWidget {
                   textColor: AppColors.black.withOpacity(0.80),
                 ),
                 BaseText(
-                  text: "(${getIndustry(shift.industry_id ?? 0)}  - ${shift.listing_id ?? ''})",
+                  text:
+                      "(${getIndustry(shift.industry_id ?? 0)}  - ${shift.listing_id ?? ''})",
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   textColor: AppColors.black.withOpacity(0.80),
@@ -301,7 +329,10 @@ class AppliedTab extends StatelessWidget {
     return industry.title ?? "";
   }
 
-  Widget dateView({required String title, required String boldValue, required String timidValue}) {
+  Widget dateView(
+      {required String title,
+      required String boldValue,
+      required String timidValue}) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
@@ -324,11 +355,13 @@ class AppliedTab extends StatelessWidget {
             fontWeight: FontWeight.w400,
             textColor: AppColors.primaryColor,
           ),
-          trailing: highLightText(boldValue: boldValue, timidValue: timidValue)),
+          trailing:
+              highLightText(boldValue: boldValue, timidValue: timidValue)),
     );
   }
 
-  String convertTimeStampToDate(int timestamp, {bool isYear = false, bool isTime = false}) {
+  String convertTimeStampToDate(int timestamp,
+      {bool isYear = false, bool isTime = false}) {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
 
     if (isTime) {
@@ -342,7 +375,10 @@ class AppliedTab extends StatelessWidget {
     }
   }
 
-  Widget highLightText({required String boldValue, required String timidValue, String? thirdValue}) {
+  Widget highLightText(
+      {required String boldValue,
+      required String timidValue,
+      String? thirdValue}) {
     return RichText(
         text: TextSpan(
       text: boldValue,

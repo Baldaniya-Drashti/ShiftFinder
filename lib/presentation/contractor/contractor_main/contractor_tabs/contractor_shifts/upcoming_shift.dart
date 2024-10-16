@@ -164,35 +164,39 @@ class UpcomingShift extends StatelessWidget {
                 ),
               ],
             ),
-            trailing: (shift.check_delete == true)
-                ? GestureDetector(
-                    onTap: () {
-                      AppDialog.showSuccess(
-                        context,
-                        image: Container(),
-                        title: StringConstant.withdrawShift,
-                        infoMessage: StringConstant.withdrawShiftDesc,
-                        onOkClick: () {
-                          context.router.maybePop().then((value) {
-                            showWithdrawDialog(context, shift,
-                                context.read<ContractorShiftBloc>());
-                          });
-                        },
-                      );
+            trailing: GestureDetector(
+              onTap: () {
+                if (shift.check_delete == false) {
+                  showWithdrawDialog(
+                      context, shift, context.read<ContractorShiftBloc>());
+                } else {
+                  AppDialog.showSuccess(
+                    context,
+                    image: Container(),
+                    title: StringConstant.withdrawShift,
+                    infoMessage: StringConstant.withdrawShiftDesc,
+                    onOkClick: () {
+                      
+                      context.read<ContractorShiftBloc>().add(
+                          ContractorShiftEvent.deleteUpcomingShift(context,
+                              postId: shift.post_id ?? -1));
+                      // context.router.maybePop();
                     },
-                    child: Container(
-                      padding: EdgeInsets.all(getSize(5)),
-                      decoration: BoxDecoration(
-                        color: AppColors.white,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: SvgPicture.asset(
-                        SvgImageConstant.delete,
-                        color: AppColors.black,
-                      ),
-                    ),
-                  )
-                : Text(""),
+                  );
+                }
+              },
+              child: Container(
+                padding: EdgeInsets.all(getSize(5)),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: SvgPicture.asset(
+                  SvgImageConstant.delete,
+                  color: AppColors.black,
+                ),
+              ),
+            ),
             contentPadding: EdgeInsets.zero,
             visualDensity: VisualDensity.compact,
             minTileHeight: getSize(43.41),

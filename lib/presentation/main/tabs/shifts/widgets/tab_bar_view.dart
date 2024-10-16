@@ -6,8 +6,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 
 class TabBarViewWidget extends StatelessWidget {
-  final TabController tabController;
-  const TabBarViewWidget({super.key, required this.tabController});
+  const TabBarViewWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +39,6 @@ class TabBarViewWidget extends StatelessWidget {
               fontFamily: 'Roboto Flex',
             ),
             labelColor: AppColors.black,
-            controller: tabController,
             unselectedLabelColor: AppColors.black.withOpacity(0.60),
             splashFactory: NoSplash.splashFactory,
             dividerColor: Color(0xFFC5C5C5),

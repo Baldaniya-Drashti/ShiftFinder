@@ -6,16 +6,19 @@ class ShiftsBlocState with _$ShiftsBlocState {
     required int selectedTab,
     required int pageIndex,
     required bool isSubmitting,
-    required bool isLoading,
+    // required bool isLoading,
     required bool showErrorMessages,
     required InputEmptyOrNot deleteReason,
     required List<Predictions> searchLocationList,
     required PlaceDetailDTO selectedAddress,
     required SingleValueDropDownController singleValueDropDownController,
     required SingleValueDropDownController cancelledShiftSortByController,
-    required SingleValueDropDownController cancelledShiftSortByLocationController,
-    required SingleValueDropDownController singleValueApprovedShiftDropDownController,
-    required List<DropDownValueModel> locationList,
+    required SingleValueDropDownController
+        cancelledShiftSortByLocationController,
+    required SingleValueDropDownController
+        singleValueApprovedShiftDropDownController,
+    // required List<DropDownValueModel> locationList,
+    required List<LocationDTO> locationList,
     required TimeOfDay clockIn,
     required TimeOfDay clockOut,
     required Option<Either<AccountFailure, Account>> authFailureOrSuccessOption,
@@ -27,23 +30,18 @@ class ShiftsBlocState with _$ShiftsBlocState {
     required List<EmployerShiftDto> approveShiftList,
     required List<EmployerShiftDto> cancelledShiftList,
 
-
-
-
-
-
-
-
-
-
-
+    ///
+    required LocationDTO currentFilledFilter,
   }) = _ShiftsBlocState;
 
   factory ShiftsBlocState.initial() => ShiftsBlocState(
+        currentFilledFilter: LocationDTO(),
+
+        ///
         selectedTab: 0,
         pageIndex: 0,
         isSubmitting: false,
-        isLoading: false,
+        // isLoading: false,
         showErrorMessages: false,
         deleteReason: InputEmptyOrNot(''),
         searchLocationList: [],
@@ -51,7 +49,8 @@ class ShiftsBlocState with _$ShiftsBlocState {
         authFailureOrSuccessOption: none(),
         locationList: [],
         singleValueDropDownController: SingleValueDropDownController(),
-        singleValueApprovedShiftDropDownController: SingleValueDropDownController(),
+        singleValueApprovedShiftDropDownController:
+            SingleValueDropDownController(),
         clockIn: TimeOfDay.now(),
         clockOut: TimeOfDay.now(),
         cancelledShiftSortByController: SingleValueDropDownController(

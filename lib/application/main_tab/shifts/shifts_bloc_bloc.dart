@@ -11,6 +11,7 @@ import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/infrastructure/core/employer_shift/employer_shift_dto.dart';
+import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/place_detail_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/search_location_dto.dart';
 
@@ -34,46 +35,52 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
   final RefreshController approveRefreshController = RefreshController();
   final RefreshController cancelledRefreshController = RefreshController();
 
-  ShiftsBloc(this.iAccountRepository, this.mainFacade) : super(ShiftsBlocState.initial()) {
+  ShiftsBloc(this.iAccountRepository, this.mainFacade)
+      : super(ShiftsBlocState.initial()) {
     on<ShiftsBlocEvent>(
       (event, emit) async {
         await event.map(
           started: (value) async {},
+          onFilledSorting: (e) {
+            emit(
+              state.copyWith(
+                currentFilledFilter: e.currentSorting,
+              ),
+            );
+          },
           tabChange: (value) async {
-            final index = value.tabIndex + 1;
-            if (index == 1) {
-              add(ShiftsBlocEvent.fetchFilledShiftList(refresh: true));
-            } else if (index == 2) {
-              add(ShiftsBlocEvent.fetchApprovedShiftList(refresh: true));
-            } else if (index == 3) {
-              add(ShiftsBlocEvent.fetchCancelledShiftList(refresh: true));
-            }
             emit(state.copyWith(selectedTab: value.tabIndex));
           },
           getLocationListAPI: (GetLocationListAPI value) async {
-            emit(state.copyWith(isLoading: true));
+            // emit(state.copyWith(isLoading: true));
             final locationList = await iAccountRepository.getLocationListApi();
 
             // print("Location List ---> ${locationList}");
             locationList.fold(
               (l) => emit(
                 state.copyWith(
-                  isLoading: false,
+                  // isLoading: false,
                   locationList: [],
                 ),
               ),
               (r) {
-                var dropdownList = r
-                    .map(
-                      (e) => DropDownValueModel(name: e.location ?? "", value: e.id),
-                    )
-                    .toList();
-                return emit(
+                // var dropdownList = r
+                //     .map(
+                //       (e) => DropDownValueModel(
+                //           name: e.location ?? "", value: e.id),
+                //     )
+                //     .toList();
+
+                emit(
                   state.copyWith(
-                    isLoading: false,
-                    locationList: List.from(state.locationList)..addAll(dropdownList),
+                    // isLoading: false,
+                    currentFilledFilter: (r.isNotEmpty) ? r[0] : LocationDTO(),
+                    // locationList: List.from(state.locationList)
+                    //   ..addAll(dropdownList),
+                    locationList: r,
                   ),
                 );
+                add(ShiftsBlocEvent.fetchFilledShiftList(refresh: true));
               },
             );
           },
@@ -103,14 +110,18 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
           onChangeSortBy: (OnChangeSortBy value) {
             emit(
               state.copyWith(
-                cancelledShiftSortByController: SingleValueDropDownController(data: value.controller.dropDownValue),
+                cancelledShiftSortByController: SingleValueDropDownController(
+                    data: value.controller.dropDownValue),
               ),
             );
           },
           fetchFilledShiftList: (FetchAllPreviousPost value) async {
             if (value.refresh) {
               currentPage = 1;
-              emit(state.copyWith(filledShiftList: [], getDataLoading: value.refresh));
+              emit(state.copyWith(
+                filledShiftList: [],
+                getDataLoading: value.refresh,
+              ));
               filledRefreshController.resetNoData();
             } else {
               if (currentPage > lastPage) {
@@ -121,7 +132,7 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
             var res = await mainFacade.getEmployerShift(
               page: currentPage,
               type: 1,
-              locationId: 0,
+              locationId: state.currentFilledFilter.id ?? -1,
               shortType: 0,
             );
             currentPage++;
@@ -142,11 +153,16 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
                   state.copyWith(
                     getDataLoading: false,
                     errorApi: false,
-                    noDataFound: (r.data as List<dynamic>).map((e) => EmployerShiftDto.fromJson(e)).toList().isEmpty,
+                    noDataFound: (r.data as List<dynamic>)
+                        .map((e) => EmployerShiftDto.fromJson(e))
+                        .toList()
+                        .isEmpty,
                     //  getProductList: []
                     filledShiftList: List.from(state.filledShiftList)
                       ..addAll(
-                        (r.data as List<dynamic>).map((e) => EmployerShiftDto.fromJson(e)).toList(),
+                        (r.data as List<dynamic>)
+                            .map((e) => EmployerShiftDto.fromJson(e))
+                            .toList(),
                       ),
                   ),
                 );
@@ -156,7 +172,8 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
           fetchApprovedShiftList: (FetchApprovedShiftList value) async {
             if (value.refresh) {
               currentPage = 1;
-              emit(state.copyWith(approveShiftList: [], getDataLoading: value.refresh));
+              emit(state.copyWith(
+                  approveShiftList: [], getDataLoading: value.refresh));
               approveRefreshController.resetNoData();
             } else {
               if (currentPage > lastPage) {
@@ -188,11 +205,16 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
                   state.copyWith(
                     getDataLoading: false,
                     errorApi: false,
-                    noDataFound: (r.data as List<dynamic>).map((e) => EmployerShiftDto.fromJson(e)).toList().isEmpty,
+                    noDataFound: (r.data as List<dynamic>)
+                        .map((e) => EmployerShiftDto.fromJson(e))
+                        .toList()
+                        .isEmpty,
                     //  getProductList: []
                     approveShiftList: List.from(state.approveShiftList)
                       ..addAll(
-                        (r.data as List<dynamic>).map((e) => EmployerShiftDto.fromJson(e)).toList(),
+                        (r.data as List<dynamic>)
+                            .map((e) => EmployerShiftDto.fromJson(e))
+                            .toList(),
                       ),
                   ),
                 );
@@ -202,7 +224,8 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
           fetchCancelledShiftList: (FetchCancelledShiftList value) async {
             if (value.refresh) {
               currentPage = 1;
-              emit(state.copyWith(cancelledShiftList: [], getDataLoading: value.refresh));
+              emit(state.copyWith(
+                  cancelledShiftList: [], getDataLoading: value.refresh));
               approveRefreshController.resetNoData();
             } else {
               if (currentPage > lastPage) {
@@ -234,11 +257,16 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
                   state.copyWith(
                     getDataLoading: false,
                     errorApi: false,
-                    noDataFound: (r.data as List<dynamic>).map((e) => EmployerShiftDto.fromJson(e)).toList().isEmpty,
+                    noDataFound: (r.data as List<dynamic>)
+                        .map((e) => EmployerShiftDto.fromJson(e))
+                        .toList()
+                        .isEmpty,
                     //  getProductList: []
                     cancelledShiftList: List.from(state.approveShiftList)
                       ..addAll(
-                        (r.data as List<dynamic>).map((e) => EmployerShiftDto.fromJson(e)).toList(),
+                        (r.data as List<dynamic>)
+                            .map((e) => EmployerShiftDto.fromJson(e))
+                            .toList(),
                       ),
                   ),
                 );

@@ -51,8 +51,6 @@ import 'package:shift/application/employer/profile/edit_profile/edit_profile_blo
     as _i234;
 import 'package:shift/application/employer/profile/previous_shift/previous_shift_bloc.dart'
     as _i827;
-import 'package:shift/application/employer/proposal/total_proposal_bloc.dart'
-    as _i819;
 import 'package:shift/application/google_map/google_map_bloc.dart' as _i168;
 import 'package:shift/application/healthcare_post/healthcare_post_bloc.dart'
     as _i383;
@@ -71,8 +69,6 @@ import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart'
 import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart'
     as _i541;
 import 'package:shift/application/profile/account/account_cubit.dart' as _i911;
-import 'package:shift/application/profile/applicant_profile/applicant_profile_bloc.dart'
-    as _i828;
 import 'package:shift/application/splash/splash_bloc.dart' as _i117;
 import 'package:shift/domain/account/i_account_repository.dart' as _i253;
 import 'package:shift/domain/auth/i_auth_facade.dart' as _i277;
@@ -96,7 +92,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i1025.CardBloc>(() => _i1025.CardBloc());
     gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
-    gh.factory<_i170.MyCalendarViewBloc>(() => _i170.MyCalendarViewBloc());
     gh.lazySingleton<_i771.ApiService>(() => _i771.ApiService());
     gh.lazySingleton<_i277.IAuthFacade>(
         () => _i751.AuthFacade(gh<_i771.ApiService>()));
@@ -125,14 +120,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i541.PostShiftBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i678.SendProposalBloc>(
         () => _i678.SendProposalBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i819.TotalProposalBloc>(
-        () => _i819.TotalProposalBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i170.MyCalendarViewBloc>(
+        () => _i170.MyCalendarViewBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i827.PreviousShiftBloc>(
         () => _i827.PreviousShiftBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i518.ViewSingleApplicantsBloc>(
         () => _i518.ViewSingleApplicantsBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i828.ApplicantProfileBloc>(
-        () => _i828.ApplicantProfileBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i744.ForgotPasswordBloc>(
         () => _i744.ForgotPasswordBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i1033.AuthStatusBloc>(

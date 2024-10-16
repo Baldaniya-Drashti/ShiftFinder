@@ -12,9 +12,13 @@ class ShiftsBlocEvent with _$ShiftsBlocEvent {
 
   factory ShiftsBlocEvent.deleteReasonChange(String value) = DeleteReasonChange;
 
-  factory ShiftsBlocEvent.changeClockInClockOutTime(TimeOfDay time, bool isClockIn) = CangeClockInClockOutTime;
+  factory ShiftsBlocEvent.changeClockInClockOutTime(
+      TimeOfDay time, bool isClockIn) = CangeClockInClockOutTime;
 
-  factory ShiftsBlocEvent.onChangeSortBy(SingleValueDropDownController controller) = OnChangeSortBy;
+  factory ShiftsBlocEvent.onChangeSortBy(
+      SingleValueDropDownController controller) = OnChangeSortBy;
+  factory ShiftsBlocEvent.onFilledSorting(LocationDTO currentSorting) =
+      onFilledSorting;
 
   factory ShiftsBlocEvent.fetchFilledShiftList({
     required bool refresh,

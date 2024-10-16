@@ -154,6 +154,12 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, HealthcarePostDTO>> getContractorShiftDetail({required int postId});
 
+  Future<Either<MainFailure, String>> contractorShiftUrgentActionApi(
+      {required int postId, required int urgentAction});
+
+  Future<Either<MainFailure, List<MyCalendarDTO>>> getMyCalendarListApi();
+  Future<Either<MainFailure, ContractorMyCalendarDTO>>
+      getContractorMyCalendarDetailApi(int id);
   Future<Either<MainFailure, CommonResponse>> getApplicantList({
     required int postId,
     required int page,

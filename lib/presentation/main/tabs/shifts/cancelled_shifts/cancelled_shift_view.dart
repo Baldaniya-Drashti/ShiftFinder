@@ -59,7 +59,8 @@ class CancelledShiftView extends StatelessWidget {
             SizedBox(
               height: getSize(12),
             ),
-            if (state.cancelledShiftSortByController.dropDownValue?.value == 1) ...[
+            if (state.cancelledShiftSortByController.dropDownValue?.value ==
+                1) ...[
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(16).copyWith(top: 0),
@@ -92,7 +93,8 @@ class CancelledShiftView extends StatelessWidget {
                       separatorBuilder: (context, index) => SizedBox(
                         height: getSize(12),
                       ),
-                      itemBuilder: (context, index) => _WithdrawnByContractorTile(),
+                      itemBuilder: (context, index) =>
+                          _WithdrawnByContractorTile(),
                     ),
                   ),
                 ),
@@ -112,7 +114,8 @@ class CancelledShiftView extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: getSize(20)),
       child: CustomDropdownTextfield(
         valueController: state.cancelledShiftSortByLocationController,
-        list: state.locationList,
+        // list: state.locationList,
+        list: [],
         hintText: 'Location',
         validator: (p0) {
           if (p0 == null || p0.isEmpty) {
@@ -145,9 +148,10 @@ class CancelledShiftView extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: getSize(20)),
       child: CustomDropdownTextfield(
         onChanged: (p0) {
-          print(p0);
+          print("jbvdjvdjb--> $p0");
           final data = p0 as DropDownValueModel;
-          context.read<ShiftsBloc>().add(ShiftsBlocEvent.onChangeSortBy(SingleValueDropDownController(data: data)));
+          context.read<ShiftsBloc>().add(ShiftsBlocEvent.onChangeSortBy(
+              SingleValueDropDownController(data: data)));
         },
         valueController: state.cancelledShiftSortByController,
         list: [
@@ -224,7 +228,8 @@ class _CanceledByYouListTile extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        SvgPicture.asset(SvgImageConstant.location, color: Colors.black, height: 24, width: 24),
+                        SvgPicture.asset(SvgImageConstant.location,
+                            color: Colors.black, height: 24, width: 24),
                         SizedBox(
                           width: getSize(6),
                         ),
@@ -234,7 +239,8 @@ class _CanceledByYouListTile extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               BaseText(
-                                text: "4517 Washington Manchester, Kentucky 39495",
+                                text:
+                                    "4517 Washington Manchester, Kentucky 39495",
                                 fontWeight: FontWeight.w500,
                                 fontSize: 11,
                                 overflow: TextOverflow.ellipsis,
@@ -261,7 +267,8 @@ class _CanceledByYouListTile extends StatelessWidget {
                         height: 14,
                         width: 14,
                         SvgImageConstant.calendar,
-                        colorFilter: ColorFilter.mode(AppColors.black.withOpacity(0.7), BlendMode.srcIn),
+                        colorFilter: ColorFilter.mode(
+                            AppColors.black.withOpacity(0.7), BlendMode.srcIn),
                       ),
                       SizedBox(
                         width: getSize(6),
@@ -281,7 +288,11 @@ class _CanceledByYouListTile extends StatelessWidget {
                               text: "12 May, ",
                               style: TextStyle(fontWeight: FontWeight.w500),
                               children: [
-                                TextSpan(text: "2024", style: TextStyle(color: AppColors.black.withOpacity(0.5))),
+                                TextSpan(
+                                    text: "2024",
+                                    style: TextStyle(
+                                        color:
+                                            AppColors.black.withOpacity(0.5))),
                               ],
                             ),
                           ),
@@ -297,7 +308,8 @@ class _CanceledByYouListTile extends StatelessWidget {
                         height: 14,
                         width: 14,
                         SvgImageConstant.clock,
-                        colorFilter: ColorFilter.mode(AppColors.black.withOpacity(0.7), BlendMode.srcIn),
+                        colorFilter: ColorFilter.mode(
+                            AppColors.black.withOpacity(0.7), BlendMode.srcIn),
                       ),
                       SizedBox(
                         width: getSize(6),
@@ -335,7 +347,8 @@ class _CanceledByYouListTile extends StatelessWidget {
                         height: 14,
                         width: 14,
                         SvgImageConstant.dollorRound,
-                        colorFilter: ColorFilter.mode(AppColors.black.withOpacity(0.7), BlendMode.srcIn),
+                        colorFilter: ColorFilter.mode(
+                            AppColors.black.withOpacity(0.7), BlendMode.srcIn),
                       ),
                       SizedBox(
                         width: getSize(6),
@@ -366,7 +379,9 @@ class _CanceledByYouListTile extends StatelessWidget {
                       context.router.push(
                         PageRouteInfo(
                           ViewHomeShiftDetails.name,
-                          args: ViewHomeShiftDetailsArgs(postId: 485, route: ShiftDetailRoute.employerCancelledShift),
+                          args: ViewHomeShiftDetailsArgs(
+                              postId: 485,
+                              route: ShiftDetailRoute.employerCancelledShift),
                         ),
                       );
                     },
@@ -394,7 +409,8 @@ class _CanceledByYouListTile extends StatelessWidget {
                   );
                 },
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: getSize(15), vertical: getSize(10)),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: getSize(15), vertical: getSize(10)),
                   child: Row(
                     children: [
                       CircleAvatar(
@@ -497,7 +513,8 @@ class _WithdrawnByContractorTile extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        SvgPicture.asset(SvgImageConstant.location, color: Colors.black, height: 24, width: 24),
+                        SvgPicture.asset(SvgImageConstant.location,
+                            color: Colors.black, height: 24, width: 24),
                         SizedBox(
                           width: getSize(6),
                         ),
@@ -507,7 +524,8 @@ class _WithdrawnByContractorTile extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               BaseText(
-                                text: "4517 Washington Manchester, Kentucky 39495",
+                                text:
+                                    "4517 Washington Manchester, Kentucky 39495",
                                 fontWeight: FontWeight.w500,
                                 fontSize: 11,
                                 overflow: TextOverflow.ellipsis,
@@ -547,7 +565,8 @@ class _WithdrawnByContractorTile extends StatelessWidget {
                         height: 14,
                         width: 14,
                         SvgImageConstant.calendar,
-                        colorFilter: ColorFilter.mode(AppColors.black.withOpacity(0.7), BlendMode.srcIn),
+                        colorFilter: ColorFilter.mode(
+                            AppColors.black.withOpacity(0.7), BlendMode.srcIn),
                       ),
                       SizedBox(
                         width: getSize(6),
@@ -567,7 +586,11 @@ class _WithdrawnByContractorTile extends StatelessWidget {
                               text: "12 May, ",
                               style: TextStyle(fontWeight: FontWeight.w500),
                               children: [
-                                TextSpan(text: "2024", style: TextStyle(color: AppColors.black.withOpacity(0.5))),
+                                TextSpan(
+                                    text: "2024",
+                                    style: TextStyle(
+                                        color:
+                                            AppColors.black.withOpacity(0.5))),
                               ],
                             ),
                           ),
@@ -583,7 +606,8 @@ class _WithdrawnByContractorTile extends StatelessWidget {
                         height: 14,
                         width: 14,
                         SvgImageConstant.clock,
-                        colorFilter: ColorFilter.mode(AppColors.black.withOpacity(0.7), BlendMode.srcIn),
+                        colorFilter: ColorFilter.mode(
+                            AppColors.black.withOpacity(0.7), BlendMode.srcIn),
                       ),
                       SizedBox(
                         width: getSize(6),
@@ -612,10 +636,14 @@ class _WithdrawnByContractorTile extends StatelessWidget {
             SizedBox(
               height: getSize(14),
             ),
-            BaseText(text: "Reason",fontSize: 12,fontWeight: FontWeight.w500,),SizedBox(
+            BaseText(
+              text: "Reason",
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            ),
+            SizedBox(
               height: getSize(8),
             ),
-
             Material(
               borderRadius: BorderRadius.circular(10),
               color: AppColors.scaffoldColor,
@@ -629,7 +657,6 @@ class _WithdrawnByContractorTile extends StatelessWidget {
                 ),
               ),
             ),
-
             SizedBox(
               height: getSize(14),
             ),
@@ -644,7 +671,8 @@ class _WithdrawnByContractorTile extends StatelessWidget {
                   );
                 },
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: getSize(15), vertical: getSize(10)),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: getSize(15), vertical: getSize(10)),
                   child: Row(
                     children: [
                       CircleAvatar(

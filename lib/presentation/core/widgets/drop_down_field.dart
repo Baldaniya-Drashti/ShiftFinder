@@ -50,7 +50,8 @@ class CommonDropDownField<T> extends StatefulWidget {
   State<CommonDropDownField<T>> createState() => _CommonDropDownFieldState<T>();
 }
 
-class _CommonDropDownFieldState<T> extends State<CommonDropDownField<T>> with AfterLayoutMixin {
+class _CommonDropDownFieldState<T> extends State<CommonDropDownField<T>>
+    with AfterLayoutMixin {
   late final FocusNode _focus;
   final _controller = TextEditingController();
   final ValueNotifier<bool> _isOptionVisible = ValueNotifier(false);
@@ -63,7 +64,8 @@ class _CommonDropDownFieldState<T> extends State<CommonDropDownField<T>> with Af
     _focus = widget.focus ?? FocusNode();
     _selectedItem.addListener(_selectedItemListener);
     if (widget.value != null) {
-      _selectedItem.value = widget.items.firstWhere((element) => element.value == widget.value);
+      _selectedItem.value =
+          widget.items.firstWhere((element) => element.value == widget.value);
     }
     super.initState();
   }
@@ -71,7 +73,8 @@ class _CommonDropDownFieldState<T> extends State<CommonDropDownField<T>> with Af
   @override
   void didUpdateWidget(covariant CommonDropDownField<T> oldWidget) {
     if (widget.value != null) {
-      _selectedItem.value = widget.items.firstWhere((element) => element.value == widget.value);
+      _selectedItem.value =
+          widget.items.firstWhere((element) => element.value == widget.value);
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -133,8 +136,12 @@ class _CommonDropDownFieldState<T> extends State<CommonDropDownField<T>> with Af
               readOnly: true,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (_) => widget.validator?.call(widget.value),
-              style: theme.textTheme.bodyLarge?.copyWith(color: Colors.blueGrey, fontSize: 14, fontWeight: FontWeight.w600),
-              decoration: (widget.decoration ?? const InputDecoration()).copyWith(
+              style: theme.textTheme.bodyLarge?.copyWith(
+                  color: Colors.blueGrey,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600),
+              decoration:
+                  (widget.decoration ?? const InputDecoration()).copyWith(
                 filled: widget.filled,
                 fillColor: widget.fillColor,
                 hintText: widget.hint,
@@ -143,9 +150,15 @@ class _CommonDropDownFieldState<T> extends State<CommonDropDownField<T>> with Af
                   padding: EdgeInsets.only(left: 12),
                 ),
                 contentPadding: EdgeInsets.zero,
-                prefixIcon: value?.icon == null ? null : Padding(padding: const EdgeInsets.symmetric(horizontal: 16), child: value?.icon),
+                prefixIcon: value?.icon == null
+                    ? null
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: value?.icon),
                 suffixIcon: ActionIcon(
-                  onPressed: () => widget.dataLoadedSuccess ? _isOptionVisible.value = !_isOptionVisible.value : null,
+                  onPressed: () => widget.dataLoadedSuccess
+                      ? _isOptionVisible.value = !_isOptionVisible.value
+                      : null,
                   icon: ValueListenableBuilder<bool>(
                     valueListenable: _isOptionVisible,
                     builder: (context, isVisible, child) {
@@ -192,7 +205,8 @@ class _CommonDropDownFieldState<T> extends State<CommonDropDownField<T>> with Af
                       duration: const Duration(milliseconds: 100),
                       height: isVisible ? 200 : 0,
                       child: MediaQuery(
-                        data: MediaQuery.of(context).copyWith(padding: const EdgeInsets.only(top: 0, bottom: 16)),
+                        data: MediaQuery.of(context).copyWith(
+                            padding: const EdgeInsets.only(top: 0, bottom: 16)),
                         child: PrimaryScrollController(
                           controller: _scrollController,
                           child: Scrollbar(
@@ -205,7 +219,8 @@ class _CommonDropDownFieldState<T> extends State<CommonDropDownField<T>> with Af
                                   leading: item.icon,
                                   horizontalTitleGap: 0,
                                   title: Text(item.label,
-                                      style: item.value == _selectedItem.value?.value
+                                      style: item.value ==
+                                              _selectedItem.value?.value
                                           ? theme.textTheme.bodyLarge!.copyWith(
                                               color: Colors.pink,
                                               fontWeight: FontWeight.w500,
@@ -287,7 +302,8 @@ class CustomDropdownField<T> extends StatefulWidget {
     this.hintText,
   });
 
-  final ValueChanged<T?> onChanged;
+  // final ValueChanged<T?> onChanged;
+  final void Function(dynamic) onChanged;
   final T? value;
   final List<DropdownMenuItem<T?>> items;
   final FormFieldValidator<T?>? validator;
@@ -307,7 +323,8 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
       hint: Text(widget.hintText ?? ""),
       isDense: true,
       validator: widget.validator,
-      style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
+      style: TextStyle(
+          fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
       isExpanded: true,
       menuItemStyleData: const MenuItemStyleData(
         height: 45,
@@ -349,7 +366,7 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
       ),
       value: widget.value,
       onMenuStateChange: (isOpen) => _isMenuOpened.value = isOpen,
-      onChanged: (value) => widget.onChanged(value),
+      onChanged: widget.onChanged,
       items: widget.items,
     );
   }

@@ -34,12 +34,8 @@ mixin _$DateTimeDTO {
   bool get isUnAvailable => throw _privateConstructorUsedError;
   String? get colorText => throw _privateConstructorUsedError;
 
-  /// Serializes this DateTimeDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of DateTimeDTO
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   $DateTimeDTOCopyWith<DateTimeDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -76,8 +72,6 @@ class _$DateTimeDTOCopyWithImpl<$Res, $Val extends DateTimeDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of DateTimeDTO
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -184,8 +178,6 @@ class __$$DateTimeDTOImplCopyWithImpl<$Res>
       _$DateTimeDTOImpl _value, $Res Function(_$DateTimeDTOImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of DateTimeDTO
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -343,7 +335,7 @@ class _$DateTimeDTOImpl implements _DateTimeDTO {
                 other.colorText == colorText));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -361,9 +353,7 @@ class _$DateTimeDTOImpl implements _DateTimeDTO {
       isUnAvailable,
       colorText);
 
-  /// Create a copy of DateTimeDTO
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$DateTimeDTOImplCopyWith<_$DateTimeDTOImpl> get copyWith =>
@@ -422,11 +412,8 @@ abstract class _DateTimeDTO implements DateTimeDTO {
   bool get isUnAvailable;
   @override
   String? get colorText;
-
-  /// Create a copy of DateTimeDTO
-  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$DateTimeDTOImplCopyWith<_$DateTimeDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

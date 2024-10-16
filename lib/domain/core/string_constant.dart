@@ -456,6 +456,7 @@ class StringConstant {
       "Are you sure you want to add the clock out time?";
   static const String confirmationRequired = "Confirmation Required";
   static const String confirmationRecurringDesc1 = "You are about to post";
+  static const String sortBy = "Sort by";
   static const String confirmationRecurringDesc2 =
       "recurring shifts. \nPlease confirm if you want to proceed with posting this many shifts.";
 

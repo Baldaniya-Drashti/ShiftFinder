@@ -8,11 +8,13 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/contractor_main/profile/my_calendar_dto/my_calendar_dto.dart';
 import 'package:shift/infrastructure/contractor_main/shift/current_shift_dto/current_shift_dto.dart';
 import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -27,40 +29,59 @@ class MyCalendarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<MyCalendarViewBloc>(),
-      child: Scaffold(
-        appBar: CommonAppBar(
-          onBackPressed: () {
-            context.router.maybePop();
-          },
-          title: StringConstant.myCalendar,
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                numberOfShift(
-                  svgPrefixIcon: SvgImageConstant.clockWithOuterLine,
-                  title: "${StringConstant.totalNumberOfShifts} - 04",
-                  // "${StringConstant.totalNumberOfShifts} - ${(shift.length < 10) ? "0${shift.length}" : shift.length}",
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(
-                      getSize(15), getSize(20), getSize(10), getSize(10)),
-                  child: BaseText(
-                    text: StringConstant
-                        .selectEachShiftDateToViewTheUpcomingShift,
-                    fontSize: 12,
-                  ),
-                ),
-                calendarView(),
-                shiftDetail(context),
-              ],
+      create: (context) => getIt<MyCalendarViewBloc>()
+        ..add(MyCalendarViewEvent.getMyCalendarList(context)),
+      child: BlocBuilder<MyCalendarViewBloc, MyCalendarViewState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: CommonAppBar(
+              onBackPressed: () {
+                context.router.maybePop();
+              },
+              title: StringConstant.myCalendar,
             ),
-          ),
-        ),
+            body: (state.isLoading)
+                ? CenterLoadingIndicator(isOnlyLoader: true)
+                : Stack(
+                    children: [
+                      SingleChildScrollView(
+                        child: Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: getSize(20)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              numberOfShift(
+                                svgPrefixIcon:
+                                    SvgImageConstant.clockWithOuterLine,
+                                title:
+                                    "${StringConstant.totalNumberOfShifts} - 04",
+                                // "${StringConstant.totalNumberOfShifts} - ${(shift.length < 10) ? "0${shift.length}" : shift.length}",
+                              ),
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(getSize(15),
+                                    getSize(20), getSize(10), getSize(10)),
+                                child: BaseText(
+                                  text: StringConstant
+                                      .selectEachShiftDateToViewTheUpcomingShift,
+                                  fontSize: 12,
+                                ),
+                              ),
+                              calendarView(context, state),
+                              if (state.contractorDetail != null)
+                                shiftDetail(
+                                    context,
+                                    state.contractorDetail ??
+                                        ContractorMyCalendarDTO()),
+                            ],
+                          ),
+                        ),
+                      ),
+                      if (state.isGetting) CenterLoadingIndicator()
+                    ],
+                  ),
+          );
+        },
       ),
     );
   }
@@ -108,10 +129,16 @@ class MyCalendarView extends StatelessWidget {
     );
   }
 
-  Widget calendarView() {
+  Widget calendarView(BuildContext context, MyCalendarViewState state) {
+    List<DateTime> selectedDates = state.multiDates.map((dto) {
+      return (dto.date != null)
+          ? DateTime.fromMillisecondsSinceEpoch((dto.date ?? -1) * 1000)
+          : DateTime.now();
+    }).toList();
+
     return CustomMultiDatePicker(
-      value: [],
-      /*dayBuilder: ({
+      value: selectedDates,
+      dayBuilder: ({
         required date,
         textStyle,
         decoration,
@@ -122,28 +149,57 @@ class MyCalendarView extends StatelessWidget {
         Color? dynamicColor = getColorForDate(date, state);
         return Container(
           decoration: decoration?.copyWith(
-            color: dynamicColor,
-          ),
+              color: dynamicColor,
+              border: Border.all(color: AppColors.primaryColor, width: 2)),
           child: Center(
             child: Text(
               MaterialLocalizations.of(context).formatDecimal(date.day),
-              style: textStyle,
+              style: (dynamicColor != null)
+                  ? textStyle?.copyWith(
+                      color: (dynamicColor == Color(0xffE1E8ED))
+                          ? AppColors.black
+                          : AppColors.white)
+                  : textStyle,
             ),
           ),
         );
       },
-      */
-      /*selectableDayPredicate: (date) {
+      selectableDayPredicate: (date) {
         final dateExist = isDateExist(selectedDates, date);
-        print("dateExist---> $dateExist");
-
         return dateExist;
-      },*/
+      },
       onValueChanged: (value) {
-        print("setDateUnavailableEvent called!");
-        // context.read<SendProposalBloc>().add(SendProposalEvent.setDateUnavailableEvent(value));
+        context
+            .read<MyCalendarViewBloc>()
+            .add(MyCalendarViewEvent.selectDateEvent(context, value));
       },
     );
+  }
+
+  bool isDateExist(List<DateTime> selectedDates, DateTime currentDate) {
+    return selectedDates.any((selectedDate) {
+      // print("currentDate---> $currentDate");
+      // print("selectedDate---> $selectedDate");
+
+      return (selectedDate.year == currentDate.year &&
+          selectedDate.month == currentDate.month &&
+          selectedDate.day == currentDate.day);
+    });
+  }
+
+  Color? getColorForDate(DateTime date, MyCalendarViewState state) {
+    String formattedDate = date.toIso8601String().substring(0, 10);
+
+    MyCalendarDTO? dateEntry = state.multiDates.firstWhere((entry) {
+      return DateTime.fromMillisecondsSinceEpoch((entry.date ?? -1) * 1000)
+          .toIso8601String()
+          .startsWith(formattedDate);
+    }, orElse: () => MyCalendarDTO());
+
+    if (dateEntry.colorText != null) {
+      return Color(int.parse(dateEntry.colorText!));
+    }
+    return null;
   }
 
   Widget paddingBetweenFields({double? height}) {
@@ -152,7 +208,7 @@ class MyCalendarView extends StatelessWidget {
     );
   }
 
-  Widget shiftDetail(BuildContext context) {
+  Widget shiftDetail(BuildContext context, ContractorMyCalendarDTO detail) {
     return Container(
       padding: EdgeInsets.all(getSize(10)),
       margin: EdgeInsets.symmetric(vertical: getSize(10)),
@@ -162,9 +218,9 @@ class MyCalendarView extends StatelessWidget {
       ),
       child: Column(
         children: [
-          userDetail(context, CurrentShiftDTO()),
+          userDetail(context, detail),
           paddingBetweenFields(),
-          dateAndTime(context, CurrentShiftDTO()),
+          dateAndTime(context, detail),
           paddingBetweenFields(),
           CommonButton(
             onPressed: () {
@@ -172,8 +228,7 @@ class MyCalendarView extends StatelessWidget {
                 PageRouteInfo(
                   ViewContractorShift.name,
                   args: ViewContractorShiftArgs(
-                    // postId: state.contractorDashboardList[index].id ?? -1,
-                    postId: -1,
+                    postId: detail.id ?? -1,
                     isTotalApplicants: true,
                     fromDashboard: true,
                   ),
@@ -192,7 +247,7 @@ class MyCalendarView extends StatelessWidget {
     );
   }
 
-  Widget userDetail(BuildContext context, CurrentShiftDTO shift) {
+  Widget userDetail(BuildContext context, ContractorMyCalendarDTO post) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
@@ -210,7 +265,7 @@ class MyCalendarView extends StatelessWidget {
             ),
             isThreeLine: true,
             title: BaseText(
-              text: shift.roles_list_name ?? "",
+              text: post.roles_list_name ?? "",
               textColor: AppColors.black,
               fontSize: 16,
               fontWeight: FontWeight.w600,
@@ -220,14 +275,14 @@ class MyCalendarView extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 BaseText(
-                  text: shift.company_name ?? "",
+                  text: post.company_name ?? "",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                   textColor: AppColors.black.withOpacity(0.80),
                 ),
                 BaseText(
                   text:
-                      "(${getIndustry(shift.industry_id ?? 0)}  - ${shift.listing_id ?? ''})",
+                      "(${getIndustry(post.industry_id ?? 0)}  - ${post.listing_id ?? ''})",
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   textColor: AppColors.black.withOpacity(0.80),
@@ -279,14 +334,14 @@ class MyCalendarView extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       BaseText(
-                        text: shift.location?.location ?? "",
+                        text: post.location?.location ?? "",
                         fontSize: 12,
                         maxLines: 1,
                         fontWeight: FontWeight.w500,
                         textColor: AppColors.black,
                       ),
                       BaseText(
-                        text: shift.distance ?? "",
+                        text: post.distance ?? "",
                         fontSize: 10,
                         maxLines: 1,
                         fontWeight: FontWeight.w600,
@@ -338,7 +393,7 @@ class MyCalendarView extends StatelessWidget {
     );
   }
 
-  Widget dateAndTime(BuildContext context, CurrentShiftDTO shift) {
+  Widget dateAndTime(BuildContext context, ContractorMyCalendarDTO post) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -346,23 +401,22 @@ class MyCalendarView extends StatelessWidget {
           context,
           // boldValue: "12 May,",
           // timidValue: "2024",
-          boldValue: convertTimeStampToDate(shift.shift_detail?.date ?? -1),
-          timidValue: convertTimeStampToDate(shift.shift_detail?.date ?? -1,
-              isYear: true),
+          boldValue: convertTimeStampToDate(post.date ?? -1),
+          timidValue: convertTimeStampToDate(post.date ?? -1, isYear: true),
           title: StringConstant.shiftDate,
           svgPrefixIcon: SvgImageConstant.calendar,
         ),
         displayTime(
           title: StringConstant.time,
-          startDate: (shift.shift_detail?.start_time != null)
+          startDate: (post.start_time != null)
               ? DateFormat('hh:mm a').format(
                   DateTime.fromMillisecondsSinceEpoch(
-                      (shift.shift_detail?.start_time ?? 0) * 1000))
+                      (post.start_time ?? 0) * 1000))
               : "",
-          endDate: (shift.shift_detail?.end_time != null)
+          endDate: (post.end_time != null)
               ? DateFormat('hh:mm a').format(
                   DateTime.fromMillisecondsSinceEpoch(
-                      (shift.shift_detail?.end_time ?? 0) * 1000))
+                      (post.end_time ?? 0) * 1000))
               : "",
           svgPrefixIcon: SvgImageConstant.clock,
         ),
