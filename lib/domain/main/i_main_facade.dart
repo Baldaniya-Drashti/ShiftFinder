@@ -212,4 +212,9 @@ abstract class IMainFacade {
   Future<Either<MainFailure, ApplicantDto>> getApplicantProfile({
     required int id,
   });
+   @override
+  Future<Either<MainFailure, CommonResponse>> deleteEmployerFilledShift({
+    required int id,
+    String reason = "",
+  });
 }

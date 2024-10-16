@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -10,7 +11,10 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
 class DeleteShiftDialog extends StatelessWidget {
-  const DeleteShiftDialog({super.key});
+  bool showCADDesc;
+  int postId;
+  DeleteShiftDialog(
+      {super.key, this.showCADDesc = false, required this.postId});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +48,7 @@ class DeleteShiftDialog extends StatelessWidget {
                           height: getSize(30),
                         ),
                         BaseText(
-                          text: 'Delete Shift',
+                          text: StringConstant.deleteShift,
                           fontSize: 22,
                           fontFamily: 'Aclonica',
                         ),
@@ -52,8 +56,9 @@ class DeleteShiftDialog extends StatelessWidget {
                           height: getSize(10),
                         ),
                         BaseText(
-                          text:
-                              'Deleting this shift will incur a compensation of CAD 150 payable to the assigned contractor, plus a CAD 25 cancellation fee charged by ShiftFinder. Deleting a scheduled shift could impact your future hiring opportunities. Are you sure you want to proceed??',
+                          text: (showCADDesc)
+                              ? StringConstant.deleteFilledShiftCADDesc
+                              : StringConstant.deleteFilledShiftDesc,
                           fontSize: 14,
                           showFullDescription: true,
                           textAlign: TextAlign.center,
@@ -64,10 +69,12 @@ class DeleteShiftDialog extends StatelessWidget {
                           height: getSize(25),
                         ),
                         Form(
-                          autovalidateMode: state.showErrorMessages ? AutovalidateMode.always : AutovalidateMode.disabled,
+                          autovalidateMode: state.showErrorMessages
+                              ? AutovalidateMode.always
+                              : AutovalidateMode.disabled,
                           child: CustomTextField(
-                            hintText: 'Type here',
-                            labelText: 'Reason',
+                            hintText: StringConstant.typeHere,
+                            labelText: StringConstant.reason,
                             fillColor: AppColors.scaffoldColor,
                             maxLines: 5,
                             onChanged: (p0) => context.read<ShiftsBloc>().add(
@@ -75,9 +82,15 @@ class DeleteShiftDialog extends StatelessWidget {
                                     p0,
                                   ),
                                 ),
-                            validator: (p0, p1) => context.read<ShiftsBloc>().state.deleteReason.value.fold(
+                            validator: (p0, p1) => context
+                                .read<ShiftsBloc>()
+                                .state
+                                .deleteReason
+                                .value
+                                .fold(
                                   (l) => l.maybeMap(
-                                    empty: (_) => 'Please enter reason',
+                                    empty: (_) =>
+                                        StringConstant.pleaseEnterReason,
                                     orElse: () => null,
                                   ),
                                   (r) => null,
@@ -98,18 +111,18 @@ class DeleteShiftDialog extends StatelessWidget {
                                   onPressed: () {
                                     context.router.maybePop();
                                   },
-                                  buttonText: 'Cancel',
+                                  buttonText: StringConstant.cancle,
                                 ),
                               ),
-                              SizedBox(
-                                width: getSize(25),
-                              ),
+                              SizedBox(width: getSize(25)),
                               Expanded(
                                 child: CommonButton(
                                   onPressed: () {
-                                    context.read<ShiftsBloc>().add(ShiftsBlocEvent.withdrawShift());
+                                    context.read<ShiftsBloc>().add(
+                                        ShiftsBlocEvent.withdrawShift(context,
+                                            postId: postId));
                                   },
-                                  buttonText: 'Delete',
+                                  buttonText: StringConstant.delete,
                                 ),
                               ),
                             ],

@@ -30,11 +30,15 @@ class HomeView extends StatelessWidget {
       builder: (context, state) {
         return PaginatedListView(
           onRefresh: () {
-            context.read<HomeBloc>().add(HomeEvent.getEmployerDashboardList(true));
+            context
+                .read<HomeBloc>()
+                .add(HomeEvent.getEmployerDashboardList(true));
           },
           refreshController: context.read<HomeBloc>().refreshController,
           onLoading: () {
-            context.read<HomeBloc>().add(HomeEvent.getEmployerDashboardList(false));
+            context
+                .read<HomeBloc>()
+                .add(HomeEvent.getEmployerDashboardList(false));
           },
           isNoDataFound: state.isNoDataFound,
           noDataWidget: Center(
@@ -49,7 +53,8 @@ class HomeView extends StatelessWidget {
                   width: getSize(94.09),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: getSize(20), bottom: getSize(5)),
+                  padding:
+                      EdgeInsets.only(top: getSize(20), bottom: getSize(5)),
                   child: BaseText(
                     text: StringConstant.noShiftPostedYet,
                     textAlign: TextAlign.center,
@@ -144,7 +149,6 @@ class HomeView extends StatelessWidget {
                       ViewHomeShiftDetails.name,
                       args: ViewHomeShiftDetailsArgs(
                         postId: state.employerDashboardList[index].id ?? -1,
-                        isTotalApplicants: true,
                       ),
                     ),
                   );
@@ -169,9 +173,14 @@ class HomeView extends StatelessWidget {
                     children: [
                       verticalLabelValue(
                         label: "${StringConstant.shiftDate}:-",
-                        value: (state.employerDashboardList[index].start_date != null)
+                        value: (state.employerDashboardList[index].start_date !=
+                                null)
                             ? DateFormat('MMM dd,yyyy').format(
-                                DateTime.fromMillisecondsSinceEpoch((state.employerDashboardList[index].start_date ?? -1) * 1000),
+                                DateTime.fromMillisecondsSinceEpoch((state
+                                            .employerDashboardList[index]
+                                            .start_date ??
+                                        -1) *
+                                    1000),
                               )
                             : "",
                       ),
@@ -179,14 +188,19 @@ class HomeView extends StatelessWidget {
                       (state.employerDashboardList[index].shift_type == 1)
                           ? verticalLabelValue(
                               label: "${StringConstant.startAndEndTime}:-",
-                              value: (state.employerDashboardList[index].start_time != null &&
-                                      state.employerDashboardList[index].end_time != null)
+                              value: (state.employerDashboardList[index]
+                                              .start_time !=
+                                          null &&
+                                      state.employerDashboardList[index]
+                                              .end_time !=
+                                          null)
                                   ? "${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((state.employerDashboardList[index].start_time ?? 0) * 1000))} to ${DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((state.employerDashboardList[index].end_time ?? 0) * 1000))}"
                                   : "",
                             )
                           : verticalLabelValue(
                               label: "${StringConstant.totalShifts}:-",
-                              value: "${state.employerDashboardList[index].total_shift ?? 0} Shifts",
+                              value:
+                                  "${state.employerDashboardList[index].total_shift ?? 0} Shifts",
                             )
                     ],
                   ),
@@ -194,13 +208,17 @@ class HomeView extends StatelessWidget {
               ),
               proposalBox(
                   title: StringConstant.totalApplications,
-                  value: (state.employerDashboardList[index].total_application_counts ?? 0).toString(),
+                  value: (state.employerDashboardList[index]
+                              .total_application_counts ??
+                          0)
+                      .toString(),
                   onTap: () {
                     //showUnderDevelopment(context);
 
                     Log.debug(state.employerDashboardList[index].id);
-                    final id= state.employerDashboardList[index].id;
-                    context.router.push(PageRouteInfo(ViewSingleApplicants.name,args: ViewSingleApplicantsArgs(postId: id??0)));
+                    final id = state.employerDashboardList[index].id;
+                    context.router.push(PageRouteInfo(ViewSingleApplicants.name,
+                        args: ViewSingleApplicantsArgs(postId: id ?? 0)));
                   },
                   index: index,
                   isTotalApplicants: true),
@@ -209,7 +227,10 @@ class HomeView extends StatelessWidget {
               ),
               proposalBox(
                 title: StringConstant.totalProposals,
-                value: (state.employerDashboardList[index].total_proposal_counts ?? 0).toString(),
+                value:
+                    (state.employerDashboardList[index].total_proposal_counts ??
+                            0)
+                        .toString(),
                 onTap: () {
                   //showUnderDevelopment(context);
                   Log.debug(state.employerDashboardList[index].id);
@@ -245,7 +266,8 @@ class HomeView extends StatelessWidget {
                   height: getSize(43.41),
                 ),
                 title: BaseText(
-                  text: state.employerDashboardList[index].roles_list_name ?? "",
+                  text:
+                      state.employerDashboardList[index].roles_list_name ?? "",
                   textColor: AppColors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -272,7 +294,8 @@ class HomeView extends StatelessWidget {
                           },
                           onDeleteClick: () {
                             context.router.maybePop();
-                            context.read<HomeBloc>().add(HomeEvent.deletePost(state.employerDashboardList[index].id ?? -1));
+                            context.read<HomeBloc>().add(HomeEvent.deletePost(
+                                state.employerDashboardList[index].id ?? -1));
                           },
                         );
                       },
@@ -291,9 +314,13 @@ class HomeView extends StatelessWidget {
                       onTap: () {
                         context.router
                             .push(PageRouteInfo(HealthCarePostForm.name,
-                                args: HealthCarePostFormArgs(postId: state.employerDashboardList[index].id)))
+                                args: HealthCarePostFormArgs(
+                                    postId:
+                                        state.employerDashboardList[index].id)))
                             .then((value) {
-                          context.read<HomeBloc>().add(HomeEvent.getEmployerDashboardList(true));
+                          context
+                              .read<HomeBloc>()
+                              .add(HomeEvent.getEmployerDashboardList(true));
                         });
                       },
                       child: Container(
@@ -338,7 +365,9 @@ class HomeView extends StatelessWidget {
                     ),
                     Expanded(
                       child: BaseText(
-                        text: state.employerDashboardList[index].location?.location ?? "",
+                        text: state.employerDashboardList[index].location
+                                ?.location ??
+                            "",
                         fontSize: 10,
                         fontWeight: FontWeight.w500,
                         textColor: AppColors.white,

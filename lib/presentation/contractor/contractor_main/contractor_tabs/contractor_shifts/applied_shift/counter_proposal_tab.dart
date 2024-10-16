@@ -74,10 +74,9 @@ class CounterProposalTab extends StatelessWidget {
                                   onPressed: () {
                                     context.router.push(
                                       PageRouteInfo(
-                                        ViewHomeShiftDetails.name,
-                                        args: ViewHomeShiftDetailsArgs(
+                                        ViewContractorShift.name,
+                                        args: ViewContractorShiftArgs(
                                           postId: shift.post_id ?? -1,
-                                          isTotalApplicants: true,
                                         ),
                                       ),
                                     );

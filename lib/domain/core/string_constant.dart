@@ -497,11 +497,26 @@ class StringConstant {
   static const String policies = "Policies";
   static const String supportHelp = "Support & Help";
   static const String logOut = "Log Out";
-  static const String selectEachShiftDateToViewTheUpcomingShift = "Select each shift date to view the upcoming shift.";
+  static const String remainingShifts = "Remaining Shifts";
+  static const String viewAgreedProposal = "View Agreed Proposal";
+  static const String agreedProposal = "Agreed Proposal";
+  static const String selectEachShiftDateToViewTheUpcomingShift =
+      "Select each shift date to view the upcoming shift.";
+  static const String allHiredContractors = "All Hired Contractors";
+  static const String deleteShift = "Delete Shift";
+  static const String postedTime = "Posted Time";
+  static const String unavailableShifts = "Unavailable Shifts";
+  static const String shiftStartDate = "Shift Start Date";
+  static const String agreedProposalDesc = "Select each shift date to view the agreed shift proposals.";
+  static const String deleteFilledShiftCADDesc =
+      "Deleting this shift will incur a compensation of CAD 150 payable to the assigned contractor, plus a CAD 25 cancellation fee charged by ShiftFinder. Deleting a scheduled shift could impact your future hiring opportunities. Are you sure you want to proceed??";
+  static const String deleteFilledShiftDesc =
+      "Deleting a scheduled shift could impact your future hiring opportunities. Are you sure you want to proceed?";
 
   ///
 
   /// ERROR ///
+  static const String pleaseEnterReason = "Please enter reason";
   static const String pleaseSelectAtLeastOneLanguage =
       "Please select at least one language";
   static const String pleaseSelectAtLeastOneSkillSet =

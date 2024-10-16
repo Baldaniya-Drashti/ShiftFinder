@@ -24,11 +24,8 @@ class _EmployerShiftViewState extends State<EmployerShiftView>
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<ShiftsBloc>()
-        ..add(ShiftsBlocEvent.getLocationListAPI())
-        ..add(ShiftsBlocEvent.fetchFilledShiftList(refresh: true))
-        ..add(ShiftsBlocEvent.fetchApprovedShiftList(refresh: true))
-        ..add(ShiftsBlocEvent.fetchCancelledShiftList(refresh: true)),
+      create: (context) =>
+          getIt<ShiftsBloc>()..add(ShiftsBlocEvent.getLocationListAPI()),
       child: BlocBuilder<ShiftsBloc, ShiftsBlocState>(
         builder: (context, state) {
           return DefaultTabController(
