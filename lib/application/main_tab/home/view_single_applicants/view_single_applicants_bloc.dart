@@ -245,17 +245,12 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
             );
           },
           onRevoke: (OnRevoke value) async {
-            List<EmployerApplicantsDto> tempList = [...state.employerApplicantList];
-            final index = tempList.indexWhere((element) => element.user_id == value.userId);
-            final now = DateTime.now();
-            final revokeEndTime = now.copyWith(hour: now.hour + 2);
-            final unixTimeStamp = revokeEndTime.millisecondsSinceEpoch ~/ 1000;
-            tempList[index] = tempList[index].copyWith(revoke_status: 1, revoke_start: unixTimeStamp);
 
-            Log.debug("=>${tempList[index]}");
-            return;
             Either<MainFailure, CommonResponse>? failureOrSuccess;
+
+            emit(state.copyWith(postDataLoading: true));
             failureOrSuccess = await _mainFacade.revokeApplicant(postId: value.postId, userId: value.userId);
+            emit(state.copyWith(postDataLoading: false));
             failureOrSuccess.fold(
               (l) {
                 value.context.router.maybePop();
@@ -270,7 +265,7 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
               (r) {
                 value.context.router.maybePop();
                 showSuccess(message: r.dioMessage ?? "").show(value.context).then((value) {
-                  //add(ViewSingleApplicantsEvent.getApplicantsList(state.postId, true));
+                  add(ViewSingleApplicantsEvent.getApplicantsList(state.postId, true));
                 });
               },
             );

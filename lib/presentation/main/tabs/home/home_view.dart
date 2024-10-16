@@ -212,8 +212,9 @@ class HomeView extends StatelessWidget {
                 value: (state.employerDashboardList[index].total_proposal_counts ?? 0).toString(),
                 onTap: () {
                   //showUnderDevelopment(context);
-                  Log.debug(state.employerDashboardList[index].id);
+                  Log.debug(state.employerDashboardList[index]);
                   final id = state.employerDashboardList[index].id ?? 0;
+
                   context.router.push(
                     PageRouteInfo(TotalPraposalView.name, args: TotalPraposalViewArgs(postId: id)),
                   );

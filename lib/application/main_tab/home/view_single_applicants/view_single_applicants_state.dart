@@ -17,6 +17,7 @@ class ViewSingleApplicantsState with _$ViewSingleApplicantsState {
     required bool isErrorInAPI,
     required List<EmployerApplicantsDto> employerApplicantList,
     required bool isCardAdded,
+    required bool postDataLoading,
 
     /// View Shift Detail
     required HealthcarePostDTO shift,
@@ -36,6 +37,7 @@ class ViewSingleApplicantsState with _$ViewSingleApplicantsState {
         isNoDataFound: false,
         isErrorInAPI: false,
         postId: -1,
+        postDataLoading: false,
 
         /// View Shift Detail
         shift: HealthcarePostDTO(),

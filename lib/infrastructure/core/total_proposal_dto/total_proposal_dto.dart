@@ -13,6 +13,7 @@ class TotalProposalDto with _$TotalProposalDto {
     String? first_name,
     String? last_name,
     String? profile,
+    int? user_id,
   }) = _TotalProposalDto;
 
   factory TotalProposalDto.fromJson(Map<String, dynamic> json) => _$TotalProposalDtoFromJson(json);

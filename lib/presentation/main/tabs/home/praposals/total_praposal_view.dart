@@ -39,7 +39,7 @@ class TotalPraposalView extends StatelessWidget {
               children: [
                 SizedBox(height: getSize(20)),
                 MainPraposalView(additionalData: state.additionalData),
-                PersonListWidget(list: state.totalProposedDataList),
+                PersonListWidget(list: state.totalProposedDataList, postId: postId),
               ],
             );
           },
