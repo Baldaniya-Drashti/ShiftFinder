@@ -10,6 +10,7 @@ import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/account/account_failure.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/employer_shift/employer_shift_dto.dart';
@@ -17,6 +18,7 @@ import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/place_detail_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/search_location_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
+import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 
 part 'shifts_bloc_event.dart';
@@ -30,6 +32,9 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
   static TextEditingController locationCtrl = TextEditingController();
   int currentPage = 1;
   int lastPage = 1;
+
+  int currentApprovePage = 1;
+  int lastApprovePage = 1;
 
   final IAccountRepository iAccountRepository;
   final IMainFacade mainFacade;
@@ -49,6 +54,20 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
             emit(
               state.copyWith(
                 currentFilledFilter: e.currentSorting,
+              ),
+            );
+          },
+          onCancelTypeSorting: (e) {
+            emit(
+              state.copyWith(
+                currentCancelFilter: e.currentSorting,
+              ),
+            );
+          },
+          onApproveSorting: (e) {
+            emit(
+              state.copyWith(
+                currentApproveFilter: e.currentSorting,
               ),
             );
           },
@@ -79,6 +98,7 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
                   state.copyWith(
                     getDataLoading: false,
                     currentFilledFilter: (r.isNotEmpty) ? r[0] : LocationDTO(),
+                    currentApproveFilter: (r.isNotEmpty) ? r[0] : LocationDTO(),
                     // locationList: List.from(state.locationList)
                     //   ..addAll(dropdownList),
                     locationList: r,
@@ -87,7 +107,7 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
               },
             );
             add(ShiftsBlocEvent.fetchFilledShiftList(refresh: true));
-            // add(ShiftsBlocEvent.fetchApprovedShiftList(refresh: true));
+            add(ShiftsBlocEvent.fetchApprovedShiftList(refresh: true));
             // add(ShiftsBlocEvent.fetchCancelledShiftList(refresh: true));
           },
           deleteReasonChange: (DeleteReasonChange e) async {
@@ -205,45 +225,46 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
           },
           fetchApprovedShiftList: (FetchApprovedShiftList value) async {
             if (value.refresh) {
-              currentPage = 1;
+              currentApprovePage = 1;
               emit(state.copyWith(
-                  approveShiftList: [], getDataLoading: value.refresh));
+                approveShiftList: [],
+                approveLoading: value.refresh,
+              ));
               approveRefreshController.resetNoData();
             } else {
-              if (currentPage > lastPage) {
+              if (currentApprovePage > lastApprovePage) {
                 approveRefreshController.loadNoData();
                 return;
               }
             }
             var res = await mainFacade.getEmployerShift(
-              page: currentPage,
+              page: currentApprovePage,
               type: 2,
-              locationId: 0,
+              locationId: state.currentApproveFilter.id ?? -1,
               shortType: 0,
             );
-            currentPage++;
+            currentApprovePage++;
             res.fold(
               (l) => emit(
                 state.copyWith(
-                  errorApi: true,
-                  getDataLoading: false,
+                  approveErrorApi: true,
+                  approveLoading: false,
                   approveShiftList: [],
                 ),
               ),
               (r) {
-                lastPage = r.meta?.lastPage ?? 1;
+                lastApprovePage = r.meta?.lastPage ?? 1;
                 if (value.refresh) {
                   List.from(state.approveShiftList).clear();
                 }
                 return emit(
                   state.copyWith(
-                    getDataLoading: false,
-                    errorApi: false,
-                    noDataFound: (r.data as List<dynamic>)
+                    approveLoading: false,
+                    approveErrorApi: false,
+                    noApproveDataFound: (r.data as List<dynamic>)
                         .map((e) => EmployerShiftDto.fromJson(e))
                         .toList()
                         .isEmpty,
-                    //  getProductList: []
                     approveShiftList: List.from(state.approveShiftList)
                       ..addAll(
                         (r.data as List<dynamic>)

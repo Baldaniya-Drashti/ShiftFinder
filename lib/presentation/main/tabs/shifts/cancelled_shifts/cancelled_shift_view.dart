@@ -4,16 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:shift/application/auth/contractor_auth/location_example.dart';
 import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/enum.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/drop_down_field.dart';
 import 'package:shift/presentation/core/widgets/dropdown/custom_dropdown_textfield.dart';
 
 class CancelledShiftView extends StatelessWidget {
@@ -32,7 +35,7 @@ class CancelledShiftView extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: getSize(20)),
               child: BaseText(
-                text: 'Sort by',
+                text: StringConstant.sortBy,
                 fontSize: 10,
                 fontWeight: FontWeight.w500,
               ),
@@ -40,14 +43,15 @@ class CancelledShiftView extends StatelessWidget {
             SizedBox(
               height: getSize(8),
             ),
-            sortByYou(context, state),
+            // sortByYou(context, state),
+            sortingField(context, state),
             SizedBox(
               height: getSize(8),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: getSize(20)),
               child: BaseText(
-                text: 'Sort by',
+                text: StringConstant.sortBy,
                 fontSize: 10,
                 fontWeight: FontWeight.w500,
               ),
@@ -59,8 +63,7 @@ class CancelledShiftView extends StatelessWidget {
             SizedBox(
               height: getSize(12),
             ),
-            if (state.cancelledShiftSortByController.dropDownValue?.value ==
-                1) ...[
+            if (state.currentCancelFilter.id == 1) ...[
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(16).copyWith(top: 0),
@@ -140,7 +143,7 @@ class CancelledShiftView extends StatelessWidget {
     );
   }
 
-  Widget sortByYou(
+  /*Widget sortByYou(
     BuildContext context,
     ShiftsBlocState state,
   ) {
@@ -148,7 +151,6 @@ class CancelledShiftView extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: getSize(20)),
       child: CustomDropdownTextfield(
         onChanged: (p0) {
-          print("jbvdjvdjb--> $p0");
           final data = p0 as DropDownValueModel;
           context.read<ShiftsBloc>().add(ShiftsBlocEvent.onChangeSortBy(
               SingleValueDropDownController(data: data)));
@@ -158,7 +160,41 @@ class CancelledShiftView extends StatelessWidget {
           DropDownValueModel(name: "Cancelled by You", value: 1),
           DropDownValueModel(name: "Withdrawn by contractor", value: 2),
         ],
-        hintText: 'Cancel',
+        hintText: StringConstant.cancle,
+      ),
+    );
+  }*/
+
+  Widget sortingField(
+    BuildContext context,
+    ShiftsBlocState state,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+        height: 40,
+        child: CustomDropdownField(
+          onChanged: (value) {
+            print("jbvdjvdjb--> $value");
+            if (value != null) {
+              context.read<ShiftsBloc>().add(
+                  ShiftsBlocEvent.onCancelTypeSorting(value ?? SkillDTO()));
+            }
+          },
+          hintText: StringConstant.location,
+          value: null,
+          // value: state.currentFilledFilter,
+          items: CommonList.cancelSortingList.map((val) {
+            return DropdownMenuItem<SkillDTO>(
+              value: val,
+              child: BaseText(
+                text: val.name ?? "",
+                fontSize: 14,
+                textColor: AppColors.black,
+              ),
+            );
+          }).toList(),
+        ),
       ),
     );
   }

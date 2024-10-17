@@ -8,6 +8,7 @@ import 'package:shift/infrastructure/core/employer_applicant/employer_applicant_
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
+import 'package:shift/infrastructure/main/hired_contractor_list_dto/hired_contractor_list_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
@@ -212,9 +213,15 @@ abstract class IMainFacade {
   Future<Either<MainFailure, ApplicantDto>> getApplicantProfile({
     required int id,
   });
-   @override
+
   Future<Either<MainFailure, CommonResponse>> deleteEmployerFilledShift({
     required int id,
     String reason = "",
+  });
+  
+  Future<Either<MainFailure, CommonResponse>> hiredContractorList({
+    required int postId,
+    required int shortType,
+    required int page,
   });
 }

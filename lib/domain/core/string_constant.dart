@@ -512,6 +512,12 @@ class StringConstant {
       "Deleting this shift will incur a compensation of CAD 150 payable to the assigned contractor, plus a CAD 25 cancellation fee charged by ShiftFinder. Deleting a scheduled shift could impact your future hiring opportunities. Are you sure you want to proceed??";
   static const String deleteFilledShiftDesc =
       "Deleting a scheduled shift could impact your future hiring opportunities. Are you sure you want to proceed?";
+  static const String approve = "Approve";
+  static const String edit = "Edit";
+  static const String approveShiftsForContractors = "Approve Shifts for Contractors";
+  static const String cancelledByYou = "Cancelled by You";
+  static const String withdrawnByContractor = "Withdrawn by contractor";
+  static const String approveShiftDesc = "By approving these clock in and out times, you confirm that you have reviewed the [contractor name]’s  hours. Once approved, the times will be finalized.";
 
   ///
 

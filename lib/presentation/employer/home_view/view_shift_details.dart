@@ -28,13 +28,12 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'ViewHomeShiftDetails')
 class ViewHomeShiftDetails extends StatelessWidget {
   final int postId;
-  final bool isFromFilledShift;
+
   final ShiftDetailRoute? route;
 
   const ViewHomeShiftDetails({
     super.key,
     required this.postId,
-    this.isFromFilledShift = false,
     this.route,
   });
 
@@ -92,8 +91,6 @@ class ViewHomeShiftDetails extends StatelessWidget {
                           child: Column(
                             children: [
                               userDataBox(context, shift),
-                              if (isFromFilledShift)
-                                agreedProposal(context, shift),
                               (shift.shift_detail?.shift_type == 1)
                                   ? singleShiftDateTimeBreakUI(context, shift)
                                   : multiShiftDateTimeBreakUI(context, shift),
@@ -154,7 +151,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
     );
   }
 
-  Widget agreedProposal(BuildContext context, HealthcarePostDTO shift) {
+  /*Widget agreedProposal(BuildContext context, HealthcarePostDTO shift) {
     return CommonButton(
       onPressed: () {
         context.router.push(PageRouteInfo(AgreedProposal.name,
@@ -167,7 +164,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
       height: 34,
       buttonText: StringConstant.viewAgreedProposal,
     );
-  }
+  }*/
 
   Widget payableBox(PayableDTO payable, ShiftDetailRoute? route) {
     return Container(

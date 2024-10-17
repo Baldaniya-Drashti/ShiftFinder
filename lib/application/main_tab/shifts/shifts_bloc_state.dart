@@ -27,15 +27,34 @@ class ShiftsBlocState with _$ShiftsBlocState {
     required bool errorApi,
     required bool getDataLoading,
     required List<EmployerShiftDto> filledShiftList,
+
+    /// Approve
+    required bool noApproveDataFound,
+    required bool approveErrorApi,
+    required bool approveLoading,
     required List<EmployerShiftDto> approveShiftList,
     required List<EmployerShiftDto> cancelledShiftList,
 
     ///
     required LocationDTO currentFilledFilter,
+    required LocationDTO currentApproveFilter,
+    required SkillDTO currentCancelFilter,
   }) = _ShiftsBlocState;
 
   factory ShiftsBlocState.initial() => ShiftsBlocState(
         currentFilledFilter: LocationDTO(),
+
+        /// APPROVE
+        approveErrorApi: false,
+        approveLoading: false,
+        noApproveDataFound: false,
+        currentApproveFilter: LocationDTO(),
+
+        /// CACNEL SHIFT
+        currentCancelFilter: SkillDTO(
+          id: 1,
+          name: StringConstant.cancelledByYou,
+        ),
 
         ///
         selectedTab: 0,

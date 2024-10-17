@@ -166,4 +166,5 @@ class ApiConstants {
   static String employerRevoke = 'employer_applicants_revoke';
   static String employerShift = 'get_employer_shift';
   static String deleteEmployerShift = 'employer_shift';
+  static String getEmployerShiftUser = 'get_employer_shift_user';
 }

@@ -9,10 +9,8 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/infrastructure/account/current_user_dto.dart';
 import 'package:shift/infrastructure/core/employer_shift/employer_shift_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
-
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -116,8 +114,9 @@ class FilledShiftsView extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 context.router.push(PageRouteInfo(
-                  HiredContractorList.name,
-                ));
+                    FilledHiredContractorList.name,
+                    args:
+                        FilledHiredContractorListArgs(postId: shift.id ?? -1)));
               },
               child: Row(
                 children: [
@@ -130,7 +129,8 @@ class FilledShiftsView extends StatelessWidget {
                   ),
                   SizedBox(width: getSize(10)),
                   BaseText(
-                    text: "${StringConstant.allHiredContractors} (2)",
+                    text:
+                        "${StringConstant.allHiredContractors} (${shift.total_user ?? 00}/2)",
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),
@@ -346,7 +346,6 @@ class FilledShiftsView extends StatelessWidget {
                     ViewHomeShiftDetails.name,
                     args: ViewHomeShiftDetailsArgs(
                       postId: shift.id ?? -1,
-                      isFromFilledShift: true,
                     ),
                   ),
                 );

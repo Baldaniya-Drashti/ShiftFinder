@@ -28,8 +28,12 @@ class ShiftsBlocEvent with _$ShiftsBlocEvent {
   factory ShiftsBlocEvent.fetchApprovedShiftList({
     required bool refresh,
   }) = FetchApprovedShiftList;
+  factory ShiftsBlocEvent.onApproveSorting(LocationDTO currentSorting) =
+      OnApproveSorting;
 
   factory ShiftsBlocEvent.fetchCancelledShiftList({
     required bool refresh,
   }) = FetchCancelledShiftList;
+  factory ShiftsBlocEvent.onCancelTypeSorting(SkillDTO currentSorting) =
+      OnCancelTypeSorting;
 }

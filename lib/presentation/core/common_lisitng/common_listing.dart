@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/onboarding_model/onboarding_dto.dart';
@@ -170,5 +171,10 @@ class CommonList {
     SkillDTO(id: 4, name: "Friday"),
     SkillDTO(id: 5, name: "Saturday"),
     SkillDTO(id: 6, name: "Sunday"),
+  ];
+
+  static List<SkillDTO> cancelSortingList = [
+    SkillDTO(id: 1, name: StringConstant.cancelledByYou),
+    SkillDTO(id: 2, name: StringConstant.withdrawnByContractor),
   ];
 }
