@@ -8,6 +8,7 @@ class ProposalDetailState with _$ProposalDetailState {
     required bool isNoDataFound,
     required bool isErrorInAPI,
     required bool postDataLoading,
+     bool? confirmDialog,
   }) = _ProposalDetailState;
 
   factory ProposalDetailState.initial() => ProposalDetailState(

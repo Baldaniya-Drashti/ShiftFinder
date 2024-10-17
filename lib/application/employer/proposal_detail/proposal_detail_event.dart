@@ -14,4 +14,5 @@ class ProposalDetailEvent with _$ProposalDetailEvent {
     required int request,
     required BuildContext context,
   }) = ProposalAcceptReject;
+  const factory ProposalDetailEvent.addConfirmDialogFlag(bool flag) = AddConfirmDialogFlag;
 }

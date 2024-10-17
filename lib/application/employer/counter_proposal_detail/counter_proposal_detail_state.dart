@@ -11,9 +11,14 @@ class CounterProposalDetailState with _$CounterProposalDetailState {
     required InputEmptyOrNot accomdationHour,
     required Rate accomdationRate,
     required List<SkillDTO> accomdationHoursList,
+    required bool showErrorMessages,
+    required Rate rateHour,
+    required ProposalDetailDto data,
   }) = _CounterProposalDetailState;
 
   factory CounterProposalDetailState.initial() => CounterProposalDetailState(
+      rateHour: Rate(""),
+        data: ProposalDetailDto(),
         postDataLoading: false,
         selectedCommuteAllownce: InputEmptyOrNot(""),
         commuteHour: InputEmptyOrNot(""),
@@ -22,5 +27,6 @@ class CounterProposalDetailState with _$CounterProposalDetailState {
         accomdationHour: InputEmptyOrNot(""),
         accomdationRate: Rate(""),
         accomdationHoursList: [],
+        showErrorMessages: false,
       );
 }

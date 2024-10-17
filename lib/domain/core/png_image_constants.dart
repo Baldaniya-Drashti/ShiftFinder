@@ -42,9 +42,11 @@ class PngImageConstants {
   static const nurse2 = "assets/png/nurse2.png";
   static const profile = "assets/png/profile.png";
   static const suitcase = "assets/png/suitcase.png";
+  static const profileCircle = "assets/png/profile_filled_circle.png";
 
 
   static const List<String> allImages = [
+    profileCircle,
     iroid_logo,
     splash_background,
     splash_logo,

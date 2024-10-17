@@ -7,7 +7,6 @@ import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/infrastructure/core/employer_applicant/employer_applicant_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
-import 'package:shift/infrastructure/core/total_proposal_dto/total_proposal_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
@@ -224,10 +223,10 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, CommonResponse>> sendEmployerApplicantsCounterPropose({
     required int id,
-    required int counterRateHour,
+    required num counterRateHour,
     required int commuteAllowanceType,
     required int accommodationAllowanceType,
-    required int? counterCommuteAllowance,
-    required int? counterAccommodationAllowance,
+    required num counterCommuteAllowance,
+    required num counterAccommodationAllowance,
   });
 }

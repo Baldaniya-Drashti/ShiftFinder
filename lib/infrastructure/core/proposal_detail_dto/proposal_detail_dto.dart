@@ -27,7 +27,10 @@ class ProposalDetailDto with _$ProposalDetailDto {
     int? proposed_accommodation_allowance,
     int? posted_accommodation_allowance,
     String? shift_type,
+    int? revoke_status,
+    int? revoke_start_time,
     int? status,
+    List<dynamic>? hired_contractor_list,
     List<PostedProposedTime>? posted_proposed_time,
   }) = _ProposalDetailDto;
 

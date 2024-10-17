@@ -11,6 +11,7 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
@@ -48,232 +49,278 @@ class ViewPersonPraposalView extends StatelessWidget {
           builder: (context, state) {
             if (state.isLoading) return CenterLoadingIndicator();
             final data = state.proposalDetailDto;
+            final firstData= data.posted_proposed_time?.first;
 
-            return ListView(
-              shrinkWrap: true,
-              physics: BouncingScrollPhysics(),
-              padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+
+            return Stack(
               children: [
-                SizedBox(height: getSize(20)),
-                PraposalPersonView(data: data),
-                SizedBox(height: getSize(20)),
-                if (data.shift_type == "1") ...[
-                  BaseText(
-                    text: '12 May, 2024',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    textColor: AppColors.green,
-                  ),
-                  SizedBox(height: getSize(10)),
-                  Container(
-                    padding: EdgeInsets.all(getSize(20)),
-                    decoration: BoxDecoration(
-                      color: Color(0xFFEDEDED),
-                      borderRadius: BorderRadius.circular(getSize(20)),
-                    ),
-                    child: Column(
-                      children: [
-                        getTitleAndDescription(
-                          context,
-                          title: 'Posted Time',
-                          description: '9:30 AM to 7:15 PM',
-                        ),
-                        SizedBox(height: getSize(20)),
-                        getTitleAndDescription(
-                          context,
-                          title: 'Agreed Time',
-                          description: '9:30 AM to 7:15 PM',
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: getSize(20)),
-                ],
-                BaseText(
-                  text: 'Hourly Rate',
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-                SizedBox(height: getSize(10)),
-                Container(
-                  padding: EdgeInsets.all(getSize(20)),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFEDEDED),
-                    borderRadius: BorderRadius.circular(getSize(20)),
-                  ),
-                  child: Column(
-                    children: [
-                      getTitleAndDescription(
-                        context,
-                        title: 'Posted',
-                        description: '\$25',
-                      ),
-                      SizedBox(height: getSize(20)),
-                      getTitleAndDescription(
-                        context,
-                        title: 'Agreed Time',
-                        description: '9:30 AM to 7:15 PM',
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: getSize(20)),
-                BaseText(
-                  text: 'Commute Allowance',
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-                SizedBox(height: getSize(10)),
-                Container(
-                  padding: EdgeInsets.all(getSize(20)),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFEDEDED),
-                    borderRadius: BorderRadius.circular(getSize(20)),
-                  ),
-                  child: Column(
-                    children: [
-                      getTitleAndDescription(
-                        context,
-                        title: 'Posted',
-                        description: '\$${data.posted_commute_allowance ?? 0}',
-                      ),
-                      SizedBox(height: getSize(20)),
-                      getTitleAndDescription(
-                        context,
-                        title: 'Proposed',
-                        description: '\$${data.proposed_commute_allowance ?? 0}',
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: getSize(20)),
-                BaseText(
-                  text: 'Accommodation Allowance',
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-                SizedBox(height: getSize(10)),
-                Container(
-                  padding: EdgeInsets.all(getSize(20)),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFEDEDED),
-                    borderRadius: BorderRadius.circular(getSize(20)),
-                  ),
-                  child: Column(
-                    children: [
-                      getTitleAndDescription(
-                        context,
-                        title: 'Posted',
-                        description: '\$${data.posted_accommodation_allowance ?? ""}',
-                      ),
-                      SizedBox(height: getSize(20)),
-                      getTitleAndDescription(
-                        context,
-                        title: 'Proposed',
-                        description: '\$${data.proposed_accommodation_allowance ?? 0}',
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: getSize(40),
-                ),
-                Row(
+                ListView(
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
+                  padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                   children: [
-                    Expanded(
-                      child: CommonButton(
-                        onPressed: () {
-                          AcceptRejectDialog(
-                            title: 'Accept',
-                            description: 'Are you sure you want to accept this application?',
-                            onPressedAccept: () {
-                              context.router.maybePop().then(
-                                (value) {
-                                  final id = context.read<ProposalDetailBloc>().state.proposalDetailDto.id;
-                                  if (id == null) return;
-                                  context.read<ProposalDetailBloc>().add(
-                                        ProposalDetailEvent.proposalAcceptReject(
-                                          id: id,
-                                          request: 1,
-                                          context: context,
-                                        ),
-                                      );
-                                },
-                              );
-                            },
-                            onPressedReject: () {
-                              context.router.maybePop();
-                            },
-                          ).acceptRejectDialog(context);
-                        },
-                        buttonText: 'Accept',
-                        buttonFontSize: 16,
-                        borderRadius: 10,
-                        height: 46,
+                    SizedBox(height: getSize(20)),
+                    PraposalPersonView(data: data, confirmDialog: state.confirmDialog ?? false),
+                    SizedBox(height: getSize(20)),
+                    if (data.shift_type == "1" && firstData!=null) ...[
+                      BaseText(
+                        text: DateFormat("dd MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch(firstData.start_time ?? 0)),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        textColor: AppColors.green,
+                      ),
+                      SizedBox(height: getSize(10)),
+                      Container(
+                        padding: EdgeInsets.all(getSize(20)),
+                        decoration: BoxDecoration(
+                          color: Color(0xFFEDEDED),
+                          borderRadius: BorderRadius.circular(getSize(20)),
+                        ),
+                        child: Column(
+                          children: [
+                            getTitleAndDescription(
+                              context,
+                              title: 'Posted Time',
+                              description: '${formatUnixTimestamp(firstData.start_time ?? 0)} to ${formatUnixTimestamp(firstData.end_time ?? 0)}',
+                            ),
+                            SizedBox(height: getSize(20)),
+                            getTitleAndDescription(
+                              context,
+                              title: 'Agreed Time',
+                              description: '9:30 AM to 7:15 PM',
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: getSize(20)),
+                    ],
+                    BaseText(
+                      text: 'Hourly Rate',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    SizedBox(height: getSize(10)),
+                    Container(
+                      padding: EdgeInsets.all(getSize(20)),
+                      decoration: BoxDecoration(
+                        color: Color(0xFFEDEDED),
+                        borderRadius: BorderRadius.circular(getSize(20)),
+                      ),
+                      child: Column(
+                        children: [
+                          getTitleAndDescription(
+                            context,
+                            title: 'Posted',
+                            description: '\$${data.posted_rate_hour ?? ""}',
+                          ),
+                          SizedBox(height: getSize(20)),
+                          getTitleAndDescription(
+                            context,
+                            title: 'Agreed Time',
+                            description: '9:30 AM to 7:15 PM',
+                          ),
+                        ],
                       ),
                     ),
-                    SizedBox(width: getSize(16)),
-                    Expanded(
-                      child: CommonButton(
-                        onPressed: () {
-                          AcceptRejectDialog(
-                            title: 'Reject',
-                            description: 'Are you sure you want to reject this application?',
-                            onPressedAccept: () {},
-                            acceptButtonText: 'Reject',
-                            onPressedReject: () {
-                              context.router.maybePop().then(
-                                (value) {
-                                  final id = context.read<ProposalDetailBloc>().state.proposalDetailDto.id;
-                                  if (id == null) return;
-                                  context.read<ProposalDetailBloc>().add(
+                    SizedBox(height: getSize(20)),
+                    BaseText(
+                      text: 'Commute Allowance',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    SizedBox(height: getSize(10)),
+                    Container(
+                      padding: EdgeInsets.all(getSize(20)),
+                      decoration: BoxDecoration(
+                        color: Color(0xFFEDEDED),
+                        borderRadius: BorderRadius.circular(getSize(20)),
+                      ),
+                      child: Column(
+                        children: [
+                          getTitleAndDescription(
+                            context,
+                            title: 'Posted',
+                            description: '\$${data.posted_commute_allowance ?? 0}',
+                          ),
+                          SizedBox(height: getSize(20)),
+                          getTitleAndDescription(
+                            context,
+                            title: 'Proposed',
+                            description: '\$${data.proposed_commute_allowance ?? 0}',
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: getSize(20)),
+                    BaseText(
+                      text: 'Accommodation Allowance',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    SizedBox(height: getSize(10)),
+                    Container(
+                      padding: EdgeInsets.all(getSize(20)),
+                      decoration: BoxDecoration(
+                        color: Color(0xFFEDEDED),
+                        borderRadius: BorderRadius.circular(getSize(20)),
+                      ),
+                      child: Column(
+                        children: [
+                          getTitleAndDescription(
+                            context,
+                            title: 'Posted',
+                            description: '\$${data.posted_accommodation_allowance ?? ""}',
+                          ),
+                          SizedBox(height: getSize(20)),
+                          getTitleAndDescription(
+                            context,
+                            title: 'Proposed',
+                            description: '\$${data.proposed_accommodation_allowance ?? 0}',
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: getSize(40),
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: CommonButton(
+                            onPressed: () async {
+                              if ((state.confirmDialog == null || state.confirmDialog == false) && data.shift_type=="2") {
+                                final result = await showDialog<bool?>(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                                      contentPadding: EdgeInsets.all(30),
+                                      insetPadding: EdgeInsets.symmetric(horizontal: 24),
+                                      backgroundColor: Colors.white,
+                                      content: BaseText(
+                                        textAlign: TextAlign.center,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        text: "Please confirm that you have reviewed the proposed availability to accept the proposal.",
+                                      ),
+                                      actions: [
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(horizontal: 30),
+                                          child: CommonButton(
+                                            onPressed: () => context.router.maybePop(true),
+                                            buttonText: "Ok",
+                                          ),
+                                        )
+                                      ],
+                                    );
+                                  },
+                                );
+
+                              } else {
+                                acceptDialog(context);
+                              }
+                            },
+                            buttonText: 'Accept',
+                            buttonFontSize: 16,
+                            borderRadius: 10,
+                            height: 46,
+                          ),
+                        ),
+                        SizedBox(width: getSize(16)),
+                        Expanded(
+                          child: CommonButton(
+                            onPressed: () {
+                              AcceptRejectDialog(
+                                title: 'Reject',
+                                description: 'Are you sure you want to reject this application?',
+                                onPressedAccept: () {
+                                  context.router.maybePop().then(
+                                        (value) {
+                                      final id = context.read<ProposalDetailBloc>().state.proposalDetailDto.id;
+                                      if (id == null) return;
+                                      context.read<ProposalDetailBloc>().add(
                                         ProposalDetailEvent.proposalAcceptReject(
                                           id: id,
                                           request: 2,
                                           context: context,
                                         ),
                                       );
+                                    },
+                                  );
                                 },
-                              );
-
-                              // context.router.maybePop();context.router.maybePop();
+                                acceptButtonText: 'Reject',
+                                onPressedReject: () {
+                                  context.router.maybePop();
+                                },
+                              ).acceptRejectDialog(context);
                             },
-                          ).acceptRejectDialog(context);
-                        },
-                        backgroundColor: AppColors.white,
-                        borderColor: AppColors.green,
-                        buttonTextColor: AppColors.green,
-                        buttonFontSize: 16,
-                        borderRadius: 10,
-                        buttonText: 'Reject',
-                        height: 46,
-                      ),
+                            backgroundColor: AppColors.white,
+                            borderColor: AppColors.green,
+                            buttonTextColor: AppColors.green,
+                            buttonFontSize: 16,
+                            borderRadius: 10,
+                            buttonText: 'Reject',
+                            height: 46,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: getSize(20),
+                    ),
+                    CommonButton(
+                      onPressed: () async {
+                        final result = await context.router.push(
+                          PageRouteInfo(CounterPurposeView.name, args: CounterPurposeViewArgs(data: data)),
+                        ) as bool?;
+                        Log.success("result ${result}");
+                        if (result ?? false) {
+                          context.router.maybePop(true);
+                        }
+                      },
+                      buttonText: 'Counter Propose',
+                      borderRadius: 7,
+                      buttonTextColor: AppColors.black,
+                      backgroundColor: AppColors.white,
+                    ),
+                    SizedBox(
+                      height: getSize(20),
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: getSize(20),
-                ),
-                CommonButton(
-                  onPressed: () {
-                    context.router.push(
-                      PageRouteInfo(CounterPurposeView.name,args: CounterPurposeViewArgs(data: data)),
-                    );
-                  },
-                  buttonText: 'Counter Propose',
-                  borderRadius: 7,
-                  buttonTextColor: AppColors.black,
-                  backgroundColor: AppColors.white,
-                ),
-                SizedBox(
-                  height: getSize(20),
-                ),
+                if(state.postDataLoading)CenterLoadingIndicator(),
               ],
             );
           },
         ),
       ),
     );
+  }
+
+  acceptDialog(BuildContext context) {
+    AcceptRejectDialog(
+      title: 'Accept',
+      description: 'Are you sure you want to accept this application?',
+      onPressedAccept: () {
+        context.router.maybePop().then(
+          (value) {
+            final id = context.read<ProposalDetailBloc>().state.proposalDetailDto.id;
+            if (id == null) return;
+            context.read<ProposalDetailBloc>().add(
+                  ProposalDetailEvent.proposalAcceptReject(
+                    id: id,
+                    request: 1,
+                    context: context,
+                  ),
+                );
+          },
+        );
+      },
+      onPressedReject: () {
+        context.router.maybePop();
+      },
+    ).acceptRejectDialog(context);
   }
 
   getTitleAndDescription(BuildContext context, {required String title, required String description}) {

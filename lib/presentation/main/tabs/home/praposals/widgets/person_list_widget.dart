@@ -1,10 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:shift/application/auth/auth_status/auth_status_bloc.dart';
+import 'package:shift/application/employer/proposal/total_proposal_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/infrastructure/core/total_proposal_dto/total_proposal_dto.dart';
+import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
@@ -17,7 +20,7 @@ class PersonListWidget extends StatelessWidget {
     required this.postId,
   });
 
-  final List<TotalProposalDto> list;
+  final List<EmployerProposalPendingUserDto> list;
   final int postId;
 
   @override
@@ -31,16 +34,22 @@ class PersonListWidget extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: getSize(7.5)),
         child: ListTile(
           dense: true,
-          onTap: () {
+          onTap: () async {
             ///1 rec 2 sent
 
             Log.success("postId  ${postId} userId ${list[index].user_id}");
-            context.router.push(
+            final result = await context.router.push(
               PageRouteInfo(
                 ViewPersonPraposalView.name,
                 args: ViewPersonPraposalViewArgs(postId: postId, userId: list[index].user_id ?? -1),
               ),
-            );
+            ) as bool?;
+
+            if (result ?? false) {
+              context.read<TotalProposalBloc>().add(
+                    TotalProposalEvent.getTotalProposalList(id: postId, isRefresh: true, context: context),
+                  );
+            }
           },
           contentPadding: EdgeInsets.symmetric(
             vertical: getSize(10),
@@ -83,6 +92,9 @@ class PersonListWidget extends StatelessWidget {
                 fontSize: 10,
                 fontWeight: FontWeight.w500,
               ),
+
+
+
             ],
           ),
         ),

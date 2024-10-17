@@ -3,8 +3,8 @@ part of 'total_proposal_bloc.dart';
 @freezed
 class TotalProposalState with _$TotalProposalState {
   factory TotalProposalState({
-    required List<TotalProposalDto> totalProposedDataList,
-    required AdditionalDataDto additionalData,
+    required List<EmployerProposalPendingUserDto> totalProposedDataList,
+    required EmployerProposalDto additionalData,
     required bool isLoading,
     required bool isNoDataFound,
     required bool isErrorInAPI,
@@ -17,6 +17,6 @@ class TotalProposalState with _$TotalProposalState {
         isErrorInAPI: false,
         isLoading: false,
         totalProposedDataList: [],
-        additionalData: AdditionalDataDto(),
+        additionalData: EmployerProposalDto(),
       );
 }

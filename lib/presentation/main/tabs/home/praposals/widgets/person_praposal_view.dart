@@ -1,23 +1,27 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart';
+import 'package:shift/application/employer/proposal_detail/proposal_detail_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/proposal_detail_dto/proposal_detail_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 
 class PraposalPersonView extends StatelessWidget {
   const PraposalPersonView({
     super.key,
-    required this.data,
+    required this.data, required this.confirmDialog,
   });
 
   final ProposalDetailDto data;
+  final bool confirmDialog;
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +110,11 @@ class PraposalPersonView extends StatelessWidget {
               Expanded(
                 child: CommonButton(
                   height: 34,
-                  onPressed: () {},
+                  onPressed: () {
+                    // context.router.push(
+                    //   PageRouteInfo(ViewApplicantProfile.name, args: ViewApplicantProfileArgs(id: id, postId: postId)),
+                    // );
+                  },
                   backgroundColor: AppColors.green.withOpacity(0.1),
                   buttonText: 'View Profile',
                   borderRadius: 7,
@@ -119,13 +127,20 @@ class PraposalPersonView extends StatelessWidget {
                 Expanded(
                   child: CommonButton(
                     height: 34,
-                    onPressed: () {
-                      context.router.push(
+                    onPressed: () async {
+                      final result = await context.router.push(
                         PageRouteInfo(
                           EmployerAvailabilityView.name,
-                          args: EmployerAvailabilityViewArgs(list: data.posted_proposed_time ?? []),
+                          args: EmployerAvailabilityViewArgs(
+                              list: data.posted_proposed_time ?? [],
+                              confirmDialog: confirmDialog
+                          ),
                         ),
-                      );
+                      ) as bool?;
+                      if (result != null) {
+                        Log.success("result=> ${result}");
+                        context.read<ProposalDetailBloc>().add(ProposalDetailEvent.addConfirmDialogFlag(result));
+                      }
                     },
                     backgroundColor: AppColors.green.withOpacity(0.1),
                     buttonText: 'Proposed Availability',

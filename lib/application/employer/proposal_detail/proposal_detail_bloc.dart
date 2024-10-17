@@ -70,20 +70,25 @@ class ProposalDetailBloc extends Bloc<ProposalDetailEvent, ProposalDetailState> 
             },
             (r) {
               showSuccess(message: r.dioMessage ?? "").show(value.context);
-              if(value.request==2)return;
+              if (value.request == 2) {
+                value.context.maybePop(true);
+                return;
+              }
               CommonCardDialog(
                 title: 'Awaiting Confirmation',
                 description: 'Application accepted, Contractor\nnotified for Confirmation.',
                 buttonText: 'Ok',
                 onPressed: () {
                   //value.context.router.replace(PageRouteInfo(ViewPersonPraposalView.name));
-                  value.context.maybePop();
+                  value.context.maybePop(true);
                 },
                 image: SvgImageConstant.awaitingConfirmation,
               ).addCardDialog(value.context);
             },
           );
-        },
+        }, addConfirmDialogFlag: (AddConfirmDialogFlag value) {
+          emit(state.copyWith(confirmDialog: value.flag));
+      },
       );
     });
   }

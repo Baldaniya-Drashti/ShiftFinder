@@ -32,7 +32,10 @@ _$ProposalDetailDtoImpl _$$ProposalDetailDtoImplFromJson(
       posted_accommodation_allowance:
           (json['posted_accommodation_allowance'] as num?)?.toInt(),
       shift_type: json['shift_type'] as String?,
+      revoke_status: (json['revoke_status'] as num?)?.toInt(),
+      revoke_start_time: (json['revoke_start_time'] as num?)?.toInt(),
       status: (json['status'] as num?)?.toInt(),
+      hired_contractor_list: json['hired_contractor_list'] as List<dynamic>?,
       posted_proposed_time: (json['posted_proposed_time'] as List<dynamic>?)
           ?.map((e) => PostedProposedTime.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -60,7 +63,10 @@ Map<String, dynamic> _$$ProposalDetailDtoImplToJson(
           instance.proposed_accommodation_allowance,
       'posted_accommodation_allowance': instance.posted_accommodation_allowance,
       'shift_type': instance.shift_type,
+      'revoke_status': instance.revoke_status,
+      'revoke_start_time': instance.revoke_start_time,
       'status': instance.status,
+      'hired_contractor_list': instance.hired_contractor_list,
       'posted_proposed_time': instance.posted_proposed_time,
     };
 

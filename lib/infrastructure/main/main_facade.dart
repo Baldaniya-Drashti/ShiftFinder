@@ -15,7 +15,6 @@ import 'package:shift/infrastructure/core/employer_applicant/employer_applicant_
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/network/injectable_module.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
-import 'package:shift/infrastructure/core/total_proposal_dto/total_proposal_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
@@ -1157,11 +1156,9 @@ class MainFacade implements IMainFacade {
   @override
   Future<Either<MainFailure, CommonResponse>> getEmployerTotalProposal({required int postId, required int page}) async {
     try {
-      final res = await apiService.getMethod(ApiConstants.employerApplicants, queryParameters: {
+      final res = await apiService.getMethod(ApiConstants.employerApplicantsProposal, queryParameters: {
         "post_id": postId,
-        "type": 2,
-        "page": page,
-        "perPage": 10,
+        "user_id":1,
       });
 
       if (res != null) {
@@ -1189,7 +1186,7 @@ class MainFacade implements IMainFacade {
     required int userId,
   }) async {
     try {
-      final res = await apiService.postMethod(ApiConstants.employerAddFavorite, {
+      final res = await apiService.postMethod(ApiConstants.employerApplicantsProposal, {
         "post_id": postId,
         "user_id": userId,
       });
@@ -1483,31 +1480,28 @@ class MainFacade implements IMainFacade {
   @override
   Future<Either<MainFailure, CommonResponse>> sendEmployerApplicantsCounterPropose({
     required int id,
-    required int counterRateHour,
+    required num counterRateHour,
     required int commuteAllowanceType,
     required int accommodationAllowanceType,
-    required int? counterCommuteAllowance,
-    required int? counterAccommodationAllowance,
+    required num counterCommuteAllowance,
+    required num counterAccommodationAllowance,
   }) async {
     try {
-      final res = await apiService.getMethod(
+      final res = await apiService.postMethod(
         ApiConstants.employerApplicantsCounterPropose,
-        queryParameters: {
-          "id": id,
-          "counter_rate_hour": counterRateHour,
-          "commute_allowance_type": commuteAllowanceType,
-          "accommodation_allowance_type": accommodationAllowanceType,
-          "counter_commute_allowance": counterCommuteAllowance,
-          "counter_accommodation_allowance": counterAccommodationAllowance,
-        },
+          {
+            "id": id,
+            "counter_rate_hour": counterRateHour,
+            "commute_allowance_type": commuteAllowanceType,
+            "accommodation_allowance_type": accommodationAllowanceType,
+            "counter_commute_allowance": counterCommuteAllowance,
+            "counter_accommodation_allowance": counterAccommodationAllowance,
+          }
+
       );
-      if (res != null) {
-        // final data = TotalProposalDto.fromJson(res.data);
-        return right(res);
-      } else {
-        return left(const MainFailure.serverError());
-      }
-    } on DioException catch (err) {
+      // final data = TotalProposalDto.fromJson(res.data);
+      return right(res);
+        } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 

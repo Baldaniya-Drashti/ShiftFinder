@@ -8,8 +8,8 @@ class SendProposalEvent with _$SendProposalEvent {
   const factory SendProposalEvent.getContractorShiftDetail(int postID) =
       GetContractorShiftDetail;
 
-  const factory SendProposalEvent.rateHourChanged(String rate) =
-      RateHourChanged;
+const factory SendProposalEvent.rateHourChanged(String rate) =
+    RateHourChanged;
 
   const factory SendProposalEvent.commuteRateChanged(String rate) =
       CommuteRateChanged;

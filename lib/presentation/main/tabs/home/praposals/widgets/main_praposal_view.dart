@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/additional_data_dto/additional_data_dto.dart';
+import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -14,7 +15,7 @@ class MainPraposalView extends StatelessWidget {
     required this.additionalData,
   });
 
-  final AdditionalDataDto additionalData;
+  final EmployerProposalDto additionalData;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +52,7 @@ class MainPraposalView extends StatelessWidget {
                       child: CircleAvatar(
                         radius: getSize(19),
                         backgroundImage: NetworkImage(
-                          additionalData.profile ??
+
                               "https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg",
                         ),
                       ),
@@ -66,7 +67,7 @@ class MainPraposalView extends StatelessWidget {
                               Expanded(
                                 flex: 3,
                                 child: BaseText(
-                                  text: additionalData.role_lists_name ?? "",
+                                  text: additionalData.roles_list_name ?? "",
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                   maxLines: 2,
@@ -178,7 +179,9 @@ class MainPraposalView extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
+          SizedBox(height: getSize(10)),
+          ListTile()
         ],
       ),
     );
