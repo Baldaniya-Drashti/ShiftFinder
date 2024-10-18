@@ -13,7 +13,7 @@ class CounterProposalDetailEvent with _$CounterProposalDetailEvent {
 
   const factory CounterProposalDetailEvent.getHoursList() = GetHoursList;
 
-  const factory CounterProposalDetailEvent.addProposalData({required ProposalDetailDto data}) = AddProposalData;
+  const factory CounterProposalDetailEvent.addProposalData({required EmployerProposalDto data}) = AddProposalData;
 
   const factory CounterProposalDetailEvent.accomdationHourChanged(String rate) = AccomdationHourChanged;
 

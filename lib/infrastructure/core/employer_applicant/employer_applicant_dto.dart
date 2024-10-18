@@ -1,10 +1,11 @@
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'employer_applicant_dto.freezed.dart';
+
 part 'employer_applicant_dto.g.dart';
+
 @freezed
-class EmployerApplicantsDto with _$EmployerApplicantsDto{
+class EmployerApplicantsDto with _$EmployerApplicantsDto {
   const factory EmployerApplicantsDto({
     int? id,
     int? user_id,
@@ -19,10 +20,9 @@ class EmployerApplicantsDto with _$EmployerApplicantsDto{
     int? request,
     int? revoke_status,
     int? revoke_start,
+    bool? occupied,
     Duration? duration,
-
   }) = _EmployerApplicantsDto;
 
-  factory EmployerApplicantsDto.fromJson(Map<String, dynamic> json) =>
-      _$EmployerApplicantsDtoFromJson(json);
+  factory EmployerApplicantsDto.fromJson(Map<String, dynamic> json) => _$EmployerApplicantsDtoFromJson(json);
 }

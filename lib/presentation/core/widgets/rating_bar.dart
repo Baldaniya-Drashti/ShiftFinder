@@ -50,7 +50,7 @@ class _RatingBarState extends State<RatingBar> {
             child: ValueListenableBuilder(
               valueListenable: _currentRating,
               builder: (context, value, _) => SvgPicture.asset(
-                index < _currentRating.value ? SvgImageConstant.star : SvgImageConstant.starOutlined,
+                index < _currentRating.value ? SvgImageConstant.starFilled : SvgImageConstant.starOutlined,
                 height: 35,
                 width: 35,
               ),

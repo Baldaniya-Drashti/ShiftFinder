@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/employer/counter_proposal_detail/counter_proposal_detail_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/infrastructure/core/proposal_detail_dto/proposal_detail_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -24,7 +25,7 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 class CounterPurposeView extends StatefulWidget {
   const CounterPurposeView({super.key, required this.data});
 
-  final ProposalDetailDto data;
+  final EmployerProposalDto data;
 
   @override
   State<CounterPurposeView> createState() => _CounterPurposeViewState();

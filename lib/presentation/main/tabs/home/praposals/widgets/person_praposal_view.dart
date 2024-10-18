@@ -7,6 +7,7 @@ import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart'
 import 'package:shift/application/employer/proposal_detail/proposal_detail_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/infrastructure/core/proposal_detail_dto/proposal_detail_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -20,7 +21,7 @@ class PraposalPersonView extends StatelessWidget {
     required this.data, required this.confirmDialog,
   });
 
-  final ProposalDetailDto data;
+  final EmployerProposalDto data;
   final bool confirmDialog;
 
   @override
@@ -94,7 +95,7 @@ class PraposalPersonView extends StatelessWidget {
                     SizedBox(width: getSize(6)),
                     Expanded(
                       child: BaseText(
-                        text: data.location ?? "",
+                        text: data.location?.location??"",
                         fontSize: 10,
                         fontWeight: FontWeight.w500,
                       ),
@@ -122,7 +123,7 @@ class PraposalPersonView extends StatelessWidget {
                   buttonTextColor: AppColors.black,
                 ),
               ),
-              if (data.shift_type == "2") ...[
+              if (data.shift_type == 2) ...[
                 Gap(16),
                 Expanded(
                   child: CommonButton(
@@ -132,7 +133,7 @@ class PraposalPersonView extends StatelessWidget {
                         PageRouteInfo(
                           EmployerAvailabilityView.name,
                           args: EmployerAvailabilityViewArgs(
-                              list: data.posted_proposed_time ?? [],
+                              list: data.shift_details??[],
                               confirmDialog: confirmDialog
                           ),
                         ),

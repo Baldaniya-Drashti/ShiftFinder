@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:shift/application/employer/proposal/total_proposal_bloc.dart';
 import 'package:shift/application/employer/proposal_detail/proposal_detail_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
-import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
@@ -17,7 +15,6 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
 import 'package:shift/presentation/main/tabs/home/praposals/widgets/person_praposal_view.dart';
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
-import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/common_card_dialog.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'ViewPersonPraposalView')
@@ -49,7 +46,6 @@ class ViewPersonPraposalView extends StatelessWidget {
           builder: (context, state) {
             if (state.isLoading) return CenterLoadingIndicator();
             final data = state.proposalDetailDto;
-            final firstData= data.posted_proposed_time?.first;
 
 
             return Stack(
@@ -62,9 +58,9 @@ class ViewPersonPraposalView extends StatelessWidget {
                     SizedBox(height: getSize(20)),
                     PraposalPersonView(data: data, confirmDialog: state.confirmDialog ?? false),
                     SizedBox(height: getSize(20)),
-                    if (data.shift_type == "1" && firstData!=null) ...[
+                    if (data.shift_type ==1) ...[
                       BaseText(
-                        text: DateFormat("dd MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch(firstData.start_time ?? 0)),
+                        text: DateFormat("dd MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch(data.start_date ?? 0)),
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         textColor: AppColors.green,
@@ -81,13 +77,13 @@ class ViewPersonPraposalView extends StatelessWidget {
                             getTitleAndDescription(
                               context,
                               title: 'Posted Time',
-                              description: '${formatUnixTimestamp(firstData.start_time ?? 0)} to ${formatUnixTimestamp(firstData.end_time ?? 0)}',
+                              description: '${formatUnixTimestamp(data.posted_start_time ?? 0)} to ${formatUnixTimestamp(data.posted_end_time ?? 0)}',
                             ),
                             SizedBox(height: getSize(20)),
                             getTitleAndDescription(
                               context,
                               title: 'Agreed Time',
-                              description: '9:30 AM to 7:15 PM',
+                              description: '${formatUnixTimestamp(data.agreed_start_time ?? 0)} to ${formatUnixTimestamp(data.agreed_end_time ?? 0)}',
                             ),
                           ],
                         ),
@@ -111,13 +107,13 @@ class ViewPersonPraposalView extends StatelessWidget {
                           getTitleAndDescription(
                             context,
                             title: 'Posted',
-                            description: '\$${data.posted_rate_hour ?? ""}',
+                            description: '\$${data.posted_hourly_rate ?? ""}',
                           ),
                           SizedBox(height: getSize(20)),
                           getTitleAndDescription(
                             context,
-                            title: 'Agreed Time',
-                            description: '9:30 AM to 7:15 PM',
+                            title: 'Proposed',
+                            description: '\$${data.proposed_hourly_rate ?? ""}',
                           ),
                         ],
                       ),
@@ -140,13 +136,13 @@ class ViewPersonPraposalView extends StatelessWidget {
                           getTitleAndDescription(
                             context,
                             title: 'Posted',
-                            description: '\$${data.posted_commute_allowance ?? 0}',
+                            description: '\$${data.posted_commute_allowance_rate ?? 0}',
                           ),
                           SizedBox(height: getSize(20)),
                           getTitleAndDescription(
                             context,
                             title: 'Proposed',
-                            description: '\$${data.proposed_commute_allowance ?? 0}',
+                            description: '\$${data.proposed_commute_allowance_rate ?? 0}',
                           ),
                         ],
                       ),
@@ -169,13 +165,13 @@ class ViewPersonPraposalView extends StatelessWidget {
                           getTitleAndDescription(
                             context,
                             title: 'Posted',
-                            description: '\$${data.posted_accommodation_allowance ?? ""}',
+                            description: '\$${data.posted_accommodation_allowance_rate ?? ""}',
                           ),
                           SizedBox(height: getSize(20)),
                           getTitleAndDescription(
                             context,
                             title: 'Proposed',
-                            description: '\$${data.proposed_accommodation_allowance ?? 0}',
+                            description: '\$${data.proposed_accommodation_allowance_rate ?? 0}',
                           ),
                         ],
                       ),
@@ -188,7 +184,7 @@ class ViewPersonPraposalView extends StatelessWidget {
                         Expanded(
                           child: CommonButton(
                             onPressed: () async {
-                              if ((state.confirmDialog == null || state.confirmDialog == false) && data.shift_type=="2") {
+                              if ((state.confirmDialog == null || state.confirmDialog == false) && data.shift_type==2) {
                                 final result = await showDialog<bool?>(
                                   barrierDismissible: false,
                                   context: context,

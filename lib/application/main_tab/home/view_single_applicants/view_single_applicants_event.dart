@@ -26,6 +26,5 @@ class ViewSingleApplicantsEvent with _$ViewSingleApplicantsEvent {
     required Duration duration,
     required int postId,
     required int revokeTime
-
   }) = StartRevokingTimer;
 }

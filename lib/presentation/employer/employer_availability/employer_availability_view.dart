@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/infrastructure/core/proposal_detail_dto/proposal_detail_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
@@ -21,7 +22,7 @@ class EmployerAvailabilityView extends StatefulWidget {
     this.confirmDialog = false,
   });
 
-  final List<PostedProposedTime> list;
+  final List<EmployerProposalShiftDetailDto> list;
   final bool confirmDialog;
 
   @override
@@ -166,7 +167,7 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
 class _EmployerAvailabilityListTile extends StatelessWidget {
   const _EmployerAvailabilityListTile({super.key, required this.data});
 
-  final PostedProposedTime data;
+  final EmployerProposalShiftDetailDto data;
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +177,7 @@ class _EmployerAvailabilityListTile extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 16),
           child: BaseText(
-            text: DateFormat("dd MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch(data.start_time ?? 0)),
+            text: DateFormat("dd MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch(data.start_date ?? 0)),
             fontSize: 14,
             fontWeight: FontWeight.w500,
             textColor: AppColors.green,
@@ -195,13 +196,13 @@ class _EmployerAvailabilityListTile extends StatelessWidget {
               getTitleAndDescription(
                 context,
                 title: 'Posted Time',
-                description: '${formatUnixTimestamp(data.start_time ?? 0)} to ${formatUnixTimestamp(data.end_time ?? 0)}',
+                description: '${formatUnixTimestamp(data.posted_start_time ?? 0)} to ${formatUnixTimestamp(data.posted_end_time ?? 0)}',
               ),
               SizedBox(height: getSize(20)),
               getTitleAndDescription(
                 context,
                 title: 'Proposed Time',
-                description: '9:30 AM to 7:15 PM',
+                description: '${formatUnixTimestamp(data.proposed_start_time ?? 0)} to ${formatUnixTimestamp(data.proposed_end_time ?? 0)}',
               ),
             ],
           ),

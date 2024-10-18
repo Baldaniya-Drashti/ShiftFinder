@@ -174,7 +174,7 @@ class CommonMaterialButton extends StatelessWidget {
 
   final double? height;
   final double? width;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final String label;
   final Color? backgroundColor;
   final TextStyle? textStyle;

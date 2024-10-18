@@ -49,6 +49,8 @@ import 'package:shift/application/contractor/my_calendar_view_bloc/my_calendar_v
     as _i170;
 import 'package:shift/application/employer/counter_proposal_detail/counter_proposal_detail_bloc.dart'
     as _i93;
+import 'package:shift/application/employer/hired_contractor/hired_contractor_bloc.dart'
+    as _i119;
 import 'package:shift/application/employer/profile/edit_profile/edit_profile_bloc.dart'
     as _i234;
 import 'package:shift/application/employer/profile/previous_shift/previous_shift_bloc.dart'
@@ -142,6 +144,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i156.ProposalDetailBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i93.CounterProposalDetailBloc>(
         () => _i93.CounterProposalDetailBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i119.HiredContractorBloc>(
+        () => _i119.HiredContractorBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i744.ForgotPasswordBloc>(
         () => _i744.ForgotPasswordBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i1033.AuthStatusBloc>(

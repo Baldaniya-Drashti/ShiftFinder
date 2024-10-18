@@ -25,8 +25,17 @@ class PreviousShiftBlockedView extends StatelessWidget {
         return Stack(
           children: [
             PaginatedListView(
-              onRefresh: () => PreviousShiftEvent.fetchBlockedList(refresh: true),
-              onLoading: () => PreviousShiftEvent.fetchBlockedList(refresh: false),
+              onRefresh: () {
+                context.read<PreviousShiftBloc>().add(
+                    PreviousShiftEvent.fetchBlockedList(refresh: true),
+                );
+
+              },
+              onLoading: () {
+                context.read<PreviousShiftBloc>().add(
+                  PreviousShiftEvent.fetchBlockedList(refresh: false),
+                );
+              },
               refreshController: context.read<PreviousShiftBloc>().blocked,
               isNoDataFound: state.blockedListNoDataFound,
               child: state.blockedListLoading

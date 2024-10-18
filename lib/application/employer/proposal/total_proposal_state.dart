@@ -4,7 +4,7 @@ part of 'total_proposal_bloc.dart';
 class TotalProposalState with _$TotalProposalState {
   factory TotalProposalState({
     required List<EmployerProposalPendingUserDto> totalProposedDataList,
-    required EmployerProposalDto additionalData,
+    EmployerProposalDto? additionalData,
     required bool isLoading,
     required bool isNoDataFound,
     required bool isErrorInAPI,
@@ -17,6 +17,5 @@ class TotalProposalState with _$TotalProposalState {
         isErrorInAPI: false,
         isLoading: false,
         totalProposedDataList: [],
-        additionalData: EmployerProposalDto(),
       );
 }

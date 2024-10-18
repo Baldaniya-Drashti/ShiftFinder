@@ -3,7 +3,7 @@ part of 'proposal_detail_bloc.dart';
 @freezed
 class ProposalDetailState with _$ProposalDetailState {
   const factory ProposalDetailState({
-    required ProposalDetailDto proposalDetailDto,
+    required EmployerProposalDto proposalDetailDto,
     required bool isLoading,
     required bool isNoDataFound,
     required bool isErrorInAPI,
@@ -12,7 +12,7 @@ class ProposalDetailState with _$ProposalDetailState {
   }) = _ProposalDetailState;
 
   factory ProposalDetailState.initial() => ProposalDetailState(
-        proposalDetailDto: ProposalDetailDto(),
+        proposalDetailDto: EmployerProposalDto(),
         isNoDataFound: false,
         isErrorInAPI: false,
         isLoading: false,

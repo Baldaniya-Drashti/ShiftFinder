@@ -126,7 +126,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
               (r) {
                 lastPage = r.meta?.lastPage ?? 1;
                 if (value.refresh) {
-                  List.from(state.employerPreviousList).clear();
+                  List.from(state.favoritesList).clear();
                 }
                 return emit(
                   state.copyWith(
@@ -206,25 +206,24 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
             );
             currentPage++;
             res.fold(
-                  (l) => emit(
+              (l) => emit(
                 state.copyWith(
                   remarkedListIsErrorApi: true,
                   remarkedListLoading: false,
                   remarkedList: [],
                 ),
               ),
-                  (r) {
+              (r) {
                 lastPage = r.meta?.lastPage ?? 1;
                 if (value.refresh) {
-                  List.from(state.employerPreviousList).clear();
+                  List.from(state.remarkedList).clear();
                 }
                 return emit(
                   state.copyWith(
                     remarkedListLoading: false,
                     remarkedListIsErrorApi: false,
                     remarkedListNoDataFound: (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList().isEmpty,
-                    //  getProductList: []
-                    remarkedList: List.from(state.employerPreviousList)
+                    remarkedList: List.from(state.remarkedList)
                       ..addAll(
                         (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList(),
                       ),
@@ -254,13 +253,15 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                 ).show(value.context);
               },
               (r) {
-                final tempList = [...state.employerPreviousList];
-                final index = tempList.indexWhere((element) => element.post_id == value.postId);
-
-                tempList[index] = tempList[index].copyWith(
-                  isBlock: !(tempList[index].isBlock ?? false),
-                );
-                emit(state.copyWith(employerPreviousList: tempList));
+                add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true));
+                add(PreviousShiftEvent.fetchBlockedList(refresh: true));
+                // final tempList = [...state.employerPreviousList];
+                // final index = tempList.indexWhere((element) => element.post_id == value.postId);
+                //
+                // tempList[index] = tempList[index].copyWith(
+                //   isBlock: !(tempList[index].isBlock ?? false),
+                // );
+                // emit(state.copyWith(employerPreviousList: tempList));
                 showSuccess(message: r.dioMessage ?? "").show(value.context);
               },
             );
@@ -283,10 +284,13 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                 ).show(value.context);
               },
               (r) {
-                final tempList = [...state.employerPreviousList];
-                final index = tempList.indexWhere((element) => element.post_id == value.postId);
-                tempList[index] = tempList[index].copyWith(isFavourite: true);
-                emit(state.copyWith(employerPreviousList: tempList));
+                // final tempList = [...state.employerPreviousList];
+                // final index = tempList.indexWhere((element) => element.post_id == value.postId);
+                // tempList[index] = tempList[index].copyWith(isFavourite: true);
+                // emit(state.copyWith(employerPreviousList: tempList));
+                add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true));
+                add(PreviousShiftEvent.fetchFavoriteList(refresh: true));
+
                 showSuccess(message: r.dioMessage ?? "").show(value.context);
               },
             );
@@ -307,9 +311,39 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                 ).show(value.context);
               },
               (r) {
-                final tempList = [...state.favoritesList];
-                tempList.removeWhere((element) => element.post_id == value.postId);
-                emit(state.copyWith(favoritesList: tempList, favoriteListNoDataFound: tempList.isEmpty));
+                // final tempList = [...state.favoritesList];
+                // final index = tempList.indexWhere((element) => element.post_id == value.postId);
+                // tempList[index] = tempList[index].copyWith(isFavourite: false);
+                // emit(state.copyWith(employerPreviousList: tempList));
+                //
+                // emit(state.copyWith(favoritesList: tempList, favoriteListNoDataFound: tempList.isEmpty));
+                add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true));
+                add(PreviousShiftEvent.fetchFavoriteList(refresh: true));
+                showSuccess(message: r.dioMessage ?? "").show(value.context);
+              },
+            );
+          },
+          addRemark: (AddRemark value) async {
+            Either<MainFailure, CommonResponse>? failureOrSuccess;
+            emit(state.copyWith(postDataLoading: true));
+            failureOrSuccess = await _mainFacade.employerAddRemark(
+              postId: value.postId,
+              userId: value.userId,
+              remark: value.remark,
+            );
+            emit(state.copyWith(postDataLoading: false));
+            failureOrSuccess.fold(
+              (l) {
+                showError(
+                  message: l.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) => 'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(value.context);
+              },
+              (r) {
+                add(PreviousShiftEvent.fetchRemarkedList(refresh: true));
                 showSuccess(message: r.dioMessage ?? "").show(value.context);
               },
             );

@@ -155,12 +155,12 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, HealthcarePostDTO>> getContractorShiftDetail({required int postId});
 
-  Future<Either<MainFailure, String>> contractorShiftUrgentActionApi(
-      {required int postId, required int urgentAction});
+  Future<Either<MainFailure, String>> contractorShiftUrgentActionApi({required int postId, required int urgentAction});
 
   Future<Either<MainFailure, List<MyCalendarDTO>>> getMyCalendarListApi();
-  Future<Either<MainFailure, ContractorMyCalendarDTO>>
-      getContractorMyCalendarDetailApi(int id);
+
+  Future<Either<MainFailure, ContractorMyCalendarDTO>> getContractorMyCalendarDetailApi(int id);
+
   Future<Either<MainFailure, CommonResponse>> getApplicantList({
     required int postId,
     required int page,
@@ -206,16 +206,16 @@ abstract class IMainFacade {
     required int page,
   });
 
-
-
   Future<Either<MainFailure, CommonResponse>> getApplicantProfile({
     required int id,
     required int postId,
   });
+
   Future<Either<MainFailure, CommonResponse>> getProposalDetail({
     required int userId,
     required int postId,
   });
+
   Future<Either<MainFailure, CommonResponse>> proposalAcceptReject({
     required int id,
     required int request,
@@ -228,5 +228,16 @@ abstract class IMainFacade {
     required int accommodationAllowanceType,
     required num counterCommuteAllowance,
     required num counterAccommodationAllowance,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> getHiredContractorList({
+    required int postId,
+    required int page,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> employerAddRemark({
+    required int userId,
+    required int postId,
+    required String remark,
   });
 }

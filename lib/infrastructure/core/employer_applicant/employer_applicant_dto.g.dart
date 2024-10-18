@@ -22,6 +22,7 @@ _$EmployerApplicantsDtoImpl _$$EmployerApplicantsDtoImplFromJson(
       request: (json['request'] as num?)?.toInt(),
       revoke_status: (json['revoke_status'] as num?)?.toInt(),
       revoke_start: (json['revoke_start'] as num?)?.toInt(),
+      occupied: json['occupied'] as bool?,
       duration: json['duration'] == null
           ? null
           : Duration(microseconds: (json['duration'] as num).toInt()),
@@ -43,5 +44,6 @@ Map<String, dynamic> _$$EmployerApplicantsDtoImplToJson(
       'request': instance.request,
       'revoke_status': instance.revoke_status,
       'revoke_start': instance.revoke_start,
+      'occupied': instance.occupied,
       'duration': instance.duration?.inMicroseconds,
     };

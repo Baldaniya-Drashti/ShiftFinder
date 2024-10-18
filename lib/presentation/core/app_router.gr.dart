@@ -20,7 +20,7 @@ import 'package:shift/infrastructure/core/contractor_home/contractor_dashboard_d
     as _i89;
 import 'package:shift/infrastructure/core/education_dto/education_dto.dart'
     as _i79;
-import 'package:shift/infrastructure/core/proposal_detail_dto/proposal_detail_dto.dart'
+import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart'
     as _i85;
 import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart'
     as _i84;
@@ -879,7 +879,7 @@ class ContractorShiftView extends _i77.PageRouteInfo<void> {
 class CounterPurposeView extends _i77.PageRouteInfo<CounterPurposeViewArgs> {
   CounterPurposeView({
     _i78.Key? key,
-    required _i85.ProposalDetailDto data,
+    required _i85.EmployerProposalDto data,
     List<_i77.PageRouteInfo>? children,
   }) : super(
           CounterPurposeView.name,
@@ -912,7 +912,7 @@ class CounterPurposeViewArgs {
 
   final _i78.Key? key;
 
-  final _i85.ProposalDetailDto data;
+  final _i85.EmployerProposalDto data;
 
   @override
   String toString() {
@@ -1086,7 +1086,7 @@ class EmployerAvailabilityView
     extends _i77.PageRouteInfo<EmployerAvailabilityViewArgs> {
   EmployerAvailabilityView({
     _i78.Key? key,
-    required List<_i85.PostedProposedTime> list,
+    required List<_i85.EmployerProposalShiftDetailDto> list,
     bool confirmDialog = false,
     List<_i77.PageRouteInfo>? children,
   }) : super(
@@ -1123,7 +1123,7 @@ class EmployerAvailabilityViewArgs {
 
   final _i78.Key? key;
 
-  final List<_i85.PostedProposedTime> list;
+  final List<_i85.EmployerProposalShiftDetailDto> list;
 
   final bool confirmDialog;
 
@@ -1287,13 +1287,13 @@ class HealthcarePostShiftArgs {
 class HiredContractorView extends _i77.PageRouteInfo<HiredContractorViewArgs> {
   HiredContractorView({
     _i78.Key? key,
-    required List<dynamic> list,
+    required int postId,
     List<_i77.PageRouteInfo>? children,
   }) : super(
           HiredContractorView.name,
           args: HiredContractorViewArgs(
             key: key,
-            list: list,
+            postId: postId,
           ),
           initialChildren: children,
         );
@@ -1306,7 +1306,7 @@ class HiredContractorView extends _i77.PageRouteInfo<HiredContractorViewArgs> {
       final args = data.argsAs<HiredContractorViewArgs>();
       return _i28.HiredContractorView(
         key: args.key,
-        list: args.list,
+        postId: args.postId,
       );
     },
   );
@@ -1315,16 +1315,16 @@ class HiredContractorView extends _i77.PageRouteInfo<HiredContractorViewArgs> {
 class HiredContractorViewArgs {
   const HiredContractorViewArgs({
     this.key,
-    required this.list,
+    required this.postId,
   });
 
   final _i78.Key? key;
 
-  final List<dynamic> list;
+  final int postId;
 
   @override
   String toString() {
-    return 'HiredContractorViewArgs{key: $key, list: $list}';
+    return 'HiredContractorViewArgs{key: $key, postId: $postId}';
   }
 }
 

@@ -1,10 +1,15 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
+import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/additional_data_dto/additional_data_dto.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
@@ -13,9 +18,11 @@ class MainPraposalView extends StatelessWidget {
   const MainPraposalView({
     super.key,
     required this.additionalData,
+    required this.postId,
   });
 
   final EmployerProposalDto additionalData;
+  final int postId;
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +59,7 @@ class MainPraposalView extends StatelessWidget {
                       child: CircleAvatar(
                         radius: getSize(19),
                         backgroundImage: NetworkImage(
-
-                              "https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg",
+                          "https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg",
                         ),
                       ),
                     ),
@@ -181,7 +187,43 @@ class MainPraposalView extends StatelessWidget {
             ),
           ),
           SizedBox(height: getSize(10)),
-          ListTile()
+          Container(
+            decoration: BoxDecoration(
+              color: AppColors.scaffoldColor,
+              borderRadius: BorderRadius.circular(7),
+            ),
+            padding: EdgeInsets.all(12),
+            child: InkWell(
+              onTap: () {
+                context.router.push(
+                  PageRouteInfo(HiredContractorView.name, args: HiredContractorViewArgs(postId: postId)),
+                );
+              },
+              child: Row(
+                children: [
+                  SvgPicture.asset(
+                    SvgImageConstant.profileCircle,
+                    height: 35,
+                    width: 35,
+                  ),
+                  Gap(8),
+                  Expanded(
+                    child: BaseText(
+                      text: "All Hired Contractors (${additionalData.complete_shift}/${additionalData.total_shift})",
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12,
+                    ),
+                  ),
+                  SvgPicture.asset(
+                    SvgImageConstant.rightArrow,
+                    height: 14,
+                    width: 14,
+                    colorFilter: ColorFilter.mode(AppColors.black.withOpacity(0.7), BlendMode.srcIn),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

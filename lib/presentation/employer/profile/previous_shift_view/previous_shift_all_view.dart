@@ -29,13 +29,20 @@ class PreviousShiftAllView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<PreviousShiftBloc, PreviousShiftState>(
       builder: (context, state) {
-
         return Stack(
           fit: StackFit.expand,
           children: [
             PaginatedListView(
-              onRefresh: () => PreviousShiftEvent.fetchAllPreviousPost(refresh: true),
-              onLoading: () => PreviousShiftEvent.fetchAllPreviousPost(refresh: false),
+              onRefresh: () {
+                context.read<PreviousShiftBloc>().add(
+                      PreviousShiftEvent.fetchAllPreviousPost(refresh: true),
+                    );
+              },
+              onLoading: () {
+                context.read<PreviousShiftBloc>().add(
+                      PreviousShiftEvent.fetchAllPreviousPost(refresh: false),
+                    );
+              },
               refreshController: context.read<PreviousShiftBloc>().allPost,
               isNoDataFound: state.allDataListNoDataFound,
               child: state.allDataListLoading
@@ -122,7 +129,7 @@ class _RatingsDropdown extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SvgPicture.asset(SvgImageConstant.star),
+                      SvgPicture.asset(SvgImageConstant.starFilled),
                       SizedBox(
                         width: getSize(8),
                       ),
@@ -157,7 +164,9 @@ class RatingStar extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        SvgPicture.asset(SvgImageConstant.star),
+        SvgPicture.asset(
+          SvgImageConstant.starFilled,
+        ),
         SizedBox(width: getSize(8)),
         BaseText(text: rating.toString(), fontSize: 12, fontWeight: FontWeight.w600),
       ],
@@ -306,6 +315,8 @@ class _PreviousShiftListTile extends StatelessWidget {
   }
 
   Widget _buildActionButton(BuildContext context) {
+    final isBlock = (data.isBlock ?? false);
+
     return Material(
       borderRadius: BorderRadius.circular(getSize(10)),
       color: AppColors.scaffoldColor,
@@ -318,36 +329,42 @@ class _PreviousShiftListTile extends StatelessWidget {
               children: [
                 Expanded(
                   child: _ActionButton(
-                    onPressed: () {
-                      final postId = data.post_id ?? 0;
-                      final userId = data.user_id ?? 0;
-                      if (data.isFavourite ?? false) {
-                        context.read<PreviousShiftBloc>().add(
-                              PreviousShiftEvent.addUnFavorite(
-                                postId: postId,
-                                userId: userId,
-                                context: context,
-                              ),
-                            );
-                      } else {
-                        context.read<PreviousShiftBloc>().add(
-                              PreviousShiftEvent.addFavorite(
-                                postId: postId,
-                                userId: userId,
-                                context: context,
-                              ),
-                            );
-                      }
-                    },
+                    backgroundColor: isBlock ? AppColors.white.withOpacity(0.5) : AppColors.white,
+                    onPressed: !isBlock
+                        ? () {
+                            final postId = data.post_id ?? 0;
+                            final userId = data.user_id ?? 0;
+                            if (data.isFavourite ?? false) {
+                              context.read<PreviousShiftBloc>().add(
+                                    PreviousShiftEvent.addUnFavorite(
+                                      postId: postId,
+                                      userId: userId,
+                                      context: context,
+                                    ),
+                                  );
+                            } else {
+                              context.read<PreviousShiftBloc>().add(
+                                    PreviousShiftEvent.addFavorite(
+                                      postId: postId,
+                                      userId: userId,
+                                      context: context,
+                                    ),
+                                  );
+                            }
+                          }
+                        : null,
                     icon: (data.isFavourite ?? false) ? SvgImageConstant.heartChecked : SvgImageConstant.heart1,
                     label: "${(data.isFavourite ?? false) ? "Added" : "Add"} to favorite",
+                    textColor: isBlock ? AppColors.black.withOpacity(0.5) : null,
                   ),
                 ),
                 Gap(getSize(8.0)),
                 Expanded(
                   child: _ActionButton(
-                    onPressed: () => _onAddRating(context),
+                    backgroundColor: isBlock ? AppColors.white.withOpacity(0.5) : AppColors.white,
+                    onPressed: isBlock ? () => _onAddRating(context, defaultRating: data.rating) : null,
                     icon: SvgImageConstant.starOutlined,
+                    textColor: isBlock ? AppColors.black.withOpacity(0.5) : null,
                     label: "Leave a Rating",
                   ),
                 ),
@@ -358,9 +375,19 @@ class _PreviousShiftListTile extends StatelessWidget {
               children: [
                 Expanded(
                   child: _ActionButton(
-                    onPressed: () {},
+                    backgroundColor: isBlock ? AppColors.white.withOpacity(0.5) : AppColors.white,
+                    onPressed: isBlock
+                        ? () {
+                            _onAddRemark(
+                              context,
+                              postId: data.post_id ?? 0,
+                              userId: data.user_id ?? 0,
+                            );
+                          }
+                        : null,
                     label: "Remark",
                     icon: SvgImageConstant.medalStar,
+                    textColor: isBlock ? AppColors.black.withOpacity(0.5) : null,
                   ),
                 ),
                 Gap(getSize(8.0)),
@@ -381,8 +408,9 @@ class _PreviousShiftListTile extends StatelessWidget {
                         );
                       }
                     },
-                    label: "Block",
-                    icon: SvgImageConstant.block,
+                    label: isBlock ? "Blocked" : "Block",
+                    icon: isBlock ? SvgImageConstant.blockedFilled : SvgImageConstant.block,
+                    backgroundColor: isBlock ? AppColors.redAccent.withOpacity(0.15) : AppColors.white,
                   ),
                 ),
               ],
@@ -391,6 +419,22 @@ class _PreviousShiftListTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _onAddRemark(
+    BuildContext context, {
+    required int postId,
+    required int userId,
+  }) async {
+    final result = await showDialog<String?>(
+      context: context,
+      builder: (context) => AddRemarkModal(),
+    );
+    if (result != null) {
+      context.read<PreviousShiftBloc>().add(
+            PreviousShiftEvent.addRemark(userId: userId, postId: postId, context: context, remark: result),
+          );
+    }
   }
 
   void _onBlock(
@@ -414,8 +458,8 @@ class _PreviousShiftListTile extends StatelessWidget {
     );
   }
 
-  void _onAddRating(BuildContext context) {
-    AppDialog.showLeaveRatingModal(context);
+  void _onAddRating(BuildContext context, {int? defaultRating}) {
+    AppDialog.showLeaveRatingModal(context, defaultRating: defaultRating);
   }
 
   Future<void> _onUnblock(
@@ -443,22 +487,26 @@ class _ActionButton extends StatelessWidget {
     required this.icon,
     required this.onPressed,
     required this.label,
+    this.backgroundColor,
+    this.textColor,
   });
 
   final String icon;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final String label;
+  final Color? backgroundColor;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
     return CommonMaterialButton.icon(
       height: 28,
-      backgroundColor: AppColors.white,
+      backgroundColor: backgroundColor ?? AppColors.white,
       radius: getSize(7.0),
       onPressed: onPressed,
       label: label,
       icon: SvgPicture.asset(icon, height: 14, width: 14),
-      textStyle: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w500),
+      textStyle: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w500, color: textColor),
     );
   }
 }

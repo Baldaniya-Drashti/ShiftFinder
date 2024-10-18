@@ -5,6 +5,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/application/employer/proposal/total_proposal_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
@@ -38,7 +39,7 @@ class TotalPraposalView extends StatelessWidget {
           builder: (context, state) {
             if (state.isLoading) {
               return CenterLoadingIndicator();
-            } else if (!state.isLoading && state.totalProposedDataList.isEmpty) {
+            } else if (!state.isLoading && state.totalProposedDataList.isEmpty && state.additionalData == null) {
               return Center(
                 child: SizedBox(
                   width: getSize(280),
@@ -53,16 +54,19 @@ class TotalPraposalView extends StatelessWidget {
             }
 
             return PaginatedListView(
-              onRefresh: () => TotalProposalEvent.getTotalProposalList(id: postId,context: context,isRefresh: true),
-              onLoading: () => TotalProposalEvent.getTotalProposalList(id: postId,context: context,isRefresh: false),
+              onRefresh: () => TotalProposalEvent.getTotalProposalList(id: postId, context: context, isRefresh: true),
+              onLoading: () => TotalProposalEvent.getTotalProposalList(id: postId, context: context, isRefresh: false),
               refreshController: context.read<TotalProposalBloc>().refreshController,
               child: ListView(
                 shrinkWrap: true,
                 physics: BouncingScrollPhysics(),
                 children: [
                   SizedBox(height: getSize(20)),
-                  MainPraposalView(additionalData: state.additionalData),
-                  PersonListWidget(list: state.totalProposedDataList, postId: postId),
+                  MainPraposalView(
+                    additionalData: state.additionalData ?? EmployerProposalDto(),
+                    postId: postId,
+                  ),
+                  if (state.totalProposedDataList.isNotEmpty) PersonListWidget(postId: postId),
                 ],
               ),
             );
