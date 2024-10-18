@@ -46,8 +46,6 @@ class ViewPersonPraposalView extends StatelessWidget {
           builder: (context, state) {
             if (state.isLoading) return CenterLoadingIndicator();
             final data = state.proposalDetailDto;
-
-
             return Stack(
               children: [
                 ListView(

@@ -13,6 +13,8 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/avatar.dart';
+import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 
 class PersonListWidget extends StatelessWidget {
   const PersonListWidget({
@@ -68,34 +70,41 @@ class PersonListWidget extends StatelessWidget {
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
               ),
-              leading: CircleAvatar(
-                radius: getSize(20),
-                backgroundColor: AppColors.green,
-                child: CircleAvatar(
-                  radius: getSize(19),
-                  backgroundImage: NetworkImage(list[index].profile ?? ""),
-                ),
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_rounded,
-                color: AppColors.black,
-              ),
-              subtitle: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SvgPicture.asset(
-                    list[index].last_request == 1 ? SvgImageConstant.receivedCircle : SvgImageConstant.rightWithCircle,
-                    height: 13,
-                    width: 13,
-                  ),
-                  Gap(4),
-                  BaseText(
-                    text: list[index].last_request == 1 ? "Counter Received" : "Counter Sent",
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ],
-              ),
+              leading: UserAvatar(url: list[index].profile ?? ""),
+              trailing: list[index].revoke_status == 1
+                  ? CommonMaterialButton(
+                      backgroundColor: AppColors.redAccent.withOpacity(0.15),
+                      radius: 5,
+                      width: 70,
+                      height: 35,
+                      onPressed: () {
+
+                      },
+                      label: "Revoke",
+                      textStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                    )
+                  : Icon(
+                      Icons.arrow_forward_rounded,
+                      color: AppColors.black,
+                    ),
+              subtitle: list[index].revoke_status == 1
+                  ? BaseText(text: "Awaiting...",fontWeight: FontWeight.w500,fontSize: 11,)
+                  : Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SvgPicture.asset(
+                          list[index].last_request == 1 ? SvgImageConstant.receivedCircle : SvgImageConstant.rightWithCircle,
+                          height: 13,
+                          width: 13,
+                        ),
+                        Gap(4),
+                        BaseText(
+                          text: list[index].last_request == 1 ? "Counter Received" : "Counter Sent",
+                          fontSize: 10,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ],
+                    ),
             ),
           ),
         );
