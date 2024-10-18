@@ -33,11 +33,18 @@ class ShiftsBlocState with _$ShiftsBlocState {
     required bool approveErrorApi,
     required bool approveLoading,
     required List<EmployerShiftDto> approveShiftList,
+    
+
+    /// Cancel
+    required bool noCancelDataFound,
+    required bool cancelErrorApi,
+    required bool cancelLoading,
     required List<EmployerShiftDto> cancelledShiftList,
 
     ///
     required LocationDTO currentFilledFilter,
     required LocationDTO currentApproveFilter,
+    required LocationDTO currentCancelLocationFilter,
     required SkillDTO currentCancelFilter,
   }) = _ShiftsBlocState;
 
@@ -55,6 +62,10 @@ class ShiftsBlocState with _$ShiftsBlocState {
           id: 1,
           name: StringConstant.cancelledByYou,
         ),
+        currentCancelLocationFilter: LocationDTO(),
+        cancelErrorApi: false,
+        cancelLoading: false,
+        noCancelDataFound: false,
 
         ///
         selectedTab: 0,

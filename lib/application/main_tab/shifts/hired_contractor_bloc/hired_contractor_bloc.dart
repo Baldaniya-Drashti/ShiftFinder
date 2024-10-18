@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -21,9 +22,36 @@ class HiredContractorBloc
 
   final IMainFacade mainFacade;
 
+  int convertToTimestamp(TimeOfDay timeOfDay) {
+    final now = DateTime.now();
+    final dateTime = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      timeOfDay.hour,
+      timeOfDay.minute,
+    );
+
+    return dateTime.toUtc().millisecondsSinceEpoch ~/ 1000;
+  }
+
   HiredContractorBloc(this.mainFacade) : super(HiredContractorState.initial()) {
     on<HiredContractorEvent>((event, emit) async {
       await event.map(
+        changeClockInClockOutTime: (value) async {
+          if (value.isClockIn) {
+            final clockInTimeStamp = convertToTimestamp(value.time);
+
+            emit(state.copyWith(clockIn: clockInTimeStamp));
+          } else {
+            final clockOutTimeStamp = convertToTimestamp(value.time);
+            emit(
+              state.copyWith(
+                clockOut: clockOutTimeStamp,
+              ),
+            );
+          }
+        },
         getHiredFilledContractorList: (e) async {
           if (e.refresh) {
             currentPage = 1;

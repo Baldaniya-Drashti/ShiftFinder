@@ -36,6 +36,9 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
   int currentApprovePage = 1;
   int lastApprovePage = 1;
 
+  int currentCancelPage = 1;
+  int lastCancelPage = 1;
+
   final IAccountRepository iAccountRepository;
   final IMainFacade mainFacade;
   List<dynamic> placeList = [];
@@ -51,25 +54,28 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
         await event.map(
           started: (value) async {},
           onFilledSorting: (e) {
-            emit(
-              state.copyWith(
-                currentFilledFilter: e.currentSorting,
-              ),
-            );
-          },
-          onCancelTypeSorting: (e) {
-            emit(
-              state.copyWith(
-                currentCancelFilter: e.currentSorting,
-              ),
-            );
+            if (state.currentFilledFilter != e.currentSorting) {
+              add(ShiftsBlocEvent.fetchFilledShiftList(refresh: true));
+            }
+            emit(state.copyWith(currentFilledFilter: e.currentSorting));
           },
           onApproveSorting: (e) {
-            emit(
-              state.copyWith(
-                currentApproveFilter: e.currentSorting,
-              ),
-            );
+            if (state.currentApproveFilter != e.currentSorting) {
+              add(ShiftsBlocEvent.fetchApprovedShiftList(refresh: true));
+            }
+            emit(state.copyWith(currentApproveFilter: e.currentSorting));
+          },
+          onCancelTypeSorting: (e) {
+            if (state.currentCancelFilter != e.currentSorting) {
+              add(ShiftsBlocEvent.fetchCancelledShiftList(refresh: true));
+            }
+            emit(state.copyWith(currentCancelFilter: e.currentSorting));
+          },
+          onCancelLocationSorting: (e) {
+            if (state.currentCancelLocationFilter != e.currentSorting) {
+              add(ShiftsBlocEvent.fetchCancelledShiftList(refresh: true));
+            }
+            emit(state.copyWith(currentCancelLocationFilter: e.currentSorting));
           },
           tabChange: (value) async {
             emit(state.copyWith(selectedTab: value.tabIndex));
@@ -99,6 +105,8 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
                     getDataLoading: false,
                     currentFilledFilter: (r.isNotEmpty) ? r[0] : LocationDTO(),
                     currentApproveFilter: (r.isNotEmpty) ? r[0] : LocationDTO(),
+                    currentCancelLocationFilter:
+                        (r.isNotEmpty) ? r[0] : LocationDTO(),
                     // locationList: List.from(state.locationList)
                     //   ..addAll(dropdownList),
                     locationList: r,
@@ -108,7 +116,7 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
             );
             add(ShiftsBlocEvent.fetchFilledShiftList(refresh: true));
             add(ShiftsBlocEvent.fetchApprovedShiftList(refresh: true));
-            // add(ShiftsBlocEvent.fetchCancelledShiftList(refresh: true));
+            add(ShiftsBlocEvent.fetchCancelledShiftList(refresh: true));
           },
           deleteReasonChange: (DeleteReasonChange e) async {
             return emit(
@@ -278,46 +286,46 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
           },
           fetchCancelledShiftList: (FetchCancelledShiftList value) async {
             if (value.refresh) {
-              currentPage = 1;
+              currentCancelPage = 1;
               emit(state.copyWith(
-                  cancelledShiftList: [], getDataLoading: value.refresh));
-              approveRefreshController.resetNoData();
+                  cancelledShiftList: [], cancelLoading: value.refresh));
+              cancelledRefreshController.resetNoData();
             } else {
-              if (currentPage > lastPage) {
-                approveRefreshController.loadNoData();
+              if (currentCancelPage > lastCancelPage) {
+                cancelledRefreshController.loadNoData();
                 return;
               }
             }
             var res = await mainFacade.getEmployerShift(
-              page: currentPage,
+              page: currentCancelPage,
               type: 3,
-              locationId: 0,
-              shortType: 0,
+              locationId: state.currentCancelLocationFilter.id ?? -1,
+              shortType: state.currentCancelFilter.id ?? -1,
             );
-            currentPage++;
+            currentCancelPage++;
             res.fold(
               (l) => emit(
                 state.copyWith(
-                  errorApi: true,
-                  getDataLoading: false,
+                  cancelErrorApi: true,
+                  cancelLoading: false,
                   cancelledShiftList: [],
                 ),
               ),
               (r) {
-                lastPage = r.meta?.lastPage ?? 1;
+                lastCancelPage = r.meta?.lastPage ?? 1;
                 if (value.refresh) {
-                  List.from(state.approveShiftList).clear();
+                  List.from(state.cancelledShiftList).clear();
                 }
                 return emit(
                   state.copyWith(
-                    getDataLoading: false,
-                    errorApi: false,
-                    noDataFound: (r.data as List<dynamic>)
+                    cancelLoading: false,
+                    cancelErrorApi: false,
+                    noCancelDataFound: (r.data as List<dynamic>)
                         .map((e) => EmployerShiftDto.fromJson(e))
                         .toList()
                         .isEmpty,
                     //  getProductList: []
-                    cancelledShiftList: List.from(state.approveShiftList)
+                    cancelledShiftList: List.from(state.cancelledShiftList)
                       ..addAll(
                         (r.data as List<dynamic>)
                             .map((e) => EmployerShiftDto.fromJson(e))

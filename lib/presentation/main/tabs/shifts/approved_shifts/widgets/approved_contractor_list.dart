@@ -4,9 +4,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/application/main_tab/shifts/hired_contractor_bloc/hired_contractor_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
-import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/main/hired_contractor_list_dto/hired_contractor_list_dto.dart';
@@ -66,7 +66,8 @@ class ApprovedHiredList extends StatelessWidget {
                           child: ListView.builder(
                               padding:
                                   EdgeInsets.symmetric(vertical: getSize(10)),
-                              itemCount: 1,
+                              itemCount:
+                                  state.hiredApproveContractorList.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                     onTap: () {
@@ -77,8 +78,7 @@ class ApprovedHiredList extends StatelessWidget {
                                     },
                                     child: contractorDetail(
                                       context,
-                                      // state.hiredFilledContractorList[index],
-                                      HiredContractorListDTO(),
+                                      state.hiredApproveContractorList[index],
                                     ));
                               }),
                         ));
@@ -122,18 +122,17 @@ class ApprovedHiredList extends StatelessWidget {
                   child: CircleAvatar(
                     backgroundColor: AppColors.scaffoldColor,
                     radius: getSize(21),
-                    // backgroundImage: (contractor.profile != null &&
-                    //         contractor.profile!.isNotEmpty)
-                    //     ? NetworkImage(contractor.profile ?? "")
-                    //     : null,
+                    backgroundImage: (contractor.profile != null &&
+                            contractor.profile!.isNotEmpty)
+                        ? NetworkImage(contractor.profile ?? "")
+                        : null,
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: getSize(10)),
                   child: BaseText(
                     text:
-                        // '${contractor.first_name ?? ""} ${contractor.last_name ?? ""}',
-                        'ROLE NAME',
+                        '${contractor.first_name ?? ""} ${contractor.last_name ?? ""}',
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                   ),
@@ -179,7 +178,7 @@ class ApprovedHiredList extends StatelessWidget {
                 child: CommonButton(
                   height: 40,
                   onPressed: () {
-                    approveDialog(context);
+                    approveDialog(context, contractor);
                   },
                   borderRadius: 7,
                   buttonFontSize: 12,
@@ -194,7 +193,8 @@ class ApprovedHiredList extends StatelessWidget {
                   borderColor: AppColors.scaffoldColor,
                   buttonTextColor: AppColors.black,
                   onPressed: () {
-                    EditClockTimeDialog().editClockTimeDialog(context);
+                    EditClockTimeDialog()
+                        .editClockTimeDialog(context, contractor);
                   },
                   buttonFontSize: 12,
                   borderRadius: 7,
@@ -223,7 +223,8 @@ class ApprovedHiredList extends StatelessWidget {
         children: [
           clockTime(
             context,
-            value: '09:15 AM',
+            value: DateFormat('hh:mm a')
+                .format(DateTime.fromMillisecondsSinceEpoch(-1 * 1000)),
             title: StringConstant.clockIn,
             svgPrefixIcon: SvgImageConstant.clock,
             valueColor: AppColors.primaryColor,
@@ -231,7 +232,8 @@ class ApprovedHiredList extends StatelessWidget {
           Spacer(),
           clockTime(
             context,
-            value: '07:30 PM',
+            value: DateFormat('hh:mm a')
+                .format(DateTime.fromMillisecondsSinceEpoch(-1 * 1000)),
             title: StringConstant.clockOut,
             svgPrefixIcon: SvgImageConstant.clock,
             valueColor: AppColors.primaryColor,
@@ -283,93 +285,76 @@ class ApprovedHiredList extends StatelessWidget {
     );
   }
 
-  approveDialog(BuildContext context) {
+  approveDialog(BuildContext context, HiredContractorListDTO contractor) {
     AcceptRejectDialog(
       title: StringConstant.approve,
-      description: StringConstant.approveShiftDesc,
+      description:
+          "${StringConstant.approveShiftDesc1}${contractor.first_name ?? ""}${StringConstant.approveShiftDesc2}",
       onPressedAccept: () async {
         await context.router.maybePop();
-        final result = await showDialog<bool?>(
-          barrierDismissible: false,
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              contentPadding: EdgeInsets.all(24).copyWith(top: 0),
-              clipBehavior: Clip.none,
-              insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(getSize(15)),
-              ),
-              titlePadding: EdgeInsets.zero,
-              title: Column(
-                children: [
-                  Stack(
-                    clipBehavior: Clip.none,
-                    alignment: Alignment.center,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(getSize(15)),
-                        child: Image.asset(
-                            PngImageConstants.curvedBackgroundImage),
-                      ),
-                      Positioned(
-                        top: getSize(85),
-                        child: SvgPicture.asset(
-                          SvgImageConstant.approved,
-                          height: getSize(107),
-                          width: getSize(107),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: getSize(80),
-                  ),
-                  BaseText(
-                    text: "Approved!",
-                    fontSize: 22,
-                    fontFamily: 'Aclonica',
-                  ),
-                ],
-              ),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    height: getSize(10),
-                  ),
-                  BaseText(
-                    text:
-                        "The clock in and out times for this shift have been successfully approved.",
-                    fontSize: 14,
-                    textAlign: TextAlign.center,
-                    fontWeight: FontWeight.w500,
-                    textColor: AppColors.black.withOpacity(0.7),
-                  ),
-                ],
-              ),
-              actionsAlignment: MainAxisAlignment.center,
-              actions: [
-                CommonButton(
-                  height: 46,
-                  width: 200,
-                  onPressed: () {
-                    context.router.maybePop(true);
-                  },
-                  buttonText: "Ok",
-                ),
-              ],
-            );
-          },
-        );
-        if (result ?? true) {
-          context.router.push(PageRouteInfo(ShiftActionsView.name));
-        }
+        successFullyApproved(context);
       },
-      acceptButtonText: 'Approve',
+      acceptButtonText: StringConstant.approve,
       onPressedReject: () {
         context.router.maybePop();
       },
     ).acceptRejectDialog(context);
+  }
+
+  successFullyApproved(BuildContext context) {
+    showDialog<bool?>(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          contentPadding: EdgeInsets.all(24).copyWith(top: 0),
+          clipBehavior: Clip.none,
+          insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(getSize(15)),
+          ),
+          titlePadding: EdgeInsets.zero,
+          title: Column(
+            children: [
+              SvgPicture.asset(
+                SvgImageConstant.approvedWithCurved,
+                fit: BoxFit.fill,
+              ),
+              SizedBox(height: getSize(20)),
+              BaseText(
+                text: "${StringConstant.approved}!",
+                fontSize: 22,
+                fontFamily: 'Aclonica',
+              ),
+            ],
+          ),
+          content: Padding(
+            padding: EdgeInsets.symmetric(horizontal: getSize(20))
+                .copyWith(top: getSize(10)),
+            child: BaseText(
+              text: StringConstant.approvedDesc,
+              fontSize: 14,
+              textAlign: TextAlign.center,
+              textColor: AppColors.black.withOpacity(0.7),
+            ),
+          ),
+          actionsAlignment: MainAxisAlignment.center,
+          actions: [
+            CommonButton(
+              height: 46,
+              width: 200,
+              onPressed: () {
+                context.router.maybePop(true);
+              },
+              buttonText: StringConstant.ok,
+            ),
+          ],
+        );
+      },
+    ).then((value) {
+      if (value == true) {
+        context.router.push(PageRouteInfo(ShiftActionsView.name));
+      }
+    });
   }
 }

@@ -36,4 +36,6 @@ class ShiftsBlocEvent with _$ShiftsBlocEvent {
   }) = FetchCancelledShiftList;
   factory ShiftsBlocEvent.onCancelTypeSorting(SkillDTO currentSorting) =
       OnCancelTypeSorting;
+  factory ShiftsBlocEvent.onCancelLocationSorting(LocationDTO currentSorting) =
+      OnCancelLocationSorting;
 }

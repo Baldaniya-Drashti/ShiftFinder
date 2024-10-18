@@ -10,20 +10,20 @@ part 'employer_shift_dto.g.dart';
 class EmployerShiftDto with _$EmployerShiftDto {
   const factory EmployerShiftDto({
     int? id,
-    int? shift_type,
+    String? listing_id,
+    String? roles_list_name,
     int? industry,
+    int? shift_type,
+    LocationDTO? location,
     int? start_time,
     int? start_date,
     int? end_date,
     int? end_time,
-    String? estimated_payables,
-    String? roles_list_name,
+    double? estimated_payables,
     int? total_shifts,
     // CurrentUserDto? user,
     int? total_user,
-    LocationDTO? location,
     int? remaining_shift,
-    String? listing_id,
     bool? isdelete,
   }) = _EmployerShiftDto;
 

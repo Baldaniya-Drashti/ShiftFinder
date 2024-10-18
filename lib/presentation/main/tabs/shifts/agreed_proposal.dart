@@ -8,8 +8,14 @@ import 'package:shift/presentation/main/tabs/shifts/single_agreed_shift.dart';
 
 @RoutePage(name: 'AgreedProposal')
 class AgreedProposal extends StatelessWidget {
+  int userId;
+  int postId;
   HealthcarePostDTO post;
-  AgreedProposal({super.key, required this.post});
+  AgreedProposal(
+      {super.key,
+      required this.post,
+      required this.userId,
+      required this.postId});
 
   @override
   Widget build(BuildContext context) {

@@ -76,6 +76,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: SingleAgreedShift.page),
         AutoRoute(page: MultiAgreedShift.page),
         AutoRoute(page: ApprovedHiredList.page),
+        AutoRoute(page: CancelledContractorList.page),
         AutoRoute(
           page: MainTabView.page,
           children: [

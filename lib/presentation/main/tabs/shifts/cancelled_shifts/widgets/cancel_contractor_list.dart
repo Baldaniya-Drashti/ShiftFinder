@@ -3,27 +3,23 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:shift/application/main_tab/shifts/hired_contractor_bloc/hired_contractor_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
-import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/hired_contractor_list_dto/hired_contractor_list_dto.dart';
 import 'package:shift/injection.dart';
-import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
-import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
-@RoutePage(name: 'FilledHiredContractorList')
-class FilledHiredContractorList extends StatelessWidget {
+@RoutePage(name: 'CancelledContractorList')
+class CancelledContractorList extends StatelessWidget {
+  String title;
   int postId;
-  FilledHiredContractorList({required this.postId});
+  CancelledContractorList({required this.title, required this.postId});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +34,7 @@ class FilledHiredContractorList extends StatelessWidget {
                 onBackPressed: () {
                   context.router.maybePop();
                 },
-                title: StringConstant.allHiredContractors,
+                title: title,
               ),
               body: state.isLoading
                   ? CenterLoadingIndicator(isOnlyLoader: true)
@@ -126,68 +122,15 @@ class FilledHiredContractorList extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: getSize(10)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  BaseText(
-                    text:
-                        '${contractor.first_name ?? ""} ${contractor.last_name ?? ""}',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  if (contractor.contractor_shift_type == 1)
-                    GestureDetector(
-                      onTap: () {
-                        context.router.push(PageRouteInfo(AgreedProposal.name,
-                            args: AgreedProposalArgs(
-                                post: HealthcarePostDTO(),
-                                postId: postId,
-                                userId: contractor.user_id ?? -1)));
-                      },
-                      child: Container(
-                        color: AppColors.transparent,
-                        padding: EdgeInsets.only(
-                            top: getSize(5), right: getSize(20)),
-                        child: BaseText(
-                          text: StringConstant.viewAgreedProposal,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                          textColor: AppColors.primaryColor,
-                        ),
-                      ),
-                    ),
-                ],
+              child: BaseText(
+                text:
+                    '${contractor.first_name ?? ""} ${contractor.last_name ?? ""}',
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
               ),
             ),
             Spacer(),
-            CommonButton(
-              height: 35,
-              width: 85,
-              borderRadius: 5,
-              onPressed: () {
-                showUnderDevelopment(context);
-              },
-              backgroundColor: AppColors.primaryColor.withOpacity(0.15),
-              buttonText: "",
-              customWidget: Row(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    SvgImageConstant.chat,
-                    color: AppColors.black,
-                    height: getSize(15),
-                    width: getSize(15),
-                  ),
-                  SizedBox(width: getSize(5)),
-                  BaseText(
-                    text: StringConstant.chat,
-                    fontWeight: FontWeight.w600,
-                    fontSize: getFontSize(12),
-                  )
-                ],
-              ),
-            )
+            Icon(Icons.arrow_forward_ios_rounded, size: getSize(16)),
           ],
         ),
       ),

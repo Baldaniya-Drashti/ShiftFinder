@@ -125,4 +125,5 @@ class SvgImageConstant {
   static const share = "assets/svg/share.svg";
   static const policies = "assets/svg/policies.svg";
   static const threePersonCircle = "assets/svg/three_person_circle.svg";
+  static const approvedWithCurved = "assets/svg/approved_with_curve.svg";
 }

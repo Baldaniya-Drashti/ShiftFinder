@@ -34,47 +34,49 @@ class FilledShiftsView extends StatelessWidget {
             : state.errorApi
                 ? Center(
                     child: BaseText(text: StringConstant.somethindWentWrong))
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: getSize(15)),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                        child: BaseText(
-                          text: StringConstant.sortBy,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      sortingField(context, state),
-                      Expanded(
-                        child: PaginatedListView(
-                          onRefresh: () => context.read<ShiftsBloc>().add(
-                              ShiftsBlocEvent.fetchFilledShiftList(
-                                  refresh: true)),
-                          onLoading: () => context.read<ShiftsBloc>().add(
-                              ShiftsBlocEvent.fetchFilledShiftList(
-                                  refresh: false)),
-                          refreshController: context
-                              .read<ShiftsBloc>()
-                              .filledRefreshController,
-                          isNoDataFound: state.noDataFound,
-                          child: ListView.separated(
-                            separatorBuilder: (context, index) => Gap(16),
-                            itemCount: state.filledShiftList.length,
-                            shrinkWrap: true,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: getSize(10),
-                                vertical: getSize(12.5)),
-                            physics: BouncingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return shiftBox(
-                                  context, state.filledShiftList[index]);
-                            },
+                : Padding(
+                    padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: getSize(18))
+                              .copyWith(top: getSize(10)),
+                          child: BaseText(
+                            text: StringConstant.sortBy,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
-                      )
-                    ],
+                        sortingField(context, state),
+                        Expanded(
+                          child: PaginatedListView(
+                            onRefresh: () => context.read<ShiftsBloc>().add(
+                                ShiftsBlocEvent.fetchFilledShiftList(
+                                    refresh: true)),
+                            onLoading: () => context.read<ShiftsBloc>().add(
+                                ShiftsBlocEvent.fetchFilledShiftList(
+                                    refresh: false)),
+                            refreshController: context
+                                .read<ShiftsBloc>()
+                                .filledRefreshController,
+                            isNoDataFound: state.noDataFound,
+                            child: ListView.separated(
+                              separatorBuilder: (context, index) => Gap(16),
+                              itemCount: state.filledShiftList.length,
+                              shrinkWrap: true,
+                              padding:
+                                  EdgeInsets.symmetric(vertical: getSize(20)),
+                              physics: BouncingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return shiftBox(
+                                    context, state.filledShiftList[index]);
+                              },
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   );
       },
     );
@@ -176,6 +178,7 @@ class FilledShiftsView extends StatelessWidget {
                         BaseText(
                           text: shift.roles_list_name ?? "",
                           fontSize: 16,
+                          maxLines: 1,
                           fontWeight: FontWeight.w600,
                         ),
                         Spacer(),
@@ -233,10 +236,13 @@ class FilledShiftsView extends StatelessWidget {
                 ),
               ),
               SizedBox(width: getSize(5)),
-              BaseText(
-                text: shift.location?.location ?? "",
-                fontSize: 10,
-                fontWeight: FontWeight.w500,
+              Expanded(
+                child: BaseText(
+                  text: shift.location?.location ?? "",
+                  fontSize: 10,
+                  maxLines: 1,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),
@@ -328,7 +334,7 @@ class FilledShiftsView extends StatelessWidget {
           children: [
             displayDateBreak(
               context,
-              boldValue: "\$${shift.estimated_payables ?? ""}",
+              boldValue: "\$${shift.estimated_payables ?? 0.0}",
               timidValue: "",
               title: StringConstant.estimatedPayables,
               svgPrefixIcon: SvgImageConstant.dollorRound,
@@ -511,33 +517,31 @@ class FilledShiftsView extends StatelessWidget {
     ShiftsBlocState state,
   ) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        height: 40,
-        child: CustomDropdownField(
-          onChanged: (value) {
-            // if (value != null) {
+      padding: EdgeInsets.symmetric(vertical: getSize(10)),
+      child: CustomDropdownField(
+        onChanged: (value) {
+          if (value != null) {
             context
                 .read<ShiftsBloc>()
                 .add(ShiftsBlocEvent.onFilledSorting(value ?? LocationDTO()));
-            // }
-          },
-          hintText: StringConstant.location,
-          value: (state.currentFilledFilter.location != null &&
-                  state.currentFilledFilter.location!.isNotEmpty)
-              ? state.currentFilledFilter
-              : null,
-          items: state.locationList.map((val) {
-            return DropdownMenuItem<LocationDTO>(
-              value: val,
-              child: BaseText(
-                text: val.location ?? "",
-                fontSize: 14,
-                textColor: AppColors.black,
-              ),
-            );
-          }).toList(),
-        ),
+          }
+        },
+        hintText: StringConstant.location,
+        value: (state.currentFilledFilter.location != null &&
+                state.currentFilledFilter.location!.isNotEmpty)
+            ? state.currentFilledFilter
+            : null,
+        items: state.locationList.map((val) {
+          return DropdownMenuItem<LocationDTO>(
+            value: val,
+            child: BaseText(
+              text: val.location ?? "",
+              fontSize: 14,
+              maxLines: 1,
+              textColor: AppColors.black,
+            ),
+          );
+        }).toList(),
       ),
     );
   }

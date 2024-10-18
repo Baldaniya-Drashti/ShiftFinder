@@ -11,6 +11,8 @@ class HiredContractorState with _$HiredContractorState {
     required bool errorApi,
     required List<HiredContractorListDTO> hiredFilledContractorList,
     required List<HiredContractorListDTO> hiredApproveContractorList,
+    required int? clockIn,
+    required int? clockOut,
   }) = _HiredContractorState;
   factory HiredContractorState.initial() => HiredContractorState(
         authFailureOrSuccessOption: none(),
@@ -20,5 +22,7 @@ class HiredContractorState with _$HiredContractorState {
         isLoading: false,
         noDataFound: false,
         showErrorMessages: false,
+        clockIn: null,
+        clockOut: null,
       );
 }

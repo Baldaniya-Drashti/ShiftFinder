@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -10,7 +11,6 @@ import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_shift/employer_shift_dto.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -18,8 +18,6 @@ import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
-import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
-import 'package:shift/presentation/main/tabs/shifts/approved_shifts/widgets/edit_clock_time_dialog.dart';
 
 class ApproveShiftView extends StatelessWidget {
   const ApproveShiftView({super.key});
@@ -33,132 +31,139 @@ class ApproveShiftView extends StatelessWidget {
             : state.approveErrorApi
                 ? Center(
                     child: BaseText(text: StringConstant.somethindWentWrong))
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: getSize(15)),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                        child: BaseText(
-                          text: StringConstant.sortBy,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      sortingField(context, state),
-                      SizedBox(height: getSize(12)),
-                      Expanded(
-                        child: PaginatedListView(
-                          onRefresh: () => context.read<ShiftsBloc>().add(
-                              ShiftsBlocEvent.fetchApprovedShiftList(
-                                  refresh: true)),
-                          onLoading: () => context.read<ShiftsBloc>().add(
-                              ShiftsBlocEvent.fetchApprovedShiftList(
-                                  refresh: false)),
-                          refreshController: context
-                              .read<ShiftsBloc>()
-                              .approveRefreshController,
-                          child: ListView.builder(
-                            itemCount: 10,
-                            shrinkWrap: true,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: getSize(10),
-                              vertical: getSize(12.5),
-                            ),
-                            physics: BouncingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return Container(
-                                margin: EdgeInsets.symmetric(
-                                    vertical: getSize(
-                                        index == 0 || index == 9 ? 0 : 12.5)),
-                                padding: EdgeInsets.all(getSize(10)),
-                                decoration: BoxDecoration(
-                                  color: AppColors.white,
-                                  borderRadius:
-                                      BorderRadius.circular(getSize(20)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: AppColors.black.withOpacity(0.15),
-                                      blurRadius: 24,
-                                      offset: Offset(0, 0),
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    userDetail(
-                                        context, EmployerShiftDto(industry: 1)),
-                                    paddingBetweenFields(),
-                                    remainingTime(context, EmployerShiftDto()),
-                                    paddingBetweenFields(),
-                                    dateAndTime(context, EmployerShiftDto()),
-                                    paddingBetweenFields(),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                        vertical: getSize(10),
-                                        horizontal: getSize(15),
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.scaffoldColor,
-                                        borderRadius:
-                                            BorderRadius.circular(getSize(10)),
-                                      ),
-                                      child: InkWell(
-                                        onTap: () {
-                                          context.router.push(PageRouteInfo(
-                                              ApprovedHiredList.name,
-                                              args: ApprovedHiredListArgs(
-                                                  postId: -1)));
-                                        },
-                                        child: Row(
-                                          children: [
-                                            CircleAvatar(
-                                              backgroundColor:
-                                                  AppColors.transparent,
-                                              radius: getSize(20),
-                                              child: SvgPicture.asset(
-                                                SvgImageConstant
-                                                    .threePersonCircle,
-                                              ),
-                                            ),
-                                            SizedBox(width: getSize(10)),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                BaseText(
-                                                  text:
-                                                      "${StringConstant.allHiredContractors} (0/2)",
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                                BaseText(
-                                                  text: StringConstant
-                                                      .approveShiftsForContractors,
-                                                  fontSize: 8,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ],
-                                            ),
-                                            Spacer(),
-                                            Icon(
-                                              Icons.arrow_forward_ios_rounded,
-                                              size: getSize(16),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
+                : Padding(
+                    padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: getSize(18))
+                              .copyWith(top: getSize(10)),
+                          child: BaseText(
+                            text: StringConstant.sortBy,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
-                      )
-                    ],
+                        sortingField(context, state),
+                        Expanded(
+                          child: PaginatedListView(
+                            onRefresh: () => context.read<ShiftsBloc>().add(
+                                ShiftsBlocEvent.fetchApprovedShiftList(
+                                    refresh: true)),
+                            onLoading: () => context.read<ShiftsBloc>().add(
+                                ShiftsBlocEvent.fetchApprovedShiftList(
+                                    refresh: false)),
+                            refreshController: context
+                                .read<ShiftsBloc>()
+                                .approveRefreshController,
+                            child: ListView.builder(
+                              itemCount: state.approveShiftList.length,
+                              shrinkWrap: true,
+                              padding:
+                                  EdgeInsets.symmetric(vertical: getSize(20)),
+                              physics: BouncingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: getSize(
+                                          index == 0 || index == 9 ? 0 : 12.5)),
+                                  padding: EdgeInsets.all(getSize(10)),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.white,
+                                    borderRadius:
+                                        BorderRadius.circular(getSize(20)),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color:
+                                            AppColors.black.withOpacity(0.15),
+                                        blurRadius: 10,
+                                        offset: Offset(0, 1),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      userDetail(context,
+                                          state.approveShiftList[index]),
+                                      paddingBetweenFields(),
+                                      remainingTime(context,
+                                          state.approveShiftList[index]),
+                                      paddingBetweenFields(),
+                                      dateAndTime(context,
+                                          state.approveShiftList[index]),
+                                      paddingBetweenFields(),
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                          vertical: getSize(10),
+                                          horizontal: getSize(15),
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.scaffoldColor,
+                                          borderRadius: BorderRadius.circular(
+                                              getSize(10)),
+                                        ),
+                                        child: InkWell(
+                                          onTap: () {
+                                            context.router.push(PageRouteInfo(
+                                                ApprovedHiredList.name,
+                                                args: ApprovedHiredListArgs(
+                                                    postId: state
+                                                            .approveShiftList[
+                                                                index]
+                                                            .id ??
+                                                        -1)));
+                                          },
+                                          child: Row(
+                                            children: [
+                                              CircleAvatar(
+                                                backgroundColor:
+                                                    AppColors.transparent,
+                                                radius: getSize(20),
+                                                child: SvgPicture.asset(
+                                                  SvgImageConstant
+                                                      .threePersonCircle,
+                                                ),
+                                              ),
+                                              SizedBox(width: getSize(10)),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  BaseText(
+                                                    text:
+                                                        "${StringConstant.allHiredContractors} (0/2)",
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                  BaseText(
+                                                    text: StringConstant
+                                                        .approveShiftsForContractors,
+                                                    fontSize: 8,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ],
+                                              ),
+                                              Spacer(),
+                                              Icon(
+                                                  Icons
+                                                      .arrow_forward_ios_rounded,
+                                                  size: getSize(16)),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   );
       },
     );
@@ -169,33 +174,31 @@ class ApproveShiftView extends StatelessWidget {
     ShiftsBlocState state,
   ) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        height: 40,
-        child: CustomDropdownField(
-          onChanged: (value) {
-            // if (value != null) {
+      padding: EdgeInsets.symmetric(vertical: getSize(10)),
+      child: CustomDropdownField(
+        onChanged: (value) {
+          if (value != null) {
             context
                 .read<ShiftsBloc>()
                 .add(ShiftsBlocEvent.onApproveSorting(value ?? LocationDTO()));
-            // }
-          },
-          hintText: StringConstant.location,
-          value: (state.currentApproveFilter.location != null &&
-                  state.currentApproveFilter.location!.isNotEmpty)
-              ? state.currentApproveFilter
-              : null,
-          items: state.locationList.map((val) {
-            return DropdownMenuItem<LocationDTO>(
-              value: val,
-              child: BaseText(
-                text: val.location ?? "",
-                fontSize: 14,
-                textColor: AppColors.black,
-              ),
-            );
-          }).toList(),
-        ),
+          }
+        },
+        hintText: StringConstant.location,
+        value: (state.currentApproveFilter.location != null &&
+                state.currentApproveFilter.location!.isNotEmpty)
+            ? state.currentApproveFilter
+            : null,
+        items: state.locationList.map((val) {
+          return DropdownMenuItem<LocationDTO>(
+            value: val,
+            child: BaseText(
+              text: val.location ?? "",
+              fontSize: 14,
+              maxLines: 1,
+              textColor: AppColors.black,
+            ),
+          );
+        }).toList(),
       ),
     );
   }
@@ -220,14 +223,9 @@ class ApproveShiftView extends StatelessWidget {
           Row(
             children: [
               CircleAvatar(
-                radius: getSize(30),
-                backgroundColor: AppColors.green,
-                child: CircleAvatar(
-                  radius: getSize(29),
-                  backgroundImage: NetworkImage(
-                    'https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg',
-                  ),
-                ),
+                radius: getSize(25),
+                backgroundColor: Colors.transparent,
+                child: Image.asset(PngImageConstants.nurse2),
               ),
               SizedBox(width: getSize(15)),
               Expanded(
@@ -235,8 +233,9 @@ class ApproveShiftView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     BaseText(
-                      text: shift.roles_list_name ?? "Role name",
+                      text: shift.roles_list_name ?? "",
                       fontSize: 16,
+                      maxLines: 1,
                       fontWeight: FontWeight.w600,
                     ),
                     SizedBox(height: getSize(3)),
@@ -268,10 +267,13 @@ class ApproveShiftView extends StatelessWidget {
                 ),
               ),
               SizedBox(width: getSize(5)),
-              BaseText(
-                text: shift.location?.location ?? "location",
-                fontSize: 10,
-                fontWeight: FontWeight.w500,
+              Expanded(
+                child: BaseText(
+                  text: shift.location?.location ?? "",
+                  fontSize: 10,
+                  maxLines: 1,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),
@@ -301,7 +303,7 @@ class ApproveShiftView extends StatelessWidget {
           BaseText(
             text: (shift.remaining_shift != null && shift.remaining_shift! > 9)
                 ? "${shift.remaining_shift ?? 0}"
-                : "0${shift.remaining_shift}",
+                : "0${shift.remaining_shift ?? 0}",
             fontSize: 14,
             fontWeight: FontWeight.w500,
             textColor: AppColors.primaryColor,
@@ -328,7 +330,8 @@ class ApproveShiftView extends StatelessWidget {
                   )
                 : displayDateBreak(
                     context,
-                    boldValue: "${shift.shift_type ?? 0} Shifts",
+                    boldValue:
+                        "${shift.shift_type ?? 0} ${StringConstant.shifts}",
                     timidValue: "",
                     title: StringConstant.totalShifts,
                     svgPrefixIcon: SvgImageConstant.calendar,
