@@ -13,17 +13,17 @@ import 'package:shift/domain/auth/i_auth_facade.dart';
 import 'package:shift/infrastructure/core/education_dto/education_dto.dart';
 
 part 'education_detail_event.dart';
+
 part 'education_detail_state.dart';
+
 part 'education_detail_bloc.freezed.dart';
 
 @injectable
-class EducationDetailBloc
-    extends Bloc<EducationDetailEvent, EducationDetailState> {
+class EducationDetailBloc extends Bloc<EducationDetailEvent, EducationDetailState> {
   final IAccountRepository _repository;
   final IAuthFacade _authFacade;
 
-  EducationDetailBloc(this._repository, this._authFacade)
-      : super(EducationDetailState.initial()) {
+  EducationDetailBloc(this._repository, this._authFacade) : super(EducationDetailState.initial()) {
     on<EducationDetailEvent>((event, emit) async {
       await event.map(
         educationObjEvent: (e) async {
@@ -38,8 +38,7 @@ class EducationDetailBloc
               state.copyWith(
                 isSubmitting: false,
                 selectedProgram: InputEmptyOrNot(obj.program_completed ?? ""),
-                selectedGraduation:
-                    InputEmptyOrNot(obj.graduating_institution ?? ""),
+                selectedGraduation: InputEmptyOrNot(obj.graduating_institution ?? ""),
                 yearOfCompletion: InputEmptyOrNot(obj.year_of_completion ?? ""),
               ),
             );
@@ -189,8 +188,7 @@ class EducationDetailBloc
           );
 
           print("Delete Id-> ${e.educationId}");
-          failureOrSuccess =
-              await _repository.deleteEducationApi(educationId: e.educationId);
+          failureOrSuccess = await _repository.deleteEducationApi(educationId: e.educationId);
 
           failureOrSuccess.fold(
             (l) => emit(

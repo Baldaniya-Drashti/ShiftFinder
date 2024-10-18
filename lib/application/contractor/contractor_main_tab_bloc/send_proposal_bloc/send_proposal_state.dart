@@ -15,7 +15,7 @@ class SendProposalState with _$SendProposalState {
     required InputEmptyOrNot accomdationHour,
     required Rate accomdationRate,
     required List<SkillDTO> accomdationHoursList,
-    required Rate rateHour,
+  required Rate rateHour,
     required bool isLoading,
     required bool isSubmitting,
     required bool showErrorMessages,

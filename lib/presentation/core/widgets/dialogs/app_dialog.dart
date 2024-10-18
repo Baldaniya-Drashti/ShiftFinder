@@ -40,8 +40,7 @@ class AppDialog {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actionsAlignment: MainAxisAlignment.center,
             actions: [
               CommonButton(
@@ -103,8 +102,7 @@ class AppDialog {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actions: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -199,8 +197,7 @@ class AppDialog {
             ),
             alignment: Alignment.center,
             actionsAlignment: MainAxisAlignment.center,
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actions: [
               CommonButton(
                 onPressed: () {
@@ -297,8 +294,11 @@ class AppDialog {
     );
   }
 
-  static Future<void> showLeaveRatingModal(BuildContext context) async {
-    int rating = 5;
+  static Future<void> showLeaveRatingModal(
+    BuildContext context, {
+    int? defaultRating,
+  }) async {
+    int rating = defaultRating ?? 0;
     final result = await showDialog<bool?>(
       barrierDismissible: false,
       context: context,
@@ -325,7 +325,8 @@ class AppDialog {
             mainAxisSize: MainAxisSize.min,
             children: [
               BaseText(
-                text: "Your feedback is valuable! Please rate [contractor name] to help showcase their performance and maintain service quality.",
+                text:
+                    "Your feedback is valuable! Please rate [contractor name] to help showcase their performance and maintain service quality.",
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 textAlign: TextAlign.center,
@@ -353,7 +354,8 @@ class AppDialog {
       },
     );
   }
-  static  Future<bool?> showCommonDialog({
+
+  static Future<bool?> showCommonDialog({
     required BuildContext context,
     required String? title,
     required String? content,
@@ -371,22 +373,22 @@ class AppDialog {
         insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
         title: title != null
             ? BaseText(
-          text: title,
-          fontSize: 22,
-          fontWeight: FontWeight.w400,
-          fontFamily: "Aclonica",
-          textAlign: TextAlign.center,
-        )
+                text: title,
+                fontSize: 22,
+                fontWeight: FontWeight.w400,
+                fontFamily: "Aclonica",
+                textAlign: TextAlign.center,
+              )
             : null,
         content: content != null
             ? BaseText(
-          text: content,
-          fontSize: 14,
-          fontWeight: FontWeight.w500,
-          textAlign: TextAlign.center,
-          textColor: AppColors.black.withOpacity(0.7),
-          maxLines: 20,
-        )
+                text: content,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                textAlign: TextAlign.center,
+                textColor: AppColors.black.withOpacity(0.7),
+                maxLines: 20,
+              )
             : null,
         actions: [
           Row(
@@ -466,8 +468,7 @@ class AppDialog {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actions: [
               CommonButton(
                 onPressed: () {
@@ -541,7 +542,8 @@ class _AddRemarkModalState extends State<AddRemarkModal> {
         mainAxisSize: MainAxisSize.min,
         children: [
           BaseText(
-            text: "Please enter your comments or feedback about the contractor. This remark will be visible only to you and is intended for your review.",
+            text:
+                "Please enter your comments or feedback about the contractor. This remark will be visible only to you and is intended for your review.",
             fontSize: 14,
             fontWeight: FontWeight.w500,
             textAlign: TextAlign.center,
@@ -553,10 +555,17 @@ class _AddRemarkModalState extends State<AddRemarkModal> {
           Form(
             key: _formKey,
             child: CustomTextField(
+              autoValidateMode: AutovalidateMode.onUserInteraction,
               controller: _controller,
               maxLines: 5,
               hintText: "Type here",
               fillColor: AppColors.scaffoldColor,
+              validator: (value, p1) {
+                if ((value == null) || value.isEmpty) {
+                  return "Please add remark";
+                }
+                return null;
+              },
             ),
           ),
         ],
@@ -588,5 +597,4 @@ class _AddRemarkModalState extends State<AddRemarkModal> {
       ],
     );
   }
-
 }

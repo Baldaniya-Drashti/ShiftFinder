@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 
 class ApplicantSpecialize extends StatelessWidget {
   const ApplicantSpecialize({
     super.key,
+    required this.data,
   });
+
+  final ApplicantDto data;
 
   @override
   Widget build(BuildContext context) {
+    final completeProfile = data.complete_profile;
+    final specialityOther = completeProfile?.specialties_detail?.where((element) => element.specialtie_lists == null).toList();
+    final speciality = completeProfile?.specialties_detail?.where((element) => element.specialtie_lists != null).toList();
+Log.info(data.experience);
     return Container(
       padding: EdgeInsets.all(getSize(12)),
       decoration: BoxDecoration(
@@ -19,25 +28,125 @@ class ApplicantSpecialize extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          getDetailsView(
-            mainTitle: 'Roles',
-            subTitle1: 'Registered Nurse',
-            subTitle2: 'Paramedic',
-            experience1: 'EXP - 04 Yr.  03 Mo.',
-            experience2: 'EXP - 02 Yr.  11 Mo.',
-          ),
+          if ((data.experience ?? []).isNotEmpty) ...[
+            BaseText(
+              text: "Roles",
+              textColor: AppColors.green.withOpacity(0.8),
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+            Wrap(
+              spacing: 16,
+              runSpacing: 16,
+              children: List.generate(
+                data.experience?.length ?? 0,
+                (index) {
+                  final role = data.experience?[index].role?.name ?? "";
+                  final exp = data.experience?[index];
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BaseText(
+                        text: role,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      SizedBox(height: getSize(5)),
+                      BaseText(
+                        text: "Exp - ${exp?.experience_year ?? "-"} Yr. ${exp?.experience_month ?? "-"} Mo.",
+                        fontSize: 8,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ],
+
+          // getDetailsView(
+          //   mainTitle: 'Roles',
+          //   subTitle1: roles ?? "",
+          //   subTitle2: 'Paramedic',
+          //   experience1: 'EXP - 04 Yr.  03 Mo.',
+          //   experience2: 'EXP - 02 Yr.  11 Mo.',
+          // ),
           SizedBox(height: getSize(15)),
           Divider(
             height: 0,
           ),
           SizedBox(height: getSize(15)),
-          getDetailsView(
-            mainTitle: 'Specialties',
-            subTitle1: 'Community Health',
-            subTitle2: 'ICU Level 2',
-            experience1: 'EXP - 04 Years',
-            experience2: 'EXP - 02 Years',
-          ),
+
+          if ((speciality ?? []).isNotEmpty) ...[
+            BaseText(
+              text: "Specialties",
+              textColor: AppColors.green.withOpacity(0.8),
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+            Wrap(
+              spacing: 16,
+              runSpacing: 16,
+              children: List.generate(
+                speciality?.length ?? 0,
+                (index) {
+                  final role = speciality?[index].specialtie_lists?.name ?? "";
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BaseText(
+                        text: role,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      SizedBox(height: getSize(5)),
+                      BaseText(
+                        text: "Exp -${speciality?[index].experience_year ?? 0} Yr.  ${speciality?[index].experience_month ?? 0} Mo.",
+                        fontSize: 8,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ],
+
+          if ((specialityOther ?? []).isNotEmpty) ...[
+            SizedBox(height: getSize(8)),
+
+            BaseText(
+              text: "Other Specialties",
+              textColor: AppColors.green.withOpacity(0.8),
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+            Wrap(
+              children: List.generate(
+                specialityOther?.length ?? 0,
+                (index) {
+                  final role = specialityOther?[index].specialtie_lists_other ?? "";
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BaseText(
+                        text: role,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      SizedBox(height: getSize(5)),
+                      BaseText(
+                        text: "Exp -${speciality?[index].experience_year ?? 0} Yr.  ${speciality?[index].experience_month ?? 0} Mo.",
+                        fontSize: 8,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ],
+
           SizedBox(height: getSize(15)),
           Divider(
             height: 0,
@@ -45,8 +154,16 @@ class ApplicantSpecialize extends StatelessWidget {
           SizedBox(height: getSize(15)),
           getSkillsDetailsView(
             mainTitle: 'Software Skillset',
-            skills: 'Solvo Portal, PointClickCare, Solvo Portal',
+            skills: '${data.complete_profile?.softwares_skill_list?.map((e) => e.name??"").join(", ")}',
           ),
+
+          if(data.complete_profile?.software_skill_other!=null)...[
+            SizedBox(height: getSize(8)),
+            getSkillsDetailsView(
+              mainTitle: 'Software Skillset Other',
+              skills: 'Test',
+            ),
+          ],
           SizedBox(height: getSize(15)),
           Divider(
             height: 0,
@@ -54,8 +171,15 @@ class ApplicantSpecialize extends StatelessWidget {
           SizedBox(height: getSize(15)),
           getSkillsDetailsView(
             mainTitle: 'Languages Known',
-            skills: 'English, Hindi, Polish',
+            skills: '${completeProfile?.languages_list?.map((e) => e.name??"").toList().join(", ")}',
           ),
+          if(data.complete_profile?.software_skill_other!=null)...[
+            SizedBox(height: getSize(8)),
+            getSkillsDetailsView(
+              mainTitle: 'Software Skillset Other',
+              skills: 'Test',
+            ),
+          ],
         ],
       ),
     );

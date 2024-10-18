@@ -6,9 +6,11 @@ import 'package:shift/application/employer/profile/previous_shift/previous_shift
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/employer_previous_shift/employer_previous_shift_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 
@@ -19,11 +21,16 @@ class PreviousShiftRemarkedView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<PreviousShiftBloc, PreviousShiftState>(
       builder: (context, state) {
+        Log.debug("remarkedList:: ${state.remarkedList.length}");
         return Stack(
           children: [
             PaginatedListView(
-              onRefresh: () => PreviousShiftEvent.fetchFavoriteList(refresh: true),
-              onLoading: () => PreviousShiftEvent.fetchFavoriteList(refresh: false),
+              onRefresh: () {
+                context.read<PreviousShiftBloc>().add(PreviousShiftEvent.fetchRemarkedList(refresh: true));
+              },
+              onLoading: () {
+                context.read<PreviousShiftBloc>().add(PreviousShiftEvent.fetchRemarkedList(refresh: false));
+              },
               refreshController: context.read<PreviousShiftBloc>().remarked,
               isNoDataFound: state.remarkedListNoDataFound,
               child: state.remarkedListLoading
@@ -34,7 +41,7 @@ class PreviousShiftRemarkedView extends StatelessWidget {
                         )
                       : ListView.separated(
                           padding: EdgeInsets.all(getSize(20)),
-                          itemBuilder: (context, index) => _PreviousShiftRemarkedTile(),
+                          itemBuilder: (context, index) => _PreviousShiftRemarkedTile(data: state.remarkedList[index]),
                           separatorBuilder: (context, index) => Gap(getSize(16)),
                           itemCount: state.favoritesList.length,
                         ),
@@ -48,7 +55,9 @@ class PreviousShiftRemarkedView extends StatelessWidget {
 }
 
 class _PreviousShiftRemarkedTile extends StatelessWidget {
-  const _PreviousShiftRemarkedTile();
+  const _PreviousShiftRemarkedTile({required this.data});
+
+  final EmployerPreviousShiftDto data;
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +78,7 @@ class _PreviousShiftRemarkedTile extends StatelessWidget {
                 backgroundColor: AppColors.green,
                 child: CircleAvatar(
                   radius: getSize(24),
-                  backgroundImage: NetworkImage(
-                    'https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg',
-                  ),
+                  backgroundImage: NetworkImage(data.profile ?? ""),
                 ),
               ),
               title: Column(
@@ -85,7 +92,7 @@ class _PreviousShiftRemarkedTile extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           BaseText(
-                            text: "Roboto Flex",
+                            text: "${data.first_name??""} ${data.last_name??""}",
                             fontWeight: FontWeight.w600,
                             fontSize: 14,
                           ),
@@ -116,7 +123,7 @@ class _PreviousShiftRemarkedTile extends StatelessWidget {
                       ),
                       Expanded(
                         child: BaseText(
-                          text: "debra.holt@example.com",
+                          text: "${data.email??""}",
                           fontWeight: FontWeight.w600,
                           fontSize: 10,
                           textColor: AppColors.black.withOpacity(0.6),

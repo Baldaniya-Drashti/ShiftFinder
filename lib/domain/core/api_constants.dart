@@ -168,4 +168,9 @@ class ApiConstants {
   static String deleteEmployerShift = 'employer_shift';
   static String getEmployerShiftUser = 'get_employer_shift_user';
   static String employerClockInOut = 'employer_clock_in_or_out';
+  static String contractorUser = 'contractor_user';
+  static String employerApplicantsProposal = 'employer_applicants_proposal';
+  static String employerApplicantsCounterPropose =
+      'employer_applicants_counter_propose';
+  static String employerAddRemark = 'employer_remark';
 }

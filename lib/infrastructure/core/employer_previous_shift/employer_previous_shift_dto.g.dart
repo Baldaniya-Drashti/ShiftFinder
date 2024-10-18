@@ -28,6 +28,8 @@ _$EmployerPreviousShiftDtoImpl _$$EmployerPreviousShiftDtoImplFromJson(
       isFavourite: json['isFavourite'] as bool?,
       isRemark: json['isRemark'] as bool?,
       isBlock: json['isBlock'] as bool?,
+      email: json['email'] as String?,
+      remark: json['remark'] as String?,
     );
 
 Map<String, dynamic> _$$EmployerPreviousShiftDtoImplToJson(
@@ -52,4 +54,6 @@ Map<String, dynamic> _$$EmployerPreviousShiftDtoImplToJson(
       'isFavourite': instance.isFavourite,
       'isRemark': instance.isRemark,
       'isBlock': instance.isBlock,
+      'email': instance.email,
+      'remark': instance.remark,
     };

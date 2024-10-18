@@ -19,8 +19,14 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 class AddReferenceDetail extends StatelessWidget {
   bool isFromSplash = false;
   ReferenceDTO? referenceObj;
+  bool readOnly;
 
-  AddReferenceDetail({super.key, this.isFromSplash = false, this.referenceObj});
+  AddReferenceDetail({
+    super.key,
+    this.isFromSplash = false,
+    this.referenceObj,
+    this.readOnly=false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +58,7 @@ class AddReferenceDetail extends StatelessWidget {
                     showError(
                       message: failure.maybeMap(
                         showAPIResponseMessage: (value) => value.message,
-                        networkError: (value) =>
-                            'Please check your internet connectivity',
+                        networkError: (value) => 'Please check your internet connectivity',
                         orElse: () => "Server Error. Try again later.",
                       ),
                     ).show(context);
@@ -70,8 +75,7 @@ class AddReferenceDetail extends StatelessWidget {
                     showError(
                       message: failure.maybeMap(
                         showAPIResponseMessage: (value) => value.message,
-                        networkError: (value) =>
-                            'Please check your internet connectivity',
+                        networkError: (value) => 'Please check your internet connectivity',
                         orElse: () => "Server Error. Try again later.",
                       ),
                     ).show(context);
@@ -129,9 +133,7 @@ class AddReferenceDetail extends StatelessWidget {
       ),
       child: TabBar(
         onTap: (value) {
-          context
-              .read<ReferenceBloc>()
-              .add(ReferenceEvent.tabChangeEvent(value));
+          context.read<ReferenceBloc>().add(ReferenceEvent.tabChangeEvent(value));
         },
         padding: EdgeInsets.zero,
         labelStyle: TextStyle(

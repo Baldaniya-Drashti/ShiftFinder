@@ -9,6 +9,7 @@ class PreviousShiftEvent with _$PreviousShiftEvent {
   factory PreviousShiftEvent.ratingChangeEvent({
     required int rating,
   }) = RatingChangeEvent;
+
   factory PreviousShiftEvent.fetchAllPreviousPost({
     required bool refresh,
   }) = FetchAllPreviousPost;
@@ -20,6 +21,7 @@ class PreviousShiftEvent with _$PreviousShiftEvent {
   factory PreviousShiftEvent.fetchBlockedList({
     required bool refresh,
   }) = FetchBlockedList;
+
   factory PreviousShiftEvent.fetchRemarkedList({
     required bool refresh,
   }) = FetchRemarkedList;
@@ -37,18 +39,23 @@ class PreviousShiftEvent with _$PreviousShiftEvent {
   factory PreviousShiftEvent.leaveRating({
     required int id,
   }) = LeaveRating;
+
   factory PreviousShiftEvent.addFavorite({
     required int postId,
     required int userId,
     required BuildContext context,
   }) = AddFavorite;
+
   factory PreviousShiftEvent.addUnFavorite({
     required int postId,
     required int userId,
     required BuildContext context,
   }) = AddUnFavorite;
+
+  factory PreviousShiftEvent.addRemark({
+    required int userId,
+    required int postId,
+    required BuildContext context,
+    required String remark,
+  }) = AddRemark;
 }
-
-
-
-

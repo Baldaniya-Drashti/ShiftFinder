@@ -86,7 +86,8 @@ class PostShiftState with _$PostShiftState {
         startMinute: InputEmptyOrNot("00 Min"),
         endHour: InputEmptyOrNot(""),
         endMinute: InputEmptyOrNot("00 Min"),
-        totalPaybleHours: "00h 00min",
+        totalPaybleHours:
+        "00h 00min",
         breakList: [],
         accomdationHoursList: [],
         unpaidBreak: InputEmptyOrNot(""),

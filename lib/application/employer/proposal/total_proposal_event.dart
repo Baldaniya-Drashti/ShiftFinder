@@ -5,5 +5,13 @@ class TotalProposalEvent with _$TotalProposalEvent {
   const factory TotalProposalEvent.getTotalProposalList({
     required int id,
     required bool isRefresh,
-  }) = _GetTotalProposalList;
+    required BuildContext context,
+  }) = GetTotalProposalList;
+
+
+  const factory TotalProposalEvent.startRevokingTimer({
+    required Duration duration,
+    required int postId,
+    required int revokeTime
+  }) = StartRevokingTimer;
 }

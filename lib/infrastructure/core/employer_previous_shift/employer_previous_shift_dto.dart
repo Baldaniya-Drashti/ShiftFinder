@@ -26,6 +26,8 @@ class EmployerPreviousShiftDto with _$EmployerPreviousShiftDto {
     bool? isFavourite,
     bool? isRemark,
     bool? isBlock,
+    String? email,
+   String? remark,
   }) = _EmployerPreviousShiftDto;
 
   factory EmployerPreviousShiftDto.fromJson(Map<String, dynamic> json) => _$EmployerPreviousShiftDtoFromJson(json);

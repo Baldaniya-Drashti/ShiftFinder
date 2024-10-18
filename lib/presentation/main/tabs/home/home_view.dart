@@ -233,9 +233,13 @@ class HomeView extends StatelessWidget {
                         .toString(),
                 onTap: () {
                   //showUnderDevelopment(context);
-                  Log.debug(state.employerDashboardList[index].id);
+                  Log.debug(state.employerDashboardList[index]);
+                  final id = state.employerDashboardList[index].id ?? 0;
 
-                  context.router.push(PageRouteInfo(TotalPraposalView.name));
+                  context.router.push(
+                    PageRouteInfo(TotalPraposalView.name,
+                        args: TotalPraposalViewArgs(postId: id)),
+                  );
                 },
                 index: index,
               ),

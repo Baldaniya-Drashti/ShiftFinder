@@ -54,7 +54,7 @@ class QuizResultScreen extends StatelessWidget {
                   totalCorrectAnswer = "${r.total_correct_question ?? 00}";
                   totalWrongAnswer = "${r.total_wrong_question ?? 00}";
                   print("GO TO NEXT SCREEN!");
-                  // context.router.push(const PageRouteInfo(MainTabView.name));
+                  context.router.push(const PageRouteInfo(MainTabView.name));
                 },
               ),
             );
@@ -161,7 +161,8 @@ class QuizResultScreen extends StatelessWidget {
                               onPressed: () {
                                 // showUnderDevelopment(context);
                                 context.router.replaceAll([
-                                  const PageRouteInfo(ContractorMainTabView.name)
+                                  const PageRouteInfo(
+                                      ContractorMainTabView.name)
                                 ]);
                               },
                               buttonText: StringConstant.txtContinue,

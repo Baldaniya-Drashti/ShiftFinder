@@ -1,4 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:shift/infrastructure/core/additional_data_dto/additional_data_dto.dart';
+import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 
 class CommonResponse<T> {
   bool? status;
@@ -9,7 +11,8 @@ class CommonResponse<T> {
   List<T>? listData;
   Errors? errors;
   Meta? meta;
-  AdditionalData? additional_data;
+  AdditionalDataDto? additional_data;
+  List<EmployerProposalPendingUserDto>? pending_users;
 
   CommonResponse({
     this.status,
@@ -18,6 +21,7 @@ class CommonResponse<T> {
     this.listData,
     this.errors,
     this.meta,
+    this.pending_users = const [],
   });
 
   CommonResponse.fromJson(Map<String, dynamic> json) {
@@ -30,11 +34,12 @@ class CommonResponse<T> {
     if (json.containsKey("meta") && json["meta"] != null) {
       meta = Meta.fromJson(json['meta']);
     }
-    if(json.containsKey("additional_data")){
-      additional_data=AdditionalData.fromMap(json["additional_data"]);
+    if (json.containsKey("additional_data")) {
+      additional_data = AdditionalDataDto.fromJson(json["additional_data"]);
     }
-
-
+    if (json.containsKey("pending_users")) {
+      pending_users = (json['pending_users'] as List<dynamic>).map((e) => EmployerProposalPendingUserDto.fromJson(e)).toList();
+    }
   }
 
   Map<String, dynamic> toJson() {

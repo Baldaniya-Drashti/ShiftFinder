@@ -25,8 +25,12 @@ class PreviousShiftFavView extends StatelessWidget {
         return Stack(
           children: [
             PaginatedListView(
-              onRefresh: () => PreviousShiftEvent.fetchFavoriteList(refresh: true),
-              onLoading: () => PreviousShiftEvent.fetchFavoriteList(refresh: false),
+              onRefresh: () {
+                context.read<PreviousShiftBloc>().add(PreviousShiftEvent.fetchFavoriteList(refresh: true));
+              },
+              onLoading: () {
+                context.read<PreviousShiftBloc>().add(PreviousShiftEvent.fetchFavoriteList(refresh: false));
+              },
               refreshController: context.read<PreviousShiftBloc>().favorite,
               isNoDataFound: state.favoriteListNoDataFound,
               child: state.favoriteListLoading
@@ -88,17 +92,18 @@ class _PreviousShiftFavTile extends StatelessWidget {
               final result = await AppDialog.showCommonDialog(
                 context: context,
                 title: "Unfavorite",
-                content: "Removing [contractor name] from your favorites list will no longer highlight their profile. Are you sure you want to proceed?",
+                content:
+                    "Removing [contractor name] from your favorites list will no longer highlight their profile. Are you sure you want to proceed?",
                 successLabel: "Unfavorite",
               );
               if (result ?? false) {
                 context.read<PreviousShiftBloc>().add(
-                  PreviousShiftEvent.addUnFavorite(
-                    postId: postId,
-                    userId: userId,
-                    context: context,
-                  ),
-                );
+                      PreviousShiftEvent.addUnFavorite(
+                        postId: postId,
+                        userId: userId,
+                        context: context,
+                      ),
+                    );
               }
             },
             label: (data.isFavourite ?? false) ? "UnFavorite" : "Favorite",
