@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors, must_be_immutable
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,18 +8,24 @@ import 'package:intl/intl.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
-import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'MultiAgreedShift')
 class MultiAgreedShift extends StatelessWidget {
-  const MultiAgreedShift({super.key});
+  EmployerProposalDto contractor;
+  MultiAgreedShift({required this.contractor});
 
   @override
   Widget build(BuildContext context) {
+    int? unavailableShiftCount = (contractor.shift_details != null)
+        ? contractor.shift_details!
+            .where((shift) => shift.proposed_start_time == null)
+            .length
+        : null;
     return Scaffold(
       appBar: CommonAppBar(
         onBackPressed: () {
@@ -32,72 +40,82 @@ class MultiAgreedShift extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               totalNoOfShift(
-                  svgPrefixIcon: SvgImageConstant.clockWithOuterLine,
-                  unavailableShift: "2",
-                  title: "kdnv"
-                  // "${StringConstant.totalNumberOfShifts} - ${(post.shift_detail?.detail != null && post.shift_detail!.detail!.isNotEmpty) ? "${(post.shift_detail?.detail?.length.toString().length == 2) ? post.shift_detail?.detail?.length : "0${post.shift_detail?.detail?.length}"}" : "00"}",
-                  ),
+                svgPrefixIcon: SvgImageConstant.clockWithOuterLine,
+                unavailableShift: unavailableShiftCount,
+                title:
+                    "${StringConstant.totalNumberOfShifts} - ${(contractor.shift_details != null && contractor.shift_details!.isNotEmpty) ? "${(contractor.shift_details!.length > 9) ? contractor.shift_details?.length : "0${contractor.shift_details?.length}"}" : "00"}",
+              ),
               paddingBetweenFields(),
               BaseText(
                 text: StringConstant.agreedProposalDesc,
                 fontSize: 12,
               ),
               paddingBetweenFields(),
-              ListView.builder(
-                itemCount: 5,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (_, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      context.router
-                          .push(PageRouteInfo(SingleAgreedShift.name));
-                    },
-                    child: Container(
-                      margin: EdgeInsets.symmetric(vertical: getSize(8)),
-                      padding: EdgeInsets.all(getSize(5)),
-                      decoration: BoxDecoration(
-                          color: AppColors.white,
-                          borderRadius: BorderRadius.circular(getSize(10)),
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 5,
-                              color: AppColors.grey,
-                            )
-                          ]),
+              if (contractor.shift_details != null &&
+                  contractor.shift_details!.isNotEmpty)
+                ListView.builder(
+                  itemCount: contractor.shift_details?.length,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (_, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        context.router
+                            .push(PageRouteInfo(SingleAgreedShift.name,
+                                args: SingleAgreedShiftArgs(
+                                  contractor: contractor,
+                                  index: index,
+                                )));
+                      },
                       child: Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: getSize(14), horizontal: getSize(15)),
-                          decoration: BoxDecoration(
-                            color: AppColors.scaffoldColor,
+                        margin: EdgeInsets.symmetric(vertical: getSize(8)),
+                        padding: EdgeInsets.all(getSize(5)),
+                        decoration: BoxDecoration(
+                            color: AppColors.white,
                             borderRadius: BorderRadius.circular(getSize(10)),
-                          ),
-                          child: Row(
-                            children: [
-                              SvgPicture.asset(
-                                SvgImageConstant.calendar,
-                                height: getSize(20),
-                                width: getSize(20),
-                                color: AppColors.black,
-                              ),
-                              Gap(getSize(10)),
-                              BaseText(
-                                text: DateFormat("dd MMM, yyyy").format(
-                                    DateTime.now().add(Duration(days: index))),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              Spacer(),
-                              Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                size: getSize(16),
-                              ),
-                            ],
-                          )),
-                    ),
-                  );
-                },
-              )
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 5,
+                                color: AppColors.grey,
+                              )
+                            ]),
+                        child: Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: getSize(14), horizontal: getSize(15)),
+                            decoration: BoxDecoration(
+                              color: AppColors.scaffoldColor,
+                              borderRadius: BorderRadius.circular(getSize(10)),
+                            ),
+                            child: Row(
+                              children: [
+                                SvgPicture.asset(
+                                  SvgImageConstant.calendar,
+                                  height: getSize(20),
+                                  width: getSize(20),
+                                  color: AppColors.black,
+                                ),
+                                Gap(getSize(10)),
+                                BaseText(
+                                  text: DateFormat("dd MMM, yyyy").format(
+                                      DateTime.fromMillisecondsSinceEpoch(
+                                          (contractor.shift_details?[index]
+                                                      .start_date ??
+                                                  -1) *
+                                              1000)),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                Spacer(),
+                                Icon(
+                                  Icons.arrow_forward_ios_rounded,
+                                  size: getSize(16),
+                                ),
+                              ],
+                            )),
+                      ),
+                    );
+                  },
+                )
             ],
           ),
         ),
@@ -114,7 +132,7 @@ class MultiAgreedShift extends StatelessWidget {
   Widget totalNoOfShift({
     required String svgPrefixIcon,
     required String title,
-    String unavailableShift = "",
+    int? unavailableShift,
   }) {
     return Container(
       padding: EdgeInsets.symmetric(
@@ -155,7 +173,7 @@ class MultiAgreedShift extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
               paddingBetweenFields(height: 5),
-              if (unavailableShift.isNotEmpty)
+              if (unavailableShift != null)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,

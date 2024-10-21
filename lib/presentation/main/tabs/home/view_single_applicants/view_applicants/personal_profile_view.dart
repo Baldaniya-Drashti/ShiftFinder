@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
-
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
-
 
 @RoutePage(name: 'PersonalProfileView')
 class PersonalProfileView extends StatelessWidget {
@@ -20,18 +19,23 @@ class PersonalProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final list = applicantDto.reference?.where((element) => element.type == 2).toList() ?? [];
+    final list = applicantDto.reference
+            ?.where((element) => element.type == 2)
+            .toList() ??
+        [];
 
     return Scaffold(
       appBar: CommonAppBar(
         onBackPressed: () => context.router.maybePop(),
-        title: "Personal References",
+        title: StringConstant.personalReference,
       ),
       body: ListView.separated(
         padding: EdgeInsets.all(16),
         separatorBuilder: (context, index) => Gap(16),
-        itemCount: (applicantDto.education ?? []).length,
-        itemBuilder: (context, index) => _ListTile(data: list[index],),
+        itemCount: list.length,
+        itemBuilder: (context, index) => _ListTile(
+          data: list[index],
+        ),
       ),
     );
   }
@@ -55,7 +59,10 @@ class _ListTile extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          context.router.push(PageRouteInfo(PersonalReferenceDetail.name, args: PersonalReferenceDetailArgs(data: data)),);
+          context.router.push(
+            PageRouteInfo(PersonalReferenceDetail.name,
+                args: PersonalReferenceDetailArgs(data: data)),
+          );
         },
         child: Row(
           children: [
@@ -90,7 +97,6 @@ class _ListTile extends StatelessWidget {
                     TextSpan(
                       text: "${data.profession_referrer ?? ""} ",
                       style: TextStyle(fontSize: 12),
-
                     ),
                   ),
                   SizedBox(

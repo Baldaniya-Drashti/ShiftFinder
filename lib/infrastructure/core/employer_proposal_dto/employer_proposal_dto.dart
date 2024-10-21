@@ -31,7 +31,6 @@ class EmployerProposalDto with _$EmployerProposalDto {
     int? total_shift,
     int? start_date,
     int? counter_proposal_hourly_rate,
-
     int? counter_proposal_commute_allowance,
     int? counter_proposal_accommodation_allowance,
     int? end_date,
@@ -51,6 +50,10 @@ class EmployerProposalDto with _$EmployerProposalDto {
     int? posted_accommodation_allowance_hour_id,
     int? proposed_accommodation_allowance_rate,
     int? proposed_accommodation_allowance_hour_id,
+    String? proposed_accommodation_allowance_hour_name,
+    String? posted_accommodation_allowance_hour_name,
+    String? proposed_commute_allowance_hour_name,
+    String? posted_commute_allowance_hour_name,
     List<EmployerProposalShiftDetailDto>? shift_details,
     String? posted_commute_allowance_hour_name,
     String? proposed_commute_allowance_hour_name,
@@ -58,7 +61,8 @@ class EmployerProposalDto with _$EmployerProposalDto {
     String? proposed_accommodation_allowance_hour_name,
   }) = _EmployerProposalDto;
 
-  factory EmployerProposalDto.fromJson(Map<String, dynamic> json) => _$EmployerProposalDtoFromJson(json);
+  factory EmployerProposalDto.fromJson(Map<String, dynamic> json) =>
+      _$EmployerProposalDtoFromJson(json);
 }
 
 @freezed
@@ -76,10 +80,9 @@ class EmployerProposalPendingUserDto with _$EmployerProposalPendingUserDto {
     int? sent_received_status,
   }) = _EmployerProposalPendingUserDto;
 
-  factory EmployerProposalPendingUserDto.fromJson(Map<String, dynamic> json) => _$EmployerProposalPendingUserDtoFromJson(json);
+  factory EmployerProposalPendingUserDto.fromJson(Map<String, dynamic> json) =>
+      _$EmployerProposalPendingUserDtoFromJson(json);
 }
-
-
 
 @freezed
 class EmployerProposalShiftDetailDto with _$EmployerProposalShiftDetailDto {
@@ -92,6 +95,6 @@ class EmployerProposalShiftDetailDto with _$EmployerProposalShiftDetailDto {
     int? proposed_end_time,
   }) = _EmployerProposalShiftDetailDto;
 
-  factory EmployerProposalShiftDetailDto.fromJson(Map<String, dynamic> json) => _$EmployerProposalShiftDetailDtoFromJson(json);
+  factory EmployerProposalShiftDetailDto.fromJson(Map<String, dynamic> json) =>
+      _$EmployerProposalShiftDetailDtoFromJson(json);
 }
-

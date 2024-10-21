@@ -22,19 +22,21 @@ class ViewApplicantProfile extends StatelessWidget {
   final int id;
   final int postId;
 
-  const ViewApplicantProfile({super.key, required this.id, required this.postId});
+  const ViewApplicantProfile(
+      {super.key, required this.id, required this.postId});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<ApplicantProfileBloc>()
         ..add(
-          ApplicantProfileEvent.fetchApplicantProfile(id: id, context: context, postId: postId),
+          ApplicantProfileEvent.fetchApplicantProfile(
+              id: id, context: context, postId: postId),
         ),
       child: Scaffold(
         appBar: CommonAppBar(
           onBackPressed: () => context.router.maybePop(),
-          title: 'View Profile',
+          title: StringConstant.viewProfile,
         ),
         body: BlocBuilder<ApplicantProfileBloc, ApplicantProfileState>(
           builder: (context, state) {
@@ -50,7 +52,7 @@ class ViewApplicantProfile extends StatelessWidget {
                   width: getSize(280),
                   child: BaseText(
                     textColor: AppColors.black.withOpacity(0.65),
-                    text: 'No result found.',
+                    text: StringConstant.noResultFound,
                     textAlign: TextAlign.center,
                     lineHeight: 1.2,
                   ),
@@ -64,7 +66,6 @@ class ViewApplicantProfile extends StatelessWidget {
                 physics: BouncingScrollPhysics(),
                 padding: EdgeInsets.symmetric(
                   horizontal: getSize(20),
-
                 ),
                 children: [
                   ApplicantsDetailView(data: state.account),
@@ -79,7 +80,7 @@ class ViewApplicantProfile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       BaseText(
-                        text: 'Education',
+                        text: StringConstant.education,
                         fontSize: 10,
                         fontWeight: FontWeight.w600,
                         textColor: Colors.black.withOpacity(0.8),
@@ -99,7 +100,9 @@ class ViewApplicantProfile extends StatelessWidget {
                         child: InkWell(
                           onTap: () {
                             context.router.push(
-                              PageRouteInfo(EducationProfileListView.name, args: EducationProfileListViewArgs(applicantDto: state.account)),
+                              PageRouteInfo(EducationProfileListView.name,
+                                  args: EducationProfileListViewArgs(
+                                      applicantDto: state.account)),
                             );
                           },
                           child: Row(
@@ -108,6 +111,67 @@ class ViewApplicantProfile extends StatelessWidget {
                                 PngImageConstants.education,
                                 height: getSize(28),
                                 width: getSize(28),
+                              ),
+                              SizedBox(width: getSize(15)),
+                              Image.asset(
+                                PngImageConstants.line,
+                                height: getSize(25),
+                              ),
+                              SizedBox(width: getSize(15)),
+                              Expanded(
+                                child: BaseText(
+                                  text: StringConstant.programCompleted,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Icon(Icons.arrow_forward_rounded)
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (state.account.reference != null &&
+                      state.account.reference!.isNotEmpty) ...[
+                    SizedBox(height: getSize(12)),
+                    BaseText(
+                      text: StringConstant.referencesTapToView,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w600,
+                      textColor: Colors.black.withOpacity(0.8),
+                    ),
+                    if (state.account.reference
+                            ?.where((element) => element.type == 1)
+                            .toList()
+                            .isNotEmpty ??
+                        false) ...[
+                      SizedBox(height: getSize(12)),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: getSize(20),
+                          vertical: getSize(14),
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            context.router.push(
+                              PageRouteInfo(
+                                ProfessionalProfileView.name,
+                                args: ProfessionalProfileViewArgs(
+                                    applicantDto: state.account),
+                              ),
+                            );
+                          },
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                PngImageConstants.person,
+                                height: getSize(30),
+                                width: getSize(30),
                               ),
                               SizedBox(
                                 width: getSize(15),
@@ -121,7 +185,7 @@ class ViewApplicantProfile extends StatelessWidget {
                               ),
                               Expanded(
                                 child: BaseText(
-                                  text: 'Program Completed',
+                                  text: StringConstant.professional,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -132,116 +196,58 @@ class ViewApplicantProfile extends StatelessWidget {
                         ),
                       ),
                     ],
-                  ),
-                  SizedBox(
-                    height: getSize(12),
-                  ),
-                  BaseText(
-                    text: 'References (Tap To View)',
-                    fontSize: 10,
-                    fontWeight: FontWeight.w600,
-                    textColor: Colors.black.withOpacity(0.8),
-                  ),
-                  SizedBox(
-                    height: getSize(12),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: getSize(20),
-                      vertical: getSize(14),
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        context.router.push(
-                          PageRouteInfo(
-                            ProfessionalProfileView.name,
-                            args: ProfessionalProfileViewArgs(applicantDto: state.account),
+                    if (state.account.reference
+                            ?.where((element) => element.type == 2)
+                            .toList()
+                            .isNotEmpty ??
+                        false) ...[
+                      SizedBox(height: getSize(16)),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: getSize(20),
+                          vertical: getSize(14),
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            context.router.push(
+                              PageRouteInfo(
+                                PersonalProfileView.name,
+                                args: PersonalProfileViewArgs(
+                                    applicantDto: state.account),
+                              ),
+                            );
+                          },
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                PngImageConstants.person,
+                                height: getSize(30),
+                                width: getSize(30),
+                              ),
+                              SizedBox(width: getSize(15)),
+                              Image.asset(
+                                PngImageConstants.line,
+                                height: getSize(25),
+                              ),
+                              SizedBox(width: getSize(15)),
+                              Expanded(
+                                child: BaseText(
+                                  text: StringConstant.personal,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Icon(Icons.arrow_forward_rounded)
+                            ],
                           ),
-                        );
-                      },
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            PngImageConstants.person,
-                            height: getSize(30),
-                            width: getSize(30),
-                          ),
-                          SizedBox(
-                            width: getSize(15),
-                          ),
-                          Image.asset(
-                            PngImageConstants.line,
-                            height: getSize(25),
-                          ),
-                          SizedBox(
-                            width: getSize(15),
-                          ),
-                          Expanded(
-                            child: BaseText(
-                              text: 'Professional',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          Icon(Icons.arrow_forward_rounded)
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: getSize(16),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: getSize(20),
-                      vertical: getSize(14),
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        context.router.push(
-                          PageRouteInfo(
-                            PersonalProfileView.name,
-                            args: PersonalProfileViewArgs(applicantDto: state.account),
-                          ),
-                        );
-                      },
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            PngImageConstants.person,
-                            height: getSize(30),
-                            width: getSize(30),
-                          ),
-                          SizedBox(
-                            width: getSize(15),
-                          ),
-                          Image.asset(
-                            PngImageConstants.line,
-                            height: getSize(25),
-                          ),
-                          SizedBox(
-                            width: getSize(15),
-                          ),
-                          Expanded(
-                            child: BaseText(
-                              text: 'Personal',
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          Icon(Icons.arrow_forward_rounded)
-                        ],
-                      ),
-                    ),
-                  ),
+                    ],
+                  ],
                   SizedBox(
                     height: getSize(20),
                   ),

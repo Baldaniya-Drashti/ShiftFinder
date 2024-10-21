@@ -2,7 +2,13 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shift/application/main_tab/shifts/agreed_proposal_bloc/agreed_proposal_bloc.dart';
+import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/infrastructure/main/hired_contractor_list_dto/hired_contractor_list_dto.dart';
+import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/main/tabs/shifts/multi_agreed_shift.dart';
 import 'package:shift/presentation/main/tabs/shifts/single_agreed_shift.dart';
 
@@ -10,7 +16,7 @@ import 'package:shift/presentation/main/tabs/shifts/single_agreed_shift.dart';
 class AgreedProposal extends StatelessWidget {
   int userId;
   int postId;
-  HealthcarePostDTO post;
+  HiredContractorListDTO post;
   AgreedProposal(
       {super.key,
       required this.post,
@@ -19,8 +25,28 @@ class AgreedProposal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (post.shift_detail?.shift_type == 1)
-        ? SingleAgreedShift()
-        : MultiAgreedShift();
+    return Scaffold(
+      body: BlocProvider(
+        create: (context) => getIt<AgreedProposalBloc>()
+          ..add(AgreedProposalEvent.getProposalDataEvent(
+            context,
+            postId: postId,
+            userId: userId,
+          )),
+        child: BlocBuilder<AgreedProposalBloc, AgreedProposalState>(
+          builder: (context, state) {
+            return (state.isLoading)
+                ? CenterLoadingIndicator(isOnlyLoader: true)
+                : state.errorApi
+                    ? Center(
+                        child:
+                            BaseText(text: StringConstant.somethindWentWrong))
+                    : (post.shift_type == 1)
+                        ? SingleAgreedShift(contractor: state.contractorDetail)
+                        : MultiAgreedShift(contractor: state.contractorDetail);
+          },
+        ),
+      ),
+    );
   }
 }
