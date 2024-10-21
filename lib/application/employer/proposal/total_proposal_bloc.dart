@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
@@ -97,7 +98,32 @@ class TotalProposalBloc extends Bloc<TotalProposalEvent, TotalProposalState> {
               }
               return shift;
             }).toList();
-          },
+          }, onRevoke: (OnRevoke value) async {
+
+          Either<MainFailure, CommonResponse>? failureOrSuccess;
+
+          emit(state.copyWith(postDataLoading: true));
+          failureOrSuccess = await _mainFacade.revokeApplicant(postId: value.postId, userId: value.userId);
+          emit(state.copyWith(postDataLoading: false));
+          failureOrSuccess.fold(
+                (l) {
+              value.context.router.maybePop();
+              showError(
+                message: l.maybeMap(
+                  showAPIResponseMessage: (value) => value.message,
+                  networkError: (value) => 'Please check your internet connectivity',
+                  orElse: () => "Server Error. Try again later.",
+                ),
+              ).show(value.context);
+            },
+                (r) {
+              value.context.router.maybePop();
+              showSuccess(message: r.dioMessage ?? "").show(value.context).then((_) {
+                add(TotalProposalEvent.getTotalProposalList(id: value.postId, isRefresh: true, context: value.context));
+              });
+            },
+          );
+        },
         );
       },
     );

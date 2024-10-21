@@ -9,9 +9,11 @@ class TotalProposalState with _$TotalProposalState {
     required bool isNoDataFound,
     required bool isErrorInAPI,
     required int postId,
+    required bool postDataLoading,
   }) = _TotalProposalState;
 
   factory TotalProposalState.initial() => TotalProposalState(
+        postDataLoading: false,
         postId: -1,
         isNoDataFound: false,
         isErrorInAPI: false,

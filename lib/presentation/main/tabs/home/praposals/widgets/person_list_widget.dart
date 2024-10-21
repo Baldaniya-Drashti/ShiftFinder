@@ -71,35 +71,53 @@ class PersonListWidget extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
               leading: UserAvatar(url: list[index].profile ?? ""),
-              trailing: list[index].revoke_status == 1
+              trailing: list[index].revoke_status == 0
                   ? CommonMaterialButton(
                       backgroundColor: AppColors.redAccent.withOpacity(0.15),
                       radius: 5,
                       width: 70,
                       height: 35,
                       onPressed: () {
-
+                        final userId = state.totalProposedDataList[index].user_id ?? 0;
+                        context.read<TotalProposalBloc>().add(
+                              TotalProposalEvent.onRevoke(postId: postId, userId: userId, context: context),
+                            );
                       },
                       label: "Revoke",
                       textStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
                     )
-                  : Icon(
-                      Icons.arrow_forward_rounded,
-                      color: AppColors.black,
-                    ),
+                  : list[index].revoke_status == 1
+                      ? revokingStatus(context, state, list[index])
+                      : list[index].revoke_status == 2
+                          ? Padding(
+                              padding: EdgeInsets.symmetric(vertical: getSize(10)),
+                              child: BaseText(
+                                text: StringConstant.offerRevokedByTheEmployer,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            )
+                          : Icon(
+                              Icons.arrow_forward_rounded,
+                              color: AppColors.black,
+                            ),
               subtitle: list[index].revoke_status == 1
-                  ? BaseText(text: "Awaiting...",fontWeight: FontWeight.w500,fontSize: 11,)
+                  ? BaseText(
+                      text: "Awaiting...",
+                      fontWeight: FontWeight.w500,
+                      fontSize: 11,
+                    )
                   : Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         SvgPicture.asset(
-                          list[index].last_request == 1 ? SvgImageConstant.receivedCircle : SvgImageConstant.rightWithCircle,
+                          list[index].sent_received_status == 1 ? SvgImageConstant.receivedCircle : SvgImageConstant.rightWithCircle,
                           height: 13,
                           width: 13,
                         ),
                         Gap(4),
                         BaseText(
-                          text: list[index].last_request == 1 ? "Counter Received" : "Counter Sent",
+                          text: list[index].sent_received_status == 1 ? "Counter Received" : "Counter Sent",
                           fontSize: 10,
                           fontWeight: FontWeight.w500,
                         ),
