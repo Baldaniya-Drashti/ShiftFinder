@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +10,16 @@ import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/account/account_failure.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
+import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/employer_shift/employer_shift_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/place_detail_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/search_location_dto.dart';
+import 'package:shift/infrastructure/core/network/common_response.dart';
+import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 
 part 'shifts_bloc_event.dart';
 
@@ -26,6 +32,12 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
   static TextEditingController locationCtrl = TextEditingController();
   int currentPage = 1;
   int lastPage = 1;
+
+  int currentApprovePage = 1;
+  int lastApprovePage = 1;
+
+  int currentCancelPage = 1;
+  int lastCancelPage = 1;
 
   final IAccountRepository iAccountRepository;
   final IMainFacade mainFacade;
@@ -42,24 +54,41 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
         await event.map(
           started: (value) async {},
           onFilledSorting: (e) {
-            emit(
-              state.copyWith(
-                currentFilledFilter: e.currentSorting,
-              ),
-            );
+            if (state.currentFilledFilter != e.currentSorting) {
+              add(ShiftsBlocEvent.fetchFilledShiftList(refresh: true));
+            }
+            emit(state.copyWith(currentFilledFilter: e.currentSorting));
+          },
+          onApproveSorting: (e) {
+            if (state.currentApproveFilter != e.currentSorting) {
+              add(ShiftsBlocEvent.fetchApprovedShiftList(refresh: true));
+            }
+            emit(state.copyWith(currentApproveFilter: e.currentSorting));
+          },
+          onCancelTypeSorting: (e) {
+            if (state.currentCancelFilter != e.currentSorting) {
+              add(ShiftsBlocEvent.fetchCancelledShiftList(refresh: true));
+            }
+            emit(state.copyWith(currentCancelFilter: e.currentSorting));
+          },
+          onCancelLocationSorting: (e) {
+            if (state.currentCancelLocationFilter != e.currentSorting) {
+              add(ShiftsBlocEvent.fetchCancelledShiftList(refresh: true));
+            }
+            emit(state.copyWith(currentCancelLocationFilter: e.currentSorting));
           },
           tabChange: (value) async {
             emit(state.copyWith(selectedTab: value.tabIndex));
           },
           getLocationListAPI: (GetLocationListAPI value) async {
-            // emit(state.copyWith(isLoading: true));
+            emit(state.copyWith(getDataLoading: true));
             final locationList = await iAccountRepository.getLocationListApi();
 
             // print("Location List ---> ${locationList}");
             locationList.fold(
               (l) => emit(
                 state.copyWith(
-                  // isLoading: false,
+                  getDataLoading: false,
                   locationList: [],
                 ),
               ),
@@ -73,16 +102,21 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
 
                 emit(
                   state.copyWith(
-                    // isLoading: false,
+                    getDataLoading: false,
                     currentFilledFilter: (r.isNotEmpty) ? r[0] : LocationDTO(),
+                    currentApproveFilter: (r.isNotEmpty) ? r[0] : LocationDTO(),
+                    currentCancelLocationFilter:
+                        (r.isNotEmpty) ? r[0] : LocationDTO(),
                     // locationList: List.from(state.locationList)
                     //   ..addAll(dropdownList),
                     locationList: r,
                   ),
                 );
-                add(ShiftsBlocEvent.fetchFilledShiftList(refresh: true));
               },
             );
+            add(ShiftsBlocEvent.fetchFilledShiftList(refresh: true));
+            add(ShiftsBlocEvent.fetchApprovedShiftList(refresh: true));
+            add(ShiftsBlocEvent.fetchCancelledShiftList(refresh: true));
           },
           deleteReasonChange: (DeleteReasonChange e) async {
             return emit(
@@ -91,8 +125,36 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
               ),
             );
           },
-          withdrawShift: (WithdrawShift value) async {
-            emit(state.copyWith(showErrorMessages: true));
+          withdrawShift: (e) async {
+            Either<MainFailure, CommonResponse>? failureOrSuccess;
+            if (state.deleteReason.isValid()) {
+              failureOrSuccess = await mainFacade.deleteEmployerFilledShift(
+                  id: e.postId, reason: state.deleteReason.getValue() ?? "");
+
+              failureOrSuccess.fold(
+                (l) {
+                  e.context.router.maybePop();
+                  showError(
+                    message: l.maybeMap(
+                      showAPIResponseMessage: (value) => value.message,
+                      networkError: (value) =>
+                          'Please check your internet connectivity',
+                      orElse: () => "Server Error. Try again later.",
+                    ),
+                  ).show(e.context);
+                },
+                (r) {
+                  e.context.router.maybePop();
+                  showSuccess(message: r.dioMessage ?? "")
+                      .show(e.context)
+                      .then((value) {
+                    add(ShiftsBlocEvent.fetchFilledShiftList(refresh: true));
+                  });
+                },
+              );
+            } else {
+              emit(state.copyWith(showErrorMessages: true));
+            }
           },
           changeClockInClockOutTime: (CangeClockInClockOutTime value) async {
             if (value.isClockIn) {
@@ -171,45 +233,46 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
           },
           fetchApprovedShiftList: (FetchApprovedShiftList value) async {
             if (value.refresh) {
-              currentPage = 1;
+              currentApprovePage = 1;
               emit(state.copyWith(
-                  approveShiftList: [], getDataLoading: value.refresh));
+                approveShiftList: [],
+                approveLoading: value.refresh,
+              ));
               approveRefreshController.resetNoData();
             } else {
-              if (currentPage > lastPage) {
+              if (currentApprovePage > lastApprovePage) {
                 approveRefreshController.loadNoData();
                 return;
               }
             }
             var res = await mainFacade.getEmployerShift(
-              page: currentPage,
+              page: currentApprovePage,
               type: 2,
-              locationId: 0,
+              locationId: state.currentApproveFilter.id ?? -1,
               shortType: 0,
             );
-            currentPage++;
+            currentApprovePage++;
             res.fold(
               (l) => emit(
                 state.copyWith(
-                  errorApi: true,
-                  getDataLoading: false,
+                  approveErrorApi: true,
+                  approveLoading: false,
                   approveShiftList: [],
                 ),
               ),
               (r) {
-                lastPage = r.meta?.lastPage ?? 1;
+                lastApprovePage = r.meta?.lastPage ?? 1;
                 if (value.refresh) {
                   List.from(state.approveShiftList).clear();
                 }
                 return emit(
                   state.copyWith(
-                    getDataLoading: false,
-                    errorApi: false,
-                    noDataFound: (r.data as List<dynamic>)
+                    approveLoading: false,
+                    approveErrorApi: false,
+                    noApproveDataFound: (r.data as List<dynamic>)
                         .map((e) => EmployerShiftDto.fromJson(e))
                         .toList()
                         .isEmpty,
-                    //  getProductList: []
                     approveShiftList: List.from(state.approveShiftList)
                       ..addAll(
                         (r.data as List<dynamic>)
@@ -223,46 +286,46 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
           },
           fetchCancelledShiftList: (FetchCancelledShiftList value) async {
             if (value.refresh) {
-              currentPage = 1;
+              currentCancelPage = 1;
               emit(state.copyWith(
-                  cancelledShiftList: [], getDataLoading: value.refresh));
-              approveRefreshController.resetNoData();
+                  cancelledShiftList: [], cancelLoading: value.refresh));
+              cancelledRefreshController.resetNoData();
             } else {
-              if (currentPage > lastPage) {
-                approveRefreshController.loadNoData();
+              if (currentCancelPage > lastCancelPage) {
+                cancelledRefreshController.loadNoData();
                 return;
               }
             }
             var res = await mainFacade.getEmployerShift(
-              page: currentPage,
+              page: currentCancelPage,
               type: 3,
-              locationId: 0,
-              shortType: 0,
+              locationId: state.currentCancelLocationFilter.id ?? -1,
+              shortType: state.currentCancelFilter.id ?? -1,
             );
-            currentPage++;
+            currentCancelPage++;
             res.fold(
               (l) => emit(
                 state.copyWith(
-                  errorApi: true,
-                  getDataLoading: false,
+                  cancelErrorApi: true,
+                  cancelLoading: false,
                   cancelledShiftList: [],
                 ),
               ),
               (r) {
-                lastPage = r.meta?.lastPage ?? 1;
+                lastCancelPage = r.meta?.lastPage ?? 1;
                 if (value.refresh) {
-                  List.from(state.approveShiftList).clear();
+                  List.from(state.cancelledShiftList).clear();
                 }
                 return emit(
                   state.copyWith(
-                    getDataLoading: false,
-                    errorApi: false,
-                    noDataFound: (r.data as List<dynamic>)
+                    cancelLoading: false,
+                    cancelErrorApi: false,
+                    noCancelDataFound: (r.data as List<dynamic>)
                         .map((e) => EmployerShiftDto.fromJson(e))
                         .toList()
                         .isEmpty,
                     //  getProductList: []
-                    cancelledShiftList: List.from(state.approveShiftList)
+                    cancelledShiftList: List.from(state.cancelledShiftList)
                       ..addAll(
                         (r.data as List<dynamic>)
                             .map((e) => EmployerShiftDto.fromJson(e))

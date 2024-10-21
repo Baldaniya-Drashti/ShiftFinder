@@ -26,7 +26,8 @@ class EmployerAvailabilityView extends StatefulWidget {
   final bool confirmDialog;
 
   @override
-  State<EmployerAvailabilityView> createState() => _EmployerAvailabilityViewState();
+  State<EmployerAvailabilityView> createState() =>
+      _EmployerAvailabilityViewState();
 }
 
 class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
@@ -42,12 +43,17 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: true,
-      onPopInvokedWithResult: (didPop, result) {
+
+      // onPopInvokedWithResult: (didPop, result) {
+      //   context.router.maybePop(_confirmationCheckBox.value);
+      // },
+      onPopInvoked: (result) {
         context.router.maybePop(_confirmationCheckBox.value);
       },
       child: Scaffold(
         appBar: CommonAppBar(
-          onBackPressed: () => context.router.maybePop(_confirmationCheckBox.value),
+          onBackPressed: () =>
+              context.router.maybePop(_confirmationCheckBox.value),
           title: "View Availability",
         ),
         body: Padding(
@@ -62,7 +68,8 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
                 ),
                 child: Row(
                   children: [
-                    SvgPicture.asset(SvgImageConstant.clockWithOuterLine, height: 40),
+                    SvgPicture.asset(SvgImageConstant.clockWithOuterLine,
+                        height: 40),
                     Gap(12),
                     Image.asset(
                       PngImageConstants.line,
@@ -72,7 +79,11 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        BaseText(text: "Total Number of Shifts - ${widget.list.length}", fontSize: 14, fontWeight: FontWeight.w600),
+                        BaseText(
+                            text:
+                                "Total Number of Shifts - ${widget.list.length}",
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600),
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -101,7 +112,9 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
                       ListView.separated(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) => _EmployerAvailabilityListTile(data: widget.list[index]),
+                        itemBuilder: (context, index) =>
+                            _EmployerAvailabilityListTile(
+                                data: widget.list[index]),
                         separatorBuilder: (context, index) => Gap(28),
                         itemCount: widget.list.length,
                       ),
@@ -146,7 +159,8 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
                               child: BaseText(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 12,
-                                text: "I confirm that I have reviewed the proposed availability.",
+                                text:
+                                    "I confirm that I have reviewed the proposed availability.",
                               ),
                             )
                           ],
@@ -177,7 +191,8 @@ class _EmployerAvailabilityListTile extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 16),
           child: BaseText(
-            text: DateFormat("dd MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch(data.start_date ?? 0)),
+            text: DateFormat("dd MMM, yyyy").format(
+                DateTime.fromMillisecondsSinceEpoch(data.start_date ?? 0)),
             fontSize: 14,
             fontWeight: FontWeight.w500,
             textColor: AppColors.green,
@@ -196,13 +211,15 @@ class _EmployerAvailabilityListTile extends StatelessWidget {
               getTitleAndDescription(
                 context,
                 title: 'Posted Time',
-                description: '${formatUnixTimestamp(data.posted_start_time ?? 0)} to ${formatUnixTimestamp(data.posted_end_time ?? 0)}',
+                description:
+                    '${formatUnixTimestamp(data.posted_start_time ?? 0)} to ${formatUnixTimestamp(data.posted_end_time ?? 0)}',
               ),
               SizedBox(height: getSize(20)),
               getTitleAndDescription(
                 context,
                 title: 'Proposed Time',
-                description: '${formatUnixTimestamp(data.proposed_start_time ?? 0)} to ${formatUnixTimestamp(data.proposed_end_time ?? 0)}',
+                description:
+                    '${formatUnixTimestamp(data.proposed_start_time ?? 0)} to ${formatUnixTimestamp(data.proposed_end_time ?? 0)}',
               ),
             ],
           ),
@@ -227,7 +244,8 @@ class _EmployerAvailabilityListTile extends StatelessWidget {
         SizedBox(height: getSize(8)),
         Container(
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.symmetric(horizontal: getSize(20), vertical: getSize(15)),
+          padding: EdgeInsets.symmetric(
+              horizontal: getSize(20), vertical: getSize(15)),
           decoration: BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.circular(getSize(10)),

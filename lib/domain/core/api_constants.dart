@@ -40,7 +40,8 @@ class ApiConstants {
   static String facilityTypeList = 'facility_type_list';
 
   static String legalScreeningQuestionList = 'legal_screening_question_list';
-  static String legalScreeningQuestionAnswer = 'legal_screening_question_answer';
+  static String legalScreeningQuestionAnswer =
+      'legal_screening_question_answer';
 
 // Common
   static String roleList = 'role_list';
@@ -131,7 +132,8 @@ class ApiConstants {
 
   //contractor dashboard
   static String contractorDashboard = 'contractor_dashboard';
-  static String contractorApplyOrSendProposal = 'contractor_apply_or_send_proposal';
+  static String contractorApplyOrSendProposal =
+      'contractor_apply_or_send_proposal';
 
   //contractor shift
   static String contractorShifts = 'contractor_shifts';
@@ -153,7 +155,8 @@ class ApiConstants {
 
   static String employerPreviousShift = 'employer_previous_shift';
   static String employerApplicants = 'employer_applicants';
-  static String employerApplicantsAcceptReject = 'employer_applicants_accept_reject';
+  static String employerApplicantsAcceptReject =
+      'employer_applicants_accept_reject';
   static String employerRating = 'employer_rating';
   static String employerRemark = 'employer_remark';
   static String employerAddFavorite = 'employer_favorite';
@@ -162,9 +165,12 @@ class ApiConstants {
   static String employerFavorite = 'employer_favorite';
   static String employerRevoke = 'employer_applicants_revoke';
   static String employerShift = 'get_employer_shift';
+  static String deleteEmployerShift = 'employer_shift';
+  static String getEmployerShiftUser = 'get_employer_shift_user';
+  static String employerClockInOut = 'employer_clock_in_or_out';
   static String contractorUser = 'contractor_user';
-  static String employerApplicantsProposal= 'employer_applicants_proposal';
-  static String employerApplicantsCounterPropose= 'employer_applicants_counter_propose';
-  static String employerAddRemark= 'employer_remark';
-
+  static String employerApplicantsProposal = 'employer_applicants_proposal';
+  static String employerApplicantsCounterPropose =
+      'employer_applicants_counter_propose';
+  static String employerAddRemark = 'employer_remark';
 }

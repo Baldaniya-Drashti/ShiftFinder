@@ -55,7 +55,6 @@ class PayableDetail extends StatelessWidget {
                   infoMessage: r,
                   onOkClick: () {
                     // context.router.maybePop();
-
                     context.router.popUntil(
                       (route) => route.isFirst,
                     );

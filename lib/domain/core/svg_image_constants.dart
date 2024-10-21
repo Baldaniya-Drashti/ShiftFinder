@@ -124,6 +124,8 @@ class SvgImageConstant {
   static const insights = "assets/svg/insights.svg";
   static const share = "assets/svg/share.svg";
   static const policies = "assets/svg/policies.svg";
+  static const threePersonCircle = "assets/svg/three_person_circle.svg";
+  static const approvedWithCurved = "assets/svg/approved_with_curve.svg";
   static const profileCircle = "assets/svg/profile_circle.svg";
   static const starFilled = "assets/svg/star_filled.svg";
 }

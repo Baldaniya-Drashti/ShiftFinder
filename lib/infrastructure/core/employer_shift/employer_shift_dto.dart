@@ -10,22 +10,23 @@ part 'employer_shift_dto.g.dart';
 class EmployerShiftDto with _$EmployerShiftDto {
   const factory EmployerShiftDto({
     int? id,
-    int? post_id,
-    int? shift_type,
+    String? listing_id,
+    String? roles_list_name,
     int? industry,
+    int? shift_type,
+    LocationDTO? location,
     int? start_time,
     int? start_date,
     int? end_date,
     int? end_time,
-    String? estimated_payables,
-    String? roles_list_name,
-    CurrentUserDto? user,
-    LocationDTO? location,
-    String? remaining_shift,
-    String? listing_id,
-    bool? isdelete
-
+    double? estimated_payables,
+    int? total_shifts,
+    // CurrentUserDto? user,
+    int? total_user,
+    int? remaining_shift,
+    bool? isdelete,
   }) = _EmployerShiftDto;
 
-  factory EmployerShiftDto.fromJson(Map<String, dynamic> json) => _$EmployerShiftDtoFromJson(json);
+  factory EmployerShiftDto.fromJson(Map<String, dynamic> json) =>
+      _$EmployerShiftDtoFromJson(json);
 }

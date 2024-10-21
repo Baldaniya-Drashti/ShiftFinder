@@ -72,6 +72,8 @@ import 'package:shift/application/main_tab/profile/profile_sections/teams/add_ne
     as _i946;
 import 'package:shift/application/main_tab/profile/profile_sections/teams/teams_bloc.dart'
     as _i174;
+import 'package:shift/application/main_tab/shifts/hired_contractor_bloc/hired_contractor_bloc.dart'
+    as _i979;
 import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart'
     as _i193;
 import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart'
@@ -132,6 +134,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i678.SendProposalBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i170.MyCalendarViewBloc>(
         () => _i170.MyCalendarViewBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i156.ProposalDetailBloc>(
+        () => _i156.ProposalDetailBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i119.HiredContractorBloc>(
+        () => _i119.HiredContractorBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i93.CounterProposalDetailBloc>(
+        () => _i93.CounterProposalDetailBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i819.TotalProposalBloc>(
         () => _i819.TotalProposalBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i827.PreviousShiftBloc>(
@@ -140,12 +148,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i828.ApplicantProfileBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i518.ViewSingleApplicantsBloc>(
         () => _i518.ViewSingleApplicantsBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i156.ProposalDetailBloc>(
-        () => _i156.ProposalDetailBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i93.CounterProposalDetailBloc>(
-        () => _i93.CounterProposalDetailBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i119.HiredContractorBloc>(
-        () => _i119.HiredContractorBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i744.ForgotPasswordBloc>(
         () => _i744.ForgotPasswordBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i1033.AuthStatusBloc>(
@@ -205,6 +207,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i901.HomeBloc>(() => _i901.HomeBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i946.AddNewMemberBloc>(
         () => _i946.AddNewMemberBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i979.HiredContractorBloc>(
+        () => _i979.HiredContractorBloc(gh<_i111.IMainFacade>()));
     return this;
   }
 }

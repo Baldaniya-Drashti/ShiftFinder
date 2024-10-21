@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,11 +16,9 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
-import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
 import 'package:shift/presentation/main/tabs/shifts/filled_shifts/widgets/delete_shift_dialog.dart';
 
 @RoutePage(name: 'FilledShiftsView')
@@ -37,284 +34,251 @@ class FilledShiftsView extends StatelessWidget {
             : state.errorApi
                 ? Center(
                     child: BaseText(text: StringConstant.somethindWentWrong))
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: getSize(15),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                        child: BaseText(
-                          text: StringConstant.sortBy,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(height: getSize(8)),
-                      sortingField(context, state),
-                      SizedBox(height: getSize(12)),
-                      Expanded(
-                        child: PaginatedListView(
-                          onRefresh: () => ShiftsBlocEvent.fetchFilledShiftList(
-                              refresh: true),
-                          onLoading: () => ShiftsBlocEvent.fetchFilledShiftList(
-                              refresh: false),
-                          refreshController: context
-                              .read<ShiftsBloc>()
-                              .filledRefreshController,
-                          isNoDataFound: state.noDataFound,
-                          child: ListView.separated(
-                            separatorBuilder: (context, index) => Gap(16),
-                            itemCount: state.filledShiftList.length,
-                            shrinkWrap: true,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: getSize(10),
-                                vertical: getSize(12.5)),
-                            physics: BouncingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              final industry = CommonList.industryList
-                                  .firstWhere((element) =>
-                                      element.id ==
-                                      state.filledShiftList[index].industry);
-
-                              return Container(
-                                padding: EdgeInsets.all(getSize(10)),
-                                decoration: BoxDecoration(
-                                  color: AppColors.white,
-                                  borderRadius:
-                                      BorderRadius.circular(getSize(20)),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: AppColors.black.withOpacity(0.15),
-                                      blurRadius: 24,
-                                      offset: Offset(0, 0),
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.all(getSize(12)),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.scaffoldColor,
-                                        borderRadius:
-                                            BorderRadius.circular(getSize(10)),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              CircleAvatar(
-                                                radius: getSize(25),
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                child: Image.asset(
-                                                    PngImageConstants.nurse2),
-                                              ),
-                                              SizedBox(width: getSize(15)),
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        BaseText(
-                                                          text: state
-                                                                  .filledShiftList[
-                                                                      index]
-                                                                  .roles_list_name ??
-                                                              "",
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                                        Spacer(),
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            DeleteShiftDialog()
-                                                                .deleteShiftDialog(
-                                                                    context);
-                                                          },
-                                                          child: Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            height: getSize(28),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: AppColors
-                                                                  .white,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          getSize(
-                                                                              5)),
-                                                            ),
-                                                            width: getSize(28),
-                                                            child: SvgPicture
-                                                                .asset(
-                                                              height: 16,
-                                                              SvgImageConstant
-                                                                  .delete,
-                                                              colorFilter:
-                                                                  ColorFilter.mode(
-                                                                      AppColors
-                                                                          .black,
-                                                                      BlendMode
-                                                                          .srcATop),
-                                                            ),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                        height: getSize(3)),
-                                                    BaseText(
-                                                      text:
-                                                          '(${industry.title ?? ""} - ${state.filledShiftList[index].listing_id ?? ""})',
-                                                      fontSize: 12,
-                                                      textColor: AppColors.black
-                                                          .withOpacity(0.8),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(height: getSize(10)),
-                                          Divider(
-                                            height: 0,
-                                            color: AppColors.black
-                                                .withOpacity(0.2),
-                                            thickness: 0.5,
-                                          ),
-                                          SizedBox(height: getSize(10)),
-                                          Row(
-                                            children: [
-                                              SvgPicture.asset(
-                                                SvgImageConstant.location,
-                                                colorFilter: ColorFilter.mode(
-                                                  AppColors.black,
-                                                  BlendMode.srcATop,
-                                                ),
-                                              ),
-                                              SizedBox(width: getSize(5)),
-                                              BaseText(
-                                                text: state
-                                                        .filledShiftList[index]
-                                                        .location
-                                                        ?.location ??
-                                                    "",
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(height: getSize(10)),
-                                    dateAndTime(
-                                        context, state.filledShiftList[index]),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                        vertical: getSize(10),
-                                        horizontal: getSize(15),
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.scaffoldColor,
-                                        borderRadius:
-                                            BorderRadius.circular(getSize(10)),
-                                      ),
-                                      child: InkWell(
-                                        onTap: () {
-                                          context.router.push(
-                                            PageRouteInfo(
-                                                ViewApplicantProfile.name),
-                                          );
-                                        },
-                                        child: Row(
-                                          //ainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            CircleAvatar(
-                                              radius: getSize(20),
-                                              backgroundColor: AppColors.green,
-                                              child: CircleAvatar(
-                                                radius: getSize(19),
-                                                backgroundImage: NetworkImage(
-                                                    state
-                                                            .filledShiftList[
-                                                                index]
-                                                            .user
-                                                            ?.profileImage ??
-                                                        ""),
-                                              ),
-                                            ),
-                                            SizedBox(width: getSize(10)),
-                                            BaseText(
-                                              text:
-                                                  '${state.filledShiftList[index].user?.firstName ?? ""} ${state.filledShiftList[index].user?.lastName ?? ""}',
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                            SizedBox(width: getSize(5)),
-                                            Icon(
-                                              Icons.arrow_forward_ios_rounded,
-                                              size: getSize(14),
-                                            ),
-                                            Spacer(),
-                                            Container(
-                                              padding: EdgeInsets.symmetric(
-                                                vertical: getSize(8),
-                                                horizontal: getSize(16),
-                                              ),
-                                              alignment: Alignment.center,
-                                              decoration: BoxDecoration(
-                                                color: AppColors.green
-                                                    .withOpacity(0.15),
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        getSize(8)),
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  SvgPicture.asset(
-                                                    SvgImageConstant.chat,
-                                                    height: getSize(14),
-                                                    width: getSize(14),
-                                                    colorFilter:
-                                                        ColorFilter.mode(
-                                                      Colors.black,
-                                                      BlendMode.srcATop,
-                                                    ),
-                                                  ),
-                                                  SizedBox(width: getSize(3)),
-                                                  BaseText(
-                                                    text: 'Chat',
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w600,
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
+                : Padding(
+                    padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: getSize(18))
+                              .copyWith(top: getSize(10)),
+                          child: BaseText(
+                            text: StringConstant.sortBy,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
-                      )
-                    ],
+                        sortingField(context, state),
+                        Expanded(
+                          child: PaginatedListView(
+                            onRefresh: () => context.read<ShiftsBloc>().add(
+                                ShiftsBlocEvent.fetchFilledShiftList(
+                                    refresh: true)),
+                            onLoading: () => context.read<ShiftsBloc>().add(
+                                ShiftsBlocEvent.fetchFilledShiftList(
+                                    refresh: false)),
+                            refreshController: context
+                                .read<ShiftsBloc>()
+                                .filledRefreshController,
+                            isNoDataFound: state.noDataFound,
+                            child: ListView.separated(
+                              separatorBuilder: (context, index) => Gap(16),
+                              itemCount: state.filledShiftList.length,
+                              shrinkWrap: true,
+                              padding:
+                                  EdgeInsets.symmetric(vertical: getSize(20)),
+                              physics: BouncingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return shiftBox(
+                                    context, state.filledShiftList[index]);
+                              },
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   );
       },
+    );
+  }
+
+  shiftBox(BuildContext context, EmployerShiftDto shift) {
+    return Container(
+      padding: EdgeInsets.all(getSize(10)),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(getSize(20)),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.black.withOpacity(0.15),
+            blurRadius: 10,
+            offset: Offset(0, 0),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          userDetail(context, shift),
+          SizedBox(height: getSize(10)),
+          if (shift.remaining_shift != null && shift.remaining_shift! > 0)
+            remainingTime(context, shift),
+          dateAndTime(context, shift),
+          Container(
+            padding: EdgeInsets.symmetric(
+              vertical: getSize(10),
+              horizontal: getSize(15),
+            ),
+            decoration: BoxDecoration(
+              color: AppColors.scaffoldColor,
+              borderRadius: BorderRadius.circular(getSize(10)),
+            ),
+            child: InkWell(
+              onTap: () {
+                context.router.push(PageRouteInfo(
+                    FilledHiredContractorList.name,
+                    args:
+                        FilledHiredContractorListArgs(postId: shift.id ?? -1)));
+              },
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: AppColors.transparent,
+                    radius: getSize(20),
+                    child: SvgPicture.asset(
+                      SvgImageConstant.threePersonCircle,
+                    ),
+                  ),
+                  SizedBox(width: getSize(10)),
+                  BaseText(
+                    text:
+                        "${StringConstant.allHiredContractors} (${shift.total_user ?? 00}/2)",
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  Spacer(),
+                  Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    size: getSize(16),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget userDetail(BuildContext context, EmployerShiftDto shift) {
+    final industry = CommonList.industryList
+        .firstWhere((element) => element.id == shift.industry);
+    return Container(
+      padding: EdgeInsets.all(getSize(12)),
+      decoration: BoxDecoration(
+        color: AppColors.scaffoldColor,
+        borderRadius: BorderRadius.circular(getSize(10)),
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              CircleAvatar(
+                radius: getSize(25),
+                backgroundColor: Colors.transparent,
+                child: Image.asset(PngImageConstants.nurse2),
+              ),
+              SizedBox(width: getSize(15)),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        BaseText(
+                          text: shift.roles_list_name ?? "",
+                          fontSize: 16,
+                          maxLines: 1,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        Spacer(),
+                        GestureDetector(
+                          onTap: () {
+                            DeleteShiftDialog(
+                              showCADDesc: shift.isdelete ?? false,
+                              postId: shift.id ?? -1,
+                            ).deleteShiftDialog(context);
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: getSize(28),
+                            decoration: BoxDecoration(
+                              color: AppColors.white,
+                              borderRadius: BorderRadius.circular(getSize(5)),
+                            ),
+                            width: getSize(28),
+                            child: SvgPicture.asset(
+                              height: 16,
+                              SvgImageConstant.delete,
+                              colorFilter: ColorFilter.mode(
+                                  AppColors.black, BlendMode.srcATop),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: getSize(3)),
+                    BaseText(
+                      text:
+                          '(${industry.title ?? ""} - ${shift.listing_id ?? ""})',
+                      fontSize: 12,
+                      textColor: AppColors.black.withOpacity(0.8),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: getSize(10)),
+          Divider(
+            height: 0,
+            color: AppColors.black.withOpacity(0.2),
+            thickness: 0.5,
+          ),
+          SizedBox(height: getSize(10)),
+          Row(
+            children: [
+              SvgPicture.asset(
+                SvgImageConstant.location,
+                colorFilter: ColorFilter.mode(
+                  AppColors.black,
+                  BlendMode.srcATop,
+                ),
+              ),
+              SizedBox(width: getSize(5)),
+              Expanded(
+                child: BaseText(
+                  text: shift.location?.location ?? "",
+                  fontSize: 10,
+                  maxLines: 1,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget remainingTime(BuildContext context, EmployerShiftDto shift) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        vertical: getSize(10),
+        horizontal: getSize(15),
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.scaffoldColor,
+        borderRadius: BorderRadius.circular(getSize(10)),
+      ),
+      child: Row(
+        children: [
+          BaseText(
+            text: StringConstant.remainingShifts,
+            fontSize: 10,
+            fontWeight: FontWeight.w500,
+          ),
+          Spacer(),
+          BaseText(
+            text: (shift.remaining_shift! > 9)
+                ? "${shift.remaining_shift ?? 0}"
+                : "0${shift.remaining_shift}",
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            textColor: AppColors.primaryColor,
+          ),
+        ],
+      ),
     );
   }
 
@@ -324,30 +288,45 @@ class FilledShiftsView extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            displayDateBreak(
-              context,
-              // boldValue: "12 May,",
-              // timidValue: "2024",
-              boldValue: convertTimeStampToDate(shift.start_date ?? -1),
-              timidValue:
-                  convertTimeStampToDate(shift.start_date ?? -1, isYear: true),
-              title: StringConstant.shiftDate,
-              svgPrefixIcon: SvgImageConstant.calendar,
-            ),
-            displayTime(
-              title: StringConstant.time,
-              startDate: (shift.start_time != null)
-                  ? DateFormat('hh:mm a').format(
-                      DateTime.fromMillisecondsSinceEpoch(
-                          (shift.start_time ?? 0) * 1000))
-                  : "",
-              endDate: (shift.end_time != null)
-                  ? DateFormat('hh:mm a').format(
-                      DateTime.fromMillisecondsSinceEpoch(
-                          (shift.end_time ?? 0) * 1000))
-                  : "",
-              svgPrefixIcon: SvgImageConstant.clock,
-            ),
+            (shift.shift_type == 1)
+                ? displayDateBreak(
+                    context,
+                    boldValue: convertTimeStampToDate(shift.start_date ?? -1),
+                    timidValue: convertTimeStampToDate(shift.start_date ?? -1,
+                        isYear: true),
+                    title: StringConstant.shiftDate,
+                    svgPrefixIcon: SvgImageConstant.calendar,
+                  )
+                : displayDateBreak(
+                    context,
+                    boldValue: "${shift.shift_type ?? 0} Shifts",
+                    timidValue: "",
+                    title: StringConstant.totalShifts,
+                    svgPrefixIcon: SvgImageConstant.calendar,
+                  ),
+            (shift.shift_type == 1)
+                ? displayTime(
+                    title: StringConstant.time,
+                    startDate: (shift.start_time != null)
+                        ? DateFormat('hh:mm a').format(
+                            DateTime.fromMillisecondsSinceEpoch(
+                                (shift.start_time ?? 0) * 1000))
+                        : "",
+                    endDate: (shift.end_time != null)
+                        ? DateFormat('hh:mm a').format(
+                            DateTime.fromMillisecondsSinceEpoch(
+                                (shift.end_time ?? 0) * 1000))
+                        : "",
+                    svgPrefixIcon: SvgImageConstant.clock,
+                  )
+                : displayDateBreak(
+                    context,
+                    boldValue: convertTimeStampToDate(shift.start_date ?? -1),
+                    timidValue: convertTimeStampToDate(shift.start_date ?? -1,
+                        isYear: true),
+                    title: StringConstant.shiftStartDate,
+                    svgPrefixIcon: SvgImageConstant.calendar,
+                  )
           ],
         ),
         Row(
@@ -355,7 +334,7 @@ class FilledShiftsView extends StatelessWidget {
           children: [
             displayDateBreak(
               context,
-              boldValue: "\$${shift.estimated_payables ?? ""}",
+              boldValue: "\$${shift.estimated_payables ?? 0.0}",
               timidValue: "",
               title: StringConstant.estimatedPayables,
               svgPrefixIcon: SvgImageConstant.dollorRound,
@@ -370,10 +349,9 @@ class FilledShiftsView extends StatelessWidget {
               onBtnPressed: () {
                 context.router.push(
                   PageRouteInfo(
-                    ViewContractorShift.name,
-                    args: ViewContractorShiftArgs(
+                    ViewHomeShiftDetails.name,
+                    args: ViewHomeShiftDetailsArgs(
                       postId: shift.id ?? -1,
-                      isTotalApplicants: true,
                     ),
                   ),
                 );
@@ -417,21 +395,21 @@ class FilledShiftsView extends StatelessWidget {
                 children: [
                   BaseText(
                     text: startDate,
-                    fontSize: 13,
+                    fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    textColor: AppColors.black.withOpacity(0.7),
+                    textColor: AppColors.black,
                   ),
                   BaseText(
                     text: ' to ',
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
-                    textColor: AppColors.black.withOpacity(0.7),
+                    textColor: AppColors.black,
                   ),
                   BaseText(
                     text: endDate,
-                    fontSize: 13,
+                    fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    textColor: AppColors.black.withOpacity(0.7),
+                    textColor: AppColors.black,
                   ),
                 ],
               ),
@@ -468,14 +446,7 @@ class FilledShiftsView extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: getSize(10)),
       child: (showBtn)
           ? CommonButton(
-              onPressed: onBtnPressed ??
-                  () {
-                    /*if (post.shift_detail != null) {
-                          context.router.push(PageRouteInfo(ViewDates.name,
-                              args: ViewDatesArgs(
-                                  shiftDetail: post.shift_detail!)));
-                        }*/
-                  },
+              onPressed: onBtnPressed ?? () {},
               width: 160,
               height: 34,
               borderRadius: 5,
@@ -521,7 +492,7 @@ class FilledShiftsView extends StatelessWidget {
         text: TextSpan(
       text: boldValue,
       style: TextStyle(
-        fontSize: 14,
+        fontSize: getFontSize(13),
         fontWeight: FontWeight.w500,
         color: AppColors.black,
       ),
@@ -529,7 +500,7 @@ class FilledShiftsView extends StatelessWidget {
         TextSpan(
           text: timidValue,
           style: TextStyle(
-            fontSize: 14,
+            fontSize: getFontSize(13),
             fontWeight: FontWeight.w500,
             color: AppColors.black.withOpacity(0.5),
           ),
@@ -545,57 +516,32 @@ class FilledShiftsView extends StatelessWidget {
     BuildContext context,
     ShiftsBlocState state,
   ) {
-    /*return Padding(
-      padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-      child: CustomDropdownTextfield(
-        valueController: state.singleValueDropDownController,
-        list: state.locationList,
-        hintText: StringConstant.location,
-        onChanged: (p0) {
-          print(p0);
-          final data = p0 as DropDownValueModel;
-          context.read<ShiftsBloc>().add(ShiftsBlocEvent.onChangeSortBy(
-              SingleValueDropDownController(data: data)));
-        },
-        prefixIcon: Center(
-          widthFactor: 1,
-          child: SvgPicture.asset(
-            SvgImageConstant.locationIcon,
-            colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcATop),
-            height: 16,
-            width: 16,
-          ),
-        ),
-      ),
-    );*/
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        height: 40,
-        child: CustomDropdownField(
-          onChanged: (value) {
-            // if (value != null) {
+      padding: EdgeInsets.symmetric(vertical: getSize(10)),
+      child: CustomDropdownField(
+        onChanged: (value) {
+          if (value != null) {
             context
                 .read<ShiftsBloc>()
                 .add(ShiftsBlocEvent.onFilledSorting(value ?? LocationDTO()));
-            // }
-          },
-          hintText: StringConstant.location,
-          value: (state.currentFilledFilter.location != null &&
-                  state.currentFilledFilter.location!.isNotEmpty)
-              ? state.currentFilledFilter
-              : null,
-          items: state.locationList.map((val) {
-            return DropdownMenuItem<LocationDTO>(
-              value: val,
-              child: BaseText(
-                text: val.location ?? "",
-                fontSize: 14,
-                textColor: AppColors.black,
-              ),
-            );
-          }).toList(),
-        ),
+          }
+        },
+        hintText: StringConstant.location,
+        value: (state.currentFilledFilter.location != null &&
+                state.currentFilledFilter.location!.isNotEmpty)
+            ? state.currentFilledFilter
+            : null,
+        items: state.locationList.map((val) {
+          return DropdownMenuItem<LocationDTO>(
+            value: val,
+            child: BaseText(
+              text: val.location ?? "",
+              fontSize: 14,
+              maxLines: 1,
+              textColor: AppColors.black,
+            ),
+          );
+        }).toList(),
       ),
     );
   }
