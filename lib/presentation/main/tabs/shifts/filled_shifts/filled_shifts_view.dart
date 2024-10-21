@@ -11,6 +11,7 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_shift/employer_shift_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -104,47 +105,120 @@ class FilledShiftsView extends StatelessWidget {
           if (shift.remaining_shift != null && shift.remaining_shift! > 0)
             remainingTime(context, shift),
           dateAndTime(context, shift),
-          Container(
-            padding: EdgeInsets.symmetric(
-              vertical: getSize(10),
-              horizontal: getSize(15),
-            ),
-            decoration: BoxDecoration(
-              color: AppColors.scaffoldColor,
-              borderRadius: BorderRadius.circular(getSize(10)),
-            ),
-            child: InkWell(
-              onTap: () {
-                context.router.push(PageRouteInfo(
-                    FilledHiredContractorList.name,
-                    args:
-                        FilledHiredContractorListArgs(postId: shift.id ?? -1)));
-              },
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: AppColors.transparent,
-                    radius: getSize(20),
-                    child: SvgPicture.asset(
-                      SvgImageConstant.threePersonCircle,
+          (shift.total_user == 1)
+              ? Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: getSize(10),
+                    horizontal: getSize(15),
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.scaffoldColor,
+                    borderRadius: BorderRadius.circular(getSize(10)),
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      context.router.push(
+                        PageRouteInfo(ViewApplicantProfile.name,
+                            args: ViewApplicantProfileArgs(
+                              id: shift.user?.user_id ?? -1,
+                              postId: shift.id ?? -1,
+                            )),
+                      );
+                    },
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: AppColors.transparent,
+                          radius: getSize(20),
+                          // child: Image.network(shift.user?.profile ?? "")
+                          backgroundImage: (shift.user != null &&
+                                  shift.user!.profile != null &&
+                                  shift.user!.profile!.isNotEmpty)
+                              ? NetworkImage(shift.user?.profile ?? "")
+                              : null,
+                        ),
+                        SizedBox(width: getSize(10)),
+                        BaseText(
+                          text:
+                              "${shift.user?.first_name ?? ""} ${shift.user?.last_name ?? ""}",
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        Spacer(),
+                        CommonButton(
+                          height: 35,
+                          width: 85,
+                          borderRadius: 5,
+                          onPressed: () {
+                            showUnderDevelopment(context);
+                          },
+                          backgroundColor:
+                              AppColors.primaryColor.withOpacity(0.15),
+                          buttonText: "",
+                          customWidget: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                SvgImageConstant.chat,
+                                color: AppColors.black,
+                                height: getSize(15),
+                                width: getSize(15),
+                              ),
+                              SizedBox(width: getSize(5)),
+                              BaseText(
+                                text: StringConstant.chat,
+                                fontWeight: FontWeight.w600,
+                                fontSize: getFontSize(12),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  SizedBox(width: getSize(10)),
-                  BaseText(
-                    text:
-                        "${StringConstant.allHiredContractors} (${shift.total_user ?? 00}/2)",
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
+                )
+              : Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: getSize(10),
+                    horizontal: getSize(15),
                   ),
-                  Spacer(),
-                  Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    size: getSize(16),
+                  decoration: BoxDecoration(
+                    color: AppColors.scaffoldColor,
+                    borderRadius: BorderRadius.circular(getSize(10)),
                   ),
-                ],
-              ),
-            ),
-          ),
+                  child: InkWell(
+                    onTap: () {
+                      context.router.push(PageRouteInfo(
+                          FilledHiredContractorList.name,
+                          args: FilledHiredContractorListArgs(
+                              postId: shift.id ?? -1)));
+                    },
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: AppColors.transparent,
+                          radius: getSize(20),
+                          child: SvgPicture.asset(
+                            SvgImageConstant.threePersonCircle,
+                          ),
+                        ),
+                        SizedBox(width: getSize(10)),
+                        BaseText(
+                          text:
+                              "${StringConstant.allHiredContractors} (${shift.total_user ?? 00}/2)",
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        Spacer(),
+                        Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: getSize(16),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
         ],
       ),
     );

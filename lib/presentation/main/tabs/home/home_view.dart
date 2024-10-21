@@ -473,12 +473,8 @@ class HomeView extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                   textColor: AppColors.primaryColor,
                 ),
-                SizedBox(
-                  width: getSize(15),
-                ),
-                SvgPicture.asset(
-                  SvgImageConstant.threePerson,
-                ),
+                SizedBox(width: getSize(15)),
+                SvgPicture.asset(SvgImageConstant.threePerson),
                 Spacer(),
                 StackedImage(
                   index: index,

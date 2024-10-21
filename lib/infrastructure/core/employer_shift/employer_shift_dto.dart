@@ -21,7 +21,7 @@ class EmployerShiftDto with _$EmployerShiftDto {
     int? end_time,
     double? estimated_payables,
     int? total_shifts,
-    // CurrentUserDto? user,
+    HiredContractorDTO? user,
     int? total_user,
     int? remaining_shift,
     bool? isdelete,
@@ -29,4 +29,17 @@ class EmployerShiftDto with _$EmployerShiftDto {
 
   factory EmployerShiftDto.fromJson(Map<String, dynamic> json) =>
       _$EmployerShiftDtoFromJson(json);
+}
+
+@freezed
+class HiredContractorDTO with _$HiredContractorDTO {
+  const factory HiredContractorDTO({
+    int? user_id,
+    String? first_name,
+    String? last_name,
+    String? profile,
+  }) = _HiredContractorDTO;
+
+  factory HiredContractorDTO.fromJson(Map<String, dynamic> json) =>
+      _$HiredContractorDTOFromJson(json);
 }

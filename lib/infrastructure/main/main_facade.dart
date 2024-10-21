@@ -1397,15 +1397,31 @@ class MainFacade implements IMainFacade {
     required int shortType,
     required int page,
   }) async {
-    try {
-      final res = await apiService
-          .getMethod(ApiConstants.employerShift, queryParameters: {
-        "type": type,
-        "page": page,
-        "perPage": _perPage,
-        "location_id": locationId,
-        "short_type": shortType,
+    Map<String, dynamic> mapData = {
+      "type": type,
+      "page": page,
+      "perPage": _perPage,
+      "location_id": locationId,
+      "short_type": shortType,
+    };
+    if (type == 2) {
+      DateTime now = DateTime.now();
+
+      mapData.addAll({
+        "start_date": DateTime(now.year, now.month, now.day, 0, 0, 0)
+                .toUtc()
+                .millisecondsSinceEpoch /
+            1000,
+        "end_date": DateTime(now.year, now.month, now.day, 23, 59, 59)
+                .toUtc()
+                .millisecondsSinceEpoch /
+            1000,
       });
+    }
+
+    try {
+      final res = await apiService.getMethod(ApiConstants.employerShift,
+          queryParameters: mapData);
 
       if (res != null) {
         return right(res);

@@ -297,7 +297,7 @@ class CancelledShiftView extends StatelessWidget {
                           '(${industry.title ?? ""} - ${shift.listing_id ?? ""})',
                       fontSize: 12,
                       textColor: AppColors.black.withOpacity(0.8),
-                    )
+                    ),
                   ],
                 ),
               ),

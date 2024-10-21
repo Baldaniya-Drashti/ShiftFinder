@@ -66,8 +66,15 @@ class CancelledContractorList extends StatelessWidget {
                                 return GestureDetector(
                                     onTap: () {
                                       context.router.push(
-                                        PageRouteInfo(
-                                            ViewApplicantProfile.name),
+                                        PageRouteInfo(ViewApplicantProfile.name,
+                                            args: ViewApplicantProfileArgs(
+                                              id: state
+                                                      .hiredFilledContractorList[
+                                                          index]
+                                                      .user_id ??
+                                                  -1,
+                                              postId: postId,
+                                            )),
                                       );
                                     },
                                     child: contractorDetail(
