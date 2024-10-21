@@ -54,7 +54,7 @@ class ViewPersonPraposalView extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                   children: [
                     SizedBox(height: getSize(20)),
-                    PraposalPersonView(data: data, confirmDialog: state.confirmDialog ?? false),
+                    PraposalPersonView(data: data, confirmDialog: state.confirmDialog ?? false, postId: postId,),
                     SizedBox(height: getSize(20)),
                     if (data.shift_type == 1) ...[
                       BaseText(

@@ -196,7 +196,7 @@ class MainPraposalView extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 context.router.push(
-                  PageRouteInfo(HiredContractorView.name, args: HiredContractorViewArgs(postId: postId)),
+                  PageRouteInfo(FilledHiredContractorList.name, args: FilledHiredContractorListArgs(postId: postId)),
                 );
               },
               child: Row(

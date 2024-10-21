@@ -8,6 +8,7 @@ part 'employer_previous_shift_dto.g.dart';
 class EmployerPreviousShiftDto with _$EmployerPreviousShiftDto {
   const factory EmployerPreviousShiftDto({
     int? post_id,
+    int? id,
     int? user_id,
     String? first_name,
     String? last_name,

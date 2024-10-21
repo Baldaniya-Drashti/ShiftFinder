@@ -19,9 +19,11 @@ class PraposalPersonView extends StatelessWidget {
   const PraposalPersonView({
     super.key,
     required this.data, required this.confirmDialog,
+    required this.postId,
   });
 
   final EmployerProposalDto data;
+  final int postId;
   final bool confirmDialog;
 
   @override
@@ -113,7 +115,7 @@ class PraposalPersonView extends StatelessWidget {
                   height: 34,
                   onPressed: () {
                     // context.router.push(
-                    //   PageRouteInfo(ViewApplicantProfile.name, args: ViewApplicantProfileArgs(id: id, postId: postId)),
+                    //   PageRouteInfo(ViewApplicantProfile.name, args: ViewApplicantProfileArgs(id: data.user_id??-1, postId: postId)),
                     // );
                   },
                   backgroundColor: AppColors.green.withOpacity(0.1),

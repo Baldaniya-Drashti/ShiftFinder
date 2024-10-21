@@ -12,6 +12,7 @@ class EmployerProposalDto with _$EmployerProposalDto {
     String? first_name,
     String? last_name,
     String? listing_id,
+    int? user_id,
     String? profile,
     String? last_ago,
     String? roles_list_name,
@@ -55,10 +56,6 @@ class EmployerProposalDto with _$EmployerProposalDto {
     String? proposed_commute_allowance_hour_name,
     String? posted_commute_allowance_hour_name,
     List<EmployerProposalShiftDetailDto>? shift_details,
-    String? posted_commute_allowance_hour_name,
-    String? proposed_commute_allowance_hour_name,
-    String? posted_accommodation_allowance_hour_name,
-    String? proposed_accommodation_allowance_hour_name,
   }) = _EmployerProposalDto;
 
   factory EmployerProposalDto.fromJson(Map<String, dynamic> json) =>

@@ -209,10 +209,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i901.HomeBloc>(() => _i901.HomeBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i946.AddNewMemberBloc>(
         () => _i946.AddNewMemberBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i353.AgreedProposalBloc>(
-        () => _i353.AgreedProposalBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i979.HiredContractorBloc>(
         () => _i979.HiredContractorBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i353.AgreedProposalBloc>(
+        () => _i353.AgreedProposalBloc(gh<_i111.IMainFacade>()));
     return this;
   }
 }

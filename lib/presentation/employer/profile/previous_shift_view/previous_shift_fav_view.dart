@@ -27,9 +27,15 @@ class PreviousShiftFavView extends StatelessWidget {
             PaginatedListView(
               onRefresh: () {
                 context.read<PreviousShiftBloc>().add(PreviousShiftEvent.fetchFavoriteList(refresh: true));
+                context.read<PreviousShiftBloc>().add(
+                  PreviousShiftEvent.fetchAllPreviousPost(refresh: true),
+                );
               },
               onLoading: () {
                 context.read<PreviousShiftBloc>().add(PreviousShiftEvent.fetchFavoriteList(refresh: false));
+                context.read<PreviousShiftBloc>().add(
+                  PreviousShiftEvent.fetchAllPreviousPost(refresh: false),
+                );
               },
               refreshController: context.read<PreviousShiftBloc>().favorite,
               isNoDataFound: state.favoriteListNoDataFound,

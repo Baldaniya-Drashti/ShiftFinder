@@ -13,6 +13,7 @@ _$EmployerProposalDtoImpl _$$EmployerProposalDtoImplFromJson(
       first_name: json['first_name'] as String?,
       last_name: json['last_name'] as String?,
       listing_id: json['listing_id'] as String?,
+      user_id: (json['user_id'] as num?)?.toInt(),
       profile: json['profile'] as String?,
       last_ago: json['last_ago'] as String?,
       roles_list_name: json['roles_list_name'] as String?,
@@ -80,14 +81,6 @@ _$EmployerProposalDtoImpl _$$EmployerProposalDtoImplFromJson(
           ?.map((e) => EmployerProposalShiftDetailDto.fromJson(
               e as Map<String, dynamic>))
           .toList(),
-      posted_commute_allowance_hour_name:
-          json['posted_commute_allowance_hour_name'] as String?,
-      proposed_commute_allowance_hour_name:
-          json['proposed_commute_allowance_hour_name'] as String?,
-      posted_accommodation_allowance_hour_name:
-          json['posted_accommodation_allowance_hour_name'] as String?,
-      proposed_accommodation_allowance_hour_name:
-          json['proposed_accommodation_allowance_hour_name'] as String?,
     );
 
 Map<String, dynamic> _$$EmployerProposalDtoImplToJson(
@@ -97,6 +90,7 @@ Map<String, dynamic> _$$EmployerProposalDtoImplToJson(
       'first_name': instance.first_name,
       'last_name': instance.last_name,
       'listing_id': instance.listing_id,
+      'user_id': instance.user_id,
       'profile': instance.profile,
       'last_ago': instance.last_ago,
       'roles_list_name': instance.roles_list_name,
@@ -153,14 +147,6 @@ Map<String, dynamic> _$$EmployerProposalDtoImplToJson(
       'posted_commute_allowance_hour_name':
           instance.posted_commute_allowance_hour_name,
       'shift_details': instance.shift_details,
-      'posted_commute_allowance_hour_name':
-          instance.posted_commute_allowance_hour_name,
-      'proposed_commute_allowance_hour_name':
-          instance.proposed_commute_allowance_hour_name,
-      'posted_accommodation_allowance_hour_name':
-          instance.posted_accommodation_allowance_hour_name,
-      'proposed_accommodation_allowance_hour_name':
-          instance.proposed_accommodation_allowance_hour_name,
     };
 
 _$EmployerProposalPendingUserDtoImpl

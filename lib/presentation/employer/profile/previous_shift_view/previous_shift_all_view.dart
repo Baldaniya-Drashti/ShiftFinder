@@ -56,7 +56,7 @@ class PreviousShiftAllView extends StatelessWidget {
                           padding: EdgeInsets.all(getSize(16)),
                           child: Column(
                             children: [
-                              BlocSelector<PreviousShiftBloc, PreviousShiftState, int>(
+                              BlocSelector<PreviousShiftBloc, PreviousShiftState, RatingDropdownModel>(
                                 selector: (state) => state.selectedRating,
                                 builder: (context, selectedRating) {
                                   return _RatingsDropdown(
@@ -109,11 +109,17 @@ class _RatingsDropdown extends StatelessWidget {
   });
 
   final ValueSetter<int> onChanged;
-  final int value;
+  final RatingDropdownModel value;
 
   @override
   Widget build(BuildContext context) {
-    final ratings = <int>[5, 4, 3, 2, 1];
+    final ratings = <int>[
+      5,
+      4,
+      3,
+      2,
+      1,
+    ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,20 +127,30 @@ class _RatingsDropdown extends StatelessWidget {
       children: [
         BaseText(text: "Sort by", fontSize: 10, fontWeight: FontWeight.w500),
         SizedBox(height: getSize(7)),
-        CustomDropdownField<int>(
-          items: ratings
-              .map(
-                (e) => DropdownMenuItem<int>(
+        CustomDropdownField<RatingDropdownModel>(
+          items: [
+            RatingDropdownModel(
+              value: 0,
+              title: "Rating (Ascending to Descending)",
+              icon: SvgImageConstant.starFilled,
+            ),
+            RatingDropdownModel(
+              value: 1,
+              title: "Location (Descending to Ascending) ",
+              icon: SvgImageConstant.locationIcon,
+            ),
+          ].map(
+                (e) => DropdownMenuItem<RatingDropdownModel>(
                   value: e,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SvgPicture.asset(SvgImageConstant.starFilled),
+                      SvgPicture.asset(e.icon),
                       SizedBox(
                         width: getSize(8),
                       ),
                       BaseText(
-                        text: "${e.toDouble()}",
+                        text: "${e.title}",
                         fontWeight: FontWeight.w600,
                         fontSize: getSize(15),
                       )
@@ -395,7 +411,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                 Expanded(
                   child: _ActionButton(
                     backgroundColor: isBlock ? AppColors.white.withOpacity(0.5) : AppColors.white,
-                    onPressed: isBlock
+                    onPressed: !isBlock
                         ? () {
                             _onAddRemark(
                               context,
@@ -492,6 +508,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                 userId: userId,
                 postId: postId,
                 rating: value,
+                context: context,
               ),
             );
       },
@@ -558,4 +575,28 @@ String formatUnixTimestamp(int timestamp) {
   String formattedTime = DateFormat('hh:mm a').format(date);
 
   return formattedTime;
+}
+
+class RatingDropdownModel {
+  final int value;
+  final String title;
+  final String icon;
+
+  const RatingDropdownModel({
+    required this.value,
+    required this.title,
+    required this.icon,
+  });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is RatingDropdownModel &&
+          runtimeType == other.runtimeType &&
+          value == other.value &&
+          title == other.title &&
+          icon == other.icon;
+
+  @override
+  int get hashCode => value.hashCode ^ title.hashCode ^ icon.hashCode;
 }

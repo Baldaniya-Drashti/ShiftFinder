@@ -6,12 +6,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/employer_previous_shift/employer_previous_shift_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
+import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
 
 part 'previous_shift_event.dart';
 
@@ -48,7 +50,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
             ));
           },
           ratingChangeEvent: (value) {
-            emit(state.copyWith(selectedRating: value.rating));
+            //emit(state.copyWith(selectedRating: value.rating));
           },
           fetchAllPreviousPost: (value) async {
             print("Api called after delete--->");
@@ -266,7 +268,31 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
               },
             );
           },
-          leaveRating: (value) {},
+          leaveRating: (value) async {
+            Either<MainFailure, CommonResponse>? failureOrSuccess;
+            emit(state.copyWith(postDataLoading: true));
+            failureOrSuccess = await _mainFacade.addEmployerRating(
+              postId: value.postId,
+              userId: value.userId,
+              rating: value.rating,
+            );
+            emit(state.copyWith(postDataLoading: false));
+            failureOrSuccess.fold(
+              (l) {
+                showError(
+                  message: l.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) => 'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(value.context);
+              },
+              (r) {
+                add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true));
+                showSuccess(message: r.dioMessage ?? "").show(value.context);
+              },
+            );
+          },
           addFavorite: (AddFavorite value) async {
             Either<MainFailure, CommonResponse>? failureOrSuccess;
             emit(state.copyWith(postDataLoading: true));
@@ -331,6 +357,27 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
               userId: value.userId,
               remark: value.remark,
             );
+            emit(state.copyWith(postDataLoading: false));
+            failureOrSuccess.fold(
+              (l) {
+                showError(
+                  message: l.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) => 'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(value.context);
+              },
+              (r) {
+                add(PreviousShiftEvent.fetchRemarkedList(refresh: true));
+                showSuccess(message: r.dioMessage ?? "").show(value.context);
+              },
+            );
+          },
+          deleteRemark: (DeleteRemark value) async {
+            Either<MainFailure, CommonResponse>? failureOrSuccess;
+            emit(state.copyWith(postDataLoading: true));
+            failureOrSuccess = await _mainFacade.deleteRemark(id: value.id);
             emit(state.copyWith(postDataLoading: false));
             failureOrSuccess.fold(
               (l) {

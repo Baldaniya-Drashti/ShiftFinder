@@ -40,6 +40,7 @@ class PreviousShiftEvent with _$PreviousShiftEvent {
     required int userId,
     required int postId,
     required int rating,
+    required BuildContext context,
   }) = LeaveRating;
 
   factory PreviousShiftEvent.addFavorite({
@@ -60,4 +61,10 @@ class PreviousShiftEvent with _$PreviousShiftEvent {
     required BuildContext context,
     required String remark,
   }) = AddRemark;
+
+
+  factory PreviousShiftEvent.deleteRemark({
+    required int id,
+    required BuildContext context,
+  }) = DeleteRemark;
 }

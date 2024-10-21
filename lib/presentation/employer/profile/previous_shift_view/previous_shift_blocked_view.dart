@@ -29,11 +29,17 @@ class PreviousShiftBlockedView extends StatelessWidget {
                 context.read<PreviousShiftBloc>().add(
                       PreviousShiftEvent.fetchBlockedList(refresh: true),
                     );
+                context.read<PreviousShiftBloc>().add(
+                  PreviousShiftEvent.fetchAllPreviousPost(refresh: true),
+                );
               },
               onLoading: () {
                 context.read<PreviousShiftBloc>().add(
                       PreviousShiftEvent.fetchBlockedList(refresh: false),
                     );
+                context.read<PreviousShiftBloc>().add(
+                  PreviousShiftEvent.fetchAllPreviousPost(refresh: false),
+                );
               },
               refreshController: context.read<PreviousShiftBloc>().blocked,
               isNoDataFound: state.blockedListNoDataFound,

@@ -52,7 +52,7 @@ class TotalProposalBloc extends Bloc<TotalProposalEvent, TotalProposalState> {
               (r) {
                 Log.success("=> ${r.data}");
                 Log.debug("==> ${r.pending_users}");
-                final totalProposedDataList = r.data;
+                final totalProposedDataList = r.pending_users??[];
 
                 emit(
                   state.copyWith(
@@ -60,17 +60,17 @@ class TotalProposalBloc extends Bloc<TotalProposalEvent, TotalProposalState> {
                     totalProposedDataList: r.pending_users ?? [],
                   ),
                 );
-                // for (var i in totalProposedDataList) {
-                //   if (i.revoke_status == 1) {
-                //     add(
-                //       TotalProposalEvent.startRevokingTimer(
-                //         duration: Duration(hours: 2),
-                //         postId: i.id ?? -1,
-                //         revokeTime: i.revoke_start ?? -1,
-                //       ),
-                //     );
-                //   }
-                // }
+                for (var i in totalProposedDataList) {
+                  if (i.revoke_status == 2) {
+                    add(
+                      TotalProposalEvent.startRevokingTimer(
+                        duration: Duration(hours: 2),
+                        postId: i.id ?? -1,
+                        revokeTime: i.revoke_start ?? -1,
+                      ),
+                    );
+                  }
+                }
               },
             );
 
