@@ -15,4 +15,7 @@ class ProposalDetailEvent with _$ProposalDetailEvent {
     required BuildContext context,
   }) = ProposalAcceptReject;
   const factory ProposalDetailEvent.addConfirmDialogFlag(bool flag) = AddConfirmDialogFlag;
+  const factory ProposalDetailEvent.getHoursList() = GetHoursList;
+
+
 }

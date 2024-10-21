@@ -15,6 +15,7 @@ import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/proposal_detail_dto/proposal_detail_dto.dart';
+import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -158,6 +159,24 @@ class ProposalDetailBloc extends Bloc<ProposalDetailEvent, ProposalDetailState> 
         },
         addConfirmDialogFlag: (AddConfirmDialogFlag value) {
           emit(state.copyWith(confirmDialog: value.flag));
+        },
+        getHoursList: (GetHoursList value) async {
+          final hoursList = await _mainFacade.getAccomdationHoursListApi();
+          hoursList.fold(
+            (l) => emit(
+              state.copyWith(
+                hoursList: [],
+              ),
+            ),
+            (r) {
+              print("Hours List ---> $hoursList");
+              return emit(
+                state.copyWith(
+                  hoursList: r,
+                ),
+              );
+            },
+          );
         },
       );
     });

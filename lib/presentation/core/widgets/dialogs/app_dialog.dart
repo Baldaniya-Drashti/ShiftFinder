@@ -297,6 +297,7 @@ class AppDialog {
   static Future<void> showLeaveRatingModal(
     BuildContext context, {
     int? defaultRating,
+    required ValueSetter<int> onSubmit,
   }) async {
     int rating = defaultRating ?? 0;
     final result = await showDialog<bool?>(
@@ -304,6 +305,7 @@ class AppDialog {
       context: context,
       builder: (context) {
         return AlertDialog(
+          clipBehavior: Clip.hardEdge,
           actionsAlignment: MainAxisAlignment.center,
           insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
           titlePadding: EdgeInsets.zero,
@@ -343,9 +345,7 @@ class AppDialog {
           ),
           actions: [
             CommonButton(
-              onPressed: () {
-                print("===>$rating");
-              },
+              onPressed: () => context.router.maybePop(true),
               width: 200,
               buttonText: "Submit",
             )
@@ -353,6 +353,10 @@ class AppDialog {
         );
       },
     );
+
+    if (result ?? false) {
+      onSubmit(rating);
+    }
   }
 
   static Future<bool?> showCommonDialog({
@@ -364,6 +368,7 @@ class AppDialog {
     return showDialog<bool?>(
       context: context,
       builder: (context) => AlertDialog(
+        clipBehavior: Clip.hardEdge,
         backgroundColor: AppColors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),

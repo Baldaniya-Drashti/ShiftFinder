@@ -72,6 +72,14 @@ _$EmployerProposalDtoImpl _$$EmployerProposalDtoImplFromJson(
           ?.map((e) => EmployerProposalShiftDetailDto.fromJson(
               e as Map<String, dynamic>))
           .toList(),
+      posted_commute_allowance_hour_name:
+          json['posted_commute_allowance_hour_name'] as String?,
+      proposed_commute_allowance_hour_name:
+          json['proposed_commute_allowance_hour_name'] as String?,
+      posted_accommodation_allowance_hour_name:
+          json['posted_accommodation_allowance_hour_name'] as String?,
+      proposed_accommodation_allowance_hour_name:
+          json['proposed_accommodation_allowance_hour_name'] as String?,
     );
 
 Map<String, dynamic> _$$EmployerProposalDtoImplToJson(
@@ -129,6 +137,14 @@ Map<String, dynamic> _$$EmployerProposalDtoImplToJson(
       'proposed_accommodation_allowance_hour_id':
           instance.proposed_accommodation_allowance_hour_id,
       'shift_details': instance.shift_details,
+      'posted_commute_allowance_hour_name':
+          instance.posted_commute_allowance_hour_name,
+      'proposed_commute_allowance_hour_name':
+          instance.proposed_commute_allowance_hour_name,
+      'posted_accommodation_allowance_hour_name':
+          instance.posted_accommodation_allowance_hour_name,
+      'proposed_accommodation_allowance_hour_name':
+          instance.proposed_accommodation_allowance_hour_name,
     };
 
 _$EmployerProposalPendingUserDtoImpl

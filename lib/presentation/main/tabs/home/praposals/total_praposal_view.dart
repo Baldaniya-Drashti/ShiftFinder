@@ -54,8 +54,14 @@ class TotalPraposalView extends StatelessWidget {
             }
 
             return PaginatedListView(
-              onRefresh: () => TotalProposalEvent.getTotalProposalList(id: postId, context: context, isRefresh: true),
-              onLoading: () => TotalProposalEvent.getTotalProposalList(id: postId, context: context, isRefresh: false),
+              onRefresh: () {
+                // context.read<TotalProposalBloc>().add(TotalProposalEvent.getTotalProposalList(id: postId, context: context, isRefresh: true));
+              },
+              onLoading: () {
+                // context
+                //     .read<TotalProposalBloc>()
+                //     .add(TotalProposalEvent.getTotalProposalList(id: postId, context: context, isRefresh: false));
+              },
               refreshController: context.read<TotalProposalBloc>().refreshController,
               child: ListView(
                 shrinkWrap: true,

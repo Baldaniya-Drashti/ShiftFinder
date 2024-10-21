@@ -480,10 +480,10 @@ class HomeView extends StatelessWidget {
                   SvgImageConstant.threePerson,
                 ),
                 Spacer(),
-                StackedImage(
-                  index: index,
-                  isTotalApplicants: isTotalApplicants,
-                ),
+                // StackedImage(
+                //   index: index,
+                //   isTotalApplicants: isTotalApplicants,
+                // ),
               ],
             )
           ],

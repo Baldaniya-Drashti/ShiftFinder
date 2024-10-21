@@ -27,14 +27,13 @@ class PreviousShiftBlockedView extends StatelessWidget {
             PaginatedListView(
               onRefresh: () {
                 context.read<PreviousShiftBloc>().add(
-                    PreviousShiftEvent.fetchBlockedList(refresh: true),
-                );
-
+                      PreviousShiftEvent.fetchBlockedList(refresh: true),
+                    );
               },
               onLoading: () {
                 context.read<PreviousShiftBloc>().add(
-                  PreviousShiftEvent.fetchBlockedList(refresh: false),
-                );
+                      PreviousShiftEvent.fetchBlockedList(refresh: false),
+                    );
               },
               refreshController: context.read<PreviousShiftBloc>().blocked,
               isNoDataFound: state.blockedListNoDataFound,
@@ -89,7 +88,13 @@ class _PreviousShiftBlockedTile extends StatelessWidget {
             backgroundColor: AppColors.redAccent.withOpacity(0.2),
             width: 90,
             height: 33,
-            onPressed: () => _showBlockedDialog(context),
+            onPressed: () {
+              _onUnblock(
+                context,
+                postId: data.post_id ?? 0,
+                userId: data.user_id ?? 0,
+              );
+            },
             label: "Blocked",
             textStyle: TextStyle(fontSize: 10, color: AppColors.red),
             icon: SvgPicture.asset(SvgImageConstant.blockedFilled, height: 15, width: 15),
@@ -99,14 +104,22 @@ class _PreviousShiftBlockedTile extends StatelessWidget {
     );
   }
 
-  void _showBlockedDialog(BuildContext context) {
-    AppDialog.showDelete(
+  Future<void> _onUnblock(
+    BuildContext context, {
+    required int postId,
+    required int userId,
+  }) async {
+    final result = await AppDialog.showCommonDialog(
+      context: context,
       title: "Unblock",
-      context,
-      infoMessage: "Unblocking [contractor name] will allow them to view and apply for your future postings. Are you sure you want to proceed?",
-      onCancelClick: () => Navigator.pop(context),
-      onDeleteClick: () {},
-      deleteBtnText: "Unblock",
+      content: "Unblocking [contractor name] will allow them to view and apply for your future postings. Are you sure you want to proceed?",
+      successLabel: "Unblock",
     );
+
+    if (result ?? false) {
+      context.read<PreviousShiftBloc>().add(
+            PreviousShiftEvent.blockUnblockPost(userId: userId, postId: postId, context: context),
+          );
+    }
   }
 }

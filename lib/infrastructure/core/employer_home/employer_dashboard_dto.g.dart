@@ -33,15 +33,9 @@ _$EmployerDashboardDTOImpl _$$EmployerDashboardDTOImplFromJson(
       total_shift: (json['total_shift'] as num?)?.toInt(),
       total_application_counts:
           (json['total_application_counts'] as num?)?.toInt(),
-      total_application_profiles: (json['total_application_profiles']
-              as List<dynamic>?)
-          ?.map((e) => ApplicationProfile.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      total_application_profiles: json['total_application_profiles'],
       total_proposal_counts: (json['total_proposal_counts'] as num?)?.toInt(),
-      total_proposal_profiles: (json['total_proposal_profiles']
-              as List<dynamic>?)
-          ?.map((e) => ApplicationProfile.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      total_proposal_profiles: json['total_proposal_profiles'],
       specialties_list: json['specialties_list'] as String?,
       rate_hour: (json['rate_hour'] as num?)?.toInt(),
       total_payable_hour: json['total_payable_hour'] as String?,

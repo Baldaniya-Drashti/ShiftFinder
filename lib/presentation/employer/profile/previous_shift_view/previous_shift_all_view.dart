@@ -205,8 +205,11 @@ class _PreviousShiftListTile extends StatelessWidget {
           CommonMaterialButton(
             backgroundColor: AppColors.scaffoldColor,
             onPressed: () {
+              final postId = data.post_id;
+              final userId = data.user_id;
+              if (postId == null && userId == null) return;
               context.router.push(
-                PageRouteInfo(ViewApplicantProfile.name),
+                PageRouteInfo(ViewApplicantProfile.name, args: ViewApplicantProfileArgs(id: userId ?? -1, postId: postId ?? -1)),
               );
             },
             label: "View Profile",
@@ -331,17 +334,26 @@ class _PreviousShiftListTile extends StatelessWidget {
                   child: _ActionButton(
                     backgroundColor: isBlock ? AppColors.white.withOpacity(0.5) : AppColors.white,
                     onPressed: !isBlock
-                        ? () {
+                        ? () async {
                             final postId = data.post_id ?? 0;
                             final userId = data.user_id ?? 0;
                             if (data.isFavourite ?? false) {
-                              context.read<PreviousShiftBloc>().add(
-                                    PreviousShiftEvent.addUnFavorite(
-                                      postId: postId,
-                                      userId: userId,
-                                      context: context,
-                                    ),
-                                  );
+                              final result = await AppDialog.showCommonDialog(
+                                context: context,
+                                title: "Unfavorite",
+                                content:
+                                    "Removing [contractor name] from your favorites list will no longer highlight their profile. Are you sure you want to proceed?",
+                                successLabel: "Unfavorite",
+                              );
+                              if (result ?? false) {
+                                context.read<PreviousShiftBloc>().add(
+                                      PreviousShiftEvent.addUnFavorite(
+                                        postId: postId,
+                                        userId: userId,
+                                        context: context,
+                                      ),
+                                    );
+                              }
                             } else {
                               context.read<PreviousShiftBloc>().add(
                                     PreviousShiftEvent.addFavorite(
@@ -362,7 +374,14 @@ class _PreviousShiftListTile extends StatelessWidget {
                 Expanded(
                   child: _ActionButton(
                     backgroundColor: isBlock ? AppColors.white.withOpacity(0.5) : AppColors.white,
-                    onPressed: isBlock ? () => _onAddRating(context, defaultRating: data.rating) : null,
+                    onPressed: !isBlock
+                        ? () => _onAddRating(
+                              context,
+                              defaultRating: data.rating,
+                              userId: data.user_id ?? -1,
+                              postId: data.post_id ?? -1,
+                            )
+                        : null,
                     icon: SvgImageConstant.starOutlined,
                     textColor: isBlock ? AppColors.black.withOpacity(0.5) : null,
                     label: "Leave a Rating",
@@ -458,8 +477,25 @@ class _PreviousShiftListTile extends StatelessWidget {
     );
   }
 
-  void _onAddRating(BuildContext context, {int? defaultRating}) {
-    AppDialog.showLeaveRatingModal(context, defaultRating: defaultRating);
+  void _onAddRating(
+    BuildContext context, {
+    int? defaultRating,
+    required int userId,
+    required int postId,
+  }) {
+    AppDialog.showLeaveRatingModal(
+      context,
+      defaultRating: defaultRating,
+      onSubmit: (int value) {
+        context.read<PreviousShiftBloc>().add(
+              PreviousShiftEvent.leaveRating(
+                userId: userId,
+                postId: postId,
+                rating: value,
+              ),
+            );
+      },
+    );
   }
 
   Future<void> _onUnblock(

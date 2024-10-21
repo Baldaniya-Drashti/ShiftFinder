@@ -14,9 +14,11 @@ class CounterProposalDetailState with _$CounterProposalDetailState {
     required bool showErrorMessages,
     required Rate rateHour,
     required EmployerProposalDto data,
+    required bool loading,
   }) = _CounterProposalDetailState;
 
   factory CounterProposalDetailState.initial() => CounterProposalDetailState(
+    loading: false,
       rateHour: Rate(""),
         data: EmployerProposalDto(),
         postDataLoading: false,

@@ -8,10 +8,12 @@ class ProposalDetailState with _$ProposalDetailState {
     required bool isNoDataFound,
     required bool isErrorInAPI,
     required bool postDataLoading,
-     bool? confirmDialog,
+    required List<SkillDTO> hoursList,
+    bool? confirmDialog,
   }) = _ProposalDetailState;
 
   factory ProposalDetailState.initial() => ProposalDetailState(
+        hoursList: [],
         proposalDetailDto: EmployerProposalDto(),
         isNoDataFound: false,
         isErrorInAPI: false,

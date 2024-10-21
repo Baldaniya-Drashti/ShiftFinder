@@ -37,7 +37,9 @@ class PreviousShiftEvent with _$PreviousShiftEvent {
   }) = BlockPost;
 
   factory PreviousShiftEvent.leaveRating({
-    required int id,
+    required int userId,
+    required int postId,
+    required int rating,
   }) = LeaveRating;
 
   factory PreviousShiftEvent.addFavorite({

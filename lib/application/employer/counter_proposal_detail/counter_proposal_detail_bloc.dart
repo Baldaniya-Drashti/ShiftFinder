@@ -2,10 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
+import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
@@ -14,8 +16,11 @@ import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/proposal_detail_dto/proposal_detail_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
+import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/main/tabs/home/praposals/widgets/person_praposal_view.dart';
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
 
@@ -65,57 +70,117 @@ class CounterProposalDetailBloc extends Bloc<CounterProposalDetailEvent, Counter
           Log.debug(isCommuteAllownceValid && isAccomdationAllownceValid && isRateValid);
 
           if (isCommuteAllownceValid && isAccomdationAllownceValid && isRateValid) {
-            AcceptRejectDialog(
-              title: 'Counter Propose',
-              description: 'Are you sure you want to send a counter proposal?',
-              onPressedAccept: () {
-                value.context.router.maybePop().then(
-                  (_) async {
-                    emit(state.copyWith(postDataLoading: true));
-                    Either<MainFailure, CommonResponse> failureOrSuccess;
-
-                    failureOrSuccess = await _mainFacade.sendEmployerApplicantsCounterPropose(
-                      id: state.data.id ?? -1,
-                      counterRateHour: num.parse(state.rateHour.getValue()),
-                      commuteAllowanceType: state.data.commute_allowance_type ?? -1,
-                      accommodationAllowanceType: state.data.accommodation_allowance_type ?? -1,
-                      counterCommuteAllowance: (state.data.commute_allowance_type == 1)
-                          ? num.parse(state.commuteRate.getValue())
-                          : (state.data.commute_allowance_type == 2)
-                              ? getAccomdationHourId(state, state.commuteHour.getValue() ?? "")
-                              : 0,
-                      counterAccommodationAllowance: (state.data.accommodation_allowance_type == 1)
-                          ? num.parse(state.accomdationRate.getValue())
-                          : (state.data.accommodation_allowance_type == 2)
-                              ? getAccomdationHourId(state, state.accomdationHour.getValue() ?? "")
-                              : 0,
-                    );
-                    emit(state.copyWith(postDataLoading: false));
-
-                    failureOrSuccess.fold(
-                      (l) {
-                        showError(
-                          message: l.maybeMap(
-                            showAPIResponseMessage: (value) => value.message,
-                            networkError: (value) => 'Please check your internet connectivity',
-                            orElse: () => "Server Error. Try again later.",
-                          ),
-                        ).show(value.context);
-                      },
-                      (r) {
-                        showSuccess(message: r.dioMessage ?? "").show(value.context).then((_) {
-                          value.context.router.maybePop(true);
-                        });
-                      },
-                    );
-                  },
+            final result= await showDialog<bool?>(
+              context: value.context,
+              builder: (context) {
+                return AlertDialog(
+                  contentPadding: EdgeInsets.zero,
+                  clipBehavior: Clip.none,
+                  elevation: 0,
+                  backgroundColor: AppColors.white,
+                  insetPadding: EdgeInsets.symmetric(horizontal: getSize(17)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(getSize(15)),
+                  ),
+                  content: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: getSize(25)),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          height: getSize(30),
+                        ),
+                        BaseText(
+                          text: "Counter Propose",
+                          fontSize: 22,
+                          fontFamily: 'Aclonica',
+                        ),
+                        SizedBox(
+                          height: getSize(10),
+                        ),
+                        BaseText(
+                          text: "Are you sure you want to send a counter proposal?",
+                          fontSize: 14,
+                          showFullDescription: true,
+                          textAlign: TextAlign.center,
+                          fontWeight: FontWeight.w500,
+                          textColor: AppColors.black.withOpacity(0.7),
+                        ),
+                        SizedBox(
+                          height: getSize(30),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: CommonButton(
+                                backgroundColor: AppColors.white,
+                                borderColor: AppColors.green,
+                                buttonTextColor: AppColors.green,
+                                onPressed: () => context.router.maybePop(false),
+                                buttonText: "Cancel",
+                              ),
+                            ),
+                            SizedBox(
+                              width: getSize(25),
+                            ),
+                            Expanded(
+                              child: CommonButton(
+                                onPressed: () => context.router.maybePop(true),
+                                buttonText: "Send",
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: getSize(25),
+                        ),
+                      ],
+                    ),
+                  ),
                 );
               },
-              onPressedReject: () {
-                value.context.router.maybePop();
-              },
-              acceptButtonText: 'Send',
-            ).acceptRejectDialog(value.context);
+            );
+
+            if(result??false){
+              emit(state.copyWith(postDataLoading: true));
+              Either<MainFailure, CommonResponse> failureOrSuccess;
+
+              failureOrSuccess = await _mainFacade.sendEmployerApplicantsCounterPropose(
+                id: state.data.id ?? -1,
+                counterRateHour: num.parse(state.rateHour.getValue()),
+                commuteAllowanceType: state.data.commute_allowance_type ?? -1,
+                accommodationAllowanceType: state.data.accommodation_allowance_type ?? -1,
+                counterCommuteAllowance: (state.data.commute_allowance_type == 1)
+                    ? num.parse(state.commuteRate.getValue())
+                    : (state.data.commute_allowance_type == 2)
+                    ? getAccomdationHourId(state, state.commuteHour.getValue() ?? "")
+                    : 0,
+                counterAccommodationAllowance: (state.data.accommodation_allowance_type == 1)
+                    ? num.parse(state.accomdationRate.getValue())
+                    : (state.data.accommodation_allowance_type == 2)
+                    ? getAccomdationHourId(state, state.accomdationHour.getValue() ?? "")
+                    : 0,
+              );
+              emit(state.copyWith(postDataLoading: false));
+
+              failureOrSuccess.fold(
+                    (l) {
+                  showError(
+                    message: l.maybeMap(
+                      showAPIResponseMessage: (value) => value.message,
+                      networkError: (value) => 'Please check your internet connectivity',
+                      orElse: () => "Server Error. Try again later.",
+                    ),
+                  ).show(value.context);
+                },
+                    (r) {
+                  showSuccess(message: r.dioMessage ?? "").show(value.context).then((_) {
+                    value.context.router.maybePop(true);
+                  });
+                },
+              );
+            }
+
           } else {
             emit(state.copyWith(showErrorMessages: true));
           }
@@ -158,7 +223,9 @@ class CounterProposalDetailBloc extends Bloc<CounterProposalDetailEvent, Counter
           ));
         },
         getHoursList: (GetHoursList value) async {
+          emit(state.copyWith(loading: true));
           final hoursList = await _mainFacade.getAccomdationHoursListApi();
+          emit(state.copyWith(loading: false));
           hoursList.fold(
             (l) => emit(
               state.copyWith(
