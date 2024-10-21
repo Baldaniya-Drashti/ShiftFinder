@@ -39,17 +39,18 @@ class PersonListWidget extends StatelessWidget {
               onTap: () async {
                 ///1 rec 2 sent
 
-                Log.success("postId  ${postId} userId ${list[index].user_id}");
                 final result = await context.router.push(
                   PageRouteInfo(
                     ViewPersonPraposalView.name,
-                    args: ViewPersonPraposalViewArgs(postId: postId, userId: list[index].user_id ?? -1),
+                    args: ViewPersonPraposalViewArgs(
+                        postId: postId, userId: list[index].user_id ?? -1),
                   ),
                 ) as bool?;
 
                 if (result ?? false) {
                   context.read<TotalProposalBloc>().add(
-                        TotalProposalEvent.getTotalProposalList(id: postId, isRefresh: true, context: context),
+                        TotalProposalEvent.getTotalProposalList(
+                            id: postId, isRefresh: true, context: context),
                       );
                 }
               },
@@ -64,7 +65,8 @@ class PersonListWidget extends StatelessWidget {
               visualDensity: VisualDensity.compact,
               tileColor: AppColors.white,
               title: BaseText(
-                text: '${list[index].first_name ?? ""} ${list[index].last_name ?? ""}',
+                text:
+                    '${list[index].first_name ?? ""} ${list[index].last_name ?? ""}',
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
               ),
@@ -84,13 +86,17 @@ class PersonListWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SvgPicture.asset(
-                    list[index].last_request == 1 ? SvgImageConstant.receivedCircle : SvgImageConstant.rightWithCircle,
+                    list[index].last_request == 1
+                        ? SvgImageConstant.receivedCircle
+                        : SvgImageConstant.rightWithCircle,
                     height: 13,
                     width: 13,
                   ),
                   Gap(4),
                   BaseText(
-                    text: list[index].last_request == 1 ? "Counter Received" : "Counter Sent",
+                    text: list[index].last_request == 1
+                        ? "Counter Received"
+                        : "Counter Sent",
                     fontSize: 10,
                     fontWeight: FontWeight.w500,
                   ),
@@ -103,9 +109,12 @@ class PersonListWidget extends StatelessWidget {
     );
   }
 
-  Widget revokingStatus(BuildContext context, TotalProposalState state, EmployerProposalPendingUserDto shift) {
+  Widget revokingStatus(BuildContext context, TotalProposalState state,
+      EmployerProposalPendingUserDto shift) {
     final hours = shift.duration?.inHours.toString().padLeft(2, '0') ?? 00;
-    final minutes = shift.duration?.inMinutes.remainder(60).toString().padLeft(2, '0') ?? 00;
+    final minutes =
+        shift.duration?.inMinutes.remainder(60).toString().padLeft(2, '0') ??
+            00;
 
     return Container(
       decoration: BoxDecoration(
@@ -136,7 +145,9 @@ class PersonListWidget extends StatelessWidget {
         trailing: Container(
           width: getSize(108),
           padding: EdgeInsets.symmetric(vertical: getSize(5)),
-          decoration: BoxDecoration(color: AppColors.primaryColor.withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
+          decoration: BoxDecoration(
+              color: AppColors.primaryColor.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(6)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

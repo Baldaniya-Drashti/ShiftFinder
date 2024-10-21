@@ -18,7 +18,10 @@ class ProfessionalProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final list = applicantDto.reference?.where((element) => element.type == 1).toList() ?? [];
+    final list = applicantDto.reference
+            ?.where((element) => element.type == 1)
+            .toList() ??
+        [];
 
     return Scaffold(
       appBar: CommonAppBar(
@@ -56,7 +59,8 @@ class _ListTile extends StatelessWidget {
       child: InkWell(
         onTap: () {
           context.router.push(
-            PageRouteInfo(ProfessionalReferenceDetail.name, args: ProfessionalReferenceDetailArgs(data: data)),
+            PageRouteInfo(ProfessionalReferenceDetail.name,
+                args: ProfessionalReferenceDetailArgs(data: data)),
           );
         },
         child: Row(

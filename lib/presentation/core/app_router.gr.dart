@@ -13,29 +13,31 @@ import 'package:flutter/material.dart' as _i84;
 import 'package:shift/application/auth/contractor_auth/location_example.dart'
     as _i38;
 import 'package:shift/infrastructure/contractor_main/shift/applied_shift_dto/applied_shift_dto.dart'
-    as _i93;
+    as _i94;
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart'
-    as _i92;
+    as _i93;
 import 'package:shift/infrastructure/core/contractor_home/contractor_dashboard_dto.dart'
-    as _i95;
+    as _i96;
 import 'package:shift/infrastructure/core/education_dto/education_dto.dart'
     as _i85;
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart'
-    as _i91;
+    as _i92;
 import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart'
     as _i90;
 import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart'
-    as _i94;
+    as _i95;
 import 'package:shift/infrastructure/main/employer_team/get_teams_dto.dart'
     as _i89;
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart'
     as _i87;
+import 'package:shift/infrastructure/main/hired_contractor_list_dto/hired_contractor_list_dto.dart'
+    as _i91;
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart'
     as _i86;
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart'
     as _i88;
 import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart'
-    as _i96;
+    as _i97;
 import 'package:shift/presentation/auth/contractor_auth/add_bank_details.dart'
     as _i1;
 import 'package:shift/presentation/auth/contractor_auth/add_contractor_skills.dart'
@@ -93,7 +95,7 @@ import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/co
     as _i82;
 import 'package:shift/presentation/contractor/my_calendar_view/my_calendar_view.dart'
     as _i42;
-import 'package:shift/presentation/core/enum.dart' as _i97;
+import 'package:shift/presentation/core/enum.dart' as _i98;
 import 'package:shift/presentation/core/widgets/google_map/show_google_map.dart'
     as _i65;
 import 'package:shift/presentation/employer/employer_availability/employer_availability_view.dart'
@@ -744,7 +746,7 @@ class AddSpecialityExperienceArgs {
 class AgreedProposal extends _i83.PageRouteInfo<AgreedProposalArgs> {
   AgreedProposal({
     _i84.Key? key,
-    required _i87.HealthcarePostDTO post,
+    required _i91.HiredContractorListDTO post,
     required int userId,
     required int postId,
     List<_i83.PageRouteInfo>? children,
@@ -785,7 +787,7 @@ class AgreedProposalArgs {
 
   final _i84.Key? key;
 
-  final _i87.HealthcarePostDTO post;
+  final _i91.HiredContractorListDTO post;
 
   final int userId;
 
@@ -1042,7 +1044,7 @@ class ContractorShiftView extends _i83.PageRouteInfo<void> {
 class CounterPurposeView extends _i83.PageRouteInfo<CounterPurposeViewArgs> {
   CounterPurposeView({
     _i84.Key? key,
-    required _i91.EmployerProposalDto data,
+    required _i92.EmployerProposalDto data,
     List<_i83.PageRouteInfo>? children,
   }) : super(
           CounterPurposeView.name,
@@ -1075,7 +1077,7 @@ class CounterPurposeViewArgs {
 
   final _i84.Key? key;
 
-  final _i91.EmployerProposalDto data;
+  final _i92.EmployerProposalDto data;
 
   @override
   String toString() {
@@ -1202,7 +1204,7 @@ class EducationProfileListView
     extends _i83.PageRouteInfo<EducationProfileListViewArgs> {
   EducationProfileListView({
     _i84.Key? key,
-    required _i92.ApplicantDto applicantDto,
+    required _i93.ApplicantDto applicantDto,
     List<_i83.PageRouteInfo>? children,
   }) : super(
           EducationProfileListView.name,
@@ -1235,7 +1237,7 @@ class EducationProfileListViewArgs {
 
   final _i84.Key? key;
 
-  final _i92.ApplicantDto applicantDto;
+  final _i93.ApplicantDto applicantDto;
 
   @override
   String toString() {
@@ -1249,7 +1251,7 @@ class EmployerAvailabilityView
     extends _i83.PageRouteInfo<EmployerAvailabilityViewArgs> {
   EmployerAvailabilityView({
     _i84.Key? key,
-    required List<_i91.EmployerProposalShiftDetailDto> list,
+    required List<_i92.EmployerProposalShiftDetailDto> list,
     bool confirmDialog = false,
     List<_i83.PageRouteInfo>? children,
   }) : super(
@@ -1286,7 +1288,7 @@ class EmployerAvailabilityViewArgs {
 
   final _i84.Key? key;
 
-  final List<_i91.EmployerProposalShiftDetailDto> list;
+  final List<_i92.EmployerProposalShiftDetailDto> list;
 
   final bool confirmDialog;
 
@@ -1737,10 +1739,13 @@ class MainTabView extends _i83.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i41.MultiAgreedShift]
-class MultiAgreedShift extends _i83.PageRouteInfo<void> {
-  const MultiAgreedShift({List<_i83.PageRouteInfo>? children})
-      : super(
+class MultiAgreedShift extends _i83.PageRouteInfo<MultiAgreedShiftArgs> {
+  MultiAgreedShift({
+    required _i92.EmployerProposalDto contractor,
+    List<_i83.PageRouteInfo>? children,
+  }) : super(
           MultiAgreedShift.name,
+          args: MultiAgreedShiftArgs(contractor: contractor),
           initialChildren: children,
         );
 
@@ -1749,9 +1754,21 @@ class MultiAgreedShift extends _i83.PageRouteInfo<void> {
   static _i83.PageInfo page = _i83.PageInfo(
     name,
     builder: (data) {
-      return const _i41.MultiAgreedShift();
+      final args = data.argsAs<MultiAgreedShiftArgs>();
+      return _i41.MultiAgreedShift(contractor: args.contractor);
     },
   );
+}
+
+class MultiAgreedShiftArgs {
+  const MultiAgreedShiftArgs({required this.contractor});
+
+  final _i92.EmployerProposalDto contractor;
+
+  @override
+  String toString() {
+    return 'MultiAgreedShiftArgs{contractor: $contractor}';
+  }
 }
 
 /// generated route for
@@ -1960,7 +1977,7 @@ class PayableDetailArgs {
 class PersonalProfileView extends _i83.PageRouteInfo<PersonalProfileViewArgs> {
   PersonalProfileView({
     _i84.Key? key,
-    required _i92.ApplicantDto applicantDto,
+    required _i93.ApplicantDto applicantDto,
     List<_i83.PageRouteInfo>? children,
   }) : super(
           PersonalProfileView.name,
@@ -1993,7 +2010,7 @@ class PersonalProfileViewArgs {
 
   final _i84.Key? key;
 
-  final _i92.ApplicantDto applicantDto;
+  final _i93.ApplicantDto applicantDto;
 
   @override
   String toString() {
@@ -2166,7 +2183,7 @@ class ProfessionalProfileView
     extends _i83.PageRouteInfo<ProfessionalProfileViewArgs> {
   ProfessionalProfileView({
     _i84.Key? key,
-    required _i92.ApplicantDto applicantDto,
+    required _i93.ApplicantDto applicantDto,
     List<_i83.PageRouteInfo>? children,
   }) : super(
           ProfessionalProfileView.name,
@@ -2199,7 +2216,7 @@ class ProfessionalProfileViewArgs {
 
   final _i84.Key? key;
 
-  final _i92.ApplicantDto applicantDto;
+  final _i93.ApplicantDto applicantDto;
 
   @override
   String toString() {
@@ -2278,7 +2295,7 @@ class ProfileView extends _i83.PageRouteInfo<void> {
 class ProposalReceived extends _i83.PageRouteInfo<ProposalReceivedArgs> {
   ProposalReceived({
     _i84.Key? key,
-    required _i93.AppliedShiftDTO post,
+    required _i94.AppliedShiftDTO post,
     List<_i83.PageRouteInfo>? children,
   }) : super(
           ProposalReceived.name,
@@ -2311,7 +2328,7 @@ class ProposalReceivedArgs {
 
   final _i84.Key? key;
 
-  final _i93.AppliedShiftDTO post;
+  final _i94.AppliedShiftDTO post;
 
   @override
   String toString() {
@@ -2324,7 +2341,7 @@ class ProposalReceivedArgs {
 class ProposeAvailability extends _i83.PageRouteInfo<ProposeAvailabilityArgs> {
   ProposeAvailability({
     required _i87.HealthcarePostDTO post,
-    List<_i94.DateTimeDTO>? updatedDates,
+    List<_i95.DateTimeDTO>? updatedDates,
     List<_i83.PageRouteInfo>? children,
   }) : super(
           ProposeAvailability.name,
@@ -2357,7 +2374,7 @@ class ProposeAvailabilityArgs {
 
   final _i87.HealthcarePostDTO post;
 
-  final List<_i94.DateTimeDTO>? updatedDates;
+  final List<_i95.DateTimeDTO>? updatedDates;
 
   @override
   String toString() {
@@ -2686,10 +2703,17 @@ class ShowGoogleMapArgs {
 
 /// generated route for
 /// [_i66.SingleAgreedShift]
-class SingleAgreedShift extends _i83.PageRouteInfo<void> {
-  const SingleAgreedShift({List<_i83.PageRouteInfo>? children})
-      : super(
+class SingleAgreedShift extends _i83.PageRouteInfo<SingleAgreedShiftArgs> {
+  SingleAgreedShift({
+    required _i92.EmployerProposalDto contractor,
+    int? index,
+    List<_i83.PageRouteInfo>? children,
+  }) : super(
           SingleAgreedShift.name,
+          args: SingleAgreedShiftArgs(
+            contractor: contractor,
+            index: index,
+          ),
           initialChildren: children,
         );
 
@@ -2698,9 +2722,29 @@ class SingleAgreedShift extends _i83.PageRouteInfo<void> {
   static _i83.PageInfo page = _i83.PageInfo(
     name,
     builder: (data) {
-      return const _i66.SingleAgreedShift();
+      final args = data.argsAs<SingleAgreedShiftArgs>();
+      return _i66.SingleAgreedShift(
+        contractor: args.contractor,
+        index: args.index,
+      );
     },
   );
+}
+
+class SingleAgreedShiftArgs {
+  const SingleAgreedShiftArgs({
+    required this.contractor,
+    this.index,
+  });
+
+  final _i92.EmployerProposalDto contractor;
+
+  final int? index;
+
+  @override
+  String toString() {
+    return 'SingleAgreedShiftArgs{contractor: $contractor, index: $index}';
+  }
 }
 
 /// generated route for
@@ -3023,7 +3067,7 @@ class ViewContractorShiftDates
     extends _i83.PageRouteInfo<ViewContractorShiftDatesArgs> {
   ViewContractorShiftDates({
     _i84.Key? key,
-    required _i95.ContactorDashboardDTO shiftDetail,
+    required _i96.ContactorDashboardDTO shiftDetail,
     List<_i83.PageRouteInfo>? children,
   }) : super(
           ViewContractorShiftDates.name,
@@ -3056,7 +3100,7 @@ class ViewContractorShiftDatesArgs {
 
   final _i84.Key? key;
 
-  final _i95.ContactorDashboardDTO shiftDetail;
+  final _i96.ContactorDashboardDTO shiftDetail;
 
   @override
   String toString() {
@@ -3069,7 +3113,7 @@ class ViewContractorShiftDatesArgs {
 class ViewDates extends _i83.PageRouteInfo<ViewDatesArgs> {
   ViewDates({
     _i84.Key? key,
-    required _i96.ShiftDetailDTO shiftDetail,
+    required _i97.ShiftDetailDTO shiftDetail,
     List<_i83.PageRouteInfo>? children,
   }) : super(
           ViewDates.name,
@@ -3102,7 +3146,7 @@ class ViewDatesArgs {
 
   final _i84.Key? key;
 
-  final _i96.ShiftDetailDTO shiftDetail;
+  final _i97.ShiftDetailDTO shiftDetail;
 
   @override
   String toString() {
@@ -3155,7 +3199,7 @@ class ViewHomeShiftDetails
   ViewHomeShiftDetails({
     _i84.Key? key,
     required int postId,
-    _i97.ShiftDetailRoute? route,
+    _i98.ShiftDetailRoute? route,
     List<_i83.PageRouteInfo>? children,
   }) : super(
           ViewHomeShiftDetails.name,
@@ -3193,7 +3237,7 @@ class ViewHomeShiftDetailsArgs {
 
   final int postId;
 
-  final _i97.ShiftDetailRoute? route;
+  final _i98.ShiftDetailRoute? route;
 
   @override
   String toString() {

@@ -43,7 +43,8 @@ class CustomTextField extends StatelessWidget {
     this.hintAsValue = false,
     this.prefixIconConstraints,
     this.labelTextWidth,
-    this.hintTextColor, this.autoValidateMode,
+    this.hintTextColor,
+    this.autoValidateMode,
   }) : super(key: key);
 
   final List<TextInputFormatter>? inputFormatters;
@@ -81,7 +82,6 @@ class CustomTextField extends StatelessWidget {
   final double? labelTextWidth;
   final Color? hintTextColor;
   final AutovalidateMode? autoValidateMode;
-
 
   @override
   Widget build(BuildContext context) {
@@ -253,9 +253,11 @@ class CustomTextField extends StatelessWidget {
                   prefixIconConstraints: prefixIconConstraints,
                   //     BoxConstraints(maxWidth: getSize(79), minHeight: 0),
                   hintStyle: TextStyle(
-                    color: hintAsValue
-                        ? AppColors.black
-                        : hintTextColor ?? AppColors.black.withOpacity(0.5),
+                    color: (hintTextColor != null)
+                        ? hintTextColor
+                        : hintAsValue
+                            ? AppColors.black
+                            : hintTextColor ?? AppColors.black.withOpacity(0.5),
                     fontSize: getFontSize(hintAsValue ? 13 : 14),
                     fontWeight: FontWeight.w500,
                   ),

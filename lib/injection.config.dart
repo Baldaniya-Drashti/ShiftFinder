@@ -72,6 +72,8 @@ import 'package:shift/application/main_tab/profile/profile_sections/teams/add_ne
     as _i946;
 import 'package:shift/application/main_tab/profile/profile_sections/teams/teams_bloc.dart'
     as _i174;
+import 'package:shift/application/main_tab/shifts/agreed_proposal_bloc/agreed_proposal_bloc.dart'
+    as _i353;
 import 'package:shift/application/main_tab/shifts/hired_contractor_bloc/hired_contractor_bloc.dart'
     as _i979;
 import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart'
@@ -207,6 +209,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i901.HomeBloc>(() => _i901.HomeBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i946.AddNewMemberBloc>(
         () => _i946.AddNewMemberBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i353.AgreedProposalBloc>(
+        () => _i353.AgreedProposalBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i979.HiredContractorBloc>(
         () => _i979.HiredContractorBloc(gh<_i111.IMainFacade>()));
     return this;

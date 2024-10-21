@@ -530,9 +530,12 @@ class StringConstant {
   static const String approvedDesc =
       "The clock in and out times for this shift have been successfully approved.";
   static const String approved = "Approved";
-  static const String editClockTime = "Edit Clock Time";
   static const String editClockDesc =
       "Please only edit the clock in and out times if you find major discrepancies to avoid potential disputes";
+  static const String editClockTime = "Edit Clock Time";
+  static const String referencesTapToView = "References (Tap To View)";
+  static const String noResultFound = "No Result Found!";
+  static const String viewProfile = "View Profile";
 
   ///
 

@@ -70,8 +70,15 @@ class FilledHiredContractorList extends StatelessWidget {
                                 return GestureDetector(
                                     onTap: () {
                                       context.router.push(
-                                        PageRouteInfo(
-                                            ViewApplicantProfile.name),
+                                        PageRouteInfo(ViewApplicantProfile.name,
+                                            args: ViewApplicantProfileArgs(
+                                              id: state
+                                                      .hiredFilledContractorList[
+                                                          index]
+                                                      .user_id ??
+                                                  -1,
+                                              postId: postId,
+                                            )),
                                       );
                                     },
                                     child: contractorDetail(
@@ -135,19 +142,23 @@ class FilledHiredContractorList extends StatelessWidget {
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                   ),
-                  if (contractor.contractor_shift_type == 1)
+                  if (contractor.contractor_shift_type == 2)
                     GestureDetector(
                       onTap: () {
                         context.router.push(PageRouteInfo(AgreedProposal.name,
                             args: AgreedProposalArgs(
-                                post: HealthcarePostDTO(),
+                                post: contractor,
                                 postId: postId,
                                 userId: contractor.user_id ?? -1)));
                       },
                       child: Container(
-                        color: AppColors.transparent,
-                        padding: EdgeInsets.only(
-                            top: getSize(5), right: getSize(20)),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryColor.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(getSize(5)),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            vertical: getSize(5), horizontal: getSize(10)),
                         child: BaseText(
                           text: StringConstant.viewAgreedProposal,
                           fontSize: 10,
