@@ -26,6 +26,9 @@ _$EmployerShiftDtoImpl _$$EmployerShiftDtoImplFromJson(
       user: json['user'] == null
           ? null
           : HiredContractorDTO.fromJson(json['user'] as Map<String, dynamic>),
+      users: (json['users'] as List<dynamic>?)
+          ?.map((e) => HiredContractorDTO.fromJson(e as Map<String, dynamic>))
+          .toList(),
       total_user: (json['total_user'] as num?)?.toInt(),
       remaining_shift: (json['remaining_shift'] as num?)?.toInt(),
       isdelete: json['isdelete'] as bool?,
@@ -47,6 +50,7 @@ Map<String, dynamic> _$$EmployerShiftDtoImplToJson(
       'estimated_payables': instance.estimated_payables,
       'total_shifts': instance.total_shifts,
       'user': instance.user,
+      'users': instance.users,
       'total_user': instance.total_user,
       'remaining_shift': instance.remaining_shift,
       'isdelete': instance.isdelete,

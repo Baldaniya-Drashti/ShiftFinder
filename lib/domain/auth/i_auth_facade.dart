@@ -28,6 +28,8 @@ abstract class IAuthFacade {
     /// if current user is contractor
     required String? referralCode,
     required String? locationAddress,
+    required String? latitude,
+    required String? longitude,
   });
 
   Future<Either<AuthFailure, Account>> login({

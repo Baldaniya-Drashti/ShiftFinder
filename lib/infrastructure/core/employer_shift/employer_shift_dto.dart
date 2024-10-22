@@ -22,6 +22,7 @@ class EmployerShiftDto with _$EmployerShiftDto {
     double? estimated_payables,
     int? total_shifts,
     HiredContractorDTO? user,
+    List<HiredContractorDTO>? users,
     int? total_user,
     int? remaining_shift,
     bool? isdelete,

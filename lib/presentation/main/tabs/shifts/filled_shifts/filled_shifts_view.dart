@@ -111,6 +111,7 @@ class FilledShiftsView extends StatelessWidget {
                     vertical: getSize(10),
                     horizontal: getSize(15),
                   ),
+                  alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: AppColors.scaffoldColor,
                     borderRadius: BorderRadius.circular(getSize(10)),
@@ -118,31 +119,41 @@ class FilledShiftsView extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       context.router.push(
-                        PageRouteInfo(ViewApplicantProfile.name,
-                            args: ViewApplicantProfileArgs(
-                              id: shift.user?.user_id ?? -1,
-                              postId: shift.id ?? -1,
-                            )),
+                        PageRouteInfo(
+                          ViewApplicantProfile.name,
+                          args: ViewApplicantProfileArgs(
+                            id: shift.user?.user_id ?? -1,
+                            postId: shift.id ?? -1,
+                          ),
+                        ),
                       );
                     },
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CircleAvatar(
                           backgroundColor: AppColors.transparent,
                           radius: getSize(20),
-                          // child: Image.network(shift.user?.profile ?? "")
                           backgroundImage: (shift.user != null &&
                                   shift.user!.profile != null &&
                                   shift.user!.profile!.isNotEmpty)
                               ? NetworkImage(shift.user?.profile ?? "")
                               : null,
                         ),
-                        SizedBox(width: getSize(10)),
-                        BaseText(
-                          text:
-                              "${shift.user?.first_name ?? ""} ${shift.user?.last_name ?? ""}",
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: getSize(10), right: getSize(5)),
+                          child: BaseText(
+                            text:
+                                "${shift.user?.first_name ?? ""} ${shift.user?.last_name ?? ""}",
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: getSize(14),
                         ),
                         Spacer(),
                         CommonButton(

@@ -960,6 +960,21 @@ class MainFacade implements IMainFacade {
         'perPage': _perPage,
       };
 
+      if (filterType == 1) {
+        DateTime now = DateTime.now();
+
+        mapData.addAll({
+          "start_date": DateTime(now.year, now.month, now.day, 0, 0, 0)
+                  .toUtc()
+                  .millisecondsSinceEpoch /
+              1000,
+          "end_date": DateTime(now.year, now.month, now.day, 23, 59, 59)
+                  .toUtc()
+                  .millisecondsSinceEpoch /
+              1000,
+        });
+      }
+
       final res = await apiService.getMethod(ApiConstants.contractorShifts,
           queryParameters: mapData);
 

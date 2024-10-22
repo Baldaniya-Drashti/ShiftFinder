@@ -58,7 +58,9 @@ class RegisterProfileScreen extends StatelessWidget {
 
             context.router.maybePop();
           },
-          title: (getCurrentRole() == 1) ? StringConstant.completeProfile : StringConstant.companyDetails,
+          title: (getCurrentRole() == 1)
+              ? StringConstant.completeProfile
+              : StringConstant.companyDetails,
         ),
       ),
       body: GestureDetector(
@@ -77,7 +79,8 @@ class RegisterProfileScreen extends StatelessWidget {
                     showError(
                       message: failure.maybeMap(
                         showAPIResponseMessage: (value) => value.message,
-                        networkError: (value) => 'Please check your internet connectivity',
+                        networkError: (value) =>
+                            'Please check your internet connectivity',
                         orElse: () => "Server Error. Try again later.",
                       ),
                     ).show(context);
@@ -86,7 +89,9 @@ class RegisterProfileScreen extends StatelessWidget {
                     AppFocus.unfocus(context);
                     VerifyPhoneNumber().getVerifyPhoneNoBottomSheet(
                       context,
-                      (getCurrentRole() == 1) ? state.enteredPhoneNo : state.email.getValue(),
+                      (getCurrentRole() == 1)
+                          ? state.enteredPhoneNo
+                          : state.email.getValue(),
                       "+${state.selectedCountrycode}",
                       state.selectedCountryFlag,
                       state.password.getValue(),
@@ -99,7 +104,9 @@ class RegisterProfileScreen extends StatelessWidget {
               return Padding(
                 padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                 child: Form(
-                  autovalidateMode: (state.showErrorMessages) ? AutovalidateMode.always : AutovalidateMode.disabled,
+                  autovalidateMode: (state.showErrorMessages)
+                      ? AutovalidateMode.always
+                      : AutovalidateMode.disabled,
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     child: Column(
@@ -141,7 +148,9 @@ class RegisterProfileScreen extends StatelessWidget {
                                     : state.email.getValue(),
                                 state.password.getValue(),
                               );*/
-                              context.read<RegisterFormBloc>().add(RegisterFormEvent.registerProfileBtnPressed(
+                              context.read<RegisterFormBloc>().add(
+                                      RegisterFormEvent
+                                          .registerProfileBtnPressed(
                                     context,
                                     firstName: firstName,
                                     lastName: lastName,
@@ -176,7 +185,10 @@ class RegisterProfileScreen extends StatelessWidget {
               onTap: () {
                 ImageChooserDialog().showImageChooserDialog(
                   takePhotoCallback: () async {
-                    String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.camera, context: context) ?? '';
+                    String path = await ImagePickerUtils().pickImage(
+                            imageSource: ImageSource.camera,
+                            context: context) ??
+                        '';
                     if (path.isNotEmpty) {
                       print("CAMERA IMAGE PATH: $path");
                       context.read<RegisterFormBloc>().add(
@@ -185,7 +197,10 @@ class RegisterProfileScreen extends StatelessWidget {
                     }
                   },
                   selectPhotoCallback: () async {
-                    String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.gallery, context: context) ?? '';
+                    String path = await ImagePickerUtils().pickImage(
+                            imageSource: ImageSource.gallery,
+                            context: context) ??
+                        '';
 
                     if (path.isNotEmpty) {
                       print("GALLERY IMAGE PATH: $path");
@@ -208,8 +223,10 @@ class RegisterProfileScreen extends StatelessWidget {
                     height: getSize(15),
                     width: getSize(15),
                   ),
-                  badgeStyle:
-                      badges.BadgeStyle(badgeColor: AppColors.white, borderSide: BorderSide(color: AppColors.primaryColor, width: 0.4)),
+                  badgeStyle: badges.BadgeStyle(
+                      badgeColor: AppColors.white,
+                      borderSide: BorderSide(
+                          color: AppColors.primaryColor, width: 0.4)),
                   child: Container(
                     height: getSize(100),
                     width: getSize(100),
@@ -220,7 +237,8 @@ class RegisterProfileScreen extends StatelessWidget {
                       image: state.selectImage.isNotEmpty
                           ? state.selectImage.contains('https')
                               ? DecorationImage(
-                                  image: CachedNetworkImageProvider(state.selectImage),
+                                  image: CachedNetworkImageProvider(
+                                      state.selectImage),
                                   fit: BoxFit.cover,
                                 )
                               : DecorationImage(
@@ -231,7 +249,9 @@ class RegisterProfileScreen extends StatelessWidget {
                                 )
                           : DecorationImage(
                               image: AssetImage(
-                                (getCurrentRole() == 1) ? PngImageConstants.contractor_employer : PngImageConstants.profile_employer,
+                                (getCurrentRole() == 1)
+                                    ? PngImageConstants.contractor_employer
+                                    : PngImageConstants.profile_employer,
                               ),
                             ),
                       border: Border.all(
@@ -245,12 +265,15 @@ class RegisterProfileScreen extends StatelessWidget {
             ),
             paddingBetweenFields(height: getSize(8)),
             BaseText(
-              text: (getCurrentRole() == 1) ? StringConstant.profilePhoto : StringConstant.companyLogo,
+              text: (getCurrentRole() == 1)
+                  ? StringConstant.profilePhoto
+                  : StringConstant.companyLogo,
               fontSize: 12,
               fontWeight: FontWeight.w500,
               textColor: AppColors.black.withOpacity(0.7),
             ),
-            if (state.showErrorMessages && state.selectImage.isEmpty) commonErrorText("* Please select profile photo"),
+            if (state.showErrorMessages && state.selectImage.isEmpty)
+              commonErrorText("* Please select profile photo"),
           ],
         ),
         // Positioned(
@@ -312,14 +335,17 @@ class RegisterProfileScreen extends StatelessWidget {
           width: getSize(24),
         ),
       ),
-      onChanged: (value) => context.read<RegisterFormBloc>().add(RegisterFormEvent.companyNameChanged(value)),
-      validator: (p0, p1) => context.read<RegisterFormBloc>().state.companyName.value.fold(
-            (f) => f.maybeMap(
-              empty: (value) => StringConstant.pleaseEnterCompanyName,
-              orElse: () => null,
-            ),
-            (_) => null,
-          ),
+      onChanged: (value) => context
+          .read<RegisterFormBloc>()
+          .add(RegisterFormEvent.companyNameChanged(value)),
+      validator: (p0, p1) =>
+          context.read<RegisterFormBloc>().state.companyName.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseEnterCompanyName,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
     );
   }
 
@@ -341,14 +367,16 @@ class RegisterProfileScreen extends StatelessWidget {
               RegisterFormEvent.phoneNumberChanged(value),
             );
       },
-      validator: (_, context) => context.read<RegisterFormBloc>().state.phoneNumber.value.fold(
-            (f) => f.maybeMap(
-              empty: (value) => StringConstant.pleaseEnterMobileNumber,
-              invalidMobileNumber: (_) => StringConstant.phoneNumberShouldBeBetween10And15Digits,
-              orElse: () => null,
-            ),
-            (_) => null,
-          ),
+      validator: (_, context) =>
+          context.read<RegisterFormBloc>().state.phoneNumber.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseEnterMobileNumber,
+                  invalidMobileNumber: (_) =>
+                      StringConstant.phoneNumberShouldBeBetween10And15Digits,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
       prefixIcon: CommonCountryCodePicker(
         initialSelection: state.selectedCountryFlag,
         onChanged: (countryCode) {
@@ -383,15 +411,18 @@ class RegisterProfileScreen extends StatelessWidget {
           color: AppColors.primaryColor,
         ),
       ),
-      onChanged: (value) => context.read<RegisterFormBloc>().add(RegisterFormEvent.emailChanged(value)),
-      validator: (p0, p1) => context.read<RegisterFormBloc>().state.email.value.fold(
-            (f) => f.maybeMap(
-              empty: (value) => StringConstant.pleaseEnterEmail,
-              invalidEmail: (_) => StringConstant.pleaseEnterValidEmail,
-              orElse: () => null,
-            ),
-            (_) => null,
-          ),
+      onChanged: (value) => context
+          .read<RegisterFormBloc>()
+          .add(RegisterFormEvent.emailChanged(value)),
+      validator: (p0, p1) =>
+          context.read<RegisterFormBloc>().state.email.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseEnterEmail,
+                  invalidEmail: (_) => StringConstant.pleaseEnterValidEmail,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
     );
   }
 
@@ -425,26 +456,34 @@ class RegisterProfileScreen extends StatelessWidget {
           color: AppColors.transparent,
           padding: EdgeInsets.all(getSize(9)),
           child: SvgPicture.asset(
-            (state.isNewPassObscure) ? SvgImageConstant.closeEye : SvgImageConstant.openEye,
+            (state.isNewPassObscure)
+                ? SvgImageConstant.closeEye
+                : SvgImageConstant.openEye,
             height: getSize(24),
             width: getSize(24),
           ),
         ),
       ),
-      onChanged: (value) => context.read<RegisterFormBloc>().add(RegisterFormEvent.passwordChanged(value)),
-      validator: (p0, p1) => context.read<RegisterFormBloc>().state.password.value.fold(
-            (f) => f.maybeMap(
-              empty: (value) => StringConstant.pleaseEnterPassword,
-              shortPassword: (_) => StringConstant.passwordShouldBeMinimum8Digit,
-              invalidPassword: (value) => StringConstant.invalidPasswordErrorText,
-              orElse: () => null,
-            ),
-            (_) => null,
-          ),
+      onChanged: (value) => context
+          .read<RegisterFormBloc>()
+          .add(RegisterFormEvent.passwordChanged(value)),
+      validator: (p0, p1) =>
+          context.read<RegisterFormBloc>().state.password.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseEnterPassword,
+                  shortPassword: (_) =>
+                      StringConstant.passwordShouldBeMinimum8Digit,
+                  invalidPassword: (value) =>
+                      StringConstant.invalidPasswordErrorText,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
     );
   }
 
-  Widget confirmPasswordTextField(BuildContext context, RegisterFormState state) {
+  Widget confirmPasswordTextField(
+      BuildContext context, RegisterFormState state) {
     return CustomTextField(
       labelText: StringConstant.confirmPassword,
       isLabelPadding: true,
@@ -474,26 +513,34 @@ class RegisterProfileScreen extends StatelessWidget {
           color: AppColors.transparent,
           padding: EdgeInsets.all(getSize(9)),
           child: SvgPicture.asset(
-            (state.isConfirmPassObscure) ? SvgImageConstant.closeEye : SvgImageConstant.openEye,
+            (state.isConfirmPassObscure)
+                ? SvgImageConstant.closeEye
+                : SvgImageConstant.openEye,
             height: getSize(24),
             width: getSize(24),
           ),
         ),
       ),
-      onChanged: (value) => context.read<RegisterFormBloc>().add(RegisterFormEvent.confirmPasswordChanged(
+      onChanged: (value) => context
+          .read<RegisterFormBloc>()
+          .add(RegisterFormEvent.confirmPasswordChanged(
             value,
             state.enteredPassword,
           )),
-      validator: (_, context) => context.read<RegisterFormBloc>().state.confirmPassword.value.fold(
-            (f) => f.maybeMap(
-              empty: (value) => StringConstant.pleaseEnterConfirmPassword,
-              shortPassword: (_) => StringConstant.passwordShouldBeMinimum8Digit,
-              passwordsDontMatch: (_) => StringConstant.bothPasswordsAreDoesNotMatch,
-              invalidPassword: (value) => StringConstant.invalidPasswordErrorText,
-              orElse: () => null,
-            ),
-            (_) => null,
-          ),
+      validator: (_, context) =>
+          context.read<RegisterFormBloc>().state.confirmPassword.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseEnterConfirmPassword,
+                  shortPassword: (_) =>
+                      StringConstant.passwordShouldBeMinimum8Digit,
+                  passwordsDontMatch: (_) =>
+                      StringConstant.bothPasswordsAreDoesNotMatch,
+                  invalidPassword: (value) =>
+                      StringConstant.invalidPasswordErrorText,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
     );
   }
 
@@ -514,7 +561,9 @@ class RegisterProfileScreen extends StatelessWidget {
           width: getSize(24),
         ),
       ),
-      onChanged: (value) => context.read<RegisterFormBloc>().add(RegisterFormEvent.associationTextChanged(value)),
+      onChanged: (value) => context
+          .read<RegisterFormBloc>()
+          .add(RegisterFormEvent.associationTextChanged(value)),
     );
   }
 
@@ -535,7 +584,9 @@ class RegisterProfileScreen extends StatelessWidget {
           width: getSize(24),
         ),
       ),
-      onChanged: (value) => context.read<RegisterFormBloc>().add(RegisterFormEvent.referralCodeChanged(value)),
+      onChanged: (value) => context
+          .read<RegisterFormBloc>()
+          .add(RegisterFormEvent.referralCodeChanged(value)),
     );
   }
 
@@ -547,7 +598,9 @@ class RegisterProfileScreen extends StatelessWidget {
       isOptional: true,
       maxLines: 4,
       keyboardType: TextInputType.multiline,
-      onChanged: (value) => context.read<RegisterFormBloc>().add(RegisterFormEvent.companyDescChanged(value)),
+      onChanged: (value) => context
+          .read<RegisterFormBloc>()
+          .add(RegisterFormEvent.companyDescChanged(value)),
     );
   }
 
@@ -583,14 +636,19 @@ class RegisterProfileScreen extends StatelessWidget {
   //   );
   // }
 
-  Widget locationAddressTextField(BuildContext context, RegisterFormState state) {
+  Widget locationAddressTextField(
+      BuildContext context, RegisterFormState state) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         CustomTextField(
-          labelText: (getCurrentRole() == 1) ? StringConstant.address : StringConstant.locationAddress,
+          labelText: (getCurrentRole() == 1)
+              ? StringConstant.address
+              : StringConstant.locationAddress,
           isLabelPadding: true,
-          hintText: (getCurrentRole() == 1) ? StringConstant.address : StringConstant.locationAddress,
+          hintText: (getCurrentRole() == 1)
+              ? StringConstant.address
+              : StringConstant.locationAddress,
           // controller: TextEditingController()
           //   ..text = state.locationAddress.getValue() ?? "",
           controller: RegisterFormBloc.locationCtrl,
@@ -606,16 +664,21 @@ class RegisterProfileScreen extends StatelessWidget {
               color: AppColors.primaryColor,
             ),
           ),
-          onChanged: (value) => context.read<RegisterFormBloc>().add(RegisterFormEvent.locationAddressChanged(value)),
-          validator: (p0, p1) => context.read<RegisterFormBloc>().state.locationAddress.value.fold(
-                (f) => f.maybeMap(
-                  empty: (value) => (getCurrentRole() == 1) ? StringConstant.pleaseEnterAddress : StringConstant.pleaseEnterLocationName,
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
+          onChanged: (value) => context.read<RegisterFormBloc>().add(
+              RegisterFormEvent.locationAddressChanged(
+                  RegisterFormBloc.locationCtrl.text)),
+          validator: (p0, p1) =>
+              context.read<RegisterFormBloc>().state.locationAddress.value.fold(
+                    (f) => f.maybeMap(
+                      empty: (value) => (getCurrentRole() == 1)
+                          ? StringConstant.pleaseEnterAddress
+                          : StringConstant.pleaseEnterLocationName,
+                      orElse: () => null,
+                    ),
+                    (_) => null,
+                  ),
         ),
-        if (state.searchLocationList.isNotEmpty)
+        if (state.searchLocationList.isNotEmpty && !state.showErrorMessages)
           Container(
             height: getSize(200),
             color: AppColors.white,
@@ -625,15 +688,18 @@ class RegisterProfileScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return ListTile(
                   onTap: () {
-                    final selectedLocation = state.searchLocationList[index]["description"];
+                    // final selectedLocation = state.searchLocationList[index]["description"];
+                    final selectedLocation = state.searchLocationList[index];
 
-                    context.read<RegisterFormBloc>().add(RegisterFormEvent.locationSelectedFromSearchList(selectedLocation));
+                    context.read<RegisterFormBloc>().add(
+                        RegisterFormEvent.locationSelectedFromSearchList(
+                            selectedLocation));
                   },
                   dense: true,
                   titleAlignment: ListTileTitleAlignment.top,
                   leading: SvgPicture.asset(SvgImageConstant.locationIcon),
                   title: BaseText(
-                    text: state.searchLocationList[index]["description"],
+                    text: state.searchLocationList[index].description ?? "",
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                   ),

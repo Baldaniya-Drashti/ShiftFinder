@@ -13,6 +13,7 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_shift/employer_shift_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -213,50 +214,135 @@ class CancelledShiftView extends StatelessWidget {
               buttonText: StringConstant.viewShiftDetails,
             ),
           dateAndTime(context, state, shift),
-          Container(
-            padding: EdgeInsets.symmetric(
-              vertical: getSize(10),
-              horizontal: getSize(15),
-            ),
-            decoration: BoxDecoration(
-              color: AppColors.scaffoldColor,
-              borderRadius: BorderRadius.circular(getSize(10)),
-            ),
-            child: InkWell(
-              onTap: () {
-                context.router.push(PageRouteInfo(CancelledContractorList.name,
-                    args: CancelledContractorListArgs(
-                      title: (state.currentCancelFilter.id == 2)
-                          ? StringConstant.withdralContractors
-                          : StringConstant.cancelledContractors,
-                      postId: shift.id ?? -1,
-                    )));
-              },
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: AppColors.transparent,
-                    radius: getSize(20),
-                    child: SvgPicture.asset(
-                      SvgImageConstant.threePersonCircle,
+          (shift.users != null &&
+                  shift.users!.isNotEmpty &&
+                  shift.users!.length == 1)
+              ? Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: getSize(10),
+                    horizontal: getSize(15),
+                  ),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: AppColors.scaffoldColor,
+                    borderRadius: BorderRadius.circular(getSize(10)),
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      context.router.push(
+                        PageRouteInfo(ViewApplicantProfile.name,
+                            args: ViewApplicantProfileArgs(
+                              id: shift.users![0].user_id ?? -1,
+                              postId: shift.id ?? -1,
+                            )),
+                      );
+                    },
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: AppColors.transparent,
+                          radius: getSize(20),
+                          backgroundImage: (shift.users![0].profile != null &&
+                                  shift.users![0].profile != null &&
+                                  shift.users![0].profile!.isNotEmpty)
+                              ? NetworkImage(shift.users![0].profile ?? "")
+                              : null,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: getSize(10), right: getSize(5)),
+                          child: BaseText(
+                            text:
+                                "${shift.users![0].first_name ?? ""} ${shift.users![0].last_name ?? ""}",
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: getSize(14),
+                        ),
+                        Spacer(),
+                        CommonButton(
+                          height: 35,
+                          width: 85,
+                          borderRadius: 5,
+                          onPressed: () {
+                            showUnderDevelopment(context);
+                          },
+                          backgroundColor:
+                              AppColors.primaryColor.withOpacity(0.15),
+                          buttonText: "",
+                          customWidget: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                SvgImageConstant.chat,
+                                color: AppColors.black,
+                                height: getSize(15),
+                                width: getSize(15),
+                              ),
+                              SizedBox(width: getSize(5)),
+                              BaseText(
+                                text: StringConstant.chat,
+                                fontWeight: FontWeight.w600,
+                                fontSize: getFontSize(12),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  SizedBox(width: getSize(10)),
-                  BaseText(
-                    text:
-                        "${(state.currentCancelFilter.id == 2) ? StringConstant.withdralContractors : StringConstant.cancelledContractors} (${shift.total_user ?? 00}/2)",
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
+                )
+              : Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: getSize(10),
+                    horizontal: getSize(15),
                   ),
-                  Spacer(),
-                  Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    size: getSize(16),
+                  decoration: BoxDecoration(
+                    color: AppColors.scaffoldColor,
+                    borderRadius: BorderRadius.circular(getSize(10)),
                   ),
-                ],
-              ),
-            ),
-          ),
+                  child: InkWell(
+                    onTap: () {
+                      context.router
+                          .push(PageRouteInfo(CancelledContractorList.name,
+                              args: CancelledContractorListArgs(
+                                title: (state.currentCancelFilter.id == 2)
+                                    ? StringConstant.withdralContractors
+                                    : StringConstant.cancelledContractors,
+                                postId: shift.id ?? -1,
+                              )));
+                    },
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: AppColors.transparent,
+                          radius: getSize(20),
+                          child: SvgPicture.asset(
+                            SvgImageConstant.threePersonCircle,
+                          ),
+                        ),
+                        SizedBox(width: getSize(10)),
+                        BaseText(
+                          text:
+                              "${(state.currentCancelFilter.id == 2) ? StringConstant.withdralContractors : StringConstant.cancelledContractors} (${shift.total_user ?? 00}/2)",
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        Spacer(),
+                        Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: getSize(16),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
         ],
       ),
     );

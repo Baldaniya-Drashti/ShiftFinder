@@ -232,6 +232,7 @@ class AppliedTab extends StatelessWidget {
               text: shift.role_lists_name ?? " ",
               textColor: AppColors.black,
               fontSize: 16,
+              maxLines: 1,
               fontWeight: FontWeight.w600,
             ),
             subtitle: Column(
