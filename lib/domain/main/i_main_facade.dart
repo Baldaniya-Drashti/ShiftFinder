@@ -252,4 +252,13 @@ abstract class IMainFacade {
     required int shortType,
     required int page,
   });
+
+  Future<Either<MainFailure, CommonResponse>> deleteRemark({
+    required int id,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> addEmployerRating({
+    required int userId,
+    required int postId,
+    required int rating,  });
 }

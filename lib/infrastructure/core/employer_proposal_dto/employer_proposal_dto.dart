@@ -12,6 +12,7 @@ class EmployerProposalDto with _$EmployerProposalDto {
     String? first_name,
     String? last_name,
     String? listing_id,
+    int? user_id,
     String? profile,
     String? last_ago,
     String? roles_list_name,
@@ -73,6 +74,7 @@ class EmployerProposalPendingUserDto with _$EmployerProposalPendingUserDto {
     int? revoke_status,
     int? revoke_start,
     Duration? duration,
+    int? sent_received_status,
   }) = _EmployerProposalPendingUserDto;
 
   factory EmployerProposalPendingUserDto.fromJson(Map<String, dynamic> json) =>

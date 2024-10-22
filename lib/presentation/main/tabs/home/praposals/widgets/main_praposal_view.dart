@@ -52,16 +52,14 @@ class MainPraposalView extends StatelessWidget {
             child: Column(
               children: [
                 Row(
+
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
                   children: [
                     CircleAvatar(
-                      radius: getSize(20),
-                      backgroundColor: AppColors.green,
-                      child: CircleAvatar(
-                        radius: getSize(19),
-                        backgroundImage: NetworkImage(
-                          "https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg",
-                        ),
-                      ),
+                      radius: getSize(23),
+                      backgroundColor: Colors.transparent,
+                      child: Image.asset(PngImageConstants.nurse2),
                     ),
                     SizedBox(width: getSize(15)),
                     Expanded(
@@ -69,6 +67,7 @@ class MainPraposalView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Expanded(
                                 flex: 3,
@@ -186,44 +185,46 @@ class MainPraposalView extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: getSize(10)),
-          Container(
-            decoration: BoxDecoration(
-              color: AppColors.scaffoldColor,
-              borderRadius: BorderRadius.circular(7),
-            ),
-            padding: EdgeInsets.all(12),
-            child: InkWell(
-              onTap: () {
-                context.router.push(
-                  PageRouteInfo(HiredContractorView.name, args: HiredContractorViewArgs(postId: postId)),
-                );
-              },
-              child: Row(
-                children: [
-                  SvgPicture.asset(
-                    SvgImageConstant.profileCircle,
-                    height: 35,
-                    width: 35,
-                  ),
-                  Gap(8),
-                  Expanded(
-                    child: BaseText(
-                      text: "All Hired Contractors (${additionalData.complete_shift}/${additionalData.total_shift})",
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12,
+          if (additionalData.complete_shift != 0) ...[
+            SizedBox(height: getSize(10)),
+            Container(
+              decoration: BoxDecoration(
+                color: AppColors.scaffoldColor,
+                borderRadius: BorderRadius.circular(7),
+              ),
+              padding: EdgeInsets.all(12),
+              child: InkWell(
+                onTap: () {
+                  context.router.push(
+                    PageRouteInfo(FilledHiredContractorList.name, args: FilledHiredContractorListArgs(postId: postId)),
+                  );
+                },
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      SvgImageConstant.profileCircle,
+                      height: 35,
+                      width: 35,
                     ),
-                  ),
-                  SvgPicture.asset(
-                    SvgImageConstant.rightArrow,
-                    height: 14,
-                    width: 14,
-                    colorFilter: ColorFilter.mode(AppColors.black.withOpacity(0.7), BlendMode.srcIn),
-                  ),
-                ],
+                    Gap(8),
+                    Expanded(
+                      child: BaseText(
+                        text: "All Hired Contractors (${additionalData.complete_shift}/${additionalData.total_shift})",
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12,
+                      ),
+                    ),
+                    SvgPicture.asset(
+                      SvgImageConstant.rightArrow,
+                      height: 14,
+                      width: 14,
+                      colorFilter: ColorFilter.mode(AppColors.black.withOpacity(0.7), BlendMode.srcIn),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
+          ],
         ],
       ),
     );

@@ -115,7 +115,7 @@ class ShiftActionsView extends StatelessWidget {
   }
 
   void _onAddRating(BuildContext context) {
-    AppDialog.showLeaveRatingModal(context);
+    AppDialog.showLeaveRatingModal(context, onSubmit: (int value) {});
   }
 
   Widget _buildUserInfo(BuildContext context) {

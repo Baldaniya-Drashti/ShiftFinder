@@ -13,6 +13,7 @@ _$EmployerProposalDtoImpl _$$EmployerProposalDtoImplFromJson(
       first_name: json['first_name'] as String?,
       last_name: json['last_name'] as String?,
       listing_id: json['listing_id'] as String?,
+      user_id: (json['user_id'] as num?)?.toInt(),
       profile: json['profile'] as String?,
       last_ago: json['last_ago'] as String?,
       roles_list_name: json['roles_list_name'] as String?,
@@ -89,6 +90,7 @@ Map<String, dynamic> _$$EmployerProposalDtoImplToJson(
       'first_name': instance.first_name,
       'last_name': instance.last_name,
       'listing_id': instance.listing_id,
+      'user_id': instance.user_id,
       'profile': instance.profile,
       'last_ago': instance.last_ago,
       'roles_list_name': instance.roles_list_name,
@@ -161,6 +163,7 @@ _$EmployerProposalPendingUserDtoImpl
           duration: json['duration'] == null
               ? null
               : Duration(microseconds: (json['duration'] as num).toInt()),
+          sent_received_status: (json['sent_received_status'] as num?)?.toInt(),
         );
 
 Map<String, dynamic> _$$EmployerProposalPendingUserDtoImplToJson(
@@ -175,6 +178,7 @@ Map<String, dynamic> _$$EmployerProposalPendingUserDtoImplToJson(
       'revoke_status': instance.revoke_status,
       'revoke_start': instance.revoke_start,
       'duration': instance.duration?.inMicroseconds,
+      'sent_received_status': instance.sent_received_status,
     };
 
 _$EmployerProposalShiftDetailDtoImpl

@@ -46,8 +46,6 @@ class ViewPersonPraposalView extends StatelessWidget {
           builder: (context, state) {
             if (state.isLoading) return CenterLoadingIndicator();
             final data = state.proposalDetailDto;
-
-
             return Stack(
               children: [
                 ListView(
@@ -56,9 +54,13 @@ class ViewPersonPraposalView extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                   children: [
                     SizedBox(height: getSize(20)),
-                    PraposalPersonView(data: data, confirmDialog: state.confirmDialog ?? false),
+                    PraposalPersonView(
+                      data: data,
+                      confirmDialog: state.confirmDialog ?? false,
+                      postId: postId,
+                    ),
                     SizedBox(height: getSize(20)),
-                    if (data.shift_type ==1) ...[
+                    if (data.shift_type == 1) ...[
                       BaseText(
                         text: DateFormat("dd MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch(data.start_date ?? 0)),
                         fontSize: 14,
@@ -77,13 +79,15 @@ class ViewPersonPraposalView extends StatelessWidget {
                             getTitleAndDescription(
                               context,
                               title: 'Posted Time',
-                              description: '${formatUnixTimestamp(data.posted_start_time ?? 0)} to ${formatUnixTimestamp(data.posted_end_time ?? 0)}',
+                              description:
+                                  '${formatUnixTimestamp(data.posted_start_time ?? 0)} to ${formatUnixTimestamp(data.posted_end_time ?? 0)}',
                             ),
                             SizedBox(height: getSize(20)),
                             getTitleAndDescription(
                               context,
                               title: 'Agreed Time',
-                              description: '${formatUnixTimestamp(data.agreed_start_time ?? 0)} to ${formatUnixTimestamp(data.agreed_end_time ?? 0)}',
+                              description:
+                                  '${formatUnixTimestamp(data.agreed_start_time ?? 0)} to ${formatUnixTimestamp(data.agreed_end_time ?? 0)}',
                             ),
                           ],
                         ),
@@ -131,21 +135,33 @@ class ViewPersonPraposalView extends StatelessWidget {
                         color: Color(0xFFEDEDED),
                         borderRadius: BorderRadius.circular(getSize(20)),
                       ),
-                      child: Column(
-                        children: [
-                          getTitleAndDescription(
-                            context,
-                            title: 'Posted',
-                            description: '\$${data.posted_commute_allowance_rate ?? 0}',
-                          ),
-                          SizedBox(height: getSize(20)),
-                          getTitleAndDescription(
-                            context,
-                            title: 'Proposed',
-                            description: '\$${data.proposed_commute_allowance_rate ?? 0}',
-                          ),
-                        ],
-                      ),
+                      child: Builder(builder: (context) {
+                        final hourly = data.commute_allowance_type == 2;
+                        String postedDescription, proposedDescription;
+                        if (hourly) {
+                          postedDescription = data.posted_commute_allowance_hour_name ?? "";
+                          proposedDescription = data.proposed_commute_allowance_hour_name ?? "";
+                        } else {
+                          postedDescription = "\$${data.posted_commute_allowance_rate ?? ""}";
+                          proposedDescription = "\$${data.proposed_commute_allowance_rate ?? ""}";
+                        }
+
+                        return Column(
+                          children: [
+                            getTitleAndDescription(
+                              context,
+                              title: 'Posted',
+                              description: postedDescription,
+                            ),
+                            SizedBox(height: getSize(20)),
+                            getTitleAndDescription(
+                              context,
+                              title: 'Proposed',
+                              description: proposedDescription,
+                            ),
+                          ],
+                        );
+                      }),
                     ),
                     SizedBox(height: getSize(20)),
                     BaseText(
@@ -160,21 +176,33 @@ class ViewPersonPraposalView extends StatelessWidget {
                         color: Color(0xFFEDEDED),
                         borderRadius: BorderRadius.circular(getSize(20)),
                       ),
-                      child: Column(
-                        children: [
-                          getTitleAndDescription(
-                            context,
-                            title: 'Posted',
-                            description: '\$${data.posted_accommodation_allowance_rate ?? ""}',
-                          ),
-                          SizedBox(height: getSize(20)),
-                          getTitleAndDescription(
-                            context,
-                            title: 'Proposed',
-                            description: '\$${data.proposed_accommodation_allowance_rate ?? 0}',
-                          ),
-                        ],
-                      ),
+                      child: Builder(builder: (context) {
+                        final isCommuteAllowanceHourly = data.accommodation_allowance_type == 2;
+                        String postedDescription, proposedDescription;
+
+                        if (isCommuteAllowanceHourly) {
+                          postedDescription = data.posted_accommodation_allowance_hour_name ?? "";
+                          proposedDescription = data.proposed_accommodation_allowance_hour_name ?? "";
+                        } else {
+                          postedDescription = "\$${data.posted_accommodation_allowance_rate ?? ""}";
+                          proposedDescription = "\$${data.posted_accommodation_allowance_rate ?? ""}";
+                        }
+                        return Column(
+                          children: [
+                            getTitleAndDescription(
+                              context,
+                              title: 'Posted',
+                              description: postedDescription,
+                            ),
+                            SizedBox(height: getSize(20)),
+                            getTitleAndDescription(
+                              context,
+                              title: 'Proposed',
+                              description: proposedDescription,
+                            ),
+                          ],
+                        );
+                      }),
                     ),
                     SizedBox(
                       height: getSize(40),
@@ -184,7 +212,7 @@ class ViewPersonPraposalView extends StatelessWidget {
                         Expanded(
                           child: CommonButton(
                             onPressed: () async {
-                              if ((state.confirmDialog == null || state.confirmDialog == false) && data.shift_type==2) {
+                              if ((state.confirmDialog == null || state.confirmDialog == false) && data.shift_type == 2) {
                                 final result = await showDialog<bool?>(
                                   barrierDismissible: false,
                                   context: context,
@@ -212,7 +240,6 @@ class ViewPersonPraposalView extends StatelessWidget {
                                     );
                                   },
                                 );
-
                               } else {
                                 acceptDialog(context);
                               }
@@ -232,16 +259,16 @@ class ViewPersonPraposalView extends StatelessWidget {
                                 description: 'Are you sure you want to reject this application?',
                                 onPressedAccept: () {
                                   context.router.maybePop().then(
-                                        (value) {
+                                    (value) {
                                       final id = context.read<ProposalDetailBloc>().state.proposalDetailDto.id;
                                       if (id == null) return;
                                       context.read<ProposalDetailBloc>().add(
-                                        ProposalDetailEvent.proposalAcceptReject(
-                                          id: id,
-                                          request: 2,
-                                          context: context,
-                                        ),
-                                      );
+                                            ProposalDetailEvent.proposalAcceptReject(
+                                              id: id,
+                                              request: 2,
+                                              context: context,
+                                            ),
+                                          );
                                     },
                                   );
                                 },
@@ -285,7 +312,7 @@ class ViewPersonPraposalView extends StatelessWidget {
                     ),
                   ],
                 ),
-                if(state.postDataLoading)CenterLoadingIndicator(),
+                if (state.postDataLoading) CenterLoadingIndicator(),
               ],
             );
           },
@@ -295,9 +322,14 @@ class ViewPersonPraposalView extends StatelessWidget {
   }
 
   acceptDialog(BuildContext context) {
+    final bloc =context.read<ProposalDetailBloc>().state;
+    final shiftType = bloc.proposalDetailDto.shift_type;
+    final firstName = bloc.proposalDetailDto.first_name;
+    final lastName = bloc.proposalDetailDto.last_name;
     AcceptRejectDialog(
-      title: 'Accept',
-      description: 'Are you sure you want to accept this application?',
+      title: 'Confirm & Accept',
+      description:
+          "By proceeding I confirm that I have reviewed $firstName $lastName's ${shiftType == 1 ? "" : "proposal for availability,"} wage, and allowances",
       onPressedAccept: () {
         context.router.maybePop().then(
           (value) {

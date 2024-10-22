@@ -41,15 +41,26 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
 
   @override
   Widget build(BuildContext context) {
+    final unavailableCount = widget.list
+        .where((element) =>
+            element.proposed_start_time == null &&
+            element.proposed_end_time == null)
+        .toList()
+        .length;
     return PopScope(
       canPop: true,
 
-      // onPopInvokedWithResult: (didPop, result) {
+      onPopInvoked: (
+        didPop,
+      ) {
+        Log.debug(didPop);
+        if (didPop) {
+          context.router.maybePop(_confirmationCheckBox.value);
+        }
+      },
+      // onPopInvoked: (result) {
       //   context.router.maybePop(_confirmationCheckBox.value);
       // },
-      onPopInvoked: (result) {
-        context.router.maybePop(_confirmationCheckBox.value);
-      },
       child: Scaffold(
         appBar: CommonAppBar(
           onBackPressed: () =>
@@ -93,7 +104,7 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
                             ),
                             Gap(6),
                             BaseText(
-                              text: "Unavailable Shifts - 2",
+                              text: "Unavailable Shifts - $unavailableCount",
                               fontWeight: FontWeight.w500,
                               fontSize: 10,
                             ),
@@ -185,6 +196,9 @@ class _EmployerAvailabilityListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final unavailable =
+        data.proposed_start_time == null && data.proposed_end_time == null;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -216,10 +230,12 @@ class _EmployerAvailabilityListTile extends StatelessWidget {
               ),
               SizedBox(height: getSize(20)),
               getTitleAndDescription(
+                unavailable: unavailable,
                 context,
                 title: 'Proposed Time',
-                description:
-                    '${formatUnixTimestamp(data.proposed_start_time ?? 0)} to ${formatUnixTimestamp(data.proposed_end_time ?? 0)}',
+                description: unavailable
+                    ? "Unavailable"
+                    : "${formatUnixTimestamp(data.proposed_start_time ?? 0)} to ${formatUnixTimestamp(data.proposed_end_time ?? 0)}",
               ),
             ],
           ),
@@ -232,6 +248,7 @@ class _EmployerAvailabilityListTile extends StatelessWidget {
     BuildContext context, {
     required String title,
     required String description,
+    bool unavailable = false,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -254,6 +271,7 @@ class _EmployerAvailabilityListTile extends StatelessWidget {
             text: description,
             fontSize: 14,
             fontWeight: FontWeight.w500,
+            textColor: unavailable ? AppColors.redAccent : null,
           ),
         ),
       ],

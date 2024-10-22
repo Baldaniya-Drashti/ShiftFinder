@@ -10,6 +10,7 @@ _$EmployerPreviousShiftDtoImpl _$$EmployerPreviousShiftDtoImplFromJson(
         Map<String, dynamic> json) =>
     _$EmployerPreviousShiftDtoImpl(
       post_id: (json['post_id'] as num?)?.toInt(),
+      id: (json['id'] as num?)?.toInt(),
       user_id: (json['user_id'] as num?)?.toInt(),
       first_name: json['first_name'] as String?,
       last_name: json['last_name'] as String?,
@@ -36,6 +37,7 @@ Map<String, dynamic> _$$EmployerPreviousShiftDtoImplToJson(
         _$EmployerPreviousShiftDtoImpl instance) =>
     <String, dynamic>{
       'post_id': instance.post_id,
+      'id': instance.id,
       'user_id': instance.user_id,
       'first_name': instance.first_name,
       'last_name': instance.last_name,

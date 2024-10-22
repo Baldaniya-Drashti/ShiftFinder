@@ -1781,4 +1781,60 @@ class MainFacade implements IMainFacade {
       return left(const MainFailure.serverError());
     }
   }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> deleteRemark(
+      {required int id}) async {
+    try {
+      final res = await apiService.deleteMethod(
+        "${ApiConstants.destroyRemark}/$id",
+      );
+
+      if (res != null) {
+        return right(res);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> addEmployerRating({
+    required int userId,
+    required int postId,
+    required int rating,
+  }) async {
+    try {
+      final res = await apiService.postMethod(
+        ApiConstants.employerRating,
+        {"user_id": userId, "post_id": postId, "rating": rating},
+      );
+
+      return right(res);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
 }

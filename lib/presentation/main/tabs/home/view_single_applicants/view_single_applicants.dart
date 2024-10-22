@@ -79,9 +79,9 @@ class ViewSingleApplicants extends StatelessWidget {
                           children: [
                             getApplicantswDetailContainer(data: state.employerApplicantList[index]),
                             SizedBox(height: getSize(10)),
-                            if (state.employerApplicantList[index].revoke_status == 1) ...[
+                            if (state.employerApplicantList[index].revoke_status == 2) ...[
                               revokingStatus(context, state, state.employerApplicantList[index])
-                            ] else if(state.employerApplicantList[index].revoke_status == 2)...[
+                            ] else if(state.employerApplicantList[index].revoke_status == 3)...[
                               Padding(
                                 padding: EdgeInsets.symmetric(vertical: getSize(10)),
                                 child: BaseText(
@@ -94,7 +94,6 @@ class ViewSingleApplicants extends StatelessWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-
                                   if (state.employerApplicantList[index].request == 1) ...[
                                     Expanded(
                                       child: CommonButton(
@@ -333,7 +332,7 @@ class ViewSingleApplicants extends StatelessWidget {
                         ),
                         SizedBox(width: getSize(10)),
                         Visibility(
-                          visible: false,
+                          visible: data.occupied??false,
                           child: Container(
                             padding: EdgeInsets.symmetric(
                               horizontal: getSize(7),

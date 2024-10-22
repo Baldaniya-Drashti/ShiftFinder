@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -17,9 +20,10 @@ class ProfessionalReferenceDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("reference data---> ${jsonEncode(data)}");
     return Scaffold(
       appBar: CommonAppBar(
-        title: 'Reference Detail',
+        title: StringConstant.referenceDetail,
         onBackPressed: () {
           context.router.maybePop();
         },
@@ -30,49 +34,53 @@ class ProfessionalReferenceDetail extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         children: [
           referenceDetail(
-            title: 'Job Position',
+            title: StringConstant.jobPosition,
             image: SvgImageConstant.briefcase,
             value: data.job_position ?? "",
           ),
           referenceDetail(
-            title: 'Organization',
+            title: StringConstant.organization,
             image: SvgImageConstant.organization,
             value: data.organization ?? "",
           ),
           referenceDetail(
-            title: 'Referrer',
+            title: StringConstant.referrer,
             image: SvgImageConstant.person,
             value: data.referrer ?? "",
           ),
           referenceDetail(
-            title: 'Referrer E-mail',
+            title: StringConstant.referrerEmail,
             image: SvgImageConstant.email,
             value: data.email ?? "",
           ),
           referenceDetail(
-            title: 'Referrer Phone Number',
+            title: StringConstant.referrerPhoneNumber,
             image: SvgImageConstant.call,
             value: "${data.phone ?? 0}",
           ),
           referenceDetail(
-            title: 'Job Location/Facility',
+            title: StringConstant.jobLocationFacility,
             image: SvgImageConstant.locationIcon,
-            value: data.job_location??"",
+            value: data.job_location ?? "",
           ),
           referenceDetail(
-            title: 'Unit/Department',
+            title: StringConstant.unitDepartment,
             image: SvgImageConstant.unitDepartment,
-            value: data.unit??"",
+            value: data.unit ?? "",
           ),
           referenceDetail(
-            title: 'Start Date',
+            title: StringConstant.startDate,
             image: SvgImageConstant.calendar,
-            value: DateFormat("dd MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch(data.start_date??0)),
+            value: DateFormat("d MMM, yyyy").format(
+                DateTime.fromMillisecondsSinceEpoch(
+                    (data.start_date ?? -1) * 1000)),
           ),
           referenceDetail(
-            title: 'End Date',
+            title: StringConstant.endDate,
             image: SvgImageConstant.calendar,
-            value: DateFormat("dd MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch(data.end_date??0)),
+            value: DateFormat("dd MMM, yyyy").format(
+                DateTime.fromMillisecondsSinceEpoch(
+                    (data.end_date ?? -1) * 1000)),
           ),
           SizedBox(height: getSize(20)),
         ],
@@ -80,7 +88,8 @@ class ProfessionalReferenceDetail extends StatelessWidget {
     );
   }
 
-  referenceDetail({required String title, required String image, required String value}) {
+  referenceDetail(
+      {required String title, required String image, required String value}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -104,7 +113,8 @@ class ProfessionalReferenceDetail extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 image,
-                colorFilter: ColorFilter.mode(AppColors.green, BlendMode.srcATop),
+                colorFilter:
+                    ColorFilter.mode(AppColors.green, BlendMode.srcATop),
               ),
               SizedBox(width: getSize(10)),
               Visibility(
@@ -112,7 +122,10 @@ class ProfessionalReferenceDetail extends StatelessWidget {
                 child: Row(
                   children: [
                     SizedBox(width: getSize(15)),
-                    Text("${data.country_name_code}",style: TextStyle(fontSize: 19),),
+                    Text(
+                      "${data.country_name_code}",
+                      style: TextStyle(fontSize: 19),
+                    ),
                     SizedBox(width: getSize(5)),
                     Icon(Icons.keyboard_arrow_down),
                     SizedBox(width: getSize(15)),

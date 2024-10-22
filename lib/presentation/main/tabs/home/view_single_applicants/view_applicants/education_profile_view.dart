@@ -7,6 +7,7 @@ import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/infrastructure/core/education_dto/education_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
@@ -19,6 +20,7 @@ class EducationProfileListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final list = (applicantDto.education ?? []);
+    Log.info(list);
     return Scaffold(
       appBar: CommonAppBar(
         onBackPressed: () => context.router.maybePop(),

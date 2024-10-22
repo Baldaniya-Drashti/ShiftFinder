@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/application/employer/counter_proposal_detail/counter_proposal_detail_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -17,31 +18,23 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
+import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
 import 'package:shift/presentation/main/tabs/home/praposals/widgets/person_praposal_view.dart';
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'CounterPurposeView')
-class CounterPurposeView extends StatefulWidget {
+class CounterPurposeView extends StatelessWidget {
   const CounterPurposeView({super.key, required this.data});
 
   final EmployerProposalDto data;
 
   @override
-  State<CounterPurposeView> createState() => _CounterPurposeViewState();
-}
-
-class _CounterPurposeViewState extends State<CounterPurposeView> {
-  final TextEditingController _hourlyRateController = TextEditingController();
-  final TextEditingController _commuteAllowanceController = TextEditingController();
-  final TextEditingController _accommodationAllowanceController = TextEditingController();
-
-  @override
   Widget build(BuildContext context) {
-    Log.debug("data=> ${widget.data}");
+    Log.debug("data=> $data");
     return BlocProvider(
       create: (context) => getIt<CounterProposalDetailBloc>()
-        ..add(CounterProposalDetailEvent.addProposalData(data: widget.data))
+        ..add(CounterProposalDetailEvent.addProposalData(data: data))
         ..add(CounterProposalDetailEvent.getHoursList()),
       child: Scaffold(
         appBar: CommonAppBar(
@@ -66,7 +59,7 @@ class _CounterPurposeViewState extends State<CounterPurposeView> {
                       children: [
                         SizedBox(height: getSize(20)),
                         BaseText(
-                          text: '12 May, 2024',
+                          text: DateFormat("d MMM yyyy").format(DateTime.fromMillisecondsSinceEpoch(data.start_date ?? 0)),
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           textColor: AppColors.green,
@@ -83,13 +76,15 @@ class _CounterPurposeViewState extends State<CounterPurposeView> {
                               getTitleAndDescription(
                                 context,
                                 title: 'Posted Time',
-                                description: '9:30 AM to 7:15 PM',
+                                description:
+                                    '${formatUnixTimestamp(data.posted_start_time ?? 0)} to ${formatUnixTimestamp(data.posted_end_time ?? 0)}',
                               ),
                               SizedBox(height: getSize(20)),
                               getTitleAndDescription(
                                 context,
                                 title: 'Agreed Time',
-                                description: '9:30 AM to 7:15 PM',
+                                description:
+                                    '${formatUnixTimestamp(data.agreed_start_time ?? 0)} to ${formatUnixTimestamp(data.agreed_end_time ?? 0)}',
                               ),
                             ],
                           ),
@@ -107,36 +102,38 @@ class _CounterPurposeViewState extends State<CounterPurposeView> {
                             color: Color(0xFFEDEDED),
                             borderRadius: BorderRadius.circular(getSize(20)),
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              getTitleAndDescription(
-                                context,
-                                title: 'Posted',
-                                description: '\$25',
-                              ),
-                              SizedBox(height: getSize(20)),
-                              getTitleAndDescription(
-                                context,
-                                title: 'Agreed Time',
-                                description: '9:30 AM to 7:15 PM',
-                              ),
-                              SizedBox(height: getSize(20)),
-                              BaseText(
-                                text: 'Counter Proposal',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              SizedBox(height: getSize(8)),
-                              rateHourField(context, state),
-                              if (state.showErrorMessages && !state.rateHour.isValid())
-                                commonErrorText(
-                                  (double.tryParse(state.rateHour.getValue()) != null && double.parse(state.rateHour.getValue()) <= 0)
-                                      ? StringConstant.pleaseEnterValidRateHour
-                                      : StringConstant.pleaseEnterRateHour,
+                          child: Builder(builder: (context) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                getTitleAndDescription(
+                                  context,
+                                  title: 'Posted',
+                                  description: '\$${data.posted_hourly_rate ?? 0}',
                                 ),
-                            ],
-                          ),
+                                SizedBox(height: getSize(20)),
+                                getTitleAndDescription(
+                                  context,
+                                  title: 'Proposed',
+                                  description: '\$${data.proposed_hourly_rate ?? 0}',
+                                ),
+                                SizedBox(height: getSize(20)),
+                                BaseText(
+                                  text: 'Counter Proposal',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                SizedBox(height: getSize(8)),
+                                rateHourField(context, state),
+                                if (state.showErrorMessages && !state.rateHour.isValid())
+                                  commonErrorText(
+                                    (double.tryParse(state.rateHour.getValue()) != null && double.parse(state.rateHour.getValue()) <= 0)
+                                        ? StringConstant.pleaseEnterValidRateHour
+                                        : StringConstant.pleaseEnterRateHour,
+                                  ),
+                              ],
+                            );
+                          }),
                         ),
                         SizedBox(height: getSize(20)),
                         BaseText(
@@ -151,45 +148,56 @@ class _CounterPurposeViewState extends State<CounterPurposeView> {
                             color: Color(0xFFEDEDED),
                             borderRadius: BorderRadius.circular(getSize(20)),
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              getTitleAndDescription(
-                                context,
-                                title: 'Posted',
-                                description: '\$20',
-                              ),
-                              SizedBox(height: getSize(20)),
-                              getTitleAndDescription(
-                                context,
-                                title: 'Proposed',
-                                description: '\$25',
-                              ),
-                              SizedBox(height: getSize(20)),
-                              BaseText(
-                                text: 'Counter Proposal',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              SizedBox(height: getSize(8)),
-                              if (widget.data.commute_allowance_type == 2) ...[
-                                commuteAllownceDropDown(context, state),
-                                if (state.showErrorMessages && !state.commuteHour.isValid())
-                                  commonErrorText(
-                                    StringConstant.pleaseSelectCommuteAllownceValue,
-                                  ),
-                              ] else ...[
-                                commuteAllownceField(context, state),
-                                if (state.showErrorMessages && !state.commuteRate.isValid())
-                                  commonErrorText(
-                                    (double.tryParse(state.commuteRate.getValue()) != null &&
-                                            double.parse(state.commuteRate.getValue()) <= 0)
-                                        ? StringConstant.flatRateShouldNotBeZero
-                                        : StringConstant.pleaseSelectCommuteAllownceValue,
-                                  ),
-                              ]
-                            ],
-                          ),
+                          child: Builder(builder: (context) {
+                            final hourly = data.commute_allowance_type == 2;
+                            String postedDescription, proposedDescription;
+                            if (hourly) {
+                              postedDescription = data.posted_commute_allowance_hour_name ?? "";
+                              proposedDescription = data.proposed_commute_allowance_hour_name ?? "";
+                            } else {
+                              postedDescription = "\$${data.posted_commute_allowance_rate ?? ""}";
+                              proposedDescription = "\$${data.proposed_commute_allowance_rate ?? ""}";
+                            }
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                getTitleAndDescription(
+                                  context,
+                                  title: 'Posted',
+                                  description: postedDescription,
+                                ),
+                                SizedBox(height: getSize(20)),
+                                getTitleAndDescription(
+                                  context,
+                                  title: 'Proposed',
+                                  description: proposedDescription,
+                                ),
+                                SizedBox(height: getSize(20)),
+                                BaseText(
+                                  text: 'Counter Proposal',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                SizedBox(height: getSize(8)),
+                                if (data.commute_allowance_type == 2) ...[
+                                  commuteAllownceDropDown(context, state),
+                                  if (state.showErrorMessages && !state.commuteHour.isValid())
+                                    commonErrorText(
+                                      StringConstant.pleaseSelectCommuteAllownceValue,
+                                    ),
+                                ] else ...[
+                                  commuteAllownceField(context, state),
+                                  if (state.showErrorMessages && !state.commuteRate.isValid())
+                                    commonErrorText(
+                                      (double.tryParse(state.commuteRate.getValue()) != null &&
+                                              double.parse(state.commuteRate.getValue()) <= 0)
+                                          ? StringConstant.flatRateShouldNotBeZero
+                                          : StringConstant.pleaseSelectCommuteAllownceValue,
+                                    ),
+                                ]
+                              ],
+                            );
+                          }),
                         ),
                         SizedBox(height: getSize(20)),
                         BaseText(
@@ -204,47 +212,62 @@ class _CounterPurposeViewState extends State<CounterPurposeView> {
                             color: Color(0xFFEDEDED),
                             borderRadius: BorderRadius.circular(getSize(20)),
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              //SendProposal
-                              getTitleAndDescription(
-                                context,
-                                title: 'Posted',
-                                description: '\$20',
-                              ),
-                              SizedBox(height: getSize(20)),
-                              getTitleAndDescription(
-                                context,
-                                title: 'Proposed',
-                                description: '\$25',
-                              ),
-                              SizedBox(height: getSize(20)),
-                              BaseText(
-                                text: 'Counter Proposal',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              SizedBox(height: getSize(8)),
+                          child: Builder(builder: (context) {
+                            final isCommuteAllowanceHourly = data.accommodation_allowance_type == 2;
+                            String postedDescription, proposedDescription;
+                            Log.debug("====${data.posted_accommodation_allowance_hour_name}");
+                            Log.debug("====${data.commute_allowance_type}");
 
-                              if (widget.data.accommodation_allowance_type == 2) ...[
-                                accomdationAllownceDropDown(context, state),
-                                if (state.showErrorMessages && !state.accomdationHour.isValid())
-                                  commonErrorText(
-                                    (double.tryParse(state.accomdationRate.getValue()) != null &&
-                                            double.parse(state.accomdationRate.getValue()) <= 0)
-                                        ? StringConstant.flatRateShouldNotBeZero
-                                        : StringConstant.pleaseSelectAccomdationAllownceValue,
-                                  ),
-                              ] else ...[
-                                accomdationAllownceField(context, state),
-                                if (state.showErrorMessages && !state.accomdationRate.isValid())
-                                  commonErrorText(
-                                    StringConstant.pleaseSelectAccomdationAllownceValue,
-                                  ),
-                              ]
-                            ],
-                          ),
+                            if (isCommuteAllowanceHourly) {
+                              postedDescription = data.posted_accommodation_allowance_hour_name ?? "";
+                              proposedDescription = data.proposed_accommodation_allowance_hour_name ?? "";
+                            } else {
+                              postedDescription = "\$${data.posted_accommodation_allowance_rate ?? ""}";
+                              proposedDescription = "\$${data.posted_accommodation_allowance_rate ?? ""}";
+                              Log.debug("===> $postedDescription");
+                            }
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                //SendProposal
+                                getTitleAndDescription(
+                                  context,
+                                  title: 'Posted',
+                                  description: postedDescription,
+                                ),
+                                SizedBox(height: getSize(20)),
+                                getTitleAndDescription(
+                                  context,
+                                  title: 'Proposed',
+                                  description: proposedDescription,
+                                ),
+                                SizedBox(height: getSize(20)),
+                                BaseText(
+                                  text: 'Counter Proposal',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                SizedBox(height: getSize(8)),
+
+                                if (data.accommodation_allowance_type == 2) ...[
+                                  accomdationAllownceDropDown(context, state),
+                                  if (state.showErrorMessages && !state.accomdationHour.isValid())
+                                    commonErrorText(
+                                      (double.tryParse(state.accomdationRate.getValue()) != null &&
+                                              double.parse(state.accomdationRate.getValue()) <= 0)
+                                          ? StringConstant.flatRateShouldNotBeZero
+                                          : StringConstant.pleaseSelectAccomdationAllownceValue,
+                                    ),
+                                ] else ...[
+                                  accomdationAllownceField(context, state),
+                                  if (state.showErrorMessages && !state.accomdationRate.isValid())
+                                    commonErrorText(
+                                      StringConstant.pleaseSelectAccomdationAllownceValue,
+                                    ),
+                                ]
+                              ],
+                            );
+                          }),
                         ),
                         SizedBox(
                           height: getSize(50),

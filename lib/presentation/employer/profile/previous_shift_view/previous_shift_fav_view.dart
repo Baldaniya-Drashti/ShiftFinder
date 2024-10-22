@@ -27,6 +27,9 @@ class PreviousShiftFavView extends StatelessWidget {
             PaginatedListView(
               onRefresh: () {
                 context.read<PreviousShiftBloc>().add(PreviousShiftEvent.fetchFavoriteList(refresh: true));
+                context.read<PreviousShiftBloc>().add(
+                  PreviousShiftEvent.fetchAllPreviousPost(refresh: true),
+                );
               },
               onLoading: () {
                 context.read<PreviousShiftBloc>().add(PreviousShiftEvent.fetchFavoriteList(refresh: false));
@@ -84,7 +87,7 @@ class _PreviousShiftFavTile extends StatelessWidget {
           trailing: CommonMaterialButton.icon(
             radius: 10.0,
             backgroundColor: AppColors.green.withOpacity(0.2),
-            width: 75,
+            width: 80,
             height: 33,
             onPressed: () async {
               final postId = data.post_id ?? 0;

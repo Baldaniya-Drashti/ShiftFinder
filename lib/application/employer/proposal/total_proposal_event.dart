@@ -14,4 +14,7 @@ class TotalProposalEvent with _$TotalProposalEvent {
     required int postId,
     required int revokeTime
   }) = StartRevokingTimer;
+
+  const factory TotalProposalEvent.onRevoke({required int postId, required int userId, required BuildContext context}) = OnRevoke;
+
 }

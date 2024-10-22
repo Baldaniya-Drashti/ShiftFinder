@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
@@ -51,7 +52,7 @@ class TotalProposalBloc extends Bloc<TotalProposalEvent, TotalProposalState> {
               (r) {
                 Log.success("=> ${r.data}");
                 Log.debug("==> ${r.pending_users}");
-                final totalProposedDataList = r.data;
+                final totalProposedDataList = r.pending_users??[];
 
                 emit(
                   state.copyWith(
@@ -59,17 +60,17 @@ class TotalProposalBloc extends Bloc<TotalProposalEvent, TotalProposalState> {
                     totalProposedDataList: r.pending_users ?? [],
                   ),
                 );
-                // for (var i in totalProposedDataList) {
-                //   if (i.revoke_status == 1) {
-                //     add(
-                //       TotalProposalEvent.startRevokingTimer(
-                //         duration: Duration(hours: 2),
-                //         postId: i.id ?? -1,
-                //         revokeTime: i.revoke_start ?? -1,
-                //       ),
-                //     );
-                //   }
-                // }
+                for (var i in totalProposedDataList) {
+                  if (i.revoke_status == 2) {
+                    add(
+                      TotalProposalEvent.startRevokingTimer(
+                        duration: Duration(hours: 2),
+                        postId: i.id ?? -1,
+                        revokeTime: i.revoke_start ?? -1,
+                      ),
+                    );
+                  }
+                }
               },
             );
 
@@ -97,7 +98,32 @@ class TotalProposalBloc extends Bloc<TotalProposalEvent, TotalProposalState> {
               }
               return shift;
             }).toList();
-          },
+          }, onRevoke: (OnRevoke value) async {
+
+          Either<MainFailure, CommonResponse>? failureOrSuccess;
+
+          emit(state.copyWith(postDataLoading: true));
+          failureOrSuccess = await _mainFacade.revokeApplicant(postId: value.postId, userId: value.userId);
+          emit(state.copyWith(postDataLoading: false));
+          failureOrSuccess.fold(
+                (l) {
+              value.context.router.maybePop();
+              showError(
+                message: l.maybeMap(
+                  showAPIResponseMessage: (value) => value.message,
+                  networkError: (value) => 'Please check your internet connectivity',
+                  orElse: () => "Server Error. Try again later.",
+                ),
+              ).show(value.context);
+            },
+                (r) {
+              value.context.router.maybePop();
+              showSuccess(message: r.dioMessage ?? "").show(value.context).then((_) {
+                add(TotalProposalEvent.getTotalProposalList(id: value.postId, isRefresh: true, context: value.context));
+              });
+            },
+          );
+        },
         );
       },
     );
