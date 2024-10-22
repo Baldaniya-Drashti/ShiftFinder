@@ -9,6 +9,7 @@ class PreviousShiftState with _$PreviousShiftState {
         value: 1,
         title: "Location (Descending to Ascending) ",
         icon: SvgImageConstant.locationIcon,
+        iconColor: Colors.black,
       ),
     )
     RatingDropdownModel selectedRating,

@@ -60,7 +60,7 @@ class PreviousShiftAllView extends StatelessWidget {
                                 selector: (state) => state.selectedRating,
                                 builder: (context, selectedRating) {
                                   return _RatingsDropdown(
-                                    onChanged: (int value) {
+                                    onChanged: (RatingDropdownModel value) {
                                       context.read<PreviousShiftBloc>().add(PreviousShiftEvent.ratingChangeEvent(rating: value));
                                     },
                                     value: selectedRating,
@@ -108,19 +108,11 @@ class _RatingsDropdown extends StatelessWidget {
     required this.value,
   });
 
-  final ValueSetter<int> onChanged;
+  final ValueSetter<RatingDropdownModel> onChanged;
   final RatingDropdownModel value;
 
   @override
   Widget build(BuildContext context) {
-    final ratings = <int>[
-      5,
-      4,
-      3,
-      2,
-      1,
-    ];
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -138,21 +130,28 @@ class _RatingsDropdown extends StatelessWidget {
               value: 1,
               title: "Location (Descending to Ascending) ",
               icon: SvgImageConstant.locationIcon,
+              iconColor: Colors.black
             ),
-          ].map(
+          ]
+              .map(
                 (e) => DropdownMenuItem<RatingDropdownModel>(
                   value: e,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SvgPicture.asset(e.icon),
+                      SvgPicture.asset(
+                        e.icon,
+                        height: 18,
+                        width: 18,
+                        colorFilter: e.iconColor!=null?ColorFilter.mode(e.iconColor!, BlendMode.srcIn):null,
+                      ),
                       SizedBox(
-                        width: getSize(8),
+                        width: getSize(10),
                       ),
                       BaseText(
-                        text: "${e.title}",
-                        fontWeight: FontWeight.w600,
-                        fontSize: getSize(15),
+                        text: e.title,
+                        fontWeight: FontWeight.w500,
+                        fontSize: getSize(13),
                       )
                     ],
                   ),
@@ -581,11 +580,13 @@ class RatingDropdownModel {
   final int value;
   final String title;
   final String icon;
+  final Color? iconColor;
 
   const RatingDropdownModel({
     required this.value,
     required this.title,
     required this.icon,
+    this.iconColor,
   });
 
   @override
@@ -595,8 +596,9 @@ class RatingDropdownModel {
           runtimeType == other.runtimeType &&
           value == other.value &&
           title == other.title &&
-          icon == other.icon;
+          icon == other.icon &&
+          iconColor == other.iconColor;
 
   @override
-  int get hashCode => value.hashCode ^ title.hashCode ^ icon.hashCode;
+  int get hashCode => value.hashCode ^ title.hashCode ^ icon.hashCode ^ iconColor.hashCode;
 }

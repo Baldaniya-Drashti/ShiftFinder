@@ -332,7 +332,7 @@ class ViewSingleApplicants extends StatelessWidget {
                         ),
                         SizedBox(width: getSize(10)),
                         Visibility(
-                          visible: false,
+                          visible: data.occupied??false,
                           child: Container(
                             padding: EdgeInsets.symmetric(
                               horizontal: getSize(7),

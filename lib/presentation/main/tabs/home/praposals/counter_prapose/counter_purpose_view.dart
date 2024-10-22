@@ -150,17 +150,13 @@ class CounterPurposeView extends StatelessWidget {
                           ),
                           child: Builder(builder: (context) {
                             final hourly = data.commute_allowance_type == 2;
-                            String postedDescription,proposedDescription;
-                            Log.debug("====${data.posted_commute_allowance_hour_name}");
+                            String postedDescription, proposedDescription;
                             if (hourly) {
-                              postedDescription = data.posted_commute_allowance_hour_name??"";
-                              proposedDescription = data.proposed_commute_allowance_hour_name??"";
-                              Log.debug("===> $postedDescription");
+                              postedDescription = data.posted_commute_allowance_hour_name ?? "";
+                              proposedDescription = data.proposed_commute_allowance_hour_name ?? "";
                             } else {
-                              postedDescription="\$${data.posted_commute_allowance_rate ?? ""}";
-                              proposedDescription="\$${data.proposed_commute_allowance_rate ?? ""}";
-                              Log.debug("===> $postedDescription");
-
+                              postedDescription = "\$${data.posted_commute_allowance_rate ?? ""}";
+                              proposedDescription = "\$${data.proposed_commute_allowance_rate ?? ""}";
                             }
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

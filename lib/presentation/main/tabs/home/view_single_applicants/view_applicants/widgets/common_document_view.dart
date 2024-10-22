@@ -14,6 +14,7 @@ class CommonDocumentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: CommonAppBar(
         onBackPressed: () {

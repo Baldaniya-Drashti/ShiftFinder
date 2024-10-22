@@ -7,7 +7,7 @@ class PreviousShiftEvent with _$PreviousShiftEvent {
   }) = TabChangeEvent;
 
   factory PreviousShiftEvent.ratingChangeEvent({
-    required int rating,
+    required RatingDropdownModel rating,
   }) = RatingChangeEvent;
 
   factory PreviousShiftEvent.fetchAllPreviousPost({

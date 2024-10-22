@@ -47,12 +47,17 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
     return PopScope(
       canPop: true,
 
-      // onPopInvokedWithResult: (didPop, result) {
+      onPopInvokedWithResult: (didPop, result) {
+        Log.debug(result);
+        Log.debug(didPop);
+        if(didPop){
+          context.router.maybePop(_confirmationCheckBox.value);
+        }
+
+      },
+      // onPopInvoked: (result) {
       //   context.router.maybePop(_confirmationCheckBox.value);
       // },
-      onPopInvoked: (result) {
-        context.router.maybePop(_confirmationCheckBox.value);
-      },
       child: Scaffold(
         appBar: CommonAppBar(
           onBackPressed: () => context.router.maybePop(_confirmationCheckBox.value),

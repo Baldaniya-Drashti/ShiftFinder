@@ -54,7 +54,11 @@ class ViewPersonPraposalView extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                   children: [
                     SizedBox(height: getSize(20)),
-                    PraposalPersonView(data: data, confirmDialog: state.confirmDialog ?? false, postId: postId,),
+                    PraposalPersonView(
+                      data: data,
+                      confirmDialog: state.confirmDialog ?? false,
+                      postId: postId,
+                    ),
                     SizedBox(height: getSize(20)),
                     if (data.shift_type == 1) ...[
                       BaseText(
@@ -318,9 +322,14 @@ class ViewPersonPraposalView extends StatelessWidget {
   }
 
   acceptDialog(BuildContext context) {
+    final bloc =context.read<ProposalDetailBloc>().state;
+    final shiftType = bloc.proposalDetailDto.shift_type;
+    final firstName = bloc.proposalDetailDto.first_name;
+    final lastName = bloc.proposalDetailDto.last_name;
     AcceptRejectDialog(
-      title: 'Accept',
-      description: 'Are you sure you want to accept this application?',
+      title: 'Confirm & Accept',
+      description:
+          "By proceeding I confirm that I have reviewed $firstName $lastName's ${shiftType == 1 ? "" : "proposal for availability,"} wage, and allowances",
       onPressedAccept: () {
         context.router.maybePop().then(
           (value) {

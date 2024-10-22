@@ -50,7 +50,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
             ));
           },
           ratingChangeEvent: (value) {
-            //emit(state.copyWith(selectedRating: value.rating));
+            emit(state.copyWith(selectedRating: value.rating));
           },
           fetchAllPreviousPost: (value) async {
             print("Api called after delete--->");

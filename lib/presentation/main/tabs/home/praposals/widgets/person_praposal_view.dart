@@ -114,9 +114,10 @@ class PraposalPersonView extends StatelessWidget {
                 child: CommonButton(
                   height: 34,
                   onPressed: () {
-                    // context.router.push(
-                    //   PageRouteInfo(ViewApplicantProfile.name, args: ViewApplicantProfileArgs(id: data.user_id??-1, postId: postId)),
-                    // );
+                    if(data.user_id==null)return;
+                    context.router.push(
+                      PageRouteInfo(ViewApplicantProfile.name, args: ViewApplicantProfileArgs(id: data.user_id??-1, postId: postId)),
+                    );
                   },
                   backgroundColor: AppColors.green.withOpacity(0.1),
                   buttonText: 'View Profile',
@@ -140,6 +141,8 @@ class PraposalPersonView extends StatelessWidget {
                           ),
                         ),
                       ) as bool?;
+                      Log.success("result=> ${result}");
+
                       if (result != null) {
                         Log.success("result=> ${result}");
                         context.read<ProposalDetailBloc>().add(ProposalDetailEvent.addConfirmDialogFlag(result));

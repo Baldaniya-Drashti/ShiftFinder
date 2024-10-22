@@ -37,9 +37,6 @@ class PreviousShiftBlockedView extends StatelessWidget {
                 context.read<PreviousShiftBloc>().add(
                       PreviousShiftEvent.fetchBlockedList(refresh: false),
                     );
-                context.read<PreviousShiftBloc>().add(
-                  PreviousShiftEvent.fetchAllPreviousPost(refresh: false),
-                );
               },
               refreshController: context.read<PreviousShiftBloc>().blocked,
               isNoDataFound: state.blockedListNoDataFound,
@@ -91,7 +88,7 @@ class _PreviousShiftBlockedTile extends StatelessWidget {
           subTitle: "${data.role_lists_name}",
           trailing: CommonMaterialButton.icon(
             radius: 10.0,
-            backgroundColor: AppColors.redAccent.withOpacity(0.2),
+            backgroundColor: AppColors.redAccent.withOpacity(0.15),
             width: 90,
             height: 33,
             onPressed: () {

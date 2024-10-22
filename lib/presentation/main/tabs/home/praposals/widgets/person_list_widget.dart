@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:shift/application/auth/auth_status/auth_status_bloc.dart';
 import 'package:shift/application/employer/proposal/total_proposal_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -46,7 +45,7 @@ class PersonListWidget extends StatelessWidget {
               child: InkWell(
                 onTap: () async {
                   ///1 rec 2 sent
-                  if (list[index].revoke_status == null) {
+                  if (list[index].revoke_status == null &&list[index].sent_received_status==null) {
                     Log.success("postId  ${postId} userId ${list[index].user_id}");
                     final result = await context.router.push(
                       PageRouteInfo(
@@ -72,10 +71,18 @@ class PersonListWidget extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          BaseText(
-                            text: '${list[index].first_name ?? ""} ${list[index].last_name ?? ""}',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
+                          Row(mainAxisSize: MainAxisSize.min,
+                            children: [
+                              BaseText(
+                                text: '${list[index].first_name ?? ""} ${list[index].last_name ?? ""}',
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              if(list[index].revoke_status!=null)...[
+                                Gap(8),
+                                SvgPicture.asset(SvgImageConstant.rightArrow,height: 13,width: 13,)
+                              ]
+                            ],
                           ),
                           list[index].revoke_status == 1
                               ? BaseText(
