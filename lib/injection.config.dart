@@ -49,6 +49,10 @@ import 'package:shift/application/contractor/my_calendar_view_bloc/my_calendar_v
     as _i170;
 import 'package:shift/application/employer/counter_proposal_detail/counter_proposal_detail_bloc.dart'
     as _i93;
+import 'package:shift/application/employer/employer_location/employer_location_bloc.dart'
+    as _i158;
+import 'package:shift/application/employer/employer_location_form/employer_location_form_bloc.dart'
+    as _i990;
 import 'package:shift/application/employer/hired_contractor/hired_contractor_bloc.dart'
     as _i119;
 import 'package:shift/application/employer/profile/edit_profile/edit_profile_bloc.dart'
@@ -106,6 +110,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i1025.CardBloc>(() => _i1025.CardBloc());
     gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
+    gh.factory<_i158.EmployerLocationBloc>(() => _i158.EmployerLocationBloc());
     gh.lazySingleton<_i771.ApiService>(() => _i771.ApiService());
     gh.lazySingleton<_i277.IAuthFacade>(
         () => _i751.AuthFacade(gh<_i771.ApiService>()));
@@ -190,6 +195,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i359.LocationDetailsBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i911.AccountCubit>(
         () => _i911.AccountCubit(gh<_i253.IAccountRepository>()));
+    gh.factory<_i990.EmployerLocationFormBloc>(
+        () => _i990.EmployerLocationFormBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i193.ShiftsBloc>(() => _i193.ShiftsBloc(
           gh<_i253.IAccountRepository>(),
           gh<_i111.IMainFacade>(),

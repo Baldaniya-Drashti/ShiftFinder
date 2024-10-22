@@ -51,6 +51,8 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
           },
           ratingChangeEvent: (value) {
             emit(state.copyWith(selectedRating: value.rating));
+
+            add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: value.rating.value));
           },
           fetchAllPreviousPost: (value) async {
             print("Api called after delete--->");
@@ -69,7 +71,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
             var res = await _mainFacade.getPreviousPost(
               page: currentPage,
               type: 0,
-              sortBy: 0,
+              sortBy: value.sortBy,
             );
             currentPage++;
             res.fold(
@@ -255,7 +257,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                 ).show(value.context);
               },
               (r) {
-                add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true));
+                add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: 1));
                 add(PreviousShiftEvent.fetchBlockedList(refresh: true));
                 // final tempList = [...state.employerPreviousList];
                 // final index = tempList.indexWhere((element) => element.post_id == value.postId);
@@ -288,7 +290,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                 ).show(value.context);
               },
               (r) {
-                add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true));
+                add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: 1));
                 showSuccess(message: r.dioMessage ?? "").show(value.context);
               },
             );
@@ -314,7 +316,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                 // final index = tempList.indexWhere((element) => element.post_id == value.postId);
                 // tempList[index] = tempList[index].copyWith(isFavourite: true);
                 // emit(state.copyWith(employerPreviousList: tempList));
-                add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true));
+                add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: 1));
                 add(PreviousShiftEvent.fetchFavoriteList(refresh: true));
 
                 showSuccess(message: r.dioMessage ?? "").show(value.context);
@@ -343,7 +345,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                 // emit(state.copyWith(employerPreviousList: tempList));
                 //
                 // emit(state.copyWith(favoritesList: tempList, favoriteListNoDataFound: tempList.isEmpty));
-                add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true));
+                add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: 1));
                 add(PreviousShiftEvent.fetchFavoriteList(refresh: true));
                 showSuccess(message: r.dioMessage ?? "").show(value.context);
               },
@@ -369,7 +371,9 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                 ).show(value.context);
               },
               (r) {
-                add(PreviousShiftEvent.fetchRemarkedList(refresh: true));
+                add(PreviousShiftEvent.fetchRemarkedList(
+                  refresh: true,
+                ));
                 showSuccess(message: r.dioMessage ?? "").show(value.context);
               },
             );

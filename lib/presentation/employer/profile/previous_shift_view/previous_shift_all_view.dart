@@ -35,12 +35,12 @@ class PreviousShiftAllView extends StatelessWidget {
             PaginatedListView(
               onRefresh: () {
                 context.read<PreviousShiftBloc>().add(
-                      PreviousShiftEvent.fetchAllPreviousPost(refresh: true),
+                      PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: 1),
                     );
               },
               onLoading: () {
                 context.read<PreviousShiftBloc>().add(
-                      PreviousShiftEvent.fetchAllPreviousPost(refresh: false),
+                      PreviousShiftEvent.fetchAllPreviousPost(refresh: false, sortBy: 1),
                     );
               },
               refreshController: context.read<PreviousShiftBloc>().allPost,
@@ -122,12 +122,12 @@ class _RatingsDropdown extends StatelessWidget {
         CustomDropdownField<RatingDropdownModel>(
           items: [
             RatingDropdownModel(
-              value: 0,
+              value: 1,
               title: "Rating (Ascending to Descending)",
               icon: SvgImageConstant.starFilled,
             ),
             RatingDropdownModel(
-              value: 1,
+              value: 2,
               title: "Location (Descending to Ascending) ",
               icon: SvgImageConstant.locationIcon,
               iconColor: Colors.black

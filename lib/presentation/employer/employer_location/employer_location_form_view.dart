@@ -1,10 +1,8 @@
-// ignore_for_file: deprecated_member_use, prefer_const_constructors, must_be_immutable
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:shift/application/location_details/location_details_bloc.dart';
+import 'package:shift/application/employer/employer_location_form/employer_location_form_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
@@ -14,20 +12,19 @@ import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
-import 'package:shift/presentation/core/widgets/dialogs/dialogs.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_dropdown_with_textfield.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
-@RoutePage(name: 'locationDetailForm')
-class LocationDetailForm extends StatelessWidget {
-  bool isFromSplash = false;
+import '../../core/widgets/dialogs/app_dialog.dart';
 
-  LocationDetailForm({super.key, this.isFromSplash = false});
+@RoutePage(name: 'EmployerLocationFormView')
+class EmployerLocationFormView extends StatelessWidget {
+   EmployerLocationFormView({super.key, this.id});
+   final int? id;
 
   @override
   Widget build(BuildContext context) {
@@ -36,22 +33,21 @@ class LocationDetailForm extends StatelessWidget {
         AppFocus.unfocus(context);
       },
       child: BlocProvider(
-        create: (context) => getIt<LocationDetailsBloc>()..add(LocationDetailsEvent.getFacilityTypeList()),
+        create: (context) => getIt<EmployerLocationFormBloc>()..add(EmployerLocationFormEvent.getFacilityTypeList()),
         child: Scaffold(
             appBar: CommonAppBar(
-              isShowBackBtn: !isFromSplash,
               onBackPressed: () {
-                LocationDetailsBloc.locationCtrl.clear();
+                EmployerLocationFormBloc.locationCtrl.clear();
                 context.router.maybePop();
               },
               title: StringConstant.locationDetails,
             ),
-            body: BlocConsumer<LocationDetailsBloc, LocationDetailsState>(
+            body: BlocConsumer<EmployerLocationFormBloc, EmployerLocationFormState>(
               listener: (context, state) {
                 state.authFailureOrSuccessOption.fold(
-                  () {},
-                  (either) => either.fold(
-                    (failure) {
+                      () {},
+                      (either) => either.fold(
+                        (failure) {
                       showError(
                         message: failure.maybeMap(
                           showAPIResponseMessage: (value) => value.message,
@@ -60,11 +56,11 @@ class LocationDetailForm extends StatelessWidget {
                         ),
                       ).show(context);
                     },
-                    (r) {
-                      AppFocus.unfocus(context);
-                      context.router.push(const PageRouteInfo(AddCardDetailPage.name)).then((value) {
-                        AppFocus.unfocus(context);
-                      });
+                        (r) {
+                      // AppFocus.unfocus(context);
+                      // context.router.push(const PageRouteInfo(AddCardDetailPage.name)).then((value) {
+                      //   AppFocus.unfocus(context);
+                      // });
                     },
                   ),
                 );
@@ -73,71 +69,71 @@ class LocationDetailForm extends StatelessWidget {
                 return (state.isLoading)
                     ? CenterLoadingIndicator()
                     : Padding(
-                        padding: EdgeInsets.symmetric(horizontal: getSize(20)),
-                        child: Form(
-                          autovalidateMode: state.showErrorMessages ? AutovalidateMode.always : AutovalidateMode.disabled,
-                          child: SingleChildScrollView(
-                            physics: BouncingScrollPhysics(),
-                            child: Column(
-                              children: [
-                                locationAddressTextField(context, state),
-                                paddingBetweenFields(),
-                                facilityTypeField(context, state),
-                                paddingBetweenFields(),
-                                locationIdField(context, state),
-                                paddingBetweenFields(),
-                                accreditationNumberField(context, state),
-                                paddingBetweenFields(),
-                                locationNoteField(context, state),
-                                paddingBetweenFields(),
-                                Padding(
-                                  padding: EdgeInsets.only(left: getSize(20)),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: RichText(
-                                      text: TextSpan(
-                                        text: StringConstant.addUnits,
-                                        style: TextStyle(
-                                          fontSize: getFontSize(14),
-                                          fontWeight: FontWeight.w500,
-                                          color: AppColors.black,
-                                          fontFamily: "Roboto Flex",
-                                        ),
-                                        children: [
-                                          TextSpan(
-                                            text: "  (Optional)",
-                                            style: TextStyle(
-                                              fontSize: getFontSize(10),
-                                              fontWeight: FontWeight.w500,
-                                              color: AppColors.black.withOpacity(0.8),
-                                              fontFamily: "Roboto Flex",
-                                            ),
-                                          ),
-                                        ],
+                  padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                  child: Form(
+                    autovalidateMode: state.showErrorMessages ? AutovalidateMode.always : AutovalidateMode.disabled,
+                    child: SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: Column(
+                        children: [
+                          locationAddressTextField(context, state),
+                          paddingBetweenFields(),
+                          facilityTypeField(context, state),
+                          paddingBetweenFields(),
+                          locationIdField(context, state),
+                          paddingBetweenFields(),
+                          accreditationNumberField(context, state),
+                          paddingBetweenFields(),
+                          locationNoteField(context, state),
+                          paddingBetweenFields(),
+                          Padding(
+                            padding: EdgeInsets.only(left: getSize(20)),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: RichText(
+                                text: TextSpan(
+                                  text: StringConstant.addUnits,
+                                  style: TextStyle(
+                                    fontSize: getFontSize(14),
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.black,
+                                    fontFamily: "Roboto Flex",
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: "  (Optional)",
+                                      style: TextStyle(
+                                        fontSize: getFontSize(10),
+                                        fontWeight: FontWeight.w500,
+                                        color: AppColors.black.withOpacity(0.8),
+                                        fontFamily: "Roboto Flex",
                                       ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                                paddingBetweenFields(height: 10),
-                                unitBox(context, state),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(vertical: getSize(50)),
-                                  child: CommonButton(
-                                    isSubmitting: state.isSubmitting,
-                                    onPressed: () {
-                                      print("Address---> ${state.address.getValue()}");
-                                      context.read<LocationDetailsBloc>().add(LocationDetailsEvent.continueBtnPressed(context));
-                                      unitNoNamecontroller.clear();
-                                      unitNotecontroller.clear();
-                                    },
-                                    buttonText: StringConstant.txtContinue,
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
-                      );
+                          paddingBetweenFields(height: 10),
+                          unitBox(context, state),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: getSize(50)),
+                            child: CommonButton(
+                              isSubmitting: state.isSubmitting,
+                              onPressed: () {
+                                print("Address---> ${state.address.getValue()}");
+                                context.read<EmployerLocationFormBloc>().add(EmployerLocationFormEvent.continueBtnPressed(context));
+                                unitNoNamecontroller.clear();
+                                unitNotecontroller.clear();
+                              },
+                              buttonText: StringConstant.txtContinue,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
               },
             )),
       ),
@@ -151,9 +147,9 @@ class LocationDetailForm extends StatelessWidget {
   }
 
   Widget facilityTypeField(
-    BuildContext context,
-    LocationDetailsState state,
-  ) {
+      BuildContext context,
+      EmployerLocationFormState state,
+      ) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,25 +170,25 @@ class LocationDetailForm extends StatelessWidget {
               ),
             );
           }).toList(),
-          validator: (p0) => context.read<LocationDetailsBloc>().state.faciltyType.value.fold(
+          validator: (p0) => context.read<EmployerLocationFormBloc>().state.faciltyType.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseEnterFacilityType,
-                  orElse: () => null,
-                ),
+              empty: (value) => StringConstant.pleaseEnterFacilityType,
+              orElse: () => null,
+            ),
                 (_) => null,
-              ),
+          ),
           onChanged: (value) {
             if (value != null) {
-              context.read<LocationDetailsBloc>().add(
-                    LocationDetailsEvent.facilityTypeChanged(value),
-                  );
+              context.read<EmployerLocationFormBloc>().add(
+                EmployerLocationFormEvent.facilityTypeChanged(value),
+              );
             }
           },
-          fieldOnChanged: (value) => context.read<LocationDetailsBloc>().add(
-                LocationDetailsEvent.addOtherfaciltyType(value),
-              ),
+          fieldOnChanged: (value) => context.read<EmployerLocationFormBloc>().add(
+            EmployerLocationFormEvent.addOtherfaciltyType(value),
+          ),
           // fieldValidator: (p1, _) => context
-          //     .read<LocationDetailsBloc>()
+          //     .read<EmployerLocationFormBloc>()
           //     .state
           //     .otherFaciltyType
           //     .value
@@ -214,9 +210,9 @@ class LocationDetailForm extends StatelessWidget {
   }
 
   Widget locationAddressTextField(
-    BuildContext context,
-    LocationDetailsState state,
-  ) {
+      BuildContext context,
+      EmployerLocationFormState state,
+      ) {
     return Column(
       children: [
         CustomTextField(
@@ -246,17 +242,17 @@ class LocationDetailForm extends StatelessWidget {
             ),
           ),
           // controller: addressController..text = state.address.getValue() ?? "",
-          controller: LocationDetailsBloc.locationCtrl,
+          controller: EmployerLocationFormBloc.locationCtrl,
           onChanged: (value) {
-            context.read<LocationDetailsBloc>().add(LocationDetailsEvent.addressChanged(LocationDetailsBloc.locationCtrl.text));
+            context.read<EmployerLocationFormBloc>().add(EmployerLocationFormEvent.addressChanged(EmployerLocationFormBloc.locationCtrl.text));
           },
-          validator: (p0, p1) => context.read<LocationDetailsBloc>().state.address.value.fold(
+          validator: (p0, p1) => context.read<EmployerLocationFormBloc>().state.address.value.fold(
                 (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseEnterAddress,
-                  orElse: () => null,
-                ),
+              empty: (value) => StringConstant.pleaseEnterAddress,
+              orElse: () => null,
+            ),
                 (_) => null,
-              ),
+          ),
         ),
         if (state.searchLocationList.isNotEmpty && !state.showErrorMessages)
           Container(
@@ -272,7 +268,7 @@ class LocationDetailForm extends StatelessWidget {
                     // final selectedLocation = state.searchLocationList[index];
                     final selectedLocation = state.searchLocationList[index];
 
-                    context.read<LocationDetailsBloc>().add(LocationDetailsEvent.locationSelectedFromSearchList(selectedLocation));
+                    context.read<EmployerLocationFormBloc>().add(EmployerLocationFormEvent.locationSelectedFromSearchList(selectedLocation));
                   },
                   dense: true,
                   titleAlignment: ListTileTitleAlignment.top,
@@ -291,9 +287,9 @@ class LocationDetailForm extends StatelessWidget {
   }
 
   Widget locationIdField(
-    BuildContext context,
-    LocationDetailsState state,
-  ) {
+      BuildContext context,
+      EmployerLocationFormState state,
+      ) {
     return CustomTextField(
       labelText: StringConstant.locationID,
       hintText: StringConstant.locationID,
@@ -313,16 +309,16 @@ class LocationDetailForm extends StatelessWidget {
         ),
       ),
       onChanged: (value) {
-        context.read<LocationDetailsBloc>().add(LocationDetailsEvent.locationIdChanged(value));
+        context.read<EmployerLocationFormBloc>().add(EmployerLocationFormEvent.locationIdChanged(value));
       },
       validator: null,
     );
   }
 
   Widget accreditationNumberField(
-    BuildContext context,
-    LocationDetailsState state,
-  ) {
+      BuildContext context,
+      EmployerLocationFormState state,
+      ) {
     return CustomTextField(
       labelText: StringConstant.accreditationNumber,
       hintText: StringConstant.accreditationNumber,
@@ -342,16 +338,16 @@ class LocationDetailForm extends StatelessWidget {
         ),
       ),
       onChanged: (value) {
-        context.read<LocationDetailsBloc>().add(LocationDetailsEvent.accreditationNumberChanged(value));
+        context.read<EmployerLocationFormBloc>().add(EmployerLocationFormEvent.accreditationNumberChanged(value));
       },
       validator: null,
     );
   }
 
   Widget locationNoteField(
-    BuildContext context,
-    LocationDetailsState state,
-  ) {
+      BuildContext context,
+      EmployerLocationFormState state,
+      ) {
     return CustomTextField(
       labelText: StringConstant.locationNote,
       hintText: StringConstant.typeHere,
@@ -360,13 +356,13 @@ class LocationDetailForm extends StatelessWidget {
       errorMaxLines: 2,
       maxLines: 3,
       onChanged: (value) {
-        context.read<LocationDetailsBloc>().add(LocationDetailsEvent.locationNoteChanged(value));
+        context.read<EmployerLocationFormBloc>().add(EmployerLocationFormEvent.locationNoteChanged(value));
       },
       validator: null,
     );
   }
 
-  Widget unitBox(BuildContext context, LocationDetailsState state) {
+  Widget unitBox(BuildContext context, EmployerLocationFormState state) {
     return Container(
       padding: EdgeInsets.all(
         getSize(20),
@@ -390,8 +386,8 @@ class LocationDetailForm extends StatelessWidget {
             spacing: 10,
             onDelete: (value) {
               context
-                  .read<LocationDetailsBloc>()
-                  .add(LocationDetailsEvent.removeUnitNumberChip(value));
+                  .read<EmployerLocationFormBloc>()
+                  .add(EmployerLocationFormEvent.removeUnitNumberChip(value));
             },
           ),*/
           paddingBetweenFields(height: getSize(10)),
@@ -402,12 +398,12 @@ class LocationDetailForm extends StatelessWidget {
             child: CommonButton(
               onPressed: (state.unitNumber.isNotEmpty)
                   ? () {
-                      context.read<LocationDetailsBloc>().add(
-                            LocationDetailsEvent.addUnitNumberChipList(state.unitNumber, state.notes),
-                          );
-                      unitNoNamecontroller.clear();
-                      unitNotecontroller.clear();
-                    }
+                context.read<EmployerLocationFormBloc>().add(
+                  EmployerLocationFormEvent.addUnitNumberChipList(state.unitNumber, state.notes),
+                );
+                unitNoNamecontroller.clear();
+                unitNotecontroller.clear();
+              }
                   : () {},
               buttonText: "+ ${StringConstant.addMore}",
               width: 105,
@@ -416,7 +412,7 @@ class LocationDetailForm extends StatelessWidget {
               buttonFontWeight: FontWeight.w600,
               height: 35,
               backgroundColor:
-                  (state.unitNumber.isNotEmpty) ? AppColors.primaryColor.withOpacity(0.15) : AppColors.primaryColor.withOpacity(0.05),
+              (state.unitNumber.isNotEmpty) ? AppColors.primaryColor.withOpacity(0.15) : AppColors.primaryColor.withOpacity(0.05),
               buttonTextColor: (state.unitNumber.isNotEmpty) ? AppColors.primaryColor : AppColors.primaryColor.withOpacity(0.3),
             ),
           )
@@ -425,13 +421,13 @@ class LocationDetailForm extends StatelessWidget {
     );
   }
 
-  TextEditingController unitNoNamecontroller = TextEditingController();
-  TextEditingController unitNotecontroller = TextEditingController();
+  final TextEditingController unitNoNamecontroller = TextEditingController();
+  final TextEditingController unitNotecontroller = TextEditingController();
 
   Widget unitNumberField(
-    BuildContext context,
-    LocationDetailsState state,
-  ) {
+      BuildContext context,
+      EmployerLocationFormState state,
+      ) {
     return CustomTextField(
       controller: unitNoNamecontroller,
       labelText: StringConstant.unitNumberName,
@@ -439,7 +435,7 @@ class LocationDetailForm extends StatelessWidget {
       isLabelPadding: false,
       errorMaxLines: 2,
       onChanged: (value) {
-        context.read<LocationDetailsBloc>().add(LocationDetailsEvent.unitNumberChanged(value));
+        context.read<EmployerLocationFormBloc>().add(EmployerLocationFormEvent.unitNumberChanged(value));
       },
       /*suffixIcon: CommonButton(
         height: getSize(27),
@@ -448,8 +444,8 @@ class LocationDetailForm extends StatelessWidget {
         buttonText: StringConstant.add,
         buttonFontSize: 10,
         onPressed: () {
-          context.read<LocationDetailsBloc>().add(
-                LocationDetailsEvent.addUnitNumberChipList(
+          context.read<EmployerLocationFormBloc>().add(
+                EmployerLocationFormEvent.addUnitNumberChipList(
                   state.unitNumber,
                   state.notes,
                 ),
@@ -462,9 +458,9 @@ class LocationDetailForm extends StatelessWidget {
   }
 
   Widget notesField(
-    BuildContext context,
-    LocationDetailsState state,
-  ) {
+      BuildContext context,
+      EmployerLocationFormState state,
+      ) {
     return CustomTextField(
       labelText: StringConstant.notes,
       hintText: StringConstant.typeHere,
@@ -474,13 +470,13 @@ class LocationDetailForm extends StatelessWidget {
       errorMaxLines: 2,
       controller: unitNotecontroller,
       onChanged: (value) {
-        context.read<LocationDetailsBloc>().add(LocationDetailsEvent.notesChanged(value));
+        context.read<EmployerLocationFormBloc>().add(EmployerLocationFormEvent.notesChanged(value));
       },
       validator: null,
     );
   }
 
-  Widget listOfUnit(BuildContext context, LocationDetailsState state) {
+  Widget listOfUnit(BuildContext context, EmployerLocationFormState state) {
     return ListView.builder(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
@@ -506,23 +502,23 @@ class LocationDetailForm extends StatelessWidget {
               ),
               subtitle: (unit.note != null && unit.note!.isNotEmpty)
                   ? BaseText(
-                      text: unit.note ?? "",
-                      fontSize: 10,
-                    )
+                text: unit.note ?? "",
+                fontSize: 10,
+              )
                   : null,
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   GestureDetector(
                     onTap: () {
-                      editUnitDialog(context, context.read<LocationDetailsBloc>(), state, index);
+                      editUnitDialog(context, context.read<EmployerLocationFormBloc>(), state, index);
                     },
                     child: SvgPicture.asset(SvgImageConstant.editWithBg),
                   ),
                   SizedBox(width: getSize(10)),
                   GestureDetector(
                     onTap: () {
-                      context.read<LocationDetailsBloc>().add(LocationDetailsEvent.removeUnitNumberChip(index));
+                      context.read<EmployerLocationFormBloc>().add(EmployerLocationFormEvent.removeUnitNumberChip(index));
                     },
                     child: SvgPicture.asset(SvgImageConstant.bin),
                   ),
@@ -533,21 +529,21 @@ class LocationDetailForm extends StatelessWidget {
         });
   }
 
-  TextEditingController updateUnitNameCtrl = TextEditingController();
-  TextEditingController updateUnitNoteCtrl = TextEditingController();
+  final TextEditingController updateUnitNameCtrl = TextEditingController();
+  final TextEditingController updateUnitNoteCtrl = TextEditingController();
 
   editUnitDialog(
-    BuildContext context,
-    LocationDetailsBloc bloc,
-    LocationDetailsState state,
-    int index,
-  ) {
+      BuildContext context,
+      EmployerLocationFormBloc bloc,
+      EmployerLocationFormState state,
+      int index,
+      ) {
     updateUnitNameCtrl.text = state.listOfUnit[index].number_or_name ?? "";
     updateUnitNoteCtrl.text = state.listOfUnit[index].note ?? "";
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return BlocBuilder<LocationDetailsBloc, LocationDetailsState>(
+          return BlocBuilder<EmployerLocationFormBloc, EmployerLocationFormState>(
             bloc: bloc,
             builder: (context, state) {
               return AlertDialog(
@@ -575,7 +571,7 @@ class LocationDetailForm extends StatelessWidget {
                         isLabelPadding: false,
                         errorMaxLines: 2,
                         onChanged: (value) {
-                          bloc.add(LocationDetailsEvent.updateUnitNumberChanged(value.trim()));
+                          bloc.add(EmployerLocationFormEvent.updateUnitNumberChanged(value.trim()));
                         },
                         validator: null,
                       ),
@@ -589,7 +585,7 @@ class LocationDetailForm extends StatelessWidget {
                         maxLines: 3,
                         errorMaxLines: 2,
                         onChanged: (value) {
-                          bloc.add(LocationDetailsEvent.updateUnitNotesChanged(value.trim()));
+                          bloc.add(EmployerLocationFormEvent.updateUnitNotesChanged(value.trim()));
                         },
                         validator: null,
                       ),
@@ -599,14 +595,14 @@ class LocationDetailForm extends StatelessWidget {
                         child: CommonButton(
                           onPressed: (updateUnitNameCtrl.text.isNotEmpty)
                               ? () {
-                                  bloc.add(LocationDetailsEvent.editUnitNumberChip(
-                                      context,
-                                      index,
-                                      UnitDTO(
-                                        number_or_name: updateUnitNameCtrl.text.trim(),
-                                        note: updateUnitNoteCtrl.text.trim(),
-                                      )));
-                                }
+                            bloc.add(EmployerLocationFormEvent.editUnitNumberChip(
+                                context,
+                                index,
+                                UnitDTO(
+                                  number_or_name: updateUnitNameCtrl.text.trim(),
+                                  note: updateUnitNoteCtrl.text.trim(),
+                                )));
+                          }
                               : () {},
                           buttonText: StringConstant.update,
                           // width: 5,
@@ -617,7 +613,7 @@ class LocationDetailForm extends StatelessWidget {
                               ? AppColors.primaryColor.withOpacity(0.15)
                               : AppColors.primaryColor.withOpacity(0.05),
                           buttonTextColor:
-                              (updateUnitNameCtrl.text.isNotEmpty) ? AppColors.primaryColor : AppColors.primaryColor.withOpacity(0.3),
+                          (updateUnitNameCtrl.text.isNotEmpty) ? AppColors.primaryColor : AppColors.primaryColor.withOpacity(0.3),
                         ),
                       )
                     ],
@@ -627,3 +623,36 @@ class LocationDetailForm extends StatelessWidget {
         });
   }
 }
+
+class _LocationForm extends StatefulWidget {
+  const _LocationForm();
+
+  @override
+  State<_LocationForm> createState() => _LocationFormState();
+}
+
+class _LocationFormState extends State<_LocationForm> {
+  late TextEditingController _locationIdController;
+  late TextEditingController _accreditationNumberController;
+
+  @override
+  void initState() {
+    super.initState();
+    _locationIdController = TextEditingController();
+    _accreditationNumberController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _locationIdController.dispose();
+    _accreditationNumberController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Placeholder();
+  }
+}
+
+

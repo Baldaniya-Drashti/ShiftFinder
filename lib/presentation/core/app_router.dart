@@ -82,6 +82,8 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: EducationProfileListView.page),
         AutoRoute(page: EmployerAvailabilityView.page),
         AutoRoute(page: HiredContractorView.page),
+        AutoRoute(page: EmployerLocationFormView.page),
+        AutoRoute(page: EmployerLocationView.page),
         AutoRoute(
           page: MainTabView.page,
           children: [

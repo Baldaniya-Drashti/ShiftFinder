@@ -71,10 +71,10 @@ class _ListTile extends StatelessWidget {
             SizedBox(
               width: getSize(15),
             ),
-            Image.asset(
-              PngImageConstants.line,
-              height: getSize(80),
-            ),
+              Image.asset(
+                PngImageConstants.line,
+                height: getSize(80),
+              ),
             SizedBox(
               width: getSize(15),
             ),

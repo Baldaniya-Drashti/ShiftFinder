@@ -19,6 +19,8 @@ class AdditionalDataDto with _$AdditionalDataDto {
     int? start_date,
     int? start_time,
     int? end_time,
+    int? complete_shift,
+    int? total_shift,
   }) = _AdditionalDataDto;
 
   factory AdditionalDataDto.fromJson(Map<String, dynamic> json) => _$AdditionalDataDtoFromJson(json);

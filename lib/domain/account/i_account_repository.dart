@@ -160,5 +160,6 @@ abstract class IAccountRepository {
     required List<UnitDTO> units,
     required String latitude,
     required String longitude,
+    required bool fromRegister,
   });
 }

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/application/main_tab/home/view_single_applicants/view_single_applicants_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
@@ -53,187 +54,231 @@ class ViewSingleApplicants extends StatelessWidget {
                   child: state.isLoading
                       ? CenterLoadingIndicator()
                       : state.isErrorInAPI
-                      ? Center(
-                    child: BaseText(text: StringConstant.somethindWentWrong),
-                  )
-                      : ListView.builder(
-                    itemCount: state.employerApplicantList.length,
-                    shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: getSize(18),
-                      vertical: getSize(20),
-                    ),
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: EdgeInsets.only(
-                          top: index == 0 ? 0 : getSize(10),
-                          bottom: index != 9 ? getSize(10) : 0,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(getSize(20)),
-                        ),
-                        padding: EdgeInsets.all(getSize(10)),
-                        child: Column(
-                          children: [
-                            getApplicantswDetailContainer(data: state.employerApplicantList[index]),
-                            SizedBox(height: getSize(10)),
-                            if (state.employerApplicantList[index].revoke_status == 2) ...[
-                              revokingStatus(context, state, state.employerApplicantList[index])
-                            ] else if(state.employerApplicantList[index].revoke_status == 3)...[
-                              Padding(
-                                padding: EdgeInsets.symmetric(vertical: getSize(10)),
-                                child: BaseText(
-                                  text: StringConstant.offerRevokedByTheEmployer,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                          ? Center(
+                              child: BaseText(text: StringConstant.somethindWentWrong),
+                            )
+                          : Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: getSize(18),
                               ),
-                            ] else ...[
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  if (state.employerApplicantList[index].request == 1) ...[
-                                    Expanded(
-                                      child: CommonButton(
-                                        onPressed: () {
-                                          AcceptRejectDialog(
-                                            title: 'Revoke',
-                                            description:
-                                            'Once you revoke, the contractor will have a 2-hour window to confirm the shift. If they do not confirm within 2 hours, the offer will be automatically revoked.',
-                                            onPressedAccept: () {
-                                              context.router.maybePop();
-                                              final userId = state.employerApplicantList[index].user_id;
-
-                                              context.read<ViewSingleApplicantsBloc>().add(
-                                                ViewSingleApplicantsEvent.onRevoke(postId: postId, userId: userId ?? 0, context: context),
-                                              );
-                                            },
-                                            acceptButtonText: 'Revoke',
-                                            onPressedReject: () {
-                                              context.router.maybePop();
-                                            },
-                                          ).acceptRejectDialog(context);
+                                  if (/*additionalData.complete_shift != 0)*/ true) ...[
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: AppColors.white,
+                                        borderRadius: BorderRadius.circular(7),
+                                      ),
+                                      padding: EdgeInsets.all(12),
+                                      child: InkWell(
+                                        onTap: () {
+                                          context.router.push(
+                                            PageRouteInfo(FilledHiredContractorList.name,
+                                                args: FilledHiredContractorListArgs(postId: postId)),
+                                          );
                                         },
-                                        backgroundColor: AppColors.redAccent.withOpacity(0.1),
-                                        buttonTextColor: AppColors.black,
-                                        buttonFontSize: 12,
-                                        borderRadius: 10,
-                                        buttonText: 'Revoke',
-                                        height: 34,
+                                        child: Row(
+                                          children: [
+                                            SvgPicture.asset(
+                                              SvgImageConstant.profileCircle,
+                                              height: 35,
+                                              width: 35,
+                                            ),
+                                            Gap(8),
+                                            Expanded(
+                                              child: BaseText(
+                                                text: "All Hired Contractors (${state.completeShift}/${state.totalShift})",
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                            SvgPicture.asset(
+                                              SvgImageConstant.rightArrow,
+                                              height: 14,
+                                              width: 14,
+                                              colorFilter: ColorFilter.mode(AppColors.black.withOpacity(0.7), BlendMode.srcIn),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ] else ...[
-                                    Expanded(
-                                      child: CommonButton(
-                                        onPressed: () {
-                                          if (false /*!state.isCardAdded*/) {
-                                            CommonCardDialog(
-                                              title: 'Card Details',
-                                              description: 'Please add your card details to proceed.',
-                                              buttonText: 'Add Card',
-                                              onPressed: () {
-                                                context.router.maybePop();
-                                                context.router
-                                                    .push(PageRouteInfo(AddCardDetailPage.name, args: AddCardDetailPageArgs(fromRegister: false)));
-                                              },
-                                              image: SvgImageConstant.cardImage,
-                                            ).addCardDialog(context);
-                                          } else {
-                                            AcceptRejectDialog(
-                                              title: 'Accept',
-                                              description: 'Are you sure you want to accept this application?',
-                                              onPressedAccept: () {
-                                                context.router.maybePop();
-                                                final id = state.employerApplicantList[index].id;
-                                                context.read<ViewSingleApplicantsBloc>().add(
-                                                  ViewSingleApplicantsEvent.acceptApplicants(
-                                                    context,
-                                                    id ?? 0,
-                                                  ),
-                                                );
-                                              },
-                                              onPressedReject: () {
-                                                context.router.maybePop();
-                                              },
-                                            ).acceptRejectDialog(context);
-                                          }
-                                        },
-                                        buttonText: 'Accept',
-                                        buttonFontSize: 12,
-                                        borderRadius: 10,
-                                        height: 34,
-                                      ),
-                                    ),
-                                    SizedBox(width: getSize(16)),
-                                    Expanded(
-                                      child: CommonButton(
-                                        onPressed: () {
-                                          AcceptRejectDialog(
-                                            title: 'Reject',
-                                            description: 'Are you sure you want to reject this application?',
-                                            onPressedAccept: () {
-                                              context.router.maybePop();
-
-                                              final id = state.employerApplicantList[index].id;
-                                              context.read<ViewSingleApplicantsBloc>().add(
-                                                ViewSingleApplicantsEvent.rejectApplicants(
-                                                  context,
-                                                  id ?? 0,
-                                                ),
-                                              );
-                                            },
-                                            acceptButtonText: 'Reject',
-                                            onPressedReject: () {
-                                              context.router.maybePop();
-                                            },
-                                          ).acceptRejectDialog(context);
-                                        },
-                                        backgroundColor: AppColors.white,
-                                        borderColor: AppColors.green,
-                                        buttonTextColor: AppColors.green,
-                                        buttonFontSize: 12,
-                                        borderRadius: 10,
-                                        buttonText: 'Reject',
-                                        height: 34,
-                                      ),
-                                    ),
+                                    SizedBox(height: getSize(16)),
                                   ],
-                                  SizedBox(width: getSize(16)),
-                                  Expanded(
-                                    child: CommonButton(
-                                      onPressed: () {
-                                        final userId = state.employerApplicantList[index].user_id ?? -1;
+                                  ListView.builder(
+                                    itemCount: state.employerApplicantList.length,
+                                    shrinkWrap: true,
+                                    physics: BouncingScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        margin: EdgeInsets.only(
+                                          top: index == 0 ? 0 : getSize(10),
+                                          bottom: index != 9 ? getSize(10) : 0,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(getSize(20)),
+                                        ),
+                                        padding: EdgeInsets.all(getSize(10)),
+                                        child: Column(
+                                          children: [
+                                            getApplicantswDetailContainer(data: state.employerApplicantList[index]),
+                                            SizedBox(height: getSize(10)),
+                                            if (state.employerApplicantList[index].revoke_status == 2) ...[
+                                              revokingStatus(context, state, state.employerApplicantList[index])
+                                            ] else if (state.employerApplicantList[index].revoke_status == 3) ...[
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(vertical: getSize(10)),
+                                                child: BaseText(
+                                                  text: StringConstant.offerRevokedByTheEmployer,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ] else ...[
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  if (state.employerApplicantList[index].request == 1) ...[
+                                                    Expanded(
+                                                      child: CommonButton(
+                                                        onPressed: () {
+                                                          AcceptRejectDialog(
+                                                            title: 'Revoke',
+                                                            description:
+                                                                'Once you revoke, the contractor will have a 2-hour window to confirm the shift. If they do not confirm within 2 hours, the offer will be automatically revoked.',
+                                                            onPressedAccept: () {
+                                                              context.router.maybePop();
+                                                              final userId = state.employerApplicantList[index].user_id;
 
-                                        Log.success("postId ${postId}");
-                                        context.router.push(
-                                          PageRouteInfo(ViewApplicantProfile.name, args: ViewApplicantProfileArgs(id: userId, postId: postId)),
-                                        );
-                                      },
-                                      backgroundColor: AppColors.scaffoldColor,
-                                      buttonTextColor: AppColors.black,
-                                      buttonFontSize: 12,
-                                      borderRadius: 10,
-                                      buttonText: 'View Profile',
-                                      height: 34,
-                                    ),
+                                                              context.read<ViewSingleApplicantsBloc>().add(
+                                                                    ViewSingleApplicantsEvent.onRevoke(
+                                                                        postId: postId, userId: userId ?? 0, context: context),
+                                                                  );
+                                                            },
+                                                            acceptButtonText: 'Revoke',
+                                                            onPressedReject: () {
+                                                              context.router.maybePop();
+                                                            },
+                                                          ).acceptRejectDialog(context);
+                                                        },
+                                                        backgroundColor: AppColors.redAccent.withOpacity(0.1),
+                                                        buttonTextColor: AppColors.black,
+                                                        buttonFontSize: 12,
+                                                        borderRadius: 10,
+                                                        buttonText: 'Revoke',
+                                                        height: 34,
+                                                      ),
+                                                    ),
+                                                  ] else ...[
+                                                    Expanded(
+                                                      child: CommonButton(
+                                                        onPressed: () {
+                                                          if (false /*!state.isCardAdded*/) {
+                                                            CommonCardDialog(
+                                                              title: 'Card Details',
+                                                              description: 'Please add your card details to proceed.',
+                                                              buttonText: 'Add Card',
+                                                              onPressed: () {
+                                                                context.router.maybePop();
+                                                                context.router.push(PageRouteInfo(AddCardDetailPage.name,
+                                                                    args: AddCardDetailPageArgs(fromRegister: false)));
+                                                              },
+                                                              image: SvgImageConstant.cardImage,
+                                                            ).addCardDialog(context);
+                                                          } else {
+                                                            AcceptRejectDialog(
+                                                              title: 'Accept',
+                                                              description: 'Are you sure you want to accept this application?',
+                                                              onPressedAccept: () {
+                                                                context.router.maybePop();
+                                                                final id = state.employerApplicantList[index].id;
+                                                                context.read<ViewSingleApplicantsBloc>().add(
+                                                                      ViewSingleApplicantsEvent.acceptApplicants(
+                                                                        context,
+                                                                        id ?? 0,
+                                                                      ),
+                                                                    );
+                                                              },
+                                                              onPressedReject: () {
+                                                                context.router.maybePop();
+                                                              },
+                                                            ).acceptRejectDialog(context);
+                                                          }
+                                                        },
+                                                        buttonText: 'Accept',
+                                                        buttonFontSize: 12,
+                                                        borderRadius: 10,
+                                                        height: 34,
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: getSize(16)),
+                                                    Expanded(
+                                                      child: CommonButton(
+                                                        onPressed: () {
+                                                          AcceptRejectDialog(
+                                                            title: 'Reject',
+                                                            description: 'Are you sure you want to reject this application?',
+                                                            onPressedAccept: () {
+                                                              context.router.maybePop();
+
+                                                              final id = state.employerApplicantList[index].id;
+                                                              context.read<ViewSingleApplicantsBloc>().add(
+                                                                    ViewSingleApplicantsEvent.rejectApplicants(
+                                                                      context,
+                                                                      id ?? 0,
+                                                                    ),
+                                                                  );
+                                                            },
+                                                            acceptButtonText: 'Reject',
+                                                            onPressedReject: () {
+                                                              context.router.maybePop();
+                                                            },
+                                                          ).acceptRejectDialog(context);
+                                                        },
+                                                        backgroundColor: AppColors.white,
+                                                        borderColor: AppColors.green,
+                                                        buttonTextColor: AppColors.green,
+                                                        buttonFontSize: 12,
+                                                        borderRadius: 10,
+                                                        buttonText: 'Reject',
+                                                        height: 34,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                  SizedBox(width: getSize(16)),
+                                                  Expanded(
+                                                    child: CommonButton(
+                                                      onPressed: () {
+                                                        final userId = state.employerApplicantList[index].user_id ?? -1;
+
+                                                        Log.success("postId ${postId}");
+                                                        context.router.push(
+                                                          PageRouteInfo(ViewApplicantProfile.name,
+                                                              args: ViewApplicantProfileArgs(id: userId, postId: postId)),
+                                                        );
+                                                      },
+                                                      backgroundColor: AppColors.scaffoldColor,
+                                                      buttonTextColor: AppColors.black,
+                                                      buttonFontSize: 12,
+                                                      borderRadius: 10,
+                                                      buttonText: 'View Profile',
+                                                      height: 34,
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            ]
+                                          ],
+                                        ),
+                                      );
+                                    },
                                   ),
-
                                 ],
-                              )
-
-                            ]
-
-
-
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                              ),
+                            ),
                 ),
-                if(state.postDataLoading)CenterLoadingIndicator()
+                if (state.postDataLoading) CenterLoadingIndicator()
               ],
             );
           },
@@ -332,7 +377,7 @@ class ViewSingleApplicants extends StatelessWidget {
                         ),
                         SizedBox(width: getSize(10)),
                         Visibility(
-                          visible: data.occupied??false,
+                          visible: data.occupied ?? false,
                           child: Container(
                             padding: EdgeInsets.symmetric(
                               horizontal: getSize(7),

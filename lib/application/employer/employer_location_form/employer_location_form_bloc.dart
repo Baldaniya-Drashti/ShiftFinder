@@ -1,40 +1,34 @@
-// ignore_for_file: avoid_print
-
 import 'dart:convert';
 
+import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/account/account_failure.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
-
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/place_detail_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/search_location_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
-import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/core/helper/location_helper.dart';
 
-part 'location_details_event.dart';
-
-part 'location_details_state.dart';
-
-part 'location_details_bloc.freezed.dart';
-
+part 'employer_location_form_event.dart';
+part 'employer_location_form_state.dart';
+part 'employer_location_form_bloc.freezed.dart';
 @injectable
-class LocationDetailsBloc extends Bloc<LocationDetailsEvent, LocationDetailsState> {
+class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerLocationFormState> {
   final IAccountRepository _repository;
   static TextEditingController locationCtrl = TextEditingController();
   List<dynamic> placeList = [];
 
-  LocationDetailsBloc(this._repository) : super(LocationDetailsState.initial()) {
-    on<LocationDetailsEvent>((event, emit) async {
+  EmployerLocationFormBloc(this._repository) : super(EmployerLocationFormState.initial()) {
+    on<EmployerLocationFormEvent>((event, emit) async {
       await event.map(
         updateUnitNumberChanged: (e) {
           emit(
@@ -62,13 +56,13 @@ class LocationDetailsBloc extends Bloc<LocationDetailsEvent, LocationDetailsStat
           final facilityTypeList = await _repository.getFacilityTypeList();
           print("Facility type List ---> $facilityTypeList");
           facilityTypeList.fold(
-            (l) => emit(
+                (l) => emit(
               state.copyWith(
                 isLoading: false,
                 facilityTypeList: [],
               ),
             ),
-            (r) {
+                (r) {
               return emit(
                 state.copyWith(
                   isLoading: false,
@@ -101,7 +95,7 @@ class LocationDetailsBloc extends Bloc<LocationDetailsEvent, LocationDetailsStat
               searchLocationList: placeList
                   .map(
                     (e) => Predictions.fromJson(e),
-                  )
+              )
                   .toList(),
               authFailureOrSuccessOption: none(),
             ),
@@ -236,10 +230,10 @@ class LocationDetailsBloc extends Bloc<LocationDetailsEvent, LocationDetailsStat
           print("Unit list----> ${state.listOfUnit}");
           if (e.unitNumber.trim().isNotEmpty &&
               (!state.listOfUnit.any((unit) {
-                    print("Unit number----> ${e.unitNumber}");
-                    print("Unit number_or_name----> ${unit.number_or_name}");
-                    return unit.number_or_name?.toLowerCase() == e.unitNumber.trim().toLowerCase();
-                  }) ||
+                print("Unit number----> ${e.unitNumber}");
+                print("Unit number_or_name----> ${unit.number_or_name}");
+                return unit.number_or_name?.toLowerCase() == e.unitNumber.trim().toLowerCase();
+              }) ||
                   state.listOfUnit.isEmpty)) {
             emit(
               state.copyWith(
@@ -284,7 +278,7 @@ class LocationDetailsBloc extends Bloc<LocationDetailsEvent, LocationDetailsStat
 
           print("state unit--> ${state.unitNumber}");
           print("state unit note--> ${state.notes}");
-          add(LocationDetailsEvent.addUnitNumberChipList(state.unitNumber, state.notes));
+          add(EmployerLocationFormEvent.addUnitNumberChipList(state.unitNumber, state.notes));
           await Future.delayed(Duration(milliseconds: 50));
           final isAddressValid = state.address.isValid();
           bool isFaciltyTypeValid = state.faciltyType.isValid();
@@ -310,7 +304,7 @@ class LocationDetailsBloc extends Bloc<LocationDetailsEvent, LocationDetailsStat
               locationNotes: state.locationNote,
               units: state.listOfUnit,
               latitude: state.selectedAddress.result?.geometry?.location?.lat.toString() ?? '',
-              longitude: state.selectedAddress.result?.geometry?.location?.lng.toString() ?? '', fromRegister: true,
+              longitude: state.selectedAddress.result?.geometry?.location?.lng.toString() ?? '', fromRegister: false,
             );
           } else {
             AppFocus.unfocus(e.context);
@@ -342,7 +336,7 @@ class LocationDetailsBloc extends Bloc<LocationDetailsEvent, LocationDetailsStat
 
   String getSelectedFacilityTypeId() {
     final selectedFacilityType = state.facilityTypeList.firstWhere(
-      (facilityType) => facilityType.name == state.faciltyType.getValue(),
+          (facilityType) => facilityType.name == state.faciltyType.getValue(),
       orElse: () => const SkillDTO(id: -1, name: 'Unknown'),
     );
     return selectedFacilityType.id.toString();
