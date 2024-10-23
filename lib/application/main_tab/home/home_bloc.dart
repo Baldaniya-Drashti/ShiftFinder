@@ -109,7 +109,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           );
         },
         dontShowAgain: (e) {
-          print("jvjv---> ${e.isCheck}");
           emit(state.copyWith(
             showTeamDialog: e.isCheck,
             teamStatusErrorMessage: false,
@@ -148,6 +147,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                   teamStatusFailureOrSuccessOption: optionOf(res),
                 ),
               );
+              print("r.isTeamAvailable---> ${r.isTeamAvailable}");
+              print("r.isTeamAvailable---> ${getShowTeamDialog()}");
               if (r.isTeamAvailable == 1 || getShowTeamDialog() == false) {
                 e.context.router
                     .push(PageRouteInfo(HealthCarePostForm.name))
@@ -175,9 +176,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       deleteBtnText: StringConstant.yes,
       cancelText: StringConstant.no,
       otherContent: dontShowAgain(context),
-      onCancelClick: () {
+      onCancelClick: () async {
         if (state.showTeamDialog) {
-          setShowTeamDialog(false);
+          await setShowTeamDialog(false);
         }
         context.router.maybePop();
         context.router
@@ -186,11 +187,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           add(HomeEvent.getEmployerDashboardList(true));
         });
       },
-      onDeleteClick: () {
+      onDeleteClick: () async {
         if (state.showTeamDialog) {
-          setShowTeamDialog(false);
+          await setShowTeamDialog(false);
         }
-
         context.router.maybePop();
         context.router.push(PageRouteInfo(TeamsView.name)).then((value) {
           add(HomeEvent.checkTeamAvailableEvent(context));
@@ -200,7 +200,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   Widget dontShowAgain(BuildContext context) {
-    print("state.showTeamDialog---> ${state.showTeamDialog}");
     return BlocBuilder<HomeBloc, HomeState>(
       bloc: context.read<HomeBloc>(),
       builder: (context, state) {

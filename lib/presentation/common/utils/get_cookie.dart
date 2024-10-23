@@ -32,6 +32,7 @@ int? getCurrentRole() {
 }
 
 Future<void> setShowTeamDialog(bool isShow) async {
+  print("Show team dialog---> $isShow");
   return await Hive.box(BoxNames.settingsBox)
       .put(BoxKeys.isShowEmptyTeamDialog, isShow);
 }
