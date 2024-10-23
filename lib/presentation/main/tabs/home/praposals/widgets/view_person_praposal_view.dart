@@ -62,7 +62,7 @@ class ViewPersonPraposalView extends StatelessWidget {
                     SizedBox(height: getSize(20)),
                     if (data.shift_type == 1) ...[
                       BaseText(
-                        text: DateFormat("dd MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch(data.start_date ?? 0)),
+                        text: DateFormat("dd MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch((data.start_date ?? 0) * 1000)),
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         textColor: AppColors.green,
@@ -122,88 +122,92 @@ class ViewPersonPraposalView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: getSize(20)),
-                    BaseText(
-                      text: 'Commute Allowance',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    SizedBox(height: getSize(10)),
-                    Container(
-                      padding: EdgeInsets.all(getSize(20)),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFEDEDED),
-                        borderRadius: BorderRadius.circular(getSize(20)),
+                    if (data.posted_commute_allowance_rate != null && data.posted_commute_allowance_hour_name != null) ...[
+                      SizedBox(height: getSize(20)),
+                      BaseText(
+                        text: 'Commute Allowance',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
                       ),
-                      child: Builder(builder: (context) {
-                        final hourly = data.commute_allowance_type == 2;
-                        String postedDescription, proposedDescription;
-                        if (hourly) {
-                          postedDescription = data.posted_commute_allowance_hour_name ?? "";
-                          proposedDescription = data.proposed_commute_allowance_hour_name ?? "";
-                        } else {
-                          postedDescription = "\$${data.posted_commute_allowance_rate ?? ""}";
-                          proposedDescription = "\$${data.proposed_commute_allowance_rate ?? ""}";
-                        }
+                      SizedBox(height: getSize(10)),
+                      Container(
+                        padding: EdgeInsets.all(getSize(20)),
+                        decoration: BoxDecoration(
+                          color: Color(0xFFEDEDED),
+                          borderRadius: BorderRadius.circular(getSize(20)),
+                        ),
+                        child: Builder(builder: (context) {
+                          final hourly = data.commute_allowance_type == 2;
+                          String postedDescription, proposedDescription;
+                          if (hourly) {
+                            postedDescription = data.posted_commute_allowance_hour_name ?? "";
+                            proposedDescription = data.proposed_commute_allowance_hour_name ?? "";
+                          } else {
+                            postedDescription = "\$${data.posted_commute_allowance_rate ?? ""}";
+                            proposedDescription = "\$${data.proposed_commute_allowance_rate ?? ""}";
+                          }
 
-                        return Column(
-                          children: [
-                            getTitleAndDescription(
-                              context,
-                              title: 'Posted',
-                              description: postedDescription,
-                            ),
-                            SizedBox(height: getSize(20)),
-                            getTitleAndDescription(
-                              context,
-                              title: 'Proposed',
-                              description: proposedDescription,
-                            ),
-                          ],
-                        );
-                      }),
-                    ),
-                    SizedBox(height: getSize(20)),
-                    BaseText(
-                      text: 'Accommodation Allowance',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    SizedBox(height: getSize(10)),
-                    Container(
-                      padding: EdgeInsets.all(getSize(20)),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFEDEDED),
-                        borderRadius: BorderRadius.circular(getSize(20)),
+                          return Column(
+                            children: [
+                              getTitleAndDescription(
+                                context,
+                                title: 'Posted',
+                                description: postedDescription,
+                              ),
+                              SizedBox(height: getSize(20)),
+                              getTitleAndDescription(
+                                context,
+                                title: 'Proposed',
+                                description: proposedDescription,
+                              ),
+                            ],
+                          );
+                        }),
                       ),
-                      child: Builder(builder: (context) {
-                        final isCommuteAllowanceHourly = data.accommodation_allowance_type == 2;
-                        String postedDescription, proposedDescription;
+                    ],
+                    if (data.posted_accommodation_allowance_rate != null && data.posted_accommodation_allowance_hour_name != null) ...[
+                      SizedBox(height: getSize(20)),
+                      BaseText(
+                        text: 'Accommodation Allowance',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      SizedBox(height: getSize(10)),
+                      Container(
+                        padding: EdgeInsets.all(getSize(20)),
+                        decoration: BoxDecoration(
+                          color: Color(0xFFEDEDED),
+                          borderRadius: BorderRadius.circular(getSize(20)),
+                        ),
+                        child: Builder(builder: (context) {
+                          final isCommuteAllowanceHourly = data.accommodation_allowance_type == 2;
+                          String postedDescription, proposedDescription;
 
-                        if (isCommuteAllowanceHourly) {
-                          postedDescription = data.posted_accommodation_allowance_hour_name ?? "";
-                          proposedDescription = data.proposed_accommodation_allowance_hour_name ?? "";
-                        } else {
-                          postedDescription = "\$${data.posted_accommodation_allowance_rate ?? ""}";
-                          proposedDescription = "\$${data.posted_accommodation_allowance_rate ?? ""}";
-                        }
-                        return Column(
-                          children: [
-                            getTitleAndDescription(
-                              context,
-                              title: 'Posted',
-                              description: postedDescription,
-                            ),
-                            SizedBox(height: getSize(20)),
-                            getTitleAndDescription(
-                              context,
-                              title: 'Proposed',
-                              description: proposedDescription,
-                            ),
-                          ],
-                        );
-                      }),
-                    ),
+                          if (isCommuteAllowanceHourly) {
+                            postedDescription = data.posted_accommodation_allowance_hour_name ?? "";
+                            proposedDescription = data.proposed_accommodation_allowance_hour_name ?? "";
+                          } else {
+                            postedDescription = "\$${data.posted_accommodation_allowance_rate ?? ""}";
+                            proposedDescription = "\$${data.posted_accommodation_allowance_rate ?? ""}";
+                          }
+                          return Column(
+                            children: [
+                              getTitleAndDescription(
+                                context,
+                                title: 'Posted',
+                                description: postedDescription,
+                              ),
+                              SizedBox(height: getSize(20)),
+                              getTitleAndDescription(
+                                context,
+                                title: 'Proposed',
+                                description: proposedDescription,
+                              ),
+                            ],
+                          );
+                        }),
+                      ),
+                    ],
                     SizedBox(
                       height: getSize(40),
                     ),
@@ -322,7 +326,7 @@ class ViewPersonPraposalView extends StatelessWidget {
   }
 
   acceptDialog(BuildContext context) {
-    final bloc =context.read<ProposalDetailBloc>().state;
+    final bloc = context.read<ProposalDetailBloc>().state;
     final shiftType = bloc.proposalDetailDto.shift_type;
     final firstName = bloc.proposalDetailDto.first_name;
     final lastName = bloc.proposalDetailDto.last_name;

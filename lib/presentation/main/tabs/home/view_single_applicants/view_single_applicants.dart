@@ -64,7 +64,7 @@ class ViewSingleApplicants extends StatelessWidget {
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  if (/*additionalData.complete_shift != 0)*/ true) ...[
+                                  if (state.completeShift != 0) ...[
                                     Container(
                                       decoration: BoxDecoration(
                                         color: AppColors.white,
@@ -110,6 +110,8 @@ class ViewSingleApplicants extends StatelessWidget {
                                     shrinkWrap: true,
                                     physics: BouncingScrollPhysics(),
                                     itemBuilder: (context, index) {
+                                      final data = state.employerApplicantList[index];
+
                                       return Container(
                                         margin: EdgeInsets.only(
                                           top: index == 0 ? 0 : getSize(10),
@@ -124,9 +126,9 @@ class ViewSingleApplicants extends StatelessWidget {
                                           children: [
                                             getApplicantswDetailContainer(data: state.employerApplicantList[index]),
                                             SizedBox(height: getSize(10)),
-                                            if (state.employerApplicantList[index].revoke_status == 2) ...[
+                                            if (data.revoke_status == 2) ...[
                                               revokingStatus(context, state, state.employerApplicantList[index])
-                                            ] else if (state.employerApplicantList[index].revoke_status == 3) ...[
+                                            ] else if (data.revoke_status == 3) ...[
                                               Padding(
                                                 padding: EdgeInsets.symmetric(vertical: getSize(10)),
                                                 child: BaseText(
@@ -139,7 +141,7 @@ class ViewSingleApplicants extends StatelessWidget {
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  if (state.employerApplicantList[index].request == 1) ...[
+                                                  if (data.request == 1) ...[
                                                     Expanded(
                                                       child: CommonButton(
                                                         onPressed: () {
@@ -191,6 +193,7 @@ class ViewSingleApplicants extends StatelessWidget {
                                                               title: 'Accept',
                                                               description: 'Are you sure you want to accept this application?',
                                                               onPressedAccept: () {
+                                                                if (data.occupied == true) return;
                                                                 context.router.maybePop();
                                                                 final id = state.employerApplicantList[index].id;
                                                                 context.read<ViewSingleApplicantsBloc>().add(
@@ -210,6 +213,7 @@ class ViewSingleApplicants extends StatelessWidget {
                                                         buttonFontSize: 12,
                                                         borderRadius: 10,
                                                         height: 34,
+                                                        backgroundColor: data.occupied==true?AppColors.green.withOpacity(0.2):null,
                                                       ),
                                                     ),
                                                     SizedBox(width: getSize(16)),

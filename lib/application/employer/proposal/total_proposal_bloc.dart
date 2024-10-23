@@ -93,6 +93,7 @@ class TotalProposalBloc extends Bloc<TotalProposalEvent, TotalProposalState> {
                   } else {
                     remainingTime -= const Duration(seconds: 1);
                   }
+                  if(isClosed)return;
                   updateRemainingTime(remainingTime, shift.id ?? -1);
                 });
               }

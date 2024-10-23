@@ -274,7 +274,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.w500),
                 children: [
                   TextSpan(
-                      text: "${DateTime.fromMillisecondsSinceEpoch(data.last_worked_date ?? 0).year}",
+                      text: "${DateTime.fromMillisecondsSinceEpoch((data.last_worked_date ?? 0)*1000).year}",
                       style: TextStyle(color: AppColors.black.withOpacity(0.5))),
                 ],
               ),
@@ -564,7 +564,7 @@ class _ActionButton extends StatelessWidget {
 }
 
 String convertUnixTimeToLocalString(int timeStamp) {
-  final date = DateTime.fromMillisecondsSinceEpoch(timeStamp);
+  final date = DateTime.fromMillisecondsSinceEpoch(timeStamp*1000);
   String formattedDate = DateFormat('d MMM').format(date);
   return formattedDate;
 }
