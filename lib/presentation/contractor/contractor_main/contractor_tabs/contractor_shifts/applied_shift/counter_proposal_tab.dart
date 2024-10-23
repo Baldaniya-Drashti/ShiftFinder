@@ -26,113 +26,225 @@ class CounterProposalTab extends StatelessWidget {
     return BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
       builder: (context, state) {
         return PaginatedListView(
-            onRefresh: () {
-              context
-                  .read<ContractorShiftBloc>()
-                  .add(ContractorShiftEvent.getCounterProposalList(true));
-            },
-            refreshController:
-                context.read<ContractorShiftBloc>().counterShiftRefreshCtrl,
-            onLoading: () {
-              context
-                  .read<ContractorShiftBloc>()
-                  .add(ContractorShiftEvent.getCounterProposalList(false));
-            },
-            isNoDataFound: state.isCounterNoDataFound,
-            child: state.isCounterLoading
-                ? CenterLoadingIndicator(isOnlyLoader: true)
-                : state.isCounterErrorInAPI
-                    ? Center(
-                        child:
-                            BaseText(text: StringConstant.somethindWentWrong),
-                      )
-                    : ListView.builder(
-                        itemCount: state.counterList.length,
-                        padding: EdgeInsets.symmetric(horizontal: getSize(10)),
-                        itemBuilder: (context, index) {
-                          final shift = state.counterList[index];
-
-                          return Container(
-                            margin: EdgeInsets.symmetric(vertical: getSize(10)),
-                            padding: EdgeInsets.all(getSize(10)),
-                            width: getSize(355),
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.circular(getSize(20)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.black.withOpacity(0.2),
-                                  blurRadius: 10,
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              children: [
-                                userDetail(context, shift),
-                                paddingBetweenFields(),
-                                CommonButton(
-                                  onPressed: () {
-                                    context.router.push(
-                                      PageRouteInfo(
-                                        ViewContractorShift.name,
-                                        args: ViewContractorShiftArgs(
-                                          postId: shift.id ?? -1,
+          onRefresh: () {
+            context
+                .read<ContractorShiftBloc>()
+                .add(ContractorShiftEvent.getCounterProposalList(true));
+          },
+          refreshController:
+              context.read<ContractorShiftBloc>().counterShiftRefreshCtrl,
+          onLoading: () {
+            context
+                .read<ContractorShiftBloc>()
+                .add(ContractorShiftEvent.getCounterProposalList(false));
+          },
+          isNoDataFound: state.isCounterNoDataFound,
+          child: state.isCounterLoading
+              ? CenterLoadingIndicator(isOnlyLoader: true)
+              : state.isCounterErrorInAPI
+                  ? Center(
+                      child: BaseText(text: StringConstant.somethindWentWrong))
+                  : ListView.builder(
+                      itemCount: state.counterList.length,
+                      padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                      itemBuilder: (context, index) {
+                        final shift = state.counterList[index];
+                        return Column(
+                          children: [
+                            Container(
+                              margin:
+                                  EdgeInsets.symmetric(vertical: getSize(10)),
+                              padding: EdgeInsets.all(getSize(10)),
+                              decoration: BoxDecoration(
+                                color: AppColors.white,
+                                borderRadius:
+                                    BorderRadius.circular(getSize(20)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColors.black.withOpacity(0.2),
+                                    blurRadius: 10,
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                children: [
+                                  userDetail(context, shift),
+                                  paddingBetweenFields(),
+                                  CommonButton(
+                                    onPressed: () {
+                                      context.router.push(
+                                        PageRouteInfo(
+                                          ViewContractorShift.name,
+                                          args: ViewContractorShiftArgs(
+                                            postId: shift.id ?? -1,
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  },
-                                  height: getSize(40),
-                                  borderRadius: 7,
-                                  backgroundColor:
-                                      AppColors.primaryColor.withOpacity(0.1),
-                                  buttonTextColor: AppColors.black,
-                                  buttonFontSize: 12,
-                                  buttonText: StringConstant.viewShiftDetails,
-                                ),
-                                paddingBetweenFields(),
-                                GestureDetector(
-                                  onTap: () {
-                                    context.router
-                                        .push(PageRouteInfo(
-                                            ProposalReceived.name,
-                                            args: ProposalReceivedArgs(
-                                                post: shift)))
-                                        .then((value) {
-                                      if (value == true) {
-                                        context.read<ContractorShiftBloc>().add(
-                                            ContractorShiftEvent
-                                                .getCounterProposalList(true));
-                                      }
-                                    });
-                                  },
-                                  child: (shift.last_request == 1)
-                                      ? proposalStatus(
-                                          title:
-                                              StringConstant.proposalReceived,
-                                          icon: SvgImageConstant.receivedCircle,
-                                          boldValue: convertTimeStampToDate(
-                                              shift.applied_date ?? -1),
-                                          timidValue: convertTimeStampToDate(
-                                              shift.applied_date ?? -1,
-                                              isYear: true),
+                                      );
+                                    },
+                                    height: getSize(40),
+                                    borderRadius: 7,
+                                    backgroundColor:
+                                        AppColors.primaryColor.withOpacity(0.1),
+                                    buttonTextColor: AppColors.black,
+                                    buttonFontSize: 12,
+                                    buttonText: StringConstant.viewShiftDetails,
+                                  ),
+                                  paddingBetweenFields(),
+                                  (shift.revoke_status == 3)
+                                      ? Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: getSize(10),
+                                          ),
+                                          child: BaseText(
+                                            text: StringConstant
+                                                .offerRevokedByTheEmployer,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                         )
-                                      : proposalStatus(
-                                          title: StringConstant.proposalSent,
-                                          icon:
-                                              SvgImageConstant.rightWithCircle,
-                                          boldValue: convertTimeStampToDate(
-                                              shift.applied_date ?? -1),
-                                          timidValue: convertTimeStampToDate(
-                                              shift.applied_date ?? -1,
-                                              isYear: true),
+                                      : GestureDetector(
+                                          onTap: () {
+                                            context.router
+                                                .push(PageRouteInfo(
+                                                    ProposalReceived.name,
+                                                    args: ProposalReceivedArgs(
+                                                        post: shift)))
+                                                .then((value) {
+                                              if (value == true) {
+                                                context
+                                                    .read<ContractorShiftBloc>()
+                                                    .add(ContractorShiftEvent
+                                                        .getCounterProposalList(
+                                                            true));
+                                              }
+                                            });
+                                          },
+                                          child: (shift.revoke_status == 2)
+                                              ? revokingStatus(context, shift)
+                                              : (shift.last_request == 2)
+                                                  ? proposalStatus(
+                                                      title: StringConstant
+                                                          .proposalReceived,
+                                                      icon: SvgImageConstant
+                                                          .receivedCircle,
+                                                      boldValue:
+                                                          convertTimeStampToDate(
+                                                              shift.applied_date ??
+                                                                  -1),
+                                                      timidValue:
+                                                          convertTimeStampToDate(
+                                                              shift.applied_date ??
+                                                                  -1,
+                                                              isYear: true),
+                                                    )
+                                                  : (shift.last_request == 3)
+                                                      ? proposalStatus(
+                                                          title: StringConstant
+                                                              .proposalAccepted,
+                                                          icon: SvgImageConstant
+                                                              .rightWithCircle,
+                                                          boldValue:
+                                                              convertTimeStampToDate(
+                                                                  shift.applied_date ??
+                                                                      -1),
+                                                          timidValue:
+                                                              convertTimeStampToDate(
+                                                                  shift.applied_date ??
+                                                                      -1,
+                                                                  isYear: true),
+                                                        )
+                                                      : proposalStatus(
+                                                          title: StringConstant
+                                                              .proposalSent,
+                                                          icon: SvgImageConstant
+                                                              .rightWithCircle,
+                                                          boldValue:
+                                                              convertTimeStampToDate(
+                                                                  shift.applied_date ??
+                                                                      -1),
+                                                          timidValue:
+                                                              convertTimeStampToDate(
+                                                                  shift.applied_date ??
+                                                                      -1,
+                                                                  isYear: true),
+                                                        ),
                                         ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          );
-                        },
-                      ));
+                          ],
+                        );
+                      },
+                    ),
+        );
       },
+    );
+  }
+
+  Widget revokingStatus(BuildContext context, AppliedShiftDTO shift) {
+    final hours =
+        shift.remainingRevokeTime?.inHours.toString().padLeft(2, '0') ?? 00;
+    final minutes = shift.remainingRevokeTime?.inMinutes
+            .remainder(60)
+            .toString()
+            .padLeft(2, '0') ??
+        00;
+
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(getSize(10)),
+        color: AppColors.scaffoldColor,
+      ),
+      padding: EdgeInsets.symmetric(horizontal: getSize(12)),
+      child: ListTile(
+        dense: true,
+        contentPadding: EdgeInsets.zero,
+        horizontalTitleGap: 10,
+        onTap: null,
+        title: Padding(
+          padding: EdgeInsets.only(left: getSize(20)),
+          child: BaseText(
+            text: StringConstant.revoking,
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            textColor: AppColors.black.withOpacity(0.7),
+          ),
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: getSize(108),
+              padding: EdgeInsets.symmetric(vertical: getSize(5)),
+              decoration: BoxDecoration(
+                  color: AppColors.primaryColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(6)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SvgPicture.asset(
+                    SvgImageConstant.clock,
+                    height: getSize(15),
+                    width: getSize(15),
+                  ),
+                  BaseText(
+                    text: "$hours h $minutes min",
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    textColor: AppColors.primaryColor,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(width: getSize(10)),
+            Icon(
+              Icons.arrow_forward_ios_rounded,
+              size: getSize(18),
+              color: AppColors.black.withOpacity(0.5),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -264,40 +376,52 @@ class CounterProposalTab extends StatelessWidget {
       required String icon,
       required String boldValue,
       required String timidValue}) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(getSize(10)),
-        color: AppColors.scaffoldColor,
+    return GestureDetector(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(getSize(10)),
+          color: AppColors.scaffoldColor,
+        ),
+        padding: EdgeInsets.symmetric(horizontal: getSize(12)),
+        child: ListTile(
+            dense: true,
+            contentPadding: EdgeInsets.zero,
+            horizontalTitleGap: 0,
+            leading: SvgPicture.asset(
+              SvgImageConstant.calendar,
+              color: AppColors.black.withOpacity(0.7),
+              height: getSize(20),
+              width: getSize(20),
+            ),
+            title: Row(
+              children: [
+                BaseText(
+                  text: title,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  textColor: AppColors.primaryColor,
+                ),
+                SizedBox(width: getSize(05)),
+                SvgPicture.asset(
+                  icon,
+                  height: getSize(15),
+                  width: getSize(15),
+                ),
+              ],
+            ),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                highLightText(boldValue: boldValue, timidValue: timidValue),
+                SizedBox(width: getSize(10)),
+                Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  size: getSize(18),
+                  color: AppColors.black.withOpacity(0.5),
+                ),
+              ],
+            )),
       ),
-      padding: EdgeInsets.symmetric(horizontal: getSize(12)),
-      child: ListTile(
-          dense: true,
-          contentPadding: EdgeInsets.zero,
-          horizontalTitleGap: 0,
-          leading: SvgPicture.asset(
-            SvgImageConstant.calendar,
-            color: AppColors.black.withOpacity(0.7),
-            height: getSize(20),
-            width: getSize(20),
-          ),
-          title: Row(
-            children: [
-              BaseText(
-                text: title,
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                textColor: AppColors.primaryColor,
-              ),
-              SizedBox(width: getSize(05)),
-              SvgPicture.asset(
-                icon,
-                height: getSize(15),
-                width: getSize(15),
-              ),
-            ],
-          ),
-          trailing:
-              highLightText(boldValue: boldValue, timidValue: timidValue)),
     );
   }
 

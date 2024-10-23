@@ -66,7 +66,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           print("Api called after delete--->");
           if (e.isRefresh) {
             page = 1;
-            emit(state.copyWith(employerDashboardList: [], isLoading: e.isRefresh));
+            emit(state
+                .copyWith(employerDashboardList: [], isLoading: e.isRefresh));
             refreshController.resetNoData();
           } else {
             if (page > lastPage) {
@@ -93,10 +94,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 state.copyWith(
                   isLoading: false,
                   isErrorInAPI: false,
-                  isNoDataFound: (r.data as List<dynamic>).map((e) => EmployerDashboardDTO.fromJson(e)).toList().isEmpty,
+                  isNoDataFound: (r.data as List<dynamic>)
+                      .map((e) => EmployerDashboardDTO.fromJson(e))
+                      .toList()
+                      .isEmpty,
                   //  getProductList: []
                   employerDashboardList: List.from(state.employerDashboardList)
-                    ..addAll((r.data as List<dynamic>).map((e) => EmployerDashboardDTO.fromJson(e)).toList()),
+                    ..addAll((r.data as List<dynamic>)
+                        .map((e) => EmployerDashboardDTO.fromJson(e))
+                        .toList()),
                 ),
               );
             },
@@ -129,7 +135,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               showError(
                 message: l.maybeMap(
                   showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) => 'Please check your internet connectivity',
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
                   orElse: () => "Server Error. Try again later.",
                 ),
               ).show(e.context);
@@ -142,8 +149,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 ),
               );
               if (r.isTeamAvailable == 1 || getShowTeamDialog() == false) {
-                e.context.router.push(PageRouteInfo(HealthCarePostForm.name)).then((value) {
-                  e.context.read<HomeBloc>().add(HomeEvent.getEmployerDashboardList(true));
+                e.context.router
+                    .push(PageRouteInfo(HealthCarePostForm.name))
+                    .then((value) {
+                  e.context
+                      .read<HomeBloc>()
+                      .add(HomeEvent.getEmployerDashboardList(true));
                 });
               } else {
                 teamCheckDialog(e.context, state);
@@ -169,7 +180,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           setShowTeamDialog(false);
         }
         context.router.maybePop();
-        context.router.push(PageRouteInfo(HealthCarePostForm.name)).then((value) {
+        context.router
+            .push(PageRouteInfo(HealthCarePostForm.name))
+            .then((value) {
           add(HomeEvent.getEmployerDashboardList(true));
         });
       },
@@ -192,7 +205,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       bloc: context.read<HomeBloc>(),
       builder: (context, state) {
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: getSize(20), vertical: getSize(20)),
+          padding: EdgeInsets.symmetric(
+              horizontal: getSize(20), vertical: getSize(20)),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [

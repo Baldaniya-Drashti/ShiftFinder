@@ -38,7 +38,11 @@ class ContractorShiftEvent with _$ContractorShiftEvent {
       {required int postId,
       required int urgentAction}) = ProposalAcceptRejectEvent;
 
-  const factory ContractorShiftEvent.startRevokingTimer(
+  const factory ContractorShiftEvent.startAppliedRevokingTimer(
           Duration duration, int id, {required int revokeTime}) =
-      StartRevokingTimer;
+      StartAppliedRevokingTimer;
+
+  const factory ContractorShiftEvent.startCounterProposalRevokingTimer(
+          Duration duration, int id, {required int revokeTime}) =
+      StartCounterProposalRevokingTimer;
 }

@@ -87,13 +87,12 @@ class AppliedTab extends StatelessWidget {
                                           isYear: true),
                                     ),
                               paddingBetweenFields(),
-                              if (shift.revoke_status == 1) ...[
+                              if (shift.revoke_status == 2) ...[
                                 revokingStatus(context, state, shift),
-                              ] else if (shift.revoke_status == 2) ...[
+                              ] else if (shift.revoke_status == 3) ...[
                                 Padding(
                                   padding: EdgeInsets.symmetric(
-                                    vertical: getSize(10),
-                                  ),
+                                      vertical: getSize(10)),
                                   child: BaseText(
                                     text: StringConstant
                                         .offerRevokedByTheEmployer,

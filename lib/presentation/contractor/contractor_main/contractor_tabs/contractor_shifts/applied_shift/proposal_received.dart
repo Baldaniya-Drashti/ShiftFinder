@@ -48,6 +48,7 @@ class ProposalReceived extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   userDetail(context),
                   proposedBox(
@@ -75,7 +76,7 @@ class ProposalReceived extends StatelessWidget {
                         "${proposal?.proposed_commute_allowance ?? 00}",
                         isHour: proposal?.commute_allowance_type == "2"),
                     counterProposalValue: allowncValue(
-                        "${proposal?.counter_proposal_accommodation_allowance ?? ""}",
+                        "${proposal?.counter_proposal_commute_allowance ?? ""}",
                         isHour: proposal?.commute_allowance_type == "2"),
                   ),
                   paddingBetweenFields(),
@@ -150,23 +151,25 @@ class ProposalReceived extends StatelessWidget {
                       ),
                     ],
                   ),
-                  paddingBetweenFields(height: 15),
-                  buttonUI(
-                    onPressed: () {
-                      context.router
-                          .push(PageRouteInfo(SendProposal.name,
-                              args:
-                                  SendProposalArgs(postId: post.post_id ?? -1)))
-                          .then((value) {
-                        if (value == true) {
-                          Navigator.pop(context, true);
-                        }
-                      });
-                    },
-                    buttonText: StringConstant.sendNewProposal,
-                    textColor: AppColors.black,
-                    bgColor: AppColors.scaffoldColor,
-                  ),
+                  if (post.last_request == 2) ...[
+                    paddingBetweenFields(height: 15),
+                    buttonUI(
+                      onPressed: () {
+                        context.router
+                            .push(PageRouteInfo(SendProposal.name,
+                                args: SendProposalArgs(
+                                    postId: post.post_id ?? -1)))
+                            .then((value) {
+                          if (value == true) {
+                            Navigator.pop(context, true);
+                          }
+                        });
+                      },
+                      buttonText: StringConstant.sendNewProposal,
+                      textColor: AppColors.black,
+                      bgColor: AppColors.scaffoldColor,
+                    ),
+                  ],
                 ],
               ),
             ),
@@ -239,7 +242,7 @@ class ProposalReceived extends StatelessWidget {
                 ),
                 BaseText(
                   text:
-                      "(${getIndustry(post.industry_id ?? 0)}  - ${post.listing_id ?? ''})",
+                      "(${getIndustry(post.industry_id ?? 0)} - ${post.listing_id ?? ''})",
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   textColor: AppColors.black.withOpacity(0.80),
@@ -358,10 +361,13 @@ class ProposalReceived extends StatelessWidget {
                 ),
                 verticalDivider(),
                 rateBox(
-                  title: StringConstant.proposed,
+                  title: (post.last_request == 3)
+                      ? StringConstant.accepted
+                      : StringConstant.proposed,
                   value: proposedValue,
                 ),
-                if (counterProposalValue != null &&
+                if (post.last_request == 2 &&
+                    counterProposalValue != null &&
                     counterProposalValue.isNotEmpty) ...[
                   verticalDivider(),
                   rateBox(

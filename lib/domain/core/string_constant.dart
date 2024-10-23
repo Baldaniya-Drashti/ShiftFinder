@@ -431,6 +431,8 @@ class StringConstant {
   static const String confirmAcceptance = "Confirm Acceptance";
   static const String proposalReceived = "Proposal Received";
   static const String proposalSent = "Proposal Sent";
+  static const String proposalAccepted = "Proposal Accepted";
+  static const String accepted = "Accepted";
   static const String sendNewProposal = "Send New Proposal";
   static const String hours = "Hours";
   static const String acceptProposalDesc =

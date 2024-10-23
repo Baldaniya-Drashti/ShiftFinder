@@ -956,6 +956,7 @@ class MainFacade implements IMainFacade {
     try {
       Map<String, dynamic> mapData = {
         'filter_type': filterType ?? 0,
+        if (filterType == 3) 'applied_type': appliedType,
         'page': page,
         'perPage': _perPage,
       };

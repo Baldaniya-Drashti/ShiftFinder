@@ -8,7 +8,6 @@ import 'package:shift/application/main_tab/shifts/hired_contractor_bloc/hired_co
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/hired_contractor_list_dto/hired_contractor_list_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
@@ -29,8 +28,9 @@ class FilledHiredContractorList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          getIt<HiredContractorBloc>()..add(HiredContractorEvent.getHiredFilledContractorList(refresh: true, postId: postId)),
+      create: (context) => getIt<HiredContractorBloc>()
+        ..add(HiredContractorEvent.getHiredFilledContractorList(
+            refresh: true, postId: postId)),
       child: BlocBuilder<HiredContractorBloc, HiredContractorState>(
         builder: (context, state) {
           return Scaffold(
@@ -43,18 +43,28 @@ class FilledHiredContractorList extends StatelessWidget {
               body: state.isLoading
                   ? CenterLoadingIndicator(isOnlyLoader: true)
                   : state.errorApi
-                      ? Center(child: BaseText(text: StringConstant.somethindWentWrong))
+                      ? Center(
+                          child:
+                              BaseText(text: StringConstant.somethindWentWrong))
                       : PaginatedListView(
                           onRefresh: () => context
                               .read<HiredContractorBloc>()
-                              .add(HiredContractorEvent.getHiredFilledContractorList(refresh: true, postId: postId)),
-                          onLoading: () => context.read<HiredContractorBloc>().add(HiredContractorEvent.getHiredFilledContractorList(
+                              .add(HiredContractorEvent
+                                  .getHiredFilledContractorList(
+                                      refresh: true, postId: postId)),
+                          onLoading: () => context
+                              .read<HiredContractorBloc>()
+                              .add(HiredContractorEvent
+                                  .getHiredFilledContractorList(
                                 refresh: false,
                                 postId: postId,
                               )),
-                          refreshController: context.read<HiredContractorBloc>().hiredContractorListController,
+                          refreshController: context
+                              .read<HiredContractorBloc>()
+                              .hiredContractorListController,
                           child: ListView.builder(
-                              padding: EdgeInsets.symmetric(vertical: getSize(10)),
+                              padding:
+                                  EdgeInsets.symmetric(vertical: getSize(10)),
                               itemCount: state.hiredFilledContractorList.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
@@ -62,12 +72,19 @@ class FilledHiredContractorList extends StatelessWidget {
                                       context.router.push(
                                         PageRouteInfo(ViewApplicantProfile.name,
                                             args: ViewApplicantProfileArgs(
-                                              id: state.hiredFilledContractorList[index].user_id ?? -1,
+                                              id: state
+                                                      .hiredFilledContractorList[
+                                                          index]
+                                                      .user_id ??
+                                                  -1,
                                               postId: postId,
                                             )),
                                       );
                                     },
-                                    child: contractorDetail(context, state.hiredFilledContractorList[index]));
+                                    child: contractorDetail(
+                                        context,
+                                        state
+                                            .hiredFilledContractorList[index]));
                               }),
                         ));
         },
@@ -75,16 +92,21 @@ class FilledHiredContractorList extends StatelessWidget {
     );
   }
 
-  Widget contractorDetail(BuildContext context, HiredContractorListDTO contractor) {
+  Widget contractorDetail(
+      BuildContext context, HiredContractorListDTO contractor) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: getSize(8), horizontal: getSize(20)),
+      margin:
+          EdgeInsets.symmetric(vertical: getSize(8), horizontal: getSize(20)),
       padding: EdgeInsets.all(getSize(5)),
-      decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(getSize(10)), boxShadow: [
-        BoxShadow(
-          blurRadius: 5,
-          color: AppColors.grey,
-        )
-      ]),
+      decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(getSize(10)),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 5,
+              color: AppColors.grey,
+            )
+          ]),
       child: Container(
         padding: EdgeInsets.symmetric(
           vertical: getSize(15),
@@ -103,8 +125,10 @@ class FilledHiredContractorList extends StatelessWidget {
               child: CircleAvatar(
                 backgroundColor: AppColors.scaffoldColor,
                 radius: getSize(21),
-                backgroundImage:
-                    (contractor.profile != null && contractor.profile!.isNotEmpty) ? NetworkImage(contractor.profile ?? "") : null,
+                backgroundImage: (contractor.profile != null &&
+                        contractor.profile!.isNotEmpty)
+                    ? NetworkImage(contractor.profile ?? "")
+                    : null,
               ),
             ),
             Padding(
@@ -113,7 +137,8 @@ class FilledHiredContractorList extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   BaseText(
-                    text: '${contractor.first_name ?? ""} ${contractor.last_name ?? ""}',
+                    text:
+                        '${contractor.first_name ?? ""} ${contractor.last_name ?? ""}',
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                   ),
@@ -121,7 +146,10 @@ class FilledHiredContractorList extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         context.router.push(PageRouteInfo(AgreedProposal.name,
-                            args: AgreedProposalArgs(post: contractor, postId: postId, userId: contractor.user_id ?? -1)));
+                            args: AgreedProposalArgs(
+                                post: contractor,
+                                postId: postId,
+                                userId: contractor.user_id ?? -1)));
                       },
                       child: Container(
                         alignment: Alignment.center,
@@ -129,7 +157,8 @@ class FilledHiredContractorList extends StatelessWidget {
                           color: AppColors.primaryColor.withOpacity(0.15),
                           borderRadius: BorderRadius.circular(getSize(5)),
                         ),
-                        padding: EdgeInsets.symmetric(vertical: getSize(5), horizontal: getSize(10)),
+                        padding: EdgeInsets.symmetric(
+                            vertical: getSize(5), horizontal: getSize(10)),
                         child: BaseText(
                           text: StringConstant.viewAgreedProposal,
                           fontSize: 10,
