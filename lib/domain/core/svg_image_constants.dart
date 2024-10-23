@@ -131,4 +131,8 @@ class SvgImageConstant {
   static const changePassword = "assets/svg/change_password.svg";
   static const accountManagement = "assets/svg/account_management.svg";
   static const billingAccount = "assets/svg/billing.svg";
+  static const paymentHistory = "assets/svg/payment_history.svg";
+  static const invoice = "assets/svg/invoice.svg";
+  static const paymentMethod = "assets/svg/payment_method.svg";
+  static const monthlyStatus = "assets/svg/monthly_status.svg";
 }

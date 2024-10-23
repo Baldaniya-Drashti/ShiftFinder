@@ -84,9 +84,7 @@ class AccountManagementView extends StatelessWidget {
       ),
     );
   }
-}
-
-class _ListTile extends StatelessWidget {
+}class _ListTile extends StatelessWidget {
   const _ListTile({
     required this.icon,
     required this.onPressed,
@@ -110,3 +108,5 @@ class _ListTile extends StatelessWidget {
     );
   }
 }
+
+
