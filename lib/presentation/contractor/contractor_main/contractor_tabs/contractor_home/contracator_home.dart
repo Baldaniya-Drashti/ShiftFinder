@@ -760,7 +760,7 @@ class ContractorHomeView extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(width: getSize(10)),
+        SizedBox(width: getSize(7)),
         Align(
           alignment: Alignment.center,
           child: SvgPicture.asset(

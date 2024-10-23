@@ -141,6 +141,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i678.SendProposalBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i170.MyCalendarViewBloc>(
         () => _i170.MyCalendarViewBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i156.ProposalDetailBloc>(
+        () => _i156.ProposalDetailBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i119.HiredContractorBloc>(
+        () => _i119.HiredContractorBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i93.CounterProposalDetailBloc>(
+        () => _i93.CounterProposalDetailBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i819.TotalProposalBloc>(
         () => _i819.TotalProposalBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i827.PreviousShiftBloc>(
@@ -149,12 +155,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i828.ApplicantProfileBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i518.ViewSingleApplicantsBloc>(
         () => _i518.ViewSingleApplicantsBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i156.ProposalDetailBloc>(
-        () => _i156.ProposalDetailBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i93.CounterProposalDetailBloc>(
-        () => _i93.CounterProposalDetailBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i119.HiredContractorBloc>(
-        () => _i119.HiredContractorBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i744.ForgotPasswordBloc>(
         () => _i744.ForgotPasswordBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i1033.AuthStatusBloc>(
@@ -216,10 +216,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i901.HomeBloc>(() => _i901.HomeBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i946.AddNewMemberBloc>(
         () => _i946.AddNewMemberBloc(gh<_i111.IMainFacade>()));
-    gh.factory<_i979.HiredContractorBloc>(
-        () => _i979.HiredContractorBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i353.AgreedProposalBloc>(
         () => _i353.AgreedProposalBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i979.HiredContractorBloc>(
+        () => _i979.HiredContractorBloc(gh<_i111.IMainFacade>()));
     return this;
   }
 }

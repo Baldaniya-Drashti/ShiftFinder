@@ -536,6 +536,8 @@ class StringConstant {
   static const String referencesTapToView = "References (Tap To View)";
   static const String noResultFound = "No Result Found!";
   static const String viewProfile = "View Profile";
+  static const String developedBy = "Developed by";
+  static const String referenceDetail = "Reference Detail";
 
   ///
 

@@ -143,6 +143,7 @@ class UpcomingShift extends StatelessWidget {
               text: shift.role_lists_name ?? "",
               textColor: AppColors.black,
               fontSize: 16,
+              maxLines: 1,
               fontWeight: FontWeight.w600,
             ),
             subtitle: Column(
@@ -176,11 +177,10 @@ class UpcomingShift extends StatelessWidget {
                     title: StringConstant.withdrawShift,
                     infoMessage: StringConstant.withdrawShiftDesc,
                     onOkClick: () {
-                      
-                      context.read<ContractorShiftBloc>().add(
+                      /*context.read<ContractorShiftBloc>().add(
                           ContractorShiftEvent.deleteUpcomingShift(context,
-                              postId: shift.post_id ?? -1));
-                      // context.router.maybePop();
+                              postId: shift.post_id ?? -1));*/
+                      context.router.maybePop();
                     },
                   );
                 }
@@ -321,6 +321,7 @@ class UpcomingShift extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
+          flex: 10,
           child: displayDateBreak(
             context,
             boldValue: convertTimeStampToDate(shift.applied_date ?? -1),
@@ -328,38 +329,46 @@ class UpcomingShift extends StatelessWidget {
                 convertTimeStampToDate(shift.applied_date ?? -1, isYear: true),
             title: "",
             svgPrefixIcon: SvgImageConstant.calendar,
-            titleWidget: Row(
-              children: [
-                BaseText(
-                  text: StringConstant.startDate,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w400,
-                  textColor: AppColors.black.withOpacity(0.7),
-                ),
-                if (shift.shift_type == 1)
-                  BaseText(
-                    text:
-                        " (${shift.total_shift ?? 0} ${(shift.total_shift ?? 0) <= 1 ? StringConstant.shift : StringConstant.shifts})",
+            titleWidget: (shift.shift_type == 1)
+                ? BaseText(
+                    text: StringConstant.shiftDate,
                     fontSize: 10,
                     fontWeight: FontWeight.w400,
-                    textColor: AppColors.primaryColor,
+                    textColor: AppColors.black.withOpacity(0.7),
+                  )
+                : Row(
+                    children: [
+                      BaseText(
+                        text: StringConstant.startDate,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400,
+                        textColor: AppColors.black.withOpacity(0.7),
+                      ),
+                      if (shift.shift_type == 1)
+                        BaseText(
+                          text:
+                              " (${shift.total_shift ?? 0} ${(shift.total_shift ?? 0) <= 1 ? StringConstant.shift : StringConstant.shifts})",
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400,
+                          textColor: AppColors.primaryColor,
+                        ),
+                    ],
                   ),
-              ],
-            ),
           ),
         ),
         Flexible(
+          flex: 13,
           child: displayTime(
             title: StringConstant.time,
             startDate: (shift.start_time != null)
                 ? DateFormat('hh:mm a').format(
                     DateTime.fromMillisecondsSinceEpoch(
-                        (shift.start_time ?? 0) * 1000))
+                        (shift.start_time ?? -1) * 1000))
                 : "",
             endDate: (shift.end_time != null)
                 ? DateFormat('hh:mm a').format(
                     DateTime.fromMillisecondsSinceEpoch(
-                        (shift.end_time ?? 0) * 1000))
+                        (shift.end_time ?? -1) * 1000))
                 : "",
             svgPrefixIcon: SvgImageConstant.clock,
           ),

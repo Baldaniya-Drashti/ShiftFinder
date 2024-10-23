@@ -11,9 +11,12 @@ import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/auth/i_auth_facade.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/infrastructure/core/location_dto/search_location_dto/place_detail_dto.dart';
+import 'package:shift/infrastructure/core/location_dto/search_location_dto/search_location_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:http/http.dart' as http;
+import 'package:shift/presentation/core/helper/location_helper.dart';
 
 part 'register_form_event.dart';
 
@@ -130,7 +133,8 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
               showError(
                   message: failure.maybeMap(
                 showAPIResponseMessage: (value) => value.message,
-                networkError: (value) => 'Please check your internet connectivity',
+                networkError: (value) =>
+                    'Please check your internet connectivity',
                 orElse: () => "Server Error. Try again later.",
               )).show(e.context);
             },
@@ -246,12 +250,14 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
               authFailureOrSuccessOption: none(),
             ),
           );
-          add(RegisterFormEvent.confirmPasswordChanged(state.confirmPassword.getValue(), e.password));
+          add(RegisterFormEvent.confirmPasswordChanged(
+              state.confirmPassword.getValue(), e.password));
         },
         confirmPasswordChanged: (e) {
           emit(
             state.copyWith(
-              confirmPassword: ConfirmPassword(e.confirmPassword, state.password.getValue()),
+              confirmPassword:
+                  ConfirmPassword(e.confirmPassword, state.password.getValue()),
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -269,7 +275,13 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           if (placeList.isNotEmpty) {
             placeList.clear();
           }
-          String? response = await fetchUrl(e.location);
+          /*String? response = await fetchUrl(e.location);
+          if (response != null) {
+            print("API RESPONSE----> $response");
+            placeList = json.decode(response)['predictions'];
+          }*/
+
+          String? response = await LocationHelper.fetchUrl(e.location);
           if (response != null) {
             print("API RESPONSE----> $response");
             placeList = json.decode(response)['predictions'];
@@ -277,17 +289,31 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           emit(
             state.copyWith(
               locationAddress: InputEmptyOrNot(e.location),
-              searchLocationList: placeList,
+              // searchLocationList: placeList,
+              searchLocationList: placeList
+                  .map(
+                    (e) => Predictions.fromJson(e),
+                  )
+                  .toList(),
+
               authFailureOrSuccessOption: none(),
             ),
           );
         },
-        locationSelectedFromSearchList: (e) {
-          locationCtrl.text = e.selectedLocation;
+        locationSelectedFromSearchList: (e) async {
+          // locationCtrl.text = e.selectedLocation;
+          locationCtrl.text = e.selectedLocation.description ?? "";
+          var res = await LocationHelper.getPlaceDetail(
+              e.selectedLocation.place_id ?? "");
           emit(
             state.copyWith(
-              locationAddress: InputEmptyOrNot(e.selectedLocation),
+              // locationAddress: InputEmptyOrNot(e.selectedLocation),
+              locationAddress:
+                  InputEmptyOrNot(e.selectedLocation.description ?? ""),
+
               searchLocationList: [],
+              selectedAddress: res ?? PlaceDetailDTO(),
+
               authFailureOrSuccessOption: none(),
             ),
           );
@@ -321,10 +347,16 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           final isLocationAddressValid = state.locationAddress.isValid();
           final isProfilePicValid = (state.selectImage.isNotEmpty);
 
-          print("Phone number NEW-->  ${state.selectedCountrycode}  && ${state.phoneNumber}");
+          print(
+              "Phone number NEW-->  ${state.selectedCountrycode}  && ${state.phoneNumber}");
 
           if (getCurrentRole() == 1) {
-            if (isPhoneNumberValid && isEmailValid && isNewPassValid && isConfirmPassValid && isLocationAddressValid && isProfilePicValid) {
+            if (isPhoneNumberValid &&
+                isEmailValid &&
+                isNewPassValid &&
+                isConfirmPassValid &&
+                isLocationAddressValid &&
+                isProfilePicValid) {
               print("All details are valid");
               emit(
                 state.copyWith(
@@ -348,12 +380,26 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
                 companyDescription: null,
                 referralCode: state.referralCode,
                 locationAddress: state.locationAddress.getValue() ?? "",
+                latitude: state.selectedAddress.result?.geometry?.location?.lat
+                        .toString() ??
+                    '',
+                longitude: state.selectedAddress.result?.geometry?.location?.lng
+                        .toString() ??
+                    '',
               );
             } else {
-              showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(e.context);
+              showError(
+                      message: StringConstant
+                          .someDetailsAreMissingOrInvalidPleaseCheck)
+                  .show(e.context);
             }
           } else {
-            if (isCompanyNameValid && isPhoneNumberValid && isEmailValid && isNewPassValid && isConfirmPassValid && isProfilePicValid) {
+            if (isCompanyNameValid &&
+                isPhoneNumberValid &&
+                isEmailValid &&
+                isNewPassValid &&
+                isConfirmPassValid &&
+                isProfilePicValid) {
               emit(
                 state.copyWith(
                   isSubmitting: true,
@@ -376,11 +422,16 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
                 companyDescription: state.companyDescription,
                 referralCode: null,
                 locationAddress: null,
+                latitude: null,
+                longitude: null,
               );
               print("Failure Or successs---> $failureOrSuccess");
               // failureOrSuccess = right("sucess");
             } else {
-              showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(e.context);
+              showError(
+                      message: StringConstant
+                          .someDetailsAreMissingOrInvalidPleaseCheck)
+                  .show(e.context);
             }
           }
 
@@ -489,8 +540,11 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
           );
 
           failureOrSuccess = await _authFacade.resendOtp(
-            emailAddress: (getCurrentRole() == 1) ? "" : getCurrentUser().email ?? "",
-            phoneNumber: (getCurrentRole() == 1) ? "${getCurrentUser().phone ?? ""}" : "",
+            emailAddress:
+                (getCurrentRole() == 1) ? "" : getCurrentUser().email ?? "",
+            phoneNumber: (getCurrentRole() == 1)
+                ? "${getCurrentUser().phone ?? ""}"
+                : "",
           );
 
           emit(
@@ -518,8 +572,11 @@ class RegisterFormBloc extends Bloc<RegisterFormEvent, RegisterFormState> {
             );
 
             failureOrSuccess = await _authFacade.verifyOtp(
-              emailAddress: (getCurrentRole() == 1) ? "" : getCurrentUser().email ?? "",
-              phoneNumber: (getCurrentRole() == 1) ? "${getCurrentUser().phone ?? ""}" : "",
+              emailAddress:
+                  (getCurrentRole() == 1) ? "" : getCurrentUser().email ?? "",
+              phoneNumber: (getCurrentRole() == 1)
+                  ? "${getCurrentUser().phone ?? ""}"
+                  : "",
               otp: state.enteredOTP,
             );
 

@@ -20,7 +20,7 @@ class RegisterFormState with _$RegisterFormState {
     required String enteredPassword,
     required EmailAddress email,
     required InputEmptyOrNot locationAddress,
-    required List<dynamic> searchLocationList,
+    required List<Predictions> searchLocationList,
     required Password password,
     required ConfirmPassword confirmPassword,
     required String association,
@@ -47,6 +47,7 @@ class RegisterFormState with _$RegisterFormState {
     required String editedCountryFlag,
     required bool isEditing,
     required bool showEditedErrorMessage,
+    required PlaceDetailDTO selectedAddress,
     required Option<Either<AuthFailure, String>> editFailureorSuccessOption,
   }) = _RegisterFormState;
 
@@ -77,6 +78,7 @@ class RegisterFormState with _$RegisterFormState {
         isConfirmPassObscure: true,
         enteredPassword: "",
         enteredPhoneNo: "",
+        selectedAddress: PlaceDetailDTO(),
 
         /// OTP VIEW
         enteredOTP: OTPText(''),

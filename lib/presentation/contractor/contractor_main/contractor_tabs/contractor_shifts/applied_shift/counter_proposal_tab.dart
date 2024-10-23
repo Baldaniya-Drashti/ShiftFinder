@@ -27,18 +27,24 @@ class CounterProposalTab extends StatelessWidget {
       builder: (context, state) {
         return PaginatedListView(
             onRefresh: () {
-              context.read<ContractorShiftBloc>().add(ContractorShiftEvent.getCounterProposalList(true));
+              context
+                  .read<ContractorShiftBloc>()
+                  .add(ContractorShiftEvent.getCounterProposalList(true));
             },
-            refreshController: context.read<ContractorShiftBloc>().counterShiftRefreshCtrl,
+            refreshController:
+                context.read<ContractorShiftBloc>().counterShiftRefreshCtrl,
             onLoading: () {
-              context.read<ContractorShiftBloc>().add(ContractorShiftEvent.getCounterProposalList(false));
+              context
+                  .read<ContractorShiftBloc>()
+                  .add(ContractorShiftEvent.getCounterProposalList(false));
             },
             isNoDataFound: state.isCounterNoDataFound,
             child: state.isCounterLoading
                 ? CenterLoadingIndicator(isOnlyLoader: true)
                 : state.isCounterErrorInAPI
                     ? Center(
-                        child: BaseText(text: StringConstant.somethindWentWrong),
+                        child:
+                            BaseText(text: StringConstant.somethindWentWrong),
                       )
                     : ListView.builder(
                         itemCount: state.counterList.length,
@@ -70,14 +76,15 @@ class CounterProposalTab extends StatelessWidget {
                                       PageRouteInfo(
                                         ViewContractorShift.name,
                                         args: ViewContractorShiftArgs(
-                                          postId: shift.post_id ?? -1,
+                                          postId: shift.id ?? -1,
                                         ),
                                       ),
                                     );
                                   },
                                   height: getSize(40),
                                   borderRadius: 7,
-                                  backgroundColor: AppColors.primaryColor.withOpacity(0.1),
+                                  backgroundColor:
+                                      AppColors.primaryColor.withOpacity(0.1),
                                   buttonTextColor: AppColors.black,
                                   buttonFontSize: 12,
                                   buttonText: StringConstant.viewShiftDetails,
@@ -85,24 +92,39 @@ class CounterProposalTab extends StatelessWidget {
                                 paddingBetweenFields(),
                                 GestureDetector(
                                   onTap: () {
-                                    context.router.push(PageRouteInfo(ProposalReceived.name, args: ProposalReceivedArgs(post: shift))).then((value) {
+                                    context.router
+                                        .push(PageRouteInfo(
+                                            ProposalReceived.name,
+                                            args: ProposalReceivedArgs(
+                                                post: shift)))
+                                        .then((value) {
                                       if (value == true) {
-                                        context.read<ContractorShiftBloc>().add(ContractorShiftEvent.getCounterProposalList(true));
+                                        context.read<ContractorShiftBloc>().add(
+                                            ContractorShiftEvent
+                                                .getCounterProposalList(true));
                                       }
                                     });
                                   },
                                   child: (shift.last_request == 1)
                                       ? proposalStatus(
-                                          title: StringConstant.proposalReceived,
+                                          title:
+                                              StringConstant.proposalReceived,
                                           icon: SvgImageConstant.receivedCircle,
-                                          boldValue: convertTimeStampToDate(shift.applied_date ?? -1),
-                                          timidValue: convertTimeStampToDate(shift.applied_date ?? -1, isYear: true),
+                                          boldValue: convertTimeStampToDate(
+                                              shift.applied_date ?? -1),
+                                          timidValue: convertTimeStampToDate(
+                                              shift.applied_date ?? -1,
+                                              isYear: true),
                                         )
                                       : proposalStatus(
                                           title: StringConstant.proposalSent,
-                                          icon: SvgImageConstant.rightWithCircle,
-                                          boldValue: convertTimeStampToDate(shift.applied_date ?? -1),
-                                          timidValue: convertTimeStampToDate(shift.applied_date ?? -1, isYear: true),
+                                          icon:
+                                              SvgImageConstant.rightWithCircle,
+                                          boldValue: convertTimeStampToDate(
+                                              shift.applied_date ?? -1),
+                                          timidValue: convertTimeStampToDate(
+                                              shift.applied_date ?? -1,
+                                              isYear: true),
                                         ),
                                 ),
                               ],
@@ -141,6 +163,7 @@ class CounterProposalTab extends StatelessWidget {
               text: shift.role_lists_name ?? " ",
               textColor: AppColors.black,
               fontSize: 16,
+              maxLines: 1,
               fontWeight: FontWeight.w600,
             ),
             subtitle: Column(
@@ -154,7 +177,8 @@ class CounterProposalTab extends StatelessWidget {
                   textColor: AppColors.black.withOpacity(0.80),
                 ),
                 BaseText(
-                  text: "(${getIndustry(shift.industry_id ?? 0)}  - ${shift.listing_id ?? ''})",
+                  text:
+                      "(${getIndustry(shift.industry_id ?? 0)}  - ${shift.listing_id ?? ''})",
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   textColor: AppColors.black.withOpacity(0.80),
@@ -235,7 +259,11 @@ class CounterProposalTab extends StatelessWidget {
     return industry.title ?? "";
   }
 
-  Widget proposalStatus({required String title, required String icon, required String boldValue, required String timidValue}) {
+  Widget proposalStatus(
+      {required String title,
+      required String icon,
+      required String boldValue,
+      required String timidValue}) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
@@ -268,11 +296,13 @@ class CounterProposalTab extends StatelessWidget {
               ),
             ],
           ),
-          trailing: highLightText(boldValue: boldValue, timidValue: timidValue)),
+          trailing:
+              highLightText(boldValue: boldValue, timidValue: timidValue)),
     );
   }
 
-  String convertTimeStampToDate(int timestamp, {bool isYear = false, bool isTime = false}) {
+  String convertTimeStampToDate(int timestamp,
+      {bool isYear = false, bool isTime = false}) {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
 
     if (isTime) {
@@ -286,7 +316,10 @@ class CounterProposalTab extends StatelessWidget {
     }
   }
 
-  Widget highLightText({required String boldValue, required String timidValue, String? thirdValue}) {
+  Widget highLightText(
+      {required String boldValue,
+      required String timidValue,
+      String? thirdValue}) {
     return RichText(
         text: TextSpan(
       text: boldValue,
