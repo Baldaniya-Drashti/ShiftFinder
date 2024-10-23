@@ -6,6 +6,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 
 class DocumentsView extends StatelessWidget {
   const DocumentsView({super.key, required this.data});
@@ -14,6 +15,11 @@ class DocumentsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+    Log.debug(data.document);
+
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

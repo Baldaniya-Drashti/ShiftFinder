@@ -59,7 +59,7 @@ class CounterPurposeView extends StatelessWidget {
                       children: [
                         SizedBox(height: getSize(20)),
                         BaseText(
-                          text: DateFormat("d MMM yyyy").format(DateTime.fromMillisecondsSinceEpoch(data.start_date ?? 0)),
+                          text: DateFormat("d MMM yyyy").format(DateTime.fromMillisecondsSinceEpoch((data.start_date ?? 0)*1000)),
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           textColor: AppColors.green,

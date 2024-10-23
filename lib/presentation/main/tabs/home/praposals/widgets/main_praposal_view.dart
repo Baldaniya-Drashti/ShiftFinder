@@ -11,6 +11,7 @@ import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposa
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
 
@@ -27,6 +28,7 @@ class MainPraposalView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final industry = CommonList.industryList.firstWhere((element) => element.id == additionalData.industry).title;
+    Log.info((additionalData.start_date??0)*1000);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: getSize(20)),
       padding: EdgeInsets.all(getSize(10)),
@@ -52,9 +54,7 @@ class MainPraposalView extends StatelessWidget {
             child: Column(
               children: [
                 Row(
-
                   crossAxisAlignment: CrossAxisAlignment.start,
-
                   children: [
                     CircleAvatar(
                       radius: getSize(23),
@@ -154,7 +154,7 @@ class MainPraposalView extends StatelessWidget {
                           style: TextStyle(fontWeight: FontWeight.w500),
                           children: [
                             TextSpan(
-                                text: "${DateTime.fromMillisecondsSinceEpoch(additionalData.start_date ?? 0).year}",
+                                text: "${DateTime.fromMillisecondsSinceEpoch((additionalData.start_date ?? 0)*1000).year}",
                                 style: TextStyle(color: AppColors.black.withOpacity(0.5))),
                           ],
                         ),

@@ -142,8 +142,7 @@ Either<ValueFailure<String>, String> validatePassword(String input) {
   if (input.isEmpty) {
     return left(ValueFailure.empty(failedValue: input));
   } else {
-    if (!RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).+$')
-        .hasMatch(input)) {
+    if (!RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).+$').hasMatch(input)) {
       return left(ValueFailure.invalidPassword(failedValue: input));
     } else if (input.length < 8) {
       return left(ValueFailure.shortPassword(failedValue: input));

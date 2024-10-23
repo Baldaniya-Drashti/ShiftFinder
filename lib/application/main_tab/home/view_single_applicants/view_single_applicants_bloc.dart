@@ -153,6 +153,8 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
                     isLoading: false,
                     isErrorInAPI: false,
                     isCardAdded: r.additional_data?.is_card_added ?? false,
+                    totalShift: r.additional_data?.total_shift??0,
+                    completeShift: r.additional_data?.complete_shift??0,
                     isNoDataFound: (r.data as List<dynamic>).map((e) => EmployerApplicantsDto.fromJson(e)).toList().isEmpty,
                     //  getProductList: []
                     employerApplicantList: List.from(state.employerApplicantList)

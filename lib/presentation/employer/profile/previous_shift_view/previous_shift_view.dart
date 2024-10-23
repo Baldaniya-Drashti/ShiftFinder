@@ -20,7 +20,7 @@ class PreviousShiftView extends StatelessWidget {
     return BlocProvider(
       create: (_) => getIt<PreviousShiftBloc>()
         ..add(
-          PreviousShiftEvent.fetchAllPreviousPost(refresh: true),
+          PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: 1),
         )
         ..add(
           PreviousShiftEvent.fetchFavoriteList(refresh: true),

@@ -7,9 +7,8 @@ class PreviousShiftState with _$PreviousShiftState {
     @Default(
       RatingDropdownModel(
         value: 1,
-        title: "Location (Descending to Ascending) ",
-        icon: SvgImageConstant.locationIcon,
-        iconColor: Colors.black,
+        title: "Rating (Ascending to Descending)",
+        icon: SvgImageConstant.starFilled,
       ),
     )
     RatingDropdownModel selectedRating,

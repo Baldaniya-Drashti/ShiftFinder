@@ -39,7 +39,7 @@ class ProfileItems extends StatelessWidget {
         title: 'Locations',
         image: SvgImageConstant.locationIcon,
         onTap: () {
-          //context.router.push(PageRouteInfo(LocationDetailForm.name));
+          context.router.push(PageRouteInfo(EmployerLocationFormView.name));
         },
       ),
       ProfileItemModel(
@@ -57,12 +57,16 @@ class ProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: 'Billing',
         image: SvgImageConstant.billing,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(BillingView.name));
+        },
       ),
       ProfileItemModel(
         title: 'Account Management',
         image: SvgImageConstant.setting,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(AccountManagementView.name));
+        },
       ),
       ProfileItemModel(
         title: 'About ShiftFinder',
@@ -222,9 +226,7 @@ class ContractorProfileItems extends StatelessWidget {
             description: 'Are you sure you want to log out?',
             onPressedAccept: () {
               context.router.maybePop().then(
-                    (value) => context
-                        .read<AuthStatusBloc>()
-                        .add(AuthStatusEvent.signedOut()),
+                    (value) => context.read<AuthStatusBloc>().add(AuthStatusEvent.signedOut()),
                   );
             },
             onPressedReject: () {

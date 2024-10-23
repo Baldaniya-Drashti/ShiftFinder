@@ -45,7 +45,7 @@ class PersonListWidget extends StatelessWidget {
               child: InkWell(
                 onTap: () async {
                   ///1 rec 2 sent
-                  if (list[index].revoke_status == null &&list[index].sent_received_status==null) {
+                  if (list[index].revoke_status == null) {
                     Log.success("postId  ${postId} userId ${list[index].user_id}");
                     final result = await context.router.push(
                       PageRouteInfo(

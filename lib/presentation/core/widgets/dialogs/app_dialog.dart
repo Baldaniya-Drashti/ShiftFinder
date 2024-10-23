@@ -141,7 +141,7 @@ class AppDialog {
         });
   }
 
-  static Future<void> showSuccess(
+  static Future<bool?> showSuccess(
     BuildContext context, {
     String? title,
     String? buttonText,
@@ -150,9 +150,9 @@ class AppDialog {
     Widget? image,
     Widget? otherContent,
     bool barrierDismissible = false,
-    required VoidCallback? onOkClick,
+    VoidCallback? onOkClick,
   }) async {
-    showDialog(
+    return showDialog<bool?>(
         context: context,
         barrierDismissible: barrierDismissible,
         builder: (context) {
@@ -203,7 +203,10 @@ class AppDialog {
                 onPressed: () {
                   if (onOkClick != null) {
                     onOkClick.call();
+                  } else {
+                    context.router.maybePop(true);
                   }
+
                   AppFocus.unfocus(context);
                 },
                 width: 200,

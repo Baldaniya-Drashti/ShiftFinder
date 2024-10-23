@@ -128,4 +128,7 @@ class SvgImageConstant {
   static const approvedWithCurved = "assets/svg/approved_with_curve.svg";
   static const profileCircle = "assets/svg/profile_circle.svg";
   static const starFilled = "assets/svg/star_filled.svg";
+  static const changePassword = "assets/svg/change_password.svg";
+  static const accountManagement = "assets/svg/account_management.svg";
+  static const billingAccount = "assets/svg/billing.svg";
 }

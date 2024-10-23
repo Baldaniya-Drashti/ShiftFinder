@@ -20,19 +20,20 @@ import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/presentation/core/helper/location_helper.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+
 part 'location_details_event.dart';
+
 part 'location_details_state.dart';
+
 part 'location_details_bloc.freezed.dart';
 
 @injectable
-class LocationDetailsBloc
-    extends Bloc<LocationDetailsEvent, LocationDetailsState> {
+class LocationDetailsBloc extends Bloc<LocationDetailsEvent, LocationDetailsState> {
   final IAccountRepository _repository;
   static TextEditingController locationCtrl = TextEditingController();
   List<dynamic> placeList = [];
 
-  LocationDetailsBloc(this._repository)
-      : super(LocationDetailsState.initial()) {
+  LocationDetailsBloc(this._repository) : super(LocationDetailsState.initial()) {
     on<LocationDetailsEvent>((event, emit) async {
       await event.map(
         updateUnitNumberChanged: (e) {
@@ -71,8 +72,7 @@ class LocationDetailsBloc
               return emit(
                 state.copyWith(
                   isLoading: false,
-                  facilityTypeList: List.from(state.facilityTypeList)
-                    ..addAll(r),
+                  facilityTypeList: List.from(state.facilityTypeList)..addAll(r),
                 ),
               );
             },
@@ -109,8 +109,7 @@ class LocationDetailsBloc
         },
         locationSelectedFromSearchList: (e) async {
           locationCtrl.text = e.selectedLocation.description ?? "";
-          var res = await LocationHelper.getPlaceDetail(
-              e.selectedLocation.place_id ?? "");
+          var res = await LocationHelper.getPlaceDetail(e.selectedLocation.place_id ?? "");
           emit(
             state.copyWith(
               address: InputEmptyOrNot(e.selectedLocation.description ?? ""),
@@ -157,10 +156,8 @@ class LocationDetailsBloc
 
           final existingUnit = state.listOfUnit[e.index];
 
-          bool isUnitNameAlreadyExist = state.listOfUnit.any((unit) =>
-              unit.number_or_name?.toLowerCase() ==
-                  e.updatedUnit.number_or_name?.toLowerCase() &&
-              unit != existingUnit);
+          bool isUnitNameAlreadyExist = state.listOfUnit
+              .any((unit) => unit.number_or_name?.toLowerCase() == e.updatedUnit.number_or_name?.toLowerCase() && unit != existingUnit);
           if (isUnitNameAlreadyExist) {
             AppFocus.unfocus(e.context);
             showError(message: StringConstant.unitAlreadyExist).show(e.context);
@@ -241,8 +238,7 @@ class LocationDetailsBloc
               (!state.listOfUnit.any((unit) {
                     print("Unit number----> ${e.unitNumber}");
                     print("Unit number_or_name----> ${unit.number_or_name}");
-                    return unit.number_or_name?.toLowerCase() ==
-                        e.unitNumber.trim().toLowerCase();
+                    return unit.number_or_name?.toLowerCase() == e.unitNumber.trim().toLowerCase();
                   }) ||
                   state.listOfUnit.isEmpty)) {
             emit(
@@ -288,8 +284,7 @@ class LocationDetailsBloc
 
           print("state unit--> ${state.unitNumber}");
           print("state unit note--> ${state.notes}");
-          add(LocationDetailsEvent.addUnitNumberChipList(
-              state.unitNumber, state.notes));
+          add(LocationDetailsEvent.addUnitNumberChipList(state.unitNumber, state.notes));
           await Future.delayed(Duration(milliseconds: 50));
           final isAddressValid = state.address.isValid();
           bool isFaciltyTypeValid = state.faciltyType.isValid();
@@ -308,31 +303,18 @@ class LocationDetailsBloc
 
             failureOrSuccess = await _repository.addLocationDetailsApi(
               locationAddress: state.address.getValue() ?? '',
-              facilityType:
-                  (state.faciltyType.getValue()!.toLowerCase() != "other")
-                      ? getSelectedFacilityTypeId()
-                      : "",
-              facilityTypeOther:
-                  (state.faciltyType.getValue()!.toLowerCase() == "other")
-                      ? state.otherFaciltyType.getValue() ?? ""
-                      : "",
+              facilityType: (state.faciltyType.getValue()!.toLowerCase() != "other") ? getSelectedFacilityTypeId() : "",
+              facilityTypeOther: (state.faciltyType.getValue()!.toLowerCase() == "other") ? state.otherFaciltyType.getValue() ?? "" : "",
               accreditationNumber: state.accreditationNumber,
               locationId: state.locationId,
               locationNotes: state.locationNote,
               units: state.listOfUnit,
-              latitude: state.selectedAddress.result?.geometry?.location?.lat
-                      .toString() ??
-                  '',
-              longitude: state.selectedAddress.result?.geometry?.location?.lng
-                      .toString() ??
-                  '',
+              latitude: state.selectedAddress.result?.geometry?.location?.lat.toString() ?? '',
+              longitude: state.selectedAddress.result?.geometry?.location?.lng.toString() ?? '', fromRegister: true,
             );
           } else {
             AppFocus.unfocus(e.context);
-            showError(
-                    message: StringConstant
-                        .someDetailsAreMissingOrInvalidPleaseCheck)
-                .show(e.context);
+            showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(e.context);
           }
           emit(
             state.copyWith(

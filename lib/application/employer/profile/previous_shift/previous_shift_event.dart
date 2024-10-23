@@ -12,6 +12,8 @@ class PreviousShiftEvent with _$PreviousShiftEvent {
 
   factory PreviousShiftEvent.fetchAllPreviousPost({
     required bool refresh,
+    required int sortBy,
+
   }) = FetchAllPreviousPost;
 
   factory PreviousShiftEvent.fetchFavoriteList({

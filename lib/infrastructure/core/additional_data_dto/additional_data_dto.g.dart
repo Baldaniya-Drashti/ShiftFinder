@@ -22,6 +22,8 @@ _$AdditionalDataDtoImpl _$$AdditionalDataDtoImplFromJson(
       start_date: (json['start_date'] as num?)?.toInt(),
       start_time: (json['start_time'] as num?)?.toInt(),
       end_time: (json['end_time'] as num?)?.toInt(),
+      complete_shift: (json['complete_shift'] as num?)?.toInt(),
+      total_shift: (json['total_shift'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$AdditionalDataDtoImplToJson(
@@ -38,4 +40,6 @@ Map<String, dynamic> _$$AdditionalDataDtoImplToJson(
       'start_date': instance.start_date,
       'start_time': instance.start_time,
       'end_time': instance.end_time,
+      'complete_shift': instance.complete_shift,
+      'total_shift': instance.total_shift,
     };

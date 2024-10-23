@@ -30,7 +30,7 @@ class PreviousShiftBlockedView extends StatelessWidget {
                       PreviousShiftEvent.fetchBlockedList(refresh: true),
                     );
                 context.read<PreviousShiftBloc>().add(
-                  PreviousShiftEvent.fetchAllPreviousPost(refresh: true),
+                  PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: 1),
                 );
               },
               onLoading: () {

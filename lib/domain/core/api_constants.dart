@@ -16,6 +16,7 @@ class ApiConstants {
   static String editEmailOrPhone = 'edit_email_or_phone';
   static String logout = 'logout';
   static String editLastPage = 'edit_last_page';
+  static String changePassword = 'change_password';
 
   static String getUserInfo = 'get_user_info';
   static String completeProfile = 'complete_profile';
