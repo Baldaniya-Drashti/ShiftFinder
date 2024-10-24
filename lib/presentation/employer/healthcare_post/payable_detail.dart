@@ -30,7 +30,6 @@ class PayableDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("Post111---->  ${jsonEncode(updatedPost)}");
-
     return BlocProvider(
       create: (context) => getIt<PostShiftBloc>(),
       child: BlocConsumer<PostShiftBloc, PostShiftState>(
@@ -118,7 +117,12 @@ class PayableDetail extends StatelessWidget {
                               (post.shift_detail != null &&
                                       post.shift_detail!.shift_type == 1)
                                   ? singleShiftSlip()
-                                  : multiShiftSlip(),
+                                  : (post.shift_detail != null &&
+                                          post.shift_detail!
+                                                  .same_or_different_time ==
+                                              1)
+                                      ? sameMultiShiftSlip()
+                                      : differentMultiShiftSlip(),
                               Padding(
                                 padding:
                                     EdgeInsets.symmetric(vertical: getSize(20)),
@@ -299,13 +303,54 @@ class PayableDetail extends StatelessWidget {
     );
   }
 
-  Widget multiShiftSlip() {
+  Widget differentMultiShiftSlip() {
     final shift = post.shift_detail?.payables ?? PayableDTO();
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         payableBox(
+          title1: StringConstant.payableHours,
+          title2: StringConstant.hourlyRate,
+          value1: shift.total_payable_hour ?? "",
+          value2: "\$${shift.rate_hour}",
+          totalPayableTitle: StringConstant.totalWage,
+          totalPayable: "\$${shift.total_wage}",
+        ),
+        payableBox(
+          title1: StringConstant.commuteAllowance,
+          title2: StringConstant.accommodationAllowance,
+          value1: "\$${shift.commute_allowance}",
+          value2: "\$${shift.accommodation_allowance}",
+          totalPayableTitle: StringConstant.allowanceForOneShift,
+          totalPayable: "\$${shift.total_one_allowance}",
+        ),
+        payableBox(
+          title1: StringConstant.numberOfShifts,
+          title2: StringConstant.totalAllowance,
+          value1:
+              "${(shift.number_of_shift.toString().length == 2) ? shift.number_of_shift ?? 0 : "0${shift.number_of_shift}"}",
+          value2: "\$${shift.total_allowance}",
+        ),
+        payableBox(
+          title1: StringConstant.shiftFinderServiceFee,
+          value1: "\$${shift.service_one_fee}",
+          title2: StringConstant.numberOfShifts,
+          value2:
+              "${(shift.number_of_shift.toString().length == 2) ? shift.number_of_shift ?? 0 : "0${shift.number_of_shift}"}",
+          totalPayableTitle: StringConstant.totalShiftFinderServiceFee,
+          totalPayable: "\$${shift.service_fee}",
+        ),
+        payableBox(
+          title1: StringConstant.numberOfVacancies,
+          value1:
+              "${(shift.number_of_vacancie.toString().length == 2) ? shift.number_of_vacancie ?? 0 : "0${shift.number_of_vacancie}"}",
+        ),
+        totalPayableBox(
+          totalPayableTitle: StringConstant.estimatedTotalPayable,
+          totalPayable: "\$${shift.total_amount_payable}",
+        ),
+        /* payableBox(
           title1: StringConstant.totalNumberOfDays,
           title2: StringConstant.totalPayableHours,
           title3: StringConstant.hourlyRate,
@@ -339,18 +384,19 @@ class PayableDetail extends StatelessWidget {
         totalPayableBox(
           totalPayableTitle: StringConstant.totalAmount,
           totalPayable: "\$${shift.total_amount_payable}",
-        ),
+        ), */
       ],
     );
   }
 
-  Widget singleShiftSlip() {
+  Widget sameMultiShiftSlip() {
     final shift = post.shift_detail?.payables ?? PayableDTO();
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         payableBox(
-          title1: StringConstant.totalPayableHours,
+          title1: StringConstant.payableHours,
           title2: StringConstant.hourlyRate,
           value1: shift.total_payable_hour ?? "",
           value2: "\$${shift.rate_hour}",
@@ -363,6 +409,49 @@ class PayableDetail extends StatelessWidget {
           value1: "\$${shift.commute_allowance}",
           value2: "\$${shift.accommodation_allowance}",
           totalPayableTitle: StringConstant.totalAllowance,
+          totalPayable: "\$${shift.total_one_allowance}",
+        ),
+        payableBox(
+          title1: StringConstant.shiftFinderServiceFee,
+          value1: "\$${shift.service_fee}",
+        ),
+        payableBox(
+          title1: StringConstant.totalPayableForOneShift,
+          value1: "\$${shift.total_one_shift}",
+          title2: StringConstant.numberOfShifts,
+          value2:
+              "${(shift.number_of_shift.toString().length == 2) ? shift.number_of_shift ?? 0 : "0${shift.number_of_shift}"}",
+          title3: StringConstant.numberOfVacancies,
+          value3:
+              "${(shift.number_of_vacancie.toString().length == 2) ? shift.number_of_vacancie ?? 0 : "0${shift.number_of_vacancie}"}",
+        ),
+        totalPayableBox(
+          totalPayableTitle: StringConstant.estimatedTotalAmount,
+          totalPayable: "\$${shift.total_amount_payable}",
+        ),
+      ],
+    );
+  }
+
+  Widget singleShiftSlip() {
+    final shift = post.shift_detail?.payables ?? PayableDTO();
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        payableBox(
+          title1: StringConstant.payableHours,
+          value1: shift.total_payable_hour ?? "",
+          title2: StringConstant.hourlyRate,
+          value2: "\$${shift.rate_hour}",
+          totalPayableTitle: StringConstant.totalWage,
+          totalPayable: "\$${shift.total_wage}",
+        ),
+        payableBox(
+          title1: StringConstant.commuteAllowance,
+          value1: "\$${shift.commute_allowance}",
+          title2: StringConstant.accommodationAllowance,
+          value2: "\$${shift.accommodation_allowance}",
+          totalPayableTitle: StringConstant.totalAllowance,
           totalPayable: "\$${shift.total_allowance}",
         ),
         payableBox(
@@ -371,13 +460,13 @@ class PayableDetail extends StatelessWidget {
         ),
         payableBox(
           title1: StringConstant.totalPayableForOneShift,
-          title2: StringConstant.numberOfVacancies,
           value1: "\$${shift.total_one_shift}",
+          title2: StringConstant.numberOfVacancies,
           value2:
               "${(shift.number_of_vacancie.toString().length == 2) ? shift.number_of_vacancie ?? 0 : "0${shift.number_of_vacancie}"}",
         ),
         totalPayableBox(
-          totalPayableTitle: StringConstant.totalAmountPayable,
+          totalPayableTitle: StringConstant.estimatedTotalPayable,
           totalPayable: "\$${shift.total_amount_payable}",
         ),
       ],

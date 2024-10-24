@@ -202,6 +202,7 @@ class CancelledShiftView extends StatelessWidget {
                     ViewHomeShiftDetails.name,
                     args: ViewHomeShiftDetailsArgs(
                       postId: shift.id ?? -1,
+                      route: ShiftDetailRoute.employerCancelledShift,
                     ),
                   ),
                 );
@@ -518,6 +519,7 @@ class CancelledShiftView extends StatelessWidget {
                       ViewHomeShiftDetails.name,
                       args: ViewHomeShiftDetailsArgs(
                         postId: shift.id ?? -1,
+                        route: ShiftDetailRoute.employerCancelledShift,
                       ),
                     ),
                   );

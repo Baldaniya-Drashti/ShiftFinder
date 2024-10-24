@@ -38,7 +38,11 @@ Future<void> setShowTeamDialog(bool isShow) async {
 }
 
 bool? getShowTeamDialog() {
-  return Hive.box(BoxNames.settingsBox).get(BoxKeys.isShowEmptyTeamDialog);
+  final isCheck =
+      Hive.box(BoxNames.settingsBox).get(BoxKeys.isShowEmptyTeamDialog);
+  print("Get team dialog---> $isCheck");
+
+  return isCheck;
 }
 
 // Future<void> setCurrentUser(Account account) async {

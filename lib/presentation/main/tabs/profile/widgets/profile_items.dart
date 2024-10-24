@@ -39,7 +39,7 @@ class ProfileItems extends StatelessWidget {
         title: 'Locations',
         image: SvgImageConstant.locationIcon,
         onTap: () {
-          context.router.push(PageRouteInfo(EmployerLocationFormView.name));
+          // context.router.push(PageRouteInfo(EmployerLocationFormView.name));
         },
       ),
       ProfileItemModel(
@@ -58,14 +58,14 @@ class ProfileItems extends StatelessWidget {
         title: 'Billing',
         image: SvgImageConstant.billing,
         onTap: () {
-          context.router.push(PageRouteInfo(BillingView.name));
+          // context.router.push(PageRouteInfo(BillingView.name));
         },
       ),
       ProfileItemModel(
         title: 'Account Management',
         image: SvgImageConstant.setting,
         onTap: () {
-          context.router.push(PageRouteInfo(AccountManagementView.name));
+          // context.router.push(PageRouteInfo(AccountManagementView.name));
         },
       ),
       ProfileItemModel(
@@ -87,7 +87,9 @@ class ProfileItems extends StatelessWidget {
             description: 'Are you sure you want to log out?',
             onPressedAccept: () {
               context.router.maybePop().then(
-                    (value) => context.read<AuthStatusBloc>().add(AuthStatusEvent.signedOut()),
+                    (value) => context
+                        .read<AuthStatusBloc>()
+                        .add(AuthStatusEvent.signedOut()),
                   );
             },
             onPressedReject: () {
@@ -226,7 +228,9 @@ class ContractorProfileItems extends StatelessWidget {
             description: 'Are you sure you want to log out?',
             onPressedAccept: () {
               context.router.maybePop().then(
-                    (value) => context.read<AuthStatusBloc>().add(AuthStatusEvent.signedOut()),
+                    (value) => context
+                        .read<AuthStatusBloc>()
+                        .add(AuthStatusEvent.signedOut()),
                   );
             },
             onPressedReject: () {

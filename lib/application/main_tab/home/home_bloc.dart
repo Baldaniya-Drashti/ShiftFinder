@@ -147,8 +147,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                   teamStatusFailureOrSuccessOption: optionOf(res),
                 ),
               );
-              print("r.isTeamAvailable---> ${r.isTeamAvailable}");
-              print("r.isTeamAvailable---> ${getShowTeamDialog()}");
+
               if (r.isTeamAvailable == 1 || getShowTeamDialog() == false) {
                 e.context.router
                     .push(PageRouteInfo(HealthCarePostForm.name))
@@ -230,9 +229,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                   },
                 ),
               ),
-              SizedBox(
-                width: getSize(20),
-              ),
+              SizedBox(width: getSize(20)),
               Flexible(
                 child: BaseText(
                   text: StringConstant.dontShowThisAgain,

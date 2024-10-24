@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -206,6 +207,31 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
               ),
+              Container(
+                padding: EdgeInsets.all(getSize(10)),
+                decoration: BoxDecoration(
+                    color: AppColors.grey04,
+                    borderRadius: BorderRadius.circular(getSize(10))),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    BaseText(
+                      text: StringConstant.numberOfVacancies,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      textColor: AppColors.black.withOpacity(0.7),
+                    ),
+                    BaseText(
+                      text:
+                          "${((state.employerDashboardList[index].number_of_vacancie ?? 0) > 9) ? state.employerDashboardList[index].number_of_vacancie : "0${state.employerDashboardList[index].number_of_vacancie}"}",
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      textColor: AppColors.primaryColor,
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: getSize(10)),
               proposalBox(
                   title: StringConstant.totalApplications,
                   value: (state.employerDashboardList[index]
