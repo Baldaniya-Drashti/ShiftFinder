@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/auth/auth_status/auth_status_bloc.dart';
+import 'package:shift/application/main_tab/profile/profile_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
@@ -21,7 +22,11 @@ class ProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: 'Completed Shifts',
         image: SvgImageConstant.completedShifts,
-        onTap: () {},
+        onTap: () {
+          context.router.push(
+            PageRouteInfo(PreviousShiftAllView.name, args: PreviousShiftAllViewArgs(completedShift: true)),
+          );
+        },
       ),
       ProfileItemModel(
         title: 'Previous ShiftPros',
@@ -39,7 +44,7 @@ class ProfileItems extends StatelessWidget {
         title: 'Locations',
         image: SvgImageConstant.locationIcon,
         onTap: () {
-          context.router.push(PageRouteInfo(EmployerLocationFormView.name));
+          context.router.push(PageRouteInfo(EmployerLocationView.name));
         },
       ),
       ProfileItemModel(

@@ -161,19 +161,8 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
                       ..addAll((r.data as List<dynamic>).map((e) => EmployerApplicantsDto.fromJson(e)).toList()),
                   ),
                 );
-                // for (var shift in newShifts) {
-                //   if (shift.revoke_status == 1) {
-                //     add(
-                //       ContractorShiftEvent.startRevokingTimer(
-                //         Duration(hours: 2), shift.id ?? -1,
-                //         // revokeTime: (shift.id == 115) ? 1728877581 : 1728877581,
-                //         revokeTime: shift.revoke_start ?? -1,
-                //       ),
-                //     );
-                //   }
-                // }
                 for (var i in employerApplicantList) {
-                  if (i.revoke_status == 1) {
+                  if (i.revoke_status == 2) {
                     add(
                       ViewSingleApplicantsEvent.startRevokingTimer(
                         duration: Duration(hours: 2),

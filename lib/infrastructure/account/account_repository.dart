@@ -1102,11 +1102,9 @@ class AccountRepository extends IAccountRepository {
         // "units_number_or_name": unitNumber,
         // "units_note": unitNotes,
         // "last_page": "AddCardDetail",
-        // if(fromRegister)"last_page": "AddCardDetail",
-        // if(fromRegister)"isProfileComplete": "1",
+        if(fromRegister)"last_page": "AddCardDetail",
+        if(fromRegister)"isProfileComplete": "1",
 
-      "last_page": "AddCardDetail",
-      "isProfileComplete": "1",
         // "units_number_or_name": unitNumber,
         // "units_note": unitNotes,
         "units": units,

@@ -48,30 +48,33 @@ class BillingView extends StatelessWidget {
               clipBehavior: Clip.antiAlias,
               borderRadius: BorderRadius.circular(15),
               color: AppColors.white,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _ListTile(
-                    icon: SvgImageConstant.paymentHistory,
-                    onPressed: () => context.router.push(PageRouteInfo(PaymentHistoryView.name)),
-                    label: "Payment History",
-                  ),
-                  _ListTile(
-                    icon: SvgImageConstant.invoice,
-                    onPressed: () => context.router.push(PageRouteInfo(InvoiceView.name)),
-                    label: "Invoices",
-                  ),
-                  _ListTile(
-                    icon: SvgImageConstant.paymentMethod,
-                    onPressed: () => context.router.push(PageRouteInfo(PaymentMethodView.name)),
-                    label: "Payment Methods",
-                  ),
-                  _ListTile(
-                    icon: SvgImageConstant.paymentHistory,
-                    onPressed: () => context.router.push(PageRouteInfo(MonthlyStatementView.name)),
-                    label: "Monthly Statements",
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _ListTile(
+                      icon: SvgImageConstant.paymentHistory,
+                      onPressed: () => context.router.push(PageRouteInfo(PaymentHistoryView.name)),
+                      label: "Payment History",
+                    ),
+                    _ListTile(
+                      icon: SvgImageConstant.invoice,
+                      onPressed: () => context.router.push(PageRouteInfo(InvoiceView.name)),
+                      label: "Invoices",
+                    ),
+                    _ListTile(
+                      icon: SvgImageConstant.paymentMethod,
+                      onPressed: () => context.router.push(PageRouteInfo(PaymentMethodView.name)),
+                      label: "Payment Methods",
+                    ),
+                    _ListTile(
+                      icon: SvgImageConstant.paymentHistory,
+                      onPressed: () => context.router.push(PageRouteInfo(MonthlyStatementView.name)),
+                      label: "Monthly Statements",
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -95,6 +98,7 @@ class _ListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      visualDensity: VisualDensity.compact,
       onTap: onPressed,
       title: BaseText(text: label, fontSize: 12, fontWeight: FontWeight.w500),
       leading: SvgPicture.asset(

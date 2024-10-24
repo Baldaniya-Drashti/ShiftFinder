@@ -13,6 +13,7 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -87,7 +88,25 @@ class _EmployerLocationViewState extends State<EmployerLocationView> {
                           return _LocationInfoTile();
                         },
                       ),
-                      // CommonMaterialButton.icon(onPressed: onPressed, label: label, icon: icon)
+                      Material(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        color: AppColors.green.withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(7),
+                        child: InkWell(
+                          onTap: () {
+                            context.router.push(PageRouteInfo(EmployerLocationFormView.name));
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                            child: BaseText(
+                              text: "+ Add New Location",
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              textColor: AppColors.green,
+                            ),
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -102,12 +121,11 @@ class _EmployerLocationViewState extends State<EmployerLocationView> {
 }
 
 class _LocationInfoTile extends StatelessWidget {
-  const _LocationInfoTile({super.key});
+  const _LocationInfoTile();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-
       decoration: BoxDecoration(
         color: Color(0xFFEDEDED),
         borderRadius: BorderRadius.circular(10),

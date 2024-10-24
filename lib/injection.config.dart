@@ -59,6 +59,8 @@ import 'package:shift/application/employer/employer_location_form/employer_locat
     as _i990;
 import 'package:shift/application/employer/hired_contractor/hired_contractor_bloc.dart'
     as _i119;
+import 'package:shift/application/employer/monthly_statement/monthly_statement_bloc.dart'
+    as _i319;
 import 'package:shift/application/employer/profile/edit_profile/edit_profile_bloc.dart'
     as _i234;
 import 'package:shift/application/employer/profile/previous_shift/previous_shift_bloc.dart'
@@ -117,6 +119,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i158.EmployerLocationBloc>(() => _i158.EmployerLocationBloc());
     gh.factory<_i366.AccountManagementBloc>(
         () => _i366.AccountManagementBloc());
+    gh.factory<_i319.MonthlyStatementBloc>(() => _i319.MonthlyStatementBloc());
     gh.lazySingleton<_i771.ApiService>(() => _i771.ApiService());
     gh.lazySingleton<_i277.IAuthFacade>(
         () => _i751.AuthFacade(gh<_i771.ApiService>()));

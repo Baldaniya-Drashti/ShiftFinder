@@ -19,8 +19,11 @@ import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/helper/location_helper.dart';
 
 part 'employer_location_form_event.dart';
+
 part 'employer_location_form_state.dart';
+
 part 'employer_location_form_bloc.freezed.dart';
+
 @injectable
 class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerLocationFormState> {
   final IAccountRepository _repository;
@@ -56,13 +59,13 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
           final facilityTypeList = await _repository.getFacilityTypeList();
           print("Facility type List ---> $facilityTypeList");
           facilityTypeList.fold(
-                (l) => emit(
+            (l) => emit(
               state.copyWith(
                 isLoading: false,
                 facilityTypeList: [],
               ),
             ),
-                (r) {
+            (r) {
               return emit(
                 state.copyWith(
                   isLoading: false,
@@ -95,7 +98,7 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
               searchLocationList: placeList
                   .map(
                     (e) => Predictions.fromJson(e),
-              )
+                  )
                   .toList(),
               authFailureOrSuccessOption: none(),
             ),
@@ -230,10 +233,10 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
           print("Unit list----> ${state.listOfUnit}");
           if (e.unitNumber.trim().isNotEmpty &&
               (!state.listOfUnit.any((unit) {
-                print("Unit number----> ${e.unitNumber}");
-                print("Unit number_or_name----> ${unit.number_or_name}");
-                return unit.number_or_name?.toLowerCase() == e.unitNumber.trim().toLowerCase();
-              }) ||
+                    print("Unit number----> ${e.unitNumber}");
+                    print("Unit number_or_name----> ${unit.number_or_name}");
+                    return unit.number_or_name?.toLowerCase() == e.unitNumber.trim().toLowerCase();
+                  }) ||
                   state.listOfUnit.isEmpty)) {
             emit(
               state.copyWith(
@@ -304,7 +307,8 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
               locationNotes: state.locationNote,
               units: state.listOfUnit,
               latitude: state.selectedAddress.result?.geometry?.location?.lat.toString() ?? '',
-              longitude: state.selectedAddress.result?.geometry?.location?.lng.toString() ?? '', fromRegister: false,
+              longitude: state.selectedAddress.result?.geometry?.location?.lng.toString() ?? '',
+              fromRegister: false,
             );
           } else {
             AppFocus.unfocus(e.context);
@@ -336,7 +340,7 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
 
   String getSelectedFacilityTypeId() {
     final selectedFacilityType = state.facilityTypeList.firstWhere(
-          (facilityType) => facilityType.name == state.faciltyType.getValue(),
+      (facilityType) => facilityType.name == state.faciltyType.getValue(),
       orElse: () => const SkillDTO(id: -1, name: 'Unknown'),
     );
     return selectedFacilityType.id.toString();

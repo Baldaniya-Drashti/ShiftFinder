@@ -11,6 +11,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_previous_shift/employer_previous_shift_dto.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -21,13 +22,21 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
+import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
+@RoutePage(name: "PreviousShiftAllView")
 class PreviousShiftAllView extends StatelessWidget {
-  const PreviousShiftAllView({super.key});
+  const PreviousShiftAllView({
+    super.key,
+    this.completedShift = false,
+  });
+
+  final bool completedShift;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PreviousShiftBloc, PreviousShiftState>(
+    Widget widget;
+    final content = BlocBuilder<PreviousShiftBloc, PreviousShiftState>(
       builder: (context, state) {
         return Stack(
           fit: StackFit.expand,
@@ -78,6 +87,26 @@ class PreviousShiftAllView extends StatelessWidget {
         );
       },
     );
+
+    if (completedShift) {
+      widget = BlocProvider(
+        create: (context) => getIt<PreviousShiftBloc>()
+          ..add(
+            PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: 1),
+          ),
+        child: Scaffold(
+          appBar: CommonAppBar(
+            onBackPressed: () => Navigator.pop(context),
+            title: "Completed Shifts",
+          ),
+          body: content,
+        ),
+      );
+    } else {
+      widget = content;
+    }
+
+    return widget;
   }
 }
 
@@ -127,11 +156,7 @@ class _RatingsDropdown extends StatelessWidget {
               icon: SvgImageConstant.starFilled,
             ),
             RatingDropdownModel(
-              value: 2,
-              title: "Location (Descending to Ascending) ",
-              icon: SvgImageConstant.locationIcon,
-              iconColor: Colors.black
-            ),
+                value: 2, title: "Location (Descending to Ascending) ", icon: SvgImageConstant.locationIcon, iconColor: Colors.black),
           ]
               .map(
                 (e) => DropdownMenuItem<RatingDropdownModel>(
@@ -143,7 +168,7 @@ class _RatingsDropdown extends StatelessWidget {
                         e.icon,
                         height: 18,
                         width: 18,
-                        colorFilter: e.iconColor!=null?ColorFilter.mode(e.iconColor!, BlendMode.srcIn):null,
+                        colorFilter: e.iconColor != null ? ColorFilter.mode(e.iconColor!, BlendMode.srcIn) : null,
                       ),
                       SizedBox(
                         width: getSize(10),
@@ -274,7 +299,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.w500),
                 children: [
                   TextSpan(
-                      text: "${DateTime.fromMillisecondsSinceEpoch((data.last_worked_date ?? 0)*1000).year}",
+                      text: "${DateTime.fromMillisecondsSinceEpoch((data.last_worked_date ?? 0) * 1000).year}",
                       style: TextStyle(color: AppColors.black.withOpacity(0.5))),
                 ],
               ),
@@ -564,7 +589,7 @@ class _ActionButton extends StatelessWidget {
 }
 
 String convertUnixTimeToLocalString(int timeStamp) {
-  final date = DateTime.fromMillisecondsSinceEpoch(timeStamp*1000);
+  final date = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
   String formattedDate = DateFormat('d MMM').format(date);
   return formattedDate;
 }

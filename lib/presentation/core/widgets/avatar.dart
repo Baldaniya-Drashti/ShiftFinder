@@ -6,9 +6,11 @@ class UserAvatar extends StatelessWidget {
   const UserAvatar({
     super.key,
     required this.url,
+     this.size,
   });
 
   final String url;
+  final double? size;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +21,8 @@ class UserAvatar extends StatelessWidget {
       ),
       child: ClipOval(
         child: CachedNetworkImage(
-          height: 40,
-          width: 40,
+          height: size??40,
+          width: size??40,
           fit: BoxFit.cover,
           imageUrl: url,
           placeholder: (context, url) => SizedBox(),

@@ -93,6 +93,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: PaymentHistoryView.page),
         AutoRoute(page: PaymentHistoryView.page),
         AutoRoute(page: PaymentMethodView.page),
+        AutoRoute(page: PreviousShiftAllView.page),
         AutoRoute(
           page: MainTabView.page,
           children: [
