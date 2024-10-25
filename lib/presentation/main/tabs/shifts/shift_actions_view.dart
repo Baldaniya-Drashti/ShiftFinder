@@ -68,7 +68,11 @@ class ShiftActionsView extends StatelessWidget {
                 _ActionButton(
                   label: "Block",
                   icon: SvgImageConstant.block,
-                  onPressed: () => _onBlock(context),
+                  onPressed: () => _onBlock(
+                    context,
+                    //contractorName: "${data.first_name ?? ""} ${data.last_name ?? ""}",
+                    contractorName: ""
+                  ),
                 ),
               ],
             ),
@@ -89,7 +93,10 @@ class ShiftActionsView extends StatelessWidget {
     );
   }
 
-  void _onBlock(BuildContext context) {
+  void _onBlock(
+    BuildContext context, {
+    required String contractorName,
+  }) {
     AppDialog.showDelete(
       deleteBtnText: "Block",
       deleteColor: AppColors.redAccent,
@@ -108,14 +115,18 @@ class ShiftActionsView extends StatelessWidget {
           ),
         ],
       ),
-      infoMessage: "Blocking [contractor name] will prevent them from seeing any future postings. Are you sure you want to proceed?",
+      infoMessage: "Blocking $contractorName will prevent them from seeing any future postings. Are you sure you want to proceed?",
       onCancelClick: () => Navigator.pop(context),
       onDeleteClick: () {},
     );
   }
 
   void _onAddRating(BuildContext context) {
-    AppDialog.showLeaveRatingModal(context, onSubmit: (int value) {});
+    AppDialog.showLeaveRatingModal(
+      context,
+      onSubmit: (int value) {},
+      contractorName: '',
+    );
   }
 
   Widget _buildUserInfo(BuildContext context) {
