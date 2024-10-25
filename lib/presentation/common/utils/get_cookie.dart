@@ -32,12 +32,17 @@ int? getCurrentRole() {
 }
 
 Future<void> setShowTeamDialog(bool isShow) async {
+  print("Show team dialog---> $isShow");
   return await Hive.box(BoxNames.settingsBox)
       .put(BoxKeys.isShowEmptyTeamDialog, isShow);
 }
 
 bool? getShowTeamDialog() {
-  return Hive.box(BoxNames.settingsBox).get(BoxKeys.isShowEmptyTeamDialog);
+  final isCheck =
+      Hive.box(BoxNames.settingsBox).get(BoxKeys.isShowEmptyTeamDialog);
+  print("Get team dialog---> $isCheck");
+
+  return isCheck;
 }
 
 // Future<void> setCurrentUser(Account account) async {

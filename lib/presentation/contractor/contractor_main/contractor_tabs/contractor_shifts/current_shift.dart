@@ -52,7 +52,7 @@ class CurrentShift extends StatelessWidget {
                       itemCount: state.currentShiftList.length,
                       shrinkWrap: true,
                       physics: BouncingScrollPhysics(),
-                      padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                      padding: EdgeInsets.symmetric(horizontal: getSize(10)),
                       itemBuilder: (context, index) {
                         final shift = state.currentShiftList[index];
                         return Container(

@@ -30,7 +30,7 @@ class EmployerDashboardDTO with _$EmployerDashboardDTO {
     String? specialties_list,
     int? rate_hour,
     String? total_payable_hour,
-    int? total_vacancy,
+    int? number_of_vacancie,
     int? accommodation_allowance,
     int? commute_allowance,
     int? total_amount,

@@ -344,7 +344,7 @@ class StringConstant {
   static const String payables = "Payables";
   static const String totalWage = "Total Wage";
   static const String estimatedWage = "Estimated Wage";
-  static const String totalAllowance = "Total Allowance";
+  static const String totalAllowance = "Total Allowances";
   static const String totalPayableForOneShift = "Total payable for one shift";
   static const String totalAmountPayable = "Total Amount Payable";
   static const String postTheShift = "Post The Shift";
@@ -431,6 +431,8 @@ class StringConstant {
   static const String confirmAcceptance = "Confirm Acceptance";
   static const String proposalReceived = "Proposal Received";
   static const String proposalSent = "Proposal Sent";
+  static const String proposalAccepted = "Proposal Accepted";
+  static const String accepted = "Accepted";
   static const String sendNewProposal = "Send New Proposal";
   static const String hours = "Hours";
   static const String acceptProposalDesc =
@@ -538,6 +540,12 @@ class StringConstant {
   static const String viewProfile = "View Profile";
   static const String developedBy = "Developed by";
   static const String referenceDetail = "Reference Detail";
+  static const String totalShiftFinderServiceFee =
+      "Total ShiftFinder Service Fee";
+  static const String numberOfShifts = "Number of shifts";
+  static const String allowanceForOneShift = "Allowance for One Shift";
+  static const String estimatedTotalAmount = "Estimated Total Amount";
+  static const String iRoidSolutions = "iRoid Solutions";
 
   ///
 

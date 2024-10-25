@@ -1,12 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shift/application/main_tab/home/view_single_applicants/view_single_applicants_bloc.dart';
 import 'package:shift/application/profile/applicant_profile/applicant_profile_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
-import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
@@ -44,8 +42,7 @@ class ViewApplicantProfile extends StatelessWidget {
               return CenterLoadingIndicator();
             } else if (!state.isLoading && state.isErrorInAPI) {
               return Center(
-                child: BaseText(text: StringConstant.somethindWentWrong),
-              );
+                  child: BaseText(text: StringConstant.somethindWentWrong));
             } else if (!state.isLoading && state.isNoDataFound) {
               return Center(
                 child: SizedBox(

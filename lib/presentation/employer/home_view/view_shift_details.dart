@@ -139,8 +139,8 @@ class ViewHomeShiftDetails extends StatelessWidget {
                                 recurrence(shift),
                               if (shift.shift_detail != null &&
                                   shift.shift_detail!.payables != null)
-                                payableBox(
-                                    shift.shift_detail!.payables!, route),
+                                payableBox(shift, shift.shift_detail!.payables!,
+                                    route),
                             ],
                           ),
                         ),
@@ -166,7 +166,8 @@ class ViewHomeShiftDetails extends StatelessWidget {
     );
   }*/
 
-  Widget payableBox(PayableDTO payable, ShiftDetailRoute? route) {
+  Widget payableBox(
+      HealthcarePostDTO shift, PayableDTO payable, ShiftDetailRoute? route) {
     return Container(
       padding:
           EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
@@ -177,6 +178,48 @@ class ViewHomeShiftDetails extends StatelessWidget {
       child: Column(
         children: [
           paybaleTitleRate(
+            title: StringConstant.totalWage,
+            value: "\$${payable.total_wage ?? 00}",
+          ),
+          paybaleTitleRate(
+            title: StringConstant.totalAllowance,
+            value: "\$${payable.total_allowance ?? 00}",
+          ),
+          paybaleTitleRate(
+            title: (shift.shift_detail?.shift_type == 2 &&
+                    shift.shift_detail?.same_or_different_time == 1)
+                ? StringConstant.shiftFinderServiceFee
+                : StringConstant.totalShiftFinderServiceFee,
+            value: "\$${payable.service_fee ?? 00}",
+          ),
+          SizedBox(height: getSize(10)),
+          if (shift.shift_detail?.shift_type == 2 &&
+              shift.shift_detail?.same_or_different_time == 1) ...[
+            paybaleTitleRate(
+              title: StringConstant.totalPayableForOneShift,
+              value: "\$${payable.total_one_shift ?? 00}",
+              isFirst: true,
+            ),
+            paybaleTitleRate(
+              title: StringConstant.numberOfShifts,
+              value:
+                  "${(payable.number_of_shift.toString().length == 2) ? payable.number_of_shift : "0${payable.number_of_shift}"}",
+              isFirst: true,
+            ),
+          ],
+          paybaleTitleRate(
+            title: StringConstant.numberOfVacancies,
+            value:
+                "${(payable.number_of_vacancie.toString().length == 2) ? payable.number_of_vacancie : "0${payable.number_of_vacancie}"}",
+            isFirst: true,
+          ),
+          commonDivider(),
+          paybaleTitleRate(
+            title: StringConstant.estimatedTotalPayable,
+            value: "\$${payable.total_amount_payable ?? 00}",
+            isLast: true,
+          ),
+          /* paybaleTitleRate(
             title: StringConstant.totalNumberOfVacancy,
             value:
                 "${(payable.number_of_vacancie.toString().length == 2) ? payable.number_of_vacancie : "0${payable.number_of_vacancie}"}",
@@ -205,7 +248,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
             title: StringConstant.estimatedTotalPayable,
             value: "\$${payable.total_amount_payable ?? 00}",
             isLast: true,
-          ),
+          ), */
         ],
       ),
     );
@@ -566,9 +609,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
                 post,
                 boldValue: convertTimeStampToDate(
                     post.shift_detail?.detail?[0].date ?? -1),
-                timidValue: convertTimeStampToDate(
-                    post.shift_detail?.detail?[0].date ?? -1,
-                    isYear: true),
+                timidValue: "",
                 title: StringConstant.shiftDate,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
@@ -613,7 +654,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
       if (isYear) {
         return DateFormat('yyyy').format(dateTime);
       } else {
-        return DateFormat('d MMMM, ').format(dateTime);
+        return DateFormat('dd MMMM, yyyy').format(dateTime);
       }
     }
   }
@@ -810,12 +851,10 @@ class ViewHomeShiftDetails extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: AppColors.primaryColor.withOpacity(0.5),
+            color: AppColors.primaryColor,
           ),
         ),
-        TextSpan(
-          text: thirdValue ?? "",
-        ),
+        TextSpan(text: thirdValue ?? ""),
       ],
     ));
   }

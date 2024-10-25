@@ -24,7 +24,8 @@ part 'contractor_shift_state.dart';
 part 'contractor_shift_bloc.freezed.dart';
 
 @injectable
-class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftState> {
+class ContractorShiftBloc
+    extends Bloc<ContractorShiftEvent, ContractorShiftState> {
   final IMainFacade mainFacade;
 
   Timer? _timer;
@@ -69,7 +70,8 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
                 return;
               }
             }
-            var res = await mainFacade.getContractorShifts(page: currentShiftPage, filterType: 1);
+            var res = await mainFacade.getContractorShifts(
+                page: currentShiftPage, filterType: 1);
             currentShiftPage++;
             res.fold(
               (l) => emit(
@@ -99,8 +101,14 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
                   state.copyWith(
                     isLoading: false,
                     isErrorInAPI: false,
-                    isNoDataFound: (r.data as List<dynamic>).map((e) => CurrentShiftDTO.fromJson(e)).toList().isEmpty,
-                    currentShiftList: List.from(state.currentShiftList)..addAll((r.data as List<dynamic>).map((e) => CurrentShiftDTO.fromJson(e)).toList()),
+                    isNoDataFound: (r.data as List<dynamic>)
+                        .map((e) => CurrentShiftDTO.fromJson(e))
+                        .toList()
+                        .isEmpty,
+                    currentShiftList: List.from(state.currentShiftList)
+                      ..addAll((r.data as List<dynamic>)
+                          .map((e) => CurrentShiftDTO.fromJson(e))
+                          .toList()),
                     // currentShiftList: dummyList,
                   ),
                 );
@@ -122,7 +130,8 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
               }
             }
             print("SELECTED TAB---> ${state.selectedTab}");
-            var res = await mainFacade.getContractorShifts(page: upcomingShiftPage, filterType: 2);
+            var res = await mainFacade.getContractorShifts(
+                page: upcomingShiftPage, filterType: 2);
 
             upcomingShiftPage++;
             res.fold(
@@ -143,15 +152,22 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
                   state.copyWith(
                     isUpcomingLoading: false,
                     isUpcomingErrorInAPI: false,
-                    isUpcomingNoDataFound: (r.data as List<dynamic>).map((e) => UpComingShiftDTO.fromJson(e)).toList().isEmpty,
-                    upcomingShiftList: List.from(state.upcomingShiftList)..addAll((r.data as List<dynamic>).map((e) => UpComingShiftDTO.fromJson(e)).toList()),
+                    isUpcomingNoDataFound: (r.data as List<dynamic>)
+                        .map((e) => UpComingShiftDTO.fromJson(e))
+                        .toList()
+                        .isEmpty,
+                    upcomingShiftList: List.from(state.upcomingShiftList)
+                      ..addAll((r.data as List<dynamic>)
+                          .map((e) => UpComingShiftDTO.fromJson(e))
+                          .toList()),
                   ),
                 );
               },
             );
           },
           setClockIn: (e) {
-            final List<CurrentShiftDTO> shiftList = List.from(state.currentShiftList);
+            final List<CurrentShiftDTO> shiftList =
+                List.from(state.currentShiftList);
 
             final clockInTimeStamp = convertToTimestamp(e.clockInTime);
 
@@ -165,7 +181,8 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
             emit(state.copyWith(currentShiftList: List.from(shiftList)));
           },
           setClockOut: (e) {
-            final List<CurrentShiftDTO> shiftList = List.from(state.currentShiftList);
+            final List<CurrentShiftDTO> shiftList =
+                List.from(state.currentShiftList);
 
             final clockOutTimeStamp = convertToTimestamp(e.clockOutTime);
 
@@ -181,7 +198,8 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
           submitClockInOut: (e) async {
             Either<MainFailure, CommonResponse>? failureOrSuccess;
 
-            failureOrSuccess = await mainFacade.submitContractorClockInClockOut(shiftId: e.postId, clockTime: e.clockInOutTime);
+            failureOrSuccess = await mainFacade.submitContractorClockInClockOut(
+                shiftId: e.postId, clockTime: e.clockInOutTime);
 
             failureOrSuccess.fold(
               (l) {
@@ -189,14 +207,17 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
                 showError(
                   message: l.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) => 'Please check your internet connectivity',
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(e.context);
               },
               (r) {
                 e.context.router.maybePop();
-                showSuccess(message: r.dioMessage ?? "").show(e.context).then((value) {
+                showSuccess(message: r.dioMessage ?? "")
+                    .show(e.context)
+                    .then((value) {
                   add(ContractorShiftEvent.getCurrentShiftDetailAPI(true));
                 });
               },
@@ -214,7 +235,9 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
             Either<MainFailure, CommonResponse>? failureOrSuccess;
 
             if (state.deletePostReason.isValid()) {
-              failureOrSuccess = await mainFacade.deleteUpcomingShiftApi(id: e.postId, reason: state.deletePostReason.getValue() ?? "");
+              failureOrSuccess = await mainFacade.deleteUpcomingShiftApi(
+                  id: e.postId,
+                  reason: state.deletePostReason.getValue() ?? "");
 
               failureOrSuccess.fold(
                 (l) {
@@ -222,14 +245,17 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
                   showError(
                     message: l.maybeMap(
                       showAPIResponseMessage: (value) => value.message,
-                      networkError: (value) => 'Please check your internet connectivity',
+                      networkError: (value) =>
+                          'Please check your internet connectivity',
                       orElse: () => "Server Error. Try again later.",
                     ),
                   ).show(e.context);
                 },
                 (r) {
                   e.context.router.maybePop();
-                  showSuccess(message: r.dioMessage ?? "").show(e.context).then((value) {
+                  showSuccess(message: r.dioMessage ?? "")
+                      .show(e.context)
+                      .then((value) {
                     add(ContractorShiftEvent.getUpcomingShiftAPI(true));
                   });
                 },
@@ -252,7 +278,8 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
                 return;
               }
             }
-            var res = await mainFacade.getContractorShifts(page: appliedTypePage, filterType: 3, appliedType: 1);
+            var res = await mainFacade.getContractorShifts(
+                page: appliedTypePage, filterType: 3, appliedType: 1);
             appliedTypePage++;
             res.fold(
                 (l) => emit(
@@ -266,21 +293,30 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
               if (e.isRefresh) {
                 List.from(state.appliedList).clear();
               }
-              final newShifts = (r.data as List<dynamic>).map((e) => AppliedShiftDTO.fromJson(e)).toList();
+              final newShifts = (r.data as List<dynamic>)
+                  .map((e) => AppliedShiftDTO.fromJson(e))
+                  .toList();
               emit(
                 state.copyWith(
                   isAppliedLoading: false,
                   isAppliedErrorInAPI: false,
-                  isAppliedNoDataFound: (r.data as List<dynamic>).map((e) => AppliedShiftDTO.fromJson(e)).toList().isEmpty,
-                  appliedList: List.from(state.appliedList)..addAll((r.data as List<dynamic>).map((e) => AppliedShiftDTO.fromJson(e)).toList()),
+                  isAppliedNoDataFound: (r.data as List<dynamic>)
+                      .map((e) => AppliedShiftDTO.fromJson(e))
+                      .toList()
+                      .isEmpty,
+                  appliedList: List.from(state.appliedList)
+                    ..addAll((r.data as List<dynamic>)
+                        .map((e) => AppliedShiftDTO.fromJson(e))
+                        .toList()),
                 ),
               );
 
               /// to start revoking timer
               for (var shift in newShifts) {
-                if (shift.revoke_status == 1) {
+                print("shift.revoke_start-----> ${shift.revoke_start}");
+                if (shift.revoke_status == 2) {
                   add(
-                    ContractorShiftEvent.startRevokingTimer(
+                    ContractorShiftEvent.startAppliedRevokingTimer(
                       Duration(hours: 2), shift.id ?? -1,
                       // revokeTime: (shift.id == 115) ? 1728877581 : 1728877581,
                       revokeTime: shift.revoke_start ?? -1,
@@ -304,7 +340,8 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
                 return;
               }
             }
-            var res = await mainFacade.getContractorShifts(page: counterTypePage, filterType: 3, appliedType: 2);
+            var res = await mainFacade.getContractorShifts(
+                page: counterTypePage, filterType: 3, appliedType: 2);
             counterTypePage++;
             res.fold(
               (l) => emit(
@@ -319,15 +356,36 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
                 if (e.isRefresh) {
                   List.from(state.counterList).clear();
                 }
+                final newShifts = (r.data as List<dynamic>)
+                    .map((e) => AppliedShiftDTO.fromJson(e))
+                    .toList();
 
                 emit(
                   state.copyWith(
                     isCounterLoading: false,
                     isCounterErrorInAPI: false,
-                    isCounterNoDataFound: (r.data as List<dynamic>).map((e) => AppliedShiftDTO.fromJson(e)).toList().isEmpty,
-                    counterList: List.from(state.counterList)..addAll((r.data as List<dynamic>).map((e) => AppliedShiftDTO.fromJson(e)).toList()),
+                    isCounterNoDataFound: (r.data as List<dynamic>)
+                        .map((e) => AppliedShiftDTO.fromJson(e))
+                        .toList()
+                        .isEmpty,
+                    counterList: List.from(state.counterList)
+                      ..addAll((r.data as List<dynamic>)
+                          .map((e) => AppliedShiftDTO.fromJson(e))
+                          .toList()),
                   ),
                 );
+
+                for (var shift in newShifts) {
+                  if (shift.revoke_status == 2) {
+                    add(
+                      ContractorShiftEvent.startCounterProposalRevokingTimer(
+                        Duration(hours: 2), shift.id ?? -1,
+                        // revokeTime: (shift.id == 115) ? 1728877581 : 1729668587,
+                        revokeTime: shift.revoke_start ?? -1,
+                      ),
+                    );
+                  }
+                }
               },
             );
           },
@@ -336,7 +394,8 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
 
             Either<MainFailure, String>? failureOrSuccess;
 
-            failureOrSuccess = await mainFacade.contractorShiftUrgentActionApi(postId: e.postId, urgentAction: e.urgentAction);
+            failureOrSuccess = await mainFacade.contractorShiftUrgentActionApi(
+                postId: e.postId, urgentAction: e.urgentAction);
 
             failureOrSuccess.fold(
               (l) {
@@ -344,7 +403,8 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
                 showError(
                   message: l.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) => 'Please check your internet connectivity',
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(e.context);
@@ -361,7 +421,8 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
             print("proposal action called!!! ${e.postId}");
             Either<MainFailure, String>? failureOrSuccess;
 
-            failureOrSuccess = await mainFacade.contractorShiftUrgentActionApi(postId: e.postId, urgentAction: e.urgentAction);
+            failureOrSuccess = await mainFacade.contractorShiftUrgentActionApi(
+                postId: e.postId, urgentAction: e.urgentAction);
 
             failureOrSuccess.fold(
               (l) {
@@ -369,7 +430,8 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
                 showError(
                   message: l.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) => 'Please check your internet connectivity',
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(e.context);
@@ -409,16 +471,18 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
               }
             });
           },*/
-          startRevokingTimer: (e) {
-            print("revoke start time---> ${e.revokeTime}");
-            DateTime timerStartTime = DateTime.fromMillisecondsSinceEpoch(e.revokeTime * 1000);
+          startAppliedRevokingTimer: (e) {
+            // print("revoke start time---> ${e.revokeTime}");
+            DateTime timerStartTime =
+                DateTime.fromMillisecondsSinceEpoch(e.revokeTime * 1000);
 
             Duration totalDuration = Duration(hours: 2);
 
             final updatedList = state.appliedList.map((shift) {
               if (shift.id == e.id) {
                 // if (shift.revoke_status == 1) {
-                Duration remainingTime = calculateRemainingTime(timerStartTime, totalDuration);
+                Duration remainingTime =
+                    calculateRemainingTime(timerStartTime, totalDuration);
 
                 _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
                   if (remainingTime.inSeconds <= 0) {
@@ -433,12 +497,38 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
               return shift;
             }).toList();
           },
+          startCounterProposalRevokingTimer: (e) {
+            DateTime timerStartTime =
+                DateTime.fromMillisecondsSinceEpoch(e.revokeTime * 1000);
+
+            Duration totalDuration = Duration(hours: 2);
+
+            final updatedList = state.counterList.map((shift) {
+              if (shift.id == e.id) {
+                // if (shift.revoke_status == 1) {
+                Duration remainingTime =
+                    calculateRemainingTime(timerStartTime, totalDuration);
+
+                _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+                  if (remainingTime.inSeconds <= 0) {
+                    timer.cancel();
+                    remainingTime = Duration.zero;
+                  } else {
+                    remainingTime -= const Duration(seconds: 1);
+                  }
+                  updateCounterRemainingTime(remainingTime, shift.id ?? -1);
+                });
+              }
+              return shift;
+            }).toList();
+          },
         );
       },
     );
   }
 
-  Duration calculateRemainingTime(DateTime timerStartTime, Duration totalDuration) {
+  Duration calculateRemainingTime(
+      DateTime timerStartTime, Duration totalDuration) {
     DateTime currentTime = DateTime.now();
     Duration elapsedTime = currentTime.difference(timerStartTime);
 
@@ -454,6 +544,17 @@ class ContractorShiftBloc extends Bloc<ContractorShiftEvent, ContractorShiftStat
   void updateRemainingTime(Duration remainingTime, int id) {
     emit(state.copyWith(
       appliedList: state.appliedList.map((s) {
+        if (s.id == id) {
+          return s.copyWith(remainingRevokeTime: remainingTime);
+        }
+        return s;
+      }).toList(),
+    ));
+  }
+
+  void updateCounterRemainingTime(Duration remainingTime, int id) {
+    emit(state.copyWith(
+      counterList: state.counterList.map((s) {
         if (s.id == id) {
           return s.copyWith(remainingRevokeTime: remainingTime);
         }

@@ -52,7 +52,7 @@ class UpcomingShift extends StatelessWidget {
                       itemCount: state.upcomingShiftList.length,
                       shrinkWrap: true,
                       physics: BouncingScrollPhysics(),
-                      padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                      padding: EdgeInsets.symmetric(horizontal: getSize(10)),
                       itemBuilder: (context, index) {
                         return Container(
                           margin: EdgeInsets.symmetric(vertical: getSize(10)),

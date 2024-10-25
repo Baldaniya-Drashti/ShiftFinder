@@ -18,6 +18,9 @@ _$PayableDTOImpl _$$PayableDTOImplFromJson(Map<String, dynamic> json) =>
       total_one_shift: json['total_one_shift'] as String?,
       number_of_vacancie: (json['number_of_vacancie'] as num?)?.toInt(),
       total_amount_payable: json['total_amount_payable'] as String?,
+      total_one_allowance: json['total_one_allowance'] as String?,
+      number_of_shift: (json['number_of_shift'] as num?)?.toInt(),
+      service_one_fee: json['service_one_fee'] as String?,
     );
 
 Map<String, dynamic> _$$PayableDTOImplToJson(_$PayableDTOImpl instance) =>
@@ -32,4 +35,7 @@ Map<String, dynamic> _$$PayableDTOImplToJson(_$PayableDTOImpl instance) =>
       'total_one_shift': instance.total_one_shift,
       'number_of_vacancie': instance.number_of_vacancie,
       'total_amount_payable': instance.total_amount_payable,
+      'total_one_allowance': instance.total_one_allowance,
+      'number_of_shift': instance.number_of_shift,
+      'service_one_fee': instance.service_one_fee,
     };
