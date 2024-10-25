@@ -77,7 +77,9 @@ class ProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: 'About ShiftFinder',
         image: SvgImageConstant.aboutShiftFinder,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(AboutView.name));
+        },
       ),
       ProfileItemModel(
         title: 'Customer Support',
