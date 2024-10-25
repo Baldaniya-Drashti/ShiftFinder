@@ -8,10 +8,9 @@ import 'package:shift/application/employer/monthly_statement/monthly_statement_b
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/billing/transaction_info.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
-import 'package:shift/presentation/core/widgets/custom_multi_date_picker/calendar_date_picker2.dart';
-import 'package:shift/presentation/core/widgets/custom_multi_date_picker/calendar_date_picker2_config.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -30,7 +29,7 @@ class MonthlyStatementView extends StatelessWidget {
             onBackPressed: () => context.router.maybePop(),
             title: 'Monthly Statements',
           ),
-          body: Padding(
+          body: SingleChildScrollView(
             padding: const EdgeInsets.all(18.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,6 +44,7 @@ class MonthlyStatementView extends StatelessWidget {
                   ),
                   child: InkWell(
                     onTap: () {
+
                       pickMultiDateDialog(
                         context,
                         onDateSelected: (value) {
@@ -151,6 +151,8 @@ class MonthlyStatementView extends StatelessWidget {
                               ),
                             ),
                           ),
+                          Gap(8),
+                          _StatementListView()
                         ],
                       ),
                     );
@@ -161,6 +163,60 @@ class MonthlyStatementView extends StatelessWidget {
           ),
         );
       }),
+    );
+  }
+}
+
+class _StatementListView extends StatelessWidget {
+  const _StatementListView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListView.separated(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) => _StatementDetailTile(),
+          separatorBuilder: (context, index) => Divider(),
+          itemCount: 3,
+        ),
+        Gap(12),
+        Material(
+          borderRadius: BorderRadius.circular(10),
+          color: AppColors.scaffoldColor,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                MonthlyStatementInfo(label: "Total Wage", value: "\$1350.00"),
+                MonthlyStatementInfo(label: "Total ShiftFinder Service Fee", value: "\$1350.00"),
+                MonthlyStatementInfo(label: "Total Shift Cancellation Fee", value: "\$1350.00"),
+                Divider(),
+                MonthlyStatementInfo(label: "Net Amount", value: "\$1350.00", valueColor: AppColors.green),
+              ],
+            ),
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class _StatementDetailTile extends StatelessWidget {
+  const _StatementDetailTile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        TransactionInfo(label: "Date of Transaction", value: "12 July 2024"),
+        TransactionInfo(label: "Contractor Name", value: "Karen Adderiy"),
+        TransactionInfo(label: "ShiftFinder Service Fee", value: "\$50"),
+        TransactionInfo(label: "Wage", value: "\$300", valueColor: AppColors.green),
+      ],
     );
   }
 }
