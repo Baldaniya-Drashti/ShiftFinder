@@ -416,6 +416,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                     backgroundColor: isBlock ? AppColors.white.withOpacity(0.5) : AppColors.white,
                     onPressed: !isBlock
                         ? () => _onAddRating(
+                              contractorName: "${data.first_name ?? ""} ${data.last_name ?? ""}",
                               context,
                               defaultRating: data.rating,
                               userId: data.user_id ?? -1,
@@ -464,6 +465,7 @@ class _PreviousShiftListTile extends StatelessWidget {
                           context,
                           postId: data.post_id ?? 0,
                           userId: data.user_id ?? 0,
+                          contractorName: "${data.first_name ?? ""} ${data.last_name ?? ""}",
                         );
                       }
                     },
@@ -500,13 +502,14 @@ class _PreviousShiftListTile extends StatelessWidget {
     BuildContext context, {
     required int postId,
     required int userId,
+    required String contractorName,
   }) {
     AppDialog.showDelete(
       deleteBtnText: "Block",
       deleteColor: AppColors.redAccent,
       title: "Block",
       context,
-      infoMessage: "Blocking [contractor name] will prevent them from seeing any future postings. Are you sure you want to proceed?",
+      infoMessage: "Blocking $contractorName will prevent them from seeing any future postings. Are you sure you want to proceed?",
       onCancelClick: () => context.router.maybePop(),
       onDeleteClick: () {
         context.router.maybePop();
@@ -522,6 +525,7 @@ class _PreviousShiftListTile extends StatelessWidget {
     int? defaultRating,
     required int userId,
     required int postId,
+    required String contractorName,
   }) {
     AppDialog.showLeaveRatingModal(
       context,
@@ -536,6 +540,7 @@ class _PreviousShiftListTile extends StatelessWidget {
               ),
             );
       },
+      contractorName: contractorName,
     );
   }
 

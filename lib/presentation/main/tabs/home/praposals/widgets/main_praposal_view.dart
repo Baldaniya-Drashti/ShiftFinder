@@ -114,10 +114,12 @@ class MainPraposalView extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: getSize(5)),
-                    BaseText(
-                      text: additionalData.location?.location ?? "",
-                      fontSize: 10,
-                      fontWeight: FontWeight.w500,
+                    Flexible(
+                      child: BaseText(
+                        text: additionalData.location?.location ?? "",
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ],
                 ),

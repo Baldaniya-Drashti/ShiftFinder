@@ -303,6 +303,7 @@ class AppDialog {
     BuildContext context, {
     int? defaultRating,
     required ValueSetter<int> onSubmit,
+    required String contractorName,
   }) async {
     int rating = defaultRating ?? 0;
     final result = await showDialog<bool?>(
@@ -333,7 +334,7 @@ class AppDialog {
             children: [
               BaseText(
                 text:
-                    "Your feedback is valuable! Please rate [contractor name] to help showcase their performance and maintain service quality.",
+                    "Your feedback is valuable! Please rate $contractorName to help showcase their performance and maintain service quality.",
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 textAlign: TextAlign.center,
