@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,12 +33,13 @@ class EditClockTimeDialog extends StatelessWidget {
       builder: (_) => BlocProvider(
         create: (context) => getIt<HiredContractorBloc>(),
         child: BlocBuilder<HiredContractorBloc, HiredContractorState>(
-          bloc: context.read<HiredContractorBloc>()
-            ..state.copyWith(
-              clockIn: contractor.clock_in_time ?? -1,
-              clockOut: contractor.clock_out_time ?? -1,
-            ),
+          // bloc: context.read<HiredContractorBloc>()
+          //   ..state.copyWith(
+          //     clockIn: contractor.clock_in_time ?? -1,
+          //     clockOut: contractor.clock_out_time ?? -1,
+          //   ),
           builder: (context, state) {
+            print("state.clockIn-----////>  ${state.clockIn}");
             return AlertDialog(
               contentPadding: EdgeInsets.zero,
               clipBehavior: Clip.none,
@@ -101,8 +104,9 @@ class EditClockTimeDialog extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: DateFormat('d MMM, yyyy').format(
-                                DateTime.fromMillisecondsSinceEpoch(-1 * 1000)),
+                            text: DateFormat('dd MMM, yyyy').format(
+                                DateTime.fromMillisecondsSinceEpoch(
+                                    (contractor.shift_date ?? -1) * 1000)),
                             style: TextStyle(
                               fontSize: getFontSize(12),
                               fontWeight: FontWeight.w600,
@@ -219,7 +223,7 @@ class EditClockTimeDialog extends StatelessWidget {
       AcceptRejectDialog(
         title: StringConstant.approve,
         description:
-            "${StringConstant.approveShiftDesc1}${contractor.first_name ?? ""}${StringConstant.approveShiftDesc2}",
+            "${StringConstant.approveShiftDesc1}${contractor.first_name ?? ""} ${contractor.last_name ?? ""}${StringConstant.approveShiftDesc2}",
         onPressedAccept: () async {
           await context.router.maybePop();
           final result = await showDialog<bool?>(

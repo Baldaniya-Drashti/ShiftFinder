@@ -34,7 +34,8 @@ class ShiftActionsView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(getSize(10)),
                   color: AppColors.scaffoldColor,
                   child: Padding(
-                    padding: EdgeInsets.all(getSize(18)).copyWith(top: getSize(8)),
+                    padding:
+                        EdgeInsets.all(getSize(18)).copyWith(top: getSize(8)),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -81,7 +82,7 @@ class ShiftActionsView extends StatelessWidget {
               fontSize: 12,
               fontWeight: FontWeight.w500,
               text:
-                  "Once a shift is approved, you can rate, add to favorites, remark, or block the user. These actions can also be completed later in the profile section.",
+                  "Once a shift is approved, you can rate, add to favorites, remark or block the user. These actions can also be completed later in the profile section.",
             ),
           )
         ],
@@ -108,19 +109,22 @@ class ShiftActionsView extends StatelessWidget {
           ),
         ],
       ),
-      infoMessage: "Blocking [contractor name] will prevent them from seeing any future postings. Are you sure you want to proceed?",
+      infoMessage:
+          "Blocking [contractor name] will prevent them from seeing any future postings. Are you sure you want to proceed?",
       onCancelClick: () => Navigator.pop(context),
       onDeleteClick: () {},
     );
   }
 
   void _onAddRating(BuildContext context) {
-    AppDialog.showLeaveRatingModal(context, onSubmit: (int value) {});
+    AppDialog.showLeaveRatingModal(context,
+        onSubmit: (int value) {}, contractorName: "");
   }
 
   Widget _buildUserInfo(BuildContext context) {
     return UserInfoTile(
-      url: 'https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg',
+      url:
+          'https://w0.peakpx.com/wallpaper/751/41/HD-wallpaper-women-mood-girl-portrait-profile-sunset.jpg',
       title: "Dhaval Pithadiya",
       subTitle: "Flutter Dev",
       trailing: RatingStar(rating: 5.0),

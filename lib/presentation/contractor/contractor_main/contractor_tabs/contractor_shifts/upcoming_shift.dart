@@ -135,10 +135,10 @@ class UpcomingShift extends StatelessWidget {
             dense: true,
             leading: Image.asset(
               PngImageConstants.leafWithBG,
-              height: getSize(40),
-              width: getSize(40),
+              height: getSize(45),
+              width: getSize(45),
             ),
-            isThreeLine: true,
+            // isThreeLine: true,
             title: BaseText(
               text: shift.role_lists_name ?? "",
               textColor: AppColors.black,
@@ -344,7 +344,7 @@ class UpcomingShift extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                         textColor: AppColors.black.withOpacity(0.7),
                       ),
-                      if (shift.shift_type == 1)
+                      if (shift.shift_type == 2)
                         BaseText(
                           text:
                               " (${shift.total_shift ?? 0} ${(shift.total_shift ?? 0) <= 1 ? StringConstant.shift : StringConstant.shifts})",

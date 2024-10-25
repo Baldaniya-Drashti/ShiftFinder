@@ -41,6 +41,7 @@ class HiredContractorBloc
         changeClockInClockOutTime: (value) async {
           if (value.isClockIn) {
             final clockInTimeStamp = convertToTimestamp(value.time);
+            print("Selected clock in time---> ${value.time} ");
 
             emit(state.copyWith(clockIn: clockInTimeStamp));
           } else {

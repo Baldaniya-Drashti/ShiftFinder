@@ -217,7 +217,7 @@ class FilledShiftsView extends StatelessWidget {
                         SizedBox(width: getSize(10)),
                         BaseText(
                           text:
-                              "${StringConstant.allHiredContractors} (${shift.total_user ?? 00}/2)",
+                              "${StringConstant.allHiredContractors} (${shift.hired_user}/${shift.total_user})",
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
@@ -384,7 +384,7 @@ class FilledShiftsView extends StatelessWidget {
                   )
                 : displayDateBreak(
                     context,
-                    boldValue: "${shift.shift_type ?? 0} Shifts",
+                    boldValue: "${shift.total_shifts ?? 0} Shifts",
                     timidValue: "",
                     title: StringConstant.totalShifts,
                     svgPrefixIcon: SvgImageConstant.calendar,

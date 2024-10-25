@@ -37,6 +37,7 @@ _$CurrentShiftDTOImpl _$$CurrentShiftDTOImplFromJson(
           ? null
           : LocationDTO.fromJson(json['location'] as Map<String, dynamic>),
       location_unit: json['location_unit'] as String?,
+      remaining_shifts: (json['remaining_shifts'] as num?)?.toInt(),
       rate_hour: (json['rate_hour'] as num?)?.toDouble(),
       shift_detail: json['shift_detail'] == null
           ? null
@@ -70,6 +71,7 @@ Map<String, dynamic> _$$CurrentShiftDTOImplToJson(
       'language_other': instance.language_other,
       'location': instance.location,
       'location_unit': instance.location_unit,
+      'remaining_shifts': instance.remaining_shifts,
       'rate_hour': instance.rate_hour,
       'shift_detail': instance.shift_detail,
       'software_skill': instance.software_skill,

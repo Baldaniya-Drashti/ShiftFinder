@@ -194,8 +194,8 @@ class ApprovedHiredList extends StatelessWidget {
                   borderColor: AppColors.scaffoldColor,
                   buttonTextColor: AppColors.black,
                   onPressed: () {
-                    EditClockTimeDialog()
-                        .editClockTimeDialog(context, contractor);
+                    // EditClockTimeDialog().editClockTimeDialog(context, contractor);
+                    showUnderDevelopment(context);
                   },
                   buttonFontSize: 12,
                   borderRadius: 7,
@@ -354,7 +354,8 @@ class ApprovedHiredList extends StatelessWidget {
       },
     ).then((value) {
       if (value == true) {
-        context.router.push(PageRouteInfo(ShiftActionsView.name));
+        showUnderDevelopment(context);
+        // context.router.push(PageRouteInfo(ShiftActionsView.name));
       }
     });
   }

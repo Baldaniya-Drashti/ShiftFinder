@@ -73,62 +73,64 @@ class ViewApplicantProfile extends StatelessWidget {
                   SizedBox(
                     height: getSize(16),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      BaseText(
-                        text: StringConstant.education,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600,
-                        textColor: Colors.black.withOpacity(0.8),
-                      ),
-                      SizedBox(
-                        height: getSize(8),
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: getSize(20),
-                          vertical: getSize(14),
+                  if (state.account.education != null &&
+                      state.account.education!.isNotEmpty)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BaseText(
+                          text: StringConstant.education,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                          textColor: Colors.black.withOpacity(0.8),
                         ),
-                        decoration: BoxDecoration(
-                          color: AppColors.white,
-                          borderRadius: BorderRadius.circular(10),
+                        SizedBox(
+                          height: getSize(8),
                         ),
-                        child: InkWell(
-                          onTap: () {
-                            context.router.push(
-                              PageRouteInfo(EducationProfileListView.name,
-                                  args: EducationProfileListViewArgs(
-                                      applicantDto: state.account)),
-                            );
-                          },
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                PngImageConstants.education,
-                                height: getSize(28),
-                                width: getSize(28),
-                              ),
-                              SizedBox(width: getSize(15)),
-                              Image.asset(
-                                PngImageConstants.line,
-                                height: getSize(25),
-                              ),
-                              SizedBox(width: getSize(15)),
-                              Expanded(
-                                child: BaseText(
-                                  text: StringConstant.programCompleted,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: getSize(20),
+                            vertical: getSize(14),
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              context.router.push(
+                                PageRouteInfo(EducationProfileListView.name,
+                                    args: EducationProfileListViewArgs(
+                                        applicantDto: state.account)),
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  PngImageConstants.education,
+                                  height: getSize(28),
+                                  width: getSize(28),
                                 ),
-                              ),
-                              Icon(Icons.arrow_forward_rounded)
-                            ],
+                                SizedBox(width: getSize(15)),
+                                Image.asset(
+                                  PngImageConstants.line,
+                                  height: getSize(25),
+                                ),
+                                SizedBox(width: getSize(15)),
+                                Expanded(
+                                  child: BaseText(
+                                    text: StringConstant.programCompleted,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                Icon(Icons.arrow_forward_rounded)
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
                   if (state.account.reference != null &&
                       state.account.reference!.isNotEmpty) ...[
                     SizedBox(height: getSize(12)),

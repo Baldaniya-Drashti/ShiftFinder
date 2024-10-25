@@ -52,7 +52,7 @@ class ContractorHomeView extends StatelessWidget {
                       itemCount: state.contractorDashboardList.length,
                       padding: EdgeInsets.symmetric(
                         horizontal: getSize(15),
-                        vertical: getSize(5),
+                        vertical: getSize(10),
                       ),
                       clipBehavior: Clip.none,
                       shrinkWrap: true,
@@ -395,8 +395,7 @@ class ContractorHomeView extends StatelessWidget {
                 context,
                 list,
                 boldValue: convertTimeStampToDate(list.start_date ?? -1),
-                timidValue:
-                    convertTimeStampToDate(list.start_date ?? -1, isYear: true),
+                timidValue: "",
                 title: StringConstant.shiftDate,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
@@ -439,7 +438,7 @@ class ContractorHomeView extends StatelessWidget {
       if (isYear) {
         return DateFormat('yyyy').format(dateTime);
       } else {
-        return DateFormat('d MMM, ').format(dateTime);
+        return DateFormat('dd MMM, yyyy').format(dateTime);
       }
     }
   }
@@ -630,7 +629,7 @@ class ContractorHomeView extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: AppColors.primaryColor.withOpacity(0.5),
+            color: AppColors.primaryColor,
           ),
         ),
         TextSpan(
@@ -794,13 +793,13 @@ class ContractorHomeView extends StatelessWidget {
           paybaleTitleRate(
             title: "${StringConstant.accommodationAllowance}:-",
             value:
-                "${((post.accommodation_allowance ?? 0) > 9) ? post.accommodation_allowance : "0${post.accommodation_allowance}"}",
+                "\$${((post.accommodation_allowance ?? 0) > 9) ? post.accommodation_allowance : "0${post.accommodation_allowance}"}",
           ),
           SizedBox(height: getSize(5)),
           paybaleTitleRate(
             title: "${StringConstant.commuteAllowance}:-",
             value:
-                "${((post.commute_allowance ?? 0) > 9) ? post.commute_allowance : "0${post.commute_allowance}"}",
+                "\$${((post.commute_allowance ?? 0) > 9) ? post.commute_allowance : "0${post.commute_allowance}"}",
           ),
           commonDivider(),
           paybaleTitleRate(

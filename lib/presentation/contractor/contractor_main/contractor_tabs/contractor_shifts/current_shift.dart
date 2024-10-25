@@ -76,7 +76,7 @@ class CurrentShift extends StatelessWidget {
                               numberOfVacancy(
                                   value:
                                       // "${shift.shift_detail?.number_of_vacancie ?? 0}"),
-                                      "${(shift.shift_detail?.number_of_vacancie.toString().length == 2) ? shift.shift_detail?.number_of_vacancie : "0${shift.shift_detail?.number_of_vacancie}"}"),
+                                      "${((shift.remaining_shifts ?? 0) > 9) ? shift.remaining_shifts : "0${shift.remaining_shifts}"}"),
                               paddingBetweenFields(),
                               dateAndTime(context, shift),
                               paddingBetweenFields(),
@@ -527,10 +527,10 @@ class CurrentShift extends StatelessWidget {
             dense: true,
             leading: Image.asset(
               PngImageConstants.leafWithBG,
-              height: getSize(40),
-              width: getSize(40),
+              height: getSize(45),
+              width: getSize(45),
             ),
-            isThreeLine: true,
+            // isThreeLine: true,
             title: BaseText(
               text: shift.roles_list_name ?? "",
               textColor: AppColors.black,
@@ -650,7 +650,7 @@ class CurrentShift extends StatelessWidget {
         decoration: BoxDecoration(
             color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
         child: paybaleTitleRate(
-            title: StringConstant.numberOfVacancies, value: value));
+            title: StringConstant.remainingShifts, value: value));
   }
 
   Widget paybaleTitleRate(
