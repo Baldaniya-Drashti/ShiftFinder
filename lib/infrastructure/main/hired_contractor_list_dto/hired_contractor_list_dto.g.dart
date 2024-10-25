@@ -16,6 +16,7 @@ _$HiredContractorListDTOImpl _$$HiredContractorListDTOImplFromJson(
       profile: json['profile'] as String?,
       contractor_shift_type: (json['contractor_shift_type'] as num?)?.toInt(),
       shift_type: (json['shift_type'] as num?)?.toInt(),
+      shift_date: (json['shift_date'] as num?)?.toInt(),
       clock_in_time: (json['clock_in_time'] as num?)?.toInt(),
       clock_out_time: (json['clock_out_time'] as num?)?.toInt(),
     );
@@ -30,6 +31,7 @@ Map<String, dynamic> _$$HiredContractorListDTOImplToJson(
       'profile': instance.profile,
       'contractor_shift_type': instance.contractor_shift_type,
       'shift_type': instance.shift_type,
+      'shift_date': instance.shift_date,
       'clock_in_time': instance.clock_in_time,
       'clock_out_time': instance.clock_out_time,
     };

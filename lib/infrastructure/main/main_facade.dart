@@ -965,14 +965,14 @@ class MainFacade implements IMainFacade {
         DateTime now = DateTime.now();
 
         mapData.addAll({
+          // "start_date": DateTime(now.year, now.month, now.day, 5, 30, 0).toUtc().millisecondsSinceEpoch /1000,
+          // "end_date": DateTime(now.year, now.month, now.day, 18, 29, 59).toUtc().millisecondsSinceEpoch /1000,
           "start_date": DateTime(now.year, now.month, now.day, 0, 0, 0)
-                  .toUtc()
-                  .millisecondsSinceEpoch /
-              1000,
-          "end_date": DateTime(now.year, now.month, now.day, 23, 59, 59)
-                  .toUtc()
-                  .millisecondsSinceEpoch /
-              1000,
+              .toUtc()
+              .millisecondsSinceEpoch,
+          "end_date": DateTime(now.year, now.month, now.day, 23, 59, 59, 999)
+              .toUtc()
+              .millisecondsSinceEpoch
         });
       }
 
@@ -1424,14 +1424,14 @@ class MainFacade implements IMainFacade {
       DateTime now = DateTime.now();
 
       mapData.addAll({
+        // "start_date": DateTime(now.year, now.month, now.day, 5, 30, 0).toUtc().millisecondsSinceEpoch /1000,
+        // "end_date": DateTime(now.year, now.month, now.day, 18, 29, 59).toUtc().millisecondsSinceEpoch /1000,
         "start_date": DateTime(now.year, now.month, now.day, 0, 0, 0)
-                .toUtc()
-                .millisecondsSinceEpoch /
-            1000,
-        "end_date": DateTime(now.year, now.month, now.day, 23, 59, 59)
-                .toUtc()
-                .millisecondsSinceEpoch /
-            1000,
+            .toUtc()
+            .millisecondsSinceEpoch,
+        "end_date": DateTime(now.year, now.month, now.day, 23, 59, 59, 999)
+            .toUtc()
+            .millisecondsSinceEpoch
       });
     }
 

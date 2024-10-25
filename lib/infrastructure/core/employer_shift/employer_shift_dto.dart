@@ -24,6 +24,7 @@ class EmployerShiftDto with _$EmployerShiftDto {
     HiredContractorDTO? user,
     List<HiredContractorDTO>? users,
     int? total_user,
+    int? hired_user,
     int? remaining_shift,
     bool? isdelete,
   }) = _EmployerShiftDto;

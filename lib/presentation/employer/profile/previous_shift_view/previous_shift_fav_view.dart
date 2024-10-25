@@ -26,13 +26,18 @@ class PreviousShiftFavView extends StatelessWidget {
           children: [
             PaginatedListView(
               onRefresh: () {
-                context.read<PreviousShiftBloc>().add(PreviousShiftEvent.fetchFavoriteList(refresh: true));
+                context
+                    .read<PreviousShiftBloc>()
+                    .add(PreviousShiftEvent.fetchFavoriteList(refresh: true));
                 context.read<PreviousShiftBloc>().add(
-                  PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: 1),
-                );
+                      PreviousShiftEvent.fetchAllPreviousPost(
+                          refresh: true, sortBy: 1),
+                    );
               },
               onLoading: () {
-                context.read<PreviousShiftBloc>().add(PreviousShiftEvent.fetchFavoriteList(refresh: false));
+                context
+                    .read<PreviousShiftBloc>()
+                    .add(PreviousShiftEvent.fetchFavoriteList(refresh: false));
               },
               refreshController: context.read<PreviousShiftBloc>().favorite,
               isNoDataFound: state.favoriteListNoDataFound,
@@ -40,14 +45,17 @@ class PreviousShiftFavView extends StatelessWidget {
                   ? CenterLoadingIndicator()
                   : state.favoriteListIsErrorApi
                       ? Center(
-                          child: BaseText(text: StringConstant.somethindWentWrong),
+                          child:
+                              BaseText(text: StringConstant.somethindWentWrong),
                         )
                       : ListView.separated(
                           padding: EdgeInsets.all(getSize(20)),
-                          itemBuilder: (context, index) => _PreviousShiftFavTile(
+                          itemBuilder: (context, index) =>
+                              _PreviousShiftFavTile(
                             data: state.favoritesList[index],
                           ),
-                          separatorBuilder: (context, index) => Gap(getSize(16)),
+                          separatorBuilder: (context, index) =>
+                              Gap(getSize(16)),
                           itemCount: state.favoritesList.length,
                         ),
             ),
@@ -78,7 +86,8 @@ class _PreviousShiftFavTile extends StatelessWidget {
             SvgImageConstant.rightArrow,
             height: 13,
             width: 13,
-            colorFilter: ColorFilter.mode(AppColors.black.withOpacity(0.5), BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(
+                AppColors.black.withOpacity(0.5), BlendMode.srcIn),
           ),
           padding: EdgeInsets.symmetric(horizontal: getSize(16)),
           url: data.profile ?? "",
@@ -96,7 +105,7 @@ class _PreviousShiftFavTile extends StatelessWidget {
                 context: context,
                 title: "Unfavorite",
                 content:
-                    "Removing [contractor name] from your favorites list will no longer highlight their profile. Are you sure you want to proceed?",
+                    "Removing ${data.first_name ?? ""} ${data.last_name ?? ""} from your favorites list will no longer highlight their profile. Are you sure you want to proceed?",
                 successLabel: "Unfavorite",
               );
               if (result ?? false) {
@@ -111,7 +120,8 @@ class _PreviousShiftFavTile extends StatelessWidget {
             },
             label: (data.isFavourite ?? false) ? "UnFavorite" : "Favorite",
             textStyle: TextStyle(fontSize: 10, color: AppColors.green),
-            icon: SvgPicture.asset(SvgImageConstant.heartChecked, height: 11, width: 11),
+            icon: SvgPicture.asset(SvgImageConstant.heartChecked,
+                height: 11, width: 11),
           ),
         ),
       ),

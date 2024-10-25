@@ -14,6 +14,7 @@ class HiredContractorListDTO with _$HiredContractorListDTO {
     String? profile,
     int? contractor_shift_type,
     int? shift_type,
+    int? shift_date,
     int? clock_in_time,
     int? clock_out_time,
   }) = _HiredContractorListDTO;

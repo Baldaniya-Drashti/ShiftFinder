@@ -134,7 +134,7 @@ class ApproveShiftView extends StatelessWidget {
                                                 children: [
                                                   BaseText(
                                                     text:
-                                                        "${StringConstant.allHiredContractors} (0/2)",
+                                                        "${StringConstant.allHiredContractors} (${state.approveShiftList[index].hired_user}/${state.approveShiftList[index].total_user})",
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w500,
                                                   ),
@@ -331,7 +331,7 @@ class ApproveShiftView extends StatelessWidget {
                 : displayDateBreak(
                     context,
                     boldValue:
-                        "${shift.shift_type ?? 0} ${StringConstant.shifts}",
+                        "${shift.total_shifts ?? 0} ${StringConstant.shifts}",
                     timidValue: "",
                     title: StringConstant.totalShifts,
                     svgPrefixIcon: SvgImageConstant.calendar,

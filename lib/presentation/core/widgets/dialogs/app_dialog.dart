@@ -42,7 +42,8 @@ class AppDialog {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding:
+                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actionsAlignment: MainAxisAlignment.center,
             actions: [
               CommonButton(
@@ -104,7 +105,8 @@ class AppDialog {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding:
+                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actions: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -199,7 +201,8 @@ class AppDialog {
             ),
             alignment: Alignment.center,
             actionsAlignment: MainAxisAlignment.center,
-            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding:
+                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actions: [
               CommonButton(
                 onPressed: () {
@@ -263,7 +266,8 @@ class AppDialog {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
-          insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+          insetPadding:
+              insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
           actions: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -479,7 +483,8 @@ class AppDialog {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding:
+                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actions: [
               CommonButton(
                 onPressed: () {
@@ -538,6 +543,7 @@ class _AddRemarkModalState extends State<AddRemarkModal> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      scrollable: true,
       backgroundColor: AppColors.white,
       actionsAlignment: MainAxisAlignment.center,
       insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
@@ -561,22 +567,24 @@ class _AddRemarkModalState extends State<AddRemarkModal> {
             textColor: AppColors.black.withOpacity(0.7),
           ),
           Gap(getSize(20)),
-          BaseText(text: "Comment", fontSize: 12),
+          BaseText(text: StringConstant.comment, fontSize: 12),
           Gap(getSize(8)),
           Form(
             key: _formKey,
-            child: CustomTextField(
-              autoValidateMode: AutovalidateMode.onUserInteraction,
-              controller: _controller,
-              maxLines: 5,
-              hintText: "Type here",
-              fillColor: AppColors.scaffoldColor,
-              validator: (value, p1) {
-                if ((value == null) || value.isEmpty) {
-                  return "Please add remark";
-                }
-                return null;
-              },
+            child: Flexible(
+              child: CustomTextField(
+                autoValidateMode: AutovalidateMode.onUserInteraction,
+                controller: _controller,
+                maxLines: 5,
+                hintText: StringConstant.typeHere,
+                fillColor: AppColors.scaffoldColor,
+                validator: (value, p1) {
+                  if ((value == null) || value.trim().isEmpty) {
+                    return "Please add remark";
+                  }
+                  return null;
+                },
+              ),
             ),
           ),
         ],
@@ -587,7 +595,7 @@ class _AddRemarkModalState extends State<AddRemarkModal> {
             Expanded(
               child: CommonButton(
                 onPressed: () => context.router.maybePop(),
-                buttonText: "Cancel",
+                buttonText: StringConstant.cancle,
                 backgroundColor: AppColors.white,
                 borderColor: AppColors.green,
                 buttonTextColor: AppColors.green,
@@ -600,7 +608,7 @@ class _AddRemarkModalState extends State<AddRemarkModal> {
                   if (!_formKey.currentState!.validate()) return;
                   context.router.maybePop(_controller.text.trim());
                 },
-                buttonText: "Done",
+                buttonText: StringConstant.done,
               ),
             ),
           ],

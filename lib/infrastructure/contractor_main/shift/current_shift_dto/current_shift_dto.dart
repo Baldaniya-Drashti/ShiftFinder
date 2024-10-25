@@ -27,6 +27,7 @@ class CurrentShiftDTO with _$CurrentShiftDTO {
     String? language_other,
     LocationDTO? location,
     String? location_unit,
+    int? remaining_shifts,
     double? rate_hour,
     ShiftDetailDTO? shift_detail,
     String? software_skill,

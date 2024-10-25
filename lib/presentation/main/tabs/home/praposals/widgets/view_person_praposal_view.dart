@@ -33,7 +33,8 @@ class ViewPersonPraposalView extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<ProposalDetailBloc>()
         ..add(
-          ProposalDetailEvent.getProposalDetail(postId: postId, userId: userId, context: context),
+          ProposalDetailEvent.getProposalDetail(
+              postId: postId, userId: userId, context: context),
         ),
       child: Scaffold(
         appBar: CommonAppBar(
@@ -62,7 +63,9 @@ class ViewPersonPraposalView extends StatelessWidget {
                     SizedBox(height: getSize(20)),
                     if (data.shift_type == 1) ...[
                       BaseText(
-                        text: DateFormat("dd MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch((data.start_date ?? 0) * 1000)),
+                        text: DateFormat("dd MMM, yyyy").format(
+                            DateTime.fromMillisecondsSinceEpoch(
+                                (data.start_date ?? 0) * 1000)),
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         textColor: AppColors.green,
@@ -122,7 +125,8 @@ class ViewPersonPraposalView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    if (data.posted_commute_allowance_rate != null && data.posted_commute_allowance_hour_name != null) ...[
+                    if (data.posted_commute_allowance_rate != null &&
+                        data.posted_commute_allowance_hour_name != null) ...[
                       SizedBox(height: getSize(20)),
                       BaseText(
                         text: 'Commute Allowance',
@@ -140,11 +144,15 @@ class ViewPersonPraposalView extends StatelessWidget {
                           final hourly = data.commute_allowance_type == 2;
                           String postedDescription, proposedDescription;
                           if (hourly) {
-                            postedDescription = data.posted_commute_allowance_hour_name ?? "";
-                            proposedDescription = data.proposed_commute_allowance_hour_name ?? "";
+                            postedDescription =
+                                data.posted_commute_allowance_hour_name ?? "";
+                            proposedDescription =
+                                data.proposed_commute_allowance_hour_name ?? "";
                           } else {
-                            postedDescription = "\$${data.posted_commute_allowance_rate ?? ""}";
-                            proposedDescription = "\$${data.proposed_commute_allowance_rate ?? ""}";
+                            postedDescription =
+                                "\$${data.posted_commute_allowance_rate ?? ""}";
+                            proposedDescription =
+                                "\$${data.proposed_commute_allowance_rate ?? ""}";
                           }
 
                           return Column(
@@ -165,7 +173,9 @@ class ViewPersonPraposalView extends StatelessWidget {
                         }),
                       ),
                     ],
-                    if (data.posted_accommodation_allowance_rate != null && data.posted_accommodation_allowance_hour_name != null) ...[
+                    if (data.posted_accommodation_allowance_rate != null &&
+                        data.posted_accommodation_allowance_hour_name !=
+                            null) ...[
                       SizedBox(height: getSize(20)),
                       BaseText(
                         text: 'Accommodation Allowance',
@@ -180,15 +190,22 @@ class ViewPersonPraposalView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(getSize(20)),
                         ),
                         child: Builder(builder: (context) {
-                          final isCommuteAllowanceHourly = data.accommodation_allowance_type == 2;
+                          final isCommuteAllowanceHourly =
+                              data.accommodation_allowance_type == 2;
                           String postedDescription, proposedDescription;
 
                           if (isCommuteAllowanceHourly) {
-                            postedDescription = data.posted_accommodation_allowance_hour_name ?? "";
-                            proposedDescription = data.proposed_accommodation_allowance_hour_name ?? "";
+                            postedDescription =
+                                data.posted_accommodation_allowance_hour_name ??
+                                    "";
+                            proposedDescription =
+                                data.proposed_accommodation_allowance_hour_name ??
+                                    "";
                           } else {
-                            postedDescription = "\$${data.posted_accommodation_allowance_rate ?? ""}";
-                            proposedDescription = "\$${data.posted_accommodation_allowance_rate ?? ""}";
+                            postedDescription =
+                                "\$${data.posted_accommodation_allowance_rate ?? ""}";
+                            proposedDescription =
+                                "\$${data.posted_accommodation_allowance_rate ?? ""}";
                           }
                           return Column(
                             children: [
@@ -216,27 +233,35 @@ class ViewPersonPraposalView extends StatelessWidget {
                         Expanded(
                           child: CommonButton(
                             onPressed: () async {
-                              if ((state.confirmDialog == null || state.confirmDialog == false) && data.shift_type == 2) {
+                              if ((state.confirmDialog == null ||
+                                      state.confirmDialog == false) &&
+                                  data.shift_type == 2) {
                                 final result = await showDialog<bool?>(
                                   barrierDismissible: false,
                                   context: context,
                                   builder: (context) {
                                     return AlertDialog(
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
                                       contentPadding: EdgeInsets.all(30),
-                                      insetPadding: EdgeInsets.symmetric(horizontal: 24),
+                                      insetPadding:
+                                          EdgeInsets.symmetric(horizontal: 24),
                                       backgroundColor: Colors.white,
                                       content: BaseText(
                                         textAlign: TextAlign.center,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
-                                        text: "Please confirm that you have reviewed the proposed availability to accept the proposal.",
+                                        text:
+                                            "Please confirm that you have reviewed the proposed availability to accept the proposal.",
                                       ),
                                       actions: [
                                         Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 30),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 30),
                                           child: CommonButton(
-                                            onPressed: () => context.router.maybePop(true),
+                                            onPressed: () =>
+                                                context.router.maybePop(true),
                                             buttonText: "Ok",
                                           ),
                                         )
@@ -260,14 +285,20 @@ class ViewPersonPraposalView extends StatelessWidget {
                             onPressed: () {
                               AcceptRejectDialog(
                                 title: 'Reject',
-                                description: 'Are you sure you want to reject this application?',
+                                description:
+                                    'Are you sure you want to reject this application?',
                                 onPressedAccept: () {
                                   context.router.maybePop().then(
                                     (value) {
-                                      final id = context.read<ProposalDetailBloc>().state.proposalDetailDto.id;
+                                      final id = context
+                                          .read<ProposalDetailBloc>()
+                                          .state
+                                          .proposalDetailDto
+                                          .id;
                                       if (id == null) return;
                                       context.read<ProposalDetailBloc>().add(
-                                            ProposalDetailEvent.proposalAcceptReject(
+                                            ProposalDetailEvent
+                                                .proposalAcceptReject(
                                               id: id,
                                               request: 2,
                                               context: context,
@@ -299,7 +330,8 @@ class ViewPersonPraposalView extends StatelessWidget {
                     CommonButton(
                       onPressed: () async {
                         final result = await context.router.push(
-                          PageRouteInfo(CounterPurposeView.name, args: CounterPurposeViewArgs(data: data)),
+                          PageRouteInfo(CounterPurposeView.name,
+                              args: CounterPurposeViewArgs(data: data)),
                         ) as bool?;
                         Log.success("result ${result}");
                         if (result ?? false) {
@@ -333,11 +365,12 @@ class ViewPersonPraposalView extends StatelessWidget {
     AcceptRejectDialog(
       title: 'Confirm & Accept',
       description:
-          "By proceeding I confirm that I have reviewed $firstName $lastName's ${shiftType == 1 ? "" : "proposal for availability,"} wage, and allowances",
+          "By proceeding I confirm that I have reviewed $firstName $lastName's ${shiftType == 1 ? "" : "proposal for availability,"} wage and allowances",
       onPressedAccept: () {
         context.router.maybePop().then(
           (value) {
-            final id = context.read<ProposalDetailBloc>().state.proposalDetailDto.id;
+            final id =
+                context.read<ProposalDetailBloc>().state.proposalDetailDto.id;
             if (id == null) return;
             context.read<ProposalDetailBloc>().add(
                   ProposalDetailEvent.proposalAcceptReject(
@@ -355,7 +388,8 @@ class ViewPersonPraposalView extends StatelessWidget {
     ).acceptRejectDialog(context);
   }
 
-  getTitleAndDescription(BuildContext context, {required String title, required String description}) {
+  getTitleAndDescription(BuildContext context,
+      {required String title, required String description}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -367,7 +401,8 @@ class ViewPersonPraposalView extends StatelessWidget {
         SizedBox(height: getSize(8)),
         Container(
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.symmetric(horizontal: getSize(20), vertical: getSize(15)),
+          padding: EdgeInsets.symmetric(
+              horizontal: getSize(20), vertical: getSize(15)),
           decoration: BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.circular(getSize(10)),

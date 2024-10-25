@@ -1261,12 +1261,12 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
       if (shift.multi_date != null && shift.multi_date!.isNotEmpty) {
         final list = shift.multi_date!.map((multiDate) {
           final formattedDate = DateFormat('yyyy-MM-dd')
-              .format(DateTime.parse(multiDate.date ?? "").toUtc());
+              .format(DateTime.parse(multiDate.date ?? ""));
           final map = {
             if (state.updateShift.id == null) ...{
-              // 'date': DateTime.parse(multiDate.date ?? "").toUtc().millisecondsSinceEpoch / 1000,
               'date':
-                  DateTime.parse(formattedDate).millisecondsSinceEpoch / 1000,
+                  DateTime.parse(formattedDate).toUtc().millisecondsSinceEpoch /
+                      1000,
               'start_time': DateTime.parse((shift.same_or_different_time == 1)
                           ? shift.start_time ?? ""
                           : multiDate.start_time ?? "")

@@ -27,7 +27,8 @@ part 'view_single_applicants_event.dart';
 part 'view_single_applicants_bloc.freezed.dart';
 
 @injectable
-class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingleApplicantsState> {
+class ViewSingleApplicantsBloc
+    extends Bloc<ViewSingleApplicantsEvent, ViewSingleApplicantsState> {
   final IMainFacade _mainFacade;
   final RefreshController refreshController = RefreshController();
   int page = 1;
@@ -35,7 +36,8 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
   bool isFetching = false;
   Timer? _timer;
 
-  ViewSingleApplicantsBloc(this._mainFacade) : super(ViewSingleApplicantsState.initial()) {
+  ViewSingleApplicantsBloc(this._mainFacade)
+      : super(ViewSingleApplicantsState.initial()) {
     on<ViewSingleApplicantsEvent>(
       (event, emit) async {
         await event.map(
@@ -100,7 +102,10 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
             final isCvvValid = state.cvv.isValid();
             //request 1= accpeted
             //request 0= notaccpeted
-            if (isCardHolderNameValid && isCardNumberValid && isCardDateValid && isCvvValid) {
+            if (isCardHolderNameValid &&
+                isCardNumberValid &&
+                isCardDateValid &&
+                isCvvValid) {
               emit(
                 state.copyWith(
                   isSubmitting: true,
@@ -120,7 +125,10 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
           getApplicantsList: (GetApplicantsList value) async {
             if (value.isRefresh) {
               page = 1;
-              emit(state.copyWith(employerApplicantList: [], isLoading: value.isRefresh, postId: value.id));
+              emit(state.copyWith(
+                  employerApplicantList: [],
+                  isLoading: value.isRefresh,
+                  postId: value.id));
               refreshController.resetNoData();
             } else {
               if (page > lastPage) {
@@ -128,7 +136,8 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
                 return;
               }
             }
-            var res = await _mainFacade.getApplicantList(postId: value.id, page: page);
+            var res = await _mainFacade.getApplicantList(
+                postId: value.id, page: page);
 
             page++;
             res.fold(
@@ -146,19 +155,27 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
                 }
 
                 Log.success("response=> ${r.additional_data?.is_card_added}");
-                final employerApplicantList = (r.data as List<dynamic>).map((e) => EmployerApplicantsDto.fromJson(e)).toList();
+                final employerApplicantList = (r.data as List<dynamic>)
+                    .map((e) => EmployerApplicantsDto.fromJson(e))
+                    .toList();
 
                 emit(
                   state.copyWith(
                     isLoading: false,
                     isErrorInAPI: false,
                     isCardAdded: r.additional_data?.is_card_added ?? false,
-                    totalShift: r.additional_data?.total_shift??0,
-                    completeShift: r.additional_data?.complete_shift??0,
-                    isNoDataFound: (r.data as List<dynamic>).map((e) => EmployerApplicantsDto.fromJson(e)).toList().isEmpty,
+                    totalShift: r.additional_data?.total_shift ?? 0,
+                    completeShift: r.additional_data?.complete_shift ?? 0,
+                    isNoDataFound: (r.data as List<dynamic>)
+                        .map((e) => EmployerApplicantsDto.fromJson(e))
+                        .toList()
+                        .isEmpty,
                     //  getProductList: []
-                    employerApplicantList: List.from(state.employerApplicantList)
-                      ..addAll((r.data as List<dynamic>).map((e) => EmployerApplicantsDto.fromJson(e)).toList()),
+                    employerApplicantList:
+                        List.from(state.employerApplicantList)
+                          ..addAll((r.data as List<dynamic>)
+                              .map((e) => EmployerApplicantsDto.fromJson(e))
+                              .toList()),
                   ),
                 );
                 for (var i in employerApplicantList) {
@@ -188,7 +205,8 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
                 showError(
                   message: l.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) => 'Please check your internet connectivity',
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(value.context);
@@ -197,11 +215,13 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
                 value.context.router.maybePop();
                 CommonCardDialog(
                   title: 'Awaiting Confirmation',
-                  description: 'Application accepted, Contractor notified for Confirmation.',
+                  description:
+                      'Application accepted, Contractor notified for Confirmation.',
                   buttonText: 'Ok',
                   onPressed: () {
                     value.context.router.maybePop();
-                    add(ViewSingleApplicantsEvent.getApplicantsList(state.postId, true));
+                    add(ViewSingleApplicantsEvent.getApplicantsList(
+                        state.postId, true));
                   },
                   image: SvgImageConstant.timerShift,
                 ).addCardDialog(value.context);
@@ -222,25 +242,29 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
                 showError(
                   message: l.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) => 'Please check your internet connectivity',
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(value.context);
               },
               (r) {
                 value.context.router.maybePop();
-                showSuccess(message: "Applicant Removed Successfully").show(value.context).then((value) {
-                  add(ViewSingleApplicantsEvent.getApplicantsList(state.postId, true));
+                showSuccess(message: "Applicant Removed Successfully")
+                    .show(value.context)
+                    .then((value) {
+                  add(ViewSingleApplicantsEvent.getApplicantsList(
+                      state.postId, true));
                 });
               },
             );
           },
           onRevoke: (OnRevoke value) async {
-
             Either<MainFailure, CommonResponse>? failureOrSuccess;
 
             emit(state.copyWith(postDataLoading: true));
-            failureOrSuccess = await _mainFacade.revokeApplicant(postId: value.postId, userId: value.userId);
+            failureOrSuccess = await _mainFacade.revokeApplicant(
+                postId: value.postId, userId: value.userId);
             emit(state.copyWith(postDataLoading: false));
             failureOrSuccess.fold(
               (l) {
@@ -248,28 +272,34 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
                 showError(
                   message: l.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) => 'Please check your internet connectivity',
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(value.context);
               },
               (r) {
                 value.context.router.maybePop();
-                showSuccess(message: r.dioMessage ?? "").show(value.context).then((value) {
-                  add(ViewSingleApplicantsEvent.getApplicantsList(state.postId, true));
+                showSuccess(message: r.dioMessage ?? "")
+                    .show(value.context)
+                    .then((value) {
+                  add(ViewSingleApplicantsEvent.getApplicantsList(
+                      state.postId, true));
                 });
               },
             );
           },
           startRevokingTimer: (StartRevokingTimer value) {
-            DateTime timerStartTime = DateTime.fromMillisecondsSinceEpoch(value.revokeTime * 1000);
+            DateTime timerStartTime =
+                DateTime.fromMillisecondsSinceEpoch(value.revokeTime * 1000);
 
             Duration totalDuration = Duration(hours: 2);
 
             state.employerApplicantList.map((shift) {
               if (shift.id == value.postId) {
                 // if (shift.revoke_status == 1) {
-                Duration remainingTime = calculateRemainingTime(timerStartTime, totalDuration);
+                Duration remainingTime =
+                    calculateRemainingTime(timerStartTime, totalDuration);
 
                 _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
                   if (remainingTime.inSeconds <= 0) {
@@ -289,7 +319,8 @@ class ViewSingleApplicantsBloc extends Bloc<ViewSingleApplicantsEvent, ViewSingl
     );
   }
 
-  Duration calculateRemainingTime(DateTime timerStartTime, Duration totalDuration) {
+  Duration calculateRemainingTime(
+      DateTime timerStartTime, Duration totalDuration) {
     DateTime currentTime = DateTime.now();
     Duration elapsedTime = currentTime.difference(timerStartTime);
 

@@ -107,6 +107,8 @@ class MyCalendarViewBloc
 
             if (!isSelected) {
               currentDateId = item.employer_post_id;
+              print("currentDateId---> $currentDateId");
+
               return item.copyWith(
                 isUnAvailable: !item.isUnAvailable,
                 colorText:
@@ -130,6 +132,8 @@ class MyCalendarViewBloc
               isGetting: true,
             ),
           );
+
+          print("mycalendar result---> $result");
 
           failureOrSuccess = await _mainFacade
               .getContractorMyCalendarDetailApi((currentDateId != null)

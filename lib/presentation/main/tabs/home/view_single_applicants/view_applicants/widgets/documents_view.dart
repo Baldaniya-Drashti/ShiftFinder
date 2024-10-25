@@ -15,10 +15,7 @@ class DocumentsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     Log.debug(data.document);
-
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +29,10 @@ class DocumentsView extends StatelessWidget {
         SizedBox(
           height: getSize(8),
         ),
-        if(data.document?.any((element) =>element.document_type==1,)??false)...[
+        if (data.document?.any(
+              (element) => element.document_type == 1,
+            ) ??
+            false) ...[
           getDocumentsContainer(
             title: 'Government Issued Id',
             onTap: () {
@@ -41,7 +41,11 @@ class DocumentsView extends StatelessWidget {
                   CommonDocumentView.name,
                   args: CommonDocumentViewArgs(
                     title: 'Government Issued Id',
-                    pdfUrl: data.document?.firstWhere((element) => element.document_type == 1).file ?? "",
+                    pdfUrl: data.document
+                            ?.firstWhere(
+                                (element) => element.document_type == 1)
+                            .file ??
+                        "",
                   ),
                 ),
               );
@@ -51,9 +55,10 @@ class DocumentsView extends StatelessWidget {
             height: getSize(15),
           ),
         ],
-
-
-        if(data.document?.any((element) =>element.document_type==2,)??false)...[
+        if (data.document?.any(
+              (element) => element.document_type == 2,
+            ) ??
+            false) ...[
           getDocumentsContainer(
             title: 'Covid 19 Vaccination Proof',
             onTap: () {
@@ -62,7 +67,11 @@ class DocumentsView extends StatelessWidget {
                   CommonDocumentView.name,
                   args: CommonDocumentViewArgs(
                     title: 'Covid 19 Vaccination Proof',
-                    pdfUrl: data.document?.firstWhere((element) => element.document_type == 2).file ?? "",
+                    pdfUrl: data.document
+                            ?.firstWhere(
+                                (element) => element.document_type == 2)
+                            .file ??
+                        "",
                   ),
                 ),
               );
@@ -72,46 +81,56 @@ class DocumentsView extends StatelessWidget {
             height: getSize(15),
           ),
         ],
-     if(data.document?.any((element) =>element.document_type==3)??false)...[
-       getDocumentsContainer(
-         title: 'Credentials/Registrations',
-         onTap: () {
-           context.router.push(
-             PageRouteInfo(
-               CommonDocumentView.name,
-               args: CommonDocumentViewArgs(
-                 title: 'Government Issued Id',
-                 pdfUrl: data.document?.firstWhere((element) => element.document_type == 3).file ?? "",
-               ),
-             ),
-           );
-         },
-       ),
-       SizedBox(
-         height: getSize(15),
-       ),
-     ],
-       if(data.document?.any((element) =>element.document_type==4)??false)...[
-         getDocumentsContainer(
-           title: 'Professional License',
-           onTap: () {
-             context.router.push(
-               PageRouteInfo(
-                 CommonDocumentView.name,
-                 args: CommonDocumentViewArgs(
-                   title: 'Professional License',
-                   pdfUrl: data.document?.firstWhere((element) => element.document_type == 4).file ?? "",
-                 ),
-               ),
-             );
-           },
-         ),
-         SizedBox(
-           height: getSize(15),
-         ),
-       ],
-
-        if(data.document?.any((element) =>element.document_type==5)??false)...[
+        if (data.document?.any((element) => element.document_type == 3) ??
+            false) ...[
+          getDocumentsContainer(
+            title: 'Credentials/Registrations',
+            onTap: () {
+              context.router.push(
+                PageRouteInfo(
+                  CommonDocumentView.name,
+                  args: CommonDocumentViewArgs(
+                    title: 'Credentials/Registrations',
+                    pdfUrl: data.document
+                            ?.firstWhere(
+                                (element) => element.document_type == 3)
+                            .file ??
+                        "",
+                  ),
+                ),
+              );
+            },
+          ),
+          SizedBox(
+            height: getSize(15),
+          ),
+        ],
+        if (data.document?.any((element) => element.document_type == 4) ??
+            false) ...[
+          getDocumentsContainer(
+            title: 'Professional License',
+            onTap: () {
+              context.router.push(
+                PageRouteInfo(
+                  CommonDocumentView.name,
+                  args: CommonDocumentViewArgs(
+                    title: 'Professional License',
+                    pdfUrl: data.document
+                            ?.firstWhere(
+                                (element) => element.document_type == 4)
+                            .file ??
+                        "",
+                  ),
+                ),
+              );
+            },
+          ),
+          SizedBox(
+            height: getSize(15),
+          ),
+        ],
+        if (data.document?.any((element) => element.document_type == 5) ??
+            false) ...[
           getDocumentsContainer(
             title: 'Immunizations/Vaccinations',
             onTap: () {
@@ -120,7 +139,11 @@ class DocumentsView extends StatelessWidget {
                   CommonDocumentView.name,
                   args: CommonDocumentViewArgs(
                     title: 'Immunizations/Vaccinations',
-                    pdfUrl: data.document?.firstWhere((element) => element.document_type == 5).file ?? "",
+                    pdfUrl: data.document
+                            ?.firstWhere(
+                                (element) => element.document_type == 5)
+                            .file ??
+                        "",
                   ),
                 ),
               );
@@ -130,27 +153,32 @@ class DocumentsView extends StatelessWidget {
             height: getSize(15),
           ),
         ],
-
-       if(data.document?.any((element) =>element.document_type==6)??false)...[
-         getDocumentsContainer(
-           title: 'Covid 19 Vaccination Proof',
-           onTap: () {
-             context.router.push(
-               PageRouteInfo(
-                 CommonDocumentView.name,
-                 args: CommonDocumentViewArgs(
-                   title: 'Covid 19 Vaccination Proof',
-                   pdfUrl: data.document?.firstWhere((element) => element.document_type == 6).file ?? "",
-                 ),
-               ),
-             );
-           },
-         ),
-         SizedBox(
-           height: getSize(15),
-         ),
-       ],
-        if(data.document?.any((element) =>element.document_type==7)??false)...[
+        if (data.document?.any((element) => element.document_type == 6) ??
+            false) ...[
+          getDocumentsContainer(
+            title: 'Covid 19 Vaccination Proof',
+            onTap: () {
+              context.router.push(
+                PageRouteInfo(
+                  CommonDocumentView.name,
+                  args: CommonDocumentViewArgs(
+                    title: 'Covid 19 Vaccination Proof',
+                    pdfUrl: data.document
+                            ?.firstWhere(
+                                (element) => element.document_type == 6)
+                            .file ??
+                        "",
+                  ),
+                ),
+              );
+            },
+          ),
+          SizedBox(
+            height: getSize(15),
+          ),
+        ],
+        if (data.document?.any((element) => element.document_type == 7) ??
+            false) ...[
           getDocumentsContainer(
             title: 'Professional Liability Protection',
             onTap: () {
@@ -158,8 +186,12 @@ class DocumentsView extends StatelessWidget {
                 PageRouteInfo(
                   CommonDocumentView.name,
                   args: CommonDocumentViewArgs(
-                    title: 'Government Issued Id',
-                    pdfUrl: data.document?.firstWhere((element) => element.document_type == 7).file ?? "",
+                    title: 'Professional Liability Protection',
+                    pdfUrl: data.document
+                            ?.firstWhere(
+                                (element) => element.document_type == 7)
+                            .file ??
+                        "",
                   ),
                 ),
               );
@@ -169,8 +201,8 @@ class DocumentsView extends StatelessWidget {
             height: getSize(15),
           ),
         ],
-
-        if(data.document?.any((element) =>element.document_type==8)??false)...[
+        if (data.document?.any((element) => element.document_type == 8) ??
+            false) ...[
           getDocumentsContainer(
             title: 'Resume',
             onTap: () {
@@ -179,7 +211,11 @@ class DocumentsView extends StatelessWidget {
                   CommonDocumentView.name,
                   args: CommonDocumentViewArgs(
                     title: 'Resume',
-                    pdfUrl: data.document?.firstWhere((element) => element.document_type == 8).file ?? "",
+                    pdfUrl: data.document
+                            ?.firstWhere(
+                                (element) => element.document_type == 8)
+                            .file ??
+                        "",
                   ),
                 ),
               );
@@ -189,27 +225,30 @@ class DocumentsView extends StatelessWidget {
             height: getSize(15),
           ),
         ],
-
-       if(data.document?.any((element) =>element.document_type==9)??false)...[
-         getDocumentsContainer(
-           title: 'Apparel/Equipment',
-           onTap: () {
-             context.router.push(
-               PageRouteInfo(
-                 CommonDocumentView.name,
-                 args: CommonDocumentViewArgs(
-                   title: 'Government Issued Id',
-                   pdfUrl: data.document?.firstWhere((element) => element.document_type == 9).file ?? "",
-                 ),
-               ),
-             );
-           },
-         ),
-         SizedBox(
-           height: getSize(15),
-         ),
-       ]
-
+        if (data.document?.any((element) => element.document_type == 9) ??
+            false) ...[
+          getDocumentsContainer(
+            title: 'Apparel/Equipment',
+            onTap: () {
+              context.router.push(
+                PageRouteInfo(
+                  CommonDocumentView.name,
+                  args: CommonDocumentViewArgs(
+                    title: 'Apparel/Equipment',
+                    pdfUrl: data.document
+                            ?.firstWhere(
+                                (element) => element.document_type == 9)
+                            .file ??
+                        "",
+                  ),
+                ),
+              );
+            },
+          ),
+          SizedBox(
+            height: getSize(15),
+          ),
+        ]
       ],
     );
   }

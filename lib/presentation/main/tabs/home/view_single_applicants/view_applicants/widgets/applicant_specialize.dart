@@ -16,9 +16,13 @@ class ApplicantSpecialize extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final completeProfile = data.complete_profile;
-    final specialityOther = completeProfile?.specialties_detail?.where((element) => element.specialtie_lists == null).toList();
-    final speciality = completeProfile?.specialties_detail?.where((element) => element.specialtie_lists != null).toList();
-Log.info(data.experience);
+    final specialityOther = completeProfile?.specialties_detail
+        ?.where((element) => element.specialtie_lists == null)
+        .toList();
+    final speciality = completeProfile?.specialties_detail
+        ?.where((element) => element.specialtie_lists != null)
+        .toList();
+    Log.info(data.experience);
     return Container(
       padding: EdgeInsets.all(getSize(12)),
       decoration: BoxDecoration(
@@ -35,6 +39,7 @@ Log.info(data.experience);
               fontSize: 10,
               fontWeight: FontWeight.w600,
             ),
+            SizedBox(height: getSize(5)),
             Wrap(
               spacing: 16,
               runSpacing: 16,
@@ -48,14 +53,16 @@ Log.info(data.experience);
                     children: [
                       BaseText(
                         text: role,
-                        fontSize: 14,
+                        fontSize: 13,
                         fontWeight: FontWeight.w500,
                       ),
-                      SizedBox(height: getSize(5)),
+                      SizedBox(height: getSize(2)),
                       BaseText(
-                        text: "Exp - ${exp?.experience_year ?? "-"} Yr. ${exp?.experience_month ?? "-"} Mo.",
-                        fontSize: 8,
-                        fontWeight: FontWeight.w600,
+                        text:
+                            "Exp - ${exp?.experience_year ?? "-"} Yr. ${exp?.experience_month ?? "-"} Mo.",
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
+                        textColor: AppColors.black,
                       ),
                     ],
                   );
@@ -84,6 +91,7 @@ Log.info(data.experience);
               fontSize: 10,
               fontWeight: FontWeight.w600,
             ),
+            SizedBox(height: getSize(5)),
             Wrap(
               spacing: 16,
               runSpacing: 16,
@@ -96,14 +104,15 @@ Log.info(data.experience);
                     children: [
                       BaseText(
                         text: role,
-                        fontSize: 14,
+                        fontSize: 13,
                         fontWeight: FontWeight.w500,
                       ),
-                      SizedBox(height: getSize(5)),
+                      SizedBox(height: getSize(2)),
                       BaseText(
-                        text: "Exp -${speciality?[index].experience_year ?? 0} Yr.  ${speciality?[index].experience_month ?? 0} Mo.",
-                        fontSize: 8,
-                        fontWeight: FontWeight.w600,
+                        text:
+                            "Exp - ${speciality?[index].experience_year ?? 0} Yr.  ${speciality?[index].experience_month ?? 0} Mo.",
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
                       ),
                     ],
                   );
@@ -114,31 +123,33 @@ Log.info(data.experience);
 
           if ((specialityOther ?? []).isNotEmpty) ...[
             SizedBox(height: getSize(8)),
-
             BaseText(
               text: "Other Specialties",
               textColor: AppColors.green.withOpacity(0.8),
               fontSize: 10,
               fontWeight: FontWeight.w600,
             ),
+            SizedBox(height: getSize(2)),
             Wrap(
               children: List.generate(
                 specialityOther?.length ?? 0,
                 (index) {
-                  final role = specialityOther?[index].specialtie_lists_other ?? "";
+                  final role =
+                      specialityOther?[index].specialtie_lists_other ?? "";
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       BaseText(
                         text: role,
-                        fontSize: 14,
+                        fontSize: 13,
                         fontWeight: FontWeight.w500,
                       ),
                       SizedBox(height: getSize(5)),
                       BaseText(
-                        text: "Exp -${speciality?[index].experience_year ?? 0} Yr.  ${speciality?[index].experience_month ?? 0} Mo.",
-                        fontSize: 8,
-                        fontWeight: FontWeight.w600,
+                        text:
+                            "Exp - ${speciality?[index].experience_year ?? 0} Yr.  ${speciality?[index].experience_month ?? 0} Mo.",
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
                       ),
                     ],
                   );
@@ -154,14 +165,15 @@ Log.info(data.experience);
           SizedBox(height: getSize(15)),
           getSkillsDetailsView(
             mainTitle: 'Software Skillset',
-            skills: '${data.complete_profile?.softwares_skill_list?.map((e) => e.name??"").join(", ")}',
+            skills:
+                '${data.complete_profile?.softwares_skill_list?.map((e) => e.name ?? "").join(", ")}',
           ),
 
-          if(data.complete_profile?.software_skill_other!=null)...[
+          if (data.complete_profile?.software_skill_other != null) ...[
             SizedBox(height: getSize(8)),
             getSkillsDetailsView(
               mainTitle: 'Software Skillset Other',
-              skills: 'Test',
+              skills: '${data.complete_profile?.software_skill_other}',
             ),
           ],
           SizedBox(height: getSize(15)),
@@ -171,15 +183,9 @@ Log.info(data.experience);
           SizedBox(height: getSize(15)),
           getSkillsDetailsView(
             mainTitle: 'Languages Known',
-            skills: '${completeProfile?.languages_list?.map((e) => e.name??"").toList().join(", ")}',
+            skills:
+                '${completeProfile?.languages_list?.map((e) => e.name ?? "").toList().join(", ")}',
           ),
-          if(data.complete_profile?.software_skill_other!=null)...[
-            SizedBox(height: getSize(8)),
-            getSkillsDetailsView(
-              mainTitle: 'Software Skillset Other',
-              skills: 'Test',
-            ),
-          ],
         ],
       ),
     );
@@ -259,7 +265,7 @@ Log.info(data.experience);
         SizedBox(height: getSize(5)),
         BaseText(
           text: skills,
-          fontSize: 14,
+          fontSize: 13,
           fontWeight: FontWeight.w500,
         ),
       ],

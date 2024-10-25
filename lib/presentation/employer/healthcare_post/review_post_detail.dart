@@ -591,7 +591,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
                           : "00 Shifts",
                       timidValue: "",
                       title: StringConstant.totalShifts,
-                      svgPrefixIcon: SvgImageConstant.clockWithOuterLine)
+                      svgPrefixIcon: SvgImageConstant.clock)
                   : displayDateBreak(context,
                       boldValue:
                           "${shiftDetail?.unpaid_break?.short_name ?? ""}",

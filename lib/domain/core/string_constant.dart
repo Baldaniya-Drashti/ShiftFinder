@@ -523,7 +523,7 @@ class StringConstant {
   static const String approveShiftDesc1 =
       "By approving these clock in and out times, you confirm that you have reviewed the ";
   static const String approveShiftDesc2 =
-      "’s  hours. Once approved, the times will be finalized.";
+      "’s hours. Once approved, the times will be finalized.";
 
   static const String withdrawnByContractor = "Withdrawn by contractor";
   static const String withdralContractors = "Withdraw contractors";
@@ -545,12 +545,13 @@ class StringConstant {
   static const String numberOfShifts = "Number of shifts";
   static const String allowanceForOneShift = "Allowance for One Shift";
   static const String estimatedTotalAmount = "Estimated Total Amount";
+  static const String comment = "Comment";
   static const String iRoidSolutions = "iRoid Solutions";
 
   ///
 
   /// ERROR ///
-  static const String pleaseEnterReason = "Please enter reason";
+  static const String pleaseEnterReason = "Please enter Reason";
   static const String pleaseSelectAtLeastOneLanguage =
       "Please select at least one language";
   static const String pleaseSelectAtLeastOneSkillSet =

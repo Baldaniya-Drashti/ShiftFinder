@@ -696,7 +696,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
                           : "00 Shift",
                       timidValue: "",
                       title: StringConstant.totalShifts,
-                      svgPrefixIcon: SvgImageConstant.clockWithOuterLine)
+                      svgPrefixIcon: SvgImageConstant.clock)
                   : displayDateBreak(context, post,
                       boldValue:
                           post.shift_detail?.unpaid_break?.short_name ?? "",

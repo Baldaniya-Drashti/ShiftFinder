@@ -570,9 +570,7 @@ class ViewContractorShift extends StatelessWidget {
                 post,
                 boldValue: convertTimeStampToDate(
                     post.shift_detail?.detail?[0].date ?? -1),
-                timidValue: convertTimeStampToDate(
-                    post.shift_detail?.detail?[0].date ?? -1,
-                    isYear: true),
+                timidValue: "",
                 title: StringConstant.shiftDate,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
@@ -617,7 +615,7 @@ class ViewContractorShift extends StatelessWidget {
       if (isYear) {
         return DateFormat('yyyy').format(dateTime);
       } else {
-        return DateFormat('d MMMM, ').format(dateTime);
+        return DateFormat('dd MMMM, yyyy').format(dateTime);
       }
     }
   }
@@ -814,7 +812,7 @@ class ViewContractorShift extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            color: AppColors.primaryColor.withOpacity(0.5),
+            color: AppColors.primaryColor,
           ),
         ),
         TextSpan(
