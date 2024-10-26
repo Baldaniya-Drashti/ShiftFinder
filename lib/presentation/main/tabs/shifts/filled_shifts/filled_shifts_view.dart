@@ -393,7 +393,8 @@ class FilledShiftsView extends StatelessWidget {
                       )
                     : displayDateBreak(
                         context,
-                        boldValue: "${shift.total_shifts ?? 0} Shifts",
+                        boldValue:
+                            "${shift.total_shifts ?? 0} ${((shift.total_shifts ?? 0) > 1) ? "Shifts" : "Shift"}",
                         timidValue: "",
                         title: StringConstant.totalShifts,
                         svgPrefixIcon: SvgImageConstant.calendar,
@@ -465,7 +466,7 @@ class FilledShiftsView extends StatelessWidget {
         ),
       ],
     );
-    }
+  }
 
   Widget displayTime({
     required String title,

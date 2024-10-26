@@ -360,7 +360,7 @@ class ViewPersonPraposalView extends StatelessWidget {
     AcceptRejectDialog(
       title: 'Confirm & Accept',
       description:
-          "By proceeding I confirm that I have reviewed $firstName $lastName's ${shiftType == 1 ? "" : "proposal for availability,"} wage and allowances",
+          "By proceeding I confirm that I have reviewed $firstName $lastName's${shiftType == 1 ? "" : " proposal for availability,"} wage and allowances",
       onPressedAccept: () {
         context.router.maybePop().then(
           (value) {

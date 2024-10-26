@@ -148,7 +148,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 ),
               );
 
-              if (r.isTeamAvailable == 1 || getShowTeamDialog() == false) {
+              if (r.isTeamAvailable == 1 || getShowTeamDialog() == true) {
                 e.context.router
                     .push(PageRouteInfo(HealthCarePostForm.name))
                     .then((value) {
@@ -222,9 +222,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
                   ),
-                  onChanged: (value) {
+                  onChanged: (value) async {
                     if (value != null) {
                       add(HomeEvent.dontShowAgain(context, isCheck: value));
+                      await setShowTeamDialog(value);
                     }
                   },
                 ),

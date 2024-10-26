@@ -331,7 +331,7 @@ class CancelledShiftView extends StatelessWidget {
                         SizedBox(width: getSize(10)),
                         BaseText(
                           text:
-                              "${(state.currentCancelFilter.id == 2) ? StringConstant.withdralContractors : StringConstant.cancelledContractors} (${shift.cancel_shift ?? 00}/${shift.total_user})",
+                              "${(state.currentCancelFilter.id == 2) ? StringConstant.withdralContractors : StringConstant.cancelledContractors} (${shift.cancel_shift ?? 00}/${shift.total_shift})",
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
@@ -441,7 +441,8 @@ class CancelledShiftView extends StatelessWidget {
                   )
                 : displayDateBreak(
                     context,
-                    boldValue: "${shift.shift_type ?? 0} Shifts",
+                    boldValue:
+                        "${shift.total_shifts ?? 0} ${((shift.total_shifts ?? 0) > 1) ? "Shifts" : "Shift"}",
                     timidValue: "",
                     title: StringConstant.totalShifts,
                     svgPrefixIcon: SvgImageConstant.calendar,

@@ -382,7 +382,7 @@ class _MultiSelectDialogState<T> extends State<MultiSelectDialog<T>> {
                       horizontal: getSize(15), vertical: getSize(18)),
                   child: CustomTextField(
                     labelText: "Add Other ${widget.title}",
-                    labelTextWidth: getSize(250),
+                    labelTextWidth: getSize(240),
                     hintText: widget.title,
                     controller: otherController,
                     inputFormatters: [

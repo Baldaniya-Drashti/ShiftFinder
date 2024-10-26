@@ -21,6 +21,7 @@ class EmployerShiftDto with _$EmployerShiftDto {
     int? end_time,
     double? estimated_payables,
     int? total_shifts,
+    int? total_shift,
     HiredContractorDTO? user,
     List<HiredContractorDTO>? users,
     int? total_user,

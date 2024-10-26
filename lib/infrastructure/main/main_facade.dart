@@ -870,10 +870,19 @@ class MainFacade implements IMainFacade {
   Future<Either<MainFailure, CommonResponse>> getContractorDashboardListAPI(
       {required int page, int? filterType}) async {
     try {
+      DateTime now = DateTime.now();
       Map<String, dynamic> mapData = {
         'filter_type': filterType ?? 0,
         'page': page,
         'perPage': _perPage,
+        "start_date": DateTime(now.year, now.month, now.day, 0, 0, 0)
+                .toUtc()
+                .millisecondsSinceEpoch /
+            1000,
+        "end_date": DateTime(now.year, now.month, now.day, 23, 59, 59, 999)
+                .toUtc()
+                .millisecondsSinceEpoch /
+            1000,
       };
 
       final res = await apiService.getMethod(ApiConstants.contractorDashboard,

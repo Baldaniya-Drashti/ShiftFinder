@@ -23,6 +23,7 @@ _$EmployerShiftDtoImpl _$$EmployerShiftDtoImplFromJson(
       end_time: (json['end_time'] as num?)?.toInt(),
       estimated_payables: (json['estimated_payables'] as num?)?.toDouble(),
       total_shifts: (json['total_shifts'] as num?)?.toInt(),
+      total_shift: (json['total_shift'] as num?)?.toInt(),
       user: json['user'] == null
           ? null
           : HiredContractorDTO.fromJson(json['user'] as Map<String, dynamic>),
@@ -52,6 +53,7 @@ Map<String, dynamic> _$$EmployerShiftDtoImplToJson(
       'end_time': instance.end_time,
       'estimated_payables': instance.estimated_payables,
       'total_shifts': instance.total_shifts,
+      'total_shift': instance.total_shift,
       'user': instance.user,
       'users': instance.users,
       'total_user': instance.total_user,

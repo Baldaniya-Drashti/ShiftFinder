@@ -331,7 +331,7 @@ class ApproveShiftView extends StatelessWidget {
                 : displayDateBreak(
                     context,
                     boldValue:
-                        "${shift.total_shifts ?? 0} ${StringConstant.shifts}",
+                        "${shift.total_shifts ?? 0} ${((shift.total_shifts ?? 0) > 1) ? "Shifts" : "Shift"}",
                     timidValue: "",
                     title: StringConstant.totalShifts,
                     svgPrefixIcon: SvgImageConstant.calendar,

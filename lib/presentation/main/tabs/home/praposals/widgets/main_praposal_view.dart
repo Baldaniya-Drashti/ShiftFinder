@@ -171,6 +171,8 @@ class MainPraposalView extends StatelessWidget {
                   VerticalDivider(
                     color: AppColors.black.withOpacity(0.3),
                     width: 0,
+                    indent: getSize(5),
+                    endIndent: getSize(5),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

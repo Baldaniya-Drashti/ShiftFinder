@@ -140,6 +140,12 @@ class DeleteShiftDialog extends StatelessWidget {
           ),
         );
       },
-    );
+    ).then((value) {
+      if (value == true) {
+        context
+            .read<ShiftsBloc>()
+            .add(ShiftsBlocEvent.fetchFilledShiftList(refresh: true));
+      }
+    });
   }
 }

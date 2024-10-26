@@ -148,7 +148,7 @@ class ShiftsBloc extends Bloc<ShiftsBlocEvent, ShiftsBlocState> {
                   showSuccess(message: r.dioMessage ?? "")
                       .show(e.context)
                       .then((value) {
-                    add(ShiftsBlocEvent.fetchFilledShiftList(refresh: true));
+                    e.context.router.maybePop(true);
                   });
                 },
               );
