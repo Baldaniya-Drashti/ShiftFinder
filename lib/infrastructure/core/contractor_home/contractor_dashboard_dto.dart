@@ -30,12 +30,12 @@ class ContactorDashboardDTO with _$ContactorDashboardDTO {
     int? total_proposal_counts,
     List<ApplicationProfile>? total_proposal_profiles,
     String? specialties_list,
-    int? rate_hour,
+    num? rate_hour,
     String? total_payable_hour,
     int? total_vacancy,
-    int? accommodation_allowance,
-    int? commute_allowance,
-    int? total_amount,
+    num? accommodation_allowance,
+    num? commute_allowance,
+    num? total_amount,
   }) = _ContactorDashboardDTO;
 
   factory ContactorDashboardDTO.fromJson(Map<String, dynamic> json) =>

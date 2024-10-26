@@ -259,14 +259,16 @@ class FilledShiftsView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        BaseText(
-                          text: shift.roles_list_name ?? "",
-                          fontSize: 16,
-                          maxLines: 1,
-                          fontWeight: FontWeight.w600,
+                        Flexible(
+                          child: BaseText(
+                            text: shift.roles_list_name ?? "",
+                            fontSize: 16,
+                            maxLines: 1,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
-                        Spacer(),
                         GestureDetector(
                           onTap: () {
                             DeleteShiftDialog(
@@ -368,85 +370,102 @@ class FilledShiftsView extends StatelessWidget {
   }
 
   Widget dateAndTime(BuildContext context, EmployerShiftDto shift) {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            (shift.shift_type == 1)
-                ? displayDateBreak(
-                    context,
-                    boldValue: convertTimeStampToDate(shift.start_date ?? -1),
-                    timidValue: convertTimeStampToDate(shift.start_date ?? -1,
-                        isYear: true),
-                    title: StringConstant.shiftDate,
-                    svgPrefixIcon: SvgImageConstant.calendar,
-                  )
-                : displayDateBreak(
-                    context,
-                    boldValue: "${shift.total_shifts ?? 0} Shifts",
-                    timidValue: "",
-                    title: StringConstant.totalShifts,
-                    svgPrefixIcon: SvgImageConstant.calendar,
-                  ),
-            (shift.shift_type == 1)
-                ? displayTime(
-                    title: StringConstant.time,
-                    startDate: (shift.start_time != null)
-                        ? DateFormat('hh:mm a').format(
-                            DateTime.fromMillisecondsSinceEpoch(
-                                (shift.start_time ?? 0) * 1000))
-                        : "",
-                    endDate: (shift.end_time != null)
-                        ? DateFormat('hh:mm a').format(
-                            DateTime.fromMillisecondsSinceEpoch(
-                                (shift.end_time ?? 0) * 1000))
-                        : "",
-                    svgPrefixIcon: SvgImageConstant.clock,
-                  )
-                : displayDateBreak(
-                    context,
-                    boldValue: convertTimeStampToDate(shift.start_date ?? -1),
-                    timidValue: convertTimeStampToDate(shift.start_date ?? -1,
-                        isYear: true),
-                    title: StringConstant.shiftStartDate,
-                    svgPrefixIcon: SvgImageConstant.calendar,
-                  )
-          ],
+        Flexible(
+          flex: 10,
+          child: SizedBox(
+            height: getSize(120),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                (shift.shift_type == 1)
+                    ? displayDateBreak(
+                        context,
+                        boldValue:
+                            convertTimeStampToDate(shift.start_date ?? -1),
+                        timidValue: convertTimeStampToDate(
+                            shift.start_date ?? -1,
+                            isYear: true),
+                        title: StringConstant.shiftDate,
+                        svgPrefixIcon: SvgImageConstant.calendar,
+                      )
+                    : displayDateBreak(
+                        context,
+                        boldValue: "${shift.total_shifts ?? 0} Shifts",
+                        timidValue: "",
+                        title: StringConstant.totalShifts,
+                        svgPrefixIcon: SvgImageConstant.calendar,
+                      ),
+                displayDateBreak(
+                  context,
+                  boldValue: "\$${shift.estimated_payables ?? 0.0}",
+                  timidValue: "",
+                  title: StringConstant.estimatedPayables,
+                  svgPrefixIcon: SvgImageConstant.dollorRound,
+                ),
+              ],
+            ),
+          ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            displayDateBreak(
-              context,
-              boldValue: "\$${shift.estimated_payables ?? 0.0}",
-              timidValue: "",
-              title: StringConstant.estimatedPayables,
-              svgPrefixIcon: SvgImageConstant.dollorRound,
+        Flexible(
+          flex: 13,
+          child: SizedBox(
+            height: getSize(120),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                (shift.shift_type == 1)
+                    ? displayTime(
+                        title: StringConstant.time,
+                        startDate: (shift.start_time != null)
+                            ? DateFormat('hh:mm a').format(
+                                DateTime.fromMillisecondsSinceEpoch(
+                                    (shift.start_time ?? 0) * 1000))
+                            : "",
+                        endDate: (shift.end_time != null)
+                            ? DateFormat('hh:mm a').format(
+                                DateTime.fromMillisecondsSinceEpoch(
+                                    (shift.end_time ?? 0) * 1000))
+                            : "",
+                        svgPrefixIcon: SvgImageConstant.clock,
+                      )
+                    : displayDateBreak(
+                        context,
+                        boldValue:
+                            convertTimeStampToDate(shift.start_date ?? -1),
+                        timidValue: convertTimeStampToDate(
+                            shift.start_date ?? -1,
+                            isYear: true),
+                        title: StringConstant.shiftStartDate,
+                        svgPrefixIcon: SvgImageConstant.calendar,
+                      ),
+                displayDateBreak(
+                  context,
+                  boldValue: "",
+                  timidValue: "",
+                  title: "",
+                  svgPrefixIcon: "",
+                  showBtn: true,
+                  onBtnPressed: () {
+                    context.router.push(
+                      PageRouteInfo(
+                        ViewHomeShiftDetails.name,
+                        args: ViewHomeShiftDetailsArgs(
+                          postId: shift.id ?? -1,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
-            displayDateBreak(
-              context,
-              boldValue: "",
-              timidValue: "",
-              title: "",
-              svgPrefixIcon: "",
-              showBtn: true,
-              onBtnPressed: () {
-                context.router.push(
-                  PageRouteInfo(
-                    ViewHomeShiftDetails.name,
-                    args: ViewHomeShiftDetailsArgs(
-                      postId: shift.id ?? -1,
-                    ),
-                  ),
-                );
-              },
-            ),
-          ],
+          ),
         ),
       ],
     );
-  }
+    }
 
   Widget displayTime({
     required String title,
@@ -532,7 +551,7 @@ class FilledShiftsView extends StatelessWidget {
       child: (showBtn)
           ? CommonButton(
               onPressed: onBtnPressed ?? () {},
-              width: 160,
+              // width: 160,
               height: 34,
               borderRadius: 5,
               buttonFontSize: 12,

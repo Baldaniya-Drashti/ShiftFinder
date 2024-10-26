@@ -12,10 +12,12 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/main/hired_contractor_list_dto/hired_contractor_list_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
 
 class EditClockTimeDialog extends StatelessWidget {
@@ -39,7 +41,7 @@ class EditClockTimeDialog extends StatelessWidget {
           //     clockOut: contractor.clock_out_time ?? -1,
           //   ),
           builder: (context, state) {
-            print("state.clockIn-----////>  ${state.clockIn}");
+            print("state.clockIn-----////>  ${contractor.clock_in_time}");
             return AlertDialog(
               contentPadding: EdgeInsets.zero,
               clipBehavior: Clip.none,
@@ -135,7 +137,6 @@ class EditClockTimeDialog extends StatelessWidget {
                                   clockInTime, true));
                         }
                       },
-                      // clockInOrOutTime: formatTimeOfDay(state.clockIn),
                       clockInOrOutTime: (state.clockIn != null)
                           ? DateFormat('hh:mm a').format(
                               DateTime.fromMillisecondsSinceEpoch(
@@ -144,17 +145,17 @@ class EditClockTimeDialog extends StatelessWidget {
                               ? DateFormat('hh:mm a').format(
                                   DateTime.fromMillisecondsSinceEpoch(
                                       (contractor.clock_in_time ?? -1) * 1000))
-                              : StringConstant.clockOut,
+                              : StringConstant.clockIn,
                     ),
+                    if (state.showClockTimeError && state.clockIn == null)
+                      commonErrorText(StringConstant.pleaseAddClockInTime),
                     SizedBox(height: getSize(20)),
                     BaseText(
                       text: StringConstant.clockOut,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
-                    SizedBox(
-                      height: getSize(8),
-                    ),
+                    SizedBox(height: getSize(8)),
                     commonClockInOutMethod(
                       onTap: () async {
                         final clockOutTime = await showTimePicker(
@@ -180,9 +181,9 @@ class EditClockTimeDialog extends StatelessWidget {
                                               1000))
                                   : StringConstant.clockOut,
                     ),
-                    SizedBox(
-                      height: getSize(30),
-                    ),
+                    if (state.showClockTimeError && state.clockOut == null)
+                      commonErrorText(StringConstant.pleaseAddClockOutTime),
+                    SizedBox(height: getSize(30)),
                     Row(
                       children: [
                         Expanded(
@@ -196,13 +197,17 @@ class EditClockTimeDialog extends StatelessWidget {
                             buttonText: StringConstant.cancle,
                           ),
                         ),
-                        SizedBox(
-                          width: getSize(25),
-                        ),
+                        SizedBox(width: getSize(25)),
                         Expanded(
                           child: CommonButton(
                             onPressed: () async {
-                              context.router.maybePop(true);
+                              // context.router.maybePop(true);
+                              context.read<HiredContractorBloc>().add(
+                                      HiredContractorEvent.submitClockInOutTime(
+                                    context,
+                                    postId: contractor.id ?? -1,
+                                    userId: contractor.user_id ?? -1,
+                                  ));
                             },
                             buttonText: StringConstant.approve,
                           ),
@@ -217,9 +222,15 @@ class EditClockTimeDialog extends StatelessWidget {
           },
         ),
       ),
-    );
+    ).then((value) {
+      if (value == true) {
+        showUnderDevelopment(context).then((val) {
+          // context.router.maybePop();
+        });
+      }
+    });
 
-    if (result ?? false) {
+    /*if (result ?? false) {
       AcceptRejectDialog(
         title: StringConstant.approve,
         description:
@@ -307,7 +318,7 @@ class EditClockTimeDialog extends StatelessWidget {
           await context.router.maybePop();
         },
       ).acceptRejectDialog(context);
-    }
+    }*/
   }
 
   String formatTimeOfDay(TimeOfDay tod) {

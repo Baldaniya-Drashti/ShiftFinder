@@ -968,11 +968,13 @@ class MainFacade implements IMainFacade {
           // "start_date": DateTime(now.year, now.month, now.day, 5, 30, 0).toUtc().millisecondsSinceEpoch /1000,
           // "end_date": DateTime(now.year, now.month, now.day, 18, 29, 59).toUtc().millisecondsSinceEpoch /1000,
           "start_date": DateTime(now.year, now.month, now.day, 0, 0, 0)
-              .toUtc()
-              .millisecondsSinceEpoch,
+                  .toUtc()
+                  .millisecondsSinceEpoch /
+              1000,
           "end_date": DateTime(now.year, now.month, now.day, 23, 59, 59, 999)
-              .toUtc()
-              .millisecondsSinceEpoch
+                  .toUtc()
+                  .millisecondsSinceEpoch /
+              1000,
         });
       }
 
@@ -1136,13 +1138,25 @@ class MainFacade implements IMainFacade {
     required int sortBy,
   }) async {
     try {
-      final res = await apiService
-          .getMethod(ApiConstants.employerPreviousShift, queryParameters: {
+      DateTime now = DateTime.now();
+
+      Map<String, dynamic> mapData = {
         "type": type,
         "sort_by": sortBy,
         "page": page,
         "perPage": _perPage,
-      });
+        "start_date": DateTime(now.year, now.month, now.day, 0, 0, 0)
+                .toUtc()
+                .millisecondsSinceEpoch /
+            1000,
+        "end_date": DateTime(now.year, now.month, now.day, 23, 59, 59, 999)
+                .toUtc()
+                .millisecondsSinceEpoch /
+            1000,
+      };
+
+      final res = await apiService.getMethod(ApiConstants.employerPreviousShift,
+          queryParameters: mapData);
 
       if (res != null) {
         return right(res);
@@ -1427,11 +1441,13 @@ class MainFacade implements IMainFacade {
         // "start_date": DateTime(now.year, now.month, now.day, 5, 30, 0).toUtc().millisecondsSinceEpoch /1000,
         // "end_date": DateTime(now.year, now.month, now.day, 18, 29, 59).toUtc().millisecondsSinceEpoch /1000,
         "start_date": DateTime(now.year, now.month, now.day, 0, 0, 0)
-            .toUtc()
-            .millisecondsSinceEpoch,
+                .toUtc()
+                .millisecondsSinceEpoch /
+            1000,
         "end_date": DateTime(now.year, now.month, now.day, 23, 59, 59, 999)
-            .toUtc()
-            .millisecondsSinceEpoch
+                .toUtc()
+                .millisecondsSinceEpoch /
+            1000,
       });
     }
 
@@ -1821,6 +1837,42 @@ class MainFacade implements IMainFacade {
       final res = await apiService.postMethod(
         ApiConstants.employerRating,
         {"user_id": userId, "post_id": postId, "rating": rating},
+      );
+
+      return right(res);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, CommonResponse>> submitEmployerClockInClockOut({
+    required int shiftId,
+    required int? clockInTime,
+    required int? clockOutTime,
+    required int userId,
+  }) async {
+    try {
+      Map<String, dynamic> mapData = {
+        'id': shiftId,
+        'user_id': userId,
+        'clock_in': clockInTime,
+        'clock_out': clockOutTime,
+      };
+
+      final res = await apiService.postMethod(
+        ApiConstants.employerClockInOut,
+        mapData,
       );
 
       return right(res);

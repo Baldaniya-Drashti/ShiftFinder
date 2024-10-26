@@ -724,6 +724,10 @@ class StringConstant {
       "Create Your Team to Get Started";
   static const String dontShowThisAgain = "Don’t show this again";
   static const String theTotalPayableHourMustBeAtLeastTwo =
-      "The total payable hours must be at least 2 hours.";
+      "Payable hours should be atleast 2 hours.";
+  static const String pleaseAddClockOutTime = "Please add clock out time!";
+  static const String pleaseAddClockInTime = "Please add clock in time!";
+  static const String awaitingClockInOutDesc =
+      "Awaiting for contractor’s clock in & out...";
   static const String underDevelopment = "Under Development";
 }

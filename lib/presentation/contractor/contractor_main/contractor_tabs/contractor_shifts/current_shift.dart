@@ -79,7 +79,6 @@ class CurrentShift extends StatelessWidget {
                                       "${((shift.remaining_shifts ?? 0) > 9) ? shift.remaining_shifts : "0${shift.remaining_shifts}"}"),
                               paddingBetweenFields(),
                               dateAndTime(context, shift),
-                              paddingBetweenFields(),
                               clockIn(context, index, shift),
                               paddingBetweenFields(),
                               clockOut(context, index, shift),
@@ -100,7 +99,86 @@ class CurrentShift extends StatelessWidget {
   }
 
   Widget dateAndTime(BuildContext context, CurrentShiftDTO shift) {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Flexible(
+          flex: 10,
+          child: SizedBox(
+            height: getSize(120),
+            child: Column(
+              children: [
+                displayDateBreak(
+                  context,
+                  // boldValue: "12 May,",
+                  // timidValue: "2024",
+                  boldValue:
+                      convertTimeStampToDate(shift.shift_detail?.date ?? -1),
+                  timidValue: convertTimeStampToDate(
+                      shift.shift_detail?.date ?? -1,
+                      isYear: true),
+                  title: StringConstant.shiftDate,
+                  svgPrefixIcon: SvgImageConstant.calendar,
+                ),
+                displayDateBreak(
+                  context,
+                  boldValue:
+                      "\$${shift.shift_detail?.payables?.total_amount_payable ?? ""}",
+                  timidValue: "",
+                  title: StringConstant.estimatedPayables,
+                  svgPrefixIcon: SvgImageConstant.dollorRound,
+                ),
+              ],
+            ),
+          ),
+        ),
+        Flexible(
+          flex: 13,
+          child: SizedBox(
+            height: getSize(120),
+            child: Column(
+              children: [
+                displayTime(
+                  title: StringConstant.time,
+                  startDate: (shift.shift_detail?.start_time != null)
+                      ? DateFormat('hh:mm a').format(
+                          DateTime.fromMillisecondsSinceEpoch(
+                              (shift.shift_detail?.start_time ?? 0) * 1000))
+                      : "",
+                  endDate: (shift.shift_detail?.end_time != null)
+                      ? DateFormat('hh:mm a').format(
+                          DateTime.fromMillisecondsSinceEpoch(
+                              (shift.shift_detail?.end_time ?? 0) * 1000))
+                      : "",
+                  svgPrefixIcon: SvgImageConstant.clock,
+                ),
+                displayDateBreak(
+                  context,
+                  boldValue: "",
+                  timidValue: "",
+                  title: "",
+                  svgPrefixIcon: "",
+                  showBtn: true,
+                  onBtnPressed: () {
+                    context.router.push(
+                      PageRouteInfo(
+                        ViewContractorShift.name,
+                        args: ViewContractorShiftArgs(
+                          postId: shift.id ?? -1,
+                          isTotalApplicants: true,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+    /*Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -164,7 +242,7 @@ class CurrentShift extends StatelessWidget {
           ],
         ),
       ],
-    );
+    );*/
   }
 
   String convertTimeStampToDate(int timestamp,
@@ -392,7 +470,7 @@ class CurrentShift extends StatelessWidget {
                                   shiftDetail: post.shift_detail!)));
                         }*/
                   },
-              width: 160,
+              // width: 160,
               height: 34,
               borderRadius: 5,
               buttonFontSize: 12,

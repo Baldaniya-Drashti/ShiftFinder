@@ -202,7 +202,7 @@ class ViewDates extends StatelessWidget {
             text: date,
             textColor: AppColors.primaryColor,
             fontSize: 14,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
           ),
         ),
         Container(
