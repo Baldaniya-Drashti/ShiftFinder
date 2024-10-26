@@ -67,7 +67,8 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, List<SkillDTO>>> getAccomdationHoursListApi();
 
-  Future<Either<MainFailure, HealthcarePostDTO>> createPostShiftApi({required MultiShiftDTO shift});
+  Future<Either<MainFailure, HealthcarePostDTO>> createPostShiftApi(
+      {required MultiShiftDTO shift});
 
   Future<Either<MainFailure, HealthcarePostDTO>> createPostShiftRecurringApi({
     required int postShiftId,
@@ -147,20 +148,24 @@ abstract class IMainFacade {
     required int sortBy,
   });
 
-  Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut({required int shiftId, required int clockTime});
+  Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut(
+      {required int shiftId, required int clockTime});
 
   Future<Either<MainFailure, CommonResponse>> deleteUpcomingShiftApi({
     required int id,
     String reason = "",
   });
 
-  Future<Either<MainFailure, HealthcarePostDTO>> getContractorShiftDetail({required int postId});
+  Future<Either<MainFailure, HealthcarePostDTO>> getContractorShiftDetail(
+      {required int postId});
 
-  Future<Either<MainFailure, String>> contractorShiftUrgentActionApi({required int postId, required int urgentAction});
+  Future<Either<MainFailure, String>> contractorShiftUrgentActionApi(
+      {required int postId, required int urgentAction});
 
   Future<Either<MainFailure, List<MyCalendarDTO>>> getMyCalendarListApi();
 
-  Future<Either<MainFailure, ContractorMyCalendarDTO>> getContractorMyCalendarDetailApi(int id);
+  Future<Either<MainFailure, ContractorMyCalendarDTO>>
+      getContractorMyCalendarDetailApi(int id);
 
   Future<Either<MainFailure, CommonResponse>> getApplicantList({
     required int postId,
@@ -222,7 +227,8 @@ abstract class IMainFacade {
     required int request,
   });
 
-  Future<Either<MainFailure, CommonResponse>> sendEmployerApplicantsCounterPropose({
+  Future<Either<MainFailure, CommonResponse>>
+      sendEmployerApplicantsCounterPropose({
     required int id,
     required num counterRateHour,
     required int commuteAllowanceType,
@@ -246,7 +252,7 @@ abstract class IMainFacade {
     required int id,
     String reason = "",
   });
-  
+
   Future<Either<MainFailure, CommonResponse>> hiredContractorList({
     required int postId,
     required int shortType,
@@ -260,5 +266,13 @@ abstract class IMainFacade {
   Future<Either<MainFailure, CommonResponse>> addEmployerRating({
     required int userId,
     required int postId,
-    required int rating,  });
+    required int rating,
+  });
+
+ Future<Either<MainFailure, CommonResponse>> submitEmployerClockInClockOut(
+      {required int shiftId,
+      required int? clockInTime,
+      required int? clockOutTime,
+      required int userId,
+      });
 }

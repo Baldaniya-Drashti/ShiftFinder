@@ -33,6 +33,8 @@ _$EmployerShiftDtoImpl _$$EmployerShiftDtoImplFromJson(
       hired_user: (json['hired_user'] as num?)?.toInt(),
       remaining_shift: (json['remaining_shift'] as num?)?.toInt(),
       isdelete: json['isdelete'] as bool?,
+      compassion: (json['compassion'] as num?)?.toInt(),
+      cancel_shift: (json['cancel_shift'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$EmployerShiftDtoImplToJson(
@@ -56,6 +58,8 @@ Map<String, dynamic> _$$EmployerShiftDtoImplToJson(
       'hired_user': instance.hired_user,
       'remaining_shift': instance.remaining_shift,
       'isdelete': instance.isdelete,
+      'compassion': instance.compassion,
+      'cancel_shift': instance.cancel_shift,
     };
 
 _$HiredContractorDTOImpl _$$HiredContractorDTOImplFromJson(

@@ -174,5 +174,5 @@ class ApiConstants {
   static String employerApplicantsCounterPropose =
       'employer_applicants_counter_propose';
   static String employerAddRemark = 'employer_remark';
-  static String destroyRemark= 'destroy_remark';
+  static String destroyRemark = 'destroy_remark';
 }

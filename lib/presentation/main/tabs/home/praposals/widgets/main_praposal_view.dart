@@ -27,8 +27,10 @@ class MainPraposalView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final industry = CommonList.industryList.firstWhere((element) => element.id == additionalData.industry).title;
-    Log.info((additionalData.start_date??0)*1000);
+    final industry = CommonList.industryList
+        .firstWhere((element) => element.id == additionalData.industry)
+        .title;
+    Log.info((additionalData.start_date ?? 0) * 1000);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: getSize(20)),
       padding: EdgeInsets.all(getSize(10)),
@@ -88,9 +90,11 @@ class MainPraposalView extends StatelessWidget {
                           ),
                           SizedBox(height: getSize(3)),
                           BaseText(
-                            text: '($industry- ${additionalData.listing_id ?? ""})',
+                            text:
+                                '($industry- ${additionalData.listing_id ?? ""})',
                             fontSize: 12,
-                            textColor: const Color.fromARGB(255, 55, 46, 46).withOpacity(0.8),
+                            textColor: const Color.fromARGB(255, 55, 46, 46)
+                                .withOpacity(0.8),
                           )
                         ],
                       ),
@@ -152,12 +156,15 @@ class MainPraposalView extends StatelessWidget {
                       Text.rich(
                         style: TextStyle(fontSize: 12),
                         TextSpan(
-                          text: "${convertUnixTimeToLocalString(additionalData.start_date ?? 0)}, ",
+                          text:
+                              "${convertUnixTimeToLocalString(additionalData.start_date ?? 0)}, ",
                           style: TextStyle(fontWeight: FontWeight.w500),
                           children: [
                             TextSpan(
-                                text: "${DateTime.fromMillisecondsSinceEpoch((additionalData.start_date ?? 0)*1000).year}",
-                                style: TextStyle(color: AppColors.black.withOpacity(0.5))),
+                                text:
+                                    "${DateTime.fromMillisecondsSinceEpoch((additionalData.start_date ?? 0) * 1000).year}",
+                                style: TextStyle(
+                                    color: AppColors.black.withOpacity(0.5))),
                           ],
                         ),
                       ),
@@ -168,6 +175,7 @@ class MainPraposalView extends StatelessWidget {
                     width: 0,
                   ),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       BaseText(
                         text: 'Start and End Time:-',
@@ -198,7 +206,8 @@ class MainPraposalView extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   context.router.push(
-                    PageRouteInfo(FilledHiredContractorList.name, args: FilledHiredContractorListArgs(postId: postId)),
+                    PageRouteInfo(FilledHiredContractorList.name,
+                        args: FilledHiredContractorListArgs(postId: postId)),
                   );
                 },
                 child: Row(
@@ -211,7 +220,8 @@ class MainPraposalView extends StatelessWidget {
                     Gap(8),
                     Expanded(
                       child: BaseText(
-                        text: "All Hired Contractors (${additionalData.complete_shift}/${additionalData.total_shift})",
+                        text:
+                            "All Hired Contractors (${additionalData.complete_shift}/${additionalData.total_shift})",
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
                       ),
@@ -220,7 +230,8 @@ class MainPraposalView extends StatelessWidget {
                       SvgImageConstant.rightArrow,
                       height: 14,
                       width: 14,
-                      colorFilter: ColorFilter.mode(AppColors.black.withOpacity(0.7), BlendMode.srcIn),
+                      colorFilter: ColorFilter.mode(
+                          AppColors.black.withOpacity(0.7), BlendMode.srcIn),
                     ),
                   ],
                 ),

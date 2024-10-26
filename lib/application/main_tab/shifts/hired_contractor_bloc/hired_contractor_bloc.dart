@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +7,10 @@ import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/account/account_failure.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
+import 'package:shift/domain/main/main_failure.dart';
+import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/main/hired_contractor_list_dto/hired_contractor_list_dto.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 
 part 'hired_contractor_event.dart';
 part 'hired_contractor_state.dart';
@@ -43,12 +47,57 @@ class HiredContractorBloc
             final clockInTimeStamp = convertToTimestamp(value.time);
             print("Selected clock in time---> ${value.time} ");
 
-            emit(state.copyWith(clockIn: clockInTimeStamp));
+            emit(state.copyWith(
+              clockIn: clockInTimeStamp,
+            ));
           } else {
             final clockOutTimeStamp = convertToTimestamp(value.time);
             emit(
               state.copyWith(
                 clockOut: clockOutTimeStamp,
+              ),
+            );
+          }
+        },
+        submitClockInOutTime: (e) async {
+          Either<MainFailure, CommonResponse>? failureOrSuccess;
+
+          final isClockInValid = state.clockIn != null;
+          final isClockOutValid = state.clockOut != null;
+
+          if (isClockInValid && isClockOutValid) {
+            failureOrSuccess = await mainFacade.submitEmployerClockInClockOut(
+              shiftId: e.postId,
+              userId: e.userId,
+              clockInTime: state.clockIn,
+              clockOutTime: state.clockOut,
+            );
+
+            failureOrSuccess.fold(
+              (l) {
+                e.context.router.maybePop();
+                showError(
+                  message: l.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(e.context);
+              },
+              (r) {
+                // e.context.router.maybePop();
+                showSuccess(message: r.dioMessage ?? "")
+                    .show(e.context)
+                    .then((value) {
+                  e.context.router.maybePop(true);
+                });
+              },
+            );
+          } else {
+            emit(
+              state.copyWith(
+                showClockTimeError: true,
               ),
             );
           }

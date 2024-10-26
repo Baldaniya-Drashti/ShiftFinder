@@ -109,7 +109,7 @@ class ViewContractorShiftDates extends StatelessWidget {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
 
     if (isDate) {
-      return DateFormat('d MMM, yyyy').format(dateTime);
+      return DateFormat('dd MMM, yyyy').format(dateTime);
     } else {
       return DateFormat('hh:mm a').format(dateTime);
     }
@@ -229,7 +229,7 @@ class ViewContractorShiftDates extends StatelessWidget {
             text: date,
             textColor: AppColors.primaryColor,
             fontSize: 14,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
           ),
         ),
         Container(

@@ -47,13 +47,12 @@ _$ContactorDashboardDTOImpl _$$ContactorDashboardDTOImplFromJson(
           ?.map((e) => ApplicationProfile.fromJson(e as Map<String, dynamic>))
           .toList(),
       specialties_list: json['specialties_list'] as String?,
-      rate_hour: (json['rate_hour'] as num?)?.toInt(),
+      rate_hour: json['rate_hour'] as num?,
       total_payable_hour: json['total_payable_hour'] as String?,
       total_vacancy: (json['total_vacancy'] as num?)?.toInt(),
-      accommodation_allowance:
-          (json['accommodation_allowance'] as num?)?.toInt(),
-      commute_allowance: (json['commute_allowance'] as num?)?.toInt(),
-      total_amount: (json['total_amount'] as num?)?.toInt(),
+      accommodation_allowance: json['accommodation_allowance'] as num?,
+      commute_allowance: json['commute_allowance'] as num?,
+      total_amount: json['total_amount'] as num?,
     );
 
 Map<String, dynamic> _$$ContactorDashboardDTOImplToJson(

@@ -540,7 +540,8 @@ class PostShiftRecurring extends StatelessWidget {
           context,
           firstDate: (post.date != null && post.date!.isNotEmpty)
               ? DateTime.fromMillisecondsSinceEpoch(
-                  (double.parse(post.date!).toInt()) * 1000)
+                      (double.parse(post.date!).toInt()) * 1000)
+                  .add(Duration(days: 1))
               : DateTime.now(),
           onPickedDate: (pickedDate) {
             context
@@ -553,7 +554,8 @@ class PostShiftRecurring extends StatelessWidget {
           selectedDate: (state.recurringStartDate.isValid())
               ? DateTime.parse(state.recurringStartDate.getValue() ?? "")
               : DateTime.fromMillisecondsSinceEpoch(
-                  (double.parse(post.date!).toInt()) * 1000),
+                      (double.parse(post.date!).toInt()) * 1000)
+                  .add(Duration(days: 1)),
         );
       },
       validator: (_, context) =>

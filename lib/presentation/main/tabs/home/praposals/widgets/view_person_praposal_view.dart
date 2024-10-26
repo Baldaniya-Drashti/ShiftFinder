@@ -125,8 +125,7 @@ class ViewPersonPraposalView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    if (data.posted_commute_allowance_rate != null &&
-                        data.posted_commute_allowance_hour_name != null) ...[
+                    if (data.commute_allowance_type != 0) ...[
                       SizedBox(height: getSize(20)),
                       BaseText(
                         text: 'Commute Allowance',
@@ -173,9 +172,7 @@ class ViewPersonPraposalView extends StatelessWidget {
                         }),
                       ),
                     ],
-                    if (data.posted_accommodation_allowance_rate != null &&
-                        data.posted_accommodation_allowance_hour_name !=
-                            null) ...[
+                    if (data.accommodation_allowance_type != 0) ...[
                       SizedBox(height: getSize(20)),
                       BaseText(
                         text: 'Accommodation Allowance',
@@ -225,9 +222,7 @@ class ViewPersonPraposalView extends StatelessWidget {
                         }),
                       ),
                     ],
-                    SizedBox(
-                      height: getSize(40),
-                    ),
+                    SizedBox(height: getSize(40)),
                     Row(
                       children: [
                         Expanded(

@@ -170,40 +170,64 @@ class ApprovedHiredList extends StatelessWidget {
             ),
           ),
           SizedBox(height: getSize(10)),
-          clocInOut(context, contractor),
-          SizedBox(height: getSize(10)),
-          Row(
-            children: [
-              Expanded(
-                child: CommonButton(
-                  height: 40,
-                  onPressed: () {
-                    showUnderDevelopment(context);
-                    // approveDialog(context, contractor);
-                  },
-                  borderRadius: 7,
-                  buttonFontSize: 12,
-                  buttonText: StringConstant.approve,
-                ),
+          if (contractor.clock_in_out_status == 2) ...[
+            Container(
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.symmetric(
+                  vertical: getSize(8), horizontal: getSize(20)),
+              decoration: BoxDecoration(
+                  color: AppColors.primaryColor.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(getSize(5))),
+              child: BaseText(
+                text: StringConstant.awaitingClockInOutDesc,
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
               ),
-              SizedBox(width: getSize(10)),
-              Expanded(
-                child: CommonButton(
-                  height: 40,
-                  backgroundColor: AppColors.scaffoldColor,
-                  borderColor: AppColors.scaffoldColor,
-                  buttonTextColor: AppColors.black,
-                  onPressed: () {
-                    // EditClockTimeDialog().editClockTimeDialog(context, contractor);
-                    showUnderDevelopment(context);
-                  },
-                  buttonFontSize: 12,
-                  borderRadius: 7,
-                  buttonText: StringConstant.edit,
+            ),
+          ] else if (contractor.clock_in_out_status == 1) ...[
+            clocInOut(context, contractor),
+            SizedBox(height: getSize(10)),
+            Row(
+              children: [
+                Expanded(
+                  child: CommonButton(
+                    height: 40,
+                    onPressed: (contractor.clock_in_time != null &&
+                            contractor.clock_out_time != null)
+                        ? () {
+                            showUnderDevelopment(context);
+                            // approveDialog(context, contractor);
+                          }
+                        : () {},
+                    borderRadius: 7,
+                    buttonFontSize: 12,
+                    buttonText: StringConstant.approve,
+                    backgroundColor: (contractor.clock_in_time != null &&
+                            contractor.clock_out_time != null)
+                        ? AppColors.primaryColor
+                        : AppColors.primaryColor.withOpacity(0.3),
+                  ),
                 ),
-              ),
-            ],
-          ),
+                SizedBox(width: getSize(10)),
+                Expanded(
+                  child: CommonButton(
+                    height: 40,
+                    backgroundColor: AppColors.scaffoldColor,
+                    borderColor: AppColors.scaffoldColor,
+                    buttonTextColor: AppColors.black,
+                    onPressed: () {
+                      EditClockTimeDialog()
+                          .editClockTimeDialog(context, contractor);
+                      // showUnderDevelopment(context);
+                    },
+                    buttonFontSize: 12,
+                    borderRadius: 7,
+                    buttonText: StringConstant.edit,
+                  ),
+                ),
+              ],
+            ),
+          ],
         ],
       ),
     );
@@ -224,20 +248,30 @@ class ApprovedHiredList extends StatelessWidget {
         children: [
           clockTime(
             context,
-            value: DateFormat('hh:mm a')
-                .format(DateTime.fromMillisecondsSinceEpoch(-1 * 1000)),
+            value: (shift.clock_in_time != null)
+                ? DateFormat('hh:mm a').format(
+                    DateTime.fromMillisecondsSinceEpoch(
+                        (shift.clock_in_time!) * 1000))
+                : '--',
             title: StringConstant.clockIn,
             svgPrefixIcon: SvgImageConstant.clock,
-            valueColor: AppColors.primaryColor,
+            valueColor: (shift.clock_in_time != null)
+                ? AppColors.primaryColor
+                : AppColors.black,
           ),
           Spacer(),
           clockTime(
             context,
-            value: DateFormat('hh:mm a')
-                .format(DateTime.fromMillisecondsSinceEpoch(-1 * 1000)),
+            value: (shift.clock_out_time != null)
+                ? DateFormat('hh:mm a').format(
+                    DateTime.fromMillisecondsSinceEpoch(
+                        (shift.clock_out_time!) * 1000))
+                : "--",
             title: StringConstant.clockOut,
             svgPrefixIcon: SvgImageConstant.clock,
-            valueColor: AppColors.primaryColor,
+            valueColor: (shift.clock_out_time != null)
+                ? AppColors.primaryColor
+                : AppColors.black,
           ),
         ],
       ),
@@ -277,8 +311,7 @@ class ApprovedHiredList extends StatelessWidget {
               text: (value.isNotEmpty) ? value : "--",
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              textColor:
-                  (value.isNotEmpty) ? AppColors.primaryColor : AppColors.black,
+              textColor: valueColor,
             ),
           ],
         ),
