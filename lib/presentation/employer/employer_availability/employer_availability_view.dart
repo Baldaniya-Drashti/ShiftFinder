@@ -198,7 +198,7 @@ class _EmployerAvailabilityListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final unavailable =
         data.proposed_start_time == null && data.proposed_end_time == null;
-
+    print("Data availability---> ${data}");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -206,7 +206,8 @@ class _EmployerAvailabilityListTile extends StatelessWidget {
           padding: const EdgeInsets.only(left: 16),
           child: BaseText(
             text: DateFormat("dd MMM, yyyy").format(
-                DateTime.fromMillisecondsSinceEpoch(data.start_date ?? 0)),
+                DateTime.fromMillisecondsSinceEpoch(
+                    (data.start_date ?? -1) * 1000)),
             fontSize: 14,
             fontWeight: FontWeight.w500,
             textColor: AppColors.green,

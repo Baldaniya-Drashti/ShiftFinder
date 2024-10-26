@@ -961,7 +961,7 @@ class MainFacade implements IMainFacade {
         'perPage': _perPage,
       };
 
-      if (filterType == 1) {
+      if (filterType == 1 || filterType == 2) {
         DateTime now = DateTime.now();
 
         mapData.addAll({
@@ -1420,7 +1420,7 @@ class MainFacade implements IMainFacade {
       "location_id": locationId,
       "short_type": shortType,
     };
-    if (type == 2) {
+    if (type == 2 || type == 1) {
       DateTime now = DateTime.now();
 
       mapData.addAll({
