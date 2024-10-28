@@ -41,6 +41,8 @@ import 'package:shift/application/auth/register_form/register_form_bloc.dart'
     as _i134;
 import 'package:shift/application/change_password/change_password_bloc.dart'
     as _i723;
+import 'package:shift/application/consumer_support/support_ticket/support_ticket_bloc.dart'
+    as _i942;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_home_bloc/contractor_home_bloc.dart'
     as _i153;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_main_bloc.dart'
@@ -59,6 +61,8 @@ import 'package:shift/application/employer/employer_location_form/employer_locat
     as _i990;
 import 'package:shift/application/employer/hired_contractor/hired_contractor_bloc.dart'
     as _i119;
+import 'package:shift/application/employer/monthly_statement/monthly_statement_bloc.dart'
+    as _i319;
 import 'package:shift/application/employer/profile/edit_profile/edit_profile_bloc.dart'
     as _i234;
 import 'package:shift/application/employer/profile/previous_shift/previous_shift_bloc.dart'
@@ -115,6 +119,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i366.AccountManagementBloc>(
         () => _i366.AccountManagementBloc());
     gh.factory<_i1025.CardBloc>(() => _i1025.CardBloc());
+    gh.factory<_i319.MonthlyStatementBloc>(() => _i319.MonthlyStatementBloc());
     gh.factory<_i158.EmployerLocationBloc>(() => _i158.EmployerLocationBloc());
     gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
     gh.lazySingleton<_i771.ApiService>(() => _i771.ApiService());
@@ -134,6 +139,10 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i383.HealthcarePostBloc>(() => _i383.HealthcarePostBloc(
           gh<_i277.IAuthFacade>(),
+          gh<_i253.IAccountRepository>(),
+          gh<_i111.IMainFacade>(),
+        ));
+    gh.factory<_i942.SupportTicketBloc>(() => _i942.SupportTicketBloc(
           gh<_i253.IAccountRepository>(),
           gh<_i111.IMainFacade>(),
         ));

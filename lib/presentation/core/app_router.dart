@@ -97,6 +97,8 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: AboutView.page),
         AutoRoute(page: CancellationPolicyView.page),
         AutoRoute(page: FaqView.page),
+        AutoRoute(page: SupportTicketView.page),
+        AutoRoute(page: CustomerSupportView.page),
         AutoRoute(
           page: MainTabView.page,
           children: [

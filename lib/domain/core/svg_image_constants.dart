@@ -139,5 +139,9 @@ class SvgImageConstant {
   static const monthlyStatus = "assets/svg/monthly_status.svg";
   static const securePayment = "assets/svg/secure_payment.svg";
   static const download = "assets/svg/download.svg";
+  static const consumerSupport = "assets/svg/consumer_support.svg";
+  static const ticket = "assets/svg/ticket.svg";
+  static const message = "assets/svg/message.svg";
+  static const about = "assets/svg/about.svg";
 
 }

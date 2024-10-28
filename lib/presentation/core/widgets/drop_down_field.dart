@@ -50,8 +50,7 @@ class CommonDropDownField<T> extends StatefulWidget {
   State<CommonDropDownField<T>> createState() => _CommonDropDownFieldState<T>();
 }
 
-class _CommonDropDownFieldState<T> extends State<CommonDropDownField<T>>
-    with AfterLayoutMixin {
+class _CommonDropDownFieldState<T> extends State<CommonDropDownField<T>> with AfterLayoutMixin {
   late final FocusNode _focus;
   final _controller = TextEditingController();
   final ValueNotifier<bool> _isOptionVisible = ValueNotifier(false);
@@ -64,8 +63,7 @@ class _CommonDropDownFieldState<T> extends State<CommonDropDownField<T>>
     _focus = widget.focus ?? FocusNode();
     _selectedItem.addListener(_selectedItemListener);
     if (widget.value != null) {
-      _selectedItem.value =
-          widget.items.firstWhere((element) => element.value == widget.value);
+      _selectedItem.value = widget.items.firstWhere((element) => element.value == widget.value);
     }
     super.initState();
   }
@@ -73,8 +71,7 @@ class _CommonDropDownFieldState<T> extends State<CommonDropDownField<T>>
   @override
   void didUpdateWidget(covariant CommonDropDownField<T> oldWidget) {
     if (widget.value != null) {
-      _selectedItem.value =
-          widget.items.firstWhere((element) => element.value == widget.value);
+      _selectedItem.value = widget.items.firstWhere((element) => element.value == widget.value);
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -136,12 +133,8 @@ class _CommonDropDownFieldState<T> extends State<CommonDropDownField<T>>
               readOnly: true,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (_) => widget.validator?.call(widget.value),
-              style: theme.textTheme.bodyLarge?.copyWith(
-                  color: Colors.blueGrey,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600),
-              decoration:
-                  (widget.decoration ?? const InputDecoration()).copyWith(
+              style: theme.textTheme.bodyLarge?.copyWith(color: Colors.blueGrey, fontSize: 14, fontWeight: FontWeight.w600),
+              decoration: (widget.decoration ?? const InputDecoration()).copyWith(
                 filled: widget.filled,
                 fillColor: widget.fillColor,
                 hintText: widget.hint,
@@ -150,15 +143,9 @@ class _CommonDropDownFieldState<T> extends State<CommonDropDownField<T>>
                   padding: EdgeInsets.only(left: 12),
                 ),
                 contentPadding: EdgeInsets.zero,
-                prefixIcon: value?.icon == null
-                    ? null
-                    : Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: value?.icon),
+                prefixIcon: value?.icon == null ? null : Padding(padding: const EdgeInsets.symmetric(horizontal: 16), child: value?.icon),
                 suffixIcon: ActionIcon(
-                  onPressed: () => widget.dataLoadedSuccess
-                      ? _isOptionVisible.value = !_isOptionVisible.value
-                      : null,
+                  onPressed: () => widget.dataLoadedSuccess ? _isOptionVisible.value = !_isOptionVisible.value : null,
                   icon: ValueListenableBuilder<bool>(
                     valueListenable: _isOptionVisible,
                     builder: (context, isVisible, child) {
@@ -205,8 +192,7 @@ class _CommonDropDownFieldState<T> extends State<CommonDropDownField<T>>
                       duration: const Duration(milliseconds: 100),
                       height: isVisible ? 200 : 0,
                       child: MediaQuery(
-                        data: MediaQuery.of(context).copyWith(
-                            padding: const EdgeInsets.only(top: 0, bottom: 16)),
+                        data: MediaQuery.of(context).copyWith(padding: const EdgeInsets.only(top: 0, bottom: 16)),
                         child: PrimaryScrollController(
                           controller: _scrollController,
                           child: Scrollbar(
@@ -219,8 +205,7 @@ class _CommonDropDownFieldState<T> extends State<CommonDropDownField<T>>
                                   leading: item.icon,
                                   horizontalTitleGap: 0,
                                   title: Text(item.label,
-                                      style: item.value ==
-                                              _selectedItem.value?.value
+                                      style: item.value == _selectedItem.value?.value
                                           ? theme.textTheme.bodyLarge!.copyWith(
                                               color: Colors.pink,
                                               fontWeight: FontWeight.w500,
@@ -300,6 +285,8 @@ class CustomDropdownField<T> extends StatefulWidget {
     this.validator,
     this.prefixIcon,
     this.hintText,
+    this.hintTextStyle,
+    this.radius,
   });
 
   // final ValueChanged<T?> onChanged;
@@ -309,6 +296,8 @@ class CustomDropdownField<T> extends StatefulWidget {
   final FormFieldValidator<T?>? validator;
   final Widget? prefixIcon;
   final String? hintText;
+  final TextStyle? hintTextStyle;
+  final double? radius;
 
   @override
   State<CustomDropdownField> createState() => _CustomDropdownFieldState();
@@ -320,11 +309,13 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField2(
-      hint: Text(widget.hintText ?? ""),
+      hint: Text(
+        widget.hintText ?? "",
+        style: widget.hintTextStyle,
+      ),
       isDense: true,
       validator: widget.validator,
-      style: TextStyle(
-          fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
+      style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
       isExpanded: true,
       menuItemStyleData: const MenuItemStyleData(
         height: 45,
@@ -361,7 +352,7 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
         isDense: true,
         border: OutlineInputBorder(
           borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: BorderRadius.circular(widget.radius ?? 6),
         ),
       ),
       value: widget.value,

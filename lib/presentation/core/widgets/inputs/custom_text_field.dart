@@ -64,7 +64,7 @@ class CustomTextField extends StatelessWidget {
   final bool autofocus;
   final Color? fillColor;
   final int maxLines;
-  final String? Function(String?, BuildContext)? validator;
+  final String? Function(String? value, BuildContext context)? validator;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final int? errorMaxLines;

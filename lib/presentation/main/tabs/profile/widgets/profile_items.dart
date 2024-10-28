@@ -23,9 +23,9 @@ class ProfileItems extends StatelessWidget {
         title: 'Completed Shifts',
         image: SvgImageConstant.completedShifts,
         onTap: () {
-          // context.router.push(
-          //   PageRouteInfo(PreviousShiftAllView.name, args: PreviousShiftAllViewArgs(completedShift: true)),
-          // );
+          context.router.push(
+            PageRouteInfo(PreviousShiftAllView.name, args: PreviousShiftAllViewArgs(completedShift: true)),
+          );
         },
       ),
       ProfileItemModel(
@@ -44,8 +44,8 @@ class ProfileItems extends StatelessWidget {
         title: 'Locations',
         image: SvgImageConstant.locationIcon,
         onTap: () {
-         // context.router.push(PageRouteInfo(EmployerLocationView.name));
-          // context.router.push(PageRouteInfo(EmployerLocationFormView.name));
+           context.router.push(PageRouteInfo(EmployerLocationView.name));
+          //context.router.push(PageRouteInfo(EmployerLocationFormView.name));
         },
       ),
       ProfileItemModel(
@@ -64,14 +64,14 @@ class ProfileItems extends StatelessWidget {
         title: 'Billing',
         image: SvgImageConstant.billing,
         onTap: () {
-          //context.router.push(PageRouteInfo(BillingView.name));
+          context.router.push(PageRouteInfo(BillingView.name));
         },
       ),
       ProfileItemModel(
         title: 'Account Management',
         image: SvgImageConstant.setting,
         onTap: () {
-          //context.router.push(PageRouteInfo(AccountManagementView.name));
+          context.router.push(PageRouteInfo(AccountManagementView.name));
         },
       ),
       ProfileItemModel(
@@ -84,7 +84,11 @@ class ProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: 'Customer Support',
         image: SvgImageConstant.customerSupport,
-        onTap: () {},
+        onTap: () {
+          context.router.push(
+            PageRouteInfo(CustomerSupportView.name),
+          );
+        },
       ),
       ProfileItemModel(
         title: 'Log Out',
@@ -95,9 +99,7 @@ class ProfileItems extends StatelessWidget {
             description: 'Are you sure you want to log out?',
             onPressedAccept: () {
               context.router.maybePop().then(
-                    (value) => context
-                        .read<AuthStatusBloc>()
-                        .add(AuthStatusEvent.signedOut()),
+                    (value) => context.read<AuthStatusBloc>().add(AuthStatusEvent.signedOut()),
                   );
             },
             onPressedReject: () {

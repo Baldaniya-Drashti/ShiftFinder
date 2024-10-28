@@ -25,24 +25,24 @@ class AboutView extends StatelessWidget {
         padding: const EdgeInsets.all(18),
         child: Column(
           children: [
-            Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SvgPicture.asset(SvgImageConstant.aboutShiftFinder),
-                  Gap(getSize(25)),
-                  BaseText(text: "Billing Details", fontFamily: "Aclonica", fontSize: 22, fontWeight: FontWeight.w400),
-                  SizedBox(
-                    width: MediaQuery.sizeOf(context).width * 0.8,
-                    child: BaseText(
-                      text: "Access key information about the platform, including terms, privacy, cancellation policies, and FAQs",
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      textAlign: TextAlign.center,
-                    ),
+            Gap(getSize(30)),
+
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(SvgImageConstant.about,height: 100,),
+                Gap(getSize(30)),
+                BaseText(text: "Our Policies", fontFamily: "Aclonica", fontSize: 22, fontWeight: FontWeight.w400),
+                SizedBox(
+                  width: MediaQuery.sizeOf(context).width * 0.8,
+                  child: BaseText(
+                    text: "Access key information about the platform, including terms, privacy, cancellation policies, and FAQs",
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    textAlign: TextAlign.center,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             Gap(getSize(50)),
             Material(
@@ -68,7 +68,7 @@ class AboutView extends StatelessWidget {
                     ),
                     _ListTile(
                       icon: SvgImageConstant.paymentMethod,
-                      onPressed: () => context.router.push(PageRouteInfo(PaymentMethodView.name)),
+                      onPressed: () => context.router.push(PageRouteInfo(PrivacyPolicyScreen.name)),
                       label: "Privacy Policy",
                     ),
                     _ListTile(

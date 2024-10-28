@@ -45,6 +45,7 @@ class PngImageConstants {
   static const profileCircle = "assets/png/profile_filled_circle.png";
   static const passwordChanged = "assets/png/password_changed.png";
   static const about = "assets/png/about.png";
+  static const ticketSubmittedSuccess = "assets/png/ticket_submit_success.png";
 
 
   static const List<String> allImages = [
@@ -79,5 +80,6 @@ class PngImageConstants {
     profile,
     suitcase,
     passwordChanged,
+    ticketSubmittedSuccess,
   ];
 }

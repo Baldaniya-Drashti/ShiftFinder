@@ -20,6 +20,7 @@ class AppColors {
   static const Color transparent = Color.fromARGB(0, 0, 0, 0);
   static const Color videoIndicatorBackgroundColor = Color(0xff565656);
   static const Color emeraldGreenColor = Color(0xff046307);
+  static const Color surfaceColor = Color(0xFFEDEDED);
 
   //app colors
 

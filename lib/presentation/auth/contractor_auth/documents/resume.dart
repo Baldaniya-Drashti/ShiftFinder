@@ -35,8 +35,7 @@ class ResumeDocument extends StatelessWidget {
                 showError(
                   message: failure.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) =>
-                        'Please check your internet connectivity',
+                    networkError: (value) => 'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(context);
@@ -51,17 +50,14 @@ class ResumeDocument extends StatelessWidget {
               : Padding(
                   padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                   child: Form(
-                    autovalidateMode: (state.showResumeErrorMessages)
-                        ? AutovalidateMode.always
-                        : AutovalidateMode.disabled,
+                    autovalidateMode: (state.showResumeErrorMessages) ? AutovalidateMode.always : AutovalidateMode.disabled,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: BaseText(
-                            text: (state.resume.file != null &&
-                                    state.resume.file!.isNotEmpty)
+                            text: (state.resume.file != null && state.resume.file!.isNotEmpty)
                                 ? StringConstant.uploadedResume
                                 : StringConstant.uploadYourResume,
                             fontSize: 16,
@@ -72,8 +68,7 @@ class ResumeDocument extends StatelessWidget {
                           height: getSize(10),
                         ),
                         Expanded(
-                          child: (state.resume.file != null &&
-                                  state.resume.file!.isNotEmpty)
+                          child: (state.resume.file != null && state.resume.file!.isNotEmpty)
                               ? selectedImage(
                                   context,
                                   state.resume.file ?? "",
@@ -87,12 +82,9 @@ class ResumeDocument extends StatelessWidget {
                                 ),
                         ),
                         if (state.showResumeErrorMessages &&
-                            (state.resume.file == null ||
-                                (state.resume.file != null &&
-                                    state.resume.file!.isEmpty)))
+                            (state.resume.file == null || (state.resume.file != null && state.resume.file!.isEmpty)))
                           Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: getSize(10), horizontal: getSize(20)),
+                            padding: EdgeInsets.symmetric(vertical: getSize(10), horizontal: getSize(20)),
                             child: const BaseText(
                               text: StringConstant.pleaseSelectResume,
                               fontSize: 12,
@@ -100,27 +92,22 @@ class ResumeDocument extends StatelessWidget {
                             ),
                           ),
                         Padding(
-                          padding: EdgeInsets.only(
-                              top: getSize(40), bottom: getSize(10)),
+                          padding: EdgeInsets.only(top: getSize(40), bottom: getSize(10)),
                           child: Align(
                             alignment: Alignment.center,
                             child: CommonButton(
                               onPressed: () {
-                                context.read<ResumeBloc>().add(
-                                    ResumeEvent.resumeDocSubmit(isSkip: false));
+                                context.read<ResumeBloc>().add(ResumeEvent.resumeDocSubmit(isSkip: false));
                               },
                               buttonText: StringConstant.txtContinue,
                             ),
                           ),
                         ),
-                        if (state.resume.file == null ||
-                            (state.resume.file != null &&
-                                state.resume.file!.isEmpty))
+                        if (state.resume.file == null || (state.resume.file != null && state.resume.file!.isEmpty))
                           documentSkipButton(
                             context,
                             onPressed: () {
-                              context.read<ResumeBloc>().add(
-                                  ResumeEvent.resumeDocSubmit(isSkip: true));
+                              context.read<ResumeBloc>().add(ResumeEvent.resumeDocSubmit(isSkip: true));
                             },
                           ),
                         paddingBetweenFields(height: 20),
@@ -133,8 +120,7 @@ class ResumeDocument extends StatelessWidget {
     );
   }
 
-  Widget selectedImage(BuildContext context, String selectedFile,
-      {required ResumeState state}) {
+  Widget selectedImage(BuildContext context, String selectedFile, {required ResumeState state}) {
     return ShowPickedFile(
       selectedFile: selectedFile,
       childBoxHeight: getSize(425),
@@ -163,9 +149,7 @@ class ResumeDocument extends StatelessWidget {
   clickUploadButton(BuildContext context) {
     ImageChooserDialog().showImageChooserDialog(
       takePhotoCallback: () async {
-        String path = await ImagePickerUtils()
-                .pickImage(imageSource: ImageSource.camera, context: context) ??
-            '';
+        String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.camera, context: context) ?? '';
         if (path.isNotEmpty) {
           print("CAMERA IMAGE PATH: $path");
           context.read<ResumeBloc>().add(
@@ -174,9 +158,7 @@ class ResumeDocument extends StatelessWidget {
         }
       },
       selectPhotoCallback: () async {
-        String path = await ImagePickerUtils().pickImage(
-                imageSource: ImageSource.gallery, context: context) ??
-            '';
+        String path = await ImagePickerUtils().pickImage(imageSource: ImageSource.gallery, context: context) ?? '';
 
         if (path.isNotEmpty) {
           print("GALLERY IMAGE PATH: $path");
