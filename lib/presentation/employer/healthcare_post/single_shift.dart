@@ -202,7 +202,9 @@ class SinglePostShift extends StatelessWidget {
                       ));
                 },
                 onCancelClick: () {},
-                selectedDate: DateTime.now().add(Duration(days: 1)),
+                selectedDate: (state.signleShiftDate.isValid())
+                    ? DateTime.parse(state.signleShiftDate.getValue() ?? "")
+                    : DateTime.now().add(Duration(days: 1)),
               );
             },
       validator: (_, context) =>

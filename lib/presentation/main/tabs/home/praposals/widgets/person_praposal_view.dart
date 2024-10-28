@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart';
 import 'package:shift/application/employer/proposal_detail/proposal_detail_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
-import 'package:shift/infrastructure/core/proposal_detail_dto/proposal_detail_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
@@ -18,7 +16,8 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 class PraposalPersonView extends StatelessWidget {
   const PraposalPersonView({
     super.key,
-    required this.data, required this.confirmDialog,
+    required this.data,
+    required this.confirmDialog,
     required this.postId,
   });
 
@@ -63,7 +62,8 @@ class PraposalPersonView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           BaseText(
-                            text: "${data.first_name ?? ""} ${data.last_name ?? ""}",
+                            text:
+                                "${data.first_name ?? ""} ${data.last_name ?? ""}",
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                           ),
@@ -71,7 +71,8 @@ class PraposalPersonView extends StatelessWidget {
                           BaseText(
                             text: 'Distance - ${data.distance ?? ""}',
                             fontSize: 8,
-                            textColor: const Color.fromARGB(255, 55, 46, 46).withOpacity(0.8),
+                            textColor: const Color.fromARGB(255, 55, 46, 46)
+                                .withOpacity(0.8),
                           )
                         ],
                       ),
@@ -97,7 +98,7 @@ class PraposalPersonView extends StatelessWidget {
                     SizedBox(width: getSize(6)),
                     Expanded(
                       child: BaseText(
-                        text: data.location?.location??"",
+                        text: data.location?.location ?? "",
                         fontSize: 10,
                         fontWeight: FontWeight.w500,
                       ),
@@ -114,9 +115,11 @@ class PraposalPersonView extends StatelessWidget {
                 child: CommonButton(
                   height: 34,
                   onPressed: () {
-                    if(data.user_id==null)return;
+                    if (data.user_id == null) return;
                     context.router.push(
-                      PageRouteInfo(ViewApplicantProfile.name, args: ViewApplicantProfileArgs(id: data.user_id??-1, postId: postId)),
+                      PageRouteInfo(ViewApplicantProfile.name,
+                          args: ViewApplicantProfileArgs(
+                              id: data.user_id ?? -1, postId: postId)),
                     );
                   },
                   backgroundColor: AppColors.green.withOpacity(0.1),
@@ -136,16 +139,16 @@ class PraposalPersonView extends StatelessWidget {
                         PageRouteInfo(
                           EmployerAvailabilityView.name,
                           args: EmployerAvailabilityViewArgs(
-                              list: data.shift_details??[],
-                              confirmDialog: confirmDialog
-                          ),
+                              list: data.shift_details ?? [],
+                              confirmDialog: confirmDialog),
                         ),
                       ) as bool?;
-                      Log.success("result=> ${result}");
+                      Log.success("result=> $result");
 
                       if (result != null) {
-                        Log.success("result=> ${result}");
-                        context.read<ProposalDetailBloc>().add(ProposalDetailEvent.addConfirmDialogFlag(result));
+                        Log.success("result=> $result");
+                        context.read<ProposalDetailBloc>().add(
+                            ProposalDetailEvent.addConfirmDialogFlag(result));
                       }
                     },
                     backgroundColor: AppColors.green.withOpacity(0.1),

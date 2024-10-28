@@ -2,8 +2,6 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
-import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
-
 part 'my_calendar_dto.freezed.dart';
 part 'my_calendar_dto.g.dart';
 

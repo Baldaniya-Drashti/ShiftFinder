@@ -13,6 +13,7 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'CancelledContractorList')
@@ -63,24 +64,8 @@ class CancelledContractorList extends StatelessWidget {
                                   EdgeInsets.symmetric(vertical: getSize(10)),
                               itemCount: state.hiredFilledContractorList.length,
                               itemBuilder: (context, index) {
-                                return GestureDetector(
-                                    onTap: () {
-                                      context.router.push(
-                                        PageRouteInfo(ViewApplicantProfile.name,
-                                            args: ViewApplicantProfileArgs(
-                                              id: state
-                                                      .hiredFilledContractorList[
-                                                          index]
-                                                      .user_id ??
-                                                  -1,
-                                              postId: postId,
-                                            )),
-                                      );
-                                    },
-                                    child: contractorDetail(
-                                        context,
-                                        state
-                                            .hiredFilledContractorList[index]));
+                                return contractorDetail(context,
+                                    state.hiredFilledContractorList[index]);
                               }),
                         ));
         },
@@ -103,43 +88,85 @@ class CancelledContractorList extends StatelessWidget {
               color: AppColors.grey,
             )
           ]),
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          vertical: getSize(15),
-          horizontal: getSize(15),
-        ),
-        decoration: BoxDecoration(
-          color: AppColors.scaffoldColor,
-          borderRadius: BorderRadius.circular(getSize(10)),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            CircleAvatar(
-              radius: getSize(22),
-              backgroundColor: AppColors.green,
-              child: CircleAvatar(
-                backgroundColor: AppColors.scaffoldColor,
-                radius: getSize(21),
-                backgroundImage: (contractor.profile != null &&
-                        contractor.profile!.isNotEmpty)
-                    ? NetworkImage(contractor.profile ?? "")
-                    : null,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          InkWell(
+            onTap: () {
+              context.router.push(
+                PageRouteInfo(ViewApplicantProfile.name,
+                    args: ViewApplicantProfileArgs(
+                      id: contractor.user_id ?? -1,
+                      postId: postId,
+                    )),
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                vertical: getSize(15),
+                horizontal: getSize(15),
+              ),
+              decoration: BoxDecoration(
+                color: AppColors.scaffoldColor,
+                borderRadius: BorderRadius.circular(getSize(10)),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    radius: getSize(22),
+                    backgroundColor: AppColors.green,
+                    child: CircleAvatar(
+                      backgroundColor: AppColors.scaffoldColor,
+                      radius: getSize(21),
+                      backgroundImage: (contractor.profile != null &&
+                              contractor.profile!.isNotEmpty)
+                          ? NetworkImage(contractor.profile ?? "")
+                          : null,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                    child: BaseText(
+                      text:
+                          '${contractor.first_name ?? ""} ${contractor.last_name ?? ""}',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Spacer(),
+                  Icon(Icons.arrow_forward_ios_rounded, size: getSize(16)),
+                ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: getSize(10)),
-              child: BaseText(
-                text:
-                    '${contractor.first_name ?? ""} ${contractor.last_name ?? ""}',
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-              ),
+          ),
+          SizedBox(height: getSize(10)),
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: getSize(18), vertical: getSize(10)),
+            child: BaseText(
+              text: StringConstant.reason,
+              fontSize: 12,
+              textColor: AppColors.black.withOpacity(0.7),
             ),
-            Spacer(),
-            Icon(Icons.arrow_forward_ios_rounded, size: getSize(16)),
-          ],
-        ),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(
+              vertical: getSize(15),
+              horizontal: getSize(15),
+            ),
+            alignment: Alignment.centerLeft,
+            decoration: BoxDecoration(
+              color: AppColors.scaffoldColor,
+              borderRadius: BorderRadius.circular(getSize(10)),
+            ),
+            child: BaseText(
+              text: contractor.reason ?? "",
+              fontSize: 12,
+              textColor: AppColors.black.withOpacity(0.7),
+            ),
+          )
+        ],
       ),
     );
   }

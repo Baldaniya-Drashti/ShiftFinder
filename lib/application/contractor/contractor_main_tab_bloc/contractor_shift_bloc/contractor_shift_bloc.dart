@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, invalid_use_of_visible_for_testing_member
+
 import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';

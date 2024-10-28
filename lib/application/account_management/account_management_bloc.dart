@@ -9,7 +9,8 @@ part 'account_management_state.dart';
 part 'account_management_bloc.freezed.dart';
 
 @injectable
-class AccountManagementBloc extends Bloc<AccountManagementEvent, AccountManagementState> {
+class AccountManagementBloc
+    extends Bloc<AccountManagementEvent, AccountManagementState> {
   AccountManagementBloc() : super(const AccountManagementState.initial()) {
     on<AccountManagementEvent>((event, emit) {
       event.map(

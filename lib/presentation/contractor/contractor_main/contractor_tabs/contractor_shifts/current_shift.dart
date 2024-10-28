@@ -278,11 +278,21 @@ class CurrentShift extends StatelessWidget {
       onTap: (shift.clock_in != null)
           ? null
           : () async {
+              final now = DateTime.now();
+
               final clockInTime = await showTimePicker(context);
               if (clockInTime != null) {
-                context.read<ContractorShiftBloc>().add(
-                    ContractorShiftEvent.setClockIn(context,
-                        index: index, clockInTime: clockInTime));
+                final selectedDateTime = DateTime(now.year, now.month, now.day,
+                    clockInTime.hour, clockInTime.minute);
+
+                if (selectedDateTime.isAfter(now)) {
+                  context.read<ContractorShiftBloc>().add(
+                      ContractorShiftEvent.setClockIn(context,
+                          index: index, clockInTime: clockInTime));
+                } else {
+                  showError(message: StringConstant.pleaseSelectAValidTime)
+                      .show(context);
+                }
               }
             },
       prefixIcon: Padding(
@@ -351,12 +361,30 @@ class CurrentShift extends StatelessWidget {
           ? null
           : (shift.clock_in != null)
               ? () async {
+                  // final now = DateTime.now();
+                  final now = DateTime.fromMillisecondsSinceEpoch(
+                      (shift.clock_in ?? -1) * 1000);
                   final clockOutTime = await showTimePicker(context);
+
                   if (clockOutTime != null) {
+                    final selectedDateTime = DateTime(now.year, now.month,
+                        now.day, clockOutTime.hour, clockOutTime.minute);
+
+                    if (selectedDateTime.isAfter(now)) {
+                      context.read<ContractorShiftBloc>().add(
+                          ContractorShiftEvent.setClockOut(context,
+                              index: index, clockOutTime: clockOutTime));
+                    } else {
+                      showError(message: StringConstant.pleaseSelectAValidTime)
+                          .show(context);
+                    }
+                  }
+
+                  /* if (clockOutTime != null) {
                     context.read<ContractorShiftBloc>().add(
                         ContractorShiftEvent.setClockOut(context,
                             index: index, clockOutTime: clockOutTime));
-                  }
+                  } */
                 }
               : null,
       prefixIcon: Padding(

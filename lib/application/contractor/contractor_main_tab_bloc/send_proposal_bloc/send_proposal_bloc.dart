@@ -13,7 +13,6 @@ import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
-import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
 import 'package:shift/infrastructure/main/shift_date_detail_dto/shift_date_detail_dto.dart';
 import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart';
 import 'package:shift/presentation/common/utils/date_time_format.dart';
@@ -303,7 +302,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
           setDateUnavailableEvent: (e) {
             List<DateTimeDTO> updatedDateTimeDTOList =
                 List.from(state.multiDates);
-            print("updatedDateTimeDTOList----> ${updatedDateTimeDTOList}");
+            print("updatedDateTimeDTOList----> $updatedDateTimeDTOList");
 
             Set<DateTime> set2 = e.selectedDateList.toSet();
 

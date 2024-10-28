@@ -552,6 +552,7 @@ class StringConstant {
 
   /// ERROR ///
   static const String pleaseEnterReason = "Please enter Reason";
+  static const String pleaseSelectAValidTime = "Please select a valid time.";
   static const String pleaseSelectAtLeastOneLanguage =
       "Please select at least one language";
   static const String pleaseSelectAtLeastOneSkillSet =

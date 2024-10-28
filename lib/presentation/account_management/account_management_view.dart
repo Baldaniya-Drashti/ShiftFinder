@@ -1,11 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -35,13 +33,16 @@ class AccountManagementView extends StatelessWidget {
                 children: [
                   SvgPicture.asset(SvgImageConstant.accountManagement),
                   Gap(getSize(25)),
-                  BaseText(text: "Account Setting", fontFamily: "Aclonica", fontSize: 22, fontWeight: FontWeight.w400),
+                  BaseText(
+                      text: "Account Setting",
+                      fontFamily: "Aclonica",
+                      fontSize: 22,
+                      fontWeight: FontWeight.w400),
                   SizedBox(
-                    width: MediaQuery
-                        .sizeOf(context)
-                        .width * 0.8,
+                    width: MediaQuery.sizeOf(context).width * 0.8,
                     child: BaseText(
-                      text: "Manage your account settings and preferences here.",
+                      text:
+                          "Manage your account settings and preferences here.",
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       textAlign: TextAlign.center,
@@ -60,7 +61,8 @@ class AccountManagementView extends StatelessWidget {
                 children: [
                   _ListTile(
                     icon: SvgImageConstant.lock,
-                    onPressed: () => context.router.push(PageRouteInfo(ChangePasswordView.name)),
+                    onPressed: () => context.router
+                        .push(PageRouteInfo(ChangePasswordView.name)),
                     label: "Change Password",
                   ),
                   _ListTile(
@@ -69,7 +71,8 @@ class AccountManagementView extends StatelessWidget {
                       AppDialog.showDelete(
                         context,
                         title: "Delete Account",
-                        infoMessage: "Are you sure you want to delete your account? This action is permanent and cannot be undone.",
+                        infoMessage:
+                            "Are you sure you want to delete your account? This action is permanent and cannot be undone.",
                         onCancelClick: () => context.router.maybePop(),
                         onDeleteClick: () {},
                       );

@@ -1,14 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/contractor_main/profile/my_calendar_dto/my_calendar_dto.dart';
-import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
-import 'package:shift/infrastructure/core/employer_applicant/employer_applicant_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
-import 'package:shift/infrastructure/main/hired_contractor_list_dto/hired_contractor_list_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
@@ -269,10 +265,10 @@ abstract class IMainFacade {
     required int rating,
   });
 
- Future<Either<MainFailure, CommonResponse>> submitEmployerClockInClockOut(
-      {required int shiftId,
-      required int? clockInTime,
-      required int? clockOutTime,
-      required int userId,
-      });
+  Future<Either<MainFailure, CommonResponse>> submitEmployerClockInClockOut({
+    required int shiftId,
+    required int? clockInTime,
+    required int? clockOutTime,
+    required int userId,
+  });
 }

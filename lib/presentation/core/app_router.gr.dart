@@ -3536,6 +3536,7 @@ class ViewPersonPraposalView
     _i95.Key? key,
     required int postId,
     required int userId,
+    required _i103.EmployerProposalPendingUserDto user,
     List<_i94.PageRouteInfo>? children,
   }) : super(
           ViewPersonPraposalView.name,
@@ -3543,6 +3544,7 @@ class ViewPersonPraposalView
             key: key,
             postId: postId,
             userId: userId,
+            user: user,
           ),
           initialChildren: children,
         );
@@ -3557,6 +3559,7 @@ class ViewPersonPraposalView
         key: args.key,
         postId: args.postId,
         userId: args.userId,
+        user: args.user,
       );
     },
   );
@@ -3567,6 +3570,7 @@ class ViewPersonPraposalViewArgs {
     this.key,
     required this.postId,
     required this.userId,
+    required this.user,
   });
 
   final _i95.Key? key;
@@ -3575,9 +3579,11 @@ class ViewPersonPraposalViewArgs {
 
   final int userId;
 
+  final _i103.EmployerProposalPendingUserDto user;
+
   @override
   String toString() {
-    return 'ViewPersonPraposalViewArgs{key: $key, postId: $postId, userId: $userId}';
+    return 'ViewPersonPraposalViewArgs{key: $key, postId: $postId, userId: $userId, user: $user}';
   }
 }
 

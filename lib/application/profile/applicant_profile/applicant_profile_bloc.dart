@@ -1,33 +1,32 @@
-import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:shift/domain/account/account.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
-
 part 'applicant_profile_event.dart';
-
 part 'applicant_profile_state.dart';
-
 part 'applicant_profile_bloc.freezed.dart';
 
 @injectable
-class ApplicantProfileBloc extends Bloc<ApplicantProfileEvent, ApplicantProfileState> {
+class ApplicantProfileBloc
+    extends Bloc<ApplicantProfileEvent, ApplicantProfileState> {
   final IMainFacade _mainFacade;
 
-  ApplicantProfileBloc(this._mainFacade) : super(ApplicantProfileState.initial()) {
+  ApplicantProfileBloc(this._mainFacade)
+      : super(ApplicantProfileState.initial()) {
     on<ApplicantProfileEvent>((event, emit) async {
-     await event.map(
+      await event.map(
         fetchApplicantProfile: (value) async {
           Either<MainFailure, CommonResponse>? failureOrSuccess;
           emit(state.copyWith(isLoading: true));
-          failureOrSuccess = await _mainFacade.getApplicantProfile(id: value.id, postId: value.postId);
+          failureOrSuccess = await _mainFacade.getApplicantProfile(
+              id: value.id, postId: value.postId);
           emit(state.copyWith(isLoading: false));
 
           failureOrSuccess.fold(
@@ -35,7 +34,8 @@ class ApplicantProfileBloc extends Bloc<ApplicantProfileEvent, ApplicantProfileS
               showError(
                 message: l.maybeMap(
                   showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) => 'Please check your internet connectivity',
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
                   orElse: () => "Server Error. Try again later.",
                 ),
               ).show(value.context);
@@ -43,9 +43,9 @@ class ApplicantProfileBloc extends Bloc<ApplicantProfileEvent, ApplicantProfileS
             },
             (r) {
               Log.info("datat=> ${r.data}");
-               final data= ApplicantDto.fromJson(r.data);
-                Log.success("data =>${data}");
-               emit(state.copyWith(account: data));
+              final data = ApplicantDto.fromJson(r.data);
+              Log.success("data =>${data}");
+              emit(state.copyWith(account: data));
             },
           );
         },

@@ -424,29 +424,102 @@ class CancelledShiftView extends StatelessWidget {
 
   Widget dateAndTime(
       BuildContext context, ShiftsBlocState state, EmployerShiftDto shift) {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Flexible(
+          flex: 10,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              (shift.shift_type == 1)
+                  ? displayDateBreak(
+                      context,
+                      boldValue: convertTimeStampToDate(shift.start_date ?? -1),
+                      timidValue: convertTimeStampToDate(shift.start_date ?? -1,
+                          isYear: true),
+                      title: StringConstant.shiftDate,
+                      svgPrefixIcon: SvgImageConstant.calendar,
+                    )
+                  : displayDateBreak(
+                      context,
+                      boldValue:
+                          "${shift.total_shifts ?? 0} ${((shift.total_shifts ?? 0) > 1) ? StringConstant.shifts : StringConstant.shift}",
+                      timidValue: "",
+                      title: StringConstant.totalShifts,
+                      svgPrefixIcon: SvgImageConstant.calendar,
+                    ),
+              if (state.currentCancelFilter.id == 1)
+                displayDateBreak(
+                  context,
+                  boldValue: "\$${shift.compassion ?? ""}",
+                  timidValue: "",
+                  title: StringConstant.compassion,
+                  svgPrefixIcon: SvgImageConstant.dollorRound,
+                ),
+            ],
+          ),
+        ),
+        Flexible(
+          flex: 10,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              (shift.shift_type == 1)
+                  ? displayTime(
+                      title: StringConstant.time,
+                      startDate: (shift.start_time != null)
+                          ? DateFormat('hh:mm a').format(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                  (shift.start_time ?? 0) * 1000))
+                          : "",
+                      endDate: (shift.end_time != null)
+                          ? DateFormat('hh:mm a').format(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                  (shift.end_time ?? 0) * 1000))
+                          : "",
+                      svgPrefixIcon: SvgImageConstant.clock,
+                    )
+                  : displayDateBreak(
+                      context,
+                      boldValue: convertTimeStampToDate(shift.start_date ?? -1),
+                      timidValue: convertTimeStampToDate(shift.start_date ?? -1,
+                          isYear: true),
+                      title: StringConstant.shiftStartDate,
+                      svgPrefixIcon: SvgImageConstant.calendar,
+                    ),
+              if (state.currentCancelFilter.id == 1)
+                displayDateBreak(
+                  context,
+                  boldValue: "",
+                  timidValue: "",
+                  title: "",
+                  svgPrefixIcon: "",
+                  showBtn: true,
+                  onBtnPressed: () {
+                    context.router.push(
+                      PageRouteInfo(
+                        ViewHomeShiftDetails.name,
+                        args: ViewHomeShiftDetailsArgs(
+                          postId: shift.id ?? -1,
+                          route: ShiftDetailRoute.employerCancelledShift,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+            ],
+          ),
+        )
+      ],
+    );
+
+    /* return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            (shift.shift_type == 1)
-                ? displayDateBreak(
-                    context,
-                    boldValue: convertTimeStampToDate(shift.start_date ?? -1),
-                    timidValue: convertTimeStampToDate(shift.start_date ?? -1,
-                        isYear: true),
-                    title: StringConstant.shiftDate,
-                    svgPrefixIcon: SvgImageConstant.calendar,
-                  )
-                : displayDateBreak(
-                    context,
-                    boldValue:
-                        "${shift.total_shifts ?? 0} ${((shift.total_shifts ?? 0) > 1) ? "Shifts" : "Shift"}",
-                    timidValue: "",
-                    title: StringConstant.totalShifts,
-                    svgPrefixIcon: SvgImageConstant.calendar,
-                  ),
             (shift.shift_type == 1)
                 ? displayTime(
                     title: StringConstant.time,
@@ -472,7 +545,33 @@ class CancelledShiftView extends StatelessWidget {
                   )
           ],
         ),
-        if (state.currentCancelFilter.id == 2) ...[
+        if (state.currentCancelFilter.id == 1)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              displayDateBreak(
+                context,
+                boldValue: "",
+                timidValue: "",
+                title: "",
+                svgPrefixIcon: "",
+                showBtn: true,
+                onBtnPressed: () {
+                  context.router.push(
+                    PageRouteInfo(
+                      ViewHomeShiftDetails.name,
+                      args: ViewHomeShiftDetailsArgs(
+                        postId: shift.id ?? -1,
+                        route: ShiftDetailRoute.employerCancelledShift,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+
+        /* if (state.currentCancelFilter.id == 2) ...[
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: getSize(18), vertical: getSize(8)),
@@ -528,9 +627,10 @@ class CancelledShiftView extends StatelessWidget {
               ),
             ],
           ),
-        ]
+        ] */
       ],
     );
+  */
   }
 
   Widget displayTime({
@@ -542,6 +642,7 @@ class CancelledShiftView extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: getSize(10)),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           SvgPicture.asset(
@@ -617,7 +718,7 @@ class CancelledShiftView extends StatelessWidget {
       child: (showBtn)
           ? CommonButton(
               onPressed: onBtnPressed ?? () {},
-              width: 160,
+              // width: 160,
               height: 34,
               borderRadius: 5,
               buttonFontSize: 12,
@@ -628,6 +729,7 @@ class CancelledShiftView extends StatelessWidget {
             )
           : Row(
               crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 SvgPicture.asset(
                   svgPrefixIcon,

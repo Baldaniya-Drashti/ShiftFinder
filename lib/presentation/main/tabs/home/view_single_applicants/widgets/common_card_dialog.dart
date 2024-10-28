@@ -19,17 +19,18 @@ class CommonCardDialog extends StatelessWidget {
   final EdgeInsets? insetPadding;
   final Function(dynamic)? onCallback;
 
-  const CommonCardDialog(
-      {super.key,
-      required this.title,
-      required this.description,
-      required this.buttonText,
-      required this.onPressed,
-      this.otherContent,
-      this.insetPadding,
-      this.barrierDismissible = true,
-      this.onCallback,
-      required this.image});
+  const CommonCardDialog({
+    super.key,
+    required this.title,
+    required this.description,
+    required this.buttonText,
+    required this.onPressed,
+    this.otherContent,
+    this.insetPadding,
+    this.barrierDismissible = true,
+    this.onCallback,
+    required this.image,
+  });
 
   @override
   Widget build(BuildContext context) {

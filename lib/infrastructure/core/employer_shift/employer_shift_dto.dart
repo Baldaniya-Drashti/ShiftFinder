@@ -1,9 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shift/infrastructure/account/current_user_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
-
 part 'employer_shift_dto.freezed.dart';
-
 part 'employer_shift_dto.g.dart';
 
 @freezed

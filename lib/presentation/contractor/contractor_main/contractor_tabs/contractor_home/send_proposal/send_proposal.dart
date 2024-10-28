@@ -456,9 +456,7 @@ class SendProposal extends StatelessWidget {
                 highLightText(
                   boldValue: convertTimeStampToDate(
                       post.shift_detail?.detail?[0].date ?? -1),
-                  timidValue: convertTimeStampToDate(
-                      post.shift_detail?.detail?[0].date ?? -1,
-                      isYear: true),
+                  timidValue: "",
                 ),
               ],
             ),
@@ -529,7 +527,7 @@ class SendProposal extends StatelessWidget {
       if (isYear) {
         return DateFormat('yyyy').format(dateTime);
       } else {
-        return DateFormat('d MMM, ').format(dateTime);
+        return DateFormat('dd MMM, yyyy').format(dateTime);
       }
     }
   }

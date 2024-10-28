@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/employer/proposal_detail/proposal_detail_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
@@ -23,10 +24,12 @@ class ViewPersonPraposalView extends StatelessWidget {
     super.key,
     required this.postId,
     required this.userId,
+    required this.user,
   });
 
   final int postId;
   final int userId;
+  final EmployerProposalPendingUserDto user;
 
   @override
   Widget build(BuildContext context) {
@@ -223,124 +226,126 @@ class ViewPersonPraposalView extends StatelessWidget {
                       ),
                     ],
                     SizedBox(height: getSize(40)),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: CommonButton(
-                            onPressed: () async {
-                              if ((state.confirmDialog == null ||
-                                      state.confirmDialog == false) &&
-                                  data.shift_type == 2) {
-                                final result = await showDialog<bool?>(
-                                  barrierDismissible: false,
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15)),
-                                      contentPadding: EdgeInsets.all(30),
-                                      insetPadding:
-                                          EdgeInsets.symmetric(horizontal: 24),
-                                      backgroundColor: Colors.white,
-                                      content: BaseText(
-                                        textAlign: TextAlign.center,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                        text:
-                                            "Please confirm that you have reviewed the proposed availability to accept the proposal.",
-                                      ),
-                                      actions: [
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 30),
-                                          child: CommonButton(
-                                            onPressed: () =>
-                                                context.router.maybePop(true),
-                                            buttonText: "Ok",
-                                          ),
-                                        )
-                                      ],
-                                    );
-                                  },
-                                );
-                              } else {
-                                acceptDialog(context);
-                              }
-                            },
-                            buttonText: 'Accept',
-                            buttonFontSize: 16,
-                            borderRadius: 10,
-                            height: 46,
-                          ),
-                        ),
-                        SizedBox(width: getSize(16)),
-                        Expanded(
-                          child: CommonButton(
-                            onPressed: () {
-                              AcceptRejectDialog(
-                                title: 'Reject',
-                                description:
-                                    'Are you sure you want to reject this application?',
-                                onPressedAccept: () {
-                                  context.router.maybePop().then(
-                                    (value) {
-                                      final id = context
-                                          .read<ProposalDetailBloc>()
-                                          .state
-                                          .proposalDetailDto
-                                          .id;
-                                      if (id == null) return;
-                                      context.read<ProposalDetailBloc>().add(
-                                            ProposalDetailEvent
-                                                .proposalAcceptReject(
-                                              id: id,
-                                              request: 2,
-                                              context: context,
+                    if (user.sent_received_status != 2) ...[
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CommonButton(
+                              onPressed: () async {
+                                if ((state.confirmDialog == null ||
+                                        state.confirmDialog == false) &&
+                                    data.shift_type == 2) {
+                                  final result = await showDialog<bool?>(
+                                    barrierDismissible: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15)),
+                                        contentPadding: EdgeInsets.all(30),
+                                        insetPadding: EdgeInsets.symmetric(
+                                            horizontal: 24),
+                                        backgroundColor: Colors.white,
+                                        content: BaseText(
+                                          textAlign: TextAlign.center,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                          text:
+                                              "Please confirm that you have reviewed the proposed availability to accept the proposal.",
+                                        ),
+                                        actions: [
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 30),
+                                            child: CommonButton(
+                                              onPressed: () =>
+                                                  context.router.maybePop(true),
+                                              buttonText: "Ok",
                                             ),
-                                          );
+                                          )
+                                        ],
+                                      );
                                     },
                                   );
-                                },
-                                acceptButtonText: 'Reject',
-                                onPressedReject: () {
-                                  context.router.maybePop();
-                                },
-                              ).acceptRejectDialog(context);
-                            },
-                            backgroundColor: AppColors.white,
-                            borderColor: AppColors.green,
-                            buttonTextColor: AppColors.green,
-                            buttonFontSize: 16,
-                            borderRadius: 10,
-                            buttonText: 'Reject',
-                            height: 46,
+                                } else {
+                                  acceptDialog(context);
+                                }
+                              },
+                              buttonText: 'Accept',
+                              buttonFontSize: 16,
+                              borderRadius: 10,
+                              height: 46,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: getSize(20),
-                    ),
-                    CommonButton(
-                      onPressed: () async {
-                        final result = await context.router.push(
-                          PageRouteInfo(CounterPurposeView.name,
-                              args: CounterPurposeViewArgs(data: data)),
-                        ) as bool?;
-                        Log.success("result ${result}");
-                        if (result ?? false) {
-                          context.router.maybePop(true);
-                        }
-                      },
-                      buttonText: 'Counter Propose',
-                      borderRadius: 7,
-                      buttonTextColor: AppColors.black,
-                      backgroundColor: AppColors.white,
-                    ),
-                    SizedBox(
-                      height: getSize(20),
-                    ),
+                          SizedBox(width: getSize(16)),
+                          Expanded(
+                            child: CommonButton(
+                              onPressed: () {
+                                AcceptRejectDialog(
+                                  title: 'Reject',
+                                  description:
+                                      'Are you sure you want to reject this application?',
+                                  onPressedAccept: () {
+                                    context.router.maybePop().then(
+                                      (value) {
+                                        final id = context
+                                            .read<ProposalDetailBloc>()
+                                            .state
+                                            .proposalDetailDto
+                                            .id;
+                                        if (id == null) return;
+                                        context.read<ProposalDetailBloc>().add(
+                                              ProposalDetailEvent
+                                                  .proposalAcceptReject(
+                                                id: id,
+                                                request: 2,
+                                                context: context,
+                                              ),
+                                            );
+                                      },
+                                    );
+                                  },
+                                  acceptButtonText: 'Reject',
+                                  onPressedReject: () {
+                                    context.router.maybePop();
+                                  },
+                                ).acceptRejectDialog(context);
+                              },
+                              backgroundColor: AppColors.white,
+                              borderColor: AppColors.green,
+                              buttonTextColor: AppColors.green,
+                              buttonFontSize: 16,
+                              borderRadius: 10,
+                              buttonText: 'Reject',
+                              height: 46,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: getSize(20),
+                      ),
+                      CommonButton(
+                        onPressed: () async {
+                          final result = await context.router.push(
+                            PageRouteInfo(CounterPurposeView.name,
+                                args: CounterPurposeViewArgs(data: data)),
+                          ) as bool?;
+                          Log.success("result ${result}");
+                          if (result ?? false) {
+                            context.router.maybePop(true);
+                          }
+                        },
+                        buttonText: 'Counter Propose',
+                        borderRadius: 7,
+                        buttonTextColor: AppColors.black,
+                        backgroundColor: AppColors.white,
+                      ),
+                      SizedBox(
+                        height: getSize(20),
+                      ),
+                    ]
                   ],
                 ),
                 if (state.postDataLoading) CenterLoadingIndicator(),
