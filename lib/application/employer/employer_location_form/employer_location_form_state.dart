@@ -23,10 +23,13 @@ class EmployerLocationFormState with _$EmployerLocationFormState {
     required bool showErrorMessages,
     required String updatedUnitNumber,
     required String updatedUnitNotes,
+    required LocationDTO locationData,
+     int? id,
     required Option<Either<AccountFailure, Account>> authFailureOrSuccessOption,
   }) = _EmployerLocationFormState;
 
   factory EmployerLocationFormState.initial() => EmployerLocationFormState(
+    locationData: LocationDTO(),
     address: InputEmptyOrNot(""),
     searchLocationList: [],
     facilityTypeList: [],

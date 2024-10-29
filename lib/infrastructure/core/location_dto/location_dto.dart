@@ -11,6 +11,9 @@ class LocationDTO with _$LocationDTO {
     final String? location,
     final List<UnitDTO>? add_units,
     final FacilityTypeDto? facility_type,
+    final String? accreditation_number,
+    final String? location_note,
+    final String? location_id,
   }) = _LocationDTO;
 
   factory LocationDTO.fromJson(Map<String, dynamic> json) =>

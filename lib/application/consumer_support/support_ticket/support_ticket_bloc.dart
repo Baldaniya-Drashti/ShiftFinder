@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:dartz/dartz.dart';
@@ -79,7 +80,7 @@ class SupportTicketBloc extends Bloc<SupportTicketEvent, SupportTicketState> {
 
           if (state.path != null) data['attachment'];
 
-          if (role == 1) {
+          if (role == 2) {
             data['company_name'] = value.companyName;
             data['location_id'] = state.selectedLocation?.id;
             data['facility_type'] = state.selectedLocation?.facility_type?.id ?? -1;
@@ -108,9 +109,10 @@ class SupportTicketBloc extends Bloc<SupportTicketEvent, SupportTicketState> {
                 image: Image.asset(PngImageConstants.ticketSubmittedSuccess),
                 title: "Ticket Submitted!",
                 infoMessage: "Thank you for submitting your ticket. We will review your request and get back to you as soon as possible",
+                onOkClick: () {
+                  value.context.router.popUntil((route) => route.isFirst);
+                },
               );
-
-              showSuccess(message: r.dioMessage ?? "").show(value.context);
             },
           );
         },

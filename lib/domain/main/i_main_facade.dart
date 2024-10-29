@@ -273,4 +273,9 @@ abstract class IMainFacade {
   Future<Either<MainFailure, CommonResponse>> submitSupportTicket({
     required Map<String, dynamic> map,
   });
+
+  Future<Either<MainFailure, CommonResponse>> getLocationListApi();
+  Future<Either<MainFailure, CommonResponse>> getLocationDetail({required int id});
+  Future<Either<MainFailure, CommonResponse>> updateLocation({required int id});
+  Future<Either<MainFailure, CommonResponse>> deleteLocation({required int id});
 }

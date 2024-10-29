@@ -71,7 +71,7 @@ class _SupportFormState extends State<_SupportForm> {
                   SupportTicketFormLayout(
                     title: "Contact Information",
                     children: [
-                      if (role == 1) ...[
+                      if (role == 2) ...[
                         CustomTextField(
                           controller: _companyNameController,
                           autoValidateMode: AutovalidateMode.onUserInteraction,
@@ -197,7 +197,7 @@ class _SupportFormState extends State<_SupportForm> {
                     onPressed: () {
                       if (_formKey.currentState?.validate() != true) return;
                       final selectedLocation = context.read<SupportTicketBloc>().state.selectedLocation;
-                      if (selectedLocation == null && role == 1) {
+                      if (selectedLocation == null && role == 2) {
                         showError(message: "Please select location").show(context);
                         return;
                       }
@@ -271,7 +271,7 @@ class LocationDropdown extends StatelessWidget {
                       (e) {
                         return DropdownMenuItem<LocationDTO>(
                           value: e,
-                          child: BaseText(text: e.location ?? "", fontSize: 14),
+                          child: BaseText(text: e.location ?? "", fontSize: 14,maxLines: 1,),
                         );
                       },
                     ).toList(),

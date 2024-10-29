@@ -9,6 +9,7 @@ import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
@@ -16,6 +17,7 @@ import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'EmployerLocationView')
@@ -30,7 +32,7 @@ class _EmployerLocationViewState extends State<EmployerLocationView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<EmployerLocationBloc>(),
+      create: (context) => getIt<EmployerLocationBloc>()..add(EmployerLocationEvent.getLocationList(context)),
       child: Scaffold(
         appBar: CommonAppBar(
           onBackPressed: () => context.router.maybePop(),
@@ -38,54 +40,39 @@ class _EmployerLocationViewState extends State<EmployerLocationView> {
         ),
         body: BlocBuilder<EmployerLocationBloc, EmployerLocationState>(
           builder: (context, state) {
+            if (state.isLoading) {
+              return CenterLoadingIndicator();
+            } else if (!state.isLoading && state.locationList.isEmpty) {
+              return Center(
+                child: SizedBox(
+                  width: getSize(280),
+                  child: BaseText(
+                    textColor: AppColors.black.withOpacity(0.65),
+                    text: 'No result found.',
+                    textAlign: TextAlign.center,
+                    lineHeight: 1.2,
+                  ),
+                ),
+              );
+            }
+
             return Stack(
               children: [
-                PaginatedListView(
-                  onRefresh: () {
-                    //context.read<ViewSingleApplicantsBloc>().add(ViewSingleApplicantsEvent.getApplicantsList(postId, true));
-                  },
-                  onLoading: () {
-                    //context.read<ViewSingleApplicantsBloc>().add(ViewSingleApplicantsEvent.getApplicantsList(postId, false));
-                  },
-                  refreshController: context.read<EmployerLocationBloc>().refreshController,
-                  isNoDataFound: state.isNoDataFound,
-                  /*child: state.isLoading
-                      ? CenterLoadingIndicator()
-                      : state.isErrorInAPI
-                          ? Center(
-                              child: BaseText(text: StringConstant.somethindWentWrong),
-                            )
-                          : Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                ListView.builder(
-                                  itemCount: 4,
-                                  shrinkWrap: true,
-                                  physics: BouncingScrollPhysics(),
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: getSize(18),
-                                    vertical: getSize(20),
-                                  ),
-                                  itemBuilder: (context, index) {
-                                    return _LocationInfoTile();
-                                  },
-                                ),
-                              ],
-                            ),*/
+                SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       ListView.separated(
-                        separatorBuilder: (context, index) => Gap(16),
-                        itemCount: 4,
-                        shrinkWrap: true,
-                        physics: BouncingScrollPhysics(),
                         padding: EdgeInsets.symmetric(
                           horizontal: getSize(18),
                           vertical: getSize(20),
                         ),
+                        separatorBuilder: (context, index) => Gap(16),
+                        itemCount: state.locationList.length,
+                        shrinkWrap: true,
+                        physics: BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
-                          return _LocationInfoTile();
+                          return _LocationInfoTile(data: state.locationList[index]);
                         },
                       ),
                       Material(
@@ -106,7 +93,8 @@ class _EmployerLocationViewState extends State<EmployerLocationView> {
                             ),
                           ),
                         ),
-                      )
+                      ),
+                      Gap(30)
                     ],
                   ),
                 ),
@@ -121,10 +109,15 @@ class _EmployerLocationViewState extends State<EmployerLocationView> {
 }
 
 class _LocationInfoTile extends StatelessWidget {
-  const _LocationInfoTile();
+  const _LocationInfoTile({required this.data});
+
+  final LocationDTO data;
 
   @override
   Widget build(BuildContext context) {
+    String? units;
+    if ((data.add_units ?? []).isNotEmpty) units = data.add_units!.map((e) => e.number_or_name ?? "").toString().split(",").join(",");
+
     return Container(
       decoration: BoxDecoration(
         color: Color(0xFFEDEDED),
@@ -150,26 +143,27 @@ class _LocationInfoTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 BaseText(
-                  text: "1901 Thornridge sndjksbdjsbd",
+                  text: data.location ?? "",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),
                 BaseText(
-                  text: "Independent Living",
+                  text: data.facility_type?.name ?? "",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                 ),
-                BaseText(
-                  text: "Independent Living",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w400,
-                ),
+                if (units != null)
+                  BaseText(
+                    text: units,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                  ),
               ],
             ),
           ),
@@ -178,12 +172,27 @@ class _LocationInfoTile extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  context.router.push(
+                    PageRouteInfo(EmployerLocationFormView.name, args: EmployerLocationFormViewArgs(id: data.id ?? -1)),
+                  );
+                },
                 child: SvgPicture.asset(SvgImageConstant.editWithBg),
               ),
               SizedBox(width: getSize(10)),
               GestureDetector(
-                onTap: () {},
+                onTap: () async {
+                  final result = await AppDialog.showCommonDialog(
+                    context: context,
+                    title: "Delete Location",
+                    content:
+                        "Deleting a location will prevent you from posting any shifts for that location. Are you sure you want to proceed?",
+                    successLabel: "Delete",
+                  );
+                  if (result ?? false) {
+                    context.read<EmployerLocationBloc>().add(EmployerLocationEvent.deleteLocation(id: data.id ?? -1, context: context));
+                  }
+                },
                 child: SvgPicture.asset(SvgImageConstant.bin),
               ),
             ],

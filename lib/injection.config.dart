@@ -120,7 +120,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i366.AccountManagementBloc());
     gh.factory<_i1025.CardBloc>(() => _i1025.CardBloc());
     gh.factory<_i319.MonthlyStatementBloc>(() => _i319.MonthlyStatementBloc());
-    gh.factory<_i158.EmployerLocationBloc>(() => _i158.EmployerLocationBloc());
     gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
     gh.lazySingleton<_i771.ApiService>(() => _i771.ApiService());
     gh.lazySingleton<_i277.IAuthFacade>(
@@ -142,6 +141,11 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i253.IAccountRepository>(),
           gh<_i111.IMainFacade>(),
         ));
+    gh.factory<_i990.EmployerLocationFormBloc>(
+        () => _i990.EmployerLocationFormBloc(
+              gh<_i253.IAccountRepository>(),
+              gh<_i111.IMainFacade>(),
+            ));
     gh.factory<_i942.SupportTicketBloc>(() => _i942.SupportTicketBloc(
           gh<_i253.IAccountRepository>(),
           gh<_i111.IMainFacade>(),
@@ -166,6 +170,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i819.TotalProposalBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i827.PreviousShiftBloc>(
         () => _i827.PreviousShiftBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i158.EmployerLocationBloc>(
+        () => _i158.EmployerLocationBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i828.ApplicantProfileBloc>(
         () => _i828.ApplicantProfileBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i518.ViewSingleApplicantsBloc>(
@@ -208,8 +214,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i408.EquipmentBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i944.SpecialityExperienceBloc>(
         () => _i944.SpecialityExperienceBloc(gh<_i253.IAccountRepository>()));
-    gh.factory<_i990.EmployerLocationFormBloc>(
-        () => _i990.EmployerLocationFormBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i359.LocationDetailsBloc>(
         () => _i359.LocationDetailsBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i911.AccountCubit>(

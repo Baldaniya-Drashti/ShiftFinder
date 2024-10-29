@@ -7,13 +7,14 @@ class EmployerLocationState with _$EmployerLocationState {
     required bool isNoDataFound,
     required bool isErrorInAPI,
     required bool postDataLoading,
+    required List<LocationDTO> locationList,
   }) = _EmployerLocationState;
 
-
   factory EmployerLocationState.initial() => EmployerLocationState(
-    isNoDataFound: false,
-    isErrorInAPI: false,
-    isLoading: false,
-    postDataLoading: false,
-  );
+        locationList: [],
+        isNoDataFound: false,
+        isErrorInAPI: false,
+        isLoading: false,
+        postDataLoading: false,
+      );
 }

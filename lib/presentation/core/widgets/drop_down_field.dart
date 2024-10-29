@@ -322,6 +322,7 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
         padding: EdgeInsets.only(left: 14, right: 14),
       ),
       dropdownStyleData: DropdownStyleData(
+        maxHeight: 200,
         padding: EdgeInsets.zero,
         offset: const Offset(0, -8),
         elevation: 1,
