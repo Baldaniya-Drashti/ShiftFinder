@@ -165,7 +165,7 @@ class CancelledContractorList extends StatelessWidget {
               fontSize: 12,
               textColor: AppColors.black.withOpacity(0.7),
             ),
-          )
+          ),
         ],
       ),
     );

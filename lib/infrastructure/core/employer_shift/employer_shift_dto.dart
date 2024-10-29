@@ -16,6 +16,7 @@ class EmployerShiftDto with _$EmployerShiftDto {
     int? start_date,
     int? end_date,
     int? end_time,
+    String? unpaid_break,
     double? estimated_payables,
     int? total_shifts,
     int? total_shift,
@@ -40,6 +41,7 @@ class HiredContractorDTO with _$HiredContractorDTO {
     String? first_name,
     String? last_name,
     String? profile,
+    String? reason,
   }) = _HiredContractorDTO;
 
   factory HiredContractorDTO.fromJson(Map<String, dynamic> json) =>

@@ -87,6 +87,7 @@ class CancelledShiftView extends StatelessWidget {
                             ),
                           ),
                         ),
+
                         /*if (state.currentCancelFilter.id == 1) ...[] else ...[
                           Expanded(
                             child: PaginatedListView(
@@ -191,6 +192,7 @@ class CancelledShiftView extends StatelessWidget {
         ],
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           userDetail(context, shift),
           SizedBox(height: getSize(12)),
@@ -215,6 +217,37 @@ class CancelledShiftView extends StatelessWidget {
               buttonText: StringConstant.viewShiftDetails,
             ),
           dateAndTime(context, state, shift),
+          if (state.currentCancelFilter.id == 2 &&
+              shift.users != null &&
+              shift.users!.isNotEmpty &&
+              shift.users!.length == 1) ...[
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: getSize(18), vertical: getSize(10)),
+              child: BaseText(
+                text: StringConstant.reason,
+                fontSize: 12,
+                textColor: AppColors.black.withOpacity(0.7),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(
+                vertical: getSize(15),
+                horizontal: getSize(15),
+              ),
+              alignment: Alignment.centerLeft,
+              decoration: BoxDecoration(
+                color: AppColors.scaffoldColor,
+                borderRadius: BorderRadius.circular(getSize(10)),
+              ),
+              child: BaseText(
+                text: shift.users?[0].reason ?? "",
+                fontSize: 12,
+                textColor: AppColors.black.withOpacity(0.7),
+              ),
+            ),
+            SizedBox(height: getSize(10)),
+          ],
           (shift.users != null &&
                   shift.users!.isNotEmpty &&
                   shift.users!.length == 1)

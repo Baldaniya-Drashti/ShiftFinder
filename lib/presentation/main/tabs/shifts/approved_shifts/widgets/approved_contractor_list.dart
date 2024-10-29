@@ -18,6 +18,7 @@ import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
 import 'package:shift/presentation/main/tabs/shifts/approved_shifts/widgets/edit_clock_time_dialog.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -170,6 +171,8 @@ class ApprovedHiredList extends StatelessWidget {
             ),
           ),
           SizedBox(height: getSize(10)),
+          dateTime(contractor),
+          SizedBox(height: getSize(10)),
           if (contractor.clock_in_out_status == 2) ...[
             Container(
               alignment: Alignment.centerLeft,
@@ -233,11 +236,55 @@ class ApprovedHiredList extends StatelessWidget {
     );
   }
 
+  Widget dateTime(HiredContractorListDTO contractor) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        vertical: getSize(12),
+        horizontal: getSize(20),
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.scaffoldColor,
+        borderRadius: BorderRadius.circular(getSize(10)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          SvgPicture.asset(
+            SvgImageConstant.clock,
+            color: AppColors.black,
+            height: getSize(20),
+            width: getSize(16),
+          ),
+          SizedBox(width: getSize(10)),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BaseText(
+                text: StringConstant.time,
+                fontSize: 10,
+                fontWeight: FontWeight.w400,
+                textColor: AppColors.black.withOpacity(0.7),
+              ),
+              BaseText(
+                text:
+                    "${(contractor.start_time != null) ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((contractor.start_time ?? 0) * 1000)) : ""} to ${(contractor.end_time != null) ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((contractor.end_time ?? 0) * 1000)) : ""}",
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                textColor: AppColors.primaryColor,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget clocInOut(BuildContext context, HiredContractorListDTO shift) {
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: getSize(12),
-        horizontal: getSize(30),
+        horizontal: getSize(20),
       ),
       decoration: BoxDecoration(
         color: AppColors.scaffoldColor,
