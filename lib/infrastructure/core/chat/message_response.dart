@@ -56,7 +56,7 @@ class MessageData {
     receiverId = json['receiver_id'];
     message = json['message'];
     type = json['type'];
-    createdAt = json['created_at'];
+    createdAt = json['created_at'] * 1000;
   }
 
   Map<String, dynamic> toJson() {

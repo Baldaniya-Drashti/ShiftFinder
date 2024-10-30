@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -6,6 +8,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/infrastructure/core/chat/message_response.dart';
 import 'package:shift/infrastructure/core/chat/socket_chat_service.dart';
+import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 part 'message_state.dart';
 part 'message_event.dart';
@@ -75,6 +78,7 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
             page: page,
             id: state.receiverId,
           );
+
           page++;
           res.fold(
             (l) => emit(
@@ -84,14 +88,18 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
               ),
             ),
             (r) {
-              lastPage = r.meta?.lastPage ?? 1;
+              CommonResponse res = r['listData'];
+              lastPage = res.meta?.lastPage ?? 1;
               if (e.isRefresh) {
                 List.from(state.messageList).clear();
               }
               return emit(
                 state.copyWith(
                   isLoading: false,
-                  messageList: r.listData as List<MessageData>,
+                  messageList: List<MessageData>.from(state.messageList)
+                    ..addAll(
+                      res.listData as List<MessageData>,
+                    ),
                 ),
               );
             },
@@ -105,12 +113,13 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
           });
         },
         sendMessage: (_SendMessage value) {
+          log('Date : ${DateTime.now().millisecondsSinceEpoch}');
           var message = MessageData(
             senderId: state.senderId,
             receiverId: state.receiverId,
             message: state.messageController.text.trim(),
             type: 1,
-            createdAt: DateTime.now().millisecondsSinceEpoch,
+            createdAt: DateTime.now().millisecondsSinceEpoch - 5,
           );
           chatService.sendMessage(message).then((data) {
             var updatedList = List<MessageData>.from(state.messageList);

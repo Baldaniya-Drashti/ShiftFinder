@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/main/main_failure.dart';
-import 'package:shift/infrastructure/core/chat/chat_response.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
@@ -122,7 +121,7 @@ abstract class IMainFacade {
     required int page,
   });
 
-  Future<Either<MainFailure, CommonResponse>> getMessage({
+  Future<Either<MainFailure, Map<String, dynamic>>> getMessage({
     required int page,
     required int id,
   });

@@ -15,7 +15,6 @@ import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:http/http.dart' as http;
-
 part 'register_form_event.dart';
 part 'register_form_state.dart';
 part 'register_form_bloc.freezed.dart';

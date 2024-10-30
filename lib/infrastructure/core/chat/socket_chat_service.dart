@@ -43,7 +43,7 @@ class SocketChatService extends ChatService {
             receiverId: int.parse(data['receiverId']),
             message: data['message'],
             type: data['type'],
-            createdAt: data['created_at'],
+            createdAt: data['created_at'] * 1000,
           );
           _newMessageController.add(messageObject);
         }

@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, unnecessary_brace_in_string_interps
 
 import 'dart:convert';
+import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
@@ -935,22 +936,33 @@ class MainFacade implements IMainFacade {
   }
 
   @override
-  Future<Either<MainFailure, CommonResponse>> getMessage(
+  Future<Either<MainFailure, Map<String, dynamic>>> getMessage(
       {required int page, required int id}) async {
     try {
-      Map<String, dynamic> mapData = {'page': page, 'perPage': 10, 'id': id};
-
+      Map<String, dynamic> mapData = {
+        'page': page,
+        'perPage': 20,
+        'id': id,
+      };
+      log('Page: $page');
       final res = await apiService.getMethod(
         ApiConstants.getMessageList,
         queryParameters: mapData,
       );
+
+      log('data : ${res?.data}');
       if (res != null) {
         final list = res.data as List<dynamic>;
         res.data == null;
         res.listData = list
             .map((e) => MessageData.fromJson(e as Map<String, dynamic>))
             .toList();
-        return right(res);
+        return right(
+          {
+            'listData': res,
+            'additionalInfo': '',
+          },
+        );
       } else {
         return left(const MainFailure.serverError());
       }
