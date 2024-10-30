@@ -66,8 +66,9 @@ class FilledShiftsView extends StatelessWidget {
                               separatorBuilder: (context, index) => Gap(16),
                               itemCount: state.filledShiftList.length,
                               shrinkWrap: true,
-                              padding:
-                                  EdgeInsets.symmetric(vertical: getSize(20)),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: getSize(10),
+                                  horizontal: getSize(10)),
                               physics: BouncingScrollPhysics(),
                               itemBuilder: (context, index) {
                                 return shiftBox(
@@ -75,7 +76,7 @@ class FilledShiftsView extends StatelessWidget {
                               },
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   );
@@ -476,6 +477,7 @@ class FilledShiftsView extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: getSize(10)),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           SvgPicture.asset(
@@ -622,7 +624,8 @@ class FilledShiftsView extends StatelessWidget {
     ShiftsBlocState state,
   ) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: getSize(10)),
+      padding:
+          EdgeInsets.symmetric(vertical: getSize(10), horizontal: getSize(10)),
       child: CustomDropdownField(
         onChanged: (value) {
           if (value != null) {

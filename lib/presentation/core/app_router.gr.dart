@@ -925,12 +925,14 @@ class CancelledContractorList
   CancelledContractorList({
     required String title,
     required int postId,
+    required int cancelFilter,
     List<_i94.PageRouteInfo>? children,
   }) : super(
           CancelledContractorList.name,
           args: CancelledContractorListArgs(
             title: title,
             postId: postId,
+            cancelFilter: cancelFilter,
           ),
           initialChildren: children,
         );
@@ -944,6 +946,7 @@ class CancelledContractorList
       return _i17.CancelledContractorList(
         title: args.title,
         postId: args.postId,
+        cancelFilter: args.cancelFilter,
       );
     },
   );
@@ -953,15 +956,18 @@ class CancelledContractorListArgs {
   const CancelledContractorListArgs({
     required this.title,
     required this.postId,
+    required this.cancelFilter,
   });
 
   final String title;
 
   final int postId;
 
+  final int cancelFilter;
+
   @override
   String toString() {
-    return 'CancelledContractorListArgs{title: $title, postId: $postId}';
+    return 'CancelledContractorListArgs{title: $title, postId: $postId, cancelFilter: $cancelFilter}';
   }
 }
 

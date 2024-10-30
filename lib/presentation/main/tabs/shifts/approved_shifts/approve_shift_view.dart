@@ -60,8 +60,9 @@ class ApproveShiftView extends StatelessWidget {
                             child: ListView.builder(
                               itemCount: state.approveShiftList.length,
                               shrinkWrap: true,
-                              padding:
-                                  EdgeInsets.symmetric(vertical: getSize(20)),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: getSize(10),
+                                  horizontal: getSize(10)),
                               physics: BouncingScrollPhysics(),
                               itemBuilder: (context, index) {
                                 return Container(
@@ -174,7 +175,8 @@ class ApproveShiftView extends StatelessWidget {
     ShiftsBlocState state,
   ) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: getSize(10)),
+      padding:
+          EdgeInsets.symmetric(vertical: getSize(10), horizontal: getSize(10)),
       child: CustomDropdownField(
         onChanged: (value) {
           if (value != null) {
@@ -318,6 +320,7 @@ class ApproveShiftView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
+          flex: 10,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -349,6 +352,7 @@ class ApproveShiftView extends StatelessWidget {
           ),
         ),
         Flexible(
+          flex: 13,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -419,6 +423,7 @@ class ApproveShiftView extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: getSize(10)),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           SvgPicture.asset(

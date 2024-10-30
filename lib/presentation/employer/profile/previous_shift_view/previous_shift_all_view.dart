@@ -509,6 +509,8 @@ class _PreviousShiftListTile extends StatelessWidget {
                           context,
                           postId: data.post_id ?? 0,
                           userId: data.user_id ?? 0,
+                          contractorName:
+                              "${data.first_name ?? ""} ${data.last_name ?? ""}",
                         );
                       } else {
                         _onBlock(
@@ -520,7 +522,8 @@ class _PreviousShiftListTile extends StatelessWidget {
                         );
                       }
                     },
-                    label: isBlock ? "Blocked" : "Block",
+                    label:
+                        isBlock ? StringConstant.blocked : StringConstant.block,
                     icon: isBlock
                         ? SvgImageConstant.blockedFilled
                         : SvgImageConstant.block,
@@ -609,12 +612,13 @@ class _PreviousShiftListTile extends StatelessWidget {
     BuildContext context, {
     required int postId,
     required int userId,
+    required String contractorName,
   }) async {
     final result = await AppDialog.showCommonDialog(
       context: context,
       title: "Unblock",
       content:
-          "Unblocking [contractor name] will allow them to view and apply for your future postings. Are you sure you want to proceed?",
+          "Unblocking $contractorName will allow them to view and apply for your future postings. Are you sure you want to proceed?",
       successLabel: "Unblock",
     );
 

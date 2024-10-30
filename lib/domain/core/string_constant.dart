@@ -546,6 +546,8 @@ class StringConstant {
   static const String allowanceForOneShift = "Allowance for One Shift";
   static const String estimatedTotalAmount = "Estimated Total Amount";
   static const String comment = "Comment";
+  static const String blocked = "Blocked";
+  static const String block = "Block";
   static const String iRoidSolutions = "iRoid Solutions";
 
   ///

@@ -13,14 +13,15 @@ import 'package:shift/presentation/common/widgets/center_loading_indicator.dart'
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
-import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'CancelledContractorList')
 class CancelledContractorList extends StatelessWidget {
+  int cancelFilter;
   String title;
   int postId;
-  CancelledContractorList({required this.title, required this.postId});
+  CancelledContractorList(
+      {required this.title, required this.postId, required this.cancelFilter});
 
   @override
   Widget build(BuildContext context) {
@@ -140,32 +141,34 @@ class CancelledContractorList extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: getSize(10)),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: getSize(18), vertical: getSize(10)),
-            child: BaseText(
-              text: StringConstant.reason,
-              fontSize: 12,
-              textColor: AppColors.black.withOpacity(0.7),
+          if (cancelFilter == 2) ...[
+            SizedBox(height: getSize(10)),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: getSize(18), vertical: getSize(10)),
+              child: BaseText(
+                text: StringConstant.reason,
+                fontSize: 12,
+                textColor: AppColors.black.withOpacity(0.7),
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(
-              vertical: getSize(15),
-              horizontal: getSize(15),
+            Container(
+              padding: EdgeInsets.symmetric(
+                vertical: getSize(15),
+                horizontal: getSize(15),
+              ),
+              alignment: Alignment.centerLeft,
+              decoration: BoxDecoration(
+                color: AppColors.scaffoldColor,
+                borderRadius: BorderRadius.circular(getSize(10)),
+              ),
+              child: BaseText(
+                text: contractor.reason ?? "",
+                fontSize: 12,
+                textColor: AppColors.black.withOpacity(0.7),
+              ),
             ),
-            alignment: Alignment.centerLeft,
-            decoration: BoxDecoration(
-              color: AppColors.scaffoldColor,
-              borderRadius: BorderRadius.circular(getSize(10)),
-            ),
-            child: BaseText(
-              text: contractor.reason ?? "",
-              fontSize: 12,
-              textColor: AppColors.black.withOpacity(0.7),
-            ),
-          ),
+          ],
         ],
       ),
     );

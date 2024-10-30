@@ -1504,7 +1504,6 @@ class MainFacade implements IMainFacade {
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const MainFailure.networkError());
       }
-
       return left(const MainFailure.serverError());
     }
   }
@@ -1579,7 +1578,7 @@ class MainFacade implements IMainFacade {
       );
       if (res != null) {
         final data = ContractorMyCalendarDTO.fromJson(res.data);
-        print("My Calendar Contractor Detail Response->  $data");
+        print("My Calendar Contractor Detail Response-> $data");
 
         return right(data);
       } else {

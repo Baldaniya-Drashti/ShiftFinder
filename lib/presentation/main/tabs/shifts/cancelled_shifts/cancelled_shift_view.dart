@@ -350,6 +350,8 @@ class CancelledShiftView extends StatelessWidget {
                                     ? StringConstant.withdralContractors
                                     : StringConstant.cancelledContractors,
                                 postId: shift.id ?? -1,
+                                cancelFilter:
+                                    state.currentCancelFilter.id ?? -1,
                               )));
                     },
                     child: Row(
