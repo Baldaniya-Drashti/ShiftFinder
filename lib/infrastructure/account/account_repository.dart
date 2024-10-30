@@ -324,10 +324,16 @@ class AccountRepository extends IAccountRepository {
           "job_location": jobLocation ?? "",
           "unit": unit ?? "",
           "start_date": (startDate != null && startDate.isNotEmpty)
-              ? (DateTime.parse(startDate).toUtc().millisecondsSinceEpoch / 1000).toString()
+              ? (DateTime
+              .parse(startDate)
+              .toUtc()
+              .millisecondsSinceEpoch / 1000).toString()
               : "",
           "end_date":
-              (endDate != null && endDate.isNotEmpty) ? (DateTime.parse(endDate).toUtc().millisecondsSinceEpoch / 1000).toString() : "",
+          (endDate != null && endDate.isNotEmpty) ? (DateTime
+              .parse(endDate)
+              .toUtc()
+              .millisecondsSinceEpoch / 1000).toString() : "",
         });
       }
       if (type == 2) {
@@ -397,10 +403,16 @@ class AccountRepository extends IAccountRepository {
           "job_location": jobLocation ?? "",
           "unit": unit ?? "",
           "start_date": (startDate != null && startDate.isNotEmpty)
-              ? (DateTime.parse(startDate).toUtc().millisecondsSinceEpoch / 1000).toString()
+              ? (DateTime
+              .parse(startDate)
+              .toUtc()
+              .millisecondsSinceEpoch / 1000).toString()
               : "",
           "end_date":
-              (endDate != null && endDate.isNotEmpty) ? (DateTime.parse(endDate).toUtc().millisecondsSinceEpoch / 1000).toString() : "",
+          (endDate != null && endDate.isNotEmpty) ? (DateTime
+              .parse(endDate)
+              .toUtc()
+              .millisecondsSinceEpoch / 1000).toString() : "",
         });
       }
       if (type == 2) {
@@ -525,12 +537,17 @@ class AccountRepository extends IAccountRepository {
   }) async {
     try {
       print("expiry dat---> $expiryDate");
-      print("expiry date after timestamp---> ${DateTime.now().millisecondsSinceEpoch}");
+      print("expiry date after timestamp---> ${DateTime
+          .now()
+          .millisecondsSinceEpoch}");
 
       var formData = FormData.fromMap({
         "document_type": documentType,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000).toString()
+            ? (DateTime
+            .parse(expiryDate)
+            .toUtc()
+            .millisecondsSinceEpoch / 1000).toString()
             : "",
         "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
         "registration_number": registrationNumber,
@@ -598,7 +615,10 @@ class AccountRepository extends IAccountRepository {
         "id": id,
         "document_type": documentType,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000).toString()
+            ? (DateTime
+            .parse(expiryDate)
+            .toUtc()
+            .millisecondsSinceEpoch / 1000).toString()
             : "",
         "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
         "registration_number": registrationNumber,
@@ -659,13 +679,18 @@ class AccountRepository extends IAccountRepository {
   }) async {
     try {
       print("expiry dat---> $expiryDate");
-      print("expiry date after timestamp---> ${DateTime.now().millisecondsSinceEpoch}");
+      print("expiry date after timestamp---> ${DateTime
+          .now()
+          .millisecondsSinceEpoch}");
 
       var formData = FormData.fromMap({
         "document_type": documentType,
         "province_of_registration": provinceOfRegistration,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000).toString()
+            ? (DateTime
+            .parse(expiryDate)
+            .toUtc()
+            .millisecondsSinceEpoch / 1000).toString()
             : "",
         "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
         "registration_number": registrationNumber,
@@ -730,13 +755,18 @@ class AccountRepository extends IAccountRepository {
     try {
       print("expiry dat---> $expiryDate");
       print("Document file---> $documentFile");
-      print("expiry date after timestamp---> ${DateTime.now().millisecondsSinceEpoch}");
+      print("expiry date after timestamp---> ${DateTime
+          .now()
+          .millisecondsSinceEpoch}");
 
       var formData = FormData.fromMap({
         "id": id,
         "document_type": documentType,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000).toString()
+            ? (DateTime
+            .parse(expiryDate)
+            .toUtc()
+            .millisecondsSinceEpoch / 1000).toString()
             : "",
         "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
         "registration_number": registrationNumber,
@@ -1133,6 +1163,7 @@ class AccountRepository extends IAccountRepository {
   @override
   Future<Either<AccountFailure, Account>> updateLocation({
     required String locationAddress,
+    required int id,
     required String facilityType,
     required String facilityTypeOther,
     required String locationId,
@@ -1142,10 +1173,10 @@ class AccountRepository extends IAccountRepository {
     required String latitude,
     required String longitude,
     required bool fromRegister,
-  }) async{
-
+  }) async {
     try {
       var mapData = {
+        "id":id,
         "location": locationAddress,
         "facility_type_lists_id": facilityType,
         "facility_type_other": facilityTypeOther,
@@ -1155,8 +1186,6 @@ class AccountRepository extends IAccountRepository {
         // "units_number_or_name": unitNumber,
         // "units_note": unitNotes,
         // "last_page": "AddCardDetail",
-        if (fromRegister) "last_page": "AddCardDetail",
-        if (fromRegister) "isProfileComplete": "1",
 
         // "units_number_or_name": unitNumber,
         // "units_note": unitNotes,
@@ -1172,7 +1201,7 @@ class AccountRepository extends IAccountRepository {
       print('Sending Data: ${jsonEncode(mapData)}');
 
       final response = await apiService.postMethod(
-        ApiConstants.location,
+        ApiConstants.updateLocation ,
         mapData,
       );
       print("Response of Add location details---> ${jsonEncode(response.data)}");

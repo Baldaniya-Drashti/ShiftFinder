@@ -220,7 +220,6 @@ class EmployerLocationFormView extends StatelessWidget {
     return Column(
       children: [
         CustomTextField(
-
           labelText: StringConstant.locationAddress,
           isLabelPadding: true,
           hintText: StringConstant.locationAddress,

@@ -177,4 +177,5 @@ class ApiConstants {
   static String employerAddRemark = 'employer_remark';
   static String destroyRemark = 'destroy_remark';
   static String destroyLocation = 'destroy_location';
+  static String updateLocation = 'update_location';
 }

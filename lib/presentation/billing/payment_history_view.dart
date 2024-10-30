@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/billing/common_payment_history_tile.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -17,7 +18,7 @@ class PaymentHistoryView extends StatelessWidget {
     return Scaffold(
       appBar: CommonAppBar(
         onBackPressed: () => context.router.maybePop(),
-        title: 'Payment History',
+        title: StringConstant.paymentHistory,
       ),
       body: ListView.separated(
         padding: EdgeInsets.all(16),

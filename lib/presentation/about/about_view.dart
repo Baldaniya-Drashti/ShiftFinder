@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -19,24 +20,26 @@ class AboutView extends StatelessWidget {
     return Scaffold(
       appBar: CommonAppBar(
         onBackPressed: () => context.router.maybePop(),
-        title: 'About ShiftFinder',
+        title: StringConstant.aboutShiftFinder,
       ),
       body: Padding(
         padding: const EdgeInsets.all(18),
         child: Column(
           children: [
             Gap(getSize(30)),
-
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SvgPicture.asset(SvgImageConstant.about,height: 100,),
+                SvgPicture.asset(
+                  SvgImageConstant.about,
+                  height: 100,
+                ),
                 Gap(getSize(30)),
-                BaseText(text: "Our Policies", fontFamily: "Aclonica", fontSize: 22, fontWeight: FontWeight.w400),
+                BaseText(text: StringConstant.ourPolicies, fontFamily: "Aclonica", fontSize: 22, fontWeight: FontWeight.w400),
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width * 0.8,
                   child: BaseText(
-                    text: "Access key information about the platform, including terms, privacy, cancellation policies, and FAQs",
+                    text: StringConstant.ourPoliciesDes,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.center,
@@ -59,22 +62,22 @@ class AboutView extends StatelessWidget {
                       onPressed: () => context.router.push(
                         PageRouteInfo(TermsAndConditionsScreen.name, args: TermsAndConditionsScreenArgs(isFromRegister: true)),
                       ),
-                      label: "Terms & Conditions",
+                      label: StringConstant.termsAndConditions,
                     ),
                     _ListTile(
                       icon: SvgImageConstant.invoice,
                       onPressed: () => context.router.push(PageRouteInfo(CancellationPolicyView.name)),
-                      label: "Cancellation Policy",
+                      label: StringConstant.cancellationPolicy,
                     ),
                     _ListTile(
                       icon: SvgImageConstant.paymentMethod,
                       onPressed: () => context.router.push(PageRouteInfo(PrivacyPolicyScreen.name)),
-                      label: "Privacy Policy",
+                      label: StringConstant.privacyPolicy,
                     ),
                     _ListTile(
                       icon: SvgImageConstant.paymentHistory,
                       onPressed: () => context.router.push(PageRouteInfo(MonthlyStatementView.name)),
-                      label: "FAQs",
+                      label: StringConstant.faq,
                     ),
                   ],
                 ),

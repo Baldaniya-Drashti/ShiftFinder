@@ -11,6 +11,7 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/billing/transaction_info.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/date_range_picker_tile.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/tile.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -36,46 +37,16 @@ class MonthlyStatementView extends StatelessWidget {
               children: [
                 BaseText(text: "Period", fontSize: 10),
                 Gap(8),
-                Material(
-                  color: AppColors.white,
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(color: AppColors.black, width: 0.5),
-                    borderRadius: BorderRadius.circular(7),
-                  ),
-                  child: InkWell(
-                    onTap: () {
-
-                      pickMultiDateDialog(
-                        context,
-                        onDateSelected: (value) {
-                          context.read<MonthlyStatementBloc>().add(MonthlyStatementEvent.onDateSelected(dates: value));
-                        },
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(SvgImageConstant.calendar, height: 20, width: 20),
-                          Gap(8),
-                          Expanded(
-                            child: BlocSelector<MonthlyStatementBloc, MonthlyStatementState, List<DateTime>>(
-                              selector: (state) => state.selectedDateTime,
-                              builder: (context, selectedDateTime) {
-                                final label = selectedDateTime.isEmpty ? "Choose Date Range" : _getFormattedString(selectedDateTime);
-                                return BaseText(
-                                  text: label,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                );
-                              },
-                            ),
-                          ),
-                          SvgPicture.asset(SvgImageConstant.rightArrow, height: 15, width: 15),
-                        ],
-                      ),
-                    ),
-                  ),
+                BlocSelector<MonthlyStatementBloc, MonthlyStatementState, List<DateTime>>(
+                  selector: (state) => state.selectedDateTime,
+                  builder: (context, selectedDateTime) {
+                    return DateRangePickerTile(
+                      selectedDate: selectedDateTime,
+                      onDateSelected: (value) {
+                        context.read<MonthlyStatementBloc>().add(MonthlyStatementEvent.onDateSelected(dates: value));
+                      },
+                    );
+                  },
                 ),
                 Gap(16),
                 BlocBuilder<MonthlyStatementBloc, MonthlyStatementState>(
@@ -142,7 +113,7 @@ class MonthlyStatementView extends StatelessWidget {
                                   BaseText(text: "Statement Details", fontSize: 10, fontWeight: FontWeight.w500),
                                   Flexible(
                                     child: BaseText(
-                                      text: _getFormattedString(state.selectedDateTime),
+                                      text: getFormattedString(state.selectedDateTime),
                                       fontSize: 10,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -168,7 +139,7 @@ class MonthlyStatementView extends StatelessWidget {
 }
 
 class _StatementListView extends StatelessWidget {
-  const _StatementListView({super.key});
+  const _StatementListView();
 
   @override
   Widget build(BuildContext context) {
@@ -205,7 +176,7 @@ class _StatementListView extends StatelessWidget {
 }
 
 class _StatementDetailTile extends StatelessWidget {
-  const _StatementDetailTile({super.key});
+  const _StatementDetailTile();
 
   @override
   Widget build(BuildContext context) {
@@ -221,11 +192,3 @@ class _StatementDetailTile extends StatelessWidget {
   }
 }
 
-String _getFormattedString(List<DateTime> dates) {
-  if (dates.isEmpty) return "";
-  final firstDate = dates.first;
-  final lastDate = dates.last;
-
-  final formattedDate = "${DateFormat("dd MMM").format(firstDate)} to ${DateFormat("dd MMM").format(lastDate)}, ${lastDate.year}";
-  return formattedDate;
-}

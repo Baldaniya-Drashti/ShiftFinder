@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -18,7 +19,7 @@ class BillingView extends StatelessWidget {
     return Scaffold(
       appBar: CommonAppBar(
         onBackPressed: () => context.router.maybePop(),
-        title: 'Billing',
+        title: StringConstant.billing,
       ),
       body: Padding(
         padding: const EdgeInsets.all(18),
@@ -30,11 +31,11 @@ class BillingView extends StatelessWidget {
                 children: [
                   SvgPicture.asset(SvgImageConstant.billingAccount),
                   Gap(getSize(25)),
-                  BaseText(text: "Billing Details", fontFamily: "Aclonica", fontSize: 22, fontWeight: FontWeight.w400),
+                  BaseText(text: StringConstant.billingDetail, fontFamily: "Aclonica", fontSize: 22, fontWeight: FontWeight.w400),
                   SizedBox(
                     width: MediaQuery.sizeOf(context).width * 0.8,
                     child: BaseText(
-                      text: "Manage your financial transactions organized and up-to-date with detailed records.",
+                      text: StringConstant.billingDetailDescription,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       textAlign: TextAlign.center,
@@ -56,22 +57,22 @@ class BillingView extends StatelessWidget {
                     _ListTile(
                       icon: SvgImageConstant.paymentHistory,
                       onPressed: () => context.router.push(PageRouteInfo(PaymentHistoryView.name)),
-                      label: "Payment History",
+                      label: StringConstant.paymentHistory,
                     ),
                     _ListTile(
                       icon: SvgImageConstant.invoice,
                       onPressed: () => context.router.push(PageRouteInfo(InvoiceView.name)),
-                      label: "Invoices",
+                      label: StringConstant.invoices,
                     ),
                     _ListTile(
                       icon: SvgImageConstant.paymentMethod,
                       onPressed: () => context.router.push(PageRouteInfo(PaymentMethodView.name)),
-                      label: "Payment Methods",
+                      label: StringConstant.paymentMethod,
                     ),
                     _ListTile(
                       icon: SvgImageConstant.paymentHistory,
                       onPressed: () => context.router.push(PageRouteInfo(MonthlyStatementView.name)),
-                      label: "Monthly Statements",
+                      label: StringConstant.monthlyStatement,
                     ),
                   ],
                 ),

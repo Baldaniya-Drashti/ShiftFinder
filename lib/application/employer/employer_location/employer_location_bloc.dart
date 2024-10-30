@@ -29,6 +29,7 @@ class EmployerLocationBloc extends Bloc<EmployerLocationEvent, EmployerLocationS
     on<EmployerLocationEvent>((event, emit) async {
       await event.map(
         getLocationList: (value) async {
+          if(value.refresh==true)emit(state.copyWith(locationList: []));
           Either<MainFailure, CommonResponse>? failureOrSuccess;
           emit(state.copyWith(isLoading: true));
           failureOrSuccess = await _mainFacade.getLocationListApi();

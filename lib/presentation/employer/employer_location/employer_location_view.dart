@@ -55,51 +55,60 @@ class _EmployerLocationViewState extends State<EmployerLocationView> {
                 ),
               );
             }
-
-            return Stack(
-              children: [
-                SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ListView.separated(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: getSize(18),
-                          vertical: getSize(20),
-                        ),
-                        separatorBuilder: (context, index) => Gap(16),
-                        itemCount: state.locationList.length,
-                        shrinkWrap: true,
-                        physics: BouncingScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return _LocationInfoTile(data: state.locationList[index]);
-                        },
-                      ),
-                      Material(
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        color: AppColors.green.withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(7),
-                        child: InkWell(
-                          onTap: () {
-                            context.router.push(PageRouteInfo(EmployerLocationFormView.name));
+            return PaginatedListView(
+              onRefresh: () {
+                context.read<EmployerLocationBloc>().add(EmployerLocationEvent.getLocationList(context, refresh: true));
+              },
+              onLoading: () {},
+              refreshController: RefreshController(),
+              child: Stack(
+                children: [
+                  SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListView.separated(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: getSize(18),
+                            vertical: getSize(20),
+                          ),
+                          separatorBuilder: (context, index) => Gap(16),
+                          itemCount: state.locationList.length,
+                          shrinkWrap: true,
+                          physics: BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return _LocationInfoTile(data: state.locationList[index]);
                           },
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-                            child: BaseText(
-                              text: "+ Add New Location",
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              textColor: AppColors.green,
+                        ),
+                        Material(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          color: AppColors.green.withOpacity(0.15),
+                          borderRadius: BorderRadius.circular(7),
+                          child: InkWell(
+                            onTap: () async {
+                              final result = await context.router.push(PageRouteInfo(EmployerLocationFormView.name)) as bool?;
+                              if (result ?? false) {
+                                context.read<EmployerLocationBloc>().add(EmployerLocationEvent.getLocationList(context));
+                              }
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                              child: BaseText(
+                                text: "+ Add New Location",
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                textColor: AppColors.green,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Gap(30)
-                    ],
+                        Gap(30)
+                      ],
+                    ),
                   ),
-                ),
-                if (state.postDataLoading) CenterLoadingIndicator()
-              ],
+                  if (state.postDataLoading) CenterLoadingIndicator()
+                ],
+              ),
             );
           },
         ),
@@ -172,10 +181,13 @@ class _LocationInfoTile extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               GestureDetector(
-                onTap: () {
-                  context.router.push(
+                onTap: () async {
+                  final result = await context.router.push(
                     PageRouteInfo(EmployerLocationFormView.name, args: EmployerLocationFormViewArgs(id: data.id ?? -1)),
-                  );
+                  ) as bool?;
+                  if (result ?? false) {
+                    context.read<EmployerLocationBloc>().add(EmployerLocationEvent.getLocationList(context));
+                  }
                 },
                 child: SvgPicture.asset(SvgImageConstant.editWithBg),
               ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -18,7 +19,7 @@ class CustomerSupportView extends StatelessWidget {
     return Scaffold(
       appBar: CommonAppBar(
         onBackPressed: () => context.router.maybePop(),
-        title: 'Customer Support',
+        title: StringConstant.customerSupport,
       ),
       body: Padding(
         padding: const EdgeInsets.all(18),
@@ -30,12 +31,12 @@ class CustomerSupportView extends StatelessWidget {
               children: [
                 SvgPicture.asset(SvgImageConstant.consumerSupport, height: 100),
                 Gap(getSize(30)),
-                BaseText(text: "Help Desk", fontFamily: "Aclonica", fontSize: 22, fontWeight: FontWeight.w400),
+                BaseText(text: StringConstant.helpDesk, fontFamily: "Aclonica", fontSize: 22, fontWeight: FontWeight.w400),
                 Gap(getSize(12)),
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width * 0.8,
                   child: BaseText(
-                    text: "Reach out to the ShiftFinder Support Team via chat or by submitting a support ticket for assistance.",
+                    text: StringConstant.helpDeskDesk,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.center,
@@ -54,13 +55,13 @@ class CustomerSupportView extends StatelessWidget {
                     onPressed: () {
                       // context.router.push(PageRouteInfo(PaymentHistoryView.name))
                     },
-                    label: "Chat with Support",
+                    label: StringConstant.chatWithSupport,
                   ),
                   Gap(getSize(18)),
                   _ListTile(
                     icon: SvgImageConstant.ticket,
                     onPressed: () => context.router.push(PageRouteInfo(SupportTicketView.name)),
-                    label: "Submit a Ticket",
+                    label: StringConstant.submitATicket,
                   ),
                 ],
               ),

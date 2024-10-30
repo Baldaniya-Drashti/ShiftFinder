@@ -316,6 +316,20 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
                 type: 1,
               );
             } else {
+              failureOrSuccess = await _repository.updateLocation(
+                 id: state.id??-1,
+                locationAddress: state.address.getValue() ?? '',
+                facilityType: (state.faciltyType.getValue()!.toLowerCase() != "other") ? getSelectedFacilityTypeId() : "",
+                facilityTypeOther: (state.faciltyType.getValue()!.toLowerCase() == "other") ? state.otherFaciltyType.getValue() ?? "" : "",
+                accreditationNumber: state.accreditationNumber,
+                locationId: state.locationId,
+                locationNotes: state.locationNote,
+                units: state.listOfUnit,
+                latitude: state.selectedAddress.result?.geometry?.location?.lat.toString() ?? '',
+                longitude: state.selectedAddress.result?.geometry?.location?.lng.toString() ?? '',
+                fromRegister: false,
+              );
+
               Log.debug("locationAddress :: ${state.address.getValue() ?? ''}");
               Log.debug("faciltyType :: ${(state.faciltyType.getValue()!.toLowerCase() != "other") ? getSelectedFacilityTypeId() : ""}");
               Log.debug(
@@ -367,7 +381,6 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
                 ),
               ).show(value.context);
               emit(state.copyWith(isLoading: false));
-
             },
             (r) async {
               final locationData = LocationDTO.fromJson(r.data);
@@ -379,16 +392,14 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
                 state.copyWith(
                     locationData: locationData,
                     locationId: locationData.location_id ?? "",
-                    accreditationNumber: locationData.accreditation_number ?? "",
-                    locationNote: locationData.location_note ?? "",
+                    accreditationNumber: "Test",
+                    locationNote: "locationNote",
                     listOfUnit: locationData.add_units ?? [],
                     faciltyTypeDDValue: locationData.facility_type?.name ?? "",
                     faciltyType: InputEmptyOrNot(locationData.facility_type?.name ?? ""),
                     address: InputEmptyOrNot(locationData.location ?? ""),
-                    isLoading: false
-                ),
+                    isLoading: false),
               );
-
             },
           );
         },

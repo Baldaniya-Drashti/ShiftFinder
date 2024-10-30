@@ -32,7 +32,10 @@ class SupportTicketView extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<SupportTicketBloc>()..add(SupportTicketEvent.fetchLocationList(context: context)),
       child: Scaffold(
-        appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Submit a Ticket"),
+        appBar: CommonAppBar(
+          onBackPressed: () => context.router.maybePop(),
+          title: StringConstant.submitATicket,
+        ),
         body: _SupportForm(),
       ),
     );
@@ -69,14 +72,14 @@ class _SupportFormState extends State<_SupportForm> {
                 padding: EdgeInsets.all(16),
                 children: [
                   SupportTicketFormLayout(
-                    title: "Contact Information",
+                    title: StringConstant.contactInformation,
                     children: [
                       if (role == 2) ...[
                         CustomTextField(
                           controller: _companyNameController,
                           autoValidateMode: AutovalidateMode.onUserInteraction,
-                          hintText: "Company Name",
-                          labelText: "Company Name",
+                          hintText: StringConstant.companyName,
+                          labelText: StringConstant.companyName,
                           isLabelPadding: false,
                           textInputAction: TextInputAction.next,
                           validator: (value, context) {
@@ -95,16 +98,16 @@ class _SupportFormState extends State<_SupportForm> {
                       CustomTextField(
                         controller: _nameController,
                         autoValidateMode: AutovalidateMode.onUserInteraction,
-                        hintText: "Name",
-                        labelText: "Name",
+                        hintText: StringConstant.name,
+                        labelText: StringConstant.name,
                         isLabelPadding: false,
                         textInputAction: TextInputAction.next,
                         validator: (value, context) {
                           value = value?.trim() ?? "";
                           if (value.isEmpty) {
-                            return "Please enter your name";
+                            return StringConstant.pleaseEnterYourName;
                           } else if (value.length <= 2 && value.length >= 32) {
-                            return "Please enter valid name";
+                            return StringConstant.pleaseEnterValidName;
                           }
                           return null;
                         },
@@ -112,17 +115,17 @@ class _SupportFormState extends State<_SupportForm> {
                       CustomTextField(
                         controller: _emailAddressController,
                         autoValidateMode: AutovalidateMode.onUserInteraction,
-                        hintText: "Email Address",
-                        labelText: "Email Address",
+                        hintText: StringConstant.emailAddress,
+                        labelText: StringConstant.emailAddress,
                         isLabelPadding: false,
                         textInputAction: TextInputAction.next,
                         validator: (value, context) {
                           value = value?.trim() ?? "";
                           const emailRegex = r"""^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+""";
                           if (value.isEmpty) {
-                            return "Please enter your email";
+                            return StringConstant.pleaseEnterEmail;
                           } else if (!RegExp(emailRegex).hasMatch(value)) {
-                            return "Please enter valid email";
+                            return StringConstant.pleaseEnterValidEmail;
                           }
                           return null;
                         },
@@ -145,19 +148,19 @@ class _SupportFormState extends State<_SupportForm> {
                   ),
                   Gap(28),
                   SupportTicketFormLayout(
-                    title: "Issue Details",
+                    title: StringConstant.issueDetails,
                     children: [
                       CustomTextField(
                         controller: _subjectController,
                         autoValidateMode: AutovalidateMode.onUserInteraction,
-                        labelText: "Subject",
-                        hintText: "Type Here...",
+                        labelText: StringConstant.subject,
+                        hintText: StringConstant.typeHere,
                         maxLines: 2,
                         isLabelPadding: false,
                         textInputAction: TextInputAction.next,
                         validator: (value, context) {
                           value = value?.trim() ?? "";
-                          if (value.isEmpty) return "Please enter subject";
+                          if (value.isEmpty) return StringConstant.typeHere;
 
                           return null;
                         },
@@ -165,14 +168,14 @@ class _SupportFormState extends State<_SupportForm> {
                       CustomTextField(
                         controller: _descriptionController,
                         autoValidateMode: AutovalidateMode.onUserInteraction,
-                        hintText: "Type Here...",
-                        labelText: "Description",
+                        hintText: StringConstant.typeHere,
+                        labelText: StringConstant.description,
                         maxLines: 3,
                         isLabelPadding: false,
                         textInputAction: TextInputAction.done,
                         validator: (value, context) {
                           value = value?.trim() ?? "";
-                          if (value.isEmpty) return "Please enter description";
+                          if (value.isEmpty) return StringConstant.pleaseEnterDescription;
                           return null;
                         },
                       ),
@@ -198,7 +201,7 @@ class _SupportFormState extends State<_SupportForm> {
                       if (_formKey.currentState?.validate() != true) return;
                       final selectedLocation = context.read<SupportTicketBloc>().state.selectedLocation;
                       if (selectedLocation == null && role == 2) {
-                        showError(message: "Please select location").show(context);
+                        showError(message: StringConstant.pleaseSelectLocation).show(context);
                         return;
                       }
 
@@ -214,12 +217,12 @@ class _SupportFormState extends State<_SupportForm> {
                             ),
                           );
                     },
-                    buttonText: "Submit",
+                    buttonText: StringConstant.submit,
                   )
                 ],
               ),
             ),
-            if(state.postDataLoading)CenterLoadingIndicator()
+            if (state.postDataLoading) CenterLoadingIndicator()
           ],
         );
       },
@@ -246,7 +249,7 @@ class LocationDropdown extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             BaseText(
-              text: "Location Address",
+              text: StringConstant.locationAddress,
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
@@ -259,7 +262,7 @@ class LocationDropdown extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   CustomDropdownField<LocationDTO>(
-                    hintText: "Location Address",
+                    hintText: StringConstant.locationAddress,
                     value: initialLocation,
                     radius: 10,
                     hintTextStyle: TextStyle(
@@ -271,7 +274,11 @@ class LocationDropdown extends StatelessWidget {
                       (e) {
                         return DropdownMenuItem<LocationDTO>(
                           value: e,
-                          child: BaseText(text: e.location ?? "", fontSize: 14,maxLines: 1,),
+                          child: BaseText(
+                            text: e.location ?? "",
+                            fontSize: 14,
+                            maxLines: 1,
+                          ),
                         );
                       },
                     ).toList(),
@@ -285,7 +292,7 @@ class LocationDropdown extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(14.0).copyWith(top: 12),
                       child: BaseText(
-                       text: state.selectedLocation?.facility_type?.name?? "",
+                        text: state.selectedLocation?.facility_type?.name ?? "",
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),

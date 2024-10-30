@@ -143,5 +143,6 @@ class SvgImageConstant {
   static const ticket = "assets/svg/ticket.svg";
   static const message = "assets/svg/message.svg";
   static const about = "assets/svg/about.svg";
+  static const myEarning = "assets/svg/my_earning.svg";
 
 }

@@ -178,6 +178,7 @@ abstract class IAccountRepository {
     required String latitude,
     required String longitude,
     required bool fromRegister,
+    required int id,
 
   });
 
