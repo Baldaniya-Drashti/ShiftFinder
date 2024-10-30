@@ -25,6 +25,7 @@ class AppliedShiftDTO with _$AppliedShiftDTO {
     int? revoke_start,
     String? last_ago,
     int? applied_date,
+    int? proposal_date,
     int? last_request,
     ProposalReceivedDTO? proposal_received,
     Duration? remainingRevokeTime,

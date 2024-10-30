@@ -60,8 +60,9 @@ class ApproveShiftView extends StatelessWidget {
                             child: ListView.builder(
                               itemCount: state.approveShiftList.length,
                               shrinkWrap: true,
-                              padding:
-                                  EdgeInsets.symmetric(vertical: getSize(20)),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: getSize(10),
+                                  horizontal: getSize(10)),
                               physics: BouncingScrollPhysics(),
                               itemBuilder: (context, index) {
                                 return Container(
@@ -174,7 +175,8 @@ class ApproveShiftView extends StatelessWidget {
     ShiftsBlocState state,
   ) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: getSize(10)),
+      padding:
+          EdgeInsets.symmetric(vertical: getSize(10), horizontal: getSize(10)),
       child: CustomDropdownField(
         onChanged: (value) {
           if (value != null) {
@@ -314,82 +316,99 @@ class ApproveShiftView extends StatelessWidget {
   }
 
   Widget dateAndTime(BuildContext context, EmployerShiftDto shift) {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            (shift.shift_type == 1)
-                ? displayDateBreak(
-                    context,
-                    boldValue: convertTimeStampToDate(shift.start_date ?? -1),
-                    timidValue: convertTimeStampToDate(shift.start_date ?? -1,
-                        isYear: true),
-                    title: StringConstant.shiftDate,
-                    svgPrefixIcon: SvgImageConstant.calendar,
-                  )
-                : displayDateBreak(
-                    context,
-                    boldValue:
-                        "${shift.total_shifts ?? 0} ${StringConstant.shifts}",
-                    timidValue: "",
-                    title: StringConstant.totalShifts,
-                    svgPrefixIcon: SvgImageConstant.calendar,
-                  ),
-            (shift.shift_type == 1)
-                ? displayTime(
-                    title: StringConstant.time,
-                    startDate: (shift.start_time != null)
-                        ? DateFormat('hh:mm a').format(
-                            DateTime.fromMillisecondsSinceEpoch(
-                                (shift.start_time ?? 0) * 1000))
-                        : "",
-                    endDate: (shift.end_time != null)
-                        ? DateFormat('hh:mm a').format(
-                            DateTime.fromMillisecondsSinceEpoch(
-                                (shift.end_time ?? 0) * 1000))
-                        : "",
-                    svgPrefixIcon: SvgImageConstant.clock,
-                  )
-                : displayDateBreak(
-                    context,
-                    boldValue: convertTimeStampToDate(shift.start_date ?? -1),
-                    timidValue: convertTimeStampToDate(shift.start_date ?? -1,
-                        isYear: true),
-                    title: StringConstant.shiftStartDate,
-                    svgPrefixIcon: SvgImageConstant.calendar,
-                  )
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            displayDateBreak(
-              context,
-              boldValue: "\$${shift.estimated_payables ?? ""}",
-              timidValue: "",
-              title: StringConstant.estimatedPayables,
-              svgPrefixIcon: SvgImageConstant.dollorRound,
-            ),
-            displayDateBreak(
-              context,
-              boldValue: "",
-              timidValue: "",
-              title: "",
-              svgPrefixIcon: "",
-              showBtn: true,
-              onBtnPressed: () {
-                context.router.push(
-                  PageRouteInfo(
-                    ViewHomeShiftDetails.name,
-                    args: ViewHomeShiftDetailsArgs(
-                      postId: shift.id ?? -1,
+        Flexible(
+          flex: 10,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              (shift.shift_type == 1)
+                  ? displayDateBreak(
+                      context,
+                      boldValue: convertTimeStampToDate(shift.start_date ?? -1),
+                      timidValue: convertTimeStampToDate(shift.start_date ?? -1,
+                          isYear: true),
+                      title: StringConstant.shiftDate,
+                      svgPrefixIcon: SvgImageConstant.calendar,
+                    )
+                  : displayDateBreak(
+                      context,
+                      boldValue:
+                          "${shift.total_shifts ?? 0} ${((shift.total_shifts ?? 0) > 1) ? "Shifts" : "Shift"}",
+                      timidValue: "",
+                      title: StringConstant.totalShifts,
+                      svgPrefixIcon: SvgImageConstant.calendar,
                     ),
-                  ),
-                );
-              },
-            ),
-          ],
+              displayDateBreak(
+                context,
+                boldValue: "\$${shift.estimated_payables ?? ""}",
+                timidValue: "",
+                title: StringConstant.estimatedPayables,
+                svgPrefixIcon: SvgImageConstant.dollorRound,
+              ),
+            ],
+          ),
+        ),
+        Flexible(
+          flex: 13,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              (shift.shift_type == 1 && shift.total_user == 1)
+                  ? displayTime(
+                      title: StringConstant.time,
+                      startDate: (shift.start_time != null)
+                          ? DateFormat('hh:mm a').format(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                  (shift.start_time ?? 0) * 1000))
+                          : "",
+                      endDate: (shift.end_time != null)
+                          ? DateFormat('hh:mm a').format(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                  (shift.end_time ?? 0) * 1000))
+                          : "",
+                      svgPrefixIcon: SvgImageConstant.clock,
+                    )
+                  : (shift.shift_type == 1)
+                      ? displayDateBreak(
+                          context,
+                          boldValue: shift.unpaid_break ?? "",
+                          timidValue: "",
+                          title: StringConstant.unpaidBreak,
+                          svgPrefixIcon: SvgImageConstant.clock,
+                        )
+                      : displayDateBreak(
+                          context,
+                          boldValue:
+                              convertTimeStampToDate(shift.start_date ?? -1),
+                          timidValue: convertTimeStampToDate(
+                              shift.start_date ?? -1,
+                              isYear: true),
+                          title: StringConstant.shiftStartDate,
+                          svgPrefixIcon: SvgImageConstant.calendar,
+                        ),
+              displayDateBreak(
+                context,
+                boldValue: "",
+                timidValue: "",
+                title: "",
+                svgPrefixIcon: "",
+                showBtn: true,
+                onBtnPressed: () {
+                  context.router.push(
+                    PageRouteInfo(
+                      ViewHomeShiftDetails.name,
+                      args: ViewHomeShiftDetailsArgs(
+                        postId: shift.id ?? -1,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -404,6 +423,7 @@ class ApproveShiftView extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: getSize(10)),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           SvgPicture.asset(
@@ -482,7 +502,7 @@ class ApproveShiftView extends StatelessWidget {
       child: (showBtn)
           ? CommonButton(
               onPressed: onBtnPressed ?? () {},
-              width: 160,
+              // width: 160,
               height: 34,
               borderRadius: 5,
               buttonFontSize: 12,
@@ -493,6 +513,7 @@ class ApproveShiftView extends StatelessWidget {
             )
           : Row(
               crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 SvgPicture.asset(
                   svgPrefixIcon,

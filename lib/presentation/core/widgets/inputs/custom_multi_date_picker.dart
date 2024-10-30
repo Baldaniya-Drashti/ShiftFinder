@@ -41,7 +41,7 @@ class CustomMultiDatePicker extends StatelessWidget {
         selectedDateColors: selectedDateColors ?? {},
         config: CalendarDatePicker2Config(
           dayBuilder: dayBuilder,
-          firstDate: DateTime.now(),
+          firstDate: DateTime.now().add(Duration(days: 1)),
           calendarType: CalendarDatePicker2Type.multi,
           disableMonthPicker: true,
           disableModePicker: true,

@@ -4,7 +4,6 @@ class PngImageConstants {
   static const iroid_logo = "assets/png/iroid_to_do_splash.png";
   static const splash_background = "assets/png/splash_background.png";
   static const splash_logo = "assets/png/splash_logo.png";
-
   static const welcome_text = "assets/png/welcome_text.png";
   static const back_button = "assets/png/back_button.png";
   static const login_frame = "assets/png/login_frame.png";
@@ -46,7 +45,6 @@ class PngImageConstants {
   static const passwordChanged = "assets/png/password_changed.png";
   static const about = "assets/png/about.png";
   static const ticketSubmittedSuccess = "assets/png/ticket_submit_success.png";
-
 
   static const List<String> allImages = [
     about,

@@ -324,9 +324,8 @@ class UpcomingShift extends StatelessWidget {
           flex: 10,
           child: displayDateBreak(
             context,
-            boldValue: convertTimeStampToDate(shift.applied_date ?? -1),
-            timidValue:
-                convertTimeStampToDate(shift.applied_date ?? -1, isYear: true),
+            boldValue: convertTimeStampToDate(shift.date ?? -1),
+            timidValue: convertTimeStampToDate(shift.date ?? -1, isYear: true),
             title: "",
             svgPrefixIcon: SvgImageConstant.calendar,
             titleWidget: (shift.shift_type == 1)

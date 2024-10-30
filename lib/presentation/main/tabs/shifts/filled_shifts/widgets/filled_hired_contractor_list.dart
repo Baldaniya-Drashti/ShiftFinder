@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/application/main_tab/shifts/hired_contractor_bloc/hired_contractor_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -142,31 +143,68 @@ class FilledHiredContractorList extends StatelessWidget {
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                   ),
-                  if (contractor.contractor_shift_type == 2)
-                    GestureDetector(
-                      onTap: () {
-                        context.router.push(PageRouteInfo(AgreedProposal.name,
-                            args: AgreedProposalArgs(
-                                post: contractor,
-                                postId: postId,
-                                userId: contractor.user_id ?? -1)));
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: AppColors.primaryColor.withOpacity(0.15),
-                          borderRadius: BorderRadius.circular(getSize(5)),
+                  SizedBox(height: getSize(5)),
+                  (contractor.contractor_shift_type == 2)
+                      ? GestureDetector(
+                          onTap: () {
+                            context.router.push(PageRouteInfo(
+                                AgreedProposal.name,
+                                args: AgreedProposalArgs(
+                                    post: contractor,
+                                    postId: postId,
+                                    userId: contractor.user_id ?? -1)));
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: AppColors.primaryColor.withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(getSize(5)),
+                            ),
+                            padding: EdgeInsets.symmetric(
+                                vertical: getSize(5), horizontal: getSize(10)),
+                            child: BaseText(
+                              text: StringConstant.viewAgreedProposal,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
+                              textColor: AppColors.primaryColor,
+                            ),
+                          ),
+                        )
+                      : Row(
+                          children: [
+                            SvgPicture.asset(
+                              SvgImageConstant.clock,
+                              color: AppColors.black.withOpacity(0.7),
+                              height: getSize(15),
+                              width: getSize(15),
+                            ),
+                            SizedBox(width: getSize(5)),
+                            BaseText(
+                              text: (contractor.start_time != null)
+                                  ? DateFormat('hh:mm a').format(
+                                      DateTime.fromMillisecondsSinceEpoch(
+                                          (contractor.start_time ?? 0) * 1000))
+                                  : "",
+                              fontSize: 12,
+                              textColor: AppColors.black,
+                            ),
+                            BaseText(
+                              text: ' to ',
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              textColor: AppColors.black,
+                            ),
+                            BaseText(
+                              text: (contractor.end_time != null)
+                                  ? DateFormat('hh:mm a').format(
+                                      DateTime.fromMillisecondsSinceEpoch(
+                                          (contractor.end_time ?? 0) * 1000))
+                                  : "",
+                              fontSize: 12,
+                              textColor: AppColors.black,
+                            ),
+                          ],
                         ),
-                        padding: EdgeInsets.symmetric(
-                            vertical: getSize(5), horizontal: getSize(10)),
-                        child: BaseText(
-                          text: StringConstant.viewAgreedProposal,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
-                          textColor: AppColors.primaryColor,
-                        ),
-                      ),
-                    ),
                 ],
               ),
             ),

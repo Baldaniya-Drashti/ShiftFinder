@@ -1,9 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:shift/application/auth/auth_status/auth_status_bloc.dart';
 import 'package:shift/application/change_password/change_password_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
@@ -39,15 +40,19 @@ class ChangePasswordView extends StatelessWidget {
                   padding: EdgeInsets.all(18),
                   child: Column(
                     children: [
-                      SvgPicture.asset(SvgImageConstant.changePassword, height: 92),
+                      SvgPicture.asset(SvgImageConstant.changePassword,
+                          height: 92),
                       Gap(getSize(14)),
-                      BaseText(text: "Update Password", fontFamily: "Aclonica", fontSize: 22, fontWeight: FontWeight.w400),
+                      BaseText(
+                          text: "Update Password",
+                          fontFamily: "Aclonica",
+                          fontSize: 22,
+                          fontWeight: FontWeight.w400),
                       SizedBox(
-                        width: MediaQuery
-                            .sizeOf(context)
-                            .width * 0.8,
+                        width: MediaQuery.sizeOf(context).width * 0.8,
                         child: BaseText(
-                          text: "Securely change your password to keep your account safe.",
+                          text:
+                              "Securely change your password to keep your account safe.",
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           textAlign: TextAlign.center,
@@ -58,7 +63,7 @@ class ChangePasswordView extends StatelessWidget {
                     ],
                   ),
                 ),
-                if(postDataLoading)CenterLoadingIndicator(),
+                if (postDataLoading) CenterLoadingIndicator(),
               ],
             );
           },
@@ -109,7 +114,9 @@ class _ChangePasswordFormState extends State<_ChangePasswordForm> {
             labelText: "Current Password",
             validator: (value, context) {
               value = value?.trim() ?? '';
-              if(value.isEmpty)return "Please enter password";
+              if (value.isEmpty) return StringConstant.pleaseEnterPassword;
+
+              return null;
             },
             controller: _currentPasswordController,
           ),
@@ -122,7 +129,8 @@ class _ChangePasswordFormState extends State<_ChangePasswordForm> {
           _PasswordInputField(
             hintText: "Confirm Password",
             labelText: "Confirm Password",
-            validator: (value, context) => _validateConfirmPassword(value, _newPasswordController.text),
+            validator: (value, context) =>
+                _validateConfirmPassword(value, _newPasswordController.text),
             controller: _confirmPasswordController,
           ),
           Gap(16),
@@ -130,13 +138,13 @@ class _ChangePasswordFormState extends State<_ChangePasswordForm> {
             onPressed: () {
               if (_formKey.currentState?.validate() != true) return;
               context.read<ChangePasswordBloc>().add(
-                ChangePasswordEvent.changePassword(
-                  oldPassword: _currentPasswordController.text.trim(),
-                  password: _newPasswordController.text.trim(),
-                  confirmPassword: _confirmPasswordController.text.trim(),
-                  context: context,
-                ),
-              );
+                    ChangePasswordEvent.changePassword(
+                      oldPassword: _currentPasswordController.text.trim(),
+                      password: _newPasswordController.text.trim(),
+                      confirmPassword: _confirmPasswordController.text.trim(),
+                      context: context,
+                    ),
+                  );
             },
             buttonText: "Update",
           )
@@ -171,38 +179,40 @@ class _PasswordInputFieldState extends State<_PasswordInputField> {
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: _isPasswordVisible,
-      builder: (context, value, _) =>
-          CustomTextField(
-            autoValidateMode: AutovalidateMode.onUserInteraction,
-            controller: widget.controller,
-            hintText: widget.hintText,
-            labelText: widget.labelText,
-            validator: widget.validator,
-            maxLength: 16,
-            errorMaxLines: 3,
-            prefixIcon: Padding(
-              padding: EdgeInsets.symmetric(horizontal: getSize(14), vertical: getSize(14)),
-              child: SvgPicture.asset(
-                SvgImageConstant.lock,
-                height: getSize(24),
-                width: getSize(24),
-                color: AppColors.primaryColor,
-              ),
-            ),
-            obscureText: _isPasswordVisible.value,
-            suffixIcon: GestureDetector(
-              onTap: () => _isPasswordVisible.value = !_isPasswordVisible.value,
-              child: Container(
-                color: AppColors.transparent,
-                padding: EdgeInsets.all(getSize(9)),
-                child: SvgPicture.asset(
-                  (_isPasswordVisible.value) ? SvgImageConstant.closeEye : SvgImageConstant.openEye,
-                  height: getSize(24),
-                  width: getSize(24),
-                ),
-              ),
+      builder: (context, value, _) => CustomTextField(
+        autoValidateMode: AutovalidateMode.onUserInteraction,
+        controller: widget.controller,
+        hintText: widget.hintText,
+        labelText: widget.labelText,
+        validator: widget.validator,
+        maxLength: 16,
+        errorMaxLines: 3,
+        prefixIcon: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: getSize(14), vertical: getSize(14)),
+          child: SvgPicture.asset(
+            SvgImageConstant.lock,
+            height: getSize(24),
+            width: getSize(24),
+            color: AppColors.primaryColor,
+          ),
+        ),
+        obscureText: _isPasswordVisible.value,
+        suffixIcon: GestureDetector(
+          onTap: () => _isPasswordVisible.value = !_isPasswordVisible.value,
+          child: Container(
+            color: AppColors.transparent,
+            padding: EdgeInsets.all(getSize(9)),
+            child: SvgPicture.asset(
+              (_isPasswordVisible.value)
+                  ? SvgImageConstant.closeEye
+                  : SvgImageConstant.openEye,
+              height: getSize(24),
+              width: getSize(24),
             ),
           ),
+        ),
+      ),
     );
   }
 }
@@ -211,7 +221,8 @@ String? _validatePassword(String? input) {
   if (input == null || input.isEmpty) {
     return StringConstant.pleaseEnterPassword;
   } else {
-    if (!RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).+$').hasMatch(input)) {
+    if (!RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).+$')
+        .hasMatch(input)) {
       return StringConstant.pleaseEnterCorrectPasswordFormat;
     } else if (input.length < 8) {
       return StringConstant.passwordShouldBeMinimum8Digit;
@@ -224,6 +235,7 @@ String? _validatePassword(String? input) {
 String? _validateConfirmPassword(String? value, String password) {
   value = value?.trim() ?? '';
   if (value.isEmpty) return StringConstant.pleaseEnterPassword;
-  if (password != value.trim()) return "Confirm password must match new password";
+  if (password != value.trim())
+    return "Confirm password must match new password";
   return null;
 }

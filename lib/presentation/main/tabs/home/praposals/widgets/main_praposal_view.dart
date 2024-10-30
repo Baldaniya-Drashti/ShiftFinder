@@ -2,11 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/infrastructure/core/additional_data_dto/additional_data_dto.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -173,12 +172,14 @@ class MainPraposalView extends StatelessWidget {
                   VerticalDivider(
                     color: AppColors.black.withOpacity(0.3),
                     width: 0,
+                    indent: getSize(5),
+                    endIndent: getSize(5),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       BaseText(
-                        text: 'Start and End Time:-',
+                        text: '${StringConstant.startAndEndTime}:-',
                         fontSize: 8,
                         fontWeight: FontWeight.w400,
                       ),
@@ -221,7 +222,7 @@ class MainPraposalView extends StatelessWidget {
                     Expanded(
                       child: BaseText(
                         text:
-                            "All Hired Contractors (${additionalData.complete_shift}/${additionalData.total_shift})",
+                            "${StringConstant.allHiredContractors} (${additionalData.complete_shift}/${additionalData.total_shift})",
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
                       ),

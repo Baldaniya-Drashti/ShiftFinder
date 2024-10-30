@@ -1,27 +1,21 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart';
-import 'package:shift/domain/account/i_account_repository.dart';
-import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/i_auth_facade.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/main/main_failure.dart';
-import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
-
 part 'change_password_event.dart';
-
 part 'change_password_state.dart';
-
 part 'change_password_bloc.freezed.dart';
 
 @injectable
-class ChangePasswordBloc extends Bloc<ChangePasswordEvent, ChangePasswordState> {
+class ChangePasswordBloc
+    extends Bloc<ChangePasswordEvent, ChangePasswordState> {
   final IAuthFacade _authFacade;
 
   ChangePasswordBloc(this._authFacade) : super(ChangePasswordState.initial()) {
@@ -42,7 +36,8 @@ class ChangePasswordBloc extends Bloc<ChangePasswordEvent, ChangePasswordState> 
               showError(
                 message: l.maybeMap(
                   showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) => 'Please check your internet connectivity',
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
                   orElse: () => "Server Error. Try again later.",
                 ),
               ).show(value.context);

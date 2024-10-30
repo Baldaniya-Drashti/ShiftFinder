@@ -16,7 +16,6 @@ import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 
@@ -67,7 +66,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           print("Api called after delete--->");
           if (e.isRefresh) {
             page = 1;
-            emit(state.copyWith(employerDashboardList: [], isLoading: e.isRefresh));
+            emit(state
+                .copyWith(employerDashboardList: [], isLoading: e.isRefresh));
             refreshController.resetNoData();
           } else {
             if (page > lastPage) {
@@ -94,10 +94,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 state.copyWith(
                   isLoading: false,
                   isErrorInAPI: false,
-                  isNoDataFound: (r.data as List<dynamic>).map((e) => EmployerDashboardDTO.fromJson(e)).toList().isEmpty,
+                  isNoDataFound: (r.data as List<dynamic>)
+                      .map((e) => EmployerDashboardDTO.fromJson(e))
+                      .toList()
+                      .isEmpty,
                   //  getProductList: []
                   employerDashboardList: List.from(state.employerDashboardList)
-                    ..addAll((r.data as List<dynamic>).map((e) => EmployerDashboardDTO.fromJson(e)).toList()),
+                    ..addAll((r.data as List<dynamic>)
+                        .map((e) => EmployerDashboardDTO.fromJson(e))
+                        .toList()),
                 ),
               );
             },
@@ -129,7 +134,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               showError(
                 message: l.maybeMap(
                   showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) => 'Please check your internet connectivity',
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
                   orElse: () => "Server Error. Try again later.",
                 ),
               ).show(e.context);
@@ -141,10 +147,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                   teamStatusFailureOrSuccessOption: optionOf(res),
                 ),
               );
-              Log.success("===${getShowTeamDialog()}");
+
               if (r.isTeamAvailable == 1 || getShowTeamDialog() == true) {
-                e.context.router.push(PageRouteInfo(HealthCarePostForm.name)).then((value) {
-                  e.context.read<HomeBloc>().add(HomeEvent.getEmployerDashboardList(true));
+                e.context.router
+                    .push(PageRouteInfo(HealthCarePostForm.name))
+                    .then((value) {
+                  e.context
+                      .read<HomeBloc>()
+                      .add(HomeEvent.getEmployerDashboardList(true));
                 });
               } else {
                 teamCheckDialog(e.context, state);
@@ -170,15 +180,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           await setShowTeamDialog(false);
         }
         context.router.maybePop();
-        context.router.push(PageRouteInfo(HealthCarePostForm.name)).then((value) {
+        context.router
+            .push(PageRouteInfo(HealthCarePostForm.name))
+            .then((value) {
           add(HomeEvent.getEmployerDashboardList(true));
         });
-        Log.debug("===>${state.showTeamDialog}");
       },
       onDeleteClick: () async {
-        Log.debug("===>${state.showTeamDialog}");
         if (state.showTeamDialog) {
-          await setShowTeamDialog(!state.showTeamDialog);
+          await setShowTeamDialog(false);
         }
         context.router.maybePop();
         context.router.push(PageRouteInfo(TeamsView.name)).then((value) {
@@ -193,7 +203,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       bloc: context.read<HomeBloc>(),
       builder: (context, state) {
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: getSize(20), vertical: getSize(20)),
+          padding: EdgeInsets.symmetric(
+              horizontal: getSize(20), vertical: getSize(20)),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -215,7 +226,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                     if (value != null) {
                       add(HomeEvent.dontShowAgain(context, isCheck: value));
                       await setShowTeamDialog(value);
-                      Log.debug("==> $value");
                     }
                   },
                 ),

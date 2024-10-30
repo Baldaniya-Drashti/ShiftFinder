@@ -50,7 +50,7 @@ class PersonListWidget extends StatelessWidget {
                     final result = await context.router.push(
                       PageRouteInfo(
                         ViewPersonPraposalView.name,
-                        args: ViewPersonPraposalViewArgs(postId: postId, userId: list[index].user_id ?? -1),
+                        args: ViewPersonPraposalViewArgs(postId: postId, userId: list[index].user_id ?? -1,user: list[index]),
                       ),
                     ) as bool?;
 

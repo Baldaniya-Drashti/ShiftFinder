@@ -81,9 +81,9 @@ class AppliedTab extends StatelessWidget {
                                   : dateView(
                                       title: StringConstant.proposalDate,
                                       boldValue: convertTimeStampToDate(
-                                          shift.applied_date ?? -1),
+                                          shift.proposal_date ?? -1),
                                       timidValue: convertTimeStampToDate(
-                                          shift.applied_date ?? -1,
+                                          shift.proposal_date ?? -1,
                                           isYear: true),
                                     ),
                               paddingBetweenFields(),

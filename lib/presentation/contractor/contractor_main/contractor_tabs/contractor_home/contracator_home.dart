@@ -121,6 +121,21 @@ class ContractorHomeView extends StatelessWidget {
             value: state.contractorDashboardList[index].specialties_list ?? "",
           ),
           rateHoursBox(state.contractorDashboardList[index]),
+          Container(
+            padding: EdgeInsets.symmetric(
+                horizontal: getSize(12), vertical: getSize(10)),
+            margin: EdgeInsets.symmetric(vertical: getSize(5)),
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: AppColors.grey04,
+                borderRadius: BorderRadius.circular(10)),
+            child: paybaleTitleRate(
+              title: StringConstant.totalNumberOfVacancy,
+              value:
+                  "${(state.contractorDashboardList[index].total_vacancy.toString().length == 2) ? state.contractorDashboardList[index].total_vacancy : "0${state.contractorDashboardList[index].total_vacancy}"}",
+              isFirst: true,
+            ),
+          ),
           payableBox(state.contractorDashboardList[index]),
           SizedBox(height: getSize(20)),
           Row(
@@ -473,7 +488,7 @@ class ContractorHomeView extends StatelessWidget {
                 title: StringConstant.shiftDates,
                 svgPrefixIcon: SvgImageConstant.calendar,
               ),
-              (list.shift_type == 2 && list.same_or_different_time == 2)
+              (list.shift_type == 2)
                   ? displayDateBreak(context, list,
                       boldValue: "${list.total_shift ?? -1}",
                       timidValue: "",
@@ -706,7 +721,7 @@ class ContractorHomeView extends StatelessWidget {
         padding: EdgeInsets.symmetric(
           horizontal: getSize(20),
           vertical: getSize(10),
-        ),
+        ).copyWith(right: getSize(10)),
         margin: EdgeInsets.symmetric(vertical: getSize(5)),
         width: double.infinity,
         decoration: BoxDecoration(
@@ -727,7 +742,8 @@ class ContractorHomeView extends StatelessWidget {
             rateWithBGIcon(
               svgIcon: SvgImageConstant.clockWithOuterLine,
               title: StringConstant.totalHours,
-              value: post.total_payable_hour ?? "",
+              value: post.total_payable_hour ?? "81h 15min",
+              // value: "81h 15min",
             ),
           ],
         ));
@@ -759,7 +775,7 @@ class ContractorHomeView extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(width: getSize(7)),
+        SizedBox(width: getSize(10)),
         Align(
           alignment: Alignment.center,
           child: SvgPicture.asset(
@@ -783,13 +799,6 @@ class ContractorHomeView extends StatelessWidget {
           color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: Column(
         children: [
-          paybaleTitleRate(
-            title: StringConstant.totalNumberOfVacancy,
-            value:
-                "${(post.total_vacancy.toString().length == 2) ? post.total_vacancy : "0${post.total_vacancy}"}",
-            isFirst: true,
-          ),
-          commonDivider(),
           paybaleTitleRate(
             title: "${StringConstant.accommodationAllowance}:-",
             value:

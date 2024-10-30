@@ -27,6 +27,7 @@ _$AppliedShiftDTOImpl _$$AppliedShiftDTOImplFromJson(
       revoke_start: (json['revoke_start'] as num?)?.toInt(),
       last_ago: json['last_ago'] as String?,
       applied_date: (json['applied_date'] as num?)?.toInt(),
+      proposal_date: (json['proposal_date'] as num?)?.toInt(),
       last_request: (json['last_request'] as num?)?.toInt(),
       proposal_received: json['proposal_received'] == null
           ? null
@@ -59,6 +60,7 @@ Map<String, dynamic> _$$AppliedShiftDTOImplToJson(
       'revoke_start': instance.revoke_start,
       'last_ago': instance.last_ago,
       'applied_date': instance.applied_date,
+      'proposal_date': instance.proposal_date,
       'last_request': instance.last_request,
       'proposal_received': instance.proposal_received,
       'remainingRevokeTime': instance.remainingRevokeTime?.inMicroseconds,

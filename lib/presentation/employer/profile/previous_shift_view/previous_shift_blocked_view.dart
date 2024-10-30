@@ -30,8 +30,9 @@ class PreviousShiftBlockedView extends StatelessWidget {
                       PreviousShiftEvent.fetchBlockedList(refresh: true),
                     );
                 context.read<PreviousShiftBloc>().add(
-                  PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: 1),
-                );
+                      PreviousShiftEvent.fetchAllPreviousPost(
+                          refresh: true, sortBy: 1),
+                    );
               },
               onLoading: () {
                 context.read<PreviousShiftBloc>().add(
@@ -44,14 +45,17 @@ class PreviousShiftBlockedView extends StatelessWidget {
                   ? CenterLoadingIndicator()
                   : state.blockedListIsErrorApi
                       ? Center(
-                          child: BaseText(text: StringConstant.somethindWentWrong),
+                          child:
+                              BaseText(text: StringConstant.somethindWentWrong),
                         )
                       : ListView.separated(
                           padding: EdgeInsets.all(getSize(20)),
-                          itemBuilder: (context, index) => _PreviousShiftBlockedTile(
+                          itemBuilder: (context, index) =>
+                              _PreviousShiftBlockedTile(
                             data: state.blockedList[index],
                           ),
-                          separatorBuilder: (context, index) => Gap(getSize(16)),
+                          separatorBuilder: (context, index) =>
+                              Gap(getSize(16)),
                           itemCount: state.blockedList.length,
                         ),
             ),
@@ -80,7 +84,8 @@ class _PreviousShiftBlockedTile extends StatelessWidget {
             SvgImageConstant.rightArrow,
             height: 13,
             width: 13,
-            colorFilter: ColorFilter.mode(AppColors.black.withOpacity(0.5), BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(
+                AppColors.black.withOpacity(0.5), BlendMode.srcIn),
           ),
           padding: EdgeInsets.symmetric(horizontal: getSize(16)),
           url: data.profile ?? "",
@@ -96,11 +101,13 @@ class _PreviousShiftBlockedTile extends StatelessWidget {
                 context,
                 postId: data.post_id ?? 0,
                 userId: data.user_id ?? 0,
+                contractorName: "${data.first_name} ${data.last_name}",
               );
             },
             label: "Blocked",
             textStyle: TextStyle(fontSize: 10, color: AppColors.red),
-            icon: SvgPicture.asset(SvgImageConstant.blockedFilled, height: 15, width: 15),
+            icon: SvgPicture.asset(SvgImageConstant.blockedFilled,
+                height: 15, width: 15),
           ),
         ),
       ),
@@ -111,17 +118,20 @@ class _PreviousShiftBlockedTile extends StatelessWidget {
     BuildContext context, {
     required int postId,
     required int userId,
+    required String contractorName,
   }) async {
     final result = await AppDialog.showCommonDialog(
       context: context,
       title: "Unblock",
-      content: "Unblocking [contractor name] will allow them to view and apply for your future postings. Are you sure you want to proceed?",
+      content:
+          "Unblocking $contractorName will allow them to view and apply for your future postings. Are you sure you want to proceed?",
       successLabel: "Unblock",
     );
 
     if (result ?? false) {
       context.read<PreviousShiftBloc>().add(
-            PreviousShiftEvent.blockUnblockPost(userId: userId, postId: postId, context: context),
+            PreviousShiftEvent.blockUnblockPost(
+                userId: userId, postId: postId, context: context),
           );
     }
   }

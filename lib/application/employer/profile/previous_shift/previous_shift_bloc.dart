@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,11 +12,8 @@ import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
-
 part 'previous_shift_event.dart';
-
 part 'previous_shift_state.dart';
-
 part 'previous_shift_bloc.freezed.dart';
 
 @injectable
@@ -44,7 +39,6 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
       (event, emit) async {
         await event.map(
           tabChangeEvent: (value) {
-            final index = value.tabIndex;
             emit(state.copyWith(
               currentTabIndex: value.tabIndex,
             ));

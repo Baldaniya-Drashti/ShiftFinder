@@ -75,9 +75,7 @@ class ViewContractorShift extends StatelessWidget {
               title: StringConstant.viewShiftDetails,
             ),
             body: (state.isLoading)
-                ? CenterLoadingIndicator(
-                    isOnlyLoader: true,
-                  )
+                ? CenterLoadingIndicator(isOnlyLoader: true)
                 : (state.showErrorMessages)
                     ? Center(
                         child: BaseText(text: "No data found!"),
@@ -143,6 +141,25 @@ class ViewContractorShift extends StatelessWidget {
                                 recurrence(shift),
                               if (shift.shift_detail != null &&
                                   shift.shift_detail!.payables != null)
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: getSize(12),
+                                      vertical: getSize(10)),
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: getSize(5)),
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.grey04,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: paybaleTitleRate(
+                                    title: StringConstant.totalNumberOfVacancy,
+                                    value:
+                                        "${(shift.shift_detail!.payables!.number_of_vacancie.toString().length == 2) ? shift.shift_detail!.payables!.number_of_vacancie : "0${shift.shift_detail!.payables!.number_of_vacancie}"}",
+                                    isFirst: true,
+                                  ),
+                                ),
+                              if (shift.shift_detail != null &&
+                                  shift.shift_detail!.payables != null)
                                 payableBox(shift.shift_detail!.payables!),
                             ],
                           ),
@@ -164,13 +181,6 @@ class ViewContractorShift extends StatelessWidget {
           color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: Column(
         children: [
-          paybaleTitleRate(
-            title: StringConstant.totalNumberOfVacancy,
-            value:
-                "${(payable.number_of_vacancie.toString().length == 2) ? payable.number_of_vacancie : "0${payable.number_of_vacancie}"}",
-            isFirst: true,
-          ),
-          commonDivider(),
           paybaleTitleRate(
             title: "${StringConstant.accommodationAllowance}:-",
             value: "\$${payable.accommodation_allowance ?? 00}",

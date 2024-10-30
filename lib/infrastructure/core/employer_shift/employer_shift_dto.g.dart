@@ -21,8 +21,10 @@ _$EmployerShiftDtoImpl _$$EmployerShiftDtoImplFromJson(
       start_date: (json['start_date'] as num?)?.toInt(),
       end_date: (json['end_date'] as num?)?.toInt(),
       end_time: (json['end_time'] as num?)?.toInt(),
+      unpaid_break: json['unpaid_break'] as String?,
       estimated_payables: (json['estimated_payables'] as num?)?.toDouble(),
       total_shifts: (json['total_shifts'] as num?)?.toInt(),
+      total_shift: (json['total_shift'] as num?)?.toInt(),
       user: json['user'] == null
           ? null
           : HiredContractorDTO.fromJson(json['user'] as Map<String, dynamic>),
@@ -50,8 +52,10 @@ Map<String, dynamic> _$$EmployerShiftDtoImplToJson(
       'start_date': instance.start_date,
       'end_date': instance.end_date,
       'end_time': instance.end_time,
+      'unpaid_break': instance.unpaid_break,
       'estimated_payables': instance.estimated_payables,
       'total_shifts': instance.total_shifts,
+      'total_shift': instance.total_shift,
       'user': instance.user,
       'users': instance.users,
       'total_user': instance.total_user,
@@ -69,6 +73,7 @@ _$HiredContractorDTOImpl _$$HiredContractorDTOImplFromJson(
       first_name: json['first_name'] as String?,
       last_name: json['last_name'] as String?,
       profile: json['profile'] as String?,
+      reason: json['reason'] as String?,
     );
 
 Map<String, dynamic> _$$HiredContractorDTOImplToJson(
@@ -78,4 +83,5 @@ Map<String, dynamic> _$$HiredContractorDTOImplToJson(
       'first_name': instance.first_name,
       'last_name': instance.last_name,
       'profile': instance.profile,
+      'reason': instance.reason,
     };

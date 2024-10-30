@@ -1,12 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:shift/application/auth/contractor_auth/card_bloc/card_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
@@ -14,15 +12,11 @@ import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
-import 'package:shift/infrastructure/core/proposal_detail_dto/proposal_detail_dto.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
-import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/common_card_dialog.dart';
 
 part 'proposal_detail_event.dart';
 
@@ -31,7 +25,8 @@ part 'proposal_detail_state.dart';
 part 'proposal_detail_bloc.freezed.dart';
 
 @injectable
-class ProposalDetailBloc extends Bloc<ProposalDetailEvent, ProposalDetailState> {
+class ProposalDetailBloc
+    extends Bloc<ProposalDetailEvent, ProposalDetailState> {
   final IMainFacade _mainFacade;
 
   ProposalDetailBloc(this._mainFacade) : super(ProposalDetailState.initial()) {
@@ -40,7 +35,8 @@ class ProposalDetailBloc extends Bloc<ProposalDetailEvent, ProposalDetailState> 
         getProposalDetail: (value) async {
           Either<MainFailure, CommonResponse> failureOrSuccess;
           emit(state.copyWith(isLoading: true));
-          failureOrSuccess = await _mainFacade.getProposalDetail(userId: value.userId, postId: value.postId);
+          failureOrSuccess = await _mainFacade.getProposalDetail(
+              userId: value.userId, postId: value.postId);
           emit(state.copyWith(isLoading: false));
 
           failureOrSuccess.fold(
@@ -48,7 +44,8 @@ class ProposalDetailBloc extends Bloc<ProposalDetailEvent, ProposalDetailState> 
               showError(
                 message: l.maybeMap(
                   showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) => 'Please check your internet connectivity',
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
                   orElse: () => "Server Error. Try again later.",
                 ),
               ).show(value.context);
@@ -65,14 +62,16 @@ class ProposalDetailBloc extends Bloc<ProposalDetailEvent, ProposalDetailState> 
         proposalAcceptReject: (ProposalAcceptReject value) async {
           Either<MainFailure, CommonResponse> failureOrSuccess;
           emit(state.copyWith(postDataLoading: true));
-          failureOrSuccess = await _mainFacade.proposalAcceptReject(id: value.id, request: value.request);
+          failureOrSuccess = await _mainFacade.proposalAcceptReject(
+              id: value.id, request: value.request);
           emit(state.copyWith(postDataLoading: false));
           failureOrSuccess.fold(
             (l) {
               showError(
                 message: l.maybeMap(
                   showAPIResponseMessage: (value) => value.message,
-                  networkError: (value) => 'Please check your internet connectivity',
+                  networkError: (value) =>
+                      'Please check your internet connectivity',
                   orElse: () => "Server Error. Try again later.",
                 ),
               ).show(value.context);
@@ -102,7 +101,8 @@ class ProposalDetailBloc extends Bloc<ProposalDetailEvent, ProposalDetailState> 
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(getSize(15)),
-                            child: Image.asset(PngImageConstants.curvedBackgroundImage),
+                            child: Image.asset(
+                                PngImageConstants.curvedBackgroundImage),
                           ),
                           Positioned(
                             top: getSize(85),
@@ -131,7 +131,8 @@ class ProposalDetailBloc extends Bloc<ProposalDetailEvent, ProposalDetailState> 
                         height: getSize(10),
                       ),
                       BaseText(
-                        text: "Application accepted, Contractor\nnotified for Confirmation.",
+                        text:
+                            "Application accepted, Contractor\nnotified for Confirmation.",
                         fontSize: 14,
                         textAlign: TextAlign.center,
                         fontWeight: FontWeight.w500,

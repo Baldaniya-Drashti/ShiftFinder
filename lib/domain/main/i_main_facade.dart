@@ -222,7 +222,8 @@ abstract class IMainFacade {
     required int request,
   });
 
-  Future<Either<MainFailure, CommonResponse>> sendEmployerApplicantsCounterPropose({
+  Future<Either<MainFailure, CommonResponse>>
+      sendEmployerApplicantsCounterPropose({
     required int id,
     required num counterRateHour,
     required int commuteAllowanceType,

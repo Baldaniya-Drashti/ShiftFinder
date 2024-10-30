@@ -1,9 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shift/infrastructure/account/current_user_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
-
 part 'employer_shift_dto.freezed.dart';
-
 part 'employer_shift_dto.g.dart';
 
 @freezed
@@ -19,8 +16,10 @@ class EmployerShiftDto with _$EmployerShiftDto {
     int? start_date,
     int? end_date,
     int? end_time,
+    String? unpaid_break,
     double? estimated_payables,
     int? total_shifts,
+    int? total_shift,
     HiredContractorDTO? user,
     List<HiredContractorDTO>? users,
     int? total_user,
@@ -42,6 +41,7 @@ class HiredContractorDTO with _$HiredContractorDTO {
     String? first_name,
     String? last_name,
     String? profile,
+    String? reason,
   }) = _HiredContractorDTO;
 
   factory HiredContractorDTO.fromJson(Map<String, dynamic> json) =>

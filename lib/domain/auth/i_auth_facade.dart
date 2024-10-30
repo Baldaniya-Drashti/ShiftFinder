@@ -5,7 +5,6 @@ import 'package:shift/domain/auth/auth_failure.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:dartz/dartz.dart';
 import 'package:shift/domain/main/main_failure.dart';
-import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/core/speciality/speciality_dto.dart';
 
