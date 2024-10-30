@@ -980,12 +980,14 @@ class CancelledContractorList
   CancelledContractorList({
     required String title,
     required int postId,
+    required int cancelFilter,
     List<_i104.PageRouteInfo>? children,
   }) : super(
           CancelledContractorList.name,
           args: CancelledContractorListArgs(
             title: title,
             postId: postId,
+            cancelFilter: cancelFilter,
           ),
           initialChildren: children,
         );
@@ -999,6 +1001,7 @@ class CancelledContractorList
       return _i19.CancelledContractorList(
         title: args.title,
         postId: args.postId,
+        cancelFilter: args.cancelFilter,
       );
     },
   );
@@ -1008,15 +1011,18 @@ class CancelledContractorListArgs {
   const CancelledContractorListArgs({
     required this.title,
     required this.postId,
+    required this.cancelFilter,
   });
 
   final String title;
 
   final int postId;
 
+  final int cancelFilter;
+
   @override
   String toString() {
-    return 'CancelledContractorListArgs{title: $title, postId: $postId}';
+    return 'CancelledContractorListArgs{title: $title, postId: $postId, cancelFilter: $cancelFilter}';
   }
 }
 
@@ -3743,6 +3749,7 @@ class ViewPersonPraposalView
     _i105.Key? key,
     required int postId,
     required int userId,
+    required _i113.EmployerProposalPendingUserDto user,
     List<_i104.PageRouteInfo>? children,
   }) : super(
           ViewPersonPraposalView.name,
@@ -3750,6 +3757,7 @@ class ViewPersonPraposalView
             key: key,
             postId: postId,
             userId: userId,
+            user: user,
           ),
           initialChildren: children,
         );
@@ -3764,6 +3772,7 @@ class ViewPersonPraposalView
         key: args.key,
         postId: args.postId,
         userId: args.userId,
+        user: args.user,
       );
     },
   );
@@ -3774,6 +3783,7 @@ class ViewPersonPraposalViewArgs {
     this.key,
     required this.postId,
     required this.userId,
+    required this.user,
   });
 
   final _i105.Key? key;
@@ -3782,9 +3792,11 @@ class ViewPersonPraposalViewArgs {
 
   final int userId;
 
+  final _i113.EmployerProposalPendingUserDto user;
+
   @override
   String toString() {
-    return 'ViewPersonPraposalViewArgs{key: $key, postId: $postId, userId: $userId}';
+    return 'ViewPersonPraposalViewArgs{key: $key, postId: $postId, userId: $userId, user: $user}';
   }
 }
 

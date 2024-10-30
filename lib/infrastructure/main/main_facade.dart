@@ -1878,14 +1878,12 @@ class MainFacade implements IMainFacade {
 
   @override
   Future<Either<MainFailure, CommonResponse>> submitSupportTicket({required Map<String, dynamic> map}) async {
-    Log.debug("===> $map");
     try {
       final formData = FormData.fromMap(map);
       if (map.containsKey("attachment")) {
         var multipartFile = await MultipartFile.fromFile(map['attachment']);
         formData.files.add(MapEntry('attachment', multipartFile));
       }
-      Log.info("===>${formData.fields}");
       final res = await apiService.postMethod(
         ApiConstants.submitTicket,
         {},

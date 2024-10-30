@@ -733,4 +733,40 @@ class StringConstant {
   static const String awaitingClockInOutDesc =
       "Awaiting for contractor’s clock in & out...";
   static const String underDevelopment = "Under Development";
+
+
+  static const String chooseDateRange = "Choose Date Range";
+  static const String billing = "Billing";
+  static const String billingDetail = "Billing Details";
+  static const String billingDetailDescription = "Manage your financial transactions organized and up-to-date with detailed records.";
+  static const String paymentHistory = "Payment History";
+  static const String invoices = "Invoices";
+  static const String paymentMethod = "Payment Methods";
+  static const String monthlyStatement = "Monthly Statements";
+  static const String accountSetting = "Account Setting";
+  static const String accountSettingDes = "Manage your account settings and preferences here.";
+  static const String changePassword = "Change Password";
+  static const String deleteAccount = "Delete Account";
+  static const String deleteAccountDes = "Are you sure you want to delete your account? This action is permanent and cannot be undone";
+  static const String aboutShiftFinder = "About ShiftFinder";
+  static const String ourPolicies = "Our Policies";
+  static const String ourPoliciesDes = "Access key information about the platform, including terms, privacy, cancellation policies, and FAQs";
+  static const String cancellationPolicy = "Cancellation Policy";
+  static const String faq = "FAQs";
+  static const String customerSupport = "Customer Support";
+  static const String helpDesk = "Help Desk";
+  static const String helpDeskDesk = "Reach out to the ShiftFinder Support Team via chat or by submitting a support ticket for assistance.";
+  static const String chatWithSupport = "Chat with Support";
+  static const String submitATicket = "Submit a Ticket";
+  static const String contactInformation = "Contact Information";
+  static const String name = "Name";
+  static const String emailAddress = "Email Address";
+  static const String issueDetails = "Issue Details";
+  static const String subject = "Subject";
+  static const String pleaseEnterSubject = "Please enter subject";
+  static const String pleaseEnterDescription = "Please enter description";
+  static const String description = "Description";
+  static const String pleaseSelectLocation = "Please select location";
+  static const String pleaseEnterValidName = "Please enter valid name";
+  static const String pleaseEnterYourName = "Please enter your name";
 }
