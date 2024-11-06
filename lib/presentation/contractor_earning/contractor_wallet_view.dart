@@ -1,6 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gap/gap.dart';
+import 'package:shift/application/contractor/contractor_wallet/contractor_wallet_bloc.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/widgets/date_range_picker_tile.dart';
+import 'package:shift/presentation/core/widgets/drop_down_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
+
+import '../../domain/core/math_utils.dart';
 
 @RoutePage(name: "ContractorWalletView")
 class ContractorWalletView extends StatelessWidget {
@@ -8,11 +19,161 @@ class ContractorWalletView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CommonAppBar(
-        onBackPressed: () => context.router.maybePop(),
-        title: "My Earnings",
+    return BlocProvider(
+      create: (context) => getIt<ContractorWalletBloc>(),
+      child: Builder(builder: (context) {
+        return Scaffold(
+          appBar: CommonAppBar(
+            onBackPressed: () => context.router.maybePop(),
+            title: "Wallet",
+          ),
+          body: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: BlocSelector<ContractorWalletBloc, ContractorWalletState, WalletDropdownModel>(
+                  selector: (state) => state.initialWalletFilter,
+                  builder: (context, initialWalletFilter) {
+                    return WalletDropdownField(
+                      value: initialWalletFilter,
+                      onChanged: (value) {
+                        context.read<ContractorWalletBloc>().add(ContractorWalletEvent.onFilterChanged(value: value));
+                      },
+                    );
+                  },
+                ),
+              ),
+              SliverGap(30),
+              SliverToBoxAdapter(
+                child: _WalletInfoSection(),
+              ),
+              SliverGap(30),
+              SliverToBoxAdapter(
+                child: DateRangePickerTile(
+                  onDateSelected: (value) {},
+                ),
+              )
+            ],
+          ),
+        );
+      }),
+    );
+  }
+}
+
+class _WalletInfoSection extends StatelessWidget {
+  const _WalletInfoSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      borderRadius: BorderRadius.circular(10),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _WalletInfoItem(
+              icon: SvgImageConstant.availableBalance,
+              label: "Available Balance",
+              balance: "632",
+            ),
+            _WalletInfoItem(
+              icon: SvgImageConstant.withdrawBalance,
+              label: "Available Withdrawable Balance",
+              balance: "200",
+            ),
+          ],
+        ),
       ),
     );
   }
 }
+
+class _WalletInfoItem extends StatelessWidget {
+  const _WalletInfoItem({
+    required this.icon,
+    required this.label,
+    required this.balance,
+    this.dense = true,
+    this.color,
+  });
+
+  final String icon;
+  final String label;
+  final String balance;
+  final Color? color;
+  final bool dense;
+
+  @override
+  Widget build(BuildContext context) {
+    final effectiveDensity = dense ? VisualDensity.compact : VisualDensity.standard;
+    return ListTile(
+      dense: dense,
+      visualDensity: effectiveDensity,
+      leading: SvgPicture.asset(icon),
+      title: BaseText(text: label),
+      trailing: BaseText(text: balance, textColor: color),
+    );
+  }
+}
+
+class WalletDropdownField extends StatelessWidget {
+  const WalletDropdownField({
+    super.key,
+    required this.onChanged,
+    this.value,
+  });
+
+  final void Function(WalletDropdownModel value) onChanged;
+  final WalletDropdownModel? value;
+
+  @override
+  Widget build(BuildContext context) {
+    final list = <WalletDropdownModel>[
+      WalletDropdownModel(id: 1, label: "All Transactions"),
+      WalletDropdownModel(id: 2, label: "Earnings"),
+      WalletDropdownModel(id: 3, label: "Compensations"),
+      WalletDropdownModel(id: 4, label: "Referrals"),
+      WalletDropdownModel(id: 5, label: "Deposits"),
+    ];
+
+    return CustomDropdownField<WalletDropdownModel>(
+      label: "Filter",
+      value: value,
+      items: list.map(
+        (e) {
+          return DropdownMenuItem<WalletDropdownModel>(
+            value: e,
+            child: BaseText(
+              text: e.label,
+              fontWeight: FontWeight.w500,
+              fontSize: getSize(14),
+            ),
+          );
+        },
+      ).toList(),
+      onChanged: (value) => onChanged(value as WalletDropdownModel),
+    );
+  }
+}
+
+class WalletDropdownModel {
+  final int id;
+  final String label;
+
+  const WalletDropdownModel({
+    required this.id,
+    required this.label,
+  });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || other is WalletDropdownModel && runtimeType == other.runtimeType && id == other.id && label == other.label;
+
+  @override
+  int get hashCode => id.hashCode ^ label.hashCode;
+}
+
+
+
+

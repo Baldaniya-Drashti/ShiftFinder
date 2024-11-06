@@ -40,7 +40,6 @@ class ImageChooserDialog {
             CupertinoActionSheetAction(
               onPressed: () {
                 Navigator.pop(context);
-
                 AppFocus.unfocus(context);
                 selectPdfCallback.call();
               },

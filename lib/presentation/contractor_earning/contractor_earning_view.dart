@@ -24,24 +24,24 @@ class ContractorEarningView extends StatelessWidget {
         padding: const EdgeInsets.all(18),
         child: Column(
           children: [
-            Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SvgPicture.asset(SvgImageConstant.myEarning),
-                  Gap(getSize(25)),
-                  BaseText(text: "Earnings & Statements", fontFamily: "Aclonica", fontSize: 22, fontWeight: FontWeight.w400),
-                  SizedBox(
-                    width: MediaQuery.sizeOf(context).width * 0.8,
-                    child: BaseText(
-                      text: "Track your earnings and download statements for a complete financial summary",
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      textAlign: TextAlign.center,
-                    ),
+            Gap(getSize(50)),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(SvgImageConstant.myEarning),
+                Gap(getSize(25)),
+                BaseText(text: "Earnings & Statements", fontFamily: "Aclonica", fontSize: 22, fontWeight: FontWeight.w400),
+                Gap(getSize(10)),
+                SizedBox(
+                  width: MediaQuery.sizeOf(context).width * 0.8,
+                  child: BaseText(
+                    text: "Track your earnings and download statements for a complete financial summary",
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    textAlign: TextAlign.center,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             Gap(getSize(50)),
             Material(
@@ -64,7 +64,7 @@ class ContractorEarningView extends StatelessWidget {
                       label: "Statements",
                     ),
                     _ListTile(
-                      icon: SvgImageConstant.paymentMethod,
+                      icon: SvgImageConstant.invoice,
                       onPressed: () => context.router.push(PageRouteInfo(ContractorTotalEarningView.name)),
                       label: "Total Earnings Statement",
                     ),

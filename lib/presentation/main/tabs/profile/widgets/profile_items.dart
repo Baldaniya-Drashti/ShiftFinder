@@ -192,7 +192,9 @@ class ContractorProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: StringConstant.myEarnings,
         image: SvgImageConstant.billing,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(ContractorEarningView.name));
+        },
       ),
       ProfileItemModel(
         title: StringConstant.performanceInsights,
