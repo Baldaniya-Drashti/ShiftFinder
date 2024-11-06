@@ -7,6 +7,7 @@ import 'package:shift/application/contractor/contractor_wallet/contractor_wallet
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/date_range_picker_tile.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -27,32 +28,38 @@ class ContractorWalletView extends StatelessWidget {
             onBackPressed: () => context.router.maybePop(),
             title: "Wallet",
           ),
-          body: CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: BlocSelector<ContractorWalletBloc, ContractorWalletState, WalletDropdownModel>(
-                  selector: (state) => state.initialWalletFilter,
-                  builder: (context, initialWalletFilter) {
-                    return WalletDropdownField(
-                      value: initialWalletFilter,
-                      onChanged: (value) {
-                        context.read<ContractorWalletBloc>().add(ContractorWalletEvent.onFilterChanged(value: value));
-                      },
-                    );
-                  },
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: BlocSelector<ContractorWalletBloc, ContractorWalletState, WalletDropdownModel>(
+                    selector: (state) => state.initialWalletFilter,
+                    builder: (context, initialWalletFilter) {
+                      return WalletDropdownField(
+                        value: initialWalletFilter,
+                        onChanged: (value) {
+                          context.read<ContractorWalletBloc>().add(ContractorWalletEvent.onFilterChanged(value: value));
+                        },
+                      );
+                    },
+                  ),
                 ),
-              ),
-              SliverGap(30),
-              SliverToBoxAdapter(
-                child: _WalletInfoSection(),
-              ),
-              SliverGap(30),
-              SliverToBoxAdapter(
-                child: DateRangePickerTile(
-                  onDateSelected: (value) {},
+                SliverGap(20),
+                SliverToBoxAdapter(
+                  child: _WalletInfoSection(),
                 ),
-              )
-            ],
+                SliverGap(30),
+                SliverToBoxAdapter(
+                  child: DateRangePickerTile(
+                    label: "Period",
+                    onDateSelected: (value) {},
+                  ),
+                ),
+                SliverGap(16),
+                _TransactionListView()
+              ],
+            ),
           ),
         );
       }),
@@ -66,6 +73,7 @@ class _WalletInfoSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: AppColors.white,
       borderRadius: BorderRadius.circular(10),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -75,12 +83,13 @@ class _WalletInfoSection extends StatelessWidget {
             _WalletInfoItem(
               icon: SvgImageConstant.availableBalance,
               label: "Available Balance",
-              balance: "632",
+              balance: "\$632",
             ),
             _WalletInfoItem(
               icon: SvgImageConstant.withdrawBalance,
               label: "Available Withdrawable Balance",
-              balance: "200",
+              balance: "\$200",
+              color: AppColors.green,
             ),
           ],
         ),
@@ -110,9 +119,9 @@ class _WalletInfoItem extends StatelessWidget {
     return ListTile(
       dense: dense,
       visualDensity: effectiveDensity,
-      leading: SvgPicture.asset(icon),
-      title: BaseText(text: label),
-      trailing: BaseText(text: balance, textColor: color),
+      leading: SvgPicture.asset(icon, height: 18, width: 18),
+      title: BaseText(text: label, fontSize: 12),
+      trailing: BaseText(text: balance, textColor: color, fontSize: 14, fontWeight: FontWeight.w600),
     );
   }
 }
@@ -157,6 +166,43 @@ class WalletDropdownField extends StatelessWidget {
   }
 }
 
+class _TransactionListView extends StatelessWidget {
+  const _TransactionListView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverList.separated(
+      itemCount: 25,
+      itemBuilder: (context, index) {
+        return ListTile(
+          contentPadding: EdgeInsets.zero,
+          leading: SvgPicture.asset(SvgImageConstant.withdraw,height: 25),
+          title: Transform.translate(
+            offset: Offset(-8, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                BaseText(text: "12 May, 2024", fontSize: 10),
+                BaseText(text: "Deposited to Bank", fontSize: 12,fontWeight: FontWeight.w600,),
+              ],
+            ),
+          ),
+          trailing: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BaseText(text: "+\$560.35",textColor: AppColors.green,fontSize: 14,fontWeight: FontWeight.w600),
+              BaseText(text: "Shift Earnings",fontSize: 10),
+
+            ],
+          ),
+        );
+      },
+      separatorBuilder: (context, index) => Divider(height: 0),
+    );
+  }
+}
+
 class WalletDropdownModel {
   final int id;
   final String label;
@@ -173,7 +219,3 @@ class WalletDropdownModel {
   @override
   int get hashCode => id.hashCode ^ label.hashCode;
 }
-
-
-
-

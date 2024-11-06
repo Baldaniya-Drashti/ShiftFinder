@@ -6,29 +6,31 @@ class TransactionInfo extends StatelessWidget {
     super.key,
     required this.label,
     required this.value,
-    this.valueColor,
+    this.valueColor, this.valueFontSize,
   });
 
   final String label;
   final String value;
   final Color? valueColor;
+  final double? valueFontSize;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(6.0),
+      padding: const EdgeInsets.all(6.0).copyWith(left: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: BaseText(text: "$label :", fontSize: 10, fontWeight: FontWeight.w500),
+            child: BaseText(text: "$label :", fontSize: 10, fontWeight: FontWeight.w500,),
           ),
           Expanded(
             child: BaseText(
               text: value,
-              fontSize: 10,
+              fontSize: valueFontSize??10,
               fontWeight: FontWeight.w600,
               textColor: valueColor,
+              maxLines: 1,overflow: TextOverflow.ellipsis,
             ),
           ),
         ],

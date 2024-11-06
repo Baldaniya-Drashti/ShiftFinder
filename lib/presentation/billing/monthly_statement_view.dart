@@ -35,12 +35,12 @@ class MonthlyStatementView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                BaseText(text: "Period", fontSize: 10),
-                Gap(8),
+
                 BlocSelector<MonthlyStatementBloc, MonthlyStatementState, List<DateTime>>(
                   selector: (state) => state.selectedDateTime,
                   builder: (context, selectedDateTime) {
                     return DateRangePickerTile(
+                      label: "Period",
                       selectedDate: selectedDateTime,
                       onDateSelected: (value) {
                         context.read<MonthlyStatementBloc>().add(MonthlyStatementEvent.onDateSelected(dates: value));

@@ -165,7 +165,10 @@ class ContractorProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: StringConstant.previousShifts,
         image: SvgImageConstant.completedShifts,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(ContractorPreviousShiftView.name));
+
+        },
       ),
       ProfileItemModel(
         title: StringConstant.longTermPositions,
@@ -199,17 +202,25 @@ class ContractorProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: StringConstant.performanceInsights,
         image: SvgImageConstant.insights,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(ContractorPerformanceInsightView.name));
+
+        },
       ),
       ProfileItemModel(
         title: StringConstant.referAColleague,
         image: SvgImageConstant.referral,
-        onTap: () {},
+        onTap: () {
+
+          context.router.push(PageRouteInfo(ReferColleagueView.name));
+        },
       ),
       ProfileItemModel(
         title: StringConstant.ratings,
         image: SvgImageConstant.star,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(ContractorRatingView.name));
+        },
       ),
       ProfileItemModel(
         title: StringConstant.shareShiftFinder,
@@ -219,7 +230,10 @@ class ContractorProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: StringConstant.accountManagement,
         image: SvgImageConstant.setting,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(AccountManagementView.name));
+
+        },
       ),
       ProfileItemModel(
         title: StringConstant.policies,
@@ -229,7 +243,9 @@ class ContractorProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: StringConstant.supportHelp,
         image: SvgImageConstant.customerSupport,
-        onTap: () {},
+        onTap: () {
+
+        },
       ),
       ProfileItemModel(
         title: StringConstant.logOut,

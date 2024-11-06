@@ -12,39 +12,50 @@ class DateRangePickerTile extends StatelessWidget {
   const DateRangePickerTile({
     super.key,
     this.selectedDate = const [],
-    required this.onDateSelected,
+    required this.onDateSelected, required this.label,
   });
 
   final List<DateTime> selectedDate;
   final void Function(List<DateTime> value) onDateSelected;
+  final String label;
 
   @override
   Widget build(BuildContext context) {
     final label = selectedDate.isEmpty ? StringConstant.chooseDateRange : getFormattedString(selectedDate);
 
-    return Material(
-      color: AppColors.white,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(color: AppColors.black, width: 0.5),
-        borderRadius: BorderRadius.circular(7),
-      ),
-      child: InkWell(
-        onTap: () => pickMultiDateDialog(
-          context,
-          onDateSelected: onDateSelected,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 16),
+          child: BaseText(text: this.label,fontSize: 10),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          child: Row(
-            children: [
-              SvgPicture.asset(SvgImageConstant.calendar, height: 20, width: 20),
-              Gap(8),
-              Expanded(child: BaseText(text: label, fontSize: 12, fontWeight: FontWeight.w600)),
-              SvgPicture.asset(SvgImageConstant.rightArrow, height: 15, width: 15),
-            ],
+        Gap(8),
+        Material(
+          color: AppColors.white,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: AppColors.black, width: 0.5),
+            borderRadius: BorderRadius.circular(7),
+          ),
+          child: InkWell(
+            onTap: () => pickMultiDateDialog(
+              context,
+              onDateSelected: onDateSelected,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              child: Row(
+                children: [
+                  SvgPicture.asset(SvgImageConstant.calendar, height: 20, width: 20),
+                  Gap(8),
+                  Expanded(child: BaseText(text: label, fontSize: 12, fontWeight: FontWeight.w600)),
+                  SvgPicture.asset(SvgImageConstant.rightArrow, height: 15, width: 15),
+                ],
+              ),
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }

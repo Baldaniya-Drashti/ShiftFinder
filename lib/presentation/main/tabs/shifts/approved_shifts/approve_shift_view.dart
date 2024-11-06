@@ -29,16 +29,14 @@ class ApproveShiftView extends StatelessWidget {
         return state.approveLoading
             ? CenterLoadingIndicator(isOnlyLoader: true)
             : state.approveErrorApi
-                ? Center(
-                    child: BaseText(text: StringConstant.somethindWentWrong))
+                ? Center(child: BaseText(text: StringConstant.somethindWentWrong))
                 : Padding(
                     padding: EdgeInsets.symmetric(horizontal: getSize(10)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: getSize(18))
-                              .copyWith(top: getSize(10)),
+                          padding: EdgeInsets.symmetric(horizontal: getSize(18)).copyWith(top: getSize(10)),
                           child: BaseText(
                             text: StringConstant.sortBy,
                             fontSize: 10,
@@ -48,36 +46,24 @@ class ApproveShiftView extends StatelessWidget {
                         sortingField(context, state),
                         Expanded(
                           child: PaginatedListView(
-                            onRefresh: () => context.read<ShiftsBloc>().add(
-                                ShiftsBlocEvent.fetchApprovedShiftList(
-                                    refresh: true)),
-                            onLoading: () => context.read<ShiftsBloc>().add(
-                                ShiftsBlocEvent.fetchApprovedShiftList(
-                                    refresh: false)),
-                            refreshController: context
-                                .read<ShiftsBloc>()
-                                .approveRefreshController,
+                            onRefresh: () => context.read<ShiftsBloc>().add(ShiftsBlocEvent.fetchApprovedShiftList(refresh: true)),
+                            onLoading: () => context.read<ShiftsBloc>().add(ShiftsBlocEvent.fetchApprovedShiftList(refresh: false)),
+                            refreshController: context.read<ShiftsBloc>().approveRefreshController,
                             child: ListView.builder(
                               itemCount: state.approveShiftList.length,
                               shrinkWrap: true,
-                              padding: EdgeInsets.symmetric(
-                                  vertical: getSize(10),
-                                  horizontal: getSize(10)),
+                              padding: EdgeInsets.symmetric(vertical: getSize(10), horizontal: getSize(10)),
                               physics: BouncingScrollPhysics(),
                               itemBuilder: (context, index) {
                                 return Container(
-                                  margin: EdgeInsets.symmetric(
-                                      vertical: getSize(
-                                          index == 0 || index == 9 ? 0 : 12.5)),
+                                  margin: EdgeInsets.symmetric(vertical: getSize(index == 0 || index == 9 ? 0 : 12.5)),
                                   padding: EdgeInsets.all(getSize(10)),
                                   decoration: BoxDecoration(
                                     color: AppColors.white,
-                                    borderRadius:
-                                        BorderRadius.circular(getSize(20)),
+                                    borderRadius: BorderRadius.circular(getSize(20)),
                                     boxShadow: [
                                       BoxShadow(
-                                        color:
-                                            AppColors.black.withOpacity(0.15),
+                                        color: AppColors.black.withOpacity(0.15),
                                         blurRadius: 10,
                                         offset: Offset(0, 1),
                                       ),
@@ -86,14 +72,11 @@ class ApproveShiftView extends StatelessWidget {
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      userDetail(context,
-                                          state.approveShiftList[index]),
+                                      userDetail(context, state.approveShiftList[index]),
                                       paddingBetweenFields(),
-                                      remainingTime(context,
-                                          state.approveShiftList[index]),
+                                      remainingTime(context, state.approveShiftList[index]),
                                       paddingBetweenFields(),
-                                      dateAndTime(context,
-                                          state.approveShiftList[index]),
+                                      dateAndTime(context, state.approveShiftList[index]),
                                       paddingBetweenFields(),
                                       Container(
                                         padding: EdgeInsets.symmetric(
@@ -102,35 +85,25 @@ class ApproveShiftView extends StatelessWidget {
                                         ),
                                         decoration: BoxDecoration(
                                           color: AppColors.scaffoldColor,
-                                          borderRadius: BorderRadius.circular(
-                                              getSize(10)),
+                                          borderRadius: BorderRadius.circular(getSize(10)),
                                         ),
                                         child: InkWell(
                                           onTap: () {
-                                            context.router.push(PageRouteInfo(
-                                                ApprovedHiredList.name,
-                                                args: ApprovedHiredListArgs(
-                                                    postId: state
-                                                            .approveShiftList[
-                                                                index]
-                                                            .id ??
-                                                        -1)));
+                                            context.router.push(PageRouteInfo(ApprovedHiredList.name,
+                                                args: ApprovedHiredListArgs(postId: state.approveShiftList[index].id ?? -1)));
                                           },
                                           child: Row(
                                             children: [
                                               CircleAvatar(
-                                                backgroundColor:
-                                                    AppColors.transparent,
+                                                backgroundColor: AppColors.transparent,
                                                 radius: getSize(20),
                                                 child: SvgPicture.asset(
-                                                  SvgImageConstant
-                                                      .threePersonCircle,
+                                                  SvgImageConstant.threePersonCircle,
                                                 ),
                                               ),
                                               SizedBox(width: getSize(10)),
                                               Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: [
                                                   BaseText(
@@ -140,18 +113,14 @@ class ApproveShiftView extends StatelessWidget {
                                                     fontWeight: FontWeight.w500,
                                                   ),
                                                   BaseText(
-                                                    text: StringConstant
-                                                        .approveShiftsForContractors,
+                                                    text: StringConstant.approveShiftsForContractors,
                                                     fontSize: 8,
                                                     fontWeight: FontWeight.w400,
                                                   ),
                                                 ],
                                               ),
                                               Spacer(),
-                                              Icon(
-                                                  Icons
-                                                      .arrow_forward_ios_rounded,
-                                                  size: getSize(16)),
+                                              Icon(Icons.arrow_forward_ios_rounded, size: getSize(16)),
                                             ],
                                           ),
                                         ),
@@ -175,19 +144,15 @@ class ApproveShiftView extends StatelessWidget {
     ShiftsBlocState state,
   ) {
     return Padding(
-      padding:
-          EdgeInsets.symmetric(vertical: getSize(10), horizontal: getSize(10)),
+      padding: EdgeInsets.symmetric(vertical: getSize(10), horizontal: getSize(10)),
       child: CustomDropdownField(
         onChanged: (value) {
           if (value != null) {
-            context
-                .read<ShiftsBloc>()
-                .add(ShiftsBlocEvent.onApproveSorting(value ?? LocationDTO()));
+            context.read<ShiftsBloc>().add(ShiftsBlocEvent.onApproveSorting(value ?? LocationDTO()));
           }
         },
         hintText: StringConstant.location,
-        value: (state.currentApproveFilter.location != null &&
-                state.currentApproveFilter.location!.isNotEmpty)
+        value: (state.currentApproveFilter.location != null && state.currentApproveFilter.location!.isNotEmpty)
             ? state.currentApproveFilter
             : null,
         items: state.locationList.map((val) {
@@ -212,8 +177,7 @@ class ApproveShiftView extends StatelessWidget {
   }
 
   Widget userDetail(BuildContext context, EmployerShiftDto shift) {
-    final industry = CommonList.industryList
-        .firstWhere((element) => element.id == shift.industry);
+    final industry = CommonList.industryList.firstWhere((element) => element.id == shift.industry);
     return Container(
       padding: EdgeInsets.all(getSize(12)),
       decoration: BoxDecoration(
@@ -242,8 +206,7 @@ class ApproveShiftView extends StatelessWidget {
                     ),
                     SizedBox(height: getSize(3)),
                     BaseText(
-                      text:
-                          '(${industry.title ?? ""} - ${shift.listing_id ?? ""})',
+                      text: '(${industry.title ?? ""} - ${shift.listing_id ?? ""})',
                       fontSize: 12,
                       textColor: AppColors.black.withOpacity(0.8),
                     )
@@ -328,15 +291,13 @@ class ApproveShiftView extends StatelessWidget {
                   ? displayDateBreak(
                       context,
                       boldValue: convertTimeStampToDate(shift.start_date ?? -1),
-                      timidValue: convertTimeStampToDate(shift.start_date ?? -1,
-                          isYear: true),
+                      timidValue: convertTimeStampToDate(shift.start_date ?? -1, isYear: true),
                       title: StringConstant.shiftDate,
                       svgPrefixIcon: SvgImageConstant.calendar,
                     )
                   : displayDateBreak(
                       context,
-                      boldValue:
-                          "${shift.total_shifts ?? 0} ${((shift.total_shifts ?? 0) > 1) ? "Shifts" : "Shift"}",
+                      boldValue: "${shift.total_shifts ?? 0} ${((shift.total_shifts ?? 0) > 1) ? "Shifts" : "Shift"}",
                       timidValue: "",
                       title: StringConstant.totalShifts,
                       svgPrefixIcon: SvgImageConstant.calendar,
@@ -360,14 +321,10 @@ class ApproveShiftView extends StatelessWidget {
                   ? displayTime(
                       title: StringConstant.time,
                       startDate: (shift.start_time != null)
-                          ? DateFormat('hh:mm a').format(
-                              DateTime.fromMillisecondsSinceEpoch(
-                                  (shift.start_time ?? 0) * 1000))
+                          ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((shift.start_time ?? 0) * 1000))
                           : "",
                       endDate: (shift.end_time != null)
-                          ? DateFormat('hh:mm a').format(
-                              DateTime.fromMillisecondsSinceEpoch(
-                                  (shift.end_time ?? 0) * 1000))
+                          ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((shift.end_time ?? 0) * 1000))
                           : "",
                       svgPrefixIcon: SvgImageConstant.clock,
                     )
@@ -381,11 +338,8 @@ class ApproveShiftView extends StatelessWidget {
                         )
                       : displayDateBreak(
                           context,
-                          boldValue:
-                              convertTimeStampToDate(shift.start_date ?? -1),
-                          timidValue: convertTimeStampToDate(
-                              shift.start_date ?? -1,
-                              isYear: true),
+                          boldValue: convertTimeStampToDate(shift.start_date ?? -1),
+                          timidValue: convertTimeStampToDate(shift.start_date ?? -1, isYear: true),
                           title: StringConstant.shiftStartDate,
                           svgPrefixIcon: SvgImageConstant.calendar,
                         ),
@@ -472,8 +426,7 @@ class ApproveShiftView extends StatelessWidget {
     );
   }
 
-  String convertTimeStampToDate(int timestamp,
-      {bool isYear = false, bool isTime = false}) {
+  String convertTimeStampToDate(int timestamp, {bool isYear = false, bool isTime = false}) {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
 
     if (isTime) {
@@ -532,10 +485,7 @@ class ApproveShiftView extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       textColor: AppColors.black.withOpacity(0.7),
                     ),
-                    highLightText(
-                        boldValue: boldValue,
-                        timidValue: timidValue,
-                        valueColor: valueColor),
+                    highLightText(boldValue: boldValue, timidValue: timidValue, valueColor: valueColor),
                   ],
                 ),
               ],
@@ -543,11 +493,7 @@ class ApproveShiftView extends StatelessWidget {
     );
   }
 
-  Widget highLightText(
-      {required String boldValue,
-      required String timidValue,
-      String? thirdValue,
-      Color? valueColor}) {
+  Widget highLightText({required String boldValue, required String timidValue, String? thirdValue, Color? valueColor}) {
     return RichText(
         text: TextSpan(
       text: boldValue,
