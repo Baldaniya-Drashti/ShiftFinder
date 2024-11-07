@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -24,95 +23,87 @@ class ContractorPerformanceInsightView extends StatelessWidget {
             label: "Period",
           ),
           SizedBox(
-            height: 30,
-            child: WeeklyHoursChart(),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class WeeklyHoursChart extends StatelessWidget {
-  final List<double> weeklyHours = [18, 26, 14, 32]; // Sample hours data
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Hours Worked',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 16),
-          BarChart(
-            BarChartData(
-              alignment: BarChartAlignment.spaceAround,
-              maxY: 40,
-              barGroups: weeklyHours.asMap().entries.map((entry) {
-                final weekIndex = entry.key;
-                final hours = entry.value;
-                return BarChartGroupData(
-                  x: weekIndex,
-                  barRods: [
-                    BarChartRodData(
-                      toY: hours,
-                      color: Colors.green,
-                      width: 18,
-                      borderRadius: BorderRadius.circular(8),
-                      backDrawRodData: BackgroundBarChartRodData(
-                        show: true,
-                        toY: 40,
-                        color: Colors.green.shade100,
-                      ),
+            height: 200,
+            width: double.maxFinite,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: BarChart(
+                BarChartData(
+                  barGroups: [
+                    BarChartGroupData(
+                      x: 0,
+                      barRods: [
+                        BarChartRodData(
+                          toY: 8,
+                          color: Colors.blue,
+                          width: 16,
+                        ),
+                      ],
+                    ),
+                    BarChartGroupData(
+                      x: 1,
+                      barRods: [
+                        BarChartRodData(
+                          backDrawRodData: BackgroundBarChartRodData(color: Colors.pink, show: true, fromY: 0, toY: 10),
+                          toY: 10,
+                          color: Colors.orange,
+                          width: 16,
+                        ),
+                      ],
+                    ),
+                    BarChartGroupData(
+                      x: 2,
+                      barRods: [
+                        BarChartRodData(
+                          toY: 14,
+                          color: Colors.green,
+                          width: 16,
+                        ),
+                      ],
+                    ),
+                    BarChartGroupData(
+                      x: 3,
+                      barRods: [
+                        BarChartRodData(
+                          toY: 15,
+                          color: Colors.red,
+                          width: 16,
+                        ),
+                      ],
+                    ),
+                    BarChartGroupData(
+                      x: 4,
+                      barRods: [
+                        BarChartRodData(
+                          toY: 13,
+                          color: Colors.purple,
+                          width: 16,
+                        ),
+                      ],
                     ),
                   ],
-                  showingTooltipIndicators: [0],
-                );
-              }).toList(),
-              titlesData: FlTitlesData(
-                leftTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    reservedSize: 40,
-                    getTitlesWidget: (value, meta) {
-                      return Text(
-                        '${value.toInt()} h',
-                        style: TextStyle(color: Colors.grey),
-                      );
-                    },
+                  titlesData: FlTitlesData(
+                    leftTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: true),
+                    ),
+                    bottomTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        getTitlesWidget: (double value, TitleMeta meta) {
+                          const titles = <String>['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+                          return SideTitleWidget(
+                            axisSide: meta.axisSide,
+                            child: Text(titles[value.toInt()]),
+                          );
+                        },
+                      ),
+                    ),
                   ),
-                ),
-                bottomTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    getTitlesWidget: (value, meta) {
-                      return Text(
-                        'Week ${value.toInt() + 1}',
-                        style: TextStyle(color: Colors.grey),
-                      );
-                    },
+                  borderData: FlBorderData(
+                    show: true,
+                    border: Border.all(color: Colors.grey, width: 1),
                   ),
-                ),
-              ),
-              gridData: FlGridData(show: false),
-              borderData: FlBorderData(show: false),
-              barTouchData: BarTouchData(
-                enabled: true,
-                touchTooltipData: BarTouchTooltipData(
-                  tooltipPadding: EdgeInsets.zero,
-                  getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                    return BarTooltipItem(
-                      '${rod.toY.toInt()} h',
-                      TextStyle(color: Colors.grey.shade800, fontWeight: FontWeight.bold),
-                    );
-                  },
+                  gridData: FlGridData(show: false),
                 ),
               ),
             ),

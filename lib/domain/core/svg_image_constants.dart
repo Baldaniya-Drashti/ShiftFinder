@@ -144,4 +144,15 @@ class SvgImageConstant {
   static const withdrawBalance = "assets/svg/withdraw_balance.svg";
   static const withdraw = "assets/svg/withdraw.svg";
   static const deposited = "assets/svg/deposited.svg";
+  static const withdrawPayment = "assets/svg/withdraw_payment.svg";
+  static const updateProfile = "assets/svg/update_profile.svg";
+  static const references = "assets/svg/references.svg";
+  static const document = "assets/svg/document.svg";
+  static const editUser = "assets/svg/edit_user.svg";
+  static const bank = "assets/svg/bank.svg";
+  static const rightArrow2 = "assets/svg/right_arrow2.svg";
+  static const unVerify = "assets/svg/un_verify.svg.svg";
+  static const verify = "assets/svg/verify.svg";
+  static const bankDollar = "assets/svg/bank_dollar.svg";
+  static const information = "assets/svg/information.svg";
 }

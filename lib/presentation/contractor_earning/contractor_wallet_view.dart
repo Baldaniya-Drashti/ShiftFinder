@@ -7,7 +7,9 @@ import 'package:shift/application/contractor/contractor_wallet/contractor_wallet
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/date_range_picker_tile.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -47,7 +49,7 @@ class ContractorWalletView extends StatelessWidget {
                 ),
                 SliverGap(20),
                 SliverToBoxAdapter(
-                  child: _WalletInfoSection(),
+                  child: WalletInfoSection(),
                 ),
                 SliverGap(30),
                 SliverToBoxAdapter(
@@ -57,7 +59,18 @@ class ContractorWalletView extends StatelessWidget {
                   ),
                 ),
                 SliverGap(16),
-                _TransactionListView()
+                _TransactionListView(),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 22),
+                    child: CommonButton(
+                      onPressed: () {
+                        context.router.push(PageRouteInfo(ContractorWithdrawPaymentView.name));
+                      },
+                      buttonText: "Withdraw Payment",
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -67,8 +80,8 @@ class ContractorWalletView extends StatelessWidget {
   }
 }
 
-class _WalletInfoSection extends StatelessWidget {
-  const _WalletInfoSection();
+class WalletInfoSection extends StatelessWidget {
+  const WalletInfoSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +189,7 @@ class _TransactionListView extends StatelessWidget {
       itemBuilder: (context, index) {
         return ListTile(
           contentPadding: EdgeInsets.zero,
-          leading: SvgPicture.asset(SvgImageConstant.withdraw,height: 25),
+          leading: SvgPicture.asset(SvgImageConstant.withdraw, height: 25),
           title: Transform.translate(
             offset: Offset(-8, 0),
             child: Column(
@@ -184,16 +197,19 @@ class _TransactionListView extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 BaseText(text: "12 May, 2024", fontSize: 10),
-                BaseText(text: "Deposited to Bank", fontSize: 12,fontWeight: FontWeight.w600,),
+                BaseText(
+                  text: "Deposited to Bank",
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
               ],
             ),
           ),
           trailing: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              BaseText(text: "+\$560.35",textColor: AppColors.green,fontSize: 14,fontWeight: FontWeight.w600),
-              BaseText(text: "Shift Earnings",fontSize: 10),
-
+              BaseText(text: "+\$560.35", textColor: AppColors.green, fontSize: 14, fontWeight: FontWeight.w600),
+              BaseText(text: "Shift Earnings", fontSize: 10),
             ],
           ),
         );

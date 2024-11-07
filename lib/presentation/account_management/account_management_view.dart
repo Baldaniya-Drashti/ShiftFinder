@@ -103,7 +103,7 @@ class _ListTile extends StatelessWidget {
         icon,
         colorFilter: ColorFilter.mode(AppColors.green, BlendMode.srcIn),
       ),
-      trailing: Icon(Icons.arrow_forward_rounded, size: 18),
+      trailing: SvgPicture.asset(SvgImageConstant.rightArrow2, height: 18,width: 18),
     );
   }
 }
