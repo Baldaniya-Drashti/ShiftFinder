@@ -23,6 +23,7 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'ProposalReceived')
 class ProposalReceived extends StatelessWidget {
   AppliedShiftDTO post;
+
   ProposalReceived({super.key, required this.post});
 
   @override
@@ -69,96 +70,89 @@ class ProposalReceived extends StatelessWidget {
                   paddingBetweenFields(),
                   proposedBox(
                     title: StringConstant.commuteAllowance,
-                    postedValue: allowncValue(
-                        "${proposal?.posted_commute_allowance ?? 00}",
-                        isHour: proposal?.commute_allowance_type == "2"),
-                    proposedValue: allowncValue(
-                        "${proposal?.proposed_commute_allowance ?? 00}",
-                        isHour: proposal?.commute_allowance_type == "2"),
-                    counterProposalValue: allowncValue(
-                        "${proposal?.counter_proposal_commute_allowance ?? ""}",
+                    postedValue:
+                        allowncValue("${proposal?.posted_commute_allowance ?? 00}", isHour: proposal?.commute_allowance_type == "2"),
+                    proposedValue:
+                        allowncValue("${proposal?.proposed_commute_allowance ?? 00}", isHour: proposal?.commute_allowance_type == "2"),
+                    counterProposalValue: allowncValue("${proposal?.counter_proposal_commute_allowance ?? ""}",
                         isHour: proposal?.commute_allowance_type == "2"),
                   ),
                   paddingBetweenFields(),
                   proposedBox(
                     title: StringConstant.accommodationAllowance,
-                    postedValue: allowncValue(
-                        "${proposal?.posted_accommodation_allowance ?? 00}",
+                    postedValue: allowncValue("${proposal?.posted_accommodation_allowance ?? 00}",
                         isHour: proposal?.accommodation_allowance_type == "2"),
-                    proposedValue: allowncValue(
-                        "${proposal?.proposed_accommodation_allowance ?? 00}",
+                    proposedValue: allowncValue("${proposal?.proposed_accommodation_allowance ?? 00}",
                         isHour: proposal?.accommodation_allowance_type == "2"),
-                    counterProposalValue: allowncValue(
-                        "${proposal?.counter_proposal_accommodation_allowance ?? ""}",
+                    counterProposalValue: allowncValue("${proposal?.counter_proposal_accommodation_allowance ?? ""}",
                         isHour: proposal?.accommodation_allowance_type == "2"),
                   ),
-                  paddingBetweenFields(height: 20),
-                  Row(
-                    children: [
-                      buttonUI(
-                        onPressed: () {
-                          AppDialog.showDelete(
-                            context,
-                            title: StringConstant.accept,
-                            infoMessage: StringConstant.acceptProposalDesc,
-                            deleteBtnText: StringConstant.accept,
-                            onCancelClick: () {
-                              context.router.maybePop();
-                            },
-                            onDeleteClick: () {
-                              context.router.maybePop();
-                              context.read<ContractorShiftBloc>().add(
-                                    ContractorShiftEvent
-                                        .proposalAcceptRejectEvent(
-                                      context,
-                                      postId: post.id ?? -1,
-                                      urgentAction: 1,
-                                    ),
-                                  );
-                            },
-                          );
-                        },
-                        buttonText: StringConstant.accept,
-                      ),
-                      SizedBox(width: getSize(10)),
-                      buttonUI(
-                        onPressed: () {
-                          AppDialog.showDelete(
-                            context,
-                            title: StringConstant.reject,
-                            infoMessage: StringConstant.rejectProposalDesc,
-                            deleteBtnText: StringConstant.reject,
-                            onCancelClick: () {
-                              context.router.maybePop();
-                            },
-                            onDeleteClick: () {
-                              context.router.maybePop();
-                              context.read<ContractorShiftBloc>().add(
-                                    ContractorShiftEvent
-                                        .proposalAcceptRejectEvent(
-                                      context,
-                                      postId: post.id ?? -1,
-                                      urgentAction: 2,
-                                    ),
-                                  );
-                            },
-                          );
-                        },
-                        buttonText: StringConstant.reject,
-                        bgColor: AppColors.transparent,
-                        textColor: AppColors.primaryColor,
-                        borderColor: AppColors.primaryColor,
-                      ),
-                    ],
-                  ),
+
+                  if(post.last_request!=1)...[
+                    paddingBetweenFields(height: 20),
+                    Row(
+                      children: [
+                        buttonUI(
+                          onPressed: () {
+                            AppDialog.showDelete(
+                              context,
+                              title: StringConstant.accept,
+                              infoMessage: StringConstant.acceptProposalDesc,
+                              deleteBtnText: StringConstant.accept,
+                              onCancelClick: () {
+                                context.router.maybePop();
+                              },
+                              onDeleteClick: () {
+                                context.router.maybePop();
+                                context.read<ContractorShiftBloc>().add(
+                                  ContractorShiftEvent.proposalAcceptRejectEvent(
+                                    context,
+                                    postId: post.id ?? -1,
+                                    urgentAction: 1,
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          buttonText: StringConstant.accept,
+                        ),
+                        SizedBox(width: getSize(10)),
+                        buttonUI(
+                          onPressed: () {
+                            AppDialog.showDelete(
+                              context,
+                              title: StringConstant.reject,
+                              infoMessage: StringConstant.rejectProposalDesc,
+                              deleteBtnText: StringConstant.reject,
+                              onCancelClick: () {
+                                context.router.maybePop();
+                              },
+                              onDeleteClick: () {
+                                context.router.maybePop();
+                                context.read<ContractorShiftBloc>().add(
+                                  ContractorShiftEvent.proposalAcceptRejectEvent(
+                                    context,
+                                    postId: post.id ?? -1,
+                                    urgentAction: 2,
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          buttonText: StringConstant.reject,
+                          bgColor: AppColors.transparent,
+                          textColor: AppColors.primaryColor,
+                          borderColor: AppColors.primaryColor,
+                        ),
+                      ],
+                    ),
+                  ],
                   if (post.last_request == 2) ...[
                     paddingBetweenFields(height: 15),
                     buttonUI(
                       onPressed: () {
                         context.router
-                            .push(PageRouteInfo(SendProposal.name,
-                                args: SendProposalArgs(
-                                    postId: post.post_id ?? -1)))
+                            .push(PageRouteInfo(SendProposal.name, args: SendProposalArgs(postId: post.post_id ?? -1)))
                             .then((value) {
                           if (value == true) {
                             Navigator.pop(context, true);
@@ -179,8 +173,7 @@ class ProposalReceived extends StatelessWidget {
     );
   }
 
-  String allowncValue(String value,
-      {bool isRate = false, bool isHour = false}) {
+  String allowncValue(String value, {bool isRate = false, bool isHour = false}) {
     String formatedValue = value;
 
     if (formatedValue.isNotEmpty) {
@@ -192,9 +185,7 @@ class ProposalReceived extends StatelessWidget {
       if (isRate) {
         return "\$ $formatedValue";
       } else {
-        return (isHour)
-            ? "$formatedValue ${StringConstant.hours}"
-            : "\$ $formatedValue";
+        return (isHour) ? "$formatedValue ${StringConstant.hours}" : "\$ $formatedValue";
       }
     } else {
       return "";
@@ -241,8 +232,7 @@ class ProposalReceived extends StatelessWidget {
                   textColor: AppColors.black.withOpacity(0.80),
                 ),
                 BaseText(
-                  text:
-                      "(${getIndustry(post.industry_id ?? 0)} - ${post.listing_id ?? ''})",
+                  text: "(${getIndustry(post.industry_id ?? 0)} - ${post.listing_id ?? ''})",
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   textColor: AppColors.black.withOpacity(0.80),
@@ -325,18 +315,13 @@ class ProposalReceived extends StatelessWidget {
     return industry.title ?? "";
   }
 
-  Widget proposedBox(
-      {required String title,
-      required String postedValue,
-      required String proposedValue,
-      String? counterProposalValue}) {
+  Widget proposedBox({required String title, required String postedValue, required String proposedValue, String? counterProposalValue}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: getSize(15), vertical: getSize(10)),
+          padding: EdgeInsets.symmetric(horizontal: getSize(15), vertical: getSize(10)),
           child: BaseText(
             text: title,
             textColor: AppColors.black.withOpacity(0.7),
@@ -345,8 +330,7 @@ class ProposalReceived extends StatelessWidget {
           ),
         ),
         Container(
-          padding: EdgeInsets.symmetric(
-              horizontal: getSize(20), vertical: getSize(10)),
+          padding: EdgeInsets.symmetric(horizontal: getSize(20), vertical: getSize(10)),
           decoration: BoxDecoration(
             color: AppColors.scaffoldColor,
             borderRadius: BorderRadius.circular(5),
@@ -361,14 +345,10 @@ class ProposalReceived extends StatelessWidget {
                 ),
                 verticalDivider(),
                 rateBox(
-                  title: (post.last_request == 3)
-                      ? StringConstant.accepted
-                      : StringConstant.proposed,
+                  title: (post.last_request == 3) ? StringConstant.accepted : StringConstant.proposed,
                   value: proposedValue,
                 ),
-                if (post.last_request == 2 &&
-                    counterProposalValue != null &&
-                    counterProposalValue.isNotEmpty) ...[
+                if (post.last_request == 2 && counterProposalValue != null && counterProposalValue.isNotEmpty) ...[
                   verticalDivider(),
                   rateBox(
                     title: StringConstant.counterProposal,
@@ -393,8 +373,7 @@ class ProposalReceived extends StatelessWidget {
     );
   }
 
-  Widget rateBox(
-      {required String title, required String value, Color? valueColor}) {
+  Widget rateBox({required String title, required String value, Color? valueColor}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
