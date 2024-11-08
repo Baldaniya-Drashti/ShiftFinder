@@ -110,7 +110,8 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: ContractorRatingView.page),
         AutoRoute(page: ReferColleagueView.page),
         AutoRoute(page: ContractorUpdateProfileView.page),
-        AutoRoute(page: BankDetailView.page),
+        AutoRoute(page: BankListView.page),
+        AutoRoute(page: ReferenceListView.page),
         AutoRoute(
           page: MainTabView.page,
           children: [

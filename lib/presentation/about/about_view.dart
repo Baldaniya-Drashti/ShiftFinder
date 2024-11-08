@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
@@ -17,10 +18,11 @@ class AboutView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final role = getCurrentRole();
     return Scaffold(
       appBar: CommonAppBar(
         onBackPressed: () => context.router.maybePop(),
-        title: StringConstant.aboutShiftFinder,
+        title: role==1?"Policies":StringConstant.aboutShiftFinder,
       ),
       body: Padding(
         padding: const EdgeInsets.all(18),
@@ -76,7 +78,7 @@ class AboutView extends StatelessWidget {
                     ),
                     _ListTile(
                       icon: SvgImageConstant.paymentHistory,
-                      onPressed: () => context.router.push(PageRouteInfo(MonthlyStatementView.name)),
+                      onPressed: () => context.router.push(PageRouteInfo(FaqView.name)),
                       label: StringConstant.faq,
                     ),
                   ],
@@ -111,7 +113,7 @@ class _ListTile extends StatelessWidget {
         icon,
         colorFilter: ColorFilter.mode(AppColors.green, BlendMode.srcIn),
       ),
-      trailing: SvgPicture.asset(SvgImageConstant.rightArrow2, height: 18,width: 18),
+      trailing: SvgPicture.asset(SvgImageConstant.rightArrow2, height: 18, width: 18),
     );
   }
 }

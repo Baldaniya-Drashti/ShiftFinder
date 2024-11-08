@@ -81,6 +81,7 @@ import 'package:shift/application/employer/proposal/total_proposal_bloc.dart'
     as _i819;
 import 'package:shift/application/employer/proposal_detail/proposal_detail_bloc.dart'
     as _i156;
+import 'package:shift/application/faq/faq_bloc.dart' as _i505;
 import 'package:shift/application/google_map/google_map_bloc.dart' as _i168;
 import 'package:shift/application/healthcare_post/healthcare_post_bloc.dart'
     as _i383;
@@ -100,6 +101,7 @@ import 'package:shift/application/main_tab/shifts/hired_contractor_bloc/hired_co
     as _i979;
 import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart'
     as _i193;
+import 'package:shift/application/notification/notification_bloc.dart' as _i791;
 import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart'
     as _i541;
 import 'package:shift/application/profile/account/account_cubit.dart' as _i911;
@@ -138,6 +140,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1025.CardBloc>(() => _i1025.CardBloc());
     gh.factory<_i319.MonthlyStatementBloc>(() => _i319.MonthlyStatementBloc());
     gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
+    gh.factory<_i791.NotificationBloc>(() => _i791.NotificationBloc());
+    gh.factory<_i505.FaqBloc>(() => _i505.FaqBloc());
     gh.lazySingleton<_i771.ApiService>(() => _i771.ApiService());
     gh.lazySingleton<_i277.IAuthFacade>(
         () => _i751.AuthFacade(gh<_i771.ApiService>()));

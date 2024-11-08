@@ -80,13 +80,16 @@ class ContractorUpdateProfileView extends StatelessWidget {
                     _ListTile(
                       icon: SvgImageConstant.bank,
                       onPressed: () {
-                        context.router.push(PageRouteInfo(BankDetailView.name));
+                        context.router.push(PageRouteInfo(BankListView.name));
                       },
                       label: "Bank Details",
                     ),
                     _ListTile(
                       icon: SvgImageConstant.references,
-                      onPressed: () {},
+                      onPressed: () {
+                        context.router.push(PageRouteInfo(ReferenceListView.name));
+
+                      },
                       label: "References",
                     ),
                   ],

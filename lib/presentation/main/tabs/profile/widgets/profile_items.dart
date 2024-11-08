@@ -44,7 +44,7 @@ class ProfileItems extends StatelessWidget {
         title: 'Locations',
         image: SvgImageConstant.locationIcon,
         onTap: () {
-           context.router.push(PageRouteInfo(EmployerLocationView.name));
+          context.router.push(PageRouteInfo(EmployerLocationView.name));
           //context.router.push(PageRouteInfo(EmployerLocationFormView.name));
         },
       ),
@@ -162,7 +162,6 @@ class ContractorProfileItems extends StatelessWidget {
         image: SvgImageConstant.person,
         onTap: () {
           context.router.push(PageRouteInfo(ContractorUpdateProfileView.name));
-
         },
       ),
       ProfileItemModel(
@@ -170,7 +169,6 @@ class ContractorProfileItems extends StatelessWidget {
         image: SvgImageConstant.completedShifts,
         onTap: () {
           context.router.push(PageRouteInfo(ContractorPreviousShiftView.name));
-
         },
       ),
       ProfileItemModel(
@@ -207,14 +205,12 @@ class ContractorProfileItems extends StatelessWidget {
         image: SvgImageConstant.insights,
         onTap: () {
           context.router.push(PageRouteInfo(ContractorPerformanceInsightView.name));
-
         },
       ),
       ProfileItemModel(
         title: StringConstant.referAColleague,
         image: SvgImageConstant.referral,
         onTap: () {
-
           context.router.push(PageRouteInfo(ReferColleagueView.name));
         },
       ),
@@ -235,19 +231,21 @@ class ContractorProfileItems extends StatelessWidget {
         image: SvgImageConstant.setting,
         onTap: () {
           context.router.push(PageRouteInfo(AccountManagementView.name));
-
         },
       ),
       ProfileItemModel(
         title: StringConstant.policies,
         image: SvgImageConstant.policies,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(AboutView.name));
+
+        },
       ),
       ProfileItemModel(
         title: StringConstant.supportHelp,
         image: SvgImageConstant.customerSupport,
         onTap: () {
-
+          context.router.push(PageRouteInfo(CustomerSupportView.name));
         },
       ),
       ProfileItemModel(

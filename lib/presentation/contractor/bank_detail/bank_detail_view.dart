@@ -9,11 +9,12 @@ import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
-@RoutePage(name: "BankDetailView")
-class BankDetailView extends StatelessWidget {
-  const BankDetailView({super.key});
+@RoutePage(name: "BankListView")
+class BankListView extends StatelessWidget {
+  const BankListView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -120,13 +121,22 @@ class _ListTile extends StatelessWidget {
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                       ),
-                      Gap(3),
-                      BaseText(
-                        text: "Misty Evans",
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-
+                      Gap(5),
+                      Flexible(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SvgPicture.asset(SvgImageConstant.verify, height: 14),
+                            Gap(5),
+                            BaseText(
+                              text: "Verified",
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10,
+                              textColor: AppColors.green,
+                            )
+                          ],
+                        ),
+                      )
                     ],
                   ),
                   SizedBox(
@@ -144,7 +154,32 @@ class _ListTile extends StatelessWidget {
                 ],
               ),
             ),
-              SvgPicture.asset(SvgImageConstant.delete)
+            Material(
+              clipBehavior: Clip.hardEdge,
+              borderRadius: BorderRadius.circular(6),
+              color: AppColors.red.withOpacity(0.15),
+              child: InkWell(
+                onTap: () {
+                  AppDialog.showDelete(
+                    context,
+                    title: "Delete Account",
+                    infoMessage: "Are you sure you want to delete this bank account?",
+                    onCancelClick: () {
+                      context.router.maybePop();
+                    },
+                    onDeleteClick: () {},
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: SvgPicture.asset(
+                    SvgImageConstant.delete,
+                    color: AppColors.red,
+                    height: 20,
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
