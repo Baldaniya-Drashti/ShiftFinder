@@ -138,10 +138,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i456.ContractorRatingBloc>(() => _i456.ContractorRatingBloc());
     gh.factory<_i810.ReferColleagueBloc>(() => _i810.ReferColleagueBloc());
     gh.factory<_i1025.CardBloc>(() => _i1025.CardBloc());
-    gh.factory<_i319.MonthlyStatementBloc>(() => _i319.MonthlyStatementBloc());
-    gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
     gh.factory<_i791.NotificationBloc>(() => _i791.NotificationBloc());
     gh.factory<_i505.FaqBloc>(() => _i505.FaqBloc());
+    gh.factory<_i319.MonthlyStatementBloc>(() => _i319.MonthlyStatementBloc());
+    gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
     gh.lazySingleton<_i771.ApiService>(() => _i771.ApiService());
     gh.lazySingleton<_i277.IAuthFacade>(
         () => _i751.AuthFacade(gh<_i771.ApiService>()));
