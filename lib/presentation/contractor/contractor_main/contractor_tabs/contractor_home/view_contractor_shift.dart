@@ -502,8 +502,8 @@ class ViewContractorShift extends StatelessWidget {
                 BaseText(
                   text:
                       "(${CommonList.industryList.where((item) => item.id == getCurrentIndustry()).map((item) => item.title).join(', ')} - ${post.listing_id})",
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
                   textColor: AppColors.black.withOpacity(0.80),
                 ),
               ],

@@ -330,9 +330,7 @@ class ContractorHomeView extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                height: getSize(12),
-              ),
+              SizedBox(height: getSize(12)),
             ],
           ),
         );

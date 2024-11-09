@@ -147,7 +147,7 @@ class ApplicantSpecialize extends StatelessWidget {
                       SizedBox(height: getSize(5)),
                       BaseText(
                         text:
-                            "Exp - ${speciality?[index].experience_year ?? 0} Yr.  ${speciality?[index].experience_month ?? 0} Mo.",
+                            "Exp - ${speciality?[index].experience_year ?? 0} Yr. ${speciality?[index].experience_month ?? 0} Mo.",
                         fontSize: 10,
                         fontWeight: FontWeight.w500,
                       ),
@@ -157,17 +157,19 @@ class ApplicantSpecialize extends StatelessWidget {
               ),
             ),
           ],
-
-          SizedBox(height: getSize(15)),
-          Divider(
-            height: 0,
-          ),
-          SizedBox(height: getSize(15)),
-          getSkillsDetailsView(
-            mainTitle: 'Software Skillset',
-            skills:
-                '${data.complete_profile?.softwares_skill_list?.map((e) => e.name ?? "").join(", ")}',
-          ),
+          if ((data.complete_profile?.softwares_skill_list ?? [])
+              .isNotEmpty) ...[
+            SizedBox(height: getSize(15)),
+            Divider(
+              height: 0,
+            ),
+            SizedBox(height: getSize(15)),
+            getSkillsDetailsView(
+              mainTitle: 'Software Skillset',
+              skills:
+                  '${data.complete_profile?.softwares_skill_list?.map((e) => e.name ?? "").join(", ")}',
+            ),
+          ],
 
           if (data.complete_profile?.software_skill_other != null) ...[
             SizedBox(height: getSize(8)),
@@ -176,16 +178,18 @@ class ApplicantSpecialize extends StatelessWidget {
               skills: '${data.complete_profile?.software_skill_other}',
             ),
           ],
-          SizedBox(height: getSize(15)),
-          Divider(
-            height: 0,
-          ),
-          SizedBox(height: getSize(15)),
-          getSkillsDetailsView(
-            mainTitle: 'Languages Known',
-            skills:
-                '${completeProfile?.languages_list?.map((e) => e.name ?? "").toList().join(", ")}',
-          ),
+          if ((completeProfile?.languages_list ?? []).isNotEmpty) ...[
+            SizedBox(height: getSize(15)),
+            Divider(
+              height: 0,
+            ),
+            SizedBox(height: getSize(15)),
+            getSkillsDetailsView(
+              mainTitle: 'Languages Known',
+              skills:
+                  '${completeProfile?.languages_list?.map((e) => e.name ?? "").toList().join(", ")}',
+            ),
+          ],
         ],
       ),
     );

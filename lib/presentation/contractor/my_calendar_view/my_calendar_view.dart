@@ -54,7 +54,7 @@ class MyCalendarView extends StatelessWidget {
                                 svgPrefixIcon:
                                     SvgImageConstant.clockWithOuterLine,
                                 title:
-                                    "${StringConstant.totalNumberOfShifts} - 04",
+                                    "${StringConstant.totalNumberOfShifts} - ${state.multiDates.length}",
                                 // "${StringConstant.totalNumberOfShifts} - ${(shift.length < 10) ? "0${shift.length}" : shift.length}",
                               ),
                               Padding(
