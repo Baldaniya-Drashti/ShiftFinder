@@ -49,6 +49,7 @@ class ApproveShiftView extends StatelessWidget {
                             onRefresh: () => context.read<ShiftsBloc>().add(ShiftsBlocEvent.fetchApprovedShiftList(refresh: true)),
                             onLoading: () => context.read<ShiftsBloc>().add(ShiftsBlocEvent.fetchApprovedShiftList(refresh: false)),
                             refreshController: context.read<ShiftsBloc>().approveRefreshController,
+                            isNoDataFound: state.approveShiftList.isEmpty,
                             child: ListView.builder(
                               itemCount: state.approveShiftList.length,
                               shrinkWrap: true,
