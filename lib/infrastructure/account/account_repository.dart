@@ -34,6 +34,7 @@ class AccountRepository extends IAccountRepository {
           queryParameters: {"id": getCurrentUser().userId});
       if (response != null && response.data != null) {
         final account = CurrentUserDto.fromJson(response.data).toDomain();
+        print("Current User Account Detail----> ${account}");
         setCurrentUser(account);
         return right(account);
       } else {
@@ -1105,8 +1106,8 @@ class AccountRepository extends IAccountRepository {
         // if(fromRegister)"last_page": "AddCardDetail",
         // if(fromRegister)"isProfileComplete": "1",
 
-      "last_page": "AddCardDetail",
-      "isProfileComplete": "1",
+        "last_page": "AddCardDetail",
+        "isProfileComplete": "1",
         // "units_number_or_name": unitNumber,
         // "units_note": unitNotes,
         "units": units,

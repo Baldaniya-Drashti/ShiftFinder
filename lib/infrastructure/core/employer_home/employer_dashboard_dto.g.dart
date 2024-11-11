@@ -46,6 +46,7 @@ _$EmployerDashboardDTOImpl _$$EmployerDashboardDTOImplFromJson(
       rate_hour: (json['rate_hour'] as num?)?.toInt(),
       total_payable_hour: json['total_payable_hour'] as String?,
       number_of_vacancie: (json['number_of_vacancie'] as num?)?.toInt(),
+      pending_vacancie: (json['pending_vacancie'] as num?)?.toInt(),
       accommodation_allowance:
           (json['accommodation_allowance'] as num?)?.toInt(),
       commute_allowance: (json['commute_allowance'] as num?)?.toInt(),
@@ -79,6 +80,7 @@ Map<String, dynamic> _$$EmployerDashboardDTOImplToJson(
       'rate_hour': instance.rate_hour,
       'total_payable_hour': instance.total_payable_hour,
       'number_of_vacancie': instance.number_of_vacancie,
+      'pending_vacancie': instance.pending_vacancie,
       'accommodation_allowance': instance.accommodation_allowance,
       'commute_allowance': instance.commute_allowance,
       'total_amount': instance.total_amount,

@@ -223,7 +223,7 @@ class HomeView extends StatelessWidget {
                     ),
                     BaseText(
                       text:
-                          "${((state.employerDashboardList[index].number_of_vacancie ?? 0) > 9) ? state.employerDashboardList[index].number_of_vacancie : "0${state.employerDashboardList[index].number_of_vacancie}"}",
+                          "${((state.employerDashboardList[index].pending_vacancie ?? 0) > 9) ? state.employerDashboardList[index].pending_vacancie : "0${state.employerDashboardList[index].pending_vacancie}"}",
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       textColor: AppColors.primaryColor,

@@ -284,14 +284,14 @@ class ApprovedHiredList extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: getSize(12),
-        horizontal: getSize(20),
+        horizontal: getSize(30),
       ),
       decoration: BoxDecoration(
         color: AppColors.scaffoldColor,
         borderRadius: BorderRadius.circular(getSize(10)),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           clockTime(
             context,
@@ -335,6 +335,8 @@ class ApprovedHiredList extends StatelessWidget {
     Color? valueColor,
   }) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         SvgPicture.asset(

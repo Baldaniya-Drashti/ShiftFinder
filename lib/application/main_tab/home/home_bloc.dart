@@ -148,7 +148,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 ),
               );
 
-              if (r.isTeamAvailable == 1 || getShowTeamDialog() == true) {
+              // if (r.isTeamAvailable == 1 || getShowTeamDialog() == true) {
+
+              print(
+                  "getCurrentUser().isDialogBox---> ${getCurrentUser().isDialogBox}");
+
+              if (r.isTeamAvailable == 1 || getCurrentUser().isDialogBox == 1) {
                 e.context.router
                     .push(PageRouteInfo(HealthCarePostForm.name))
                     .then((value) {
@@ -177,7 +182,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       otherContent: dontShowAgain(context),
       onCancelClick: () async {
         if (state.showTeamDialog) {
-          await setShowTeamDialog(false);
+          // await setShowTeamDialog(false);
+          await mainFacade.dontShowEmployerTeamDialog();
         }
         context.router.maybePop();
         context.router
@@ -188,7 +194,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       },
       onDeleteClick: () async {
         if (state.showTeamDialog) {
-          await setShowTeamDialog(false);
+          // await setShowTeamDialog(false);
+          await mainFacade.dontShowEmployerTeamDialog();
         }
         context.router.maybePop();
         context.router.push(PageRouteInfo(TeamsView.name)).then((value) {
@@ -225,7 +232,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                   onChanged: (value) async {
                     if (value != null) {
                       add(HomeEvent.dontShowAgain(context, isCheck: value));
-                      await setShowTeamDialog(value);
+                      // await setShowTeamDialog(value);
                     }
                   },
                 ),

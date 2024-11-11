@@ -11,6 +11,7 @@ class Account with _$Account {
 
   const factory Account({
     int? userId,
+    int? isDialogBox,
     String? firstName,
     String? lastName,
     String? email,

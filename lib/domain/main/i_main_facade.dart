@@ -271,4 +271,6 @@ abstract class IMainFacade {
     required int? clockOutTime,
     required int userId,
   });
+
+  Future<Either<MainFailure, CommonResponse>> dontShowEmployerTeamDialog();
 }
