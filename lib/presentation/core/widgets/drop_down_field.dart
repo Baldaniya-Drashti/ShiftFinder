@@ -79,7 +79,7 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (widget.label != null) ...[
-          BaseText(text: "Period", fontSize: 10),
+          BaseText(text: widget.label!, fontSize: 10),
           Gap(8),
         ],
         DropdownButtonFormField2(

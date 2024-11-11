@@ -179,7 +179,9 @@ class ContractorProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: StringConstant.fullTimePositions,
         image: SvgImageConstant.bagLocation,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(FullTimePositionView.name));
+        },
       ),
       ProfileItemModel(
         title: StringConstant.myCalendar,
@@ -238,7 +240,6 @@ class ContractorProfileItems extends StatelessWidget {
         image: SvgImageConstant.policies,
         onTap: () {
           context.router.push(PageRouteInfo(AboutView.name));
-
         },
       ),
       ProfileItemModel(

@@ -59,6 +59,10 @@ import 'package:shift/application/contractor/contractor_statement/contractor_sta
     as _i422;
 import 'package:shift/application/contractor/contractor_wallet/contractor_wallet_bloc.dart'
     as _i969;
+import 'package:shift/application/contractor/full_time_position/full_time_position_bloc.dart'
+    as _i197;
+import 'package:shift/application/contractor/full_time_position_detail/full_time_position_detail_bloc.dart'
+    as _i418;
 import 'package:shift/application/contractor/my_calendar_view_bloc/my_calendar_view_bloc.dart'
     as _i170;
 import 'package:shift/application/contractor/refer_colleague/refer_colleague_bloc.dart'
@@ -142,6 +146,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i505.FaqBloc>(() => _i505.FaqBloc());
     gh.factory<_i319.MonthlyStatementBloc>(() => _i319.MonthlyStatementBloc());
     gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
+    gh.factory<_i197.FullTimePositionBloc>(() => _i197.FullTimePositionBloc());
+    gh.factory<_i418.FullTimePositionDetailBloc>(
+        () => _i418.FullTimePositionDetailBloc());
     gh.lazySingleton<_i771.ApiService>(() => _i771.ApiService());
     gh.lazySingleton<_i277.IAuthFacade>(
         () => _i751.AuthFacade(gh<_i771.ApiService>()));

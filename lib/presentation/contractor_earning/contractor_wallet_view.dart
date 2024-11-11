@@ -30,52 +30,129 @@ class ContractorWalletView extends StatelessWidget {
             onBackPressed: () => context.router.maybePop(),
             title: "Wallet",
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: CustomScrollView(
-              slivers: [
-                SliverToBoxAdapter(
-                  child: BlocSelector<ContractorWalletBloc, ContractorWalletState, WalletDropdownModel>(
-                    selector: (state) => state.initialWalletFilter,
-                    builder: (context, initialWalletFilter) {
-                      return WalletDropdownField(
-                        value: initialWalletFilter,
-                        onChanged: (value) {
-                          context.read<ContractorWalletBloc>().add(ContractorWalletEvent.onFilterChanged(value: value));
+          body: BlocBuilder<ContractorWalletBloc, ContractorWalletState>(
+            builder: (context, state) {
+              return Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: CustomScrollView(
+                  slivers: [
+                    if (state.initialWalletFilter.id != 1) ...[
+                      SliverToBoxAdapter(
+                        child: WalletInfoWithDifferentLayout(),
+                      ),
+                      SliverGap(12)
+                    ],
+                    SliverToBoxAdapter(
+                      child: BlocSelector<ContractorWalletBloc, ContractorWalletState, WalletDropdownModel>(
+                        selector: (state) => state.initialWalletFilter,
+                        builder: (context, initialWalletFilter) {
+                          return WalletDropdownField(
+                            value: initialWalletFilter,
+                            onChanged: (value) {
+                              context.read<ContractorWalletBloc>().add(ContractorWalletEvent.onFilterChanged(value: value));
+                            },
+                          );
                         },
-                      );
-                    },
-                  ),
-                ),
-                SliverGap(20),
-                SliverToBoxAdapter(
-                  child: WalletInfoSection(),
-                ),
-                SliverGap(30),
-                SliverToBoxAdapter(
-                  child: DateRangePickerTile(
-                    label: "Period",
-                    onDateSelected: (value) {},
-                  ),
-                ),
-                SliverGap(16),
-                _TransactionListView(),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 22),
-                    child: CommonButton(
-                      onPressed: () {
-                        context.router.push(PageRouteInfo(ContractorWithdrawPaymentView.name));
-                      },
-                      buttonText: "Withdraw Payment",
+                      ),
                     ),
-                  ),
-                )
-              ],
-            ),
+                    SliverGap(20),
+                    if (state.initialWalletFilter.id == 1) ...[
+                      SliverToBoxAdapter(
+                        child: WalletInfoSection(),
+                      ),
+                      SliverGap(20),
+                    ] else ...[
+                      SliverToBoxAdapter(
+                        child: Material(
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppColors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: _WalletInfoItem(
+                              icon: SvgImageConstant.availableBalance,
+                              label: "Available Balance",
+                              balance: "\$632",
+                            ),
+                          ),
+                        ),
+                      ),
+                      SliverGap(18),
+                    ],
+                    SliverToBoxAdapter(
+                      child: DateRangePickerTile(
+                        label: "Period",
+                        onDateSelected: (value) {},
+                      ),
+                    ),
+                    SliverGap(16),
+                    _TransactionListView(),
+                    if (state.initialWalletFilter.id == 1)
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 22),
+                          child: CommonButton(
+                            onPressed: () {
+                              context.router.push(PageRouteInfo(ContractorWithdrawPaymentView.name));
+                            },
+                            buttonText: "Withdraw Payment",
+                          ),
+                        ),
+                      )
+                  ],
+                ),
+              );
+            },
           ),
         );
       }),
+    );
+  }
+}
+
+class WalletInfoWithDifferentLayout extends StatelessWidget {
+  const WalletInfoWithDifferentLayout({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: AppColors.surfaceColor,
+      borderRadius: BorderRadius.circular(10),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _WalletInfoItem(
+              label: "Available Balance",
+              balance: "\$632",
+            ),
+            Gap(16),
+            _WalletInfoItem(
+              label: "Available Withdrawable Balance",
+              balance: "\$200",
+              color: AppColors.green,
+            ),
+            Gap(16),
+            _WalletInfoItem(
+              label: "Last Deposit",
+              balance: "\$200",
+              color: AppColors.redAccent,
+            ),
+            Gap(24),
+            CommonButton(
+              height: 45,
+              borderRadius: 5,
+              onPressed: () {
+                context.router.push(PageRouteInfo(ContractorWithdrawPaymentView.name));
+
+              },
+              buttonText: "Withdraw Payment",
+              buttonFontWeight: FontWeight.w400,
+              buttonFontSize: 14,
+            )
+          ],
+        ),
+      ),
     );
   }
 }
@@ -89,7 +166,7 @@ class WalletInfoSection extends StatelessWidget {
       color: AppColors.white,
       borderRadius: BorderRadius.circular(10),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -98,8 +175,9 @@ class WalletInfoSection extends StatelessWidget {
               label: "Available Balance",
               balance: "\$632",
             ),
+            Gap(16),
             _WalletInfoItem(
-              icon: SvgImageConstant.withdrawBalance,
+              icon: SvgImageConstant.availableWithdrawBalance,
               label: "Available Withdrawable Balance",
               balance: "\$200",
               color: AppColors.green,
@@ -113,28 +191,40 @@ class WalletInfoSection extends StatelessWidget {
 
 class _WalletInfoItem extends StatelessWidget {
   const _WalletInfoItem({
-    required this.icon,
+    this.icon,
     required this.label,
     required this.balance,
-    this.dense = true,
     this.color,
   });
 
-  final String icon;
+  final String? icon;
   final String label;
   final String balance;
   final Color? color;
-  final bool dense;
 
   @override
   Widget build(BuildContext context) {
-    final effectiveDensity = dense ? VisualDensity.compact : VisualDensity.standard;
-    return ListTile(
-      dense: dense,
-      visualDensity: effectiveDensity,
-      leading: SvgPicture.asset(icon, height: 18, width: 18),
-      title: BaseText(text: label, fontSize: 12),
-      trailing: BaseText(text: balance, textColor: color, fontSize: 14, fontWeight: FontWeight.w600),
+    return Row(
+      children: [
+        if (icon != null) ...[
+          SvgPicture.asset(
+            icon!,
+            height: 18,
+            width: 18,
+            colorFilter: ColorFilter.mode(AppColors.black.withOpacity(0.8), BlendMode.srcIn),
+          ),
+          Gap(10),
+        ],
+        Expanded(
+          child: BaseText(
+            text: label,
+            fontSize: 12,
+            textColor: AppColors.black.withOpacity(0.8),
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        BaseText(text: balance, textColor: color, fontSize: 14, fontWeight: FontWeight.w600)
+      ],
     );
   }
 }

@@ -57,7 +57,21 @@ class ContractorPerformanceInsightView extends StatelessWidget {
                 ),
               ],
             ),
-            SfCartesianChart()
+            SfCartesianChart(
+              primaryXAxis: CategoryAxis(),
+              series: [
+                LineSeries<ChartData, String>(
+                  dataSource: [
+                    ChartData(x: "Week 1", y: 300),
+                    ChartData(x: "Week 2", y: 350),
+                    ChartData(x: "Week 3", y: 300),
+                    ChartData(x: "Week 4", y: 500),
+                  ],
+                  xValueMapper: (datum, _) => datum.x,
+                  yValueMapper: (datum, _) => datum.y,
+                )
+              ],
+            )
           ],
         ),
       ),

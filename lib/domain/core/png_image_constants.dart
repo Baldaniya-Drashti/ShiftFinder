@@ -45,8 +45,10 @@ class PngImageConstants {
   static const passwordChanged = "assets/png/password_changed.png";
   static const about = "assets/png/about.png";
   static const ticketSubmittedSuccess = "assets/png/ticket_submit_success.png";
+  static const withdrawDialogImage = "assets/png/withdraw_dialog_image.png";
 
   static const List<String> allImages = [
+    withdrawDialogImage,
     about,
     profileCircle,
     iroid_logo,

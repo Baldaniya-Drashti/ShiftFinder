@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/billing/invoice_detail_view.dart';
 import 'package:shift/presentation/billing/transaction_info.dart';
@@ -131,6 +132,8 @@ class ContractorTotalEarningView extends StatelessWidget {
                     ),
                   ),
                   Gap(22),
+                  _Footer(),
+                  Gap(22),
                 ],
               ),
             ),
@@ -142,14 +145,43 @@ class ContractorTotalEarningView extends StatelessWidget {
 }
 
 class _Footer extends StatelessWidget {
-  const _Footer({super.key});
+  const _Footer();
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        BaseText(text: "ShiftFinder Inc.")
+        BaseText(text: "ShiftFinder Inc.", fontSize: 12),
+        Gap(4),
+        Image.asset(PngImageConstants.splash_logo, height: 50, width: 50),
+        Gap(4),
+        BaseText(text: "Contact Information", fontSize: 12,textColor: AppColors.black),
+        Gap(6),
+        _buildSeparateText(context, label: "Email", value: "debra.holt@example.com"),
+        Gap(6),
+        _buildSeparateText(context, label: "Phone Number", value: "6325148452"),
+        Gap(6),
+        _buildSeparateText(context, label: "Website", value: "Www.ShiftFinder.com", valueColor: Color(0xFF218AEB))
+      ],
+    );
+  }
+
+  Widget _buildSeparateText(
+    BuildContext context, {
+    VoidCallback? onTap,
+    Color? valueColor,
+    required String label,
+    required String value,
+  }) {
+    return Row(
+      children: [
+        BaseText(text: "$label :", fontSize: 11, fontWeight: FontWeight.w500),
+        GestureDetector(
+          onTap: onTap,
+          child: BaseText(text: value, fontSize: 11, fontWeight: FontWeight.w600, textColor: valueColor),
+        ),
       ],
     );
   }

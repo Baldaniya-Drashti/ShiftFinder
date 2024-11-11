@@ -156,4 +156,5 @@ class SvgImageConstant {
   static const bankDollar = "assets/svg/bank_dollar.svg";
   static const information = "assets/svg/information.svg";
   static const faq = "assets/svg/faq.svg";
+  static const availableWithdrawBalance = "assets/svg/available_withdraw_balance.svg";
 }

@@ -42,8 +42,7 @@ class AppDialog {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actionsAlignment: MainAxisAlignment.center,
             actions: [
               CommonButton(
@@ -105,8 +104,7 @@ class AppDialog {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actions: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -201,8 +199,7 @@ class AppDialog {
             ),
             alignment: Alignment.center,
             actionsAlignment: MainAxisAlignment.center,
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actions: [
               CommonButton(
                 onPressed: () {
@@ -266,8 +263,7 @@ class AppDialog {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
-          insetPadding:
-              insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+          insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
           actions: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -371,9 +367,10 @@ class AppDialog {
 
   static Future<bool?> showCommonDialog({
     required BuildContext context,
-    required String? title,
-    required String? content,
-    required String? successLabel,
+    String? title,
+    String? content,
+    String? extraContent,
+    String? successLabel,
   }) async {
     return showDialog<bool?>(
       context: context,
@@ -396,13 +393,29 @@ class AppDialog {
               )
             : null,
         content: content != null
-            ? BaseText(
-                text: content,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                textAlign: TextAlign.center,
-                textColor: AppColors.black.withOpacity(0.7),
-                maxLines: 20,
+            ? Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  BaseText(
+                    text: content,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    textAlign: TextAlign.center,
+                    textColor: AppColors.black.withOpacity(0.7),
+                    maxLines: 20,
+                  ),
+                  if (extraContent != null) ...[
+                    Gap(10),
+                    BaseText(
+                      text: extraContent,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      textAlign: TextAlign.center,
+                      textColor: AppColors.black.withOpacity(0.7),
+                      maxLines: 20,
+                    ),
+                  ]
+                ],
               )
             : null,
         actions: [
@@ -483,8 +496,7 @@ class AppDialog {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actions: [
               CommonButton(
                 onPressed: () {
