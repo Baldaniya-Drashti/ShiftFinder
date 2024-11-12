@@ -35,6 +35,14 @@ class ProfileItems extends StatelessWidget {
           context.router.push(PageRouteInfo(PreviousShiftView.name));
         },
       ),
+
+      ProfileItemModel(
+        title: StringConstant.fullTimePositions,
+        image: SvgImageConstant.bagLocation,
+        onTap: () {
+          context.router.push(PageRouteInfo(EmployerFullPositionView.name));
+        },
+      ),
       ProfileItemModel(
         title: 'Chat',
         image: SvgImageConstant.chat,

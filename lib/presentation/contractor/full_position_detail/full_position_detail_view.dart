@@ -24,7 +24,6 @@ class FullPositionDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<FullTimePositionDetailBloc>(),
-
       child: Scaffold(
         appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "View Position Details"),
         body: SingleChildScrollView(

@@ -115,6 +115,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: FullTimePositionView.page),
         AutoRoute(page: FullPositionDetailView.page),
         AutoRoute(page: EmployerFullPositionView.page),
+        AutoRoute(page: AddFullPositionView.page),
         AutoRoute(
           page: MainTabView.page,
           children: [

@@ -67,8 +67,12 @@ import 'package:shift/application/contractor/my_calendar_view_bloc/my_calendar_v
     as _i170;
 import 'package:shift/application/contractor/refer_colleague/refer_colleague_bloc.dart'
     as _i810;
+import 'package:shift/application/employer/add_full_position/add_full_position_bloc.dart'
+    as _i93;
 import 'package:shift/application/employer/counter_proposal_detail/counter_proposal_detail_bloc.dart'
     as _i93;
+import 'package:shift/application/employer/employer_full_position/employer_postion_bloc.dart'
+    as _i429;
 import 'package:shift/application/employer/employer_location/employer_location_bloc.dart'
     as _i158;
 import 'package:shift/application/employer/employer_location_form/employer_location_form_bloc.dart'
@@ -149,6 +153,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i197.FullTimePositionBloc>(() => _i197.FullTimePositionBloc());
     gh.factory<_i418.FullTimePositionDetailBloc>(
         () => _i418.FullTimePositionDetailBloc());
+    gh.factory<_i429.EmployerPostionBloc>(() => _i429.EmployerPostionBloc());
     gh.lazySingleton<_i771.ApiService>(() => _i771.ApiService());
     gh.lazySingleton<_i277.IAuthFacade>(
         () => _i751.AuthFacade(gh<_i771.ApiService>()));
@@ -175,6 +180,10 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i111.IMainFacade>(),
             ));
     gh.factory<_i942.SupportTicketBloc>(() => _i942.SupportTicketBloc(
+          gh<_i253.IAccountRepository>(),
+          gh<_i111.IMainFacade>(),
+        ));
+    gh.factory<_i93.AddFullPositionBloc>(() => _i93.AddFullPositionBloc(
           gh<_i253.IAccountRepository>(),
           gh<_i111.IMainFacade>(),
         ));
