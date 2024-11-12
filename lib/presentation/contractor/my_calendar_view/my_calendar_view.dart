@@ -67,11 +67,21 @@ class MyCalendarView extends StatelessWidget {
                                 ),
                               ),
                               calendarView(context, state),
-                              if (state.contractorDetail != null)
-                                shiftDetail(
-                                    context,
-                                    state.contractorDetail ??
-                                        ContractorMyCalendarDTO()),
+                              if (state.contractorDetail != null &&
+                                  state.contractorDetail!.list != null &&
+                                  state.contractorDetail!.list!.isNotEmpty)
+                                ListView.builder(
+                                    itemCount:
+                                        state.contractorDetail!.list!.length,
+                                    shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      return shiftDetail(
+                                          context,
+                                          state.contractorDetail ??
+                                              ContractorMyCalendarDTO(),
+                                          index);
+                                    }),
                             ],
                           ),
                         ),
@@ -207,7 +217,8 @@ class MyCalendarView extends StatelessWidget {
     );
   }
 
-  Widget shiftDetail(BuildContext context, ContractorMyCalendarDTO detail) {
+  Widget shiftDetail(
+      BuildContext context, ContractorMyCalendarDTO detail, int index) {
     return Container(
       padding: EdgeInsets.all(getSize(10)),
       margin: EdgeInsets.symmetric(vertical: getSize(10)),
@@ -217,9 +228,9 @@ class MyCalendarView extends StatelessWidget {
       ),
       child: Column(
         children: [
-          userDetail(context, detail),
+          userDetail(context, detail.list![index]),
           paddingBetweenFields(),
-          dateAndTime(context, detail),
+          dateAndTime(context, detail.list![index], detail.current_date),
           paddingBetweenFields(),
           CommonButton(
             onPressed: () {
@@ -227,7 +238,7 @@ class MyCalendarView extends StatelessWidget {
                 PageRouteInfo(
                   ViewContractorShift.name,
                   args: ViewContractorShiftArgs(
-                    postId: detail.id ?? -1,
+                    postId: detail.list![index].id ?? -1,
                     isTotalApplicants: true,
                     fromDashboard: true,
                   ),
@@ -246,7 +257,7 @@ class MyCalendarView extends StatelessWidget {
     );
   }
 
-  Widget userDetail(BuildContext context, ContractorMyCalendarDTO post) {
+  Widget userDetail(BuildContext context, ContractorMyCalendarListDTO post) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
@@ -392,16 +403,15 @@ class MyCalendarView extends StatelessWidget {
     );
   }
 
-  Widget dateAndTime(BuildContext context, ContractorMyCalendarDTO post) {
+  Widget dateAndTime(
+      BuildContext context, ContractorMyCalendarListDTO post, int? date) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         displayDateBreak(
           context,
-          // boldValue: "12 May,",
-          // timidValue: "2024",
-          boldValue: convertTimeStampToDate(post.date ?? -1),
-          timidValue: convertTimeStampToDate(post.date ?? -1, isYear: true),
+          boldValue: convertTimeStampToDate(date ?? -1),
+          timidValue: convertTimeStampToDate(date ?? -1, isYear: true),
           title: StringConstant.shiftDate,
           svgPrefixIcon: SvgImageConstant.calendar,
         ),

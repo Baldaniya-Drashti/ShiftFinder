@@ -13,10 +13,10 @@ class HiredContractorEvent with _$HiredContractorEvent {
   factory HiredContractorEvent.changeClockInClockOutTime(
       TimeOfDay time, bool isClockIn) = ChangeClockInClockOutTime;
   factory HiredContractorEvent.submitClockInOutTime(
-    BuildContext context,
-  {
+    BuildContext context, {
     required int postId,
     required int userId,
-    
+    int? clockIn,
+    int? clockOut,
   }) = SubmitClockInOutTime;
 }

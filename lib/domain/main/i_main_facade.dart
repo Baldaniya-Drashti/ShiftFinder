@@ -161,7 +161,7 @@ abstract class IMainFacade {
   Future<Either<MainFailure, List<MyCalendarDTO>>> getMyCalendarListApi();
 
   Future<Either<MainFailure, ContractorMyCalendarDTO>>
-      getContractorMyCalendarDetailApi(int id);
+      getContractorMyCalendarDetailApi(String id, int? date);
 
   Future<Either<MainFailure, CommonResponse>> getApplicantList({
     required int postId,

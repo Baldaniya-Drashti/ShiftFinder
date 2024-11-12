@@ -344,8 +344,8 @@ class CancelledShiftView extends StatelessWidget {
                           .push(PageRouteInfo(CancelledContractorList.name,
                               args: CancelledContractorListArgs(
                                 title: (state.currentCancelFilter.id == 2)
-                                    ? StringConstant.withdralContractors
-                                    : StringConstant.cancelledContractors,
+                                    ? StringConstant.allWithdralContractors
+                                    : StringConstant.allCancelledContractors,
                                 postId: shift.id ?? -1,
                                 cancelFilter:
                                     state.currentCancelFilter.id ?? -1,
@@ -363,7 +363,7 @@ class CancelledShiftView extends StatelessWidget {
                         SizedBox(width: getSize(10)),
                         BaseText(
                           text:
-                              "${(state.currentCancelFilter.id == 2) ? StringConstant.withdralContractors : StringConstant.cancelledContractors} (${shift.cancel_shift ?? 00}/${shift.total_shift})",
+                              "${(state.currentCancelFilter.id == 2) ? StringConstant.allWithdralContractors : StringConstant.allCancelledContractors} (${shift.cancel_shift ?? 00}/${shift.total_shift})",
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),

@@ -16,6 +16,7 @@ import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 
@@ -162,7 +163,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                       .add(HomeEvent.getEmployerDashboardList(true));
                 });
               } else {
-                teamCheckDialog(e.context, state);
+                teamCheckDialog(e.context);
               }
             },
           );
@@ -171,7 +172,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     });
   }
 
-  teamCheckDialog(BuildContext context, HomeState state) {
+  teamCheckDialog(BuildContext context) {
     AppDialog.showDelete(
       context,
       title: StringConstant.createYourTeamToGetStarted,
@@ -207,8 +208,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   Widget dontShowAgain(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
-      bloc: context.read<HomeBloc>(),
-      builder: (context, state) {
+      bloc: this,
+      builder: (__, _) {
         return Padding(
           padding: EdgeInsets.symmetric(
               horizontal: getSize(20), vertical: getSize(20)),

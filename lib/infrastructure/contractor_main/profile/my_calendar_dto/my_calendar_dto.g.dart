@@ -8,7 +8,7 @@ part of 'my_calendar_dto.dart';
 
 _$MyCalendarDTOImpl _$$MyCalendarDTOImplFromJson(Map<String, dynamic> json) =>
     _$MyCalendarDTOImpl(
-      employer_post_id: (json['employer_post_id'] as num?)?.toInt(),
+      employer_post_id: json['employer_post_id'] as String?,
       date: (json['date'] as num?)?.toInt(),
       isUnAvailable: json['isUnAvailable'] as bool? ?? false,
       colorText: json['colorText'] as String?,
@@ -22,9 +22,9 @@ Map<String, dynamic> _$$MyCalendarDTOImplToJson(_$MyCalendarDTOImpl instance) =>
       'colorText': instance.colorText,
     };
 
-_$ContractorMyCalendarDTOImpl _$$ContractorMyCalendarDTOImplFromJson(
+_$ContractorMyCalendarListDTOImpl _$$ContractorMyCalendarListDTOImplFromJson(
         Map<String, dynamic> json) =>
-    _$ContractorMyCalendarDTOImpl(
+    _$ContractorMyCalendarListDTOImpl(
       id: (json['id'] as num?)?.toInt(),
       shift_type: (json['shift_type'] as num?)?.toInt(),
       roles_list_name: json['roles_list_name'] as String?,
@@ -41,8 +41,8 @@ _$ContractorMyCalendarDTOImpl _$$ContractorMyCalendarDTOImplFromJson(
       total_shift: (json['total_shift'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$$ContractorMyCalendarDTOImplToJson(
-        _$ContractorMyCalendarDTOImpl instance) =>
+Map<String, dynamic> _$$ContractorMyCalendarListDTOImplToJson(
+        _$ContractorMyCalendarListDTOImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'shift_type': instance.shift_type,
@@ -56,4 +56,21 @@ Map<String, dynamic> _$$ContractorMyCalendarDTOImplToJson(
       'start_time': instance.start_time,
       'end_time': instance.end_time,
       'total_shift': instance.total_shift,
+    };
+
+_$ContractorMyCalendarDTOImpl _$$ContractorMyCalendarDTOImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ContractorMyCalendarDTOImpl(
+      list: (json['list'] as List<dynamic>?)
+          ?.map((e) =>
+              ContractorMyCalendarListDTO.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      current_date: (json['current_date'] as num?)?.toInt(),
+    );
+
+Map<String, dynamic> _$$ContractorMyCalendarDTOImplToJson(
+        _$ContractorMyCalendarDTOImpl instance) =>
+    <String, dynamic>{
+      'list': instance.list,
+      'current_date': instance.current_date,
     };

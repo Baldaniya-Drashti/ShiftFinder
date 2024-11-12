@@ -1600,15 +1600,24 @@ class MainFacade implements IMainFacade {
 
   @override
   Future<Either<MainFailure, ContractorMyCalendarDTO>>
-      getContractorMyCalendarDetailApi(int id) async {
+      getContractorMyCalendarDetailApi(String id, int? date) async {
     try {
+      Map<String, dynamic> mapData = {
+        'id': id,
+      };
+
+      if (date != null) {
+        mapData.addAll({
+          'date': date,
+        });
+      }
       final res = await apiService.getMethod(
-        "${ApiConstants.contractorMyCalendar}/$id",
+        ApiConstants.contractorMyCalendarDetails,
+        queryParameters: mapData,
       );
       if (res != null) {
+        print("My Calendar Contractor Detail Response-> ${res.data}");
         final data = ContractorMyCalendarDTO.fromJson(res.data);
-        print("My Calendar Contractor Detail Response-> $data");
-
         return right(data);
       } else {
         return left(const MainFailure.serverError());

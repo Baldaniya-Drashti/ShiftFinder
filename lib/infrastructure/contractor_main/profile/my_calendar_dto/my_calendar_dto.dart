@@ -8,7 +8,7 @@ part 'my_calendar_dto.g.dart';
 @freezed
 class MyCalendarDTO with _$MyCalendarDTO {
   const factory MyCalendarDTO({
-    int? employer_post_id,
+    String? employer_post_id,
     int? date,
     @Default(false) bool isUnAvailable,
     String? colorText,
@@ -19,8 +19,8 @@ class MyCalendarDTO with _$MyCalendarDTO {
 }
 
 @freezed
-class ContractorMyCalendarDTO with _$ContractorMyCalendarDTO {
-  const factory ContractorMyCalendarDTO({
+class ContractorMyCalendarListDTO with _$ContractorMyCalendarListDTO {
+  const factory ContractorMyCalendarListDTO({
     int? id,
     int? shift_type,
     String? roles_list_name,
@@ -33,6 +33,17 @@ class ContractorMyCalendarDTO with _$ContractorMyCalendarDTO {
     int? start_time,
     int? end_time,
     int? total_shift,
+  }) = _ContractorMyCalendarListDTO;
+
+  factory ContractorMyCalendarListDTO.fromJson(Map<String, dynamic> json) =>
+      _$ContractorMyCalendarListDTOFromJson(json);
+}
+
+@freezed
+class ContractorMyCalendarDTO with _$ContractorMyCalendarDTO {
+  const factory ContractorMyCalendarDTO({
+    List<ContractorMyCalendarListDTO>? list,
+    int? current_date,
   }) = _ContractorMyCalendarDTO;
 
   factory ContractorMyCalendarDTO.fromJson(Map<String, dynamic> json) =>
