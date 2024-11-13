@@ -46,21 +46,25 @@ class PersonListWidget extends StatelessWidget {
                 onTap: () async {
                   ///1 rec 2 sent
                   if (list[index].revoke_status == null) {
-                    Log.success("postId  ${postId} userId ${list[index].user_id}");
                     final result = await context.router.push(
                       PageRouteInfo(
                         ViewPersonPraposalView.name,
-                        args: ViewPersonPraposalViewArgs(postId: postId, userId: list[index].user_id ?? -1,user: list[index]),
+                        args: ViewPersonPraposalViewArgs(
+                            postId: postId,
+                            userId: list[index].user_id ?? -1,
+                            user: list[index]),
                       ),
                     ) as bool?;
 
                     if (result ?? false) {
                       context.read<TotalProposalBloc>().add(
-                            TotalProposalEvent.getTotalProposalList(id: postId, isRefresh: true, context: context),
+                            TotalProposalEvent.getTotalProposalList(
+                                id: postId, isRefresh: true, context: context),
                           );
                     }
                   } else {
-                    context.router.push(ViewApplicantProfile(id: list[index].user_id ?? -1, postId: postId));
+                    context.router.push(ViewApplicantProfile(
+                        id: list[index].user_id ?? -1, postId: postId));
                   }
                 },
                 child: Row(
@@ -71,16 +75,22 @@ class PersonListWidget extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(mainAxisSize: MainAxisSize.min,
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               BaseText(
-                                text: '${list[index].first_name ?? ""} ${list[index].last_name ?? ""}',
+                                text:
+                                    '${list[index].first_name ?? ""} ${list[index].last_name ?? ""}',
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
                               ),
-                              if(list[index].revoke_status!=null)...[
+                              if (list[index].revoke_status != null) ...[
                                 Gap(8),
-                                SvgPicture.asset(SvgImageConstant.rightArrow,height: 13,width: 13,)
+                                SvgPicture.asset(
+                                  SvgImageConstant.rightArrow,
+                                  height: 13,
+                                  width: 13,
+                                )
                               ]
                             ],
                           ),
@@ -90,19 +100,29 @@ class PersonListWidget extends StatelessWidget {
                                   fontWeight: FontWeight.w500,
                                   fontSize: 11,
                                 )
-                              : list[index].revoke_status == null && list[index].sent_received_status == null || list[index].revoke_status==2
+                              : list[index].revoke_status == null &&
+                                          list[index].sent_received_status ==
+                                              null ||
+                                      list[index].revoke_status == 2
                                   ? SizedBox.shrink()
                                   : Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         SvgPicture.asset(
-                                          list[index].sent_received_status == 1 ? SvgImageConstant.receivedCircle : SvgImageConstant.rightWithCircle,
+                                          list[index].sent_received_status == 1
+                                              ? SvgImageConstant.receivedCircle
+                                              : SvgImageConstant
+                                                  .rightWithCircle,
                                           height: 13,
                                           width: 13,
                                         ),
                                         Gap(4),
                                         BaseText(
-                                          text: list[index].sent_received_status == 1 ? "Counter Received" : "Counter Sent",
+                                          text: list[index]
+                                                      .sent_received_status ==
+                                                  1
+                                              ? "Counter Received"
+                                              : "Counter Sent",
                                           fontSize: 10,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -113,7 +133,8 @@ class PersonListWidget extends StatelessWidget {
                     ),
                     list[index].revoke_status == 1
                         ? CommonMaterialButton(
-                            backgroundColor: AppColors.redAccent.withOpacity(0.15),
+                            backgroundColor:
+                                AppColors.redAccent.withOpacity(0.15),
                             radius: 5,
                             width: 70,
                             height: 35,
@@ -124,9 +145,15 @@ class PersonListWidget extends StatelessWidget {
                                     'Once you revoke, the contractor will have a 2-hour window to confirm the shift. If they do not confirm within 2 hours, the offer will be automatically revoked.',
                                 onPressedAccept: () {
                                   context.router.maybePop();
-                                  final userId = state.totalProposedDataList[index].user_id ?? 0;
+                                  final userId = state
+                                          .totalProposedDataList[index]
+                                          .user_id ??
+                                      0;
                                   context.read<TotalProposalBloc>().add(
-                                        TotalProposalEvent.onRevoke(postId: postId, userId: userId, context: context),
+                                        TotalProposalEvent.onRevoke(
+                                            postId: postId,
+                                            userId: userId,
+                                            context: context),
                                       );
                                 },
                                 acceptButtonText: 'Revoke',
@@ -136,15 +163,18 @@ class PersonListWidget extends StatelessWidget {
                               ).acceptRejectDialog(context);
                             },
                             label: "Revoke",
-                            textStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                            textStyle: TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.w600),
                           )
                         : list[index].revoke_status == 2
                             ? revokingStatus(context, state, list[index])
                             : list[index].revoke_status == 3
                                 ? Padding(
-                                    padding: EdgeInsets.symmetric(vertical: getSize(10)),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: getSize(10)),
                                     child: BaseText(
-                                      text: StringConstant.offerRevokedByTheEmployer,
+                                      text: StringConstant
+                                          .offerRevokedByTheEmployer,
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -163,14 +193,19 @@ class PersonListWidget extends StatelessWidget {
     );
   }
 
-  Widget revokingStatus(BuildContext context, TotalProposalState state, EmployerProposalPendingUserDto shift) {
+  Widget revokingStatus(BuildContext context, TotalProposalState state,
+      EmployerProposalPendingUserDto shift) {
     final hours = shift.duration?.inHours.toString().padLeft(2, '0') ?? 00;
-    final minutes = shift.duration?.inMinutes.remainder(60).toString().padLeft(2, '0') ?? 00;
+    final minutes =
+        shift.duration?.inMinutes.remainder(60).toString().padLeft(2, '0') ??
+            00;
 
     return Container(
       width: getSize(108),
       padding: EdgeInsets.symmetric(vertical: getSize(5)),
-      decoration: BoxDecoration(color: AppColors.primaryColor.withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
+      decoration: BoxDecoration(
+          color: AppColors.primaryColor.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(6)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [

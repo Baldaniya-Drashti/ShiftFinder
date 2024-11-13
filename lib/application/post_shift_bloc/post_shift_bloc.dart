@@ -1136,7 +1136,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                       ? "Hours"
                       : "None"),
           commuteHour: InputEmptyOrNot((r.commute_allowance_type == 2)
-              ? getAccomdationHourName(r.commute_allowance_type_details ?? 0)
+              ? getAccomdationHourName(r.commute_allowance_type_details ?? 0.0)
               : ""),
           commuteRate: Rate((r.commute_allowance_type == 1)
               ? "${r.commute_allowance_type_details ?? 0}"
@@ -1149,7 +1149,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                       : "None"),
           accomdationHour: InputEmptyOrNot((r.accommodation_allowance_type == 2)
               ? getAccomdationHourName(
-                  r.accommodation_allowance_type_details ?? 0)
+                  r.accommodation_allowance_type_details ?? 0.0)
               : ""),
           accomdationRate: Rate((r.accommodation_allowance_type == 1)
               ? "${r.accommodation_allowance_type_details ?? 0}"
@@ -1591,7 +1591,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
     return "${hourId.id ?? -1}";
   }
 
-  String getAccomdationHourName(int id) {
+  String getAccomdationHourName(double id) {
     print("id of hour--> ${state.accomdationHoursList}");
     final hour = state.accomdationHoursList
         .firstWhere((hour) => hour.id == id, orElse: () => SkillDTO());

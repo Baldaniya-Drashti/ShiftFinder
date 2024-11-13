@@ -732,5 +732,6 @@ class StringConstant {
   static const String pleaseAddClockInTime = "Please add clock in time!";
   static const String awaitingClockInOutDesc =
       "Awaiting for contractor’s clock in & out...";
+  static const String awaitingAcknowledgement = "Awaiting Acknowledgement";
   static const String underDevelopment = "Under Development";
 }

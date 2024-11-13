@@ -167,7 +167,7 @@ class UpcomingShift extends StatelessWidget {
             ),
             trailing: GestureDetector(
               onTap: () {
-                if (shift.check_delete?? false) {
+                if (shift.check_delete != null && shift.check_delete!) {
                   showWithdrawDialog(
                       context, shift, context.read<ContractorShiftBloc>());
                 } else {

@@ -110,7 +110,7 @@ class ApplicantSpecialize extends StatelessWidget {
                       SizedBox(height: getSize(2)),
                       BaseText(
                         text:
-                            "Exp - ${speciality?[index].experience_year ?? 0} Yr.  ${speciality?[index].experience_month ?? 0} Mo.",
+                            "Exp - ${speciality?[index].experience_year ?? 0} Yr. ${speciality?[index].experience_month ?? 0} Mo.",
                         fontSize: 10,
                         fontWeight: FontWeight.w500,
                       ),

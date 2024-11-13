@@ -154,7 +154,7 @@ class ViewContractorShift extends StatelessWidget {
                                   child: paybaleTitleRate(
                                     title: StringConstant.totalNumberOfVacancy,
                                     value:
-                                        "${(shift.shift_detail!.payables!.number_of_vacancie.toString().length == 2) ? shift.shift_detail!.payables!.number_of_vacancie : "0${shift.shift_detail!.payables!.number_of_vacancie}"}",
+                                        "${(shift.shift_detail!.payables!.number_of_vacancie.toString().length > 1) ? shift.shift_detail!.payables!.number_of_vacancie : "0${shift.shift_detail!.payables!.number_of_vacancie}"}",
                                     isFirst: true,
                                   ),
                                 ),

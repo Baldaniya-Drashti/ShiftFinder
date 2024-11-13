@@ -75,26 +75,26 @@ class ProposalReceived extends StatelessWidget {
                   proposedBox(
                     title: StringConstant.commuteAllowance,
                     postedValue: allowncValue(
-                        "${proposal?.posted_commute_allowance ?? 00}",
+                        "${proposal?.posted_commute_allowance ?? 0.0}",
                         isHour: proposal?.commute_allowance_type == "2"),
                     proposedValue: allowncValue(
-                        "${proposal?.proposed_commute_allowance ?? 00}",
+                        "${proposal?.proposed_commute_allowance ?? 0.0}",
                         isHour: proposal?.commute_allowance_type == "2"),
                     counterProposalValue: allowncValue(
-                        "${proposal?.counter_proposal_commute_allowance ?? ""}",
+                        "${proposal?.counter_proposal_commute_allowance ?? 0.0}",
                         isHour: proposal?.commute_allowance_type == "2"),
                   ),
                   paddingBetweenFields(),
                   proposedBox(
                     title: StringConstant.accommodationAllowance,
                     postedValue: allowncValue(
-                        "${proposal?.posted_accommodation_allowance ?? 00}",
+                        "${proposal?.posted_accommodation_allowance ?? 0.0}",
                         isHour: proposal?.accommodation_allowance_type == "2"),
                     proposedValue: allowncValue(
-                        "${proposal?.proposed_accommodation_allowance ?? 00}",
+                        "${proposal?.proposed_accommodation_allowance ?? 0.0}",
                         isHour: proposal?.accommodation_allowance_type == "2"),
                     counterProposalValue: allowncValue(
-                        "${proposal?.counter_proposal_accommodation_allowance ?? ""}",
+                        "${proposal?.counter_proposal_accommodation_allowance ?? 0.0}",
                         isHour: proposal?.accommodation_allowance_type == "2"),
                   ),
                   if (post.last_request != 1) ...[

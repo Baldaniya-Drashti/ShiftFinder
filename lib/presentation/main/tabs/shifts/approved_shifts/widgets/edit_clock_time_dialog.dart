@@ -256,9 +256,12 @@ class EditClockTimeDialog extends StatelessWidget {
       ),
     ).then((value) {
       if (value == true) {
+        print("After success called");
         showUnderDevelopment(con).then((val) {
           // context.router.maybePop();
         });
+
+        // approveDialog(con, contractor);
       }
     });
 
@@ -351,6 +354,95 @@ class EditClockTimeDialog extends StatelessWidget {
         },
       ).acceptRejectDialog(context);
     }*/
+  }
+
+  approveDialog(BuildContext context, HiredContractorListDTO contractor) {
+    AcceptRejectDialog(
+      title: StringConstant.approve,
+      description:
+          "${StringConstant.approveShiftDesc1}${contractor.first_name ?? ""} ${contractor.last_name ?? ""}${StringConstant.approveShiftDesc2}",
+      onPressedAccept: () async {
+        await context.router.maybePop();
+        await showDialog<bool?>(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              contentPadding: EdgeInsets.all(24).copyWith(top: 0),
+              clipBehavior: Clip.none,
+              insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(getSize(15)),
+              ),
+              titlePadding: EdgeInsets.zero,
+              title: Column(
+                children: [
+                  Stack(
+                    clipBehavior: Clip.none,
+                    alignment: Alignment.center,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(getSize(15)),
+                        child: Image.asset(
+                            PngImageConstants.curvedBackgroundImage),
+                      ),
+                      Positioned(
+                        top: getSize(85),
+                        child: SvgPicture.asset(
+                          SvgImageConstant.approved,
+                          height: getSize(107),
+                          width: getSize(107),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: getSize(80)),
+                  BaseText(
+                    text: "Approved!",
+                    fontSize: 22,
+                    fontFamily: 'Aclonica',
+                  ),
+                ],
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: getSize(10),
+                  ),
+                  BaseText(
+                    text:
+                        "The clock in and out times for this shift have been successfully approved.",
+                    fontSize: 14,
+                    textAlign: TextAlign.center,
+                    fontWeight: FontWeight.w500,
+                    textColor: AppColors.black.withOpacity(0.7),
+                  ),
+                ],
+              ),
+              actionsAlignment: MainAxisAlignment.center,
+              actions: [
+                CommonButton(
+                  height: 46,
+                  width: 200,
+                  onPressed: () {
+                    context.router.maybePop(true);
+                  },
+                  buttonText: "Ok",
+                ),
+              ],
+            );
+          },
+        ).then((result) {
+          if (result ?? true) {
+            context.router.push(PageRouteInfo(ShiftActionsView.name));
+          }
+        });
+      },
+      acceptButtonText: 'Approve',
+      onPressedReject: () async {
+        await context.router.maybePop();
+      },
+    ).acceptRejectDialog(context);
   }
 
   String formatTimeOfDay(TimeOfDay tod) {
