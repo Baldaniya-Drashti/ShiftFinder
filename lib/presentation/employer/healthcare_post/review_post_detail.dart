@@ -32,130 +32,133 @@ class ReviewPostShiftDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("postpostpostpost---> ${jsonEncode(post.shift_detail)}");
-    return Scaffold(
-      backgroundColor: AppColors.scaffoldColor,
-      appBar: CommonAppBar(
-        onBackPressed: () {
-          Navigator.pop(context);
-        },
-        title: StringConstant.reviewDetails,
-      ),
-      body: LayoutBuilder(builder: (context, constraint) {
-        return SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: constraint.maxHeight),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: getSize(10)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(getSize(10)),
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(20),
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        backgroundColor: AppColors.scaffoldColor,
+        appBar: CommonAppBar(
+          onBackPressed: () {
+            Navigator.pop(context);
+          },
+          title: StringConstant.reviewDetails,
+        ),
+        body: LayoutBuilder(builder: (context, constraint) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraint.maxHeight),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(getSize(10)),
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          userDataBox(context),
+                          (post.shift_detail?.shift_type == 1)
+                              ? singleShiftDateTimeBreakUI(context)
+                              : multiShiftDateTimeBreakUI(
+                                  context, post.shift_detail),
+                          if (post.specialties_detail != null &&
+                              post.specialties_detail!.isNotEmpty)
+                            requiredSkillBox(
+                              svgPrefixIcon: SvgImageConstant.female,
+                              title: StringConstant.specialtiesRequired,
+                              value: post.specialties_detail ?? "",
+                            ),
+                          if (post.software_skill != null &&
+                              post.software_skill!.isNotEmpty)
+                            requiredSkillBox(
+                              svgPrefixIcon: SvgImageConstant.mouse,
+                              title: StringConstant.softwareSkills,
+                              value: post.software_skill ?? "",
+                            ),
+                          rateHoursBox(),
+                          languageBox(
+                            title: StringConstant.languageRequirements,
+                            value: languageList(),
+                          ),
+                          locationDetailBox(
+                              title: StringConstant.locationDetails,
+                              locationValue: post.location?.location ?? "",
+                              // "2464 Royal Ln. Mesa, New Jersey 45463",
+                              units: post.location_unit ?? ""),
+                          if (post.shift_detail != null &&
+                              post.shift_detail?.shift_note != null &&
+                              post.shift_detail!.shift_note!.isNotEmpty)
+                            notesBox(
+                              title: StringConstant.shiftNote,
+                              value: post.shift_detail?.shift_note ?? "",
+                            ),
+                          // "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?"),
+                          if (post.shift_detail != null &&
+                              post.shift_detail!.shift_type == 1 &&
+                              post.shift_detail!.recurring_status == 1 &&
+                              post.shift_detail!.recurrence_mode != null)
+                            recurrence(),
+                          if (post.shift_detail != null &&
+                              post.shift_detail!.disclaimer != null &&
+                              post.shift_detail!.disclaimer!.isNotEmpty)
+                            notesBox(
+                                title: StringConstant.disclaimer,
+                                value: post.shift_detail?.disclaimer ?? ""),
+                          if (post.shift_detail != null &&
+                              post.shift_detail!.number_of_vacancie != null)
+                            numberOfVacancy(
+                                value: (post.shift_detail!.number_of_vacancie
+                                            .toString()
+                                            .length ==
+                                        1)
+                                    ? "0${post.shift_detail!.number_of_vacancie}"
+                                    : "${post.shift_detail!.number_of_vacancie}"),
+                          SizedBox(height: getSize(5)),
+                          if (post.shift_detail != null &&
+                              post.shift_detail!.teams != null &&
+                              post.shift_detail!.teams!.isNotEmpty)
+                            chipListBox(
+                              chipList: post.shift_detail!.teams!
+                                  .where((item) => item.name != null)
+                                  .map((item) => item.name ?? "")
+                                  .toList(),
+                              title: StringConstant.selectedTeams,
+                              value: (post.shift_detail!.teams!.length < 10)
+                                  ? "0${post.shift_detail!.teams!.length}"
+                                  : "${post.shift_detail!.teams!.length}",
+                            ),
+                          if (post.shift_detail != null &&
+                              post.shift_detail!.save_template_status != null &&
+                              post.shift_detail!.save_template_status == 1)
+                            templateCheckBox(),
+                        ],
+                      ),
                     ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        userDataBox(context),
-                        (post.shift_detail?.shift_type == 1)
-                            ? singleShiftDateTimeBreakUI(context)
-                            : multiShiftDateTimeBreakUI(
-                                context, post.shift_detail),
-                        if (post.specialties_detail != null &&
-                            post.specialties_detail!.isNotEmpty)
-                          requiredSkillBox(
-                            svgPrefixIcon: SvgImageConstant.female,
-                            title: StringConstant.specialtiesRequired,
-                            value: post.specialties_detail ?? "",
-                          ),
-                        if (post.software_skill != null &&
-                            post.software_skill!.isNotEmpty)
-                          requiredSkillBox(
-                            svgPrefixIcon: SvgImageConstant.mouse,
-                            title: StringConstant.softwareSkills,
-                            value: post.software_skill ?? "",
-                          ),
-                        rateHoursBox(),
-                        languageBox(
-                          title: StringConstant.languageRequirements,
-                          value: languageList(),
-                        ),
-                        locationDetailBox(
-                            title: StringConstant.locationDetails,
-                            locationValue: post.location?.location ?? "",
-                            // "2464 Royal Ln. Mesa, New Jersey 45463",
-                            units: post.location_unit ?? ""),
-                        if (post.shift_detail != null &&
-                            post.shift_detail?.shift_note != null &&
-                            post.shift_detail!.shift_note!.isNotEmpty)
-                          notesBox(
-                            title: StringConstant.shiftNote,
-                            value: post.shift_detail?.shift_note ?? "",
-                          ),
-                        // "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?"),
-                        if (post.shift_detail != null &&
-                            post.shift_detail!.shift_type == 1 &&
-                            post.shift_detail!.recurring_status == 1 &&
-                            post.shift_detail!.recurrence_mode != null)
-                          recurrence(),
-                        if (post.shift_detail != null &&
-                            post.shift_detail!.disclaimer != null &&
-                            post.shift_detail!.disclaimer!.isNotEmpty)
-                          notesBox(
-                              title: StringConstant.disclaimer,
-                              value: post.shift_detail?.disclaimer ?? ""),
-                        if (post.shift_detail != null &&
-                            post.shift_detail!.number_of_vacancie != null)
-                          numberOfVacancy(
-                              value: (post.shift_detail!.number_of_vacancie
-                                          .toString()
-                                          .length ==
-                                      1)
-                                  ? "0${post.shift_detail!.number_of_vacancie}"
-                                  : "${post.shift_detail!.number_of_vacancie}"),
-                        SizedBox(height: getSize(5)),
-                        if (post.shift_detail != null &&
-                            post.shift_detail!.teams != null &&
-                            post.shift_detail!.teams!.isNotEmpty)
-                          chipListBox(
-                            chipList: post.shift_detail!.teams!
-                                .where((item) => item.name != null)
-                                .map((item) => item.name ?? "")
-                                .toList(),
-                            title: StringConstant.selectedTeams,
-                            value: (post.shift_detail!.teams!.length < 10)
-                                ? "0${post.shift_detail!.teams!.length}"
-                                : "${post.shift_detail!.teams!.length}",
-                          ),
-                        if (post.shift_detail != null &&
-                            post.shift_detail!.save_template_status != null &&
-                            post.shift_detail!.save_template_status == 1)
-                          templateCheckBox(),
-                      ],
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: getSize(20)),
+                      child: CommonButton(
+                        onPressed: () {
+                          context.router.push(PageRouteInfo(PayableDetail.name,
+                              args: PayableDetailArgs(
+                                post: post,
+                                updatedPost: updatedPost,
+                                isUpdate: isUpdate,
+                              )));
+                        },
+                        buttonText: StringConstant.txtContinue,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: getSize(20)),
-                    child: CommonButton(
-                      onPressed: () {
-                        context.router.push(PageRouteInfo(PayableDetail.name,
-                            args: PayableDetailArgs(
-                              post: post,
-                              updatedPost: updatedPost,
-                              isUpdate: isUpdate,
-                            )));
-                      },
-                      buttonText: StringConstant.txtContinue,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      }),
+          );
+        }),
+      ),
     );
   }
 

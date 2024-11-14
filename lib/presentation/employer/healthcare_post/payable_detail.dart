@@ -29,143 +29,145 @@ class PayableDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Post111---->  ${jsonEncode(updatedPost)}");
-    return BlocProvider(
-      create: (context) => getIt<PostShiftBloc>(),
-      child: BlocConsumer<PostShiftBloc, PostShiftState>(
-        listener: (context, state) {
-          state.postShiftFailureOrSuccessOption.fold(
-            () {},
-            (either) => either.fold(
-              (failure) {
-                showError(
-                  message: failure.maybeMap(
-                    showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) =>
-                        'Please check your internet connectivity',
-                    orElse: () => "Server Error. Try again later.",
-                  ),
-                ).show(context);
-              },
-              (r) {
-                AppDialog.showSuccess(
-                  context,
-                  title: StringConstant.allSet,
-                  infoMessage: r,
-                  onOkClick: () {
-                    // context.router.maybePop();
-                    context.router.popUntil(
-                      (route) => route.isFirst,
-                    );
-                  },
-                );
-              },
-            ),
-          );
-          state.updatePostFailureOrSuccessOption.fold(
-            () {},
-            (either) => either.fold(
-              (failure) {
-                showError(
-                  message: failure.maybeMap(
-                    showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) =>
-                        'Please check your internet connectivity',
-                    orElse: () => "Server Error. Try again later.",
-                  ),
-                ).show(context);
-              },
-              (r) {
-                AppDialog.showSuccess(
-                  context,
-                  title: StringConstant.allSet,
-                  infoMessage: r.dioMessage ?? "",
-                  onOkClick: () {
-                    // context.router.maybePop();
+    return PopScope(
+      canPop: false,
+      child: BlocProvider(
+        create: (context) => getIt<PostShiftBloc>(),
+        child: BlocConsumer<PostShiftBloc, PostShiftState>(
+          listener: (context, state) {
+            state.postShiftFailureOrSuccessOption.fold(
+              () {},
+              (either) => either.fold(
+                (failure) {
+                  showError(
+                    message: failure.maybeMap(
+                      showAPIResponseMessage: (value) => value.message,
+                      networkError: (value) =>
+                          'Please check your internet connectivity',
+                      orElse: () => "Server Error. Try again later.",
+                    ),
+                  ).show(context);
+                },
+                (r) {
+                  AppDialog.showSuccess(
+                    context,
+                    title: StringConstant.allSet,
+                    infoMessage: r,
+                    onOkClick: () {
+                      // context.router.maybePop();
+                      context.router.popUntil(
+                        (route) => route.isFirst,
+                      );
+                    },
+                  );
+                },
+              ),
+            );
+            state.updatePostFailureOrSuccessOption.fold(
+              () {},
+              (either) => either.fold(
+                (failure) {
+                  showError(
+                    message: failure.maybeMap(
+                      showAPIResponseMessage: (value) => value.message,
+                      networkError: (value) =>
+                          'Please check your internet connectivity',
+                      orElse: () => "Server Error. Try again later.",
+                    ),
+                  ).show(context);
+                },
+                (r) {
+                  AppDialog.showSuccess(
+                    context,
+                    title: StringConstant.allSet,
+                    infoMessage: r.dioMessage ?? "",
+                    onOkClick: () {
+                      // context.router.maybePop();
 
-                    context.router.popUntil(
-                      (route) => route.isFirst,
-                    );
-                  },
-                );
-              },
-            ),
-          );
-        },
-        builder: (context, state) {
-          return Scaffold(
-            backgroundColor: AppColors.scaffoldColor,
-            appBar: CommonAppBar(
-              onBackPressed: () {
-                Navigator.pop(context);
-              },
-              title: StringConstant.payables,
-            ),
-            body: (state.isLoading)
-                ? CenterLoadingIndicator()
-                : LayoutBuilder(builder: (context, constraint) {
-                    return SingleChildScrollView(
-                      child: ConstrainedBox(
-                        constraints:
-                            BoxConstraints(minHeight: constraint.maxHeight),
-                        child: Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: getSize(10)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              (post.shift_detail != null &&
-                                      post.shift_detail!.shift_type == 1)
-                                  ? singleShiftSlip()
-                                  : (post.shift_detail != null &&
-                                          post.shift_detail!
-                                                  .same_or_different_time ==
-                                              1)
-                                      ? sameMultiShiftSlip()
-                                      : differentMultiShiftSlip(),
-                              Padding(
-                                padding:
-                                    EdgeInsets.symmetric(vertical: getSize(20)),
-                                child: CommonButton(
-                                  onPressed: () {
-                                    AppDialog.showDelete(
-                                      context,
-                                      title: (isUpdate)
-                                          ? StringConstant.updateTheShift
-                                          : StringConstant.postTheShift,
-                                      infoMessage: (isUpdate)
-                                          ? StringConstant.updateShiftDesc
-                                          : StringConstant.postShiftDesc,
-                                      deleteBtnText: isUpdate
-                                          ? StringConstant.update
-                                          : StringConstant.post,
-                                      onCancelClick: () {
-                                        Navigator.pop(context);
-                                      },
-                                      onDeleteClick: () {
-                                        Navigator.pop(context);
-                                        context.read<PostShiftBloc>().add(
-                                                PostShiftEvent
-                                                    .postTheShiftEvent(
-                                              post.id ?? -1,
-                                              (isUpdate) ? updatedPost : null,
-                                            ));
-                                      },
-                                    );
-                                  },
-                                  buttonText: isUpdate
-                                      ? StringConstant.updateTheShift
-                                      : StringConstant.postTheShift,
+                      context.router.popUntil(
+                        (route) => route.isFirst,
+                      );
+                    },
+                  );
+                },
+              ),
+            );
+          },
+          builder: (context, state) {
+            return Scaffold(
+              backgroundColor: AppColors.scaffoldColor,
+              appBar: CommonAppBar(
+                onBackPressed: () {
+                  Navigator.pop(context);
+                },
+                title: StringConstant.payables,
+              ),
+              body: (state.isLoading)
+                  ? CenterLoadingIndicator()
+                  : LayoutBuilder(builder: (context, constraint) {
+                      return SingleChildScrollView(
+                        child: ConstrainedBox(
+                          constraints:
+                              BoxConstraints(minHeight: constraint.maxHeight),
+                          child: Padding(
+                            padding:
+                                EdgeInsets.symmetric(horizontal: getSize(10)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                (post.shift_detail != null &&
+                                        post.shift_detail!.shift_type == 1)
+                                    ? singleShiftSlip()
+                                    : (post.shift_detail != null &&
+                                            post.shift_detail!
+                                                    .same_or_different_time ==
+                                                1)
+                                        ? sameMultiShiftSlip()
+                                        : differentMultiShiftSlip(),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(20)),
+                                  child: CommonButton(
+                                    onPressed: () {
+                                      AppDialog.showDelete(
+                                        context,
+                                        title: (isUpdate)
+                                            ? StringConstant.updateTheShift
+                                            : StringConstant.postTheShift,
+                                        infoMessage: (isUpdate)
+                                            ? StringConstant.updateShiftDesc
+                                            : StringConstant.postShiftDesc,
+                                        deleteBtnText: isUpdate
+                                            ? StringConstant.update
+                                            : StringConstant.post,
+                                        onCancelClick: () {
+                                          Navigator.pop(context);
+                                        },
+                                        onDeleteClick: () {
+                                          Navigator.pop(context);
+                                          context.read<PostShiftBloc>().add(
+                                                  PostShiftEvent
+                                                      .postTheShiftEvent(
+                                                post.id ?? -1,
+                                                (isUpdate) ? updatedPost : null,
+                                              ));
+                                        },
+                                      );
+                                    },
+                                    buttonText: isUpdate
+                                        ? StringConstant.updateTheShift
+                                        : StringConstant.postTheShift,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  }),
-          );
-        },
+                      );
+                    }),
+            );
+          },
+        ),
       ),
     );
   }

@@ -51,6 +51,7 @@ _$EmployerDashboardDTOImpl _$$EmployerDashboardDTOImplFromJson(
           (json['accommodation_allowance'] as num?)?.toInt(),
       commute_allowance: (json['commute_allowance'] as num?)?.toInt(),
       total_amount: (json['total_amount'] as num?)?.toInt(),
+      isEditable: json['isEditable'] as bool?,
     );
 
 Map<String, dynamic> _$$EmployerDashboardDTOImplToJson(
@@ -84,6 +85,7 @@ Map<String, dynamic> _$$EmployerDashboardDTOImplToJson(
       'accommodation_allowance': instance.accommodation_allowance,
       'commute_allowance': instance.commute_allowance,
       'total_amount': instance.total_amount,
+      'isEditable': instance.isEditable,
     };
 
 _$RolesListImpl _$$RolesListImplFromJson(Map<String, dynamic> json) =>

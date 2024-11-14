@@ -129,12 +129,12 @@ class EditClockTimeDialog extends StatelessWidget {
                       onTap: () async {
                         final now = DateTime.now();
                         final clockInTime = await showTimePicker(context);
-                        /*  if (clockInTime != null) {
+                        if (clockInTime != null) {
                           context.read<HiredContractorBloc>().add(
                               HiredContractorEvent.changeClockInClockOutTime(
                                   clockInTime, true));
-                        } */
-                        if (clockInTime != null) {
+                        }
+                        /* if (clockInTime != null) {
                           final selectedDateTime = DateTime(now.year, now.month,
                               now.day, clockInTime.hour, clockInTime.minute);
 
@@ -148,7 +148,7 @@ class EditClockTimeDialog extends StatelessWidget {
                                         StringConstant.pleaseSelectAValidTime)
                                 .show(context);
                           }
-                        }
+                        } */
                       },
                       clockInOrOutTime: (state.clockIn != null)
                           ? DateFormat('hh:mm a').format(
@@ -174,13 +174,13 @@ class EditClockTimeDialog extends StatelessWidget {
                         final clockOutTime = await showTimePicker(
                           context,
                         );
-                        /* if (clockOutTime != null) {
+                        if (clockOutTime != null) {
                           context.read<HiredContractorBloc>().add(
                               HiredContractorEvent.changeClockInClockOutTime(
                                   clockOutTime, false));
-                        } */
+                        }
 
-                        final now = DateTime.now();
+                        /* final now = DateTime.now();
                         if (clockOutTime != null) {
                           final selectedDateTime = DateTime(now.year, now.month,
                               now.day, clockOutTime.hour, clockOutTime.minute);
@@ -195,7 +195,7 @@ class EditClockTimeDialog extends StatelessWidget {
                                         StringConstant.pleaseSelectAValidTime)
                                 .show(context);
                           }
-                        }
+                        } */
                       },
                       // clockInOrOutTime: formatTimeOfDay(state.clockOut),
                       clockInOrOutTime:

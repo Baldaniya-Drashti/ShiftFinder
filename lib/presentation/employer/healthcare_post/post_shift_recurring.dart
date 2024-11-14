@@ -44,208 +44,215 @@ class PostShiftRecurring extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("updatedShift--->  ${jsonEncode(updateShift?.shift_detail?.teams)}");
-    return GestureDetector(
-      onTap: () {
-        AppFocus.unfocus(context);
-      },
-      child: BlocProvider(
-        create: (context) => getIt<PostShiftBloc>()
-          ..add(PostShiftEvent.getTeamsListEvent(
-              post: post, updateShift: updateShift)),
-        child: BlocConsumer<PostShiftBloc, PostShiftState>(
-          listener: (context, state) {
-            state.recurringFailureOrSuccessOption.fold(
-              () {},
-              (either) => either.fold(
-                (failure) {
-                  showError(
-                    message: failure.maybeMap(
-                      showAPIResponseMessage: (value) => value.message,
-                      networkError: (value) =>
-                          'Please check your internet connectivity',
-                      orElse: () => "Server Error. Try again later.",
-                    ),
-                  ).show(context);
-                },
-                (r) {
-                  context.router.push(PageRouteInfo(ReviewPostShiftDetail.name,
-                      args: ReviewPostShiftDetailArgs(
-                        post: r,
-                        updatedPost: (state.updateShift.id != null &&
-                                state.updateShift.id != -1)
-                            ? state.post
-                            : null,
-                        isUpdate: (state.updateShift.id != null &&
-                                state.updateShift.id != -1)
-                            ? true
-                            : false,
-                      )));
-                },
-              ),
-            );
-          },
-          builder: (context, state) {
-            return Scaffold(
-              appBar: CommonAppBar(
-                title: StringConstant.healthcare,
-                onBackPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              body: (state.isLoading)
-                  ? CenterLoadingIndicator(isOnlyLoader: true)
-                  : LayoutBuilder(builder: (context, constraint) {
-                      return SingleChildScrollView(
-                        child: ConstrainedBox(
-                          constraints:
-                              BoxConstraints(minHeight: constraint.maxHeight),
-                          child: Form(
-                            autovalidateMode: (state.recurringErrorMessage)
-                                ? AutovalidateMode.always
-                                : AutovalidateMode.disabled,
-                            child: Padding(
-                              padding:
-                                  EdgeInsets.symmetric(horizontal: getSize(20)),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      if (shiftType == 1) ...[
-                                        recurringCheckBox(context, state),
+    return PopScope(
+      canPop: false,
+      child: GestureDetector(
+        onTap: () {
+          AppFocus.unfocus(context);
+        },
+        child: BlocProvider(
+          create: (context) => getIt<PostShiftBloc>()
+            ..add(PostShiftEvent.getTeamsListEvent(
+                post: post, updateShift: updateShift)),
+          child: BlocConsumer<PostShiftBloc, PostShiftState>(
+            listener: (context, state) {
+              state.recurringFailureOrSuccessOption.fold(
+                () {},
+                (either) => either.fold(
+                  (failure) {
+                    showError(
+                      message: failure.maybeMap(
+                        showAPIResponseMessage: (value) => value.message,
+                        networkError: (value) =>
+                            'Please check your internet connectivity',
+                        orElse: () => "Server Error. Try again later.",
+                      ),
+                    ).show(context);
+                  },
+                  (r) {
+                    context.router
+                        .push(PageRouteInfo(ReviewPostShiftDetail.name,
+                            args: ReviewPostShiftDetailArgs(
+                              post: r,
+                              updatedPost: (state.updateShift.id != null &&
+                                      state.updateShift.id != -1)
+                                  ? state.post
+                                  : null,
+                              isUpdate: (state.updateShift.id != null &&
+                                      state.updateShift.id != -1)
+                                  ? true
+                                  : false,
+                            )));
+                  },
+                ),
+              );
+            },
+            builder: (context, state) {
+              return Scaffold(
+                appBar: CommonAppBar(
+                  title: StringConstant.healthcare,
+                  onBackPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                body: (state.isLoading)
+                    ? CenterLoadingIndicator(isOnlyLoader: true)
+                    : LayoutBuilder(builder: (context, constraint) {
+                        return SingleChildScrollView(
+                          child: ConstrainedBox(
+                            constraints:
+                                BoxConstraints(minHeight: constraint.maxHeight),
+                            child: Form(
+                              autovalidateMode: (state.recurringErrorMessage)
+                                  ? AutovalidateMode.always
+                                  : AutovalidateMode.disabled,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: getSize(20)),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        if (shiftType == 1) ...[
+                                          recurringCheckBox(context, state),
+                                          paddingBetweenFields(),
+                                          Visibility(
+                                              visible: state.isToBeRecurring,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  recurringStartDateField(
+                                                      context, state),
+                                                  paddingBetweenFields(),
+                                                  recurringEndDateField(
+                                                      context, state),
+                                                  paddingBetweenFields(),
+                                                  recurrenceModeDropDown(
+                                                      context, state),
+                                                  if (state
+                                                          .recurringErrorMessage &&
+                                                      !state.recurrenceMode
+                                                          .isValid())
+                                                    commonErrorText(StringConstant
+                                                        .pleaseSelectRecurrenceMode),
+                                                  paddingBetweenFields(),
+                                                  if (state.recurrenceMode
+                                                          .getValue() ==
+                                                      "Weekly") ...[
+                                                    Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: getSize(18),
+                                                          bottom: getSize(5)),
+                                                      child: BaseText(
+                                                        text: StringConstant
+                                                            .selectTheDaysForRecurring,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                    weeklyRecurringCheckBox(
+                                                        context, state),
+                                                    if (state
+                                                            .recurringErrorMessage &&
+                                                        !state
+                                                            .recurrenceWeekList
+                                                            .isValid())
+                                                      commonErrorText(StringConstant
+                                                          .pleaseSelectRecurrenceMode),
+                                                    paddingBetweenFields(),
+                                                  ],
+                                                ],
+                                              )),
+                                        ],
+                                        disclaimer(context, state),
+                                        paddingBetweenFields(),
+                                        sharePostCheckBox(context, state),
                                         paddingBetweenFields(),
                                         Visibility(
-                                            visible: state.isToBeRecurring,
+                                            visible: state.isShareWithTeams,
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
-                                                recurringStartDateField(
-                                                    context, state),
-                                                paddingBetweenFields(),
-                                                recurringEndDateField(
-                                                    context, state),
-                                                paddingBetweenFields(),
-                                                recurrenceModeDropDown(
-                                                    context, state),
+                                                selectTeamsList(context, state),
                                                 if (state
                                                         .recurringErrorMessage &&
-                                                    !state.recurrenceMode
+                                                    !state.selectedTeamList
                                                         .isValid())
                                                   commonErrorText(StringConstant
-                                                      .pleaseSelectRecurrenceMode),
+                                                      .pleaseSelectAtLeastOneTeam),
                                                 paddingBetweenFields(),
-                                                if (state.recurrenceMode
-                                                        .getValue() ==
-                                                    "Weekly") ...[
-                                                  Padding(
-                                                    padding: EdgeInsets.only(
-                                                        left: getSize(18),
-                                                        bottom: getSize(5)),
-                                                    child: BaseText(
-                                                      text: StringConstant
-                                                          .selectTheDaysForRecurring,
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  ),
-                                                  weeklyRecurringCheckBox(
-                                                      context, state),
-                                                  if (state
-                                                          .recurringErrorMessage &&
-                                                      !state.recurrenceWeekList
-                                                          .isValid())
-                                                    commonErrorText(StringConstant
-                                                        .pleaseSelectRecurrenceMode),
-                                                  paddingBetweenFields(),
-                                                ],
                                               ],
                                             )),
+                                        templateCheckBox(context, state),
                                       ],
-                                      disclaimer(context, state),
-                                      paddingBetweenFields(),
-                                      sharePostCheckBox(context, state),
-                                      paddingBetweenFields(),
-                                      Visibility(
-                                          visible: state.isShareWithTeams,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              selectTeamsList(context, state),
-                                              if (state.recurringErrorMessage &&
-                                                  !state.selectedTeamList
-                                                      .isValid())
-                                                commonErrorText(StringConstant
-                                                    .pleaseSelectAtLeastOneTeam),
-                                              paddingBetweenFields(),
-                                            ],
-                                          )),
-                                      templateCheckBox(context, state),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: getSize(20)),
-                                    child: CommonButton(
-                                      onPressed: () {
-                                        int? difference;
-                                        DateTime? startDate =
-                                            state.recurringStartDate.isValid()
-                                                ? DateTime.parse(state
-                                                        .recurringStartDate
-                                                        .getValue() ??
-                                                    "")
-                                                : null;
-
-                                        DateTime? endDate =
-                                            state.recurringEndDate.isValid()
-                                                ? DateTime.parse(state
-                                                        .recurringEndDate
-                                                        .getValue() ??
-                                                    "")
-                                                : null;
-
-                                        if (startDate != null &&
-                                            endDate != null) {
-                                          difference = endDate
-                                              .difference(startDate)
-                                              .inDays;
-                                        }
-                                        if (difference != null &&
-                                            difference > 20) {
-                                          confirmationDialog(context, state,
-                                              noOfShift: difference);
-                                        } else {
-                                          context.read<PostShiftBloc>().add(
-                                              PostShiftEvent
-                                                  .recurringButtonEvent(
-                                                      context,
-                                                      updateShift?.shift_detail
-                                                              ?.id ??
-                                                          -1));
-                                        }
-                                      },
-                                      buttonText: StringConstant.txtContinue,
                                     ),
-                                  ),
-                                ],
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: getSize(20)),
+                                      child: CommonButton(
+                                        onPressed: () {
+                                          int? difference;
+                                          DateTime? startDate =
+                                              state.recurringStartDate.isValid()
+                                                  ? DateTime.parse(state
+                                                          .recurringStartDate
+                                                          .getValue() ??
+                                                      "")
+                                                  : null;
+
+                                          DateTime? endDate =
+                                              state.recurringEndDate.isValid()
+                                                  ? DateTime.parse(state
+                                                          .recurringEndDate
+                                                          .getValue() ??
+                                                      "")
+                                                  : null;
+
+                                          if (startDate != null &&
+                                              endDate != null) {
+                                            difference = endDate
+                                                .difference(startDate)
+                                                .inDays;
+                                          }
+                                          if (difference != null &&
+                                              difference > 20) {
+                                            confirmationDialog(context, state,
+                                                noOfShift: difference);
+                                          } else {
+                                            context.read<PostShiftBloc>().add(
+                                                PostShiftEvent
+                                                    .recurringButtonEvent(
+                                                        context,
+                                                        updateShift
+                                                                ?.shift_detail
+                                                                ?.id ??
+                                                            -1));
+                                          }
+                                        },
+                                        buttonText: StringConstant.txtContinue,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    }),
-            );
-          },
+                        );
+                      }),
+              );
+            },
+          ),
         ),
       ),
     );

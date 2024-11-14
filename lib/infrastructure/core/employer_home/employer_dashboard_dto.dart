@@ -35,6 +35,7 @@ class EmployerDashboardDTO with _$EmployerDashboardDTO {
     int? accommodation_allowance,
     int? commute_allowance,
     int? total_amount,
+    bool? isEditable,
   }) = _EmployerDashboardDTO;
 
   factory EmployerDashboardDTO.fromJson(Map<String, dynamic> json) =>

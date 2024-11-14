@@ -337,30 +337,31 @@ class HomeView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: getSize(12),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        context.router
-                            .push(PageRouteInfo(HealthCarePostForm.name,
-                                args: HealthCarePostFormArgs(
-                                    postId:
-                                        state.employerDashboardList[index].id)))
-                            .then((value) {
-                          context
-                              .read<HomeBloc>()
-                              .add(HomeEvent.getEmployerDashboardList(true));
-                        });
-                      },
-                      child: Container(
-                        color: Colors.transparent,
-                        padding: EdgeInsets.symmetric(vertical: getSize(10)),
-                        child: SvgPicture.asset(
-                          SvgImageConstant.edit,
+                    if (state.employerDashboardList[index].isEditable ??
+                        true) ...[
+                      SizedBox(width: getSize(12)),
+                      GestureDetector(
+                        onTap: () {
+                          context.router
+                              .push(PageRouteInfo(HealthCarePostForm.name,
+                                  args: HealthCarePostFormArgs(
+                                      postId: state
+                                          .employerDashboardList[index].id)))
+                              .then((value) {
+                            context
+                                .read<HomeBloc>()
+                                .add(HomeEvent.getEmployerDashboardList(true));
+                          });
+                        },
+                        child: Container(
+                          color: Colors.transparent,
+                          padding: EdgeInsets.symmetric(vertical: getSize(10)),
+                          child: SvgPicture.asset(
+                            SvgImageConstant.edit,
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ],
                 ),
                 contentPadding: EdgeInsets.zero,

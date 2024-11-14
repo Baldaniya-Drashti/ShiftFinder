@@ -800,13 +800,13 @@ class ContractorHomeView extends StatelessWidget {
           paybaleTitleRate(
             title: "${StringConstant.accommodationAllowance}:-",
             value:
-                "\$${((post.accommodation_allowance ?? 0) > 9) ? post.accommodation_allowance : "0${post.accommodation_allowance}"}",
+                "\$${(double.parse(post.accommodation_allowance ?? "0.0") > 9) ? post.accommodation_allowance : "0${post.accommodation_allowance}"}",
           ),
           SizedBox(height: getSize(5)),
           paybaleTitleRate(
             title: "${StringConstant.commuteAllowance}:-",
             value:
-                "\$${((post.commute_allowance ?? 0) > 9) ? post.commute_allowance : "0${post.commute_allowance}"}",
+                "\$${(double.parse(post.commute_allowance ?? "0.0") > 9) ? post.commute_allowance : "0${post.commute_allowance}"}",
           ),
           commonDivider(),
           paybaleTitleRate(

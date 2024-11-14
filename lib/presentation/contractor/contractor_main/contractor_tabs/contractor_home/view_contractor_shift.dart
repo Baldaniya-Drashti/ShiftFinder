@@ -663,7 +663,7 @@ class ViewContractorShift extends StatelessWidget {
                   ? displayDateBreak(context, post,
                       boldValue: (post.shift_detail?.detail != null &&
                               post.shift_detail!.detail!.isNotEmpty)
-                          ? "${(post.shift_detail?.detail?.length.toString().length == 2) ? post.shift_detail?.detail?.length : "0${post.shift_detail?.detail?.length}"} Shifts"
+                          ? "${((post.shift_detail?.detail?.length.toString().length ?? 0) > 1) ? post.shift_detail?.detail?.length : "0${post.shift_detail?.detail?.length}"} Shifts"
                           : "00 Shifts",
                       timidValue: "",
                       title: StringConstant.totalShifts,

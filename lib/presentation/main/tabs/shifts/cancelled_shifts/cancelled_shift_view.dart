@@ -340,16 +340,19 @@ class CancelledShiftView extends StatelessWidget {
                   ),
                   child: InkWell(
                     onTap: () {
-                      context.router
-                          .push(PageRouteInfo(CancelledContractorList.name,
-                              args: CancelledContractorListArgs(
-                                title: (state.currentCancelFilter.id == 2)
-                                    ? StringConstant.allWithdralContractors
-                                    : StringConstant.allCancelledContractors,
-                                postId: shift.id ?? -1,
-                                cancelFilter:
-                                    state.currentCancelFilter.id ?? -1,
-                              )));
+                      if (shift.total_contractor != null &&
+                          shift.total_contractor != 0) {
+                        context.router
+                            .push(PageRouteInfo(CancelledContractorList.name,
+                                args: CancelledContractorListArgs(
+                                  title: (state.currentCancelFilter.id == 2)
+                                      ? StringConstant.allHiredContractors
+                                      : StringConstant.allHiredContractors,
+                                  postId: shift.id ?? -1,
+                                  cancelFilter:
+                                      state.currentCancelFilter.id ?? -1,
+                                )));
+                      }
                     },
                     child: Row(
                       children: [
@@ -363,7 +366,8 @@ class CancelledShiftView extends StatelessWidget {
                         SizedBox(width: getSize(10)),
                         BaseText(
                           text:
-                              "${(state.currentCancelFilter.id == 2) ? StringConstant.allWithdralContractors : StringConstant.allCancelledContractors} (${shift.cancel_shift ?? 00}/${shift.total_shift})",
+                              // "${(state.currentCancelFilter.id == 2) ? StringConstant.allWithdralContractors : StringConstant.allCancelledContractors} (${shift.cancel_shift ?? 00}/${shift.total_shift})",
+                              "${StringConstant.allHiredContractors} (${shift.total_contractor ?? 00}/${shift.total_shift})",
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
@@ -476,7 +480,7 @@ class CancelledShiftView extends StatelessWidget {
                   : displayDateBreak(
                       context,
                       boldValue:
-                          "${shift.total_shifts ?? 0} ${((shift.total_shifts ?? 0) > 1) ? StringConstant.shifts : StringConstant.shift}",
+                          "${shift.total_shift ?? 0} ${((shift.total_shift ?? 0) > 1) ? StringConstant.shifts : StringConstant.shift}",
                       timidValue: "",
                       title: StringConstant.totalShifts,
                       svgPrefixIcon: SvgImageConstant.calendar,
