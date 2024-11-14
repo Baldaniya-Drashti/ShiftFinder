@@ -46,8 +46,10 @@ class PngImageConstants {
   static const about = "assets/png/about.png";
   static const ticketSubmittedSuccess = "assets/png/ticket_submit_success.png";
   static const withdrawDialogImage = "assets/png/withdraw_dialog_image.png";
+  static const fullPosition = "assets/png/full_position.png";
 
   static const List<String> allImages = [
+    fullPosition,
     withdrawDialogImage,
     about,
     profileCircle,

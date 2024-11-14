@@ -28,33 +28,32 @@ class EmployerFullPositionView extends StatelessWidget {
         appBar: CommonAppBar(onBackPressed: () => context.router.maybePop(), title: "Full Time Positions"),
         body: ListView.separated(
           padding: EdgeInsets.all(12),
-          itemBuilder: (context, index) =>
-              Material(
-                borderRadius: BorderRadius.circular(20),
-                color: AppColors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    children: [
-                      _buildPositionTile(context),
-                      Gap(12),
-                      _positionDetailButton(
-                        context,
-                        onPressed: () {},
-                      ),
-                      Gap(12),
-                      _buildPositionDescription(context),
-                      Gap(12),
-                      _buildTotalApplication(context)
-                    ],
+          itemBuilder: (context, index) => Material(
+            borderRadius: BorderRadius.circular(20),
+            color: AppColors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                children: [
+                  _buildPositionTile(context),
+                  Gap(12),
+                  _positionDetailButton(
+                    context,
+                    onPressed: () {},
                   ),
-                ),
+                  Gap(12),
+                  _buildPositionDescription(context),
+                  Gap(12),
+                  _buildTotalApplication(context)
+                ],
               ),
+            ),
+          ),
           separatorBuilder: (context, index) => Gap(16),
           itemCount: 5,
         ),
         bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(16.0).copyWith(top: 0),
+          padding: const EdgeInsets.all(16.0).copyWith(top: 12),
           child: CommonButton(
             onPressed: () {
               context.router.push(PageRouteInfo(AddFullPositionView.name));
@@ -87,6 +86,7 @@ class EmployerFullPositionView extends StatelessWidget {
   }
 
   Widget _buildPositionInfo(BuildContext context) {
+
     return Material(
       color: AppColors.primaryColor,
       child: Row(
@@ -150,7 +150,8 @@ class EmployerFullPositionView extends StatelessWidget {
     );
   }
 
-  Widget _positionDetailButton(BuildContext context, {
+  Widget _positionDetailButton(
+    BuildContext context, {
     required VoidCallback onPressed,
   }) {
     return CommonButton(
@@ -181,7 +182,7 @@ class EmployerFullPositionView extends StatelessWidget {
               fontWeight: FontWeight.w400,
               fontSize: 14,
               text:
-              "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?",
+                  "Lorem ipsum dolor sit amet,gurte to consectetur adipiscing elit, sed do eghte fir eiusmod tempor incididunt ut labore et dolore magna?",
             ),
           ],
         ),

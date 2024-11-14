@@ -73,10 +73,14 @@ import 'package:shift/application/employer/counter_proposal_detail/counter_propo
     as _i93;
 import 'package:shift/application/employer/employer_full_position/employer_postion_bloc.dart'
     as _i429;
+import 'package:shift/application/employer/employer_full_position_confirm/employer_full_position_confirm_bloc.dart'
+    as _i152;
 import 'package:shift/application/employer/employer_location/employer_location_bloc.dart'
     as _i158;
 import 'package:shift/application/employer/employer_location_form/employer_location_form_bloc.dart'
     as _i990;
+import 'package:shift/application/employer/full_position_review/full_position_review_bloc.dart'
+    as _i515;
 import 'package:shift/application/employer/hired_contractor/hired_contractor_bloc.dart'
     as _i119;
 import 'package:shift/application/employer/monthly_statement/monthly_statement_bloc.dart'
@@ -154,6 +158,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i418.FullTimePositionDetailBloc>(
         () => _i418.FullTimePositionDetailBloc());
     gh.factory<_i429.EmployerPostionBloc>(() => _i429.EmployerPostionBloc());
+    gh.factory<_i152.EmployerFullPositionConfirmBloc>(
+        () => _i152.EmployerFullPositionConfirmBloc());
+    gh.factory<_i515.FullPositionReviewBloc>(
+        () => _i515.FullPositionReviewBloc());
     gh.lazySingleton<_i771.ApiService>(() => _i771.ApiService());
     gh.lazySingleton<_i277.IAuthFacade>(
         () => _i751.AuthFacade(gh<_i771.ApiService>()));

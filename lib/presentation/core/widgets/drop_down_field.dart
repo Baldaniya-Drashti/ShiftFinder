@@ -52,6 +52,7 @@ class CustomDropdownField<T> extends StatefulWidget {
     this.hintTextStyle,
     this.radius,
     this.label,
+    this.fontSize,
   });
 
   // final ValueChanged<T?> onChanged;
@@ -64,6 +65,7 @@ class CustomDropdownField<T> extends StatefulWidget {
   final TextStyle? hintTextStyle;
   final double? radius;
   final String? label;
+  final double? fontSize;
 
   @override
   State<CustomDropdownField> createState() => _CustomDropdownFieldState();
@@ -79,7 +81,10 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (widget.label != null) ...[
-          BaseText(text: widget.label!, fontSize: 10),
+          Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: BaseText(text: widget.label!, fontSize: widget.fontSize ?? 10, fontWeight: FontWeight.w500),
+          ),
           Gap(8),
         ],
         DropdownButtonFormField2(

@@ -3,8 +3,9 @@ part of 'add_full_position_bloc.dart';
 @freezed
 class AddFullPositionState with _$AddFullPositionState {
   const factory AddFullPositionState({
-    @Default(CommonDropdownModel(id: 1, label: "Full time")) final CommonDropdownModel selectedJobType,
-    @Default(CommonDropdownModel(id: 1, label: "Morning")) final CommonDropdownModel selectedShiftSchedule,
+    final CommonDropdownModel? selectedJobType,
+    final CommonDropdownModel? selectedShiftSchedule,
+    final TimeOfDay? selectedEstimatedHours,
     @Default([]) final List<LocationDTO> locationList,
     @Default(false) final bool loading,
     @Default(false) final bool postDataLoading,
