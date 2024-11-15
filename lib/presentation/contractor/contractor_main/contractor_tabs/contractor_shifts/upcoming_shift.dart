@@ -158,7 +158,7 @@ class UpcomingShift extends StatelessWidget {
                 ),
                 BaseText(
                   text:
-                      "(${getIndustry(shift.industry_id ?? 0)}  - ${shift.listing_id ?? ''})",
+                      "(${getIndustry(shift.industry_id ?? 0)} - ${shift.listing_id ?? ''})",
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   textColor: AppColors.black.withOpacity(0.80),
@@ -167,7 +167,7 @@ class UpcomingShift extends StatelessWidget {
             ),
             trailing: GestureDetector(
               onTap: () {
-                if (shift.check_delete?? false) {
+                if (shift.check_delete != null && shift.check_delete!) {
                   showWithdrawDialog(
                       context, shift, context.read<ContractorShiftBloc>());
                 } else {
@@ -268,6 +268,7 @@ class UpcomingShift extends StatelessWidget {
       context,
       title: StringConstant.withdrawShift,
       infoMessage: StringConstant.withdrawCADFeeDesc,
+      infoMsgTextStyle: TextStyle(fontSize: getFontSize(14)),
       deleteBtnText: StringConstant.withdraw,
       otherContent: BlocBuilder<ContractorShiftBloc, ContractorShiftState>(
         bloc: bloc..emit(bloc.state.copyWith(showErrorMessages: false)),
@@ -276,8 +277,10 @@ class UpcomingShift extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
+              SizedBox(height: getSize(20)),
               CustomTextField(
                 labelText: StringConstant.reason,
+                labelStyle: TextStyle(fontWeight: FontWeight.w600),
                 hintText: StringConstant.typeHere,
                 maxLines: 5,
                 fillColor: AppColors.grey04,
@@ -303,7 +306,7 @@ class UpcomingShift extends StatelessWidget {
       onDeleteClick: () {
         context.read<ContractorShiftBloc>().add(
             ContractorShiftEvent.deleteUpcomingShift(context,
-                postId: shift.post_id ?? -1));
+                postId: shift.id ?? -1));
       },
     );
   }

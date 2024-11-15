@@ -783,7 +783,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
               : ""),
           accomdationHour: InputEmptyOrNot((r.accommodation_allowance_type == 2)
               ? getAccomdationHourName(
-                  r.accommodation_allowance_type_details ?? 0)
+                  r.accommodation_allowance_type_details ?? 0.0)
               : ""),
           accomdationRate: Rate((r.accommodation_allowance_type == 1)
               ? "${r.accommodation_allowance_type_details ?? 0}"
@@ -857,7 +857,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
     return list;
   }
 
-  String getAccomdationHourName(int id) {
+  String getAccomdationHourName(double id) {
     print("id of hour--> ${state.accomdationHoursList}");
     final hour = state.accomdationHoursList
         .firstWhere((hour) => hour.id == id, orElse: () => SkillDTO());

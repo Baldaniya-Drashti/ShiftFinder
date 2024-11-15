@@ -28,6 +28,7 @@ class EmployerShiftDto with _$EmployerShiftDto {
     bool? isdelete,
     int? compassion,
     int? cancel_shift,
+    int? total_contractor,
   }) = _EmployerShiftDto;
 
   factory EmployerShiftDto.fromJson(Map<String, dynamic> json) =>

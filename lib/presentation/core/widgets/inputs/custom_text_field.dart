@@ -131,7 +131,7 @@ class CustomTextField extends StatelessWidget {
                     fontSize: labelStyle?.fontSize ?? 14,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: labelStyle?.fontWeight ?? FontWeight.w500,
                     textColor: labelStyle?.color ?? Color(0xff030202),
                   ),
                 ),

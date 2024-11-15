@@ -17,11 +17,11 @@ _$ShiftDetailDTOImpl _$$ShiftDetailDTOImplFromJson(Map<String, dynamic> json) =>
       total_payable_hour: json['total_payable_hour'] as String?,
       commute_allowance_type: (json['commute_allowance_type'] as num?)?.toInt(),
       commute_allowance_type_details:
-          (json['commute_allowance_type_details'] as num?)?.toInt(),
+          (json['commute_allowance_type_details'] as num?)?.toDouble(),
       accommodation_allowance_type:
           (json['accommodation_allowance_type'] as num?)?.toInt(),
       accommodation_allowance_type_details:
-          (json['accommodation_allowance_type_details'] as num?)?.toInt(),
+          (json['accommodation_allowance_type_details'] as num?)?.toDouble(),
       individual_shift: (json['individual_shift'] as num?)?.toInt(),
       shift_note: json['shift_note'] as String?,
       vacancie_type: (json['vacancie_type'] as num?)?.toInt(),

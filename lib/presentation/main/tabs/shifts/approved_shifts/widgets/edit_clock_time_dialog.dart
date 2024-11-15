@@ -29,13 +29,13 @@ class EditClockTimeDialog extends StatelessWidget {
   }
 
   editClockTimeDialog(
-      BuildContext context, HiredContractorListDTO contractor) async {
+      BuildContext con, HiredContractorListDTO contractor) async {
     final result = await showDialog<bool?>(
-      context: context,
-      builder: (_) => BlocProvider(
-        create: (context) => getIt<HiredContractorBloc>(),
+      context: con,
+      builder: (__) => BlocProvider(
+        create: (_) => getIt<HiredContractorBloc>(),
         child: BlocBuilder<HiredContractorBloc, HiredContractorState>(
-          // bloc: context.read<HiredContractorBloc>()
+          // bloc: con.read<HiredContractorBloc>()
           //   ..state.copyWith(
           //     clockIn: contractor.clock_in_time ?? -1,
           //     clockOut: contractor.clock_out_time ?? -1,
@@ -127,15 +127,28 @@ class EditClockTimeDialog extends StatelessWidget {
                     SizedBox(height: getSize(8)),
                     commonClockInOutMethod(
                       onTap: () async {
-                        final clockInTime = await showTimePicker(
-                          context,
-                        );
-
+                        final now = DateTime.now();
+                        final clockInTime = await showTimePicker(context);
                         if (clockInTime != null) {
                           context.read<HiredContractorBloc>().add(
                               HiredContractorEvent.changeClockInClockOutTime(
                                   clockInTime, true));
                         }
+                        /* if (clockInTime != null) {
+                          final selectedDateTime = DateTime(now.year, now.month,
+                              now.day, clockInTime.hour, clockInTime.minute);
+
+                          if (selectedDateTime.isAfter(now)) {
+                            context.read<HiredContractorBloc>().add(
+                                HiredContractorEvent.changeClockInClockOutTime(
+                                    clockInTime, true));
+                          } else {
+                            showError(
+                                    message:
+                                        StringConstant.pleaseSelectAValidTime)
+                                .show(context);
+                          }
+                        } */
                       },
                       clockInOrOutTime: (state.clockIn != null)
                           ? DateFormat('hh:mm a').format(
@@ -166,6 +179,23 @@ class EditClockTimeDialog extends StatelessWidget {
                               HiredContractorEvent.changeClockInClockOutTime(
                                   clockOutTime, false));
                         }
+
+                        /* final now = DateTime.now();
+                        if (clockOutTime != null) {
+                          final selectedDateTime = DateTime(now.year, now.month,
+                              now.day, clockOutTime.hour, clockOutTime.minute);
+
+                          if (selectedDateTime.isAfter(now)) {
+                            context.read<HiredContractorBloc>().add(
+                                HiredContractorEvent.changeClockInClockOutTime(
+                                    clockOutTime, false));
+                          } else {
+                            showError(
+                                    message:
+                                        StringConstant.pleaseSelectAValidTime)
+                                .show(context);
+                          }
+                        } */
                       },
                       // clockInOrOutTime: formatTimeOfDay(state.clockOut),
                       clockInOrOutTime:
@@ -207,6 +237,8 @@ class EditClockTimeDialog extends StatelessWidget {
                                     context,
                                     postId: contractor.id ?? -1,
                                     userId: contractor.user_id ?? -1,
+                                    clockIn: contractor.clock_in_time,
+                                    clockOut: contractor.clock_out_time,
                                   ));
                             },
                             buttonText: StringConstant.approve,
@@ -224,9 +256,12 @@ class EditClockTimeDialog extends StatelessWidget {
       ),
     ).then((value) {
       if (value == true) {
-        showUnderDevelopment(context).then((val) {
+        print("After success called");
+        showUnderDevelopment(con).then((val) {
           // context.router.maybePop();
         });
+
+        // approveDialog(con, contractor);
       }
     });
 
@@ -319,6 +354,95 @@ class EditClockTimeDialog extends StatelessWidget {
         },
       ).acceptRejectDialog(context);
     }*/
+  }
+
+  approveDialog(BuildContext context, HiredContractorListDTO contractor) {
+    AcceptRejectDialog(
+      title: StringConstant.approve,
+      description:
+          "${StringConstant.approveShiftDesc1}${contractor.first_name ?? ""} ${contractor.last_name ?? ""}${StringConstant.approveShiftDesc2}",
+      onPressedAccept: () async {
+        await context.router.maybePop();
+        await showDialog<bool?>(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              contentPadding: EdgeInsets.all(24).copyWith(top: 0),
+              clipBehavior: Clip.none,
+              insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(getSize(15)),
+              ),
+              titlePadding: EdgeInsets.zero,
+              title: Column(
+                children: [
+                  Stack(
+                    clipBehavior: Clip.none,
+                    alignment: Alignment.center,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(getSize(15)),
+                        child: Image.asset(
+                            PngImageConstants.curvedBackgroundImage),
+                      ),
+                      Positioned(
+                        top: getSize(85),
+                        child: SvgPicture.asset(
+                          SvgImageConstant.approved,
+                          height: getSize(107),
+                          width: getSize(107),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: getSize(80)),
+                  BaseText(
+                    text: "Approved!",
+                    fontSize: 22,
+                    fontFamily: 'Aclonica',
+                  ),
+                ],
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: getSize(10),
+                  ),
+                  BaseText(
+                    text:
+                        "The clock in and out times for this shift have been successfully approved.",
+                    fontSize: 14,
+                    textAlign: TextAlign.center,
+                    fontWeight: FontWeight.w500,
+                    textColor: AppColors.black.withOpacity(0.7),
+                  ),
+                ],
+              ),
+              actionsAlignment: MainAxisAlignment.center,
+              actions: [
+                CommonButton(
+                  height: 46,
+                  width: 200,
+                  onPressed: () {
+                    context.router.maybePop(true);
+                  },
+                  buttonText: "Ok",
+                ),
+              ],
+            );
+          },
+        ).then((result) {
+          if (result ?? true) {
+            context.router.push(PageRouteInfo(ShiftActionsView.name));
+          }
+        });
+      },
+      acceptButtonText: 'Approve',
+      onPressedReject: () async {
+        await context.router.maybePop();
+      },
+    ).acceptRejectDialog(context);
   }
 
   String formatTimeOfDay(TimeOfDay tod) {

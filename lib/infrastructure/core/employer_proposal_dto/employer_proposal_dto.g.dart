@@ -49,24 +49,24 @@ _$EmployerProposalDtoImpl _$$EmployerProposalDtoImplFromJson(
       agreed_start_time: (json['agreed_start_time'] as num?)?.toInt(),
       agreed_end_time: (json['agreed_end_time'] as num?)?.toInt(),
       posted_hourly_rate: (json['posted_hourly_rate'] as num?)?.toInt(),
-      proposed_hourly_rate: (json['proposed_hourly_rate'] as num?)?.toInt(),
+      proposed_hourly_rate: (json['proposed_hourly_rate'] as num?)?.toDouble(),
       commute_allowance_type: (json['commute_allowance_type'] as num?)?.toInt(),
       posted_commute_allowance_rate:
-          (json['posted_commute_allowance_rate'] as num?)?.toInt(),
+          (json['posted_commute_allowance_rate'] as num?)?.toDouble(),
       posted_commute_allowance_hour_id:
           (json['posted_commute_allowance_hour_id'] as num?)?.toInt(),
       proposed_commute_allowance_rate:
-          (json['proposed_commute_allowance_rate'] as num?)?.toInt(),
+          (json['proposed_commute_allowance_rate'] as num?)?.toDouble(),
       proposed_commute_allowance_hour_id:
           (json['proposed_commute_allowance_hour_id'] as num?)?.toInt(),
       accommodation_allowance_type:
           (json['accommodation_allowance_type'] as num?)?.toInt(),
       posted_accommodation_allowance_rate:
-          (json['posted_accommodation_allowance_rate'] as num?)?.toInt(),
+          (json['posted_accommodation_allowance_rate'] as num?)?.toDouble(),
       posted_accommodation_allowance_hour_id:
           (json['posted_accommodation_allowance_hour_id'] as num?)?.toInt(),
       proposed_accommodation_allowance_rate:
-          (json['proposed_accommodation_allowance_rate'] as num?)?.toInt(),
+          (json['proposed_accommodation_allowance_rate'] as num?)?.toDouble(),
       proposed_accommodation_allowance_hour_id:
           (json['proposed_accommodation_allowance_hour_id'] as num?)?.toInt(),
       proposed_accommodation_allowance_hour_name:

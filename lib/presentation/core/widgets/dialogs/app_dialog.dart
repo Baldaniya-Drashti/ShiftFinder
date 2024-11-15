@@ -70,6 +70,7 @@ class AppDialog {
     required VoidCallback? onCancelClick,
     required VoidCallback? onDeleteClick,
     Color? deleteColor,
+    TextStyle? infoMsgTextStyle,
   }) async {
     showDialog(
         context: context,
@@ -89,6 +90,7 @@ class AppDialog {
                 children: [
                   BaseText(
                     text: infoMessage,
+                    style: infoMsgTextStyle,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     textAlign: TextAlign.center,

@@ -9,6 +9,7 @@ part of 'current_user_dto.dart';
 _$CurrentUserDtoImpl _$$CurrentUserDtoImplFromJson(Map<String, dynamic> json) =>
     _$CurrentUserDtoImpl(
       userId: (json['id'] as num?)?.toInt(),
+      isDialogBox: (json['isDialogBox'] as num?)?.toInt(),
       firstName: json['first_name'] as String?,
       lastName: json['last_name'] as String?,
       email: json['email'] as String?,
@@ -44,6 +45,7 @@ Map<String, dynamic> _$$CurrentUserDtoImplToJson(
         _$CurrentUserDtoImpl instance) =>
     <String, dynamic>{
       'id': instance.userId,
+      'isDialogBox': instance.isDialogBox,
       'first_name': instance.firstName,
       'last_name': instance.lastName,
       'email': instance.email,

@@ -258,7 +258,7 @@ class CounterPurposeView extends StatelessWidget {
                                 postedDescription =
                                     "\$${data.posted_accommodation_allowance_rate ?? ""}";
                                 proposedDescription =
-                                    "\$${data.posted_accommodation_allowance_rate ?? ""}";
+                                    "\$${data.proposed_accommodation_allowance_rate ?? ""}";
                                 Log.debug("===> $postedDescription");
                               }
                               return Column(

@@ -14,6 +14,7 @@ class CurrentUserDto with _$CurrentUserDto {
   const CurrentUserDto._();
   const factory CurrentUserDto({
     @JsonKey(name: 'id') int? userId,
+    @JsonKey(name: 'isDialogBox') int? isDialogBox,
     @JsonKey(name: 'first_name') String? firstName,
     @JsonKey(name: 'last_name') String? lastName,
     @JsonKey(name: 'email') String? email,
@@ -39,6 +40,7 @@ class CurrentUserDto with _$CurrentUserDto {
   Account toDomain() {
     return Account(
       userId: userId,
+      isDialogBox: isDialogBox,
       firstName: firstName,
       lastName: lastName,
       email: email,
@@ -66,6 +68,7 @@ class CurrentUserDto with _$CurrentUserDto {
   factory CurrentUserDto.fromDomain(Account account) {
     return CurrentUserDto(
       userId: account.userId,
+      isDialogBox: account.isDialogBox,
       firstName: account.firstName,
       lastName: account.lastName,
       email: account.email,

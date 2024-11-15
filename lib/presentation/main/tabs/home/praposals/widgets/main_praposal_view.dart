@@ -196,49 +196,51 @@ class MainPraposalView extends StatelessWidget {
               ),
             ),
           ),
-          if (additionalData.complete_shift != 0) ...[
-            SizedBox(height: getSize(10)),
-            Container(
-              decoration: BoxDecoration(
-                color: AppColors.scaffoldColor,
-                borderRadius: BorderRadius.circular(7),
-              ),
-              padding: EdgeInsets.all(12),
-              child: InkWell(
-                onTap: () {
-                  context.router.push(
-                    PageRouteInfo(FilledHiredContractorList.name,
-                        args: FilledHiredContractorListArgs(postId: postId)),
-                  );
-                },
-                child: Row(
-                  children: [
-                    SvgPicture.asset(
-                      SvgImageConstant.profileCircle,
-                      height: 35,
-                      width: 35,
+          // if (additionalData.complete_shift != 0) ...[
+          SizedBox(height: getSize(10)),
+          Container(
+            decoration: BoxDecoration(
+              color: AppColors.scaffoldColor,
+              borderRadius: BorderRadius.circular(7),
+            ),
+            padding: EdgeInsets.all(12),
+            child: InkWell(
+              onTap: (additionalData.complete_shift != 0)
+                  ? () {
+                      context.router.push(
+                        PageRouteInfo(FilledHiredContractorList.name,
+                            args:
+                                FilledHiredContractorListArgs(postId: postId)),
+                      );
+                    }
+                  : null,
+              child: Row(
+                children: [
+                  SvgPicture.asset(
+                    SvgImageConstant.profileCircle,
+                    height: 35,
+                    width: 35,
+                  ),
+                  Gap(8),
+                  Expanded(
+                    child: BaseText(
+                      text:
+                          "${StringConstant.allHiredContractors} (${additionalData.complete_shift}/${additionalData.total_shift})",
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12,
                     ),
-                    Gap(8),
-                    Expanded(
-                      child: BaseText(
-                        text:
-                            "${StringConstant.allHiredContractors} (${additionalData.complete_shift}/${additionalData.total_shift})",
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12,
-                      ),
-                    ),
-                    SvgPicture.asset(
-                      SvgImageConstant.rightArrow,
-                      height: 14,
-                      width: 14,
-                      colorFilter: ColorFilter.mode(
-                          AppColors.black.withOpacity(0.7), BlendMode.srcIn),
-                    ),
-                  ],
-                ),
+                  ),
+                  SvgPicture.asset(
+                    SvgImageConstant.rightArrow,
+                    height: 14,
+                    width: 14,
+                    colorFilter: ColorFilter.mode(
+                        AppColors.black.withOpacity(0.7), BlendMode.srcIn),
+                  ),
+                ],
               ),
             ),
-          ],
+          ),
         ],
       ),
     );

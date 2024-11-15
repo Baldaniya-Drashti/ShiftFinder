@@ -61,16 +61,18 @@ class HiredContractorBloc
         },
         submitClockInOutTime: (e) async {
           Either<MainFailure, CommonResponse>? failureOrSuccess;
+          final formatedClockIn = state.clockIn ?? e.clockIn;
+          final formatedClockOut = state.clockOut ?? e.clockOut;
 
-          final isClockInValid = state.clockIn != null;
-          final isClockOutValid = state.clockOut != null;
+          final isClockInValid = formatedClockIn != null;
+          final isClockOutValid = formatedClockOut != null;
 
           if (isClockInValid && isClockOutValid) {
             failureOrSuccess = await mainFacade.submitEmployerClockInClockOut(
               shiftId: e.postId,
               userId: e.userId,
-              clockInTime: state.clockIn,
-              clockOutTime: state.clockOut,
+              clockInTime: formatedClockIn,
+              clockOutTime: formatedClockOut,
             );
 
             failureOrSuccess.fold(

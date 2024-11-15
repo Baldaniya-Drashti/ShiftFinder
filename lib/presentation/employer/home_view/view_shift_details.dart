@@ -190,7 +190,7 @@ class ViewHomeShiftDetails extends StatelessWidget {
                     shift.shift_detail?.same_or_different_time == 1)
                 ? StringConstant.shiftFinderServiceFee
                 : StringConstant.totalShiftFinderServiceFee,
-            value: "\$${payable.service_fee ?? 00}",
+            value: "\$${double.parse(payable.service_fee ?? "00.00")}",
           ),
           SizedBox(height: getSize(10)),
           if (shift.shift_detail?.shift_type == 2 &&

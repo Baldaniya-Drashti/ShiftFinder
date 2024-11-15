@@ -67,6 +67,7 @@ class ApiConstants {
   /// Teams
   static String getTeam = 'get_team';
   static String employerTeamCheck = 'employer_team_check';
+  static String employerTeamDialog = 'employer_team_dialog';
 
   //edit user
   static String updateUser = 'edit/user';
@@ -144,6 +145,7 @@ class ApiConstants {
   static String contractorShiftsUrgentAction =
       'contractor_shifts_urgent_action';
   static String contractorMyCalendar = 'contractor_my_calendar';
+  static String contractorMyCalendarDetails = 'contractor_my_calendar_details';
 
   //team
   static String getTeamList = 'get_team';

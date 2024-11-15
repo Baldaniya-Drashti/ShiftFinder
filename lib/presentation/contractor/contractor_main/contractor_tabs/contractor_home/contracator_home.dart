@@ -30,11 +30,16 @@ class ContractorHomeView extends StatelessWidget {
         // return getCheckoutContainer(context);
         return PaginatedListView(
           onRefresh: () {
-            context.read<ContractorHomeBloc>().add(ContractorHomeEvent.getContractorDashboardList(true));
+            context
+                .read<ContractorHomeBloc>()
+                .add(ContractorHomeEvent.getContractorDashboardList(true));
           },
-          refreshController: context.read<ContractorHomeBloc>().refreshController,
+          refreshController:
+              context.read<ContractorHomeBloc>().refreshController,
           onLoading: () {
-            context.read<ContractorHomeBloc>().add(ContractorHomeEvent.getContractorDashboardList(false));
+            context
+                .read<ContractorHomeBloc>()
+                .add(ContractorHomeEvent.getContractorDashboardList(false));
           },
           isNoDataFound: state.isNoDataFound,
           child: state.isLoading
@@ -117,10 +122,13 @@ class ContractorHomeView extends StatelessWidget {
           ),
           rateHoursBox(state.contractorDashboardList[index]),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
+            padding: EdgeInsets.symmetric(
+                horizontal: getSize(12), vertical: getSize(10)),
             margin: EdgeInsets.symmetric(vertical: getSize(5)),
             width: double.infinity,
-            decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+            decoration: BoxDecoration(
+                color: AppColors.grey04,
+                borderRadius: BorderRadius.circular(10)),
             child: paybaleTitleRate(
               title: StringConstant.totalNumberOfVacancy,
               value:
@@ -137,7 +145,8 @@ class ContractorHomeView extends StatelessWidget {
                 onPressed: () {
                   AppDialog.showDelete(
                     context,
-                    infoMessage: StringConstant.areYouSureYouWantToApplyForTheShift,
+                    infoMessage:
+                        StringConstant.areYouSureYouWantToApplyForTheShift,
                     title: StringConstant.apply,
                     deleteBtnText: StringConstant.apply,
                     onCancelClick: () {
@@ -145,9 +154,10 @@ class ContractorHomeView extends StatelessWidget {
                     },
                     onDeleteClick: () {
                       // context.router.maybePop();
-                      context
-                          .read<ContractorHomeBloc>()
-                          .add(ContractorHomeEvent.applyShiftSubmittedEvent(state.contractorDashboardList[index].id, context));
+                      context.read<ContractorHomeBloc>().add(
+                          ContractorHomeEvent.applyShiftSubmittedEvent(
+                              state.contractorDashboardList[index].id,
+                              context));
                     },
                   );
                 },
@@ -159,10 +169,14 @@ class ContractorHomeView extends StatelessWidget {
                 borderColor: AppColors.primaryColor,
                 onPressed: () {
                   context.router
-                      .push(PageRouteInfo(SendProposal.name, args: SendProposalArgs(postId: state.contractorDashboardList[index].id ?? -1)))
+                      .push(PageRouteInfo(SendProposal.name,
+                          args: SendProposalArgs(
+                              postId: state.contractorDashboardList[index].id ??
+                                  -1)))
                       .then((value) {
                     if (value == true) {
-                      context.read<ContractorHomeBloc>().add(ContractorHomeEvent.getContractorDashboardList(true));
+                      context.read<ContractorHomeBloc>().add(
+                          ContractorHomeEvent.getContractorDashboardList(true));
                     }
                   });
                 },
@@ -174,7 +188,11 @@ class ContractorHomeView extends StatelessWidget {
     );
   }
 
-  appliedProposalBtn({required void Function() onPressed, required String btnTitle, Color? borderColor, Color? bgColor}) {
+  appliedProposalBtn(
+      {required void Function() onPressed,
+      required String btnTitle,
+      Color? borderColor,
+      Color? bgColor}) {
     return Expanded(
       child: CommonButton(
         height: 40,
@@ -220,7 +238,8 @@ class ContractorHomeView extends StatelessWidget {
                 // ),
                 isThreeLine: true,
                 title: BaseText(
-                  text: state.contractorDashboardList[index].roles_list_name ?? "",
+                  text: state.contractorDashboardList[index].roles_list_name ??
+                      "",
                   textColor: AppColors.black,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -231,7 +250,8 @@ class ContractorHomeView extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     BaseText(
-                      text: state.contractorDashboardList[index].company_name ?? "",
+                      text: state.contractorDashboardList[index].company_name ??
+                          "",
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
                       textColor: AppColors.black.withOpacity(0.80),
@@ -288,14 +308,18 @@ class ContractorHomeView extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           BaseText(
-                            text: state.contractorDashboardList[index].location?.location ?? "",
+                            text: state.contractorDashboardList[index].location
+                                    ?.location ??
+                                "",
                             fontSize: 12,
                             maxLines: 1,
                             fontWeight: FontWeight.w500,
                             textColor: AppColors.black,
                           ),
                           BaseText(
-                            text: state.contractorDashboardList[index].distance ?? "",
+                            text:
+                                state.contractorDashboardList[index].distance ??
+                                    "",
                             fontSize: 10,
                             fontWeight: FontWeight.w600,
                             textColor: AppColors.primaryColor,
@@ -306,9 +330,7 @@ class ContractorHomeView extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                height: getSize(12),
-              ),
+              SizedBox(height: getSize(12)),
             ],
           ),
         );
@@ -362,7 +384,8 @@ class ContractorHomeView extends StatelessWidget {
     );
   }
 
-  Widget singleShiftDateTimeBreakUI(BuildContext context, int index, ContractorHomeState state) {
+  Widget singleShiftDateTimeBreakUI(
+      BuildContext context, int index, ContractorHomeState state) {
     final list = state.contractorDashboardList[index];
     return Container(
       decoration: BoxDecoration(
@@ -391,8 +414,10 @@ class ContractorHomeView extends StatelessWidget {
               ),
               displayTime(
                 title: StringConstant.time,
-                startDate: convertTimeStampToDate(list.start_time ?? -1, isTime: true),
-                endDate: convertTimeStampToDate(list.end_time ?? -1, isTime: true),
+                startDate:
+                    convertTimeStampToDate(list.start_time ?? -1, isTime: true),
+                endDate:
+                    convertTimeStampToDate(list.end_time ?? -1, isTime: true),
                 svgPrefixIcon: SvgImageConstant.clock,
               ),
               displayDateBreak(context, list,
@@ -416,7 +441,8 @@ class ContractorHomeView extends StatelessWidget {
     );
   }
 
-  String convertTimeStampToDate(int timestamp, {bool isYear = false, bool isTime = false}) {
+  String convertTimeStampToDate(int timestamp,
+      {bool isYear = false, bool isTime = false}) {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
 
     if (isTime) {
@@ -430,7 +456,8 @@ class ContractorHomeView extends StatelessWidget {
     }
   }
 
-  Widget multiShiftDateTimeBreakUI(BuildContext context, int index, ContractorHomeState state) {
+  Widget multiShiftDateTimeBreakUI(
+      BuildContext context, int index, ContractorHomeState state) {
     final list = state.contractorDashboardList[index];
 
     return Container(
@@ -522,8 +549,10 @@ class ContractorHomeView extends StatelessWidget {
                   ? CommonButton(
                       onPressed: () {
                         if (post.shift_date != null) {
-                          context.router
-                              .push(PageRouteInfo(ViewContractorShiftDates.name, args: ViewContractorShiftDatesArgs(shiftDetail: post)));
+                          context.router.push(PageRouteInfo(
+                              ViewContractorShiftDates.name,
+                              args: ViewContractorShiftDatesArgs(
+                                  shiftDetail: post)));
                         }
                       },
                       width: 100,
@@ -595,7 +624,10 @@ class ContractorHomeView extends StatelessWidget {
     );
   }
 
-  Widget  highLightText({required String boldValue, required String timidValue, String? thirdValue}) {
+  Widget highLightText(
+      {required String boldValue,
+      required String timidValue,
+      String? thirdValue}) {
     return RichText(
         text: TextSpan(
       text: boldValue,
@@ -632,7 +664,8 @@ class ContractorHomeView extends StatelessWidget {
       ),
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
       width: double.infinity,
-      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         minVerticalPadding: 0,
@@ -689,7 +722,8 @@ class ContractorHomeView extends StatelessWidget {
         ).copyWith(right: getSize(10)),
         margin: EdgeInsets.symmetric(vertical: getSize(5)),
         width: double.infinity,
-        decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+        decoration: BoxDecoration(
+            color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -713,7 +747,8 @@ class ContractorHomeView extends StatelessWidget {
         ));
   }
 
-  Widget rateWithBGIcon({required String svgIcon, required String title, required String value}) {
+  Widget rateWithBGIcon(
+      {required String svgIcon, required String title, required String value}) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -754,20 +789,24 @@ class ContractorHomeView extends StatelessWidget {
 
   Widget payableBox(ContactorDashboardDTO post) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
+      padding:
+          EdgeInsets.symmetric(horizontal: getSize(12), vertical: getSize(10)),
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
       width: double.infinity,
-      decoration: BoxDecoration(color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(
+          color: AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: Column(
         children: [
           paybaleTitleRate(
             title: "${StringConstant.accommodationAllowance}:-",
-            value: "\$${((post.accommodation_allowance ?? 0) > 9) ? post.accommodation_allowance : "0${post.accommodation_allowance}"}",
+            value:
+                "\$${(double.parse(post.accommodation_allowance ?? "0.0") > 9) ? post.accommodation_allowance : "0${post.accommodation_allowance}"}",
           ),
           SizedBox(height: getSize(5)),
           paybaleTitleRate(
             title: "${StringConstant.commuteAllowance}:-",
-            value: "\$${((post.commute_allowance ?? 0) > 9) ? post.commute_allowance : "0${post.commute_allowance}"}",
+            value:
+                "\$${(double.parse(post.commute_allowance ?? "0.0") > 9) ? post.commute_allowance : "0${post.commute_allowance}"}",
           ),
           commonDivider(),
           paybaleTitleRate(
@@ -787,7 +826,11 @@ class ContractorHomeView extends StatelessWidget {
     );
   }
 
-  Widget paybaleTitleRate({required String title, required String value, bool isFirst = false, isLast = false}) {
+  Widget paybaleTitleRate(
+      {required String title,
+      required String value,
+      bool isFirst = false,
+      isLast = false}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

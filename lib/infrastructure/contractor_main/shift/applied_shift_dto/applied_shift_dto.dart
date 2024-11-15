@@ -27,6 +27,8 @@ class AppliedShiftDTO with _$AppliedShiftDTO {
     int? applied_date,
     int? proposal_date,
     int? last_request,
+    int? applied_date_status,
+    int? applied_proposal_status,
     ProposalReceivedDTO? proposal_received,
     Duration? remainingRevokeTime,
   }) = _AppliedShiftDTO;
@@ -38,17 +40,17 @@ class AppliedShiftDTO with _$AppliedShiftDTO {
 @freezed
 class ProposalReceivedDTO with _$ProposalReceivedDTO {
   const factory ProposalReceivedDTO({
-    int? posted_hourly_rate,
-    int? proposed_hourly_rate,
-    int? counter_proposal_hourly_rate,
+    double? posted_hourly_rate,
+    double? proposed_hourly_rate,
+    double? counter_proposal_hourly_rate,
     String? commute_allowance_type,
-    int? posted_commute_allowance,
-    int? proposed_commute_allowance,
-    int? counter_proposal_commute_allowance,
+    double? posted_commute_allowance,
+    double? proposed_commute_allowance,
+    double? counter_proposal_commute_allowance,
     String? accommodation_allowance_type,
-    int? posted_accommodation_allowance,
-    int? proposed_accommodation_allowance,
-    int? counter_proposal_accommodation_allowance,
+    double? posted_accommodation_allowance,
+    double? proposed_accommodation_allowance,
+    double? counter_proposal_accommodation_allowance,
   }) = _ProposalReceivedDTO;
 
   factory ProposalReceivedDTO.fromJson(Map<String, dynamic> json) =>

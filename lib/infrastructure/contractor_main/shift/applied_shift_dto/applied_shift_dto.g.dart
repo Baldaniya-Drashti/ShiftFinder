@@ -29,6 +29,9 @@ _$AppliedShiftDTOImpl _$$AppliedShiftDTOImplFromJson(
       applied_date: (json['applied_date'] as num?)?.toInt(),
       proposal_date: (json['proposal_date'] as num?)?.toInt(),
       last_request: (json['last_request'] as num?)?.toInt(),
+      applied_date_status: (json['applied_date_status'] as num?)?.toInt(),
+      applied_proposal_status:
+          (json['applied_proposal_status'] as num?)?.toInt(),
       proposal_received: json['proposal_received'] == null
           ? null
           : ProposalReceivedDTO.fromJson(
@@ -62,6 +65,8 @@ Map<String, dynamic> _$$AppliedShiftDTOImplToJson(
       'applied_date': instance.applied_date,
       'proposal_date': instance.proposal_date,
       'last_request': instance.last_request,
+      'applied_date_status': instance.applied_date_status,
+      'applied_proposal_status': instance.applied_proposal_status,
       'proposal_received': instance.proposal_received,
       'remainingRevokeTime': instance.remainingRevokeTime?.inMicroseconds,
     };
@@ -69,25 +74,26 @@ Map<String, dynamic> _$$AppliedShiftDTOImplToJson(
 _$ProposalReceivedDTOImpl _$$ProposalReceivedDTOImplFromJson(
         Map<String, dynamic> json) =>
     _$ProposalReceivedDTOImpl(
-      posted_hourly_rate: (json['posted_hourly_rate'] as num?)?.toInt(),
-      proposed_hourly_rate: (json['proposed_hourly_rate'] as num?)?.toInt(),
+      posted_hourly_rate: (json['posted_hourly_rate'] as num?)?.toDouble(),
+      proposed_hourly_rate: (json['proposed_hourly_rate'] as num?)?.toDouble(),
       counter_proposal_hourly_rate:
-          (json['counter_proposal_hourly_rate'] as num?)?.toInt(),
+          (json['counter_proposal_hourly_rate'] as num?)?.toDouble(),
       commute_allowance_type: json['commute_allowance_type'] as String?,
       posted_commute_allowance:
-          (json['posted_commute_allowance'] as num?)?.toInt(),
+          (json['posted_commute_allowance'] as num?)?.toDouble(),
       proposed_commute_allowance:
-          (json['proposed_commute_allowance'] as num?)?.toInt(),
+          (json['proposed_commute_allowance'] as num?)?.toDouble(),
       counter_proposal_commute_allowance:
-          (json['counter_proposal_commute_allowance'] as num?)?.toInt(),
+          (json['counter_proposal_commute_allowance'] as num?)?.toDouble(),
       accommodation_allowance_type:
           json['accommodation_allowance_type'] as String?,
       posted_accommodation_allowance:
-          (json['posted_accommodation_allowance'] as num?)?.toInt(),
+          (json['posted_accommodation_allowance'] as num?)?.toDouble(),
       proposed_accommodation_allowance:
-          (json['proposed_accommodation_allowance'] as num?)?.toInt(),
+          (json['proposed_accommodation_allowance'] as num?)?.toDouble(),
       counter_proposal_accommodation_allowance:
-          (json['counter_proposal_accommodation_allowance'] as num?)?.toInt(),
+          (json['counter_proposal_accommodation_allowance'] as num?)
+              ?.toDouble(),
     );
 
 Map<String, dynamic> _$$ProposalReceivedDTOImplToJson(

@@ -1,10 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
@@ -23,7 +21,6 @@ import 'package:shift/presentation/core/enum.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/drop_down_field.dart';
-import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 
 class CancelledShiftView extends StatelessWidget {
   const CancelledShiftView({super.key});
@@ -35,14 +32,16 @@ class CancelledShiftView extends StatelessWidget {
         return state.cancelLoading
             ? CenterLoadingIndicator(isOnlyLoader: true)
             : state.cancelErrorApi
-                ? Center(child: BaseText(text: StringConstant.somethindWentWrong))
+                ? Center(
+                    child: BaseText(text: StringConstant.somethindWentWrong))
                 : Padding(
                     padding: EdgeInsets.symmetric(horizontal: getSize(10)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: getSize(18)).copyWith(top: getSize(10)),
+                          padding: EdgeInsets.symmetric(horizontal: getSize(18))
+                              .copyWith(top: getSize(10)),
                           child: BaseText(
                             text: StringConstant.sortBy,
                             fontSize: 10,
@@ -51,7 +50,8 @@ class CancelledShiftView extends StatelessWidget {
                         ),
                         sortingField(context, state),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: getSize(18)).copyWith(),
+                          padding: EdgeInsets.symmetric(horizontal: getSize(18))
+                              .copyWith(),
                           child: BaseText(
                             text: StringConstant.sortBy,
                             fontSize: 10,
@@ -62,15 +62,25 @@ class CancelledShiftView extends StatelessWidget {
                         SizedBox(height: getSize(12)),
                         Expanded(
                           child: PaginatedListView(
-                            onRefresh: () => context.read<ShiftsBloc>().add(ShiftsBlocEvent.fetchCancelledShiftList(refresh: true)),
-                            onLoading: () => context.read<ShiftsBloc>().add(ShiftsBlocEvent.fetchCancelledShiftList(refresh: false)),
-                            refreshController: context.read<ShiftsBloc>().cancelledRefreshController,
+                            onRefresh: () => context.read<ShiftsBloc>().add(
+                                ShiftsBlocEvent.fetchCancelledShiftList(
+                                    refresh: true)),
+                            onLoading: () => context.read<ShiftsBloc>().add(
+                                ShiftsBlocEvent.fetchCancelledShiftList(
+                                    refresh: false)),
+                            refreshController: context
+                                .read<ShiftsBloc>()
+                                .cancelledRefreshController,
                             isNoDataFound: state.noCancelDataFound,
                             child: ListView.separated(
                               shrinkWrap: true,
                               itemCount: state.cancelledShiftList.length,
-                              separatorBuilder: (context, index) => SizedBox(height: getSize(12)),
-                              itemBuilder: (context, index) => cancelShiftUI(context, state, state.cancelledShiftList[index]),
+                              separatorBuilder: (context, index) =>
+                                  SizedBox(height: getSize(12)),
+                              itemBuilder: (context, index) => cancelShiftUI(
+                                  context,
+                                  state,
+                                  state.cancelledShiftList[index]),
                             ),
                           ),
                         ),
@@ -109,7 +119,9 @@ class CancelledShiftView extends StatelessWidget {
       child: CustomDropdownField(
         onChanged: (value) {
           if (value != null) {
-            context.read<ShiftsBloc>().add(ShiftsBlocEvent.onCancelTypeSorting(value ?? SkillDTO()));
+            context
+                .read<ShiftsBloc>()
+                .add(ShiftsBlocEvent.onCancelTypeSorting(value ?? SkillDTO()));
           }
         },
         hintText: StringConstant.location,
@@ -137,11 +149,13 @@ class CancelledShiftView extends StatelessWidget {
       child: CustomDropdownField(
         onChanged: (value) {
           // if (value != null) {
-          context.read<ShiftsBloc>().add(ShiftsBlocEvent.onCancelLocationSorting(value ?? LocationDTO()));
+          context.read<ShiftsBloc>().add(
+              ShiftsBlocEvent.onCancelLocationSorting(value ?? LocationDTO()));
           // }
         },
         hintText: StringConstant.location,
-        value: (state.currentCancelLocationFilter.location != null && state.currentCancelLocationFilter.location!.isNotEmpty)
+        value: (state.currentCancelLocationFilter.location != null &&
+                state.currentCancelLocationFilter.location!.isNotEmpty)
             ? state.currentCancelLocationFilter
             : null,
         items: state.locationList.map((val) {
@@ -159,7 +173,8 @@ class CancelledShiftView extends StatelessWidget {
     );
   }
 
-  Widget cancelShiftUI(BuildContext context, ShiftsBlocState state, EmployerShiftDto shift) {
+  Widget cancelShiftUI(
+      BuildContext context, ShiftsBlocState state, EmployerShiftDto shift) {
     return Container(
       padding: EdgeInsets.all(getSize(14)),
       decoration: BoxDecoration(
@@ -199,9 +214,13 @@ class CancelledShiftView extends StatelessWidget {
               buttonText: StringConstant.viewShiftDetails,
             ),
           dateAndTime(context, state, shift),
-          if (state.currentCancelFilter.id == 2 && shift.users != null && shift.users!.isNotEmpty && shift.users!.length == 1) ...[
+          if (state.currentCancelFilter.id == 2 &&
+              shift.users != null &&
+              shift.users!.isNotEmpty &&
+              shift.users!.length == 1) ...[
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: getSize(18), vertical: getSize(10)),
+              padding: EdgeInsets.symmetric(
+                  horizontal: getSize(18), vertical: getSize(10)),
               child: BaseText(
                 text: StringConstant.reason,
                 fontSize: 12,
@@ -226,7 +245,9 @@ class CancelledShiftView extends StatelessWidget {
             ),
             SizedBox(height: getSize(10)),
           ],
-          (shift.users != null && shift.users!.isNotEmpty && shift.users!.length == 1)
+          (shift.users != null &&
+                  shift.users!.isNotEmpty &&
+                  shift.users!.length == 1)
               ? Container(
                   padding: EdgeInsets.symmetric(
                     vertical: getSize(10),
@@ -254,15 +275,18 @@ class CancelledShiftView extends StatelessWidget {
                         CircleAvatar(
                           backgroundColor: AppColors.transparent,
                           radius: getSize(20),
-                          backgroundImage:
-                              (shift.users![0].profile != null && shift.users![0].profile != null && shift.users![0].profile!.isNotEmpty)
-                                  ? NetworkImage(shift.users![0].profile ?? "")
-                                  : null,
+                          backgroundImage: (shift.users![0].profile != null &&
+                                  shift.users![0].profile != null &&
+                                  shift.users![0].profile!.isNotEmpty)
+                              ? NetworkImage(shift.users![0].profile ?? "")
+                              : null,
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left: getSize(10), right: getSize(5)),
+                          padding: EdgeInsets.only(
+                              left: getSize(10), right: getSize(5)),
                           child: BaseText(
-                            text: "${shift.users![0].first_name ?? ""} ${shift.users![0].last_name ?? ""}",
+                            text:
+                                "${shift.users![0].first_name ?? ""} ${shift.users![0].last_name ?? ""}",
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),
@@ -279,7 +303,8 @@ class CancelledShiftView extends StatelessWidget {
                           onPressed: () {
                             showUnderDevelopment(context);
                           },
-                          backgroundColor: AppColors.primaryColor.withOpacity(0.15),
+                          backgroundColor:
+                              AppColors.primaryColor.withOpacity(0.15),
                           buttonText: "",
                           customWidget: Row(
                             mainAxisSize: MainAxisSize.min,
@@ -315,14 +340,19 @@ class CancelledShiftView extends StatelessWidget {
                   ),
                   child: InkWell(
                     onTap: () {
-                      context.router.push(PageRouteInfo(CancelledContractorList.name,
-                          args: CancelledContractorListArgs(
-                            title: (state.currentCancelFilter.id == 2)
-                                ? StringConstant.withdralContractors
-                                : StringConstant.cancelledContractors,
-                            postId: shift.id ?? -1,
-                            cancelFilter: state.currentCancelFilter.id ?? -1,
-                          )));
+                      if (shift.total_contractor != null &&
+                          shift.total_contractor != 0) {
+                        context.router
+                            .push(PageRouteInfo(CancelledContractorList.name,
+                                args: CancelledContractorListArgs(
+                                  title: (state.currentCancelFilter.id == 2)
+                                      ? StringConstant.allHiredContractors
+                                      : StringConstant.allHiredContractors,
+                                  postId: shift.id ?? -1,
+                                  cancelFilter:
+                                      state.currentCancelFilter.id ?? -1,
+                                )));
+                      }
                     },
                     child: Row(
                       children: [
@@ -336,7 +366,8 @@ class CancelledShiftView extends StatelessWidget {
                         SizedBox(width: getSize(10)),
                         BaseText(
                           text:
-                              "${(state.currentCancelFilter.id == 2) ? StringConstant.withdralContractors : StringConstant.cancelledContractors} (${shift.cancel_shift ?? 00}/${shift.total_shift})",
+                              // "${(state.currentCancelFilter.id == 2) ? StringConstant.allWithdralContractors : StringConstant.allCancelledContractors} (${shift.cancel_shift ?? 00}/${shift.total_shift})",
+                              "${StringConstant.allHiredContractors} (${shift.total_contractor ?? 00}/${shift.total_shift})",
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
@@ -355,7 +386,8 @@ class CancelledShiftView extends StatelessWidget {
   }
 
   Widget userDetail(BuildContext context, EmployerShiftDto shift) {
-    final industry = CommonList.industryList.firstWhere((element) => element.id == shift.industry);
+    final industry = CommonList.industryList
+        .firstWhere((element) => element.id == shift.industry);
     return Container(
       padding: EdgeInsets.all(getSize(12)),
       decoration: BoxDecoration(
@@ -384,7 +416,8 @@ class CancelledShiftView extends StatelessWidget {
                     ),
                     SizedBox(height: getSize(3)),
                     BaseText(
-                      text: '(${industry.title ?? ""} - ${shift.listing_id ?? ""})',
+                      text:
+                          '(${industry.title ?? ""} - ${shift.listing_id ?? ""})',
                       fontSize: 12,
                       textColor: AppColors.black.withOpacity(0.8),
                     ),
@@ -425,7 +458,8 @@ class CancelledShiftView extends StatelessWidget {
     );
   }
 
-  Widget dateAndTime(BuildContext context, ShiftsBlocState state, EmployerShiftDto shift) {
+  Widget dateAndTime(
+      BuildContext context, ShiftsBlocState state, EmployerShiftDto shift) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -438,14 +472,15 @@ class CancelledShiftView extends StatelessWidget {
                   ? displayDateBreak(
                       context,
                       boldValue: convertTimeStampToDate(shift.start_date ?? -1),
-                      timidValue: convertTimeStampToDate(shift.start_date ?? -1, isYear: true),
+                      timidValue: convertTimeStampToDate(shift.start_date ?? -1,
+                          isYear: true),
                       title: StringConstant.shiftDate,
                       svgPrefixIcon: SvgImageConstant.calendar,
                     )
                   : displayDateBreak(
                       context,
                       boldValue:
-                          "${shift.total_shifts ?? 0} ${((shift.total_shifts ?? 0) > 1) ? StringConstant.shifts : StringConstant.shift}",
+                          "${shift.total_shift ?? 0} ${((shift.total_shift ?? 0) > 1) ? StringConstant.shifts : StringConstant.shift}",
                       timidValue: "",
                       title: StringConstant.totalShifts,
                       svgPrefixIcon: SvgImageConstant.calendar,
@@ -470,17 +505,22 @@ class CancelledShiftView extends StatelessWidget {
                   ? displayTime(
                       title: StringConstant.time,
                       startDate: (shift.start_time != null)
-                          ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((shift.start_time ?? 0) * 1000))
+                          ? DateFormat('hh:mm a').format(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                  (shift.start_time ?? 0) * 1000))
                           : "",
                       endDate: (shift.end_time != null)
-                          ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((shift.end_time ?? 0) * 1000))
+                          ? DateFormat('hh:mm a').format(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                  (shift.end_time ?? 0) * 1000))
                           : "",
                       svgPrefixIcon: SvgImageConstant.clock,
                     )
                   : displayDateBreak(
                       context,
                       boldValue: convertTimeStampToDate(shift.start_date ?? -1),
-                      timidValue: convertTimeStampToDate(shift.start_date ?? -1, isYear: true),
+                      timidValue: convertTimeStampToDate(shift.start_date ?? -1,
+                          isYear: true),
                       title: StringConstant.shiftStartDate,
                       svgPrefixIcon: SvgImageConstant.calendar,
                     ),
@@ -687,7 +727,8 @@ class CancelledShiftView extends StatelessWidget {
     );
   }
 
-  String convertTimeStampToDate(int timestamp, {bool isYear = false, bool isTime = false}) {
+  String convertTimeStampToDate(int timestamp,
+      {bool isYear = false, bool isTime = false}) {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
 
     if (isTime) {
@@ -751,7 +792,10 @@ class CancelledShiftView extends StatelessWidget {
     );
   }
 
-  Widget highLightText({required String boldValue, required String timidValue, String? thirdValue}) {
+  Widget highLightText(
+      {required String boldValue,
+      required String timidValue,
+      String? thirdValue}) {
     return RichText(
         text: TextSpan(
       text: boldValue,

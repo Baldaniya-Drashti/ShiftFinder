@@ -50,9 +50,9 @@ _$ContactorDashboardDTOImpl _$$ContactorDashboardDTOImplFromJson(
       rate_hour: json['rate_hour'] as num?,
       total_payable_hour: json['total_payable_hour'] as String?,
       total_vacancy: (json['total_vacancy'] as num?)?.toInt(),
-      accommodation_allowance: json['accommodation_allowance'] as num?,
-      commute_allowance: json['commute_allowance'] as num?,
-      total_amount: json['total_amount'] as num?,
+      accommodation_allowance: json['accommodation_allowance'] as String?,
+      commute_allowance: json['commute_allowance'] as String?,
+      total_amount: json['total_amount'] as String?,
     );
 
 Map<String, dynamic> _$$ContactorDashboardDTOImplToJson(

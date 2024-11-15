@@ -93,7 +93,8 @@ class MyCalendarViewBloc
         },*/
 
         selectDateEvent: (e) async {
-          int? currentDateId;
+          String? currentDateId;
+          int? currentDate;
           Either<MainFailure, ContractorMyCalendarDTO>? failureOrSuccess;
 
           List<MyCalendarDTO> updatedDateTimeDTOList =
@@ -107,7 +108,9 @@ class MyCalendarViewBloc
 
             if (!isSelected) {
               currentDateId = item.employer_post_id;
+              currentDate = item.date;
               print("currentDateId---> $currentDateId");
+              print("currentDate---> $currentDate");
 
               return item.copyWith(
                 isUnAvailable: !item.isUnAvailable,
@@ -135,12 +138,14 @@ class MyCalendarViewBloc
 
           print("mycalendar result---> $result");
 
-          failureOrSuccess = await _mainFacade
-              .getContractorMyCalendarDetailApi((currentDateId != null)
-                  ? currentDateId!
-                  : (result.isNotEmpty)
-                      ? result[0].employer_post_id ?? -1
-                      : -1);
+          failureOrSuccess = await _mainFacade.getContractorMyCalendarDetailApi(
+            (currentDateId != null)
+                ? currentDateId!
+                : (result.isNotEmpty)
+                    ? "${result[0].employer_post_id ?? -1}"
+                    : "-1",
+            currentDate,
+          );
 
           failureOrSuccess.fold(
             (l) {

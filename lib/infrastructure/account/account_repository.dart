@@ -30,7 +30,8 @@ class AccountRepository extends IAccountRepository {
   @override
   Future<Either<AccountFailure, Account>> getCurrentUserApi() async {
     try {
-      final response = await apiService.getMethod(ApiConstants.getUserInfo, queryParameters: {"id": getCurrentUser().userId});
+      final response = await apiService.getMethod(ApiConstants.getUserInfo,
+          queryParameters: {"id": getCurrentUser().userId});
       if (response != null && response.data != null) {
         final account = CurrentUserDto.fromJson(response.data).toDomain();
         setCurrentUser(account);
@@ -44,7 +45,8 @@ class AccountRepository extends IAccountRepository {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       }
       return left(const AccountFailure.serverError());
@@ -52,7 +54,8 @@ class AccountRepository extends IAccountRepository {
   }
 
   @override
-  Future<Either<AccountFailure, List<ExperienceDTO>>> getExperienceRoleList() async {
+  Future<Either<AccountFailure, List<ExperienceDTO>>>
+      getExperienceRoleList() async {
     try {
       final response = await apiService.getMethod(
         ApiConstants.getYourRolesList,
@@ -72,7 +75,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -93,7 +97,8 @@ class AccountRepository extends IAccountRepository {
       };
 
       print("Sending Params:---> ${jsonEncode(mapData)}");
-      final response = await apiService.postMethod(ApiConstants.addRoleExperience, mapData);
+      final response =
+          await apiService.postMethod(ApiConstants.addRoleExperience, mapData);
       print("Response of Add Experience---> ${jsonEncode(response.data)}");
 
       final account = CurrentUserDto.fromJson(response.data).toDomain();
@@ -103,7 +108,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -115,7 +121,8 @@ class AccountRepository extends IAccountRepository {
   }
 
   @override
-  Future<Either<AccountFailure, List<ExperienceDTO>>> getExperienceSpecialityList() async {
+  Future<Either<AccountFailure, List<ExperienceDTO>>>
+      getExperienceSpecialityList() async {
     try {
       final response = await apiService.getMethod(
         ApiConstants.getYourSpecialityList,
@@ -135,7 +142,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -156,8 +164,10 @@ class AccountRepository extends IAccountRepository {
       };
 
       print("Sending Params:---> ${jsonEncode(mapData)}");
-      final response = await apiService.postMethod(ApiConstants.addSpecialityExperience, mapData);
-      print("Response of Add Speciality Experience---> ${jsonEncode(response.data)}");
+      final response = await apiService.postMethod(
+          ApiConstants.addSpecialityExperience, mapData);
+      print(
+          "Response of Add Speciality Experience---> ${jsonEncode(response.data)}");
 
       final account = CurrentUserDto.fromJson(response.data).toDomain();
       return right(account);
@@ -166,7 +176,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -192,7 +203,8 @@ class AccountRepository extends IAccountRepository {
       };
 
       print("Sending Params:---> ${jsonEncode(mapData)}");
-      final response = await apiService.postMethod(ApiConstants.education, mapData);
+      final response =
+          await apiService.postMethod(ApiConstants.education, mapData);
       print("Response of Add Education---> ${jsonEncode(response.data)}");
       print("Response of Add Education---> ${response.dioMessage}");
 
@@ -202,7 +214,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -243,7 +256,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -264,7 +278,8 @@ class AccountRepository extends IAccountRepository {
 
       print("Sending Params:---> ${jsonEncode(mapData)}");
 
-      final response = await apiService.deleteMethod('${ApiConstants.destroyEducation}?id=$educationId');
+      final response = await apiService
+          .deleteMethod('${ApiConstants.destroyEducation}?id=$educationId');
 
       if (response != null && response.data != null) {
         final account = CurrentUserDto.fromJson(response.data).toDomain();
@@ -277,7 +292,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -344,7 +360,8 @@ class AccountRepository extends IAccountRepository {
       }
 
       print("Sending Params:---> ${jsonEncode(mapData)}");
-      final response = await apiService.postMethod(ApiConstants.reference, mapData);
+      final response =
+          await apiService.postMethod(ApiConstants.reference, mapData);
       print("Response of Add Reference---> ${jsonEncode(response.data)}");
 
       final account = CurrentUserDto.fromJson(response.data).toDomain();
@@ -354,7 +371,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -441,7 +459,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -463,7 +482,8 @@ class AccountRepository extends IAccountRepository {
 
       print("Sending Params:---> ${jsonEncode(mapData)}");
 
-      final response = await apiService.deleteMethod('${ApiConstants.destroyReference}?id=$referenceId');
+      final response = await apiService
+          .deleteMethod('${ApiConstants.destroyReference}?id=$referenceId');
 
       if (response != null && response.data != null) {
         final account = CurrentUserDto.fromJson(response.data).toDomain();
@@ -476,7 +496,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -494,7 +515,9 @@ class AccountRepository extends IAccountRepository {
       print("Sending Params:---> $documentType");
 
       final response = await apiService.getMethod(
-        (documentType != null) ? "${ApiConstants.getDocument}?document_type=$documentType" : ApiConstants.getDocument,
+        (documentType != null)
+            ? "${ApiConstants.getDocument}?document_type=$documentType"
+            : ApiConstants.getDocument,
       );
 
       if (response != null && response.data != null) {
@@ -511,7 +534,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -537,17 +561,14 @@ class AccountRepository extends IAccountRepository {
   }) async {
     try {
       print("expiry dat---> $expiryDate");
-      print("expiry date after timestamp---> ${DateTime
-          .now()
-          .millisecondsSinceEpoch}");
+      print(
+          "expiry date after timestamp---> ${DateTime.now().millisecondsSinceEpoch}");
 
       var formData = FormData.fromMap({
         "document_type": documentType,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime
-            .parse(expiryDate)
-            .toUtc()
-            .millisecondsSinceEpoch / 1000).toString()
+            ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000)
+                .toString()
             : "",
         "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
         "registration_number": registrationNumber,
@@ -582,7 +603,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -615,10 +637,8 @@ class AccountRepository extends IAccountRepository {
         "id": id,
         "document_type": documentType,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime
-            .parse(expiryDate)
-            .toUtc()
-            .millisecondsSinceEpoch / 1000).toString()
+            ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000)
+                .toString()
             : "",
         "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
         "registration_number": registrationNumber,
@@ -653,7 +673,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -679,18 +700,15 @@ class AccountRepository extends IAccountRepository {
   }) async {
     try {
       print("expiry dat---> $expiryDate");
-      print("expiry date after timestamp---> ${DateTime
-          .now()
-          .millisecondsSinceEpoch}");
+      print(
+          "expiry date after timestamp---> ${DateTime.now().millisecondsSinceEpoch}");
 
       var formData = FormData.fromMap({
         "document_type": documentType,
         "province_of_registration": provinceOfRegistration,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime
-            .parse(expiryDate)
-            .toUtc()
-            .millisecondsSinceEpoch / 1000).toString()
+            ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000)
+                .toString()
             : "",
         "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
         "registration_number": registrationNumber,
@@ -727,7 +745,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -755,18 +774,15 @@ class AccountRepository extends IAccountRepository {
     try {
       print("expiry dat---> $expiryDate");
       print("Document file---> $documentFile");
-      print("expiry date after timestamp---> ${DateTime
-          .now()
-          .millisecondsSinceEpoch}");
+      print(
+          "expiry date after timestamp---> ${DateTime.now().millisecondsSinceEpoch}");
 
       var formData = FormData.fromMap({
         "id": id,
         "document_type": documentType,
         "expiry_date": (expiryDate != null && expiryDate.isNotEmpty)
-            ? (DateTime
-            .parse(expiryDate)
-            .toUtc()
-            .millisecondsSinceEpoch / 1000).toString()
+            ? (DateTime.parse(expiryDate).toUtc().millisecondsSinceEpoch / 1000)
+                .toString()
             : "",
         "expiry_date_not_applicable": (expiryDateNotApplicable == true) ? 1 : 0,
         "registration_number": registrationNumber,
@@ -798,7 +814,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -832,7 +849,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -845,7 +863,8 @@ class AccountRepository extends IAccountRepository {
   }
 
   @override
-  Future<Either<AccountFailure, List<LegalScreeningDTO>>> getLegalScreeningListApi() async {
+  Future<Either<AccountFailure, List<LegalScreeningDTO>>>
+      getLegalScreeningListApi() async {
     try {
       final response = await apiService.getMethod(
         ApiConstants.legalScreeningQuestionList,
@@ -865,7 +884,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -910,7 +930,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -943,7 +964,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -981,7 +1003,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -1012,7 +1035,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -1045,7 +1069,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -1069,7 +1094,6 @@ class AccountRepository extends IAccountRepository {
     required String latitude,
     required String longitude,
     required bool fromRegister,
-    int? type,
   }) async {
     try {
       var mapData = {
@@ -1092,18 +1116,21 @@ class AccountRepository extends IAccountRepository {
         "latitude": latitude,
         "longitude": longitude,
       };
+
       if (units.isNotEmpty) {
         mapData.addAll({
           "units": jsonEncode(units),
         });
       }
+
       print('Sending Data: ${jsonEncode(mapData)}');
 
       final response = await apiService.postMethod(
         ApiConstants.location,
         mapData,
       );
-      print("Response of Add location details---> ${jsonEncode(response.data)}");
+      print(
+          "Response of Add location details---> ${jsonEncode(response.data)}");
 
       final account = CurrentUserDto.fromJson(response.data).toDomain();
 
@@ -1117,7 +1144,8 @@ class AccountRepository extends IAccountRepository {
         var commonResponse = CommonResponse.fromJson(err.response?.data);
 
         if (commonResponse.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonResponse.dioMessage!));
+          return left(AccountFailure.showAPIResponseMessage(
+              commonResponse.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());
@@ -1150,7 +1178,8 @@ class AccountRepository extends IAccountRepository {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
 
         if (commonRespose.dioMessage != null) {
-          return left(AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+          return left(
+              AccountFailure.showAPIResponseMessage(commonRespose.dioMessage!));
         }
       } else if (err.type == DioExceptionType.connectionError) {
         return left(const AccountFailure.networkError());

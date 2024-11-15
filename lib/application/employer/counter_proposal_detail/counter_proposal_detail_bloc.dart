@@ -6,6 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
@@ -49,9 +50,6 @@ class CounterProposalDetailBloc
     on<CounterProposalDetailEvent>((event, emit) async {
       await event.map(
         sendCounterProposal: (value) async {
-          Log.debug(
-              "commute_allowance_type${state.data.commute_allowance_type}");
-
           final isCommuteAllownceValid = isAllownceValid(
               selectedValue: state.data.commute_allowance_type ?? -1,
               hourValue: state.commuteHour,
@@ -61,14 +59,6 @@ class CounterProposalDetailBloc
               hourValue: state.accomdationHour,
               rateValue: state.accomdationRate);
           final isRateValid = state.rateHour.isValid();
-
-          Log.success("=isCommuteAllownceValid $isCommuteAllownceValid");
-          Log.success(
-              "=isAccomdationAllownceValid $isAccomdationAllownceValid");
-          Log.success("=isRateValid $isRateValid");
-          Log.debug(isCommuteAllownceValid &&
-              isAccomdationAllownceValid &&
-              isRateValid);
 
           if (isCommuteAllownceValid &&
               isAccomdationAllownceValid &&
@@ -194,6 +184,11 @@ class CounterProposalDetailBloc
               );
             }
           } else {
+            showError(
+                    message: StringConstant
+                        .someDetailsAreMissingOrInvalidPleaseCheck)
+                .show(value.context);
+
             emit(state.copyWith(showErrorMessages: true));
           }
 

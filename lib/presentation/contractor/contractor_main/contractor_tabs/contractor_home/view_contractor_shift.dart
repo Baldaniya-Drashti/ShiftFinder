@@ -154,7 +154,7 @@ class ViewContractorShift extends StatelessWidget {
                                   child: paybaleTitleRate(
                                     title: StringConstant.totalNumberOfVacancy,
                                     value:
-                                        "${(shift.shift_detail!.payables!.number_of_vacancie.toString().length == 2) ? shift.shift_detail!.payables!.number_of_vacancie : "0${shift.shift_detail!.payables!.number_of_vacancie}"}",
+                                        "${(shift.shift_detail!.payables!.number_of_vacancie.toString().length > 1) ? shift.shift_detail!.payables!.number_of_vacancie : "0${shift.shift_detail!.payables!.number_of_vacancie}"}",
                                     isFirst: true,
                                   ),
                                 ),
@@ -502,8 +502,8 @@ class ViewContractorShift extends StatelessWidget {
                 BaseText(
                   text:
                       "(${CommonList.industryList.where((item) => item.id == getCurrentIndustry()).map((item) => item.title).join(', ')} - ${post.listing_id})",
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
                   textColor: AppColors.black.withOpacity(0.80),
                 ),
               ],
@@ -663,7 +663,7 @@ class ViewContractorShift extends StatelessWidget {
                   ? displayDateBreak(context, post,
                       boldValue: (post.shift_detail?.detail != null &&
                               post.shift_detail!.detail!.isNotEmpty)
-                          ? "${(post.shift_detail?.detail?.length.toString().length == 2) ? post.shift_detail?.detail?.length : "0${post.shift_detail?.detail?.length}"} Shifts"
+                          ? "${((post.shift_detail?.detail?.length.toString().length ?? 0) > 1) ? post.shift_detail?.detail?.length : "0${post.shift_detail?.detail?.length}"} Shifts"
                           : "00 Shifts",
                       timidValue: "",
                       title: StringConstant.totalShifts,

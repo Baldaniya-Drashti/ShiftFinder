@@ -73,12 +73,16 @@ class CurrentShift extends StatelessWidget {
                             children: [
                               userDetail(context, shift),
                               paddingBetweenFields(),
-                              numberOfVacancy(
-                                  value:
-                                      // "${shift.shift_detail?.number_of_vacancie ?? 0}"),
-                                      "${((shift.remaining_shifts ?? 0) > 9) ? shift.remaining_shifts : "0${shift.remaining_shifts}"}"),
-                              paddingBetweenFields(),
+                              if (shift.shift_detail != null &&
+                                  shift.shift_detail!.shift_type == 2) ...[
+                                remainingShift(
+                                    value:
+                                        // "${shift.shift_detail?.number_of_vacancie ?? 0}"),
+                                        "${((shift.remaining_shifts ?? 0) > 9) ? shift.remaining_shifts : "0${shift.remaining_shifts}"}"),
+                                paddingBetweenFields(),
+                              ],
                               dateAndTime(context, shift),
+                              paddingBetweenFields(),
                               clockIn(context, index, shift),
                               paddingBetweenFields(),
                               clockOut(context, index, shift),
@@ -101,79 +105,117 @@ class CurrentShift extends StatelessWidget {
   Widget dateAndTime(BuildContext context, CurrentShiftDTO shift) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Flexible(
-          flex: 10,
-          child: SizedBox(
-            height: getSize(120),
-            child: Column(
-              children: [
-                displayDateBreak(
-                  context,
-                  // boldValue: "12 May,",
-                  // timidValue: "2024",
-                  boldValue:
-                      convertTimeStampToDate(shift.shift_detail?.date ?? -1),
-                  timidValue: convertTimeStampToDate(
-                      shift.shift_detail?.date ?? -1,
-                      isYear: true),
-                  title: StringConstant.shiftDate,
-                  svgPrefixIcon: SvgImageConstant.calendar,
-                ),
-                displayDateBreak(
-                  context,
-                  boldValue:
-                      "\$${shift.shift_detail?.payables?.total_amount_payable ?? ""}",
-                  timidValue: "",
-                  title: StringConstant.estimatedPayables,
-                  svgPrefixIcon: SvgImageConstant.dollorRound,
-                ),
-              ],
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              /* displayDateBreak(
+                context,
+                // boldValue: "12 May,",
+                // timidValue: "2024",
+                boldValue:
+                    convertTimeStampToDate(shift.shift_detail?.date ?? -1),
+                timidValue: convertTimeStampToDate(
+                    shift.shift_detail?.date ?? -1,
+                    isYear: true),
+                title: StringConstant.shiftDate,
+                svgPrefixIcon: SvgImageConstant.calendar,
+              ), */
+              (shift.shift_detail?.shift_type == 1)
+                  ? displayDateBreak(
+                      context,
+                      boldValue: convertTimeStampToDate(
+                          shift.shift_detail?.date ?? -1),
+                      timidValue: convertTimeStampToDate(
+                          shift.shift_detail?.date ?? -1,
+                          isYear: true),
+                      title: StringConstant.shiftDate,
+                      svgPrefixIcon: SvgImageConstant.calendar,
+                    )
+                  : displayDateBreak(
+                      context,
+                      boldValue:
+                          "${((shift.shift_detail?.payables?.number_of_shift ?? 0) > 9) ? shift.shift_detail?.payables?.number_of_shift : "0${shift.shift_detail?.payables?.number_of_shift}"} Shifts",
+                      timidValue: "",
+                      title: StringConstant.totalShifts,
+                      svgPrefixIcon: SvgImageConstant.calendar,
+                    ),
+              displayDateBreak(
+                context,
+                boldValue:
+                    "\$${shift.shift_detail?.payables?.total_amount_payable ?? ""}",
+                timidValue: "",
+                title: StringConstant.estimatedPayables,
+                svgPrefixIcon: SvgImageConstant.dollorRound,
+              ),
+            ],
           ),
         ),
         Flexible(
-          flex: 13,
-          child: SizedBox(
-            height: getSize(120),
-            child: Column(
-              children: [
-                displayTime(
-                  title: StringConstant.time,
-                  startDate: (shift.shift_detail?.start_time != null)
-                      ? DateFormat('hh:mm a').format(
-                          DateTime.fromMillisecondsSinceEpoch(
-                              (shift.shift_detail?.start_time ?? 0) * 1000))
-                      : "",
-                  endDate: (shift.shift_detail?.end_time != null)
-                      ? DateFormat('hh:mm a').format(
-                          DateTime.fromMillisecondsSinceEpoch(
-                              (shift.shift_detail?.end_time ?? 0) * 1000))
-                      : "",
-                  svgPrefixIcon: SvgImageConstant.clock,
-                ),
-                displayDateBreak(
-                  context,
-                  boldValue: "",
-                  timidValue: "",
-                  title: "",
-                  svgPrefixIcon: "",
-                  showBtn: true,
-                  onBtnPressed: () {
-                    context.router.push(
-                      PageRouteInfo(
-                        ViewContractorShift.name,
-                        args: ViewContractorShiftArgs(
-                          postId: shift.id ?? -1,
-                          isTotalApplicants: true,
-                        ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              /*    displayTime(
+                title: StringConstant.time,
+                startDate: (shift.shift_detail?.start_time != null)
+                    ? DateFormat('hh:mm a').format(
+                        DateTime.fromMillisecondsSinceEpoch(
+                            (shift.shift_detail?.start_time ?? 0) * 1000))
+                    : "",
+                endDate: (shift.shift_detail?.end_time != null)
+                    ? DateFormat('hh:mm a').format(
+                        DateTime.fromMillisecondsSinceEpoch(
+                            (shift.shift_detail?.end_time ?? 0) * 1000))
+                    : "",
+                svgPrefixIcon: SvgImageConstant.clock,
+              ), */
+              (shift.shift_detail?.shift_type == 1)
+                  ? displayTime(
+                      title: StringConstant.time,
+                      startDate: (shift.shift_detail?.start_time != null)
+                          ? DateFormat('hh:mm a').format(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                  (shift.shift_detail?.start_time ?? 0) * 1000))
+                          : "",
+                      endDate: (shift.shift_detail?.end_time != null)
+                          ? DateFormat('hh:mm a').format(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                  (shift.shift_detail?.end_time ?? 0) * 1000))
+                          : "",
+                      svgPrefixIcon: SvgImageConstant.clock,
+                    )
+                  : displayDateBreak(
+                      context,
+                      boldValue: convertTimeStampToDate(
+                          shift.shift_detail?.date ?? -1),
+                      timidValue: convertTimeStampToDate(
+                        shift.shift_detail?.date ?? -1,
+                        isYear: true,
                       ),
-                    );
-                  },
-                ),
-              ],
-            ),
+                      title: StringConstant.shiftStartDate,
+                      svgPrefixIcon: SvgImageConstant.calendar,
+                    ),
+              displayDateBreak(
+                context,
+                boldValue: "",
+                timidValue: "",
+                title: "",
+                svgPrefixIcon: "",
+                showBtn: true,
+                onBtnPressed: () {
+                  context.router.push(
+                    PageRouteInfo(
+                      ViewContractorShift.name,
+                      args: ViewContractorShiftArgs(
+                        postId: shift.id ?? -1,
+                        isTotalApplicants: true,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ],
@@ -285,7 +327,7 @@ class CurrentShift extends StatelessWidget {
                 final selectedDateTime = DateTime(now.year, now.month, now.day,
                     clockInTime.hour, clockInTime.minute);
 
-                if (selectedDateTime.isAfter(now)) {
+                if (selectedDateTime.isBefore(now)) {
                   context.read<ContractorShiftBloc>().add(
                       ContractorShiftEvent.setClockIn(context,
                           index: index, clockInTime: clockInTime));
@@ -370,7 +412,7 @@ class CurrentShift extends StatelessWidget {
                     final selectedDateTime = DateTime(now.year, now.month,
                         now.day, clockOutTime.hour, clockOutTime.minute);
 
-                    if (selectedDateTime.isAfter(now)) {
+                    if (selectedDateTime.isBefore(now)) {
                       context.read<ContractorShiftBloc>().add(
                           ContractorShiftEvent.setClockOut(context,
                               index: index, clockOutTime: clockOutTime));
@@ -508,6 +550,7 @@ class CurrentShift extends StatelessWidget {
               backgroundColor: AppColors.scaffoldColor,
             )
           : Row(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 SvgPicture.asset(
@@ -656,7 +699,7 @@ class CurrentShift extends StatelessWidget {
                 ),
                 BaseText(
                   text:
-                      "(${getIndustry(shift.industry_id ?? 0)}  - ${shift.listing_id ?? ''})",
+                      "(${getIndustry(shift.industry_id ?? 0)} - ${shift.listing_id ?? ''})",
                   fontSize: 10,
                   fontWeight: FontWeight.w500,
                   textColor: AppColors.black.withOpacity(0.80),
@@ -743,7 +786,7 @@ class CurrentShift extends StatelessWidget {
     return industry.title ?? "";
   }
 
-  Widget numberOfVacancy({
+  Widget remainingShift({
     required String value,
   }) {
     return Container(

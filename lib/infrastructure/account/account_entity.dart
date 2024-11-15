@@ -41,6 +41,8 @@ class AccountEntity extends HiveObject {
   final String? lastPage;
   @HiveField(17)
   final int? isProfileComplete;
+  @HiveField(18)
+  final int? isDialogBox;
 
   AccountEntity(
     this.userId,
@@ -61,11 +63,13 @@ class AccountEntity extends HiveObject {
     this.isProfileComplete,
     this.referralCode,
     this.serviceRole,
+    this.isDialogBox,
   );
 
   Account toDomain() {
     return Account(
       userId: userId,
+      isDialogBox: isDialogBox,
       firstName: firstName,
       lastName: lastName,
       email: email,
@@ -106,6 +110,7 @@ class AccountEntity extends HiveObject {
       account.isProfileComplete,
       account.referralCode,
       account.serviceRole,
+      account.isDialogBox,
     );
   }
 }

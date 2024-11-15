@@ -526,8 +526,8 @@ class StringConstant {
       "’s hours. Once approved, the times will be finalized.";
 
   static const String withdrawnByContractor = "Withdrawn by contractor";
-  static const String withdralContractors = "All Withdrwal Contractors";
-  static const String cancelledContractors = "All Cancelled Contractors";
+  static const String allWithdralContractors = "All Withdrwal Contractors";
+  static const String allCancelledContractors = "All Cancelled Contractors";
   static const String compassion = "Compassion";
   static const String approvedDesc =
       "The clock in and out times for this shift have been successfully approved.";
@@ -732,6 +732,7 @@ class StringConstant {
   static const String pleaseAddClockInTime = "Please add clock in time!";
   static const String awaitingClockInOutDesc =
       "Awaiting for contractor’s clock in & out...";
+  static const String awaitingAcknowledgement = "Awaiting Acknowledgement";
   static const String underDevelopment = "Under Development";
 
 

@@ -170,6 +170,19 @@ class ViewSingleApplicants extends StatelessWidget {
                                                   ),
                                                 ),
                                               ] else ...[
+                                                if (data.request == 1) ...[
+                                                  Padding(
+                                                    padding: EdgeInsets.only(
+                                                        bottom: getSize(10)),
+                                                    child: BaseText(
+                                                      text: StringConstant
+                                                          .awaitingAcknowledgement,
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ],
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
