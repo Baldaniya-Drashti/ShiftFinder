@@ -56,6 +56,9 @@ class AddFullPositionBloc extends Bloc<AddFullPositionEvent, AddFullPositionStat
         onCompensationTypeChanged: (OnCompensationTypeChanged value) {
           emit(state.copyWith(selectedRadioOption: value.type));
         },
+        onEstimatedDateChanged: (OnEstimatedDateChanged value) {
+          emit(state.copyWith(selectedEstimatedHours: value.value));
+        },
       );
     });
   }

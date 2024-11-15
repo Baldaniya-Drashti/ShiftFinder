@@ -37,10 +37,7 @@ class EmployerFullPositionView extends StatelessWidget {
                 children: [
                   _buildPositionTile(context),
                   Gap(12),
-                  _positionDetailButton(
-                    context,
-                    onPressed: () {},
-                  ),
+                  _positionDetailButton(context, onPressed: () {}),
                   Gap(12),
                   _buildPositionDescription(context),
                   Gap(12),
@@ -86,7 +83,6 @@ class EmployerFullPositionView extends StatelessWidget {
   }
 
   Widget _buildPositionInfo(BuildContext context) {
-
     return Material(
       color: AppColors.primaryColor,
       child: Row(

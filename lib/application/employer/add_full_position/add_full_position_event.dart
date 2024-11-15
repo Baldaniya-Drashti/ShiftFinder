@@ -8,5 +8,6 @@ class AddFullPositionEvent with _$AddFullPositionEvent {
   const factory AddFullPositionEvent.onShiftScheduleChanged(CommonDropdownModel value) = OnShiftScheduleChanged;
   const factory AddFullPositionEvent.onLocationChanged({required LocationDTO selectedLocation}) = OnLocationChanged;
   const factory AddFullPositionEvent.onCompensationTypeChanged({required int type}) = OnCompensationTypeChanged;
+  const factory AddFullPositionEvent.onEstimatedDateChanged({required TimeOfDay value}) = OnEstimatedDateChanged;
 
 }

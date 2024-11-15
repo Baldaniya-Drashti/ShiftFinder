@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -90,6 +91,12 @@ class _PositionFormState extends State<_PositionForm> {
             hintText: "Type Here...",
             maxLines: 4,
             textInputAction: TextInputAction.next,
+            autoValidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value, context) {
+              value = value?.trim() ?? "";
+              if (value.isEmpty) return "Please Enter Position";
+              return null;
+            },
           ),
           Gap(18),
           BlocSelector<AddFullPositionBloc, AddFullPositionState, CommonDropdownModel?>(
@@ -135,31 +142,49 @@ class _PositionFormState extends State<_PositionForm> {
             controller: _unionUnitController,
             labelText: "Union/Bargaining Unit",
             hintText: "Union/Bargaining Unit",
+            textInputAction: TextInputAction.next,
+            autoValidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value, context) {
+              value = value?.trim() ?? "";
+              if (value.isEmpty) return "Please Enter Union/Bargaining Unit";
+              return null;
+            },
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           ),
           Gap(18),
-          CustomTextField(
-            controller: TextEditingController(),
-            labelText: "Estimated Weekly Hours",
-            hintText: "00h 00min",
-            readOnly: true,
-            onTap: () {
-              showTimePicker(
-                context: context,
-                initialTime: TimeOfDay.now(),
+          BlocSelector<AddFullPositionBloc, AddFullPositionState, TimeOfDay?>(
+            selector: (state) => state.selectedEstimatedHours,
+            builder: (context, selectedEstimatedHours) {
+              return CustomTextField(
+                controller: TextEditingController(text: selectedEstimatedHours?.format(context)),
+                labelText: "Estimated Weekly Hours",
+                hintText: "00h 00min",
+                readOnly: true,
+                onTap: () async {
+                  final result = await showTimePicker(
+                    context: context,
+                    initialTime: selectedEstimatedHours ?? TimeOfDay.now(),
+                  );
+                  if (result != null) {
+                    context.read<AddFullPositionBloc>().add(
+                          AddFullPositionEvent.onEstimatedDateChanged(value: result),
+                        );
+                  }
+                },
+                prefixIcon: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: getSize(14),
+                    vertical: getSize(14),
+                  ),
+                  child: SvgPicture.asset(
+                    SvgImageConstant.clock,
+                    height: getSize(24),
+                    width: getSize(24),
+                    color: AppColors.primaryColor,
+                  ),
+                ),
               );
             },
-            prefixIcon: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: getSize(14),
-                vertical: getSize(14),
-              ),
-              child: SvgPicture.asset(
-                SvgImageConstant.clock,
-                height: getSize(24),
-                width: getSize(24),
-                color: AppColors.primaryColor,
-              ),
-            ),
           ),
           Gap(18),
           _CompensationType(),
@@ -648,6 +673,7 @@ class _BulletTextField extends StatelessWidget {
           hintText: "• Type Here",
           textInputAction: TextInputAction.newline,
           keyboardType: TextInputType.multiline,
+          validator: (value, context) {},
         ),
       ],
     );
