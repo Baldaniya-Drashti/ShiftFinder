@@ -2,8 +2,10 @@ import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/application/employer/employer_full_position_confirm/employer_full_position_confirm_bloc.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -33,7 +35,39 @@ class EmployerFullPositionConfirmView extends StatelessWidget {
         body: SingleChildScrollView(
           padding: EdgeInsets.all(16),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: BaseText(text: "Application Deadline", fontWeight: FontWeight.w500, fontSize: 14),
+              ),
+              Gap(6),
+              Material(
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                color: AppColors.white,
+                child: InkWell(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 15),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(SvgImageConstant.calendar),
+                        Gap(18),
+                        Expanded(
+                          child: BaseText(
+                            text: "Application Deadline",
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            textColor: AppColors.black.withOpacity(0.5),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Gap(16),
               BlocSelector<EmployerFullPositionConfirmBloc, EmployerFullPositionConfirmState, bool>(
                 selector: (state) => state.includeOnCall,
                 builder: (context, includeOnCall) {

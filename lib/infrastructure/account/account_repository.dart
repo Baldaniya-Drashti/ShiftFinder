@@ -1094,6 +1094,8 @@ class AccountRepository extends IAccountRepository {
     required String latitude,
     required String longitude,
     required bool fromRegister,
+    int? type,
+
   }) async {
     try {
       var mapData = {

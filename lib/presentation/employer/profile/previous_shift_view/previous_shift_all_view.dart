@@ -44,14 +44,12 @@ class PreviousShiftAllView extends StatelessWidget {
             PaginatedListView(
               onRefresh: () {
                 context.read<PreviousShiftBloc>().add(
-                      PreviousShiftEvent.fetchAllPreviousPost(
-                          refresh: true, sortBy: 1),
+                      PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: 1),
                     );
               },
               onLoading: () {
                 context.read<PreviousShiftBloc>().add(
-                      PreviousShiftEvent.fetchAllPreviousPost(
-                          refresh: false, sortBy: 1),
+                      PreviousShiftEvent.fetchAllPreviousPost(refresh: false, sortBy: 1),
                     );
               },
               refreshController: context.read<PreviousShiftBloc>().allPost,
@@ -60,31 +58,26 @@ class PreviousShiftAllView extends StatelessWidget {
                   ? CenterLoadingIndicator()
                   : state.allDataListIsErrorApi
                       ? Center(
-                          child:
-                              BaseText(text: StringConstant.somethindWentWrong),
+                          child: BaseText(text: StringConstant.somethindWentWrong),
                         )
                       : SingleChildScrollView(
                           physics: BouncingScrollPhysics(),
                           padding: EdgeInsets.all(getSize(16)),
                           child: Column(
                             children: [
-                              BlocSelector<PreviousShiftBloc,
-                                  PreviousShiftState, RatingDropdownModel>(
+                              BlocSelector<PreviousShiftBloc, PreviousShiftState, RatingDropdownModel>(
                                 selector: (state) => state.selectedRating,
                                 builder: (context, selectedRating) {
                                   return _RatingsDropdown(
                                     onChanged: (RatingDropdownModel value) {
-                                      context.read<PreviousShiftBloc>().add(
-                                          PreviousShiftEvent.ratingChangeEvent(
-                                              rating: value));
+                                      context.read<PreviousShiftBloc>().add(PreviousShiftEvent.ratingChangeEvent(rating: value));
                                     },
                                     value: selectedRating,
                                   );
                                 },
                               ),
                               SizedBox(height: getSize(16)),
-                              _PreviousShiftAllListView(
-                                  allPostList: state.employerPreviousList)
+                              _PreviousShiftAllListView(allPostList: state.employerPreviousList)
                             ],
                           ),
                         ),
@@ -163,10 +156,7 @@ class _RatingsDropdown extends StatelessWidget {
               icon: SvgImageConstant.starFilled,
             ),
             RatingDropdownModel(
-                value: 2,
-                title: "Location (Descending to Ascending) ",
-                icon: SvgImageConstant.locationIcon,
-                iconColor: Colors.black),
+                value: 2, title: "Location (Descending to Ascending) ", icon: SvgImageConstant.locationIcon, iconColor: Colors.black),
           ]
               .map(
                 (e) => DropdownMenuItem<RatingDropdownModel>(
@@ -178,9 +168,7 @@ class _RatingsDropdown extends StatelessWidget {
                         e.icon,
                         height: 18,
                         width: 18,
-                        colorFilter: e.iconColor != null
-                            ? ColorFilter.mode(e.iconColor!, BlendMode.srcIn)
-                            : null,
+                        colorFilter: e.iconColor != null ? ColorFilter.mode(e.iconColor!, BlendMode.srcIn) : null,
                       ),
                       SizedBox(
                         width: getSize(10),
@@ -220,8 +208,7 @@ class RatingStar extends StatelessWidget {
           SvgImageConstant.starFilled,
         ),
         SizedBox(width: getSize(8)),
-        BaseText(
-            text: rating.toString(), fontSize: 12, fontWeight: FontWeight.w600),
+        BaseText(text: rating.toString(), fontSize: 12, fontWeight: FontWeight.w600),
       ],
     );
   }
@@ -262,15 +249,12 @@ class _PreviousShiftListTile extends StatelessWidget {
               final userId = data.user_id;
               if (postId == null && userId == null) return;
               context.router.push(
-                PageRouteInfo(ViewApplicantProfile.name,
-                    args: ViewApplicantProfileArgs(
-                        id: userId ?? -1, postId: postId ?? -1)),
+                PageRouteInfo(ViewApplicantProfile.name, args: ViewApplicantProfileArgs(id: userId ?? -1, postId: postId ?? -1)),
               );
             },
             label: "View Profile",
             radius: 7.0,
-            textStyle:
-                TextStyle(fontSize: getSize(12.0), fontWeight: FontWeight.w600),
+            textStyle: TextStyle(fontSize: getSize(12.0), fontWeight: FontWeight.w600),
           ),
           Gap(getSize(10)),
           _buildAdditionalInfo(context),
@@ -300,8 +284,7 @@ class _PreviousShiftListTile extends StatelessWidget {
               SvgImageConstant.calendar,
               height: 15,
               width: 15,
-              colorFilter: ColorFilter.mode(
-                  AppColors.black.withOpacity(0.6), BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(AppColors.black.withOpacity(0.6), BlendMode.srcIn),
             ),
             title: BaseText(
               text: "Last Worked Date",
@@ -312,15 +295,12 @@ class _PreviousShiftListTile extends StatelessWidget {
             subtitle: Text.rich(
               style: TextStyle(fontSize: 12),
               TextSpan(
-                text:
-                    "${convertUnixTimeToLocalString(data.last_worked_date ?? 0)}, ",
+                text: "${convertUnixTimeToLocalString(data.last_worked_date ?? 0)}, ",
                 style: TextStyle(fontWeight: FontWeight.w500),
                 children: [
                   TextSpan(
-                      text:
-                          "${DateTime.fromMillisecondsSinceEpoch((data.last_worked_date ?? 0) * 1000).year}",
-                      style:
-                          TextStyle(color: AppColors.black.withOpacity(0.5))),
+                      text: "${DateTime.fromMillisecondsSinceEpoch((data.last_worked_date ?? 0) * 1000).year}",
+                      style: TextStyle(color: AppColors.black.withOpacity(0.5))),
                 ],
               ),
             ),
@@ -333,8 +313,7 @@ class _PreviousShiftListTile extends StatelessWidget {
               SvgImageConstant.clock,
               height: 15,
               width: 15,
-              colorFilter: ColorFilter.mode(
-                  AppColors.black.withOpacity(0.6), BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(AppColors.black.withOpacity(0.6), BlendMode.srcIn),
             ),
             title: BaseText(
               text: "Time",
@@ -343,8 +322,7 @@ class _PreviousShiftListTile extends StatelessWidget {
               fontWeight: FontWeight.w400,
             ),
             subtitle: BaseText(
-              text:
-                  '${formatUnixTimestamp(data.last_worked_start_time ?? 0)} to ${formatUnixTimestamp(data.last_worked_end_time ?? 0)}',
+              text: '${formatUnixTimestamp(data.last_worked_start_time ?? 0)} to ${formatUnixTimestamp(data.last_worked_end_time ?? 0)}',
               fontSize: 12,
               fontWeight: FontWeight.w500,
             ),
@@ -394,9 +372,7 @@ class _PreviousShiftListTile extends StatelessWidget {
               children: [
                 Expanded(
                   child: _ActionButton(
-                    backgroundColor: isBlock
-                        ? AppColors.white.withOpacity(0.5)
-                        : AppColors.white,
+                    backgroundColor: isBlock ? AppColors.white.withOpacity(0.5) : AppColors.white,
                     onPressed: !isBlock
                         ? () async {
                             final postId = data.post_id ?? 0;
@@ -429,46 +405,30 @@ class _PreviousShiftListTile extends StatelessWidget {
                             }
                           }
                         : null,
-                    icon: (data.isFavourite ?? false)
-                        ? SvgImageConstant.heartChecked
-                        : SvgImageConstant.heart1,
-                    label:
-                        "${(data.isFavourite ?? false) ? "Added" : "Add"} to favorite",
-                    textColor:
-                        isBlock ? AppColors.black.withOpacity(0.5) : null,
+                    icon: (data.isFavourite ?? false) ? SvgImageConstant.heartChecked : SvgImageConstant.heart1,
+                    label: "${(data.isFavourite ?? false) ? "Added" : "Add"} to favorite",
+                    textColor: isBlock ? AppColors.black.withOpacity(0.5) : null,
                   ),
                 ),
                 Gap(getSize(8.0)),
                 Expanded(
                   child: _ActionButton(
-                    backgroundColor: isBlock
-                        ? AppColors.white.withOpacity(0.5)
-                        : AppColors.white,
+                    backgroundColor: isBlock ? AppColors.white.withOpacity(0.5) : AppColors.white,
                     onPressed: !isBlock
                         ? () => _onAddRating(
-                              contractorName:
-                                  "${data.first_name ?? ""} ${data.last_name ?? ""}",
+                              contractorName: "${data.first_name ?? ""} ${data.last_name ?? ""}",
                               context,
                               defaultRating: data.rating,
                               userId: data.user_id ?? -1,
                               postId: data.post_id ?? -1,
                             )
                         : null,
-                    icon: (data.isRating == true &&
-                            data.rating != null &&
-                            data.rating != 0)
+                    icon: (data.isRating == true && data.rating != null && data.rating != 0)
                         ? SvgImageConstant.starFilled
                         : SvgImageConstant.starOutlined,
-                    iconColor: (data.isRating == true &&
-                            data.rating != null &&
-                            data.rating != 0)
-                        ? AppColors.primaryColor
-                        : null,
-                    textColor:
-                        isBlock ? AppColors.black.withOpacity(0.5) : null,
-                    label: (data.isRating == true &&
-                            data.rating != null &&
-                            data.rating != 0)
+                    iconColor: (data.isRating == true && data.rating != null && data.rating != 0) ? AppColors.primaryColor : null,
+                    textColor: isBlock ? AppColors.black.withOpacity(0.5) : null,
+                    label: (data.isRating == true && data.rating != null && data.rating != 0)
                         ? "${data.rating!.toDouble()}"
                         : "Leave a Rating",
                   ),
@@ -480,9 +440,7 @@ class _PreviousShiftListTile extends StatelessWidget {
               children: [
                 Expanded(
                   child: _ActionButton(
-                    backgroundColor: isBlock
-                        ? AppColors.white.withOpacity(0.5)
-                        : AppColors.white,
+                    backgroundColor: isBlock ? AppColors.white.withOpacity(0.5) : AppColors.white,
                     onPressed: !isBlock
                         ? () {
                             _onAddRemark(
@@ -493,11 +451,8 @@ class _PreviousShiftListTile extends StatelessWidget {
                           }
                         : null,
                     label: data.isRemark == true ? "Remark Added" : "Remark",
-                    icon: data.isRemark == true
-                        ? SvgImageConstant.remarkAdded
-                        : SvgImageConstant.medalStar,
-                    textColor:
-                        isBlock ? AppColors.black.withOpacity(0.5) : null,
+                    icon: data.isRemark == true ? SvgImageConstant.remarkAdded : SvgImageConstant.medalStar,
+                    textColor: isBlock ? AppColors.black.withOpacity(0.5) : null,
                   ),
                 ),
                 Gap(getSize(8.0)),
@@ -509,27 +464,20 @@ class _PreviousShiftListTile extends StatelessWidget {
                           context,
                           postId: data.post_id ?? 0,
                           userId: data.user_id ?? 0,
-                          contractorName:
-                              "${data.first_name ?? ""} ${data.last_name ?? ""}",
+                          contractorName: "${data.first_name ?? ""} ${data.last_name ?? ""}",
                         );
                       } else {
                         _onBlock(
                           context,
                           postId: data.post_id ?? 0,
                           userId: data.user_id ?? 0,
-                          contractorName:
-                              "${data.first_name ?? ""} ${data.last_name ?? ""}",
+                          contractorName: "${data.first_name ?? ""} ${data.last_name ?? ""}",
                         );
                       }
                     },
-                    label:
-                        isBlock ? StringConstant.blocked : StringConstant.block,
-                    icon: isBlock
-                        ? SvgImageConstant.blockedFilled
-                        : SvgImageConstant.block,
-                    backgroundColor: isBlock
-                        ? AppColors.redAccent.withOpacity(0.15)
-                        : AppColors.white,
+                    label: isBlock ? StringConstant.blocked : StringConstant.block,
+                    icon: isBlock ? SvgImageConstant.blockedFilled : SvgImageConstant.block,
+                    backgroundColor: isBlock ? AppColors.redAccent.withOpacity(0.15) : AppColors.white,
                   ),
                 ),
               ],
@@ -551,11 +499,7 @@ class _PreviousShiftListTile extends StatelessWidget {
     );
     if (result != null) {
       context.read<PreviousShiftBloc>().add(
-            PreviousShiftEvent.addRemark(
-                userId: userId,
-                postId: postId,
-                context: context,
-                remark: result),
+            PreviousShiftEvent.addRemark(userId: userId, postId: postId, context: context, remark: result),
           );
     }
   }
@@ -571,14 +515,12 @@ class _PreviousShiftListTile extends StatelessWidget {
       deleteColor: AppColors.redAccent,
       title: "Block",
       context,
-      infoMessage:
-          "Blocking $contractorName will prevent them from seeing any future postings. Are you sure you want to proceed?",
+      infoMessage: "Blocking $contractorName will prevent them from seeing any future postings. Are you sure you want to proceed?",
       onCancelClick: () => context.router.maybePop(),
       onDeleteClick: () {
         context.router.maybePop();
         context.read<PreviousShiftBloc>().add(
-              PreviousShiftEvent.blockUnblockPost(
-                  userId: userId, postId: postId, context: context),
+              PreviousShiftEvent.blockUnblockPost(userId: userId, postId: postId, context: context),
             );
       },
     );
@@ -617,15 +559,13 @@ class _PreviousShiftListTile extends StatelessWidget {
     final result = await AppDialog.showCommonDialog(
       context: context,
       title: "Unblock",
-      content:
-          "Unblocking $contractorName will allow them to view and apply for your future postings. Are you sure you want to proceed?",
+      content: "Unblocking $contractorName will allow them to view and apply for your future postings. Are you sure you want to proceed?",
       successLabel: "Unblock",
     );
 
     if (result ?? false) {
       context.read<PreviousShiftBloc>().add(
-            PreviousShiftEvent.blockUnblockPost(
-                userId: userId, postId: postId, context: context),
+            PreviousShiftEvent.blockUnblockPost(userId: userId, postId: postId, context: context),
           );
     }
   }
@@ -662,8 +602,7 @@ class _ActionButton extends StatelessWidget {
         width: 14,
         color: iconColor,
       ),
-      textStyle: TextStyle(
-          fontSize: 10.0, fontWeight: FontWeight.w500, color: textColor),
+      textStyle: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w500, color: textColor),
     );
   }
 }
@@ -705,6 +644,5 @@ class RatingDropdownModel {
           iconColor == other.iconColor;
 
   @override
-  int get hashCode =>
-      value.hashCode ^ title.hashCode ^ icon.hashCode ^ iconColor.hashCode;
+  int get hashCode => value.hashCode ^ title.hashCode ^ icon.hashCode ^ iconColor.hashCode;
 }

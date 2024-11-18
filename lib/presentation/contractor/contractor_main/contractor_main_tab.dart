@@ -33,12 +33,10 @@ class ContractorMainTabView extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => getIt<ContractorMainTabBloc>()
-            ..add(ContractorMainTabEvent.tabChange(0)),
+          create: (context) => getIt<ContractorMainTabBloc>()..add(ContractorMainTabEvent.tabChange(0)),
         ),
         BlocProvider(
-          create: (context) => getIt<ContractorHomeBloc>()
-            ..add(ContractorHomeEvent.getContractorDashboardList(true)),
+          create: (context) => getIt<ContractorHomeBloc>()..add(ContractorHomeEvent.getContractorDashboardList(true)),
         ),
         BlocProvider<AccountCubit>(
           create: (context) => getIt<AccountCubit>()..getAccount(),
@@ -62,13 +60,10 @@ class ContractorMainTabView extends StatelessWidget {
                     (int index) {
                       return Navigator(
                         onGenerateRoute: (RouteSettings settings) {
-                          print(
-                              "PAGE IS ${context.read<ContractorMainTabBloc>().pageList[index]}");
+                          print("PAGE IS ${context.read<ContractorMainTabBloc>().pageList[index]}");
                           return onGenerateRoute(
                             settings,
-                            context
-                                .read<ContractorMainTabBloc>()
-                                .pageList[index],
+                            context.read<ContractorMainTabBloc>().pageList[index],
                           );
                         },
                       );
@@ -96,8 +91,7 @@ getAppbar(ContractorMainTabState state, BuildContext context) {
             shape: BoxShape.circle,
             border: Border.all(color: AppColors.darkGreen, width: getSize(3)),
             image: DecorationImage(
-              image: (getCurrentUser().profileImage != null &&
-                      getCurrentUser().profileImage!.isNotEmpty)
+              image: (getCurrentUser().profileImage != null && getCurrentUser().profileImage!.isNotEmpty)
                   ? CachedNetworkImageProvider(
                       getCurrentUser().profileImage!,
                       // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBLrdd7MIMxvrcpH-P3EtMy2jhc5PL0tDNww&s",
@@ -122,8 +116,7 @@ getAppbar(ContractorMainTabState state, BuildContext context) {
               textColor: AppColors.black.withOpacity(0.7),
             ),
             BaseText(
-              text:
-                  "${getCurrentUser().firstName ?? ''} ${getCurrentUser().lastName ?? ''}",
+              text: "${getCurrentUser().firstName ?? ''} ${getCurrentUser().lastName ?? ''}",
               fontSize: 14,
               fontWeight: FontWeight.w400,
               fontFamily: "Aclonica",
@@ -151,9 +144,7 @@ getAppbar(ContractorMainTabState state, BuildContext context) {
             color: AppColors.white,
             padding: EdgeInsets.zero,
             onSelected: (String result) {
-              context
-                  .read<ContractorHomeBloc>()
-                  .add(ContractorHomeEvent.filterShiftEvent(result));
+              context.read<ContractorHomeBloc>().add(ContractorHomeEvent.filterShiftEvent(result));
             },
             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
               PopupMenuItem<String>(

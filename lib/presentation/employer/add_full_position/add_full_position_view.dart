@@ -12,8 +12,10 @@ import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/injection.dart';
+import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
@@ -354,7 +356,7 @@ class _CompensationType extends StatefulWidget {
 }
 
 class _CompensationTypeState extends State<_CompensationType> {
-  final TextEditingController _hourController = TextEditingController();
+  final TextEditingController _rateAndSalaryController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -384,6 +386,8 @@ class _CompensationTypeState extends State<_CompensationType> {
                 BlocSelector<AddFullPositionBloc, AddFullPositionState, int>(
                   selector: (state) => state.selectedRadioOption,
                   builder: (context, selectedRadioOption) {
+                    final label = selectedRadioOption == 1 ? "Rate/Hour" : "Salary/Year";
+
                     return Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -423,11 +427,17 @@ class _CompensationTypeState extends State<_CompensationType> {
                           ),
                         ),
                         Gap(8),
-                        if (selectedRadioOption == 1) ...[
-                          CustomTextField(controller: _hourController, hintText: "\$Rate/Hour"),
-                        ] else ...[
-                          _buildYearPicker(context)
-                        ],
+                        CustomTextField(
+                          controller: _rateAndSalaryController,
+                          hintText: selectedRadioOption == 1 ? "\$$label" : "\$$label",
+                          validator: (value, context) {
+                            value = value?.trim() ?? "";
+                            if (value.isEmpty) {
+                              return "Please enter $label";
+                            }
+                            return null;
+                          },
+                        ),
                       ],
                     );
                   },
@@ -495,7 +505,7 @@ class _CompensationTypeState extends State<_CompensationType> {
         );
       },
       readOnly: true,
-      controller: _hourController,
+      controller: _rateAndSalaryController,
       hintText: "Salary/Year",
     );
   }
@@ -552,6 +562,7 @@ class _BulletListViewState extends State<_BulletListView> {
 
   @override
   Widget build(BuildContext context) {
+    final state = context.read<AddFullPositionBloc>().state;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -569,12 +580,26 @@ class _BulletListViewState extends State<_BulletListView> {
           controller: _jobSummaryController,
           label: "Job Summary",
           optional: false,
+          validator: (value) {
+            value = value?.trim() ?? "";
+            if (value.isEmpty) {
+              return "Please enter job summary";
+            }
+            return null;
+          },
         ),
         Gap(16),
         _BulletTextField(
           controller: _keyResponsibilityController,
           label: "Key Responsibilities",
           optional: false,
+          validator: (value) {
+            value = value?.trim() ?? "";
+            if (value.isEmpty) {
+              return "Please enter key responsibilities";
+            }
+            return null;
+          },
         ),
         Gap(16),
         _BulletTextField(
@@ -586,24 +611,52 @@ class _BulletListViewState extends State<_BulletListView> {
           controller: _qualificationController,
           label: "Required Qualifications",
           optional: false,
+          validator: (value) {
+            value = value?.trim() ?? "";
+            if (value.isEmpty) {
+              return "Please enter required qualifications";
+            }
+            return null;
+          },
         ),
         Gap(16),
         _BulletTextField(
           controller: _experienceController,
           label: "Required Experience",
           optional: false,
+          validator: (value) {
+            value = value?.trim() ?? "";
+            if (value.isEmpty) {
+              return "Please enter required experience";
+            }
+            return null;
+          },
         ),
         Gap(16),
         _BulletTextField(
           controller: _licenseController,
           label: "Required Licenses/Certifications",
           optional: false,
+          validator: (value) {
+            value = value?.trim() ?? "";
+            if (value.isEmpty) {
+              return "Please enter required licenses/certifications";
+            }
+            return null;
+          },
         ),
         Gap(16),
         _BulletTextField(
           controller: _skillController,
           label: "Required Skills",
           optional: false,
+          validator: (value) {
+            value = value?.trim() ?? "";
+            if (value.isEmpty) {
+              return "Please enter required skills";
+            }
+            return null;
+          },
         ),
         Gap(16),
         _BulletTextField(
@@ -613,8 +666,24 @@ class _BulletListViewState extends State<_BulletListView> {
         Gap(28),
         CommonButton(
           onPressed: () {
-            Log.success(_benefitController.getBulletContent());
-            //context.router.navigate(PageRouteInfo(EmployerFullPositionConfirmView.name));
+            // if (state.selectedShiftSchedule == null) {
+            //   showError(message: "Please select shift schedule").show(context);
+            //   return;
+            // }
+            //
+            // if (state.selectedJobType == null) {
+            //   showError(message: "Please select job type").show(context);
+            //   return;
+            // }
+            //
+            // if (state.selectedLocation == null) {
+            //   showError(message: "Please select location").show(context);
+            //   return;
+            // }
+            //
+            // if (_formKey.currentState?.validate() != true) return;
+
+            context.router.navigate(PageRouteInfo(EmployerFullPositionConfirmView.name));
           },
           buttonText: "Continue",
         )
@@ -673,7 +742,12 @@ class _BulletTextField extends StatelessWidget {
           hintText: "• Type Here",
           textInputAction: TextInputAction.newline,
           keyboardType: TextInputType.multiline,
-          validator: (value, context) {},
+          autoValidateMode: AutovalidateMode.onUserInteraction,
+          validator: validator != null
+              ? (value, context) {
+                  return validator!(value);
+                }
+              : null,
         ),
       ],
     );

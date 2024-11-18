@@ -26,13 +26,14 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'ApprovedHiredList')
 class ApprovedHiredList extends StatelessWidget {
   int postId;
+
   ApprovedHiredList({super.key, required this.postId});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<HiredContractorBloc>()
-        ..add(HiredContractorEvent.getHiredApproveContractorList(
-            refresh: true, postId: postId)),
+      create: (context) =>
+          getIt<HiredContractorBloc>()..add(HiredContractorEvent.getHiredApproveContractorList(refresh: true, postId: postId)),
       child: BlocBuilder<HiredContractorBloc, HiredContractorState>(
         builder: (context, state) {
           return Scaffold(
@@ -45,36 +46,24 @@ class ApprovedHiredList extends StatelessWidget {
               body: state.isLoading
                   ? CenterLoadingIndicator(isOnlyLoader: true)
                   : state.errorApi
-                      ? Center(
-                          child:
-                              BaseText(text: StringConstant.somethindWentWrong))
+                      ? Center(child: BaseText(text: StringConstant.somethindWentWrong))
                       : PaginatedListView(
                           onRefresh: () => context
                               .read<HiredContractorBloc>()
-                              .add(HiredContractorEvent
-                                  .getHiredApproveContractorList(
-                                      refresh: true, postId: postId)),
-                          onLoading: () => context
-                              .read<HiredContractorBloc>()
-                              .add(HiredContractorEvent
-                                  .getHiredApproveContractorList(
+                              .add(HiredContractorEvent.getHiredApproveContractorList(refresh: true, postId: postId)),
+                          onLoading: () => context.read<HiredContractorBloc>().add(HiredContractorEvent.getHiredApproveContractorList(
                                 refresh: false,
                                 postId: postId,
                               )),
-                          refreshController: context
-                              .read<HiredContractorBloc>()
-                              .hiredContractorListController,
+                          refreshController: context.read<HiredContractorBloc>().hiredContractorListController,
                           child: ListView.builder(
-                              padding:
-                                  EdgeInsets.symmetric(vertical: getSize(10)),
-                              itemCount:
-                                  state.hiredApproveContractorList.length,
+                              padding: EdgeInsets.symmetric(vertical: getSize(10)),
+                              itemCount: state.hiredApproveContractorList.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                     onTap: () {
                                       context.router.push(
-                                        PageRouteInfo(
-                                            ViewApplicantProfile.name),
+                                        PageRouteInfo(ViewApplicantProfile.name),
                                       );
                                     },
                                     child: contractorDetail(
@@ -88,21 +77,16 @@ class ApprovedHiredList extends StatelessWidget {
     );
   }
 
-  Widget contractorDetail(
-      BuildContext context, HiredContractorListDTO contractor) {
+  Widget contractorDetail(BuildContext context, HiredContractorListDTO contractor) {
     return Container(
-      margin:
-          EdgeInsets.symmetric(vertical: getSize(8), horizontal: getSize(20)),
+      margin: EdgeInsets.symmetric(vertical: getSize(8), horizontal: getSize(20)),
       padding: EdgeInsets.all(getSize(10)),
-      decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(getSize(10)),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 5,
-              color: AppColors.grey,
-            )
-          ]),
+      decoration: BoxDecoration(color: AppColors.white, borderRadius: BorderRadius.circular(getSize(10)), boxShadow: [
+        BoxShadow(
+          blurRadius: 5,
+          color: AppColors.grey,
+        )
+      ]),
       child: Column(
         children: [
           Container(
@@ -123,17 +107,14 @@ class ApprovedHiredList extends StatelessWidget {
                   child: CircleAvatar(
                     backgroundColor: AppColors.scaffoldColor,
                     radius: getSize(21),
-                    backgroundImage: (contractor.profile != null &&
-                            contractor.profile!.isNotEmpty)
-                        ? NetworkImage(contractor.profile ?? "")
-                        : null,
+                    backgroundImage:
+                        (contractor.profile != null && contractor.profile!.isNotEmpty) ? NetworkImage(contractor.profile ?? "") : null,
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: getSize(10)),
                   child: BaseText(
-                    text:
-                        '${contractor.first_name ?? ""} ${contractor.last_name ?? ""}',
+                    text: '${contractor.first_name ?? ""} ${contractor.last_name ?? ""}',
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                   ),
@@ -176,11 +157,8 @@ class ApprovedHiredList extends StatelessWidget {
           if (contractor.clock_in_out_status == 2) ...[
             Container(
               alignment: Alignment.centerLeft,
-              padding: EdgeInsets.symmetric(
-                  vertical: getSize(8), horizontal: getSize(20)),
-              decoration: BoxDecoration(
-                  color: AppColors.primaryColor.withOpacity(0.15),
-                  borderRadius: BorderRadius.circular(getSize(5))),
+              padding: EdgeInsets.symmetric(vertical: getSize(8), horizontal: getSize(20)),
+              decoration: BoxDecoration(color: AppColors.primaryColor.withOpacity(0.15), borderRadius: BorderRadius.circular(getSize(5))),
               child: BaseText(
                 text: StringConstant.awaitingClockInOutDesc,
                 fontSize: 10,
@@ -195,18 +173,16 @@ class ApprovedHiredList extends StatelessWidget {
                 Expanded(
                   child: CommonButton(
                     height: 40,
-                    onPressed: (contractor.clock_in_time != null &&
-                            contractor.clock_out_time != null)
+                    onPressed: (true /*contractor.clock_in_time != null && contractor.clock_out_time != null*/)
                         ? () {
-                            showUnderDevelopment(context);
-                            // approveDialog(context, contractor);
+                            //showUnderDevelopment(context);
+                            approveDialog(context, contractor);
                           }
                         : () {},
                     borderRadius: 7,
                     buttonFontSize: 12,
                     buttonText: StringConstant.approve,
-                    backgroundColor: (contractor.clock_in_time != null &&
-                            contractor.clock_out_time != null)
+                    backgroundColor: (contractor.clock_in_time != null && contractor.clock_out_time != null)
                         ? AppColors.primaryColor
                         : AppColors.primaryColor.withOpacity(0.3),
                   ),
@@ -219,8 +195,7 @@ class ApprovedHiredList extends StatelessWidget {
                     borderColor: AppColors.scaffoldColor,
                     buttonTextColor: AppColors.black,
                     onPressed: () {
-                      EditClockTimeDialog()
-                          .editClockTimeDialog(context, contractor);
+                      EditClockTimeDialog().editClockTimeDialog(context, contractor);
                       // showUnderDevelopment(context);
                     },
                     buttonFontSize: 12,
@@ -296,29 +271,21 @@ class ApprovedHiredList extends StatelessWidget {
           clockTime(
             context,
             value: (shift.clock_in_time != null)
-                ? DateFormat('hh:mm a').format(
-                    DateTime.fromMillisecondsSinceEpoch(
-                        (shift.clock_in_time!) * 1000))
+                ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((shift.clock_in_time!) * 1000))
                 : '--',
             title: StringConstant.clockIn,
             svgPrefixIcon: SvgImageConstant.clock,
-            valueColor: (shift.clock_in_time != null)
-                ? AppColors.primaryColor
-                : AppColors.black,
+            valueColor: (shift.clock_in_time != null) ? AppColors.primaryColor : AppColors.black,
           ),
           Spacer(),
           clockTime(
             context,
             value: (shift.clock_out_time != null)
-                ? DateFormat('hh:mm a').format(
-                    DateTime.fromMillisecondsSinceEpoch(
-                        (shift.clock_out_time!) * 1000))
+                ? DateFormat('hh:mm a').format(DateTime.fromMillisecondsSinceEpoch((shift.clock_out_time!) * 1000))
                 : "--",
             title: StringConstant.clockOut,
             svgPrefixIcon: SvgImageConstant.clock,
-            valueColor: (shift.clock_out_time != null)
-                ? AppColors.primaryColor
-                : AppColors.black,
+            valueColor: (shift.clock_out_time != null) ? AppColors.primaryColor : AppColors.black,
           ),
         ],
       ),
@@ -371,8 +338,7 @@ class ApprovedHiredList extends StatelessWidget {
   approveDialog(BuildContext context, HiredContractorListDTO contractor) {
     AcceptRejectDialog(
       title: StringConstant.approve,
-      description:
-          "${StringConstant.approveShiftDesc1}${contractor.first_name ?? ""}${StringConstant.approveShiftDesc2}",
+      description: "${StringConstant.approveShiftDesc1}${contractor.first_name ?? ""}${StringConstant.approveShiftDesc2}",
       onPressedAccept: () async {
         await context.router.maybePop();
         successFullyApproved(context);
@@ -384,8 +350,8 @@ class ApprovedHiredList extends StatelessWidget {
     ).acceptRejectDialog(context);
   }
 
-  successFullyApproved(BuildContext context) {
-    showDialog<bool?>(
+  successFullyApproved(BuildContext context) async {
+    await showDialog<bool?>(
       barrierDismissible: false,
       context: context,
       builder: (context) {
@@ -412,8 +378,7 @@ class ApprovedHiredList extends StatelessWidget {
             ],
           ),
           content: Padding(
-            padding: EdgeInsets.symmetric(horizontal: getSize(20))
-                .copyWith(top: getSize(10)),
+            padding: EdgeInsets.symmetric(horizontal: getSize(20)).copyWith(top: getSize(10)),
             child: BaseText(
               text: StringConstant.approvedDesc,
               fontSize: 14,
@@ -436,8 +401,8 @@ class ApprovedHiredList extends StatelessWidget {
       },
     ).then((value) {
       if (value == true) {
-        showUnderDevelopment(context);
-        // context.router.push(PageRouteInfo(ShiftActionsView.name));
+        // showUnderDevelopment(context);
+        context.router.push(PageRouteInfo(ShiftActionsView.name));
       }
     });
   }
