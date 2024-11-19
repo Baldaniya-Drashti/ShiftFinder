@@ -75,6 +75,9 @@ dependencies:
   syncfusion_flutter_pdfviewer: 
   dropdown_textfield: ^1.2.0
   google_maps_flutter: ^2.9.0
+  socket_io_client: ^2.0.3+1
+  sticky_headers: ^0.3.0+2
+  flutter_sticky_header: ^0.7.0
   # datepicker_dropdown: ^0.1.4
   equatable: ^2.0.5
   gap: ^3.0.1

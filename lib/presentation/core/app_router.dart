@@ -124,5 +124,7 @@ class AppRouter extends RootStackRouter {
             AutoRoute(page: HomeView.page),
           ],
         ),
+        AutoRoute(page: Chat.page),
+        AutoRoute(page: Message.page),
       ];
 }

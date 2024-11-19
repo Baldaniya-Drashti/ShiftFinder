@@ -4,6 +4,7 @@ class PngImageConstants {
   static const iroid_logo = "assets/png/iroid_to_do_splash.png";
   static const splash_background = "assets/png/splash_background.png";
   static const splash_logo = "assets/png/splash_logo.png";
+
   static const welcome_text = "assets/png/welcome_text.png";
   static const back_button = "assets/png/back_button.png";
   static const login_frame = "assets/png/login_frame.png";
@@ -47,6 +48,7 @@ class PngImageConstants {
   static const ticketSubmittedSuccess = "assets/png/ticket_submit_success.png";
   static const withdrawDialogImage = "assets/png/withdraw_dialog_image.png";
   static const fullPosition = "assets/png/full_position.png";
+  static const send = "assets/png/send.png";
 
   static const List<String> allImages = [
     fullPosition,
