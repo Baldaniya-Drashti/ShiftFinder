@@ -9,13 +9,15 @@ class MainTabState with _$MainTabState {
     required String employerShiftPage,
     required String notificationPage,
     required String profilePage,
+    required Widget? currentPage,
   }) = _MainTabState;
   factory MainTabState.initial() => MainTabState(
         selectedTab: 0,
         pageIndex: 0,
-        homePage: HomeView.name,
-        employerShiftPage: EmployerShiftView.name,
-        notificationPage: NotificationView.name,
-        profilePage: ProfileView.name,
+        homePage: route.HomeView.name,
+        employerShiftPage: route.EmployerShiftView.name,
+        notificationPage: route.NotificationView.name,
+        profilePage: route.ProfileView.name,
+        currentPage: null,
       );
 }

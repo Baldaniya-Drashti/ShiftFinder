@@ -546,91 +546,89 @@ class HealthCarePostForm extends StatelessWidget {
         onTap: () {
           AppFocus.unfocus(context);
         },
-        child: PopScope(
-          canPop: false,
-          child: Scaffold(
-              appBar: CommonAppBar(
-                isShowBackBtn: !isFromSplash,
-                onBackPressed: () {
-                  Navigator.pop(context);
-                },
-                title: StringConstant.healthcare,
-              ),
-              body: BlocConsumer<HealthcarePostBloc, HealthcarePostState>(
-                listener: (context, state) {
-                  /* state.authFailureOrSuccessOption.fold(
-                    () {},
-                    (either) => either.fold(
-                      (failure) {
-                        showError(
-                          message: failure.maybeMap(
-                            showAPIResponseMessage: (value) => value.message,
-                            networkError: (value) =>
-                                'Please check your internet connectivity',
-                            orElse: () => "Server Error. Try again later.",
-                          ),
-                        ).show(context);
-                      },
-                      (r) {
-                        context.router.push(PageRouteInfo(
-                          HealthcarePostShift.name,
-                          args: HealthcarePostShiftArgs(postId: r.id ?? -1),
-                        ));
-                      },
-                    ),
-                  );*/
-                },
-                builder: (context, state) {
-                  return (state.isLoading)
-                      ? CenterLoadingIndicator(isOnlyLoader: true)
-                      : Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: getSize(20)),
-                          child: Form(
-                            autovalidateMode: state.showErrorMessages
-                                ? AutovalidateMode.always
-                                : AutovalidateMode.disabled,
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    PngImageConstants.healthcare_post_employer,
+        child: Scaffold(
+            appBar: CommonAppBar(
+              isShowBackBtn: !isFromSplash,
+              onBackPressed: () {
+                context.router.maybePop();
+
+                // Navigator.pop(context);
+              },
+              title: StringConstant.healthcare,
+            ),
+            body: BlocConsumer<HealthcarePostBloc, HealthcarePostState>(
+              listener: (context, state) {
+                /* state.authFailureOrSuccessOption.fold(
+                  () {},
+                  (either) => either.fold(
+                    (failure) {
+                      showError(
+                        message: failure.maybeMap(
+                          showAPIResponseMessage: (value) => value.message,
+                          networkError: (value) =>
+                              'Please check your internet connectivity',
+                          orElse: () => "Server Error. Try again later.",
+                        ),
+                      ).show(context);
+                    },
+                    (r) {
+                      context.router.push(PageRouteInfo(
+                        HealthcarePostShift.name,
+                        args: HealthcarePostShiftArgs(postId: r.id ?? -1),
+                      ));
+                    },
+                  ),
+                );*/
+              },
+              builder: (context, state) {
+                return (state.isLoading)
+                    ? CenterLoadingIndicator(isOnlyLoader: true)
+                    : Padding(
+                        padding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                        child: Form(
+                          autovalidateMode: state.showErrorMessages
+                              ? AutovalidateMode.always
+                              : AutovalidateMode.disabled,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  PngImageConstants.healthcare_post_employer,
+                                ),
+                                paddingBetweenFields(),
+                                roleDropDown(context, state),
+                                paddingBetweenFields(),
+                                requiredSpecialityDropDownChipset(
+                                    context, state),
+                                paddingBetweenFields(),
+                                preferredSoftwareSkillsDropDownChipSet(
+                                    context, state),
+                                paddingBetweenFields(),
+                                languageDropDownChipSet(context, state),
+                                paddingBetweenFields(),
+                                locationDropDown(context, state),
+                                paddingBetweenFields(),
+                                rateHourDropDown(context, state),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(50)),
+                                  child: CommonButton(
+                                    isSubmitting: state.isSubmitting,
+                                    onPressed: () {
+                                      context.read<HealthcarePostBloc>().add(
+                                          HealthcarePostEvent
+                                              .continueBtnPressed(context));
+                                    },
+                                    buttonText: StringConstant.txtContinue,
                                   ),
-                                  paddingBetweenFields(),
-                                  roleDropDown(context, state),
-                                  paddingBetweenFields(),
-                                  requiredSpecialityDropDownChipset(
-                                      context, state),
-                                  paddingBetweenFields(),
-                                  preferredSoftwareSkillsDropDownChipSet(
-                                      context, state),
-                                  paddingBetweenFields(),
-                                  languageDropDownChipSet(context, state),
-                                  paddingBetweenFields(),
-                                  locationDropDown(context, state),
-                                  paddingBetweenFields(),
-                                  rateHourDropDown(context, state),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: getSize(50)),
-                                    child: CommonButton(
-                                      isSubmitting: state.isSubmitting,
-                                      onPressed: () {
-                                        context.read<HealthcarePostBloc>().add(
-                                            HealthcarePostEvent
-                                                .continueBtnPressed(context));
-                                      },
-                                      buttonText: StringConstant.txtContinue,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                        );
-                },
-              )),
-        ),
+                        ),
+                      );
+              },
+            )),
       ),
     );
   }

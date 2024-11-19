@@ -1,8 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shift/domain/auth/i_auth_facade.dart';
-import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/app_router.gr.dart' as route;
+import 'package:shift/presentation/main/tabs/employer_shift_view.dart';
+import 'package:shift/presentation/main/tabs/home/home_view.dart';
+import 'package:shift/presentation/main/tabs/notification_view.dart';
+import 'package:shift/presentation/main/tabs/profile/profile_view.dart';
 part 'main_tab_state.dart';
 part 'main_tab_event.dart';
 part 'main_tab_bloc.freezed.dart';
@@ -29,28 +34,37 @@ class MainTabBloc extends Bloc<MainTabEvent, MainTabState> {
                   pageList.add(state.homePage);
                 }
                 emit(state.copyWith(
-                    pageIndex: pageList.indexOf(state.homePage)));
+                  pageIndex: pageList.indexOf(state.homePage),
+                  currentPage: HomeView(),
+                ));
                 break;
               case 1:
                 if (!pageList.contains(state.employerShiftPage)) {
                   pageList.add(state.employerShiftPage);
                 }
                 emit(state.copyWith(
-                    pageIndex: pageList.indexOf(state.employerShiftPage)));
+                  pageIndex: pageList.indexOf(state.employerShiftPage),
+                  currentPage: EmployerShiftView(),
+                ));
+
                 break;
               case 2:
                 if (!pageList.contains(state.notificationPage)) {
                   pageList.add(state.notificationPage);
                 }
                 emit(state.copyWith(
-                    pageIndex: pageList.indexOf(state.notificationPage)));
+                  pageIndex: pageList.indexOf(state.notificationPage),
+                  currentPage: NotificationView(),
+                ));
                 break;
               case 3:
                 if (!pageList.contains(state.profilePage)) {
                   pageList.add(state.profilePage);
                 }
                 emit(state.copyWith(
-                    pageIndex: pageList.indexOf(state.profilePage)));
+                  pageIndex: pageList.indexOf(state.profilePage),
+                  currentPage: ProfileView(),
+                ));
                 break;
               default:
             }

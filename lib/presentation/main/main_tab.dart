@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/main_tab/home/home_bloc.dart';
 import 'package:shift/application/main_tab/main_tab_bloc.dart';
+import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart';
 import 'package:shift/application/profile/account/account_cubit.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
@@ -36,9 +37,9 @@ class MainTabView extends StatelessWidget {
           create: (context) => getIt<MainTabBloc>()..add(TabChange(0)),
         ),
         BlocProvider(
-          create: (context) =>
-              getIt<HomeBloc>()..add(HomeEvent.getEmployerDashboardList(true)),
+          create: (context) => getIt<HomeBloc>(),
         ),
+
         BlocProvider<AccountCubit>(
           create: (context) => getIt<AccountCubit>()..getAccount(),
         ),
@@ -59,8 +60,9 @@ class MainTabView extends StatelessWidget {
       ],
       child: BlocBuilder<MainTabBloc, MainTabState>(
         builder: (context, state) {
+          print("state.currentPage---> ${state.currentPage}");
           return DefaultTabController(
-            length: 3,
+            length: context.read<MainTabBloc>().pageList.length,
             child: Scaffold(
               backgroundColor: AppColors.scaffoldColor,
               appBar: getAppbar(state, context),
@@ -68,11 +70,28 @@ class MainTabView extends StatelessWidget {
                 onTap: () {
                   AppFocus.unfocus(context);
                 },
-                child: IndexedStack(
+                child: state.currentPage,
+                /* child: IndexedStack(
                   index: state.pageIndex,
                   children: List<Widget>.generate(
                     context.read<MainTabBloc>().pageList.length,
                     (int index) {
+                      // final tabItem =
+                      //     context.read<MainTabBloc>().pageList[index];
+                      // return (tabItem == autoroute.HomeView.name)
+                      //     ? HomeView()
+                      //     : (tabItem == autoroute.EmployerShiftView.name)
+                      //         ? BlocProvider(
+                      //             create: (context) => getIt<ShiftsBloc>()
+                      //               ..add(ShiftsBlocEvent.getLocationListAPI()),
+                      //             child: EmployerShiftView(),
+                      //           )
+                      //         : (tabItem == autoroute.NotificationView.name)
+                      //             ? NotificationView()
+                      //             : (tabItem == autoroute.ProfileView.name)
+                      //                 ? ProfileView()
+                      //                 : Container();
+
                       return Navigator(
                         onGenerateRoute: (RouteSettings settings) {
                           print(
@@ -85,9 +104,9 @@ class MainTabView extends StatelessWidget {
                       );
                     },
                   ),
-                ),
+                ), */
               ),
-              floatingActionButton: BlocListener<HomeBloc, HomeState>(
+              floatingActionButton: BlocConsumer<HomeBloc, HomeState>(
                 listener: (context, state) {
                   /*state.teamStatusFailureOrSuccessOption.fold(
                     () {},
@@ -119,13 +138,14 @@ class MainTabView extends StatelessWidget {
                     ),
                   );*/
                 },
-                child: FloatingActionButton(
-                  onPressed: () {
-                    context
-                        .read<HomeBloc>()
-                        .add(HomeEvent.checkTeamAvailableEvent(context));
+                builder: (context, state) {
+                  return FloatingActionButton(
+                    onPressed: () {
+                      context
+                          .read<HomeBloc>()
+                          .add(HomeEvent.checkTeamAvailableEvent(context));
 
-                    /*context.router
+                      /*context.router
                                     .push(PageRouteInfo(autoroute.HealthCarePostForm.name))
                                     .then((value) {
                                   context
@@ -133,41 +153,42 @@ class MainTabView extends StatelessWidget {
                                       .add(HomeEvent.getEmployerDashboardList(true));
                                 });*/
 
-                    // context.router.push(PageRouteInfo(
-                    //   autoroute.HealthcarePostShift.name,
-                    //   args: autoroute.HealthcarePostShiftArgs(postId: 28),
-                    // ));
+                      // context.router.push(PageRouteInfo(
+                      //   autoroute.HealthcarePostShift.name,
+                      //   args: autoroute.HealthcarePostShiftArgs(postId: 28),
+                      // ));
 
-                    // context.router.push(PageRouteInfo(
-                    //   autoroute.PostShiftRecurring.name,
-                    //   args: autoroute.PostShiftRecurringArgs(
-                    //       shiftType: 1, healthcarePost: HealthcarePostDTO()),
-                    // ));
-                  },
-                  backgroundColor: AppColors.primaryColor,
-                  shape: CircleBorder(
-                    side: BorderSide(
-                      color: AppColors.darkGreen,
-                      width: getSize(3),
-                    ),
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryColor,
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image:
-                            AssetImage(PngImageConstants.floating_background),
+                      // context.router.push(PageRouteInfo(
+                      //   autoroute.PostShiftRecurring.name,
+                      //   args: autoroute.PostShiftRecurringArgs(
+                      //       shiftType: 1, healthcarePost: HealthcarePostDTO()),
+                      // ));
+                    },
+                    backgroundColor: AppColors.primaryColor,
+                    shape: CircleBorder(
+                      side: BorderSide(
+                        color: AppColors.darkGreen,
+                        width: getSize(3),
                       ),
                     ),
-                    alignment: Alignment.center,
-                    child: SvgPicture.asset(
-                      SvgImageConstant.plus,
-                      height: getSize(30),
-                      width: getSize(30),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryColor,
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image:
+                              AssetImage(PngImageConstants.floating_background),
+                        ),
+                      ),
+                      alignment: Alignment.center,
+                      child: SvgPicture.asset(
+                        SvgImageConstant.plus,
+                        height: getSize(30),
+                        width: getSize(30),
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerDocked,
@@ -257,10 +278,12 @@ getAppbar(MainTabState state, BuildContext context) {
 }
 
 Route? onGenerateRoute(RouteSettings settings, String tabItem) {
-  print("TAB ITEM----->  $tabItem");
+  // print("TAB ITEM----->  $tabItem");
   return MaterialPageRoute(
     settings: settings,
     builder: (context) {
+      // print("Current page----> $currentPage");
+      // return currentPage;
       if (tabItem == autoroute.HomeView.name) {
         return HomeView();
       } else if (tabItem == autoroute.EmployerShiftView.name) {

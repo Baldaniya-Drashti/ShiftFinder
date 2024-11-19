@@ -9,13 +9,15 @@ class ContractorMainTabState with _$ContractorMainTabState {
     required String shiftPage,
     required String notificationPage,
     required String profilePage,
+    required Widget currentPage,
   }) = _ContractorMainTabState;
   factory ContractorMainTabState.initial() => ContractorMainTabState(
         selectedTab: 0,
         pageIndex: 0,
-        homePage: ContractorHomeView.name,
-        shiftPage: ContractorShiftView.name,
-        notificationPage: NotificationView.name,
-        profilePage: ProfileView.name,
+        homePage: route.ContractorHomeView.name,
+        shiftPage: route.ContractorShiftView.name,
+        notificationPage: route.NotificationView.name,
+        profilePage: route.ProfileView.name,
+        currentPage: ContractorHomeView(),
       );
 }

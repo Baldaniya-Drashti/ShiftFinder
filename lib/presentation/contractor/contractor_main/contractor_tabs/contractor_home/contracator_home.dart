@@ -11,6 +11,7 @@ import 'package:shift/domain/core/png_image_constants.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/contractor_home/contractor_dashboard_dto.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -25,44 +26,49 @@ class ContractorHomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ContractorHomeBloc, ContractorHomeState>(
-      builder: (context, state) {
-        // return getCheckoutContainer(context);
-        return PaginatedListView(
-          onRefresh: () {
-            context
-                .read<ContractorHomeBloc>()
-                .add(ContractorHomeEvent.getContractorDashboardList(true));
-          },
-          refreshController:
-              context.read<ContractorHomeBloc>().refreshController,
-          onLoading: () {
-            context
-                .read<ContractorHomeBloc>()
-                .add(ContractorHomeEvent.getContractorDashboardList(false));
-          },
-          isNoDataFound: state.isNoDataFound,
-          child: state.isLoading
-              ? CenterLoadingIndicator(isOnlyLoader: true)
-              : state.isErrorInAPI
-                  ? Center(
-                      child: BaseText(text: StringConstant.somethindWentWrong),
-                    )
-                  : ListView.builder(
-                      itemCount: state.contractorDashboardList.length,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: getSize(15),
-                        vertical: getSize(10),
+    return BlocProvider(
+      create: (_) => getIt<ContractorHomeBloc>()
+        ..add(ContractorHomeEvent.getContractorDashboardList(true)),
+      child: BlocBuilder<ContractorHomeBloc, ContractorHomeState>(
+        builder: (context, state) {
+          // return getCheckoutContainer(context);
+          return PaginatedListView(
+            onRefresh: () {
+              context
+                  .read<ContractorHomeBloc>()
+                  .add(ContractorHomeEvent.getContractorDashboardList(true));
+            },
+            refreshController:
+                context.read<ContractorHomeBloc>().refreshController,
+            onLoading: () {
+              context
+                  .read<ContractorHomeBloc>()
+                  .add(ContractorHomeEvent.getContractorDashboardList(false));
+            },
+            isNoDataFound: state.isNoDataFound,
+            child: state.isLoading
+                ? CenterLoadingIndicator(isOnlyLoader: true)
+                : state.isErrorInAPI
+                    ? Center(
+                        child:
+                            BaseText(text: StringConstant.somethindWentWrong),
+                      )
+                    : ListView.builder(
+                        itemCount: state.contractorDashboardList.length,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: getSize(15),
+                          vertical: getSize(10),
+                        ),
+                        clipBehavior: Clip.none,
+                        shrinkWrap: true,
+                        physics: BouncingScrollPhysics(),
+                        itemBuilder: (_, index) {
+                          return getCheckoutContainer(index, context, state);
+                        },
                       ),
-                      clipBehavior: Clip.none,
-                      shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
-                      itemBuilder: (_, index) {
-                        return getCheckoutContainer(index, context, state);
-                      },
-                    ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
@@ -153,7 +159,7 @@ class ContractorHomeView extends StatelessWidget {
                       context.router.maybePop();
                     },
                     onDeleteClick: () {
-                      // context.router.maybePop();
+                      context.router.maybePop();
                       context.read<ContractorHomeBloc>().add(
                           ContractorHomeEvent.applyShiftSubmittedEvent(
                               state.contractorDashboardList[index].id,

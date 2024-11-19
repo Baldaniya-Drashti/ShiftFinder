@@ -27,7 +27,7 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SplashBloc, SplashState>(
-      listener: (context, state) {
+      listener: (_, state) {
         preloadImages(context);
         state.map(
           initial: (_) {},

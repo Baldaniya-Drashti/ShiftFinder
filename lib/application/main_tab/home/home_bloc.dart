@@ -158,9 +158,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 e.context.router
                     .push(PageRouteInfo(HealthCarePostForm.name))
                     .then((value) {
-                  e.context
-                      .read<HomeBloc>()
-                      .add(HomeEvent.getEmployerDashboardList(true));
+                  print("value------> ${e.context}");
+                  add(HomeEvent.getEmployerDashboardList(true));
                 });
               } else {
                 teamCheckDialog(e.context);

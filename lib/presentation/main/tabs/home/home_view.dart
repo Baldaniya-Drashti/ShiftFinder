@@ -10,7 +10,7 @@ import 'package:shift/application/main_tab/home/home_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
-import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
@@ -27,84 +27,89 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(
-      builder: (context, state) {
-        return PaginatedListView(
-          onRefresh: () {
-            context
-                .read<HomeBloc>()
-                .add(HomeEvent.getEmployerDashboardList(true));
-          },
-          refreshController: context.read<HomeBloc>().refreshController,
-          onLoading: () {
-            context
-                .read<HomeBloc>()
-                .add(HomeEvent.getEmployerDashboardList(false));
-          },
-          isNoDataFound: state.isNoDataFound,
-          noDataWidget: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SvgPicture.asset(
-                  SvgImageConstant.noShiftNurse,
-                  height: getSize(112.59),
-                  width: getSize(94.09),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(top: getSize(20), bottom: getSize(5)),
-                  child: BaseText(
-                    text: StringConstant.noShiftPostedYet,
-                    textAlign: TextAlign.center,
-                    textColor: AppColors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'Aclonica',
+    return BlocProvider(
+      create: (context) =>
+          getIt<HomeBloc>()..add(HomeEvent.getEmployerDashboardList(true)),
+      child: BlocBuilder<HomeBloc, HomeState>(
+        builder: (context, state) {
+          return PaginatedListView(
+            onRefresh: () {
+              context
+                  .read<HomeBloc>()
+                  .add(HomeEvent.getEmployerDashboardList(true));
+            },
+            refreshController: context.read<HomeBloc>().refreshController,
+            onLoading: () {
+              context
+                  .read<HomeBloc>()
+                  .add(HomeEvent.getEmployerDashboardList(false));
+            },
+            isNoDataFound: state.isNoDataFound,
+            noDataWidget: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SvgPicture.asset(
+                    SvgImageConstant.noShiftNurse,
+                    height: getSize(112.59),
+                    width: getSize(94.09),
                   ),
-                ),
-                SizedBox(
-                  width: getSize(280),
-                  child: BaseText(
-                    textColor: AppColors.black.withOpacity(0.65),
-                    text: StringConstant.getStartedwithNewShift,
-                    textAlign: TextAlign.center,
-                    lineHeight: 1.2,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          child: state.isLoading
-              ? CenterLoadingIndicator(isOnlyLoader: true)
-              : state.isErrorInAPI
-                  ? Center(
-                      child: BaseText(text: StringConstant.somethindWentWrong),
-                    )
-                  :
-                  // (state.employerDashboardList.isEmpty)
-                  // ? Center(
-                  //     child: BaseText(text: StringConstant.somethindWentWrong),
-                  //   ):
-                  // state.isNoDataFound
-                  //     ? Text(state.isNoDataFound):
-                  ListView.builder(
-                      itemCount: state.employerDashboardList.length,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: getSize(15),
-                        vertical: getSize(5),
-                      ),
-                      clipBehavior: Clip.none,
-                      shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
-                      itemBuilder: (_, index) {
-                        return getCheckoutContainer(index, context);
-                      },
+                  Padding(
+                    padding:
+                        EdgeInsets.only(top: getSize(20), bottom: getSize(5)),
+                    child: BaseText(
+                      text: StringConstant.noShiftPostedYet,
+                      textAlign: TextAlign.center,
+                      textColor: AppColors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Aclonica',
                     ),
-        );
-      },
+                  ),
+                  SizedBox(
+                    width: getSize(280),
+                    child: BaseText(
+                      textColor: AppColors.black.withOpacity(0.65),
+                      text: StringConstant.getStartedwithNewShift,
+                      textAlign: TextAlign.center,
+                      lineHeight: 1.2,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            child: state.isLoading
+                ? CenterLoadingIndicator(isOnlyLoader: true)
+                : state.isErrorInAPI
+                    ? Center(
+                        child:
+                            BaseText(text: StringConstant.somethindWentWrong),
+                      )
+                    :
+                    // (state.employerDashboardList.isEmpty)
+                    // ? Center(
+                    //     child: BaseText(text: StringConstant.somethindWentWrong),
+                    //   ):
+                    // state.isNoDataFound
+                    //     ? Text(state.isNoDataFound):
+                    ListView.builder(
+                        itemCount: state.employerDashboardList.length,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: getSize(15),
+                          vertical: getSize(5),
+                        ),
+                        clipBehavior: Clip.none,
+                        shrinkWrap: true,
+                        physics: BouncingScrollPhysics(),
+                        itemBuilder: (_, index) {
+                          return getCheckoutContainer(index, context);
+                        },
+                      ),
+          );
+        },
+      ),
     );
   }
 
@@ -240,7 +245,6 @@ class HomeView extends StatelessWidget {
                       .toString(),
                   onTap: () {
                     //showUnderDevelopment(context);
-
                     Log.debug(state.employerDashboardList[index].id);
                     final id = state.employerDashboardList[index].id;
                     context.router.push(PageRouteInfo(ViewSingleApplicants.name,
@@ -278,7 +282,7 @@ class HomeView extends StatelessWidget {
 
   Widget employeeDataBox(BuildContext context, int index) {
     return BlocBuilder<HomeBloc, HomeState>(
-      builder: (context, state) {
+      builder: (con, state) {
         return Container(
           // height: getSize(113.41),
           decoration: BoxDecoration(

@@ -36,10 +36,6 @@ class ContractorMainTabView extends StatelessWidget {
           create: (context) => getIt<ContractorMainTabBloc>()
             ..add(ContractorMainTabEvent.tabChange(0)),
         ),
-        BlocProvider(
-          create: (context) => getIt<ContractorHomeBloc>()
-            ..add(ContractorHomeEvent.getContractorDashboardList(true)),
-        ),
         BlocProvider<AccountCubit>(
           create: (context) => getIt<AccountCubit>()..getAccount(),
         ),
@@ -47,7 +43,7 @@ class ContractorMainTabView extends StatelessWidget {
       child: BlocBuilder<ContractorMainTabBloc, ContractorMainTabState>(
         builder: (context, state) {
           return DefaultTabController(
-            length: 2,
+            length: context.read<ContractorMainTabBloc>().pageList.length,
             child: Scaffold(
               backgroundColor: AppColors.scaffoldColor,
               appBar: getAppbar(state, context),
@@ -55,7 +51,8 @@ class ContractorMainTabView extends StatelessWidget {
                 onTap: () {
                   AppFocus.unfocus(context);
                 },
-                child: IndexedStack(
+                child: state.currentPage,
+                /*   IndexedStack(
                   index: state.pageIndex,
                   children: List<Widget>.generate(
                     context.read<ContractorMainTabBloc>().pageList.length,
@@ -75,6 +72,7 @@ class ContractorMainTabView extends StatelessWidget {
                     },
                   ),
                 ),
+               */
               ),
               bottomNavigationBar: ContractorBottomNavigationWidget(),
             ),
@@ -188,7 +186,7 @@ getAppbar(ContractorMainTabState state, BuildContext context) {
   }
 }
 
-Route? onGenerateRoute(RouteSettings settings, String tabItem) {
+/* Route? onGenerateRoute(RouteSettings settings, String tabItem) {
   print("TAB ITEM----->  $tabItem");
   return MaterialPageRoute(
     settings: settings,
@@ -205,4 +203,4 @@ Route? onGenerateRoute(RouteSettings settings, String tabItem) {
       return Container();
     },
   );
-}
+} */
