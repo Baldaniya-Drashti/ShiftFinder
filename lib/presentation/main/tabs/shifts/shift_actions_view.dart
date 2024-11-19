@@ -36,7 +36,17 @@ class ShiftActionsView extends StatelessWidget {
             if (state.loading) return CenterLoadingIndicator();
 
             if (!state.loading && state.employerPreviousShift == null) {
-              return Text("No Data Found");
+              return Center(
+                child: SizedBox(
+                  width: getSize(280),
+                  child: BaseText(
+                    textColor: AppColors.black.withOpacity(0.65),
+                    text: 'No result found.',
+                    textAlign: TextAlign.center,
+                    lineHeight: 1.2,
+                  ),
+                ),
+              );
             }
 
             return ListView(
