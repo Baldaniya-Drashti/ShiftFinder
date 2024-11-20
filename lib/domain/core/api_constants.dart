@@ -181,4 +181,6 @@ class ApiConstants {
   static String destroyLocation = 'destroy_location';
   static String updateLocation = 'update_location';
   static String getEmployerApprovedShiftUser = 'get_employer_approved_shift_user';
+  static String contractorRating = 'contractor_rating';
+  static String contractorPreviousShift = 'contractor_previous_shift';
 }

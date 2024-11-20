@@ -17,14 +17,20 @@ import 'package:shift/presentation/core/widgets/tile.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
+import '../../../../domain/core/string_constant.dart';
+
 @RoutePage(name: 'ShiftActionsView')
 class ShiftActionsView extends StatelessWidget {
-  const ShiftActionsView({super.key});
+  const ShiftActionsView({super.key, required this.postId, required this.userId});
+
+  final int postId;
+  final int userId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<ShiftActionBloc>(),
+      create: (context) =>
+          getIt<ShiftActionBloc>()..add(ShiftActionEvent.getEmployerData(context: context, postId: postId, userId: userId)),
       child: Scaffold(
         appBar: CommonAppBar(
           onBackPressed: () => Navigator.pop(context),
@@ -33,6 +39,8 @@ class ShiftActionsView extends StatelessWidget {
         body: BlocBuilder<ShiftActionBloc, ShiftActionState>(
           builder: (context, state) {
             final data = state.employerPreviousShift;
+            final isBlock = (data?.isBlock ?? false);
+
             if (state.loading) return CenterLoadingIndicator();
 
             if (!state.loading && state.employerPreviousShift == null) {
@@ -49,122 +57,148 @@ class ShiftActionsView extends StatelessWidget {
               );
             }
 
-            return ListView(
-              padding: EdgeInsets.all(getSize(12)),
+            return Stack(
               children: [
-                BaseTileDecoration(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Material(
-                        borderRadius: BorderRadius.circular(getSize(10)),
-                        color: AppColors.scaffoldColor,
-                        child: Padding(
-                          padding: EdgeInsets.all(getSize(18)).copyWith(top: getSize(8)),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              _buildUserInfo(context, data: data),
-                              Divider(height: 8),
-                              Gap(getSize(6.0)),
-                              _buildLocationInfo(context, data: data),
-                            ],
+                ListView(
+                  padding: EdgeInsets.all(getSize(12)),
+                  children: [
+                    BaseTileDecoration(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Material(
+                            borderRadius: BorderRadius.circular(getSize(10)),
+                            color: AppColors.scaffoldColor,
+                            child: Padding(
+                              padding: EdgeInsets.all(getSize(18)).copyWith(top: getSize(8)),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  _buildUserInfo(context, data: data),
+                                  Divider(height: 8),
+                                  Gap(getSize(6.0)),
+                                  _buildLocationInfo(context, data: data),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      Gap(16),
-                      _ActionButton(
-                        icon: SvgImageConstant.heart1,
-                        label: "Add to favorite",
-                        onPressed: () async {
-                          final postId = data?.post_id ?? 0;
-                          final userId = data?.user_id ?? 0;
-                          if (data?.isFavourite ?? false) {
-                            final result = await AppDialog.showCommonDialog(
-                              context: context,
-                              title: "Unfavorite",
-                              content:
-                                  "Removing ${data?.first_name ?? ""} ${data?.last_name ?? ""} from your favorites list will no longer highlight their profile. Are you sure you want to proceed?",
-                              successLabel: "Unfavorite",
-                            );
-                            if (result ?? false) {
-                              context.read<ShiftActionBloc>().add(
-                                    ShiftActionEvent.addUnFavorite(
-                                      postId: postId,
-                                      userId: userId,
-                                      context: context,
-                                    ),
-                                  );
-                            }
-                          } else {
-                            context.read<ShiftActionBloc>().add(
-                                  ShiftActionEvent.addFavorite(
-                                    postId: postId,
-                                    userId: userId,
-                                    context: context,
-                                  ),
+                          Gap(16),
+                          _ActionButton(
+                            backgroundColor: isBlock ? AppColors.white.withOpacity(0.5) : AppColors.white,
+                            onPressed: !isBlock
+                                ? () async {
+                                    final postId = data?.post_id ?? 0;
+                                    final userId = data?.user_id ?? 0;
+                                    if (data?.isFavourite ?? false) {
+                                      final result = await AppDialog.showCommonDialog(
+                                        context: context,
+                                        title: "Unfavorite",
+                                        content:
+                                            "Removing ${data?.first_name ?? ""} ${data?.last_name ?? ""} from your favorites list will no longer highlight their profile. Are you sure you want to proceed?",
+                                        successLabel: "Unfavorite",
+                                      );
+                                      if (result ?? false) {
+                                        context.read<ShiftActionBloc>().add(
+                                              ShiftActionEvent.addUnFavorite(
+                                                postId: postId,
+                                                userId: userId,
+                                                context: context,
+                                              ),
+                                            );
+                                      }
+                                    } else {
+                                      context.read<ShiftActionBloc>().add(
+                                            ShiftActionEvent.addFavorite(
+                                              postId: postId,
+                                              userId: userId,
+                                              context: context,
+                                            ),
+                                          );
+                                    }
+                                  }
+                                : null,
+                            icon: (data?.isFavourite ?? false) ? SvgImageConstant.heartChecked : SvgImageConstant.heart1,
+                            label: "${(data?.isFavourite ?? false) ? "Added" : "Add"} to favorite",
+                            textColor: isBlock ? AppColors.black.withOpacity(0.5) : null,
+                          ),
+                          Gap(16),
+                          _ActionButton(
+                            backgroundColor: isBlock ? AppColors.white.withOpacity(0.5) : AppColors.white,
+                            onPressed: !isBlock
+                                ? () => _onAddRating(
+                                      contractorName: "${data?.first_name ?? ""} ${data?.last_name ?? ""}",
+                                      context,
+                                      defaultRating: data?.rating,
+                                      userId: data?.user_id ?? -1,
+                                      postId: data?.post_id ?? -1,
+                                    )
+                                : null,
+                            icon: (data?.isRating == true && data?.rating != null && data?.rating != 0)
+                                ? SvgImageConstant.starFilled
+                                : SvgImageConstant.starOutlined,
+                            iconColor:
+                                (data?.isRating == true && data?.rating != null && data?.rating != 0) ? AppColors.primaryColor : null,
+                            textColor: isBlock ? AppColors.black.withOpacity(0.5) : null,
+                            label: (data?.isRating == true && data?.rating != null && data?.rating != 0)
+                                ? "${data?.rating!.toDouble()}"
+                                : "Leave a Rating",
+                          ),
+                          Gap(16),
+                          _ActionButton(
+                            backgroundColor: isBlock ? AppColors.white.withOpacity(0.5) : AppColors.white,
+                            onPressed: !isBlock
+                                ? () {
+                                    _onAddRemark(
+                                      context,
+                                      postId: data?.post_id ?? 0,
+                                      userId: data?.user_id ?? 0,
+                                    );
+                                  }
+                                : null,
+                            label: data?.isRemark == true ? "Remark Added" : "Remark",
+                            icon: data?.isRemark == true ? SvgImageConstant.remarkAdded : SvgImageConstant.medalStar,
+                            textColor: isBlock ? AppColors.black.withOpacity(0.5) : null,
+                          ),
+                          Gap(16),
+                          _ActionButton(
+                            onPressed: () {
+                              if (data?.isBlock ?? false) {
+                                _onUnblock(
+                                  context,
+                                  postId: data?.post_id ?? 0,
+                                  userId: data?.user_id ?? 0,
+                                  contractorName: "${data?.first_name ?? ""} ${data?.last_name ?? ""}",
                                 );
-                          }
-                        },
+                              } else {
+                                _onBlock(
+                                  context,
+                                  postId: data?.post_id ?? 0,
+                                  userId: data?.user_id ?? 0,
+                                  contractorName: "${data?.first_name ?? ""} ${data?.last_name ?? ""}",
+                                );
+                              }
+                            },
+                            label: isBlock ? StringConstant.blocked : StringConstant.block,
+                            icon: isBlock ? SvgImageConstant.blockedFilled : SvgImageConstant.block,
+                            backgroundColor: isBlock ? AppColors.redAccent.withOpacity(0.15) : AppColors.white,
+                          ),
+                        ],
                       ),
-                      Gap(16),
-                      _ActionButton(
-                        icon: SvgImageConstant.starOutlined,
-                        label: "Leave a Rating",
-                        onPressed: () => _onAddRating(
-                          contractorName: "${data?.first_name ?? ""} ${data?.last_name ?? ""}",
-                          context,
-                          defaultRating: data?.rating,
-                          userId: data?.user_id ?? -1,
-                          postId: data?.post_id ?? -1,
-                        ),
+                    ),
+                    Gap(15),
+                    Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: BaseText(
+                        textAlign: TextAlign.center,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        text:
+                            "Once a shift is approved, you can rate, add to favorites, remark or block the user. These actions can also be completed later in the profile section.",
                       ),
-                      Gap(16),
-                      _ActionButton(
-                        label: "Remark",
-                        icon: SvgImageConstant.medalStar,
-                        onPressed: () => _onAddRemark(
-                          context,
-                          postId: data?.post_id ?? 0,
-                          userId: data?.user_id ?? 0,
-                        ),
-                      ),
-                      Gap(16),
-                      _ActionButton(
-                        label: "Block",
-                        icon: SvgImageConstant.block,
-                        onPressed: () {
-                          if (data?.isBlock ?? false) {
-                            _onUnblock(
-                              context,
-                              postId: data?.post_id ?? 0,
-                              userId: data?.user_id ?? 0,
-                              contractorName: "${data?.first_name ?? ""} ${data?.last_name ?? ""}",
-                            );
-                          } else {
-                            _onBlock(
-                              context,
-                              postId: data?.post_id ?? 0,
-                              userId: data?.user_id ?? 0,
-                              contractorName: "${data?.first_name ?? ""} ${data?.last_name ?? ""}",
-                            );
-                          }
-                        },
-                      ),
-                    ],
-                  ),
+                    )
+                  ],
                 ),
-                Gap(15),
-                Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: BaseText(
-                    textAlign: TextAlign.center,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    text:
-                        "Once a shift is approved, you can rate, add to favorites, remark or block the user. These actions can also be completed later in the profile section.",
-                  ),
-                )
+                if (state.postLoading) CenterLoadingIndicator(),
               ],
             );
           },
@@ -217,9 +251,17 @@ class ShiftActionsView extends StatelessWidget {
           ),
         ],
       ),
-      infoMessage: "Blocking [contractor name] will prevent them from seeing any future postings. Are you sure you want to proceed?",
+      infoMessage: "Blocking $contractorName will prevent them from seeing any future postings. Are you sure you want to proceed?",
       onCancelClick: () => Navigator.pop(context),
-      onDeleteClick: () {},
+      onDeleteClick: () {
+        context.router.maybePop().then(
+          (value) {
+            context.read<ShiftActionBloc>().add(
+                  ShiftActionEvent.blockUnblockPost(userId: userId, postId: postId, context: context),
+                );
+          },
+        );
+      },
     );
   }
 
@@ -272,14 +314,14 @@ class ShiftActionsView extends StatelessWidget {
         width: 24,
       ),
       title: BaseText(
-        text: "",
+        text: data?.location ?? "",
         fontWeight: FontWeight.w500,
         fontSize: 11,
         overflow: TextOverflow.ellipsis,
         maxLines: 1,
       ),
       subtitle: BaseText(
-        text: "10.2 Km Away",
+        text: data?.distance ?? "",
         fontWeight: FontWeight.w500,
         textColor: AppColors.green,
         fontSize: 10,
@@ -309,11 +351,17 @@ class _ActionButton extends StatelessWidget {
     required this.icon,
     required this.onPressed,
     required this.label,
+    this.backgroundColor,
+    this.textColor,
+    this.iconColor,
   });
 
   final String icon;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final String label;
+  final Color? backgroundColor;
+  final Color? textColor;
+  final Color? iconColor;
 
   @override
   Widget build(BuildContext context) {

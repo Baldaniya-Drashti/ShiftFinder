@@ -22,11 +22,11 @@ class ShiftActionBloc extends Bloc<ShiftActionEvent, ShiftActionState> {
 
   ShiftActionBloc(this._mainFacade) : super(const ShiftActionState()) {
     on<ShiftActionEvent>(
-      (event, emit) {
-        event.map(
+      (event, emit) async {
+        await event.map(
           getEmployerData: (value) async {
             Either<MainFailure, CommonResponse>? failureOrSuccess;
-            emit(state.copyWith(loading: true));
+            emit(state.copyWith(loading: true, postId: value.postId, userId: value.userId));
             failureOrSuccess = await _mainFacade.getEmployerApprovedShiftUser(postId: value.postId, userId: value.userId);
             emit(state.copyWith(loading: false));
             failureOrSuccess.fold(
@@ -94,9 +94,82 @@ class ShiftActionBloc extends Bloc<ShiftActionEvent, ShiftActionState> {
               },
             );
           },
-          addUnFavorite: (value) {},
-          leaveRating: (value) {},
-          blockUnblockPost: (value) {},
+          addUnFavorite: (value) async {
+            Either<MainFailure, CommonResponse>? failureOrSuccess;
+            emit(state.copyWith(postLoading: true));
+            failureOrSuccess = await _mainFacade.addUnFavorite(postId: value.postId, userId: value.userId);
+            emit(state.copyWith(postLoading: false));
+            failureOrSuccess.fold(
+              (l) {
+                showError(
+                  message: l.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) => 'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(value.context);
+              },
+              (r) {
+                if (state.postId == null || state.userId == null) return;
+                add(ShiftActionEvent.getEmployerData(context: value.context, postId: state.postId!, userId: state.userId!));
+                showSuccess(message: r.dioMessage ?? "").show(value.context);
+              },
+            );
+          },
+          leaveRating: (value) async {
+
+            print("testttt");
+            Either<MainFailure, CommonResponse>? failureOrSuccess;
+            emit(state.copyWith(postLoading: true));
+            failureOrSuccess = await _mainFacade.addEmployerRating(
+              postId: value.postId,
+              userId: value.userId,
+              rating: value.rating,
+            );
+            emit(state.copyWith(postLoading: false));
+            failureOrSuccess.fold(
+              (l) {
+                showError(
+                  message: l.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) => 'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(value.context);
+              },
+              (r) {
+                if (state.postId == null || state.userId == null) return;
+                add(ShiftActionEvent.getEmployerData(context: value.context, postId: state.postId!, userId: state.userId!));
+                showSuccess(message: r.dioMessage ?? "").show(value.context);
+              },
+            );
+          },
+          blockUnblockPost: (value) async {
+            Either<MainFailure, CommonResponse>? failureOrSuccess;
+            emit(state.copyWith(postLoading: true));
+            failureOrSuccess = await _mainFacade.employerBlockUnblock(
+              postId: value.postId,
+              userId: value.userId,
+            );
+            emit(state.copyWith(postLoading: false));
+
+            failureOrSuccess.fold(
+              (l) {
+                showError(
+                  message: l.maybeMap(
+                    showAPIResponseMessage: (value) => value.message,
+                    networkError: (value) => 'Please check your internet connectivity',
+                    orElse: () => "Server Error. Try again later.",
+                  ),
+                ).show(value.context);
+              },
+              (r) {
+                if (state.postId == null || state.userId == null) return;
+                add(ShiftActionEvent.getEmployerData(context: value.context, postId: state.postId!, userId: state.userId!));
+                showSuccess(message: r.dioMessage ?? "").show(value.context);
+              },
+            );
+          },
         );
       },
     );

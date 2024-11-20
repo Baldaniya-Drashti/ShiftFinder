@@ -16,6 +16,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
@@ -173,9 +174,8 @@ class ApprovedHiredList extends StatelessWidget {
                 Expanded(
                   child: CommonButton(
                     height: 40,
-                    onPressed: (true /*contractor.clock_in_time != null && contractor.clock_out_time != null*/)
+                    onPressed: (contractor.clock_in_time != null && contractor.clock_out_time != null)
                         ? () {
-                            //showUnderDevelopment(context);
                             approveDialog(context, contractor);
                           }
                         : () {},
@@ -340,8 +340,18 @@ class ApprovedHiredList extends StatelessWidget {
       title: StringConstant.approve,
       description: "${StringConstant.approveShiftDesc1}${contractor.first_name ?? ""}${StringConstant.approveShiftDesc2}",
       onPressedAccept: () async {
-        await context.router.maybePop();
-        successFullyApproved(context);
+        context.router.maybePop().then(
+              (value) {
+                context.read<HiredContractorBloc>().add(HiredContractorEvent.submitClockInOutTime(
+                  context,
+                  postId: contractor.post_id ?? -1,
+                  userId: contractor.user_id ?? -1,
+                  clockIn: contractor.clock_in_time,
+                  clockOut: contractor.clock_out_time,
+                ));
+
+              },
+            );
       },
       acceptButtonText: StringConstant.approve,
       onPressedReject: () {

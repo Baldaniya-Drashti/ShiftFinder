@@ -84,6 +84,12 @@ class SvgImageConstant {
   static const organization = "assets/svg/organization.svg";
   static const call = "assets/svg/call.svg";
   static const unitDepartment = "assets/svg/unit_department.svg";
+  static const contectFilled = "assets/svg/contect_filled.svg";
+
+
+
+
+
 
   static const completedShifts = "assets/svg/completed_shifts.svg";
   static const previousShifts = "assets/svg/previous_shift.svg";

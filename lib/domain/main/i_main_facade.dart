@@ -288,4 +288,14 @@ abstract class IMainFacade {
     required int postId,
     required int userId,
   });
+  Future<Either<MainFailure, CommonResponse>> getContractorRatings({
+    required int page,
+  });
+
+  Future<Either<MainFailure, CommonResponse>> getContractorPreviousShift({
+    required int type,
+    required int page,
+    required int sortBy,
+  });
+
 }

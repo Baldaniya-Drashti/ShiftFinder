@@ -21,6 +21,7 @@ class HiredContractorListDTO with _$HiredContractorListDTO {
     int? clock_out_time,
     int? clock_in_out_status,
     String? reason,
+    int? post_id,
   }) = _HiredContractorListDTO;
 
   factory HiredContractorListDTO.fromJson(Map<String, dynamic> json) =>
