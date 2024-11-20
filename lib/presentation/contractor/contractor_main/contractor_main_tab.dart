@@ -48,11 +48,32 @@ class ContractorMainTabView extends StatelessWidget {
               backgroundColor: AppColors.scaffoldColor,
               appBar: getAppbar(state, context),
               body: GestureDetector(
-                onTap: () {
-                  AppFocus.unfocus(context);
-                },
-                child: state.currentPage,
-                /*   IndexedStack(
+                  onTap: () {
+                    AppFocus.unfocus(context);
+                  },
+                  // child: state.currentPage,
+                  child: IndexedStack(
+                    index: state.pageIndex,
+                    children: List<Widget>.generate(
+                      context.read<ContractorMainTabBloc>().pageList.length,
+                      (int index) {
+                        return Navigator(
+                          onGenerateRoute: (RouteSettings settings) {
+                            print(
+                                "PAGE IS ${context.read<ContractorMainTabBloc>().pageList[index]}");
+                            return onGenerateRoute(
+                              settings,
+                              context
+                                  .read<ContractorMainTabBloc>()
+                                  .pageList[index],
+                            );
+                          },
+                          key: ValueKey(state.pageIndex),
+                        );
+                      },
+                    ),
+                  )
+                  /*   IndexedStack(
                   index: state.pageIndex,
                   children: List<Widget>.generate(
                     context.read<ContractorMainTabBloc>().pageList.length,
@@ -73,7 +94,7 @@ class ContractorMainTabView extends StatelessWidget {
                   ),
                 ),
                */
-              ),
+                  ),
               bottomNavigationBar: ContractorBottomNavigationWidget(),
             ),
           );
@@ -186,7 +207,7 @@ getAppbar(ContractorMainTabState state, BuildContext context) {
   }
 }
 
-/* Route? onGenerateRoute(RouteSettings settings, String tabItem) {
+Route? onGenerateRoute(RouteSettings settings, String tabItem) {
   print("TAB ITEM----->  $tabItem");
   return MaterialPageRoute(
     settings: settings,
@@ -203,4 +224,4 @@ getAppbar(ContractorMainTabState state, BuildContext context) {
       return Container();
     },
   );
-} */
+}

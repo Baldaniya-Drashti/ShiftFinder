@@ -42,9 +42,7 @@ class CustomBottomNavigationWidget extends StatelessWidget {
                     width: getSize(24),
                     // color: isActive ? AppColors.primaryColor : AppColors.black,
                   ),
-                  SizedBox(
-                    height: getSize(5),
-                  ),
+                  SizedBox(height: getSize(5)),
                   BaseText(
                     text: tabLabelList[index],
                     fontSize: 12,

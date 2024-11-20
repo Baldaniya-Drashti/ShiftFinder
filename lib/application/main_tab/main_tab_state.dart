@@ -10,6 +10,10 @@ class MainTabState with _$MainTabState {
     required String notificationPage,
     required String profilePage,
     required Widget? currentPage,
+    required bool teamStatusErrorMessage,
+    required Option<Either<MainFailure, TeamAvailableDTO>>
+        teamStatusFailureOrSuccessOption,
+    required bool showTeamDialog,
   }) = _MainTabState;
   factory MainTabState.initial() => MainTabState(
         selectedTab: 0,
@@ -19,5 +23,8 @@ class MainTabState with _$MainTabState {
         notificationPage: route.NotificationView.name,
         profilePage: route.ProfileView.name,
         currentPage: null,
+        teamStatusFailureOrSuccessOption: none(),
+        teamStatusErrorMessage: false,
+        showTeamDialog: false,
       );
 }

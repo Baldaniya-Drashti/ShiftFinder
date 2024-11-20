@@ -39,7 +39,6 @@ class MainTabView extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt<HomeBloc>(),
         ),
-
         BlocProvider<AccountCubit>(
           create: (context) => getIt<AccountCubit>()..getAccount(),
         ),
@@ -67,11 +66,30 @@ class MainTabView extends StatelessWidget {
               backgroundColor: AppColors.scaffoldColor,
               appBar: getAppbar(state, context),
               body: GestureDetector(
-                onTap: () {
-                  AppFocus.unfocus(context);
-                },
-                child: state.currentPage,
-                /* child: IndexedStack(
+                  onTap: () {
+                    AppFocus.unfocus(context);
+                  },
+                  // child: state.currentPage,
+                  child: IndexedStack(
+                    index: state.pageIndex,
+                    children: List<Widget>.generate(
+                      context.read<MainTabBloc>().pageList.length,
+                      (int index) {
+                        return Navigator(
+                          onGenerateRoute: (RouteSettings settings) {
+                            print(
+                                "PAGE IS ${context.read<MainTabBloc>().pageList[index]}");
+                            return onGenerateRoute(
+                              settings,
+                              context.read<MainTabBloc>().pageList[index],
+                            );
+                          },
+                          key: ValueKey(state.pageIndex),
+                        );
+                      },
+                    ),
+                  )
+                  /* child: IndexedStack(
                   index: state.pageIndex,
                   children: List<Widget>.generate(
                     context.read<MainTabBloc>().pageList.length,
@@ -97,15 +115,13 @@ class MainTabView extends StatelessWidget {
                           print(
                               "PAGE IS ${context.read<MainTabBloc>().pageList[index]}");
                           return onGenerateRoute(
-                            settings,
-                            context.read<MainTabBloc>().pageList[index],
-                          );
+                              settings, state.currentPage ?? Container());
                         },
                       );
                     },
                   ),
                 ), */
-              ),
+                  ),
               floatingActionButton: BlocConsumer<HomeBloc, HomeState>(
                 listener: (context, state) {
                   /*state.teamStatusFailureOrSuccessOption.fold(
@@ -138,12 +154,12 @@ class MainTabView extends StatelessWidget {
                     ),
                   );*/
                 },
-                builder: (context, state) {
+                builder: (con, state) {
                   return FloatingActionButton(
                     onPressed: () {
                       context
-                          .read<HomeBloc>()
-                          .add(HomeEvent.checkTeamAvailableEvent(context));
+                          .read<MainTabBloc>()
+                          .add(MainTabEvent.checkTeamAvailableEvent(context));
 
                       /*context.router
                                     .push(PageRouteInfo(autoroute.HealthCarePostForm.name))

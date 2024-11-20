@@ -69,7 +69,7 @@ class ApproveShiftView extends StatelessWidget {
                                 return Container(
                                   margin: EdgeInsets.symmetric(
                                       vertical: getSize(
-                                          index == 0 || index == 9 ? 0 : 12.5)),
+                                          index == 0 || index == 9 ? 0 : 10)),
                                   padding: EdgeInsets.all(getSize(10)),
                                   decoration: BoxDecoration(
                                     color: AppColors.white,

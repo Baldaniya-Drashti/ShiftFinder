@@ -137,11 +137,21 @@ class FilledHiredContractorList extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  BaseText(
-                    text:
-                        '${contractor.first_name ?? ""} ${contractor.last_name ?? ""}',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      BaseText(
+                        text:
+                            '${contractor.first_name ?? ""} ${contractor.last_name ?? ""}',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      SizedBox(width: getSize(5)),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: getSize(14),
+                      ),
+                    ],
                   ),
                   SizedBox(height: getSize(5)),
                   (contractor.contractor_shift_type == 2)

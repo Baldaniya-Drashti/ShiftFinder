@@ -75,6 +75,7 @@ class DeleteShiftDialog extends StatelessWidget {
                           child: CustomTextField(
                             hintText: StringConstant.typeHere,
                             labelText: StringConstant.reason,
+                            labelStyle: TextStyle(fontWeight: FontWeight.w600),
                             fillColor: AppColors.scaffoldColor,
                             maxLines: 5,
                             onChanged: (p0) => context.read<ShiftsBloc>().add(

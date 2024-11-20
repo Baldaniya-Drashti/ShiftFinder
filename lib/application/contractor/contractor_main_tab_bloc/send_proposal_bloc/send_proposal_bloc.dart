@@ -642,14 +642,11 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
               1000);
         }).toList();
 
-        return jsonEncode(list);
+        return list.join(",");
       } else {
         return "";
       }
     }
-
-    print("unAvailableDateFormat---> ${unAvailableDateFormat()}");
-    print("mapMultiDateToApiFormat---> ${mapMultiDateToApiFormat()}");
 
     Map<String, dynamic> mapData = {
       'post_id': state.shift.id,

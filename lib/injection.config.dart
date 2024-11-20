@@ -137,10 +137,12 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i253.IAccountRepository>(),
           gh<_i111.IMainFacade>(),
         ));
+    gh.factory<_i73.MainTabBloc>(() => _i73.MainTabBloc(
+          gh<_i277.IAuthFacade>(),
+          gh<_i111.IMainFacade>(),
+        ));
     gh.factory<_i400.ContractorMainTabBloc>(
         () => _i400.ContractorMainTabBloc(gh<_i277.IAuthFacade>()));
-    gh.factory<_i73.MainTabBloc>(
-        () => _i73.MainTabBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i541.PostShiftBloc>(
         () => _i541.PostShiftBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i678.SendProposalBloc>(

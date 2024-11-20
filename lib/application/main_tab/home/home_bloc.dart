@@ -151,9 +151,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
               // if (r.isTeamAvailable == 1 || getShowTeamDialog() == true) {
 
-              print(
-                  "getCurrentUser().isDialogBox---> ${getCurrentUser().isDialogBox}");
-
               if (r.isTeamAvailable == 1 || getCurrentUser().isDialogBox == 1) {
                 e.context.router
                     .push(PageRouteInfo(HealthCarePostForm.name))

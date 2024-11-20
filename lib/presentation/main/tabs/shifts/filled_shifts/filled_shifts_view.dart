@@ -573,18 +573,21 @@ class FilledShiftsView extends StatelessWidget {
                   width: getSize(16),
                 ),
                 SizedBox(width: getSize(10)),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BaseText(
-                      text: title,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400,
-                      textColor: AppColors.black.withOpacity(0.7),
-                    ),
-                    highLightText(boldValue: boldValue, timidValue: timidValue),
-                  ],
+                Flexible(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BaseText(
+                        text: title,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400,
+                        textColor: AppColors.black.withOpacity(0.7),
+                      ),
+                      highLightText(
+                          boldValue: boldValue, timidValue: timidValue),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -596,27 +599,29 @@ class FilledShiftsView extends StatelessWidget {
       required String timidValue,
       String? thirdValue}) {
     return RichText(
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
         text: TextSpan(
-      text: boldValue,
-      style: TextStyle(
-        fontSize: getFontSize(13),
-        fontWeight: FontWeight.w500,
-        color: AppColors.black,
-      ),
-      children: [
-        TextSpan(
-          text: timidValue,
+          text: boldValue,
           style: TextStyle(
             fontSize: getFontSize(13),
             fontWeight: FontWeight.w500,
-            color: AppColors.black.withOpacity(0.5),
+            color: AppColors.black,
           ),
-        ),
-        TextSpan(
-          text: thirdValue ?? "",
-        ),
-      ],
-    ));
+          children: [
+            TextSpan(
+              text: timidValue,
+              style: TextStyle(
+                fontSize: getFontSize(13),
+                fontWeight: FontWeight.w500,
+                color: AppColors.black.withOpacity(0.5),
+              ),
+            ),
+            TextSpan(
+              text: thirdValue ?? "",
+            ),
+          ],
+        ));
   }
 
   Widget sortingField(

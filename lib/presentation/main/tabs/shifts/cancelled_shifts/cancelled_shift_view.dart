@@ -35,7 +35,7 @@ class CancelledShiftView extends StatelessWidget {
                 ? Center(
                     child: BaseText(text: StringConstant.somethindWentWrong))
                 : Padding(
-                    padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                    padding: EdgeInsets.symmetric(horizontal: getSize(15)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -72,15 +72,17 @@ class CancelledShiftView extends StatelessWidget {
                                 .read<ShiftsBloc>()
                                 .cancelledRefreshController,
                             isNoDataFound: state.noCancelDataFound,
-                            child: ListView.separated(
+                            child: ListView.builder(
                               shrinkWrap: true,
                               itemCount: state.cancelledShiftList.length,
-                              separatorBuilder: (context, index) =>
-                                  SizedBox(height: getSize(12)),
+                              padding: EdgeInsets.symmetric(
+                                vertical: getSize(10),
+                              ),
                               itemBuilder: (context, index) => cancelShiftUI(
                                   context,
                                   state,
-                                  state.cancelledShiftList[index]),
+                                  state.cancelledShiftList[index],
+                                  index),
                             ),
                           ),
                         ),
@@ -173,17 +175,19 @@ class CancelledShiftView extends StatelessWidget {
     );
   }
 
-  Widget cancelShiftUI(
-      BuildContext context, ShiftsBlocState state, EmployerShiftDto shift) {
+  Widget cancelShiftUI(BuildContext context, ShiftsBlocState state,
+      EmployerShiftDto shift, int index) {
     return Container(
-      padding: EdgeInsets.all(getSize(14)),
+      margin: EdgeInsets.symmetric(vertical: getSize(10))
+          .copyWith(top: (index == 0) ? 0 : getSize(10)),
+      padding: EdgeInsets.all(getSize(10)),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(20)),
         color: AppColors.white,
         boxShadow: [
           BoxShadow(
             color: AppColors.black.withOpacity(0.15),
-            blurRadius: 15,
+            blurRadius: 8,
             offset: Offset(0, 1),
           ),
         ],
@@ -214,13 +218,14 @@ class CancelledShiftView extends StatelessWidget {
               buttonText: StringConstant.viewShiftDetails,
             ),
           dateAndTime(context, state, shift),
-          if (state.currentCancelFilter.id == 2 &&
+          if (
+              // state.currentCancelFilter.id == 2 &&
               shift.users != null &&
-              shift.users!.isNotEmpty &&
-              shift.users!.length == 1) ...[
+                  shift.users!.isNotEmpty &&
+                  shift.users!.length == 1) ...[
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: getSize(18), vertical: getSize(10)),
+                  horizontal: getSize(18), vertical: getSize(5)),
               child: BaseText(
                 text: StringConstant.reason,
                 fontSize: 12,
