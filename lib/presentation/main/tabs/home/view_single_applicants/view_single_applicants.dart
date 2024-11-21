@@ -244,73 +244,67 @@ class ViewSingleApplicants extends StatelessWidget {
                                                     ] else ...[
                                                       Expanded(
                                                         child: CommonButton(
-                                                          onPressed: () {
-                                                            if (false /*!state.isCardAdded*/) {
-                                                              CommonCardDialog(
-                                                                title:
-                                                                    'Card Details',
-                                                                description:
-                                                                    'Please add your card details to proceed.',
-                                                                buttonText:
-                                                                    'Add Card',
-                                                                onPressed: () {
-                                                                  context.router
-                                                                      .maybePop();
-                                                                  context.router.push(PageRouteInfo(
-                                                                      AddCardDetailPage
-                                                                          .name,
-                                                                      args: AddCardDetailPageArgs(
-                                                                          fromRegister:
-                                                                              false)));
-                                                                },
-                                                                image: SvgImageConstant
-                                                                    .cardImage,
-                                                              ).addCardDialog(
-                                                                  context);
-                                                            } else {
-                                                              AcceptRejectDialog(
-                                                                title: 'Accept',
-                                                                description:
-                                                                    'Are you sure you want to accept this application?',
-                                                                onPressedAccept:
-                                                                    () {
-                                                                  if (data.occupied ==
-                                                                      true)
-                                                                    return;
-                                                                  context.router
-                                                                      .maybePop();
-                                                                  final id = state
-                                                                      .employerApplicantList[
-                                                                          index]
-                                                                      .id;
-                                                                  context
-                                                                      .read<
-                                                                          ViewSingleApplicantsBloc>()
-                                                                      .add(
-                                                                        ViewSingleApplicantsEvent
-                                                                            .acceptApplicants(
-                                                                          context,
-                                                                          id ??
-                                                                              0,
-                                                                        ),
-                                                                      );
-                                                                },
-                                                                onPressedReject:
-                                                                    () {
-                                                                  context.router
-                                                                      .maybePop();
-                                                                },
-                                                              ).acceptRejectDialog(
-                                                                  context);
-                                                            }
-                                                          },
+                                                          onPressed:
+                                                              (data.accept_btn_toggle ==
+                                                                      false)
+                                                                  ? () {}
+                                                                  : () {
+                                                                      if (false /*!state.isCardAdded*/) {
+                                                                        CommonCardDialog(
+                                                                          title:
+                                                                              'Card Details',
+                                                                          description:
+                                                                              'Please add your card details to proceed.',
+                                                                          buttonText:
+                                                                              'Add Card',
+                                                                          onPressed:
+                                                                              () {
+                                                                            context.router.maybePop();
+                                                                            context.router.push(PageRouteInfo(AddCardDetailPage.name,
+                                                                                args: AddCardDetailPageArgs(fromRegister: false)));
+                                                                          },
+                                                                          image:
+                                                                              SvgImageConstant.cardImage,
+                                                                        ).addCardDialog(
+                                                                            context);
+                                                                      } else {
+                                                                        AcceptRejectDialog(
+                                                                          title:
+                                                                              'Accept',
+                                                                          description:
+                                                                              'Are you sure you want to accept this application?',
+                                                                          onPressedAccept:
+                                                                              () {
+                                                                            if (data.occupied ==
+                                                                                true)
+                                                                              return;
+                                                                            context.router.maybePop();
+                                                                            final id =
+                                                                                state.employerApplicantList[index].id;
+                                                                            context.read<ViewSingleApplicantsBloc>().add(
+                                                                                  ViewSingleApplicantsEvent.acceptApplicants(
+                                                                                    context,
+                                                                                    id ?? 0,
+                                                                                  ),
+                                                                                );
+                                                                          },
+                                                                          onPressedReject:
+                                                                              () {
+                                                                            context.router.maybePop();
+                                                                          },
+                                                                        ).acceptRejectDialog(
+                                                                            context);
+                                                                      }
+                                                                    },
                                                           buttonText: 'Accept',
                                                           buttonFontSize: 12,
                                                           borderRadius: 10,
                                                           height: 34,
-                                                          backgroundColor: data
-                                                                      .occupied ==
-                                                                  true
+                                                          backgroundColor: (data
+                                                                          .occupied ==
+                                                                      true ||
+                                                                  data.accept_btn_toggle ==
+                                                                      false)
                                                               ? AppColors.green
                                                                   .withOpacity(
                                                                       0.2)
@@ -321,47 +315,64 @@ class ViewSingleApplicants extends StatelessWidget {
                                                           width: getSize(16)),
                                                       Expanded(
                                                         child: CommonButton(
-                                                          onPressed: () {
-                                                            AcceptRejectDialog(
-                                                              title: 'Reject',
-                                                              description:
-                                                                  'Are you sure you want to reject this application?',
-                                                              onPressedAccept:
-                                                                  () {
-                                                                context.router
-                                                                    .maybePop();
+                                                          onPressed:
+                                                              (data.accept_btn_toggle ==
+                                                                      false)
+                                                                  ? () {}
+                                                                  : () {
+                                                                      AcceptRejectDialog(
+                                                                        title:
+                                                                            'Reject',
+                                                                        description:
+                                                                            'Are you sure you want to reject this application?',
+                                                                        onPressedAccept:
+                                                                            () {
+                                                                          context
+                                                                              .router
+                                                                              .maybePop();
 
-                                                                final id = state
-                                                                    .employerApplicantList[
-                                                                        index]
-                                                                    .id;
-                                                                context
-                                                                    .read<
-                                                                        ViewSingleApplicantsBloc>()
-                                                                    .add(
-                                                                      ViewSingleApplicantsEvent
-                                                                          .rejectApplicants(
-                                                                        context,
-                                                                        id ?? 0,
-                                                                      ),
-                                                                    );
-                                                              },
-                                                              acceptButtonText:
-                                                                  'Reject',
-                                                              onPressedReject:
-                                                                  () {
-                                                                context.router
-                                                                    .maybePop();
-                                                              },
-                                                            ).acceptRejectDialog(
-                                                                context);
-                                                          },
-                                                          backgroundColor:
-                                                              AppColors.white,
+                                                                          final id = state
+                                                                              .employerApplicantList[index]
+                                                                              .id;
+                                                                          context
+                                                                              .read<ViewSingleApplicantsBloc>()
+                                                                              .add(
+                                                                                ViewSingleApplicantsEvent.rejectApplicants(
+                                                                                  context,
+                                                                                  id ?? 0,
+                                                                                ),
+                                                                              );
+                                                                        },
+                                                                        acceptButtonText:
+                                                                            'Reject',
+                                                                        onPressedReject:
+                                                                            () {
+                                                                          context
+                                                                              .router
+                                                                              .maybePop();
+                                                                        },
+                                                                      ).acceptRejectDialog(
+                                                                          context);
+                                                                    },
+                                                          backgroundColor: (data
+                                                                      .accept_btn_toggle ==
+                                                                  false)
+                                                              ? AppColors.green
+                                                                  .withOpacity(
+                                                                      0.2)
+                                                              : AppColors.white,
                                                           borderColor:
-                                                              AppColors.green,
+                                                              (data.accept_btn_toggle ==
+                                                                      false)
+                                                                  ? null
+                                                                  : AppColors
+                                                                      .green,
                                                           buttonTextColor:
-                                                              AppColors.green,
+                                                              (data.accept_btn_toggle ==
+                                                                      false)
+                                                                  ? null
+                                                                  : AppColors
+                                                                      .green,
                                                           buttonFontSize: 12,
                                                           borderRadius: 10,
                                                           buttonText: 'Reject',

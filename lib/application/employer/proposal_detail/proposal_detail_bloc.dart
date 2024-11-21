@@ -32,6 +32,11 @@ class ProposalDetailBloc
   ProposalDetailBloc(this._mainFacade) : super(ProposalDetailState.initial()) {
     on<ProposalDetailEvent>((event, emit) async {
       await event.map(
+        checkConfirmAvailability: (e) {
+          emit(state.copyWith(
+            isConfirmProposalDate: e.isCheck,
+          ));
+        },
         getProposalDetail: (value) async {
           Either<MainFailure, CommonResponse> failureOrSuccess;
           emit(state.copyWith(isLoading: true));

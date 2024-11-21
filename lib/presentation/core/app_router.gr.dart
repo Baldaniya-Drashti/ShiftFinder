@@ -13,19 +13,21 @@ import 'package:flutter/material.dart' as _i95;
 import 'package:shift/application/auth/contractor_auth/location_example.dart'
     as _i45;
 import 'package:shift/infrastructure/contractor_main/shift/applied_shift_dto/applied_shift_dto.dart'
-    as _i105;
+    as _i106;
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart'
-    as _i104;
+    as _i105;
 import 'package:shift/infrastructure/core/contractor_home/contractor_dashboard_dto.dart'
-    as _i107;
+    as _i108;
+import 'package:shift/infrastructure/core/document_dto/document_dto.dart'
+    as _i103;
 import 'package:shift/infrastructure/core/education_dto/education_dto.dart'
     as _i96;
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart'
-    as _i103;
+    as _i104;
 import 'package:shift/infrastructure/core/reference_dto/reference_dto.dart'
     as _i101;
 import 'package:shift/infrastructure/main/date_time_dto/date_time_dto.dart'
-    as _i106;
+    as _i107;
 import 'package:shift/infrastructure/main/employer_team/get_teams_dto.dart'
     as _i100;
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart'
@@ -37,7 +39,7 @@ import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart'
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart'
     as _i99;
 import 'package:shift/infrastructure/main/shift_detail_dto/shift_detail_dto.dart'
-    as _i108;
+    as _i109;
 import 'package:shift/presentation/account_management/account_management_view.dart'
     as _i1;
 import 'package:shift/presentation/account_management/change_password_view.dart'
@@ -105,7 +107,7 @@ import 'package:shift/presentation/contractor/contractor_main/contractor_tabs/co
     as _i93;
 import 'package:shift/presentation/contractor/my_calendar_view/my_calendar_view.dart'
     as _i50;
-import 'package:shift/presentation/core/enum.dart' as _i109;
+import 'package:shift/presentation/core/enum.dart' as _i110;
 import 'package:shift/presentation/core/widgets/google_map/show_google_map.dart'
     as _i76;
 import 'package:shift/presentation/employer/employer_availability/employer_availability_view.dart'
@@ -997,6 +999,7 @@ class CommonDocumentView extends _i94.PageRouteInfo<CommonDocumentViewArgs> {
     _i95.Key? key,
     required String title,
     required String pdfUrl,
+    required List<_i103.DocumentDTO> documentList,
     List<_i94.PageRouteInfo>? children,
   }) : super(
           CommonDocumentView.name,
@@ -1004,6 +1007,7 @@ class CommonDocumentView extends _i94.PageRouteInfo<CommonDocumentViewArgs> {
             key: key,
             title: title,
             pdfUrl: pdfUrl,
+            documentList: documentList,
           ),
           initialChildren: children,
         );
@@ -1018,6 +1022,7 @@ class CommonDocumentView extends _i94.PageRouteInfo<CommonDocumentViewArgs> {
         key: args.key,
         title: args.title,
         pdfUrl: args.pdfUrl,
+        documentList: args.documentList,
       );
     },
   );
@@ -1028,6 +1033,7 @@ class CommonDocumentViewArgs {
     this.key,
     required this.title,
     required this.pdfUrl,
+    required this.documentList,
   });
 
   final _i95.Key? key;
@@ -1036,9 +1042,11 @@ class CommonDocumentViewArgs {
 
   final String pdfUrl;
 
+  final List<_i103.DocumentDTO> documentList;
+
   @override
   String toString() {
-    return 'CommonDocumentViewArgs{key: $key, title: $title, pdfUrl: $pdfUrl}';
+    return 'CommonDocumentViewArgs{key: $key, title: $title, pdfUrl: $pdfUrl, documentList: $documentList}';
   }
 }
 
@@ -1123,7 +1131,7 @@ class ContractorShiftView extends _i94.PageRouteInfo<void> {
 class CounterPurposeView extends _i94.PageRouteInfo<CounterPurposeViewArgs> {
   CounterPurposeView({
     _i95.Key? key,
-    required _i103.EmployerProposalDto data,
+    required _i104.EmployerProposalDto data,
     List<_i94.PageRouteInfo>? children,
   }) : super(
           CounterPurposeView.name,
@@ -1156,7 +1164,7 @@ class CounterPurposeViewArgs {
 
   final _i95.Key? key;
 
-  final _i103.EmployerProposalDto data;
+  final _i104.EmployerProposalDto data;
 
   @override
   String toString() {
@@ -1283,7 +1291,7 @@ class EducationProfileListView
     extends _i94.PageRouteInfo<EducationProfileListViewArgs> {
   EducationProfileListView({
     _i95.Key? key,
-    required _i104.ApplicantDto applicantDto,
+    required _i105.ApplicantDto applicantDto,
     List<_i94.PageRouteInfo>? children,
   }) : super(
           EducationProfileListView.name,
@@ -1316,7 +1324,7 @@ class EducationProfileListViewArgs {
 
   final _i95.Key? key;
 
-  final _i104.ApplicantDto applicantDto;
+  final _i105.ApplicantDto applicantDto;
 
   @override
   String toString() {
@@ -1330,7 +1338,7 @@ class EmployerAvailabilityView
     extends _i94.PageRouteInfo<EmployerAvailabilityViewArgs> {
   EmployerAvailabilityView({
     _i95.Key? key,
-    required List<_i103.EmployerProposalShiftDetailDto> list,
+    required List<_i104.EmployerProposalShiftDetailDto> list,
     bool confirmDialog = false,
     List<_i94.PageRouteInfo>? children,
   }) : super(
@@ -1367,7 +1375,7 @@ class EmployerAvailabilityViewArgs {
 
   final _i95.Key? key;
 
-  final List<_i103.EmployerProposalShiftDetailDto> list;
+  final List<_i104.EmployerProposalShiftDetailDto> list;
 
   final bool confirmDialog;
 
@@ -1944,7 +1952,7 @@ class MonthlyStatementView extends _i94.PageRouteInfo<void> {
 /// [_i49.MultiAgreedShift]
 class MultiAgreedShift extends _i94.PageRouteInfo<MultiAgreedShiftArgs> {
   MultiAgreedShift({
-    required _i103.EmployerProposalDto contractor,
+    required _i104.EmployerProposalDto contractor,
     List<_i94.PageRouteInfo>? children,
   }) : super(
           MultiAgreedShift.name,
@@ -1966,7 +1974,7 @@ class MultiAgreedShift extends _i94.PageRouteInfo<MultiAgreedShiftArgs> {
 class MultiAgreedShiftArgs {
   const MultiAgreedShiftArgs({required this.contractor});
 
-  final _i103.EmployerProposalDto contractor;
+  final _i104.EmployerProposalDto contractor;
 
   @override
   String toString() {
@@ -2218,7 +2226,7 @@ class PaymentMethodView extends _i94.PageRouteInfo<void> {
 class PersonalProfileView extends _i94.PageRouteInfo<PersonalProfileViewArgs> {
   PersonalProfileView({
     _i95.Key? key,
-    required _i104.ApplicantDto applicantDto,
+    required _i105.ApplicantDto applicantDto,
     List<_i94.PageRouteInfo>? children,
   }) : super(
           PersonalProfileView.name,
@@ -2251,7 +2259,7 @@ class PersonalProfileViewArgs {
 
   final _i95.Key? key;
 
-  final _i104.ApplicantDto applicantDto;
+  final _i105.ApplicantDto applicantDto;
 
   @override
   String toString() {
@@ -2472,7 +2480,7 @@ class ProfessionalProfileView
     extends _i94.PageRouteInfo<ProfessionalProfileViewArgs> {
   ProfessionalProfileView({
     _i95.Key? key,
-    required _i104.ApplicantDto applicantDto,
+    required _i105.ApplicantDto applicantDto,
     List<_i94.PageRouteInfo>? children,
   }) : super(
           ProfessionalProfileView.name,
@@ -2505,7 +2513,7 @@ class ProfessionalProfileViewArgs {
 
   final _i95.Key? key;
 
-  final _i104.ApplicantDto applicantDto;
+  final _i105.ApplicantDto applicantDto;
 
   @override
   String toString() {
@@ -2584,7 +2592,7 @@ class ProfileView extends _i94.PageRouteInfo<void> {
 class ProposalReceived extends _i94.PageRouteInfo<ProposalReceivedArgs> {
   ProposalReceived({
     _i95.Key? key,
-    required _i105.AppliedShiftDTO post,
+    required _i106.AppliedShiftDTO post,
     List<_i94.PageRouteInfo>? children,
   }) : super(
           ProposalReceived.name,
@@ -2617,7 +2625,7 @@ class ProposalReceivedArgs {
 
   final _i95.Key? key;
 
-  final _i105.AppliedShiftDTO post;
+  final _i106.AppliedShiftDTO post;
 
   @override
   String toString() {
@@ -2630,7 +2638,7 @@ class ProposalReceivedArgs {
 class ProposeAvailability extends _i94.PageRouteInfo<ProposeAvailabilityArgs> {
   ProposeAvailability({
     required _i98.HealthcarePostDTO post,
-    List<_i106.DateTimeDTO>? updatedDates,
+    List<_i107.DateTimeDTO>? updatedDates,
     List<_i94.PageRouteInfo>? children,
   }) : super(
           ProposeAvailability.name,
@@ -2663,7 +2671,7 @@ class ProposeAvailabilityArgs {
 
   final _i98.HealthcarePostDTO post;
 
-  final List<_i106.DateTimeDTO>? updatedDates;
+  final List<_i107.DateTimeDTO>? updatedDates;
 
   @override
   String toString() {
@@ -2994,7 +3002,7 @@ class ShowGoogleMapArgs {
 /// [_i77.SingleAgreedShift]
 class SingleAgreedShift extends _i94.PageRouteInfo<SingleAgreedShiftArgs> {
   SingleAgreedShift({
-    required _i103.EmployerProposalDto contractor,
+    required _i104.EmployerProposalDto contractor,
     int? index,
     List<_i94.PageRouteInfo>? children,
   }) : super(
@@ -3026,7 +3034,7 @@ class SingleAgreedShiftArgs {
     this.index,
   });
 
-  final _i103.EmployerProposalDto contractor;
+  final _i104.EmployerProposalDto contractor;
 
   final int? index;
 
@@ -3356,7 +3364,7 @@ class ViewContractorShiftDates
     extends _i94.PageRouteInfo<ViewContractorShiftDatesArgs> {
   ViewContractorShiftDates({
     _i95.Key? key,
-    required _i107.ContactorDashboardDTO shiftDetail,
+    required _i108.ContactorDashboardDTO shiftDetail,
     List<_i94.PageRouteInfo>? children,
   }) : super(
           ViewContractorShiftDates.name,
@@ -3389,7 +3397,7 @@ class ViewContractorShiftDatesArgs {
 
   final _i95.Key? key;
 
-  final _i107.ContactorDashboardDTO shiftDetail;
+  final _i108.ContactorDashboardDTO shiftDetail;
 
   @override
   String toString() {
@@ -3402,7 +3410,7 @@ class ViewContractorShiftDatesArgs {
 class ViewDates extends _i94.PageRouteInfo<ViewDatesArgs> {
   ViewDates({
     _i95.Key? key,
-    required _i108.ShiftDetailDTO shiftDetail,
+    required _i109.ShiftDetailDTO shiftDetail,
     List<_i94.PageRouteInfo>? children,
   }) : super(
           ViewDates.name,
@@ -3435,7 +3443,7 @@ class ViewDatesArgs {
 
   final _i95.Key? key;
 
-  final _i108.ShiftDetailDTO shiftDetail;
+  final _i109.ShiftDetailDTO shiftDetail;
 
   @override
   String toString() {
@@ -3488,7 +3496,7 @@ class ViewHomeShiftDetails
   ViewHomeShiftDetails({
     _i95.Key? key,
     required int postId,
-    _i109.ShiftDetailRoute? route,
+    _i110.ShiftDetailRoute? route,
     List<_i94.PageRouteInfo>? children,
   }) : super(
           ViewHomeShiftDetails.name,
@@ -3526,7 +3534,7 @@ class ViewHomeShiftDetailsArgs {
 
   final int postId;
 
-  final _i109.ShiftDetailRoute? route;
+  final _i110.ShiftDetailRoute? route;
 
   @override
   String toString() {
@@ -3542,7 +3550,7 @@ class ViewPersonPraposalView
     _i95.Key? key,
     required int postId,
     required int userId,
-    required _i103.EmployerProposalPendingUserDto user,
+    required _i104.EmployerProposalPendingUserDto user,
     List<_i94.PageRouteInfo>? children,
   }) : super(
           ViewPersonPraposalView.name,
@@ -3585,7 +3593,7 @@ class ViewPersonPraposalViewArgs {
 
   final int userId;
 
-  final _i103.EmployerProposalPendingUserDto user;
+  final _i104.EmployerProposalPendingUserDto user;
 
   @override
   String toString() {

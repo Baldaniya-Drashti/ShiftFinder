@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/infrastructure/core/applicant_dto/applicant_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
@@ -21,26 +21,26 @@ class DocumentsView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         BaseText(
-          text: 'Documents Uploaded (Tap To View)',
+          text: StringConstant.documentsUploadedTapToView,
           fontSize: 10,
           fontWeight: FontWeight.w600,
           textColor: Colors.black.withOpacity(0.8),
         ),
-        SizedBox(
-          height: getSize(8),
-        ),
-        if (data.document?.any(
-              (element) => element.document_type == 1,
-            ) ??
+        SizedBox(height: getSize(8)),
+        if (data.document?.any((element) => element.document_type == 1) ??
             false) ...[
           getDocumentsContainer(
-            title: 'Government Issued Id',
+            title: StringConstant.governmentIssuedId,
             onTap: () {
               context.router.push(
                 PageRouteInfo(
                   CommonDocumentView.name,
                   args: CommonDocumentViewArgs(
-                    title: 'Government Issued Id',
+                    title: StringConstant.governmentIssuedId,
+                    documentList: data.document
+                            ?.where((element) => element.document_type == 1)
+                            .toList() ??
+                        [],
                     pdfUrl: data.document
                             ?.firstWhere(
                                 (element) => element.document_type == 1)
@@ -51,22 +51,22 @@ class DocumentsView extends StatelessWidget {
               );
             },
           ),
-          SizedBox(
-            height: getSize(15),
-          ),
+          SizedBox(height: getSize(15)),
         ],
-        if (data.document?.any(
-              (element) => element.document_type == 2,
-            ) ??
+        if (data.document?.any((element) => element.document_type == 2) ??
             false) ...[
           getDocumentsContainer(
-            title: 'Covid 19 Vaccination Proof',
+            title: StringConstant.covid19VaccinationProof,
             onTap: () {
               context.router.push(
                 PageRouteInfo(
                   CommonDocumentView.name,
                   args: CommonDocumentViewArgs(
-                    title: 'Covid 19 Vaccination Proof',
+                    title: StringConstant.covid19VaccinationProof,
+                    documentList: data.document
+                            ?.where((element) => element.document_type == 2)
+                            .toList() ??
+                        [],
                     pdfUrl: data.document
                             ?.firstWhere(
                                 (element) => element.document_type == 2)
@@ -77,20 +77,22 @@ class DocumentsView extends StatelessWidget {
               );
             },
           ),
-          SizedBox(
-            height: getSize(15),
-          ),
+          SizedBox(height: getSize(15)),
         ],
         if (data.document?.any((element) => element.document_type == 3) ??
             false) ...[
           getDocumentsContainer(
-            title: 'Credentials/Registrations',
+            title: StringConstant.credentialsRegistrations,
             onTap: () {
               context.router.push(
                 PageRouteInfo(
                   CommonDocumentView.name,
                   args: CommonDocumentViewArgs(
-                    title: 'Credentials/Registrations',
+                    title: StringConstant.credentialsRegistrations,
+                    documentList: data.document
+                            ?.where((element) => element.document_type == 3)
+                            .toList() ??
+                        [],
                     pdfUrl: data.document
                             ?.firstWhere(
                                 (element) => element.document_type == 3)
@@ -108,13 +110,17 @@ class DocumentsView extends StatelessWidget {
         if (data.document?.any((element) => element.document_type == 4) ??
             false) ...[
           getDocumentsContainer(
-            title: 'Professional License',
+            title: StringConstant.professionalLicenses,
             onTap: () {
               context.router.push(
                 PageRouteInfo(
                   CommonDocumentView.name,
                   args: CommonDocumentViewArgs(
-                    title: 'Professional License',
+                    title: StringConstant.professionalLicenses,
+                    documentList: data.document
+                            ?.where((element) => element.document_type == 4)
+                            .toList() ??
+                        [],
                     pdfUrl: data.document
                             ?.firstWhere(
                                 (element) => element.document_type == 4)
@@ -132,13 +138,17 @@ class DocumentsView extends StatelessWidget {
         if (data.document?.any((element) => element.document_type == 5) ??
             false) ...[
           getDocumentsContainer(
-            title: 'Immunizations/Vaccinations',
+            title: StringConstant.immunizationsVaccinations,
             onTap: () {
               context.router.push(
                 PageRouteInfo(
                   CommonDocumentView.name,
                   args: CommonDocumentViewArgs(
-                    title: 'Immunizations/Vaccinations',
+                    title: StringConstant.immunizationsVaccinations,
+                    documentList: data.document
+                            ?.where((element) => element.document_type == 5)
+                            .toList() ??
+                        [],
                     pdfUrl: data.document
                             ?.firstWhere(
                                 (element) => element.document_type == 5)
@@ -156,13 +166,17 @@ class DocumentsView extends StatelessWidget {
         if (data.document?.any((element) => element.document_type == 6) ??
             false) ...[
           getDocumentsContainer(
-            title: 'Covid 19 Vaccination Proof',
+            title: StringConstant.professionalLiabilityProtection,
             onTap: () {
               context.router.push(
                 PageRouteInfo(
                   CommonDocumentView.name,
                   args: CommonDocumentViewArgs(
-                    title: 'Covid 19 Vaccination Proof',
+                    title: StringConstant.professionalLiabilityProtection,
+                    documentList: data.document
+                            ?.where((element) => element.document_type == 6)
+                            .toList() ??
+                        [],
                     pdfUrl: data.document
                             ?.firstWhere(
                                 (element) => element.document_type == 6)
@@ -173,20 +187,22 @@ class DocumentsView extends StatelessWidget {
               );
             },
           ),
-          SizedBox(
-            height: getSize(15),
-          ),
+          SizedBox(height: getSize(15)),
         ],
         if (data.document?.any((element) => element.document_type == 7) ??
             false) ...[
           getDocumentsContainer(
-            title: 'Professional Liability Protection',
+            title: StringConstant.resume,
             onTap: () {
               context.router.push(
                 PageRouteInfo(
                   CommonDocumentView.name,
                   args: CommonDocumentViewArgs(
-                    title: 'Professional Liability Protection',
+                    title: StringConstant.resume,
+                    documentList: data.document
+                            ?.where((element) => element.document_type == 7)
+                            .toList() ??
+                        [],
                     pdfUrl: data.document
                             ?.firstWhere(
                                 (element) => element.document_type == 7)
@@ -197,20 +213,22 @@ class DocumentsView extends StatelessWidget {
               );
             },
           ),
-          SizedBox(
-            height: getSize(15),
-          ),
+          SizedBox(height: getSize(15)),
         ],
         if (data.document?.any((element) => element.document_type == 8) ??
             false) ...[
           getDocumentsContainer(
-            title: 'Resume',
+            title: StringConstant.apparelEquipment,
             onTap: () {
               context.router.push(
                 PageRouteInfo(
                   CommonDocumentView.name,
                   args: CommonDocumentViewArgs(
-                    title: 'Resume',
+                    title: StringConstant.apparelEquipment,
+                    documentList: data.document
+                            ?.where((element) => element.document_type == 8)
+                            .toList() ??
+                        [],
                     pdfUrl: data.document
                             ?.firstWhere(
                                 (element) => element.document_type == 8)
@@ -221,34 +239,8 @@ class DocumentsView extends StatelessWidget {
               );
             },
           ),
-          SizedBox(
-            height: getSize(15),
-          ),
+          SizedBox(height: getSize(15)),
         ],
-        if (data.document?.any((element) => element.document_type == 9) ??
-            false) ...[
-          getDocumentsContainer(
-            title: 'Apparel/Equipment',
-            onTap: () {
-              context.router.push(
-                PageRouteInfo(
-                  CommonDocumentView.name,
-                  args: CommonDocumentViewArgs(
-                    title: 'Apparel/Equipment',
-                    pdfUrl: data.document
-                            ?.firstWhere(
-                                (element) => element.document_type == 9)
-                            .file ??
-                        "",
-                  ),
-                ),
-              );
-            },
-          ),
-          SizedBox(
-            height: getSize(15),
-          ),
-        ]
       ],
     );
   }

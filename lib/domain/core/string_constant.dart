@@ -548,6 +548,12 @@ class StringConstant {
   static const String comment = "Comment";
   static const String blocked = "Blocked";
   static const String block = "Block";
+  static const String documentsUploadedTapToView =
+      "Documents Uploaded (Tap To View)";
+  static const String viewAvailability = "View Availability";
+  static const String confirmProposalTimeDesc =
+      "I confirm that I have reviewed the proposed availability.";
+  static const String unavailable = "Unavailable";
   static const String iRoidSolutions = "iRoid Solutions";
 
   ///

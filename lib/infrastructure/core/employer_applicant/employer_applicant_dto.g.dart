@@ -26,6 +26,7 @@ _$EmployerApplicantsDtoImpl _$$EmployerApplicantsDtoImplFromJson(
       duration: json['duration'] == null
           ? null
           : Duration(microseconds: (json['duration'] as num).toInt()),
+      accept_btn_toggle: json['accept_btn_toggle'] as bool?,
     );
 
 Map<String, dynamic> _$$EmployerApplicantsDtoImplToJson(
@@ -46,4 +47,5 @@ Map<String, dynamic> _$$EmployerApplicantsDtoImplToJson(
       'revoke_start': instance.revoke_start,
       'occupied': instance.occupied,
       'duration': instance.duration?.inMicroseconds,
+      'accept_btn_toggle': instance.accept_btn_toggle,
     };

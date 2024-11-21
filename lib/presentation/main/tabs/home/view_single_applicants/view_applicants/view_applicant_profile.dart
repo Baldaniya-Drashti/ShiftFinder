@@ -84,9 +84,7 @@ class ViewApplicantProfile extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                           textColor: Colors.black.withOpacity(0.8),
                         ),
-                        SizedBox(
-                          height: getSize(8),
-                        ),
+                        SizedBox(height: getSize(8)),
                         Container(
                           padding: EdgeInsets.symmetric(
                             horizontal: getSize(20),
@@ -247,9 +245,7 @@ class ViewApplicantProfile extends StatelessWidget {
                       ),
                     ],
                   ],
-                  SizedBox(
-                    height: getSize(20),
-                  ),
+                  SizedBox(height: getSize(20)),
                   DocumentsView(data: state.account),
                 ],
               ),

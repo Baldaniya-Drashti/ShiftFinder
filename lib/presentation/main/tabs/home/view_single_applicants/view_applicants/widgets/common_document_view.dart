@@ -1,9 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
+import 'package:shift/infrastructure/core/document_dto/document_dto.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
-import 'package:shift/presentation/core/logger/logger.dart';
+import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
@@ -11,11 +17,17 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 class CommonDocumentView extends StatelessWidget {
   final String title;
   final String pdfUrl;
+  final List<DocumentDTO> documentList;
 
-  const CommonDocumentView({super.key, required this.title, required this.pdfUrl});
+  const CommonDocumentView(
+      {super.key,
+      required this.title,
+      required this.pdfUrl,
+      required this.documentList});
 
   @override
   Widget build(BuildContext context) {
+    print("docuemnttt--> $documentList");
     return Scaffold(
       appBar: CommonAppBar(
         onBackPressed: () {
@@ -29,31 +41,133 @@ class CommonDocumentView extends StatelessWidget {
             horizontal: getSize(20),
             vertical: getSize(10),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BaseText(
-                text: 'The document',
-                fontWeight: FontWeight.w500,
-              ),
-              SizedBox(
-                height: getSize(10),
-              ),
-              if (pdfUrl.contains("jpg") || pdfUrl.contains("png")) ...[
-                Expanded(
-                  child: Center(child: CachedNetworkImage(imageUrl: pdfUrl)),
+          child: ListView.builder(
+              itemCount: documentList.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return documentUI(documentList[index]);
+              }),
+        ),
+      ),
+    );
+  }
+
+  Widget documentUI(DocumentDTO document) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        docDetail(document),
+        if (document.document_type == 1 ||
+            document.document_type == 3 ||
+            document.document_type == 4 ||
+            document.document_type == 6)
+          expiryDate(document),
+        if (pdfUrl.contains("jpg") || pdfUrl.contains("png")) ...[
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: getSize(20)),
+            child: Center(child: CachedNetworkImage(imageUrl: pdfUrl)),
+          ),
+        ] else if (pdfUrl.contains("pdf")) ...[
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: getSize(20)),
+            child: SfPdfViewer.network(
+              pdfUrl,
+              // scrollDirection: PdfScrollDirection.horizontal,
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget expiryDate(DocumentDTO document) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: getSize(10)),
+      padding: EdgeInsets.symmetric(
+        horizontal: getSize(20),
+        vertical: getSize(10),
+      ),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: (document.expiry_date_not_applicable == 1)
+          ? BaseText(
+              text: StringConstant.expiryDateIsNotApplicable,
+              fontWeight: FontWeight.w500,
+              fontSize: 12,
+            )
+          : Row(
+              children: [
+                SvgPicture.asset(
+                  SvgImageConstant.calendar,
+                  height: getSize(20),
+                  width: getSize(20),
                 ),
-              ] else if (pdfUrl.contains("pdf")) ...[
-                Expanded(
-                  child: SfPdfViewer.network(
-                    pdfUrl,
-                    // scrollDirection: PdfScrollDirection.horizontal,
-                  ),
+                SizedBox(width: getSize(10)),
+                BaseText(
+                  text:
+                      "Expiry date - ${DateFormat("dd MMM, yyyy").format(DateTime.fromMillisecondsSinceEpoch(
+                    (document.expiry_date ?? -1) * 1000,
+                  ))}",
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12,
                 ),
               ],
+            ),
+    );
+  }
+
+  Widget docDetail(DocumentDTO document) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: getSize(20),
+        vertical: getSize(14),
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        children: [
+          SvgPicture.asset(
+            SvgImageConstant.documentWithVerticalLine,
+            width: getSize(59.56),
+            height: getSize(63),
+            fit: BoxFit.fitHeight,
+          ),
+          SizedBox(width: getSize(15)),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BaseText(
+                text: document.document_title ?? title,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                lineHeight: getSize(3),
+              ),
+              if (document.province_of_registration != null &&
+                  document.province_of_registration!.isNotEmpty)
+                BaseText(
+                  text: document.province_of_registration ?? "",
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  lineHeight: getSize(2),
+                ),
+              if (document.registration_number != null &&
+                  document.registration_number!.isNotEmpty)
+                BaseText(
+                  text: document.registration_number ?? "",
+                  fontSize: 10,
+                  lineHeight: getSize(3),
+                  fontWeight: FontWeight.w400,
+                ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }

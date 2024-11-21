@@ -8,14 +8,14 @@ class ProposalDetailEvent with _$ProposalDetailEvent {
     required BuildContext context,
   }) = GetProposalDetail;
 
-
   const factory ProposalDetailEvent.proposalAcceptReject({
     required int id,
     required int request,
     required BuildContext context,
   }) = ProposalAcceptReject;
-  const factory ProposalDetailEvent.addConfirmDialogFlag(bool flag) = AddConfirmDialogFlag;
+  const factory ProposalDetailEvent.addConfirmDialogFlag(bool flag) =
+      AddConfirmDialogFlag;
   const factory ProposalDetailEvent.getHoursList() = GetHoursList;
-
-
+  const factory ProposalDetailEvent.checkConfirmAvailability(bool isCheck) =
+      CheckConfirmAvailability;
 }
