@@ -23,6 +23,7 @@ class EmployerApplicantsDto with _$EmployerApplicantsDto {
     bool? occupied,
     Duration? duration,
     bool? accept_btn_toggle,
+    int? deleteAt,
   }) = _EmployerApplicantsDto;
 
   factory EmployerApplicantsDto.fromJson(Map<String, dynamic> json) =>

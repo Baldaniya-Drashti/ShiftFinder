@@ -84,7 +84,8 @@ class PersonListWidget extends StatelessWidget {
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
                               ),
-                              if (list[index].revoke_status != null) ...[
+                              if (list[index].revoke_status != null &&
+                                  list[index].deleteAt != 1) ...[
                                 Gap(8),
                                 SvgPicture.asset(
                                   SvgImageConstant.rightArrow,
@@ -94,44 +95,68 @@ class PersonListWidget extends StatelessWidget {
                               ]
                             ],
                           ),
-                          list[index].revoke_status == 1
+                          (list[index].deleteAt == 1)
                               ? BaseText(
-                                  text: "Awaiting...",
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 11,
+                                  text: StringConstant.shiftDeclined,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600,
+                                  textColor: AppColors.redAccent,
                                 )
-                              : list[index].revoke_status == null &&
-                                          list[index].sent_received_status ==
-                                              null ||
-                                      list[index].revoke_status == 2
-                                  ? SizedBox.shrink()
-                                  : Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        SvgPicture.asset(
-                                          list[index].sent_received_status == 1
-                                              ? SvgImageConstant.receivedCircle
-                                              : SvgImageConstant
-                                                  .rightWithCircle,
-                                          height: 13,
-                                          width: 13,
-                                        ),
-                                        Gap(4),
-                                        BaseText(
-                                          text: list[index]
-                                                      .sent_received_status ==
-                                                  1
-                                              ? "Counter Received"
-                                              : "Counter Sent",
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ],
-                                    ),
+                              : (list[index].revoke_status == 1)
+                                  ? BaseText(
+                                      text: "Awaiting...",
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 11,
+                                    )
+                                  : (list[index].revoke_status == 3)
+                                      ? Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: getSize(10)),
+                                          child: BaseText(
+                                            text: StringConstant
+                                                .offerRevokedByTheEmployer,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        )
+                                      : (list[index].revoke_status == null &&
+                                                  list[index]
+                                                          .sent_received_status ==
+                                                      null ||
+                                              list[index].revoke_status == 2)
+                                          ? SizedBox.shrink()
+                                          : Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                SvgPicture.asset(
+                                                  list[index].sent_received_status ==
+                                                          1
+                                                      ? SvgImageConstant
+                                                          .receivedCircle
+                                                      : SvgImageConstant
+                                                          .rightWithCircle,
+                                                  height: 13,
+                                                  width: 13,
+                                                ),
+                                                Gap(4),
+                                                BaseText(
+                                                  text: list[index]
+                                                              .sent_received_status ==
+                                                          1
+                                                      ? StringConstant
+                                                          .counterReceived
+                                                      : StringConstant
+                                                          .counterSent,
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ],
+                                            ),
                         ],
                       ),
                     ),
-                    list[index].revoke_status == 1
+                    (list[index].revoke_status == 1 &&
+                            list[index].deleteAt != 1)
                         ? CommonMaterialButton(
                             backgroundColor:
                                 AppColors.redAccent.withOpacity(0.15),
@@ -166,9 +191,11 @@ class PersonListWidget extends StatelessWidget {
                             textStyle: TextStyle(
                                 fontSize: 12, fontWeight: FontWeight.w600),
                           )
-                        : list[index].revoke_status == 2
+                        : (list[index].revoke_status == 2 &&
+                                list[index].deleteAt != 1)
                             ? revokingStatus(context, state, list[index])
-                            : list[index].revoke_status == 3
+                            : /* (list[index].revoke_status == 3 &&
+                                    list[index].deleteAt != 1)
                                 ? Padding(
                                     padding: EdgeInsets.symmetric(
                                         vertical: getSize(10)),
@@ -179,10 +206,11 @@ class PersonListWidget extends StatelessWidget {
                                       fontWeight: FontWeight.w600,
                                     ),
                                   )
-                                : Icon(
-                                    Icons.arrow_forward_rounded,
-                                    color: AppColors.black,
-                                  )
+                                : */
+                            Icon(
+                                Icons.arrow_forward_rounded,
+                                color: AppColors.black,
+                              )
                   ],
                 ),
               ),

@@ -168,9 +168,6 @@ class UpcomingShift extends StatelessWidget {
             trailing: GestureDetector(
               onTap: () {
                 if (shift.check_delete != null && shift.check_delete!) {
-                  showWithdrawDialog(
-                      context, shift, context.read<ContractorShiftBloc>());
-                } else {
                   AppDialog.showSuccess(
                     context,
                     image: Container(),
@@ -183,6 +180,9 @@ class UpcomingShift extends StatelessWidget {
                       context.router.maybePop();
                     },
                   );
+                } else {
+                  showWithdrawDialog(
+                      context, shift, context.read<ContractorShiftBloc>());
                 }
               },
               child: Container(
@@ -319,7 +319,7 @@ class UpcomingShift extends StatelessWidget {
     return industry.title ?? "";
   }
 
-  Widget dateAndTime(BuildContext context, UpComingShiftDTO shift) {
+  /* Widget dateAndTime(BuildContext context, UpComingShiftDTO shift) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -349,7 +349,7 @@ class UpcomingShift extends StatelessWidget {
                       if (shift.shift_type == 2)
                         BaseText(
                           text:
-                              " (${shift.total_shift ?? 0} ${(shift.total_shift ?? 0) <= 1 ? StringConstant.shift : StringConstant.shifts})",
+                              "(${shift.total_shift ?? 0} ${(shift.total_shift ?? 0) <= 1 ? StringConstant.shift : StringConstant.shifts})",
                           fontSize: 10,
                           fontWeight: FontWeight.w400,
                           textColor: AppColors.primaryColor,
@@ -374,6 +374,61 @@ class UpcomingShift extends StatelessWidget {
                 : "",
             svgPrefixIcon: SvgImageConstant.clock,
           ),
+        ),
+      ],
+    );
+  }
+ */
+
+  Widget dateAndTime(BuildContext context, UpComingShiftDTO shift) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Flexible(
+          child: (shift.shift_type == 1)
+              ? displayDateBreak(
+                  context,
+                  boldValue: convertTimeStampToDate(shift.date ?? -1),
+                  timidValue:
+                      convertTimeStampToDate(shift.date ?? -1, isYear: true),
+                  title: StringConstant.shiftDate,
+                  svgPrefixIcon: SvgImageConstant.calendar,
+                )
+              : displayDateBreak(
+                  context,
+                  boldValue:
+                      "${shift.total_shift ?? 0} ${((shift.total_shift ?? 0) > 1) ? "Shifts" : "Shift"}",
+                  timidValue: "",
+                  title: StringConstant.totalShifts,
+                  svgPrefixIcon: SvgImageConstant.calendar,
+                ),
+        ),
+        Flexible(
+          child: (shift.shift_type == 1)
+              ? displayTime(
+                  title: StringConstant.time,
+                  startDate: (shift.start_time != null)
+                      ? DateFormat('hh:mm a').format(
+                          DateTime.fromMillisecondsSinceEpoch(
+                              (shift.start_time ?? 0) * 1000))
+                      : "",
+                  endDate: (shift.end_time != null)
+                      ? DateFormat('hh:mm a').format(
+                          DateTime.fromMillisecondsSinceEpoch(
+                              (shift.end_time ?? 0) * 1000))
+                      : "",
+                  svgPrefixIcon: SvgImageConstant.clock,
+                )
+              : displayDateBreak(
+                  context,
+                  boldValue: convertTimeStampToDate(shift.date ?? -1),
+                  timidValue: convertTimeStampToDate(
+                    shift.date ?? -1,
+                    isYear: true,
+                  ),
+                  title: StringConstant.shiftStartDate,
+                  svgPrefixIcon: SvgImageConstant.calendar,
+                ),
         ),
       ],
     );

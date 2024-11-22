@@ -75,6 +75,7 @@ class EmployerProposalPendingUserDto with _$EmployerProposalPendingUserDto {
     int? revoke_start,
     Duration? duration,
     int? sent_received_status,
+    int? deleteAt,
   }) = _EmployerProposalPendingUserDto;
 
   factory EmployerProposalPendingUserDto.fromJson(Map<String, dynamic> json) =>

@@ -168,9 +168,7 @@ class SendProposalBloc extends Bloc<SendProposalEvent, SendProposalState> {
 
             await getaAccomdationHoursListApi(emit);
 
-            failureOrSuccess = await _mainFacade.getPostApi(
-              postId: e.postID,
-            );
+            failureOrSuccess = await _mainFacade.getPostApi(postId: e.postID);
 
             failureOrSuccess.fold(
               (l) => emit(state.copyWith(

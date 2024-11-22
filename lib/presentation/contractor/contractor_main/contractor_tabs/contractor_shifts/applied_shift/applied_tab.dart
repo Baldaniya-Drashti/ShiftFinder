@@ -69,16 +69,24 @@ class AppliedTab extends StatelessWidget {
                             children: [
                               userDetail(context, shift),
                               paddingBetweenFields(),
+                              dateAndTime(context, state.appliedList[index]),
+                              paddingBetweenFields(),
                               (shift.applied_date_status == 2)
                                   ? dateView(
+                                      context,
+                                      shift,
                                       title: StringConstant.proposalDate,
                                       boldValue: convertTimeStampToDate(
                                           shift.proposal_date ?? -1),
                                       timidValue: convertTimeStampToDate(
-                                          shift.proposal_date ?? -1,
-                                          isYear: true),
+                                        shift.proposal_date ?? -1,
+                                        isYear: true,
+                                      ),
+                                      showArrow: true,
                                     )
                                   : dateView(
+                                      context,
+                                      shift,
                                       title: StringConstant.appliedDate,
                                       boldValue: convertTimeStampToDate(
                                           shift.applied_date ?? -1),
@@ -87,8 +95,17 @@ class AppliedTab extends StatelessWidget {
                                           isYear: true),
                                     ),
                               paddingBetweenFields(),
-                              if (shift.revoke_status == 2) ...[
-                                revokingStatus(context, state, shift),
+                              if (shift.deleteAt == true) ...[
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: getSize(10)),
+                                  child: BaseText(
+                                    text:
+                                        StringConstant.youHaveDeclinedThisShift,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
                               ] else if (shift.revoke_status == 3) ...[
                                 Padding(
                                   padding: EdgeInsets.symmetric(
@@ -100,37 +117,42 @@ class AppliedTab extends StatelessWidget {
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                              ],
-                              paddingBetweenFields(),
-                              Row(
-                                children: [
-                                  buttonUI(
-                                    onPressed: () {
-                                      context.router.push(
-                                        PageRouteInfo(
-                                          ViewContractorShift.name,
-                                          args: ViewContractorShiftArgs(
-                                            postId:
-                                                state.appliedList[index].id ??
-                                                    -1,
-                                            isTotalApplicants: true,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    buttonText: StringConstant.viewShiftDetails,
-                                    textColor: AppColors.black,
-                                    bgColor: AppColors.primaryColor
-                                        .withOpacity(0.10),
-                                  ),
-                                  SizedBox(width: getSize(10)),
-                                  (shift.request == 1 &&
-                                          shift.urgent_action == 0)
-                                      ? urgentActionRequiredBtn(
-                                          context, shift.id ?? -1)
-                                      : cancelBtn(context, shift.id ?? -1)
+                              ] else ...[
+                                if (shift.revoke_status == 2) ...[
+                                  revokingStatus(context, state, shift),
                                 ],
-                              ),
+                                paddingBetweenFields(),
+                                Row(
+                                  children: [
+                                    buttonUI(
+                                      onPressed: () {
+                                        context.router.push(
+                                          PageRouteInfo(
+                                            ViewContractorShift.name,
+                                            args: ViewContractorShiftArgs(
+                                              postId:
+                                                  state.appliedList[index].id ??
+                                                      -1,
+                                              isTotalApplicants: true,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      buttonText:
+                                          StringConstant.viewShiftDetails,
+                                      textColor: AppColors.black,
+                                      bgColor: AppColors.primaryColor
+                                          .withOpacity(0.10),
+                                    ),
+                                    SizedBox(width: getSize(10)),
+                                    (shift.request == 1 &&
+                                            shift.urgent_action == 0)
+                                        ? urgentActionRequiredBtn(
+                                            context, shift.id ?? -1)
+                                        : cancelBtn(context, shift.id ?? -1)
+                                  ],
+                                ),
+                              ],
                             ],
                           ),
                         );
@@ -138,6 +160,157 @@ class AppliedTab extends StatelessWidget {
                     ),
         );
       },
+    );
+  }
+
+  Widget dateAndTime(BuildContext context, AppliedShiftDTO shift) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Flexible(
+          child: (shift.shift_type == 1)
+              ? displayDateBreak(
+                  context,
+                  boldValue: convertTimeStampToDate(shift.date ?? -1),
+                  timidValue:
+                      convertTimeStampToDate(shift.date ?? -1, isYear: true),
+                  title: StringConstant.shiftDate,
+                  svgPrefixIcon: SvgImageConstant.calendar,
+                )
+              : displayDateBreak(
+                  context,
+                  boldValue:
+                      "${shift.total_shift ?? 0} ${((shift.total_shift ?? 0) > 1) ? "Shifts" : "Shift"}",
+                  timidValue: "",
+                  title: StringConstant.totalShifts,
+                  svgPrefixIcon: SvgImageConstant.calendar,
+                ),
+        ),
+        Flexible(
+          child: (shift.shift_type == 1)
+              ? displayTime(
+                  title: StringConstant.time,
+                  startDate: (shift.start_time != null)
+                      ? DateFormat('hh:mm a').format(
+                          DateTime.fromMillisecondsSinceEpoch(
+                              (shift.start_time ?? 0) * 1000))
+                      : "",
+                  endDate: (shift.end_time != null)
+                      ? DateFormat('hh:mm a').format(
+                          DateTime.fromMillisecondsSinceEpoch(
+                              (shift.end_time ?? 0) * 1000))
+                      : "",
+                  svgPrefixIcon: SvgImageConstant.clock,
+                )
+              : displayDateBreak(
+                  context,
+                  boldValue: convertTimeStampToDate(shift.date ?? -1),
+                  timidValue: convertTimeStampToDate(
+                    shift.date ?? -1,
+                    isYear: true,
+                  ),
+                  title: StringConstant.shiftStartDate,
+                  svgPrefixIcon: SvgImageConstant.calendar,
+                ),
+        ),
+      ],
+    );
+  }
+
+  Widget displayTime({
+    required String title,
+    required String startDate,
+    required String endDate,
+    required String svgPrefixIcon,
+  }) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: getSize(10)),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          SvgPicture.asset(
+            svgPrefixIcon,
+            color: AppColors.black,
+            height: getSize(20),
+            width: getSize(16),
+          ),
+          SizedBox(width: getSize(10)),
+          Flexible(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                BaseText(
+                  text: StringConstant.time,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
+                  textColor: AppColors.black.withOpacity(0.7),
+                ),
+                highLightText(
+                    boldValue: "$startDate to $endDate", timidValue: ""),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget displayDateBreak(
+    BuildContext context, {
+    required String title,
+    required String boldValue,
+    required String timidValue,
+    required String svgPrefixIcon,
+    bool showBtn = false,
+    Widget? titleWidget,
+  }) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: getSize(10)),
+      child: (showBtn)
+          ? CommonButton(
+              onPressed: () {
+                /*if (post.shift_detail != null) {
+                          context.router.push(PageRouteInfo(ViewDates.name,
+                              args: ViewDatesArgs(
+                                  shiftDetail: post.shift_detail!)));
+                        }*/
+              },
+              width: 160,
+              height: 34,
+              borderRadius: 5,
+              buttonFontSize: 12,
+              buttonFontWeight: FontWeight.w600,
+              buttonText: StringConstant.viewDetails,
+              buttonTextColor: AppColors.black,
+              backgroundColor: AppColors.scaffoldColor,
+            )
+          : Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                SvgPicture.asset(
+                  svgPrefixIcon,
+                  color: AppColors.black,
+                  height: getSize(20),
+                  width: getSize(16),
+                ),
+                SizedBox(width: getSize(10)),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    titleWidget ??
+                        BaseText(
+                          text: title,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400,
+                          textColor: AppColors.black.withOpacity(0.7),
+                        ),
+                    highLightText(boldValue: boldValue, timidValue: timidValue),
+                  ],
+                ),
+              ],
+            ),
     );
   }
 
@@ -330,9 +503,13 @@ class AppliedTab extends StatelessWidget {
   }
 
   Widget dateView(
-      {required String title,
-      required String boldValue,
-      required String timidValue}) {
+    BuildContext context,
+    AppliedShiftDTO shift, {
+    required String title,
+    required String boldValue,
+    required String timidValue,
+    bool showArrow = false,
+  }) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(getSize(10)),
@@ -341,6 +518,20 @@ class AppliedTab extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: getSize(12)),
       child: ListTile(
           dense: true,
+          onTap: (showArrow)
+              ? () {
+                  context.router
+                      .push(PageRouteInfo(ProposalReceived.name,
+                          args: ProposalReceivedArgs(post: shift)))
+                      .then((value) {
+                    if (value == true) {
+                      context
+                          .read<ContractorShiftBloc>()
+                          .add(ContractorShiftEvent.getAppliedTypeList(true));
+                    }
+                  });
+                }
+              : null,
           contentPadding: EdgeInsets.zero,
           horizontalTitleGap: 0,
           leading: SvgPicture.asset(
@@ -355,8 +546,20 @@ class AppliedTab extends StatelessWidget {
             fontWeight: FontWeight.w400,
             textColor: AppColors.primaryColor,
           ),
-          trailing:
-              highLightText(boldValue: boldValue, timidValue: timidValue)),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              highLightText(boldValue: boldValue, timidValue: timidValue),
+              if (showArrow) ...[
+                SizedBox(width: getSize(10)),
+                Icon(
+                  Icons.arrow_forward_ios_rounded,
+                  size: getSize(18),
+                  color: AppColors.black.withOpacity(0.5),
+                ),
+              ],
+            ],
+          )),
     );
   }
 

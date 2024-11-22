@@ -341,11 +341,11 @@ class HomeView extends StatelessWidget {
                         ),
                       ),
                     ),
-                    if (state.employerDashboardList[index].isEditable ??
-                        true) ...[
-                      SizedBox(width: getSize(12)),
-                      GestureDetector(
-                        onTap: () {
+                    SizedBox(width: getSize(12)),
+                    GestureDetector(
+                      onTap: () {
+                        if (state.employerDashboardList[index].isEditable ??
+                            true) {
                           context.router
                               .push(PageRouteInfo(HealthCarePostForm.name,
                                   args: HealthCarePostFormArgs(
@@ -356,16 +356,29 @@ class HomeView extends StatelessWidget {
                                 .read<HomeBloc>()
                                 .add(HomeEvent.getEmployerDashboardList(true));
                           });
-                        },
-                        child: Container(
-                          color: Colors.transparent,
-                          padding: EdgeInsets.symmetric(vertical: getSize(10)),
-                          child: SvgPicture.asset(
-                            SvgImageConstant.edit,
-                          ),
+                        } else {
+                          AppDialog.showSuccess(
+                            context,
+                            title: StringConstant
+                                .actionRequiredBeforeModifyingShift,
+                            image: Container(),
+                            insetPadding:
+                                EdgeInsets.symmetric(horizontal: getSize(20)),
+                            infoMessage: StringConstant.editableDialogDesc,
+                            onOkClick: () {
+                              context.router.maybePop();
+                            },
+                          );
+                        }
+                      },
+                      child: Container(
+                        color: Colors.transparent,
+                        padding: EdgeInsets.symmetric(vertical: getSize(10)),
+                        child: SvgPicture.asset(
+                          SvgImageConstant.edit,
                         ),
                       ),
-                    ],
+                    ),
                   ],
                 ),
                 contentPadding: EdgeInsets.zero,

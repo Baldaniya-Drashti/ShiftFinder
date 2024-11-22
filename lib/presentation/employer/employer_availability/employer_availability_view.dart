@@ -15,6 +15,7 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
@@ -59,17 +60,18 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
       child: BlocBuilder<ProposalDetailBloc, ProposalDetailState>(
         builder: (context, state) {
           return PopScope(
-            canPop: true,
+            canPop: false,
 
-            onPopInvoked: (
+            /* onPopInvoked: (
               didPop,
             ) {
               Log.debug("didPop---> ${state.isConfirmProposalDate}");
               if (didPop) {
                 // context.router.maybePop(_confirmationCheckBox.value);
-                context.router.maybePop(state.isConfirmProposalDate);
+                // context.router.maybePop(state.isConfirmProposalDate);
+                // Navigator.pop(context, state.isConfirmProposalDate);
               }
-            },
+            }, */
             // onPopInvoked: (result) {
             //   context.router.maybePop(_confirmationCheckBox.value);
             // },
@@ -77,7 +79,8 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
               appBar: CommonAppBar(
                 onBackPressed: () =>
                     // context.router.maybePop(_confirmationCheckBox.value),
-                    context.router.maybePop(state.isConfirmProposalDate),
+
+                    Navigator.pop(context, state.isConfirmProposalDate),
                 title: StringConstant.viewAvailability,
               ),
               body: Padding(
@@ -151,7 +154,17 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
                               ),
                               padding: EdgeInsets.all(8),
                               child: GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  print(
+                                      "isConfirmProposalDate--> ${state.isConfirmProposalDate}");
+                                  bool value =
+                                      state.isConfirmProposalDate ?? false;
+                                  value = !value;
+
+                                  context.read<ProposalDetailBloc>().add(
+                                      ProposalDetailEvent
+                                          .checkConfirmAvailability(value));
+                                },
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -205,6 +218,16 @@ class _EmployerAvailabilityViewState extends State<EmployerAvailabilityView> {
                                   ],
                                 ),
                               ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: getSize(40), bottom: getSize(40)),
+                              child: CommonButton(
+                                  onPressed: () {
+                                    Navigator.pop(
+                                        context, state.isConfirmProposalDate);
+                                  },
+                                  buttonText: StringConstant.confirm),
                             )
                           ],
                         ),

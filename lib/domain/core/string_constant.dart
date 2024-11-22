@@ -452,6 +452,7 @@ class StringConstant {
       "Are you sure you want to cancel the application?";
   static const String offerRevokedByTheEmployer =
       "Offer Revoked by the Employer";
+  static const String offerRevokedByYou = "Offer Revoked by You";
   static const String clockInConfirmationDesc =
       "Are you sure you want to add the clock in time?";
   static const String clockOutConfirmationDesc =
@@ -554,9 +555,15 @@ class StringConstant {
   static const String confirmProposalTimeDesc =
       "I confirm that I have reviewed the proposed availability.";
   static const String unavailable = "Unavailable";
+  static const String youHaveDeclinedThisShift = "You have declined this shift";
+  static const String shiftDeclined = "Shift Declined";
+  static const String actionRequiredBeforeModifyingShift =
+      "Action Required Before Modifying Shift";
+  static const String editableDialogDesc =
+      "To make changes to a shift with existing applications or proposals, please reject the applicant first.";
+  static const String counterReceived = "Counter Received";
+  static const String counterSent = "Counter Sent";
   static const String iRoidSolutions = "iRoid Solutions";
-
-  ///
 
   /// ERROR ///
   static const String pleaseEnterReason = "Please enter Reason";

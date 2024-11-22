@@ -135,21 +135,24 @@ class PraposalPersonView extends StatelessWidget {
                   child: CommonButton(
                     height: 34,
                     onPressed: () async {
-                      final result = await context.router.push(
+                      await context.router
+                          .push(
                         PageRouteInfo(
                           EmployerAvailabilityView.name,
                           args: EmployerAvailabilityViewArgs(
                               list: data.shift_details ?? [],
                               confirmDialog: confirmDialog),
                         ),
-                      ) as bool?;
-                      Log.success("result=> $result");
-
-                      if (result != null) {
-                        Log.success("result=> $result");
-                        context.read<ProposalDetailBloc>().add(
-                            ProposalDetailEvent.addConfirmDialogFlag(result));
-                      }
+                      )
+                          .then((result) {
+                        if (result != null && result == true) {
+                          Log.success("result=> $result");
+                          context.read<ProposalDetailBloc>().add(
+                              ProposalDetailEvent.addConfirmDialogFlag(
+                                  result as bool));
+                        }
+                      });
+                      // Log.success("result=> $result");
                     },
                     backgroundColor: AppColors.green.withOpacity(0.1),
                     buttonText: 'Proposed Availability',

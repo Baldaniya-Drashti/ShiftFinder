@@ -17,9 +17,7 @@ import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
-
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
-
 import 'widgets/accept_reject_dialog.dart';
 import 'widgets/common_card_dialog.dart';
 
@@ -151,7 +149,21 @@ class ViewSingleApplicants extends StatelessWidget {
                                                           .employerApplicantList[
                                                       index]),
                                               SizedBox(height: getSize(10)),
-                                              if (data.revoke_status == 2) ...[
+                                              if (data.deleteAt == 1) ...[
+                                                Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: getSize(10)),
+                                                  child: BaseText(
+                                                    text: StringConstant
+                                                        .shiftDeclined,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w600,
+                                                    textColor:
+                                                        AppColors.redAccent,
+                                                  ),
+                                                ),
+                                              ] else if (data.revoke_status ==
+                                                  2) ...[
                                                 revokingStatus(
                                                     context,
                                                     state,
@@ -164,7 +176,7 @@ class ViewSingleApplicants extends StatelessWidget {
                                                       vertical: getSize(10)),
                                                   child: BaseText(
                                                     text: StringConstant
-                                                        .offerRevokedByTheEmployer,
+                                                        .offerRevokedByYou,
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.w600,
                                                   ),

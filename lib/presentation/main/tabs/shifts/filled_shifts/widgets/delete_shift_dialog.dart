@@ -65,9 +65,7 @@ class DeleteShiftDialog extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                           textColor: AppColors.black.withOpacity(0.7),
                         ),
-                        SizedBox(
-                          height: getSize(25),
-                        ),
+                        SizedBox(height: getSize(25)),
                         Form(
                           autovalidateMode: state.showErrorMessages
                               ? AutovalidateMode.always

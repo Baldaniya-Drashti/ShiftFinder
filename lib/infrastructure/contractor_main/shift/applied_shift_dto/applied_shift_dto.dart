@@ -31,6 +31,12 @@ class AppliedShiftDTO with _$AppliedShiftDTO {
     int? applied_proposal_status,
     ProposalReceivedDTO? proposal_received,
     Duration? remainingRevokeTime,
+    bool? deleteAt,
+    int? shift_type,
+    int? total_shift,
+    int? date,
+    int? start_time,
+    int? end_time,
   }) = _AppliedShiftDTO;
 
   factory AppliedShiftDTO.fromJson(Map<String, dynamic> json) =>

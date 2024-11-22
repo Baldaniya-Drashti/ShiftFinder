@@ -164,6 +164,7 @@ _$EmployerProposalPendingUserDtoImpl
               ? null
               : Duration(microseconds: (json['duration'] as num).toInt()),
           sent_received_status: (json['sent_received_status'] as num?)?.toInt(),
+          deleteAt: (json['deleteAt'] as num?)?.toInt(),
         );
 
 Map<String, dynamic> _$$EmployerProposalPendingUserDtoImplToJson(
@@ -179,6 +180,7 @@ Map<String, dynamic> _$$EmployerProposalPendingUserDtoImplToJson(
       'revoke_start': instance.revoke_start,
       'duration': instance.duration?.inMicroseconds,
       'sent_received_status': instance.sent_received_status,
+      'deleteAt': instance.deleteAt,
     };
 
 _$EmployerProposalShiftDetailDtoImpl

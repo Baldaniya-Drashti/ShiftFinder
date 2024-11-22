@@ -218,11 +218,13 @@ class CancelledShiftView extends StatelessWidget {
               buttonText: StringConstant.viewShiftDetails,
             ),
           dateAndTime(context, state, shift),
-          if (
-              // state.currentCancelFilter.id == 2 &&
-              shift.users != null &&
+          if ((state.currentCancelFilter.id == 2 &&
+                  shift.users != null &&
                   shift.users!.isNotEmpty &&
-                  shift.users!.length == 1) ...[
+                  shift.users!.length == 1) ||
+              (state.currentCancelFilter.id == 1 &&
+                  shift.users != null &&
+                  shift.users!.isNotEmpty)) ...[
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: getSize(18), vertical: getSize(5)),
