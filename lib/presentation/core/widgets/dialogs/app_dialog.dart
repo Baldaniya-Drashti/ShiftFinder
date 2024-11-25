@@ -9,6 +9,8 @@ import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/custom_multi_date_picker/calendar_date_picker2.dart';
+import 'package:shift/presentation/core/widgets/custom_multi_date_picker/calendar_date_picker2_config.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/core/widgets/rating_bar.dart';
 
@@ -40,8 +42,7 @@ class AppDialog {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actionsAlignment: MainAxisAlignment.center,
             actions: [
               CommonButton(
@@ -105,8 +106,7 @@ class AppDialog {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actions: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -201,8 +201,7 @@ class AppDialog {
             ),
             alignment: Alignment.center,
             actionsAlignment: MainAxisAlignment.center,
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actions: [
               CommonButton(
                 onPressed: () {
@@ -266,8 +265,7 @@ class AppDialog {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
-          insetPadding:
-              insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+          insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
           actions: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -371,9 +369,10 @@ class AppDialog {
 
   static Future<bool?> showCommonDialog({
     required BuildContext context,
-    required String? title,
-    required String? content,
-    required String? successLabel,
+    String? title,
+    String? content,
+    String? extraContent,
+    String? successLabel,
   }) async {
     return showDialog<bool?>(
       context: context,
@@ -396,13 +395,29 @@ class AppDialog {
               )
             : null,
         content: content != null
-            ? BaseText(
-                text: content,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                textAlign: TextAlign.center,
-                textColor: AppColors.black.withOpacity(0.7),
-                maxLines: 20,
+            ? Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  BaseText(
+                    text: content,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    textAlign: TextAlign.center,
+                    textColor: AppColors.black.withOpacity(0.7),
+                    maxLines: 20,
+                  ),
+                  if (extraContent != null) ...[
+                    Gap(10),
+                    BaseText(
+                      text: extraContent,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      textAlign: TextAlign.center,
+                      textColor: AppColors.black.withOpacity(0.7),
+                      maxLines: 20,
+                    ),
+                  ]
+                ],
               )
             : null,
         actions: [
@@ -483,8 +498,7 @@ class AppDialog {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),
-            insetPadding:
-                insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
+            insetPadding: insetPadding ?? EdgeInsets.symmetric(horizontal: getSize(20)),
             actions: [
               CommonButton(
                 onPressed: () {
@@ -616,4 +630,46 @@ class _AddRemarkModalState extends State<AddRemarkModal> {
       ],
     );
   }
+}
+
+Future<void> pickMultiDateDialog(
+  BuildContext context, {
+  required ValueSetter<List<DateTime>> onDateSelected,
+  List<DateTime> selectedDates = const [],
+}) async {
+  return showDialog(
+    context: context,
+    builder: (context) => Dialog(
+      backgroundColor: AppColors.white,
+      insetPadding: EdgeInsets.all(16),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CalendarDatePicker2(
+            config: CalendarDatePicker2Config(
+              daySplashColor: AppColors.transparent,
+              selectedDayHighlightColor: AppColors.primaryColor,
+              disableMonthPicker: true,
+              disableModePicker: true,
+              weekdayLabels: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+              weekdayLabelTextStyle: TextStyle(color: AppColors.primaryColor, fontWeight: FontWeight.bold),
+              calendarType: CalendarDatePicker2Type.range,
+              lastDate: DateTime.now(),
+              disabledDayTextStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.w600),
+              dayTextStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+              selectedDayTextStyle: TextStyle(color: AppColors.white),
+            ),
+            value: selectedDates,
+            selectedDateColors: {},
+            onValueChanged: (value) {
+              if (value.length == 2) {
+                onDateSelected(value);
+                context.maybePop();
+              }
+            },
+          ),
+        ],
+      ),
+    ),
+  );
 }

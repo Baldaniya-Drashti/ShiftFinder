@@ -12,8 +12,11 @@ import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
+
 part 'previous_shift_event.dart';
+
 part 'previous_shift_state.dart';
+
 part 'previous_shift_bloc.freezed.dart';
 
 @injectable
@@ -46,8 +49,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
           ratingChangeEvent: (value) {
             emit(state.copyWith(selectedRating: value.rating));
 
-            add(PreviousShiftEvent.fetchAllPreviousPost(
-                refresh: true, sortBy: value.rating.value));
+            add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: value.rating.value));
           },
           fetchAllPreviousPost: (value) async {
             print("Api called after delete--->");
@@ -55,8 +57,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
             Log.debug("value.refresh ${value.refresh}");
             if (value.refresh) {
               currentPage = 1;
-              emit(state.copyWith(
-                  employerPreviousList: [], allDataListLoading: value.refresh));
+              emit(state.copyWith(employerPreviousList: [], allDataListLoading: value.refresh));
               allPost.resetNoData();
             } else {
               if (currentPage > lastPage) {
@@ -87,16 +88,11 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                   state.copyWith(
                     allDataListLoading: false,
                     allDataListIsErrorApi: false,
-                    allDataListNoDataFound: (r.data as List<dynamic>)
-                        .map((e) => EmployerPreviousShiftDto.fromJson(e))
-                        .toList()
-                        .isEmpty,
+                    allDataListNoDataFound: (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList().isEmpty,
                     //  getProductList: []
                     employerPreviousList: List.from(state.employerPreviousList)
                       ..addAll(
-                        (r.data as List<dynamic>)
-                            .map((e) => EmployerPreviousShiftDto.fromJson(e))
-                            .toList(),
+                        (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList(),
                       ),
                   ),
                 );
@@ -106,8 +102,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
           fetchFavoriteList: (value) async {
             if (value.refresh) {
               currentPage = 1;
-              emit(state.copyWith(
-                  favoritesList: [], favoriteListLoading: value.refresh));
+              emit(state.copyWith(favoritesList: [], favoriteListLoading: value.refresh));
               allPost.resetNoData();
             } else {
               if (currentPage > lastPage) {
@@ -138,16 +133,11 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                   state.copyWith(
                     favoriteListLoading: false,
                     favoriteListIsErrorApi: false,
-                    favoriteListNoDataFound: (r.data as List<dynamic>)
-                        .map((e) => EmployerPreviousShiftDto.fromJson(e))
-                        .toList()
-                        .isEmpty,
+                    favoriteListNoDataFound: (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList().isEmpty,
                     //  getProductList: []
                     favoritesList: List.from(state.favoritesList)
                       ..addAll(
-                        (r.data as List<dynamic>)
-                            .map((e) => EmployerPreviousShiftDto.fromJson(e))
-                            .toList(),
+                        (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList(),
                       ),
                   ),
                 );
@@ -157,8 +147,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
           fetchBlockedList: (value) async {
             if (value.refresh) {
               currentPage = 1;
-              emit(state.copyWith(
-                  blockedList: [], blockedListLoading: value.refresh));
+              emit(state.copyWith(blockedList: [], blockedListLoading: value.refresh));
               allPost.resetNoData();
             } else {
               if (currentPage > lastPage) {
@@ -189,16 +178,11 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                   state.copyWith(
                     blockedListLoading: false,
                     blockedListIsErrorApi: false,
-                    blockedListNoDataFound: (r.data as List<dynamic>)
-                        .map((e) => EmployerPreviousShiftDto.fromJson(e))
-                        .toList()
-                        .isEmpty,
+                    blockedListNoDataFound: (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList().isEmpty,
                     //  getProductList: []
                     blockedList: List.from(state.blockedList)
                       ..addAll(
-                        (r.data as List<dynamic>)
-                            .map((e) => EmployerPreviousShiftDto.fromJson(e))
-                            .toList(),
+                        (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList(),
                       ),
                   ),
                 );
@@ -208,8 +192,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
           fetchRemarkedList: (value) async {
             if (value.refresh) {
               currentPage = 1;
-              emit(state.copyWith(
-                  remarkedList: [], remarkedListLoading: value.refresh));
+              emit(state.copyWith(remarkedList: [], remarkedListLoading: value.refresh));
               allPost.resetNoData();
             } else {
               if (currentPage > lastPage) {
@@ -240,15 +223,10 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                   state.copyWith(
                     remarkedListLoading: false,
                     remarkedListIsErrorApi: false,
-                    remarkedListNoDataFound: (r.data as List<dynamic>)
-                        .map((e) => EmployerPreviousShiftDto.fromJson(e))
-                        .toList()
-                        .isEmpty,
+                    remarkedListNoDataFound: (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList().isEmpty,
                     remarkedList: List.from(state.remarkedList)
                       ..addAll(
-                        (r.data as List<dynamic>)
-                            .map((e) => EmployerPreviousShiftDto.fromJson(e))
-                            .toList(),
+                        (r.data as List<dynamic>).map((e) => EmployerPreviousShiftDto.fromJson(e)).toList(),
                       ),
                   ),
                 );
@@ -270,15 +248,13 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                 showError(
                   message: l.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) =>
-                        'Please check your internet connectivity',
+                    networkError: (value) => 'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(value.context);
               },
               (r) {
-                add(PreviousShiftEvent.fetchAllPreviousPost(
-                    refresh: true, sortBy: 1));
+                add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: 1));
                 add(PreviousShiftEvent.fetchBlockedList(refresh: true));
                 // final tempList = [...state.employerPreviousList];
                 // final index = tempList.indexWhere((element) => element.post_id == value.postId);
@@ -305,15 +281,13 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                 showError(
                   message: l.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) =>
-                        'Please check your internet connectivity',
+                    networkError: (value) => 'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(value.context);
               },
               (r) {
-                add(PreviousShiftEvent.fetchAllPreviousPost(
-                    refresh: true, sortBy: 1));
+                add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: 1));
                 showSuccess(message: r.dioMessage ?? "").show(value.context);
               },
             );
@@ -321,8 +295,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
           addFavorite: (AddFavorite value) async {
             Either<MainFailure, CommonResponse>? failureOrSuccess;
             emit(state.copyWith(postDataLoading: true));
-            failureOrSuccess = await _mainFacade.addFavorite(
-                postId: value.postId, userId: value.userId);
+            failureOrSuccess = await _mainFacade.addFavorite(postId: value.postId, userId: value.userId);
             emit(state.copyWith(postDataLoading: false));
 
             failureOrSuccess.fold(
@@ -330,8 +303,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                 showError(
                   message: l.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) =>
-                        'Please check your internet connectivity',
+                    networkError: (value) => 'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(value.context);
@@ -341,8 +313,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                 // final index = tempList.indexWhere((element) => element.post_id == value.postId);
                 // tempList[index] = tempList[index].copyWith(isFavourite: true);
                 // emit(state.copyWith(employerPreviousList: tempList));
-                add(PreviousShiftEvent.fetchAllPreviousPost(
-                    refresh: true, sortBy: 1));
+                add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: 1));
                 add(PreviousShiftEvent.fetchFavoriteList(refresh: true));
 
                 showSuccess(message: r.dioMessage ?? "").show(value.context);
@@ -352,16 +323,14 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
           addUnFavorite: (AddUnFavorite value) async {
             Either<MainFailure, CommonResponse>? failureOrSuccess;
             emit(state.copyWith(postDataLoading: true));
-            failureOrSuccess = await _mainFacade.addUnFavorite(
-                postId: value.postId, userId: value.userId);
+            failureOrSuccess = await _mainFacade.addUnFavorite(postId: value.postId, userId: value.userId);
             emit(state.copyWith(postDataLoading: false));
             failureOrSuccess.fold(
               (l) {
                 showError(
                   message: l.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) =>
-                        'Please check your internet connectivity',
+                    networkError: (value) => 'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(value.context);
@@ -373,8 +342,7 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                 // emit(state.copyWith(employerPreviousList: tempList));
                 //
                 // emit(state.copyWith(favoritesList: tempList, favoriteListNoDataFound: tempList.isEmpty));
-                add(PreviousShiftEvent.fetchAllPreviousPost(
-                    refresh: true, sortBy: 1));
+                add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: 1));
                 add(PreviousShiftEvent.fetchFavoriteList(refresh: true));
                 showSuccess(message: r.dioMessage ?? "").show(value.context);
               },
@@ -394,15 +362,13 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                 showError(
                   message: l.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) =>
-                        'Please check your internet connectivity',
+                    networkError: (value) => 'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(value.context);
               },
               (r) {
-                add(PreviousShiftEvent.fetchAllPreviousPost(
-                    refresh: true, sortBy: 1));
+                add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: 1));
                 add(PreviousShiftEvent.fetchRemarkedList(
                   refresh: true,
                 ));
@@ -420,15 +386,13 @@ class PreviousShiftBloc extends Bloc<PreviousShiftEvent, PreviousShiftState> {
                 showError(
                   message: l.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) =>
-                        'Please check your internet connectivity',
+                    networkError: (value) => 'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(value.context);
               },
               (r) {
-                add(PreviousShiftEvent.fetchAllPreviousPost(
-                    refresh: true, sortBy: 1));
+                add(PreviousShiftEvent.fetchAllPreviousPost(refresh: true, sortBy: 1));
                 add(PreviousShiftEvent.fetchRemarkedList(refresh: true));
                 showSuccess(message: r.dioMessage ?? "").show(value.context);
               },

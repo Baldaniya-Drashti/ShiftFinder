@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/auth/auth_status/auth_status_bloc.dart';
+import 'package:shift/application/main_tab/profile/profile_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
@@ -21,7 +22,11 @@ class ProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: 'Completed Shifts',
         image: SvgImageConstant.completedShifts,
-        onTap: () {},
+        onTap: () {
+          /* context.router.push(PageRouteInfo(PreviousShiftAllView.name,
+              args: PreviousShiftAllViewArgs(completedShift: true))); */
+          context.router.push(PageRouteInfo(EmployerCompletedShiftView.name));
+        },
       ),
       ProfileItemModel(
         title: 'Previous ShiftPros',
@@ -31,15 +36,25 @@ class ProfileItems extends StatelessWidget {
         },
       ),
       ProfileItemModel(
+        title: StringConstant.fullTimePositions,
+        image: SvgImageConstant.bagLocation,
+        onTap: () {
+          context.router.push(PageRouteInfo(EmployerFullPositionView.name));
+        },
+      ),
+      ProfileItemModel(
         title: 'Chat',
         image: SvgImageConstant.chat,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(Chat.name));
+        },
       ),
       ProfileItemModel(
         title: 'Locations',
         image: SvgImageConstant.locationIcon,
         onTap: () {
-          // context.router.push(PageRouteInfo(EmployerLocationFormView.name));
+          context.router.push(PageRouteInfo(EmployerLocationView.name));
+          //context.router.push(PageRouteInfo(EmployerLocationFormView.name));
         },
       ),
       ProfileItemModel(
@@ -58,25 +73,31 @@ class ProfileItems extends StatelessWidget {
         title: 'Billing',
         image: SvgImageConstant.billing,
         onTap: () {
-          // context.router.push(PageRouteInfo(BillingView.name));
+          context.router.push(PageRouteInfo(BillingView.name));
         },
       ),
       ProfileItemModel(
         title: 'Account Management',
         image: SvgImageConstant.setting,
         onTap: () {
-          // context.router.push(PageRouteInfo(AccountManagementView.name));
+          context.router.push(PageRouteInfo(AccountManagementView.name));
         },
       ),
       ProfileItemModel(
         title: 'About ShiftFinder',
         image: SvgImageConstant.aboutShiftFinder,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(AboutView.name));
+        },
       ),
       ProfileItemModel(
         title: 'Customer Support',
         image: SvgImageConstant.customerSupport,
-        onTap: () {},
+        onTap: () {
+          context.router.push(
+            PageRouteInfo(CustomerSupportView.name),
+          );
+        },
       ),
       ProfileItemModel(
         title: 'Log Out',
@@ -150,12 +171,16 @@ class ContractorProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: StringConstant.updateProfile,
         image: SvgImageConstant.person,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(ContractorUpdateProfileView.name));
+        },
       ),
       ProfileItemModel(
         title: StringConstant.previousShifts,
         image: SvgImageConstant.completedShifts,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(ContractorPreviousShiftView.name));
+        },
       ),
       ProfileItemModel(
         title: StringConstant.longTermPositions,
@@ -165,7 +190,9 @@ class ContractorProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: StringConstant.fullTimePositions,
         image: SvgImageConstant.bagLocation,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(FullTimePositionView.name));
+        },
       ),
       ProfileItemModel(
         title: StringConstant.myCalendar,
@@ -182,22 +209,31 @@ class ContractorProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: StringConstant.myEarnings,
         image: SvgImageConstant.billing,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(ContractorEarningView.name));
+        },
       ),
       ProfileItemModel(
         title: StringConstant.performanceInsights,
         image: SvgImageConstant.insights,
-        onTap: () {},
+        onTap: () {
+          context.router
+              .push(PageRouteInfo(ContractorPerformanceInsightView.name));
+        },
       ),
       ProfileItemModel(
         title: StringConstant.referAColleague,
         image: SvgImageConstant.referral,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(ReferColleagueView.name));
+        },
       ),
       ProfileItemModel(
         title: StringConstant.ratings,
         image: SvgImageConstant.star,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(ContractorRatingView.name));
+        },
       ),
       ProfileItemModel(
         title: StringConstant.shareShiftFinder,
@@ -207,17 +243,23 @@ class ContractorProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: StringConstant.accountManagement,
         image: SvgImageConstant.setting,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(AccountManagementView.name));
+        },
       ),
       ProfileItemModel(
         title: StringConstant.policies,
         image: SvgImageConstant.policies,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(AboutView.name));
+        },
       ),
       ProfileItemModel(
         title: StringConstant.supportHelp,
         image: SvgImageConstant.customerSupport,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(CustomerSupportView.name));
+        },
       ),
       ProfileItemModel(
         title: StringConstant.logOut,

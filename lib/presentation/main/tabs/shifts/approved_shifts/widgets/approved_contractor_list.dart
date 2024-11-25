@@ -16,6 +16,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
 import 'package:shift/presentation/common/widgets/paginated_list_view.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
@@ -26,7 +27,9 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 @RoutePage(name: 'ApprovedHiredList')
 class ApprovedHiredList extends StatelessWidget {
   int postId;
+
   ApprovedHiredList({super.key, required this.postId});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -198,8 +201,7 @@ class ApprovedHiredList extends StatelessWidget {
                     onPressed: (contractor.clock_in_time != null &&
                             contractor.clock_out_time != null)
                         ? () {
-                            showUnderDevelopment(context);
-                            // approveDialog(context, contractor);
+                            approveDialog(context, contractor);
                           }
                         : () {},
                     borderRadius: 7,
@@ -374,8 +376,19 @@ class ApprovedHiredList extends StatelessWidget {
       description:
           "${StringConstant.approveShiftDesc1}${contractor.first_name ?? ""}${StringConstant.approveShiftDesc2}",
       onPressedAccept: () async {
-        await context.router.maybePop();
-        successFullyApproved(context);
+        context.router.maybePop().then(
+          (value) {
+            context
+                .read<HiredContractorBloc>()
+                .add(HiredContractorEvent.submitClockInOutTime(
+                  context,
+                  postId: contractor.post_id ?? -1,
+                  userId: contractor.user_id ?? -1,
+                  clockIn: contractor.clock_in_time,
+                  clockOut: contractor.clock_out_time,
+                ));
+          },
+        );
       },
       acceptButtonText: StringConstant.approve,
       onPressedReject: () {
@@ -384,8 +397,8 @@ class ApprovedHiredList extends StatelessWidget {
     ).acceptRejectDialog(context);
   }
 
-  successFullyApproved(BuildContext context) {
-    showDialog<bool?>(
+  successFullyApproved(BuildContext context) async {
+    await showDialog<bool?>(
       barrierDismissible: false,
       context: context,
       builder: (context) {
@@ -436,8 +449,8 @@ class ApprovedHiredList extends StatelessWidget {
       },
     ).then((value) {
       if (value == true) {
-        showUnderDevelopment(context);
-        // context.router.push(PageRouteInfo(ShiftActionsView.name));
+        // showUnderDevelopment(context);
+        context.router.push(PageRouteInfo(ShiftActionsView.name));
       }
     });
   }

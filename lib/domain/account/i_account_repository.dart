@@ -161,5 +161,25 @@ abstract class IAccountRepository {
     required String latitude,
     required String longitude,
     required bool fromRegister,
+    int? type,
+
   });
+
+  Future<Either<AccountFailure, Account>> updateLocation({
+    required String locationAddress,
+    required String facilityType,
+    required String facilityTypeOther,
+    required String locationId,
+    required String accreditationNumber,
+    required String locationNotes,
+    // required String unitNumber,
+    // required String unitNotes,
+    required List<UnitDTO> units,
+    required String latitude,
+    required String longitude,
+    required bool fromRegister,
+    required int id,
+
+  });
+
 }

@@ -7,9 +7,13 @@ part 'location_dto.g.dart';
 @freezed
 class LocationDTO with _$LocationDTO {
   const factory LocationDTO({
-    int? id,
-    String? location,
-    List<UnitDTO>? add_units,
+    final int? id,
+    final String? location,
+    final List<UnitDTO>? add_units,
+    final FacilityTypeDto? facility_type,
+    final String? accreditation_number,
+    final String? location_note,
+    final String? location_id,
   }) = _LocationDTO;
 
   factory LocationDTO.fromJson(Map<String, dynamic> json) =>
@@ -19,10 +23,21 @@ class LocationDTO with _$LocationDTO {
 @freezed
 class UnitDTO with _$UnitDTO {
   const factory UnitDTO({
-    String? number_or_name,
-    String? note,
+    final String? number_or_name,
+    final String? note,
   }) = _UnitDTO;
 
   factory UnitDTO.fromJson(Map<String, dynamic> json) =>
       _$UnitDTOFromJson(json);
+}
+
+@freezed
+class FacilityTypeDto with _$FacilityTypeDto{
+  const factory FacilityTypeDto({
+    final int? id,
+    final String? name,
+  }) = _FacilityTypeDto;
+
+  factory FacilityTypeDto.fromJson(Map<String, dynamic> json) =>
+      _$FacilityTypeDtoFromJson(json);
 }

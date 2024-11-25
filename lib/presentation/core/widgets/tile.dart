@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/avatar.dart';
@@ -74,17 +76,22 @@ class CommonInfoTile extends StatelessWidget {
     this.leading,
     this.title,
     this.subtitle,
+    this.trailing,
+    this.leadingGap, this.crossAxisAlignment,
   });
 
-  final Widget? leading, title, subtitle;
+  final Widget? leading, title, subtitle, trailing;
+  final double? leadingGap;
+  final CrossAxisAlignment? crossAxisAlignment;
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: crossAxisAlignment??CrossAxisAlignment.center,
       children: [
         if (leading != null) leading!,
         SizedBox(
-          width: getSize(6),
+          width: getSize(leadingGap ?? 6),
         ),
         Expanded(
           child: Column(
@@ -96,6 +103,7 @@ class CommonInfoTile extends StatelessWidget {
             ],
           ),
         ),
+        if (trailing != null) trailing!
       ],
     );
   }
@@ -123,3 +131,5 @@ class BaseTileDecoration extends StatelessWidget {
     );
   }
 }
+
+

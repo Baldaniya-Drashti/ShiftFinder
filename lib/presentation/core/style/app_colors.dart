@@ -17,9 +17,11 @@ class AppColors {
   static const Color purple = Color(0xff2512FF);
   static const Color green = Color(0xff08B40F);
   static const Color darkGreen = Color(0xff078B1C);
+  static const Color grey2 = Color(0xff898989);
   static const Color transparent = Color.fromARGB(0, 0, 0, 0);
   static const Color videoIndicatorBackgroundColor = Color(0xff565656);
   static const Color emeraldGreenColor = Color(0xff046307);
+  static const Color surfaceColor = Color(0xFFEDEDED);
 
   //app colors
 

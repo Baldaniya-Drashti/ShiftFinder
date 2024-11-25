@@ -117,8 +117,8 @@ class ApiConstants {
   static String getVenderDetailFilter = 'customer/shop/product/filter';
 
   //chat
-  static String getChatList = 'chat/list';
-  static String getChatDetailList = 'chat/details';
+  static String getChatList = 'chat-list';
+  static String getMessageList = 'chat';
 
   //notification
   static String getNotificationList = 'notification';
@@ -171,10 +171,16 @@ class ApiConstants {
   static String deleteEmployerShift = 'employer_shift';
   static String getEmployerShiftUser = 'get_employer_shift_user';
   static String employerClockInOut = 'employer_clock_in_or_out';
+  static String submitTicket = 'submit_ticket';
   static String contractorUser = 'contractor_user';
   static String employerApplicantsProposal = 'employer_applicants_proposal';
   static String employerApplicantsCounterPropose =
       'employer_applicants_counter_propose';
   static String employerAddRemark = 'employer_remark';
   static String destroyRemark = 'destroy_remark';
+  static String destroyLocation = 'destroy_location';
+  static String updateLocation = 'update_location';
+  static String getEmployerApprovedShiftUser = 'get_employer_approved_shift_user';
+  static String contractorRating = 'contractor_rating';
+  static String contractorPreviousShift = 'contractor_previous_shift';
 }

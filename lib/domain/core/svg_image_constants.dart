@@ -47,7 +47,6 @@ class SvgImageConstant {
   static const bag = "assets/svg/bag.svg";
   static const personPlus = "assets/svg/person_plus.svg";
   static const departmentSetting = "assets/svg/department_setting.svg";
-  static const contectFilled = "assets/svg/contect_filled.svg";
   static const clockWithVerticalLine =
       "assets/svg/clock_with_vertical_line.svg";
   static const documentWithVerticalLine =
@@ -85,6 +84,12 @@ class SvgImageConstant {
   static const organization = "assets/svg/organization.svg";
   static const call = "assets/svg/call.svg";
   static const unitDepartment = "assets/svg/unit_department.svg";
+  static const contectFilled = "assets/svg/contect_filled.svg";
+
+
+
+
+
 
   static const completedShifts = "assets/svg/completed_shifts.svg";
   static const previousShifts = "assets/svg/previous_shift.svg";
@@ -132,5 +137,34 @@ class SvgImageConstant {
   static const accountManagement = "assets/svg/account_management.svg";
   static const billingAccount = "assets/svg/billing.svg";
   static const remarkAdded = "assets/svg/remark_added.svg";
-  
+
+  static const paymentHistory = "assets/svg/payment_history.svg";
+  static const invoice = "assets/svg/invoice.svg";
+  static const paymentMethod = "assets/svg/payment_method.svg";
+  static const monthlyStatus = "assets/svg/monthly_status.svg";
+  static const securePayment = "assets/svg/secure_payment.svg";
+  static const download = "assets/svg/download.svg";
+  static const consumerSupport = "assets/svg/consumer_support.svg";
+  static const ticket = "assets/svg/ticket.svg";
+  static const message = "assets/svg/message.svg";
+  static const about = "assets/svg/about.svg";
+  static const myEarning = "assets/svg/my_earning.svg";
+  static const availableBalance = "assets/svg/available_balance.svg";
+  static const withdrawBalance = "assets/svg/withdraw_balance.svg";
+  static const withdraw = "assets/svg/withdraw.svg";
+  static const deposited = "assets/svg/deposited.svg";
+  static const withdrawPayment = "assets/svg/withdraw_payment.svg";
+  static const updateProfile = "assets/svg/update_profile.svg";
+  static const references = "assets/svg/references.svg";
+  static const document = "assets/svg/document.svg";
+  static const editUser = "assets/svg/edit_user.svg";
+  static const bank = "assets/svg/bank.svg";
+  static const rightArrow2 = "assets/svg/right_arrow2.svg";
+  static const unVerify = "assets/svg/un_verify.svg.svg";
+  static const verify = "assets/svg/verify.svg";
+  static const bankDollar = "assets/svg/bank_dollar.svg";
+  static const information = "assets/svg/information.svg";
+  static const faq = "assets/svg/faq.svg";
+  static const availableWithdrawBalance = "assets/svg/available_withdraw_balance.svg";
+  static const next = 'assets/svg/next.svg';
 }

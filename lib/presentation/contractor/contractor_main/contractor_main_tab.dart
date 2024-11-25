@@ -80,13 +80,10 @@ class ContractorMainTabView extends StatelessWidget {
                     (int index) {
                       return Navigator(
                         onGenerateRoute: (RouteSettings settings) {
-                          print(
-                              "PAGE IS ${context.read<ContractorMainTabBloc>().pageList[index]}");
+                          print("PAGE IS ${context.read<ContractorMainTabBloc>().pageList[index]}");
                           return onGenerateRoute(
                             settings,
-                            context
-                                .read<ContractorMainTabBloc>()
-                                .pageList[index],
+                            context.read<ContractorMainTabBloc>().pageList[index],
                           );
                         },
                       );

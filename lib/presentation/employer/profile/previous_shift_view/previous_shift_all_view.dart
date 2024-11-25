@@ -104,7 +104,7 @@ class PreviousShiftAllView extends StatelessWidget {
         child: Scaffold(
           appBar: CommonAppBar(
             onBackPressed: () => Navigator.pop(context),
-            title: "Completed Shifts",
+            title: StringConstant.completedShifts,
           ),
           body: content,
         ),
@@ -651,19 +651,21 @@ class _ActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CommonMaterialButton.icon(
-      height: 28,
+      height: getSize(31),
       backgroundColor: backgroundColor ?? AppColors.white,
       radius: getSize(7.0),
       onPressed: onPressed,
       label: label,
       icon: SvgPicture.asset(
         icon,
-        height: 14,
-        width: 14,
+        height: getSize(14),
+        width: getSize(14),
         color: iconColor,
       ),
       textStyle: TextStyle(
-          fontSize: 10.0, fontWeight: FontWeight.w500, color: textColor),
+          fontSize: getFontSize(10),
+          fontWeight: FontWeight.w500,
+          color: textColor),
     );
   }
 }

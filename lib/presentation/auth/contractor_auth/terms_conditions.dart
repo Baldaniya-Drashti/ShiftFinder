@@ -112,29 +112,31 @@ class TermsAndConditionsScreen extends StatelessWidget {
           SizedBox(
             width: getSize(15),
           ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              BaseText(
-                text:
-                    "Hello,✋ ${getCurrentUser().firstName ?? ""} ${getCurrentUser().lastName ?? ""}",
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                lineHeight: 1.5,
-              ),
-              SizedBox(
-                width: getHorizontalSize(200),
-                child: BaseText(
-                  text: (isFromRegister)
-                      ? StringConstant.termsScreenImageDesc1
-                      : StringConstant.termsScreenImageDesc,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w400,
-                  maxLines: 4,
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                BaseText(
+                  text:
+                      "Hello,✋ ${getCurrentUser().firstName ?? ""} ${getCurrentUser().lastName ?? ""}",
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  lineHeight: 1.5,
                 ),
-              ),
-            ],
+                SizedBox(
+                  width: getHorizontalSize(200),
+                  child: BaseText(
+                    text: (isFromRegister)
+                        ? StringConstant.termsScreenImageDesc1
+                        : StringConstant.termsScreenImageDesc,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                    maxLines: 4,
+                  ),
+                ),
+              ],
+            ),
           )
         ],
       ),

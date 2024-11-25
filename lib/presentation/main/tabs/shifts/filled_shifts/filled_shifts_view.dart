@@ -273,7 +273,8 @@ class FilledShiftsView extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             DeleteShiftDialog(
-                              showCADDesc: shift.isdelete ?? false,
+                              showCADDesc: shift.isCad ?? false,
+                              showDelete: shift.isdelete ?? false,
                               postId: shift.id ?? -1,
                             ).deleteShiftDialog(context);
                           },

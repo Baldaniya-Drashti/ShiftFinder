@@ -368,7 +368,8 @@ class _EditProfileViewState extends State<EditProfileView> {
                       prefixIcon: CommonCountryCodePicker(
                         initialSelection: state.selectedCountryFlag.isEmpty ? user.countryNameCode : state.selectedCountryFlag,
                         onChanged: (countryCode) {
-                          print(countryCode.flagEmoji);
+                          print("===> ${user.countryNameCode}");
+                          print("===> ${state.selectedCountryFlag}");
                           context.read<EditProfileBloc>().add(
                                 EditProfileEvent.selectCountryCode(
                                   countryCode.phoneCode,

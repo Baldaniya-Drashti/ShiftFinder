@@ -2,23 +2,32 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shift/domain/account/account_failure.dart';
+import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/domain/main/i_main_facade.dart';
 import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/main/hired_contractor_list_dto/hired_contractor_list_dto.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
+import 'package:shift/presentation/common/widgets/base_text.dart';
+import 'package:shift/presentation/core/app_router.gr.dart';
+import 'package:shift/presentation/core/style/app_colors.dart';
+import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 
 part 'hired_contractor_event.dart';
+
 part 'hired_contractor_state.dart';
+
 part 'hired_contractor_bloc.freezed.dart';
 
 @injectable
-class HiredContractorBloc
-    extends Bloc<HiredContractorEvent, HiredContractorState> {
+class HiredContractorBloc extends Bloc<HiredContractorEvent, HiredContractorState> {
   int currentPage = 1;
   int lastPage = 1;
 
@@ -81,19 +90,69 @@ class HiredContractorBloc
                 showError(
                   message: l.maybeMap(
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) =>
-                        'Please check your internet connectivity',
+                    networkError: (value) => 'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(e.context);
               },
-              (r) {
+              (r) async {
                 // e.context.router.maybePop();
-                showSuccess(message: r.dioMessage ?? "")
-                    .show(e.context)
-                    .then((value) {
-                  e.context.router.maybePop(true);
-                });
+
+                final result = await showDialog<bool?>(
+                  barrierDismissible: false,
+                  context: e.context,
+                  builder: (context) {
+                    return AlertDialog(
+                      contentPadding: EdgeInsets.all(24).copyWith(top: 0),
+                      clipBehavior: Clip.none,
+                      insetPadding: EdgeInsets.symmetric(horizontal: getSize(20)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(getSize(15)),
+                      ),
+                      titlePadding: EdgeInsets.zero,
+                      title: Column(
+                        children: [
+                          SvgPicture.asset(
+                            SvgImageConstant.approvedWithCurved,
+                            fit: BoxFit.fill,
+                          ),
+                          SizedBox(height: getSize(20)),
+                          BaseText(
+                            text: "${StringConstant.approved}!",
+                            fontSize: 22,
+                            fontFamily: 'Aclonica',
+                          ),
+                        ],
+                      ),
+                      content: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: getSize(20)).copyWith(top: getSize(10)),
+                        child: BaseText(
+                          text: StringConstant.approvedDesc,
+                          fontSize: 14,
+                          textAlign: TextAlign.center,
+                          textColor: AppColors.black.withOpacity(0.7),
+                        ),
+                      ),
+                      actionsAlignment: MainAxisAlignment.center,
+                      actions: [
+                        CommonButton(
+                          height: 46,
+                          width: 200,
+                          onPressed: () {
+                            context.router.maybePop(true);
+                          },
+                          buttonText: StringConstant.ok,
+                        ),
+                      ],
+                    );
+                  },
+                );
+
+                if (result ?? false) {
+                  e.context.router.push(
+                    PageRouteInfo(ShiftActionsView.name, args: ShiftActionsViewArgs(postId: e.postId, userId: e.userId)),
+                  );
+                }
               },
             );
           } else {
@@ -141,18 +200,12 @@ class HiredContractorBloc
                 state.copyWith(
                   isLoading: false,
                   errorApi: false,
-                  noDataFound: (r.data as List<dynamic>)
-                      .map((e) => HiredContractorListDTO.fromJson(e))
-                      .toList()
-                      .isEmpty,
+                  noDataFound: (r.data as List<dynamic>).map((e) => HiredContractorListDTO.fromJson(e)).toList().isEmpty,
                   //  getProductList: []
-                  hiredFilledContractorList:
-                      List.from(state.hiredFilledContractorList)
-                        ..addAll(
-                          (r.data as List<dynamic>)
-                              .map((e) => HiredContractorListDTO.fromJson(e))
-                              .toList(),
-                        ),
+                  hiredFilledContractorList: List.from(state.hiredFilledContractorList)
+                    ..addAll(
+                      (r.data as List<dynamic>).map((e) => HiredContractorListDTO.fromJson(e)).toList(),
+                    ),
                 ),
               );
             },
@@ -195,18 +248,12 @@ class HiredContractorBloc
                 state.copyWith(
                   isLoading: false,
                   errorApi: false,
-                  noDataFound: (r.data as List<dynamic>)
-                      .map((e) => HiredContractorListDTO.fromJson(e))
-                      .toList()
-                      .isEmpty,
+                  noDataFound: (r.data as List<dynamic>).map((e) => HiredContractorListDTO.fromJson(e)).toList().isEmpty,
                   //  getProductList: []
-                  hiredApproveContractorList:
-                      List.from(state.hiredApproveContractorList)
-                        ..addAll(
-                          (r.data as List<dynamic>)
-                              .map((e) => HiredContractorListDTO.fromJson(e))
-                              .toList(),
-                        ),
+                  hiredApproveContractorList: List.from(state.hiredApproveContractorList)
+                    ..addAll(
+                      (r.data as List<dynamic>).map((e) => HiredContractorListDTO.fromJson(e)).toList(),
+                    ),
                 ),
               );
             },

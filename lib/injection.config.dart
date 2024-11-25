@@ -41,6 +41,11 @@ import 'package:shift/application/auth/register_form/register_form_bloc.dart'
     as _i134;
 import 'package:shift/application/change_password/change_password_bloc.dart'
     as _i723;
+import 'package:shift/application/chat_section/chat/chat_bloc.dart' as _i790;
+import 'package:shift/application/chat_section/message/message_bloc.dart'
+    as _i544;
+import 'package:shift/application/consumer_support/support_ticket/support_ticket_bloc.dart'
+    as _i942;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_home_bloc/contractor_home_bloc.dart'
     as _i153;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor_main_bloc.dart'
@@ -49,16 +54,40 @@ import 'package:shift/application/contractor/contractor_main_tab_bloc/contractor
     as _i131;
 import 'package:shift/application/contractor/contractor_main_tab_bloc/send_proposal_bloc/send_proposal_bloc.dart'
     as _i678;
+import 'package:shift/application/contractor/contractor_previous_shift/contractor_previous_shift_bloc.dart'
+    as _i286;
+import 'package:shift/application/contractor/contractor_rating/contractor_rating_bloc.dart'
+    as _i456;
+import 'package:shift/application/contractor/contractor_statement/contractor_statement_bloc.dart'
+    as _i422;
+import 'package:shift/application/contractor/contractor_wallet/contractor_wallet_bloc.dart'
+    as _i969;
+import 'package:shift/application/contractor/full_time_position/full_time_position_bloc.dart'
+    as _i197;
+import 'package:shift/application/contractor/full_time_position_detail/full_time_position_detail_bloc.dart'
+    as _i418;
 import 'package:shift/application/contractor/my_calendar_view_bloc/my_calendar_view_bloc.dart'
     as _i170;
+import 'package:shift/application/contractor/refer_colleague/refer_colleague_bloc.dart'
+    as _i810;
+import 'package:shift/application/employer/add_full_position/add_full_position_bloc.dart'
+    as _i93;
 import 'package:shift/application/employer/counter_proposal_detail/counter_proposal_detail_bloc.dart'
     as _i93;
+import 'package:shift/application/employer/employer_full_position/employer_postion_bloc.dart'
+    as _i429;
+import 'package:shift/application/employer/employer_full_position_confirm/employer_full_position_confirm_bloc.dart'
+    as _i152;
 import 'package:shift/application/employer/employer_location/employer_location_bloc.dart'
     as _i158;
 import 'package:shift/application/employer/employer_location_form/employer_location_form_bloc.dart'
     as _i990;
+import 'package:shift/application/employer/full_position_review/full_position_review_bloc.dart'
+    as _i515;
 import 'package:shift/application/employer/hired_contractor/hired_contractor_bloc.dart'
     as _i119;
+import 'package:shift/application/employer/monthly_statement/monthly_statement_bloc.dart'
+    as _i319;
 import 'package:shift/application/employer/profile/edit_profile/edit_profile_bloc.dart'
     as _i234;
 import 'package:shift/application/employer/profile/previous_shift/previous_shift_bloc.dart'
@@ -67,6 +96,7 @@ import 'package:shift/application/employer/proposal/total_proposal_bloc.dart'
     as _i819;
 import 'package:shift/application/employer/proposal_detail/proposal_detail_bloc.dart'
     as _i156;
+import 'package:shift/application/faq/faq_bloc.dart' as _i505;
 import 'package:shift/application/google_map/google_map_bloc.dart' as _i168;
 import 'package:shift/application/healthcare_post/healthcare_post_bloc.dart'
     as _i383;
@@ -86,17 +116,21 @@ import 'package:shift/application/main_tab/shifts/hired_contractor_bloc/hired_co
     as _i979;
 import 'package:shift/application/main_tab/shifts/shifts_bloc_bloc.dart'
     as _i193;
+import 'package:shift/application/notification/notification_bloc.dart' as _i791;
 import 'package:shift/application/post_shift_bloc/post_shift_bloc.dart'
     as _i541;
 import 'package:shift/application/profile/account/account_cubit.dart' as _i911;
 import 'package:shift/application/profile/applicant_profile/applicant_profile_bloc.dart'
     as _i828;
+import 'package:shift/application/shift_action/shift_action_bloc.dart' as _i464;
 import 'package:shift/application/splash/splash_bloc.dart' as _i117;
 import 'package:shift/domain/account/i_account_repository.dart' as _i253;
 import 'package:shift/domain/auth/i_auth_facade.dart' as _i277;
 import 'package:shift/domain/main/i_main_facade.dart' as _i111;
 import 'package:shift/infrastructure/account/account_repository.dart' as _i426;
 import 'package:shift/infrastructure/auth/auth_facade.dart' as _i751;
+import 'package:shift/infrastructure/core/chat/socket_chat_service.dart'
+    as _i616;
 import 'package:shift/infrastructure/core/network/injectable_module.dart'
     as _i771;
 import 'package:shift/infrastructure/main/main_facade.dart' as _i198;
@@ -114,9 +148,26 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i366.AccountManagementBloc>(
         () => _i366.AccountManagementBloc());
+    gh.factory<_i418.FullTimePositionDetailBloc>(
+        () => _i418.FullTimePositionDetailBloc());
+    gh.factory<_i286.ContractorPreviousShiftBloc>(
+        () => _i286.ContractorPreviousShiftBloc());
+    gh.factory<_i969.ContractorWalletBloc>(() => _i969.ContractorWalletBloc());
+    gh.factory<_i422.ContractorStatementBloc>(
+        () => _i422.ContractorStatementBloc());
+    gh.factory<_i197.FullTimePositionBloc>(() => _i197.FullTimePositionBloc());
+    gh.factory<_i810.ReferColleagueBloc>(() => _i810.ReferColleagueBloc());
     gh.factory<_i1025.CardBloc>(() => _i1025.CardBloc());
-    gh.factory<_i158.EmployerLocationBloc>(() => _i158.EmployerLocationBloc());
+    gh.factory<_i791.NotificationBloc>(() => _i791.NotificationBloc());
+    gh.factory<_i505.FaqBloc>(() => _i505.FaqBloc());
+    gh.factory<_i429.EmployerPostionBloc>(() => _i429.EmployerPostionBloc());
+    gh.factory<_i319.MonthlyStatementBloc>(() => _i319.MonthlyStatementBloc());
+    gh.factory<_i515.FullPositionReviewBloc>(
+        () => _i515.FullPositionReviewBloc());
+    gh.factory<_i152.EmployerFullPositionConfirmBloc>(
+        () => _i152.EmployerFullPositionConfirmBloc());
     gh.factory<_i168.GoogleMapBloc>(() => _i168.GoogleMapBloc());
+    gh.factory<_i616.SocketChatService>(() => _i616.SocketChatService());
     gh.lazySingleton<_i771.ApiService>(() => _i771.ApiService());
     gh.lazySingleton<_i277.IAuthFacade>(
         () => _i751.AuthFacade(gh<_i771.ApiService>()));
@@ -137,6 +188,19 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i253.IAccountRepository>(),
           gh<_i111.IMainFacade>(),
         ));
+    gh.factory<_i93.AddFullPositionBloc>(() => _i93.AddFullPositionBloc(
+          gh<_i253.IAccountRepository>(),
+          gh<_i111.IMainFacade>(),
+        ));
+    gh.factory<_i990.EmployerLocationFormBloc>(
+        () => _i990.EmployerLocationFormBloc(
+              gh<_i253.IAccountRepository>(),
+              gh<_i111.IMainFacade>(),
+            ));
+    gh.factory<_i942.SupportTicketBloc>(() => _i942.SupportTicketBloc(
+          gh<_i253.IAccountRepository>(),
+          gh<_i111.IMainFacade>(),
+        ));
     gh.factory<_i73.MainTabBloc>(() => _i73.MainTabBloc(
           gh<_i277.IAuthFacade>(),
           gh<_i111.IMainFacade>(),
@@ -149,6 +213,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i678.SendProposalBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i170.MyCalendarViewBloc>(
         () => _i170.MyCalendarViewBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i456.ContractorRatingBloc>(
+        () => _i456.ContractorRatingBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i156.ProposalDetailBloc>(
         () => _i156.ProposalDetailBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i119.HiredContractorBloc>(
@@ -159,10 +225,14 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i819.TotalProposalBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i827.PreviousShiftBloc>(
         () => _i827.PreviousShiftBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i158.EmployerLocationBloc>(
+        () => _i158.EmployerLocationBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i828.ApplicantProfileBloc>(
         () => _i828.ApplicantProfileBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i518.ViewSingleApplicantsBloc>(
         () => _i518.ViewSingleApplicantsBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i464.ShiftActionBloc>(
+        () => _i464.ShiftActionBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i744.ForgotPasswordBloc>(
         () => _i744.ForgotPasswordBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i1033.AuthStatusBloc>(
@@ -179,6 +249,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i234.EditProfileBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i723.ChangePasswordBloc>(
         () => _i723.ChangePasswordBloc(gh<_i277.IAuthFacade>()));
+    gh.factory<_i544.MessageBloc>(() => _i544.MessageBloc(
+          gh<_i111.IMainFacade>(),
+          gh<_i616.SocketChatService>(),
+        ));
     gh.factory<_i897.IntroVideoBloc>(
         () => _i897.IntroVideoBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i161.ExperienceBloc>(
@@ -201,8 +275,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i408.EquipmentBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i944.SpecialityExperienceBloc>(
         () => _i944.SpecialityExperienceBloc(gh<_i253.IAccountRepository>()));
-    gh.factory<_i990.EmployerLocationFormBloc>(
-        () => _i990.EmployerLocationFormBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i359.LocationDetailsBloc>(
         () => _i359.LocationDetailsBloc(gh<_i253.IAccountRepository>()));
     gh.factory<_i911.AccountCubit>(
@@ -223,6 +295,7 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i131.ContractorShiftBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i153.ContractorHomeBloc>(
         () => _i153.ContractorHomeBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i790.ChatBloc>(() => _i790.ChatBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i901.HomeBloc>(() => _i901.HomeBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i946.AddNewMemberBloc>(
         () => _i946.AddNewMemberBloc(gh<_i111.IMainFacade>()));

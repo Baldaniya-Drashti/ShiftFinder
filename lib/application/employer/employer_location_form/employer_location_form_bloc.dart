@@ -10,24 +10,32 @@ import 'package:shift/domain/account/account_failure.dart';
 import 'package:shift/domain/account/i_account_repository.dart';
 import 'package:shift/domain/auth/auth_value_objects.dart';
 import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/domain/main/i_main_facade.dart';
+import 'package:shift/domain/main/main_failure.dart';
 import 'package:shift/infrastructure/core/location_dto/location_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/place_detail_dto.dart';
 import 'package:shift/infrastructure/core/location_dto/search_location_dto/search_location_dto.dart';
+import 'package:shift/infrastructure/core/network/common_response.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/core/helper/location_helper.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 
 part 'employer_location_form_event.dart';
+
 part 'employer_location_form_state.dart';
+
 part 'employer_location_form_bloc.freezed.dart';
+
 @injectable
 class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerLocationFormState> {
   final IAccountRepository _repository;
+  final IMainFacade _mainFacade;
   static TextEditingController locationCtrl = TextEditingController();
   List<dynamic> placeList = [];
 
-  EmployerLocationFormBloc(this._repository) : super(EmployerLocationFormState.initial()) {
+  EmployerLocationFormBloc(this._repository, this._mainFacade) : super(EmployerLocationFormState.initial()) {
     on<EmployerLocationFormEvent>((event, emit) async {
       await event.map(
         updateUnitNumberChanged: (e) {
@@ -56,13 +64,13 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
           final facilityTypeList = await _repository.getFacilityTypeList();
           print("Facility type List ---> $facilityTypeList");
           facilityTypeList.fold(
-                (l) => emit(
+            (l) => emit(
               state.copyWith(
                 isLoading: false,
                 facilityTypeList: [],
               ),
             ),
-                (r) {
+            (r) {
               return emit(
                 state.copyWith(
                   isLoading: false,
@@ -95,7 +103,7 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
               searchLocationList: placeList
                   .map(
                     (e) => Predictions.fromJson(e),
-              )
+                  )
                   .toList(),
               authFailureOrSuccessOption: none(),
             ),
@@ -125,7 +133,6 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
           emit(
             state.copyWith(
               accreditationNumber: e.accreditationNumber,
-              authFailureOrSuccessOption: none(),
             ),
           );
         },
@@ -133,7 +140,6 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
           emit(
             state.copyWith(
               locationNote: e.locationNote,
-              authFailureOrSuccessOption: none(),
             ),
           );
         },
@@ -230,10 +236,10 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
           print("Unit list----> ${state.listOfUnit}");
           if (e.unitNumber.trim().isNotEmpty &&
               (!state.listOfUnit.any((unit) {
-                print("Unit number----> ${e.unitNumber}");
-                print("Unit number_or_name----> ${unit.number_or_name}");
-                return unit.number_or_name?.toLowerCase() == e.unitNumber.trim().toLowerCase();
-              }) ||
+                    print("Unit number----> ${e.unitNumber}");
+                    print("Unit number_or_name----> ${unit.number_or_name}");
+                    return unit.number_or_name?.toLowerCase() == e.unitNumber.trim().toLowerCase();
+                  }) ||
                   state.listOfUnit.isEmpty)) {
             emit(
               state.copyWith(
@@ -295,17 +301,46 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
               ),
             );
 
-            failureOrSuccess = await _repository.addLocationDetailsApi(
-              locationAddress: state.address.getValue() ?? '',
-              facilityType: (state.faciltyType.getValue()!.toLowerCase() != "other") ? getSelectedFacilityTypeId() : "",
-              facilityTypeOther: (state.faciltyType.getValue()!.toLowerCase() == "other") ? state.otherFaciltyType.getValue() ?? "" : "",
-              accreditationNumber: state.accreditationNumber,
-              locationId: state.locationId,
-              locationNotes: state.locationNote,
-              units: state.listOfUnit,
-              latitude: state.selectedAddress.result?.geometry?.location?.lat.toString() ?? '',
-              longitude: state.selectedAddress.result?.geometry?.location?.lng.toString() ?? '', fromRegister: false,
-            );
+            if (state.id == null) {
+              failureOrSuccess = await _repository.addLocationDetailsApi(
+                locationAddress: state.address.getValue() ?? '',
+                facilityType: (state.faciltyType.getValue()!.toLowerCase() != "other") ? getSelectedFacilityTypeId() : "",
+                facilityTypeOther: (state.faciltyType.getValue()!.toLowerCase() == "other") ? state.otherFaciltyType.getValue() ?? "" : "",
+                accreditationNumber: state.accreditationNumber,
+                locationId: state.locationId,
+                locationNotes: state.locationNote,
+                units: state.listOfUnit,
+                latitude: state.selectedAddress.result?.geometry?.location?.lat.toString() ?? '',
+                longitude: state.selectedAddress.result?.geometry?.location?.lng.toString() ?? '',
+                fromRegister: false,
+                type: 1,
+              );
+            } else {
+              failureOrSuccess = await _repository.updateLocation(
+                 id: state.id??-1,
+                locationAddress: state.address.getValue() ?? '',
+                facilityType: (state.faciltyType.getValue()!.toLowerCase() != "other") ? getSelectedFacilityTypeId() : "",
+                facilityTypeOther: (state.faciltyType.getValue()!.toLowerCase() == "other") ? state.otherFaciltyType.getValue() ?? "" : "",
+                accreditationNumber: state.accreditationNumber,
+                locationId: state.locationId,
+                locationNotes: state.locationNote,
+                units: state.listOfUnit,
+                latitude: state.selectedAddress.result?.geometry?.location?.lat.toString() ?? '',
+                longitude: state.selectedAddress.result?.geometry?.location?.lng.toString() ?? '',
+                fromRegister: false,
+              );
+
+              Log.debug("locationAddress :: ${state.address.getValue() ?? ''}");
+              Log.debug("faciltyType :: ${(state.faciltyType.getValue()!.toLowerCase() != "other") ? getSelectedFacilityTypeId() : ""}");
+              Log.debug(
+                  "facilityTypeOther :: ${(state.faciltyType.getValue()!.toLowerCase() == "other") ? state.otherFaciltyType.getValue() ?? "" : ""}");
+              Log.debug("accreditationNumber :: ${state.accreditationNumber}");
+              Log.debug("locationId :: ${state.locationId}");
+              Log.debug("locationNotes :: ${state.locationNote}");
+              Log.debug("latitude :: ${state.selectedAddress.result?.geometry?.location?.lat.toString() ?? ''}");
+              Log.debug("longitude :: ${state.selectedAddress.result?.geometry?.location?.lng.toString() ?? ''}");
+              Log.debug("listOfUnit :: ${state.listOfUnit}");
+            }
           } else {
             AppFocus.unfocus(e.context);
             showError(message: StringConstant.someDetailsAreMissingOrInvalidPleaseCheck).show(e.context);
@@ -330,13 +365,51 @@ class EmployerLocationFormBloc extends Bloc<EmployerLocationFormEvent, EmployerL
         getPlaceDetail: (GetPlaceDetail value) async {
           await LocationHelper.getPlaceDetail(value.placeId);
         },
+        getLocationInfo: (GetLocationInfo value) async {
+          if (value.id.isNegative) return;
+          emit(state.copyWith(id: value.id));
+          Either<MainFailure, CommonResponse>? failureOrSuccess;
+          emit(state.copyWith(isLoading: true));
+          failureOrSuccess = await _mainFacade.getLocationDetail(id: value.id);
+          failureOrSuccess.fold(
+            (l) {
+              showError(
+                message: l.maybeMap(
+                  showAPIResponseMessage: (value) => value.message,
+                  networkError: (value) => 'Please check your internet connectivity',
+                  orElse: () => "Server Error. Try again later.",
+                ),
+              ).show(value.context);
+              emit(state.copyWith(isLoading: false));
+            },
+            (r) async {
+              final locationData = LocationDTO.fromJson(r.data);
+              Log.debug("==> ${locationData.facility_type?.name}");
+              locationCtrl.text = locationData.location ?? "";
+              print("=>0000 ${locationData.accreditation_number ?? ""}");
+
+              emit(
+                state.copyWith(
+                    locationData: locationData,
+                    locationId: locationData.location_id ?? "",
+                    accreditationNumber: "Test",
+                    locationNote: "locationNote",
+                    listOfUnit: locationData.add_units ?? [],
+                    faciltyTypeDDValue: locationData.facility_type?.name ?? "",
+                    faciltyType: InputEmptyOrNot(locationData.facility_type?.name ?? ""),
+                    address: InputEmptyOrNot(locationData.location ?? ""),
+                    isLoading: false),
+              );
+            },
+          );
+        },
       );
     });
   }
 
   String getSelectedFacilityTypeId() {
     final selectedFacilityType = state.facilityTypeList.firstWhere(
-          (facilityType) => facilityType.name == state.faciltyType.getValue(),
+      (facilityType) => facilityType.name == state.faciltyType.getValue(),
       orElse: () => const SkillDTO(id: -1, name: 'Unknown'),
     );
     return selectedFacilityType.id.toString();

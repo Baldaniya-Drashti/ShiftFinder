@@ -34,7 +34,6 @@ class AccountRepository extends IAccountRepository {
           queryParameters: {"id": getCurrentUser().userId});
       if (response != null && response.data != null) {
         final account = CurrentUserDto.fromJson(response.data).toDomain();
-        print("Current User Account Detail----> ${account}");
         setCurrentUser(account);
         return right(account);
       } else {
@@ -341,14 +340,16 @@ class AccountRepository extends IAccountRepository {
           "job_location": jobLocation ?? "",
           "unit": unit ?? "",
           "start_date": (startDate != null && startDate.isNotEmpty)
-              ? (DateTime.parse(startDate).toUtc().millisecondsSinceEpoch /
-                      1000)
-                  .toString()
+              ? (DateTime
+              .parse(startDate)
+              .toUtc()
+              .millisecondsSinceEpoch / 1000).toString()
               : "",
-          "end_date": (endDate != null && endDate.isNotEmpty)
-              ? (DateTime.parse(endDate).toUtc().millisecondsSinceEpoch / 1000)
-                  .toString()
-              : "",
+          "end_date":
+          (endDate != null && endDate.isNotEmpty) ? (DateTime
+              .parse(endDate)
+              .toUtc()
+              .millisecondsSinceEpoch / 1000).toString() : "",
         });
       }
       if (type == 2) {
@@ -420,14 +421,16 @@ class AccountRepository extends IAccountRepository {
           "job_location": jobLocation ?? "",
           "unit": unit ?? "",
           "start_date": (startDate != null && startDate.isNotEmpty)
-              ? (DateTime.parse(startDate).toUtc().millisecondsSinceEpoch /
-                      1000)
-                  .toString()
+              ? (DateTime
+              .parse(startDate)
+              .toUtc()
+              .millisecondsSinceEpoch / 1000).toString()
               : "",
-          "end_date": (endDate != null && endDate.isNotEmpty)
-              ? (DateTime.parse(endDate).toUtc().millisecondsSinceEpoch / 1000)
-                  .toString()
-              : "",
+          "end_date":
+          (endDate != null && endDate.isNotEmpty) ? (DateTime
+              .parse(endDate)
+              .toUtc()
+              .millisecondsSinceEpoch / 1000).toString() : "",
         });
       }
       if (type == 2) {
@@ -1091,6 +1094,8 @@ class AccountRepository extends IAccountRepository {
     required String latitude,
     required String longitude,
     required bool fromRegister,
+    int? type,
+
   }) async {
     try {
       var mapData = {
@@ -1103,13 +1108,12 @@ class AccountRepository extends IAccountRepository {
         // "units_number_or_name": unitNumber,
         // "units_note": unitNotes,
         // "last_page": "AddCardDetail",
-        // if(fromRegister)"last_page": "AddCardDetail",
-        // if(fromRegister)"isProfileComplete": "1",
+        if (fromRegister) "last_page": "AddCardDetail",
+        if (fromRegister) "isProfileComplete": "1",
 
-        "last_page": "AddCardDetail",
-        "isProfileComplete": "1",
         // "units_number_or_name": unitNumber,
         // "units_note": unitNotes,
+        if (type != null) "type": type,
         "units": units,
         "latitude": latitude,
         "longitude": longitude,
@@ -1183,6 +1187,76 @@ class AccountRepository extends IAccountRepository {
         return left(const AccountFailure.networkError());
       }
 
+      return left(const AccountFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<AccountFailure, Account>> updateLocation({
+    required String locationAddress,
+    required int id,
+    required String facilityType,
+    required String facilityTypeOther,
+    required String locationId,
+    required String accreditationNumber,
+    required String locationNotes,
+    required List<UnitDTO> units,
+    required String latitude,
+    required String longitude,
+    required bool fromRegister,
+  }) async {
+    try {
+      var mapData = {
+        "id":id,
+        "location": locationAddress,
+        "facility_type_lists_id": facilityType,
+        "facility_type_other": facilityTypeOther,
+        "location_id": locationId,
+        "accreditation_number": accreditationNumber,
+        "location_note": locationNotes,
+        // "units_number_or_name": unitNumber,
+        // "units_note": unitNotes,
+        // "last_page": "AddCardDetail",
+
+        // "units_number_or_name": unitNumber,
+        // "units_note": unitNotes,
+        "units": units,
+        "latitude": latitude,
+        "longitude": longitude,
+      };
+      if (units.isNotEmpty) {
+        mapData.addAll({
+          "units": jsonEncode(units),
+        });
+      }
+      print('Sending Data: ${jsonEncode(mapData)}');
+
+      final response = await apiService.postMethod(
+        ApiConstants.updateLocation ,
+        mapData,
+      );
+      print("Response of Add location details---> ${jsonEncode(response.data)}");
+
+      final account = CurrentUserDto.fromJson(response.data).toDomain();
+
+      // return right(account);
+      // var account = response.data as List<dynamic>;
+      // var list = account.values.map((e) => DocumentDTO.fromJson(e)).toList();
+      // var list = account.map((e) => DocumentDTO.fromJson(e)).toList();
+      return right(account);
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonResponse = CommonResponse.fromJson(err.response?.data);
+
+        if (commonResponse.dioMessage != null) {
+          return left(AccountFailure.showAPIResponseMessage(commonResponse.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const AccountFailure.networkError());
+      }
+      return left(const AccountFailure.serverError());
+    } catch (e) {
+      print("CATCH ERROR---> ${e}");
       return left(const AccountFailure.serverError());
     }
   }

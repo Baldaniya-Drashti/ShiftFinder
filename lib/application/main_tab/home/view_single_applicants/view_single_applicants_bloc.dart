@@ -1,3 +1,4 @@
+
 // ignore_for_file: unnecessary_brace_in_string_interps, invalid_use_of_visible_for_testing_member
 
 import 'dart:async';
@@ -178,17 +179,6 @@ class ViewSingleApplicantsBloc
                               .toList()),
                   ),
                 );
-                // for (var shift in newShifts) {
-                //   if (shift.revoke_status == 1) {
-                //     add(
-                //       ContractorShiftEvent.startRevokingTimer(
-                //         Duration(hours: 2), shift.id ?? -1,
-                //         // revokeTime: (shift.id == 115) ? 1728877581 : 1728877581,
-                //         revokeTime: shift.revoke_start ?? -1,
-                //       ),
-                //     );
-                //   }
-                // }
                 for (var i in employerApplicantList) {
                   if (i.revoke_status == 2) {
                     add(
