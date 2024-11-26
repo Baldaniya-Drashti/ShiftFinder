@@ -1,3 +1,5 @@
+// import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:shift/domain/core/environment/environment.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/core/app_router.dart';
@@ -35,9 +37,7 @@ Future<void> main() async {
   EnvironmentCongig().initConfig(environment);
   await setupHive();
 
+  Stripe.publishableKey = dotenv.get("STRIPE_TEST_PUBLISH_KEY");
+  print("Stripe publish key after---> ${Stripe.publishableKey}");
   runApp(const RestartWidget(child: AppWidget()));
 }
-
-
-
-

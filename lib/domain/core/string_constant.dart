@@ -575,6 +575,11 @@ class StringConstant {
   static const String earningOverTime = "Earning Over Time";
   static const String earnings = "Earnings";
   static const String completedShift = "Completed Shift";
+  static const String cardHasBeenSuccessFullAdded =
+      "Card has been sucessfully Added!";
+  static const String pleaseAddYourCardDetailsToProceed =
+      "Please add your card details to proceed.";
+  static const String cardDetails = "Card Details";
   static const String iRoidSolutions = "iRoid Solutions";
 
   /// ERROR ///

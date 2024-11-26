@@ -16,6 +16,7 @@ import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
+import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_card_number_formatter.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_text_field.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
@@ -48,15 +49,26 @@ class AddCardDetailPage extends StatelessWidget {
                   showError(
                     message: failure.maybeMap(
                       showAPIResponseMessage: (value) => value.message,
-                      networkError: (value) => 'Please check your internet connectivity',
+                      networkError: (value) =>
+                          'Please check your internet connectivity',
                       orElse: () => "Server Error. Try again later.",
                     ),
                   ).show(context);
                 },
                 (r) {
-                  // AppDialog.showInfo(context, StringConstant.underDevelopment);
+                  print("Succeffff");
+                  showSuccess(
+                          message: r.dioMessage ??
+                              StringConstant.cardHasBeenSuccessFullAdded)
+                      .show(context);
+                  // AppDialog.showInfo(context, r.dioMessage ?? "Card has been sucessfully Added!");
                   // context.router.replace(const PageRouteInfo(MainTabView.name));
-                  context.router.replaceAll([const PageRouteInfo(MainTabView.name)]);
+                  if (fromRegister) {
+                    context.router
+                        .replaceAll([const PageRouteInfo(MainTabView.name)]);
+                  } else {
+                    context.router.maybePop(true);
+                  }
                 },
               ),
             );
@@ -73,7 +85,8 @@ class AddCardDetailPage extends StatelessWidget {
                 showSkipBtn: fromRegister,
                 onSkipped: () {
                   // context.router.replace(const PageRouteInfo(MainTabView.name));
-                  context.router.replaceAll([const PageRouteInfo(MainTabView.name)]);
+                  context.router
+                      .replaceAll([const PageRouteInfo(MainTabView.name)]);
                   // AppDialog.showInfo(context, StringConstant.underDevelopment);
                 },
               ),
@@ -83,7 +96,9 @@ class AddCardDetailPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Form(
-                      autovalidateMode: (state.showErrorMessages) ? AutovalidateMode.always : AutovalidateMode.disabled,
+                      autovalidateMode: (state.showErrorMessages)
+                          ? AutovalidateMode.always
+                          : AutovalidateMode.disabled,
                       child: Column(
                         children: [
                           cardDesc(),
@@ -111,7 +126,9 @@ class AddCardDetailPage extends StatelessWidget {
                       child: CommonButton(
                         isSubmitting: state.isSubmitting,
                         onPressed: () {
-                          context.read<CardBloc>().add(CardEvent.addCardBtnPressed(context));
+                          context
+                              .read<CardBloc>()
+                              .add(CardEvent.addCardBtnPressed(context));
                         },
                         buttonText: StringConstant.addYourCard,
                       ),
@@ -190,15 +207,18 @@ class AddCardDetailPage extends StatelessWidget {
           width: getSize(24),
         ),
       ),
-      onChanged: (value) => context.read<CardBloc>().add(CardEvent.holderNameChanged(value)),
-      validator: (p0, p1) => context.read<CardBloc>().state.cardHolderName.value.fold(
-            (f) => f.maybeMap(
-              empty: (value) => StringConstant.pleaseAddCardHolderName,
-              invalidUsername: (value) => StringConstant.pleaseAddValidCardHolderName,
-              orElse: () => null,
-            ),
-            (_) => null,
-          ),
+      onChanged: (value) =>
+          context.read<CardBloc>().add(CardEvent.holderNameChanged(value)),
+      validator: (p0, p1) =>
+          context.read<CardBloc>().state.cardHolderName.value.fold(
+                (f) => f.maybeMap(
+                  empty: (value) => StringConstant.pleaseAddCardHolderName,
+                  invalidUsername: (value) =>
+                      StringConstant.pleaseAddValidCardHolderName,
+                  orElse: () => null,
+                ),
+                (_) => null,
+              ),
     );
   }
 
@@ -224,8 +244,14 @@ class AddCardDetailPage extends StatelessWidget {
           width: getSize(24),
         ),
       ),
-      onChanged: (value) => context.read<CardBloc>().add(CardEvent.cardNoChanged(value)),
-      validator: (p0, p1) => context.read<CardBloc>().state.cardNumber.value.fold(
+      onChanged: (value) =>
+          context.read<CardBloc>().add(CardEvent.cardNoChanged(value)),
+      validator: (p0, p1) => context
+          .read<CardBloc>()
+          .state
+          .cardNumber
+          .value
+          .fold(
             (f) => f.maybeMap(
               empty: (value) => StringConstant.pleaseAddCardNumber,
               invalidCardNumber: (value) => StringConstant.cardNumberIsInValid,
@@ -252,15 +278,19 @@ class AddCardDetailPage extends StatelessWidget {
         onChanged: (date) => context.read<CardBloc>().add(
               CardEvent.expDateChanged(date),
             ),
-        validator: (p0, p1) => context.read<CardBloc>().state.expDate.value.fold(
-            (l) => l.maybeMap(
-                  orElse: () => null,
-                  empty: (value) => StringConstant.pleaseAddExpiryDate,
-                  invalidaCardMonth: (value) => StringConstant.enterValidExpiryDate,
-                  invalidaCardYear: (value) => StringConstant.enterValidExpiryDate,
-                  cardExpired: (value) => StringConstant.enterValidExpiryDate,
-                ),
-            (r) => null),
+        validator: (p0, p1) =>
+            context.read<CardBloc>().state.expDate.value.fold(
+                (l) => l.maybeMap(
+                      orElse: () => null,
+                      empty: (value) => StringConstant.pleaseAddExpiryDate,
+                      invalidaCardMonth: (value) =>
+                          StringConstant.enterValidExpiryDate,
+                      invalidaCardYear: (value) =>
+                          StringConstant.enterValidExpiryDate,
+                      cardExpired: (value) =>
+                          StringConstant.enterValidExpiryDate,
+                    ),
+                (r) => null),
       ),
     );
   }
@@ -277,7 +307,8 @@ class AddCardDetailPage extends StatelessWidget {
         inputFormatters: [
           FilteringTextInputFormatter.digitsOnly,
         ],
-        onChanged: (value) => context.read<CardBloc>().add(CardEvent.cvvNoChanged(value)),
+        onChanged: (value) =>
+            context.read<CardBloc>().add(CardEvent.cvvNoChanged(value)),
         validator: (p0, p1) => context.read<CardBloc>().state.cvvNo.value.fold(
               (f) => f.maybeMap(
                 empty: (value) => StringConstant.pleaseAddCvvNumber,
@@ -316,7 +347,9 @@ class AddCardDetailPage extends StatelessWidget {
       },
     );
     if (pickedDate != null && pickedDate != DateTime.now()) {
-      context.read<CardBloc>().add(CardEvent.expDateChanged(pickedDate.toString()));
+      context
+          .read<CardBloc>()
+          .add(CardEvent.expDateChanged(pickedDate.toString()));
     }
   }
 }

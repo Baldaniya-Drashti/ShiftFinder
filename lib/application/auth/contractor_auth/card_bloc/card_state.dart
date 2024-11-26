@@ -9,7 +9,8 @@ class CardState with _$CardState {
     required CardDate expDate,
     required bool showErrorMessages,
     required bool isSubmitting,
-    required Option<Either<AuthFailure, String>> authFailureOrSuccessOption,
+    required Option<Either<MainFailure, CommonResponse<dynamic>>>
+        authFailureOrSuccessOption,
   }) = _CardState;
 
   factory CardState.initial() => CardState(

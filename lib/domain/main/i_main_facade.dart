@@ -147,20 +147,24 @@ abstract class IMainFacade {
     required int sortBy,
   });
 
-  Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut({required int shiftId, required int clockTime});
+  Future<Either<MainFailure, CommonResponse>> submitContractorClockInClockOut(
+      {required int shiftId, required int clockTime});
 
   Future<Either<MainFailure, CommonResponse>> deleteUpcomingShiftApi({
     required int id,
     String reason = "",
   });
 
-  Future<Either<MainFailure, HealthcarePostDTO>> getContractorShiftDetail({required int postId});
+  Future<Either<MainFailure, HealthcarePostDTO>> getContractorShiftDetail(
+      {required int postId});
 
-  Future<Either<MainFailure, String>> contractorShiftUrgentActionApi({required int postId, required int urgentAction});
+  Future<Either<MainFailure, String>> contractorShiftUrgentActionApi(
+      {required int postId, required int urgentAction});
 
   Future<Either<MainFailure, List<MyCalendarDTO>>> getMyCalendarListApi();
 
-  Future<Either<MainFailure, ContractorMyCalendarDTO>> getContractorMyCalendarDetailApi(String id, int? date);
+  Future<Either<MainFailure, ContractorMyCalendarDTO>>
+      getContractorMyCalendarDetailApi(String id, int? date);
 
   Future<Either<MainFailure, CommonResponse>> getApplicantList({
     required int postId,
@@ -222,7 +226,8 @@ abstract class IMainFacade {
     required int request,
   });
 
-  Future<Either<MainFailure, CommonResponse>> sendEmployerApplicantsCounterPropose({
+  Future<Either<MainFailure, CommonResponse>>
+      sendEmployerApplicantsCounterPropose({
     required int id,
     required num counterRateHour,
     required int commuteAllowanceType,
@@ -278,7 +283,8 @@ abstract class IMainFacade {
 
   Future<Either<MainFailure, CommonResponse>> getLocationListApi();
 
-  Future<Either<MainFailure, CommonResponse>> getLocationDetail({required int id});
+  Future<Either<MainFailure, CommonResponse>> getLocationDetail(
+      {required int id});
 
   Future<Either<MainFailure, CommonResponse>> updateLocation({required int id});
 
@@ -298,4 +304,6 @@ abstract class IMainFacade {
     required int sortBy,
   });
 
+  Future<Either<MainFailure, CommonResponse>> addCardAPI(
+      {required String paymentMethodId});
 }

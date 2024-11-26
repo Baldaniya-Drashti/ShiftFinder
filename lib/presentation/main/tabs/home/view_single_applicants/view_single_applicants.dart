@@ -261,26 +261,35 @@ class ViewSingleApplicants extends StatelessWidget {
                                                                       false)
                                                                   ? () {}
                                                                   : () {
-                                                                      if (false /*!state.isCardAdded*/) {
+                                                                      if (!state
+                                                                          .isCardAdded) {
                                                                         CommonCardDialog(
                                                                           title:
-                                                                              'Card Details',
+                                                                              StringConstant.cardDetails,
                                                                           description:
-                                                                              'Please add your card details to proceed.',
+                                                                              StringConstant.pleaseAddYourCardDetailsToProceed,
                                                                           buttonText:
-                                                                              'Add Card',
+                                                                              StringConstant.addCard,
                                                                           onPressed:
                                                                               () {
                                                                             context.router.maybePop();
-                                                                            context.router.push(PageRouteInfo(AddCardDetailPage.name,
-                                                                                args: AddCardDetailPageArgs(fromRegister: false)));
+                                                                            context.router.push(PageRouteInfo(AddCardDetailPage.name, args: AddCardDetailPageArgs(fromRegister: false))).then((value) {
+                                                                              if (value != null && value == true) {
+                                                                                acceptDialog(context, state, data, index);
+                                                                              }
+                                                                            });
                                                                           },
                                                                           image:
                                                                               SvgImageConstant.cardImage,
                                                                         ).addCardDialog(
                                                                             context);
                                                                       } else {
-                                                                        AcceptRejectDialog(
+                                                                        acceptDialog(
+                                                                            context,
+                                                                            state,
+                                                                            data,
+                                                                            index);
+                                                                        /* AcceptRejectDialog(
                                                                           title:
                                                                               'Accept',
                                                                           description:
@@ -305,7 +314,7 @@ class ViewSingleApplicants extends StatelessWidget {
                                                                             context.router.maybePop();
                                                                           },
                                                                         ).acceptRejectDialog(
-                                                                            context);
+                                                                            context); */
                                                                       }
                                                                     },
                                                           buttonText: 'Accept',
@@ -507,6 +516,28 @@ class ViewSingleApplicants extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget acceptDialog(BuildContext context, ViewSingleApplicantsState state,
+      EmployerApplicantsDto data, int index) {
+    return AcceptRejectDialog(
+      title: 'Accept',
+      description: 'Are you sure you want to accept this application?',
+      onPressedAccept: () {
+        if (data.occupied == true) return;
+        context.router.maybePop();
+        final id = state.employerApplicantList[index].id;
+        context.read<ViewSingleApplicantsBloc>().add(
+              ViewSingleApplicantsEvent.acceptApplicants(
+                context,
+                id ?? 0,
+              ),
+            );
+      },
+      onPressedReject: () {
+        context.router.maybePop();
+      },
+    ).acceptRejectDialog(context);
   }
 
   getApplicantswDetailContainer({required EmployerApplicantsDto data}) {

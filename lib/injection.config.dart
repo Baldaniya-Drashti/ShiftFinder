@@ -157,7 +157,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i422.ContractorStatementBloc());
     gh.factory<_i197.FullTimePositionBloc>(() => _i197.FullTimePositionBloc());
     gh.factory<_i810.ReferColleagueBloc>(() => _i810.ReferColleagueBloc());
-    gh.factory<_i1025.CardBloc>(() => _i1025.CardBloc());
     gh.factory<_i791.NotificationBloc>(() => _i791.NotificationBloc());
     gh.factory<_i505.FaqBloc>(() => _i505.FaqBloc());
     gh.factory<_i429.EmployerPostionBloc>(() => _i429.EmployerPostionBloc());
@@ -295,6 +294,7 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i131.ContractorShiftBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i153.ContractorHomeBloc>(
         () => _i153.ContractorHomeBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i1025.CardBloc>(() => _i1025.CardBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i790.ChatBloc>(() => _i790.ChatBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i901.HomeBloc>(() => _i901.HomeBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i946.AddNewMemberBloc>(

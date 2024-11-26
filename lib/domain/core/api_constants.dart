@@ -69,65 +69,12 @@ class ApiConstants {
   static String employerTeamCheck = 'employer_team_check';
   static String employerTeamDialog = 'employer_team_dialog';
 
-  //edit user
-  static String updateUser = 'edit/user';
-  static String editUserSendOtp = 'edit/user/send/otp';
-  static String editUserVerifyOtp = 'edit/user/verify/otp';
-
-  //products
-  static String getCustomerProducts = 'customer/products';
-  static String getCustomerProductsDetails = 'customer/products/view';
-  static String searchProduct = 'customer/products/search';
-
-  //cart
-  static String addProductToCart = 'cart/store';
-  static String removeProductFromCart = 'cart/delete';
-  static String getCartList = 'cart';
-
-  //favourite
-  static String addFavourite = 'favorites/store';
-  static String removeFavourite = 'favorites/delete';
-  static String getFavouriteList = 'favorites';
-
-  //shipping address
-  static String getShippingAddressList = 'shipping/address';
-  static String addShippingAddress = 'shipping/address/store';
-  static String updateShippingAddress = 'shipping/address/edit';
-  static String deleteShippingAddress = 'shipping/address/delete';
-
   //payment methods
-  static String getPaymentMethod = 'payment/get-card';
-  static String addPaymentMethod = 'payment/add-card';
-  static String makeDefaultPaymentMethod = 'payment/change-default-card';
-
-  static String deletePaymentMethod = 'payment/detach';
-
-  //checkout
-  static String orderCheckout = 'checkout';
-  static String orderPlace = 'order/place';
-
-  //order
-  static String getMyOrder = 'my-order';
-  static String cancelOrder = 'my-order/cancel';
-  static String returnReasonList = 'return/reason/list';
-  static String returnRequest = 'return/request';
-
-  //shop
-  static String getVenderDetail = 'customer/view/shop';
-  static String getVenderDetailFilter = 'customer/shop/product/filter';
+  static String addPaymentCard = 'employer_add_card';
 
   //chat
   static String getChatList = 'chat-list';
   static String getMessageList = 'chat';
-
-  //notification
-  static String getNotificationList = 'notification';
-  static String readNotification = 'notification/read';
-  static String getReviewProduct = 'review/product';
-
-  //review
-  static String getReviews = 'reviews';
-  static String giveReviews = 'review';
 
   //employer dashboard
   static String employerDashboard = 'employer_dashboard';
@@ -180,7 +127,8 @@ class ApiConstants {
   static String destroyRemark = 'destroy_remark';
   static String destroyLocation = 'destroy_location';
   static String updateLocation = 'update_location';
-  static String getEmployerApprovedShiftUser = 'get_employer_approved_shift_user';
+  static String getEmployerApprovedShiftUser =
+      'get_employer_approved_shift_user';
   static String contractorRating = 'contractor_rating';
   static String contractorPreviousShift = 'contractor_previous_shift';
 }

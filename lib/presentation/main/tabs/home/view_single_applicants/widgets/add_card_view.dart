@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shift/application/main_tab/home/view_single_applicants/view_single_applicants_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
 import 'package:shift/domain/core/png_image_constants.dart';
+import 'package:shift/domain/core/string_constant.dart';
 import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/app_focus.dart';
@@ -36,7 +37,8 @@ class AddCardView extends StatelessWidget {
                   message: failure.maybeMap(
                     badRequest: (value) => value.error,
                     showAPIResponseMessage: (value) => value.message,
-                    networkError: (value) => 'Please check your internet connectivity',
+                    networkError: (value) =>
+                        'Please check your internet connectivity',
                     orElse: () => "Server Error. Try again later.",
                   ),
                 ).show(context);
@@ -55,7 +57,7 @@ class AddCardView extends StatelessWidget {
               onBackPressed: () {
                 context.router.maybePop();
               },
-              title: 'Add Card',
+              title: StringConstant.addCard,
             ),
             body: GestureDetector(
               onTap: () {
@@ -90,7 +92,8 @@ class AddCardView extends StatelessWidget {
                         ),
                         Expanded(
                           child: BaseText(
-                            text: 'Please upload your card details, Adding a card is mandatory to accept any application or proposal.',
+                            text:
+                                'Please upload your card details, Adding a card is mandatory to accept any application or proposal.',
                             fontSize: 12,
                           ),
                         )
@@ -98,7 +101,9 @@ class AddCardView extends StatelessWidget {
                     ),
                   ),
                   Form(
-                    autovalidateMode: state.showErrorMessages ? AutovalidateMode.always : AutovalidateMode.disabled,
+                    autovalidateMode: state.showErrorMessages
+                        ? AutovalidateMode.always
+                        : AutovalidateMode.disabled,
                     child: ListView(
                       shrinkWrap: true,
                       physics: BouncingScrollPhysics(),
@@ -152,12 +157,13 @@ class AddCardView extends StatelessWidget {
                 ),
                 child: CommonButton(
                   onPressed: () {
-
-                    context.read<ViewSingleApplicantsBloc>().add(ViewSingleApplicantsEvent.saveButtonPressed(context));
+                    context.read<ViewSingleApplicantsBloc>().add(
+                        ViewSingleApplicantsEvent.saveButtonPressed(context));
 
                     CommonCardDialog(
                       title: 'Awaiting Confirmation',
-                      description: 'Application accepted, Contractor\nnotified for Confirmation.',
+                      description:
+                          'Application accepted, Contractor\nnotified for Confirmation.',
                       buttonText: 'Ok',
                       onPressed: () {
                         context.router.maybePop();
@@ -178,7 +184,8 @@ class AddCardView extends StatelessWidget {
     );
   }
 
-  CustomTextField cvvTextFiled(BuildContext context, ViewSingleApplicantsState state) {
+  CustomTextField cvvTextFiled(
+      BuildContext context, ViewSingleApplicantsState state) {
     return CustomTextField(
       labelText: 'Cvv',
       hintText: 'Cvv',
@@ -186,18 +193,22 @@ class AddCardView extends StatelessWidget {
       maxLength: 4,
       keyboardType: TextInputType.number,
       obscureText: true,
-      onChanged: (cvv) => context.read<ViewSingleApplicantsBloc>().add(ViewSingleApplicantsEvent.cvvChanged(cvv, context)),
-      validator: (p0, p1) => context.read<ViewSingleApplicantsBloc>().state.cvv.value.fold(
-          (l) => l.maybeMap(
-                empty: (value) => 'Please enter cvv',
-                invalidCvv: (value) => 'Please enter valid cvv',
-                orElse: () => null,
-              ),
-          (r) => null),
+      onChanged: (cvv) => context
+          .read<ViewSingleApplicantsBloc>()
+          .add(ViewSingleApplicantsEvent.cvvChanged(cvv, context)),
+      validator: (p0, p1) =>
+          context.read<ViewSingleApplicantsBloc>().state.cvv.value.fold(
+              (l) => l.maybeMap(
+                    empty: (value) => 'Please enter cvv',
+                    invalidCvv: (value) => 'Please enter valid cvv',
+                    orElse: () => null,
+                  ),
+              (r) => null),
     );
   }
 
-  CustomTextField validUpToTextFiled(BuildContext context, ViewSingleApplicantsState state) {
+  CustomTextField validUpToTextFiled(
+      BuildContext context, ViewSingleApplicantsState state) {
     return CustomTextField(
       errorMaxLines: 3,
       //focusNode: state.validUptoFocusNode,
@@ -222,19 +233,23 @@ class AddCardView extends StatelessWidget {
               date,
             ),
           ),
-      validator: (p0, p1) => context.read<ViewSingleApplicantsBloc>().state.cardDate.value.fold(
-          (l) => l.maybeMap(
-                orElse: () => null,
-                empty: (value) => 'Please enter valid date in MM/YY format',
-                invalidaCardMonth: (value) => 'Please enter valid month in MM format',
-                invalidaCardYear: (value) => 'Please enter valid year in YY format',
-                cardExpired: (value) => 'Your card has been expired',
-              ),
-          (r) => null),
+      validator: (p0, p1) =>
+          context.read<ViewSingleApplicantsBloc>().state.cardDate.value.fold(
+              (l) => l.maybeMap(
+                    orElse: () => null,
+                    empty: (value) => 'Please enter valid date in MM/YY format',
+                    invalidaCardMonth: (value) =>
+                        'Please enter valid month in MM format',
+                    invalidaCardYear: (value) =>
+                        'Please enter valid year in YY format',
+                    cardExpired: (value) => 'Your card has been expired',
+                  ),
+              (r) => null),
     );
   }
 
-  CustomTextField cardNumberTextFiled(BuildContext context, ViewSingleApplicantsState state) {
+  CustomTextField cardNumberTextFiled(
+      BuildContext context, ViewSingleApplicantsState state) {
     return CustomTextField(
       labelText: 'Card Number',
       hintText: 'Card Number',
@@ -249,7 +264,8 @@ class AddCardView extends StatelessWidget {
           SvgImageConstant.card,
           height: getSize(24),
           width: getSize(24),
-          colorFilter: ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn),
+          colorFilter:
+              ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn),
           //color: AppColors.primaryColor,
         ),
       ),
@@ -259,14 +275,18 @@ class AddCardView extends StatelessWidget {
         LengthLimitingTextInputFormatter(19),
         CardNumberInputFormatter(),
       ],
-      onChanged: (cardNo) => context.read<ViewSingleApplicantsBloc>().add(ViewSingleApplicantsEvent.cardNumberChanged(cardNo)),
-      validator: (p0, p1) => context.read<ViewSingleApplicantsBloc>().state.cardNumber.value.fold(
-          (l) => l.maybeMap(
-                empty: (value) => 'Please enter card number',
-                invalidCardNumber: (value) => 'Please enter valid card number',
-                orElse: () => null,
-              ),
-          (r) => null),
+      onChanged: (cardNo) => context
+          .read<ViewSingleApplicantsBloc>()
+          .add(ViewSingleApplicantsEvent.cardNumberChanged(cardNo)),
+      validator: (p0, p1) =>
+          context.read<ViewSingleApplicantsBloc>().state.cardNumber.value.fold(
+              (l) => l.maybeMap(
+                    empty: (value) => 'Please enter card number',
+                    invalidCardNumber: (value) =>
+                        'Please enter valid card number',
+                    orElse: () => null,
+                  ),
+              (r) => null),
     );
   }
 
@@ -286,20 +306,28 @@ class AddCardView extends StatelessWidget {
           SvgImageConstant.person,
           height: getSize(24),
           width: getSize(24),
-          colorFilter: ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn),
+          colorFilter:
+              ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn),
           //color: AppColors.primaryColor,
         ),
       ),
       textCapitalization: TextCapitalization.words,
-      onChanged: (cardHolderName) =>
-          context.read<ViewSingleApplicantsBloc>().add(ViewSingleApplicantsEvent.cardHolderNameChanged(cardHolderName)),
-      validator: (p0, p1) => context.read<ViewSingleApplicantsBloc>().state.cardHoldersName.value.fold(
-          (l) => l.maybeMap(
-                empty: (value) => 'Please enter card holder name',
-                invalidUsername: (value) => 'Please enter valid card holder name',
-                orElse: () => null,
-              ),
-          (r) => null),
+      onChanged: (cardHolderName) => context
+          .read<ViewSingleApplicantsBloc>()
+          .add(ViewSingleApplicantsEvent.cardHolderNameChanged(cardHolderName)),
+      validator: (p0, p1) => context
+          .read<ViewSingleApplicantsBloc>()
+          .state
+          .cardHoldersName
+          .value
+          .fold(
+              (l) => l.maybeMap(
+                    empty: (value) => 'Please enter card holder name',
+                    invalidUsername: (value) =>
+                        'Please enter valid card holder name',
+                    orElse: () => null,
+                  ),
+              (r) => null),
     );
   }
 }

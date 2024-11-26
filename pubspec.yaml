@@ -85,6 +85,7 @@ dependencies:
   url_launcher: ^6.3.1
   syncfusion_flutter_charts:
   fl_chart: ^0.69.2
+  flutter_stripe: ^11.3.0
 
 
   
