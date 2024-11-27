@@ -69,9 +69,7 @@ class CommonCardDialog extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
-              height: getSize(90),
-            ),
+            SizedBox(height: getSize(90)),
             BaseText(
               text: title,
               fontSize: 22,
@@ -82,9 +80,7 @@ class CommonCardDialog extends StatelessWidget {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(
-              height: getSize(10),
-            ),
+            SizedBox(height: getSize(10)),
             BaseText(
               text: description,
               fontSize: 14,

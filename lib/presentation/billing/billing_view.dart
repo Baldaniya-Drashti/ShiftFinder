@@ -22,26 +22,32 @@ class BillingView extends StatelessWidget {
         title: StringConstant.billing,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(18),
+        padding: EdgeInsets.symmetric(horizontal: getSize(20))
+            .copyWith(top: getSize(80)),
         child: Column(
           children: [
             Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SvgPicture.asset(SvgImageConstant.billingAccount),
-                  Gap(getSize(25)),
-                  BaseText(text: StringConstant.billingDetail, fontFamily: "Aclonica", fontSize: 22, fontWeight: FontWeight.w400),
-                  SizedBox(
-                    width: MediaQuery.sizeOf(context).width * 0.8,
-                    child: BaseText(
+              child: SizedBox(
+                width: getSize(275),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SvgPicture.asset(SvgImageConstant.billingAccount),
+                    Gap(getSize(25)),
+                    BaseText(
+                        text: StringConstant.billingDetail,
+                        fontFamily: "Aclonica",
+                        fontSize: 22,
+                        fontWeight: FontWeight.w400),
+                    Gap(getSize(10)),
+                    BaseText(
                       text: StringConstant.billingDetailDescription,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       textAlign: TextAlign.center,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             Gap(getSize(50)),
@@ -54,24 +60,28 @@ class BillingView extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    _ListTile(
+                    titleUI(
                       icon: SvgImageConstant.paymentHistory,
-                      onPressed: () => context.router.push(PageRouteInfo(PaymentHistoryView.name)),
+                      onPressed: () => context.router
+                          .push(PageRouteInfo(PaymentHistoryView.name)),
                       label: StringConstant.paymentHistory,
                     ),
-                    _ListTile(
+                    titleUI(
                       icon: SvgImageConstant.invoice,
-                      onPressed: () => context.router.push(PageRouteInfo(InvoiceView.name)),
+                      onPressed: () =>
+                          context.router.push(PageRouteInfo(InvoiceView.name)),
                       label: StringConstant.invoices,
                     ),
-                    _ListTile(
+                    titleUI(
                       icon: SvgImageConstant.paymentMethod,
-                      onPressed: () => context.router.push(PageRouteInfo(PaymentMethodView.name)),
+                      onPressed: () => context.router
+                          .push(PageRouteInfo(PaymentMethodView.name)),
                       label: StringConstant.paymentMethod,
                     ),
-                    _ListTile(
-                      icon: SvgImageConstant.paymentHistory,
-                      onPressed: () => context.router.push(PageRouteInfo(MonthlyStatementView.name)),
+                    titleUI(
+                      icon: SvgImageConstant.calenderStatement,
+                      onPressed: () => context.router
+                          .push(PageRouteInfo(MonthlyStatementView.name)),
                       label: StringConstant.monthlyStatement,
                     ),
                   ],
@@ -83,30 +93,24 @@ class BillingView extends StatelessWidget {
       ),
     );
   }
-}
 
-class _ListTile extends StatelessWidget {
-  const _ListTile({
-    required this.icon,
-    required this.onPressed,
-    required this.label,
-  });
-
-  final String icon;
-  final VoidCallback onPressed;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget titleUI({
+    required String icon,
+    required VoidCallback onPressed,
+    required String label,
+  }) {
     return ListTile(
       visualDensity: VisualDensity.compact,
+      minVerticalPadding: 0,
+      dense: true,
       onTap: onPressed,
-      title: BaseText(text: label, fontSize: 12, fontWeight: FontWeight.w500),
-      leading: SvgPicture.asset(
-        icon,
-        colorFilter: ColorFilter.mode(AppColors.green, BlendMode.srcIn),
+      title: BaseText(text: label, fontSize: 12),
+      leading: SvgPicture.asset(icon),
+      trailing: SvgPicture.asset(
+        SvgImageConstant.rightArrow2,
+        height: getSize(16),
+        width: getSize(16),
       ),
-      trailing: SvgPicture.asset(SvgImageConstant.rightArrow2, height: 18,width: 18),
     );
   }
 }

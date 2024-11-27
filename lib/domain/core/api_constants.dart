@@ -71,6 +71,8 @@ class ApiConstants {
 
   //payment methods
   static String addPaymentCard = 'employer_add_card';
+  static String getPaymetCardList = 'employer_list_card';
+  static String deletePaymentCard = 'employer_delete_card';
 
   //chat
   static String getChatList = 'chat-list';

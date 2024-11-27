@@ -57,10 +57,10 @@ class AddCardDetailPage extends StatelessWidget {
                 },
                 (r) {
                   print("Succeffff");
-                  showSuccess(
-                          message: r.dioMessage ??
-                              StringConstant.cardHasBeenSuccessFullAdded)
-                      .show(context);
+                  // showSuccess(
+                  //         message: r.dioMessage ??
+                  //             StringConstant.cardHasBeenSuccessFullAdded)
+                  //     .show(context);
                   // AppDialog.showInfo(context, r.dioMessage ?? "Card has been sucessfully Added!");
                   // context.router.replace(const PageRouteInfo(MainTabView.name));
                   if (fromRegister) {

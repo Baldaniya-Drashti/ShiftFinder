@@ -81,6 +81,7 @@ _$EmployerProposalDtoImpl _$$EmployerProposalDtoImplFromJson(
           ?.map((e) => EmployerProposalShiftDetailDto.fromJson(
               e as Map<String, dynamic>))
           .toList(),
+      isCardAdded: json['isCardAdded'] as bool?,
     );
 
 Map<String, dynamic> _$$EmployerProposalDtoImplToJson(
@@ -147,6 +148,7 @@ Map<String, dynamic> _$$EmployerProposalDtoImplToJson(
       'posted_commute_allowance_hour_name':
           instance.posted_commute_allowance_hour_name,
       'shift_details': instance.shift_details,
+      'isCardAdded': instance.isCardAdded,
     };
 
 _$EmployerProposalPendingUserDtoImpl

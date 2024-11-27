@@ -518,10 +518,10 @@ class ViewSingleApplicants extends StatelessWidget {
     );
   }
 
-  Widget acceptDialog(BuildContext context, ViewSingleApplicantsState state,
+  acceptDialog(BuildContext context, ViewSingleApplicantsState state,
       EmployerApplicantsDto data, int index) {
     return AcceptRejectDialog(
-      title: 'Accept',
+      title: StringConstant.accept,
       description: 'Are you sure you want to accept this application?',
       onPressedAccept: () {
         if (data.occupied == true) return;

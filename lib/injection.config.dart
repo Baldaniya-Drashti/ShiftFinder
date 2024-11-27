@@ -72,6 +72,8 @@ import 'package:shift/application/contractor/refer_colleague/refer_colleague_blo
     as _i810;
 import 'package:shift/application/employer/add_full_position/add_full_position_bloc.dart'
     as _i93;
+import 'package:shift/application/employer/billing/payment_method_bloc/payment_method_bloc.dart'
+    as _i699;
 import 'package:shift/application/employer/counter_proposal_detail/counter_proposal_detail_bloc.dart'
     as _i93;
 import 'package:shift/application/employer/employer_full_position/employer_postion_bloc.dart'
@@ -158,7 +160,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i197.FullTimePositionBloc>(() => _i197.FullTimePositionBloc());
     gh.factory<_i810.ReferColleagueBloc>(() => _i810.ReferColleagueBloc());
     gh.factory<_i791.NotificationBloc>(() => _i791.NotificationBloc());
-    gh.factory<_i505.FaqBloc>(() => _i505.FaqBloc());
     gh.factory<_i429.EmployerPostionBloc>(() => _i429.EmployerPostionBloc());
     gh.factory<_i319.MonthlyStatementBloc>(() => _i319.MonthlyStatementBloc());
     gh.factory<_i515.FullPositionReviewBloc>(
@@ -214,6 +215,7 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i170.MyCalendarViewBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i456.ContractorRatingBloc>(
         () => _i456.ContractorRatingBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i505.FaqBloc>(() => _i505.FaqBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i156.ProposalDetailBloc>(
         () => _i156.ProposalDetailBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i119.HiredContractorBloc>(
@@ -226,6 +228,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i827.PreviousShiftBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i158.EmployerLocationBloc>(
         () => _i158.EmployerLocationBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i699.PaymentMethodBloc>(
+        () => _i699.PaymentMethodBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i828.ApplicantProfileBloc>(
         () => _i828.ApplicantProfileBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i518.ViewSingleApplicantsBloc>(

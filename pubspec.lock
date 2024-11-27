@@ -353,6 +353,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.5"
+  expansion_tile_list:
+    dependency: "direct main"
+    description:
+      name: expansion_tile_list
+      sha256: "1bb50dda4826777de722a63e3f62f57b8178e888964efdb5fc13408489cc9d5b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   fake_async:
     dependency: transitive
     description:

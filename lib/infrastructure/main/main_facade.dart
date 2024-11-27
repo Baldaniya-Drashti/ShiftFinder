@@ -19,6 +19,7 @@ import 'package:shift/infrastructure/core/network/injectable_module.dart';
 import 'package:shift/infrastructure/core/skill_list_model/skill_dto.dart';
 import 'package:shift/infrastructure/main/healthcare_post/healthcare_post_dto.dart';
 import 'package:shift/infrastructure/main/multi_shift_dto/multi_shift_dto.dart';
+import 'package:shift/infrastructure/main/payment_card_detail_dto/payment_card_detail_dto.dart';
 import 'package:shift/infrastructure/main/post_shift_dto/post_shift_dto.dart';
 import 'package:shift/infrastructure/main/team_dto/team_dto.dart';
 
@@ -2272,6 +2273,61 @@ class MainFacade implements IMainFacade {
     } on DioException catch (err) {
       if (err.response != null) {
         var commonRespose = CommonResponse.fromJson(err.response?.data);
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, List<PaymentCardDTO>>> getCardListAPI() async {
+    try {
+      final res = await apiService.getMethod(
+        ApiConstants.getPaymetCardList,
+      );
+      if (res != null) {
+        var account = res.data as List<dynamic>;
+        var data = account.map((e) => PaymentCardDTO.fromJson(e)).toList();
+        print("Payment Card List Response->  $data");
+
+        return right(data);
+      } else {
+        return left(const MainFailure.serverError());
+      }
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
+        if (commonRespose.dioMessage != null) {
+          return left(
+              MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));
+        }
+      } else if (err.type == DioExceptionType.connectionError) {
+        return left(const MainFailure.networkError());
+      }
+
+      return left(const MainFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<MainFailure, String>> deletePaymentCardAPI(
+      {required int id}) async {
+    try {
+      final res = await apiService.deleteMethod(
+        "${ApiConstants.deletePaymentCard}/$id",
+      );
+      return right(res?.dioMessage ?? "");
+    } on DioException catch (err) {
+      if (err.response != null) {
+        var commonRespose = CommonResponse.fromJson(err.response?.data);
+
         if (commonRespose.dioMessage != null) {
           return left(
               MainFailure.showAPIResponseMessage(commonRespose.dioMessage!));

@@ -580,6 +580,15 @@ class StringConstant {
   static const String pleaseAddYourCardDetailsToProceed =
       "Please add your card details to proceed.";
   static const String cardDetails = "Card Details";
+  static const String viewProposal = "View Proposal";
+  static const String addNewCard = "Add New Card";
+  static const String creditAndDebitCards = "Credit & Debit Cards";
+  static const String paymentMethods = "Payment Methods";
+  static const String paymentMethodDesc =
+      "Securely add your debit or credit card details to facilitate seamless transactions.";
+  static const String employerFAQDesc =
+      "Check out our FAQs to find answers to common queries and learn more about using the platform.";
+  static const String faqs = "FAQs";
   static const String iRoidSolutions = "iRoid Solutions";
 
   /// ERROR ///

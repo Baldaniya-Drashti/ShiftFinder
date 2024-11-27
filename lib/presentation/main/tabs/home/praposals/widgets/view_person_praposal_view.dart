@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:shift/application/employer/proposal_detail/proposal_detail_bloc.dart';
 import 'package:shift/domain/core/math_utils.dart';
+import 'package:shift/domain/core/string_constant.dart';
+import 'package:shift/domain/core/svg_image_constants.dart';
 import 'package:shift/infrastructure/core/employer_proposal_dto/employer_proposal_dto.dart';
 import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
@@ -16,6 +18,7 @@ import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/employer/profile/previous_shift_view/previous_shift_all_view.dart';
 import 'package:shift/presentation/main/tabs/home/praposals/widgets/person_praposal_view.dart';
 import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/accept_reject_dialog.dart';
+import 'package:shift/presentation/main/tabs/home/view_single_applicants/widgets/common_card_dialog.dart';
 import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 
 @RoutePage(name: 'ViewPersonPraposalView')
@@ -44,7 +47,7 @@ class ViewPersonPraposalView extends StatelessWidget {
           onBackPressed: () {
             context.router.maybePop();
           },
-          title: 'View Proposal',
+          title: StringConstant.viewProposal,
         ),
         body: BlocBuilder<ProposalDetailBloc, ProposalDetailState>(
           builder: (context, state) {
@@ -269,10 +272,33 @@ class ViewPersonPraposalView extends StatelessWidget {
                                     },
                                   );
                                 } else {
-                                  acceptDialog(context);
+                                  if (data.isCardAdded == false) {
+                                    CommonCardDialog(
+                                      title: StringConstant.cardDetails,
+                                      description: StringConstant
+                                          .pleaseAddYourCardDetailsToProceed,
+                                      buttonText: StringConstant.addCard,
+                                      onPressed: () {
+                                        context.router.maybePop();
+                                        context.router
+                                            .push(PageRouteInfo(
+                                                AddCardDetailPage.name,
+                                                args: AddCardDetailPageArgs(
+                                                    fromRegister: false)))
+                                            .then((value) {
+                                          if (value != null && value == true) {
+                                            acceptDialog(context);
+                                          }
+                                        });
+                                      },
+                                      image: SvgImageConstant.cardImage,
+                                    ).addCardDialog(context);
+                                  } else {
+                                    acceptDialog(context);
+                                  }
                                 }
                               },
-                              buttonText: 'Accept',
+                              buttonText: StringConstant.accept,
                               buttonFontSize: 16,
                               borderRadius: 10,
                               height: 46,
