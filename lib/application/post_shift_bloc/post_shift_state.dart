@@ -32,8 +32,7 @@ class PostShiftState with _$PostShiftState {
     required bool isMoreVacancy,
     required Vacancy selectedVacancy,
     required bool singleShiftErrorMessages,
-    required Option<Either<MainFailure, HealthcarePostDTO>>
-        singleShiftFailureOrSuccessOption,
+    required Option<Either<MainFailure, HealthcarePostDTO>> singleShiftFailureOrSuccessOption,
 
     /// For recurring,sahre with teams, save as template
     required List<TeamDTO> teamList,
@@ -48,10 +47,8 @@ class PostShiftState with _$PostShiftState {
     required ListInputEmptyOrNot<TeamDTO> selectedTeamList,
     required InputEmptyOrNot recurrenceMode,
     required bool recurringErrorMessage,
-    required Option<Either<MainFailure, HealthcarePostDTO>>
-        recurringFailureOrSuccessOption,
-    required Option<Either<MainFailure, CommonResponse>>
-        updatePostFailureOrSuccessOption,
+    required Option<Either<MainFailure, HealthcarePostDTO>> recurringFailureOrSuccessOption,
+    required Option<Either<MainFailure, CommonResponse>> updatePostFailureOrSuccessOption,
 
     /// Multi shift
     required bool isIndividualPost,
@@ -61,14 +58,13 @@ class PostShiftState with _$PostShiftState {
     required List<String> startMinuteList,
     required List<String> endHourList,
     required List<String> endMinuteList,
+    required bool fromSaveTemplate,
     required List<DateTimeDTO> multiDateTimeList,
     required bool isDifferentDateDataValid,
-    required Option<Either<AuthFailure, MultiShiftDTO>>
-        differentDateFailureOrSuccessOption,
+    required Option<Either<AuthFailure, MultiShiftDTO>> differentDateFailureOrSuccessOption,
 
     /// Post the Shift
-    required Option<Either<MainFailure, String>>
-        postShiftFailureOrSuccessOption,
+    required Option<Either<MainFailure, String>> postShiftFailureOrSuccessOption,
   }) = _PostShiftState;
 
   factory PostShiftState.initial() => PostShiftState(
@@ -78,16 +74,15 @@ class PostShiftState with _$PostShiftState {
         shiftType: -1,
         postId: -1,
         isLoading: false,
-
+          fromSaveTemplate: false,
         /// Single Shift
         signleShiftDate: InputEmptyOrNot(""),
-        // startTime: InputEmptyOrNot(""),
+// startTime: InputEmptyOrNot(""),
         startHour: InputEmptyOrNot(""),
         startMinute: InputEmptyOrNot("00 Min"),
         endHour: InputEmptyOrNot(""),
         endMinute: InputEmptyOrNot("00 Min"),
-        totalPaybleHours:
-        "00h 00min",
+        totalPaybleHours: "00h 00min",
         breakList: [],
         accomdationHoursList: [],
         unpaidBreak: InputEmptyOrNot(""),

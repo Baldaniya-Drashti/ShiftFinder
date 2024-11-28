@@ -16,6 +16,7 @@ import 'package:shift/presentation/common/utils/get_cookie.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/core/app_router.gr.dart';
 import 'package:shift/presentation/core/common_lisitng/common_listing.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/inputs/custom_chip_list.dart';
@@ -26,11 +27,15 @@ class ReviewPostShiftDetail extends StatelessWidget {
   HealthcarePostDTO post;
   PostShiftDTO? updatedPost;
   bool isUpdate;
+  final bool fromSaveTemplate;
+
   ReviewPostShiftDetail(
-      {super.key, required this.post, this.isUpdate = false, this.updatedPost});
+      {super.key, required this.post, this.isUpdate = false, this.updatedPost,this.fromSaveTemplate=false});
 
   @override
   Widget build(BuildContext context) {
+    Log.success("fromSaveTemplate -----${fromSaveTemplate}");
+
     print("postpostpostpost---> ${jsonEncode(post.shift_detail)}");
     return PopScope(
       canPop: false,
@@ -147,6 +152,7 @@ class ReviewPostShiftDetail extends StatelessWidget {
                                 post: post,
                                 updatedPost: updatedPost,
                                 isUpdate: isUpdate,
+                                fromSaveTemplate: fromSaveTemplate
                               )));
                         },
                         buttonText: StringConstant.txtContinue,

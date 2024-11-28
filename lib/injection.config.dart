@@ -96,6 +96,8 @@ import 'package:shift/application/employer/proposal/total_proposal_bloc.dart'
     as _i819;
 import 'package:shift/application/employer/proposal_detail/proposal_detail_bloc.dart'
     as _i156;
+import 'package:shift/application/employer/save_template/save_template_bloc.dart'
+    as _i426;
 import 'package:shift/application/faq/faq_bloc.dart' as _i505;
 import 'package:shift/application/google_map/google_map_bloc.dart' as _i168;
 import 'package:shift/application/healthcare_post/healthcare_post_bloc.dart'
@@ -232,6 +234,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i518.ViewSingleApplicantsBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i464.ShiftActionBloc>(
         () => _i464.ShiftActionBloc(gh<_i111.IMainFacade>()));
+    gh.factory<_i426.SaveTemplateBloc>(
+        () => _i426.SaveTemplateBloc(gh<_i111.IMainFacade>()));
     gh.factory<_i744.ForgotPasswordBloc>(
         () => _i744.ForgotPasswordBloc(gh<_i277.IAuthFacade>()));
     gh.factory<_i1033.AuthStatusBloc>(

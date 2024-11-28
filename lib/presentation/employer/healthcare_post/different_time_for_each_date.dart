@@ -26,7 +26,8 @@ import 'package:shift/presentation/core/widgets/texts/common_texts.dart';
 
 class DifferentTimeForEachDate extends StatelessWidget {
   PostShiftDTO post;
-  DifferentTimeForEachDate({super.key, required this.post});
+  DifferentTimeForEachDate({super.key, required this.post, this.fromSaveTemplate=false});
+  final bool fromSaveTemplate;
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +156,7 @@ class DifferentTimeForEachDate extends StatelessWidget {
                         .read<PostShiftBloc>()
                         .add(PostShiftEvent.multidateContinueButtonPressed());
                   },
-                  buttonText: StringConstant.txtContinue,
+                  buttonText: fromSaveTemplate? "Save and continue":StringConstant.txtContinue,
                 ),
               ),
             ],

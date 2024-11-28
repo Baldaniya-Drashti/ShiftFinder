@@ -67,7 +67,10 @@ class ProfileItems extends StatelessWidget {
       ProfileItemModel(
         title: 'Saved Templates',
         image: SvgImageConstant.savedTemplates,
-        onTap: () {},
+        onTap: () {
+          context.router.push(PageRouteInfo(SaveTemplateView.name));
+
+        },
       ),
       ProfileItemModel(
         title: 'Billing',

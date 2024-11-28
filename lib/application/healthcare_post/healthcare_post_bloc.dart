@@ -534,6 +534,7 @@ class HealthcarePostBloc extends Bloc<HealthcarePostEvent, HealthcarePostState> 
                 postId: -1,
                 post: post,
                 updateShift: state.updatePost,
+                 fromSaveTemplate: e.fromSaveTemplate
               ),
             ))
                 .then((value) {

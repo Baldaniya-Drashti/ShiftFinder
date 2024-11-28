@@ -526,13 +526,18 @@ import 'package:shift/presentation/main/widgets/home_app_bar.dart';
 class HealthCarePostForm extends StatelessWidget {
   int? postId;
   bool isFromSplash = false;
+  final bool fromSaveTemplate;
 
-  HealthCarePostForm({super.key, this.postId, this.isFromSplash = false});
+  HealthCarePostForm({
+    super.key,
+    this.postId,
+    this.isFromSplash = false,
+    this.fromSaveTemplate = false,
+  });
 
   TextEditingController otherSpecialitiesController = TextEditingController();
   TextEditingController otherRoleController = TextEditingController();
-  TextEditingController otherPreferredSkillsController =
-      TextEditingController();
+  TextEditingController otherPreferredSkillsController = TextEditingController();
   TextEditingController languageController = TextEditingController();
   bool isMultiLocation = true;
 
@@ -540,8 +545,7 @@ class HealthCarePostForm extends StatelessWidget {
   Widget build(BuildContext context) {
     print("Post id--> $postId");
     return BlocProvider(
-      create: (context) => getIt<HealthcarePostBloc>()
-        ..add(HealthcarePostEvent.getAllDropDownList(postId ?? -1)),
+      create: (context) => getIt<HealthcarePostBloc>()..add(HealthcarePostEvent.getAllDropDownList(postId ?? -1)),
       child: GestureDetector(
         onTap: () {
           AppFocus.unfocus(context);
@@ -554,7 +558,7 @@ class HealthCarePostForm extends StatelessWidget {
 
                 // Navigator.pop(context);
               },
-              title: StringConstant.healthcare,
+              title: fromSaveTemplate ? "Edit Template" : StringConstant.healthcare,
             ),
             body: BlocConsumer<HealthcarePostBloc, HealthcarePostState>(
               listener: (context, state) {
@@ -586,9 +590,7 @@ class HealthCarePostForm extends StatelessWidget {
                     : Padding(
                         padding: EdgeInsets.symmetric(horizontal: getSize(20)),
                         child: Form(
-                          autovalidateMode: state.showErrorMessages
-                              ? AutovalidateMode.always
-                              : AutovalidateMode.disabled,
+                          autovalidateMode: state.showErrorMessages ? AutovalidateMode.always : AutovalidateMode.disabled,
                           child: SingleChildScrollView(
                             child: Column(
                               children: [
@@ -598,11 +600,9 @@ class HealthCarePostForm extends StatelessWidget {
                                 paddingBetweenFields(),
                                 roleDropDown(context, state),
                                 paddingBetweenFields(),
-                                requiredSpecialityDropDownChipset(
-                                    context, state),
+                                requiredSpecialityDropDownChipset(context, state),
                                 paddingBetweenFields(),
-                                preferredSoftwareSkillsDropDownChipSet(
-                                    context, state),
+                                preferredSoftwareSkillsDropDownChipSet(context, state),
                                 paddingBetweenFields(),
                                 languageDropDownChipSet(context, state),
                                 paddingBetweenFields(),
@@ -610,16 +610,13 @@ class HealthCarePostForm extends StatelessWidget {
                                 paddingBetweenFields(),
                                 rateHourDropDown(context, state),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: getSize(50)),
+                                  padding: EdgeInsets.symmetric(vertical: getSize(50)),
                                   child: CommonButton(
                                     isSubmitting: state.isSubmitting,
                                     onPressed: () {
-                                      context.read<HealthcarePostBloc>().add(
-                                          HealthcarePostEvent
-                                              .continueBtnPressed(context));
+                                      context.read<HealthcarePostBloc>().add(HealthcarePostEvent.continueBtnPressed(context,fromSaveTemplate));
                                     },
-                                    buttonText: StringConstant.txtContinue,
+                                    buttonText: fromSaveTemplate ? "Save and Next" : StringConstant.txtContinue,
                                   ),
                                 ),
                               ],
@@ -645,9 +642,7 @@ class HealthCarePostForm extends StatelessWidget {
       hintText: StringConstant.selectRole,
       isLabelPadding: true,
       showTextfield: false,
-      value: (state.roleType.getValue()!.isNotEmpty)
-          ? state.roleType.getValue()
-          : null,
+      value: (state.roleType.getValue()!.isNotEmpty) ? state.roleType.getValue() : null,
       items: state.roleList.map((val) {
         return DropdownMenuItem<String>(
           value: val.name,
@@ -658,14 +653,13 @@ class HealthCarePostForm extends StatelessWidget {
           ),
         );
       }).toList(),
-      validator: (p0) =>
-          context.read<HealthcarePostBloc>().state.roleType.value.fold(
-                (f) => f.maybeMap(
-                  empty: (value) => StringConstant.pleaseSelectRoleType,
-                  orElse: () => null,
-                ),
-                (_) => null,
-              ),
+      validator: (p0) => context.read<HealthcarePostBloc>().state.roleType.value.fold(
+            (f) => f.maybeMap(
+              empty: (value) => StringConstant.pleaseSelectRoleType,
+              orElse: () => null,
+            ),
+            (_) => null,
+          ),
       onChanged: (value) {
         if (value != null) {
           context.read<HealthcarePostBloc>().add(
@@ -676,10 +670,8 @@ class HealthCarePostForm extends StatelessWidget {
     );
   }
 
-  Widget preferredSoftwareSkillsDropDownChipSet(
-      BuildContext context, HealthcarePostState state) {
-    print(
-        "state.requiredSoftwareSkillChipList---> ${state.requiredSoftwareSkillChipList}");
+  Widget preferredSoftwareSkillsDropDownChipSet(BuildContext context, HealthcarePostState state) {
+    print("state.requiredSoftwareSkillChipList---> ${state.requiredSoftwareSkillChipList}");
     /*return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -771,10 +763,7 @@ class HealthCarePostForm extends StatelessWidget {
           isOptional: true,
           initialValue: state.requiredSoftwareSkillChipList.getValue(),
           otherInitialValue: state.softwareSkillOther,
-          items: state.softwareList
-              .map((item) =>
-                  MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
-              .toList(),
+          items: state.softwareList.map((item) => MultiSelectItem<String>(item.name ?? "", item.name ?? "")).toList(),
           title: StringConstant.softwareSkillSet,
           labelText: StringConstant.softwareSkillSet,
           selectedColor: AppColors.black,
@@ -786,21 +775,16 @@ class HealthCarePostForm extends StatelessWidget {
             chipColor: AppColors.transparent,
             onDelete: (value) {
               print("On delete called!");
-              context.read<HealthcarePostBloc>().add(
-                  HealthcarePostEvent.removePreferedSoftwareSkillchips(
-                      value.toString()));
+              context.read<HealthcarePostBloc>().add(HealthcarePostEvent.removePreferedSoftwareSkillchips(value.toString()));
             },
           ),
           buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
           buttonText: Text(
             StringConstant.softwareSkillSet,
-            style: TextStyle(
-                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+            style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
           ),
           onConfirm: (selectedList, otherValues) {
-            context
-                .read<HealthcarePostBloc>()
-                .add(HealthcarePostEvent.confirmSoftwareSkill(
+            context.read<HealthcarePostBloc>().add(HealthcarePostEvent.confirmSoftwareSkill(
                   List<String>.from(selectedList),
                   List<String>.from(otherValues),
                 ));
@@ -814,8 +798,7 @@ class HealthCarePostForm extends StatelessWidget {
     );
   }
 
-  Widget requiredSpecialityDropDownChipset(
-      BuildContext context, HealthcarePostState state) {
+  Widget requiredSpecialityDropDownChipset(BuildContext context, HealthcarePostState state) {
     /*return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -906,10 +889,7 @@ class HealthCarePostForm extends StatelessWidget {
           isOptional: true,
           initialValue: state.requiredSpecialityChipList.getValue(),
           otherInitialValue: state.specialityOther,
-          items: state.specialityList
-              .map((item) =>
-                  MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
-              .toList(),
+          items: state.specialityList.map((item) => MultiSelectItem<String>(item.name ?? "", item.name ?? "")).toList(),
           title: StringConstant.specialties,
           labelText: StringConstant.specialties,
           selectedColor: AppColors.black,
@@ -921,23 +901,18 @@ class HealthCarePostForm extends StatelessWidget {
             chipColor: AppColors.transparent,
             onDelete: (value) {
               print("On delete called!");
-              context.read<HealthcarePostBloc>().add(
-                  HealthcarePostEvent.removeRequiredSpecialitichips(
-                      value.toString()));
+              context.read<HealthcarePostBloc>().add(HealthcarePostEvent.removeRequiredSpecialitichips(value.toString()));
             },
           ),
           buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
           buttonText: Text(
             StringConstant.specialties,
-            style: TextStyle(
-                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+            style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
           ),
           onConfirm: (selectedList, otherValues) {
             print("----> $selectedList");
             print("----> $otherValues");
-            context
-                .read<HealthcarePostBloc>()
-                .add(HealthcarePostEvent.confirmSpecialityList(
+            context.read<HealthcarePostBloc>().add(HealthcarePostEvent.confirmSpecialityList(
                   List<String>.from(selectedList),
                   List<String>.from(otherValues),
                 ));
@@ -951,8 +926,7 @@ class HealthCarePostForm extends StatelessWidget {
     );
   }
 
-  Widget languageDropDownChipSet(
-      BuildContext context, HealthcarePostState state) {
+  Widget languageDropDownChipSet(BuildContext context, HealthcarePostState state) {
     /*return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1048,10 +1022,7 @@ class HealthCarePostForm extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         MultiSelectDialogField(
-          items: state.languageList
-              .map((item) =>
-                  MultiSelectItem<String>(item.name ?? "", item.name ?? ""))
-              .toList(),
+          items: state.languageList.map((item) => MultiSelectItem<String>(item.name ?? "", item.name ?? "")).toList(),
           title: StringConstant.languagesKnown,
           labelText: StringConstant.languagesKnown,
           selectedColor: AppColors.black,
@@ -1062,32 +1033,26 @@ class HealthCarePostForm extends StatelessWidget {
           chipDisplay: MultiSelectChipDisplay(
             chipColor: AppColors.transparent,
             onDelete: (value) {
-              context.read<HealthcarePostBloc>().add(
-                  HealthcarePostEvent.removeLanguageChips(value.toString()));
+              context.read<HealthcarePostBloc>().add(HealthcarePostEvent.removeLanguageChips(value.toString()));
             },
           ),
           buttonIcon: SvgPicture.asset(SvgImageConstant.downArrow),
           buttonText: Text(
             StringConstant.languagesKnown,
-            style: TextStyle(
-                fontSize: 14, color: AppColors.black.withOpacity(0.50)),
+            style: TextStyle(fontSize: 14, color: AppColors.black.withOpacity(0.50)),
           ),
           initialValue: state.languageChipList.getValue(),
           otherInitialValue: state.languageOther,
           onConfirm: (selectedList, otherValues) {
             print("----> $selectedList");
             print("----> $otherValues");
-            context
-                .read<HealthcarePostBloc>()
-                .add(HealthcarePostEvent.confirmLanguageList(
+            context.read<HealthcarePostBloc>().add(HealthcarePostEvent.confirmLanguageList(
                   List<String>.from(selectedList),
                   List<String>.from(otherValues),
                 ));
           },
         ),
-        if (state.showErrorMessages &&
-            state.languageChipList.getValue().isEmpty &&
-            state.languageOther.isEmpty)
+        if (state.showErrorMessages && state.languageChipList.getValue().isEmpty && state.languageOther.isEmpty)
           commonErrorText(StringConstant.pleaseSelectAtLeastOneLanguage)
       ],
     );
@@ -1100,11 +1065,9 @@ class HealthCarePostForm extends StatelessWidget {
       isPrefixValueShow: true,
       errorMaxLines: 2,
       maxLength: 5,
-      initialValue:
-          (state.rateHour.isValid()) ? state.rateHour.getValue() : null,
+      initialValue: (state.rateHour.isValid()) ? state.rateHour.getValue() : null,
       hintText: StringConstant.rateHour,
-      keyboardType:
-          TextInputType.numberWithOptions(decimal: true, signed: true),
+      keyboardType: TextInputType.numberWithOptions(decimal: true, signed: true),
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
       ],
@@ -1118,23 +1081,13 @@ class HealthCarePostForm extends StatelessWidget {
             text: '\$ ',
             fontSize: 14,
             fontWeight: FontWeight.w500,
-            textColor: (state.rateHour.isValid())
-                ? AppColors.black
-                : AppColors.black.withOpacity(0.5),
+            textColor: (state.rateHour.isValid()) ? AppColors.black : AppColors.black.withOpacity(0.5),
           )),
-      prefixIconConstraints:
-          BoxConstraints(maxWidth: getSize(100), minHeight: 0),
+      prefixIconConstraints: BoxConstraints(maxWidth: getSize(100), minHeight: 0),
       onChanged: (value) {
-        context
-            .read<HealthcarePostBloc>()
-            .add(HealthcarePostEvent.rateHourChanged(value));
+        context.read<HealthcarePostBloc>().add(HealthcarePostEvent.rateHourChanged(value));
       },
-      validator: (p0, p1) => context
-          .read<HealthcarePostBloc>()
-          .state
-          .rateHour
-          .value
-          .fold(
+      validator: (p0, p1) => context.read<HealthcarePostBloc>().state.rateHour.value.fold(
             (f) => f.maybeMap(
               empty: (value) => StringConstant.pleaseEnterRateHour,
               invalidRate: (value) => StringConstant.pleaseEnterValidRateHour,
@@ -1202,9 +1155,7 @@ class HealthCarePostForm extends StatelessWidget {
           },
           hintText: StringConstant.location,
           childDroDwonHintText: StringConstant.selectUnitIfAny,
-          childDropDownValue: (state.selectedLocationUnit.isNotEmpty)
-              ? state.selectedLocationUnit
-              : null,
+          childDropDownValue: (state.selectedLocationUnit.isNotEmpty) ? state.selectedLocationUnit : null,
           // showDropDown:   state.location.isValid(),
           showDropDown: (state.unitList.isNotEmpty && state.location.isValid()),
           childDropDownItems: state.unitList.map((val) {
@@ -1225,10 +1176,7 @@ class HealthCarePostForm extends StatelessWidget {
             }
           },
         ),
-        if (state.location.isValid() &&
-            state.unitList.isNotEmpty &&
-            state.showLocationError &&
-            state.selectedLocationUnit.isEmpty)
+        if (state.location.isValid() && state.unitList.isNotEmpty && state.showLocationError && state.selectedLocationUnit.isEmpty)
           commonErrorText(StringConstant.pleaseSelectLocationUnit),
       ],
     );

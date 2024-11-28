@@ -14,6 +14,7 @@ import 'package:shift/injection.dart';
 import 'package:shift/presentation/common/utils/flushbar_creator.dart';
 import 'package:shift/presentation/common/widgets/base_text.dart';
 import 'package:shift/presentation/common/widgets/center_loading_indicator.dart';
+import 'package:shift/presentation/core/logger/logger.dart';
 import 'package:shift/presentation/core/style/app_colors.dart';
 import 'package:shift/presentation/core/widgets/buttons/common_button.dart';
 import 'package:shift/presentation/core/widgets/dialogs/app_dialog.dart';
@@ -24,11 +25,13 @@ class PayableDetail extends StatelessWidget {
   HealthcarePostDTO post;
   PostShiftDTO? updatedPost;
   bool isUpdate;
-  PayableDetail(
-      {super.key, required this.post, this.isUpdate = false, this.updatedPost});
+  final bool fromSaveTemplate;
+
+  PayableDetail({super.key, required this.post, this.isUpdate = false, this.updatedPost, this.fromSaveTemplate = false});
 
   @override
   Widget build(BuildContext context) {
+    Log.success("fromSaveTemplate ${fromSaveTemplate}");
     return PopScope(
       canPop: false,
       child: BlocProvider(
@@ -42,8 +45,7 @@ class PayableDetail extends StatelessWidget {
                   showError(
                     message: failure.maybeMap(
                       showAPIResponseMessage: (value) => value.message,
-                      networkError: (value) =>
-                          'Please check your internet connectivity',
+                      networkError: (value) => 'Please check your internet connectivity',
                       orElse: () => "Server Error. Try again later.",
                     ),
                   ).show(context);
@@ -70,8 +72,7 @@ class PayableDetail extends StatelessWidget {
                   showError(
                     message: failure.maybeMap(
                       showAPIResponseMessage: (value) => value.message,
-                      networkError: (value) =>
-                          'Please check your internet connectivity',
+                      networkError: (value) => 'Please check your internet connectivity',
                       orElse: () => "Server Error. Try again later.",
                     ),
                   ).show(context);
@@ -107,56 +108,43 @@ class PayableDetail extends StatelessWidget {
                   : LayoutBuilder(builder: (context, constraint) {
                       return SingleChildScrollView(
                         child: ConstrainedBox(
-                          constraints:
-                              BoxConstraints(minHeight: constraint.maxHeight),
+                          constraints: BoxConstraints(minHeight: constraint.maxHeight),
                           child: Padding(
-                            padding:
-                                EdgeInsets.symmetric(horizontal: getSize(10)),
+                            padding: EdgeInsets.symmetric(horizontal: getSize(10)),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                (post.shift_detail != null &&
-                                        post.shift_detail!.shift_type == 1)
+                                (post.shift_detail != null && post.shift_detail!.shift_type == 1)
                                     ? singleShiftSlip()
-                                    : (post.shift_detail != null &&
-                                            post.shift_detail!
-                                                    .same_or_different_time ==
-                                                1)
+                                    : (post.shift_detail != null && post.shift_detail!.same_or_different_time == 1)
                                         ? sameMultiShiftSlip()
                                         : differentMultiShiftSlip(),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: getSize(20)),
+                                  padding: EdgeInsets.symmetric(vertical: getSize(20)),
                                   child: CommonButton(
                                     onPressed: () {
                                       AppDialog.showDelete(
                                         context,
-                                        title: (isUpdate)
-                                            ? StringConstant.updateTheShift
-                                            : StringConstant.postTheShift,
-                                        infoMessage: (isUpdate)
-                                            ? StringConstant.updateShiftDesc
-                                            : StringConstant.postShiftDesc,
-                                        deleteBtnText: isUpdate
-                                            ? StringConstant.update
-                                            : StringConstant.post,
+                                        title: (isUpdate && fromSaveTemplate==false) ? StringConstant.updateTheShift : StringConstant.postTheShift,
+                                        infoMessage: (isUpdate&& fromSaveTemplate==false) ? StringConstant.updateShiftDesc : StringConstant.postShiftDesc,
+                                        deleteBtnText: (isUpdate&& fromSaveTemplate==false) ? StringConstant.update : StringConstant.post,
                                         onCancelClick: () {
                                           Navigator.pop(context);
                                         },
                                         onDeleteClick: () {
                                           Navigator.pop(context);
-                                          context.read<PostShiftBloc>().add(
-                                                  PostShiftEvent
-                                                      .postTheShiftEvent(
+                                          context.read<PostShiftBloc>().add(PostShiftEvent.postTheShiftEvent(
                                                 post.id ?? -1,
-                                                (isUpdate) ? updatedPost : null,
+                                                (isUpdate&& fromSaveTemplate==false) ? updatedPost : null,
                                               ));
                                         },
                                       );
                                     },
-                                    buttonText: isUpdate
-                                        ? StringConstant.updateTheShift
-                                        : StringConstant.postTheShift,
+                                    buttonText: fromSaveTemplate
+                                        ? "Post The Shift"
+                                        : isUpdate
+                                            ? StringConstant.updateTheShift
+                                            : StringConstant.postTheShift,
                                   ),
                                 ),
                               ],
@@ -172,11 +160,7 @@ class PayableDetail extends StatelessWidget {
     );
   }
 
-  Widget paybaleTitleRate(
-      {required String title,
-      required String value,
-      bool isFirst = false,
-      isLast = false}) {
+  Widget paybaleTitleRate({required String title, required String value, bool isFirst = false, isLast = false}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -221,9 +205,7 @@ class PayableDetail extends StatelessWidget {
       ),
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
       width: double.infinity,
-      decoration: BoxDecoration(
-          color: backgroundColor ?? AppColors.grey04,
-          borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(color: backgroundColor ?? AppColors.grey04, borderRadius: BorderRadius.circular(10)),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         minVerticalPadding: 0,
@@ -276,9 +258,7 @@ class PayableDetail extends StatelessWidget {
       ),
       margin: EdgeInsets.symmetric(vertical: getSize(5)),
       width: double.infinity,
-      decoration: BoxDecoration(
-          color: AppColors.primaryColor.withOpacity(0.3),
-          borderRadius: BorderRadius.circular(10)),
+      decoration: BoxDecoration(color: AppColors.primaryColor.withOpacity(0.3), borderRadius: BorderRadius.circular(10)),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         minVerticalPadding: 0,
@@ -330,23 +310,20 @@ class PayableDetail extends StatelessWidget {
         payableBox(
           title1: StringConstant.numberOfShifts,
           title2: StringConstant.totalAllowance,
-          value1:
-              "${(shift.number_of_shift.toString().length == 2) ? shift.number_of_shift ?? 0 : "0${shift.number_of_shift}"}",
+          value1: "${(shift.number_of_shift.toString().length == 2) ? shift.number_of_shift ?? 0 : "0${shift.number_of_shift}"}",
           value2: "\$${shift.total_allowance}",
         ),
         payableBox(
           title1: StringConstant.shiftFinderServiceFee,
           value1: "\$${shift.service_one_fee}",
           title2: StringConstant.numberOfShifts,
-          value2:
-              "${(shift.number_of_shift.toString().length == 2) ? shift.number_of_shift ?? 0 : "0${shift.number_of_shift}"}",
+          value2: "${(shift.number_of_shift.toString().length == 2) ? shift.number_of_shift ?? 0 : "0${shift.number_of_shift}"}",
           totalPayableTitle: StringConstant.totalShiftFinderServiceFee,
           totalPayable: "\$${shift.service_one_fee}",
         ),
         payableBox(
           title1: StringConstant.numberOfVacancies,
-          value1:
-              "${(shift.number_of_vacancie.toString().length == 2) ? shift.number_of_vacancie ?? 0 : "0${shift.number_of_vacancie}"}",
+          value1: "${(shift.number_of_vacancie.toString().length == 2) ? shift.number_of_vacancie ?? 0 : "0${shift.number_of_vacancie}"}",
         ),
         totalPayableBox(
           totalPayableTitle: StringConstant.estimatedTotalPayable,
@@ -421,11 +398,9 @@ class PayableDetail extends StatelessWidget {
           title1: StringConstant.totalPayableForOneShift,
           value1: "\$${shift.total_one_shift}",
           title2: StringConstant.numberOfShifts,
-          value2:
-              "${(shift.number_of_shift.toString().length == 2) ? shift.number_of_shift ?? 0 : "0${shift.number_of_shift}"}",
+          value2: "${(shift.number_of_shift.toString().length == 2) ? shift.number_of_shift ?? 0 : "0${shift.number_of_shift}"}",
           title3: StringConstant.numberOfVacancies,
-          value3:
-              "${(shift.number_of_vacancie.toString().length == 2) ? shift.number_of_vacancie ?? 0 : "0${shift.number_of_vacancie}"}",
+          value3: "${(shift.number_of_vacancie.toString().length == 2) ? shift.number_of_vacancie ?? 0 : "0${shift.number_of_vacancie}"}",
         ),
         totalPayableBox(
           totalPayableTitle: StringConstant.estimatedTotalAmount,
@@ -464,8 +439,7 @@ class PayableDetail extends StatelessWidget {
           title1: StringConstant.totalPayableForOneShift,
           value1: "\$${shift.total_one_shift}",
           title2: StringConstant.numberOfVacancies,
-          value2:
-              "${(shift.number_of_vacancie.toString().length == 2) ? shift.number_of_vacancie ?? 0 : "0${shift.number_of_vacancie}"}",
+          value2: "${(shift.number_of_vacancie.toString().length == 2) ? shift.number_of_vacancie ?? 0 : "0${shift.number_of_vacancie}"}",
         ),
         totalPayableBox(
           totalPayableTitle: StringConstant.estimatedTotalPayable,

@@ -804,4 +804,5 @@ class StringConstant {
   static const String pleaseSelectLocation = "Please select location";
   static const String pleaseEnterValidName = "Please enter valid name";
   static const String pleaseEnterYourName = "Please enter your name";
+  static const String savedTemplates = "Saved Templates";
 }

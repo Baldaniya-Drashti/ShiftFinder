@@ -36,8 +36,7 @@ class SupportTicketView extends StatelessWidget {
         AppFocus.unfocus(context);
       },
       child: BlocProvider(
-        create: (context) => getIt<SupportTicketBloc>()
-          ..add(SupportTicketEvent.fetchLocationList(context: context)),
+        create: (context) => getIt<SupportTicketBloc>()..add(SupportTicketEvent.fetchLocationList(context: context)),
         child: Scaffold(
           appBar: CommonAppBar(
             onBackPressed: () => context.router.maybePop(),
@@ -92,17 +91,14 @@ class _SupportFormState extends State<_SupportForm> {
                           textInputAction: TextInputAction.next,
                           validator: (value, context) {
                             value = value?.trim() ?? "";
-                            if (value.isEmpty)
-                              return StringConstant.pleaseEnterCompanyName;
+                            if (value.isEmpty) return StringConstant.pleaseEnterCompanyName;
                             return null;
                           },
                         ),
                         LocationDropdown(
                           initialLocation: state.selectedLocation,
                           onLocationChanged: (LocationDTO location) {
-                            context.read<SupportTicketBloc>().add(
-                                SupportTicketEvent.onLocationChanged(
-                                    selectedLocation: location));
+                            context.read<SupportTicketBloc>().add(SupportTicketEvent.onLocationChanged(selectedLocation: location));
                           },
                         ),
                       ],
@@ -132,8 +128,7 @@ class _SupportFormState extends State<_SupportForm> {
                         textInputAction: TextInputAction.next,
                         validator: (value, context) {
                           value = value?.trim() ?? "";
-                          const emailRegex =
-                              r"""^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+""";
+                          const emailRegex = r"""^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+""";
                           if (value.isEmpty) {
                             return StringConstant.pleaseEnterEmail;
                           } else if (!RegExp(emailRegex).hasMatch(value)) {
@@ -142,8 +137,7 @@ class _SupportFormState extends State<_SupportForm> {
                           return null;
                         },
                       ),
-                      BlocSelector<SupportTicketBloc, SupportTicketState,
-                          String>(
+                      BlocSelector<SupportTicketBloc, SupportTicketState, String>(
                         selector: (state) => state.selectedCountryFlag,
                         builder: (context, selectedCountryFlag) {
                           return MobileNumberInputField(
@@ -151,9 +145,7 @@ class _SupportFormState extends State<_SupportForm> {
                             selectedCountry: selectedCountryFlag,
                             onCountrySelected: (country) {
                               context.read<SupportTicketBloc>().add(
-                                    SupportTicketEvent.onCountrySelected(
-                                        code: country.phoneCode,
-                                        flag: country.flagEmoji),
+                                    SupportTicketEvent.onCountrySelected(code: country.phoneCode, flag: country.flagEmoji),
                                   );
                             },
                           );
@@ -190,8 +182,7 @@ class _SupportFormState extends State<_SupportForm> {
                         textInputAction: TextInputAction.done,
                         validator: (value, context) {
                           value = value?.trim() ?? "";
-                          if (value.isEmpty)
-                            return StringConstant.pleaseEnterDescription;
+                          if (value.isEmpty) return StringConstant.pleaseEnterDescription;
                           return null;
                         },
                       ),
@@ -220,20 +211,16 @@ class _SupportFormState extends State<_SupportForm> {
                             ],
                           ),
                           Gap(getSize(10)),
-                          BlocSelector<SupportTicketBloc, SupportTicketState,
-                              String?>(
+                          BlocSelector<SupportTicketBloc, SupportTicketState, String?>(
                             selector: (state) => state.path,
                             builder: (context, path) {
                               return AttachmentOption(
                                 path: path,
                                 onRemove: () {
-                                  context.read<SupportTicketBloc>().add(
-                                      SupportTicketEvent.onRemoveAttachment());
+                                  context.read<SupportTicketBloc>().add(SupportTicketEvent.onRemoveAttachment());
                                 },
                                 onSelected: (String path) {
-                                  context.read<SupportTicketBloc>().add(
-                                      SupportTicketEvent.onAttachmentSelected(
-                                          path: path));
+                                  context.read<SupportTicketBloc>().add(SupportTicketEvent.onAttachmentSelected(path: path));
                                 },
                               );
                             },
@@ -246,13 +233,9 @@ class _SupportFormState extends State<_SupportForm> {
                   CommonButton(
                     onPressed: () {
                       if (_formKey.currentState?.validate() != true) return;
-                      final selectedLocation = context
-                          .read<SupportTicketBloc>()
-                          .state
-                          .selectedLocation;
+                      final selectedLocation = context.read<SupportTicketBloc>().state.selectedLocation;
                       if (selectedLocation == null && role == 2) {
-                        showError(message: StringConstant.pleaseSelectLocation)
-                            .show(context);
+                        showError(message: StringConstant.pleaseSelectLocation).show(context);
                         return;
                       }
 

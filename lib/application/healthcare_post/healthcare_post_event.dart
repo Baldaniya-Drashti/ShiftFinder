@@ -60,7 +60,7 @@ class HealthcarePostEvent with _$HealthcarePostEvent {
   const factory HealthcarePostEvent.rateHourChanged(String rateHour) =
       RateHourChanged;
 
-  const factory HealthcarePostEvent.continueBtnPressed(BuildContext context) =
+  const factory HealthcarePostEvent.continueBtnPressed(BuildContext context,bool fromSaveTemplate) =
       ContinueBtnPressed;
   const factory HealthcarePostEvent.confirmSoftwareSkill(
           List<String> skillList, List<String> otherSkillList) =

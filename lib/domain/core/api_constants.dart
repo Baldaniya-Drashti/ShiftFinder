@@ -131,4 +131,6 @@ class ApiConstants {
       'get_employer_approved_shift_user';
   static String contractorRating = 'contractor_rating';
   static String contractorPreviousShift = 'contractor_previous_shift';
+  static String employerSavedTemplates = 'employer_saved_templates';
+  static String destroyEmployerSavedTemplates  = 'destroy_employer_saved_templates';
 }
