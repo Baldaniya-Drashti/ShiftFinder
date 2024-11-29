@@ -119,7 +119,7 @@ class SameTimeForMultiDate extends StatelessWidget {
                 padding: EdgeInsets.only(top: getSize(50), bottom: getSize(30)),
                 child: CommonButton(
                   onPressed: () {
-                    context.read<PostShiftBloc>().add(PostShiftEvent.sameTimeShiftSubmitted(context));
+                    context.read<PostShiftBloc>().add(PostShiftEvent.sameTimeShiftSubmitted(context,fromSaveTemplate));
                   },
                   buttonText: fromSaveTemplate ? "Save and Next" : StringConstant.txtContinue,
                 ),

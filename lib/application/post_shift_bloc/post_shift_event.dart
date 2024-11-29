@@ -46,7 +46,7 @@ class PostShiftEvent with _$PostShiftEvent {
 
   const factory PostShiftEvent.addVacancyChanged(String vacancy) = AddVacancyChanged;
 
-  const factory PostShiftEvent.singleShiftSubmitted(BuildContext context,   bool fromSaveTemplate) = SingleShiftSubmitted;
+  const factory PostShiftEvent.singleShiftSubmitted(BuildContext context,bool fromSaveTemplate) = SingleShiftSubmitted;
 
   /// For recurring, template,share with teams
 
@@ -103,7 +103,7 @@ class PostShiftEvent with _$PostShiftEvent {
 
   const factory PostShiftEvent.backEvent() = BackEvent;
 
-  const factory PostShiftEvent.sameTimeShiftSubmitted(BuildContext context) = SameTimeShiftSubmitted;
+  const factory PostShiftEvent.sameTimeShiftSubmitted(BuildContext context,bool fromSaveTemplate) = SameTimeShiftSubmitted;
 
   /// Post the Shift
   const factory PostShiftEvent.postTheShiftEvent(int postId, PostShiftDTO? updatedPost) = PostTheShiftEvent;

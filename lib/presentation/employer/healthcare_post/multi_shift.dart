@@ -48,7 +48,7 @@ class MultiPostShift extends StatelessWidget {
                       Visibility(visible: state.updateShift.id == null, child: sameOrDifferentRadio(context, state)),
                       paddingBetweenFields(),
                       (state.selectedMultiShiftType == 1)
-                          ? SameTimeForMultiDate()
+                          ? SameTimeForMultiDate(fromSaveTemplate: fromSaveTemplate,)
                           : DifferentTimeForEachDate(
                               post: post,
                             ),

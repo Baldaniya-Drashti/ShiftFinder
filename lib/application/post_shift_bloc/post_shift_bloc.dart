@@ -179,7 +179,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
             );
           }
 
-          emit(state.copyWith(fromSaveTemplate: e.fromSaveTemplate??false));
+          emit(state.copyWith(fromSaveTemplate: e.fromSaveTemplate ?? false));
         },
 
         /// Single Shift
@@ -422,11 +422,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               e.context.router.push(PageRouteInfo(
                 PostShiftRecurring.name,
                 args: PostShiftRecurringArgs(
-                  shiftType: state.shiftType,
-                  updateShift: state.updateShift,
-                  post: post,
-                  fromSaveTemplate: e.fromSaveTemplate
-                ),
+                    shiftType: state.shiftType, updateShift: state.updateShift, post: post, fromSaveTemplate: e.fromSaveTemplate),
               ));
             }
           } else {
@@ -644,7 +640,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
               team_id: (state.isShareWithTeams) ? getSelectedRecurringDayIds(state.selectedTeamList.getValue()) : "",
               save_template_status: (state.isSaveAsTemplate) ? "1" : "0",
             );
-            if ((state.updateShift.id != null && state.updateShift.id != -1)&& e.fromSaveTemplate==false ) {
+            if ((state.updateShift.id != null && state.updateShift.id != -1) && e.fromSaveTemplate == false) {
               final res = await _mainFacade.updatePostApi(
                 postShiftDetail: postObj,
               );
@@ -952,6 +948,7 @@ class PostShiftBloc extends Bloc<PostShiftEvent, PostShiftState> {
                   shiftType: state.shiftType,
                   updateShift: state.updateShift,
                   post: post,
+                  fromSaveTemplate: e.fromSaveTemplate,
                 ),
               ));
             }
